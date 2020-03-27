@@ -1,0 +1,11 @@
+# Built html files
+api/build_en
+api/build_zh_cn
+docs/build_en
+docs/build_zh_cn
+tutorials/build_en
+tutorials/build_zh_cn
+
+# Workspace
+.idea/
+.vscode/
