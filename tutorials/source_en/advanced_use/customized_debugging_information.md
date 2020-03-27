@@ -1,0 +1,225 @@
+# Customized Debugging Information
+
+
+<!-- TOC -->
+
+- [Customized Debugging Information](#customized-debugging-information)
+    - [Overview](#overview)
+    - [Introduction to Callback](#introduction-to-callback)
+        - [Callback Capabilities of MindSpore](#callback-capabilities-of-mindspore)
+        - [Custom Callback](#custom-callback)
+    - [MindSpore Metrics](#mindspore-metrics)
+    - [MindSpore Print Operator](#mindspore-print-operator)
+    - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
+
+<!-- /TOC -->
+## Overview
+
+This section describes how to use the customized capabilities provided by MindSpore, such as callback, metrics, and log printing, to help you quickly debug the training network.
+
+## Introduction to Callback 
+
+Callback here is not a function but a class. You can use callback to observe the internal status and related information of the network during training or perform specific actions in a specific period.
+For example, you can monitor the loss, save model parameters, dynamically adjust parameters, and terminate training tasks in advance.
+
+### Callback Capabilities of MindSpore
+
+MindSpore provides the callback capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
+
+- Callback functions such as ModelCheckpoint, LossMonitor, and SummaryStep provided by the MindSpore framework
+- Custom callback functions
+
+Usage: Transfer the callback object in the model.train method. The callback object can be a list, for example:
+
+```python
+ckpt_cb = ModelCheckpoint()                                                            
+loss_cb = LossMonitor()
+summary_cb = SummaryStep()
+model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
+```
+
+ModelCheckpoint can save model parameters for retraining or inference.
+LossMonitor can output loss information in logs for users to view. In addition, LossMonitor monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
+SummaryStep can save the training information to a file for later use.
+
+### Custom Callback
+
+You can customize callback based on the callback base class as required.
+
+The callback base class is defined as follows:
+
+```python
+class Callback():
+    """Callback base class""" 
+    def begin(self, run_context):
+        """Called once before the network executing."""
+        pass
+
+    def epoch_begin(self, run_context):
+        """Called before each epoch beginning."""
+        pass
+
+    def epoch_end(self, run_context):
+        """Called after each epoch finished.""" 
+        pass
+
+    def step_begin(self, run_context):
+        """Called before each epoch beginning.""" 
+        pass
+
+    def step_end(self, run_context):
+        """Called after each step finished."""
+        pass
+
+    def end(self, run_context):
+        """Called once after network training."""
+        pass
+```
+
+The callback can record important information during training and transfer the information to the callback object through a dictionary variable `cb_params`,
+You can obtain related attributes from each custom callback and perform customized operations. You can also customize other variables and transfer them to the `cb_params` object.
+
+The main attributes of `cb_params` are as follows:
+
+- loss_fn: Loss function
+- optimizer: Optimizer
+- train_dataset: Training dataset
+- cur_epoch_num: Number of current epochs
+- cur_step_num: Number of current steps
+- batch_num: Number of steps in an epoch
+- ...
+
+You can inherit the callback base class to customize a callback object.
+
+The following example describes how to use a custom callback function.
+
+```python
+class StopAtTime(Callback):
+    def __init__(self, run_time):
+        super(StopAtTime, self).__init__()
+        self.run_time = run_time*60
+
+    def begin(self, run_context):
+        cb_params = run_context.original_args()
+        cb_params.init_time = time.time()
+    
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        epoch_num = cb_params.cur_epoch_num
+        step_num = cb_params.cur_step_num
+        loss = cb_params.cb_params
+	cur_time = time.time()
+	if (cur_time - cb_params.init_time) > self.run_time:
+            print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
+            run_context.request_stop()
+
+stop_cb = StopAtTime(run_time=10)
+model.train(100, dataset, callbacks=stop_cb)
+```
+
+The output is as follows:
+
+```
+epoch: 20 step: 32 loss: 2.298344373703003
+```
+
+This callback function is used to terminate the training within a specified period. You can use the `run_context.original_args()` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
+In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin()` and transferred to the `cb_params` dictionary.
+A decision is made at each `step_end`. When the training time is greater than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of epoch, step, and loss will be printed.
+
+## MindSpore Metrics
+
+After the training is complete, you can use metrics to evaluate the training result.
+
+MindSpore provides multiple metrics, such as `accuracy`, `loss`, `tolerance`, `recall`, and `F1`.
+
+You can define a metrics dictionary object that contains multiple metrics and transfer them to the `model.eval` interface to verify the training precision.
+
+```python
+metrics = {
+    'accuracy': nn.Accuracy(),
+    'loss': nn.Loss(),
+    'precision': nn.Precision(),
+    'recall': nn.Recall(),
+    'f1_score': nn.F1()
+}
+net = ResNet()
+loss = CrossEntropyLoss()
+opt = Momentum()
+model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics)
+ds_eval = create_dataset()
+output = model.eval(ds_eval)
+```
+
+The `model.eval()` method returns a dictionary that contains the metrics and results transferred to the metrics.
+
+You can also define your own metrics class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
+
+The `accuracy` operator is used as an example to describe the internal implementation principle.
+
+The `accuracy` inherits the `EvaluationBase` base class and rewrites the preceding three methods.
+The `clear()` method initializes related calculation parameters in the class.
+The `update()` method accepts the predicted value and tag value and updates the internal variables of accuracy.
+The `eval()` method calculates related indicators and returns the calculation result.
+By invoking the `eval` method of `accuracy`, you will obtain the calculation result.
+
+You can understand how `accuracy` runs by using the following code:
+
+```python
+x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
+y = Tensor(np.array([1, 0, 1]))
+metric = Accuracy()
+metric.clear()
+metric.update(x, y)
+accuracy = metric.eval()
+print('Accuracy is ', accuracy)
+```
+
+The output is as follows:
+```
+Accuracy is 0.6667
+```
+## MindSpore Print Operator
+MindSpore-developed print operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). 
+The use method of MindSpore print operator is the same that of other operators. You need to assert MindSpore print operator in `__init__`() and invoke using `construct()`. The following is an example. 
+```python
+import numpy as np
+from mindspore import Tensor
+from mindspore.ops import operations as P
+import mindspore.nn as nn
+import mindspore.context as context
+
+context.set_context(mode=context.GRAPH_MODE)
+
+class PrintDemo(nn.Cell):
+    def __init__(self):
+        super(PrintDemo, self).__init__()
+        self.print = P.Print()
+
+    def construct(self, x, y):
+        self.print('print Tensor x and Tensor y:', x, y)
+        return x
+
+x = Tensor(np.ones([2, 1]).astype(np.int32))
+y = Tensor(np.ones([2, 2]).astype(np.int32))
+net = PrintDemo()
+output = net(x, y)
+```
+The output is as follows：
+```
+print Tensor x and Tensor y:
+Tensor shape:[[const vector][2, 1]]Int32
+val:[[1]
+[1]]
+Tensor shape:[[const vector][2, 2]]Int32
+val:[[1 1]
+[1 1]]
+```
+
+
+## Log-related Environment Variables and Configurations
+MindSpore uses glog to output logs. The following environment variables are commonly used:
+
+1. GLOG_v specifies the log level. The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
+2. When GLOG_logtostderr is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. Default value: 1
+3. GLOG_log_dir=YourPath specifies the log output path. If GLOG_log_dir is specified and the value of GLOG_logtostderr is 1, logs are output to the screen but not to a file.
