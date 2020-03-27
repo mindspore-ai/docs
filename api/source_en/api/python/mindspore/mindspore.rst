@@ -1,0 +1,5 @@
+mindspore
+=========
+
+.. automodule:: mindspore
+    :members:
