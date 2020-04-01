@@ -23,7 +23,7 @@
     - 训练过程中，通过实时验证精度，把精度最高的模型参数保存下来，用于预测操作。
 - 再训练场景
     - 进行长时间训练任务时，保存训练过程中的CheckPoint文件，防止任务异常退出后从初始状态开始训练。
-    - Fine Tune(微调)：训练一个模型并保存参数，然后针对不同任务进行Fine Tune操作。
+    - Fine-tuning（微调）场景，即训练一个模型并保存参数，基于该模型，面向第二个类似任务进行模型训练。
 
 MindSpore的CheckPoint文件是一个二进制文件，存储了所有训练参数的值。采用了Google的Protocol Buffers机制，与开发语言、平台无关，具有良好的可扩展性。
 CheckPoint的protocol格式定义在`mindspore/ccsrc/utils/checkpoint.proto`中。
@@ -117,7 +117,7 @@ acc = model.eval(dataset_eval)
 
 ### 用于再训练场景
 
-针对任务中断再训练及Fine Tune场景，可以加载网络参数和优化器参数到模型中。
+针对任务中断再训练及fine-tuning场景，可以加载网络参数和优化器参数到模型中。
 
 示例代码如下：
 ```python
