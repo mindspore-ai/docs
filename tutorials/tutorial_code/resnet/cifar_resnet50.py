@@ -91,14 +91,14 @@ def create_dataset(repeat_num=1, training=True):
     cifar_ds = cifar_ds.map(input_columns="label", operations=type_cast_op)
     cifar_ds = cifar_ds.map(input_columns="image", operations=c_trans)
 
-    # apply repeat operations
-    cifar_ds = cifar_ds.repeat(repeat_num)
-
     # apply shuffle operations
     cifar_ds = cifar_ds.shuffle(buffer_size=10)
 
     # apply batch operations
     cifar_ds = cifar_ds.batch(batch_size=args_opt.batch_size, drop_remainder=True)
+
+    # apply repeat operations
+    cifar_ds = cifar_ds.repeat(repeat_num)
 
     return cifar_ds
 

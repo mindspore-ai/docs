@@ -129,14 +129,14 @@ tar -zvxf cifar-10-binary.tar.gz
     Shuffle data randomly to disorder the data sequence and read data in batches for model training:
 
     ```python
-    # apply repeat operations
-    cifar_ds = cifar_ds.repeat(repeat_num)
-
     # apply shuffle operations
     cifar_ds = cifar_ds.shuffle(buffer_size=10)
 
     # apply batch operations
     cifar_ds = cifar_ds.batch(batch_size=args_opt.batch_size, drop_remainder=True)
+
+    # apply repeat operations
+    cifar_ds = cifar_ds.repeat(repeat_num)
     ```
 
 

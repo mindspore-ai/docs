@@ -145,14 +145,14 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     data_set = data_set.map(input_columns="label", operations=type_cast_op)
     data_set = data_set.map(input_columns="image", operations=c_trans)
 
-    # apply repeat operations
-    data_set = data_set.repeat(repeat_num)
-
     # apply shuffle operations
     data_set = data_set.shuffle(buffer_size=10)
 
     # apply batch operations
     data_set = data_set.batch(batch_size=batch_size, drop_remainder=True)
+
+    # apply repeat operations
+    data_set = data_set.repeat(repeat_num)
 
     return data_set
 ```
