@@ -18,6 +18,7 @@
 |  EulerOS  |  Euler operating system, which is developed by Huawei based on the standard Linux kernel.  |
 |  FC Layer  |  Fully connected layer, which acts as a classifier in the entire convolutional neural network.  |
 |  FE  |  Fusion Engine, which connects to GE and TBE operators and has the capabilities of loading and managing the operator information library and managing convergence rules.  |
+|  Fine-tuning |  A process to take a network model that has already been trained for a given task, and make it perform a second similar task.  |
 |  FP16  |  16-bit floating point, which is a half-precision floating point arithmetic format, consuming less memory.  |
 |  FP32  |  32-bit floating point, which is a single-precision floating point arithmetic format.  |
 |  GE  |  Graph Engine, MindSpore computational graph execution engine, which is responsible for optimizing hardware (such as operator fusion and memory overcommitment) based on the front-end computational graph and starting tasks on the device side.  |
