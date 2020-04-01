@@ -131,14 +131,14 @@ tar -zvxf cifar-10-binary.tar.gz
     最后通过数据混洗（shuffle）随机打乱数据的顺序，并按batch读取数据，进行模型训练：
 
     ```python
-    # apply repeat operations
-    cifar_ds = cifar_ds.repeat(repeat_num)
-
     # apply shuffle operations
     cifar_ds = cifar_ds.shuffle(buffer_size=10)
 
     # apply batch operations
     cifar_ds = cifar_ds.batch(batch_size=args_opt.batch_size, drop_remainder=True)
+
+    # apply repeat operations
+    cifar_ds = cifar_ds.repeat(repeat_num)
     ```
 
 
