@@ -200,7 +200,7 @@ After shuffle:
 The map operation is used to process data. For example, convert the dataset of color images into the dataset of grayscale images. You can flexibly perform the operation as required.
 MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.  
 You can customize the function or use `c_transforms` or `py_transforms` for data augmentation.
-> For details about data augmentation operations, see [Data Augmentation](#Data Augmentation).
+> For details about data augmentation operations, see Data Augmentation section.
 
 ![avatar](../images/map.png)
 
@@ -262,7 +262,7 @@ MindSpore provides the `c_transforms` and `py_transforms` module functions for u
 | Module        | Implementation                                                   | Description |
 | ---------------| ------------------------------------------------------ | --- |  
 | `c_transforms`  | C++-based [OpenCV](https://opencv.org/) implementation           | The performance is high.  |
-| `py_transforms` | Python-based [PIL](https://pypi.org/project/Pillow/) implementation | This module provides multiple image augmentation functions and the method for converting PIL images into NumPy arrays. |
+| `py_transforms` | Python-based [PIL](https://pypi.org/project/Pillow/) implementation | This module provides multiple image augmentation functions and the method for converting between PIL images and NumPy arrays. |
 
 For users who would like to use Python PIL in image learning tasks, the `py_transforms` module is a good tool for image augmentation. You can use Python PIL to customize extensions.  
 Data augmentation requires the `map()` function. For details about how to use the `map()` function, see [map](#map).
