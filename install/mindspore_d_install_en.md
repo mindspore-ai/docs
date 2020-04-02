@@ -80,7 +80,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     bash build.sh -e d -z
     ```
     > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
-    > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct. The third-party libraries will be installed in build/.mslib, you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH .
+    > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - In the build.sh script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e d -z -j4`.
 
 3. Run the following command to install MindSpore:
