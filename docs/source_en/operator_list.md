@@ -25,7 +25,7 @@
 | [mindspore.nn.PReLU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PReLU)                                                  |Doing |Doing | Doing |layer/activation
 | [mindspore.nn.Dropout](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Doing |Doing | Doing |layer/basic
 | [mindspore.nn.Flatten](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Doing |  Supported | Doing |layer/basic
-| [mindspore.nn.Dense](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Doing |  Supported | Doing |layer/basic
+| [mindspore.nn.Dense](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Supported |  Supported | Doing |layer/basic
 | [mindspore.nn.ClipByNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ClipByNorm)                                        |Doing |Doing | Doing |layer/basic
 | [mindspore.nn.Norm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Norm)                                                    |Doing |Doing | Doing |layer/basic
 | [mindspore.nn.OneHot](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.OneHot)                                                |  Supported |  Supported | Doing |layer/basic
@@ -185,7 +185,7 @@
 | [mindspore.ops.operations.InvertPermutation](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.InvertPermutation)         |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.operations.Argmax](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Argmax)                               |  Doing | Supported    |   Supported | array_ops
 | [mindspore.ops.operations.Argmin](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Argmin)                               |  Doing | Doing  | Doing | array_ops
-| [mindspore.ops.operations.ArgMaxWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ArgMaxWithValue)             |  Doing | Doing  | Doing | array_ops
+| [mindspore.ops.operations.ArgMaxWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ArgMaxWithValue)             |  Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.ArgMinWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ArgMinWithValue)             |    Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.Tile](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Tile)                                   |  Doing | Doing  | Doing | array_ops
 | [mindspore.ops.operations.UnsortedSegmentSum](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.UnsortedSegmentSum)       |    Supported | Doing  | Doing | array_ops
