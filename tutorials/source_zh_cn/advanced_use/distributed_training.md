@@ -28,9 +28,7 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 - 代价模型（Cost Model）：同时考虑内存的计算代价和通信代价对训练时间建模，并设计了高效的算法来找到训练时间较短的并行策略。
 
 本篇教程我们主要了解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
-样例代码请参考 <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>。
-
-> 当前样例面向Ascend AI处理器。
+> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 

@@ -11,6 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""
+mnist_attack_fgsm
+The sample can be run on Ascend 910 AI processor.
+"""
 import sys
 import time
 import numpy as np

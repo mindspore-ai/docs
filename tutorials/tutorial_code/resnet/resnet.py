@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-'''resnet'''
+'''resnet
+The sample can be run on Ascend 910 AI processor.
+'''
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor

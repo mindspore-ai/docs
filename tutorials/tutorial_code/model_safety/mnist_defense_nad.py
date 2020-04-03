@@ -11,7 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""defense example using nad"""
+"""Defense example using nad
+The sample can be run on CPU, GPU and Ascend 910 AI processor.
+"""
 import sys
 
 import logging

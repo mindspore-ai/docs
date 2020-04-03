@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""Lenet Tutorial"""
+"""Lenet Tutorial
+The sample can be run on CPU, GPU and Ascend 910 AI processor.
+"""
 import os
 import urllib.request
 from urllib.parse import urlparse

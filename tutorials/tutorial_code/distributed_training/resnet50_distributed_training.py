@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""resnet50_distributed_training"""
+"""resnet50_distributed_training
+The sample can be run on Ascend 910 AI processor.
+"""
 import os
 import random
 import argparse
