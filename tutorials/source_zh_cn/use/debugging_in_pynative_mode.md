@@ -107,7 +107,6 @@ print(output.asnumpy())
 
 ```python
 import numpy as np
-import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
 import mindspore.ops.operations as P
