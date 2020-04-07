@@ -14,6 +14,7 @@
 # ============================================================================
 """
 LSTM Tutorial
+The sample can be run on GPU.
 """
 import os
 import shutil

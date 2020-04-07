@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-'''cifar_resnet50'''
+'''cifar_resnet50
+The sample can be run on Ascend 910 AI processor.
+'''
 import os
 import random
 import argparse

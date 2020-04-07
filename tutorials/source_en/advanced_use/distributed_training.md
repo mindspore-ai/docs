@@ -28,11 +28,8 @@ Among them:
 - Cost model: A cost model built based on the memory computing cost and communication cost, for which an efficient algorithm is designed to find the parallel strategy with the shorter training time.
 
 In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARALLEL` or `AUTO_PARALLEL` mode on MindSpore.
-For sample code, please see at 
 
-<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
-
-> The current sample is for the Ascend AI processor.
+> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
 
 ## Preparations
 

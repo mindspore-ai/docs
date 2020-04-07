@@ -17,7 +17,6 @@
         - [训练并保存模型](#训练并保存模型)
         - [模型验证](#模型验证)
     - [实验结果](#实验结果)
-    - [下载代码](#下载代码)
 
 <!-- /TOC -->
 
@@ -78,13 +77,15 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 
 ### 确定网络及流程
 
-当前，MindSpore GPU版本支持LSTM网络，我们使用LSTM网络进行自然语言处理。
+我们使用LSTM网络进行自然语言处理。
 1. 加载使用的数据集，并进行必要的数据处理。
 2. 使用LSTM网络训练数据，生成模型。
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-
+> 本例面向GPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
+> - main.py：代码文件，包括数据预处理、网络定义、模型训练等代码。
+> - config.py：网络中的一些配置，包括batch size、进行几次epoch训练等。
 
 ## 实现阶段
 ### 导入需要的库文件
@@ -531,9 +532,5 @@ RegisterOperatorCreator:OperatorCreators init
 ============== Accuracy:{'acc': 0.8599358974358975} ==============
 ```
 
-## 下载代码
-完整可运行代码下载地址：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
 
-- main.py：代码文件，包括数据预处理、网络定义、模型训练等代码。
-- config.py：网络中的一些配置，包括batch size、进行几次epoch训练等。
 

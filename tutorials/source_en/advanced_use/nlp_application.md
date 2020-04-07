@@ -17,7 +17,6 @@
         - [Training and Saving the Model](#training-and-saving-the-model)
         - [Validating the Model](#validating-the-model)
     - [Experiment Result](#experiment-result)
-    - [Downloading Code](#downloading-code)
 
 <!-- /TOC -->
 
@@ -84,6 +83,9 @@ Currently, MindSpore GPU supports the long short-term memory (LSTM) network for 
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
+> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
+> - main.py: code file, including code for data preprocessing, network definition, and model training.
+> - config.py: some configurations on the network, including the batch size and number of training epochs.
 
 
 ## Implementation
@@ -530,10 +532,4 @@ RegisterOperatorCreator:OperatorCreators init
 [INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:20.467.649 [mindspore/train/serialization.py:268] Load parameter into net process finish.
 ============== Accuracy:{'acc': 0.8599358974358975} ==============
 ```
-
-## Downloading Code
-Complete and executable code download address: <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
-
-- main.py: code file, including code for data preprocessing, network definition, and model training.
-- config.py: some configurations on the network, including the batch size and number of training epochs.
 
