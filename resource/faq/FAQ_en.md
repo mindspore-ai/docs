@@ -45,6 +45,12 @@ A: MindSpore imports third party dependencies through submodule mechanism, among
 
 <br/>
 
+Q: How to change installation directory of the third party libraries?
+
+A: The third party libraries will be installed in build/mindspore/.mslib, you can change the installation directory by setting the environment variable MSLIBS_CACHE_PATH, eg. `export MSLIBS_CACHE_PATH = ~/.mslib`.
+
+<br/>
+
 Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version ?
 
 A: At the moment some software might need manual upgrade. (**Note**：MindSpore requires Python3.7.5 and gcc7.3，the default version in Ubuntu 16.04 are Python3.5 and gcc5，whereas the one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)

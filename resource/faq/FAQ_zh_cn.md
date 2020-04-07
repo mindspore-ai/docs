@@ -44,6 +44,12 @@ A：MindSpore通过submodule机制引入第三方依赖包，其中`protobuf`依
 
 <br/>
 
+Q：如何改变第三方依赖库安装路径？
+
+A：第三方依赖库的包默认安装在build/mindspore/.mslib目录下，可以设置环境变量MSLIBS_CACHE_PATH来改变安装目录，比如 `export MSLIBS_CACHE_PATH = ~/.mslib`。
+
+<br/>
+
 Q：MindSpore要求的配套软件版本与Ubuntu默认版本不一致怎么办？
 
 A：当前MindSpore只提供版本配套关系，需要您手动进行配套软件的安装升级。（**注明**：MindSpore要求Python3.7.5和gcc7.3，Ubuntu 16.04默认为Python3.5和gcc5，Ubuntu 18.04默认自带Python3.7.3和gcc7.4）
