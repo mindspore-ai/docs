@@ -17,15 +17,15 @@ If you have any comments or suggestions on the documents, submit them in Issues.
 ```
 docs
 ├───api // Configuration files for API generation.
-│      
+│
 ├───docs // Introduction to documents.
-│       
+│
 ├───install // Installation guide.
-│      
+│
 ├───resource // Resource-related documents.
-│      
+│
 ├───tutorials // Tutorial-related documents.
-│      
+│
 └───README.md // Docs repository description.
 ```
 

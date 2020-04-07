@@ -74,7 +74,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
 ## Installation Verification
 
 - After Installation, execute the following Python script：
-  
+
     ```bash
     import numpy as np
     from mindspore import Tensor
@@ -86,7 +86,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
     y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
     print(F.tensor_add(x, y))
     ```
- 
+
 - The outputs should be same as:
 
     ```bash
@@ -134,10 +134,8 @@ If you need to conduct AI model security research or enhance the security of the
    python setup.py install
    ```
 
-
 3. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
 
    ```bash
    python -c 'import mindarmour'
    ```
-

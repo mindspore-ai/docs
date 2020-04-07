@@ -24,8 +24,8 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 ### Hardware Requirements
 
 - Ascend 910 AI processor
-  
-  > - Reserve at least 32 GB memory for each card.  
+
+  > - Reserve at least 32 GB memory for each card.
 
 ### System Requirements and Software Dependencies
 
@@ -73,7 +73,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     git clone https://gitee.com/mindspore/mindspore.git
     ```
-	
+
 2. Run the following command in the root directory of the source code to compile MindSpore:
 
     ```bash
@@ -93,7 +93,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 ## Configuring Environment Variables
 
 - After MindSpore is installed, export runtime-related environment variables.
-  
+
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
@@ -110,7 +110,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 ## Installation Verification
 
 - After configuring the environment variables, execute the following Python script：
-  
+
     ```bash
     import numpy as np
     from mindspore import Tensor
@@ -172,16 +172,16 @@ If you need to analyze information such as model scalars, graphs, and model trac
       pip install -r requirements.txt
       python setup.py install
       ```
-   
+
    (2) Create a .whl package to install MindInsight.
-   
+
       Access the build directory of the source code and run the MindInsight compilation script.
 
       ```bash
       cd mindinsight/build
       bash build.sh
       ```
-   
+
       Access the output directory of the source code, where the generated MindInsight installation package is stored, and run the installation command.
 
       ```bash

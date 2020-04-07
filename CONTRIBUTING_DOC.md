@@ -45,17 +45,17 @@ The procedure for submitting the modification is the same as that for submitting
 
   ```
   > Precautions
-  ```  
+  ```
 
 - References should be listed at the end of the document and marked in the document.
-  
+
   ```
   Add a [number] after the referenced text or image description.
 
   ## References
 
   [1] Author. [Document Name](http://xxx).
-  
+
   [2] Author. Document Name.
   ```
 
