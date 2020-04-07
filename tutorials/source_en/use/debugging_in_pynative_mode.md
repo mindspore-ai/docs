@@ -108,7 +108,6 @@ MindSpore provides the staging function to improve the execution speed of infere
 
 ```python
 import numpy as np
-import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
 import mindspore.ops.operations as P
