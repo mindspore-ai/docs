@@ -49,7 +49,7 @@ This document describes how to quickly install MindSpore on a CPU environment.
     ```bash
     git clone https://gitee.com/mindspore/mindspore.git
     ```
-	
+
 2. Run the following command in the root directory of the source code to compile MindSpore:
 
     ```bash
@@ -71,6 +71,7 @@ This document describes how to quickly install MindSpore on a CPU environment.
     ```bash
     python -c 'import mindspore'
     ```
+
 # Installing MindArmour
 
 If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
@@ -108,4 +109,3 @@ If you need to conduct AI model security research or enhance the security of the
    ```bash
    python -c 'import mindarmour'
    ```
-

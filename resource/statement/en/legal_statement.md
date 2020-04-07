@@ -22,4 +22,3 @@ All logos and trademarks used on this website (<https://www.mindspore.cn>) belon
 ## Third-Party Links
 
 This website (<https://www.mindspore.cn>) may contain links to third party sites. Access to any other Internet site linked to this website is at the user's own risk and MindSpore open source project is not responsible for the accuracy or reliability of any information, data, opinions, suggestions or statements made on these sites. MindSpore open source project provides these links merely as a convenience and the inclusion of such links does not imply an endorsement, recommendation, or advertisement.
-

@@ -139,4 +139,3 @@
    ```bash
    python -c 'import mindarmour'
    ```
-

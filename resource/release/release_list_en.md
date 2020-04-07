@@ -37,14 +37,13 @@
 |      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/aarch64/mindarmour-0.1.0-cp37-cp37m-linux_aarch64.whl>   |   f354fcdbb3d8b4022fda5a6636e763f8091aca2167dc23e60b7f7b6d710523cb   |
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
 
-
 ### Tutorials
 
 <https://www.mindspore.cn/tutorial/en/0.1.0-alpha/index.html>
 
 ### API
 
-<https://www.mindspore.cn/api/en/0.1.0-alpha/index.html> 
+<https://www.mindspore.cn/api/en/0.1.0-alpha/index.html>
 
 ### Docs
 
@@ -58,10 +57,8 @@
 
 ### API
 
-<https://www.mindspore.cn/api/en/master/index.html> 
+<https://www.mindspore.cn/api/en/master/index.html>
 
 ### Docs
 
 <https://www.mindspore.cn/docs/en/master/index.html>
-
-

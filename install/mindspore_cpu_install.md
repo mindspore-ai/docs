@@ -49,7 +49,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindspore.git
     ```
-	
+
 2. 在源码根目录下执行如下命令编译MindSpore。
 
     ```bash
@@ -108,4 +108,3 @@
    ```bash
    python -c 'import mindarmour'
    ```
-

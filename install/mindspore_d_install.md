@@ -26,7 +26,7 @@
 - Ascend 910 AI处理器
 
   > - 申请方式：填写[申请表](https://www.mindspore.cn/table)发送至contact@mindspore.cn，审核通过即可获取云上资源。
-  > - 需为每张卡预留至少32G内存。  
+  > - 需为每张卡预留至少32G内存。
 
 ### 系统要求和软件依赖
 
@@ -74,7 +74,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindspore.git
     ```
-	
+
 2. 在源码根目录下，执行如下命令编译MindSpore。
 
     ```bash
@@ -94,7 +94,7 @@
 ## 配置环境变量
 
 - 安装好MindSpore之后，需要导出Runtime相关环境变量。
-  
+
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
@@ -111,7 +111,7 @@
 ## 安装验证
 
 - 安装并配置好环境变量后，执行如下python脚本：
-  
+
     ```bash
     import numpy as np
     from mindspore import Tensor
@@ -123,7 +123,7 @@
     y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
     print(F.tensor_add(x, y))
     ```
- 
+
 - 若出现如下结果，即安装验证通过。
 
     ```
@@ -173,16 +173,16 @@
       pip install -r requirements.txt
       python setup.py install
       ```
-   
+
    (2) 构建whl包进行安装。
-   
+
       进入源码的build目录，执行MindInsight编译脚本。
 
       ```bash
       cd mindinsight/build
       bash build.sh
       ```
-   
+
       进入源码的output目录，即可查看生成的MindInsight安装包，执行安装命令。
 
       ```bash
