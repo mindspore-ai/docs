@@ -11,6 +11,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
         - [(Optional) Installing Conda](#optional-installing-conda)
         - [Configuring software package Dependencies](#configuring-software-package-dependencies)
     - [Installation Guide](#installation-guide)
+        - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
@@ -63,6 +64,14 @@ This document describes how to quickly install MindSpore on an Ascend AI process
     ```
 
 ## Installation Guide
+
+### Installing Using Executable Files
+
+- Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
+
+    ```bash
+    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
 
 ### Installing Using the Source Code
 
@@ -155,6 +164,20 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
 ## Installation Guide
 
+### Installing Using Executable Files
+
+1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindInsight:
+
+    ```bash
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
+
+2. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
+
+    ```bash
+    mindinsight start
+    ```
+
 ### Installing Using the Source Code
 
 1. Download the source code from the code repository.
@@ -210,6 +233,20 @@ If you need to conduct AI model security research or enhance the security of the
 - When the network is connected, dependency items in the setup.py file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ## Installation Guide
+
+### Installing Using Executable Files
+
+1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindArmour:
+
+   ```bash
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   ```
+
+2. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
+
+   ```bash
+   python -c 'import mindarmour'
+   ```
 
 ### Installing Using the Source Code
 

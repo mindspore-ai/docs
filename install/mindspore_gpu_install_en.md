@@ -10,6 +10,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
         - [(Optional) Installing Conda](#optional-installing-conda)
     - [Installation Guide](#installation-guide)
+        - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
     - [Installation Verification](#installation-verification)
 - [Installing MindArmour](#installing-mindarmour)
@@ -47,6 +48,14 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
 > Conda is a powerful Python environment management tool. It is recommended that a beginner read related information on the Internet first.
 
 ## Installation Guide
+
+### Installing Using Executable Files
+
+- Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
+
+    ```bash
+    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
 
 ### Installing Using the Source Code
 
@@ -118,6 +127,20 @@ If you need to conduct AI model security research or enhance the security of the
 - When the network is connected, dependency items in the setup.py file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ## Installation Guide
+
+### Installing Using Executable Files
+
+1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindArmour:
+
+   ```bash
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   ```
+
+2. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
+
+   ```bash
+   python -c 'import mindarmour'
+   ```
 
 ### Installing Using the Source Code
 

@@ -10,6 +10,7 @@
         - [系统要求和软件依赖](#系统要求和软件依赖)
         - [Conda安装（可选）](#conda安装可选)
     - [安装指南](#安装指南)
+        - [通过可执行文件安装](#通过可执行文件安装)
         - [从源码编译安装](#从源码编译安装)
     - [安装验证](#安装验证)
 - [安装MindArmour](#安装mindarmour)
@@ -47,6 +48,14 @@
 > Conda是强大的Python环境管理工具，建议初学者上网查阅更多资料。
 
 ## 安装指南
+
+### 通过可执行文件安装
+
+- 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
+
+    ```bash
+    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
 
 ### 从源码编译安装
 
@@ -118,6 +127,20 @@
 - 在联网状态下，安装whl包时会自动下载setup.py中的依赖项，其余情况需自行安装。
 
 ## 安装指南
+
+### 通过可执行文件安装
+
+1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindArmour。
+
+   ```bash
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   ```
+
+2. 执行如下命令，如果没有提示`No module named 'mindarmour'`等加载错误的信息，则说明安装成功。
+
+   ```bash
+   python -c 'import mindarmour'
+   ```
 
 ### 从源码编译安装
 
