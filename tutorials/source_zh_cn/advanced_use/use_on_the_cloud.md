@@ -25,7 +25,14 @@
 
 ## 概述
 
-ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
+ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。在ModelArts上使用MindSpore 0.1.1-alpha版本的训练性能如下表所示。
+
+| 模型 | 数据集 | MindSpore版本 | 资源 | 处理速度（images/sec） |
+| --- | --- | --- | --- | --- |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,616.2 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,307.7 |
+
+本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
 
 ## 准备工作
 
@@ -36,7 +43,7 @@ ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成
 
 ### 拥有云上昇腾AI处理器资源
 
-确保你已经拥有ModelArts昇腾AI处理器体验资格，拥有申请的云上体验账号。如果你还没有体验资格，可以按照指引<https://www.mindspore.cn/install> 申请云上体验资格。
+确保你已经拥有ModelArts昇腾AI处理器体验资格，拥有申请的云上体验账号。如果你还没有体验资格，可以按照指引<https://www.mindspore.cn/install>申请云上体验资格。
 
 ### 数据准备
 
@@ -63,7 +70,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 ### 执行脚本准备
 
 创建属于自己的OBS桶，在桶中创建代码目录，并将以下目录中的所有脚本上传至代码目录：
-> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/sample_for_cloud/> 脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
+> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
 
 为了方便后续创建训练作业，先创建训练输出目录和日志输出目录，本示例创建的目录结构如下：
 
@@ -103,7 +110,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 ### 适配OBS数据
 
 MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing提供的API与OBS交互。ModelArts训练脚本在容器中执行，通常选用`/cache`目录作为容器数据存储路径。
-> 华为云MoXing提供了丰富的API供用户使用 <https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/moxing_api_doc>，本示例中仅需要使用`copy_parallel`接口。
+> 华为云MoXing提供了丰富的API供用户使用<https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/moxing_api_doc>，本示例中仅需要使用`copy_parallel`接口。
 
 1. 将OBS中存储的数据下载至执行容器。
 
@@ -257,7 +264,7 @@ if __name__ == '__main__':
 
 ### 使用常用框架创建训练作业
 
-ModelArts教程 <https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0238.html> 展示了如何使用常用框架创建训练作业。
+ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0238.html>展示了如何使用常用框架创建训练作业。
 
 ### 使用MindSpore作为常用框架创建训练作业
 
@@ -276,7 +283,9 @@ ModelArts教程 <https://support.huaweicloud.com/engineers-modelarts/modelarts_2
 6. `资源池 > 规格`选择`Ascend: 1 * Ascend 910 CPU：24 核 96GiB`或`Ascend: 8 * Ascend 910 CPU：192 核 768GiB`，分别表示单机单卡和单机8卡规格。
 
 使用MindSpore作为常用框架创建训练作业，如下图所示：
+
 ![训练作业参数](./images/cloud_train_job1.png)
+
 ![训练作业规格](./images/cloud_train_job2.png)
 
 ## 查看运行结果
