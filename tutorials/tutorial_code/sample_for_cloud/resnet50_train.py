@@ -57,7 +57,7 @@ class PerformanceCallback(Callback):
         train_steps = params.cur_step_num -self.last_step
         print(f'epoch {params.cur_epoch_num} cost time = {cost_time}, train step num: {train_steps}, '
               f'one step time: {1000*cost_time/train_steps} ms, '
-              f'train samples per second of cluster: {device_num*train_steps*self.batch_size/cost_time:.0f}')
+              f'train samples per second of cluster: {device_num*train_steps*self.batch_size/cost_time:.1f}\n')
         self.last_step = run_context.original_args().cur_step_num
 
 

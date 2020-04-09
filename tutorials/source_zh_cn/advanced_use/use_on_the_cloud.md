@@ -29,8 +29,8 @@ ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成
 
 | 模型 | 数据集 | MindSpore版本 | 资源 | 处理速度（images/sec） |
 | --- | --- | --- | --- | --- |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,616.2 |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,307.7 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,611.1 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,245.7 |
 
 本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
 
@@ -43,13 +43,17 @@ ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成
 
 ### 拥有云上昇腾AI处理器资源
 
-确保你已经拥有ModelArts昇腾AI处理器体验资格，拥有申请的云上体验账号。如果你还没有体验资格，可以按照指引<https://www.mindspore.cn/install>申请云上体验资格。
+确保你的账号已经拥有ModelArts昇腾AI处理器体验资格。如果你还没有体验资格，可以按照指引<https://www.mindspore.cn/install>申请云上体验资格。
 
 ### 数据准备
 
 ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行数据存储，因此，在开始训练任务之前，需要将数据上传至OBS。本示例使用CIFAR-10二进制格式数据集。
 
-1. 下载CIFAR-10数据集，解压，并按照如下目录结构上传至OBS桶中。
+1. 下载CIFAR-10数据集并解压。
+
+    > CIFAR-10数据集下载页面：<http://www.cs.toronto.edu/~kriz/cifar.html>。页面提供3个数据集下载链接，本示例使用CIFAR-10 binary version。
+
+2. 新建一个自己的OBS桶（例如：ms-dataset），在桶中创建数据目录（例如：cifar-10），将CIFAR-10数据按照如下结构上传至数据目录。
 
     ```
     └─对象存储/ms-dataset/cifar-10
@@ -63,13 +67,10 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
         └─eval
             test_batch.bin
     ```
-    > CIFAR-10数据集下载页面：<http://www.cs.toronto.edu/~kriz/cifar.html>。页面提供3个数据集下载链接，本示例使用CIFAR-10 binary version。
-
-2. 为了方便用户快速体验MindSpore，OBS公共目录（对象存储/ms-dataset/cifar-10）预置了CIFAR-10数据供用户直接使用。
 
 ### 执行脚本准备
 
-创建属于自己的OBS桶，在桶中创建代码目录，并将以下目录中的所有脚本上传至代码目录：
+新建一个自己的OBS桶（例如：resnet50-train），在桶中创建代码目录（例如：resnet50_cifar10_train），并将以下目录中的所有脚本上传至代码目录：
 > <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
 
 为了方便后续创建训练作业，先创建训练输出目录和日志输出目录，本示例创建的目录结构如下：
@@ -282,7 +283,7 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 6. `资源池 > 规格`选择`Ascend: 1 * Ascend 910 CPU：24 核 96GiB`或`Ascend: 8 * Ascend 910 CPU：192 核 768GiB`，分别表示单机单卡和单机8卡规格。
 
-使用MindSpore作为常用框架创建训练作业，如下图所示：
+使用MindSpore作为常用框架创建训练作业，如下图所示。
 
 ![训练作业参数](./images/cloud_train_job1.png)
 
@@ -292,11 +293,11 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 1. 在训练作业界面可以查看运行日志
 
-    下图是采用`8*Ascend`规格执行ResNet-50训练的日志。epoch总数为90，训练任务总时长约9分钟，精度约为91.5%，每秒训练图片张数约12300。
+    采用`8*Ascend`规格执行ResNet-50训练任务，epoch总数为90，精度约为91%，每秒训练图片张数约12200，日志如下图所示。
 
     ![8*Ascend训练执行结果](./images/train_log_8_Ascend.png)
 
-    下图是采用`1*Ascend`规格执行ResNet-50训练的日志。epoch总数为90，训练任务总时长约50分钟，精度约为90.8%，每秒训练图片张数约1600。
+    采用`1*Ascend`规格执行ResNet-50训练任务。epoch总数为90，精度约为91%，每秒训练图片张数约1600，日志如下图所示。
 
     ![1*Ascend训练执行结果](./images/train_log_1_Ascend.png)
 
