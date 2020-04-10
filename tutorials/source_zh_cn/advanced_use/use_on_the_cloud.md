@@ -117,14 +117,14 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
 
     ```python
     import moxing as mox
-    mox.file.copy_parallel(src_path='s3://dataset_url/', dst_path='/cache/data_path')
+    mox.file.copy_parallel(src_url='s3://dataset_url/', dst_url='/cache/data_path')
     ```
 
 2. 将训练输出从容器中上传至OBS。
 
     ```python
     import moxing as mox
-    mox.file.copy_parallel(src_path='/cache/output_path', dst_path='s3://output_url/')
+    mox.file.copy_parallel(src_url='/cache/output_path', dst_url='s3://output_url/')
     ```
 
 ### 获取环境变量
