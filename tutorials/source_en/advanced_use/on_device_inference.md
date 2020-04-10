@@ -158,7 +158,7 @@ Use the .ms model file and image data as input to create a session and implement
 ![](./images/side_infer_process.png)
 
 Figure 1 On-device inference sequence diagram
-1. Load the .ms model file to the memory buffer. The ReadFile function needs to be implemented by users.
+1. Load the .ms model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
    ```cpp
    // read model file
    std::string modelPath = "./models/lenet/lenet.ms";

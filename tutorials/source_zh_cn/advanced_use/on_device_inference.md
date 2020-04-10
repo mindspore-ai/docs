@@ -75,7 +75,7 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
 
 ## 端侧推理使用
 
-在APP的APK工程中使用MindSpore对进行模型推理时，模型推理前需要对输入进行必要的前处理，比如将图片转换成MindSpore推理要求的tensor格式、对图片进行resize等处理。在MindSpore完成模型推理后，对模型推理的结果进行后处理，并将处理的输出发送给APP应用。
+在APP的APK工程中使用MindSpore进行模型推理前，需要对输入进行必要的前处理，比如将图片转换成MindSpore推理要求的tensor格式、对图片进行resize等处理。在MindSpore完成模型推理后，对模型推理的结果进行后处理，并将处理的输出发送给APP应用。
 
 本章主要描述用户如何使用MindSpore进行模型推理，APK工程的搭建和模型推理的前后处理，不在此列举。
 
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 ![](./images/side_infer_process.png)
 
 图1：端侧推理时序图
-1. 加载.ms模型文件到内存缓冲区，ReadFile函数功能需要用户自行实现。
+1. 加载.ms模型文件到内存缓冲区，ReadFile函数功能需要用户参考[C++教程](http://www.cplusplus.com/doc/tutorial/files/)自行实现。
    ```cpp
    // read model file
    std::string modelPath = "./models/lenet/lenet.ms";
