@@ -36,7 +36,7 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 
 在实验室环境进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，可以跳过本小节。
 
-以Ascend 910 AI处理器、1980 AIServer为例，一个两卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
+以Ascend 910 AI处理器、AIServer为例，一个两卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
 
 ```json
 {
@@ -66,11 +66,13 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 
 ```
 其中需要根据实际训练环境修改的参数项有：
-1. `server_num`表示机器数量， `server_id`表示本机IP地址。
-2. `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
-3. `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
-4. `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`获取网卡IP地址。
-5. `para_plane_nic_name`对应网卡名称。
+
+1. `board_id`表示当前运行的环境。
+2. `server_num`表示机器数量， `server_id`表示本机IP地址。
+3. `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
+4. `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
+5. `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`获取网卡IP地址。
+6. `para_plane_nic_name`对应网卡名称。
 
 组网信息文件准备好后，将文件路径加入环境变量`MINDSPORE_HCCL_CONFIG_PATH`中。此外需要将`device_id`信息传入脚本中，本样例通过配置环境变量DEVICE_ID的方式传入。
 
@@ -221,7 +223,7 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 `context.set_auto_parallel_context()`是提供给用户设置并行参数的接口。主要参数包括：
 
 - `parallel_mode`：分布式并行模式。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
-- `mirror_mean`: 反向计算时，框架内部会将数据并行参数分散在多台机器的梯度进行收集，得到全局梯度值后再传入优化器中更新。
+- `mirror_mean`: 反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。
 设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
 
