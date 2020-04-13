@@ -37,7 +37,7 @@ In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARA
 
 When distributed training is performed in the lab environment, you need to configure the networking information file for the current multi-card environment. If HUAWEI CLOUD is used, skip this section.
 
-The Ascend 910 AI processor and 1980 AIServer are used as an example. The JSON configuration file of a two-card environment is as follows. In this example, the configuration file is named rank_table.json.
+The Ascend 910 AI processor and AIServer are used as an example. The JSON configuration file of a two-card environment is as follows. In this example, the configuration file is named rank_table.json.
 
 ```json
 {
@@ -67,11 +67,12 @@ The Ascend 910 AI processor and 1980 AIServer are used as an example. The JSON c
 
 ```
 The following parameters need to be modified based on the actual training environment:
-1. `server_num` indicates the number of hosts, and `server_id` indicates the IP address of the local host.
-2. `device_num`, `para_plane_nic_num`, and `instance_count` indicate the number of cards.
-3. `rank_id` indicates the logical sequence number of a card, which starts from 0 fixedly. `device_id` indicates the physical sequence number of a card, that is, the actual sequence number of the host where the card is located.
-4. `device_ip` indicates the IP address of the NIC. You can run the `cat /etc/hccn.conf` command on the current host to obtain the IP address of the NIC.
-5. `para_plane_nic_name` indicates the name of the corresponding NIC.
+1. `board_id` indicates the environment in which the program runs.
+2. `server_num` indicates the number of hosts, and `server_id` indicates the IP address of the local host.
+3. `device_num`, `para_plane_nic_num`, and `instance_count` indicate the number of cards.
+4. `rank_id` indicates the logical sequence number of a card, which starts from 0 fixedly. `device_id` indicates the physical sequence number of a card, that is, the actual sequence number of the host where the card is located.
+5. `device_ip` indicates the IP address of the NIC. You can run the `cat /etc/hccn.conf` command on the current host to obtain the IP address of the NIC.
+6. `para_plane_nic_name` indicates the name of the corresponding NIC.
 
 After the networking information file is ready, add the file path to the environment variable `MINDSPORE_HCCL_CONFIG_PATH`. In addition, the `device_id` information needs to be transferred to the script. In this example, the information is transferred by configuring the environment variable DEVICE_ID.
 
