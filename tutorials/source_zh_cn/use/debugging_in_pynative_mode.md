@@ -99,6 +99,7 @@ print(output.asnumpy())
  [3. 3. 3.]]
 ```
 
+> PyNative不支持并行执行和summary功能，图模式的并行和summary相关算子不能使用。
 
 
 ### 提升PyNative性能
@@ -272,14 +273,11 @@ print(mainf(1,2))
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops.operations as P
-from mindspore.nn import Dense
-from mindspore import context, Tensor, ParameterTuple
-from mindspore.common.initializer import TruncatedNormal
 from mindspore.ops import composite as C
 from mindspore.common import dtype as mstype
-from mindspore.nn.wrap.cell_wrapper import WithLossCell
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-from mindspore.nn.optim import Momentum
+from mindspore import context, Tensor, ParameterTuple
+from mindspore.common.initializer import TruncatedNormal
+from mindspore.nn import Dense, WithLossCell, SoftmaxCrossEntropyWithLogits, Momentum
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -376,4 +374,4 @@ print(loss)
 2.3050091
 ```
 
-上述执行方式中，可以在construct函数任意需要的地方设置断点，获取网络执行的中间结果，通过pdb的方式对网络进行调试。
+上述执行方式中，可以在`construct`函数任意需要的地方设置断点，获取网络执行的中间结果，通过pdb的方式对网络进行调试。

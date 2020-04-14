@@ -99,7 +99,7 @@ print(output.asnumpy())
  [3. 3. 3.]]
 ```
 
-
+> Parallel execution and summary is not supported in PyNative mode, so parallel and summary related operators can not be used.
 
 
 ### Improving PyNative Performance
@@ -273,14 +273,11 @@ During network training, obtain the gradient, call the optimizer to optimize par
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops.operations as P
-from mindspore.nn import Dense
-from mindspore import context, Tensor, ParameterTuple
-from mindspore.common.initializer import TruncatedNormal
 from mindspore.ops import composite as C
 from mindspore.common import dtype as mstype
-from mindspore.nn.wrap.cell_wrapper import WithLossCell
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-from mindspore.nn.optim import Momentum
+from mindspore import context, Tensor, ParameterTuple
+from mindspore.common.initializer import TruncatedNormal
+from mindspore.nn import Dense, WithLossCell, SoftmaxCrossEntropyWithLogits, Momentum
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -377,4 +374,4 @@ print(loss)
 2.3050091
 ```
 
-In the preceding execution, an intermediate result of network execution can be obtained at any required place in construct function, and the network can be debugged by using the Python Debugger (pdb). 
+In the preceding execution, an intermediate result of network execution can be obtained at any required place in construct function, and the network can be debugged by using the Python Debugger (pdb).
