@@ -86,7 +86,7 @@ net_with_loss = WithLossCell(net, loss)
 train_network = amp.build_train_network(net_with_loss, optimizer, level="O2")
 
 # Run training
-output = train_network(inputs, label, scaling_sens)
+output = train_network(predict, label, scaling_sens)
 ```
 
 
@@ -143,5 +143,5 @@ net_with_loss = WithLossCell(net, loss)
 train_network = TrainOneStepWithLossScaleCell(net_with_loss, optimizer)
 
 # Run training
-output = train_network(inputs, label, scaling_sens)
+output = train_network(predict, label, scaling_sens)
 ```
