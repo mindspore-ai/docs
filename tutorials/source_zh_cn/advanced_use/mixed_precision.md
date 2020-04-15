@@ -12,7 +12,7 @@
 
 ## 概述
 
-混合精度训练方法通过混合使用单精度和半精度数据格式来加速深度神经网络训练过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并在特定的硬件上可以训练更大的模型或batch size。
+混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或batch size。
 
 ## 计算流程
 
@@ -85,7 +85,7 @@ net_with_loss = WithLossCell(net, loss)
 train_network = amp.build_train_network(net_with_loss, optimizer, level="O2")
 
 # Run training
-output = train_network(inputs, label, scaling_sens)
+output = train_network(predict, label, scaling_sens)
 ```
 
 
@@ -142,5 +142,5 @@ net_with_loss = WithLossCell(net, loss)
 train_network = TrainOneStepWithLossScaleCell(net_with_loss, optimizer)
 
 # Run training
-output = train_network(inputs, label, scaling_sens)
+output = train_network(predict, label, scaling_sens)
 ```
