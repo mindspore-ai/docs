@@ -79,7 +79,6 @@ label = Tensor(np.zeros([1, 10]).astype(np.float32))
 scaling_sens = Tensor(np.full((1), 1.0), dtype=mstype.float32)
 
 # Define Loss and Optimizer
-net.set_train()
 loss = MSELoss()
 optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
 net_with_loss = WithLossCell(net, loss)
@@ -97,7 +96,7 @@ MindSpore还支持手动混合精度。假定在网络中只有一个Dense Layer
 以下是一个手动混合精度的实现步骤：
 1. 定义网络: 该步骤与自动混合精度中的步骤2类似；注意：在LeNet中的fc3算子，需要手动配置成FP32；
 
-2. 配置混合精度: LeNet通过net.add_flags_recursive(fp16=True)，把该Cell及其子Cell中所有的算子都配置成FP16；
+2. 配置混合精度: LeNet通过net.to_float(mstype.float16)，把该Cell及其子Cell中所有的算子都配置成FP16；
 
 3. 使用TrainOneStepWithLossScaleCell封装网络模型和优化器。
 
@@ -112,7 +111,7 @@ class LeNet5(nn.Cell):
         self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
         self.fc1 = nn.Dense(16 * 5 * 5, 120)
         self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, 10).add_flags_recursive(fp32=True)
+        self.fc3 = nn.Dense(84, 10).to_float(mstype.float32)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2)
         self.flatten = P.Flatten()
@@ -128,7 +127,7 @@ class LeNet5(nn.Cell):
 
 # Initialize network and set mixing precision
 net = LeNet5()
-net.add_flags_recursive(fp16=True)
+net.to_float(mstype.float16)
 
 # Define training data, label and sens
 predict = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32) * 0.01)
