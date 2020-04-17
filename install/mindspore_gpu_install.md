@@ -13,6 +13,7 @@
         - [通过可执行文件安装](#通过可执行文件安装)
         - [从源码编译安装](#从源码编译安装)
     - [安装验证](#安装验证)
+- [安装MindInsight](#安装mindinsight)
 - [安装MindArmour](#安装mindarmour)
 
 <!-- /TOC -->
@@ -110,6 +111,76 @@
      [[ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.]]]
+    ```
+
+# 安装MindInsight
+
+当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
+
+## 环境要求
+
+### 系统要求和软件依赖
+
+| 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
+| ---- | :--- | :--- | :--- |
+| MindInsight master | - Ubuntu 16.04（及以上） x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+
+- 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
+
+## 安装指南
+
+### 通过可执行文件安装
+
+1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindInsight。
+
+    ```bash
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
+
+2. 执行如下命令，如果提示`web address: http://127.0.0.1:8080`，则说明安装成功。
+
+    ```bash
+    mindinsight start
+    ```
+
+### 从源码编译安装
+
+1. 从代码仓下载源码。
+
+    ```bash
+    git clone https://gitee.com/mindspore/mindinsight.git
+    ```
+
+2. 可选择以下任意一种安装方式：
+
+   (1) 进入源码的根目录，执行安装命令。
+
+      ```bash
+      cd mindinsight
+      pip install -r requirements.txt
+      python setup.py install
+      ```
+
+   (2) 构建whl包进行安装。
+
+      进入源码的build目录，执行MindInsight编译脚本。
+
+      ```bash
+      cd mindinsight/build
+      bash build.sh
+      ```
+
+      进入源码的output目录，即可查看生成的MindInsight安装包，执行安装命令。
+
+      ```bash
+      cd mindinsight/output
+      pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      ```
+
+3. 执行如下命令，如果提示`web address: http://127.0.0.1:8080`，则说明安装成功。
+
+    ```bash
+    mindinsight start
     ```
 
 # 安装MindArmour
