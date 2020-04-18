@@ -240,7 +240,7 @@ print(z.asnumpy())
 
 ## Debugging Network Train Model
 
-In PyNative mode, the gradient can be calculated separately. As shown in the following example, `grad_all` is used to calculate all input gradients of the function or the network.
+In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network.
 
 **Example Code**
 
@@ -254,7 +254,7 @@ def mul(x, y):
     return x * y
 
 def mainf(x, y):
-    return C.grad_all(mul)(x, y)
+    return C.GradOperation('get_all', get_all=True)(mul)(x, y)
 
 print(mainf(1,2))
 ```
@@ -349,7 +349,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, x, label):
         weights = self.weights
-        return C.grad_by_list(self.network, weights)(x, label)
+        return C.GradOperation('get_by_list', get_by_list=True)(self.network, weights)(x, label)
 
 net = LeNet5()
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)
