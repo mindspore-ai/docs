@@ -240,7 +240,7 @@ print(z.asnumpy())
 
 ## 调试网络训练模型
 
-PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`grad_all`求该函数或者网络所有的输入梯度。
+PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`GradOperation`求该函数或者网络所有的输入梯度。
 
 **示例代码**
 
@@ -254,7 +254,7 @@ def mul(x, y):
     return x * y
 
 def mainf(x, y):
-    return C.grad_all(mul)(x, y)
+    return C.GradOperation('get_all', get_all=True)(mul)(x, y)
 
 print(mainf(1,2))
 ```
@@ -349,7 +349,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, x, label):
         weights = self.weights
-        return C.grad_by_list(self.network, weights)(x, label)
+        return C.GradOperation('get_by_list', get_by_list=True)(self.network, weights)(x, label)
 
 net = LeNet5()
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)
