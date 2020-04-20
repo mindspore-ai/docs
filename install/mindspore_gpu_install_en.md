@@ -13,6 +13,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
         - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
     - [Installation Verification](#installation-verification)
+- [Installing MindInsight](#installing-mindinsight)
 - [Installing MindArmour](#installing-mindarmour)
 
 <!-- /TOC -->
@@ -110,6 +111,76 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
      [[ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.]]]
+    ```
+
+# Installing MindInsight
+
+If you need to analyze information such as model scalars, graphs, and model traceback, you can install MindInsight.
+
+## Environment Requirements
+
+### System Requirements and Software Dependencies
+
+| Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
+| ---- | :--- | :--- | :--- |
+| MindInsight master | - Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+
+- When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+
+## Installation Guide
+
+### Installing Using Executable Files
+
+1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindInsight:
+
+    ```bash
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
+
+2. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
+
+    ```bash
+    mindinsight start
+    ```
+
+### Installing Using the Source Code
+
+1. Download the source code from the code repository.
+
+    ```bash
+    git clone https://gitee.com/mindspore/mindinsight.git
+    ```
+
+2. Install MindInsight by using either of the following installation methods:
+
+   (1) Access the root directory of the source code and run the following installation command:
+
+      ```bash
+      cd mindinsight
+      pip install -r requirements.txt
+      python setup.py install
+      ```
+
+   (2) Create a .whl package to install MindInsight.
+
+      Access the build directory of the source code and run the MindInsight compilation script.
+
+      ```bash
+      cd mindinsight/build
+      bash build.sh
+      ```
+
+      Access the output directory of the source code, where the generated MindInsight installation package is stored, and run the installation command.
+
+      ```bash
+      cd mindinsight/output
+      pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      ```
+
+3. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
+
+    ```bash
+    mindinsight start
     ```
 
 # Installing MindArmour

@@ -6,8 +6,6 @@
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-        - [基础写法](#基础写法)
-        - [记录算子融合后的计算图](#记录算子融合后的计算图)
     - [MindInsight相关命令](#mindinsight相关命令)
         - [查看命令帮助信息](#查看命令帮助信息)
         - [查看版本信息](#查看版本信息)
@@ -39,9 +37,6 @@
 
 其中标量、图像是通过Summary算子实现记录数据，计算图是在网络编译完成后，通过 `SummaryRecord` 将其保存到summary日志文件中，
 模型参数是通过 `TrainLineage` 或 `EvalLineage` 保存到summary日志文件中。
-
-
-### 基础写法
 
 步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary算子来采集图像或标量数据。
 
@@ -165,10 +160,10 @@ def test_summary():
     summary_writer.close()
 ```
 
-### 记录算子融合后的计算图
-
-参照“基础写法”完成脚本后，可以通过`context`的`save_graphs`选项配置记录算子融合后的计算图。
+完成脚本后，可以通过`context`的`save_graphs`选项配置记录算子融合后的计算图。
 其中`ms_output_after_hwopt.pb`为算子融合后的计算图。
+
+> 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
 
 ## MindInsight相关命令
 
@@ -237,7 +232,7 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 ## 可视化组件
 ### 计算图可视化
 
-计算图可视化用于展示计算图的图结构，数据流以及控制流的走向。
+计算图可视化用于展示计算图的图结构，数据流以及控制流的走向，支持展示summary日志文件与通过`context`的`save_graphs`参数导出的`pb`文件。
 
 ![graph.png](./images/graph.png)
 
