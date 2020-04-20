@@ -1,6 +1,6 @@
 # 安装MindSpore
 
-本文档介绍如何在CPU的环境上快速安装MindSpore。
+本文档介绍如何在CPU环境的Ubuntu系统上快速安装MindSpore。
 
 <!-- TOC -->
 

@@ -1,6 +1,6 @@
 # MindSpore Installation Guide
 
-This document describes how to quickly install MindSpore on a CPU environment.
+This document describes how to quickly install MindSpore on a Ubuntu system with a CPU environment.
 
 <!-- TOC -->
 
