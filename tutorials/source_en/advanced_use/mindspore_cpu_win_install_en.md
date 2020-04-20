@@ -44,7 +44,7 @@ This document describes how to quickly install MindSpore on a Windows system wit
 
 ### Installing Using Executable Files
 
-1. Download the Windows .whl package of daily version from the [MindSpore repository](https://repo.mindspore.cn/mindspore/). Run the following command to install MindSpore:
+1. Download the Windows .whl package of daily version from the [MindSpore repository](https://repo.mindspore.cn/mindspore/). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
     pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl
