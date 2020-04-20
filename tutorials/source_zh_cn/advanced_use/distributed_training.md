@@ -28,7 +28,8 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 - 代价模型（Cost Model）：同时考虑内存的计算代价和通信代价对训练时间建模，并设计了高效的算法来找到训练时间较短的并行策略。
 
 本篇教程我们主要了解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
-> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 
@@ -220,11 +221,11 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 
 ## 训练网络
 
-`context.set_auto_parallel_context()`是提供给用户设置并行参数的接口。主要参数包括：
+`context.set_auto_parallel_context()`是配置并行训练参数的接口，必须在`Model`初始化前调用。如用户未指定参数，框架会自动根据并行模式为用户设置参数的经验值。如数据并行模式下，`parameter_broadcast`默认打开。主要参数包括：
 
-- `parallel_mode`：分布式并行模式。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
-- `mirror_mean`: 反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。
-设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
+- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
+- `paramater_broadcast`： 参数初始化广播开关，非数据并行模式下，默认值为`False`。
+- `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，对应`allreduce_sum`操作；设置为`True`对应`allreduce_mean`操作。
 
 
 在下面的样例中我们指定并行模式为自动并行，其中`dataset_sink_mode=False`表示采用数据非下沉模式，`LossMonitor`能够通过回调函数返回loss值。

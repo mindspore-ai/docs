@@ -29,7 +29,8 @@ Among them:
 
 In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARALLEL` or `AUTO_PARALLEL` mode on MindSpore.
 
-> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
+> The current sample is for the Ascend 910 AI processor. CPU and GPU processors are not supported for now.
+> You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
 
 ## Preparations
 
@@ -221,11 +222,11 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 
 ## Training the Network
 
-`context.set_auto_parallel_context()` is an API provided for users to set parallel parameters. The parameters are as follows:
+`context.set_auto_parallel_context()` is an API provided for users to set parallel parameters, which can be invoked only before the initialization of `Model`. If users did not set parameters, MindSpore will automatically set parameters to the empirical values according to the parallel mode. For example, `parameter_broadcast` is `True` in data parallel mode. The parameters are as follows:
 
-- `parallel_mode`: distributed parallel mode. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
-- `mirror_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple machines, obtains the global gradient value, and transfers the global gradient value to the optimizer for update.
-The value True indicates the `allreduce_mean` operation that would be applied, and the value False indicates the `allreduce_sum` operation that would be applied.
+- `parallel_mode`: distributed parallel mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
+- `paramater_broadcast`： specifies whether to broadcast initialized parameters. The Default value is `False` in non-data parallel mode.
+- `mirror_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple machines, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates the `allreduce_sum` operation that would be applied. And the value `True` indicates the `allreduce_mean` operation that would be applied.
 
 
 In the following example, the parallel mode is set to `AUTO_PARALLEL`. `dataset_sink_mode=False` indicates that the non-sink mode is used. `LossMonitor` can return the loss value through the callback function.
