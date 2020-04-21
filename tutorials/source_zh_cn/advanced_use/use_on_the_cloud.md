@@ -25,12 +25,12 @@
 
 ## 概述
 
-ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。在ModelArts上使用MindSpore 0.1.1-alpha版本的训练性能如下表所示。
+ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。在ModelArts上使用MindSpore 0.1.0-alpha版本的训练性能如下表所示。
 
 | 模型 | 数据集 | MindSpore版本 | 资源 | 处理速度（images/sec） |
 | --- | --- | --- | --- | --- |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,611.1 |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.1-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,245.7 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,611.1 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.1.0-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,245.7 |
 
 本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
 
