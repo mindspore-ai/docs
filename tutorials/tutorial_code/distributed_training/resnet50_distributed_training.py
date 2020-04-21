@@ -53,7 +53,7 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
-    data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shared_id=rank_id)
+    data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
 
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
