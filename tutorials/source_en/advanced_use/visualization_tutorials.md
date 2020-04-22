@@ -14,6 +14,7 @@
         - [Model Lineage Visualization](#model-lineage-visualization)
         - [Dataset Graph Visualization](#dataset-graph-visualization)
         - [Dataset Lineage Visualization](#dataset-lineage-visualization)
+        - [Parameter Distribution](#parameter-distribution)
 
 <!-- /TOC -->
 
@@ -72,6 +73,28 @@ class CrossEntropyLoss(nn.Cell):
         return loss
 
 
+class MyOptimizer(Optimizer):
+    """Optimizer definition."""
+    def __init__(self, learning_rate, params, ......):
+        ......
+        # Initialize ScalarSummary
+        self.sm_scalar = P.ScalarSummary()
+        self.histogram_summary = P.HistogramSummary()
+        self.param_count = len(self.parameters)
+        self.weight_names = [param.name for param in self.parameters]
+
+    def construct(self, grads):
+        ......
+        # Record learning rate here
+        self.sm_scalar("learning_rate", learning_rate)
+
+        # Record weight
+        for i in range(self.param_count):
+            self.histogram_summary(self.weight_names[i], self.paramters[i])
+        
+        ......
+
+
 class Net(nn.Cell):
     """Net definition."""
     def __init__(self):
@@ -86,20 +109,6 @@ class Net(nn.Cell):
         self.sm_image("image", data)
         ......
         return out
-
-
-class MyOptimizer(Optimizer):
-    """Optimizer definition."""
-    def __init__(self, learning_rate, ......):
-        ......
-        # Initialize ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
-
-    def construct(self, grads):
-        ......
-        # Record learning rate here
-        self.sm_scalar("learning_rate", learning_rate)
-        ......
 ```
 
 Step 2: Use the `Callback` mechanism to add the required callback instance to specify the data to be recorded during training.
@@ -129,7 +138,7 @@ def test_summary():
     # Init network and Model
     net = Net()
     loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01)
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
     model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
 
     # Init SummaryRecord and specify a folder for storing summary log files
@@ -155,7 +164,7 @@ def test_summary():
     summary_writer.close()
 ```
 
-After completing the script, use the `save_graphs` option of `context` to record the computational graph after operator fusion.
+Use the `save_graphs` option of `context` to record the computational graph after operator fusion.
 `ms_output_after_hwopt.pb` is the computational graph after operator fusion.
 
 > Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
@@ -360,3 +369,23 @@ Figure 13 shows the dataset lineage function area, which visualizes the paramete
 Figure 14: Dataset lineage list
 
 Figure 14 shows the data processing and augmentation information of all model trainings.
+
+### Parameter Distribution
+
+The parameter distribution in a form of a histogram displays tensors specified by a user.
+
+![histogram.png](./images/histogram.png)
+
+Figure 15: Histogram
+
+Figure 15 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
+
+![histogram_func.png](./images/histogram_func.png)
+
+Figure 16: Function area of the parameter distribution histogram
+
+Figure 16 shows the function area of the parameter distribution histogram, including:
+
+- Tag selection: Select the required tags to view the corresponding histogram.
+- Vertical axis: Select any of `Step`, `Relative time`, and `Absolute time` as the data displayed on the vertical axis of the histogram.
+- Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.  
