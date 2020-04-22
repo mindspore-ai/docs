@@ -16,6 +16,7 @@ MindSpore API
    api/python/mindspore/mindspore.communication
    api/python/mindspore/mindspore.context
    api/python/mindspore/mindspore.nn
+   api/python/mindspore/mindspore.nn.dynamic_lr
    api/python/mindspore/mindspore.ops
    api/python/mindspore/mindspore.ops.composite
    api/python/mindspore/mindspore.ops.operations
