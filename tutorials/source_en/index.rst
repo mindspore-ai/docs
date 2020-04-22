@@ -37,11 +37,3 @@ MindSpore Tutorials
    advanced_use/model_security
    advanced_use/mindspore_cpu_win_install_en
    advanced_use/community
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Statement
-
-   statement/legal_statement
-   statement/privacy_policy
