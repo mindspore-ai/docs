@@ -33,7 +33,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 | ---- | :--- | :--- | :--- |
 | MindSpore master | - Ubuntu 16.04 or later x86_64 <br> - EulerOS 2.8 arrch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas T 1.1.T106) <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas T 1.1.T106) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [Autoconf](https://www.gnu.org/software/autoconf) >= 2.64 <br> - [Libtool](https://www.gnu.org/software/libtool) >= 2.4.6 <br> - [Automake](https://www.gnu.org/software/automake) >= 1.15.1 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
-- Confirm that the current user has the right to access the installation path `/usr/local/hiAI `of Ascend 910 AI processor software package(Version:Atlas T 1.1.T106). If not, the root user needs to add the current user to the user group where `/usr/local/hiAI` is located. For the specific configuration, please refer to the software package instruction document.
+- Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas T 1.1.T106). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - When Ubuntu version is 18.04, GCC 7.3.0 can be installed by using apt command.
 - When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -58,8 +58,9 @@ This document describes how to quickly install MindSpore on an Ascend AI process
  - Install the .whl package provided in Ascend 910 AI processor software package(Version:Atlas T 1.1.T106). The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
     ```bash
-    pip install /usr/local/HiAI/runtime/lib64/topi-{version}-py3-none-any.whl
-    pip install /usr/local/HiAI/runtime/lib64/te-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/te-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
     ```
 
 ## Installation Guide
@@ -97,14 +98,15 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
-    # Conda environmental options
-    LOCAL_HIAI=/usr/local/HiAI # the root directory of run package
+    # the root directory of run package
+    LOCAL_ASCEND=/usr/local/Ascend
+    # Python library that TBE implementation depends on
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
     # lib libraries that the run package depends on
-    export LD_LIBRARY_PATH=${LOCAL_HIAI}/runtime/lib64/:/usr/local/HiAI/driver/lib64:${LD_LIBRARY_PATH}
-    # Environment variables that must be configured
-    export PATH=${LOCAL_HIAI}/runtime/ccec_compiler/bin/:${PATH} # TBE operator compilation tool path
-    export TBE_IMPL_PATH=${LOCAL_HIAI}/runtime/ops/op_impl/built-in/ai_core/tbe/impl/ # TBE operator implementation path
-    export PYTHONPATH=${LOCAL_HIAI}/runtime/ops/op_impl/built-in/ai_core/tbe/:${PYTHONPATH}  # Python library that TBE implementation depends on
+    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
+    # TBE operator compilation tool path
+    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}
     ```
 
 ## Installation Verification

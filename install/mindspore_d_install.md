@@ -34,7 +34,7 @@
 | ---- | :--- | :--- | :--- |
 | MindSpore master | - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 arrch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas T 1.1.T106） <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas T 1.1.T106） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [Autoconf](https://www.gnu.org/software/autoconf) >= 2.64 <br> - [Libtool](https://www.gnu.org/software/libtool) >= 2.4.6 <br> - [Automake](https://www.gnu.org/software/automake) >= 1.15.1 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
-- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas T 1.1.T106）的安装路径`/usr/local/HiAI`，若无权限，需要root用户将当前用户添加到`/usr/local/HiAI`所在的用户组，具体配置请详见配套软件包的说明文档。
+- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas T 1.1.T106）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - Ubuntu版本为18.04时，GCC 7.3.0可以直接通过apt命令安装。
 - 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
 
@@ -59,8 +59,9 @@
  - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas T 1.1.T106）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
     ```bash
-    pip install /usr/local/HiAI/runtime/lib64/topi-{version}-py3-none-any.whl
-    pip install /usr/local/HiAI/runtime/lib64/te-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/te-{version}-py3-none-any.whl
+    pip install /usr/local/Ascend/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
     ```
 
 ## 安装指南
@@ -98,14 +99,15 @@
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
-    # Conda environmental options
-    LOCAL_HIAI=/usr/local/HiAI # the root directory of run package
+    # the root directory of run package
+    LOCAL_ASCEND=/usr/local/Ascend
+    # Python library that TBE implementation depends on
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
     # lib libraries that the run package depends on
-    export LD_LIBRARY_PATH=${LOCAL_HIAI}/runtime/lib64/:/usr/local/HiAI/driver/lib64:${LD_LIBRARY_PATH}
-    # Environment variables that must be configured
-    export PATH=${LOCAL_HIAI}/runtime/ccec_compiler/bin/:${PATH} # TBE operator compilation tool path
-    export TBE_IMPL_PATH=${LOCAL_HIAI}/runtime/ops/op_impl/built-in/ai_core/tbe/impl/ # TBE operator implementation path
-    export PYTHONPATH=${LOCAL_HIAI}/runtime/ops/op_impl/built-in/ai_core/tbe/:${PYTHONPATH}  # Python library that TBE implementation depends on
+    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
+    # TBE operator compilation tool path
+    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}
     ```
 
 ## 安装验证
