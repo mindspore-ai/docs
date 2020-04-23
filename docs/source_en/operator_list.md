@@ -41,6 +41,7 @@
 | [mindspore.nn.GlobalBatchNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.GlobalBatchNorm)                                      |  Supported |Doing | Doing |layer/normalization
 | [mindspore.nn.BatchNorm1d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm1d)                                      |  Supported |Doing | Doing |layer/normalization
 | [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)                                      |  Supported |  Supported | Doing |layer/normalization
+| [mindspore.nn.GroupNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.GroupNorm)                                          |  Supported |  Doing | Doing |layer/normalization
 | [mindspore.nn.LayerNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LayerNorm)                                          |  Supported |Doing | Doing |layer/normalization
 | [mindspore.nn.MaxPool2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MaxPool2d)                                          |  Supported |  Supported |   Supported |layer/pooling
 | [mindspore.nn.AvgPool2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AvgPool2d)                                          |Doing |  Supported | Doing |layer/pooling
@@ -49,7 +50,7 @@
 | [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    |Doing |Doing | Doing |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyWithLogits)  |  Supported |  Supported |   Doing |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyExpand](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyExpand)     |  Supported |Doing | Doing |loss/loss
-| [mindspore.nn.Adam](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Adam)                                                    |Doing |Doing | Doing |optim/adam
+| [mindspore.nn.Adam](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Adam)                                                    | Supported |Doing | Doing |optim/adam
 | [mindspore.nn.AdamWeightDecay](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecay)                              |  Supported |Doing | Doing |optim/adam
 | [mindspore.nn.AdamWeightDecayDynamicLR](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecayDynamicLR)            |  Supported |Doing | Doing |optim/adam
 | [mindspore.nn.Lamb](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Lamb)                                                    |  Supported |Doing | Doing |optim/lamb
@@ -221,7 +222,8 @@
 | [mindspore.ops.operations.Eye](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Eye)                                     |   Supported |  Supported  |  Supported | array_ops 
 | [mindspore.ops.operations.ScatterNd](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterNd)                         |    Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.ResizeNearestNeighbor](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ResizeNearestNeighbor) |  Supported | Doing  | Doing | array_ops
-| [mindspore.ops.operations.GatherNd](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GatherNd)                           |  Doing | Doing  | Doing | array_ops
+| [mindspore.ops.operations.GatherNd](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GatherNd)                           |  Supported | Doing  | Doing | array_ops
+| [mindspore.ops.operations.ApplyFtrl](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ApplyFtrl)                           |  Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.ScatterNdUpdate](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterNdUpdate)             |  Supported | Doing  | Doing | array_ops
 | [mindspore.ops.operations.SpaceToDepth](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SpaceToDepth)                   |  Doing | Doing  | Doing | array_ops
 | [mindspore.ops.operations.DepthToSpace](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.DepthToSpace)                   |  Doing | Doing  | Doing | array_ops
