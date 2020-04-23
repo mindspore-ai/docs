@@ -143,7 +143,7 @@ print(res.asnumpy())
  [3. 3. 3. 3.]]
 ```
 
-In the preceding code, the `ms_function` decorator is added before `construct` of the `TensorAddNet` class. The decorator compiles the `construct` method into a computational graph. After the input is given, the graph is delivered and executed, `F.tensor_add` in the preceding code is executed in the common PyNative mode.
+In the preceding code, the `ms_function` decorator is added before `construct` of the `TensorAddNet` class. The decorator compiles the `construct` method into a computational graph. After the input is given, the graph is delivered and executed, `tensor_add` in the preceding code is executed in the common PyNative mode.
 
 It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `tensor_add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
 

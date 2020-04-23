@@ -143,7 +143,7 @@ print(res.asnumpy())
  [3. 3. 3. 3.]]
 ```
 
-上述示例代码中，在`TensorAddNet`类的`construct`之前加装了`ms_function`装饰器，该装饰器会将`construct`方法编译成计算图，在给定输入之后，以图的形式下发执行，而上一示例代码中的`F.tensor_add`会直以普通的PyNative的方式执行。
+上述示例代码中，在`TensorAddNet`类的`construct`之前加装了`ms_function`装饰器，该装饰器会将`construct`方法编译成计算图，在给定输入之后，以图的形式下发执行，而上一示例代码中的`tensor_add`会直接以普通的PyNative的方式执行。
 
 需要说明的是，加装了`ms_function`装饰器的函数中，如果包含不需要进行参数训练的算子（如`pooling`、`tensor_add`等算子），则这些算子可以在被装饰的函数中直接调用，如下例所示。
 
