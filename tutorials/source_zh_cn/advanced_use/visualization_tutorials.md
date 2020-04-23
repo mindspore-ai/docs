@@ -78,6 +78,28 @@ class CrossEntropyLoss(nn.Cell):
         return loss
 
 
+class MyOptimizer(Optimizer):
+    """Optimizer definition."""
+    def __init__(self, learning_rate, params, ......):
+        ......
+        # Initialize ScalarSummary
+        self.sm_scalar = P.ScalarSummary()
+        self.histogram_summary = P.HistogramSummary()
+        self.param_count = len(self.parameters)
+        self.weight_names = [param.name for param in self.parameters]
+
+    def construct(self, grads):
+        ......
+        # Record learning rate here
+        self.sm_scalar("learning_rate", learning_rate)
+
+        # Record weight
+        for i in range(self.param_count):
+            self.histogram_summary(self.weight_names[i], self.paramters[i])
+        
+        ......
+
+
 class Net(nn.Cell):
     """Net definition."""
     def __init__(self):
@@ -93,19 +115,6 @@ class Net(nn.Cell):
         ......
         return out
 
-
-class MyOptimizer(Optimizer):
-    """Optimizer definition."""
-    def __init__(self, learning_rate, ......):
-        ......
-        # Initialize ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
-
-    def construct(self, grads):
-        ......
-        # Record learning rate here
-        self.sm_scalar("learning_rate", learning_rate)
-        ......
 ```
 
 步骤二：通过 `Callback` 的机制，添加所需的Callback实例来指定训练过程中所需要记录的数据。
@@ -135,7 +144,7 @@ def test_summary():
     # Init network and Model
     net = Net()
     loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01)
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
     model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
 
     # Init SummaryRecord and specify a folder for storing summary log files
@@ -161,7 +170,7 @@ def test_summary():
     summary_writer.close()
 ```
 
-完成脚本后，可以通过`context`的`save_graphs`选项配置记录算子融合后的计算图。
+可以通过脚本中`context`的`save_graphs`选项配置记录算子融合后的计算图。
 其中`ms_output_after_hwopt.pb`为算子融合后的计算图。
 
 > 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
