@@ -7,27 +7,30 @@
     - [准备环节](#准备环节)
         - [配置分布式环境变量](#配置分布式环境变量)
         - [调用集合通信库](#调用集合通信库)
-    - [加载数据集](#加载数据集)
+    - [数据并行模式加载数据集](#数据并行模式加载数据集)
     - [定义网络](#定义网络)
     - [定义损失函数及优化器](#定义损失函数及优化器)
         - [定义损失函数](#定义损失函数)
         - [定义优化器](#定义优化器)
     - [训练网络](#训练网络)
-    - [运行测试用例](#运行测试用例)
+    - [运行脚本](#运行脚本)
 
 <!-- /TOC -->
 
 ## 概述
+在深度学习中，数据集和参数量的规模越大，训练需的时间和硬件资源会随之增加，最后变成制约训练的1个瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的1个重要优化手段。根据并行的原理及模式不同，业界主流的并行种类有以下几种：
 
-MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。 
-
-其中：
-- 数据并行（Data Parallel）：对数据batch维度切分的一种并行模式。
-- 模型并行（Layerwise Parallel）：对参数channel维度切分的一种并行模式。
-- 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的一种并行模式。
+- 数据并行（Data Parallel）：对数据进行切分的1种并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
+- 模型并行（Layerwise Parallel）：对模型进行切分，切分后分配到各个计算单元中进行训练，一般按照参数channel维度切分。
+- 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的1种并行模式。
 - 代价模型（Cost Model）：同时考虑内存的计算代价和通信代价对训练时间建模，并设计了高效的算法来找到训练时间较短的并行策略。
 
-本篇教程我们主要了解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
+当前MindSpore也提供分布式并行训练的功能。它支持了多种模式包括：
+- `DATA_PARALLEL`：数据并行模式。
+- `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，为用户选择1种并行模式。当前面向Ascend 910 AI处理器。
+- `HYBRID_PARALLEL`：（实验特性）混合并行模式，用户手动设置。
+
+本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
 > 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
 > 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
@@ -35,9 +38,9 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
 
 ### 配置分布式环境变量
 
-在实验室环境进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，可以跳过本小节。
+在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，可以跳过本小节。
 
-以Ascend 910 AI处理器、AIServer为例，一个两卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
+以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
 
 ```json
 {
@@ -47,46 +50,54 @@ MindSpore支持数据并行及自动并行。自动并行是MindSpore融合了�
     "group_count": "1",
     "group_list": [
         {
-            "device_num": "2",
+            "device_num": "8",
             "server_num": "1",
             "group_name": "",
-            "instance_count": "2",
+            "instance_count": "8",
             "instance_list": [
-                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.155.111.140"},
-                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.155.111.140"}
-               ]
+                {"devices": [{"device_id": "0","device_ip": "192.1.27.6"}],"rank_id": "0","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "1","device_ip": "192.2.27.6"}],"rank_id": "1","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "2","device_ip": "192.3.27.6"}],"rank_id": "2","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "3","device_ip": "192.4.27.6"}],"rank_id": "3","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "4","device_ip": "192.1.27.7"}],"rank_id": "4","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "5","device_ip": "192.2.27.7"}],"rank_id": "5","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "6","device_ip": "192.3.27.7"}],"rank_id": "6","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "7","device_ip": "192.4.27.7"}],"rank_id": "7","server_id": "10.155.111.140"},
+                ]
         }
     ],
     "para_plane_nic_location": "device",
-    "para_plane_nic_name": [
-        "eth0", "eth1"
-    ],
-    "para_plane_nic_num": "2",
+    "para_plane_nic_name": ["eth0","eth1","eth2","eth3","eth4","eth5","eth6","eth7"],
+    "para_plane_nic_num": "8",
     "status": "completed"
 }
 
 ```
 其中需要根据实际训练环境修改的参数项有：
 
-1. `board_id`表示当前运行的环境。
-2. `server_num`表示机器数量， `server_id`表示本机IP地址。
-3. `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
-4. `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
-5. `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`获取网卡IP地址。
-6. `para_plane_nic_name`对应网卡名称。
+- `board_id`表示当前运行的环境。
+- `server_num`表示机器数量， `server_id`表示本机IP地址。
+- `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
+- `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
+- `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`获取网卡IP地址。
+- `para_plane_nic_name`对应网卡名称。
 
-组网信息文件准备好后，将文件路径加入环境变量`MINDSPORE_HCCL_CONFIG_PATH`中。此外需要将`device_id`信息传入脚本中，本样例通过配置环境变量DEVICE_ID的方式传入。
+组网信息文件准备好后，将文件路径加入环境变量`RANK_TABLE_FILE`中。此外需要将`device_id`信息传入脚本中，本样例通过配置环境变量`DEVICE_ID`的方式传入。
 
 ```bash
-export MINDSPORE_HCCL_CONFIG_PATH="./rank_table.json"
+export RANK_TABLE_FILE="./rank_table.json"
 export DEVICE_ID=0
 ```
 
 ### 调用集合通信库
 
-我们需要在`context.set_context()`接口中使能分布式接口`enable_hccl`，设置`device_id`参数，并通过调用`init()`完成初始化操作。
+MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
+> HCCL实现了基于Ascend AI处理器的多机多卡通信，有一些使用限制，我们列出使用分布式服务常见的，详细的可以查看HCCL对应的使用文档。
+> - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
+> - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时网卡必须相连且不支持跨组网创建集群。
+> - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
 
-在样例中，我们指定运行时使用图模式，在Ascend AI处理器上，使用华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL）。
+下面是调用集合通信库样例代码：
 
 ```python
 import os
@@ -99,17 +110,16 @@ if __name__ == "__main__":
     ...   
 ```
 
-`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户获取分布式信息。常用的包括`get_rank`和`get_group_size`，分别对应当前设备在集群中的ID和集群数量。
+其中，  
+- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `enable_hccl=True`：使能HCCL通信。
+- `device_id`：卡物理序号，即卡所在机器中的实际序号。
+- `init()`：完成分布式训练初始化操作。
 
-> HCCL实现了基于Davinci架构芯片的多机多卡通信。当前使用分布式服务存在如下约束：
-> 1. 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
-> 2. 每台机器的0-3卡和4-7卡各为一个组网，2卡和4卡训练时网卡必须相连且不支持跨组网创建集群。
-> 3. 操作系统需使用SMP (symmetric multiprocessing)处理模式。
+## 数据并行模式加载数据集
 
-## 加载数据集
+分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径。
 
-分布式训练时，数据是以数据并行的方式导入的。下面我们以Cifar10Dataset为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径。
-与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应网卡数量和逻辑序号，建议通过HCCL接口获取。
 
 ```python
 import mindspore.common.dtype as mstype
@@ -156,6 +166,9 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
     return data_set
 ```
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应网卡数量和逻辑序号，建议通过HCCL接口获取：  
+- `get_rank`：获取当前设备在集群中的ID。
+- `get_group_size`：获取集群数量。
 
 ## 定义网络
 
@@ -165,8 +178,9 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
 ### 定义损失函数
 
-在Loss部分，我们采用SoftmaxCrossEntropyWithLogits的展开形式，即按照数学公式，将其展开为多个小算子进行实现。
-相较于融合loss，自动并行以展开loss中的算子为粒度，通过算法搜索得到最优并行策略。
+自动并行以展开Loss中的算子为粒度，通过算法搜索得到最优并行策略，所以与单机训练不同的是，为了有更好的并行训练效果，损失函数建议使用小算子来实现。
+
+在Loss部分，我们采用`SoftmaxCrossEntropyWithLogits`的展开形式，即按照数学公式，将其展开为多个小算子进行实现，样例代码如下：
 
 ```python
 from mindspore.ops import operations as P
@@ -210,14 +224,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ### 定义优化器
 
-采用`Momentum`优化器作为参数更新工具，这里定义与单机一致。
-
-```python
-from mindspore.nn.optim.momentum import Momentum
-lr = 0.01
-momentum = 0.9
-opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, momentum)
-```
+采用`Momentum`优化器作为参数更新工具，这里定义与单机一致，不再展开，具体可以参考样例代码中的实现。
 
 ## 训练网络
 
@@ -225,10 +232,9 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, mome
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
 - `paramater_broadcast`： 参数初始化广播开关，非数据并行模式下，默认值为`False`。
-- `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，对应`allreduce_sum`操作；设置为`True`对应`allreduce_mean`操作。
+- `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
-
-在下面的样例中我们指定并行模式为自动并行，其中`dataset_sink_mode=False`表示采用数据非下沉模式，`LossMonitor`能够通过回调函数返回loss值。
+在下面的样例中我们指定并行模式为自动并行。
 
 ```python
 from mindspore.nn.optim.momentum import Momentum
@@ -246,17 +252,20 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
 ```
+其中，  
+`dataset_sink_mode=False`：表示自动并行采用数据非下沉模式，即训练的计算不下沉到硬件平台中进行。  
+`LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
+## 运行脚本
+上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
-## 运行测试用例
-
-目前MindSpore分布式执行采用单卡单进程运行方式，进程数量应当与卡的使用数量保持一致。每个进程创建一个目录，用来保存日志信息以及算子编译信息。下面以一个2卡分布式训练的运行脚本为例：
+目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 ```bash
   #!/bin/bash
   
-  export MINDSPORE_HCCL_CONFIG_PATH=./rank_table.json
-  export RANK_SIZE=2
+  export RANK_TABLE_FILE=./rank_table.json
+  export RANK_SIZE=8
   for((i=0;i<$RANK_SIZE;i++))
   do
       mkdir device$i
@@ -271,3 +280,20 @@ def test_train_cifar(num_classes=10, epoch_size=10):
   done
 ```
 
+运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。输出结果记录在log文件中，关于Loss部分的log如下：
+
+```
+test_resnet50_expand_loss_8p.py::test_train_feed ===============ds_num 195
+global_step: 194, loss: 1.997
+global_step: 389, loss: 1.655
+global_step: 584, loss: 1.723
+global_step: 779, loss: 1.807
+global_step: 974, loss: 1.417
+global_step: 1169, loss: 1.195
+global_step: 1364, loss: 1.238
+global_step: 1559, loss: 1.456
+global_step: 1754, loss: 0.987
+global_step: 1949, loss: 1.035
+end training
+PASSED
+```
