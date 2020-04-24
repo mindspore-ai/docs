@@ -222,4 +222,4 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 1. GLOG_v specifies the log level. The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
 2. When GLOG_logtostderr is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. Default value: 1
-3. GLOG_log_dir=YourPath specifies the log output path. If GLOG_log_dir is specified and the value of GLOG_logtostderr is 1, logs are output to the screen but not to a file.
+3. GLOG_log_dir=YourPath specifies the log output path. If GLOG_logtostderr is set to 0, value of this variable must be specified. If GLOG_log_dir is specified and the value of GLOG_logtostderr is 1, logs are output to the screen but not to a file. Logs of C++ and Python will be output to different files.
