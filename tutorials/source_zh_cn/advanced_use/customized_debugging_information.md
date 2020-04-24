@@ -221,4 +221,5 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 1. GLOG_v 控制日志的级别，默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
 2. GLOG_logtostderr 值设置为1时，日志输出到屏幕；值设置为0时，日志输出到文件。默认值为1。
-3. GLOG_log_dir=YourPath 指定日志输出的路径。若GLOG_logtostderr的值为0，则必须设置此变量。若指定了GLOG_log_dir且GLOG_logtostderr的值为1时，则日志输出到屏幕，不输出到文件。C++和Python的日志会被输出到不同的文件中。
+3. GLOG_log_dir=YourPath 指定日志输出的路径。若GLOG_logtostderr的值为0，则必须设置此变量。若指定了GLOG_log_dir且GLOG_logtostderr的值为1时，则日志输出到屏幕，不输出到文件。C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从GLOG日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳`，Python日志的文件名为`mingspore.log`。
+
