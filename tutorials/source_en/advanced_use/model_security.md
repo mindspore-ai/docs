@@ -49,7 +49,6 @@ import mindspore.dataset.transforms.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.transforms.vision import Inter
 import mindspore.nn as nn
-import mindspore.ops.operations as P
 from mindspore.common.initializer import TruncatedNormal
 from mindspore import Model
 from mindspore import Tensor
@@ -87,14 +86,14 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 
     # define map operations
     resize_op = CV.Resize((resize_height, resize_width),
-                         interpolation=Inter.LINEAR)
+                          interpolation=Inter.LINEAR)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
     type_cast_op = C.TypeCast(mstype.int32)
-    one_hot_enco = C.OneHot(10)
 
     # apply map operations on images
     if not sparse:
+        one_hot_enco = C.OneHot(10)
         ds1 = ds1.map(input_columns="label", operations=one_hot_enco,
                       num_parallel_workers=num_parallel_workers)
         type_cast_op = C.TypeCast(mstype.float32)
@@ -128,18 +127,18 @@ The LeNet model is used as an example. You can also create and train your own mo
        return nn.Conv2d(in_channels, out_channels,
                         kernel_size=kernel_size, stride=stride, padding=padding,
                         weight_init=weight, has_bias=False, pad_mode="valid")
-   
-   
+
+    
    def fc_with_initialize(input_channels, out_channels):
        weight = weight_variable()
        bias = weight_variable()
        return nn.Dense(input_channels, out_channels, weight, bias)
-   
-   
+    
+    
    def weight_variable():
-       return TruncatedNormal(0.2)
-   
-   
+       return TruncatedNormal(0.02)
+    
+    
    class LeNet5(nn.Cell):
        """
        Lenet network
@@ -153,8 +152,8 @@ The LeNet model is used as an example. You can also create and train your own mo
            self.fc3 = fc_with_initialize(84, 10)
            self.relu = nn.ReLU()
            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-           self.reshape = P.Reshape()
-   
+           self.flatten = nn.Flatten()
+    
        def construct(self, x):
            x = self.conv1(x)
            x = self.relu(x)
@@ -162,7 +161,7 @@ The LeNet model is used as an example. You can also create and train your own mo
            x = self.conv2(x)
            x = self.relu(x)
            x = self.max_pool2d(x)
-           x = self.reshape(x, (-1, 16*5*5))
+           x = self.flatten(x)
            x = self.fc1(x)
            x = self.relu(x)
            x = self.fc2(x)
@@ -258,17 +257,17 @@ LOGGER.info(TAG, 'The average costing time is %s',
 
 The attack results are as follows:
 
-```python
+```
 prediction accuracy after attacking is : 0.052083
 mis-classification rate of adversaries is : 0.947917
-The average confidence of adversarial class is : 0.419824
-The average confidence of true class is : 0.070650
+The average confidence of adversarial class is : 0.803375
+The average confidence of true class is : 0.042139
 The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.698870, 0.465888, 0.300000)
 The average structural similarity between original samples and adversarial samples are: 0.332538
 The average costing time is 0.003125
 ```
 
-After the untargeted FGSM attack is performed on the model, the accuracy of model decreases from 98.9% to 5.2% on adversarial examples, while the misclassification ratio reaches 95%, and the Average Confidence of Adversarial Class (ACAC) is 0.419824, the Average Confidence of True Class (ACTC) is 0.070650. The zero-norm distance, two-norm distance, and infinity-norm distance between the generated adversarial examples and the original benign examples are provided. The average structural similarity between each adversarial example and the original example is 0.332538. It takes 0.003125s to generate an adversarial example on average.
+After the untargeted FGSM attack is performed on the model, the accuracy of model decreases from 98.9% to 5.2% on adversarial examples, while the misclassification ratio reaches 95%, and the Average Confidence of Adversarial Class (ACAC) is 0.803375, the Average Confidence of True Class (ACTC) is 0.042139. The zero-norm distance, two-norm distance, and infinity-norm distance between the generated adversarial examples and the original benign examples are provided. The average structural similarity between each adversarial example and the original example is 0.332538. It takes 0.003125s to generate an adversarial example on average.
 
 The following figure shows the effect before and after the attack. The left part is the original example, and the right part is the adversarial example generated after the untargeted FGSM attack. From a visual point of view, there is little difference between the right images and the left images, but all images on the right successfully mislead the model into misclassifying the sample as another incorrect categories.
 
@@ -341,15 +340,15 @@ LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
 
 ### Defense Effect
 
-```python
-accuracy of TEST data on defensed model is : 0.973958
-accuracy of adv data on defensed model is :  0.521835
-defense mis-classification rate of adversaries is : 0.026042
-The average confidence of adversarial class is : 0.67979
-The average confidence of true class is : 0.19144624
-The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.544365, 0.439001, 0.300000)
+```
+accuracy of TEST data on defensed model is : 0.974259
+accuracy of adv data on defensed model is :  0.856370
+defense mis-classification rate of adversaries is : 0.143629
+The average confidence of adversarial class is : 0.616670
+The average confidence of true class is : 0.177374
+The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.493417, 0.432914, 0.300000)
 
 ```
 
-After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 48%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. The NAD function does not reduce the classification accuracy of the model.
+After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 14%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. The NAD function does not reduce the classification accuracy of the model.
 
