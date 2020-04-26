@@ -161,7 +161,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindInsight master | - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 arrch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindInsight master | - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 arrch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.34.2 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
 
