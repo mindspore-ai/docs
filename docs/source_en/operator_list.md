@@ -18,7 +18,7 @@
 | [mindspore.nn.ReLU6](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ReLU6)                                                  |Doing |  Supported | Doing |layer/activation
 | [mindspore.nn.HSwish](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.HSwish)                                                    |  Doing |  Supported |   Doing |layer/activation
 | [mindspore.nn.HSigmoid](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.HSigmoid)                                                    |  Doing |  Supported |   Doing |layer/activation
-| [mindspore.nn.LeakyReLU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LeakyReLU)                                          |Doing |Doing | Doing |layer/activation
+| [mindspore.nn.LeakyReLU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LeakyReLU)                                          | Supported |Doing | Doing |layer/activation
 | [mindspore.nn.Tanh](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Tanh)                                                    |  Supported |Doing | Doing |layer/activation
 | [mindspore.nn.GELU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.GELU)                                                    |  Supported |Doing | Doing |layer/activation
 | [mindspore.nn.Sigmoid](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Sigmoid)                                              |  Supported |Doing | Doing |layer/activation
@@ -32,7 +32,7 @@
 | [mindspore.nn.SequentialCell](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SequentialCell)                                |Doing |  Supported | Doing |layer/container
 | [mindspore.nn.CellList](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.CellList)                                            |  Supported |  Supported | Doing |layer/container
 | [mindspore.nn.Conv2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)                                                |  Supported |  Supported |   Supported |layer/conv
-| [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dTranspose)                              |Doing |  Supported | Doing |layer/conv
+| [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dTranspose)                              |  Supported |  Supported | Doing |layer/conv
 | [mindspore.nn.Embedding](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Doing |  Supported | Doing |layer/embedding
 | [mindspore.nn.LSTM](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    |Doing |  Supported | Doing |layer/lstm
 | [mindspore.nn.BatchNorm1d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm1d)                                      |  Supported |Doing | Doing |layer/normalization
@@ -48,7 +48,7 @@
 | [mindspore.nn.Adam](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Adam)                                                    |Doing |Doing | Doing |optim/adam
 | [mindspore.nn.AdamWeightDecay](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecay)                              |  Supported |Doing | Doing |optim/adam
 | [mindspore.nn.AdamWeightDecayDynamicLR](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecayDynamicLR)            |  Supported |Doing | Doing |optim/adam
-| [mindspore.nn.Lamb](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Lamb)                                                    |Doing |Doing | Doing |optim/lamb
+| [mindspore.nn.Lamb](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Lamb)                                                    |  Supported |Doing | Doing |optim/lamb
 | [mindspore.nn.LARS](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LARS)                                                    |Doing |Doing | Doing |optim/lars
 | [mindspore.nn.Momentum](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Momentum)                                            |  Supported |  Supported |   Supported |optim/momentum
 | [mindspore.nn.Optimizer](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Optimizer)                                          |  Supported |  Supported | Doing |optim/optimizer
