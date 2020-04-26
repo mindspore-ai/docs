@@ -46,7 +46,7 @@ parser.add_argument('--epoch_size', type=int, default=1, help='Epoch size.')
 parser.add_argument('--batch_size', type=int, default=32, help='Batch size.')
 parser.add_argument('--num_classes', type=int, default=10, help='Num classes.')
 parser.add_argument('--checkpoint_path', type=str, default=None, help='CheckPoint file path.')
-parser.add_argument('--dataset_path', type=str, default="/var/log/npu/datasets/cifar/cifar-10-batches-bin", help='Dataset path.')
+parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path.')
 args_opt = parser.parse_args()
 
 device_id = int(os.getenv('DEVICE_ID'))
