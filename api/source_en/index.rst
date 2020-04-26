@@ -37,6 +37,7 @@ MindSpore API
    api/python/mindarmour/mindarmour.detectors
    api/python/mindarmour/mindarmour.attacks
    api/python/mindarmour/mindarmour.defenses
+   api/python/mindarmour/mindarmour.fuzzing
 
 .. toctree::
    :maxdepth: 1
