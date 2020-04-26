@@ -48,7 +48,6 @@ import mindspore.dataset.transforms.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.transforms.vision import Inter
 import mindspore.nn as nn
-import mindspore.ops.operations as P
 from mindspore.common.initializer import TruncatedNormal
 from mindspore import Model
 from mindspore import Tensor
@@ -86,14 +85,14 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 
     # define map operations
     resize_op = CV.Resize((resize_height, resize_width),
-                         interpolation=Inter.LINEAR)
+                          interpolation=Inter.LINEAR)
     rescale_op = CV.Rescale(rescale, shift)
     hwc2chw_op = CV.HWC2CHW()
     type_cast_op = C.TypeCast(mstype.int32)
-    one_hot_enco = C.OneHot(10)
 
     # apply map operations on images
     if not sparse:
+        one_hot_enco = C.OneHot(10)
         ds1 = ds1.map(input_columns="label", operations=one_hot_enco,
                       num_parallel_workers=num_parallel_workers)
         type_cast_op = C.TypeCast(mstype.float32)
@@ -136,7 +135,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     
     
     def weight_variable():
-        return TruncatedNormal(0.2)
+        return TruncatedNormal(0.02)
     
     
     class LeNet5(nn.Cell):
@@ -152,7 +151,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
             self.fc3 = fc_with_initialize(84, 10)
             self.relu = nn.ReLU()
             self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-            self.reshape = P.Reshape()
+            self.flatten = nn.Flatten()
     
         def construct(self, x):
             x = self.conv1(x)
@@ -161,7 +160,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
             x = self.conv2(x)
             x = self.relu(x)
             x = self.max_pool2d(x)
-            x = self.reshape(x, (-1, 16*5*5))
+            x = self.flatten(x)
             x = self.fc1(x)
             x = self.relu(x)
             x = self.fc2(x)
@@ -257,17 +256,17 @@ LOGGER.info(TAG, 'The average costing time is %s',
 
 攻击结果如下：
 
-```python
+```
 prediction accuracy after attacking is : 0.052083
 mis-classification rate of adversaries is : 0.947917
-The average confidence of adversarial class is : 0.419824
-The average confidence of true class is : 0.070650
+The average confidence of adversarial class is : 0.803375
+The average confidence of true class is : 0.042139
 The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.698870, 0.465888, 0.300000)
 The average structural similarity between original samples and adversarial samples are: 0.332538
 The average costing time is 0.003125
 ```
 
-对模型进行FGSM无目标攻击后，模型精度由98.9%降到5.2%，误分类率高达95%，成功攻击的对抗样本的预测类别的平均置信度（ACAC）为 0.419824，成功攻击的对抗样本的真实类别的平均置信度（ACTC）为 0.070650，同时给出了生成的对抗样本与原始样本的零范数距离、二范数距离和无穷范数距离，平均每个对抗样本与原始样本间的结构相似性为0.332538，平均每生成一张对抗样本所需时间为0.003125s。
+对模型进行FGSM无目标攻击后，模型精度由98.9%降到5.2%，误分类率高达95%，成功攻击的对抗样本的预测类别的平均置信度（ACAC）为 0.803375，成功攻击的对抗样本的真实类别的平均置信度（ACTC）为 0.042139，同时给出了生成的对抗样本与原始样本的零范数距离、二范数距离和无穷范数距离，平均每个对抗样本与原始样本间的结构相似性为0.332538，平均每生成一张对抗样本所需时间为0.003125s。
 
 攻击前后效果如下图，左侧为原始样本，右侧为FGSM无目标攻击后生成的对抗样本。从视觉角度而言，右侧图片与左侧图片几乎没有明显变化，但是均成功误导了模型，使模型将其误分类为其他非正确类别。
 
@@ -339,14 +338,14 @@ LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
 
 ### 防御效果
 
-```python
-accuracy of TEST data on defensed model is : 0.973958
-accuracy of adv data on defensed model is :  0.521835
-defense mis-classification rate of adversaries is : 0.026042
-The average confidence of adversarial class is : 0.67979
-The average confidence of true class is : 0.19144624
-The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.544365, 0.439001, 0.300000)
+```
+accuracy of TEST data on defensed model is : 0.974259
+accuracy of adv data on defensed model is : 0.856370
+defense mis-classification rate of adversaries is : 0.143629
+The average confidence of adversarial class is : 0.616670
+The average confidence of true class is : 0.177374
+The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.493417, 0.432914, 0.300000)
 ```
 
-使用NAD进行对抗样本防御后，模型对于对抗样本的误分类率从95%降至48%，模型有效地防御了对抗样本。同时，模型对于原来测试数据集的分类精度达97%，使用NAD防御功能，并未降低模型的分类精度。
+使用NAD进行对抗样本防御后，模型对于对抗样本的误分类率从95%降至14%，模型有效地防御了对抗样本。同时，模型对于原来测试数据集的分类精度达97%，使用NAD防御功能，并未降低模型的分类精度。
 
