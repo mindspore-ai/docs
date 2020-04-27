@@ -56,7 +56,6 @@ This document describes how to quickly install MindSpore on a Windows system wit
     python
     import mindspore
     ```
-    > - Before running the preceding command, ensure that [Visual C ++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145) is installed.
 
 ### Installing Using the Source Code
 
@@ -73,7 +72,8 @@ This document describes how to quickly install MindSpore on a Windows system wit
     ```
     > - Before running the preceding command, ensure that the paths of mingw64\bin\ and the executable files cmake have been added to the environment variable PATH.
     > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
-    > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads(Default -j6). For example, `call build.bat -j12`.
+    > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads(Default 6). For example, `call build.bat 12`.
+    > - Before running the preceding command, ensure that [Visual C ++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145) is installed.
 
 3. Run the following command to install MindSpore:
 
@@ -87,4 +87,3 @@ This document describes how to quickly install MindSpore on a Windows system wit
     python
     import mindspore
     ```
-    > - Before running the preceding command, ensure that [Visual C ++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145) is installed.
