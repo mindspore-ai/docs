@@ -80,7 +80,6 @@ class MyOptimizer(Optimizer):
         # Initialize ScalarSummary
         self.sm_scalar = P.ScalarSummary()
         self.histogram_summary = P.HistogramSummary()
-        self.param_count = len(self.parameters)
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
@@ -89,8 +88,9 @@ class MyOptimizer(Optimizer):
         self.sm_scalar("learning_rate", learning_rate)
 
         # Record weight
-        for i in range(self.param_count):
-            self.histogram_summary(self.weight_names[i], self.paramters[i])
+        self.histogram_summary(self.weight_names[0], self.paramters[0])
+        # Record gradient
+        self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
         
         ......
 
@@ -168,6 +168,8 @@ Use the `save_graphs` option of `context` to record the computational graph afte
 `ms_output_after_hwopt.pb` is the computational graph after operator fusion.
 
 > Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
+
+> It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
 
 ## MindInsight Commands
 
