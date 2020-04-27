@@ -14,6 +14,8 @@
 
 混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或batch size。
 
+对于FP16的算子，若给定的数据类型是FP32，MindSpore框架的后端会进行降精度处理。用户可以开启INFO日志，并通过搜索关键字“reduce precision”查看降精度处理的算子。
+
 ## 计算流程
 
 MindSpore混合精度典型的计算流程如下图所示：
@@ -45,8 +47,19 @@ MindSpore混合精度典型的计算流程如下图所示：
 代码样例如下：
 
 ```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.common.dtype as mstype
+from mindspore import Tensor, context
+from mindspore.ops import operations as P
+from mindspore.nn import WithLossCell
+from mindspore.nn import Momentum
+from mindspore.nn.loss import MSELoss
 # The interface of Auto_mixed precision
 from mindspore.train import amp
+
+context.set_context(mode=context.GRAPH_MODE)
+context.set_context(device_target="Ascend")
 
 # Define network
 class LeNet5(nn.Cell):
@@ -58,7 +71,7 @@ class LeNet5(nn.Cell):
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
         self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2)
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = P.Flatten()
 
     def construct(self, x):
@@ -94,15 +107,28 @@ output = train_network(predict, label, scaling_sens)
 MindSpore还支持手动混合精度。假定在网络中只有一个Dense Layer要用FP32计算，其他Layer都用FP16计算。混合精度配置以Cell为粒度，Cell默认是FP32类型。
 
 以下是一个手动混合精度的实现步骤：
-1. 定义网络: 该步骤与自动混合精度中的步骤2类似；注意：在LeNet中的fc3算子，需要手动配置成FP32；
+1. 定义网络: 该步骤与自动混合精度中的步骤2类似；
 
-2. 配置混合精度: LeNet通过net.to_float(mstype.float16)，把该Cell及其子Cell中所有的算子都配置成FP16；
+2. 配置混合精度: LeNet通过net.to_float(mstype.float16)，把该Cell及其子Cell中所有的算子都配置成FP16；然后，将LeNet中的fc3算子手动配置成FP32；
 
 3. 使用TrainOneStepWithLossScaleCell封装网络模型和优化器。
 
 代码样例如下：
 
 ```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.common.dtype as mstype
+from mindspore import Tensor, context
+from mindspore.ops import operations as P
+from mindspore.nn import WithLossCell, TrainOneStepWithLossScaleCell
+from mindspore.nn import Momentum
+from mindspore.nn.loss import MSELoss
+
+
+context.set_context(mode=context.GRAPH_MODE)
+context.set_context(device_target="Ascend")
+
 # Define network
 class LeNet5(nn.Cell):
     def __init__(self):
@@ -111,9 +137,9 @@ class LeNet5(nn.Cell):
         self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
         self.fc1 = nn.Dense(16 * 5 * 5, 120)
         self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, 10).to_float(mstype.float32)
+        self.fc3 = nn.Dense(84, 10)
         self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2)
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = P.Flatten()
 
     def construct(self, x):
@@ -128,6 +154,7 @@ class LeNet5(nn.Cell):
 # Initialize network and set mixing precision
 net = LeNet5()
 net.to_float(mstype.float16)
+net.fc3.to_float(mstype.float32)
 
 # Define training data, label and sens
 predict = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32) * 0.01)
@@ -140,6 +167,7 @@ loss = MSELoss()
 optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
 net_with_loss = WithLossCell(net, loss)
 train_network = TrainOneStepWithLossScaleCell(net_with_loss, optimizer)
+train_network.set_train()
 
 # Run training
 output = train_network(predict, label, scaling_sens)
