@@ -85,7 +85,6 @@ class MyOptimizer(Optimizer):
         # Initialize ScalarSummary
         self.sm_scalar = P.ScalarSummary()
         self.histogram_summary = P.HistogramSummary()
-        self.param_count = len(self.parameters)
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
@@ -94,8 +93,9 @@ class MyOptimizer(Optimizer):
         self.sm_scalar("learning_rate", learning_rate)
 
         # Record weight
-        for i in range(self.param_count):
-            self.histogram_summary(self.weight_names[i], self.paramters[i])
+        self.histogram_summary(self.weight_names[0], self.paramters[0])
+        # Record gradient
+        self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
         
         ......
 
@@ -174,6 +174,8 @@ def test_summary():
 其中`ms_output_after_hwopt.pb`为算子融合后的计算图。
 
 > 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
+
+> 一个batch中，`HistogramSummary`算子的调用次数请尽量控制在10次以下，调用次数越多，性能开销越大。
 
 ## MindInsight相关命令
 
