@@ -12,7 +12,7 @@
     - [System Functions](#system-functions)
     - [Function Parameters](#function-parameters)
     - [Operators](#operators)
-    - [Slicing Operations](#slicing-operations)
+    - [Index operation](#index-operation)
     - [Unsupported Syntax](#unsupported-syntax)
   - [Network Definition Constraints](#network-definition-constraints)
     - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
@@ -86,32 +86,41 @@
 | `%`          |Scalar and `Tensor`
 | `[]`         |The operation object type can be `list`, `tuple`, or `Tensor`. Accessed multiple subscripts of lists and dictionaries can be used as r-values instead of l-values. The index type cannot be Tensor. For details about access constraints for the tuple and Tensor types, see the description of slicing operations.
 
-### Slicing Operations
+### Index operation
 
-* `tuple` slicing operation: `tuple_x[start:stop:step]`
-    - `tuple_x` indicates a tuple on which the slicing operation is performed.
-    - `start`: index where the slice starts. The value is of the `int` type, and the value range is `[-length(tuple_x), length(tuple_x) - 1]`. Default values can be used. The default settings are as follows:
-      - When `step > 0`, the default value is `0`.
-      - When `step < 0`, the default value is `length(tuple_x) - 1`.
-    - `end`: index where the slice ends. The value is of the `int` type, and the value range is `[-length(tuple_x) - 1, length(tuple_x)]`. Default values can be used. The default settings are as follows:
-      - When `step > 0`, the default value is `length(tuple_x)`.
-      - When `step < 0`, the default value is `-1`.
-    - `step`: slicing step. The value is of the `int` type, and its range is `step! = 0`. The default value `1` can be used.
+The index operation includes `tuple` and` Tensor`. The following focuses on the index value assignment and assignment operation of `Tensor`. The value takes` tensor_x [index] `as an example, and the assignment takes` tensor_x [index] = u` as an example for detailed description. Among them, tensor_x is a `Tensor`, which is sliced; index means the index, u means the assigned value, which can be` scalar` or `Tensor (size = 1)`. The index types are as follows:
 
-*  `Tensor` slicing operation: `tensor_x[start0:stop0:step0, start1:stop1:step1, start2:stop2:step2]`
-   - `tensor_x` indicates a `Tensor` with at least three dimensions. The slicing operation is performed on it.
-   - `start0`: index where the slice starts in dimension 0. The value is of the `int` type. Default values can be used. The default settings are as follows:
-     - When `step > 0`, the default value is `0`.
-     - When `step < 0`, the default value is `-1`.
-   - `end0`: index where the slice ends in dimension 0. The value is of the `int` type. Default values can be used. The default settings are as follows:
-     - When `step > 0`, the default value is `length(tuple_x)`.
-     - When `step < 0`, the default value is `-(1 + length(tuple_x))`.
-   - `step0`: slicing step in dimension 0. The value is of the `int` type, and its range is `step! = 0`. The default value `1` can be used.
-   - If the number of dimensions for slicing is less than that for `Tensor`, all elements are used by default if no slice dimension is specified.
-   - Slice dimension reduction operation: If an integer index is transferred to a dimension, the elements of the corresponding index in the dimension is obtained and the dimension is eliminated. For example, after `tensor_x[2:4:1, 1, 0:5:2]` with shape (4, 3, 6) is sliced, a `Tensor` with shape (2, 3) is generated. The first dimension of the original `Tensor` is eliminated.
-* Ellipsis as indexing: Get the all elements of the dimensions which is ignored by ellipsis. For example, tensor_x with shape(3, 4, 5, 6), `tensor_x[1:3:1, ..., 0:5:2]` will result in a shape of (2,4,5,3).
-* None as indexing: For a tensor shape with (3,4,5), operation `tensor_x[None]` will result in a tensor with shape (1, 3, 4, 5).
-* True as indexing: For a tensor shape with (3,4,5), operation `tensor_x[True]` will result in a tensor with shape (1, 3, 4, 5).
+- Slice index: index is `slice`
+  - Value: `tensor_x[start: stop: step]`, where Slice (start: stop: step) has the same syntax as Python, and will not be repeated here.
+  - Assignment: `tensor_x[start: stop: step] = u`.
+
+- Ellipsis index: index is `ellipsis`
+  - Value: `tensor_x [...]`.
+  - Assignment: `tensor_x [...] = u`.
+
+- Boolean constant index: index is `True`, index is `False` is not supported temporarily.
+  - Value: `tensor_x[True]`.
+  - Assignment: Not supported yet.
+- Tensor index: index is `Tensor`
+  - Value: Not supported yet.
+  - Assignment: `tensor_x[index] = u`, `index` only supports `Tensor` of type` bool`.
+- None constant index: index is `None`
+  - Value: `tensor_x[None]`, results are consistent with numpy.
+  - Assignment: Not supported yet.
+- tuple index: index is `tuple`
+  - The tuple element is a slice:
+    - Value: for example `tensor_x[::,: 4, 3: 0: -1]`.
+    - Assignment: for example `tensor_x[::,: 4, 3: 0: -1] = u`.
+  - The tuple element is Number:
+    - Value: for example `tensor_x[2,1]`.
+    - Assignment: for example `tensor_x[1,4] = u`.
+  - The tuple element is a mixture of slice and ellipsis:
+    - Value: for example `tensor_x[..., ::, 1:]`.
+    - Assignment: for example `tensor_x[..., ::, 1:] = u`.
+  - Not supported in other situations
+
+In addition, tuple also supports slice value operation, `tuple_x [start: stop: step]`, which has the same effect as Python, and will not be repeated here.
+
 ### Unsupported Syntax
 
 Currently, the following syntax is not supported in network constructors: 
