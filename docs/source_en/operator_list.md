@@ -34,6 +34,9 @@
 | [mindspore.nn.Conv2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)                                                |  Supported |  Supported |   Supported |layer/conv
 | [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dTranspose)                              |  Supported |  Supported | Doing |layer/conv
 | [mindspore.nn.Embedding](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Doing |  Supported | Doing |layer/embedding
+| [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Doing |Doing | Doing |layer/image
+| [mindspore.nn.SSIM](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Doing |Doing | Doing |layer/image
+| [mindspore.nn.PSNR](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Doing |Doing | Doing |layer/image
 | [mindspore.nn.LSTM](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    |Doing |  Supported | Doing |layer/lstm
 | [mindspore.nn.BatchNorm1d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm1d)                                      |  Supported |Doing | Doing |layer/normalization
 | [mindspore.nn.BatchNorm2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)                                      |  Supported |  Supported | Doing |layer/normalization
