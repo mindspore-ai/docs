@@ -105,9 +105,9 @@ output = train_network(predict, label, scaling_sens)
 MindSpore还支持手动混合精度。假定在网络中只有一个Dense Layer要用FP32计算，其他Layer都用FP16计算。混合精度配置以Cell为粒度，Cell默认是FP32类型。
 
 以下是一个手动混合精度的实现步骤：
-1. 定义网络: 该步骤与自动混合精度中的步骤2类似；注意：在LeNet中的fc3算子，需要手动配置成FP32；
+1. 定义网络: 该步骤与自动混合精度中的步骤2类似；
 
-2. 配置混合精度: LeNet通过net.to_float(mstype.float16)，把该Cell及其子Cell中所有的算子都配置成FP16；
+2. 配置混合精度: LeNet通过net.to_float(mstype.float16)，把该Cell及其子Cell中所有的算子都配置成FP16；然后，将LeNet中的fc3算子手动配置成FP32；
 
 3. 使用TrainOneStepWithLossScaleCell封装网络模型和优化器。
 
