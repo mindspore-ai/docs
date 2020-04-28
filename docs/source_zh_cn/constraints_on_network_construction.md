@@ -12,7 +12,7 @@
         - [系统函数](#系统函数)
         - [函数参数](#函数参数)
         - [操作符](#操作符)
-        - [切片操作](#切片操作)
+        - [索引操作](#索引操作)
         - [不支持的语法](#不支持的语法)
     - [网络定义约束](#网络定义约束)
         - [整网实例类型](#整网实例类型)
@@ -86,32 +86,39 @@
 | `%`          |标量、`Tensor`
 | `[]`         |操作对象类型支持`list`、`tuple`、`Tensor`，支持多重下标访问作为右值，但不支持多重下标访问作为左值，且索引类型不支持Tensor；Tuple、Tensor类型访问限制见切片操作中的说明。
 
-### 切片操作
+### 索引操作
 
-* `tuple`切片操作：`tuple_x[start:stop:step]`
-    - `tuple_x`为一个元组，是被执行切片操作的目标。
-    - `start`：切片的起始位置索引，类型为`int`，取值范围为`[-length(tuple_x), length(tuple_x) - 1]`。可缺省，缺省配置如下：
-      - 当`step > 0`时，缺省值为`0`。
-      - 当`step < 0`时，缺省值为`length(tuple_x) - 1`。
-    - `end`：切片的结束位置索引，类型为`int`，取值范围为`[-length(tuple_x) - 1, length(tuple_x)]`。可缺省，缺省配置如下：
-      - 当`step > 0`时，缺省值为`length(tuple_x)`。
-      - 当`step < 0`是，缺省值为`-1`。
-    - `step`：切片的步长，类型为`int`，取值范围为`step != 0`。可缺省，缺省值为`1`。
+索引操作包含`tuple`和`Tensor`的索引操作。下面重点介绍一下`Tensor`的索引取值和赋值操作，取值以`tensor_x[index]`为例，赋值以`tensor_x[index] = u`为例进行详细说明。其中tensor_x是一个`Tensor`，对其进行切片操作；index表示索引，u表示赋予的值，可以是`scalar`或者`Tensor(size=1)`。索引类型如下：
 
-*  `Tensor`切片操作：`tensor_x[start0:stop0:step0, start1:stop1:step1, start2:stop2:step2]`
-   -  `tensor_x`是一个维度不低于3维的`Tensor`，对其进行切片操作。
-   - `start0`：在第0维上进行切片的起始位置索引，类型为`int`，可缺省，缺省配置如下：
-     - 当`step > 0`时，缺省值为`0`。
-     - 当`step < 0`时，缺省值为`-1`。
-   - `end0`：在第0维上进行切片的结束位置索引，类型为`int`，可缺省，缺省配置如下：
-     - 当`step > 0`时，缺省值为`length(tuple_x)`。
-     - 当`step < 0`是，缺省值为`-(1 + length(tuple_x))`。
-   - `step0`：在第0维上进行切片的步长，类型为`int`，取值范围为`step != 0`。可缺省，缺省值为`1`。
-   - 如果进行切片的维数少于`Tensor`的维数，则未指定切片的维度默认取全部元素。
-   - 切片降维操作：在某维度上传入整数索引，则取出该维度上对应索引的元素，且消除该维度，如shape为(4, 3, 6)的`tensor_x[2:4:1, 1, 0:5:2]`切片之后，生成一个shape为(2, 3)的`Tensor`，原`Tensor`的第1维被消除。
-   - Ellipsis作为索引：与numpy保持一致，未明确指定如何操作的维度，都对应取全部元素，shape为(3, 4, 5, 6)的`tensor_x[1:3:1, ..., 0:5:2]`切片之后，第1维和第2维取全部元素，生成一个shape为（2， 4， 5， 3）的`Tensor`。
-   - None作为索引：与numpy保持一致，如shape为(3, 4, 5)的`tensor_x[None]`返回的是一个维度扩展之后,shape为(1, 3, 4, 5)的`Tensor`。
-   - True作为索引：与numpy保持一致，如shape为(3, 4, 5)的`tensor_x[True]`返回的是一个维度扩展之后,shape为(1, 3, 4, 5)的`Tensor`。
+- 切片索引：index为`slice`
+  - 取值：`tensor_x[start:stop:step]`，其中Slice(start:stop:step)与Python的语法相同，这里不再赘述。
+  - 赋值：`tensor_x[start:stop:step]=u`。
+- Ellipsis索引：index为`ellipsis`
+  - 取值：`tensor_x[...]`。
+  - 赋值：`tensor_x[...]=u`。
+- 布尔常量索引：index为`True`，index为`False`暂不支持。
+  - 取值：`tensor_x[True]`。
+  - 赋值：暂不支持。
+- Tensor索引：index为`Tensor`
+  - 取值：暂不支持。
+  - 赋值：`tensor_x[index]=u`，`index`仅支持`bool`类型的`Tensor`。
+- None常量索引：index为`None`
+  - 取值：`tensor_x[None]`，结果与numpy保持一致。
+  - 赋值：暂不支持。
+- tuple索引：index为`tuple`
+  - tuple元素为slice:
+    - 取值：例如`tensor_x[::, :4, 3:0:-1]`。
+    - 赋值：例如`tensor_x[::, :4, 3:0:-1]=u`。
+  - tuple元素为Number: 
+    - 取值：例如`tensor_x[2,1]`。
+    - 赋值：例如`tensor_x[1,4]=u`。
+  - tuple元素为slice和ellipsis混合情况:
+    - 取值：例如`tensor_x[..., ::, 1:]`
+    - 赋值：例如`tensor_x[..., ::, 1:]=u`
+  - 其他情况暂不支持
+
+另外tuple也支持切片取值操作，`tuple_x[start:stop:step]`，与Python的效果相同，这里不再赘述。
+
 ### 不支持的语法
 
 目前在网络构造函数里面暂不支持以下语法： 
