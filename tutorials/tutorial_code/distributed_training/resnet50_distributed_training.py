@@ -37,7 +37,7 @@ device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(enable_task_sink=True, device_id=device_id) # set task_sink and device_id
 context.set_context(enable_hccl=True) # set enable_hccl
-context.set_context(enable_loop_sink=False)
+context.set_context(enable_loop_sink=True)
 context.set_context(enable_mem_reuse=False)
 init()
 
@@ -126,4 +126,4 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     model = Model(net, loss_fn=loss, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
+    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)

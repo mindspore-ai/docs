@@ -20,15 +20,13 @@
 ## 概述
 在深度学习中，数据集和参数量的规模越大，训练需的时间和硬件资源会随之增加，最后变成制约训练的1个瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的1个重要优化手段。根据并行的原理及模式不同，业界主流的并行种类有以下几种：
 
-- 数据并行（Data Parallel）：对数据进行切分的1种并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
-- 模型并行（Layerwise Parallel）：对模型进行切分，切分后分配到各个计算单元中进行训练，一般按照参数channel维度切分。
-- 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的1种并行模式。
-- 代价模型（Cost Model）：同时考虑内存的计算代价和通信代价对训练时间建模，并设计了高效的算法来找到训练时间较短的并行策略。
+- 数据并行（Data Parallel）：对数据进行切分的一种并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
+- 模型并行（Model Parallel）：对模型进行切分的一种并行模式。MindSpore中支持层内模型并行模式，对参数切分后分配到各个计算单元中进行训练。
+- 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的一种并行模式。
 
 当前MindSpore也提供分布式并行训练的功能。它支持了多种模式包括：
 - `DATA_PARALLEL`：数据并行模式。
-- `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，为用户选择1种并行模式。当前面向Ascend 910 AI处理器。
-- `HYBRID_PARALLEL`：（实验特性）混合并行模式，用户手动设置。
+- `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。其中，代价模型指围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。
 
 本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
 > 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
@@ -40,7 +38,7 @@
 
 在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，可以跳过本小节。
 
-以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
+以Ascend 910 AI处理器为例，一个8卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
 
 ```json
 {
@@ -75,19 +73,13 @@
 ```
 其中需要根据实际训练环境修改的参数项有：
 
-- `board_id`表示当前运行的环境。
+- `board_id`表示当前运行的环境，x86设为`0x0000`，arm设为`0x0020`。
 - `server_num`表示机器数量， `server_id`表示本机IP地址。
 - `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
 - `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
-- `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`获取网卡IP地址。
+- `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
 - `para_plane_nic_name`对应网卡名称。
 
-组网信息文件准备好后，将文件路径加入环境变量`RANK_TABLE_FILE`中。此外需要将`device_id`信息传入脚本中，本样例通过配置环境变量`DEVICE_ID`的方式传入。
-
-```bash
-export RANK_TABLE_FILE="./rank_table.json"
-export DEVICE_ID=0
-```
 
 ### 调用集合通信库
 
@@ -234,13 +226,22 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 - `paramater_broadcast`： 参数初始化广播开关，非数据并行模式下，默认值为`False`。
 - `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
-在下面的样例中我们指定并行模式为自动并行。
+> `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
+
+在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式，只需将`parallel_mode`改为`DATA_PARALLEL`。
 
 ```python
+from mindspore import context
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.train.callback import LossMonitor
 from mindspore.train.model import Model, ParallelMode
 from resnet import resnet50
+
+device_id = int(os.getenv('DEVICE_ID'))
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+context.set_context(enable_task_sink=True, device_id=device_id) # set task_sink and device_id
+context.set_context(enable_hccl=True) # set enable_hccl
+context.set_context(enable_loop_sink=True)
 
 def test_train_cifar(num_classes=10, epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
@@ -250,37 +251,44 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     model = Model(net, loss_fn=loss, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
+    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 其中，  
-`dataset_sink_mode=False`：表示自动并行采用数据非下沉模式，即训练的计算不下沉到硬件平台中进行。  
-`LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
+- `dataset_sink_mode=True`，`enable_task_sink=True`,`enable_loop_sink=True`：表示采用数据集和任务的下沉模式，即训练的计算下沉到硬件平台中执行。
+- `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
 ## 运行脚本
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
-目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行一个进程，进程数量与使用的卡的数量一致。每个进程创建一个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 ```bash
-  #!/bin/bash
-  
-  export RANK_TABLE_FILE=./rank_table.json
-  export RANK_SIZE=8
-  for((i=0;i<$RANK_SIZE;i++))
-  do
-      mkdir device$i
-      cp ./resnet50_distributed_training.py ./device$i
-      cd ./device$i
-      export RANK_ID=$i
-      export DEVICE_ID=$i
-      echo "start training for device $i"
-      env > env$i.log
-      pytest -s -v ./resnet50_distributed_training.py > log$i 2>&1 &
-      cd ../
-  done
+#!/bin/bash
+
+export RANK_TABLE_FILE=./rank_table.json
+export RANK_SIZE=8
+for((i=0;i<$RANK_SIZE;i++))
+do
+    rm -rf device$i
+    mkdir device$i
+    cp ./resnet50_distributed_training.py ./device$i
+    cd ./device$i
+    export DEVICE_ID=$i
+    echo "start training for device $i"
+    env > env$i.log
+    pytest -s -v ./resnet50_distributed_training.py > train.log$i 2>&1 &
+    cd ../
+done
 ```
 
-运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。输出结果记录在log文件中，关于Loss部分的log如下：
+其中必要的环境变量有，  
+- `RANK_TABLE_FILE`：组网信息文件的路径。
+- `DEVICE_ID`：当前网卡在机器上的实际序号。
+其余环境变量请参考安装教程中的配置项。
+
+运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
+
+日志文件保存device目录下，env.log中记录了环境变量的相关信息，关于Loss部分结果保存在train.log中，示例如下：
 
 ```
 test_resnet50_expand_loss_8p.py::test_train_feed ===============ds_num 195
