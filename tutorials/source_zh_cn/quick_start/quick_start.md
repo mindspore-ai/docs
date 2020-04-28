@@ -98,8 +98,8 @@ from mindspore import context
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='MindSpore LeNet Example')
-    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],
-                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'],
+                        help='device where the code will be implemented (default: CPU)')
     args = parser.parse_args()
     context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target,
                         enable_mem_reuse=False)
@@ -237,7 +237,6 @@ class LeNet5(nn.Cell):
     #define the operator required
     def __init__(self):
         super(LeNet5, self).__init__()
-        self.batch_size = 32
         self.conv1 = conv(1, 6, 5)
         self.conv2 = conv(6, 16, 5)
         self.fc1 = fc_with_initialize(16 * 5 * 5, 120)
