@@ -27,12 +27,14 @@ from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.train.model import Model, ParallelMode
 from mindspore.train.callback import Callback, LossMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
+import mindspore.dataset.engine as de
 
 from dataset import create_dataset, device_id, device_num
 from mindspore.model_zoo.resnet import resnet50
 
 random.seed(1)
 np.random.seed(1)
+de.config.set_seed(1)
 
 
 class PerformanceCallback(Callback):
@@ -113,7 +115,10 @@ def resnet50_train(args_opt):
     local_data_path = '/cache/data'
 
     # set graph mode and parallel mode
-    context.set_context(mode=context.GRAPH_MODE)
+    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", save_graphs=False)
+    context.set_context(enable_task_sink=True, device_id=device_id)
+    context.set_context(enable_loop_sink=True)
+    context.set_context(enable_mem_reuse=True)
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
