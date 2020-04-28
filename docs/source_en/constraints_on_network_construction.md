@@ -3,23 +3,23 @@
 <!-- TOC -->
 
 - [Constraints on Network Construction Using Python](#constraints-on-network-construction-using-python)
-    - [Overview](#overview)
-    - [Syntax Constraints](#syntax-constraints)
-        - [Supported Python Data Types](#supported-python-data-types)
-        - [MindSpore Extended Data Type](#mindspore-extended-data-type)
-        - [Expression Types](#expression-types)
-        - [Statement Types](#statement-types)
-        - [System Functions](#system-functions)
-        - [Function Parameters](#function-parameters)
-        - [Operators](#operators)
-        - [Slicing Operations](#slicing-operations)
-        - [Unsupported Syntax](#unsupported-syntax)
-    - [Network Definition Constraints](#network-definition-constraints)
-        - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
-        - [Network Input Type](#network-input-type)
-        - [Network Graph Optimization](#network-graph-optimization)
-        - [Network Construction Components](#network-construction-components)
-        - [Other Constraints](#other-constraints)
+  - [Overview](#overview)
+  - [Syntax Constraints](#syntax-constraints)
+    - [Supported Python Data Types](#supported-python-data-types)
+    - [MindSpore Extended Data Type](#mindspore-extended-data-type)
+    - [Expression Types](#expression-types)
+    - [Statement Types](#statement-types)
+    - [System Functions](#system-functions)
+    - [Function Parameters](#function-parameters)
+    - [Operators](#operators)
+    - [Slicing Operations](#slicing-operations)
+    - [Unsupported Syntax](#unsupported-syntax)
+  - [Network Definition Constraints](#network-definition-constraints)
+    - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
+    - [Network Input Type](#network-input-type)
+    - [Network Graph Optimization](#network-graph-optimization)
+    - [Network Construction Components](#network-construction-components)
+    - [Other Constraints](#other-constraints)
 
 <!-- /TOC -->
 
@@ -41,7 +41,7 @@
 | Operation          | Description 
 | :-----------    |:--------
 | Unary operator      |`+`,`-`, and`not`. The operator `+` supports only scalars.
-| Binary operator      |`+`, `-`, `*`, `/`, and `%`.
+| Binary operator      |`+`, `-`, `*`, `/`, `%`, `**` and `//`
 | `if` expression      | For example, `a = x if x < y else y`.
 | Comparison expression      | `>`, `>=`, `<`, `<=`, `==`, and `! =`.
 | Logical expression      | `and` and `or`.
@@ -56,6 +56,8 @@
 | `while`      | Nested while loops are partially supported.
 | `if`         | Same as that in Python. The input of the `if` condition must be a constant.
 | `def`        | Same as that in Python.
+| `in`         | Only support Dictionary.
+| `not in`     | Only support Dictionary.
 | Assignment statement     | Accessed multiple subscripts of lists and dictionaries cannot be used as l-value.
 
 ### System Functions
@@ -67,7 +69,7 @@
 
 ### Function Parameters
 *  Default parameter value: The data types `int`, `float`, `bool`, `None`, `str`, `tuple`, `list`, and `dict` are supported, whereas `Tensor` is not supported.
-*  Variable parameter: Functions with variable parameters cannot be used for backward propagation on computational graphs.
+*  Variable parameter: Functions with variable arguments is supported for training and inference.
 *  Key-value pair parameter: Functions with key-value pair parameters cannot be used for backward propagation on computational graphs.
 *  Variable key-value pair parameter: Functions with variable key-value pairs cannot be used for backward propagation on computational graphs.
 
@@ -75,10 +77,13 @@
 
 | Operator         | Supported Type
 | :----------- |:--------
-| `+`          |Scalar, `Tensor`, and `tuple`
+| `+`          |Scalar, `Tensor`, `tuple` and `string`
 | `-`          |Scalar and `Tensor`
 | `*`          |Scalar and `Tensor`
 | `/`          |Scalar and `Tensor`
+| `**`         |Scalar and `Tensor`
+| `//`         |Scalar and `Tensor`
+| `%`          |Scalar and `Tensor`
 | `[]`         |The operation object type can be `list`, `tuple`, or `Tensor`. Accessed multiple subscripts of lists and dictionaries can be used as r-values instead of l-values. The index type cannot be Tensor. For details about access constraints for the tuple and Tensor types, see the description of slicing operations.
 
 ### Slicing Operations
@@ -104,7 +109,9 @@
    - `step0`: slicing step in dimension 0. The value is of the `int` type, and its range is `step! = 0`. The default value `1` can be used.
    - If the number of dimensions for slicing is less than that for `Tensor`, all elements are used by default if no slice dimension is specified.
    - Slice dimension reduction operation: If an integer index is transferred to a dimension, the elements of the corresponding index in the dimension is obtained and the dimension is eliminated. For example, after `tensor_x[2:4:1, 1, 0:5:2]` with shape (4, 3, 6) is sliced, a `Tensor` with shape (2, 3) is generated. The first dimension of the original `Tensor` is eliminated.
-
+* Ellipsis as indexing: Get the all elements of the dimensions which is ignored by ellipsis. For example, tensor_x with shape(3, 4, 5, 6), `tensor_x[1:3:1, ..., 0:5:2]` will result in a shape of (2,4,5,3).
+* None as indexing: For a tensor shape with (3,4,5), operation `tensor_x[None]` will result in a tensor with shape (1, 3, 4, 5).
+* True as indexing: For a tensor shape with (3,4,5), operation `tensor_x[True]` will result in a tensor with shape (1, 3, 4, 5).
 ### Unsupported Syntax
 
 Currently, the following syntax is not supported in network constructors: 
