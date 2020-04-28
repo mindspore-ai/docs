@@ -11,9 +11,9 @@
         - [数据准备](#数据准备)
         - [执行脚本准备](#执行脚本准备)
     - [通过简单适配将MindSpore脚本运行在ModelArts](#通过简单适配将mindspore脚本运行在modelarts)
-        - [脚本参数](#脚本参数)
+        - [适配脚本参数](#适配脚本参数)
         - [适配OBS数据](#适配obs数据)
-        - [获取环境变量](#获取环境变量)
+        - [适配8卡训练任务](#适配8卡训练任务)
         - [示例代码](#示例代码)
     - [创建训练任务](#创建训练任务)
         - [进入ModelArts控制台](#进入modelarts控制台)
@@ -25,12 +25,12 @@
 
 ## 概述
 
-ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。在ModelArts上使用MindSpore 0.1.0-alpha版本的训练性能如下表所示。
+ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。在ModelArts上使用MindSpore 0.2.0-alpha版本的训练性能如下表所示。
 
 | 模型 | 数据集 | MindSpore版本 | 资源 | 处理速度（images/sec） |
 | --- | --- | --- | --- | --- |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,611.1 |
-| ResNet-50 v1.5 | CIFAR-10 | 0.1.0-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 12,245.7 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.2.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 核 96GiB | 1,759.0 |
+| ResNet-50 v1.5 | CIFAR-10 | 0.2.0-alpha | Ascend: 8 * Ascend 910 </br> CPU：192 核 768GiB | 13,391.6 |
 
 本教程以ResNet-50为例，简要介绍如何在ModelArts使用MindSpore完成训练任务。
 
@@ -87,11 +87,11 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 ## 通过简单适配将MindSpore脚本运行在ModelArts
 
-如果需要将自定义MindSpore脚本或更多MindSpore示例代码在ModelArts运行起来，可以参考本章节对MindSpore代码进行简单适配。想要快速体验ResNet-50训练CIFAR-10可以跳过本章节。
+“执行脚本准备”章节提供的脚本可以直接运行在ModelArts，想要快速体验ResNet-50训练CIFAR-10可以跳过本章节。如果需要将自定义MindSpore脚本或更多MindSpore示例代码在ModelArts运行起来，需要参考本章节对MindSpore代码进行简单适配。
 
-###  脚本参数
+###  适配脚本参数
 
-1. 两个固定参数
+1. 在ModelArts运行的脚本必须配置`data_url`和`train_url`，分别对应数据存储路径(OBS路径)和训练输出路径(OBS路径)。
 
     ``` python
     import parser
@@ -100,7 +100,6 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
     parser.add_argument('--data_url', required=True, default=None, help='Location of data.')
     parser.add_argument('--train_url', required=True, default=None, help='Location of training outputs.')
     ```
-    `data_url`和`train_url`是在ModelArts执行训练任务时两个必传参数，分别对应数据存储路径(OBS路径)和训练输出路径(OBS路径)。
 
 2. ModelArts界面支持向脚本中其他参数传值，在下一章节“创建训练作业”中将会详细介绍。
 
@@ -127,11 +126,25 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
     mox.file.copy_parallel(src_url='/cache/output_path', dst_url='s3://output_url/')
     ```
 
-### 获取环境变量
+### 适配8卡训练任务
+如果需要将脚本运行在`8*Ascend`规格的环境上，需要对创建数据集的代码和本地数据路径进行适配，并配置分布式策略。通过获取`DEVICE_ID`和`RANK_SIZE`两个环境变量，用户可以构建适用于`1*Ascend`和`8*Ascend`两种不同规格的训练脚本。
 
-MindSpore创建数据集和配置分布式策略与运行环境有关，通过获取`DEVICE_ID`和`RANK_SIZE`两个环境变量，用户可以构建适用于`1*Ascend`和`8*Ascend`两种不同规格的训练脚本。
+1. 本地路径适配。
 
-1. 创建数据集。
+    ```python
+    import os
+    
+    device_num = int(os.getenv('RANK_SIZE'))
+    device_id = int(os.getenv('DEVICE_ID'))
+    # define local data path
+    local_data_path = '/cache/data'
+
+    if device_num > 1:
+        # define distributed local data path
+        local_data_path = os.path.join(local_data_path, str(device_id))
+    ```
+
+2. 数据集适配。
 
     ```python
     import os
@@ -140,25 +153,24 @@ MindSpore创建数据集和配置分布式策略与运行环境有关，通过�
     device_id = int(os.getenv('DEVICE_ID'))
     device_num = int(os.getenv('RANK_SIZE'))
     if device_num == 1:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True)
+        # create train data for 1 Ascend situation
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        # split train data for 8 Ascend situation
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True,
-                            num_shards=device_num, shard_id=device_id)
+        # create train data for 1 Ascend situation, split train data for 8 Ascend situation
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                               num_shards=device_num, shard_id=device_id)
     ```
 
-2. 配置分布式策略。
+3. 配置分布式策略。
 
     ```python
     import os
 
-    device_id = int(os.getenv('DEVICE_ID'))
     device_num = int(os.getenv('RANK_SIZE'))
-    context.set_context(mode=context.GRAPH_MODE)
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
-                                        parallel_mode=ParallelMode.DATA_PARALLEL,
-                                        mirror_mean=True)
+                                          parallel_mode=ParallelMode.DATA_PARALLEL,
+                                          mirror_mean=True)
     ```
 
 ### 示例代码
@@ -178,17 +190,13 @@ device_num = int(os.getenv('RANK_SIZE'))
 
 def create_dataset(dataset_path):
     if device_num == 1:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True)
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True,
-                            num_shards=device_num, shard_id=device_id)
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                               num_shards=device_num, shard_id=device_id)
     return ds
 
 def resnet50_train(args_opt):
-    epoch_size = args_opt.epoch_size
-    local_data_path = args_opt.local_data_path
-
-    context.set_context(mode=context.GRAPH_MODE)
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                         parallel_mode=ParallelMode.DATA_PARALLEL,
@@ -220,10 +228,10 @@ device_num = int(os.getenv('RANK_SIZE'))
 
 def create_dataset(dataset_path):
     if device_num == 1:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True)
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True,
-                            num_shards=device_num, shard_id=device_id)
+        ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                               num_shards=device_num, shard_id=device_id)
     return ds
 
 def resnet50_train(args_opt):
@@ -258,6 +266,7 @@ if __name__ == '__main__':
 ## 创建训练任务
 
 准备好数据和执行脚本以后，需要创建训练任务将MindSpore脚本真正运行起来。首次使用ModelArts的用户可以根据本章节了解ModelArts创建训练作业的流程。
+> 本章节以MindSpore 0.1.0-alpha版本为例。
 
 ### 进入ModelArts控制台
 
