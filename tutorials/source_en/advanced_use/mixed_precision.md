@@ -36,7 +36,6 @@ This document describes the computation process by using examples of automatic a
 ## Automatic Mixed Precision
 
 To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the BatchNorm and Loss operators).
-In addition, after the mixed precision is employed, the loss scale must be used to avoid data overflow.
 
 The procedure is as follows:
 1. Introduce the MindSpore mixed precision API.
@@ -49,57 +48,44 @@ A code example is as follows:
 
 ```python
 import numpy as np
+
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
 from mindspore import Tensor, context
 from mindspore.ops import operations as P
-from mindspore.nn import WithLossCell
 from mindspore.nn import Momentum
-from mindspore.nn.loss import MSELoss
 # The interface of Auto_mixed precision
-from mindspore.train import amp
+from mindspore import amp
 
 context.set_context(mode=context.GRAPH_MODE)
 context.set_context(device_target="Ascend")
 
 # Define network
-class LeNet5(nn.Cell):
-    def __init__(self):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, 5, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, 10)
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = P.Flatten()
+class Net(nn.Cell):
+    def __init__(self, input_channel, out_channel):
+        super(Net, self).__init__()
+        self.dense = nn.Dense(input_channel, out_channel)
+        self.relu = P.ReLU()
 
     def construct(self, x):
-        x = self.max_pool2d(self.relu(self.conv1(x)))
-        x = self.max_pool2d(self.relu(self.conv2(x)))
-        x = self.flatten(x)
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.dense(x)
+        x = self.relu(x)
         return x
 
-# Initialize network
-net = LeNet5()
 
-# Define training data, label and sens
-predict = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([1, 10]).astype(np.float32))
-scaling_sens = Tensor(np.full((1), 1.0), dtype=mstype.float32)
+# Initialize network
+net = Net(512, 128)
+
+# Define training data, label
+predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
+label = Tensor(np.zeros([64, 128]).astype(np.float32))
 
 # Define Loss and Optimizer
-loss = MSELoss()
+loss = nn.SoftmaxCrossEntropyWithLogits()
 optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-net_with_loss = WithLossCell(net, loss)
-train_network = amp.build_train_network(net_with_loss, optimizer, level="O2")
+train_network = amp.build_train_network(net, optimizer, loss, level="O2", loss_scale_manager=None)
 
 # Run training
-output = train_network(predict, label, scaling_sens)
+output = train_network(predict, label)
 ```
 
 
@@ -110,66 +96,53 @@ MindSpore also supports manual mixed precision. It is assumed that only one dens
 The following is the procedure for implementing manual mixed precision:
 1. Define the network. This step is similar to step 2 in the automatic mixed precision. 
 
-2. Configure the mixed precision. Use net.to_float(mstype.float16) to set all operators of the cell and its sub-cells to FP16. Then, configure the fc3 to FP32.
+2. Configure the mixed precision. Use net.to_float(mstype.float16) to set all operators of the cell and its sub-cells to FP16. Then, configure the dense to FP32.
 
-3. Use TrainOneStepWithLossScaleCell to encapsulate the network model and optimizer.
+3. Use TrainOneStepCell to encapsulate the network model and optimizer.
 
 A code example is as follows:
 
 ```python
 import numpy as np
+
 import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 from mindspore import Tensor, context
 from mindspore.ops import operations as P
-from mindspore.nn import WithLossCell, TrainOneStepWithLossScaleCell
+from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
-from mindspore.nn.loss import MSELoss
-
 
 context.set_context(mode=context.GRAPH_MODE)
 context.set_context(device_target="Ascend")
 
 # Define network
-class LeNet5(nn.Cell):
-    def __init__(self):
-        super(LeNet5, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, 5, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, 10)
-        self.relu = nn.ReLU()
-        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.flatten = P.Flatten()
+class Net(nn.Cell):
+    def __init__(self, input_channel, out_channel):
+        super(Net, self).__init__()
+        self.dense = nn.Dense(input_channel, out_channel)
+        self.relu = P.ReLU()
 
     def construct(self, x):
-        x = self.max_pool2d(self.relu(self.conv1(x)))
-        x = self.max_pool2d(self.relu(self.conv2(x)))
-        x = self.flatten(x)
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.dense(x)
+        x = self.relu(x)
         return x
 
 # Initialize network and set mixing precision
-net = LeNet5()
+net = Net(512, 128)
 net.to_float(mstype.float16)
-net.fc3.to_float(mstype.float32)
+net.dense.to_float(mstype.float32)
 
-# Define training data, label and sens
-predict = Tensor(np.ones([1, 1, 32, 32]).astype(np.float32) * 0.01)
-label = Tensor(np.zeros([1, 10]).astype(np.float32))
-scaling_sens = Tensor(np.full((1), 1.0), dtype=mstype.float32)
+# Define training data, label
+predict = Tensor(np.ones([64, 512]).astype(np.float32) * 0.01)
+label = Tensor(np.zeros([64, 128]).astype(np.float32))
 
 # Define Loss and Optimizer
-net.set_train()
-loss = MSELoss()
+loss = nn.SoftmaxCrossEntropyWithLogits()
 optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
 net_with_loss = WithLossCell(net, loss)
-train_network = TrainOneStepWithLossScaleCell(net_with_loss, optimizer)
+train_network = TrainOneStepCell(net_with_loss, optimizer)
 train_network.set_train()
 
 # Run training
-output = train_network(predict, label, scaling_sens)
+output = train_network(predict, label)
 ```
