@@ -30,7 +30,7 @@ Among them:
 In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARALLEL` or `AUTO_PARALLEL` mode on MindSpore.
 
 > The current sample is for the Ascend 910 AI processor. CPU and GPU processors are not supported for now.
-> You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
+> You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
 
 ## Preparations
 
@@ -160,7 +160,7 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
 In `DATA_PARALLEL` and `AUTO_PARALLEL` modes, the network definition mode is the same as that of a single-node system. For sample code, see at
 
- <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>.
+ <https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/resnet/resnet.py>.
 
 ## Defining the Loss Function and Optimizer
 

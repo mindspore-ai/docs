@@ -30,7 +30,7 @@
 
 本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
 > 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 
@@ -164,7 +164,7 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/resnet/resnet.py>
 
 ## 定义损失函数及优化器
 
