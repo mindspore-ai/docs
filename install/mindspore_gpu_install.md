@@ -56,7 +56,7 @@
 - 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ### 从源码编译安装
@@ -78,8 +78,8 @@
 3. 执行如下命令安装MindSpore。
 
     ```bash
-    chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ## 安装验证

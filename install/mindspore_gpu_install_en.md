@@ -56,7 +56,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
 - Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ### Installing Using the Source Code
@@ -78,8 +78,8 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
 3. Run the following command to install MindSpore:
 
     ```bash
-    chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ## Installation Verification

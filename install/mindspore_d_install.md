@@ -72,7 +72,7 @@
 - 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ### 从源码编译安装
@@ -97,8 +97,8 @@
 3. 执行如下命令安装MindSpore。
 
     ```bash
-    chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ## 配置环境变量
@@ -108,15 +108,14 @@
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
-    # the root directory of run package
-    LOCAL_ASCEND=/usr/local/Ascend
-    # Python library that TBE implementation depends on
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe
-    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+    # Conda environmental options
+    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
     # lib libraries that the run package depends on
     export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
-    # TBE operator compilation tool path
-    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}
+    # Environment variables that must be configured
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe # TBE operator implementation tool path
+    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH} # TBE operator compilation tool path
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH} # Python library that TBE implementation depends on
     ```
 
 ## 安装验证

@@ -71,7 +71,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 - Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ### Installing Using the Source Code
@@ -96,8 +96,8 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 3. Run the following command to install MindSpore:
 
     ```bash
-    chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
 ## Configuring Environment Variables
@@ -107,15 +107,14 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
-    # the root directory of run package
-    LOCAL_ASCEND=/usr/local/Ascend
-    # Python library that TBE implementation depends on
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe
-    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+    # Conda environmental options
+    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
     # lib libraries that the run package depends on
     export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
-    # TBE operator compilation tool path
-    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}
+    # Environment variables that must be configured
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe # TBE operator implementation tool path
+    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH} # TBE operator compilation tool path
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH} # Python library that TBE implementation depends on
     ```
 
 ## Installation Verification
