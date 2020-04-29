@@ -44,7 +44,7 @@
 
 ### 通过可执行文件安装
 
-1. 从[MindSpore版本库](https://repo.mindspore.cn/mindspore/mindspore/newest/cpu/x64_windows/)获取daily版本对应的Windows安装包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
+1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
     pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl
