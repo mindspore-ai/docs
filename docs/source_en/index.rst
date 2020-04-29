@@ -12,6 +12,7 @@ MindSpore Documentation
 
    architecture
    roadmap
+   benchmark
    constraints_on_network_construction
    operator_list
    glossary
