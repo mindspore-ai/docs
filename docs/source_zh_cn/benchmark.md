@@ -1,6 +1,6 @@
 # 基准性能
 
-本文介绍MindSpore的基准性能。MindSpore预训练模型可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)。
+本文介绍MindSpore的基准性能。MindSpore预训练模型可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.2/mindspore/model_zoo)。
 
 ## 训练性能
 
