@@ -57,7 +57,7 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
 2. 从代码仓下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindspore.git
+   git clone https://gitee.com/mindspore/mindspore.git -b r0.2
    ```
 
 3. 在源码根目录下，执行如下命令编译MindSpore Predict。-I为编译MindSpore Predict的编译参数，-I的参数为目标端侧平台，目前仅支持安卓arm64平台。

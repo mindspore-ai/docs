@@ -63,7 +63,7 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 6. 加载保存的模型进行推理
 
 
-> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet>
+> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/resnet>
 
 下面对任务流程中各个环节及代码关键片段进行解释说明。
 

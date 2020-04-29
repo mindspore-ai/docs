@@ -36,7 +36,7 @@
 5. 加载保存的模型，进行推理。
 6. 验证模型，加载测试数据集和训练后的模型，验证结果精度。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/r0.2/tutorials/tutorial_code/lenet.py> 。
 
 
 这是简单、基础的应用流程，其他高级、复杂的应用可以基于这个基本流程进行扩展。
