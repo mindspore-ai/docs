@@ -67,7 +67,7 @@ A: Please install the software manually if there is any suggestion of certain `s
 
 Q: What types of model is currently supported by MindSpore for training ?
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md) for detailed information.
 
 ### Backend Support
 

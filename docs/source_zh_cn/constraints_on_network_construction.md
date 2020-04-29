@@ -127,8 +127,8 @@
 ## 网络定义约束
 
 ### 整网实例类型
-* 带[@ms_function](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
-* 继承自[nn.Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)的Cell子类。
+* 带[@ms_function](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
+* 继承自[nn.Cell](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)的Cell子类。
 
 ### 网络输入类型
 * 整网的训练数据输入参数只能是Tensor类型。
@@ -141,13 +141,13 @@
 
 | 类别                 | 内容
 | :-----------         |:--------
-| `Cell`实例           |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
+| `Cell`实例           |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。
 | 函数                 | 自定义Python函数、前文中列举的系统函数。
 | dataclass实例        | 使用@dataclass装饰的类。
-| Primitive算子        |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html)
-| Composite算子        |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html)
-| constexpr生成算子    |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
+| Primitive算子        |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.ops.operations.html)
+| Composite算子        |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.ops.composite.html)
+| constexpr生成算子    |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
 
 
 ### 其他约束

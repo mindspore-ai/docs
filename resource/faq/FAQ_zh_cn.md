@@ -66,7 +66,7 @@ A：当有此提示时说明要用户安装`tclsh`；如果仍提示缺少其他
 
 Q：MindSpore支持哪些模型的训练？
 
-A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md)。
+A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md)。
 
 ### 后端支持
 

@@ -1,7 +1,7 @@
 # Benchmarks
 
 This document describes the MindSpore benchmarks. 
-For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo).
+For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.2/mindspore/model_zoo).
 
 ## Training Performance
 
