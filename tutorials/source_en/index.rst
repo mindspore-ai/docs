@@ -35,4 +35,5 @@ MindSpore Tutorials
    advanced_use/customized_debugging_information
    advanced_use/on_device_inference
    advanced_use/model_security
+   advanced_use/mindspore_cpu_win_install
    advanced_use/community
