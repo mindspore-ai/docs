@@ -187,6 +187,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git
     ```
+    > You are **not** supposed to obtain the source code from the zip package downloaded from the repository homepage.
 
 2. Install MindInsight by using either of the following installation methods:
 
@@ -200,18 +201,14 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
    (2) Create a .whl package to install MindInsight.
 
-      Access the build directory of the source code and run the MindInsight compilation script.
+      Access the root directory of the source code.
+      First run the MindInsight compilation script under the build directory of the source code.
+      Then run the command to install the .whl package generated into the output directory of the source code.
 
       ```bash
-      cd mindinsight/build
-      bash build.sh
-      ```
-
-      Access the output directory of the source code, where the generated MindInsight installation package is stored, and run the installation command.
-
-      ```bash
-      cd mindinsight/output
-      pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      cd mindinsight
+      bash build/build.sh
+      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
       ```
 
 3. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.

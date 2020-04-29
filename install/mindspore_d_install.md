@@ -188,6 +188,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git
     ```
+    > **不能**直接在仓库主页下载zip包获取源码。
 
 2. 可选择以下任意一种安装方式：
 
@@ -201,18 +202,12 @@
 
    (2) 构建whl包进行安装。
 
-      进入源码的build目录，执行MindInsight编译脚本。
+      进入源码的根目录，先执行build目录下的MindInsight编译脚本，再执行命令安装output目录下生成的whl包。
 
       ```bash
-      cd mindinsight/build
-      bash build.sh
-      ```
-
-      进入源码的output目录，即可查看生成的MindInsight安装包，执行安装命令。
-
-      ```bash
-      cd mindinsight/output
-      pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      cd mindinsight
+      bash build/build.sh
+      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
       ```
 
 3. 执行如下命令，如果提示`web address: http://127.0.0.1:8080`，则说明安装成功。
