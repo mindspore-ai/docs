@@ -36,7 +36,6 @@ from resnet import resnet50
 device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(enable_task_sink=True, device_id=device_id) # set task_sink and device_id
-context.set_context(enable_hccl=True) # set enable_hccl
 context.set_context(enable_loop_sink=True)
 context.set_context(enable_mem_reuse=False)
 init()

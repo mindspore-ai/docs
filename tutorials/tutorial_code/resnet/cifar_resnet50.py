@@ -106,16 +106,10 @@ def create_dataset(repeat_num=1, training=True):
 
 if __name__ == '__main__':
     # in this way by judging the mark of args, users will decide which function to use
-    if args_opt.do_eval:
-        context.set_context(enable_hccl=False)
-    else:
-        if args_opt.run_distribute:
-            context.set_context(enable_hccl=True)
-            context.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL)
-            auto_parallel_context().set_all_reduce_fusion_split_indices([140])
-            init()
-        else:
-            context.set_context(enable_hccl=False)
+    if not args_opt.do_eval and args_opt.run_distribute:
+        context.set_auto_parallel_context(device_num=args_opt.device_num, parallel_mode=ParallelMode.DATA_PARALLEL)
+        auto_parallel_context().set_all_reduce_fusion_split_indices([140])
+        init()
 
     epoch_size = args_opt.epoch_size
     net = resnet50(args_opt.batch_size, args_opt.num_classes)

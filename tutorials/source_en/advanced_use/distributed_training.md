@@ -84,7 +84,7 @@ export DEVICE_ID=0
 
 ### Invoking the Collective Communication Library
 
-You need to enable the distributed API `enable_hccl` in the `context.set_context()` API, set the `device_id` parameter, and invoke `init()` to complete the initialization operation.
+You need to set the `device_id` parameter, and invoke `init()` to complete the initialization operation.
 
 In the sample, the graph mode is used during runtime. On the Ascend AI processor, Huawei Collective Communication Library (HCCL) is used.
 
@@ -94,7 +94,7 @@ from mindspore import context
 from mindspore.communication.management import init
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", enable_hccl=True, device_id=int(os.environ["DEVICE_ID"]))
+    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...   
 ```
