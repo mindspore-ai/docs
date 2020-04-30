@@ -40,6 +40,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ModelCheckpoint可以保存模型参数，以便进行再训练或推理。
 LossMonitor可以在日志中输出loss，方便用户查看，同时它还会监控训练过程中的loss值变化情况，当loss值为`Nan`或`Inf`时终止训练。
 SummaryStep可以把训练过程中的信息存储到文件中，以便后续进行查看或可视化展示。
+在训练过程中，Callback列表会按照定义的顺序执行Callback函数。因此在定义过程中，需考虑Callback之间的依赖关系。
 
 ### 自定义Callback
 
