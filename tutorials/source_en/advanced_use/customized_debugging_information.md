@@ -41,6 +41,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ModelCheckpoint can save model parameters for retraining or inference.
 LossMonitor can output loss information in logs for users to view. In addition, LossMonitor monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
 SummaryStep can save the training information to a file for later use.
+During the training process, the callback list will execute the callback function in the defined order. Therefore, in the definition process, the dependency between callbacks needs to be considered.
 
 ### Custom Callback
 
