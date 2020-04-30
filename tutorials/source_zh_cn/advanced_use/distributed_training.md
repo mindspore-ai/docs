@@ -97,16 +97,15 @@ from mindspore import context
 from mindspore.communication.management import init
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", enable_hccl=True, device_id=int(os.environ["DEVICE_ID"]))
+    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
     ...   
 ```
 
 其中，  
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
-- `enable_hccl=True`：使能HCCL通信。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
-- `init()`：完成分布式训练初始化操作。
+- `init()`：使能HCCL通信，并完成分布式训练初始化操作。
 
 ## 数据并行模式加载数据集
 
@@ -240,7 +239,6 @@ from resnet import resnet50
 device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(enable_task_sink=True, device_id=device_id) # set task_sink and device_id
-context.set_context(enable_hccl=True) # set enable_hccl
 context.set_context(enable_loop_sink=True)
 
 def test_train_cifar(num_classes=10, epoch_size=10):
