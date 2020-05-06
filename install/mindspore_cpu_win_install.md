@@ -71,7 +71,8 @@
     call build.bat
     ```
     > - 在执行上述命令前，需保证mingw64\bin\路径和可执行文件cmake所在路径已加入环境变量PATH中。
-    > - build.sh中会执行git clone获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+    > - 如git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。
+    > - build.bat中会执行git clone获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量（默认为6）。如`call build.bat 12`。
     > - 在执行上述命令前，需保证已安装[Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145)。
 
