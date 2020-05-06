@@ -71,7 +71,8 @@ This document describes how to quickly install MindSpore on a Windows system wit
     call build.bat
     ```
     > - Before running the preceding command, ensure that the paths of mingw64\bin\ and the executable files cmake have been added to the environment variable PATH.
-    > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
+    > - If git was not installed in `ProgramFiles`, you will need to set environment variable to where `patch.exe` is allocated. For example, when git was install in `D:\git`, `set MS_PATCH_PATH=D:\git\usr\bin`.
+    > - In the build.bat script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads(Default 6). For example, `call build.bat 12`.
     > - Before running the preceding command, ensure that [Visual C ++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145) is installed.
 
