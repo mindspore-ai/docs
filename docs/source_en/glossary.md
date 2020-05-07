@@ -12,8 +12,8 @@
 |  CCE  | Cube-based Computing Engine, which is an operator development tool oriented to hardware architecture programming.  |
 |  CCE-C  |  Cube-based Computing Engine C, which is C code developed by the CCE.  |
 |  CheckPoint  |  MindSpore model training check point, which is used to save model parameters for inference or retraining.  |
-|  CIFAR-10  |  An open-source image data set that contains 60000 32 x 32 color images of 10 categories, with 6000 images of each category. There are 50000 training images and 10000 test images.  |
-|  CIFAR-100  |  An open-source image data set that contains 100 categories. Each category contains 600 images. Each course has 500 training images and 100 test images.  |
+|  CIFAR-10  |  An open-source image dataset that contains 60000 32 x 32 color images of 10 categories, with 6000 images of each category. There are 50000 training images and 10000 test images.  |
+|  CIFAR-100  |  An open-source image dataset that contains 100 categories. Each category has 500 training images and 100 test images.  |
 |  DaVinci  |  DaVinci architecture, Huawei-developed new chip architecture.  |
 |  EulerOS  |  Euler operating system, which is developed by Huawei based on the standard Linux kernel.  |
 |  FC Layer  |  Fully connected layer, which acts as a classifier in the entire convolutional neural network.  |
@@ -40,7 +40,7 @@
 |  MNIST database  |  Modified National Handwriting of Images and Technology database, a large handwritten digit database, which is usually used to train various image processing systems.  |
 |  PyNative Mode  |  MindSpore dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.  |
 |  ResNet-50  |  Residual Neural Network 50, a residual neural network proposed by four Chinese people, including Kaiming He from Microsoft Research Institute.  |
-|  Schema  |  Data set structure definition file, which defines the fields contained in a data set and the field types.  |
+|  Schema  |  Data set structure definition file, which defines the fields contained in a dataset and the field types.  |
 |  Summary  |  An operator that monitors the values of tensors on the network. It is a peripheral operation in the figure and does not affect the data flow.  |
 |  TBE  |  Tensor Boost Engine, an operator development tool that is extended based on the Tensor Virtual Machine (TVM) framework.  |
 |  TFRecord  |  Data format defined by TensorFlow.  |

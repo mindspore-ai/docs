@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
 ## Loading Datasets
 
-During distributed training, data is imported in data parallel mode. The following uses Cifar10Dataset as an example to describe how to import the CIFAR-10 data set in parallel mode, `data_path` is the path of the dataset.
+During distributed training, data is imported in data parallel mode. The following uses Cifar10Dataset as an example to describe how to import the CIFAR-10 dataset in parallel mode, `data_path` is the path of the dataset.
 Different from a single-node system, the multi-node system needs to transfer `num_shards` and `shard_id` parameters to the dataset API, which correspond to the number of cards and logical sequence number of the NIC, respectively. You are advised to obtain the parameters through the HCCL API.
 
 ```python
