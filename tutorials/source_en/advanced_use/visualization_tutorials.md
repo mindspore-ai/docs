@@ -15,6 +15,7 @@
         - [Dataset Graph Visualization](#dataset-graph-visualization)
         - [Dataset Lineage Visualization](#dataset-lineage-visualization)
         - [Parameter Distribution](#parameter-distribution)
+  - [Specifications](#specifications)
 
 <!-- /TOC -->
 
@@ -391,3 +392,13 @@ Figure 16 shows the function area of the parameter distribution histogram, inclu
 - Tag selection: Select the required tags to view the corresponding histogram.
 - Vertical axis: Select any of `Step`, `Relative time`, and `Absolute time` as the data displayed on the vertical axis of the histogram.
 - Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.  
+
+## Specifications
+
+To limit time of listing summaries, MindInsight lists at most 999 summary items.
+
+To limit memory usage, MindInsight limits the number of tags and steps:
+- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags can not exceed 300. Specially, there are 10 computation graph tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
+- There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+- There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+- There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
