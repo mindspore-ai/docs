@@ -9,6 +9,7 @@
     - [支持](#支持)
         - [模型支持](#模型支持)
         - [后端支持](#后端支持)
+        - [系统支持](#系统支持)
         - [编程语言扩展](#编程语言扩展)
         - [其他](#其他)
     - [特性](#特性)
@@ -68,6 +69,12 @@ Q：MindSpore支持哪些模型的训练？
 
 A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md)。
 
+<br/>
+
+Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？
+
+A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)。
+
 ### 后端支持
 
 Q：安装运行MindSpore时，是否要求平台有GPU、NPU等计算单元？
@@ -79,6 +86,18 @@ A：MindSpore当前支持CPU/GPU/NPU，重点支持Ascend AI处理器。CPU支�
 Q：针对异构计算单元的支持，MindSpore有什么计划？
 
 A：MindSpore提供了可插拔式的设备管理接口，其他计算单元（比如FPGA）可快速灵活地实现与MindSpore的对接，欢迎您参与社区进行异构计算后端的开发工作。
+
+<br/>
+
+Q：MindSpore需要什么硬件支持？
+
+A：目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/docs/zh-CN/master/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md)获取最新信息。
+
+### 系统支持
+
+Q：MindSpore是否支持Windows 10？
+
+A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindspore_cpu_win_install.html)。
 
 ### 编程语言扩展
 
@@ -98,14 +117,67 @@ Q：MindSpore在语义协同和处理上是如何实现的？是否利用当前�
 
 A：MindSpore框架本身并不需要支持FCA。对于语义类模型，用户可以调用第三方的工具在数据预处理阶段做FCA数学分析。MindSpore本身支持Python语言，`import FCA`相关包即可使用。
 
+<br/>
+
+Q：从哪里可以查看MindSpore训练及推理的样例代码或者教程？
+
+A：可以访问[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/index.html)。
+
 ## 特性
 
 Q：当前在云上MindSpore的训练和推理功能是比较完备的，至于边端场景（尤其是终端设备）MindSpore有什么计划？
 
 A：MindSpore是端边云统一的训练和推理框架，支持将云侧训练的模型导出到Ascend AI处理器和终端设备进行推理。当前推理阶段支持的优化包括量化、算子融合、内存复用等。
 
+<br/>
+
+Q：MindSpore自动并行支持情况如何？
+
+A：自动并行特性对CPU GPU的支持还在完善中。推荐用户在Ascend 910 AI处理器上使用自动并行，可以关注开源社区，申请MindSpore开发者体验环境进行试用。
+
+<br/>
+
+Q：MindSpore与ModelArts是什么关系，在ModelArts中能使用MindSpore吗？
+
+A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
+
 ## 能力
 
 Q：MindSpore有没有类似基于TensorFlow实现的对象检测算法的模块？
 
 A：TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待MindSpore检测类模型完备后，会提供类似的Pipeline接口。
+
+</br>
+
+Q：其他框架的脚本或者模型怎么迁移到MindSpore？
+
+A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/network_migration.html)的介绍。
+
+<br/>
+
+Q：MindSpore是否附带开源电商类数据集？
+
+A：暂时还没有，可以持续关注[MindSpore官网](https://www.mindspore.cn)。
+
+<br/>
+
+Q：MindSpore模型训练代码能有多简单？
+
+A：除去网络定义，MindSpore提供了Model类的接口，大多数场景只需几行代码就可完成模型训练。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
