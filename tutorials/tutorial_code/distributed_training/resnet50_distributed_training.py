@@ -43,7 +43,9 @@ init()
 rank_id = get_rank()
 rank_size = get_group_size()
 
-def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+EXEC_PATH=os.getcwd()
+
+def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -120,7 +122,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 def test_train_cifar(num_classes=10, epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
     loss_cb = LossMonitor()
-    dataset = create_dataset(epoch_size)
+    dataset = create_dataset(os.path.join(EXEC_PATH, '../dataset/cifar-10-batches-bin/'), epoch_size)
     net = resnet50(32, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)

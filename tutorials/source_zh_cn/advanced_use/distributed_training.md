@@ -27,12 +27,21 @@
 当前MindSpore也提供分布式并行训练的功能。它支持了多种模式包括：
 - `DATA_PARALLEL`：数据并行模式。
 - `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，为用户选择1种并行模式。其中，代价模型指围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。
+- `HYBRID_PARALLEL`: 在MindSpore中指用户手动切分参数实现层内模型并行的场景。
 
 本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
 > 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
 > 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
+
+### 下载数据集
+
+本样例采用`CIFAR-10`数据集，由10类32*32的彩色图片组成，每类包含6000张图片。其中训练集共50000张图片，测试集共10000张图片。
+
+> `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>。
+
+将数据集下载并解压到本地路径下，这里将数据集解压存放到工作区的`./dataset`路径下。
 
 ### 配置分布式环境变量
 
@@ -109,7 +118,7 @@ if __name__ == "__main__":
 
 ## 数据并行模式加载数据集
 
-分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径。
+分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，在样例代码中采用工作区下`dataset/cifar-10-batches-bin`文件夹的路径。
 
 
 ```python
@@ -119,7 +128,7 @@ import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.transforms.vision.c_transforms as vision
 from mindspore.communication.management import get_rank, get_group_size
 
-def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+def create_dataset(data_path=data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -227,6 +236,8 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
+如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context()`将所有参数还原到默认值。
+
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式，只需将`parallel_mode`改为`DATA_PARALLEL`。
 
 ```python
@@ -263,15 +274,18 @@ def test_train_cifar(num_classes=10, epoch_size=10):
 ```bash
 #!/bin/bash
 
-export RANK_TABLE_FILE=./rank_table.json
+EXEC_PATH=$(pwd)
+export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table.json
 export RANK_SIZE=8
+
 for((i=0;i<$RANK_SIZE;i++))
 do
     rm -rf device$i
     mkdir device$i
-    cp ./resnet50_distributed_training.py ./device$i
+    cp ./resnet50_distributed_training.py ./resnet.py ./device$i
     cd ./device$i
     export DEVICE_ID=$i
+    export RANK_ID=$i
     echo "start training for device $i"
     env > env$i.log
     pytest -s -v ./resnet50_distributed_training.py > train.log$i 2>&1 &
@@ -280,8 +294,9 @@ done
 ```
 
 其中必要的环境变量有，  
-- `RANK_TABLE_FILE`：组网信息文件的路径。
+- `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
 - `DEVICE_ID`：当前网卡在机器上的实际序号。
+- `RANK_ID`: 当前网卡的逻辑序号。
 其余环境变量请参考安装教程中的配置项。
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
