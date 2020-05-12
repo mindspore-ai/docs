@@ -1,4 +1,4 @@
-﻿# Windows系统安装MindSpore
+﻿# 安装MindSpore
 
 本文档介绍如何在CPU环境的Windows系统上快速安装MindSpore。
 

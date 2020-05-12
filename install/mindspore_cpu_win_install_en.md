@@ -1,4 +1,4 @@
-# MindSpore Installation Guide on Windows
+# MindSpore Installation Guide
 
 This document describes how to quickly install MindSpore on a Windows system with a CPU environment.
 
