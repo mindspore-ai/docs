@@ -41,7 +41,7 @@
 
 > `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>。
 
-将数据集下载并解压到本地路径下，这里将数据集解压存放到工作区的`./dataset`路径下。
+将数据集下载并解压到本地路径下，这里将数据集解压存放到样例代码同级目录下的`./dataset`路径下。
 
 ### 配置分布式环境变量
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
 ## 数据并行模式加载数据集
 
-分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，在样例代码中采用工作区下`dataset/cifar-10-batches-bin`文件夹的路径。
+分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，在样例代码中采用样例代码同级目录下`dataset/cifar-10-batches-bin`文件夹的路径。
 
 
 ```python
@@ -128,7 +128,7 @@ import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.transforms.vision.c_transforms as vision
 from mindspore.communication.management import get_rank, get_group_size
 
-def create_dataset(data_path=data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
