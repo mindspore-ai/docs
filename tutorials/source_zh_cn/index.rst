@@ -30,6 +30,7 @@ MindSpore教程
    advanced_use/visualization_tutorials
    advanced_use/mixed_precision
    advanced_use/distributed_training
+   advanced_use/checkpoint_for_hybrid_parallel
    advanced_use/computer_vision_application
    advanced_use/nlp_application
    advanced_use/customized_debugging_information
