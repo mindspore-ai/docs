@@ -8,6 +8,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/architecture.md)
+
 MindSpore框架架构总体分为MindSpore前端表示层、MindSpore计算图引擎和MindSpore后端运行时三层。
 
 ![architecture](./images/architecture.png)

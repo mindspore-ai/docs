@@ -1,5 +1,7 @@
 # 基准性能
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/benchmark.md)
+
 本文介绍MindSpore的基准性能。MindSpore预训练模型可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)。
 
 ## 训练性能
