@@ -174,9 +174,8 @@ def test_summary():
 可以通过脚本中`context`的`save_graphs`选项配置记录算子融合后的计算图。
 其中`ms_output_after_hwopt.pb`为算子融合后的计算图。
 
-> 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
-
-> 一个batch中，`HistogramSummary`算子的调用次数请尽量控制在10次以下，调用次数越多，性能开销越大。
+> - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
+> - 一个batch中，`HistogramSummary`算子的调用次数请尽量控制在10次以下，调用次数越多，性能开销越大。
 
 ## MindInsight相关命令
 
@@ -251,7 +250,7 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 
 图1：计算图展示区
 
-图1展示了计算图的网络结构。如图中所展示的，在展示区右边的区域中，选中其中一个算子（图中圈红算子），可以看到该算子有两个输入和三个输出（实线代表算子的数据流走向）。
+图1展示了计算图的网络结构。如图中所展示的，在展示区中，选中其中一个算子（图中圈红算子），可以看到该算子有两个输入和一个输出（实线代表算子的数据流走向）。
 
 ![graph_sidebar.png](./images/graph_sidebar.png)
 

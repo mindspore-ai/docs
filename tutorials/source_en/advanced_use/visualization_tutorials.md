@@ -168,9 +168,8 @@ def test_summary():
 Use the `save_graphs` option of `context` to record the computational graph after operator fusion.
 `ms_output_after_hwopt.pb` is the computational graph after operator fusion.
 
-> Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
-
-> It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
+> - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
+> - It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
 
 ## MindInsight Commands
 
@@ -245,7 +244,7 @@ Computational graph visualization is used to display the graph structure, data f
 
 Figure 1: Computational graph display area
 
-Figure 1 shows the network structure of a computational graph. As shown in the figure, select an operator in the right area of the display area. The operator has two inputs and three outputs (the solid line indicates the data flow direction of the operator).
+Figure 1 shows the network structure of a computational graph. As shown in the figure, select an operator in the area of the display area. The operator has two inputs and one outputs (the solid line indicates the data flow direction of the operator).
 
 ![graph_sidebar.png](./images/graph_sidebar.png)
 
