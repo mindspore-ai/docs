@@ -41,13 +41,13 @@
 
 > `CIFAR-10`数据集下载链接：<http://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz>。
 
-将数据集下载并解压到本地路径下，这里将数据集解压存放到样例代码同级目录下的`./dataset`路径下。
+将数据集下载并解压到本地路径下，解压后的文件夹为`cifar-10-batches-bin`。
 
 ### 配置分布式环境变量
 
 在裸机环境（对比云上环境，即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置当前多卡环境的组网信息文件。如果使用华为云环境，因为云服务本身已经做好了配置，可以跳过本小节。
 
-以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为rank_table.json。
+以Ascend 910 AI处理器为例，1个8卡环境的json配置文件示例如下，本样例将该配置文件命名为`rank_table_8pcs.json`。2卡环境配置可以参考样例代码中的`rank_table_2pcs.json`文件。
 
 ```json
 {
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
 ## 数据并行模式加载数据集
 
-分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，在样例代码中采用样例代码同级目录下`dataset/cifar-10-batches-bin`文件夹的路径。
+分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，即`cifar-10-batches-bin`文件夹的路径。
 
 
 ```python
@@ -274,11 +274,27 @@ def test_train_cifar(num_classes=10, epoch_size=10):
 ```bash
 #!/bin/bash
 
-EXEC_PATH=$(pwd)
-export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table.json
-export RANK_SIZE=8
+DATD_PATH=$1
+export DATA_PATH=${DATA_PATH}
+RANK_SIZE=$2
 
-for((i=0;i<$RANK_SIZE;i++))
+EXEC_PATH=$(pwd)
+
+test_dist_8pcs()
+{
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8pcs.json
+    export RANK_SIZE=8
+}
+
+test_dist_2pcs()
+{
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2pcs.json
+    export RANK_SIZE=2
+}
+
+test_dist_${RANK_SIZE}pcs
+
+for((i=0;i<${RANK_SIZE};i++))
 do
     rm -rf device$i
     mkdir device$i
@@ -293,6 +309,8 @@ do
 done
 ```
 
+脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
+
 其中必要的环境变量有，  
 - `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
 - `DEVICE_ID`：当前网卡在机器上的实际序号。
@@ -304,7 +322,7 @@ done
 日志文件保存device目录下，env.log中记录了环境变量的相关信息，关于Loss部分结果保存在train.log中，示例如下：
 
 ```
-test_resnet50_expand_loss_8p.py::test_train_feed ===============ds_num 195
+resnet50_distributed_training.py::test_train_feed ===============ds_num 195
 global_step: 194, loss: 1.997
 global_step: 389, loss: 1.655
 global_step: 584, loss: 1.723
