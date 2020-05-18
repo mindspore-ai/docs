@@ -224,31 +224,33 @@ MindSpore uses glog to output logs. The following environment variables are comm
 1. GLOG_v specifies the log level. The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
 2. When GLOG_logtostderr is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. Default value: 1
 3. GLOG_log_dir=YourPath specifies the log output path. If GLOG_logtostderr is set to 0, value of this variable must be specified. If GLOG_log_dir is specified and the value of GLOG_logtostderr is 1, logs are output to the screen but not to a file. Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of GLOG log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
-4. MS_SUBMODULE_LOG_v={SubModule1:LogLevel1,SubModule2:LogLevel2,...} specifies log levels of sub modules of MindSpore. The specified sub module log level will overwrite the global log level. The meaning of submodule log level is same as GLOG_v, the sub modules of MindSpore grouped by source directory is as the bellow table. E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v={PARSER:2,ANALYZER:2}` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
+4. MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}" specifies log levels of sub modules of MindSpore. The specified sub module log level will overwrite the global log level. The meaning of submodule log level is same as GLOG_v, the sub modules of MindSpore grouped by source directory is as the bellow table. E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
 
-    Sub moudles of MindSpore grouped by source directory:
-    | Source Files | Sub Module Name |
-    | ------------ | --------------- |
-    | mindspore/ccsrc/common | COMMON |                                          
-    | mindspore/ccsrc/dataset | MD |                                     
-    | mindspore/ccsrc/debug | DEBUG |                                            
-    | mindspore/ccsrc/device | DEVICE |                                          
-    | mindspore/ccsrc/gvar | COMMON |                              
-    | mindspore/ccsrc/ir | IR |                                                  
-    | mindspore/ccsrc/kernel | KERNEL |                                          
-    | mindspore/ccsrc/mindrecord | MD |                                  
-    | mindspore/ccsrc | ME |                                              
-    | mindspore/ccsrc/onnx | ONNX |                                             
-    | mindspore/ccsrc/operator | ANALYZER |                     
-    | mindspore/ccsrc/optimizer | OPTIMIZER |                                   
-    | mindspore/ccsrc/parallel | PARALLEL |                                     
-    | mindspore/ccsrc/pipeline/*.cc | PIPELINE |                      
-    | mindspore/ccsrc/pipeline/parse | PARSER |                                            
-    | mindspore/ccsrc/pipeline/static_analysis | ANALYZER |                                
-    | mindspore/ccsrc/pre_activate | PRE_ACT |                                  
-    | mindspore/ccsrc/pybind_api | COMMON |                       
-    | mindspore/ccsrc/pynative | PYNATIVE |                                     
-    | mindspore/ccsrc/session | SESSION |                                       
-    | mindspore/ccsrc/transform | GE_ADPT |                           
-    | mindspore/ccsrc/utils | UTILS |                                           
-    | mindspore/ccsrc/vm | VM |
+Sub moudles of MindSpore grouped by source directory:
+
+| Source Files | Sub Module Name |
+| ------------ | --------------- |
+| mindspore/ccsrc/common | COMMON |
+| mindspore/ccsrc/dataset | MD |
+| mindspore/ccsrc/debug | DEBUG |
+| mindspore/ccsrc/device | DEVICE |
+| mindspore/ccsrc/gvar | COMMON |
+| mindspore/ccsrc/ir | IR |
+| mindspore/ccsrc/kernel | KERNEL |
+| mindspore/ccsrc/mindrecord | MD |
+| mindspore/ccsrc | ME |
+| mindspore/ccsrc/onnx | ONNX |
+| mindspore/ccsrc/operator | ANALYZER |
+| mindspore/ccsrc/optimizer | OPTIMIZER |
+| mindspore/ccsrc/parallel | PARALLEL |
+| mindspore/ccsrc/pipeline/*.cc | PIPELINE |
+| mindspore/ccsrc/pipeline/parse | PARSER |
+| mindspore/ccsrc/pipeline/static_analysis | ANALYZER |
+| mindspore/ccsrc/pre_activate | PRE_ACT |
+| mindspore/ccsrc/pybind_api | COMMON |
+| mindspore/ccsrc/pynative | PYNATIVE |
+| mindspore/ccsrc/session | SESSION |
+| mindspore/ccsrc/transform | GE_ADPT |
+| mindspore/ccsrc/utils | UTILS |
+| mindspore/ccsrc/vm | VM |
+
