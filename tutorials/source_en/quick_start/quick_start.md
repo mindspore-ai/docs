@@ -99,8 +99,7 @@ if __name__ == "__main__":
     parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'],
                         help='device where the code will be implemented (default: CPU)')
     args = parser.parse_args()
-    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target,
-                        enable_mem_reuse=False)
+    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
     ...
 ```
 

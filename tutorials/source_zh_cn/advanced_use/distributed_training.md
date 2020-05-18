@@ -250,7 +250,6 @@ from resnet import resnet50
 device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
-context.set_context(enable_loop_sink=True)
 
 def test_train_cifar(num_classes=10, epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
@@ -263,7 +262,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 其中，  
-- `dataset_sink_mode=True`，`enable_loop_sink=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
+- `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
 ## 运行脚本
