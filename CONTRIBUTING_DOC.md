@@ -1,5 +1,7 @@
 # Contributing Documents
 
+[查看中文](./CONTRIBUTING_DOC_CN.md)
+
 You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore official website](https://www.mindspore.cn).
 
 <!-- TOC -->
