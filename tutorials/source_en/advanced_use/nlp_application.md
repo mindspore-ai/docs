@@ -20,6 +20,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/nlp_application.md)
+
 ## Overview
 
 Sentiment classification is a subset of text classification in NLP, and is the most basic application of NLP. It is a process of analyzing and inferencing affective states and subjective information, that is, analyzing whether a person's sentiment is positive or negative.

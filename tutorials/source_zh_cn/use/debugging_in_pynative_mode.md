@@ -11,6 +11,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/debugging_in_pynative_mode.md)
+
 ## 概述
 
 MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:

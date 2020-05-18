@@ -16,6 +16,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md)
+
 ## 概述
 
 数据是深度学习的基础，有好的数据输入，可以对整个深度神经网络训练起到非常积极的作用。所以在获取到原始的数据集后，数据加载训练前，因为数据量、性能等等限制，往往会需要先进行数据处理或者数据增强，从而获得更加优化的数据输入。  

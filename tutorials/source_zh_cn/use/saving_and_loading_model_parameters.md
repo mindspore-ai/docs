@@ -13,6 +13,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/saving_and_loading_model_parameters.md)
+
 ## 概述
 
 在模型训练过程中，可以添加检查点(CheckPoint)用于保存模型的参数，以便进行推理及中断后再训练使用。

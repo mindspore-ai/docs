@@ -14,6 +14,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/data_preparation/converting_datasets.md)
+
 ## Overview
 
 You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.   

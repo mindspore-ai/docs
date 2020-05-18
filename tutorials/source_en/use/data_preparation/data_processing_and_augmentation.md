@@ -16,6 +16,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/data_preparation/data_processing_and_augmentation.md)
+
 ## Overview
 
 Data is the basis of deep learning. Data input plays an important role in the deep neural network training. Therefore, after the original dataset is obtained and before data is loaded and trained, data processing or augmentation is often required due to data size and performance restrictions, to obtain optimized data input.  

@@ -11,6 +11,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/debugging_in_pynative_mode.md)
+
 ## Overview
 
 MindSpore supports the following running modes which are optimized in terms of debugging or running:

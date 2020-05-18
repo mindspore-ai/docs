@@ -13,6 +13,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/data_preparation/loading_the_datasets.md)
+
 ## Overview
 
 MindSpore helps you load common datasets, datasets of specific data formats, or custom datasets. Before loading a dataset, you need to import the required library `mindspore.dataset`.

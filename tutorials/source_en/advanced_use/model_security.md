@@ -15,6 +15,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/model_security.md)
+
 ## Overview
 
 This tutorial describes the model security protection methods provided by MindArmour, helping you quickly use MindArmour and provide certain security protection capabilities for your AI model.

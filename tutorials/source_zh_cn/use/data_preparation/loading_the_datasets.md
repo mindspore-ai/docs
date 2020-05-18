@@ -13,6 +13,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/data_preparation/loading_the_datasets.md)
+
 ## 概述
 
 MindSpore可以帮助你加载常见的数据集、特定数据格式的数据集或自定义的数据集。加载数据集时，需先导入所需要依赖的库`mindspore.dataset`。

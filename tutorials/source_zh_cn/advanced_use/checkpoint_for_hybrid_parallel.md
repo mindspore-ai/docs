@@ -26,6 +26,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/checkpoint_for_hybrid_parallel.md)
+
 ## 概述
 
 ### 背景
