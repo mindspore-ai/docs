@@ -117,8 +117,6 @@ def resnet50_train(args_opt):
     # set graph mode and parallel mode
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", save_graphs=False)
     context.set_context(device_id=device_id)
-    context.set_context(enable_loop_sink=True)
-    context.set_context(enable_mem_reuse=True)
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
