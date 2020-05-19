@@ -13,6 +13,7 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/saving_and_loading_model_parameters.md)
 
 ## Overview
 

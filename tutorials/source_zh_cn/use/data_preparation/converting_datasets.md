@@ -14,6 +14,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/data_preparation/converting_datasets.md)
+
 ## 概述
 
 用户可以将非标准的数据集和常见的数据集转换为MindSpore数据格式，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。   

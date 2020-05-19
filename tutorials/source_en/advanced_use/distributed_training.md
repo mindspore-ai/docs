@@ -17,6 +17,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/distributed_training.md)
+
 ## Overview
 
 MindSpore supports `DATA_PARALLEL` and `AUTO_PARALLEL`. Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish cost models and select a parallel mode for users. 

@@ -14,6 +14,8 @@ This document describes how to quickly install MindSpore on a Windows system wit
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/mindspore_cpu_win_install.md)
+
 ## Environment Requirements
 
 ### System Requirements and Software Dependencies

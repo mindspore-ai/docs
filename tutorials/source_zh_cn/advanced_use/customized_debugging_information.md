@@ -12,6 +12,9 @@
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
+
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md)
+
 ## 概述
 
 本文介绍如何使用MindSpore提供的Callback、metrics、print算子、日志打印等自定义能力，帮助用户快速调试训练网络。

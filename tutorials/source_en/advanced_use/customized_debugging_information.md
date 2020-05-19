@@ -13,6 +13,9 @@
     - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
 
 <!-- /TOC -->
+
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/customized_debugging_information.md)
+
 ## Overview
 
 This section describes how to use the customized capabilities provided by MindSpore, such as callback, metrics, and log printing, to help you quickly debug the training network.

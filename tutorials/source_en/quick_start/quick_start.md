@@ -2,6 +2,8 @@
 
 <!-- TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start/quick_start.md)
+
 - [Implementing an Image Classification Application](#implementing-an-image-classification-application)
     - [Overview](#overview)
     - [Preparations](#preparations)

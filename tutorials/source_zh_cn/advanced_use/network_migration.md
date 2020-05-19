@@ -17,6 +17,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/network_migration.md)
+
 ## 概述
 
 你可能已经编写过TensorFlow、PyTorch等框架的脚本，本教程介绍如何将已有的TensorFlow、PyTorch等的网络迁移到MindSpore，包括主要步骤和操作建议，帮助你快速进行网络迁移。

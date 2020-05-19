@@ -14,6 +14,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/mindspore_cpu_win_install.md)
+
 ## 环境要求
 
 ### 系统要求和软件依赖
