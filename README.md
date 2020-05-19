@@ -1,6 +1,8 @@
-# MindSpore Documents
+﻿# MindSpore Documents
 
 ![MindSpore Logo](resource/MindSpore-logo.png)
+
+[查看中文](./README_CN.md)
 
 ## Overview
 
