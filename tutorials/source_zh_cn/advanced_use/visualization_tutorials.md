@@ -167,7 +167,7 @@ def test_summary():
     eval_ds = create_mindrecord_dataset_for_testing()
     model.eval(eval_ds, callbacks=[eval_callback])
 
-    # Close summary
+    # Note: Make sure to close summary
     summary_writer.close()
 ```
 
