@@ -275,7 +275,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
 ```bash
 #!/bin/bash
 
-DATD_PATH=$1
+DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 RANK_SIZE=$2
 
