@@ -1,24 +1,24 @@
 #!/bin/bash
 
-DATD_PATH=$1
+DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 RANK_SIZE=$2
 
 EXEC_PATH=$(pwd)
 
-test_dist_8p()
+test_dist_8pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8p.json
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8pcs.json
     export RANK_SIZE=8
 }
 
-test_dist_2p()
+test_dist_2pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2p.json
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2pcs.json
     export RANK_SIZE=2
 }
 
-test_dist_${RANK_SIZE}p
+test_dist_${RANK_SIZE}pcs
 
 for((i=0;i<${RANK_SIZE};i++))
 do
