@@ -6,6 +6,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/glossary.md)
+
 |  术语/缩略语  |  说明  | 
 | -----    | -----    |
 |  Ascend  |  华为昇腾系列芯片的系列名称。  |

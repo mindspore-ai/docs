@@ -8,6 +8,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_en/operator_list.md)
+
 ## mindspore.nn
 
 | Operation                                       | Ascend | GPU | CPU |Operator Type

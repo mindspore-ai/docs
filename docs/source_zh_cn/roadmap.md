@@ -23,6 +23,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/roadmap.md)
+
 ## 预置模型
 * CV：目标检测、GAN、图像分割、姿态识别等场景经典模型。
 * NLP：RNN、Transformer类型神经网络，拓展基于Bert预训练模型的应用。

@@ -8,6 +8,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/operator_list.md)
+
 ## mindspore.nn
 
 | 操作名                                       | Ascend | GPU | CPU |算子类别

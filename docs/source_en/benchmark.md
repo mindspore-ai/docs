@@ -1,5 +1,7 @@
 # Benchmarks
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_en/benchmark.md)
+
 This document describes the MindSpore benchmarks. 
 For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo).
 

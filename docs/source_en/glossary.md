@@ -6,6 +6,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_en/glossary.md)
+
 |  Acronym and Abbreviation  |  Description  | 
 | -----    | -----    |
 |  Ascend  |  Name of Huawei Ascend series chips.  |

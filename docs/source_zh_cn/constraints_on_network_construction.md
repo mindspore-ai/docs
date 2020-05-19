@@ -23,6 +23,8 @@
 
 <!-- /TOC -->
 
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/constraints_on_network_construction.md)
+
 ## 概述
   MindSpore完成从用户源码到计算图的编译，用户源码基于Python语法编写，当前MindSpore支持将普通函数或者继承自nn.Cell的实例转换生成计算图，暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。随着MindSpore的演进，这些约束可能会发生变化。
 
