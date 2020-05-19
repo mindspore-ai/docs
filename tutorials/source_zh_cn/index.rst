@@ -32,6 +32,7 @@ MindSpore教程
    advanced_use/distributed_training
    advanced_use/computer_vision_application
    advanced_use/nlp_application
+   advanced_use/custom_operator
    advanced_use/customized_debugging_information
    advanced_use/use_on_the_cloud
    advanced_use/on_device_inference
