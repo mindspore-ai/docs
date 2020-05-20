@@ -149,7 +149,7 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, input, file_name = 'resnet50-2_32.pb', file_format = 'GEIR')
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.pb', file_format = 'GEIR')
 ```
 Before using the `export` interface, you need to import` mindspore.train.serialization`.
 The `input` parameter is used to specify the input shape and data type of the exported model.
