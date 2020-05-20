@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/saving_and_loading_model_parameters.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/saving_and_loading_model_parameters.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 

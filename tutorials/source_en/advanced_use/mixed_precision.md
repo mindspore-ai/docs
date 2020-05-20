@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/mixed_precision.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/mixed_precision.m" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 

@@ -6,7 +6,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/docs/source_en/glossary.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 |  Acronym and Abbreviation  |  Description  | 
 | -----    | -----    |

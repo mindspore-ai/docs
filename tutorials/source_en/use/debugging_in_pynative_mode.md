@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/debugging_in_pynative_mode.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 

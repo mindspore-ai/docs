@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/data_preparation/data_processing_and_augmentation.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
 

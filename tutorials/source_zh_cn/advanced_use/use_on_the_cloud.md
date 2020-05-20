@@ -3,7 +3,6 @@
 
 <!-- TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/use_on_the_cloud.md)
 
 - [在云上使用MindSpore](#在云上使用mindspore)
     - [概述](#概述)
@@ -24,6 +23,8 @@
     - [查看运行结果](#查看运行结果)
 
 <!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/use_on_the_cloud.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
