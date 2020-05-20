@@ -20,7 +20,7 @@ test_dist_2pcs()
 
 test_dist_${RANK_SIZE}pcs
 
-for((i=0;i<${RANK_SIZE};i++))
+for((i=1;i<${RANK_SIZE};i++))
 do
     rm -rf device$i
     mkdir device$i
@@ -33,3 +33,19 @@ do
     pytest -s -v ./resnet50_distributed_training.py > train.log$i 2>&1 &
     cd ../
 done
+rm -rf device0
+mkdir device0
+cp ./resnet50_distributed_training.py ./resnet.py ./device0
+cd ./device0
+export DEVICE_ID=0
+export RANK_ID=0
+echo "start training for device 0"
+env > env0.log
+pytest -s -v ./resnet50_distributed_training.py > train.log0 2>&1
+if [ $i -eq 0 ];then
+    echo "training success"
+else
+    echo "training failed"
+    exit 2
+fi
+cd ../
