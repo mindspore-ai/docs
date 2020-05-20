@@ -6,10 +6,15 @@
     - [概述](#概述)
     - [注册算子原语](#注册算子原语)
     - [实现TBE算子和注册算子信息](#实现tbe算子和注册算子信息)
+        - [实现TBE算子](#实现tbe算子)
+        - [注册算子信息](#注册算子信息)
+        - [示例](#示例)
     - [使用自定义算子](#使用自定义算子)
     - [定义算子反向传播函数](#定义算子反向传播函数)
 
 <!-- /TOC -->
+
+[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/custom_operator.md)
 
 ## 概述
 
