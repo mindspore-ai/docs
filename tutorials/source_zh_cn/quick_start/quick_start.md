@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-[![source](/resource/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/quick_start.md)
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
