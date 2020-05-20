@@ -270,7 +270,7 @@ def test_train_cifar(num_classes=10, epoch_size=10):
 ## 运行脚本
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
-目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 ```bash
 #!/bin/bash
@@ -295,7 +295,7 @@ test_dist_2pcs()
 
 test_dist_${RANK_SIZE}pcs
 
-for((i=0;i<${RANK_SIZE};i++))
+for((i=1;i<${RANK_SIZE};i++))
 do
     rm -rf device$i
     mkdir device$i
@@ -308,6 +308,22 @@ do
     pytest -s -v ./resnet50_distributed_training.py > train.log$i 2>&1 &
     cd ../
 done
+rm -rf device0
+mkdir device0
+cp ./resnet50_distributed_training.py ./resnet.py ./device0
+cd ./device0
+export DEVICE_ID=0
+export RANK_ID=0
+echo "start training for device 0"
+env > env0.log
+pytest -s -v ./resnet50_distributed_training.py > train.log0 2>&1
+if [ $i -eq 0 ];then
+    echo "training success"
+else
+    echo "training failed"
+    exit 2
+fi
+cd ../
 ```
 
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
