@@ -9,6 +9,7 @@
     - [Support](#support)
         - [Model Support](#model-support)
         - [Backend Support](#backend-support)
+        - [System Support](#system-support)
         - [Programming Language](#programming-language)
         - [Others](#others)
     - [Features](#features)
@@ -69,6 +70,12 @@ Q: What types of model is currently supported by MindSpore for training ?
 
 A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
 
+<br/>
+
+Q: What are the available recommendation or text generation networks or models provided by MindSpore?
+
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo).
+
 ### Backend Support
 
 Q: When install or run MindSpore, are there any requirements for hardwares like GPU, NPU and so forth ?
@@ -80,6 +87,18 @@ A: MindSpore currently supports Ascend AI processor, CPU and GPU。For common mo
 Q: Does MindSpore have any plan on supporting other types of heterogeneous computing hardwares ?
 
 A: MindSpore provides pluggable device management interface so that developer could easily integrate other types of heterogeneous computing hardwares like FPGA to MindSpore. We welcome more backend support in MindSpore from the community.
+
+<br/>
+
+Q: What hardware does MindSpore require?
+
+A: Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [RoadMap](https://www.mindspore.cn/docs/en/master/roadmap.html) and project [Release Notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md).
+
+### System Support
+
+Q: Does MindSpore support Windows 10?
+
+A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, see tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindspore_cpu_win_install.html).
 
 ### Programming Language
 
@@ -99,14 +118,50 @@ Q: How does MindSpore implement semantic collaboration and processing? Is the po
 
 A: The MindSpore framework does not support FCA. For semantic models, you can call third-party tools to perform FCA in the data preprocessing phase. MindSpore supports Python therefore `import FCA` could do the trick.
 
+<br/>
+
+Q: Where can I view the sample code or tutorial of MindSpore training and inference?
+
+A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/index.html).
+
 ## Features
 
 Q: Does MindSpore have any plan or consideration on the edge and device when the training and inference functions on the cloud are relatively mature?
 
 A: MindSpore is a unified cloud-edge-device training and inference framework. Edge has been considered in its design, so MindSpore can perform inference at the edge. The open-source version will support Ascend 310-based inference. Currently, inference supports optimization operations, including quantization, operator fusion, and memory overcommitment.
 
+<br/>
+
+Q: How does MindSpore support automatic parallelism?
+
+A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to use the automatic parallelism feature on the Ascend 910 AI processor. Follow our open source community and apply for a MindSpore developer experience environment for trial use.
+
+<br/>
+
+Q: What is the relationship between MindSpore and ModelArts? Can MindSpore be used on ModelArts?
+
+A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
+
 ## Capabilities
 
 Q: Does MindSpore have a module that can implement object detection algorithms as TensorFlow does?
 
 A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Model module. After MindSpore's detection models are complete, similar pipeline APIs will be provided.
+
+<br/>
+
+Q: How do I migrate scripts or models of other frameworks to MindSpore?
+
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/advanced_use/network_migration.html).
+
+<br/>
+
+Q: Does MindSpore provide open-source e-commerce datasets?
+
+A: No. Please stay tuned for updates on the [MindSpore official website](https://www.mindspore.cn/en).
+
+<br/>
+
+Q: How simple can the MindSpore model training code be?
+
+A: MindSpore provides Model APIs except for network definitions. In most scenarios, model training can be completed using only a few lines of code.
