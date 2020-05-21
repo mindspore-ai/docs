@@ -12,6 +12,7 @@ MindSpore教程
    :caption: 快速入门
 
    quick_start/quick_start
+   quick_start/quick_video
 
 .. toctree::
    :glob:
