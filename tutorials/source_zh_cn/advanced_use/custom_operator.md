@@ -88,14 +88,14 @@ class CusSquare(PrimitiveWithInfer):
 
 ### 示例
 
-下面以`Square`算子的TBE实现`square_impl.py`为例进行介绍。`square_compute`是算子实现的计算函数，通过调到`te.lang.cce`提供的API描述了`x * x`的计算逻辑。`cus_square_op_info `是算子信息，通过`TBERegOp`来定义。
+下面以`Square`算子的TBE实现`square_impl.py`为例进行介绍。`square_compute`是算子实现的计算函数，通过调用`te.lang.cce`提供的API描述了`x * x`的计算逻辑。`cus_square_op_info `是算子信息，通过`TBERegOp`来定义。
 
-在`TBERegOp`中：
+`TBERegOp`的设置需要注意以下几点：
 
 - `TBERegOp("CusSquare")`中算子注册名称`CusSquare`需要与算子名称一致。
-- `fusion_type("OPAQUE")`中`OPAQUE`是说明自定义算子采取不融合策略。
-- `kernel_name("CusSquareImpl")`中"CusSquareImpl"需要与算子入口函数名称一致。
-- `dtype_format`是用来描述算子支持的数据类型，下面示例中注册了两项说明该算子支持两种数据类型，而每一项需按照输入和输出的顺序依次描述支持的格式。第一个`dtype_format`说明支持的第一种数据类型是input0为F32_Default格式，output0为F32_Default格式。第二个`dtype_format`说明支持的第二种数据类型是input0为F16_Default格式，output0为F16_Default格式。
+- `fusion_type("OPAQUE")`中`OPAQUE`表示自定义算子采取不融合策略。
+- `kernel_name("CusSquareImpl")`中`CusSquareImpl`需要与算子入口函数名称一致。
+- `dtype_format`用来描述算子支持的数据类型，下面示例中注册了两项，说明该算子支持两种数据类型，每一项需按照输入和输出的顺序依次描述支持的格式。第一个`dtype_format`说明支持的第一种数据类型是input0为F32_Default格式，output0为F32_Default格式。第二个`dtype_format`说明支持的第二种数据类型是input0为F16_Default格式，output0为F16_Default格式。
 
 ```python
 from __future__ import absolute_import
