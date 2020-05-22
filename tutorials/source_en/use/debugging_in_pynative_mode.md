@@ -192,6 +192,7 @@ from mindspore import context, Tensor
 from mindspore.common.api import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+conv_obj.init_parameters_data()
 
 conv_obj = nn.Conv2d(in_channels=3, out_channels=4, kernel_size=3, stride=2, padding=0)
 @ms_function
