@@ -223,7 +223,7 @@ class CusSquare(PrimitiveWithInfer):
         return bprop
 ```
 
-在`test_square.py`文件中定义反向用例。
+在`test_square.py`文件中定义反向用例。其中，`grad_with_sens`是`GradOperation`类的实例化对象。
 ```python
 from mindspore.ops import composite as C
 def test_grad_net():
