@@ -318,7 +318,7 @@ export RANK_ID=0
 echo "start training for device 0"
 env > env0.log
 pytest -s -v ./resnet50_distributed_training.py > train.log0 2>&1
-if [ $i -eq 0 ];then
+if [ $? -eq 0 ];then
     echo "training success"
 else
     echo "training failed"
