@@ -1,8 +1,8 @@
-# Distributed Training
+# Getting Started with Distributed Training
 
 <!-- TOC -->
 
-- [Distributed Training](#distributed-training)
+- [Getting Started with Distributed Training](#getting-started-with-distributed-training)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
