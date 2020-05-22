@@ -20,21 +20,49 @@ MindSpore Tutorials
 
    use/data_preparation/data_preparation
    use/saving_and_loading_model_parameters
-   use/debugging_in_pynative_mode
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Advanced Use
+   :caption: Application
 
-   advanced_use/visualization_tutorials
-   advanced_use/mixed_precision
-   advanced_use/distributed_training
    advanced_use/computer_vision_application
    advanced_use/nlp_application
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Model Optimization
+
+   advanced_use/debugging_in_pynative_mode
    advanced_use/customized_debugging_information
+   advanced_use/visualization_tutorials
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Performance Optimization
+
+   advanced_use/distributed_training
+   advanced_use/mixed_precision
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Usage on Device
+
    advanced_use/on_device_inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Network Migration
+
    advanced_use/network_migration
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: AI Security
+
    advanced_use/model_security
-   advanced_use/mindspore_cpu_win_install
-   advanced_use/community

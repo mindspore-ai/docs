@@ -16,3 +16,4 @@ MindSpore Documentation
    constraints_on_network_construction
    operator_list
    glossary
+   community

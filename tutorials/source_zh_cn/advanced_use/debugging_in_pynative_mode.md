@@ -6,12 +6,12 @@
     - [概述](#概述)
     - [执行单算子](#执行单算子)
     - [执行普通函数](#执行普通函数)
-    - [提升PyNative性能](#提升PyNative性能)
+        - [提升PyNative性能](#提升pynative性能)
     - [调试网络训练模型](#调试网络训练模型)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/debugging_in_pynative_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
