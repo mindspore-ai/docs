@@ -89,7 +89,7 @@
 - `server_num`表示机器数量， `server_id`表示本机IP地址。
 - `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
 - `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
-- `device_ip`表示网卡IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
+- `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
 - `para_plane_nic_name`对应网卡名称。
 
 
@@ -98,7 +98,7 @@
 MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
 > HCCL实现了基于Ascend AI处理器的多机多卡通信，有一些使用限制，我们列出使用分布式服务常见的，详细的可以查看HCCL对应的使用文档。
 > - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
-> - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时网卡必须相连且不支持跨组网创建集群。
+> - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时卡必须相连且不支持跨组网创建集群。
 > - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
 
 下面是调用集合通信库样例代码：
@@ -169,7 +169,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
     return data_set
 ```
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应网卡数量和逻辑序号，建议通过HCCL接口获取：  
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：  
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
 
@@ -331,8 +331,8 @@ cd ../
 
 其中必要的环境变量有，  
 - `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
-- `DEVICE_ID`：当前网卡在机器上的实际序号。
-- `RANK_ID`: 当前网卡的逻辑序号。
+- `DEVICE_ID`：当前卡在机器上的实际序号。
+- `RANK_ID`: 当前卡的逻辑序号。
 其余环境变量请参考安装教程中的配置项。
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
