@@ -154,25 +154,22 @@ def test_summary():
 
     # Init SummaryRecord and specify a folder for storing summary log files
     # and specify the graph that needs to be recorded
-    summary_writer = SummaryRecord(log_dir='./summary', network=net)
-    summary_callback = SummaryStep(summary_writer, flush_step=10)
+    with SummaryRecord(log_dir='./summary', network=net) as summary_writer:
+        summary_callback = SummaryStep(summary_writer, flush_step=10)
 
-    # Init TrainLineage to record the training information
-    train_callback = TrainLineage(summary_writer)
+        # Init TrainLineage to record the training information
+        train_callback = TrainLineage(summary_writer)
 
-    # Prepare mindrecord_dataset for training
-    train_ds = create_mindrecord_dataset_for_training()
-    model.train(epoch, train_ds, callbacks=[summary_callback, train_callback])
+        # Prepare mindrecord_dataset for training
+        train_ds = create_mindrecord_dataset_for_training()
+        model.train(epoch, train_ds, callbacks=[summary_callback, train_callback])
 
-    # Init EvalLineage to record the evaluation information
-    eval_callback = EvalLineage(summary_writer)
+        # Init EvalLineage to record the evaluation information
+        eval_callback = EvalLineage(summary_writer)
 
-    # Prepare mindrecord_dataset for testing
-    eval_ds = create_mindrecord_dataset_for_testing()
-    model.eval(eval_ds, callbacks=[eval_callback])
-
-    # Note: Make sure to close summary
-    summary_writer.close()
+        # Prepare mindrecord_dataset for testing
+        eval_ds = create_mindrecord_dataset_for_testing()
+        model.eval(eval_ds, callbacks=[eval_callback])
 ```
 
 可以通过脚本中`context`的`save_graphs`选项配置记录算子融合后的计算图。
@@ -180,6 +177,7 @@ def test_summary():
 
 > - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
 > - 一个batch中，`HistogramSummary`算子的调用次数请尽量控制在10次以下，调用次数越多，性能开销越大。
+> - 请使用*with语句*确保`SummaryRecord`最后正确关闭，否则可能会导致进程无法退出。
 
 ## MindInsight相关命令
 

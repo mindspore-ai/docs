@@ -148,25 +148,22 @@ def test_summary():
 
     # Init SummaryRecord and specify a folder for storing summary log files
     # and specify the graph that needs to be recorded
-    summary_writer = SummaryRecord(log_dir='./summary', network=net)
-    summary_callback = SummaryStep(summary_writer, flush_step=10)
+    with SummaryRecord(log_dir='./summary', network=net) as summary_writer:
+        summary_callback = SummaryStep(summary_writer, flush_step=10)
 
-    # Init TrainLineage to record the training information
-    train_callback = TrainLineage(summary_writer)
+        # Init TrainLineage to record the training information
+        train_callback = TrainLineage(summary_writer)
 
-    # Prepare mindrecord_dataset for training
-    train_ds = create_mindrecord_dataset_for_training()
-    model.train(epoch, train_ds, callbacks=[summary_callback, train_callback])
+        # Prepare mindrecord_dataset for training
+        train_ds = create_mindrecord_dataset_for_training()
+        model.train(epoch, train_ds, callbacks=[summary_callback, train_callback])
 
-    # Init EvalLineage to record the evaluation information
-    eval_callback = EvalLineage(summary_writer)
+        # Init EvalLineage to record the evaluation information
+        eval_callback = EvalLineage(summary_writer)
 
-    # Prepare mindrecord_dataset for testing
-    eval_ds = create_mindrecord_dataset_for_testing()
-    model.eval(eval_ds, callbacks=[eval_callback])
-
-    # Note: Make sure to close summary
-    summary_writer.close()
+        # Prepare mindrecord_dataset for testing
+        eval_ds = create_mindrecord_dataset_for_testing()
+        model.eval(eval_ds, callbacks=[eval_callback])
 ```
 
 Use the `save_graphs` option of `context` to record the computational graph after operator fusion.
@@ -174,6 +171,7 @@ Use the `save_graphs` option of `context` to record the computational graph afte
 
 > - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
 > - It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
+> - Please use the *with statement* to ensure that `SummaryRecord` is properly closed at the end, otherwise the process may fail to exit.
 
 ## MindInsight Commands
 
