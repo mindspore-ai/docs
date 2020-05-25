@@ -336,7 +336,7 @@ Figure 9 shows the model lineage function area, which visualizes the model param
 
 Figure 10: Model list
 
-Figure 10 shows all model information. You can sort the model information in ascending or descending order by specified column.
+Figure 10 shows all model information in groups. You can sort the model information in ascending or descending order by specified column.
 
 ### Dataset Graph Visualization
 
