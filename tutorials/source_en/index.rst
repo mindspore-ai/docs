@@ -19,7 +19,9 @@ MindSpore Tutorials
    :caption: Use
 
    use/data_preparation/data_preparation
+   use/defining_the_network
    use/saving_and_loading_model_parameters
+   use/multi_platform_inference
 
 .. toctree::
    :glob:
