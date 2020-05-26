@@ -43,7 +43,7 @@ MindSpore Tutorials
    :maxdepth: 1
    :caption: Performance Optimization
 
-   advanced_use/distributed_training
+   advanced_use/distributed_training_tutorials
    advanced_use/mixed_precision
 
 .. toctree::

@@ -183,13 +183,13 @@ for _, param in net.parameters_and_names():
 
     如下代码，先分别对切片1和切片2，切片3和切片4按列拼接，之后对前两步得到的数据按行拼接。
     ```
-    slice_line1 = np.concatenate((slice_list[0], slice_list[1]), aix=1)   # result [1,2,3,4]
-    slice_line2 = np.concatenate((slice_list[2], slice_list[3]), aix=1)   # result [5,6,7,8]
-    whole_data = np.concatenate((slice_line1, slice_line2), aix=0)        # result [[1, 2, 3, 4], [5, 6, 7, 8]]
+    slice_line1 = np.concatenate((slice_list[0], slice_list[1]), axis=1)   # result [1,2,3,4]
+    slice_line2 = np.concatenate((slice_list[2], slice_list[3]), axis=1)   # result [5,6,7,8]
+    whole_data = np.concatenate((slice_line1, slice_line2), axis=0)        # result [[1, 2, 3, 4], [5, 6, 7, 8]]
     
-    slice_moments_line1 = np.concatenate((slice_lis_moments[0], slice_lis_moments[1]), aix=1)
-    slice_moments_line2 = np.concatenate((slice_lis_moments[2], slice_lis_moments[3]), aix=1)
-    whole_moments_data = np.concatenate((slice_moments_line1, slice_moments_line2), aix=0)
+    slice_moments_line1 = np.concatenate((slice_lis_moments[0], slice_lis_moments[1]), axis=1)
+    slice_moments_line2 = np.concatenate((slice_lis_moments[2], slice_lis_moments[3]), axis=1)
+    whole_moments_data = np.concatenate((slice_moments_line1, slice_moments_line2), axis=0)
     ```
 
 5. 对模型参数赋值。
