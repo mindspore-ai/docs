@@ -14,7 +14,7 @@ MindSpore Documentation
    roadmap
    benchmark
    network_list
-   constraints_on_network_construction
    operator_list
+   constraints_on_network_construction
    glossary
    community
