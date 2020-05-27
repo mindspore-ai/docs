@@ -1,25 +1,26 @@
 # Saving and Loading Model Parameters in the Hybrid Parallel Scenario
 
 <!-- TOC -->
+
 - [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](#saving-and-loading-model-parameters-in-the-hybrid-parallel-scenario)
-  - [Overview](#overview)
-    - [Background](#background)
-    - [Application Scenario](#application-scenario)
-  - [Integrating the Saved Checkpoint Files](#integrating-the-saved-checkpoint-files)
-    - [Overall Process](#overall-process)
-    - [Preparations](#preparations)
-      - [Importing the Checkpoint Files to the Network](#importing-the-checkpoint-files-to-the-network)
-      - [Obtaining a List of All Parameters on the Network](#obtaining-a-list-of-all-parameters-on-the-network)
-    - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
-    - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
-  - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)
-    - [Overall Process](#overall-process-1)
-    - [Step 1: Loading the Checkpoint File](#step-1-loading-the-checkpoint-file)
-    - [Step 2: Dividing a Model Parallel Parameter](#step-2-dividing-a-model-parallel-parameter)
-    - [Step 3: Loading the Modified Parameter Data to the Network](#step-3-loading-the-modified-parameter-data-to-the-network)
-  - [Example](#example)
-    - [Scenario Description](#scenario-description)
-    - [Example Code](#example-code)
+    - [Overview](#overview)
+        - [Background](#background)
+        - [Application Scenario](#application-scenario)
+    - [Integrating the Saved Checkpoint Files](#integrating-the-saved-checkpoint-files)
+        - [Overall Process](#overall-process)
+        - [Preparations](#preparations)
+            - [Importing the Checkpoint Files to the Network](#importing-the-checkpoint-files-to-the-network)
+            - [Obtaining a List of All Parameters on the Network](#obtaining-a-list-of-all-parameters-on-the-network)
+        - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
+        - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
+    - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)
+        - [Overall Process](#overall-process-1)
+        - [Step 1: Loading the Checkpoint File](#step-1-loading-the-checkpoint-file)
+        - [Step 2: Dividing a Model Parallel Parameter](#step-2-dividing-a-model-parallel-parameter)
+        - [Step 3: Loading the Modified Parameter Data to the Network](#step-3-loading-the-modified-parameter-data-to-the-network)
+    - [Example](#example)
+        - [Scenario Description](#scenario-description)
+        - [Example Code](#example-code)
 
 <!-- /TOC -->
 ## Overview
@@ -76,7 +77,7 @@ Then, update the parameter list and integrate the model parallel parameters. See
 
 Finally, save the updated parameter list to a file through the API provided by MindSpore to generate a new checkpoint file. See step 4 in the following figure.
 
-![img](./images/checkpoint_integration_process.png)
+![img](./images/checkpoint_integration_process.jpg)
 
 ### Preparations
 
