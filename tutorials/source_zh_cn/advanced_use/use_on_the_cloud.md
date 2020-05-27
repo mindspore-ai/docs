@@ -283,7 +283,7 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 以本教程使用的训练脚本和数据为例，详细列出在创建训练作业界面如何进行配置：
 
-1. `算法来源`选择`常用框架 > Ascend-Powered-Engine > MindSpore-0.1-arrch64-cp37`。
+1. `算法来源`选择`常用框架 > Ascend-Powered-Engine > MindSpore-0.1-aarch64-cp37`。
 
 2. `代码目录`选择预先在OBS桶中创建代码目录，`启动文件`选择代码目录下的启动脚本。
 
