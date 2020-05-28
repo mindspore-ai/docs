@@ -1,46 +1,56 @@
-# Getting Started with Distributed Training
+# Getting Started with Parallel Distributed Training
 
 <!-- TOC -->
 
-- [Getting Started with Distributed Training](#getting-started-with-distributed-training)
+- [Getting Started with Parallel Distributed Training](#getting-started-with-parallel-distributed-training)
     - [Overview](#overview)
     - [Preparations](#preparations)
+        - [Downloading the Dataset](#downloading-the-dataset)
         - [Configuring Distributed Environment Variables](#configuring-distributed-environment-variables)
-        - [Invoking the Collective Communication Library](#invoking-the-collective-communication-library)
-    - [Loading Datasets](#loading-datasets)
+        - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
+    - [Loading the Dataset in Data Parallel Mode](#loading-the-dataset-in-data-parallel-mode)
     - [Defining the Network](#defining-the-network)
     - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
         - [Defining the Loss Function](#defining-the-loss-function)
         - [Defining the Optimizer](#defining-the-optimizer)
     - [Training the Network](#training-the-network)
-    - [Running Test Cases](#running-test-cases)
+    - [Running the Script](#running-the-script)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
+In deep learning, the increasing number of datasets and parameters prolongs the training time and requires more hardware resources, becoming a training bottleneck. Parallel distributed training is an important optimization method for training, which can reduce requirements on hardware, such as memory and computing performance. Based on different parallel principles and modes, parallelism is generally classified into the following types:
 
-MindSpore supports `DATA_PARALLEL` and `AUTO_PARALLEL`. Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish cost models and select a parallel mode for users. 
+- Data parallelism: splits data into many batches and then allocates the batches to each worker for model computation.
+- Model parallelism: splits a model. MindSpore supports the intra-layer model parallelism. Parameters are split and then allocated to each worker for training.
+- Hybrid parallelism: contains data parallelism and model parallelism.
 
-Among them:
-- Data parallel: A parallel mode for dividing data in batches.
-- Layerwise parallel: A parallel mode for dividing parameters by channel.
-- Hybrid parallel: A parallel mode that covers both data parallel and model parallel.
-- Cost model: A cost model built based on the memory computing cost and communication cost, for which an efficient algorithm is designed to find the parallel strategy with the shorter training time.
+MindSpore also provides the parallel distributed training function. It supports the following modes:
+- `DATA_PARALLEL`: data parallelism.
+- `AUTO_PARALLEL`: automatic parallelism, which integrates data parallelism, model parallelism, and hybrid parallelism. A cost model can be automatically created to select one parallel mode for users. Creating a cost model refers to modeling the training time based on the memory-based computation and communication overheads of the Ascend 910 chip, and designing efficient algorithms to develop a parallel strategy with a relatively short training time.
+- `HYBRID_PARALLEL`: On MindSpore, users manually split parameters to implement intra-layer model parallelism.
 
-In this tutorial, we will learn how to train the ResNet-50 network in `DATA_PARALLEL` or `AUTO_PARALLEL` mode on MindSpore.
-
-> The current sample is for the Ascend 910 AI processor. CPU and GPU processors are not supported for now.
-> You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>.
+This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore.
+> The example in this tutorial applies to hardware platforms based on the Ascend 910 AI processor, whereas does not support CPU and GPU scenarios.
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## Preparations
 
+### Downloading the Dataset
+
+This sample uses the `CIFAR-10` dataset, which consists of color images of 32 x 32 pixels in 10 classes, with 6000 images per class. There are 50,000 images in the training set and 10,000 images in the test set.
+
+> `CIFAR-10` dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz>
+
+Download the dataset and decompress it to a local path. The folder generated after the decompression is `cifar-10-batches-bin`.
+
 ### Configuring Distributed Environment Variables
 
-When distributed training is performed in the lab environment, you need to configure the networking information file for the current multi-card environment. If HUAWEI CLOUD is used, skip this section.
+When distributed training is performed in the bare-metal environment (compared with the cloud environment where the Ascend 910 AI processor is deployed on the local host), you need to configure the networking information file for the current multi-device environment. If the HUAWEI CLOUD environment is used, skip this section because the cloud service has been configured.
 
-The Ascend 910 AI processor and AIServer are used as an example. The JSON configuration file of a two-card environment is as follows. In this example, the configuration file is named rank_table.json.
+The following uses the Ascend 910 AI processor as an example. The JSON configuration file for an environment with eight devices is as follows. In this example, the configuration file is named `rank_table_8pcs.json`. For details about how to configure the 2-device environment, see the `rank_table_2pcs.json` file in the sample code.
 
 ```json
 {
@@ -50,45 +60,50 @@ The Ascend 910 AI processor and AIServer are used as an example. The JSON config
     "group_count": "1",
     "group_list": [
         {
-            "device_num": "2",
+            "device_num": "8",
             "server_num": "1",
             "group_name": "",
-            "instance_count": "2",
+            "instance_count": "8",
             "instance_list": [
-                     {"devices":[{"device_id":"0","device_ip":"192.1.27.6"}],"rank_id":"0","server_id":"10.155.111.140"},
-                     {"devices":[{"device_id":"1","device_ip":"192.2.27.6"}],"rank_id":"1","server_id":"10.155.111.140"}
-               ]
+                {"devices": [{"device_id": "0","device_ip": "192.1.27.6"}],"rank_id": "0","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "1","device_ip": "192.2.27.6"}],"rank_id": "1","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "2","device_ip": "192.3.27.6"}],"rank_id": "2","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "3","device_ip": "192.4.27.6"}],"rank_id": "3","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "4","device_ip": "192.1.27.7"}],"rank_id": "4","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "5","device_ip": "192.2.27.7"}],"rank_id": "5","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "6","device_ip": "192.3.27.7"}],"rank_id": "6","server_id": "10.155.111.140"},
+                {"devices": [{"device_id": "7","device_ip": "192.4.27.7"}],"rank_id": "7","server_id": "10.155.111.140"},
+                ]
         }
     ],
     "para_plane_nic_location": "device",
-    "para_plane_nic_name": [
-        "eth0", "eth1"
-    ],
-    "para_plane_nic_num": "2",
+    "para_plane_nic_name": ["eth0","eth1","eth2","eth3","eth4","eth5","eth6","eth7"],
+    "para_plane_nic_num": "8",
     "status": "completed"
 }
 
 ```
 The following parameters need to be modified based on the actual training environment:
-1. `board_id` indicates the environment in which the program runs.
-2. `server_num` indicates the number of hosts, and `server_id` indicates the IP address of the local host.
-3. `device_num`, `para_plane_nic_num`, and `instance_count` indicate the number of cards.
-4. `rank_id` indicates the logical sequence number of a card, which starts from 0 fixedly. `device_id` indicates the physical sequence number of a card, that is, the actual sequence number of the host where the card is located.
-5. `device_ip` indicates the IP address of the NIC. You can run the `cat /etc/hccn.conf` command on the current host to obtain the IP address of the NIC.
-6. `para_plane_nic_name` indicates the name of the corresponding NIC.
 
-After the networking information file is ready, add the file path to the environment variable `MINDSPORE_HCCL_CONFIG_PATH`. In addition, the `device_id` information needs to be transferred to the script. In this example, the information is transferred by configuring the environment variable DEVICE_ID.
+- `board_id`: current running environment. Set this parameter to `0x0000` for x86, and to `0x0020` for ARM.
+- `server_num`: number of hosts.
+- `server_id`: IP address of the local host.
+- `device_num`, `para_plane_nic_num`, and `instance_count`: number of devices.
+- `rank_id`: logical sequence number of a device, which starts from 0.
+- `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
+- `device_ip`: IP address of the integrated NIC. You can run the `cat /etc/hccn.conf` command on the current host. The key value of `address_x` is the IP address of the NIC.
+- `para_plane_nic_name`: name of the corresponding NIC.
 
-```bash
-export MINDSPORE_HCCL_CONFIG_PATH="./rank_table.json"
-export DEVICE_ID=0
-```
 
-### Invoking the Collective Communication Library
+### Calling the Collective Communication Library
 
-You need to set the `device_id` parameter, and invoke `init()` to complete the initialization operation.
+The Huawei Collective Communication Library (HCCL) is used for the communication of MindSpore parallel distributed training and can be found in the Ascend 310 AI processor software package. In addition, `mindspore.communication.management` encapsulates the collective communication API provided by the HCCL to help users configure distributed information.
+> HCCL implements multi-device multi-node communication based on the Ascend AI processor. The common restrictions on using the distributed service are as follows. For details, see the HCCL documentation.
+> - In a single-node system, a cluster of 1, 2, 4, or 8 devices is supported. In a multi-node system, a cluster of 8 x N devices is supported.
+> - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
+> - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
 
-In the sample, the graph mode is used during runtime. On the Ascend AI processor, Huawei Collective Communication Library (HCCL) is used.
+The sample code for calling the HCCL as follows:
 
 ```python
 import os
@@ -101,16 +116,15 @@ if __name__ == "__main__":
     ...   
 ```
 
-`mindspore.communication.management` encapsulates the collective communication API provided by the HCCL to help users obtain distributed information. The common types include `get_rank` and `get_group_size`, which correspond to the ID of the current card in the cluster and the number of cards, respectively.
-> HCCL implements multi-device multi-card communication based on the Da Vinci architecture chip. The restrictions on using the distributed service are as follows:
-> 1. In a single-node system, a cluster of 1, 2, 4, or 8 cards is supported. In a multi-node system, a cluster of 8 x N cards is supported.
-> 2. Each server has four NICs (numbered 0 to 3) and four NICs (numbered 4 to 7) deployed on two different networks. During training of two or four cards, the NICs must be connected and clusters cannot be created across networks.
-> 3. The operating system needs to use the symmetric multiprocessing (SMP) mode.
+In the preceding code:  
+- `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+- `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
+- `init()`: enables HCCL communication and completes the distributed training initialization.
 
-## Loading Datasets
+## Loading the Dataset in Data Parallel Mode
 
-During distributed training, data is imported in data parallel mode. The following uses Cifar10Dataset as an example to describe how to import the CIFAR-10 dataset in parallel mode, `data_path` is the path of the dataset.
-Different from a single-node system, the multi-node system needs to transfer `num_shards` and `shard_id` parameters to the dataset API, which correspond to the number of cards and logical sequence number of the NIC, respectively. You are advised to obtain the parameters through the HCCL API.
+During distributed training, data is imported in data parallel mode. The following takes the CIFAR-10 dataset as an example to describe how to import the CIFAR-10 dataset in data parallel mode. `data_path` indicates the dataset path, which is also the path of the `cifar-10-batches-bin` folder.
+
 
 ```python
 import mindspore.common.dtype as mstype
@@ -119,7 +133,7 @@ import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.transforms.vision.c_transforms as vision
 from mindspore.communication.management import get_rank, get_group_size
 
-def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -157,19 +171,21 @@ def create_dataset(repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
 
     return data_set
 ```
+Different from the single-node system, the multi-node system needs to transfer the `num_shards` and `shard_id` parameters to the dataset API. The two parameters correspond to the number of devices and logical sequence numbers of devices, respectively. You are advised to obtain the parameters through the HCCL API.  
+- `get_rank`: obtains the ID of the current device in the cluster.
+- `get_group_size`: obtains the number of devices.
 
 ## Defining the Network
 
-In `DATA_PARALLEL` and `AUTO_PARALLEL` modes, the network definition mode is the same as that of a single-node system. For sample code, see at
-
- <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>.
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
 
 ## Defining the Loss Function and Optimizer
 
 ### Defining the Loss Function
 
-In the Loss function, the SoftmaxCrossEntropyWithLogits is expanded into multiple small operators for implementation according to a mathematical formula.
-Compared with fusion loss, the loss in `AUTO_PARALLEL` mode searches and finds optimal parallel strategy by operator according to an algorithm.
+Automatic parallelism splits models using the operator granularity and obtains the optimal parallel strategy through algorithm search. Therefore, to achieve a better parallel training effect, you are advised to use small operators to implement the loss function.
+
+In the Loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multiple small operators for implementation according to a mathematical formula. The sample code is as follows:
 
 ```python
 from mindspore.ops import operations as P
@@ -213,31 +229,32 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ### Defining the Optimizer
 
-The `Momentum` optimizer is used as the parameter update tool. The definition is the same as that of a single-node system.
-
-```python
-from mindspore.nn.optim.momentum import Momentum
-lr = 0.01
-momentum = 0.9
-opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, momentum)
-```
+The `Momentum` optimizer is used as the parameter update tool. The definition is the same as that in the single-node system. For details, see the implementation in the sample code.
 
 ## Training the Network
 
-`context.set_auto_parallel_context()` is an API provided for users to set parallel parameters, which can be invoked only before the initialization of `Model`. If users did not set parameters, MindSpore will automatically set parameters to the empirical values according to the parallel mode. For example, `parameter_broadcast` is `True` in data parallel mode. The parameters are as follows:
+`context.set_auto_parallel_context()` is an API for users to set parallel training parameters and must be called before the initialization of `Model`. If no parameters are specified, MindSpore will automatically set parameters to the empirical values based on the parallel mode. For example, in data parallel mode, `parameter_broadcast` is enabled by default. The related parameters are as follows:
 
-- `parallel_mode`: distributed parallel mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
-- `paramater_broadcast`： specifies whether to broadcast initialized parameters. The Default value is `False` in non-data parallel mode.
-- `mirror_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple machines, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates the `allreduce_sum` operation that would be applied. And the value `True` indicates the `allreduce_mean` operation that would be applied.
+- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
+- `parameter_broadcast`: whether to broadcast initialized parameters. The default value is `True` in `DATA_PARALLEL` and `HYBRID_PARALLEL` mode.
+- `mirror_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
 
+> You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
-In the following example, the parallel mode is set to `AUTO_PARALLEL`. `dataset_sink_mode=False` indicates that the non-sink mode is used. `LossMonitor` can return the loss value through the callback function.
+If multiple network cases exist in the script, call `context.reset_auto_parallel_context()` to restore all parameters to default values before executing the next case.
+
+In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL`.
 
 ```python
+from mindspore import context
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.train.callback import LossMonitor
 from mindspore.train.model import Model, ParallelMode
 from resnet import resnet50
+
+device_id = int(os.getenv('DEVICE_ID'))
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+context.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(num_classes=10, epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
@@ -247,30 +264,95 @@ def test_train_cifar(num_classes=10, epoch_size=10):
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     model = Model(net, loss_fn=loss, optimizer=opt)
-    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=False)
+    model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
+In the preceding code:  
+- `dataset_sink_mode=True`: uses the dataset sink mode. That is, the training computing is sunk to the hardware platform for execution.
+- `LossMonitor`: returns the loss value through the callback function to monitor the loss function.
 
+## Running the Script
+After the script required for training is edited, run the corresponding command to call the script.
 
-## Running Test Cases
-
-Currently, MindSpore distributed execution uses the single-card single-process running mode. The number of processes must be the same as the number of used cards. Each single-process will create a folder to save log and building information. The following is an example of a running script for two-card distributed training:
+Currently, MindSpore distributed execution uses the single-device single-process running mode. That is, one process runs on each device, and the number of total processes is the same as the number of devices that are being used. For device 0, the corresponding process is executed in the foreground. For other devices, the corresponding processes are executed in the background. You need to create a directory for each process to store log information and operator compilation information. The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
 ```bash
-  #!/bin/bash
-  
-  export MINDSPORE_HCCL_CONFIG_PATH=./rank_table.json
-  export RANK_SIZE=2
-  for((i=0;i<$RANK_SIZE;i++))
-  do
-      mkdir device$i
-      cp ./resnet50_distributed_training.py ./device$i
-      cd ./device$i
-      export RANK_ID=$i
-      export DEVICE_ID=$i
-      echo "start training for device $i"
-      env > env$i.log
-      pytest -s -v ./resnet50_distributed_training.py > log$i 2>&1 &
-      cd ../
-  done
+#!/bin/bash
+
+DATA_PATH=$1
+export DATA_PATH=${DATA_PATH}
+RANK_SIZE=$2
+
+EXEC_PATH=$(pwd)
+
+test_dist_8pcs()
+{
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8pcs.json
+    export RANK_SIZE=8
+}
+
+test_dist_2pcs()
+{
+    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2pcs.json
+    export RANK_SIZE=2
+}
+
+test_dist_${RANK_SIZE}pcs
+
+for((i=1;i<${RANK_SIZE};i++))
+do
+    rm -rf device$i
+    mkdir device$i
+    cp ./resnet50_distributed_training.py ./resnet.py ./device$i
+    cd ./device$i
+    export DEVICE_ID=$i
+    export RANK_ID=$i
+    echo "start training for device $i"
+    env > env$i.log
+    pytest -s -v ./resnet50_distributed_training.py > train.log$i 2>&1 &
+    cd ../
+done
+rm -rf device0
+mkdir device0
+cp ./resnet50_distributed_training.py ./resnet.py ./device0
+cd ./device0
+export DEVICE_ID=0
+export RANK_ID=0
+echo "start training for device 0"
+env > env0.log
+pytest -s -v ./resnet50_distributed_training.py > train.log0 2>&1
+if [ $? -eq 0 ];then
+    echo "training success"
+else
+    echo "training failed"
+    exit 2
+fi
+cd ../
 ```
 
+The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the path of the dataset and the number of devices, respectively.
+
+The necessary environment variables are as follows:  
+- `MINDSPORE_HCCL_CONFIG_PATH`: path for storing the networking information file.
+- `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
+- `RANK_ID`: logical sequence number of the current device.
+For details about other environment variables, see configuration items in the installation guide.
+
+The running time is about 5 minutes, which is mainly occupied by operator compilation. The actual training time is within 20 seconds. You can use `ps -ef | grep pytest` to monitor task processes.
+
+Log files are saved in the device directory. The env.log file records environment variable information. The train.log file records the loss function information. The following is an example:
+
+```
+resnet50_distributed_training.py::test_train_feed ===============ds_num 195
+global_step: 194, loss: 1.997
+global_step: 389, loss: 1.655
+global_step: 584, loss: 1.723
+global_step: 779, loss: 1.807
+global_step: 974, loss: 1.417
+global_step: 1169, loss: 1.195
+global_step: 1364, loss: 1.238
+global_step: 1559, loss: 1.456
+global_step: 1754, loss: 0.987
+global_step: 1949, loss: 1.035
+end training
+PASSED
+```
