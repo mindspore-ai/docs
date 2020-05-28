@@ -181,7 +181,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ### 定义损失函数
 
-自动并行以展开Loss中的算子为粒度，通过算法搜索得到最优并行策略，所以与单机训练不同的是，为了有更好的并行训练效果，损失函数建议使用小算子来实现。
+自动并行以算子为粒度切分模型，通过算法搜索得到最优并行策略，所以与单机训练不同的是，为了有更好的并行训练效果，损失函数建议使用小算子来实现。
 
 在Loss部分，我们采用`SoftmaxCrossEntropyWithLogits`的展开形式，即按照数学公式，将其展开为多个小算子进行实现，样例代码如下：
 
@@ -234,7 +234,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 `context.set_auto_parallel_context()`是配置并行训练参数的接口，必须在`Model`初始化前调用。如用户未指定参数，框架会自动根据并行模式为用户设置参数的经验值。如数据并行模式下，`parameter_broadcast`默认打开。主要参数包括：
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
-- `paramater_broadcast`： 参数初始化广播开关，非数据并行模式下，默认值为`False`。
+- `parameter_broadcast`： 参数初始化广播开关，`DATA_PARALLEL`和`HYBRID_PARALLEL`模式下，默认值为`True`。
 - `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
