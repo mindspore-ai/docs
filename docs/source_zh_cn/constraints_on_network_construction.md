@@ -102,8 +102,22 @@
   - 取值：`tensor_x[True]`。
   - 赋值：暂不支持。
 - Tensor索引：index为`Tensor`
-  - 取值：暂不支持。
-  - 赋值：`tensor_x[index]=u`，`index`仅支持`bool`类型的`Tensor`。
+  - 取值：`tensor_x[index]`，`index`必须是`int32`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
+  - 赋值：`tensor_x[index]=U`。
+    - `tensor_x`的数据类型必须是下面一种： `float16`，`float32`，`int8`，`uint8`。
+    - `index`必须是`int32`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
+    - `U`可以是`Number`，`Tensor`，只包含`Number`的`Tuple`，只包含`Tensor`的`Tuple`。
+      - 单个`Number`和`Tuple`里的每个`Number`必须与`tensor_x`的数据类型属于同一类，即
+        当`tensor_x`的数据类型是`uint8`或者`int8`时，`Number`类型应该是`int`；
+        当`tensor_x`的数据类型是`float16`或者`float32`时，`Number`类型应该是`float`。
+      - 单个`Tensor`和`Tuple`里的每个`Tensor`必须与`tensor_x`的数据类型一致，
+        单个`Tensor`时，其`shape`需等于或者可广播为`index.shape + tensor_x.shape[1:]`。
+      - 包含`Number`的`Tuple`需满足下面条件：
+        `len(Tuple) = (index.shape + tensor_x.shape[1:])[-1]`。
+      - 包含`Tensor`的`Tuple`需满足下面条件：
+        每个`Tensor`的`shape`一样；
+        `(len(Tuple),) + Tensor.shape`等于或者可广播为`index.shape + tensor_x.shape[1:]`。
+      
 - None常量索引：index为`None`
   - 取值：`tensor_x[None]`，结果与numpy保持一致。
   - 赋值：暂不支持。
@@ -124,7 +138,7 @@
 ### 不支持的语法
 
 目前在网络构造函数里面暂不支持以下语法： 
- `break`、 `continue`、 `pass`、 `raise`、 `yield`、 `async for`、 `with`、 `async with`、 `assert`、 `import`、 `await`。
+ `raise`、 `yield`、 `async for`、 `with`、 `async with`、 `assert`、 `import`、 `await`。
 
 ## 网络定义约束
 
