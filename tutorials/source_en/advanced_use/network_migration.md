@@ -57,6 +57,8 @@ Prepare the hardware environment, find a platform corresponding to your environm
 
 MindSpore differs from TensorFlow and PyTorch in the network structure. Before migration, you need to clearly understand the original script and information of each layer, such as shape.
 
+> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
+
 The ResNet-50 network migration and training on the Ascend 910 is used as an example.
 
 1. Import MindSpore modules.
