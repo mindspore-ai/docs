@@ -78,11 +78,11 @@ from lenet5_config import mnist_cfg as cfg
    parser.add_argument('--data_path', type=str, default="./_unzip",
                        help='path where the dataset is saved')
    parser.add_argument('--dataset_sink_mode', type=bool, default=False, help='dataset_sink_mode is False or True')
-   parser.add_argument('--micro_batches', type=float, default=None,
+   parser.add_argument('--micro_batches', type=int, default=None,
                        help='optional, if use differential privacy, need to set micro_batches')
    parser.add_argument('--l2_norm_bound', type=float, default=1,
                        help='optional, if use differential privacy, need to set l2_norm_bound')
-   parser.add_argument('--initial_noise_multiplier', type=float, default=0.001,
+   parser.add_argument('--initial_noise_multiplier', type=float, default=0.1,
                        help='optional, if use differential privacy, need to set initial_noise_multiplier')
    args = parser.parse_args()
    ```
@@ -270,8 +270,18 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
    LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
    
    ```
-
-4. 结果展示：
+   
+4. 运行命令。
+    
+   运行脚本，可在命令行输入命令：
+   
+   ```bash
+   python lenet5_dp_model_train.py --data_path='MNIST_unzip' --micro_batches=64
+   ```
+   
+   其中`lenet5_dp_model_train.py`替换成你的脚本的名字，`MNIST_unzip`替换成你解压后的数据集的路径。
+    
+5. 结果展示。
 
    不加差分隐私的LeNet模型精度稳定在99%，加了自适应差分隐私AdaDP的LeNet模型收敛，精度稳定在96%，加了非自适应差分隐私DP[3]的LeNet模型收敛，精度稳定在94%左右。
    
@@ -282,7 +292,7 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
    ...
    ============== Accuracy: 0.9635  ==============
    ```
-      
+     
    ![dp_res](images/dp_res.png)
 
 ### 引用
