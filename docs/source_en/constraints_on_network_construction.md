@@ -103,12 +103,28 @@ The index operation includes `tuple` and` Tensor`. The following focuses on the 
 - Boolean constant index: index is `True`, index is `False` is not supported temporarily.
   - Value: `tensor_x[True]`.
   - Assignment: Not supported yet.
+  
 - Tensor index: index is `Tensor`
-  - Value: Not supported yet.
-  - Assignment: `tensor_x[index] = u`, `index` only supports `Tensor` of type` bool`.
+   - Value: `tensor_x [index]`, `index` must be `Tensor` of type `int32`, the element value range is `[0, tensor_x.shape[0])`.
+   - Assignment: `tensor_x [index] = U`.
+      - `tensor_x` data type must be one of the following: `float16`, `float32`, `int8`, `uint8`.
+      - `index` must be `Tensor` of type `int32`, the element value range is `[0, tensor_x.shape [0])`.
+      - `U` can be `Number`, `Tensor`, `Tuple` only containing `Number`, `Tuple` only containing `Tensor`.
+        - Single `Number` or every `Number` in  `Tuple` must be the same type as `tensor_x`, ie
+          When the data type of `tensor_x` is `uint8` or `int8`, the `Number` type should be `int`;
+          When the data type of `tensor_x` is `float16` or `float32`, the `Number` type should be `float`.
+        - Single `Tensor` or every `Tensor in Tuple` must be consistent with the data type of `tensor_x`,
+          when single `Tensor`, the `shape` should be equal to or broadcast as `index.shape + tensor_x.shape [1:]`.
+        - `Tuple` containing `Number` must meet requirement:
+          `len (Tuple) = (index.shape + tensor_x.shape [1:]) [-1]`.
+        - `Tuple` containing `Tensor` must meet requirements:
+          the `shape` of each `Tensor` should be the same,
+          `(len (Tuple),) + Tensor.shape` should be equal to or broadcast as `index.shape + tensor_x.shape [1:]`.
+
 - None constant index: index is `None`
   - Value: `tensor_x[None]`, results are consistent with numpy.
   - Assignment: Not supported yet.
+
 - tuple index: index is `tuple`
   - The tuple element is a slice:
     - Value: for example `tensor_x[::,: 4, 3: 0: -1]`.
@@ -126,7 +142,7 @@ In addition, tuple also supports slice value operation, `tuple_x [start: stop: s
 ### Unsupported Syntax
 
 Currently, the following syntax is not supported in network constructors: 
- `break`, `continue`, `pass`, `raise`, `yield`, `async for`, `with`, `async with`, `assert`, `import`, and `await`.
+ `raise`, `yield`, `async for`, `with`, `async with`, `assert`, `import`, and `await`.
 
 ## Network Definition Constraints
 
