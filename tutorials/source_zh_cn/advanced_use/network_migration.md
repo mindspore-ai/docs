@@ -55,6 +55,8 @@
 
 MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差别，迁移前需要对原脚本有较为清晰的了解，明确地知道每一层的shape等信息。
 
+> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
+
 下面，我们以ResNet-50的迁移，并在Ascend 910上训练为例：
 
 1. 导入MindSpore模块。
