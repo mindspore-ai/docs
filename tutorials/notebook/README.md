@@ -1,17 +1,18 @@
 # MindSpore的教程体验
 
 ## 环境配置
-### Windows系统配置方法
+### Windows和Linux系统配置方法
 
-- 系统版本：Windows 10
+- 系统版本：Windows 10，Ubuntu 16.04及以上
 
 - 软件配置：[Anaconda](https://www.anaconda.com/products/individual)，Jupyter Notebook
 
 - 语言环境：Python3.7.X 推荐 Python3.7.5
 
-- MindSpore 下载地址：[MindSpore官网下载](https://www.mindspore.cn/versions)选择Windows版本
+- MindSpore 下载地址：[MindSpore官网下载](https://www.mindspore.cn/versions)，使用Windows系统用户选择Windows-X86版本，使用Linux系统用户选择Ubuntu-X86版本
 
-> Windows系统MindSpore的[具体安装教程](https://www.mindspore.cn/install/) 
+> MindSpore的[具体安装教程](https://www.mindspore.cn/install/) 
+
 
 ### Jupyter Notebook切换conda环境（Kernel Change）的配置方法
 
