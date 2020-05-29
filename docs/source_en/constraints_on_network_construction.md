@@ -105,10 +105,11 @@ The index operation includes `tuple` and` Tensor`. The following focuses on the 
   - Assignment: Not supported yet.
   
 - Tensor index: index is `Tensor`
-   - Value: `tensor_x [index]`, `index` must be `Tensor` of type `int32`, the element value range is `[0, tensor_x.shape[0])`.
+   - Value: `tensor_x [index]`, `index` must be `Tensor` of data type `int32` or `int64`,
+     the element value range is `[0, tensor_x.shape[0])`.
    - Assignment: `tensor_x [index] = U`.
       - `tensor_x` data type must be one of the following: `float16`, `float32`, `int8`, `uint8`.
-      - `index` must be `Tensor` of type `int32`, the element value range is `[0, tensor_x.shape [0])`.
+      - `index` must be `Tensor` of data type `int32`, the element value range is `[0, tensor_x.shape [0])`.
       - `U` can be `Number`, `Tensor`, `Tuple` only containing `Number`, `Tuple` only containing `Tensor`.
         - Single `Number` or every `Number` in  `Tuple` must be the same type as `tensor_x`, ie
           When the data type of `tensor_x` is `uint8` or `int8`, the `Number` type should be `int`;
