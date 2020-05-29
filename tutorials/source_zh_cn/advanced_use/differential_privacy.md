@@ -56,6 +56,9 @@ from mindarmour.diff_privacy import PrivacyMonitorFactory
 from mindarmour.utils.logger import LogUtil
 from lenet5_net import LeNet5
 from lenet5_config import mnist_cfg as cfg
+
+LOGGER.set_level('INFO')
+TAG = 'Lenet5_train'
 ```
 
 ### 配置环境信息
@@ -72,17 +75,17 @@ from lenet5_config import mnist_cfg as cfg
     - initial_noise_multiplier：差分隐私参数，高斯噪声的标准差等于initial_noise_multiplier乘以l2_norm_bound。
 
    ```python
-   parser = argparse.ArgumentParser(description='MindSpore  Example')
+   parser = argparse.ArgumentParser(description='MindSpore MNIST Example')
    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],
                        help='device where the code will be implemented (default: Ascend)')
-   parser.add_argument('--data_path', type=str, default="./_unzip",
+   parser.add_argument('--data_path', type=str, default="./MNIST_unzip",
                        help='path where the dataset is saved')
    parser.add_argument('--dataset_sink_mode', type=bool, default=False, help='dataset_sink_mode is False or True')
-   parser.add_argument('--micro_batches', type=int, default=None,
+   parser.add_argument('--micro_batches', type=int, default=32,
                        help='optional, if use differential privacy, need to set micro_batches')
-   parser.add_argument('--l2_norm_bound', type=float, default=1,
+   parser.add_argument('--l2_norm_bound', type=float, default=1.0,
                        help='optional, if use differential privacy, need to set l2_norm_bound')
-   parser.add_argument('--initial_noise_multiplier', type=float, default=0.1,
+   parser.add_argument('--initial_noise_multiplier', type=float, default=1.5,
                        help='optional, if use differential privacy, need to set initial_noise_multiplier')
    args = parser.parse_args()
    ```
@@ -100,7 +103,7 @@ from lenet5_config import mnist_cfg as cfg
 加载数据集并处理成MindSpore数据格式。
 
 ```python
-def generate__dataset(data_path, batch_size=32, repeat_size=1,
+def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                            num_parallel_workers=1, sparse=True):
     """
     create dataset for training or testing
@@ -167,7 +170,7 @@ def fc_with_initialize(input_channels, out_channels):
 
 
 def weight_variable():
-    return TruncatedNormal(0.02)
+    return TruncatedNormal(0.05)
 
 
 class LeNet5(nn.Cell):
@@ -201,7 +204,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-加载`LeNet`网络，定义损失函数、配置checkpoint、用上述定义的数据加载函数`generate__dataset`载入数据。
+加载`LeNet`网络，定义损失函数、配置checkpoint、用上述定义的数据加载函数`generate_mnist_dataset`载入数据。
 
 ```python
 network = LeNet5()
@@ -212,7 +215,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
-ds_train = generate__dataset(os.path.join(args.data_path, "train"),
+ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
                                   cfg.batch_size,
                                   cfg.epoch_size)
 ```
@@ -221,12 +224,15 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
 
 1. 配置差分隐私优化器的参数。
 
+   - 判断micro_batches和batch_size参数是否符合要求。
    - 实例化差分隐私工厂类。
    - 设置差分隐私的噪声机制，目前支持固定标准差的高斯噪声机制：'Gaussian'和自适应调整标准差的自适应高斯噪声机制：'AdaGaussian'。
    - 设置优化器类型，目前支持'SGD'和'Momentum'。
    - 设置差分隐私预算监测器RDP，用于观测每个step中的差分隐私预算$\epsilon$的变化。
 
    ```python
+   if args.micro_batches and cfg.batch_size % args.micro_batches != 0:
+       raise ValueError("Number of micro_batches should divide evenly batch_size")
    gaussian_mech = DPOptimizerClassFactory(args.micro_batches)
    gaussian_mech.set_mechanisms('Gaussian',
                                 norm_bound=args.l2_norm_bound,
@@ -236,9 +242,9 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
                                               momentum=cfg.momentum)
    rdp_monitor = PrivacyMonitorFactory.create('rdp',
                                               num_samples=60000,
-                                              batch_size=16,
-                                              initial_noise_multiplier=5,
-                                              target_delta=0.5,
+                                              batch_size=cfg.batch_size,
+                                              initial_noise_multiplier=args.initial_noise_multiplier*
+                                              args.l2_norm_bound,
                                               per_print_times=10)
    ```
 
@@ -262,13 +268,13 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
    dataset_sink_mode=args.dataset_sink_mode)
    
    LOGGER.info(TAG, "============== Starting Testing ==============")
-   ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
+   ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_234.ckpt'
    param_dict = load_checkpoint(ckpt_file_name)
    load_param_into_net(network, param_dict)
-   ds_eval = generate__dataset(os.path.join(args.data_path, 'test'), batch_size=cfg.batch_size)
+   ds_eval = generate_mnist_dataset(os.path.join(args.data_path, 'test'), batch_size=cfg.batch_size)
    acc = model.eval(ds_eval, dataset_sink_mode=False)
    LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
-   
+
    ```
    
 4. 运行命令。
@@ -290,11 +296,9 @@ ds_train = generate__dataset(os.path.join(args.data_path, "train"),
    ...
    ============== Starting Testing ==============
    ...
-   ============== Accuracy: 0.9635  ==============
+   ============== Accuracy: 0.9091  ==============
    ```
      
-   ![dp_res](images/dp_res.png)
-
 ### 引用
 
 [1] C. Dwork and J. Lei. Differential privacy and robust statistics. In STOC, pages 371–380. ACM, 2009.
