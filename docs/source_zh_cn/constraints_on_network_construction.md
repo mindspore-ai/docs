@@ -102,7 +102,7 @@
   - 取值：`tensor_x[True]`。
   - 赋值：暂不支持。
 - Tensor索引：index为`Tensor`
-  - 取值：`tensor_x[index]`，`index`必须是`int32`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
+  - 取值：`tensor_x[index]`，`index`必须是`int32`、`int64`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
   - 赋值：`tensor_x[index]=U`。
     - `tensor_x`的数据类型必须是下面一种： `float16`，`float32`，`int8`，`uint8`。
     - `index`必须是`int32`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
