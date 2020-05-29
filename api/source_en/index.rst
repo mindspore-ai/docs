@@ -30,6 +30,7 @@ MindSpore API
    api/python/mindspore/mindspore.mindrecord
 
    api/python/mindinsight/mindinsight.lineagemgr
+   api/python/mindinsight/mindinsight.profiler
 
    api/python/mindarmour/mindarmour
    api/python/mindarmour/mindarmour.utils
