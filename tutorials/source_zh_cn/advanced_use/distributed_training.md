@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：
@@ -34,7 +34,7 @@
 
 本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
 > 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r0.3/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 
@@ -175,7 +175,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/r0.3/tutorials/tutorial_code/resnet/resnet.py>
 
 ## 定义损失函数及优化器
 
