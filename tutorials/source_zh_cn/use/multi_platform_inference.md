@@ -29,16 +29,16 @@ res = model.eval(dataset)
 
 ## Ascend 310 AI处理器上推理
 
-1. 参考[模型导出](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)生成ONNX或GEIR模型。
+1. 参考[模型导出](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/use/saving_and_loading_model_parameters.html#geironnx)生成ONNX或GEIR模型。
 
 2. 云上环境请参考[Ascend910训练和Ascend310推理的样例](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html)完成推理操作。裸机环境（对比云上环境，即本地有Ascend 310 AI 处理器）请参考Ascend 310 AI处理器配套软件包的说明文档。
 
 ## GPU上推理
 
-1. 参考[模型导出](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)生成ONNX模型。
+1. 参考[模型导出](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/use/saving_and_loading_model_parameters.html#geironnx)生成ONNX模型。
 
 2. 参考[TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt)，在Nvidia GPU上完成推理操作。
 
 ## 端侧推理
 
-端侧推理需使用MindSpore Predict推理引擎，详细操作请参考[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/on_device_inference.html)。
+端侧推理需使用MindSpore Predict推理引擎，详细操作请参考[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/advanced_use/on_device_inference.html)。

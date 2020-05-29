@@ -29,9 +29,9 @@
 
 ### 算子评估
 
-分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html)，梳理出MindSpore对这些算子的支持程度。
+分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/operator_list.html)，梳理出MindSpore对这些算子的支持程度。
 
-以ResNet-50为例，[Conv](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)和[BatchNorm](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
+以ResNet-50为例，[Conv](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)和[BatchNorm](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
 - 使用其他算子替换：分析算子实现公式，审视是否可以采用MindSpore现有算子叠加达到预期目标。
@@ -61,11 +61,11 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 1. 导入MindSpore模块。
 
-    根据所需使用的接口，导入相应的MindSpore模块，模块列表详见<https://www.mindspore.cn/api/zh-CN/master/index.html>。
+    根据所需使用的接口，导入相应的MindSpore模块，模块列表详见<https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html>。
 
 2. 加载数据集和预处理。
 
-    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_preparation.html)。
+    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/use/data_preparation/data_preparation.html)。
     
     本例中加载了Cifar-10数据集，可同时支持单卡和多卡的场景。
 
@@ -231,7 +231,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
     ```
 
-    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/customized_debugging_information.html#mindspore-metrics)属性设置希望使用的评估方法。
+    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/advanced_use/customized_debugging_information.html#mindspore-metrics)属性设置希望使用的评估方法。
     
     ```python
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
@@ -259,16 +259,16 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 #### 云上集成
 
-请参考[在云上使用MindSpore](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html)，将你的脚本运行在ModelArts。
+请参考[在云上使用MindSpore](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/advanced_use/use_on_the_cloud.html)，将你的脚本运行在ModelArts。
 
 ### 推理阶段
 
-在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)。
+在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/use/multi_platform_inference.html)。
 
 ## 样例参考
 
 1. [常用网络脚本样例](https://gitee.com/mindspore/mindspore/tree/r0.3/example)
 
-2. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)
+2. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/use/data_preparation/loading_the_datasets.html)
 
 3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.3/mindspore/model_zoo)
