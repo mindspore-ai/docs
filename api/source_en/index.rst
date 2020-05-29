@@ -45,4 +45,4 @@ MindSpore API
    :maxdepth: 1
    :caption: C++ API
 
-   predict <https://www.mindspore.cn/apicc/en/master/predict/namespacemembers.html>
+   predict <https://www.mindspore.cn/apicc/en/0.3.0-alpha/predict/namespacemembers.html>

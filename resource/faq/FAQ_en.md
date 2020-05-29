@@ -92,13 +92,13 @@ A: MindSpore provides pluggable device management interface so that developer co
 
 Q: What hardware does MindSpore require?
 
-A: Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [RoadMap](https://www.mindspore.cn/docs/en/master/roadmap.html) and project [Release Notes](https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md).
+A: Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [RoadMap](https://www.mindspore.cn/docs/en/0.3.0-alpha/roadmap.html) and project [Release Notes](https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md).
 
 ### System Support
 
 Q: Does MindSpore support Windows 10?
 
-A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, see tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindspore_cpu_win_install.html).
+A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, see tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/en/0.3.0-alpha/advanced_use/mindspore_cpu_win_install.html).
 
 ### Programming Language
 
@@ -122,7 +122,7 @@ A: The MindSpore framework does not support FCA. For semantic models, you can ca
 
 Q: Where can I view the sample code or tutorial of MindSpore training and inference?
 
-A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/index.html).
+A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/0.3.0-alpha/index.html).
 
 ## Features
 
@@ -140,7 +140,7 @@ A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to
 
 Q: What is the relationship between MindSpore and ModelArts? Can MindSpore be used on ModelArts?
 
-A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
+A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
 
 ## Capabilities
 
@@ -152,7 +152,7 @@ A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Mo
 
 Q: How do I migrate scripts or models of other frameworks to MindSpore?
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/advanced_use/network_migration.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/0.3.0-alpha/advanced_use/network_migration.html).
 
 <br/>
 

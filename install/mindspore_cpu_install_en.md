@@ -21,7 +21,7 @@ This document describes how to quickly install MindSpore on a Ubuntu system with
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.3/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
+| MindSpore 0.3.0-alpha | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.3/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
 
 - When Ubuntu version is 18.04, GCC 7.3.0 can be installed by using apt command.
 - When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
@@ -97,7 +97,7 @@ If you need to conduct AI model security research or enhance the security of the
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindArmour master | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r0.3/setup.py). | Same as the executable file installation dependencies. |
+| MindArmour 0.3.0-alpha | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 0.3.0-alpha <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r0.3/setup.py). | Same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the setup.py file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
