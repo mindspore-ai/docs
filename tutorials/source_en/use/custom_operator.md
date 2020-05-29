@@ -9,7 +9,7 @@
         - [Implementing a TBE Operator](#implementing-a-tbe-operator)
         - [Registering the Operator Information](#registering-the-operator-information)
         - [Example](#example)
-    - [Using a Custom Operator](#using-a-custom-operator)
+    - [Using Custom Operators](#using-custom-operators)
     - [Defining the bprop Function for an Operator](#defining-the-bprop-function-for-an-operator)
 
 <!-- /TOC -->
