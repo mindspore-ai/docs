@@ -32,9 +32,9 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | - Ubuntu 16.04 or later aarch64 <br> - Ubuntu 16.04 or later x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas T 1.1.T107) <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas T 1.1.T107) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+| MindSpore master | - Ubuntu 16.04 or later aarch64 <br> - Ubuntu 16.04 or later x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
-- Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas T 1.1.T107). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+- Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - When Ubuntu version is 18.04, GCC 7.3.0 can be installed by using apt command.
 - When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -56,7 +56,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 
 ### Configuring software package Dependencies
 
- - Install the .whl package provided in Ascend 910 AI processor software package(Version:Atlas T 1.1.T107). The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
+ - Install the .whl package provided in Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100). The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
