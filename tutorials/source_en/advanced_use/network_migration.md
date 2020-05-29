@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/source_en/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/tree/r0.3/tutorials/source_en/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -57,7 +57,7 @@ Prepare the hardware environment, find a platform corresponding to your environm
 
 MindSpore differs from TensorFlow and PyTorch in the network structure. Before migration, you need to clearly understand the original script and information of each layer, such as shape.
 
-> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
+> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/r0.3/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
 
 The ResNet-50 network migration and training on the Ascend 910 is used as an example.
 
@@ -79,7 +79,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
                               num_shards=device_num, shard_id=rank_id)
    ```
 
-   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/dataset.py>.
+   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/r0.3/example/resnet50_cifar10/dataset.py>.
 
 3. Build a network.
 
@@ -214,7 +214,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
 6. Build the entire network.
 
-   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
+   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.3/mindspore/model_zoo/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
 
 7. Define a loss function and an optimizer.
 
@@ -272,9 +272,9 @@ Models trained on the Ascend 910 AI processor can be used for inference on diffe
 
 ## Examples
 
-1. [Common network script examples](https://gitee.com/mindspore/mindspore/tree/master/example)
+1. [Common network script examples](https://gitee.com/mindspore/mindspore/tree/r0.3/example)
 
 2. [Common dataset examples](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/loading_the_datasets.html)
 
-3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)
+3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.3/mindspore/model_zoo)
 

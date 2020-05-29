@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -55,7 +55,7 @@
 
 MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差别，迁移前需要对原脚本有较为清晰的了解，明确地知道每一层的shape等信息。
 
-> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
+> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/r0.3/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
 
 下面，我们以ResNet-50的迁移，并在Ascend 910上训练为例：
 
@@ -77,7 +77,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
                                num_shards=device_num, shard_id=rank_id)
     ```
     
-    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/dataset.py>。
+    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/r0.3/example/resnet50_cifar10/dataset.py>。
 
 3. 构建网络。
 
@@ -210,7 +210,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 6. 构造整网。
 
-    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
+    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.3/mindspore/model_zoo/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
 
 7. 定义损失函数和优化器。
 
@@ -267,8 +267,8 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 ## 样例参考
 
-1. [常用网络脚本样例](https://gitee.com/mindspore/mindspore/tree/master/example)
+1. [常用网络脚本样例](https://gitee.com/mindspore/mindspore/tree/r0.3/example)
 
 2. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)
 
-3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)
+3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.3/mindspore/model_zoo)

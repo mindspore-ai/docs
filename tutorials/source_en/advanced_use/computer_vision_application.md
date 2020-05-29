@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_en/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -64,7 +64,7 @@ Next, let's use MindSpore to solve the image classification task. The overall pr
 5. Call the high-level `Model` API to train and save the model file.
 6. Load the saved model for inference.
 
-> This example is for the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at： <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet>.
+> This example is for the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at： <https://gitee.com/mindspore/docs/blob/r0.3/tutorials/tutorial_code/resnet>.
 
 The key parts of the task process code are explained below.
 

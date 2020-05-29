@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.3/tutorials/source_zh_cn/advanced_use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -19,7 +19,7 @@
 
 ## Ascend 910 AI处理器上推理
 
-MindSpore提供了`model.eval()`接口来进行模型验证，你只需传入验证数据集即可，验证数据集的处理方式与训练数据集相同。完整代码请参考<https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/eval.py>。
+MindSpore提供了`model.eval()`接口来进行模型验证，你只需传入验证数据集即可，验证数据集的处理方式与训练数据集相同。完整代码请参考<https://gitee.com/mindspore/mindspore/blob/r0.3/example/resnet50_cifar10/eval.py>。
 
 ```python
 res = model.eval(dataset)

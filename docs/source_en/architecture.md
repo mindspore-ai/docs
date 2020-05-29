@@ -8,7 +8,7 @@ This document describes the overall architecture of MindSpore.
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.3/docs/source_en/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 The MindSpore framework consists of the Frontend Expression layer, Graph Engine layer, and Backend Runtime layer.
 
