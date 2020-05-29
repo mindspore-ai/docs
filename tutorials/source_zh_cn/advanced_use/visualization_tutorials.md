@@ -41,6 +41,8 @@
 
 ## 准备训练脚本
 
+### Summary数据收集
+
 当前MindSpore利用 `Callback` 机制将标量、图像、计算图、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。
 
 其中标量、图像是通过Summary算子实现记录数据，计算图是在网络编译完成后，通过 `SummaryRecord` 将其保存到summary日志文件中，
@@ -180,6 +182,41 @@ def test_summary():
 > - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
 > - 一个batch中，`HistogramSummary`算子的调用次数请尽量控制在10次以下，调用次数越多，性能开销越大。
 > - 请使用*with语句*确保`SummaryRecord`最后正确关闭，否则可能会导致进程无法退出。
+
+### 性能数据收集
+
+为了收集神经网络的性能数据，需要在训练脚本中添加MindInsight Profiler接口。首先，在set context之后和初始化网络之前，需要初始化MindInsight `Profiler`对象；
+然后在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
+
+样例代码如下：
+
+```python
+from mindinsight.profiler import Profiler
+from mindspore import Model, nn, context
+
+
+def test_profiler():
+    # Init context env
+    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+    
+    # Init Profiler
+    profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
+    
+    # Init hyperparameter
+    epoch = 2
+    # Init network and Model
+    net = Net()
+    loss_fn = CrossEntropyLoss()
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
+    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
+    # Prepare mindrecord_dataset for training
+    train_ds = create_mindrecord_dataset_for_training()
+    # Model Train
+    model.train(epoch, train_ds)
+    
+    # Profiler end
+    profiler.analyse()
+``` 
 
 ## MindInsight相关命令
 
