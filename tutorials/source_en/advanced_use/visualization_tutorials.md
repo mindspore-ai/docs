@@ -438,6 +438,8 @@ Figure 16: Dataset lineage list
 
 Figure 16 shows the data processing and augmentation information of all model trainings.
 
+> If user filters the model lineage and then switches to the data lineage page,the line chart will show the latest filtered column in model lineage.
+
 ### Scalars Comparision
 
 Scalars Comparision can be used to compare scalar curves between multiple trainings
