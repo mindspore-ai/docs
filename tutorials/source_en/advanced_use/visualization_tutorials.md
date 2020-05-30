@@ -36,6 +36,8 @@ Scalars, images, computational graphs, and model hyperparameters during training
 
 ## Preparing the Training Script
 
+### Collect Summary Data
+
 Currently, MindSpore uses the `Callback` mechanism to save scalars, images, computational graphs, and model hyperparameters to summary log files and display them on the web page.
 
 Scalar and image data is recorded by using the `Summary` operator. A computational graph is saved to the summary log file by using `SummaryRecord` after network compilation is complete.
@@ -174,6 +176,42 @@ Use the `save_graphs` option of `context` to record the computational graph afte
 > - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
 > - It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
 > - Please use the *with statement* to ensure that `SummaryRecord` is properly closed at the end, otherwise the process may fail to exit.
+
+### Collect Performance Profile Data
+
+To enable the performance profiling of neural networks, MindInsight Profiler APIs should be added into the script. At first, the MindInsight `Profiler` object need
+to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce 
+analyse results.
+
+The sample code is as follows:
+
+```python
+from mindinsight.profiler import Profiler
+from mindspore import Model, nn, context
+
+
+def test_profiler():
+    # Init context env
+    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+    
+    # Init Profiler
+    profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
+    
+    # Init hyperparameter
+    epoch = 2
+    # Init network and Model
+    net = Net()
+    loss_fn = CrossEntropyLoss()
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
+    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
+    # Prepare mindrecord_dataset for training
+    train_ds = create_mindrecord_dataset_for_training()
+    # Model Train
+    model.train(epoch, train_ds)
+    
+    # Profiler end
+    profiler.analyse()
+``` 
 
 ## MindInsight Commands
 
