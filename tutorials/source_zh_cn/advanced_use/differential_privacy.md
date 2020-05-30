@@ -57,6 +57,7 @@ from mindarmour.utils.logger import LogUtil
 from lenet5_net import LeNet5
 from lenet5_config import mnist_cfg as cfg
 
+LOGGER = LogUtil.get_instances()
 LOGGER.set_level('INFO')
 TAG = 'Lenet5_train'
 ```
@@ -234,7 +235,7 @@ ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
    if args.micro_batches and cfg.batch_size % args.micro_batches != 0:
        raise ValueError("Number of micro_batches should divide evenly batch_size")
    gaussian_mech = DPOptimizerClassFactory(args.micro_batches)
-   gaussian_mech.set_mechanisms('Gaussian',
+   gaussian_mech.set_mechanisms('AdaGaussian',
                                 norm_bound=args.l2_norm_bound,
                                 initial_noise_multiplier=args.initial_noise_multiplier)
    net_opt = gaussian_mech.create('Momentum')(params=network.trainable_params(),
@@ -289,14 +290,13 @@ ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
     
 5. 结果展示。
 
-   不加差分隐私的LeNet模型精度稳定在99%，加了自适应差分隐私AdaDP的LeNet模型收敛，精度稳定在96%，加了非自适应差分隐私DP[3]的LeNet模型收敛，精度稳定在94%左右。
-   
+   不加差分隐私的LeNet模型精度稳定在99%，加了自适应差分隐私AdaDP的LeNet模型收敛，精度稳定在91%。
    ```
    ============== Starting Training ==============
    ...
    ============== Starting Testing ==============
    ...
-   ============== Accuracy: 0.9091  ==============
+   ============== Accuracy: 0.9115  ==============
    ```
      
 ### 引用
