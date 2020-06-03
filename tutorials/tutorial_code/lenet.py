@@ -169,12 +169,12 @@ class LeNet5(nn.Cell):
         return x
 
 
-def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb):
+def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
     """Define the training method."""
     print("============== Starting Training ==============")
     # load training dataset
     ds_train = create_dataset(os.path.join(mnist_path, "train"), 32, repeat_size)
-    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=False)
+    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
 
 
 def test_net(args, network, model, mnist_path):
@@ -196,6 +196,7 @@ if __name__ == "__main__":
                         help='device where the code will be implemented (default: CPU)')
     args = parser.parse_args()
     context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
+    dataset_sink_mode = not args.device_target == "CPU"
     # download mnist dataset
     download_dataset()
     # learning rate setting
@@ -216,5 +217,5 @@ if __name__ == "__main__":
     # group layers into an object with training and evaluation features
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
-    train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb)
+    train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
     test_net(args, network, model, mnist_path)
