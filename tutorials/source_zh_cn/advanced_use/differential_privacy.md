@@ -2,13 +2,15 @@
 
 ## 概述
 
-差分隐私是一种保护用户数据隐私的机制。什么是隐私，隐私指的是单个用户的某些属性，一群用户的某一些属性可以不看做隐私。例如：“抽烟的人有更高的几率会得肺癌”，这个不泄露隐私，但是“张三抽烟，得了肺癌”，这个就泄露了张三的隐私。如果我们知道A医院，今天就诊的100个病人，其中有10个肺癌，并且我们知道了其中99个人的患病信息，就可以推测剩下一个人是否患有肺癌。这种窃取隐私的行为叫做差分攻击。差分隐私是防止差分攻击的方法，通过添加噪声，使得差别只有一条记录的两个数据集，通过模型推理获得相同结果的概率非常接近。
+差分隐私是一种保护用户数据隐私的机制。什么是隐私，隐私指的是单个用户的某些属性，一群用户的某一些属性可以不看做隐私。例如：“抽烟的人有更高的几率会得肺癌”，这个不泄露隐私，但是“张三抽烟，得了肺癌”，这个就泄露了张三的隐私。如果我们知道A医院，今天就诊的100个病人，其中有10个肺癌，并且我们知道了其中99个人的患病信息，就可以推测剩下一个人是否患有肺癌。这种窃取隐私的行为叫做差分攻击。差分隐私是防止差分攻击的方法，通过添加噪声，使得差别只有一条记录的两个数据集，通过模型推理获得相同结果的概率非常接近。也就是说，用了差分隐私后，攻击者知道的100个人的患病信息和99个人的患病信息几乎是一样的，从而无法推测出剩下1个人的患病情况。
 
 **机器学习中的差分隐私**
 
 机器学习算法一般是用大量数据并更新模型参数，学习数据特征。在理想情况下，这些算法学习到一些泛化性较好的模型，例如“吸烟患者更容易得肺癌”，而不是特定的个体特征，例如“张三是个吸烟者，患有肺癌”。然而，机器学习算法并不会区分通用特征还是个体特征。当我们用机器学习来完成某个重要的任务，例如肺癌诊断，发布的机器学习模型，可能在无意中透露训练集中的个体特征，恶意攻击者可能从发布的模型获得关于张三的隐私信息，因此使用差分隐私技术来保护机器学习模型是十分必要的。
 
-**差分隐私定义**[1]为：![gs](images/DP_formula.png)
+**差分隐私定义**[1]为：
+
+$Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D') \in S]+\delta$
 
 对于两个差别只有一条记录的数据集$D, D'$，通过随机算法$\mathcal{K}$，输出为结果集合$S$子集的概率满足上面公式，$\epsilon$为差分隐私预算，$\delta$ 为扰动，$\epsilon, \delta$越小，$\mathcal{K}$在$D, D'$上输出的数据分布越接近。
 
@@ -21,7 +23,7 @@
 
 **MindArmour实现的差分隐私**
 
-MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优化器。目前支持基于高斯机制的差分隐私SGD、Momentum优化器，同时还提供RDP（R’enyi differential privacy）[2]用于监测差分隐私预算。
+MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优化器。目前支持基于高斯机制的差分隐私SGD、Momentum、Adam优化器。其中，高斯噪声机制支持固定标准差的非自适应高斯噪声和随着时间或者迭代步数变化而变化的自适应高斯噪声，使用非自适应高斯噪声的优势在于可以严格控制差分隐私预算$\epsilon$，缺点是在模型训练过程中，每个Step添加的噪声量固定，在训练后期，较大的噪声使得模型收敛困难，甚至导致性能大幅下跌，模型可用性差。自适应噪声很好的解决了这个问题，在模型训练初期，添加的噪声量较大，随着模型逐渐收敛，噪声量逐渐减小，噪声对于模型可用性的影响减小。自适应噪声的缺点是不能严格控制差分隐私预算，在同样的初始值下，自适应差分隐私的$\epsilon$比非自适应的大。同时还提供RDP（R’enyi differential privacy）[2]用于监测差分隐私预算。
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
@@ -35,7 +37,7 @@ MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优�
 
 ```python
 import os
-import argparse
+from easydict import EasyDict as edict
 
 import mindspore.nn as nn
 from mindspore import context
@@ -62,39 +64,37 @@ LOGGER.set_level('INFO')
 TAG = 'Lenet5_train'
 ```
 
-### 配置环境信息
+### 参数配置
 
-1. 使用`parser`模块，传入运行必要的信息，如运行环境设置、数据集存放路径等，这样的好处是对于经常变化的配置，可以在运行代码时输入，使用更加灵活。
-
-   参数说明：
-    
-    - device_target：运行环境，在'Ascend'，'GPU'，'CPU'上运行脚本。
-    - data_path：数据集所在路径。
-    - dataset_sink_mode：是否使用数据下沉模式。
-    - micro_batches：差分隐私参数，将原始batch切割成micro_batches份，每次对batch/micro_batches个样本加噪声。
-    - l2_norm_bound：差分隐私参数，梯度的二范数约束。
-    - initial_noise_multiplier：差分隐私参数，高斯噪声的标准差等于initial_noise_multiplier乘以l2_norm_bound。
-
+1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数。
+   
    ```python
-   parser = argparse.ArgumentParser(description='MindSpore MNIST Example')
-   parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],
-                       help='device where the code will be implemented (default: Ascend)')
-   parser.add_argument('--data_path', type=str, default="./MNIST_unzip",
-                       help='path where the dataset is saved')
-   parser.add_argument('--dataset_sink_mode', type=bool, default=False, help='dataset_sink_mode is False or True')
-   parser.add_argument('--micro_batches', type=int, default=32,
-                       help='optional, if use differential privacy, need to set micro_batches')
-   parser.add_argument('--l2_norm_bound', type=float, default=1.0,
-                       help='optional, if use differential privacy, need to set l2_norm_bound')
-   parser.add_argument('--initial_noise_multiplier', type=float, default=1.5,
-                       help='optional, if use differential privacy, need to set initial_noise_multiplier')
-   args = parser.parse_args()
+   cfg = edict({
+         'device_target': 'Ascend',  # device used
+         'data_path': './MNIST_unzip',  # the path of training and testing data set
+         'dataset_sink_mode': False,  # whether deliver all training data to device one time　
+         'num_classes': 10,  # the number of classes of model's output
+         'lr': 0.01,  # the learning rate of model's optimizer
+         'momentum': 0.9,  # the momentum value of model's optimizer
+         'epoch_size': 10,  # training epochs
+         'batch_size': 256,  # batch size for training
+         'image_height': 32,  # the height of training samples
+         'image_width': 32,  # the width of training samples
+         'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
+         'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
+         'micro_batches': 32,  # the number of small batches split from an original batch
+         'l2_norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters
+         'initial_noise_multiplier': 1.5,  # the initial multiplication coefficient of the noise added to training
+         # parameters' gradients
+         'mechanisms': 'AdaGaussian',  # the method of adding noise in gradients while training
+         'optimizer': 'Momentum'  # the base optimizer used for Differential privacy training
+         })
    ```
 
-2. 配置必要的信息，包括环境信息、执行的模式、后端信息及硬件信息。
+2. 配置必要的信息，包括环境信息、执行的模式。
 
    ```python
-   context.set_context(mode=context.PYNATIVE_MODE, device_target=args.device_target)
+   context.set_context(mode=context.PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
    详细的接口配置信息，请参见`context.set_context`接口说明。
@@ -150,7 +150,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 
 ### 建立模型
 
-这里以`LeNet`模型为例，您也可以建立训练自己的模型。
+这里以LeNet模型为例，您也可以建立训练自己的模型。
 
 ```python
 from mindspore import nn
@@ -205,7 +205,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-加载`LeNet`网络，定义损失函数、配置checkpoint、用上述定义的数据加载函数`generate_mnist_dataset`载入数据。
+加载LeNet网络，定义损失函数、配置checkpoint、用上述定义的数据加载函数`generate_mnist_dataset`载入数据。
 
 ```python
 network = LeNet5()
@@ -216,7 +216,8 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
                              directory='./trained_ckpt_file/',
                              config=config_ck)
 
-ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
+# get training dataset
+ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
                                   cfg.batch_size,
                                   cfg.epoch_size)
 ```
@@ -225,35 +226,49 @@ ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
 
 1. 配置差分隐私优化器的参数。
 
-   - 判断micro_batches和batch_size参数是否符合要求。
+   - 判断micro_batches和batch_size参数是否符合要求，batch_size必须要整除micro_batches。
    - 实例化差分隐私工厂类。
-   - 设置差分隐私的噪声机制，目前支持固定标准差的高斯噪声机制：'Gaussian'和自适应调整标准差的自适应高斯噪声机制：'AdaGaussian'。
-   - 设置优化器类型，目前支持'SGD'和'Momentum'。
+   - 设置差分隐私的噪声机制，目前mechanisms支持固定标准差的高斯噪声机制：`Gaussian`和自适应调整标准差的高斯噪声机制：`AdaGaussian`。
+   - 设置优化器类型，目前支持`SGD`、`Momentum`和`Adam`。
    - 设置差分隐私预算监测器RDP，用于观测每个step中的差分隐私预算$\epsilon$的变化。
 
    ```python
-   if args.micro_batches and cfg.batch_size % args.micro_batches != 0:
-       raise ValueError("Number of micro_batches should divide evenly batch_size")
-   gaussian_mech = DPOptimizerClassFactory(args.micro_batches)
-   gaussian_mech.set_mechanisms('AdaGaussian',
-                                norm_bound=args.l2_norm_bound,
-                                initial_noise_multiplier=args.initial_noise_multiplier)
-   net_opt = gaussian_mech.create('Momentum')(params=network.trainable_params(),
-                                              learning_rate=cfg.lr,
-                                              momentum=cfg.momentum)
-   rdp_monitor = PrivacyMonitorFactory.create('rdp',
-                                              num_samples=60000,
-                                              batch_size=cfg.batch_size,
-                                              initial_noise_multiplier=args.initial_noise_multiplier*
-                                              args.l2_norm_bound,
-                                              per_print_times=10)
+    if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
+        raise ValueError("Number of micro_batches should divide evenly batch_size")
+    
+    # Create a factory class of DP optimizer
+    gaussian_mech = DPOptimizerClassFactory(cfg.micro_batches)
+
+    # Set the method of adding noise in gradients while training. Initial_noise_multiplier is suggested to be greater
+    # than 1.0, otherwise the privacy budget would be huge, which means that the privacy protection effect is weak.
+    # mechanisms can be 'Gaussian' or 'AdaGaussian', in which noise would be decayed with 'AdaGaussian' mechanism while
+    # be constant with 'Gaussian' mechanism.
+    gaussian_mech.set_mechanisms(cfg.mechanisms,
+                                 norm_bound=cfg.l2_norm_bound,
+                                 initial_noise_multiplier=cfg.initial_noise_multiplier)
+
+    # Wrap the base optimizer for DP training. Momentum optimizer is suggested for LenNet5.
+    net_opt = gaussian_mech.create(cfg.optimizer)(params=network.trainable_params(),
+                                                  learning_rate=cfg.lr,
+                                                  momentum=cfg.momentum)
+
+    # Create a monitor for DP training. The function of the monitor is to compute and print the privacy budget(eps
+    # and delta) while training.
+    rdp_monitor = PrivacyMonitorFactory.create('rdp',
+                                               num_samples=60000,
+                                               batch_size=cfg.batch_size,
+                                               initial_noise_multiplier=cfg.initial_noise_multiplier*
+                                               cfg.l2_norm_bound,
+                                               per_print_times=50)
+
    ```
 
 2. 将LeNet模型包装成差分隐私模型，只需要将网络传入`DPModel`即可。
 
    ```python
-   model = DPModel(micro_batches=args.micro_batches,
-                   norm_clip=args.l2_norm_bound,
+   # Create the DP model for training.
+   model = DPModel(micro_batches=cfg.micro_batches,
+                   norm_clip=cfg.l2_norm_bound,
                    dp_mech=gaussian_mech.mech,
                    network=network,
                    loss_fn=net_loss,
@@ -266,16 +281,15 @@ ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
    ```python
    LOGGER.info(TAG, "============== Starting Training ==============")
    model.train(cfg['epoch_size'], ds_train, callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
-   dataset_sink_mode=args.dataset_sink_mode)
-   
+               dataset_sink_mode=cfg.dataset_sink_mode)
+
    LOGGER.info(TAG, "============== Starting Testing ==============")
    ckpt_file_name = 'trained_ckpt_file/checkpoint_lenet-10_234.ckpt'
    param_dict = load_checkpoint(ckpt_file_name)
    load_param_into_net(network, param_dict)
-   ds_eval = generate_mnist_dataset(os.path.join(args.data_path, 'test'), batch_size=cfg.batch_size)
+   ds_eval = generate_mnist_dataset(os.path.join(cfg.data_path, 'test'), batch_size=cfg.batch_size)
    acc = model.eval(ds_eval, dataset_sink_mode=False)
    LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
-
    ```
    
 4. 运行命令。
@@ -283,10 +297,10 @@ ds_train = generate_mnist_dataset(os.path.join(args.data_path, "train"),
    运行脚本，可在命令行输入命令：
    
    ```bash
-   python lenet5_dp_model_train.py --data_path='MNIST_unzip' --micro_batches=64
+   python lenet5_dp_model_train.py
    ```
    
-   其中`lenet5_dp_model_train.py`替换成你的脚本的名字，`MNIST_unzip`替换成你解压后的数据集的路径。
+   其中`lenet5_dp_model_train.py`替换成你的脚本的名字。
     
 5. 结果展示。
 
