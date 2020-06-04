@@ -254,11 +254,13 @@ device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 
-def test_train_cifar(num_classes=10, epoch_size=10):
+def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
     loss_cb = LossMonitor()
-    dataset = create_dataset(epoch_size)
-    net = resnet50(32, num_classes)
+    dataset = create_dataset(data_path, epoch_size)
+    batch_size = 32
+    num_classes = 10
+    net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     model = Model(net, loss_fn=loss, optimizer=opt)
@@ -340,17 +342,14 @@ cd ../
 日志文件保存device目录下，env.log中记录了环境变量的相关信息，关于Loss部分结果保存在train.log中，示例如下：
 
 ```
-resnet50_distributed_training.py::test_train_feed ===============ds_num 195
-global_step: 194, loss: 1.997
-global_step: 389, loss: 1.655
-global_step: 584, loss: 1.723
-global_step: 779, loss: 1.807
-global_step: 974, loss: 1.417
-global_step: 1169, loss: 1.195
-global_step: 1364, loss: 1.238
-global_step: 1559, loss: 1.456
-global_step: 1754, loss: 0.987
-global_step: 1949, loss: 1.035
-end training
-PASSED
+epoch: 1 step: 156, loss is 2.0084016
+epoch: 2 step: 156, loss is 1.6407638
+epoch: 3 step: 156, loss is 1.6164391
+epoch: 4 step: 156, loss is 1.6838071
+epoch: 5 step: 156, loss is 1.6320667
+epoch: 6 step: 156, loss is 1.3098773
+epoch: 7 step: 156, loss is 1.3515002
+epoch: 8 step: 156, loss is 1.2943741
+epoch: 9 step: 156, loss is 1.2316195
+epoch: 10 step: 156, loss is 1.1533381
 ```
