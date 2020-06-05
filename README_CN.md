@@ -20,7 +20,7 @@
 docs
 ├───api //用于生成API的相关配置文件
 │
-├───docs //介绍文档
+├───docs //架构、网络和算子支持等技术文档
 │      
 ├───install //安装指南
 │      
@@ -33,21 +33,22 @@ docs
 
 ## 文档构建
 
-MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成。下面以API文档为例介绍具体步骤。
+MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成。下面以API文档为例介绍具体步骤，操作前需完成MindSpore、MindInsight和MindArmour的安装。
 
 1. 下载MindSpore Docs仓代码。
    ```shell
    git clone https://gitee.com/mindspore/docs.git
    ```
-2. 进入docs目录，安装该目录下```requirements.txt```文件中的依赖项。
+2. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
    ```shell
    cd docs/api
    pip install -r requirements.txt
    ```
-3. 在docs目录下执行如下命令，完成后会新建build_zh_cn/html目录，该目录中存放了生成后的文档网页，打开```build_zh_cn/html/index.html```即可查看API文档内容。
+3. 在api目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
    ```
    make html
    ```
+   > 如仅需生成MindSpore API，请先修改`source_zh_cn/conf.py`文件，注释`import mindinsight`和`import mindarmour`语句后，再执行此步骤。 
 
 ## 版权
 
