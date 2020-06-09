@@ -90,3 +90,43 @@ The procedure for submitting the modification is the same as that for submitting
 
   The following content.
   ```
+
+- Mark the reference interface, path name, file name in the tutorial and document with "\` \`". If it's a function or method, don't use parentheses at the end. For example:
+  
+  - Reference method 
+  
+    ```
+    Use the `map` method.
+    ```
+    
+  - Reference code
+   
+    ```
+    `batch_size`: number of data in each group.
+    ```
+    
+  - Reference path
+  
+    ```
+    Decompress the dataset and store it in `./MNIST_Data`.
+    ```
+
+  - Reference file name
+    
+    ```
+    Other dependencies is described in `requirements.txt`.
+    ```
+
+- In tutorials and documents, the contents that need to be replaced need additional annotation. In the body, a "*" should be added before and after the content. In the code snippet, the content should be annotated with "{}". For example:
+  
+  - In body
+
+    ```
+    Need to replace your local path *your_ path*. 
+    ```
+
+  - In code snippet
+
+    ```
+    conda activate {your_env_name}
+    ```
