@@ -286,13 +286,13 @@ EXEC_PATH=$(pwd)
 
 test_dist_8pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8pcs.json
+    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
     export RANK_SIZE=8
 }
 
 test_dist_2pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2pcs.json
+    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2pcs.json
     export RANK_SIZE=2
 }
 
@@ -332,7 +332,7 @@ cd ../
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
 
 其中必要的环境变量有，  
-- `MINDSPORE_HCCL_CONFIG_PATH`：组网信息文件的路径。
+- `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`: 当前卡的逻辑序号。
 其余环境变量请参考安装教程中的配置项。
