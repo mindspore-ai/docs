@@ -22,7 +22,7 @@
 | ---- | :--- | :--- | :--- |
 | MindSpore master | Windows 10 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) x86_64-posix-seh <br> - [ActivePerl](http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-MSWin32-x64-404865.exe) 5.24.3.2404 <br> - [CMake](https://cmake.org/download/) 3.14.1 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
-- 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
 ### Conda安装（可选）
 
@@ -70,9 +70,9 @@
     ```bash
     call build.bat
     ```
-    > - 在执行上述命令前，需保证mingw64\bin\路径和可执行文件cmake所在路径已加入环境变量PATH中。
+    > - 在执行上述命令前，需保证`mingw64\bin\`路径和可执行文件`cmake`所在路径已加入环境变量PATH中。
     > - 如git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。
-    > - build.bat中会执行git clone获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+    > - `build.bat`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量（默认为6）。如`call build.bat 12`。
     > - 在执行上述命令前，需保证已安装[Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145)。
 

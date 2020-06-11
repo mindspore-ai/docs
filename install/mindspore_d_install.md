@@ -37,7 +37,7 @@
 
 - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - Ubuntu版本为18.04时，GCC 7.3.0可以直接通过apt命令安装。
-- 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
 ### Conda安装（可选）
 
@@ -90,9 +90,9 @@
     ```bash
     bash build.sh -e d -z
     ```
-    > - 在执行上述命令前，需保证可执行文件cmake和patch所在路径已加入环境变量PATH中。
-    > - build.sh中会执行git clone获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-    > - build.sh中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e d -z -j4`。
+    > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
+    > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+    > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e d -z -j4`。
 
 3. 执行如下命令安装MindSpore。
 
@@ -162,7 +162,7 @@
 | ---- | :--- | :--- | :--- |
 | MindInsight master | - Ubuntu 16.04（及以上） aarch64 <br> - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
-- 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
 ## 安装指南
 
@@ -201,7 +201,7 @@
 
    (2) 构建whl包进行安装。
 
-      进入源码的根目录，先执行build目录下的MindInsight编译脚本，再执行命令安装output目录下生成的whl包。
+      进入源码的根目录，先执行`build`目录下的MindInsight编译脚本，再执行命令安装`output`目录下生成的whl包。
 
       ```bash
       cd mindinsight
@@ -227,7 +227,7 @@
 | ---- | :--- | :--- | :--- |
 | MindArmour master | - Ubuntu 16.04（及以上） aarch64 <br> - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py) | 与可执行文件安装依赖相同 |
 
-- 在联网状态下，安装whl包时会自动下载setup.py中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
 ## 安装指南
 
