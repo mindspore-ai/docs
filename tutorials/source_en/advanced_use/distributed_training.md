@@ -288,13 +288,13 @@ EXEC_PATH=$(pwd)
 
 test_dist_8pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_8pcs.json
+    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_8pcs.json
     export RANK_SIZE=8
 }
 
 test_dist_2pcs()
 {
-    export MINDSPORE_HCCL_CONFIG_PATH=${EXEC_PATH}/rank_table_2pcs.json
+    export RANK_TABLE_FILE=${EXEC_PATH}/rank_table_2pcs.json
     export RANK_SIZE=2
 }
 
@@ -334,7 +334,7 @@ cd ../
 The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the path of the dataset and the number of devices, respectively.
 
 The necessary environment variables are as follows:  
-- `MINDSPORE_HCCL_CONFIG_PATH`: path for storing the networking information file.
+- `RANK_TABLE_FILE`: path for storing the networking information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
 - `RANK_ID`: logical sequence number of the current device.
 For details about other environment variables, see configuration items in the installation guide.
