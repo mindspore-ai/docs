@@ -1,41 +1,55 @@
-# 机器学习中的差分隐私
+# <u>Differential</u> Privacy in Machine Learning
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<!-- TOC -->
 
-## 概述
+- [Differential Privacy in Machine Learning](#differential-privacy-in-machine-learning)
+    - [Overview](#overview)
+    - [Implementation](#implementation)
+        - [Importing Library Files](#importing-library-files)
+        - [Configuring Parameters](#configuring-parameters)
+        - [Preprocessing the Dataset](#preprocessing-the-dataset)
+        - [Creating the Model](#creating-the-model)
+        - [Introducing the Differential Privacy](#introducing-the-differential-privacy)
+        - [References](#references)
 
-差分隐私是一种保护用户数据隐私的机制。什么是隐私，隐私指的是单个用户的某些属性，一群用户的某一些属性可以不看做隐私。例如：“抽烟的人有更高的几率会得肺癌”，这个不泄露隐私，但是“张三抽烟，得了肺癌”，这个就泄露了张三的隐私。如果我们知道A医院，今天就诊的100个病人，其中有10个肺癌，并且我们知道了其中99个人的患病信息，就可以推测剩下一个人是否患有肺癌。这种窃取隐私的行为叫做差分攻击。差分隐私是防止差分攻击的方法，通过添加噪声，使得差别只有一条记录的两个数据集，通过模型推理获得相同结果的概率非常接近。也就是说，用了差分隐私后，攻击者知道的100个人的患病信息和99个人的患病信息几乎是一样的，从而无法推测出剩下1个人的患病情况。
+<!-- /TOC -->
 
-**机器学习中的差分隐私**
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-机器学习算法一般是用大量数据并更新模型参数，学习数据特征。在理想情况下，这些算法学习到一些泛化性较好的模型，例如“吸烟患者更容易得肺癌”，而不是特定的个体特征，例如“张三是个吸烟者，患有肺癌”。然而，机器学习算法并不会区分通用特征还是个体特征。当我们用机器学习来完成某个重要的任务，例如肺癌诊断，发布的机器学习模型，可能在无意中透露训练集中的个体特征，恶意攻击者可能从发布的模型获得关于张三的隐私信息，因此使用差分隐私技术来保护机器学习模型是十分必要的。
+## Overview
 
-**差分隐私定义**[1]为：
+Differential privacy is a mechanism for protecting user data privacy. What is privacy? Privacy refers to the attributes of individual users. Common attributes shared by a group of users may not be considered as privacy. For example, if we say "smoking people have a higher probability of getting lung cancer", it does not disclose privacy. However, if we say "Zhang San smokes and gets lung cancer", it discloses the privacy of Zhang San. Assume that there are 100 patients in a hospital and 10 of them have lung cancer. If the information of any 99 patients are known, we can infer whether the remaining one has lung cancer. This behavior of stealing privacy is called differential attack. Differential privacy is a method for preventing differential attacks. By adding noise, the query results of two datasets with only one different record are nearly indistinguishable. In the above example, after differential privacy is used, the statistic information of the 100 patients achieved by the attacker is almost the same as that of the 99 patients. Therefore, the attacker can hardly infer the information of the remaining one patient.
+
+**Differential privacy in machine learning**
+
+Machine learning algorithms usually update model parameters and learn data features based on a large amount of data. Ideally, these models can learn the common features of a class of entities and achieve good generalization, such as "smoking patients are more likely to get lung cancer" rather than models with individual features, such as "Zhang San is a smoker who gets lung cancer." However, machine learning algorithms do not distinguish between general and individual features. The published machine learning models, especially the deep neural networks,  may unintentionally memorize and expose the features of individual entities in training data. This can be exploited by malicious attackers to reveal Zhang San's privacy information from the published model. Therefore, it is necessary to use differential privacy to protect machine learning models from privacy leakage.
+
+**Differential privacy definition** [1]
 
 $Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D') \in S]+\delta$
 
-对于两个差别只有一条记录的数据集$D, D'$，通过随机算法$\mathcal{K}$，输出为结果集合$S$子集的概率满足上面公式，$\epsilon$为差分隐私预算，$\delta$ 为扰动，$\epsilon, \delta$越小，$\mathcal{K}$在$D, D'$上输出的数据分布越接近。
+For datasets $D$ and $D'$ that differ on only one record, the probability of obtaining the same result from $\mathcal{K}(D)$ and $\mathcal{K}(D')$ by using a randomized algorithm $\mathcal{K}$ must meet the preceding formula. $\epsilon$ indicates the differential privacy budget and $\delta$ indicates the perturbation. The smaller the values of $\epsilon$ and $\delta$, the closer the data distribution output by $\mathcal{K}$ on $D$ and $D'$.
 
-**差分隐私的度量**
+**Differential privacy measurement**
 
-差分隐私可以用$\epsilon, \delta$ 度量。
+Differential privacy can be measured using $\epsilon$ and $\delta$.
 
-- $\epsilon$：数据集中增加或者减少一条记录，引起的输出概率可以改变的上限。我们通常希望$\epsilon$是一个较小的常数，值越小表示差分隐私条件越严格。
-- $\delta$：用于限制模型行为任意改变的概率，通常设置为一个小的常数，推荐设置小于训练数据集大小的倒数。
+- $\epsilon$: specifies the upper limit of the output probability that can be changed when a record is added to or deleted from the dataset. We usually hope that $\epsilon$ is a small constant. A smaller value indicates stricter differential privacy conditions.
+- $\delta$: limits the probability of arbitrary model behavior change. Generally, this parameter is set to a small constant. You are advised to set this parameter to a value less than the reciprocal of the size of a training dataset.
 
-**MindArmour实现的差分隐私**
+**Differential privacy implemented by MindArmour**
 
-MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优化器。目前支持基于高斯机制的差分隐私SGD、Momentum、Adam优化器。其中，高斯噪声机制支持固定标准差的非自适应高斯噪声和随着时间或者迭代步数变化而变化的自适应高斯噪声，使用非自适应高斯噪声的优势在于可以严格控制差分隐私预算$\epsilon$，缺点是在模型训练过程中，每个Step添加的噪声量固定，在训练后期，较大的噪声使得模型收敛困难，甚至导致性能大幅下跌，模型可用性差。自适应噪声很好的解决了这个问题，在模型训练初期，添加的噪声量较大，随着模型逐渐收敛，噪声量逐渐减小，噪声对于模型可用性的影响减小。自适应噪声的缺点是不能严格控制差分隐私预算，在同样的初始值下，自适应差分隐私的$\epsilon$比非自适应的大。同时还提供RDP（R’enyi differential privacy）[2]用于监测差分隐私预算。
+MindArmour differential privacy module Differential-Privacy implements the differential privacy optimizer. Currently, SGD, Momentum, and Adam are supported. They are differential privacy optimizers based on the Gaussian mechanism. Gaussian noise mechanism supports both non-adaptive policy and adaptive policy  The non-adaptive policy use a fixed noise parameter for each step while the adaptive policy changes the noise parameter along time or iteration step. An advantage of using the non-adaptive Gaussian noise is that a differential privacy budget $\epsilon$ can be strictly controlled. However, a disadvantage is that in a model training process, the noise amount added in each step is fixed. In the later training stage, large noise makes the model convergence difficult, and even causes the performance to decrease greatly and the model usability to be poor. Adaptive noise can solve this problem. In the initial model training stage, the amount of added noise is large. As the model converges, the amount of noise decreases gradually, and the impact of noise on model availability decreases. The disadvantage is that the differential privacy budget cannot be strictly controlled. Under the same initial value, the $\epsilon$ of the adaptive differential privacy is greater than that of the non-adaptive differential privacy. Rényi differential privacy (RDP) [2] is also provided to monitor differential privacy budgets.
 
-这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
+The LeNet model and MNIST dataset are used as an example to describe how to use the differential privacy optimizer to train a neural network model on MindSpore.
 
-> 本例面向Ascend 910 AI处理器，支持PYNATIVE_MODE，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp_model_train.py>
+> This example is for the Ascend 910 AI processor and supports PYNATIVE_MODE. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp_model_train.py>.
 
-## 实现阶段
+## Implementation
 
-### 导入需要的库文件
+### Importing Library Files
 
-下列是我们需要的公共模块、MindSpore相关模块和差分隐私特性模块。
+The following are the required public modules, MindSpore modules, and differential privacy feature modules.
 
 ```python
 import os
@@ -66,9 +80,9 @@ LOGGER.set_level('INFO')
 TAG = 'Lenet5_train'
 ```
 
-### 参数配置
+### Configuring Parameters
 
-1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数。
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters.
    
    ```python
    cfg = edict({
@@ -93,17 +107,17 @@ TAG = 'Lenet5_train'
          })
    ```
 
-2. 配置必要的信息，包括环境信息、执行的模式。
+2. Configure necessary information, including the environment information and execution mode.
 
    ```python
    context.set_context(mode=context.PYNATIVE_MODE, device_target=cfg.device_target)
    ```
 
-   详细的接口配置信息，请参见`context.set_context`接口说明。
+   For details about the API configuration, see the `context.set_context`.
 
-### 预处理数据集
+### Preprocessing the Dataset
 
-加载数据集并处理成MindSpore数据格式。
+Load the dataset and convert the dataset format to a MindSpore data format.
 
 ```python
 def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
@@ -150,9 +164,9 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     return ds1
 ```
 
-### 建立模型
+### Creating the Model
 
-这里以LeNet模型为例，您也可以建立训练自己的模型。
+The LeNet model is used as an example. You can also create and train your own model.
 
 ```python
 from mindspore import nn
@@ -207,7 +221,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-加载LeNet网络，定义损失函数、配置checkpoint、用上述定义的数据加载函数`generate_mnist_dataset`载入数据。
+Load the LeNet network, define the loss function, configure the checkpoint parameters, and load data by using the `generate_mnist_dataset` function defined in the preceding information.
 
 ```python
 network = LeNet5()
@@ -224,15 +238,15 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
                                   cfg.epoch_size)
 ```
 
-### 引入差分隐私
+### Introducing the Differential Privacy
 
-1. 配置差分隐私优化器的参数。
+1. Set parameters of a differential privacy optimizer.
 
-   - 判断micro_batches和batch_size参数是否符合要求，batch_size必须要整除micro_batches。
-   - 实例化差分隐私工厂类。
-   - 设置差分隐私的噪声机制，目前mechanisms支持固定标准差的高斯噪声机制：`Gaussian`和自适应调整标准差的高斯噪声机制：`AdaGaussian`。
-   - 设置优化器类型，目前支持`SGD`、`Momentum`和`Adam`。
-   - 设置差分隐私预算监测器RDP，用于观测每个step中的差分隐私预算$\epsilon$的变化。
+   - Determine whether values of the **micro_batches** and **batch_size** parameters meet the requirements. The value of **batch_size** must be an integer multiple of **micro_batches**.
+   - Instantiate a differential privacy factory class.
+   - Set a noise mechanism for the differential privacy. Currently, the Gaussian noise mechanism with a fixed standard deviation (`Gaussian`) and the Gaussian noise mechanism with an adaptive standard deviation (`AdaGaussian`) are supported.
+   - Set an optimizer type. Currently, `SGD`, `Momentum`, and `Adam` are supported.
+   - Set up a differential privacy budget monitor RDP to observe changes in the differential privacy budget $\epsilon$ in each step.
 
    ```python
     if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
@@ -265,7 +279,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 
    ```
 
-2. 将LeNet模型包装成差分隐私模型，只需要将网络传入`DPModel`即可。
+2. Package the LeNet model as a differential privacy model by transferring the network to `DPModel`.
 
    ```python
    # Create the DP model for training.
@@ -278,7 +292,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
                    metrics={"Accuracy": Accuracy()})
    ```
 
-3. 模型训练与测试。
+3. Train and test the model.
 
    ```python
    LOGGER.info(TAG, "============== Starting Training ==============")
@@ -294,19 +308,19 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
    ```
    
-4. 运行命令。
-    
-   运行脚本，可在命令行输入命令：
+4. Run the following command.
+   
+   Execute the script:
    
    ```bash
    python lenet5_dp_model_train.py
    ```
    
-   其中`lenet5_dp_model_train.py`替换成你的脚本的名字。
-    
-5. 结果展示。
+   In the preceding command, replace `lenet5_dp_model_train.py` with the name of your script.
+   
+5. Display the result.
 
-   不加差分隐私的LeNet模型精度稳定在99%，加了自适应差分隐私AdaDP的LeNet模型收敛，精度稳定在91%。
+   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with adaptive differential privacy AdaDP is 91%.
    ```
    ============== Starting Training ==============
    ...
@@ -314,8 +328,8 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    ...
    ============== Accuracy: 0.9115  ==============
    ```
-     
-### 引用
+   
+### References
 
 [1] C. Dwork and J. Lei. Differential privacy and robust statistics. In STOC, pages 371–380. ACM, 2009.
 

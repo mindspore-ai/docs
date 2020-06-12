@@ -65,6 +65,8 @@ MindSpore Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: AI Security
+   :caption: AI Security and Privacy
 
    advanced_use/model_security
+   advanced_use/differential_privacy
+
