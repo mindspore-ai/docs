@@ -246,6 +246,7 @@ mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
 - `--config <CONFIG>` : 指定配置文件或配置模块，CONFIG为物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。
 - `--workspace <WORKSPACE>` : 指定工作目录路径，WORKSPACE默认为 $HOME/mindinsight。
 - `--port <PORT>` : 指定Web可视化服务端口，取值范围是1~65535，PORT默认为8080。
+- `--url-path-prefix <URL_PATH_PREFIX>` : 指定Web服务地址前缀，URL_PATH_PREFIX默认为空。
 - `--reload-interval <RELOAD_INTERVAL>` : 指定加载数据的时间间隔（单位：秒），设置为0时表示只加载一次数据，RELOAD_INTERVAL默认为3秒。
 - `--summary-base-dir <SUMMARY_BASE_DIR>` : 指定加载训练日志数据的根目录路径，MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。SUMMARY_BASE_DIR默认为当前目录路径。
 
