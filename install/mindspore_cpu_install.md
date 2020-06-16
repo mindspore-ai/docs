@@ -24,7 +24,7 @@
 | MindSpore master | Ubuntu 16.04（及以上） x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - Ubuntu版本为18.04时，GCC 7.3.0可以直接通过apt命令安装。
-- 在联网状态下，安装whl包时会自动下载requirements.txt中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
 ### Conda安装（可选）
 
@@ -71,7 +71,7 @@
     bash build.sh -e cpu -z -j4
     ```
     > - 在执行上述命令前，需保证可执行文件cmake和patch所在路径已加入环境变量PATH中。
-    > - build.sh中会执行git clone获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+    > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -z -j12`。
 
 3. 执行如下命令安装MindSpore。
@@ -99,7 +99,7 @@
 | ---------------------- | :------------------ | :----------------------------------------------------------- | :----------------------- |
 | MindArmour master | Ubuntu 16.04（及以上） x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master<br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py) | 与可执行文件安装依赖相同 |
 
-- 在联网状态下，安装whl包时会自动下载setup.py中的依赖项，其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
 ## 安装指南
 

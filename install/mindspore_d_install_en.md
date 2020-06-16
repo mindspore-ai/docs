@@ -36,7 +36,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - When Ubuntu version is 18.04, GCC 7.3.0 can be installed by using apt command.
-- When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+- When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ### (Optional) Installing Conda
 
@@ -89,9 +89,9 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     bash build.sh -e d -z
     ```
-    > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
-    > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
-    > - In the build.sh script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e d -z -j4`.
+    > - Before running the preceding command, ensure that the paths where the executable files `cmake` and `patch` store have been added to the environment variable PATH.
+    > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
+    > - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e d -z -j4`.
 
 3. Run the following command to install MindSpore:
 
@@ -161,7 +161,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 | ---- | :--- | :--- | :--- |
 | MindInsight master | - Ubuntu 16.04 or later aarch64 <br> - Ubuntu 16.04 or later x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
-- When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+- When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ## Installation Guide
 
@@ -201,8 +201,8 @@ If you need to analyze information such as model scalars, graphs, and model trac
    (2) Create a .whl package to install MindInsight.
 
       Access the root directory of the source code.
-      First run the MindInsight compilation script under the build directory of the source code.
-      Then run the command to install the .whl package generated into the output directory of the source code.
+      First run the MindInsight compilation script under the `build` directory of the source code.
+      Then run the command to install the .whl package generated into the `output` directory of the source code.
 
       ```bash
       cd mindinsight
@@ -228,7 +228,7 @@ If you need to conduct AI model security research or enhance the security of the
 | ---- | :--- | :--- | :--- |
 | MindArmour master | - Ubuntu 16.04 or later aarch64 <br> - Ubuntu 16.04 or later x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py). | Same as the executable file installation dependencies. |
 
-- When the network is connected, dependency items in the setup.py file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+- When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ## Installation Guide
 

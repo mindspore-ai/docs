@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore on a Ubuntu system with
 | MindSpore master | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
 
 - When Ubuntu version is 18.04, GCC 7.3.0 can be installed by using apt command.
-- When the network is connected, dependency items in the requirements.txt file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+- When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ### (Optional) Installing Conda
 
@@ -71,7 +71,7 @@ This document describes how to quickly install MindSpore on a Ubuntu system with
     bash build.sh -e cpu -z -j4
     ```
     > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
-    > - In the build.sh script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
+    > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads. For example, `bash build.sh -e cpu -z -j12`.
 
 3. Run the following command to install MindSpore:
@@ -99,7 +99,7 @@ If you need to conduct AI model security research or enhance the security of the
 | ---- | :--- | :--- | :--- |
 | MindArmour master | Ubuntu 16.04 or later x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py). | Same as the executable file installation dependencies. |
 
-- When the network is connected, dependency items in the setup.py file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
+- When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
 ## Installation Guide
 
