@@ -179,8 +179,8 @@ Use the `save_graphs` option of `context` to record the computational graph afte
 
 ### Collect Performance Profile Data
 
-To enable the performance profiling of neural networks, MindInsight Profiler APIs should be added into the script. At first, the MindInsight `Profiler` object need
-to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce 
+To enable the performance profiling of neural networks, `MindInsight Profiler` APIs should be added into the script. At first, the `MindInsight Profiler` object need
+to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse` should be called to finish profiling and generate the perforamnce 
 analyse results.
 
 The sample code is as follows:
@@ -265,13 +265,13 @@ MindInsight provides user with web services. Run the following command to view t
 ps -ef | grep mindinsight
 ```
 
-Run the following command to access the working directory WORKSPACE corresponding to the service process based on the service process ID:
+Run the following command to access the working directory `WORKSPACE` corresponding to the service process based on the service process ID:
 
 ```bash
 lsof -p <PID> | grep access
 ```
 
-Output with the working directory WORKSPACE as follows:
+Output with the working directory `WORKSPACE` as follows:
 
 ```bash
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log

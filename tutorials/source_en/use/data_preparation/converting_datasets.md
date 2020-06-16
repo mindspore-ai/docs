@@ -47,7 +47,7 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     The field type can be int32, int64, float32, float64, string, or bytes.  
     The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].  
     > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.  
-    > 2. If the field has the shape attribute, prepare the data of numpy.ndarray type and transfer the data to the write_raw_data API.  
+    > 2. If the field has the shape attribute, prepare the data of `numpy.ndarray` type and transfer the data to the `write_raw_data` API.  
     
     Examples:  
     - Image classification

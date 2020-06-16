@@ -86,8 +86,8 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
 > 本例面向GPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
-> - main.py：代码文件，包括数据预处理、网络定义、模型训练等代码。
-> - config.py：网络中的一些配置，包括batch size、进行几次epoch训练等。
+> - `main.py`：代码文件，包括数据预处理、网络定义、模型训练等代码。
+> - `config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 
 ## 实现阶段
 ### 导入需要的库文件

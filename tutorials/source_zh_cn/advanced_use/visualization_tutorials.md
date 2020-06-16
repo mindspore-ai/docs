@@ -185,8 +185,8 @@ def test_summary():
 
 ### 性能数据收集
 
-为了收集神经网络的性能数据，需要在训练脚本中添加MindInsight Profiler接口。首先，在set context之后和初始化网络之前，需要初始化MindInsight `Profiler`对象；
-然后在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
+为了收集神经网络的性能数据，需要在训练脚本中添加`MindInsight Profiler`接口。首先，在set context之后和初始化网络之前，需要初始化`MindInsight Profiler`对象；
+然后在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
 样例代码如下：
 
@@ -270,13 +270,13 @@ MindInsight向用户提供Web服务，可通过以下命令，查看当前运行
 ps -ef | grep mindinsight
 ```
 
-根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录WORKSPACE。
+根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录`WORKSPACE`。
 
 ```bash
 lsof -p <PID> | grep access
 ```
 
-输出如下，可查看WORKSPACE。
+输出如下，可查看`WORKSPACE`。
 
 ```bash
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log

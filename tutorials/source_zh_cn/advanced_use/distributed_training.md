@@ -117,7 +117,7 @@ if __name__ == "__main__":
 其中，  
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
-- `init()`：使能HCCL通信，并完成分布式训练初始化操作。
+- `init`：使能HCCL通信，并完成分布式训练初始化操作。
 
 ## 数据并行模式加载数据集
 
@@ -231,7 +231,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ## 训练网络
 
-`context.set_auto_parallel_context()`是配置并行训练参数的接口，必须在`Model`初始化前调用。如用户未指定参数，框架会自动根据并行模式为用户设置参数的经验值。如数据并行模式下，`parameter_broadcast`默认打开。主要参数包括：
+`context.set_auto_parallel_context`是配置并行训练参数的接口，必须在`Model`初始化前调用。如用户未指定参数，框架会自动根据并行模式为用户设置参数的经验值。如数据并行模式下，`parameter_broadcast`默认打开。主要参数包括：
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
 - `parameter_broadcast`： 参数初始化广播开关，`DATA_PARALLEL`和`HYBRID_PARALLEL`模式下，默认值为`True`。
@@ -239,7 +239,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
-如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context()`将所有参数还原到默认值。
+如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
 
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式，只需将`parallel_mode`改为`DATA_PARALLEL`。
 
@@ -339,7 +339,7 @@ cd ../
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
 
-日志文件保存device目录下，env.log中记录了环境变量的相关信息，关于Loss部分结果保存在train.log中，示例如下：
+日志文件保存`device`目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
 
 ```
 epoch: 1 step: 156, loss is 2.0084016

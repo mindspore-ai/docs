@@ -25,6 +25,7 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
@@ -91,7 +92,7 @@ import os
 
 在正式编写代码前，需要了解MindSpore运行所需要的硬件、后端等基本信息。
 
-可以通过`context.set_context()`来配置运行需要的信息，譬如运行模式、后端信息、硬件等信息。
+可以通过`context.set_context`来配置运行需要的信息，譬如运行模式、后端信息、硬件等信息。
 
 导入`context`模块，配置运行需要的信息。
 
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     ...
 ```
 
-在样例中我们配置样例运行使用图模式。根据实际情况配置硬件信息，譬如代码运行在Ascend AI处理器上，则`--device_target`选择`Ascend`，代码运行在CPU、GPU同理。详细参数说明，请参见`context.set_context()`接口说明。
+在样例中我们配置样例运行使用图模式。根据实际情况配置硬件信息，譬如代码运行在Ascend AI处理器上，则`--device_target`选择`Ascend`，代码运行在CPU、GPU同理。详细参数说明，请参见`context.set_context`接口说明。
 
 ## 数据处理
 
@@ -117,12 +118,12 @@ if __name__ == "__main__":
 
 ### 定义数据集及数据操作
 
-我们定义一个函数`create_dataset()`来创建数据集。在这个函数中，我们定义好需要进行的数据增强和处理操作：
+我们定义一个函数`create_dataset`来创建数据集。在这个函数中，我们定义好需要进行的数据增强和处理操作：
 
 1. 定义数据集。
 2. 定义进行数据增强和处理所需要的一些参数。
 3. 根据参数，生成对应的数据增强操作。
-4. 使用`map()`映射函数，将数据操作应用到数据集。
+4. 使用`map`映射函数，将数据操作应用到数据集。
 5. 对生成的数据集进行处理。
 
 ```python
@@ -228,7 +229,7 @@ def fc_with_initialize(input_channels, out_channels):
 
 使用MindSpore定义神经网络需要继承`mindspore.nn.cell.Cell`。`Cell`是所有神经网络（`Conv2d`等）的基类。
 
-神经网络的各层需要预先在`__init__()`方法中定义，然后通过定义`construct()`方法来完成神经网络的前向构造。按照LeNet的网络结构，定义网络各层如下：
+神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。按照LeNet的网络结构，定义网络各层如下：
 
 ```python
 class LeNet5(nn.Cell):
@@ -399,13 +400,13 @@ checkpoint_lenet-1_1875.ckpt
 ```
 
 其中，  
-`checkpoint_lenet-1_1875.ckpt`：指保存的模型参数文件。名称具体含义checkpoint_{网络名称}-{第几个epoch}_{第几个step}.ckpt。
+`checkpoint_lenet-1_1875.ckpt`：指保存的模型参数文件。名称具体含义checkpoint_*网络名称*-*第几个epoch*_*第几个step*.ckpt。
 
 ## 验证模型
 
 在得到模型文件后，通过模型运行测试数据集得到的结果，验证模型的泛化能力。
 
-1. 使用`model.eval()`接口读入测试数据集。
+1. 使用`model.eval`接口读入测试数据集。
 2. 使用保存后的模型参数进行推理。
 
 ```python
@@ -430,7 +431,7 @@ if __name__ == "__main__":
 ```
 
 其中，   
-`load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。  
+`load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。  
 `checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。  
 `load_param_into_net`：通过该接口把参数加载到网络中。
 

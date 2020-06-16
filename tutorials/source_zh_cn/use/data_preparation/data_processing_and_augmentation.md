@@ -41,7 +41,7 @@ MindSpore支持多种处理数据操作，包括复制、分批、洗牌、映�
 
 ![avatar](../images/dataset_pipeline.png)
 
-如下示例中，读取MNIST数据集时，对数据进行shuffle、batch、repeat操作。
+如下示例中，读取MNIST数据集时，对数据进行`shuffle`、`batch`、`repeat`操作。
 
 ```python
 import mindspore.dataset as ds
@@ -88,7 +88,7 @@ ds1 = ds1.repeat(10)
 
 > 在机器学习中，每训练完一个完整的数据集，我们称为训练完了一个epoch。
 
-加倍数据集，通常用在多个epoch（迭代）训练中，通过`repeat()`来加倍数据量。`repeat()`定义如下：
+加倍数据集，通常用在多个epoch（迭代）训练中，通过`repeat`来加倍数据量。`repeat`定义如下：
 ```python
 def repeat(self, count=None):
 ```
@@ -118,7 +118,7 @@ ds2:
 [4 5 6]
 ```
 ### batch
-将数据集进行分批。在实际训练中，可将数据分批处理，将几个数据作为1组，进行训练，减少训练轮次，达到加速训练过程的目的。MindSpore通过`batch()`函数来实现数据集分批，函数定义如下：
+将数据集进行分批。在实际训练中，可将数据分批处理，将几个数据作为1组，进行训练，减少训练轮次，达到加速训练过程的目的。MindSpore通过`batch`函数来实现数据集分批，函数定义如下：
 
 ![avatar](../images/batch.png)
 
@@ -166,11 +166,11 @@ batch size:3    drop remainder:True
 ![avatar](../images/shuffle.png)
 
 shuffle操作主要用来将数据混洗，设定的buffer_size越大，混洗程度越大，但时间、计算资源消耗会大。
-`shuffle()`定义如下：
+`shuffle`定义如下：
 ```python
 def shuffle(self, buffer_size):
 ```
-调用`shuffle()`对数据集`ds1`进行混洗,示例代码如下：
+调用`shuffle`对数据集`ds1`进行混洗,示例代码如下：
 
 ```python
 print("Before shuffle:")
@@ -199,19 +199,19 @@ After shuffle:
 ```
 ### map
 map（映射）即对数据进行处理，譬如将彩色图片的数据集转化为灰色图片的数据集等，应用非常灵活。
-MindSpore提供`map()`函数对数据集进行映射操作，用户可以将提供的函数或算子作用于指定的列数据。  
+MindSpore提供`map`函数对数据集进行映射操作，用户可以将提供的函数或算子作用于指定的列数据。  
 用户可以自定义函数，也可以直接使用`c_transforms`或`py_transforms`做数据增强。
 > 详细的数据增强操作，将在文后数据增强章节进行介绍。
 
 ![avatar](../images/map.png)
 
-`map()`函数定义如下：
+`map`函数定义如下：
 
 ```python
 def map(self, input_columns=None, operations=None, output_columns=None, columns_order=None,
         num_parallel_workers=None):
 ```
-在以下示例中，使用`map()`函数，将定义的匿名函数（lambda函数）作用于数据集`ds1`，使数据集中数据乘以2。
+在以下示例中，使用`map`函数，将定义的匿名函数（lambda函数）作用于数据集`ds1`，使数据集中数据乘以2。
 ```python
 func = lambda x : x*2  # Define lambda function to multiply each element by 2.
 ds2 = ds1.map(input_columns="data", operations=func)
@@ -227,7 +227,7 @@ for data in ds2.create_dict_iterator():
 [8 10 12]
 ```
 ### zip
-MindSpore提供`zip()`函数，可将多个数据集合并成1个数据集。
+MindSpore提供`zip`函数，可将多个数据集合并成1个数据集。
 > 如果两个数据集的列名相同，则不会合并，请注意列的命名。  
 > 如果两个数据集的行数不同，合并后的行数将和较小行数保持一致。
 ```python
@@ -242,7 +242,7 @@ def zip(self, datasets):
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
    
-2. 通过`zip()`将数据集`ds1`的`data1`列和数据集`ds2`的`data2`列合并成数据集`ds3`。
+2. 通过`zip`将数据集`ds1`的`data1`列和数据集`ds2`的`data2`列合并成数据集`ds3`。
     ```python
     ds3 = ds.zip((ds1, ds2))
     for data in ds3.create_dict_iterator():
@@ -266,7 +266,7 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
 | `py_transforms` | 基于Python的[PIL](https://pypi.org/project/Pillow/)实现 | 该模块提供了多种图像增强功能，并提供了PIL Image和numpy数组之间的传输方法。 |
 
 对于喜欢在图像学习任务中使用Python PIL的用户，`py_transforms`模块是处理图像增强的好工具。用户还可以使用Python PIL自定义自己的扩展。  
-数据增强需要使用`map()`函数，详细`map()`函数的使用，可参考[map](#map)章节。
+数据增强需要使用`map`函数，详细`map`函数的使用，可参考[map](#map)章节。
 
 ### 使用`c_transforms`模块进行数据增强
 
@@ -286,7 +286,7 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
         imgplot_resized = plt.imshow(data["image"])
         plt.show()
     ```
-运行结果可以看到，原始图片与进行数据处理（`Resize()`）后的图片对比，可以看到图片由原来的1024\*683像素，变化为500\*500像素。
+运行结果可以看到，原始图片与进行数据处理（`Resize`）后的图片对比，可以看到图片由原来的1024\*683像素，变化为500\*500像素。
 ![avatar](../images/image.png)
 
 图1：原始图片
@@ -320,7 +320,7 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
          plt.show()
     ```
 
-运行结果可以看到，原始图片与进行数据处理（`RandomCrop()`）后的图片对比，可以看到图片由原来的1024\*683像素，变化为500\*500像素。
+运行结果可以看到，原始图片与进行数据处理（`RandomCrop`）后的图片对比，可以看到图片由原来的1024\*683像素，变化为500\*500像素。
 ![avatar](../images/image.png)
 
 图1：原始图片

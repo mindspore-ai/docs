@@ -18,7 +18,7 @@
 
 ## Overview
 
-This section describes how to use the customized capabilities provided by MindSpore, such as callback, metrics, and log printing, to help you quickly debug the training network.
+This section describes how to use the customized capabilities provided by MindSpore, such as `callback`, `metrics`,`Print` operator and log printing, to help you quickly debug the training network.
 
 ## Introduction to Callback 
 
@@ -29,10 +29,10 @@ For example, you can monitor the loss, save model parameters, dynamically adjust
 
 MindSpore provides the callback capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
 
-- Callback functions such as ModelCheckpoint, LossMonitor, and SummaryStep provided by the MindSpore framework
+- Callback functions such as `ModelCheckpoint`, `LossMonitor`, and `SummaryStep` provided by the MindSpore framework
 - Custom callback functions
 
-Usage: Transfer the callback object in the model.train method. The callback object can be a list, for example:
+Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
 
 ```python
 ckpt_cb = ModelCheckpoint()                                                            
@@ -41,14 +41,14 @@ summary_cb = SummaryStep()
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
-ModelCheckpoint can save model parameters for retraining or inference.
-LossMonitor can output loss information in logs for users to view. In addition, LossMonitor monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
+`ModelCheckpoint` can save model parameters for retraining or inference.
+`LossMonitor` can output loss information in logs for users to view. In addition, `LossMonitor` monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
 SummaryStep can save the training information to a file for later use.
 During the training process, the callback list will execute the callback function in the defined order. Therefore, in the definition process, the dependency between callbacks needs to be considered.
 
 ### Custom Callback
 
-You can customize callback based on the callback base class as required.
+You can customize callback based on the `callback` base class as required.
 
 The callback base class is defined as follows:
 
@@ -127,8 +127,8 @@ The output is as follows:
 epoch: 20 step: 32 loss: 2.298344373703003
 ```
 
-This callback function is used to terminate the training within a specified period. You can use the `run_context.original_args()` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
-In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin()` and transferred to the `cb_params` dictionary.
+This callback function is used to terminate the training within a specified period. You can use the `run_context.original_args` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
+In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin` and transferred to the `cb_params` dictionary.
 A decision is made at each `step_end`. When the training time is greater than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of epoch, step, and loss will be printed.
 
 ## MindSpore Metrics
@@ -155,16 +155,16 @@ ds_eval = create_dataset()
 output = model.eval(ds_eval)
 ```
 
-The `model.eval()` method returns a dictionary that contains the metrics and results transferred to the metrics.
+The `model.eval` method returns a dictionary that contains the metrics and results transferred to the metrics.
 
 You can also define your own metrics class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
 
 The `accuracy` operator is used as an example to describe the internal implementation principle.
 
 The `accuracy` inherits the `EvaluationBase` base class and rewrites the preceding three methods.
-The `clear()` method initializes related calculation parameters in the class.
-The `update()` method accepts the predicted value and tag value and updates the internal variables of accuracy.
-The `eval()` method calculates related indicators and returns the calculation result.
+The `clear` method initializes related calculation parameters in the class.
+The `update` method accepts the predicted value and tag value and updates the internal variables of accuracy.
+The `eval` method calculates related indicators and returns the calculation result.
 By invoking the `eval` method of `accuracy`, you will obtain the calculation result.
 
 You can understand how `accuracy` runs by using the following code:
@@ -184,8 +184,8 @@ The output is as follows:
 Accuracy is 0.6667
 ```
 ## MindSpore Print Operator
-MindSpore-developed print operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). 
-The use method of MindSpore print operator is the same that of other operators. You need to assert MindSpore print operator in `__init__`() and invoke using `construct()`. The following is an example. 
+MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). 
+The use method of MindSpore `Print` operator is the same that of other operators. You need to assert MindSpore `Print` operator in `__init__` and invoke using `construct`. The following is an example. 
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -224,12 +224,10 @@ val:[[1 1]
 ## Log-related Environment Variables and Configurations
 MindSpore uses glog to output logs. The following environment variables are commonly used:
 
-1. GLOG_v specifies the log level. The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
-2. When GLOG_logtostderr is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. Default value: 1
-3. GLOG_log_dir=YourPath specifies the log output path. If GLOG_logtostderr is set to 0, value of this variable must be specified. If GLOG_log_dir is specified and the value of GLOG_logtostderr is 1, logs are output to the screen but not to a file. Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of GLOG log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
-4. MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}" specifies log levels of C++ sub modules of MindSpore. The specified sub module log level will overwrite the global log level. The meaning of submodule log level is same as GLOG_v, the sub modules of MindSpore grouped by source directory is as the bellow table. E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
-
-> The glog does not support to rotate the log files. If you need to control the disk space usage for log files, you can use the log file management tools provided by the operating system, such as Linux logrotate.   
+1. `GLOG_v` specifies the log level. The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
+2. When `GLOG_logtostderr` is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. Default value: 1
+3. GLOG_log_dir=*YourPath* specifies the log output path. If `GLOG_logtostderr` is set to 0, value of this variable must be specified. If `GLOG_log_dir is` specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file. Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of GLOG log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
+4. `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"` specifies log levels of C++ sub modules of MindSpore. The specified sub module log level will overwrite the global log level. The meaning of submodule log level is same as `GLOG_v`, the sub modules of MindSpore grouped by source directory is as the bellow table. E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
 
 Sub moudles of MindSpore grouped by source directory:
 

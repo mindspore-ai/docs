@@ -47,7 +47,7 @@ MindSpore提供写操作工具，可将用户定义的原始数据写为MindSpor
     字段属性type：int32、int64、float32、float64、string、bytes。  
     字段属性shape：[...], ...可以是一维数组，用[-1]表示; 可以是二维数组，用[m, n]表示；可以是三维数组，用[x, y, z]表示。  
     > 1. 如果字段有属性Shape，暂时只支持type为int32、int64、float32、float64类型。  
-    > 2. 如果字段有属性Shape，则用户在准备数据并传入write_raw_data接口时必须是numpy.ndarray类型。  
+    > 2. 如果字段有属性Shape，则用户在准备数据并传入`write_raw_data`接口时必须是`numpy.ndarray`类型。  
     
     举例：  
     - 图片分类

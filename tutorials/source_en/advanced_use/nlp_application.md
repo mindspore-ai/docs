@@ -86,8 +86,8 @@ Currently, MindSpore GPU supports the long short-term memory (LSTM) network for 
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
 > The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
-> - main.py: code file, including code for data preprocessing, network definition, and model training.
-> - config.py: some configurations on the network, including the batch size and number of training epochs.
+> - `main.py`: code file, including code for data preprocessing, network definition, and model training.
+> - `config.py`: some configurations on the network, including the `batch size` and number of training epochs.
 
 
 ## Implementation

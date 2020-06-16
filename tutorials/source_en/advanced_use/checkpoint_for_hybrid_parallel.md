@@ -95,8 +95,8 @@ load_param_into_net(net, param_dict)
 
 In the preceding information:
 
-- `load_checkpoint()`: loads the checkpoint model parameter file and returns a parameter dictionary.
-- `load_param_into_net()`: loads model parameter data to the network.
+- `load_checkpoint`: loads the checkpoint model parameter file and returns a parameter dictionary.
+- `load_param_into_net`: loads model parameter data to the network.
 - `CKP_1-4_32.ckpt`: name of the saved checkpoint model parameter file.
 
 > If a new checkpoint file is directly saved in the training environment based on the current training data and the parameter values already exist on the network, skip this step and you do not need to import the checkpoint files.
@@ -132,7 +132,7 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
 
    > To ensure that the parameter update speed remains unchanged, you need to integrate the parameters saved in the optimizer, for example, moments.model\_parallel\_weight.
 
-2. Define, instantiate, and execute the AllGather Cell, and obtain data on all devices.
+2. Define, instantiate, and execute the `AllGather` Cell, and obtain data on all devices.
 
    ```
    from mindspore.nn.cell import Cell
@@ -156,16 +156,16 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
    param_data_moments = allgather_net(param_data_moments) 
    ```
 
-   The value of param\_data is the integration of data on each device in dimension 0. The data value is \[\[1, 2], \[3, 4], \[5, 6], \[7, 8]], and the shape is \[4, 2]. The raw data value of param\_data is \[\[1, 2, 3, 4], \[5, 6, 7, 8]], and the shape is \[2, 4]. The data needs to be redivided and integrated.
+   The value of `param_data` is the integration of data on each device in dimension 0. The data value is \[\[1, 2], \[3, 4], \[5, 6], \[7, 8]], and the shape is \[4, 2]. The raw data value of `param_data` is \[\[1, 2, 3, 4], \[5, 6, 7, 8]], and the shape is \[2, 4]. The data needs to be redivided and integrated.
 
-3. Divide the data obtained from AllGather.
+3. Divide the data obtained from `AllGather`.
 
    ```
    slice_list = np.split(param_data.asnumpy(), 4, axis=0)   # 4：group_size, number of nodes in cluster
    slice_lis_moments = np.split(param_data_moments.asnumpy(), 4, axis=0)  # 4: group_size, number of nodes in cluster
    ```
 
-   The result of param\_data is as follows:
+   The result of `param_data` is as follows:
 
         slice_list[0]  --- [1,  2]     Slice data on device0    
         slice_list[1]  --- [3,  4]     Slice data on device1    
@@ -198,7 +198,7 @@ The dividing strategy is to perform dividing in a 4-device scenario based on \[2
 
 ### Saving the Data and Generating a New Checkpoint File
 
-1. Convert param\_dict to param\_list.
+1. Convert `param_dict` to `param_list`.
 
    ```
    param_list = []
@@ -238,7 +238,7 @@ Call the `load_checkpoint` API to load model parameter data from the checkpoint 
 param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```
 
-- `load_checkpoint()`: loads the checkpoint model parameter file and returns a parameter dictionary.
+- `load_checkpoint`: loads the checkpoint model parameter file and returns a parameter dictionary.
 - `CKP-Integrated_1-4_32.ckpt`: name of the checkpoint model parameter file to be loaded.
 
 ### Step 2: Dividing a Model Parallel Parameter
@@ -422,7 +422,7 @@ User process:
 
    - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
    - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on a computer where the device is located.
-   - `init()`: completes the distributed training initialization.
+   - `init`: completes the distributed training initialization.
 
    The command output is as follows.
 

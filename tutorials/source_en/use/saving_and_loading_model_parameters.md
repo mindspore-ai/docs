@@ -38,7 +38,7 @@ During model training, use the callback mechanism to transfer the object of the 
 You can use the `CheckpointConfig` object to set the CheckPoint saving policies.
 The saved parameters are classified into network parameters and optimizer parameters.
 
-`ModelCheckpoint()` provides default configuration policies for users to quickly get started.
+`ModelCheckpoint` provides default configuration policies for users to quickly get started.
 The following describes the usage:
 ```python
 from mindspore.train.callback import ModelCheckpoint

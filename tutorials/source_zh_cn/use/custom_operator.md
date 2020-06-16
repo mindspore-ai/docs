@@ -34,11 +34,11 @@
 每个算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
 自定义算子原语与内置算子原语的接口定义完全一致：  
-- 属性由构造函数`__init__()`的入参定义。本用例的算子没有属性，因此`__init__()`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
-- 输入输出的名称通过`init_prim_io_names()`函数定义。
-- 输出Tensor的shape推理方法在`infer_shape()`函数中定义，输出Tensor的dtype推理方法在`infer_dtype()`函数中定义。
+- 属性由构造函数`__init__`的入参定义。本用例的算子没有属性，因此`__init__`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
+- 输入输出的名称通过`init_prim_io_names`函数定义。
+- 输出Tensor的shape推理方法在`infer_shape`函数中定义，输出Tensor的dtype推理方法在`infer_dtype`函数中定义。
 
-自定义算子与内置算子的唯一区别是需要通过在`__init__()`函数中导入算子实现函数(`from square_impl import CusSquareImpl`)来将算子实现注册到后端。本用例在`square_impl.py`中定义了算子实现和算子信息，将在后文中说明。
+自定义算子与内置算子的唯一区别是需要通过在`__init__`函数中导入算子实现函数(`from square_impl import CusSquareImpl`)来将算子实现注册到后端。本用例在`square_impl.py`中定义了算子实现和算子信息，将在后文中说明。
 
 以Square算子原语`cus_square.py`为例，给出如下示例代码。
 
@@ -74,8 +74,8 @@ class CusSquare(PrimitiveWithInfer):
 1. 准备输入的placeholder，placeholder是一个占位符，返回一个Tensor对象，表示一组输入数据。
 2. 调用计算函数，计算函数使用TBE提供的API接口描述了算子内部的计算逻辑。
 3. 调用Schedule调度模块，调度模块对算子中的数据按照调度模块的调度描述进行切分，同时指定好数据的搬运流程，确保在硬件上的执行达到最优。默认可以采用自动调度模块（`auto_schedule`）。
-4. 调用`cce_build_code()`编译生成算子二进制。
-> 入口函数的输入参数有特殊要求，需要依次为：算子每个输入的信息、算子每个输出的信息、算子属性（可选）和kernel_name（生成算子二进制的名称）。输入和输出的信息用字典封装传入，其中包含该算子在网络中被调用时传入的实际输入和输出的shape和dtype。
+4. 调用`cce_build_code`编译生成算子二进制。
+> 入口函数的输入参数有特殊要求，需要依次为：算子每个输入的信息、算子每个输出的信息、算子属性（可选）和`kernel_name`（生成算子二进制的名称）。输入和输出的信息用字典封装传入，其中包含该算子在网络中被调用时传入的实际输入和输出的shape和dtype。
 
 更多关于使用TBE开发算子的内容请参考[TBE文档](https://www.huaweicloud.com/ascend/tbe)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://www.huaweicloud.com/ascend/mindstudio)。
 
@@ -84,7 +84,7 @@ class CusSquare(PrimitiveWithInfer):
 算子信息是指导后端选择算子实现的关键信息，同时也指导后端为算子插入合适的类型和格式转换。它通过`TBERegOp`接口定义，通过`op_info_register`装饰器将算子信息与算子实现入口函数绑定。当算子实现py文件被导入时，`op_info_register`装饰器会将算子信息注册到后端的算子信息库中。更多关于算子信息的使用方法请参考`TBERegOp`的成员方法的注释说明。
 
 > - 算子信息中定义输入输出信息的个数和顺序、算子实现入口函数的参数中的输入输出信息的个数和顺序、算子原语中输入输出名称列表的个数和顺序，三者要完全一致。
-> - 算子如果带属性，在算子信息中需要用`attr()`描述属性信息，属性的名称与算子原语定义中的属性名称要一致。
+> - 算子如果带属性，在算子信息中需要用`attr`描述属性信息，属性的名称与算子原语定义中的属性名称要一致。
 
 ### 示例
 
