@@ -30,3 +30,9 @@ mindspore.train.loss_scale_manager
 
 .. automodule:: mindspore.train.loss_scale_manager
     :members:
+
+mindspore.train.quant
+---------------------
+
+.. automodule:: mindspore.train.quant
+    :members:
