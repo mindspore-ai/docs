@@ -15,4 +15,4 @@
 | Computer Version (CV)  | Targets Detection  | [YoloV3](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/yolov3.py)         |  Supported |  Doing | Doing
 | Computer Version (CV) | Semantic Segmentation  | [Deeplabv3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deeplabv3/src/deeplabv3.py)                                          |  Supported |  Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/bert/src/bert_model.py)                                          |  Supported |  Doing | Doing
-| Natural Language Processing (NLP) | Natural Language Understanding  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/lstm.py)                                          |  Doing |  Supported | Doing
+| Natural Language Processing (NLP) | Natural Language Understanding  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py)                                          |  Doing |  Supported | Supported

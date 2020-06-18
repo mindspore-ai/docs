@@ -15,4 +15,4 @@
 | 计算机视觉（CV）  | 目标检测（Targets Detection）  | [YoloV3](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/yolov3.py)         |  Supported |  Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [Deeplabv3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deeplabv3/src/deeplabv3.py)                                       |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/bert/src/bert_model.py)                                          |  Supported |  Doing | Doing
-| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/lstm.py)                                          |  Doing |  Supported | Doing
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py)                                          |  Doing |  Supported | Supported
