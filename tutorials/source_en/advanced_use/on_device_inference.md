@@ -41,7 +41,7 @@ The environment requirements are as follows:
   - decorator
   - scipy
     
-    > numpy, decorator and scipy can be installed through pip.  The reference command is as following.
+    > `numpy`, `decorator` and `scipy` can be installed through `pip`.  The reference command is as following.
     
     ```bash
     pip3 install numpy==1.16 decorator scipy
@@ -71,7 +71,7 @@ The compilation procedure is as follows:
 
 4. Obtain the compilation result.
 
-   Go to the predict/output directory of the source code to view the generated package. The package name is MSPredict-{Version number}-{Host platform}_{Device platform}.tar.gz, for example, MSPredict-0.1.0-linux_aarch64.tar.gz. The package contains the following directories:
+   Go to the `predict/output` directory of the source code to view the generated package. The package name is MSPredict-*Version number*-*Host platform*_*Device platform*.tar.gz, for example, MSPredict-0.1.0-linux_aarch64.tar.gz. The package contains the following directories:
 
    - include: MindSpore Predict header file.
    - lib: MindSpore Predict dynamic library.
@@ -90,12 +90,12 @@ To perform on-device model inference using MindSpore, perform the following step
    param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
-2. Call the `export` API to export the .ms model file on the device.
+2. Call the `export` API to export the `.ms` model file on the device.
    ```python
    export(net, input_data, file_name="./lenet.ms", file_format='LITE')
    ```
 
-Take the LeNet network as an example. The generated on-device model file is `lenet.ms`. The complete sample code lenet.py is as follows:
+Take the LeNet network as an example. The generated on-device model file is `lenet.ms`. The complete sample code `lenet.py` is as follows:
 ```python
 import os
 import numpy as np
@@ -155,12 +155,12 @@ if __name__ == '__main__':
 
 ### Implementing On-Device Inference
 
-Use the .ms model file and image data as input to create a session and implement inference on the device.
+Use the `.ms` model file and image data as input to create a session and implement inference on the device.
 
 ![](./images/side_infer_process.png)
 
 Figure 1 On-device inference sequence diagram
-1. Load the .ms model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
+1. Load the `.ms` model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
    ```cpp
    // read model file
    std::string modelPath = "./models/lenet/lenet.ms";
@@ -178,7 +178,7 @@ Figure 1 On-device inference sequence diagram
    free(graphBuf);
    ```
 
-3. Read the input data for inference from the memory buffer and call the SetData() API to set the input data to input tensor.
+3. Read the input data for inference from the memory buffer and call the `SetData` API to set the input data to `input tensor`.
    ```cpp
    // load input buffer
    size_t inputSize = 0;
@@ -191,19 +191,19 @@ Figure 1 On-device inference sequence diagram
    inputs[0]->SetData(inputBuf);
    ```
 
-4. Call the Run() API in the session to perform inference.
+4. Call the `Run` API in the `session` to perform inference.
    ```cpp
    // session run
    int ret = session->Run(inputs);
    ```
 
-5. Call the GetAllOutput() API to obtain the output.
+5. Call the `GetAllOutput` API to obtain the output.
    ```cpp
    // get output
    std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
    ```
    
-6. Call the Getdata() API to get the output data.
+6. Call the `Getdata` API to get the output data.
    ```cpp
    // get output data
    float *data = nullptr;
@@ -230,10 +230,10 @@ Figure 1 On-device inference sequence diagram
    outputs.clear();
    ```
 
-Select the LeNet network and set the inference input to lenet.bin. The complete sample code lenet.cpp is as follows:
-> MindSpore Predict uses FlatBuffers to define models. The FlatBuffers header file is required for parsing models. Therefore, you need to configure the FlatBuffers header file.
+Select the LeNet network and set the inference input to `lenet.bin`. The complete sample code `lenet.cpp` is as follows:
+> MindSpore Predict uses `FlatBuffers` to define models. The `FlatBuffers` header file is required for parsing models. Therefore, you need to configure the `FlatBuffers` header file.
 >
-> Method: Copy the flatbuffers folder in MindSpore root directory/third_party/flatbuffers/include to the directory at the same level as session.h.
+> Method: Copy the `flatbuffers` folder in MindSpore root directory`/third_party/flatbuffers/include` to the directory at the same level as `session.h`.
 
 ```cpp
 #include <string>

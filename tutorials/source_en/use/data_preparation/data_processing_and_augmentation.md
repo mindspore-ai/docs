@@ -41,7 +41,7 @@ The operations can be performed separately. In practice, they are often used tog
 
 ![avatar](../images/dataset_pipeline.png)
 
-In the following example, the shuffle, batch, and repeat operations are performed when the MNIST dataset is read.
+In the following example, the `shuffle`, `batch`, and `repeat` operations are performed when the MNIST dataset is read.
 
 ```python
 import mindspore.dataset as ds
@@ -59,7 +59,7 @@ The following describes how to construct a simple dataset `ds1` and perform data
     ```python
     import mindspore.dataset as ds
     ```
-2. Define the `generator_func()` function for dataset generating.
+2. Define the `generator_func` function for dataset generating.
    ```python
     def generator_func():
         for i in range(5):
@@ -88,7 +88,7 @@ In limited datasets, to optimize the network, a dataset is usually trained for m
 
 > In machine learning, an epoch refers to one cycle through the full training dataset.
 
-During multiple epochs, `repeat()` can be used to increase the data size. The definition of `repeat()` is as follows:
+During multiple epochs, `repeat` can be used to increase the data size. The definition of `repeat` is as follows:
 ```python
 def repeat(self, count=None):
 ```
@@ -118,7 +118,7 @@ ds2:
 [4 5 6]
 ```
 ### batch
-Combine data records in datasets into batches. In practice, data can be processed in batches. Training data in batches can reduce training steps and accelerate the training process. MindSpore uses the `batch()` function to implement the batch operation. The function is defined as follows:
+Combine data records in datasets into batches. In practice, data can be processed in batches. Training data in batches can reduce training steps and accelerate the training process. MindSpore uses the `batch` function to implement the batch operation. The function is defined as follows:
 
 ![avatar](../images/batch.png)
 
@@ -167,11 +167,11 @@ You can shuffle ordered or repeated datasets.
 ![avatar](../images/shuffle.png)
 
 The shuffle operation is used to shuffle data. A larger value of buffer_size indicates a higher shuffling degree, consuming more time and computing resources.
-The definition of `shuffle()` is as follows:
+The definition of `shuffle` is as follows:
 ```python
 def shuffle(self, buffer_size):
 ```
-Call `shuffle()` to shuffle the dataset `ds1`. The sample code is as follows:
+Call `shuffle` to shuffle the dataset `ds1`. The sample code is as follows:
 
 ```python
 print("Before shuffle:")
@@ -200,19 +200,19 @@ After shuffle:
 ```
 ### map
 The map operation is used to process data. For example, convert the dataset of color images into the dataset of grayscale images. You can flexibly perform the operation as required.
-MindSpore provides the `map()` function to map datasets. You can apply the provided functions or operators to the specified column data.  
+MindSpore provides the `map` function to map datasets. You can apply the provided functions or operators to the specified column data.  
 You can customize the function or use `c_transforms` or `py_transforms` for data augmentation.
 > For details about data augmentation operations, see Data Augmentation section.
 
 ![avatar](../images/map.png)
 
-The definition of `map()` is as follows:
+The definition of `map` is as follows:
 
 ```python
 def map(self, input_columns=None, operations=None, output_columns=None, columns_order=None,
         num_parallel_workers=None):
 ```
-In the following example, the `map()` function is used to apply the defined anonymous function (lambda function) to the dataset `ds1` so that the data values in the dataset are multiplied by 2.
+In the following example, the `map` function is used to apply the defined anonymous function (lambda function) to the dataset `ds1` so that the data values in the dataset are multiplied by 2.
 ```python
 func = lambda x : x*2  # Define lambda function to multiply each element by 2.
 ds2 = ds1.map(input_columns="data", operations=func)
@@ -228,7 +228,7 @@ The code output is as follows. Data values in each row of the dataset `ds2` is m
 [8 10 12]
 ```
 ### zip
-MindSpore provides the `zip()` function to combine multiple datasets into one dataset.
+MindSpore provides the `zip` function to combine multiple datasets into one dataset.
 > If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.  
 > If the number of rows in the two datasets is different, the number of rows after combination is the same as the smaller number.
 ```python
@@ -267,7 +267,7 @@ MindSpore provides the `c_transforms` and `py_transforms` module functions for u
 | `py_transforms` | Python-based [PIL](https://pypi.org/project/Pillow/) implementation | This module provides multiple image augmentation functions and the method for converting between PIL images and NumPy arrays. |
 
 For users who would like to use Python PIL in image learning tasks, the `py_transforms` module is a good tool for image augmentation. You can use Python PIL to customize extensions.  
-Data augmentation requires the `map()` function. For details about how to use the `map()` function, see [map](#map).
+Data augmentation requires the `map` function. For details about how to use the `map` function, see [map](#map).
 
 ### Using the `c_transforms` Module
 
@@ -287,7 +287,7 @@ Data augmentation requires the `map()` function. For details about how to use th
         imgplot_resized = plt.imshow(data["image"])
         plt.show()
     ```
-The running result shows that the original image is changed from 1024 x 683 pixels to 500 x 500 pixels after data processing by using `Resize()`.
+The running result shows that the original image is changed from 1024 x 683 pixels to 500 x 500 pixels after data processing by using `Resize`.
 ![avatar](../images/image.png)
 
 Figure 1: Original image
@@ -321,7 +321,7 @@ Figure 2: Image after its size is reset
          plt.show()
     ```
 
-The running result shows that the original image is changed from 1024 x 683 pixels to 500 x 500 pixels after data processing by using `RandomCrop()`.
+The running result shows that the original image is changed from 1024 x 683 pixels to 500 x 500 pixels after data processing by using `RandomCrop`.
 ![avatar](../images/image.png)
 
 Figure 1: Original image

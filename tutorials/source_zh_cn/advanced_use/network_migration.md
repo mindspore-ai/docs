@@ -225,7 +225,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
     类似于TensorFlow的`Estimator`接口，将定义好的网络原型、损失函数、优化器传入MindSpore的`Model`接口，内部会自动将其组合成一个可用于训练的网络。
 
-    如果需要在训练中使用Loss Scale，则可以单独定义一个loss_scale_manager，一同传入`Model`接口。
+    如果需要在训练中使用Loss Scale，则可以单独定义一个`loss_scale_manager`，一同传入`Model`接口。
 
     ```python
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
@@ -237,7 +237,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
     ```
 
-    类似于TensorFlow的`estimator.train()`，可以通过调用`model.train`接口来进行训练。CheckPoint和中间结果打印等功能，可通过Callback的方式定义到`model.train`接口上。
+    类似于TensorFlow的`estimator.train`，可以通过调用`model.train`接口来进行训练。CheckPoint和中间结果打印等功能，可通过`Callback`的方式定义到`model.train`接口上。
     
     ```python
     time_cb = TimeMonitor(data_size=step_size)

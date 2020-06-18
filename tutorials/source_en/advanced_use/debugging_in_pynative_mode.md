@@ -377,4 +377,4 @@ print(loss)
 2.3050091
 ```
 
-In the preceding execution, an intermediate result of network execution can be obtained at any required place in construct function, and the network can be debugged by using the Python Debugger (pdb).
+In the preceding execution, an intermediate result of network execution can be obtained at any required place in `construt` function, and the network can be debugged by using the Python Debugger (pdb).

@@ -102,8 +102,8 @@ load_param_into_net(net, param_dict)
 
 其中，
 
-- `load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
-- `load_param_into_net()`：模型参数数据加载到网络中。
+- `load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
+- `load_param_into_net`：模型参数数据加载到网络中。
 - `CKP_1-4_32.ckpt`：之前保存的CheckPoint模型参数文件名称。
 
 > 如果直接在训练环境上，基于当前训练得到的数据直接保存新的CheckPoint文件，参数值已经存在在网络中，则可以省略该步骤，无需导入CheckPoint文件。
@@ -138,7 +138,7 @@ for _, param in net.parameters_and_names():
     ```
     > 如果要保证参数更新速度不变，需要对优化器中保存的参数，如“moments.model_parallel_weight”，同样做合并处理。
 
-2.  定义AllGather类型子图，并实例化和执行，获取所有卡上的数据。
+2.  定义`AllGather`类型子图，并实例化和执行，获取所有卡上的数据。
 
     ```
     from mindspore.nn.cell import Cell
@@ -162,17 +162,17 @@ for _, param in net.parameters_and_names():
     param_data_moments = allgather_net(param_data_moments) 
     ```
 
-    ​得到的数据param_data为每卡上的数据在维度0上的合并，数据值为 [[1, 2], [3, 4], [5, 6], [7, 8]]，shape为[4, 2]。
-    ​param_data原始数据值为[[1, 2, 3, 4], [5, 6, 7, 8]]，shape为[2, 4]，需要对数据重新切分合并。
+    ​得到的数据`param_data`为每卡上的数据在维度0上的合并，数据值为 [[1, 2], [3, 4], [5, 6], [7, 8]]，shape为[4, 2]。
+    ​`param_data`原始数据值为[[1, 2, 3, 4], [5, 6, 7, 8]]，shape为[2, 4]，需要对数据重新切分合并。
 
-3. 切分通过AllGather得到的数据。
+3. 切分通过`AllGather`得到的数据。
 
     ```
     slice_list = np.split(param_data.asnumpy(), 4, axis=0)   # 4：group_size, number of nodes in cluster
     slice_lis_moments = np.split(param_data_moments.asnumpy(), 4, axis=0)  # 4: group_size, number of nodes in cluster
     ```
 
-    得到结果param_data为：
+    得到结果`param_data`为：
 
         slice_list[0]  --- [1,  2]     device0上的切片数据    
         slice_list[1]  --- [3,  4]     device1上的切片数据    
@@ -200,12 +200,12 @@ for _, param in net.parameters_and_names():
     ```
 
 > 1. 如果存在多个模型并行的参数，则需要重复步骤1到步骤5循环逐个处理。
-> 2. 如果步骤2执行allgather子图获取的数据，已经是最终的数据，则后面的步骤可省略。
+> 2. 如果步骤2执行`allgather`子图获取的数据，已经是最终的数据，则后面的步骤可省略。
 >    即本身切分逻辑是仅在shape0上切分，每个卡加载不同切片数据。
 
 ### 保存数据生成新的CheckPoint文件
 
-1. 将param_dict转换为list类型数据。 
+1. 将`param_dict`转换为list类型数据。 
 
     ```
     param_list = []
@@ -244,7 +244,7 @@ for _, param in net.parameters_and_names():
 param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```
 
-- `load_checkpoint()`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
+- `load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
 - `CKP-Integrated_1-4_32.ckpt`：需要加载的CheckPoint模型参数文件名称。
 
 ### 步骤2：对模型并行参数做切分处理
@@ -425,7 +425,7 @@ load_param_into_net(opt, param_dict)
 
     - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
     - `device_id`：卡物理序号，即卡所在机器中的实际序号。
-    - `init()`：完成分布式训练初始化操作。
+    - `init`：完成分布式训练初始化操作。
 
     执行结果：
 

@@ -19,13 +19,13 @@
 
 ## Ascend 910 AI处理器上推理
 
-MindSpore提供了`model.eval()`接口来进行模型验证，你只需传入验证数据集即可，验证数据集的处理方式与训练数据集相同。完整代码请参考<https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/eval.py>。
+MindSpore提供了`model.eval`接口来进行模型验证，你只需传入验证数据集即可，验证数据集的处理方式与训练数据集相同。完整代码请参考<https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/eval.py>。
 
 ```python
 res = model.eval(dataset)
 ```
 
-此外，也可以通过`model.predict()`接口来进行推理操作，详细用法可参考API说明。
+此外，也可以通过`model.predict`接口来进行推理操作，详细用法可参考API说明。
 
 ## Ascend 310 AI处理器上推理
 

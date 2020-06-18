@@ -34,11 +34,11 @@ This section takes a Square operator as an example to describe how to customize 
 The primitive of an operator is a subclass inherited from `PrimitiveWithInfer`. The type name of the subclass is the operator name.
 
 The definition of the custom operator primitive is the same as that of the built-in operator primitive.  
-- The attribute is defined by the input parameter of the constructor function `__init__()`. The operator in this test case has no attribute. Therefore, `__init__()` has only one input parameter. For details about test cases in which operators have attributes, see [custom add3](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe/cus_add3.py) in the MindSpore source code.
-- The input and output names are defined by the `init_prim_io_names()` function.
-- The shape inference method of the output tensor is defined in the `infer_shape()` function, and the dtype inference method of the output tensor is defined in the `infer_dtype()` function.
+- The attribute is defined by the input parameter of the constructor function `__init__`. The operator in this test case has no attribute. Therefore, `__init__` has only one input parameter. For details about test cases in which operators have attributes, see [custom add3](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe/cus_add3.py) in the MindSpore source code.
+- The input and output names are defined by the `init_prim_io_names` function.
+- The shape inference method of the output tensor is defined in the `infer_shape` function, and the dtype inference method of the output tensor is defined in the `infer_dtype` function.
 
-The only difference between a custom operator and a built-in operator is that the operator implementation function (`from square_impl import CusSquareImpl`) needs to be imported to the `__init__()` function to register the operator implementation with the backend for the custom operator. In this test case, the operator implementation and information are defined in `square_impl.py`, and the definition will be described in the following parts.
+The only difference between a custom operator and a built-in operator is that the operator implementation function (`from square_impl import CusSquareImpl`) needs to be imported to the `__init__` function to register the operator implementation with the backend for the custom operator. In this test case, the operator implementation and information are defined in `square_impl.py`, and the definition will be described in the following parts.
 
 The following code takes the Square operator primitive `cus_square.py` as an example:
 
@@ -74,8 +74,8 @@ The entry function of an operator describes the internal process of compiling th
 1. Prepare placeholders to be input. A placeholder will return a tensor object that represents a group of input data.
 2. Call the computable function. The computable function uses the API provided by the TBE to describe the computation logic of the operator.
 3. Call the scheduling module. The model tiles the operator data based on the scheduling description and specifies the data transfer process to ensure optimal hardware execution. By default, the automatic scheduling module (`auto_schedule`) can be used.
-4. Call `cce_build_code()` to compile and generate an operator binary file.
-> The input parameters of the entry function require the input information of each operator, output information of each operator, operator attributes (optional), and kernel_name (name of the generated operator binary file). The input and output information is encapsulated in dictionaries, including the input and output shape and dtype when the operator is called on the network.
+4. Call `cce_build_code` to compile and generate an operator binary file.
+> The input parameters of the entry function require the input information of each operator, output information of each operator, operator attributes (optional), and `kernel_name` (name of the generated operator binary file). The input and output information is encapsulated in dictionaries, including the input and output shape and dtype when the operator is called on the network.
 
 For details about TBE operator development, visit the [TBE website](https://www.huaweicloud.com/ascend/tbe). For details about how to debug and optimize the TBE operator, visit the [Mind Studio website](https://www.huaweicloud.com/intl/en-us/ascend/mindstudio).
 
@@ -85,7 +85,7 @@ The operator information is key for the backend to select the operator implement
 
 > The numbers and sequences of the input and output information defined in the operator information must be the same as those in the parameters of the entry function of the operator implementation and those listed in the operator primitive.
 
-> If an operator has attributes, use `attr()` to describe the attribute information in the operator information. The attribute names must be the same as those in the operator primitive definition.
+> If an operator has attributes, use `attr` to describe the attribute information in the operator information. The attribute names must be the same as those in the operator primitive definition.
 
 ### Example
 

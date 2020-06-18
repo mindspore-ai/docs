@@ -37,14 +37,14 @@ This document describes the computation process by using examples of automatic a
 
 ## Automatic Mixed Precision
 
-To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the BatchNorm and Loss operators).
+To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the `BatchNorm` and Loss operators).
 
 The procedure is as follows:
 1. Introduce the MindSpore mixed precision API.
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
 
-3. Use the amp.build_train_network() API to encapsulate the network model and optimizer. In this step, MindSpore automatically converts the operators to the required format.
+3. Use the `amp.build_train_network` API to encapsulate the network model and optimizer. In this step, MindSpore automatically converts the operators to the required format.
 
 A code example is as follows:
 
@@ -98,7 +98,7 @@ MindSpore also supports manual mixed precision. It is assumed that only one dens
 The following is the procedure for implementing manual mixed precision:
 1. Define the network. This step is similar to step 2 in the automatic mixed precision. 
 
-2. Configure the mixed precision. Use net.to_float(mstype.float16) to set all operators of the cell and its sub-cells to FP16. Then, configure the dense to FP32.
+2. Configure the mixed precision. Use `net.to_float(mstype.float16)` to set all operators of the cell and its sub-cells to FP16. Then, configure the dense to FP32.
 
 3. Use TrainOneStepCell to encapsulate the network model and optimizer.
 

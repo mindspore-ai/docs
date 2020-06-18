@@ -130,7 +130,7 @@ tar -zvxf cifar-10-binary.tar.gz
 
 3. 数据混洗和批处理
 
-    最后通过数据混洗（shuffle）随机打乱数据的顺序，并按batch读取数据，进行模型训练：
+    最后通过数据混洗（`shuffle`）随机打乱数据的顺序，并按`batch`读取数据，进行模型训练：
 
     ```python
     # apply shuffle operations
@@ -182,11 +182,11 @@ opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.
 
 ### 调用`Model`高阶API进行训练和保存模型文件
 
-完成数据预处理、网络定义、损失函数和优化器定义之后，就可以进行模型训练了。模型训练包含两层迭代，数据集的多轮迭代（epoch）和一轮数据集内按分组（batch）大小进行的单步迭代。其中，单步迭代指的是按分组从数据集中抽取数据，输入到网络中计算得到损失函数，然后通过优化器计算和更新训练参数的梯度。
+完成数据预处理、网络定义、损失函数和优化器定义之后，就可以进行模型训练了。模型训练包含两层迭代，数据集的多轮迭代（`epoch`）和一轮数据集内按分组（`batch`）大小进行的单步迭代。其中，单步迭代指的是按分组从数据集中抽取数据，输入到网络中计算得到损失函数，然后通过优化器计算和更新训练参数的梯度。
 
 为了简化训练过程，MindSpore封装了`Model`高阶接口。用户输入网络、损失函数和优化器完成`Model`的初始化，然后调用`train`接口进行训练，`train`接口参数包括迭代次数（`epoch`）和数据集（`dataset`）。
 
-模型保存是对训练参数进行持久化的过程。`Model`类中通过回调函数（callback）的方式进行模型保存，如下面代码所示。用户通过`CheckpointConfig`设置回调函数的参数，其中，`save_checkpoint_steps`指每经过固定的单步迭代次数保存一次模型，`keep_checkpoint_max`指最多保存的模型个数。
+模型保存是对训练参数进行持久化的过程。`Model`类中通过回调函数（`callback`）的方式进行模型保存，如下面代码所示。用户通过`CheckpointConfig`设置回调函数的参数，其中，`save_checkpoint_steps`指每经过固定的单步迭代次数保存一次模型，`keep_checkpoint_max`指最多保存的模型个数。
 
 ```python
 '''
@@ -206,7 +206,7 @@ model.train(epoch_size, dataset, callbacks=[ckpoint_cb, loss_cb])
 
 ### 加载保存的模型，并进行验证
 
-训练得到的模型文件（如resnet.ckpt）可以用来预测新图像的类别。首先通过`load_checkpoint`加载模型文件。然后调用`Model`的`eval`接口预测新图像类别。
+训练得到的模型文件（如`resnet.ckpt`）可以用来预测新图像的类别。首先通过`load_checkpoint`加载模型文件。然后调用`Model`的`eval`接口预测新图像类别。
 
 ```python
 param_dict = load_checkpoint(args_opt.checkpoint_path)

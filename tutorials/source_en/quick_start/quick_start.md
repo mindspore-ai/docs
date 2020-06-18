@@ -89,7 +89,7 @@ For details about MindSpore modules, search on the [MindSpore API Page](https://
 
 Before compiling code, you need to learn basic information about the hardware and backend required for MindSpore running.
 
-You can use `context.set_context()` to configure the information required for running, such as the running mode, backend information, and hardware information.
+You can use `context.set_context` to configure the information required for running, such as the running mode, backend information, and hardware information.
 
 Import the `context` module and configure the required information.
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     ...
 ```
 
-This example runs in graph mode. You can configure hardware information based on site requirements. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about parameters, see the API description for `context.set_context()`.
+This example runs in graph mode. You can configure hardware information based on site requirements. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about parameters, see the API description for `context.set_context`.
 
 ## Processing Data
 
@@ -115,12 +115,12 @@ Datasets are important for training. A good dataset can effectively improve trai
 
 ### Defining the Dataset and Data Operations
 
-Define the `create_dataset()` function to create a dataset. In this function, define the data augmentation and processing operations to be performed.
+Define the `create_dataset` function to create a dataset. In this function, define the data augmentation and processing operations to be performed.
 
 1. Define the dataset.
 2. Define parameters required for data augmentation and processing.
 3. Generate corresponding data augmentation operations according to the parameters.
-4. Use the `map()` mapping function to apply data operations to the dataset.
+4. Use the `map` mapping function to apply data operations to the dataset.
 5. Process the generated dataset.
 
 ```python
@@ -226,7 +226,7 @@ def fc_with_initialize(input_channels, out_channels):
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.cell.Cell`. `Cell` is the base class of all neural networks (such as `Conv2d`).
 
-Define each layer of a neural network in the `__init__()` method in advance, and then define the `construct()` method to complete the forward construction of the neural network. According to the structure of the LeNet network, define the network layers as follows:
+Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. According to the structure of the LeNet network, define the network layers as follows:
 
 ```python
 import mindspore.ops.operations as P
@@ -399,7 +399,7 @@ checkpoint_lenet-1_1875.ckpt
 ```
 
 In the preceding information:  
-`checkpoint_lenet-1_1875.ckpt`: saved model parameter file. The following refers to saved files as well. The file name format is checkpoint_{network name}-{epoch No.}_{step No.}.ckpt.
+`checkpoint_lenet-1_1875.ckpt`: saved model parameter file. The following refers to saved files as well. The file name format is checkpoint_*network name*-*epoch No.*_*step No.*.ckpt.
 
 ## Validating the Model
 
@@ -427,7 +427,7 @@ if __name__ == "__main__":
 ```
 
 In the preceding information:   
-`load_checkpoint()`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.  
+`load_checkpoint`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.  
 `checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.  
 `load_param_into_net`: This API is used to load parameters to the network.
 

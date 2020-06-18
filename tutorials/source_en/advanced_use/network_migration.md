@@ -229,7 +229,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
    Similar to the `Estimator` API of TensorFlow, the defined network prototype, loss function, and optimizer are transferred to the `Model` API of MindSpore and automatically combined into a network that can be used for training.
 
-   To use loss scale in training, define a loss\_scale\_manager and transfer it to the `Model` API.
+   To use loss scale in training, define a `loss_scale_manager` and transfer it to the `Model` API.
 
    ```python
    loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
@@ -241,7 +241,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
    ```
 
-   Similar to `estimator.train()` of TensorFlow, you can call the `model.train` API to perform training. Functions such as CheckPoint and intermediate result printing can be defined on the `model.train` API in Callback mode.
+   Similar to `estimator.train` of TensorFlow, you can call the `model.train` API to perform training. Functions such as CheckPoint and intermediate result printing can be defined on the `model.train` API in Callback mode.
 
    ```python
    time_cb = TimeMonitor(data_size=step_size)

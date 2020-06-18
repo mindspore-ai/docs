@@ -38,7 +38,7 @@ CheckPoint的protocol格式定义在`mindspore/ccsrc/utils/checkpoint.proto`中�
 通过`CheckpointConfig`对象可以设置CheckPoint的保存策略。
 保存的参数分为网络参数和优化器参数。
 
-`ModelCheckpoint()`提供默认配置策略，方便用户快速上手。
+`ModelCheckpoint`提供默认配置策略，方便用户快速上手。
 具体用法如下：
 ```python
 from mindspore.train.callback import ModelCheckpoint

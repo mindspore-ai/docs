@@ -119,7 +119,7 @@ if __name__ == "__main__":
 In the preceding code:  
 - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
-- `init()`: enables HCCL communication and completes the distributed training initialization.
+- `init`: enables HCCL communication and completes the distributed training initialization.
 
 ## Loading the Dataset in Data Parallel Mode
 
@@ -233,7 +233,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 ## Training the Network
 
-`context.set_auto_parallel_context()` is an API for users to set parallel training parameters and must be called before the initialization of `Model`. If no parameters are specified, MindSpore will automatically set parameters to the empirical values based on the parallel mode. For example, in data parallel mode, `parameter_broadcast` is enabled by default. The related parameters are as follows:
+`context.set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of `Model`. If no parameters are specified, MindSpore will automatically set parameters to the empirical values based on the parallel mode. For example, in data parallel mode, `parameter_broadcast` is enabled by default. The related parameters are as follows:
 
 - `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
 - `parameter_broadcast`: whether to broadcast initialized parameters. The default value is `True` in `DATA_PARALLEL` and `HYBRID_PARALLEL` mode.
@@ -341,7 +341,7 @@ For details about other environment variables, see configuration items in the in
 
 The running time is about 5 minutes, which is mainly occupied by operator compilation. The actual training time is within 20 seconds. You can use `ps -ef | grep pytest` to monitor task processes.
 
-Log files are saved in the device directory. The env.log file records environment variable information. The train.log file records the loss function information. The following is an example:
+Log files are saved in the `device` directory. The `env.log` file records environment variable information. The `train.log` file records the loss function information. The following is an example:
 
 ```
 epoch: 1 step: 156, loss is 2.0084016

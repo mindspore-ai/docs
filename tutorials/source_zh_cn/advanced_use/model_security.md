@@ -29,8 +29,8 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
 
 > 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_safety>
-> - mnist_attack_fgsm.py：包含攻击代码。
-> - mnist_defense_nad.py：包含防御代码。
+> - `mnist_attack_fgsm.py`：包含攻击代码。
+> - `mnist_defense_nad.py`：包含防御代码。
 
 ## 建立被攻击模型
 
@@ -68,7 +68,7 @@ TAG = 'demo'
 
 ### 加载数据集
 
-利用MindSpore的dataset提供的MnistDataset接口加载MNIST数据集。
+利用MindSpore的dataset提供的`MnistDataset`接口加载MNIST数据集。
 
 ```python
 # generate training data
