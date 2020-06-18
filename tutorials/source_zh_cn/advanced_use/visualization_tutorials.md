@@ -22,8 +22,6 @@
         - [模型溯源](#模型溯源)
         - [数据溯源](#数据溯源)
         - [对比看板](#对比看板)
-        - [性能调试](#性能调试)
-            - [算子性能分析](#算子性能分析)
     - [规格](#规格)
 
 <!-- /TOC -->
@@ -234,42 +232,6 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 
 > - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
 > - 在训练中使用Summary算子收集数据时，`HistogramSummary`算子会影响性能，所以请尽量少地使用。
-
-
-### 性能数据收集
-
-为了收集神经网络的性能数据，需要在训练脚本中添加`MindInsight Profiler`接口。首先，在set context之后和初始化网络之前，需要初始化`MindInsight Profiler`对象；
-然后在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
-
-样例代码如下：
-
-```python
-from mindinsight.profiler import Profiler
-from mindspore import Model, nn, context
-
-
-def test_profiler():
-    # Init context env
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
-    
-    # Init Profiler
-    profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
-    
-    # Init hyperparameter
-    epoch = 2
-    # Init network and Model
-    net = Net()
-    loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
-    # Prepare mindrecord_dataset for training
-    train_ds = create_mindrecord_dataset_for_training()
-    # Model Train
-    model.train(epoch, train_ds)
-    
-    # Profiler end
-    profiler.analyse()
-``` 
 
 ## MindInsight相关命令
 
@@ -528,33 +490,6 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 - 水平轴：可以选择“步骤”、“相对时间”、“绝对时间”中的任意一项，来作为标量曲线的水平轴。
 - 平滑度：可以通过调整平滑度，对标量曲线进行平滑处理。
 
-### 性能调试
-
-用户从训练列表中选择指定的训练，进入性能调试。
-
-#### 算子性能分析
-
-使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示。
-
-![op_type_statistics.png](./images/op_type_statistics.PNG)
-
-图19： 算子类别统计分析
-
-图19展示了按算子类别进行统计分析的结果，包含以下内容：
-
-- 可以选择饼图/柱状图展示各算子类别的时间占比，每个算子类别的执行时间会统计属于该类别的算子执行时间总和；
-- 统计前20个占比时间最长的算子类别，展示其时间所占的百分比以及具体的执行时间（毫秒）。
-
-![op_statistics.png](./images/op_statistics.PNG)
-
-图20： 算子统计分析
-
-图20展示了算子性能统计表，包含以下内容：
-
-- 选择全部：按单个算子的统计结果进行排序展示，展示维度包括算子名称、算子类型、算子执行时间、算子全scope名称、算子信息等；默认按算子执行时间排序；
-- 选择分类：按算子类别的统计结果进行排序展示，展示维度包括算子分类名称、算子类别执行时间、执行频次、占总时间的比例等。点击每个算子类别，可以进一步查看该类别下所有单个算子的统计信息；
-- 搜索：在右侧搜索框中输入字符串，支持对算子名称/类别进行模糊搜索。
-
 ## 规格
 
 为了控制列出summary列表的用时，MindInsight最多支持发现999个summary列表条目。
@@ -569,5 +504,3 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 - 对比看板只支持在缓存中的训练进行比较标量曲线对比。
 - 缓存最多保留最新（按修改时间排列）的15个训练。
 - 用户最多同时对比5个训练的标量曲线。
-
-为了控制性能测试时生成数据的大小，大型网络建议性能调试的step数目限制在10以内。
