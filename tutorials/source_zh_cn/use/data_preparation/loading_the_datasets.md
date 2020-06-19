@@ -148,32 +148,110 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
     ```
 
 ## 加载自定义数据集
-对于自定义数据集，可以通过`GeneratorDataset`对象加载。
+现实场景中，数据集的种类多种多样，对于自定义数据集或者目前不支持直接加载的数据集，有两种方法可以处理。
+一种方法是将数据集转成MindRecord格式（请参考[将数据集转换为MindSpore数据格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/converting_datasets.html)章节），另一种方法是通过`GeneratorDataset`对象加载，以下将展示如何使用`GeneratorDataset`。
 
-1. 定义一个函数（示例函数名为`Generator1D`）用于生成数据集的函数。
-   > 自定义的生成函数返回的是可调用的对象，每次返回`numpy array`的元组，作为一行数据。 
+1. 定义一个可迭代的对象，用于生成数据集。以下展示了两种示例，一种是含有`yield`返回值的自定义函数，另一种是含有`__getitem__`的自定义类。两种示例都将产生一个含有从0到9数字的数据集。
+   > 自定义的可迭代对象，每次返回`numpy array`的元组，作为一行数据。 
 
    自定义函数示例如下：
    ```python
    import numpy as np  # Import numpy lib.
-   def Generator1D():
-       for i in range(64):
+   def generator_func(num):
+       for i in range(num):
            yield (np.array([i]),)  # Notice, tuple of only one element needs following a comma at the end.
    ```
-2. 将`Generator1D`传入`GeneratorDataset`创建数据集，并设定`column`名为“data”。  
+   
+   自定义类示例如下：
    ```python
-   dataset = ds.GeneratorDataset(Generator1D, ["data"])
+   import numpy as np  # Import numpy lib.
+   class Generator():
+      
+       def __init__(self, num):
+           self.num = num
+      
+       def __getitem__(self, item):
+           return (np.array([item]),)  # Notice, tuple of only one element needs following a comma at the end.
+      
+       def __len__(self):
+           return self.num
+   ```
+2. 使用`GeneratorDataset`创建数据集。将`generator_func`传入`GeneratorDataset`创建数据集`dataset1`，并设定`column`名为“data” 。
+   将定义的`Generator`对象传入`GeneratorDataset`创建数据集`dataset2`，并设定`column`名为“data” 。
+   ```python
+   dataset1 = ds.GeneratorDataset(source=generator_func(10), column_names=["data"], shuffle=False)
+   dataset2 = ds.GeneratorDataset(source=Generator(10), column_names=["data"], shuffle=False)
    ```
 
 3. 在创建数据集后，可以通过给数据创建迭代器的方式，获取相应的数据。有两种创建迭代器的方法。
-   - 创建返回值为序列类型的迭代器。
+   - 创建返回值为序列类型的迭代器。以下分别对`dataset1`和`dataset2`创建迭代器，并打印输出数据观察结果。
       ```python
-      for data in dataset.create_tuple_iterator():  # each data is a sequence
-          print(data[0])
+     print("dataset1:") 
+     for data in dataset1.create_tuple_iterator():  # each data is a sequence
+          print(data)
+     
+     print("dataset2:")
+     for data in dataset2.create_tuple_iterator():  # each data is a sequence
+         print(data)
       ```
+     输出如下所示：
+     ```
+     dataset1:
+     [array([0], dtype=int64)]
+     [array([1], dtype=int64)]
+     [array([2], dtype=int64)]
+     [array([3], dtype=int64)]
+     [array([4], dtype=int64)]
+     [array([5], dtype=int64)]
+     [array([6], dtype=int64)]
+     [array([7], dtype=int64)]
+     [array([8], dtype=int64)]
+     [array([9], dtype=int64)]
+     dataset2:
+     [array([0], dtype=int64)]
+     [array([1], dtype=int64)]
+     [array([2], dtype=int64)]
+     [array([3], dtype=int64)]
+     [array([4], dtype=int64)]
+     [array([5], dtype=int64)]
+     [array([6], dtype=int64)]
+     [array([7], dtype=int64)]
+     [array([8], dtype=int64)]
+     [array([9], dtype=int64)]
+     ```
 
-   - 创建返回值为字典类型的迭代器。
-      ```python 
-      for data in dataset.create_dict_iterator():  # each data is a dictionary
+   - 创建返回值为字典类型的迭代器。以下分别对`dataset1`和`dataset2`创建迭代器，并打印输出数据观察结果。
+      ```python
+      print("dataset1:")
+      for data in dataset1.create_dict_iterator():  # each data is a dictionary
+          print(data["data"])
+     
+      print("dataset2:")
+      for data in dataset2.create_dict_iterator():  # each data is a dictionary
           print(data["data"])
       ```
+     输出如下所示：
+     ```
+     dataset1:
+     {'data': array([0], dtype=int64)}
+     {'data': array([1], dtype=int64)}
+     {'data': array([2], dtype=int64)}
+     {'data': array([3], dtype=int64)}
+     {'data': array([4], dtype=int64)}
+     {'data': array([5], dtype=int64)}
+     {'data': array([6], dtype=int64)}
+     {'data': array([7], dtype=int64)}
+     {'data': array([8], dtype=int64)}
+     {'data': array([9], dtype=int64)}
+     dataset2:
+     {'data': array([0], dtype=int64)}
+     {'data': array([1], dtype=int64)}
+     {'data': array([2], dtype=int64)}
+     {'data': array([3], dtype=int64)}
+     {'data': array([4], dtype=int64)}
+     {'data': array([5], dtype=int64)}
+     {'data': array([6], dtype=int64)}
+     {'data': array([7], dtype=int64)}
+     {'data': array([8], dtype=int64)}
+     {'data': array([9], dtype=int64)}
+     ```

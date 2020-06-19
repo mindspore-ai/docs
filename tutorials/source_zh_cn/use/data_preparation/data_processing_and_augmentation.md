@@ -278,7 +278,7 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
     ```
 2. 定义数据增强算子，以`Resize`为例：
     ```python
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Deocde images. 
+    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Decode images. 
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(input_columns="image", operations=resize_op)
 
