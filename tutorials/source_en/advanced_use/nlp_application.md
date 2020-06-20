@@ -79,9 +79,9 @@ In the IMDb dataset, the number of positive and negative samples does not vary g
 
 ### Determining the Network and Process
 
-Currently, MindSpore GPU supports the long short-term memory (LSTM) network for NLP.
+Currently, MindSpore GPU and CPU supports SentimentNet network based on the long short-term memory (LSTM) network for NLP.
 1. Load the dataset in use and process data.
-2. Use the LSTM network training data to generate a model.
+2. Use the SentimentNet network based on LSTM training data to generate a model.
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
@@ -102,8 +102,6 @@ import json
 from itertools import chain
 import numpy as np
 from config import lstm_cfg as cfg
-# Install gensim with 'pip install gensim'
-import gensim
 
 import mindspore.nn as nn
 import mindspore.context as context
@@ -116,7 +114,9 @@ from mindspore.mindrecord import FileWriter
 from mindspore.train import Model
 from mindspore.nn.metrics import Accuracy
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+# Install gensim with 'pip install gensim'
+import gensim
 ```
 
 ### Configuring Environment Information
@@ -125,22 +125,25 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
-                        help='Whether to perform data preprocessing')
+                        help='whether to preprocess data.')
     parser.add_argument('--mode', type=str, default="train", choices=['train', 'test'],
                         help='implement phase, set to train or test')
     # Download dataset from 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz' and extract to 'aclimdb_path'
     parser.add_argument('--aclimdb_path', type=str, default="./aclImdb",
-                        help='path where the dataset is store')
+                        help='path where the dataset is stored')
     # Download GloVe from 'http://nlp.stanford.edu/data/glove.6B.zip' and extract to 'glove_path'
     # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
     parser.add_argument('--glove_path', type=str, default="./glove",
-                        help='path where the GloVe is store')
+                        help='path where the GloVe is stored')
     # Specify the path to save preprocessed data                
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
-                        help='path where the pre-process data is store')
+                        help='path where the pre-process data is stored')
     # Specify the path to save the CheckPoint file                    
-    parser.add_argument('--ckpt_path', type=str, default="./ckpt", help='if mode is test, must provide\
-                        path where the trained ckpt file')
+    parser.add_argument('--ckpt_path', type=str, default="./",
+                        help='if mode is test, must provide path where the trained ckpt file.')
+    # Specify the target device to run
+    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU', 'CPU'],
+                        help='the target device to run, support "GPU", "CPU". Default: "GPU".')
     args = parser.parse_args()
     ```
 
@@ -150,7 +153,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
-        device_target="GPU")
+        device_target=args.device_target)
     ```
     For details about the API configuration, see the `context.set_context`.
 
@@ -458,7 +461,11 @@ ds_train = create_dataset(args.preprocess_path, cfg.batch_size, cfg.num_epochs, 
 config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
                                 keep_checkpoint_max=cfg.keep_checkpoint_max)
 ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=args.ckpt_path, config=config_ck)
-model.train(cfg.num_epochs, ds_train, callbacks=[ckpoint_cb, loss_cb])
+time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+if args.device_target == "CPU":
+    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
+else:
+    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 ```
 
 ### Validating the Model
@@ -470,7 +477,10 @@ print("============== Starting Testing ==============")
 ds_eval = create_dataset(args.preprocess_path, cfg.batch_size, 1, False)
 param_dict = load_checkpoint(args.ckpt_path)
 load_param_into_net(network, param_dict)
-acc = model.eval(ds_eval)
+if args.device_target == "CPU":
+    acc = model.eval(ds_eval, dataset_sink_mode=False)
+else:
+    acc = model.eval(ds_eval)
 print("============== Accuracy:{} ==============".format(acc))
 ```
 
@@ -480,7 +490,7 @@ After 10 epochs, the accuracy on the training set converges to about 85%, and th
 **Training Execution**
 1. Run the training code and view the running result.
     ```shell
-    $ python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
+    $ python main.py --preprocess=true --mode=train --ckpt_path=./ --device_target=GPU
     ```
 
     As shown in the following output, the loss value decreases gradually with the training process and reaches about 0.249. That is, after 10 epochs of training, the accuracy of the current text analysis result is about 85%.
@@ -506,7 +516,7 @@ After 10 epochs, the accuracy on the training set converges to about 85%, and th
    CheckPoint files (model files) are saved during the training. You can view all saved files in the file path.
 
     ```shell
-    $ ls ckpt/
+    $ ls ./*.ckpt
     ```
 
     The output is as follows:
@@ -520,7 +530,7 @@ After 10 epochs, the accuracy on the training set converges to about 85%, and th
 Use the last saved CheckPoint file to load and validate the dataset.
 
 ```shell
-$ python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
+$ python main.py --mode=test --ckpt_path=./lstm-10_390.ckpt --device_target=GPU
 ```
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 86%, which is basically satisfactory.
