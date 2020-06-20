@@ -79,13 +79,13 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 
 ### 确定网络及流程
 
-我们使用LSTM网络进行自然语言处理。
+我们使用基于LSTM构建的SentimentNet网络进行自然语言处理。
 1. 加载使用的数据集，并进行必要的数据处理。
-2. 使用LSTM网络训练数据，生成模型。
+2. 使用基于LSTM构建的SentimentNet网络训练数据，生成模型。
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-> 本例面向GPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
+> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
 > - `main.py`：代码文件，包括数据预处理、网络定义、模型训练等代码。
 > - `config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 
@@ -101,8 +101,6 @@ import json
 from itertools import chain
 import numpy as np
 from config import lstm_cfg as cfg
-# Install gensim with 'pip install gensim'
-import gensim
 
 import mindspore.nn as nn
 import mindspore.context as context
@@ -115,7 +113,9 @@ from mindspore.mindrecord import FileWriter
 from mindspore.train import Model
 from mindspore.nn.metrics import Accuracy
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
+# Install gensim with 'pip install gensim'
+import gensim
 ```
 
 ### 配置环境信息
@@ -124,22 +124,25 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
-                        help='Whether to perform data preprocessing')
+                        help='whether to preprocess data.')
     parser.add_argument('--mode', type=str, default="train", choices=['train', 'test'],
                         help='implement phase, set to train or test')
     # Download dataset from 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz' and extract to 'aclimdb_path'
     parser.add_argument('--aclimdb_path', type=str, default="./aclImdb",
-                        help='path where the dataset is store')
+                        help='path where the dataset is stored')
     # Download GloVe from 'http://nlp.stanford.edu/data/glove.6B.zip' and extract to 'glove_path'
     # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
     parser.add_argument('--glove_path', type=str, default="./glove",
-                        help='path where the GloVe is store')
+                        help='path where the GloVe is stored')
     # Specify the path to save preprocessed data                
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
-                        help='path where the pre-process data is store')
+                        help='path where the pre-process data is stored')
     # Specify the path to save the CheckPoint file                    
-    parser.add_argument('--ckpt_path', type=str, default="./ckpt", help='if mode is test, must provide\
-                        path where the trained ckpt file')
+    parser.add_argument('--ckpt_path', type=str, default="./",
+                        help='if mode is test, must provide path where the trained ckpt file.')
+    # Specify the target device to run
+    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU', 'CPU'],
+                        help='the target device to run, support "GPU", "CPU". Default: "GPU".')
     args = parser.parse_args()
     ```
 
@@ -149,7 +152,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
-        device_target="GPU")
+        device_target=args.device_target)
     ```
     详细的接口配置信息，请参见`context.set_context`接口说明。
 
@@ -457,7 +460,11 @@ ds_train = create_dataset(args.preprocess_path, cfg.batch_size, cfg.num_epochs, 
 config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
                                 keep_checkpoint_max=cfg.keep_checkpoint_max)
 ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=args.ckpt_path, config=config_ck)
-model.train(cfg.num_epochs, ds_train, callbacks=[ckpoint_cb, loss_cb])
+time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
+if args.device_target == "CPU":
+    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
+else:
+    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 ```
 
 ### 模型验证
@@ -469,7 +476,10 @@ print("============== Starting Testing ==============")
 ds_eval = create_dataset(args.preprocess_path, cfg.batch_size, 1, False)
 param_dict = load_checkpoint(args.ckpt_path)
 load_param_into_net(network, param_dict)
-acc = model.eval(ds_eval)
+if args.device_target == "CPU":
+    acc = model.eval(ds_eval, dataset_sink_mode=False)
+else:
+    acc = model.eval(ds_eval)
 print("============== Accuracy:{} ==============".format(acc))
 ```
 
@@ -479,7 +489,7 @@ print("============== Accuracy:{} ==============".format(acc))
 **执行训练**
 1. 运行训练代码，查看运行结果。
     ```shell
-    $ python main.py --preprocess=true --mode=train --ckpt_path=./ckpt
+    $ python main.py --preprocess=true --mode=train --ckpt_path=./ --device_target=GPU 
     ```
 
     输出如下，可以看到loss值随着训练逐步降低，最后达到0.249左右，即经过10个epoch的训练，对当前文本分析的结果正确率在85%左右：
@@ -505,7 +515,7 @@ print("============== Accuracy:{} ==============".format(acc))
    训练过程中保存了CheckPoint文件，即模型文件，我们可以查看文件保存的路径下的所有保存文件。
 
     ```shell
-    $ ls ckpt/
+    $ ls ./*.ckpt
     ```
 
     输出如下：
@@ -519,7 +529,7 @@ print("============== Accuracy:{} ==============".format(acc))
 使用最后保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python main.py --mode=test --ckpt_path=./ckpt/lstm-10_390.ckpt
+$ python main.py --mode=test --ckpt_path=./lstm-10_390.ckpt --device_target=GPU
 ```
 
 输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在86%左右，达到一个基本满意的结果。
