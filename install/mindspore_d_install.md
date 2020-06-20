@@ -33,7 +33,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | - Ubuntu 16.04（及以上） aarch64 <br> - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - Ubuntu版本为18.04时，GCC 7.3.0可以直接通过apt命令安装。
@@ -160,7 +160,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindInsight master | - Ubuntu 16.04（及以上） aarch64 <br> - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindInsight master | - Ubuntu 18.04 aarch64 <br> - 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
@@ -225,7 +225,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindArmour master | - Ubuntu 16.04（及以上） aarch64 <br> - Ubuntu 16.04（及以上） x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py) | 与可执行文件安装依赖相同 |
+| MindArmour master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py) | 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
