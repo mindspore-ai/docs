@@ -12,7 +12,7 @@
 | Computer Version (CV)  | Image Classification  | [VGG16](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/vgg.py)                |  Supported |  Doing | Doing
 | Computer Version (CV)  | Mobile Image Classification<br>Image Classification<br>Semantic Tegmentation  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/mobilenetv2/src/mobilenetV2.py)                                            |  Supported |  Doing | Doing
 |Computer Version (CV)  | Targets Detection  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/ssd/src/ssd.py)                   |  Supported |Doing | Doing
-| Computer Version (CV)  | Targets Detection  | [YoloV3](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/yolov3.py)         |  Supported |  Doing | Doing
+| Computer Version (CV)  | Targets Detection  | [YoloV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/yolov3/src/yolov3.py)         |  Supported |  Doing | Doing
 | Computer Version (CV) | Semantic Segmentation  | [Deeplabv3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deeplabv3/src/deeplabv3.py)                                          |  Supported |  Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/bert/src/bert_model.py)                                          |  Supported |  Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py)                                          |  Doing |  Supported | Supported
