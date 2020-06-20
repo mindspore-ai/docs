@@ -38,12 +38,49 @@ Scalars, images, computational graphs, and model hyperparameters during training
 
 ### Collect Summary Data
 
-Currently, MindSpore uses the `Callback` mechanism to save scalars, images, computational graphs, and model hyperparameters to summary log files and display them on the web page.
+Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page.
 
-Scalar and image data is recorded by using the `Summary` operator. A computational graph is saved to the summary log file by using `SummaryRecord` after network compilation is complete.
-Model parameters are saved to the summary log file by using `TrainLineage` or `EvalLineage`.
+MindSpore currently supports three ways to record data into summary log file.
 
-Step 1: Call the `Summary` operator in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
+**Method one: Automatically collected through `SummaryCollector`**
+
+The `Callback` mechanism in MindSpore provides a quick and easy way to collect common information, including the calculational graph, loss value, learning rate, parameter weights, etc. It is named 'SummaryCollector'.
+
+When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. `SummaryCollector` detailed usage can reference `API` document `mindspore.train.callback.SummaryCollector`.
+
+The sample code is as follows:
+```python
+import mindspore.nn as nn
+from mindspore import context
+from mindspore import Tensor
+from mindspore.train import Model
+from mindspore.model_zoo.alexnet import AlexNet
+from mindspore.train.callback import SummaryCollector
+
+context.set_context(mode=context.GRAPH_MODE)
+
+network = AlexNet(num_classes=10)
+loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+lr = Tensor(0.1)
+opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
+model = Model(network, loss, opt)
+ds_train = create_dataset('./dataset_path')
+
+# Init a SummaryCollector callback instance, and use it in model.train or model.eval
+summmary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+
+# Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
+model.train(epoch=1, ds_train, callbacks=[summmary_collector], dataset_sink_mode=False)
+
+ds_eval = create_dataset('./dataset_path')
+model.eval(ds_eval, callbacks=[summary_collector])
+```
+
+**Method two: Custom collection of network data with summary operators and SummaryCollector**
+
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. The recording method is shown in the following steps.
+
+Step 1: Call the summary operator in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
 
 For example, when a network is defined, image data is recorded in `construct` of the network. When the loss function is defined, the loss value is recorded in `construct` of the loss function.
 
@@ -120,62 +157,77 @@ class Net(nn.Cell):
         return out
 ```
 
-Step 2: Use the `Callback` mechanism to add the required callback instance to specify the data to be recorded during training.
-
-- `SummaryStep` specifies the step interval for recording summary data.
-
-- `TrainLineage` records parameters related to model training.
-
-- `EvalLineage` records parameters related to the model test.
-
-The `network` parameter needs to be specified when `SummaryRecord` is called to record the computational graph. By default, the computational graph is not recorded.
+Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
 
 The sample code is as follows:
 
 ```python
-from mindinsight.lineagemgr import TrainLineage, EvalLineage
 from mindspore import Model, nn, context
-from mindspore.train.callback import SummaryStep
-from mindspore.train.summary.summary_record import SummaryRecord
+from mindspore.train.callback import SummaryCollector
 
+context.set_context(mode=context.GRAPH_MODE)
+net = Net()
+loss_fn = CrossEntropyLoss()
+optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
+model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
 
-def test_summary():
-    # Init context env
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend')
-    # Init hyperparameter
-    epoch = 2
-    # Init network and Model
-    net = Net()
-    loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
+train_ds = create_mindrecord_dataset_for_training()
 
-    # Init SummaryRecord and specify a folder for storing summary log files
-    # and specify the graph that needs to be recorded
-    with SummaryRecord(log_dir='./summary', network=net) as summary_writer:
-        summary_callback = SummaryStep(summary_writer, flush_step=10)
-
-        # Init TrainLineage to record the training information
-        train_callback = TrainLineage(summary_writer)
-
-        # Prepare mindrecord_dataset for training
-        train_ds = create_mindrecord_dataset_for_training()
-        model.train(epoch, train_ds, callbacks=[summary_callback, train_callback])
-
-        # Init EvalLineage to record the evaluation information
-        eval_callback = EvalLineage(summary_writer)
-
-        # Prepare mindrecord_dataset for testing
-        eval_ds = create_mindrecord_dataset_for_testing()
-        model.eval(eval_ds, callbacks=[eval_callback])
+summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+model.train(epoch=2, train_ds, callbacks=[summary_collector])
 ```
 
-Use the `save_graphs` option of `context` to record the computational graph after operator fusion.
-`ms_output_after_hwopt.pb` is the computational graph after operator fusion.
+**Method three: Custom callback recording data**
+
+MindSpore supports custom callback and support to record data into summary log file
+in custom callback, and display the data by the web page.
+
+The following pseudocode is shown in the CNN network, where developers can use the network output with the original tag and the prediction tag to generate the image of the confusion matrix.
+It is then recorded into the summary log file through the `SummaryRecord` module.
+`SummaryRecord` detailed usage can reference `API` document `mindspore.train.summary.SummaryRecord`.
+
+The sample code is as follows:
+
+```
+from mindspore.train.callback import Callback
+from mindspore.train.summary import SummaryRecord
+
+class ConfusionMatrixCallback(Callback):
+    def __init__(self, summary_dir):
+        self._summary_dir = summary_dir
+    
+    def __enter__(self):
+        # init you summary record in here, when the train script run, it will be inited before training
+        self.summary_record = SummaryRecord(summary_dir)
+    
+    def __exit__(self, *exc_args):
+        # Note: you must close the summary record, it will release the process pool resource
+        # else your training script will not exit from training.
+        self.summary_record.close()
+        return self
+
+    def step_end(self, run_context):
+        cb_params = run_context.run_context.original_args()
+
+        # create a confusion matric image, and record it to summary file
+        confusion_martrix = create_confusion_matrix(cb_params)        
+        self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
+        self.summary_record.record(cb_params.cur_step)
+
+# init you train script
+...
+
+confusion_martrix = ConfusionMartrixCallback(summary_dir='./summary_dir')
+model.train(cnn_network, callbacks=[confusion_martrix])
+```
+
+The above three ways, support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
+the `save_graphs` option of `context.set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after operator fusion.
+
+In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
 > - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
-> - It's recommended that you reduce calls to `HistogramSummary` under 10 times per batch. The more you call `HistogramSummary`, the more performance overhead.
-> - Please use the *with statement* to ensure that `SummaryRecord` is properly closed at the end, otherwise the process may fail to exit.
+> - When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
 
 ### Collect Performance Profile Data
 
