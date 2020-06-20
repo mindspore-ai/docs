@@ -28,6 +28,7 @@
 | [mindspore.nn.Dropout](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Supported | Supported | Doing |layer/basic
 | [mindspore.nn.Flatten](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Supported |  Supported | Doing |layer/basic
 | [mindspore.nn.Dense](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Supported |  Supported | Doing |layer/basic
+| [mindspore.nn.DenseBnAct](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.DenseBnAct)                                                  |Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.ClipByNorm](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ClipByNorm)                                        |Doing | Supported | Doing |layer/basic
 | [mindspore.nn.Norm](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Norm)                                                    |Doing | Supported | Doing |layer/basic
 | [mindspore.nn.OneHot](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.OneHot)                                                |  Supported |  Supported | Doing |layer/basic
@@ -36,6 +37,7 @@
 | [mindspore.nn.CellList](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.CellList)                                            |  Supported |  Supported | Doing |layer/container
 | [mindspore.nn.Conv2d](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)                                                |  Supported |  Supported |   Supported |layer/conv
 | [mindspore.nn.Conv2dTranspose](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dTranspose)                              |  Supported |  Supported | Doing |layer/conv
+| [mindspore.nn.Conv2dBnAct](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dBnAct)                              |  Supported |  Supported | Supported |layer/conv
 | [mindspore.nn.Embedding](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Doing |  Supported | Doing |layer/embedding
 | [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Doing |Doing | Doing |layer/image
 | [mindspore.nn.SSIM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Doing |Doing | Doing |layer/image
