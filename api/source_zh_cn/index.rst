@@ -23,6 +23,8 @@ MindSpore API
    api/python/mindspore/mindspore.parallel
    api/python/mindspore/mindspore.train
    api/python/mindspore/mindspore.dataset
+   api/python/mindspore/mindspore.dataset.text.transforms
+   api/python/mindspore/mindspore.dataset.text.utils
    api/python/mindspore/mindspore.dataset.transforms.c_transforms
    api/python/mindspore/mindspore.dataset.transforms.vision.c_transforms
    api/python/mindspore/mindspore.dataset.transforms.py_transforms
