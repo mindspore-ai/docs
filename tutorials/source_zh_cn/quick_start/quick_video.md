@@ -50,3 +50,9 @@
 <video id="video5" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E6%95%99%E7%A8%8B-%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD.png">
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD.mp4" type="video/mp4">
 </video>
+
+### 自定义调试
+
+<video id="video6" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95_%E8%AF%A6%E6%83%85%E9%A1%B5.png">
+<source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95.mp4" type="video/mp4">
+</video>
