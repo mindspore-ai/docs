@@ -1,12 +1,12 @@
-# Training Process Visualization
+# Dashboard and Lineage
 
 <!-- TOC -->
 
-- [Training Process Visualization](#training-process-visualization)
+- [Dashboard and Lineage](#dashboard-and-lineage)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
-    - [MindInsight Commands](#mindinsight-commands)
+        - [Collect Summary Data](#collect-summary-data)
     - [Visualization Components](#visualization-components)
         - [Training Dashboard](#training-dashboard)
             - [Scalar Visualization](#scalar-visualization)
@@ -17,7 +17,7 @@
         - [Model Lineage](#model-lineage)
         - [Dataset Lineage](#dataset-lineage)
         - [Scalars Comparision](#scalars-comparision)
-  - [Specifications](#specifications)
+    - [Specifications](#specifications)
 
 <!-- /TOC -->
 
@@ -226,71 +226,6 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 > - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
 > - When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
-
-## MindInsight Commands
-
-### View the command help information.
-
-```bash
-mindinsight --help
-```
-
-### View the version information.
-
-```bash
-mindinsight --version
-```
-
-### Start the service.
-
-```bash
-mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
-                  [--port <PORT>] [--reload-interval <RELOAD_INTERVAL>]
-                  [--summary-base-dir <SUMMARY_BASE_DIR>]
-```
-
-Optional parameters as follows:
-
-- `-h, --help` : Displays the help information about the startup command.
-- `--config <CONFIG>` : Specifies the configuration file or module. CONFIG indicates the physical file path (file:/path/to/config.py), or a module path (python:path.to.config.module) that can be identified by Python.
-- `--workspace <WORKSPACE>` : Specifies the working directory. The default value of WORKSPACE is $HOME/mindinsight.
-- `--port <PORT>` : Specifies the port number of the web visualization service. The value ranges from 1 to 65535. The default value of PORT is 8080.
-- `--url-path-prefix <URL_PATH_PREFIX>` : Specifies the path prefix of the web visualization service. The default value of URL_PATH_PREFIX is empty string.
-- `--reload-interval <RELOAD_INTERVAL>` : Specifies the interval (unit: second) for loading data. The value 0 indicates that data is loaded only once. The default value of RELOAD_INTERVAL is 3 seconds.
-- `--summary-base-dir <SUMMARY_BASE_DIR>` : Specifies the root directory for loading training log data. MindInsight traverses the direct subdirectories in this directory and searches for log files. If a direct subdirectory contains log files, it is identified as the log file directory. If a root directory contains log files, it is identified as the log file directory. SUMMARY_BASE_DIR is the current directory path by default.
-
-> When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_CONFIG`, `MINDINSIGHT_WORKSPACE`, and `MINDINSIGHT_PORT`.
-
-### Stop the service.
-
-```bash
-mindinsight stop [-h] [--port PORT]
-```
-
-Optional parameters as follows:
-
-- `-h, --help` : Displays the help information about the stop command.
-- `--port <PORT>` : Specifies the port number of the web visualization service. The value ranges from 1 to 65535. The default value of PORT is 8080.
-
-### View the service process information.
-
-MindInsight provides user with web services. Run the following command to view the running web service process:
-
-```bash
-ps -ef | grep mindinsight
-```
-
-Run the following command to access the working directory `WORKSPACE` corresponding to the service process based on the service process ID:
-
-```bash
-lsof -p <PID> | grep access
-```
-
-Output with the working directory `WORKSPACE` as follows:
-
-```bash
-gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
-```
 
 ## Visualization Components
 
