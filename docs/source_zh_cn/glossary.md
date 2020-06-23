@@ -10,6 +10,7 @@
 
 |  术语/缩略语  |  说明  | 
 | -----    | -----    |
+| ACL | Ascend Computer Language，提供Device管理、Context管理、Stream管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理等C++ API库，供用户开发深度神经网络应用。|
 |  Ascend  |  华为昇腾系列芯片的系列名称。  |
 |  CCE  |  Cube-based Computing Engine，面向硬件架构编程的算子开发工具。  |
 |  CCE-C  |  Cube-based Computing Engine C，使用CCE开发的C代码。  |
@@ -24,6 +25,7 @@
 |  FP16  |  16位浮点，半精度浮点算术，消耗更小内存。  |
 |  FP32  |  32位浮点，单精度浮点算术。  |
 |  GE  |  Graph Engine，MindSpore计算图执行引擎，主要负责根据前端的计算图完成硬件相关的优化（算子融合、内存复用等等）、device侧任务启动。  |
+| GEIR | Graph Engine Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。|
 |  GHLO  |  Graph High Level Optimization，计算图高级别优化。GHLO包含硬件无关的优化（如死代码消除等）、自动并行和自动微分等功能。  |
 |  GLLO  |  Graph Low Level Optimization，计算图低级别优化。GLLO包含硬件相关的优化，以及算子融合、Buffer融合等软硬件结合相关的深度优化。  |
 |  Graph Mode  |  MindSpore的静态图模式，将神经网络模型编译成一整张图，然后下发执行，性能高。  |
@@ -40,6 +42,7 @@
 |  MindSpore  |  华为主导开源的深度学习框架。  |
 |  MindSpore Predict  |  一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。  |
 |  MNIST database  |  Modified National Institute of Standards and Technology database，一个大型手写数字数据库，通常用于训练各种图像处理系统。  |
+| ONNX | Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。|
 |  PyNative Mode  |  MindSpore的动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。  |
 |  ResNet-50  |  Residual Neural Network 50，由微软研究院的Kaiming He等四名华人提出的残差神经网络。  |
 |  Schema  |  数据集结构定义文件，用于定义数据集包含哪些字段以及字段的类型。  |
