@@ -1,17 +1,12 @@
-# 训练过程可视
+# 训练看板和溯源
 
 <!-- TOC -->
 
-- [训练过程可视](#训练过程可视)
+- [训练看板和溯源](#训练看板和溯源)
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-    - [MindInsight相关命令](#mindinsight相关命令)
-        - [查看命令帮助信息](#查看命令帮助信息)
-        - [查看版本信息](#查看版本信息)
-        - [启动服务](#启动服务)
-        - [停止服务](#停止服务)
-        - [查看服务进程信息](#查看服务进程信息)
+        - [Summary数据收集](#summary数据收集)
     - [可视化组件](#可视化组件)
         - [训练看板](#训练看板)
             - [标量可视化](#标量可视化)
@@ -232,71 +227,6 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 
 > - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
 > - 在训练中使用Summary算子收集数据时，`HistogramSummary`算子会影响性能，所以请尽量少地使用。
-
-## MindInsight相关命令
-
-### 查看命令帮助信息
-
-```bash
-mindinsight --help
-```
-
-### 查看版本信息
-
-```bash
-mindinsight --version
-```
-
-### 启动服务
-
-```bash
-mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
-                  [--port <PORT>] [--reload-interval <RELOAD_INTERVAL>]
-                  [--summary-base-dir <SUMMARY_BASE_DIR>]
-```
-
-参数含义如下:
-
-- `-h, --help` : 显示启动命令的帮助信息。
-- `--config <CONFIG>` : 指定配置文件或配置模块，CONFIG为物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。
-- `--workspace <WORKSPACE>` : 指定工作目录路径，WORKSPACE默认为 $HOME/mindinsight。
-- `--port <PORT>` : 指定Web可视化服务端口，取值范围是1~65535，PORT默认为8080。
-- `--url-path-prefix <URL_PATH_PREFIX>` : 指定Web服务地址前缀，URL_PATH_PREFIX默认为空。
-- `--reload-interval <RELOAD_INTERVAL>` : 指定加载数据的时间间隔（单位：秒），设置为0时表示只加载一次数据，RELOAD_INTERVAL默认为3秒。
-- `--summary-base-dir <SUMMARY_BASE_DIR>` : 指定加载训练日志数据的根目录路径，MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。SUMMARY_BASE_DIR默认为当前目录路径。
-
-> 服务启动时，命令行参数值将被保存为进程的环境变量，并以 `MINDINSIGHT_` 开头作为标识，如 `MINDINSIGHT_CONFIG`，`MINDINSIGHT_WORKSPACE`，`MINDINSIGHT_PORT` 等。
-
-### 停止服务
-
-```bash
-mindinsight stop [-h] [--port PORT]
-```
-
-参数含义如下:
-
-- `-h, --help` : 显示停止命令的帮助信息。
-- `--port <PORT>` : 指定Web可视化服务端口，取值范围是1~65535，PORT默认为8080。
-
-### 查看服务进程信息
-
-MindInsight向用户提供Web服务，可通过以下命令，查看当前运行的Web服务进程。
-
-```bash
-ps -ef | grep mindinsight
-```
-
-根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录`WORKSPACE`。
-
-```bash
-lsof -p <PID> | grep access
-```
-
-输出如下，可查看`WORKSPACE`。
-
-```bash
-gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
-```
 
 ## 可视化组件
 
