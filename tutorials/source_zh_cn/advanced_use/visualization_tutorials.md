@@ -71,10 +71,10 @@ model = Model(network, loss, opt)
 ds_train = create_dataset('./dataset_path')
 
 # Init a SummaryCollector callback instance, and use it in model.train or model.eval
-summmary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
 
 # Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-model.train(epoch=1, ds_train, callbacks=[summmary_collector], dataset_sink_mode=False)
+model.train(epoch=1, ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
 
 ds_eval = create_dataset('./dataset_path')
 model.eval(ds_eval, callbacks=[summary_collector])
