@@ -111,29 +111,42 @@ context.set_context(enable_graph_kernel=True)
 
     ```bash
     pytest -s test_graph_kernel_fusion::test_basic_fuse
-    ```  
-    脚本执行结束后，我们在脚本运行目录可以得到一些`.dot`文件，使用`dot`工具可以将`.dot`文件转换为`.png`文件进行查看。我们以`6_validate.dot`和`hwopt_d_fuse_basic_opt_end_graph_0.dot`生成初始计算图和基础算子融合后计算图。  
-    如下图所示，我们构造的网络的初始计算中有两个基础算子计算，打开图算融合的开关之后会自动将两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)。第二张图中，右上角部分即为融合之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`两次计算。  
+    ```
 
-    | 类别 | 计算图 |
-    | ------ | ------ |
-    | 初始计算图 | ![初始计算图](./images/graph_kernel_fusion_example_fuse_basic_before.png) |
-    | 基础算子融合后计算图 | ![基础算子融合](./images/graph_kernel_fusion_example_fuse_basic_after.png) |
+    脚本执行结束后，我们在脚本运行目录可以得到一些`.dot`文件，使用`dot`工具可以将`.dot`文件转换为`.png`文件进行查看。我们以`6_validate.dot`和`hwopt_d_fuse_basic_opt_end_graph_0.dot`生成初始计算图和基础算子融合后计算图。
+
+    如图1所示，我们构造的网络的初始计算中有两个基础算子计算，打开图算融合的开关之后会自动将两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)。图2中，右上角部分即为融合之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`两次计算。  
+
+    ![初始计算图](./images/graph_kernel_fusion_example_fuse_basic_before.png)
+
+    图1：初始计算图
+
+    ![基础算子融合](./images/graph_kernel_fusion_example_fuse_basic_after.png)
+
+    图2：基础算子融合后计算图
 
 2. 组合算子融合场景：组合算子融合是指将原有的组合算子和与其相关的基础算子进行分析，在可以得到性能收益的条件下，将原有的组合算子和基础算子融合成为一个更大的组合算子，以简单样例`NetCompositeFuse`说明。  
 
     ```bash
     pytest -s test_graph_kernel_fusion::test_composite_fuse
-    ```  
-    同样，我们以`6_validate.dot`、`hwopt_d_fuse_basic_opt_end_graph_0.dot`和`hwopt_d_composite_opt_end_graph_0.dot`生成初始计算图、基础算子融合后计算图和组合算子融合后计算图。  
-    如下图所示，我们构造的网络的初始计算中有三个基础算子计算，打开图算融合的开关之后，在基础算子融合阶段，会自动将前两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)，第二张图中可以看到，右上角部分即为融合之后的组合算子，左下角的主图中还有一个基础算子`Pow`。在接下来的组合算子融合阶段分析后，会进一步将剩余的基础算子(`Pow`)和已有的一个组合算子进行融合，形成一个新的组合算子。第三张图中，右上角部分即为融合三个基础算子之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`、`Pow`三次计算。  
+    ```
 
-    | 类别 | 计算图 |
-    | ------ | ------ |
-    | 初始计算图 | ![初始计算图](./images/graph_kernel_fusion_example_fuse_composite_before.png) |
-    | 基础算子融合后计算图 | ![基础算子融合](./images/graph_kernel_fusion_example_fuse_composite_middle.png) |
-    | 组合算子融合后计算图 | ![组合算子融合](./images/graph_kernel_fusion_example_fuse_composite_after.png) |
+    同样，我们以`6_validate.dot`、`hwopt_d_fuse_basic_opt_end_graph_0.dot`和`hwopt_d_composite_opt_end_graph_0.dot`生成初始计算图、基础算子融合后计算图和组合算子融合后计算图。
 
+    如图3所示，我们构造的网络的初始计算中有三个基础算子计算，打开图算融合的开关之后，在基础算子融合阶段，会自动将前两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)。从图4中可以看到，右上角部分即为融合之后的组合算子，左下角的主图中还有一个基础算子`Pow`。在接下来的组合算子融合阶段分析后，会进一步将剩余的基础算子(`Pow`)和已有的一个组合算子进行融合，形成一个新的组合算子。图5中，右上角部分即为融合三个基础算子之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`、`Pow`三次计算。  
+
+    ![初始计算图](./images/graph_kernel_fusion_example_fuse_composite_before.png)
+
+    图3：初始计算图
+
+    ![基础算子融合](./images/graph_kernel_fusion_example_fuse_composite_middle.png)
+
+    图4：基础算子融合后计算图
+
+    ![组合算子融合](./images/graph_kernel_fusion_example_fuse_composite_after.png)
+
+    图5：组合算子融合后计算图
+  
 ### 训练单step时间
 
 BERT-large场景：BERT-large网络启用图算融合后，在保持与启用前精度一致的前提下，训练的单step时间可提升5%左右。
