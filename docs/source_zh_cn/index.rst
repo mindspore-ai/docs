@@ -13,6 +13,7 @@ MindSpore文档
    architecture
    roadmap
    benchmark
+   technical_white_paper
    network_list
    operator_list
    constraints_on_network_construction
