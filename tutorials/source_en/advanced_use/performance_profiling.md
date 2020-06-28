@@ -64,7 +64,7 @@ def test_profiler():
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to the **MindInsight Command** part in [Training Process Visualization](https://www.mindspore.cn/tutorial/en/master/advanced_use/visualization_tutorials.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html).
 
 
 ### Performance Analysis

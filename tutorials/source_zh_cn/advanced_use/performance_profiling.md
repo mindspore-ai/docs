@@ -66,7 +66,7 @@ def test_profiler():
 
 ## 启动MindInsight
 
-启动命令请参考[训练过程可视](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/visualization_tutorials.html)中**MindInsight相关命令**小节。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
 
 ### 性能分析
