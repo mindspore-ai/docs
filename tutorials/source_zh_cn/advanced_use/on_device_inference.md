@@ -86,7 +86,7 @@ MindSpore进行端侧模型推理的步骤如下。
 ### 生成端侧模型文件
 1. 加载训练完毕所生成的CheckPoint文件至定义好的网络中。
    ```python
-   param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
+   param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
 2. 调用`export`接口，导出端侧模型文件(`.ms`)。
@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
     is_ckpt_exist = os.path.exists(ckpt_file_path)
     if is_ckpt_exist:
-        param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
+        param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
         load_param_into_net(net, param_dict)
         export(net, input_data, file_name="./lenet.ms", file_format='LITE')
         print("export model success.")

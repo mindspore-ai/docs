@@ -87,7 +87,7 @@ To perform on-device model inference using MindSpore, perform the following step
 ### Generating an On-Device Model File
 1. After training is complete, load the generated checkpoint file to the defined network.
    ```python
-   param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
+   param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
 2. Call the `export` API to export the `.ms` model file on the device.
@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     is_ckpt_exist = os.path.exists(ckpt_file_path)
     if is_ckpt_exist:
-        param_dict = load_checkpoint(ckpoint_file_name=ckpt_file_path)
+        param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
         load_param_into_net(net, param_dict)
         export(net, input_data, file_name="./lenet.ms", file_format='LITE')
         print("export model success.")
