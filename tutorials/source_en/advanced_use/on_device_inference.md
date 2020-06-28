@@ -28,8 +28,8 @@ The environment requirements are as follows:
   - Hard disk space: 10 GB or above
 
 - System requirements
-  - System: Ubuntu = 16.04.02LTS (availability is checked)
-  - Kernel: 4.4.0-62-generic (availability is checked)
+  - System: Ubuntu = 18.04.02LTS (availability is checked)
+  - Kernel: 4.15.0-45-generic (availability is checked)
 
 - Software dependencies
   - [cmake](https://cmake.org/download/) >= 3.14.1
