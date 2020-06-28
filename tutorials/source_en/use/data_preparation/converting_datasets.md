@@ -178,12 +178,14 @@ You can use the `ImageNetToMR` class to convert the raw ImageNet data (images an
 
     Store the downloaded ImageNet dataset in a folder. The folder contains all images and a mapping file that records labels of the images.
 
-    In the mapping file, there are three columns, which are separated by spaces. They indicate image classes, label IDs, and label names. The following is an example of the mapping file:
+    In the mapping file, there are two columns, which are separated by spaces. They indicate image classes and label IDs. The following is an example of the mapping file:
     ```
-    n02119789 1 pen
-    n02100735 2 notbook
-    n02110185 3 mouse
-    n02096294 4 orange
+    n01440760 0
+    n01443537 1
+    n01484850 2
+    n01491361 3
+    n01494475 4
+    n01496331 5
     ```
 
 2. Import the `ImageNetToMR` class for dataset converting.

@@ -65,7 +65,7 @@ MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数�
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
     其中，  
-    `dataset_file`：指定MindRecord的文件，含路径及文件名。
+    `dataset_file`：指定MindRecord的文件或文件列表。
 
 2. 创建字典迭代器，通过迭代器读取数据记录。
     ```python

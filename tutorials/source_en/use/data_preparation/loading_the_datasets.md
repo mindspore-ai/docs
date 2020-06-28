@@ -65,7 +65,7 @@ To read a dataset using the `MindDataset` object, perform the following steps:
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
     In the preceding information:  
-    `dataset_file`: specifies the MindRecord file, including the path and file name.
+    `dataset_file`: specifies the MindRecord file or list of MindRecord files.
 
 2. Create a dictionary iterator and read data records through the iterator.
     ```python
