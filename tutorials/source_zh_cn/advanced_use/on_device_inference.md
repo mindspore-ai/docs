@@ -28,8 +28,8 @@ MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了
   - 硬盘空间10GB以上
 
 - 系统要求
-  - 系统：Ubuntu = 16.04.02LTS（验证可用）
-  - 内核：4.4.0-62-generic（验证可用）
+  - 系统：Ubuntu = 18.04.02LTS（验证可用）
+  - 内核：4.15.0-45-generic（验证可用）
 
 - 软件依赖
   - [cmake](https://cmake.org/download/) >= 3.14.1
