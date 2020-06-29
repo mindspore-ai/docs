@@ -19,11 +19,11 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
-Performance data like operators' execution time are recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. MindInsight Profiler can only support the Ascend chip now.
+Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. MindInsight Profiler can only support the Ascend chip now.
 
 ## Operation Process
 
-- Prepare a training script, add profiler apis in the training script, and run the training script.
+- Prepare a training script, add profiler APIs in the training script, and run the training script.
 - Start MindInsight and specify the profiler data directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - Find the training in the list, click the performance profiling link, and view the data on the web page.
 
@@ -163,6 +163,10 @@ The Timeline component can display：
 Users can get the most detailed information from the Timeline:  
 - From high level, users can analyse whether the stream split strategy can be optimized and whether is step tail is too long.
 - From low level, users can analyse the execution time for all the operators, etc.
+
+Users can click the download button on the overall performance page to view Timeline details. The Timeline data file (json format) will be stored on local machine, and can be displayed by tools. We suggest to use `chrome://tracing` or [Perfetto](https://ui.perfetto.dev/#!viewer) to visualize the Timeline.  
+- Chrome tracing: Click "load" on the upper left to load the file.
+- Perfetto: Click "Open trace file" on the left to load the file.
 
 ![timeline.png](./images/timeline.png)
 
