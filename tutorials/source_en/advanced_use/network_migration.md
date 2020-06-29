@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/source_en/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/tree/r0.5/tutorials/source_en/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -29,9 +29,9 @@ Before you start working on your scripts, prepare your operator assessment and h
 
 ### Operator Assessment
 
-Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/en/master/operator_list.html).
+Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/en/r0.5/operator_list.html).
 
-Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d) and [BatchNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d) exist in the MindSpore Operator List.
+Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/api/en/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d) and [BatchNorm](https://www.mindspore.cn/api/en/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d) exist in the MindSpore Operator List.
 
 If any operator does not exist, you are advised to perform the following operations:
 
@@ -57,17 +57,17 @@ Prepare the hardware environment, find a platform corresponding to your environm
 
 MindSpore differs from TensorFlow and PyTorch in the network structure. Before migration, you need to clearly understand the original script and information of each layer, such as shape.
 
-> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
+> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/r0.5/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
 
 The ResNet-50 network migration and training on the Ascend 910 is used as an example.
 
 1. Import MindSpore modules.
 
-   Import the corresponding MindSpore modules based on the required APIs. For details about the module list, see <https://www.mindspore.cn/api/en/master/index.html>.
+   Import the corresponding MindSpore modules based on the required APIs. For details about the module list, see <https://www.mindspore.cn/api/en/r0.5/index.html>.
 
 2. Load and preprocess a dataset.
 
-   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_preparation.html).
+   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/tutorial/en/r0.5/use/data_preparation/data_preparation.html).
 
    In this example, the CIFAR-10 dataset is loaded, which supports both single-GPU and multi-GPU scenarios.
 
@@ -235,7 +235,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
    loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
    ```
 
-   You can use a built-in assessment method of `Model` by setting the [metrics](https://www.mindspore.cn/tutorial/en/master/advanced_use/customized_debugging_information.html#mindspore-metrics) attribute.
+   You can use a built-in assessment method of `Model` by setting the [metrics](https://www.mindspore.cn/tutorial/en/r0.5/advanced_use/customized_debugging_information.html#mindspore-metrics) attribute.
 
    ```python
    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
@@ -264,15 +264,15 @@ The accuracy optimization process is as follows:
 
 #### On-Cloud Integration
 
-Run your scripts on ModelArts. For details, see [Using MindSpore on Cloud](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html).
+Run your scripts on ModelArts. For details, see [Using MindSpore on Cloud](https://www.mindspore.cn/tutorial/zh-CN/r0.5/advanced_use/use_on_the_cloud.html).
 
 ### Inference Phase
 
-Models trained on the Ascend 910 AI processor can be used for inference on different hardware platforms. Refer to the [Multi-platform Inference Tutorial](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html) for detailed steps.
+Models trained on the Ascend 910 AI processor can be used for inference on different hardware platforms. Refer to the [Multi-platform Inference Tutorial](https://www.mindspore.cn/tutorial/en/r0.5/use/multi_platform_inference.html) for detailed steps.
 
 ## Examples
 
-1. [Common dataset examples](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/loading_the_datasets.html)
+1. [Common dataset examples](https://www.mindspore.cn/tutorial/en/r0.5/use/data_preparation/loading_the_datasets.html)
 
-2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
+2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.5/model_zoo)
 

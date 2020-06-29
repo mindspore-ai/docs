@@ -99,7 +99,7 @@ context.set_context(enable_graph_kernel=True)
 2. `BERT-large`训练网络
 
     以`BERT-large`网络的训练模型为例，数据集和训练脚本可参照
-    <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/bert>，同样我们只需修改`context`参数即可。  
+    <https://gitee.com/mindspore/mindspore/tree/r0.5/model_zoo/bert>，同样我们只需修改`context`参数即可。  
 
 ## 效果评估
 

@@ -86,7 +86,7 @@
 import os
 ```
 
-详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/api/zh-CN/master/index.html)中搜索查询。
+详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/api/zh-CN/r0.5/index.html)中搜索查询。
 
 ### 配置运行信息
 
@@ -182,7 +182,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 先进行shuffle、batch操作，再进行repeat操作，这样能保证1个epoch内数据不重复。
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_processing_and_augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/tutorial/zh-CN/r0.5/use/data_preparation/data_processing_and_augmentation.html)章节。
 
 
 ## 定义网络

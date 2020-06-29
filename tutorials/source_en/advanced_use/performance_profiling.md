@@ -64,7 +64,7 @@ def test_profiler():
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/r0.5/advanced_use/mindinsight_commands.html).
 
 
 ### Performance Analysis

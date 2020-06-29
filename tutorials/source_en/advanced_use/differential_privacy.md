@@ -1,4 +1,4 @@
-# <u>Differential</u> Privacy in Machine Learning
+# Differential Privacy in Machine Learning
 
 <!-- TOC -->
 
@@ -43,7 +43,7 @@ MindArmour differential privacy module Differential-Privacy implements the diffe
 
 The LeNet model and MNIST dataset are used as an example to describe how to use the differential privacy optimizer to train a neural network model on MindSpore.
 
-> This example is for the Ascend 910 AI processor and supports PYNATIVE_MODE. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp_model_train.py>.
+> This example is for the Ascend 910 AI processor and supports PYNATIVE_MODE. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/r0.5/example/mnist_demo/lenet5_dp_model_train.py>.
 
 ## Implementation
 

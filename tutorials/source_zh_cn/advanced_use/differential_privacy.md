@@ -29,7 +29,7 @@ MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优�
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
-> 本例面向Ascend 910 AI处理器，支持PYNATIVE_MODE，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp_model_train.py>
+> 本例面向Ascend 910 AI处理器，支持PYNATIVE_MODE，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r0.5/example/mnist_demo/lenet5_dp_model_train.py>
 
 ## 实现阶段
 
