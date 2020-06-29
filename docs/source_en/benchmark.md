@@ -22,8 +22,8 @@ For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee
 
 | Network |	Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| BERT-Large | Attention | zhwiki | 0.2.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 96 | 210 sentences/sec | - |
-|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 96 | 1613 sentences/sec | 0.96 |
+| BERT-Large | Attention | zhwiki | 0.5.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 96 | 269 sentences/sec | - |
+|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 96 | 2069 sentences/sec | 0.96 |
 
 1. The preceding performance is obtained based on ModelArts, the HUAWEI CLOUD AI development platform. The network contains 24 hidden layers, the sequence length is 128 tokens, and the vocabulary contains 21128 tokens.   
 2. For details about other open source frameworks, see [BERT For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/LanguageModeling/BERT).
