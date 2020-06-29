@@ -148,32 +148,112 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
     ```
 
 ## Loading a Custom Dataset
-You can load a custom dataset using the `GeneratorDataset` object.
+In real scenarios, there are virous datasets. For a custom dataset or a dataset that can't be loaded by APIs directly, there are tow ways.
+One is converting the dataset to MindSpore data format (for details, see [Converting Datasets to the Mindspore Data Format](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html)). The other one is using the `GeneratorDataset` object.
+The following shows how to use `GeneratorDataset`.
 
-1. Define a function (for example, `Generator1D`) to generate a dataset.
-   > The custom generation function returns the objects that can be called. Each time, tuples of `numpy array` are returned as a row of data. 
+1. Define an iterable object to generate a dataset. There are two examples following. One is a customized function which contains `yield`. The other one is a customized class which contains `__getitem__`.
+   Both of them will generator a dataset with numbers from 0 to 9.
+   > The custom iterable object returns a tuple of `numpy arrays` as a row of data each time. 
 
    An example of a custom function is as follows:
    ```python
    import numpy as np  # Import numpy lib.
-   def Generator1D():
-       for i in range(64):
+   def generator_func(num):
+       for i in range(num):
            yield (np.array([i]),)  # Notice, tuple of only one element needs following a comma at the end.
    ```
-2. Transfer `Generator1D` to `GeneratorDataset` to create a dataset and set `column` to data.  
+   An example of a custom class is as follows:   
    ```python
-   dataset = ds.GeneratorDataset(Generator1D, ["data"])
+   import numpy as np  # Import numpy lib.
+   class Generator():
+      
+       def __init__(self, num):
+           self.num = num
+      
+       def __getitem__(self, item):
+           return (np.array([item]),)  # Notice, tuple of only one element needs following a comma at the end.
+      
+       def __len__(self):
+           return self.num
+   ```
+   
+2. Create a dataset with `GeneratorDataset`. Transfer `generator_func` to `GeneratorDataset` to create a dataset and set `column` to `data`. 
+Define a `Generator` and transfer it to `GeneratorDataset` to create a dataset and set `column` to `data`.  
+   ```python
+   dataset1 = ds.GeneratorDataset(source=generator_func(10), column_names=["data"], shuffle=False)
+   dataset2 = ds.GeneratorDataset(source=Generator(10), column_names=["data"], shuffle=False)
    ```
 
 3. After creating a dataset, create an iterator for the dataset to obtain the corresponding data. Iterator creation methods are as follows:
-   - Create an iterator whose return value is of the sequence type.
+   - Create an iterator whose return value is of the sequence type. As is shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
       ```python
-      for data in dataset.create_tuple_iterator():  # each data is a sequence
+      print("dataset1:") 
+      for data in dataset1.create_tuple_iterator():  # each data is a sequence
+          print(data[0])
+     
+      print("dataset2:")
+      for data in dataset2.create_tuple_iterator():  # each data is a sequence
           print(data[0])
       ```
+     The output is as follows:
+      ```
+      dataset1:
+      [array([0], dtype=int64)]
+      [array([1], dtype=int64)]
+      [array([2], dtype=int64)]
+      [array([3], dtype=int64)]
+      [array([4], dtype=int64)]
+      [array([5], dtype=int64)]
+      [array([6], dtype=int64)]
+      [array([7], dtype=int64)]
+      [array([8], dtype=int64)]
+      [array([9], dtype=int64)]
+      dataset2:
+      [array([0], dtype=int64)]
+      [array([1], dtype=int64)]
+      [array([2], dtype=int64)]
+      [array([3], dtype=int64)]
+      [array([4], dtype=int64)]
+      [array([5], dtype=int64)]
+      [array([6], dtype=int64)]
+      [array([7], dtype=int64)]
+      [array([8], dtype=int64)]
+      [array([9], dtype=int64)]
+      ```
 
-   - Create an iterator whose return value is of the dictionary type.
-      ```python 
-      for data in dataset.create_dict_iterator():  # each data is a dictionary
+   - Create an iterator whose return value is of the dictionary type. As is shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
+      ```python
+      print("dataset1:") 
+      for data in dataset1.create_dict_iterator():  # each data is a dictionary
+          print(data["data"])
+     
+      print("dataset2:")
+      for data in dataset2.create_dict_iterator():  # each data is a dictionary
           print(data["data"])
       ```
+     The output is as follows:
+     ```
+     dataset1:
+     {'data': array([0], dtype=int64)}
+     {'data': array([1], dtype=int64)}
+     {'data': array([2], dtype=int64)}
+     {'data': array([3], dtype=int64)}
+     {'data': array([4], dtype=int64)}
+     {'data': array([5], dtype=int64)}
+     {'data': array([6], dtype=int64)}
+     {'data': array([7], dtype=int64)}
+     {'data': array([8], dtype=int64)}
+     {'data': array([9], dtype=int64)}
+     dataset2:
+     {'data': array([0], dtype=int64)}
+     {'data': array([1], dtype=int64)}
+     {'data': array([2], dtype=int64)}
+     {'data': array([3], dtype=int64)}
+     {'data': array([4], dtype=int64)}
+     {'data': array([5], dtype=int64)}
+     {'data': array([6], dtype=int64)}
+     {'data': array([7], dtype=int64)}
+     {'data': array([8], dtype=int64)}
+     {'data': array([9], dtype=int64)}
+     ```
