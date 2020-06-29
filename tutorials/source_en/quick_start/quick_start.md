@@ -83,7 +83,7 @@ Currently, the `os` libraries are required. For ease of understanding, other req
 import os
 ```
 
-For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/api/en/master/index.html).
+For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/api/en/r0.5/index.html).
 
 ### Configuring the Running Information
 
@@ -179,7 +179,7 @@ In the preceding information:
 
 Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data during an epoch is unique.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see section "Data Processing and Augmentation" in the MindSpore Tutorials (https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html).
+> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see section "Data Processing and Augmentation" in the MindSpore Tutorials (https://www.mindspore.cn/tutorial/en/r0.5/use/data_preparation/data_processing_and_augmentation.html).
 
 
 ## Defining the Network

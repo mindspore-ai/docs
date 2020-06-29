@@ -149,7 +149,7 @@ MindSpore也支持读取`TFRecord`数据格式的数据集，可以通过`TFReco
 
 ## 加载自定义数据集
 现实场景中，数据集的种类多种多样，对于自定义数据集或者目前不支持直接加载的数据集，有两种方法可以处理。
-一种方法是将数据集转成MindRecord格式（请参考[将数据集转换为MindSpore数据格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/converting_datasets.html)章节），另一种方法是通过`GeneratorDataset`对象加载，以下将展示如何使用`GeneratorDataset`。
+一种方法是将数据集转成MindRecord格式（请参考[将数据集转换为MindSpore数据格式](https://www.mindspore.cn/tutorial/zh-CN/r0.5/use/data_preparation/converting_datasets.html)章节），另一种方法是通过`GeneratorDataset`对象加载，以下将展示如何使用`GeneratorDataset`。
 
 1. 定义一个可迭代的对象，用于生成数据集。以下展示了两种示例，一种是含有`yield`返回值的自定义函数，另一种是含有`__getitem__`的自定义类。两种示例都将产生一个含有从0到9数字的数据集。
    > 自定义的可迭代对象，每次返回`numpy array`的元组，作为一行数据。 

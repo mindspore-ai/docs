@@ -149,7 +149,7 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
 
 ## Loading a Custom Dataset
 In real scenarios, there are virous datasets. For a custom dataset or a dataset that can't be loaded by APIs directly, there are tow ways.
-One is converting the dataset to MindSpore data format (for details, see [Converting Datasets to the Mindspore Data Format](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html)). The other one is using the `GeneratorDataset` object.
+One is converting the dataset to MindSpore data format (for details, see [Converting Datasets to the Mindspore Data Format](https://www.mindspore.cn/tutorial/en/r0.5/use/data_preparation/converting_datasets.html)). The other one is using the `GeneratorDataset` object.
 The following shows how to use `GeneratorDataset`.
 
 1. Define an iterable object to generate a dataset. There are two examples following. One is a customized function which contains `yield`. The other one is a customized class which contains `__getitem__`.

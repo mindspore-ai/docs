@@ -85,7 +85,7 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
+> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r0.5/tutorials/tutorial_code/lstm>
 > - `main.py`：代码文件，包括数据预处理、网络定义、模型训练等代码。
 > - `config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 

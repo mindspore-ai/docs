@@ -47,4 +47,4 @@ MindSpore API
    :maxdepth: 1
    :caption: C++ API
 
-   predict <https://www.mindspore.cn/apicc/zh-CN/master/predict/namespacemembers.html>
+   predict <https://www.mindspore.cn/apicc/zh-CN/r0.5/predict/namespacemembers.html>
