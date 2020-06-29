@@ -32,7 +32,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+| MindSpore master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.5/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C00T100). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - GCC 7.3.0 can be installed by using apt command.
@@ -81,7 +81,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 1. Download the source code from the code repository.
 
     ```bash
-    git clone https://gitee.com/mindspore/mindspore.git
+    git clone https://gitee.com/mindspore/mindspore.git -b r0.5
     ```
 
 2. Run the following command in the root directory of the source code to compile MindSpore:
@@ -159,7 +159,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindInsight master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+| MindInsight master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r0.5/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -184,7 +184,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 1. Download the source code from the code repository.
 
     ```bash
-    git clone https://gitee.com/mindspore/mindinsight.git
+    git clone https://gitee.com/mindspore/mindinsight.git -b r0.5
     ```
     > You are **not** supposed to obtain the source code from the zip package downloaded from the repository homepage.
 
@@ -226,7 +226,7 @@ If you need to conduct AI model security research or enhance the security of the
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindArmour master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py). | Same as the executable file installation dependencies. |
+| MindArmour master | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r0.5/setup.py). | Same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -251,7 +251,7 @@ If you need to conduct AI model security research or enhance the security of the
 1. Download the source code from the code repository.
 
    ```bash
-   git clone https://gitee.com/mindspore/mindarmour.git
+   git clone https://gitee.com/mindspore/mindarmour.git -b r0.5
    ```
 
 2. Run the following command in the root directory of the source code to compile and install MindArmour:

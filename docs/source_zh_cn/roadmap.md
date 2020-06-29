@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/docs/source_zh_cn/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 预置模型
 * CV：目标检测、GAN、图像分割、姿态识别等场景经典模型。

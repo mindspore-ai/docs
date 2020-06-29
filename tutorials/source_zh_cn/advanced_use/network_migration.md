@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -77,7 +77,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
                                num_shards=device_num, shard_id=rank_id)
     ```
     
-    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/dataset.py>。
+    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/r0.5/model_zoo/resnet/src/dataset.py>。
 
 3. 构建网络。
 
@@ -210,7 +210,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 6. 构造整网。
 
-    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
+    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.5/model_zoo/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
 
 7. 定义损失函数和优化器。
 

@@ -79,7 +79,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
                               num_shards=device_num, shard_id=rank_id)
    ```
 
-   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/dataset.py>.
+   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/r0.5/model_zoo/resnet/src/dataset.py>.
 
 3. Build a network.
 
@@ -214,7 +214,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
 6. Build the entire network.
 
-   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
+   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.5/model_zoo/resnet/src/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
 
 7. Define a loss function and an optimizer.
 

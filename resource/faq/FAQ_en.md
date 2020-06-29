@@ -68,7 +68,7 @@ A: Please install the software manually if there is any suggestion of certain `s
 
 Q: What types of model is currently supported by MindSpore for training ?
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md) for detailed information.
 
 <br/>
 
@@ -92,7 +92,7 @@ A: MindSpore provides pluggable device management interface so that developer co
 
 Q: What hardware does MindSpore require?
 
-A: Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [RoadMap](https://www.mindspore.cn/docs/en/master/roadmap.html) and project [Release Notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md).
+A: Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [RoadMap](https://www.mindspore.cn/docs/en/master/roadmap.html) and project [Release Notes](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md).
 
 ### System Support
 

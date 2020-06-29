@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/custom_operator.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/custom_operator.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
