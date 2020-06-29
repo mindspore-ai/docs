@@ -21,8 +21,8 @@
 
 | Network |	Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| BERT-Large | Attention | zhwiki | 0.2.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 96 | 210 sentences/sec | - |
-|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 96 | 1613 sentences/sec | 0.96 |
+| BERT-Large | Attention | zhwiki | 0.5.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 96 | 269 sentences/sec | - |
+|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 96 | 2069 sentences/sec | 0.96 |
 
 1. 以上数据基于华为云AI开发平台ModelArts测试获得，其中网络包含24个隐藏层，句长为128个token，字典表包含21128个token。  
 2. 业界其他开源框架数据可参考：[BERT For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/LanguageModeling/BERT)。
