@@ -1,4 +1,4 @@
-# <u>Differential</u> Privacy in Machine Learning
+# Differential Privacy in Machine Learning
 
 <!-- TOC -->
 
@@ -86,25 +86,25 @@ TAG = 'Lenet5_train'
    
    ```python
    cfg = edict({
-         'device_target': 'Ascend',  # device used
-         'data_path': './MNIST_unzip',  # the path of training and testing data set
-         'dataset_sink_mode': False,  # whether deliver all training data to device one time　
-         'num_classes': 10,  # the number of classes of model's output
-         'lr': 0.01,  # the learning rate of model's optimizer
-         'momentum': 0.9,  # the momentum value of model's optimizer
-         'epoch_size': 10,  # training epochs
-         'batch_size': 256,  # batch size for training
-         'image_height': 32,  # the height of training samples
-         'image_width': 32,  # the width of training samples
-         'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
-         'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
-         'micro_batches': 32,  # the number of small batches split from an original batch
-         'l2_norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters
-         'initial_noise_multiplier': 1.5,  # the initial multiplication coefficient of the noise added to training
-         # parameters' gradients
-         'mechanisms': 'AdaGaussian',  # the method of adding noise in gradients while training
-         'optimizer': 'Momentum'  # the base optimizer used for Differential privacy training
-         })
+        'num_classes': 10,  # the number of classes of model's output
+        'lr': 0.1,  # the learning rate of model's optimizer
+        'momentum': 0.9,  # the momentum value of model's optimizer
+        'epoch_size': 10,  # training epochs
+        'batch_size': 256,  # batch size for training
+        'image_height': 32,  # the height of training samples
+        'image_width': 32,  # the width of training samples
+        'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
+        'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
+        'device_target': 'Ascend',  # device used
+        'data_path': './MNIST_unzip',  # the path of training and testing data set
+        'dataset_sink_mode': False,  # whether deliver all training data to device one time
+        'micro_batches': 16,  # the number of small batches split from an original batch
+        'norm_clip': 1.0,  # the clip bound of the gradients of model's training parameters
+        'initial_noise_multiplier': 1.5,  # the initial multiplication coefficient of the noise added to training
+        # parameters' gradients
+        'mechanisms': 'AdaGaussian',  # the method of adding noise in gradients while training
+        'optimizer': 'Momentum'  # the base optimizer used for Differential privacy training
+   })
    ```
 
 2. Configure necessary information, including the environment information and execution mode.
@@ -320,13 +320,13 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    
 5. Display the result.
 
-   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with adaptive differential privacy AdaDP is 91%.
+   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with adaptive differential privacy AdaDP is 98%.
    ```
    ============== Starting Training ==============
    ...
    ============== Starting Testing ==============
    ...
-   ============== Accuracy: 0.9115  ==============
+   ============== Accuracy: 0.9879  ==============
    ```
    
 ### References
