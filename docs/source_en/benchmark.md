@@ -3,7 +3,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes the MindSpore benchmarks. 
-For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo).
+For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
 
 ## Training Performance
 

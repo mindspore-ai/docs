@@ -77,7 +77,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
                                num_shards=device_num, shard_id=rank_id)
     ```
     
-    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/example/resnet50_cifar10/dataset.py>。
+    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/dataset.py>。
 
 3. 构建网络。
 
@@ -210,7 +210,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 6. 构造整网。
 
-    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/mindspore/model_zoo/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
+    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
 
 7. 定义损失函数和优化器。
 
@@ -267,8 +267,6 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 ## 样例参考
 
-1. [常用网络脚本样例](https://gitee.com/mindspore/mindspore/tree/master/example)
+1. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)
 
-2. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)
-
-3. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)
+2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
