@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -60,7 +60,7 @@ The compilation procedure is as follows:
 2. Download source code from the code repository.
 
    ```bash
-   git clone https://gitee.com/mindspore/mindspore.git
+   git clone https://gitee.com/mindspore/mindspore.git -b r0.5
    ```
 
 3. Run the following command in the root directory of the source code to compile MindSpore Predict: -I indicates options for compiling MindSpore Predict and the parameter is the target platform architecture. Currently, only the Android arm64 platform is supported.

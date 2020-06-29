@@ -8,7 +8,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ Models based on MindSpore training can be used for inference on different hardwa
 
 1. Inference on the Ascend 910 AI processor
 
-   MindSpore provides the `model.eval` API for model validation. You only need to import the validation dataset. The processing method of the validation dataset is the same as that of the training dataset. For details about the complete code, see <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lenet/eval.py>.
+   MindSpore provides the `model.eval` API for model validation. You only need to import the validation dataset. The processing method of the validation dataset is the same as that of the training dataset. For details about the complete code, see <https://gitee.com/mindspore/mindspore/blob/r0.5/model_zoo/lenet/eval.py>.
 
    ```python
    res = model.eval(dataset)

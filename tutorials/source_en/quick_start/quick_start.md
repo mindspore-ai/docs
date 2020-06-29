@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -38,7 +38,7 @@ During the practice, a simple image classification function is implemented. The 
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py>. 
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/r0.5/tutorials/tutorial_code/lenet.py>. 
 
 This is a simple and basic application process. For other advanced and complex applications, extend this basic process as needed.
 
