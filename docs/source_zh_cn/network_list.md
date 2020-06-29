@@ -2,6 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/tree/master/docs/source_zh_cn/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+## Model Zoo
 |  领域 | 子领域    | 网络                                   | Ascend | GPU | CPU 
 |:------   |:------| :-----------                               |:------   |:------  |:-----
 |计算机视觉（CV） | 图像分类（Image Classification）  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/alexnet/src/alexnet.py)          |  Supported |  Supported | Doing
@@ -21,3 +22,7 @@
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py)                                          |  Doing |  Supported | Supported
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction）  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deepfm/src/deepfm.py)                                          |  Supported |  Doing | Doing
 | 推荐（Recommender） | 推荐系统、搜索、排序（Recommender System, Search ranking）  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/wide_and_deep/src/wide_and_deep.py)                                          |  Supported |  Doing | Doing
+
+
+## 预训练模型
+建设中，即将上线
