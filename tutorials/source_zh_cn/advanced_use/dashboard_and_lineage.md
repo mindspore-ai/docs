@@ -21,7 +21,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/dashboard_and_lineage.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/dashboard_and_lineage.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 训练过程中的标量、图像、计算图以及模型超参等信息记录到文件中，通过可视化界面供用户查看。
