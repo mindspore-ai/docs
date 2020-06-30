@@ -33,9 +33,9 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore 0.5.0-beta | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.5/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore 0.5.0-beta | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.5/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
-- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
+- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - GCC 7.3.0可以直接通过apt命令安装。
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
@@ -57,7 +57,7 @@
 
 ### 配套软件包依赖配置
 
- - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00T100）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+ - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C00）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -88,11 +88,11 @@
 2. 在源码根目录下，执行如下命令编译MindSpore。
 
     ```bash
-    bash build.sh -e d -z
+    bash build.sh -e ascend
     ```
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-    > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e d -z -j4`。
+    > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -j4`。
 
 3. 执行如下命令安装MindSpore。
 
@@ -103,19 +103,40 @@
 
 ## 配置环境变量
 
-- 安装好MindSpore之后，需要导出Runtime相关环境变量。
+- EulerOS操作系统，安装好MindSpore之后，需要导出Runtime相关环境变量。
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
+
     # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+
     # lib libraries that the run package depends on
     export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
+
     # Environment variables that must be configured
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe # TBE operator implementation tool path
-    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH} # TBE operator compilation tool path
-    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH} # Python library that TBE implementation depends on
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe  # TBE operator implementation tool path
+    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}       # TBE operator compilation tool path
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                       # Python library that TBE implementation depends on
+    ```
+
+- Ubuntu操作系统，安装好MindSpore之后，需要导出Runtime相关环境变量，注意：需要将如下配置中{version}替换为环境上真实的版本号。
+
+    ```bash
+    # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
+    export GLOG_v=2
+
+    # Conda environmental options
+    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+
+    # lib libraries that the run package depends on
+    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/ascend-toolkit/{version}/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LD_LIBRARY_PATH}
+
+    # Environment variables that must be configured
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/{version}/opp/op_impl/built-in/ai_core/tbe  # TBE operator implementation tool path
+    export PATH=${LOCAL_ASCEND}/ascend-toolkit/{version}/fwkacllib/ccec_compiler/bin/:${PATH}       # TBE operator compilation tool path
+    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                # Python library that TBE implementation depends on
     ```
 
 ## 安装验证

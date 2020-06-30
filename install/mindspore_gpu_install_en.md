@@ -68,11 +68,11 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
 
 2. Run the following command in the root directory of the source code to compile MindSpore:
     ```bash
-	bash build.sh -e gpu -M on -z
+	bash build.sh -e gpu
     ```
     > - Before running the preceding command, ensure that the paths where the executable files `cmake` and `patch` store have been added to the environment variable PATH.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
-    > - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e gpu -M on -z -j4`.
+    > - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e gpu -j4`.
 
 3. Run the following command to install MindSpore:
 
