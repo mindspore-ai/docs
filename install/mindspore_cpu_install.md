@@ -68,11 +68,11 @@
 2. 在源码根目录下执行如下命令编译MindSpore。
 
     ```bash
-    bash build.sh -e cpu -z -j4
+    bash build.sh -e cpu -j4
     ```
     > - 在执行上述命令前，需保证可执行文件cmake和patch所在路径已加入环境变量PATH中。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-    > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -z -j12`。
+    > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
 
 3. 执行如下命令安装MindSpore。
 
