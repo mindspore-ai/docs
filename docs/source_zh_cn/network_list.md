@@ -3,6 +3,7 @@
 <a href="https://gitee.com/mindspore/docs/tree/master/docs/source_zh_cn/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo
+
 |  领域 | 子领域    | 网络                                   | Ascend | GPU | CPU 
 |:------   |:------| :-----------                               |:------   |:------  |:-----
 |计算机视觉（CV） | 图像分类（Image Classification）  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/alexnet/src/alexnet.py)          |  Supported |  Supported | Doing
