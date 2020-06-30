@@ -22,6 +22,8 @@
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py)                                          |  Doing |  Supported | Supported
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction）  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deepfm/src/deepfm.py)                                          |  Supported |  Doing | Doing
 | 推荐（Recommender） | 推荐系统、搜索、排序（Recommender System, Search ranking）  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/wide_and_deep/src/wide_and_deep.py)                                          |  Supported |  Doing | Doing
+| 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/gcn/src/gcn.py)                                          |  Supported |  Doing | Doing
+| 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/gat/src/gat.py)                                          |  Supported |  Doing | Doing
 
 
 ## 预训练模型
