@@ -8,11 +8,11 @@
 
 ### ResNet
 
-| Network |     Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput | Speedup |
+| Network | Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput | Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ResNet-50 v1.5 | CNN | ImageNet2012 | 0.2.0-alpha | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 32 | 1787 images/sec | - |
-|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 32 | 13689 images/sec | 0.95 |
-|  |  |  |  | Ascend: 16 * Ascend 910 </br> CPU：384 Cores | Mixed | 32 | 27090 images/sec | 0.94 |
+| ResNet-50 v1.5 | CNN | ImageNet2012 | 0.5.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 256 | 2115 images/sec | - |
+|  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 256 | 16600 images/sec | 0.98 |
+|  |  |  |  | Ascend: 16 * Ascend 910 </br> CPU：384 Cores | Mixed | 256 | 32768 images/sec | 0.96 |
 
 1. 以上数据基于华为云AI开发平台ModelArts测试获得，是训练过程整体下沉至Ascend 910 AI处理器执行所得的平均性能。
 2. 业界其他开源框架数据可参考：[ResNet-50 v1.5 for TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Classification/RN50v1.5#nvidia-dgx-2-16x-v100-32g)。
