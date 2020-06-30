@@ -78,6 +78,8 @@ The compilation procedure is as follows:
 
 ## Use of On-Device Inference
 
+> During optimization and upgrade, temporarily unavailable.
+
 When MindSpore is used to perform model inference in the APK project of an app, preprocessing input is required before model inference. For example, before an image is converted into the tensor format required by MindSpore inference, the image needs to be resized. After MindSpore completes model inference, postprocess the model inference result and sends the processed output to the app.
 
 This section describes how to use MindSpore to perform model inference. The setup of an APK project and pre- and post-processing of model inference are not described here.
