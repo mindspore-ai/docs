@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [Windows系统安装MindSpore](#windows系统安装mindspore)
+- [安装MindSpore](#安装mindspore)
     - [环境要求](#环境要求)
         - [系统要求和软件依赖](#系统要求和软件依赖)
         - [Conda安装（可选）](#conda安装可选)
