@@ -4,7 +4,7 @@ This document describes how to quickly install MindSpore on a Windows system wit
 
 <!-- TOC -->
 
-- [MindSpore Installation Guide on Windows](#mindspore-installation-guide-on-windows)
+- [MindSpore Installation Guide](#mindspore-installation-guide)
     - [Environment Requirements](#environment-requirements)
         - [System Requirements and Software Dependencies](#system-requirements-and-software-dependencies)
         - [(Optional) Installing Conda](#optional-installing-conda)
