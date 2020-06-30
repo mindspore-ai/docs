@@ -149,4 +149,4 @@ context.set_context(enable_graph_kernel=True)
   
 ### 训练单step时间
 
-BERT-large场景：BERT-large网络启用图算融合后，在保持与启用前精度一致的前提下，训练的单step时间可提升5%左右。
+BERT-large场景：BERT-large网络启用图算融合后，在保持与启用前精度一致的前提下，训练的单step时间可提升10%以上。
