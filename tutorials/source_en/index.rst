@@ -12,6 +12,7 @@ MindSpore Tutorials
    :caption: Quick Start
 
    quick_start/quick_start
+   quick_start/quick_video
 
 .. toctree::
    :glob:
