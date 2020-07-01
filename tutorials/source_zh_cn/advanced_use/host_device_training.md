@@ -2,7 +2,7 @@
 
 <!-- TOC -->
 
-- [Host+Device混合训练](#Host+Device混合训练)
+- [Host+Device混合训练](#hostdevice混合训练)
     - [概述](#概述)
     - [准备工作](#准备工作)
     - [配置混合执行](#配置混合执行)
@@ -123,16 +123,16 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 `test_deep0.log`保存pytest进程输出的详细的运行时日志（需要将日志级别设置为INFO，且在MindSpore编译时加上-p on选项），搜索关键字`EmbeddingLookup`，可找到如下信息：
 
 ```
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.928.275 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] Call Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op297 in 3066 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] Call Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 in 15521 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.928.275 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op297 costs 3066 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 costs 15521 us.
 ```
 
 表示`EmbeddingLookup`在主机端的执行时间。由于`GatherV2`算子在主机端执行时会被换成`EmbeddingLookup`算子，这也是`GatherV2`的执行时间。
 继续在`test_deep0.log`搜索关键字`SparseApplyFtrl`和`SparseApplyLazyAdam`，可找到如下信息：
 
 ```
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] Call Default/optimizer_w-FTRL/SparseApplyFtrl-op299 in 54492 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] Call Default/optimizer_d-LazyAdam/SparseApplyLazyAdam-op300 in 142865 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_w-FTRL/SparseApplyFtrl-op299 costs 54492 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/SparseApplyLazyAdam-op300 costs 142865 us.
 ```
 
 表示两个优化器在主机端的执行时间。
