@@ -228,6 +228,9 @@ for data in ds2.create_dict_iterator():
 ```
 ### zip
 MindSpore提供`zip`函数，可将多个数据集合并成1个数据集。
+
+![avatar](../images/zip.png)
+
 > 如果两个数据集的列名相同，则不会合并，请注意列的命名。  
 > 如果两个数据集的行数不同，合并后的行数将和较小行数保持一致。
 ```python
