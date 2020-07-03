@@ -50,3 +50,9 @@
 <video id="video5" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E7%BD%91%E7%AB%99-%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2_%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD%20En%E8%AF%A6%E6%83%85%E9%A1%B5.png">
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Saving%20and%20Loading%20Model%20Parameters.mp4" type="video/mp4">
 </video>
+
+### Customized Debugging
+
+<video id="video6" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E7%BD%91%E7%AB%99-%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95%20En%E8%AF%A6%E6%83%85%E9%A1%B5.png">
+<source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Customized%20Debugging.mp4" type="video/mp4">
+</video>
