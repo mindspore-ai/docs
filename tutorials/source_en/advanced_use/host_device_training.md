@@ -72,6 +72,12 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
     ```python
     self.embedding_table = Parameter(Tensor(np.random.normal(loc=0.0, scale=0.01, size=[184968, 80]).astype(dtype=np_type)), name='V_l2',  sparse_grad='V_l2')
     ```
+   
+    In the same file, add the import information in the head:
+    
+    ```python
+    from mindspore import Tensor
+    ```
     
     In the `construct` function of `class WideDeepModel(nn.Cell)` of file `src/wide_and_deep.py`, to adapt for sparse parameters, replace the return value as:
     
@@ -103,10 +109,9 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 
 ## Training the Model
 
-Use the script `script/run_auto_parallel_train.sh`, and run the command `bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE MINDSPORE_HCCL_CONFIG_PATH`,
+Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE`,
 where the first `1` is the number of accelerators, the second `1` is the number of epochs, `DATASET` is the path of dataset,
-and `RANK_TABLE_FILE` and `MINDSPORE_HCCL_CONFIG_PATH` is the path of the above `rank_table_1p_0.json` file.
-
+and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 
 The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch:
 
