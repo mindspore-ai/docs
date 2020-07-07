@@ -70,7 +70,11 @@
     ```python
     self.embedding_table = Parameter(Tensor(np.random.normal(loc=0.0, scale=0.01, size=[184968, 80]).astype(dtype=np_type)), name='V_l2',  sparse_grad='V_l2')
     ```
+    此外，需要在`src/wide_and_deep.py`的头文件引用中添加：
     
+    ```python
+    from mindspore import Tensor
+    ```
     在`src/wide_and_deep.py`文件的`class WideDeepModel(nn.Cell)`类的`construct`函数中，将函数的返回值替换为如下值，以适配参数的稀疏性：
     
     ```
@@ -101,9 +105,8 @@
 
 ## 训练模型
 
-使用训练脚本`script/run_auto_parallel_train.sh`，
-执行命令：`bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE MINDSPORE_HCCL_CONFIG_PATH`，
-其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET`是数据集所在路径，`RANK_TABLE_FILE`和`MINDSPORE_HCCL_CONFIG_PATH`为上述`rank_table_1p_0.json`文件所在路径。
+使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE`，
+其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
 
 运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内中多个loss值，如下：
 
