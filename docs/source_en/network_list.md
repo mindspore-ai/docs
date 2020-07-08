@@ -3,6 +3,7 @@
 <a href="https://gitee.com/mindspore/docs/tree/master/docs/source_en/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo
+
 |  Domain | Sub Domain    | Network                                   | Ascend | GPU | CPU 
 |:------   |:------| :-----------                               |:------   |:------  |:-----
 |Computer Version (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/alexnet/src/alexnet.py)          |  Supported |  Supported | Doing
