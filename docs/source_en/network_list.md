@@ -9,7 +9,7 @@
 |Computer Version (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/alexnet/src/alexnet.py)          |  Supported |  Supported | Doing
 | Computer Version (CV)  | Image Classification  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/googlenet/src/googlenet.py)                                               |  Supported     | Doing | Doing
 | Computer Version (CV)  | Image Classification  | [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lenet/src/lenet.py)              |  Supported |  Supported | Supported
-| Computer Version (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py)          |  Supported |  Doing | Doing
+| Computer Version (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py)          |  Supported |  Supported | Doing
 |Computer Version (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/resnet/src/resnet.py)                                              |  Supported |Doing | Doing
 | Computer Version (CV)  | Image Classification  | [VGG16](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/vgg16/src/vgg.py)                |  Supported |  Doing | Doing
 | Computer Version (CV)  | Mobile Image Classification<br>Image Classification<br>Semantic Tegmentation  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/mobilenetv2/src/mobilenetV2.py)                                            |  Supported |  Supported | Doing
