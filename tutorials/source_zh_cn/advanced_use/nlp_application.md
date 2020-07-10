@@ -13,6 +13,7 @@
         - [配置环境信息](#配置环境信息)
         - [预处理数据集](#预处理数据集)
         - [定义网络](#定义网络)
+        - [预训练模型](#预训练模型)
         - [定义优化器及损失函数](#定义优化器及损失函数)
         - [训练并保存模型](#训练并保存模型)
         - [模型验证](#模型验证)
@@ -85,37 +86,31 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lstm>
-> - `main.py`：代码文件，包括数据预处理、网络定义、模型训练等代码。
-> - `config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
+> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm>
+> - `src/config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
+> - `src/dataset.py`：数据集相关，包括转换成MindRecord文件，数据预处理等。
+> - `src/imdb.py`： 解析IMDB数据集的工具。
+> - `src/lstm.py`： 定义情感网络。
+> - `train.py`：模型的训练脚本。
+> - `eval.py`：模型的推理脚本。
 
 ## 实现阶段
 ### 导入需要的库文件
 下列是我们所需要的公共模块及MindSpore的模块及库文件。
 ```python
-import os
-import shutil
-import math
 import argparse
-import json
-from itertools import chain
-import numpy as np
-from config import lstm_cfg as cfg
+import os
 
-import mindspore.nn as nn
-import mindspore.context as context
-import mindspore.dataset as ds
-from mindspore.ops import operations as P
-from mindspore import Tensor
-from mindspore.common.initializer import initializer
-from mindspore.common.parameter import Parameter
-from mindspore.mindrecord import FileWriter
-from mindspore.train import Model
-from mindspore.nn.metrics import Accuracy
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
-# Install gensim with 'pip install gensim'
-import gensim
+import numpy as np
+
+from src.config import lstm_cfg as cfg
+from src.dataset import convert_to_mindrecord
+from src.dataset import lstm_create_dataset
+from src.lstm import SentimentNet
+from mindspore import Tensor, nn, Model, context
+from mindspore.nn import Accuracy
+from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpoint, TimeMonitor
+from mindspore.train.serialization import load_param_into_net, load_checkpoint
 ```
 
 ### 配置环境信息
@@ -125,29 +120,22 @@ import gensim
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
                         help='whether to preprocess data.')
-    parser.add_argument('--mode', type=str, default="train", choices=['train', 'test'],
-                        help='implement phase, set to train or test')
-    # Download dataset from 'http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz' and extract to 'aclimdb_path'
     parser.add_argument('--aclimdb_path', type=str, default="./aclImdb",
-                        help='path where the dataset is stored')
-    # Download GloVe from 'http://nlp.stanford.edu/data/glove.6B.zip' and extract to 'glove_path'
-    # Add a new line '400000 300' at the beginning of 'glove.6B.300d.txt' with '40000' for total words and '300' for vector length
+                        help='path where the dataset is stored.')
     parser.add_argument('--glove_path', type=str, default="./glove",
-                        help='path where the GloVe is stored')
-    # Specify the path to save preprocessed data                
+                        help='path where the GloVe is stored.')
     parser.add_argument('--preprocess_path', type=str, default="./preprocess",
-                        help='path where the pre-process data is stored')
-    # Specify the path to save the CheckPoint file                    
+                        help='path where the pre-process data is stored.')
     parser.add_argument('--ckpt_path', type=str, default="./",
-                        help='if mode is test, must provide path where the trained ckpt file.')
-    # Specify the target device to run
+                        help='the path to save the checkpoint file.')
+    parser.add_argument('--pre_trained', type=str, default=None,
+                        help='the pretrained checkpoint file path.')
     parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU', 'CPU'],
                         help='the target device to run, support "GPU", "CPU". Default: "GPU".')
     args = parser.parse_args()
     ```
 
 2. 实现代码前，需要配置必要的信息，包括环境信息、执行的模式、后端信息及硬件信息。
-   
     ```python
     context.set_context(
         mode=context.GRAPH_MODE,
@@ -158,285 +146,44 @@ import gensim
 
 ### 预处理数据集
 
-1. 对文本数据集进行处理，包括编码、分词、对齐、处理GloVe原始数据，使之能够适应网络结构。
+将数据集格式转换为MindRecord格式，便于MindSpore读取。
 
-    ```python
-    # Read data from the specified directory
-    def read_imdb(path, seg='train'):
-        """ read imdb dataset """
-        pos_or_neg = ['pos', 'neg']
-        data = []
-        for label in pos_or_neg:
-            files = os.listdir(os.path.join(path, seg, label))
-            for file in files:
-                with open(os.path.join(path, seg, label, file), 'r', encoding='utf8') as rf:
-                    review = rf.read().replace('\n', '')
-                    if label == 'pos':
-                        data.append([review, 1])
-                    elif label == 'neg':
-                        data.append([review, 0])
-        return data
-
-    # Split records into words with spaces as separators
-    def tokenizer(text):
-        return [tok.lower() for tok in text.split(' ')]
-
-    # Encode words into vectors
-    def encode_samples(tokenized_samples, word_to_idx):
-        """ encode word to index """
-        features = []
-        for sample in tokenized_samples:
-            feature = []
-            for token in sample:
-                if token in word_to_idx:
-                    feature.append(word_to_idx[token])
-                else:
-                    feature.append(0)
-            features.append(feature)
-        return features
-
-    # Align the number of words in each record to 500 words
-    def pad_samples(features, maxlen=500, pad=0):
-        """ pad all features to the same length """
-        padded_features = []
-        for feature in features:
-            if len(feature) >= maxlen:
-                padded_feature = feature[:maxlen]
-            else:
-                padded_feature = feature
-                while len(padded_feature) < maxlen:
-                    padded_feature.append(pad)
-            padded_features.append(padded_feature)
-        return padded_features
-
-    # Crop GloVe raw data into a table which contains about 25,000 word vectors
-    def collect_weight(glove_path, vocab, word_to_idx, embed_size):
-        """ collect weight """
-        vocab_size = len(vocab)
-        wvmodel = gensim.models.KeyedVectors.load_word2vec_format(os.path.join(glove_path, 'glove.6B.300d.txt'),
-                                                                binary=False, encoding='utf-8')
-        weight_np = np.zeros((vocab_size+1, embed_size)).astype(np.float32)
-
-        idx_to_word = {i+1: word for i, word in enumerate(vocab)}
-        idx_to_word[0] = '<unk>'
-
-        for i in range(len(wvmodel.index2word)):
-            try:
-                index = word_to_idx[wvmodel.index2word[i]]
-            except KeyError:
-                continue
-            weight_np[index, :] = wvmodel.get_vector(
-                idx_to_word[word_to_idx[wvmodel.index2word[i]]])
-        return weight_np
-
-    def preprocess(aclimdb_path, glove_path, embed_size):
-        """ preprocess the train and test data """
-        train_data = read_imdb(aclimdb_path, 'train')
-        test_data = read_imdb(aclimdb_path, 'test')
-
-        train_tokenized = []
-        test_tokenized = []
-        for review, _ in train_data:
-            train_tokenized.append(tokenizer(review))
-        for review, _ in test_data:
-            test_tokenized.append(tokenizer(review))
-
-        vocab = set(chain(*train_tokenized))
-        vocab_size = len(vocab)
-        print("vocab_size: ", vocab_size)
-
-        word_to_idx = {word: i+1 for i, word in enumerate(vocab)}
-        word_to_idx['<unk>'] = 0
-
-        train_features = np.array(pad_samples(encode_samples(train_tokenized, word_to_idx))).astype(np.int32)
-        train_labels = np.array([score for _, score in train_data]).astype(np.int32)
-        test_features = np.array(pad_samples(encode_samples(test_tokenized, word_to_idx))).astype(np.int32)
-        test_labels = np.array([score for _, score in test_data]).astype(np.int32)
-
-        weight_np = collect_weight(glove_path, vocab, word_to_idx, embed_size)
-        return train_features, train_labels, test_features, test_labels, weight_np, vocab_size
-
-    ```
-
-2. 将数据集格式转化为`mindrecord`格式，便于MindSpore读取。
-
-    ```python
-    def get_imdb_data(labels_data, features_data):
-        data_list = []
-        for i, (label, feature) in enumerate(zip(labels_data, features_data)):
-            data_json = {"id": i,
-                        "label": int(label),
-                        "feature": feature.reshape(-1)}
-            data_list.append(data_json)
-        return data_list
-
-    # Convert the dataset to mindrecord dateset which is supported by MindSpore
-    def convert_to_mindrecord(embed_size, aclimdb_path, proprocess_path, glove_path):
-        """ convert imdb dataset to mindrecord """
-        num_shard = 4
-        train_features, train_labels, test_features, test_labels, weight_np, _ = \
-            preprocess(aclimdb_path, glove_path, embed_size)
-        np.savetxt(os.path.join(proprocess_path, 'weight.txt'), weight_np)
-
-        # write mindrecord
-        schema_json = {"id": {"type": "int32"},
-                    "label": {"type": "int32"},
-                    "feature": {"type": "int32", "shape": [-1]}}
-
-        writer = FileWriter(os.path.join(proprocess_path, 'aclImdb_train.mindrecord'), num_shard)
-        data = get_imdb_data(train_labels, train_features)
-        writer.add_schema(schema_json, "nlp_schema")
-        writer.add_index(["id", "label"])
-        writer.write_raw_data(data)
-        writer.commit()
-
-        writer = FileWriter(os.path.join(proprocess_path, 'aclImdb_test.mindrecord'), num_shard)
-        data = get_imdb_data(test_labels, test_features)
-        writer.add_schema(schema_json, "nlp_schema")
-        writer.add_index(["id", "label"])
-        writer.write_raw_data(data)
-        writer.commit()
-
+```python
+if args.preprocess == "true":
     print("============== Starting Data Pre-processing ==============")
-    shutil.rmtree(args.preprocess_path)
-    os.mkdir(args.preprocess_path)
     convert_to_mindrecord(cfg.embed_size, args.aclimdb_path, args.preprocess_path, args.glove_path)
-    ```
+```
+> 转换成功后会在`preprocess_path`路径下生成`mindrecord`文件； 通常该操作在数据集不变的情况下，无需每次训练都执行。
 
-3. 创建数据集。
-    ```python
-    def create_dataset(base_path, batch_size, num_epochs, is_train):
-        """Create dataset for training."""
-        columns_list = ["feature", "label"]
-        num_consumer = 4
+> `convert_to_mindrecord`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/dataset.py>
 
-        if is_train:
-            path = os.path.join(base_path, 'aclImdb_train.mindrecord0')
-        else:
-            path = os.path.join(base_path, 'aclImdb_test.mindrecord0')
+> 其中包含两大步骤：
+> 1. 解析文本数据集，包括编码、分词、对齐、处理GloVe原始数据，使之能够适应网络结构。
+> 2. 转换并保存为MindRecord格式数据集。
 
-        dtrain = ds.MindDataset(path, columns_list, num_consumer)
-        dtrain = dtrain.shuffle(buffer_size=dtrain.get_dataset_size())
-        dtrain = dtrain.batch(batch_size, drop_remainder=True)
-        dtrain = dtrain.repeat(count=num_epochs)
-
-        return dtrain
-
-    ds_train = create_dataset(args.preprocess_path, cfg.batch_size, cfg.num_epochs, True)
-    ```
 
 ### 定义网络
 
-1. 初始化网络参数及网络状态。
+```python
+embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
+network = SentimentNet(vocab_size=embedding_table.shape[0],
+                       embed_size=cfg.embed_size,
+                       num_hiddens=cfg.num_hiddens,
+                       num_layers=cfg.num_layers,
+                       bidirectional=cfg.bidirectional,
+                       num_classes=cfg.num_classes,
+                       weight=Tensor(embedding_table),
+                       batch_size=cfg.batch_size)
+```
+> `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py>
 
-    ```python
-    def init_lstm_weight(
-            input_size,
-            hidden_size,
-            num_layers,
-            bidirectional,
-            has_bias=True):
-        """Initialize lstm weight."""
-        num_directions = 1
-        if bidirectional:
-            num_directions = 2
+### 预训练模型
 
-        weight_size = 0
-        gate_size = 4 * hidden_size
-        for layer in range(num_layers):
-            for _ in range(num_directions):
-                input_layer_size = input_size if layer == 0 else hidden_size * num_directions
-                weight_size += gate_size * input_layer_size
-                weight_size += gate_size * hidden_size
-                if has_bias:
-                    weight_size += 2 * gate_size
-
-        stdv = 1 / math.sqrt(hidden_size)
-        w_np = np.random.uniform(-stdv, stdv, (weight_size,
-                                            1, 1)).astype(np.float32)
-        w = Parameter(
-            initializer(
-                Tensor(w_np), [
-                    weight_size, 1, 1]), name='weight')
-
-        return w
-
-    # Initialize short-term memory (h) and long-term memory (c) to 0
-    def lstm_default_state(batch_size, hidden_size, num_layers, bidirectional):
-        """init default input."""
-        num_directions = 1
-        if bidirectional:
-            num_directions = 2
-
-        h = Tensor(
-            np.zeros((num_layers * num_directions, batch_size, hidden_size)).astype(np.float32))
-        c = Tensor(
-            np.zeros((num_layers * num_directions, batch_size, hidden_size)).astype(np.float32))
-        return h, c
-    ```
-
-2. 使用`cell`方法，定义网络结构。
-    ```python
-    class SentimentNet(nn.Cell):
-        """Sentiment network structure."""
-        def __init__(self,
-                    vocab_size,
-                    embed_size,
-                    num_hiddens,
-                    num_layers,
-                    bidirectional,
-                    num_classes,
-                    weight,
-                    batch_size):
-            super(SentimentNet, self).__init__()
-            # Mapp words to vectors
-            self.embedding = nn.Embedding(vocab_size,
-                                        embed_size,
-                                        embedding_table=weight)
-            self.embedding.embedding_table.requires_grad = False
-            self.trans = P.Transpose()
-            self.perm = (1, 0, 2)
-            self.encoder = nn.LSTM(input_size=embed_size,
-                                hidden_size=num_hiddens,
-                                num_layers=num_layers,
-                                has_bias=True,
-                                bidirectional=bidirectional,
-                                dropout=0.0)
-            w_init = init_lstm_weight(
-                embed_size,
-                num_hiddens,
-                num_layers,
-                bidirectional)
-            self.encoder.weight = w_init
-            self.h, self.c = lstm_default_state(batch_size, num_hiddens, num_layers, bidirectional)
-
-            self.concat = P.Concat(1)
-            if bidirectional:
-                self.decoder = nn.Dense(num_hiddens * 4, num_classes)
-            else:
-                self.decoder = nn.Dense(num_hiddens * 2, num_classes)
-
-        def construct(self, inputs):
-            # input：(64,500,300)
-            embeddings = self.embedding(inputs)
-            embeddings = self.trans(embeddings, self.perm)
-            output, _ = self.encoder(embeddings, (self.h, self.c))
-            # states[i] size(64,200)  -> encoding.size(64,400)
-            encoding = self.concat((output[0], output[1]))
-            outputs = self.decoder(encoding)
-            return outputs
-    
-    
-    embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
-    network = SentimentNet(vocab_size=embedding_table.shape[0],
-                    embed_size=cfg.embed_size,
-                    num_hiddens=cfg.num_hiddens,
-                    num_layers=cfg.num_layers,
-                    bidirectional=cfg.bidirectional,
-                    num_classes=cfg.num_classes,
-                    weight=Tensor(embedding_table),
-                    batch_size=cfg.batch_size)
-    ```
+通过参数`pre_trained`指定预加载CheckPoint文件来进行预训练，默认该参数为空。
+```python
+if args.pre_trained:
+    load_param_into_net(network, load_checkpoint(args.pre_trained))
+```
 
 ### 定义优化器及损失函数
 
@@ -456,58 +203,60 @@ loss_cb = LossMonitor()
 model = Model(network, loss, opt, {'acc': Accuracy()})
 
 print("============== Starting Training ==============")
-ds_train = create_dataset(args.preprocess_path, cfg.batch_size, cfg.num_epochs, True)
+ds_train = lstm_create_dataset(args.preprocess_path, cfg.batch_size, cfg.num_epochs)
 config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
-                                keep_checkpoint_max=cfg.keep_checkpoint_max)
+                             keep_checkpoint_max=cfg.keep_checkpoint_max)
 ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=args.ckpt_path, config=config_ck)
 time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
 if args.device_target == "CPU":
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
 else:
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
+print("============== Training Success ==============")
 ```
+> `lstm_create_dataset`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/dataset.py>
 
 ### 模型验证
 
 加载验证数据集及保存的CheckPoint文件，进行验证，查看模型质量。
 
 ```python
+model = Model(network, loss, opt, {'acc': Accuracy()})
+
 print("============== Starting Testing ==============")
-ds_eval = create_dataset(args.preprocess_path, cfg.batch_size, 1, False)
+ds_eval = lstm_create_dataset(args.preprocess_path, cfg.batch_size, training=False)
 param_dict = load_checkpoint(args.ckpt_path)
 load_param_into_net(network, param_dict)
 if args.device_target == "CPU":
     acc = model.eval(ds_eval, dataset_sink_mode=False)
 else:
     acc = model.eval(ds_eval)
-print("============== Accuracy:{} ==============".format(acc))
+print("============== {} ==============".format(acc))
 ```
 
 ## 实验结果
-在经历了10轮epoch之后，在训练集上的精度收敛到约85%，在测试集上的精度约为86%。
+在经历了20轮epoch之后，在测试集上的精度约为84.19%。
 
 **执行训练**
 1. 运行训练代码，查看运行结果。
     ```shell
-    $ python main.py --preprocess=true --mode=train --ckpt_path=./ --device_target=GPU 
+    $ python train.py --preprocess=true --ckpt_path=./ --device_target=GPU 
     ```
 
-    输出如下，可以看到loss值随着训练逐步降低，最后达到0.249左右，即经过10个epoch的训练，对当前文本分析的结果正确率在85%左右：
+    输出如下，可以看到loss值随着训练逐步降低，最后达到0.2855左右：
 
     ```shell
     ============== Starting Data Pre-processing ==============
     vocab_size:  252192
     ============== Starting Training ==============
-    [INFO] ME(15831:140036161672960,MainProcess):2020-03-09-16:29:02.785.484 [mindspore/train/serialization.py:118] Execute save checkpoint process.
-    [INFO] ME(15831:140036161672960,MainProcess):2020-03-09-16:29:03.658.733 [mindspore/train/serialization.py:143] Save checkpoint process finish.
-    epoch: 1 step: 390 , loss is 0.6926409
+    Epoch:[  1/ 20], step: [    1/  390], loss: [0.6935], avg los: [0.6935], time: [628,2482ms]
+    Epoch:[  1/ 20], step: [    2/  390], loss: [0.6924], avg los: [0.6929], time: [97.1351ms]
     ...
-    [INFO] ME(15831:140036161672960,MainProcess):2020-03-09-16:32:18.598.405 [mindspore/train/serialization.py:118] Execute save checkpoint process.
-    [INFO] ME(15831:140036161672960,MainProcess):2020-03-09-16:32:19.561.926 [mindspore/train/serialization.py:143] Save checkpoint process finish.
-    epoch: 6 step: 390 , loss is 0.222701
+    Epoch:[  10/ 20], step: [  389/  390], loss: [0.2675], avg los: [0.2997], time: [71.5523ms]
+    Epoch:[  10/ 20], step: [  390/  390], loss: [0.3232], avg los: [0.2997], time: [772.3286ms]
     ...
-    epoch: 10 step: 390 , loss is 0.22616856
-    epoch: 10 step: 390 , loss is 0.24914627
+    Epoch:[  20/ 20], step: [  389/  390], loss: [0.1354], avg los: [0.1318], time: [68.1632ms]
+    Epoch:[  20/ 20], step: [  390/  390], loss: [0.2855], avg los: [0.1322], time: [760.9208ms]
     ```
     
 2. 查看保存的CheckPoint文件。
@@ -521,7 +270,7 @@ print("============== Accuracy:{} ==============".format(acc))
     输出如下：
 
     ```shell
-    lstm-10_390.ckpt  lstm-1_390.ckpt  lstm-2_390.ckpt  lstm-3_390.ckpt  lstm-4_390.ckpt  lstm-5_390.ckpt  lstm-6_390.ckpt  lstm-7_390.ckpt  lstm-8_390.ckpt  lstm-9_390.ckpt
+    lstm-11_390.ckpt  lstm-12_390.ckpt  lstm-13_390.ckpt  lstm-14_390.ckpt  lstm-15_390.ckpt  lstm-16_390.ckpt  lstm-17_390.ckpt  lstm-18_390.ckpt  lstm-19_390.ckpt  lstm-20_390.ckpt
     ```
 
 **验证模型**
@@ -529,19 +278,14 @@ print("============== Accuracy:{} ==============".format(acc))
 使用最后保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python main.py --mode=test --ckpt_path=./lstm-10_390.ckpt --device_target=GPU
+$ python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 ```
 
-输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在86%左右，达到一个基本满意的结果。
+输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在84.19%左右，达到一个基本满意的结果。
 
 ```shell
-RegisterOperatorCreator:OperatorCreators init
 ============== Starting Testing ==============
-[INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:19.333.605 [mindspore/train/serialization.py:169] Execute load checkpoint process.
-[INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:20.434.749 [mindspore/train/serialization.py:200] Load checkpoint process finish.
-[INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:20.467.336 [mindspore/train/serialization.py:233] Execute parameter into net process.
-[INFO] ME(29963:140462460516096,MainProcess):2020-03-09-16:37:20.467.649 [mindspore/train/serialization.py:268] Load parameter into net process finish.
-============== Accuracy:{'acc': 0.8599358974358975} ==============
+============== {'acc': 0.8419471153846154} ==============
 ```
 
 
