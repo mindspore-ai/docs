@@ -7,6 +7,7 @@
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
         - [Collect Summary Data](#collect-summary-data)
+        - [Notices](#Notices)
     - [Visualization Components](#visualization-components)
         - [Training Dashboard](#training-dashboard)
             - [Scalar Visualization](#scalar-visualization)
@@ -278,8 +279,43 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
-> - Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
-> - When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
+### Notices
+
+1. Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
+
+2. When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
+
+3. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
+
+    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data fail. 
+
+    If the custom callback use `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
+
+    Right code:
+    ```python3
+    ...示例
+    summary_collector = SummaryCollecotor('./summary_dir')
+    model.train(epoch=2, train_dataset, callbacks=[summary_collector])
+    ...
+    model.eval(dataset， callbacks=[summary_collector])
+    ```
+
+    Wrong code:
+    ```python3
+    ...
+    summary_collector1 = SummaryCollecotor('./summary_dir1')
+    summary_collector2 = SummaryCollecotor('./summary_dir2')
+    model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
+    ```
+
+    Wrong code:
+    ```python3
+    ...
+    # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
+    confusion_callback = ConfusionMatrixCallback('./summary_dir1')
+    summary_collector = SummaryCollecotor('./summary_dir2')
+    model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
+    ```
 
 ## Visualization Components
 
@@ -304,6 +340,8 @@ Buttons from left to right in the upper right corner of the figure are used to d
 - Enable/Disable Rectangle Selection: Draw a rectangle to select and zoom in a part of the chart. You can perform rectangle selection again on the zoomed-in chart.
 - Step-by-step Rollback: Cancel operations step by step after continuously drawing rectangles to select and zooming in the same area.
 - Restore Chart: Restore a chart to the original state.
+
+There can set the threshold value to highlight the value or delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold set is less than 0.3, highlighted in red shows what is below the threshold, and it is intuitive to see the expected data value or some unusual value.
 
 ![scalar_select.png](./images/scalar_select.png)
 
