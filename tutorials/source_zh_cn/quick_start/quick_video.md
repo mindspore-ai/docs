@@ -56,3 +56,15 @@
 <video id="video6" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95_%E8%AF%A6%E6%83%85%E9%A1%B5.png">
 <source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95.mp4" type="video/mp4">
 </video>
+
+### MindInsight使用
+
+- 安装与常用命令
+
+<video id="video7" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/MindInsight%E5%AE%89%E8%A3%85%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E8%AF%A6%E6%83%85%E9%A1%B5.png">
+<source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E5%AE%89%E8%A3%85%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.mp4" type="video/mp4">
+</video>
+
+**立即安装**：<https://www.mindspore.cn/install>
+
+**查看更多命令**：<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html>
