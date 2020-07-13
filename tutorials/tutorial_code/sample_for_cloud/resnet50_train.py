@@ -31,7 +31,7 @@ from mindspore.communication.management import init
 import mindspore.dataset.engine as de
 
 from dataset import create_dataset, device_id, device_num
-from mindspore.model_zoo.resnet import resnet50
+from resnet import resnet50
 
 random.seed(1)
 np.random.seed(1)
