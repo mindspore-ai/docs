@@ -27,4 +27,5 @@
 | Graph Neural Networks（GNN）| Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/gat/src/gat.py)                                          |  Supported |  Doing | Doing
 
 ## Pre-trained Models
+
 Coming soon.
