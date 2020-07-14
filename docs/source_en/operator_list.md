@@ -66,7 +66,7 @@
 | [mindspore.nn.AdamWeightDecay](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecay)                              |  Supported | Supported | Doing |optim/adam
 | [mindspore.nn.AdamWeightDecayDynamicLR](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AdamWeightDecayDynamicLR)            |  Supported | Supported | Doing |optim/adam
 | [mindspore.nn.Lamb](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Lamb)                                                    |  Supported | Supported | Doing |optim/lamb
-| [mindspore.nn.LARS](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LARS)                                                    |Doing |Doing | Doing |optim/lars
+| [mindspore.nn.LARS](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LARS)                                                    |Supported |Doing | Doing |optim/lars
 | [mindspore.nn.Momentum](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Momentum)                                            |  Supported |  Supported |   Doing |optim/momentum
 | [mindspore.nn.Optimizer](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Optimizer)                                          |  Supported |  Supported | Doing |optim/optimizer
 | [mindspore.nn.RMSProp](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.RMSProp)                                          |  Supported |  Support | Doing |optim/optimizer
