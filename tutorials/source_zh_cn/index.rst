@@ -49,7 +49,7 @@ MindSpore教程
    advanced_use/distributed_training_tutorials
    advanced_use/mixed_precision
    advanced_use/graph_kernel_fusion
-   advanced_use/aware_quantization
+   advanced_use/quantization_aware
 
 .. toctree::
    :glob:

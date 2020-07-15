@@ -67,7 +67,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
    model.predict(input_data)
    ```
    其中，  
-   `model.eval`为推理接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.predict>。
+   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.predict>。
 
 ## Ascend 310 AI处理器上推理
 
