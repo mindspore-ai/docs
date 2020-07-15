@@ -110,7 +110,7 @@ class StopAtTime(Callback):
         cb_params = run_context.original_args()
         epoch_num = cb_params.cur_epoch_num
         step_num = cb_params.cur_step_num
-        loss = cb_params.cb_params
+        loss = cb_params.net_outputs
 	cur_time = time.time()
 	if (cur_time - cb_params.init_time) > self.run_time:
             print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
