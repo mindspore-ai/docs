@@ -7,6 +7,7 @@
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
         - [Summary数据收集](#summary数据收集)
+        - [注意事项](#注意事项)
     - [可视化组件](#可视化组件)
         - [训练看板](#训练看板)
             - [标量可视化](#标量可视化)
@@ -280,8 +281,42 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
-> - 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
-> - 在训练中使用Summary算子收集数据时，`HistogramSummary`算子会影响性能，所以请尽量少地使用。
+### 注意事项
+
+1. 目前MindSpore仅支持在Ascend 910 AI处理器上导出算子融合后的计算图。
+2. 在训练中使用Summary算子收集数据时，`HistogramSummary` 算子会影响性能，所以请尽量少地使用。
+3. 不能同时使用多个 `SummaryRecord` 实例 （`SummaryCollector` 中使用了 `SummaryRecord`）。
+
+    如果在 `model.train` 或者 `model.eval` 的callback列表中使用两个及以上的 `SummaryCollector` 实例，则视为同时使用 `SummaryRecord`，导致记录数据失败。
+
+    自定义callback中如果使用 `SummaryRecord`，则其不能和 `SummaryCollector` 同时使用。
+
+    正确代码:
+    ```python3
+    ...
+    summary_collector = SummaryCollecotor('./summary_dir')
+    model.train(epoch=2, train_dataset, callbacks=[summary_collector])
+
+    ...
+    model.eval(dataset， callbacks=[summary_collector])
+    ```
+
+    错误代码：
+    ```python3
+    ...
+    summary_collector1 = SummaryCollecotor('./summary_dir1')
+    summary_collector2 = SummaryCollecotor('./summary_dir2')
+    model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
+    ```
+
+    错误代码：
+    ```python3
+    ...
+    # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
+    confusion_callback = ConfusionMatrixCallback('./summary_dir1')
+    summary_collector = SummaryCollecotor('./summary_dir2')
+    model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
+    ```
 
 ## 可视化组件
 
@@ -306,6 +341,8 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 - 开启/关闭框选是指可以框选图中部分区域，并放大查看该区域， 可以在已放大的图形上叠加框选。
 - 分步回退是指对同一个区域连续框选并放大查看时，可以逐步撤销操作。
 - 还原图形是指进行了多次框选后，点击此按钮可以将图还原回原始状态。
+
+图中右下角可以设置阈值并高亮显示或者删除阈值。如图所示，设置的阈值为小于0.3，红色高亮部分显示出超出阈值的部分，能够直观地看到预期的数据值或者一些异常的数值。
 
 ![scalar_select.png](./images/scalar_select.png)
 
