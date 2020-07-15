@@ -27,7 +27,7 @@
     - `--config <CONFIG>` : Specifies the configuration file or module. CONFIG indicates the physical file path (file:/path/to/config.py), or a module path (python:path.to.config.module) that can be identified by Python.
     - `--workspace <WORKSPACE>` : Specifies the working directory. The default value of WORKSPACE is $HOME/mindinsight.
     - `--port <PORT>` : Specifies the port number of the web visualization service. The value ranges from 1 to 65535. The default value of PORT is 8080.
-    - `--url-path-prefix <URL_PATH_PREFIX>` : Specifies the path prefix of the web visualization service. The default value of URL_PATH_PREFIX is empty string.
+    - `--url-path-prefix <URL_PATH_PREFIX>` : Specifies the URL path prefix of the web visualization service. URL path prefix consists of segments separated by slashes. Each segment supports alphabets / digits / underscores / dashes / dots, but cannot just be emtpy string / single dot / double dots. The default value of URL_PATH_PREFIX is empty string.
     - `--reload-interval <RELOAD_INTERVAL>` : Specifies the interval (unit: second) for loading data. The value 0 indicates that data is loaded only once. The default value of RELOAD_INTERVAL is 3 seconds.
     - `--summary-base-dir <SUMMARY_BASE_DIR>` : Specifies the root directory for loading training log data. MindInsight traverses the direct subdirectories in this directory and searches for log files. If a direct subdirectory contains log files, it is identified as the log file directory. If a root directory contains log files, it is identified as the log file directory. SUMMARY_BASE_DIR is the current directory path by default.
 
