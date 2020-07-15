@@ -24,12 +24,9 @@ MindSpore API
    api/python/mindspore/mindspore.train
    api/python/mindspore/mindspore.dataset
    api/python/mindspore/mindspore.dataset.config
-   api/python/mindspore/mindspore.dataset.text.transforms
-   api/python/mindspore/mindspore.dataset.text.utils
-   api/python/mindspore/mindspore.dataset.transforms.c_transforms
-   api/python/mindspore/mindspore.dataset.transforms.vision.c_transforms
-   api/python/mindspore/mindspore.dataset.transforms.py_transforms
-   api/python/mindspore/mindspore.dataset.transforms.vision.py_transforms
+   api/python/mindspore/mindspore.dataset.text
+   api/python/mindspore/mindspore.dataset.transforms
+   api/python/mindspore/mindspore.dataset.transforms.vision
    api/python/mindspore/mindspore.mindrecord
 
    api/python/mindinsight/mindinsight.lineagemgr
