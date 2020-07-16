@@ -245,7 +245,7 @@ print(z.asnumpy())
 
 ## 调试网络训练模型
 
-PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`GradOperation`求该函数或者网络所有的输入梯度。
+PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`GradOperation`求该函数或者网络所有的输入梯度。需要注意，输入类型仅支持Tensor。
 
 **示例代码**
 
@@ -261,7 +261,7 @@ def mul(x, y):
 def mainf(x, y):
     return C.GradOperation('get_all', get_all=True)(mul)(x, y)
 
-print(mainf(1,2))
+print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
 **输出**
