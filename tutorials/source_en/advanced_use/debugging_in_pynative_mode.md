@@ -243,7 +243,7 @@ print(z.asnumpy())
 
 ## Debugging Network Train Model
 
-In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network.
+In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network. Note that the inputs have to be Tensor.
 
 **Example Code**
 
@@ -259,7 +259,7 @@ def mul(x, y):
 def mainf(x, y):
     return C.GradOperation('get_all', get_all=True)(mul)(x, y)
 
-print(mainf(1,2))
+print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
 **Output**
