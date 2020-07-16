@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/aware_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/quantization_aware.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 背景
 
@@ -32,7 +32,7 @@
 
 如上所述，与FP32类型相比，FP16、INT8、INT4等低精度数据表达类型所占用空间更小。使用低精度数据表达类型替换高精度数据表达类型，可以大幅降低存储空间和传输时间。而低比特的计算性能也更高，INT8相对比FP32的加速比可达到3倍甚至更高，对于相同的计算，功耗上也有明显优势。
 
-当前业界量化方案主要分为两种：感知量化训练（Aware Quantization Training）和训练后量化（Post-training Quantization）。
+当前业界量化方案主要分为两种：感知量化训练（Quantization Aware Training）和训练后量化（Post-training Quantization）。
 
 ### 伪量化节点
 
