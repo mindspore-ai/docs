@@ -15,6 +15,7 @@
             - [Computational Graph Visualization](#computational-graph-visualization)
             - [Dataset Graph Visualization](#dataset-graph-visualization)
             - [Image Visualization](#image-visualization)
+            - [Tensor Visualization](#tensor-visualization)
         - [Model Lineage](#model-lineage)
         - [Dataset Lineage](#dataset-lineage)
         - [Scalars Comparision](#scalars-comparision)
@@ -316,6 +317,19 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
     summary_collector = SummaryCollecotor('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
+4. Since tensor visualizatioin (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
+   The storage space occupied by the tensor visualizatioin function can be reduced by the following methods:
+    1) Avoid using `TensorSummary` to record larger tensor.
+
+    2) Reduce the number of `TensorSummary` operators in the network.
+
+   After using the function, please clean up the training logs that are no longer needed in time to free up disk space.
+
+   Remarks: The method of estimating the space usage of `TensorSummary` is as follows:
+
+   The size of a `TensorSummary` data = the number of values in the tensor * 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is 32*1*256*256, then a `TensorSummary` data needs about 32*1*256*256*4 bytes = 8,388,608 bytes = 8MiB.
+   Also suppose that the collect_freq of `SummaryCollector` is set to 1, and 50 iterations are trained. Then the required space when recording these 50 sets of data is about 50*8 MiB = 400MiB.
+   It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 400MiB.
 
 ## Visualization Components
 
@@ -396,11 +410,11 @@ Figure 7: Computational graph function area
 
 Figure 7 shows the function area of the computational graph, including:
 
-*  File selection box: View the computational graphs of different files.
-*  Search box: Enter a node name and press Enter to view the node.
-*  Thumbnail: Display the thumbnail of the entire network structure. When viewing an extra large image structure, you can view the currently browsed area.
-*  Node information: Display the basic information of the selected node, including the node name, properties, input node, and output node.
-*  Legend: Display the meaning of each icon in the computational graph.
+- File selection box: View the computational graphs of different files.
+- Search box: Enter a node name and press Enter to view the node.
+- Thumbnail: Display the thumbnail of the entire network structure. When viewing an extra large image structure, you can view the currently browsed area.
+- Node information: Display the basic information of the selected node, including the node name, properties, input node, and output node.
+- Legend: Display the meaning of each icon in the computational graph.
 
 #### Dataset Graph Visualization
 
@@ -412,9 +426,9 @@ Figure 8: Dataset graph function area
 
 Figure 8 shows the dataset graph function area which includes the following content:
 
-*  Legend: Display the meaning of each icon in the data lineage graph.
-* Data Processing Pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
-* Node Information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
+- Legend: Display the meaning of each icon in the data lineage graph.
+- Data Processing Pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
+- Node Information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
 
 #### Image Visualization
 
@@ -436,27 +450,59 @@ Figure 10 shows the function area of image visualization. You can view image inf
 - Brightness Adjustment: Adjust the brightness of all displayed images.
 - Contrast Adjustment: Adjust the contrast of all displayed images.
 
+#### Tensor Visualization
+
+Tensor visualization is used to display tensors in the form of table and histogram.
+
+![tensor_function.png](./images/tensor_function.png)
+
+Figure 11: Tensor visualization function area
+
+Figure 11 shows the function area of tensor visualization.
+
+- Tag selection: Select the required tags to view the corresponding table data or histogram.
+- View: Select `Table` or `Histogram` to display tensor data. In the `Histogram` view, there are the options of `Vertical axis` and `Angle of view`.
+- Vertical axis: Select any of `Step`, `Relative time`, and `Absolute time` as the data displayed on the vertical axis of the histogram.
+- Angle of view: Select either `Front` or `Top`. `Front` view refers to viewing the histogram from the front view. In this case, data between different steps is overlapped. `Top` view refers to viewing the histogram at an angle of 45 degrees. In this case, data between different steps can be presented.
+
+![tensor_table.png](./images/tensor_table.png)
+
+Figure 12: Table display
+
+Figure 12 shows tensors recorded by a user in a form of a table which includes the following function:
+
+- Click the small square button on the right side of the table to zoom in the table.
+- The white box in the table shows the tensor data under which dimension is currently displayed, where the colon `:` represents all values of the current dimension, you can enter the corresponding index or `:` in the box and press `Enter` or click the button of tick on the back to query tensor data for specific dimensions.
+   Assuming a certain dimension is 32, the index range is -32 to 31. Note: tensor data from 0 to 2 dimensions can be queried. Tensor data of more than two dimensions is not supported, in other word, the query conditions of more than two colons `:` cannot be set.
+- Query the tensor data of a specific step by dragging the hollow circle below the table.
+
+![tensor_histogram.png](./images/tensor_histogram.png)
+
+Figure 13: Histogram display
+
+Figure 13 shows tensors recorded by a user in a form of a histogram. Click the upper right corner to zoom in the histogram.
+
 ### Model Lineage
 
 Model lineage visualization is used to display the parameter information of all training models.
 
 ![image.png](./images/lineage_label.png)
 
-Figure 11: Model parameter selection area
+Figure 14: Model parameter selection area
 
-Figure 11 shows the model parameter selection area, which lists the model parameter tags that can be viewed. You can select required tags to view the corresponding model parameters.
+Figure 14 shows the model parameter selection area, which lists the model parameter tags that can be viewed. You can select required tags to view the corresponding model parameters.
 
 ![image.png](./images/lineage_model_chart.png)
 
-Figure 12: Model lineage function area
+Figure 15: Model lineage function area
 
-Figure 12 shows the model lineage function area, which visualizes the model parameter information. You can select a specific area in the column to display the model information within the area.
+Figure 15 shows the model lineage function area, which visualizes the model parameter information. You can select a specific area in the column to display the model information within the area.
 
 ![image.png](./images/lineage_model_table.png)
 
-Figure 13: Model list
+Figure 16: Model list
 
-Figure 13 shows all model information in groups. You can sort the model information in ascending or descending order by specified column.
+Figure 16 shows all model information in groups. You can sort the model information in ascending or descending order by specified column.
 
 ### Dataset Lineage
 
@@ -464,21 +510,21 @@ Dataset lineage visualization is used to display data processing and augmentatio
 
 ![data_label.png](./images/data_label.png)
 
-Figure 14: Data processing and augmentation operator selection area
+Figure 17: Data processing and augmentation operator selection area
 
-Figure 14 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
+Figure 17 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
 
 ![data_chart.png](./images/data_chart.png)
 
-Figure 15: Dataset lineage function area
+Figure 18: Dataset lineage function area
 
-Figure 15 shows the dataset lineage function area, which visualizes the parameter information used for data processing and augmentation. You can select a specific area in the column to display the parameter information within the area.
+Figure 18 shows the dataset lineage function area, which visualizes the parameter information used for data processing and augmentation. You can select a specific area in the column to display the parameter information within the area.
 
 ![data_table.png](./images/data_table.png)
 
-Figure 16: Dataset lineage list
+Figure 19: Dataset lineage list
 
-Figure 16 shows the data processing and augmentation information of all model trainings.
+Figure 19 shows the data processing and augmentation information of all model trainings.
 
 > If user filters the model lineage and then switches to the data lineage page, the line chart will show the latest filtered column in model lineage.
 
@@ -488,9 +534,9 @@ Scalars Comparision can be used to compare scalar curves between multiple traini
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
-Figure 17: Scalars comparision curve area
+Figure 20: Scalars comparision curve area
 
-Figure 17 shows the scalar curve comparision between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
+Figure 20 shows the scalar curve comparision between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
 
 Buttons from left to right in the upper right corner of the figure are used to display the chart in full screen, switch the Y-axis scale, enable or disable the rectangle selection, roll back the chart step by step, and restore the chart.
 
@@ -502,9 +548,9 @@ Buttons from left to right in the upper right corner of the figure are used to d
 
 ![multi_scalars_select.png](./images/multi_scalars_select.png)
 
-Figure 18: Scalars comparision function area
+Figure 21: Scalars comparision function area
 
-Figure 18 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
+Figure 21 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 
 - Training: Select or filter the required trainings to view the corresponding scalar information.
 - Tag: Select the required tags to view the corresponding scalar information.
