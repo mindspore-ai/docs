@@ -62,6 +62,12 @@ Q: What should I do if there is a prompt `tclsh not found` when I compile MindSp
 
 A: Please install the software manually if there is any suggestion of certain `software not found`.
 
+<br/>
+
+Q: What should I do if prompt message is that the directory path has Chinese garbled code when I compile MindSpore from source code in Windows system?
+
+A: Please change the Chinese directory to English, and make sure there are no Chinese characters in the directory.
+
 ## Support
 
 ### Model Support
