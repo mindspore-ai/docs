@@ -28,9 +28,10 @@ MindSpore API
    api/python/mindspore/mindspore.dataset.transforms
    api/python/mindspore/mindspore.dataset.transforms.vision
    api/python/mindspore/mindspore.mindrecord
+   api/python/mindspore/mindspore.profiler
 
    api/python/mindinsight/mindinsight.lineagemgr
-   api/python/mindinsight/mindinsight.profiler
+
 
    api/python/mindarmour/mindarmour
    api/python/mindarmour/mindarmour.utils

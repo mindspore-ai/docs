@@ -30,14 +30,14 @@
 
 ## 准备训练脚本
 
-为了收集神经网络的性能数据，需要在训练脚本中添加MindInsight Profiler相关接口。  
-- 在`set_context`之后和初始化网络之前，需要初始化MindInsight `Profiler`对象。
+为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
+- 在`set_context`之后和初始化网络之前，需要初始化MindSpore `Profiler`对象。
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
 样例代码如下：
 
 ```python
-from mindinsight.profiler import Profiler
+from mindspore.profiler import Profiler
 from mindspore import Model, nn, context
 
 
