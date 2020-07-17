@@ -7,13 +7,12 @@
     - [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
         - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
     - [Inference on the Ascend 310 AI processor](#inference-on-the-ascend-310-ai-processor)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-1)
         - [Inference Using an ONNX or GEIR File](#inference-using-an-onnx-or-geir-file)
     - [Inference on a GPU](#inference-on-a-gpu)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-2)
+        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-1)
         - [Inference Using an ONNX File](#inference-using-an-onnx-file)
     - [Inference on a CPU](#inference-on-a-cpu)
-        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-3)
+        - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-2)
         - [Inference Using an ONNX File](#inference-using-an-onnx-file-1)
     - [On-Device Inference](#on-device-inference)
 
@@ -70,10 +69,6 @@ MindSpore supports the following inference scenarios based on the hardware platf
    `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.html#mindspore.Model.predict>.
 
 ## Inference on the Ascend 310 AI processor
-
-### Inference Using a Checkpoint File
-The inference is the same as that on the Ascend 910 AI processor.
-
 
 ### Inference Using an ONNX or GEIR File
 
