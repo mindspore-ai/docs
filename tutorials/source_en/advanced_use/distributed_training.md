@@ -54,45 +54,33 @@ The following uses the Ascend 910 AI processor as an example. The JSON configura
 
 ```json
 {
-    "board_id": "0x0000",
-    "chip_info": "910",
-    "deploy_mode": "lab",
-    "group_count": "1",
-    "group_list": [
+    "version": "1.0",
+    "server_count": "1",
+    "server_list": [
         {
-            "device_num": "8",
-            "server_num": "1",
-            "group_name": "",
-            "instance_count": "8",
-            "instance_list": [
-                {"devices": [{"device_id": "0","device_ip": "192.1.27.6"}],"rank_id": "0","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "1","device_ip": "192.2.27.6"}],"rank_id": "1","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "2","device_ip": "192.3.27.6"}],"rank_id": "2","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "3","device_ip": "192.4.27.6"}],"rank_id": "3","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "4","device_ip": "192.1.27.7"}],"rank_id": "4","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "5","device_ip": "192.2.27.7"}],"rank_id": "5","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "6","device_ip": "192.3.27.7"}],"rank_id": "6","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "7","device_ip": "192.4.27.7"}],"rank_id": "7","server_id": "10.155.111.140"}
-                ]
+            "server_id": "10.155.111.140",
+            "deivce": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
         }
     ],
-    "para_plane_nic_location": "device",
-    "para_plane_nic_name": ["eth0","eth1","eth2","eth3","eth4","eth5","eth6","eth7"],
-    "para_plane_nic_num": "8",
     "status": "completed"
 }
-
 ```
 The following parameters need to be modified based on the actual training environment:
 
-- `board_id`: current running environment. Set this parameter to `0x0000` for x86, and to `0x0020` for ARM.
-- `server_num`: number of hosts.
+- `server_count`: number of hosts.
 - `server_id`: IP address of the local host.
-- `device_num`, `para_plane_nic_num`, and `instance_count`: number of devices.
-- `rank_id`: logical sequence number of a device, which starts from 0.
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
 - `device_ip`: IP address of the integrated NIC. You can run the `cat /etc/hccn.conf` command on the current host. The key value of `address_x` is the IP address of the NIC.
-- `para_plane_nic_name`: name of the corresponding NIC.
+- `rank_id`: logical sequence number of a device, which starts from 0.
 
 
 ### Calling the Collective Communication Library

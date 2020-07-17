@@ -54,43 +54,34 @@
 
 ```json
 {
-    "board_id": "0x0000",
-    "chip_info": "910",
-    "deploy_mode": "lab",
-    "group_count": "1",
-    "group_list": [
+    "version": "1.0",
+    "server_count": "1",
+    "server_list": [
         {
-            "device_num": "8",
-            "server_num": "1",
-            "group_name": "",
-            "instance_count": "8",
-            "instance_list": [
-                {"devices": [{"device_id": "0","device_ip": "192.1.27.6"}],"rank_id": "0","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "1","device_ip": "192.2.27.6"}],"rank_id": "1","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "2","device_ip": "192.3.27.6"}],"rank_id": "2","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "3","device_ip": "192.4.27.6"}],"rank_id": "3","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "4","device_ip": "192.1.27.7"}],"rank_id": "4","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "5","device_ip": "192.2.27.7"}],"rank_id": "5","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "6","device_ip": "192.3.27.7"}],"rank_id": "6","server_id": "10.155.111.140"},
-                {"devices": [{"device_id": "7","device_ip": "192.4.27.7"}],"rank_id": "7","server_id": "10.155.111.140"}
-                ]
+            "server_id": "10.155.111.140",
+            "deivce": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
         }
     ],
-    "para_plane_nic_location": "device",
-    "para_plane_nic_name": ["eth0","eth1","eth2","eth3","eth4","eth5","eth6","eth7"],
-    "para_plane_nic_num": "8",
     "status": "completed"
 }
-
 ```
+
 其中需要根据实际训练环境修改的参数项有：
 
-- `board_id`表示当前运行的环境，x86设为`0x0000`，arm设为`0x0020`。
-- `server_num`表示机器数量， `server_id`表示本机IP地址。
-- `device_num`、`para_plane_nic_num`及`instance_count`表示卡的数量。
-- `rank_id`表示卡逻辑序号，固定从0开始编号，`device_id`表示卡物理序号，即卡所在机器中的实际序号。
+- `server_count`表示参与训练的机器数量。
+- `server_id`表示当前机器的IP地址。
+- `device_id`表示卡物理序号，即卡所在机器中的实际序号。
 - `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
-- `para_plane_nic_name`对应网卡名称。
+- `rank_id`表示卡逻辑序号，固定从0开始编号。
 
 
 ### 调用集合通信库
