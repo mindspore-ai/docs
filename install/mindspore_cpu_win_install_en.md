@@ -70,6 +70,7 @@ This document describes how to quickly install MindSpore on a Windows system wit
     ```bash
     call build.bat
     ```
+    > - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.).
     > - Before running the preceding command, ensure that the paths of `mingw64\bin\` and the executable files `cmake` have been added to the environment variable PATH.
     > - If git was not installed in `ProgramFiles`, you will need to set environment variable to where `patch.exe` is allocated. For example, when git was install in `D:\git`, `set MS_PATCH_PATH=D:\git\usr\bin`.
     > - In the `build.bat` script, the git clone command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
