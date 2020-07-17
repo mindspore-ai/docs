@@ -70,6 +70,7 @@
     ```bash
     call build.bat
     ```
+    > - 需确保源码路径中不含中文、日文等字符。
     > - 在执行上述命令前，需保证`mingw64\bin\`路径和可执行文件`cmake`所在路径已加入环境变量PATH中。
     > - 如git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。
     > - `build.bat`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
