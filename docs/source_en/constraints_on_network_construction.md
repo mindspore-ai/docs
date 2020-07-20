@@ -55,7 +55,7 @@
 | Statement         | Compared with Python
 | :----------- |:--------
 | `for`        | Nested for loops are partially supported. Iteration sequences must be tuples or lists.
-| `while`      | Nested while loops are partially supported.
+| `while`      | Nested while loops are partially supported. Grad of net with while is not supported.
 | `if`         | Same as that in Python. The input of the `if` condition must be a constant.
 | `def`        | Same as that in Python.
 | `in`         | Only support Dictionary.
