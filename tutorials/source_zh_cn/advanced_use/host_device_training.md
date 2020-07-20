@@ -28,69 +28,38 @@
 
     ```json
     {
-         "board_id": "0x0020",
-         "chip_info": "910",
-         "deploy_mode": "lab",
-         "group_count": "1",
-         "group_list": [
+         "version": "1.0",
+         "server_count": "1",
+         "server_list": [
              {
-                 "device_num": "1",
-                 "server_num": "1",
-                 "group_name": "",
-                 "instance_count": "1",
-                 "instance_list": [
-                          {"devices":[{"device_id":"0","device_ip":"192.1.113.246"}],"rank_id":"0","server_id":"10.155.170.16"}
-                    ]
+                 "server_id":"10.155.170.16",
+                 "device": [
+                          {"device_id":"0","device_ip":"192.1.113.246","rank_id":"0"}],
+                 "host_nic_ip":"reserve"
              }
          ],
-         "para_plane_nic_location": "device",
-         "para_plane_nic_name": [
-             "eth0"
-         ],
-         "para_plane_nic_num": "1",
          "status": "completed"
      }
-    
     ```
 
 ## 配置混合执行
 
-1. 配置待训练参数的存储位置。在`train_and_eval_auto_parallel.py`文件`train_and_eval`函数的`model.train`调用中，增加配置`dataset_sink_mode=False`，以指示参数数据保持在主机端，而非加速器端。
+1. 配置待训练参数的存储位置。在`train_and_eval_auto_parallel.py`文件`train_and_eval`函数的`model.train`调用中，增加配置`dataset_sink_mode=False`，以指示参数数据保持在主机端，而非加速器端。在`train_and_eval_auto_parallel.py`文件中改变配置`context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)`为`context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, mirror_mean=True)`，即配置为半自动并行，以适配混合并行模式。
 
-2. 配置待训练参数的稀疏性质。由于待训练参数的规模大，需将参数配置为稀疏，也就是：真正参与计算的并非全量的参数，而是其索引值。由于稀疏特性在MindSpore中属于正在开发中的特性，其用法可能会有优化，此文档也会更新。
+2. 配置待训练参数的稀疏性质。由于待训练参数的规模大，需将参数配置为稀疏，也就是：真正参与计算的并非全量的参数，而是其索引值。
     
-    在`src/wide_and_deep.py`的`class WideDeepModel(nn.Cell)`中，将`self.wide_w`赋值替换为
+    在`train_and_eval_auto_parallel.py`文件中增加配置`context.set_context(enable_sparse=True)`。
     
-    ```python
-    self.wide_w = Parameter(Tensor(np.random.normal(loc=0.0, scale=0.01, size=[184968, 1]).astype(dtype=np_type)), name='Wide_w', sparse_grad='Wide_w')
-    ``` 
-    
-    将`self.embedding_table`赋值替换为
-    
-    ```python
-    self.embedding_table = Parameter(Tensor(np.random.normal(loc=0.0, scale=0.01, size=[184968, 80]).astype(dtype=np_type)), name='V_l2',  sparse_grad='V_l2')
-    ```
-    此外，需要在`src/wide_and_deep.py`的头文件引用中添加：
-    
-    ```python
-    from mindspore import Tensor
-    ```
     在`src/wide_and_deep.py`文件的`class WideDeepModel(nn.Cell)`类的`construct`函数中，将函数的返回值替换为如下值，以适配参数的稀疏性：
     
     ```
     return out, deep_id_embs
     ```
-    
-    除此之外，还需要配置对应的环境变量：
-    
-    ```shell
-    export UNDETERMINED_SPARSE_SHAPE_TYPES="Wide_w:624000:Int32:624000 1:Float32:184968 1;V_l2:624000:Int32:624000 80:Float32:184968 80"
-    ```
 
-3. 配置必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`class WideDeepModel(nn.Cell)`中，为`GatherV2`增加配置主机端执行的属性，
+3. 配置必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`class WideDeepModel(nn.Cell)`中，为`EmbeddingLookup`设置主机端执行的属性，
 
     ```python
-    self.gather_v2 = P.GatherV2().add_prim_attr('primitive_target', 'CPU')
+    self.embeddinglookup = nn.EmbeddingLookup(target='CPU')
     ```
     
     在`src/wide_and_deep.py`文件的`class TrainStepWrap(nn.Cell)`中，为两个优化器增加配置主机端执行的属性。
@@ -130,7 +99,7 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 [INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 costs 15521 us.
 ```
 
-表示`EmbeddingLookup`在主机端的执行时间。由于`GatherV2`算子在主机端执行时会被换成`EmbeddingLookup`算子，这也是`GatherV2`的执行时间。
+表示`EmbeddingLookup`在主机端的执行时间。
 继续在`test_deep0.log`搜索关键字`SparseApplyFtrl`和`SparseApplyLazyAdam`，可找到如下信息：
 
 ```
