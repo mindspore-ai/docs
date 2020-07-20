@@ -36,7 +36,7 @@ def classify(image):
 
 The key point is to select a proper model. The model generally refers to a deep convolutional neural network (CNN), such as AlexNet, VGG, GoogleNet, and ResNet.
 
-MindSpore presets a typical CNN, developer can visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) to get more details.
+MindSpore presets a typical CNN, developer can visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official) to get more details.
 
 MindSpore supports the following image classification networks: LeNet, AlexNet, and ResNet.
 
