@@ -1,4 +1,4 @@
-sphinx
+sphinx >= 3.0.2, <= 3.0.4
 recommonmark
 sphinx-markdown-tables
 sphinx_rtd_theme
