@@ -29,12 +29,12 @@ Performance data like operators' execution time is recorded in files and can be 
 
 ## Preparing the Training Script
 
-To enable the performance profiling of neural networks, MindInsight Profiler APIs should be added into the script. At first, the MindInsight `Profiler` object need to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
+To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script. At first, the MindSpore `Profiler` object need to be set after set context and before the network initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
 
 The sample code is as follows:
 
 ```python
-from mindinsight.profiler import Profiler
+from mindspore.profiler import Profiler
 from mindspore import Model, nn, context
 
 
