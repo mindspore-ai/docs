@@ -59,7 +59,7 @@
     "server_list": [
         {
             "server_id": "10.155.111.140",
-            "deivce": [
+            "device": [
                 {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
                 {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
                 {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
