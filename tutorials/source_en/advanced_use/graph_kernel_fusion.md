@@ -3,12 +3,12 @@
 <!-- TOC -->
 
 - [Graph Kernel Fusion](#graph-kernel-fusion)
-    - [Overview](#overview)
-    - [Enabling Method](#enabling-method)
-        - [Sample Scripts](#sample-scripts)
-    - [Effect Evaluation](#effect-evaluation)
-        - [Computational Graph](#computational-graph)
-        - [Training Time for One Step](#training-time-for-one-step)
+  - [Overview](#overview)
+  - [Enabling Method](#enabling-method)
+    - [Sample Scripts](#sample-scripts)
+  - [Effect Evaluation](#effect-evaluation)
+    - [Computational Graph](#computational-graph)
+    - [Training Time for One Step](#training-time-for-one-step)
 
 <!-- /TOC -->
 
@@ -98,7 +98,7 @@ context.set_context(enable_graph_kernel=True)
 
 2. `BERT-large` training network
 
-    Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/bert>. You only need to modify the `context` parameter.
+    Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
       
 
 ## Effect Evaluation
