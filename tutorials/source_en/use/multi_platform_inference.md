@@ -59,7 +59,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
     ```
     In the preceding information:  
     `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.html#mindspore.Model.eval>.
-    > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lenet/eval.py>.
+    > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>.
 
 2. Use the `model.predict` API to perform inference.
    ```python

@@ -36,7 +36,7 @@ def classify(image):
 
 选择合适的model是关键。这里的model一般指的是深度卷积神经网络，如AlexNet、VGG、GoogLeNet、ResNet等等。
 
-MindSpore实现了典型的卷积神经网络，开发者可以参考[model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+MindSpore实现了典型的卷积神经网络，开发者可以参考[model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official)。
 
 MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet、ResNet。
 

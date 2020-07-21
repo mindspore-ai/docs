@@ -59,7 +59,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
     ```
     其中，  
     `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.eval>。
-    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lenet/eval.py>。
+    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
 
 2. 使用`model.predict`接口来进行推理操作。
    ```python
