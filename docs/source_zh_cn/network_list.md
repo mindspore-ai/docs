@@ -15,7 +15,7 @@
 | 计算机视觉（CV）  | 移动端图像分类（Mobile Image Classification）<br>目标检测（Image Classification）<br>语义分割（Semantic Tegmentation）  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/mobilenetv2/src/mobilenetV2.py)                                            |  Supported |  Supported | Doing
 | 计算机视觉（CV）  | 移动端图像分类（Mobile Image Classification）<br>目标检测（Image Classification）<br>语义分割（Semantic Tegmentation）  | [MobileNetV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/mobilenetv3/src/mobilenetV3.py)                                            |  Doing |  Supported | Doing
 |计算机视觉（CV）  | 目标检测（Targets Detection）  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/ssd/src/ssd.py)                   |  Supported |Doing | Doing
-| 计算机视觉（CV）  | 目标检测（Targets Detection）  | [YoloV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/yolov3/src/yolov3.py)         |  Supported |  Doing | Doing
+| 计算机视觉（CV）  | 目标检测（Targets Detection）  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/yolov3_resnet18/src/yolov3.py)         |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Targets Detection）  | [FasterRCNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/faster_rcnn/src/FasterRcnn)         |  Supported |  Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [Deeplabv3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/deeplabv3/src/deeplabv3.py)                                       |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)                                          |  Supported |  Doing | Doing
