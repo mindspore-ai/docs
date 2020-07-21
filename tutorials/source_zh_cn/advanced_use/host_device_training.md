@@ -100,11 +100,11 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 ```
 
 表示`EmbeddingLookup`在主机端的执行时间。
-继续在`test_deep0.log`搜索关键字`SparseApplyFtrl`和`SparseApplyLazyAdam`，可找到如下信息：
+继续在`test_deep0.log`搜索关键字`FusedSparseFtrl`和`FusedSparseLazyAdam`，可找到如下信息：
 
 ```
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_w-FTRL/SparseApplyFtrl-op299 costs 54492 us.
-[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/SparseApplyLazyAdam-op300 costs 142865 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.422.963 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_w-FTRL/FusedSparseFtrl-op299 costs 54492 us.
+[INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/FusedSparseLazyAdam-op300 costs 142865 us.
 ```
 
 表示两个优化器在主机端的执行时间。
