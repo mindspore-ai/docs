@@ -10,7 +10,7 @@
 <source id="mp41" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/CPU.mp4" type="video/mp4">
 </video>
 
-**Install now**：<https://www.mindspore.cn/install/en>
+**Install now**: <https://www.mindspore.cn/install/en>
 
 </br>
 
@@ -21,7 +21,7 @@
 <source id="mp42" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Windows.mp4" type="video/mp4">
 </video>
 
-**Install now**：<https://www.mindspore.cn/install/en>
+**Install now**: <https://www.mindspore.cn/install/en>
 
 </br>
 
@@ -31,7 +31,7 @@
 <source id="mp43" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/GPU.mp4" type="video/mp4">
 </video>
 
-**Install now**：<https://www.mindspore.cn/install/en>
+**Install now**: <https://www.mindspore.cn/install/en>
 
 </br>
 
@@ -43,7 +43,7 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Quick%20Start.mp4" type="video/mp4">
 </video>
 
-**View code**：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py>
+**View code**: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py>
 
 ### Saving and Loading Model Parameters
 
@@ -56,3 +56,17 @@
 <video id="video6" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/%E7%BD%91%E7%AB%99-%E8%A7%86%E9%A2%91%E5%B0%81%E9%9D%A2_%E8%87%AA%E5%AE%9A%E4%B9%89%E8%B0%83%E8%AF%95%20En%E8%AF%A6%E6%83%85%E9%A1%B5.png">
 <source id="mp46" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Customized%20Debugging.mp4" type="video/mp4">
 </video>
+
+### Mindinsight Tutorial
+
+- MindInsight installation and common commands
+
+<video id="video7" controls width="1100px" height="550px" poster="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/MI-1%E8%AF%A6%E6%83%85%E9%A1%B5.png">
+<source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E7%AC%AC%E4%B8%80%E7%AF%87.mp4" type="video/mp4">
+</video>
+
+**Install now**: <https://www.mindspore.cn/install/en>
+
+**More commands**: <https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html>
+
+
