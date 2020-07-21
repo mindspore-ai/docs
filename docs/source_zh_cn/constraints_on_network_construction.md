@@ -55,7 +55,7 @@
 | 语句         | 与Python对比
 | :----------- |:--------
 | `for`        | 迭代序列必须是Tuple/List，部分嵌套场景支持。
-| `while`      | 部分嵌套场景支持。
+| `while`      | 部分嵌套场景支持，对带有while循环的网络求反向不支持。
 | `if`         | 与Python使用原则一致，但if条件的输入只支持常量。
 | `in`         | 仅支持Dictionary
 | `not in`     | 仅支持Dictionary
