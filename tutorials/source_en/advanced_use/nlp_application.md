@@ -86,7 +86,7 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
-> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm>
+> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm>
 > - `src/config.py`：some configurations on the network, including the batch size and number of training epochs.
 > - `src/dataset.py`：dataset related definition，include MindRecord file convert and data-preprocess, etc.
 > - `src/imdb.py`： the util class for parsing IMDB dataset.
@@ -156,7 +156,7 @@ if args.preprocess == "true":
 ```
 > After convert success, we can file `mindrecord` files under the directory `preprocess_path`. Usually, this operation does not need to be performed every time while the data set is unchanged.
 
-> `convert_to_mindrecord` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/dataset.py>
+> `convert_to_mindrecord` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 > It consists of two steps:
 >1. Process the text dataset, including encoding, word segmentation, alignment, and processing the original GloVe data to adapt to the network structure.
@@ -176,7 +176,7 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        weight=Tensor(embedding_table),
                        batch_size=cfg.batch_size)
 ```
-> `SentimentNet` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/lstm.py>
+> `SentimentNet` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
 
 ### Pre-Training
 
@@ -215,7 +215,7 @@ else:
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
-> `lstm_create_dataset` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/lstm/src/dataset.py>
+> `lstm_create_dataset` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 ### Validating the Model
 
