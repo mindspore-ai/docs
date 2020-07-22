@@ -7,7 +7,7 @@
 |  Domain | Sub Domain    | Network                                   | Ascend | GPU | CPU 
 |:------   |:------| :-----------                               |:------   |:------  |:-----
 |Computer Version (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)          |  Supported |  Supported | Doing
-| Computer Version (CV)  | Image Classification  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/googlenet/src/googlenet.py)                                               |  Supported     | Doing | Doing
+| Computer Version (CV)  | Image Classification  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/src/googlenet.py)                                               |  Supported     | Doing | Doing
 | Computer Version (CV)  | Image Classification  | [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)              |  Supported |  Supported | Supported
 | Computer Version (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)          |  Supported |  Supported | Doing
 |Computer Version (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)                                              |  Supported |Doing | Doing
