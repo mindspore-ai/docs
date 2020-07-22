@@ -205,7 +205,7 @@ model.train(epoch_size, dataset, callbacks=[ckpoint_cb, loss_cb])
 ```python
 param_dict = load_checkpoint(args_opt.checkpoint_path)
 load_param_into_net(net, param_dict)
-eval_dataset = create_dataset(1, training=False)
+eval_dataset = create_dataset(training=False)
 res = model.eval(eval_dataset)
 print("result: ", res)
 ```

@@ -89,7 +89,7 @@ ds1 = ds1.repeat(10)
 
 > 在机器学习中，每训练完一个完整的数据集，我们称为训练完了一个epoch。
 
-加倍数据集，通常用在多个epoch（迭代）训练中，通过`repeat`来加倍数据量。`repeat`定义如下：
+加倍数据集，通常用在训练中，通过`repeat`来加倍数据量。`repeat`定义如下：
 ```python
 def repeat(self, count=None):
 ```

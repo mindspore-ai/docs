@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
     # as for train, users could use model.train
     if args_opt.do_train:
-        dataset = create_dataset(epoch_size)
+        dataset = create_dataset()
         batch_num = dataset.get_dataset_size()
         config_ck = CheckpointConfig(save_checkpoint_steps=batch_num, keep_checkpoint_max=35)
         ckpoint_cb = ModelCheckpoint(prefix="train_resnet_cifar10", directory="./", config=config_ck)
@@ -130,6 +130,6 @@ if __name__ == '__main__':
         if args_opt.checkpoint_path:
             param_dict = load_checkpoint(args_opt.checkpoint_path)
             load_param_into_net(net, param_dict)
-        eval_dataset = create_dataset(1, training=False)
+        eval_dataset = create_dataset(training=False)
         res = model.eval(eval_dataset)
         print("result: ", res)

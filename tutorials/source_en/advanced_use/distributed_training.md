@@ -247,7 +247,7 @@ context.set_context(device_id=device_id) # set device_id
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
     loss_cb = LossMonitor()
-    dataset = create_dataset(data_path, epoch_size)
+    dataset = create_dataset(data_path)
     batch_size = 32
     num_classes = 10
     net = resnet50(batch_size, num_classes)

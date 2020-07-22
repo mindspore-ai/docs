@@ -355,7 +355,7 @@ if __name__ == "__main__":
     
     epoch_size = 1    
     mnist_path = "./MNIST_Data"
-    repeat_size = epoch_size
+    repeat_size = 1
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
     ...

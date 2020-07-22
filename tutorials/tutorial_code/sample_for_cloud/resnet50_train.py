@@ -130,7 +130,7 @@ def resnet50_train(args_opt):
     # create dataset
     print('Create train and evaluate dataset.')
     train_dataset = create_dataset(dataset_path=local_data_path, do_train=True,
-                                   repeat_num=epoch_size, batch_size=batch_size)
+                                   repeat_num=1, batch_size=batch_size)
     eval_dataset = create_dataset(dataset_path=local_data_path, do_train=False,
                                    repeat_num=1, batch_size=batch_size)
     train_step_size = train_dataset.get_dataset_size()
