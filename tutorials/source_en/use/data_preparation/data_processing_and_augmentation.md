@@ -88,7 +88,7 @@ In limited datasets, to optimize the network, a dataset is usually trained for m
 
 > In machine learning, an epoch refers to one cycle through the full training dataset.
 
-During multiple epochs, `repeat` can be used to increase the data size. The definition of `repeat` is as follows:
+During training, `repeat` can be used to increase the data size. The definition of `repeat` is as follows:
 ```python
 def repeat(self, count=None):
 ```

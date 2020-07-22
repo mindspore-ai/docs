@@ -234,8 +234,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
 
 # get training dataset
 ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
-                                  cfg.batch_size,
-                                  cfg.epoch_size)
+                                  cfg.batch_size)
 ```
 
 ### Introducing the Differential Privacy

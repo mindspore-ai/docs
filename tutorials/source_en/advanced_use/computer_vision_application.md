@@ -203,7 +203,7 @@ The trained model file (such as `resnet.ckpt`) can be used to predict the class 
 ```python
 param_dict = load_checkpoint(args_opt.checkpoint_path)
 load_param_into_net(net, param_dict)
-eval_dataset = create_dataset(1, training=False)
+eval_dataset = create_dataset(training=False)
 res = model.eval(eval_dataset)
 print("result: ", res)
 ```
