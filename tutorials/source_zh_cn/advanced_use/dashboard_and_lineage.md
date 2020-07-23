@@ -204,10 +204,14 @@ class Net(nn.Cell):
 
         # Init ImageSummary
         self.sm_image = P.ImageSummary()
+        # Init TensorSummary
+        self.sm_tensor = P.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
         self.sm_image("image", data)
+        # Record tensor by Summary operator
+        self.sm_tensor("tensor", data)
         ......
         return out
 
@@ -329,9 +333,7 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 
    备注：估算`TensorSummary`空间使用量的方法如下：
 
-   一个`TensorSummary`数据的大小 ＝ Tensor中的数值个数 * 4 bytes。假设使用`TensorSummary`记录的Tensor大小为32*1*256*256，则一个`TensorSummary`
-   数据大约需要32*1*256*256*4 bytes = 8,388,608 bytes = 8MiB。又假设`SummaryCollector`的collect_freq设置为1，且训练了50个迭代。则记录这50组数据
-   需要的空间约为50*8 MiB ＝ 400MiB。需要注意的是，由于数据结构等因素的开销，实际使用的存储空间会略大于400MiB。
+   一个`TensorSummary`数据的大小 ＝ Tensor中的数值个数 * 4 bytes。假设使用`TensorSummary`记录的Tensor大小为32 * 1 * 256 * 256，则一个`TensorSummary`数据大约需要32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB。又假设`SummaryCollector`的collect_freq设置为1，且训练了50个迭代。则记录这50组数据需要的空间约为50 * 8 MiB ＝ 400MiB。需要注意的是，由于数据结构等因素的开销，实际使用的存储空间会略大于400MiB。
 
 ## 可视化组件
 

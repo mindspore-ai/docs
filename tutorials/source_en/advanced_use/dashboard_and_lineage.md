@@ -203,10 +203,14 @@ class Net(nn.Cell):
 
         # Init ImageSummary
         self.sm_image = P.ImageSummary()
+        # Init TensorSummary
+        self.sm_tensor = P.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
         self.sm_image("image", data)
+        # Record tensor by Summary operator
+        self.sm_tensor("tensor", data)
         ......
         return out
 ```
@@ -327,9 +331,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
    Remarks: The method of estimating the space usage of `TensorSummary` is as follows:
 
-   The size of a `TensorSummary` data = the number of values in the tensor * 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is 32*1*256*256, then a `TensorSummary` data needs about 32*1*256*256*4 bytes = 8,388,608 bytes = 8MiB.
-   Also suppose that the collect_freq of `SummaryCollector` is set to 1, and 50 iterations are trained. Then the required space when recording these 50 sets of data is about 50*8 MiB = 400MiB.
-   It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 400MiB.
+   The size of a `TensorSummary` data = the number of values in the tensor * 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is 32 * 1 * 256 * 256, then a `TensorSummary` data needs about 32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB. Also suppose that the collect_freq of `SummaryCollector` is set to 1, and 50 iterations are trained. Then the required space when recording these 50 sets of data is about 50 * 8 MiB = 400MiB. It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 400MiB.
 
 ## Visualization Components
 
