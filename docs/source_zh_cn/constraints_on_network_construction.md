@@ -41,33 +41,40 @@
 ### 表达式类型
 
 | 操作名          | 具体操作 
-| :-----------    |:--------
-| 一元操作符      |`+`、`-`、`not`，其中`+`操作符只支持标量。
-| 数学表达式      |`+`、`-`、`*`、`/`、`%`、`**`、`//`
+| :-----------   |:--------
+| 一元操作符       |`+`、`-`、`not`，其中`+`操作符只支持标量。
+| 数学表达式       |`+`、`-`、`*`、`/`、`%`、`**`、`//`
 | `if`表达式      |例如`a = x if x < y else y`。
-| 比较表达式      | `>`、`>=`、`<`、`<=`、`==`、`!=`
-| 逻辑表达式      | `and`、 `or`
+| 比较表达式       | `>`、`>=`、`<`、`<=`、`==`、`!=`
+| 逻辑表达式       | `and`、 `or`
 | `lambda`表达式  | 例如`lambda x, y: x + y`。
-| 保留关键字类型   | `True`、`False`、`None`
+| 保留关键字类型    | `True`、`False`、`None`
 
 ### 语句类型
 
-| 语句         | 与Python对比
+| 语句          | 与Python对比
 | :----------- |:--------
+| `def`        | 相同。
 | `for`        | 迭代序列必须是Tuple/List，部分嵌套场景支持。
 | `while`      | 部分嵌套场景支持，对带有while循环的网络求反向不支持。
+| `break`      | 相同。
 | `if`         | 与Python使用原则一致，但if条件的输入只支持常量。
-| `in`         | 仅支持Dictionary
+| `in`         | 仅支持判断常量是否存在于元素都是常量的Tuple/List/Dictionary里。
 | `not in`     | 仅支持Dictionary
-| `def`        | 相同。
-| 赋值语句      | List和Dictionary的多重下标访问不支持作为左值。
+| 赋值语句       | List和Dictionary的多重下标访问不支持作为左值。
 
-### 系统函数
-* len
-* partial
-* map
-* zip
-* range
+### 系统函数/系统类
+
+| 函数/类       | 与Python对比
+| :----------- |:--------
+| `len`        | 使用原则与Python一致，返回结果与Python一致，返回int。
+| `partial`    | 使用原则与Python一致，返回结果与Python不一致，返回函数。
+| `map`        | 使用原则与Python一致，返回结果与Python不一致，返回tuple。
+| `zip`        | 使用原则与Python一致，返回结果与Python不一致，返回tuple。
+| `range`      | 使用原则与Python一致，返回结果与Python不一致，返回tuple。
+| `enumerate`  | 使用原则与Python一致，返回结果与Python不一致，返回tuple。
+| `super`      | 使用原则与Python一致，返回结果与Python不一致，返回mindspore自定义的命名空间。
+| `isinstance` | 使用原则与Python一致，但第二个入参只能是mindspore定义的类型。
 
 ### 函数参数
 *  参数默认值：目前不支持默认值设为`Tensor`类型数据，支持`int`、`float`、`bool`、`None`、`str`、`tuple`、`list`、`dict`类型数据。
@@ -77,7 +84,7 @@
 
 ### 操作符
 
-| 运算符         | 支持类型
+| 运算符        | 支持类型
 | :----------- |:--------
 | `+`          |标量、`Tensor`、`tuple`、`string`
 | `-`          |标量、`Tensor`
@@ -155,19 +162,19 @@
 
 ### 网络构造组件
 
-| 类别                 | 内容
-| :-----------         |:--------
-| `Cell`实例           |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
-| `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。
-| 函数                 | 自定义Python函数、前文中列举的系统函数。
-| dataclass实例        | 使用@dataclass装饰的类。
-| Primitive算子        |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html)
-| Composite算子        |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html)
-| constexpr生成算子    |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
+| 类别                   | 内容
+| :-----------          |:--------
+| `Cell`实例             |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
+| `Cell`实例的成员函数     | Cell的construct中可以调用其他类成员函数。
+| 函数                   | 自定义Python函数、前文中列举的系统函数。
+| dataclass实例          | 使用@dataclass装饰的类。
+| Primitive算子          |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html)
+| Composite算子          |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html)
+| constexpr生成算子       |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
 
 
 ### 其他约束
-整网construct函数输入的参数以及使用ms_function装饰器修饰的函数的参数在图编译过程中会进行泛化，不能作为常量输入传给算子使用，如下例所示：
+整网construct函数输入的参数以及使用ms_function装饰器修饰的函数的参数在图编译过程中会进行泛化，不能作为常量输入传给算子使用。所以，在图模式下，限制入口网络的参数只能是Tensor，如下例所示：
 * 错误的写法如下：
     ```python
     class ExpandDimsTest(Cell):
