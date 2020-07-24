@@ -60,6 +60,7 @@ In the preceding code, initialize a `TrainConfig` class object to set the saving
 `save_checkpoint_steps` indicates the saving frequency. That is, parameters are saved every specified number of steps. `keep_checkpoint_max` indicates the maximum number of CheckPoint files that can be saved.
 `prefix` indicates the prefix name of the generated CheckPoint file. `directory` indicates the directory for storing the file.
 Create a `ModelCheckpoint` object and transfer it to the model.train method. Then you can use the CheckPoint function during training.
+If you want to delete the `.ckpt` file, please delete the `.meta` file simultaneously.
 
 Generated CheckPoint files are as follows:
 

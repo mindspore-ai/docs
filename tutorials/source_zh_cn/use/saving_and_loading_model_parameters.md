@@ -72,6 +72,7 @@ model.train(epoch_num, dataset, callbacks=ckpoint_cb)
 
 如果用户使用相同的前缀名，运行多次训练脚本，可能会生成同名CheckPoint文件。
 MindSpore为方便用户区分每次生成的文件，会在用户定义的前缀后添加"_"和数字加以区分。
+如果想要删除`.ckpt`文件时，请同步删除`.meta` 文件。
 
 例：`resnet50_3-2_32.ckpt` 表示运行第3次脚本生成的第2个epoch的第32个step的CheckPoint文件。
 
