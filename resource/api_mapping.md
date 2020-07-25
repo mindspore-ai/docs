@@ -36,7 +36,9 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.expm1                                          | mindspore.ops.operations.Expm1                                         |
 | torch.eye                                            | mindspore.ops.operations.Eye                                           |
 | torch.flatten                                        | mindspore.ops.operations.Flatten                                       |
+| torch.flip                                           | mindspore.ops.operations.ReverseV2
 | torch.floor                                          | mindspore.ops.operations.Floor                                         |
+| torch.fmod                                           | mindspore.ops.operations.Mod                                           |
 | torch.linspace                                       | mindspore.nn.LinSpace                                                  |
 | torch.load                                           | mindspore.train.serialization.load_checkpoint                          |
 | torch.log                                            | mindspore.ops.operations.Log                                           |
@@ -73,6 +75,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.functional.relu                             | mindspore.ops.operations.ReLU                                          |
 | torch.nn.functional.softmax                          | mindspore.ops.operations.Softmax                                       |
 | torch.nn.functional.softplus                         | mindspore.ops.operations.Softplus                                      |
+| torch.nn.functional.softsign                         | mindspore.ops.operations.Softsign                                      |
 | torch.nn.GroupNorm                                   | mindspore.nn.GroupNorm                                                 |
 | torch.nn.init.constant_                              | mindspore.common.initializer.Constant                                  |
 | torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                                   |
@@ -118,7 +121,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.prod                                           | mindspore.ops.operations.ReduceProd                                    |
 | torch.randn                                          | mindspore.ops.operations.TruncatedNormal                               |
 | torch.range                                          | mindspore.nn.Range                                                     |
-| torch.round                                          | mindspore.ops.operations.Round                                         |
+| torch.round                                          | mindspore.ops.operations.Rint                                          |
 | torch.save                                           | mindspore.train.serialization.save_checkpoint                          |
 | torch.sigmoid                                        | mindspore.ops.operations.Sigmoid                                       |
 | torch.sin                                            | mindspore.ops.operations.Sin                                           |
@@ -130,6 +133,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.stack                                          | mindspore.ops.operations.Pack                                          |
 | torch.std_mean                                       | mindspore.ops.operations.ReduceMean                                    |
 | torch.sum                                            | mindspore.ops.operations.ReduceSum                                     |
+| torch.tan                                            | mindspore.ops.operations.Tan                                           |
 | torch.tanh                                           | mindspore.ops.operations.Tanh                                          |
 | torch.tensor                                         | mindspore.Tensor                                                       |
 | torch.Tensor                                         | mindspore.Tensor                                                       |
