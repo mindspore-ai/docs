@@ -229,6 +229,9 @@ The code output is as follows. Data values in each row of the dataset `ds2` is m
 ```
 ### zip
 MindSpore provides the `zip` function to combine multiple datasets into one dataset.
+
+![avatar](../images/zip.png)
+
 > If the column names in the two datasets are the same, the two datasets are not combined. Therefore, pay attention to column names.  
 > If the number of rows in the two datasets is different, the number of rows after combination is the same as the smaller number.
 ```python

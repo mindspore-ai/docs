@@ -98,7 +98,7 @@ A: Currently, you can try out MindSpore through Docker images on laptops or in e
 
 Q: Does MindSpore support Windows 10?
 
-A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, see tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/en/r0.5/advanced_use/mindspore_cpu_win_install.html).
+A: The MindSpore CPU version can be installed on Windows 10.
 
 ### Programming Language
 
