@@ -19,10 +19,10 @@ the number of required accelerators is too overwhelming for people to access, re
 efficient method for addressing huge model problem. 
 
 In MindSpore, users can easily implement hybrid training by configuring trainable parameters and necessary operators to run on hosts, and other operators to run on accelerators.
-This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
+This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep) in the Host+Ascend 910 AI Accelerator mode.
 ## Preliminaries
 
-1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, 
+1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, 
 `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
 
 2. Prepare the dataset. The dataset can be found at: <https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>. Use the script `/src/preprocess_data.py` to transform dataset into MindRecord format.
