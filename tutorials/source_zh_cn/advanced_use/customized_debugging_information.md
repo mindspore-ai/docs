@@ -9,6 +9,7 @@
         - [自定义Callback](#自定义callback)
     - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
     - [print算子功能介绍](#print算子功能介绍)
+    - [异步数据Dump功能介绍](#异步数据dump功能介绍)
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
@@ -215,6 +216,54 @@ Tensor shape:[[const vector][2, 2]]Int32
 val:[[1 1]
 [1 1]]
 ```
+
+## 异步数据Dump功能介绍
+
+在Ascend环境上执行训练，当训练结果和预期有偏差时，可以通过异步数据Dump功能保存算子的输入输出进行调试。
+
+1. 开启IR保存开关： `context.set_context(save_graphs=True)`。
+2. 执行网络脚本。
+3. 查看执行目录下的`hwopt_d_end_graph_{graph id}.ir`，找到需要Dump的算子名称。
+4. 配置Dump的json配置文件`data_dump.json`。
+
+    ```json
+    {
+        "DumpSettings": {
+            "net_name": "ResNet50",
+            "mode": 1,
+            "iteration": 0,
+            "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
+        },
+
+        "DumpSettingsSpec": {
+            "net_name": "net name eg:ResNet50",
+            "mode": "0: dump all kernels, 1: dump kernels in kernels list",
+            "iteration": "specified iteration ",
+            "kernels": "op's full scope name which need to be dump"
+        }
+    }
+    ```
+
+5. 设置数据Dump的环境变量。
+
+    ```bash
+    export ENABLE_DATA_DUMP=1
+    export DATA_DUMP_PATH=/test
+    export DATA_DUMP_CONFIG_PATH=data_dump.json
+    ```
+
+    > 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+
+    > 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+
+6. 再次执行用例进行异步数据Dump。
+7. 解析文件。
+
+    执行完用例后去`/var/log/npu/ide_daemon/dump/`目录下，运行如下命令解析Dump数据：
+
+    ```bash
+    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析的文件路径}
+    ```
 
 ## 日志相关的环境变量和配置
 MindSpore采用glog来输出日志，常用的几个环境变量如下：
