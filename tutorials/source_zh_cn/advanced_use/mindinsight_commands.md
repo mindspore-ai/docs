@@ -16,7 +16,8 @@
 
     ```shell
     mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
-                      [--port <PORT>] [--reload-interval <RELOAD_INTERVAL>]
+                      [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
+                      [--reload-interval <RELOAD_INTERVAL>]
                       [--summary-base-dir <SUMMARY_BASE_DIR>]
     ```
 
