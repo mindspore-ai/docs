@@ -51,3 +51,5 @@
 | 教程名称                                         |  内容描述
 | :-----------                                    |:------   
 | [quick_start.ipynb](./quick_start.ipynb)                               | - CPU平台下从数据集到模型验证的全过程解读 <br/> - 体验教程中各功能模块的使用说明 <br/> - 数据集图形化展示 <br/> - 了解LeNet5具体结构和参数作用 <br/> - 学习使用自定义回调函数 <br/> - loss值与训练步数的变化图 <br/> - 模型精度与训练步数的变化图 <br/> -  使用模型应用到手写图片的预测与分类上
+| [debugging_in_pynative_mode.ipynb](./debugging_in_pynative_mode.ipynb)                               | - GPU平台下从数据集获取单个数据进行单个step训练的数据变化全过程解读 <br/> - 了解PyNative模式下的调试方法 <br/> - 图片数据在训练过程中的变化情况的图形展示 <br/> - 了解构建权重梯度计算函数的方法 <br/> - 展示1个step过程中权重的变化及数据展示
+| [mindinsight_model_lineage_and_data_lineage.ipynb](./mindinsight/debugging_in_pynative_mode.ipynb)                               | - 了解MindSpore中训练数据的采集及展示 <br/> - 学习使用SummaryRecord记录数据 <br/> - 学习使用回调函数SummaryCollector进行数据采集 <br/> - 使用MindInsight进行数据可视化 <br/> - 了解数据溯源和模型溯源的使用方法
