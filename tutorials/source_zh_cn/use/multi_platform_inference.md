@@ -7,13 +7,12 @@
     - [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
         - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
     - [Ascend 310 AI处理器上推理](#ascend-310-ai处理器上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-1)
         - [使用ONNX与GEIR格式文件推理](#使用onnx与geir格式文件推理)
     - [GPU上推理](#gpu上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-2)
+        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-1)
         - [使用ONNX格式文件推理](#使用onnx格式文件推理)
     - [CPU上推理](#cpu上推理)
-        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-3)
+        - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-2)
         - [使用ONNX格式文件推理](#使用onnx格式文件推理-1)
     - [端侧推理](#端侧推理)
 
@@ -70,10 +69,6 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
    `model.eval`为推理接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.html#mindspore.Model.predict>。
 
 ## Ascend 310 AI处理器上推理
-
-### 使用checkpoint格式文件推理
-与在Ascend 910 AI处理器上推理一样。
-
 
 ### 使用ONNX与GEIR格式文件推理
 
