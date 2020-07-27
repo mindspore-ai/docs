@@ -26,7 +26,6 @@
 
 - Ascend 910 AI处理器
 
-  > - 申请方式：填写[申请表](https://www.mindspore.cn/table)发送至contact@mindspore.cn，审核通过即可获取云上资源。
   > - 需为每张卡预留至少32G内存。
 
 ### 系统要求和软件依赖
