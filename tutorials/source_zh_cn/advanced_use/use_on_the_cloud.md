@@ -269,7 +269,7 @@ if __name__ == '__main__':
 ## 创建训练任务
 
 准备好数据和执行脚本以后，需要创建训练任务将MindSpore脚本真正运行起来。首次使用ModelArts的用户可以根据本章节了解ModelArts创建训练作业的流程。
-> 本章节以MindSpore 0.1.0-alpha版本为例。
+> 本章节以MindSpore 0.5.0-alpha版本为例。ModelArts支持的MindSpore版本以创建训练作业时"算法来源"->"常用框架"->"AI引擎"可选择的版本为准。
 
 ### 进入ModelArts控制台
 
@@ -283,7 +283,7 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 以本教程使用的训练脚本和数据为例，详细列出在创建训练作业界面如何进行配置：
 
-1. `算法来源`选择`常用框架 > Ascend-Powered-Engine > MindSpore-0.1-aarch64-cp37`。
+1. `算法来源`选择`常用框架 > Ascend-Powered-Engine > MindSpore-0.5-python3.7-aarch64`。
 
 2. `代码目录`选择预先在OBS桶中创建代码目录，`启动文件`选择代码目录下的启动脚本。
 
@@ -305,11 +305,14 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 1. 在训练作业界面可以查看运行日志
 
-    采用`8*Ascend`规格执行ResNet-50训练任务，epoch总数为90，精度约为91%，每秒训练图片张数约12200，日志如下图所示。
+    采用`8*Ascend`规格执行ResNet-50训练任务，epoch总数为92，精度约为92%，每秒训练图片张数约12000，日志如下图所示。
+
+    ![8*Ascend训练执行结果](./images/train_log_8_Ascend_clu.png)
 
     ![8*Ascend训练执行结果](./images/train_log_8_Ascend.png)
 
-    采用`1*Ascend`规格执行ResNet-50训练任务。epoch总数为90，精度约为91%，每秒训练图片张数约1600，日志如下图所示。
+
+    采用`1*Ascend`规格执行ResNet-50训练任务。epoch总数为92，精度约为95%，每秒训练图片张数约1800，日志如下图所示。
 
     ![1*Ascend训练执行结果](./images/train_log_1_Ascend.png)
 
