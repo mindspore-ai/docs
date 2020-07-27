@@ -28,7 +28,7 @@
 | [mindspore.nn.Dropout](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Supported | Supported | Doing |layer/basic
 | [mindspore.nn.Flatten](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Supported |  Supported | Doing |layer/basic
 | [mindspore.nn.Dense](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Supported |  Supported | Doing |layer/basic
-| [mindspore.nn.DenseBnAct](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.DenseBnAct)                                                  |Supported |  Supported | Supported |layer/basic
+| [mindspore.nn.DenseBnAct](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.DenseBnAct)                                                  |Supported |  Doing | Supported |layer/basic
 | [mindspore.nn.ClipByNorm](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.ClipByNorm)                                        |Doing | Supported | Doing |layer/basic
 | [mindspore.nn.Norm](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.Norm)                                                    |Doing | Supported | Doing |layer/basic
 | [mindspore.nn.OneHot](https://www.mindspore.cn/api/zh-CN/r0.5/api/python/mindspore/mindspore.nn.html#mindspore.nn.OneHot)                                                |  Supported |  Supported | Doing |layer/basic
