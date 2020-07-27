@@ -1,5 +1,7 @@
 # MindInsight相关命令
 
+<a href="https://gitee.com/mindspore/docs/blob/r0.5/tutorials/source_zh_cn/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 1. 查看命令帮助信息
 
     ```shell
