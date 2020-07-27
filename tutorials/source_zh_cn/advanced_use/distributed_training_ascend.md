@@ -1,8 +1,8 @@
-# 分布式并行训练入门
+# 分布式并行训练 (Ascend)
 
 <!-- TOC -->
 
-- [分布式并行训练入门](#分布式并行训练入门)
+- [分布式并行训练 (Ascend)](#分布式并行训练-ascend)
     - [概述](#概述)
     - [准备环节](#准备环节)
         - [下载数据集](#下载数据集)
@@ -18,23 +18,14 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
-在深度学习中，当数据集和参数量的规模越来越大，训练所需的时间和硬件资源会随之增加，最后会变成制约训练的瓶颈。分布式并行训练，可以降低对内存、计算性能等硬件的需求，是进行训练的重要优化手段。根据并行的原理及模式不同，业界主流的并行类型有以下几种：
 
-- 数据并行（Data Parallel）：对数据进行切分的并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。
-- 模型并行（Model Parallel）：对模型进行切分的并行模式。MindSpore中支持层内模型并行模式，对参数切分后分配到各个计算单元中进行训练。
-- 混合并行（Hybrid Parallel）：涵盖数据并行和模型并行的并行模式。
-
-当前MindSpore也提供分布式并行训练的功能。它支持了多种模式包括：
-- `DATA_PARALLEL`：数据并行模式。
-- `AUTO_PARALLEL`：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，为用户选择1种并行模式。其中，代价模型指围绕Ascend 910芯片基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。
-- `HYBRID_PARALLEL`: 在MindSpore中指用户手动切分参数实现层内模型并行的场景。
-
-本篇教程我们主要讲解如何在MindSpore上通过数据并行及自动并行模式训练ResNet-50网络。
-> 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
+> 你可以在这里下载完整的样例代码：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 
@@ -262,6 +253,7 @@ def test_train_cifar(epoch_size=10):
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
 ## 运行脚本
+
 上述已将训练所需的脚本编辑好了，接下来通过命令调用对应的脚本。
 
 目前MindSpore分布式执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
