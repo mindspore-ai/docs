@@ -2,70 +2,81 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-1. 查看命令帮助信息
+<!-- TOC -->
 
-    ```shell
-    mindinsight --help
-    ```
+- [MindInsight相关命令](#mindinsight相关命令)
+    - [查看命令帮助信息](#查看命令帮助信息)
+    - [查看版本信息](#查看版本信息)
+    - [启动服务](#启动服务)
+    - [查看服务进程信息](#查看服务进程信息)
+    - [停止服务](#停止服务)
 
-2. 查看版本信息
+<!-- /TOC -->
 
-    ```shell
-    mindinsight --version
-    ```
+## 查看命令帮助信息
 
-3. 启动服务
+```shell
+mindinsight --help
+```
 
-    ```shell
-    mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
-                      [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
-                      [--reload-interval <RELOAD_INTERVAL>]
-                      [--summary-base-dir <SUMMARY_BASE_DIR>]
-    ```
+## 查看版本信息
 
-    参数含义如下:
+```shell
+mindinsight --version
+```
 
-    |参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
-    |---|---|---|---|---|---|---|
-    |`-h, --help`|可选|显示启动命令的帮助信息。|-|-|-|-|
-    |`--config <CONFIG>`|可选|指定配置文件或配置模块。|str|空|-|物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。|
-    |`--workspace <WORKSPACE>`|可选|指定工作目录路径。|str|$HOME/mindinsight|-|-|
-    |`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
-    |`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|str|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是空字符串/单点号(.)/双点号(..)。|
-    |`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|int|3|-|设置为0时表示只加载一次数据。|
-    |`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|str|./|-|MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。|
+## 启动服务
 
-    > 服务启动时，命令行参数值将被保存为进程的环境变量，并以 `MINDINSIGHT_` 开头作为标识，如 `MINDINSIGHT_CONFIG`，`MINDINSIGHT_WORKSPACE`，`MINDINSIGHT_PORT` 等。
+```shell
+mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
+                  [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
+                  [--reload-interval <RELOAD_INTERVAL>]
+                   [--summary-base-dir <SUMMARY_BASE_DIR>]
+```
 
-4. 查看服务进程信息
+参数含义如下:
 
-    MindInsight向用户提供Web服务，可通过以下命令，查看当前运行的Web服务进程。
+|参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
+|---|---|---|---|---|---|---|
+|`-h, --help`|可选|显示启动命令的帮助信息。|-|-|-|-|
+|`--config <CONFIG>`|可选|指定配置文件或配置模块。|str|空|-|物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。|
+|`--workspace <WORKSPACE>`|可选|指定工作目录路径。|str|$HOME/mindinsight|-|-|
+|`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
+|`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|str|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是空字符串/单点号(.)/双点号(..)。|
+|`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|int|3|-|设置为0时表示只加载一次数据。|
+|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|str|./|-|MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。|
 
-    ```shell
-    ps -ef | grep mindinsight
-    ```
+> 服务启动时，命令行参数值将被保存为进程的环境变量，并以 `MINDINSIGHT_` 开头作为标识，如 `MINDINSIGHT_CONFIG`，`MINDINSIGHT_WORKSPACE`，`MINDINSIGHT_PORT` 等。
 
-    根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录`WORKSPACE`。
+## 查看服务进程信息
 
-    ```shell
-    lsof -p <PID> | grep access
-    ```
+MindInsight向用户提供Web服务，可通过以下命令，查看当前运行的Web服务进程。
 
-    输出如下，可查看`WORKSPACE`。
+```shell
+ps -ef | grep mindinsight
+```
 
-    ```shell
-    gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
-    ```
+根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录`WORKSPACE`。
 
-5. 停止服务
+```shell
+lsof -p <PID> | grep access
+```
 
-    ```shell
-    mindinsight stop [-h] [--port PORT]
-    ```
+输出如下，可查看`WORKSPACE`。
 
-    参数含义如下:
+```shell
+gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
+```
 
-    |参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
-    |---|---|---|---|---|---|---|
-    |`-h, --help`|可选|显示启动命令的帮助信息。|-|-|-|-|
-    |`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
+## 停止服务
+
+```shell
+mindinsight stop [-h] [--port PORT]
+```
+
+参数含义如下:
+
+|参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
+|---|---|---|---|---|---|---|
+|`-h, --help`|可选|显示启动命令的帮助信息。|-|-|-|-|
+|`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
