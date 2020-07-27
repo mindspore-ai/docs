@@ -15,7 +15,20 @@
 
 ## 概述
 
-MindSpore Predict是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。本教程介绍MindSpore Predict的编译方法和使用指南。
+MindSpore Lite是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。本教程介绍MindSpore Lite的编译方法和使用指南。
+
+![](./images/on_device_inference_frame.png)
+
+图1：端侧推理架构图
+
+MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成。
+
+- Frontend：用于模型的生成，用户可以使用模型构建接口构建模型，或者将第三方模型转化为MindSpore模型。
+- IR：包含MindSpore的Tensor定义、算子原型定义、图定义，后端优化基于IR进行。
+- Backend：包含图优化，量化等功能。图优化分为两部分：high-level优化与硬件无关，如算子融合、常量折叠等，low-level优化与硬件相关；量化，包括权重量化、激活值量化等多种训练后量化手段。
+- Lite RT：推理运行时，由session提供对外接口，kernel registry为算子注册器，scheduler为算子异构调度器，executor为算子执行器。Lite RT与Micro共享底层的算子库、内存分配、运行时线程池、并行原语等基础设施层。
+- Micro：Code-Gen根据模型生成.c文件，底层算子库等基础设施与Lite RT共用。
+
 
 ## 编译方法
 
@@ -91,7 +104,7 @@ MindSpore进行端侧模型推理的步骤如下。
    ```
 2. 调用`export`接口，导出端侧模型文件(`.ms`)。
    ```python
-   export(net, input_data, file_name="./lenet.ms", file_format='LITE')
+   export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
    ```
 
 以LeNet网络为例，生成的端侧模型文件为`lenet.ms`，完整示例代码`lenet.py`如下。
@@ -146,7 +159,7 @@ if __name__ == '__main__':
     if is_ckpt_exist:
         param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
         load_param_into_net(net, param_dict)
-        export(net, input_data, file_name="./lenet.ms", file_format='LITE')
+        export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
         print("export model success.")
     else:
         print("checkpoint file does not exist.")
@@ -158,7 +171,7 @@ if __name__ == '__main__':
 
 ![](./images/side_infer_process.png)
 
-图1：端侧推理时序图
+图2：端侧推理时序图
 1. 加载`.ms`模型文件到内存缓冲区，ReadFile函数功能需要用户参考[C++教程](http://www.cplusplus.com/doc/tutorial/files/)自行实现。
    ```cpp
    // read model file
