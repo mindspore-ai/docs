@@ -5,7 +5,7 @@
 - [FAQ](#faq)
     - [Installation](#installation)
         - [Pip Installation](#pip-installation)
-        - [Source Code Installation](#source-code-installation)
+        - [Source Code Compilation Installation](#source-code-compilation-installation)
     - [Support](#support)
         - [Model Support](#model-support)
         - [Backend Support](#backend-support)
@@ -34,15 +34,15 @@ use `python3.7 -m pip install` instead of `pip install` command.
 
 <br/>
 
-Q: What should I do if I cannot find whl package for MindInsight or MindArmour for installation ?
+Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website ?
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
 
-### Source Code Installation
+### Source Code Compilation Installation
 
-Q: What should I do if the compilation time of MindSpore source code taking too long or the process is constantly interrupted by errors ?
+Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors ?
 
-A: MindSpore imports third party dependencies through submodule mechanism, among which `protobuf` v3.8.0 might not have the optimal or steady download speed, we recommend you prepare the protobuf package beforehand via other method.
+A: MindSpore imports third party dependencies through submodule mechanism, among which `protobuf` v3.8.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
 
 <br/>
 
@@ -134,7 +134,7 @@ A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutori
 
 Q: Does MindSpore have any plan or consideration on the edge and device when the training and inference functions on the cloud are relatively mature?
 
-A: MindSpore is a unified cloud-edge-device training and inference framework. Edge has been considered in its design, so MindSpore can perform inference at the edge. The open-source version will support Ascend 310-based inference. Currently, inference supports optimization operations, including quantization, operator fusion, and memory overcommitment.
+A: MindSpore is a unified cloud-edge-device training and inference framework. Edge has been considered in its design, so MindSpore can perform inference at the edge. The open-source version will support Ascend 310-based inference. The optimizations supported in the current inference stage include quantization, operator fusion, and memory overcommitment.
 
 <br/>
 
