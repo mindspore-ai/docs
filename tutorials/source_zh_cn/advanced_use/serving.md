@@ -1,14 +1,15 @@
-# 基于MindSpore部署预测服务
+# 基于MindSpore部署推理服务
 
 
 <!-- TOC -->
-- [基于MindSpore部署预测服务](#基于mindspore部署预测服务)
-	- [概述](#概述)
-	- [启动Serving服务](#启动serving服务)
-	- [应用示例](#应用示例)
-		- [导出模型](#导出模型)
-		- [启动Serving推理服务](#启动serving推理服务)
-		- [客户端示例](#客户端示例)
+
+- [基于MindSpore部署推理服务](#基于mindspore部署推理服务)
+    - [概述](#概述)
+    - [启动Serving服务](#启动serving服务)
+    - [应用示例](#应用示例)
+        - [导出模型](#导出模型)
+        - [启动Serving推理服务](#启动serving推理服务)
+        - [客户端示例](#客户端示例)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
@@ -16,7 +17,7 @@
 
 ## 概述
 
-MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线预测服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的预测服务。当前Serving仅支持Ascend 910。
+MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。当前Serving仅支持Ascend 910。
 
 
 ## 启动Serving服务

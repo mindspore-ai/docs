@@ -54,6 +54,13 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 推理服务
+
+   advanced_use/serving
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 端云使用
 
    advanced_use/use_on_the_cloud
