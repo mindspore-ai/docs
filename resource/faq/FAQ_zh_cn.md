@@ -103,7 +103,7 @@ A：目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来�
 
 Q：MindSpore是否支持Windows 10？
 
-A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindspore_cpu_win_install.html)。
+A：MindSpore CPU版本已经支持在Windows 10系统中安装。
 
 ### 编程语言扩展
 
