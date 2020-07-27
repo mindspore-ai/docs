@@ -333,6 +333,8 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
    The size of a `TensorSummary` data = the number of values in the tensor * 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is 32 * 1 * 256 * 256, then a `TensorSummary` data needs about 32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB. Also suppose that the collect_freq of `SummaryCollector` is set to 1, and 50 iterations are trained. Then the required space when recording these 50 sets of data is about 50 * 8 MiB = 400MiB. It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 400MiB.
 
+5. The training log file is large when using `TensorSummary` because the complete tensor data is recorded. MindInsight needs more time to parse the training log file, please be patient.
+
 ## Visualization Components
 
 ### Training Dashboard
@@ -564,12 +566,17 @@ Figure 21 shows the scalars comparision function area, which allows you to view 
 To limit time of listing summaries, MindInsight lists at most 999 summary items.
 
 To limit memory usage, MindInsight limits the number of tags and steps:
-- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags can not exceed 300. Specially, there are 10 computation graph tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
+- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
 - There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 - There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+- There are 20 steps at most for each tensor tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 
 To ensure performance, MindInsight implements scalars comparision with the cache mechanism and the following restrictions:
 - The scalars comparision supports only for trainings in cache. 
 - The maximum of 15 latest trainings (sorted by modification time) can be retained in the cache.
 - The maximum of 5 trainings can be selected for scalars comparision at the same time.
+
+Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindInsight make the following restrictions with the size of tensor and the number of value responsed and displayed on the front end:
+- Support tensor containing up to 10 million values.
+- In the tensor-visible table view, the maximum number of value responsed to the front end for each step of each label is 100,000.
