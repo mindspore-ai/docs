@@ -10,6 +10,7 @@
         - [Custom Callback](#custom-callback)
     - [MindSpore Metrics](#mindspore-metrics)
     - [MindSpore Print Operator](#mindspore-print-operator)
+    - [Asynchronous Data Dump](#asynchronous-data-dump)
     - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
 
 <!-- /TOC -->
@@ -220,6 +221,53 @@ val:[[1 1]
 [1 1]]
 ```
 
+## Asynchronous Data Dump
+
+When the training result deviates from the expectation on Ascend, the input and output of the operator can be dumped for debugging through Asynchronous Data Dump.
+
+1. Turn on the switch to save graph IR: `context.set_context(save_graphs=True)`.
+2. Execute training script.
+3. Open `hwopt_d_end_graph_{graph id}.ir` in the directory you execute the script and find the name of the operators you want to Dump.
+4. Configure json file: `data_dump.json`.
+
+    ```json
+    {
+        "DumpSettings": {
+            "net_name": "ResNet50",
+            "mode": 1,
+            "iteration": 0,
+            "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
+        },
+
+        "DumpSettingsSpec": {
+            "net_name": "net name eg:ResNet50",
+            "mode": "0: dump all kernels, 1: dump kernels in kernels list",
+            "iteration": "specified iteration",
+            "kernels": "op's full scope name which need to be dump"
+        }
+    }
+    ```
+
+5. Set environment variables.
+
+    ```bash
+    export ENABLE_DATA_DUMP=1
+    export DATA_DUMP_PATH=/test
+    export DATA_DUMP_CONFIG_PATH=data_dump.json
+    ```
+
+    > Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
+    
+    > Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
+
+6. Execute the training script again.
+7. Parse the Dump file.
+
+    Change directory to `/var/log/npu/ide_daemon/dump/` after training and execute the following commands to parse Dump data file:
+
+    ```bash
+    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
+    ```
 
 ## Log-related Environment Variables and Configurations
 MindSpore uses glog to output logs. The following environment variables are commonly used:
