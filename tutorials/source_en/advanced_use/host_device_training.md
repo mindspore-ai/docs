@@ -25,7 +25,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, 
 `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
 
-2. Prepare the dataset. The dataset can be found at: <https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>. Use the script `/src/preprocess_data.py` to transform dataset into MindRecord format.
+2. Prepare the dataset. The dataset can be found at: <https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>. Use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
 3. Configure the device information. When performing training in the bare-metal environment, the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured as follows (you need to check the server's IP first):
 
@@ -47,32 +47,20 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 
 ## Configuring for Hybrid Training
 
-1. Configure the place of trainable parameters. In the file `train_and_eval_auto_parallel.py`, add a configuration `dataset_sink_mode=False` in `model.train` to indicate that parameters are placed on hosts instead of accelerators. In the file `train_and_eval_auto_parallel.py`, change the configuration `context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)` to `context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, mirror_mean=True)`, in order to adapt for the host+device mode.
-
-2. Configure the sparsity of parameters. The actual values that involve in computation are indices, instead of entire parameters.   
-    
-    In the file `train_and_eval_auto_parallel.py`, add a configuration `context.set_context(enable_sparse=True)`.
-    
-    In the `construct` function of `class WideDeepModel(nn.Cell)` of file `src/wide_and_deep.py`, to adapt for sparse parameters, replace the return value as:
-    
-    ```
-    return out, deep_id_embs
+1. Configure the flag of hybrid training. In the function `argparse_init` of file `src/config.py`, change the default value of `host_device_mix` to be `1`; change `self.host_device_mix` in function `__init__` of `class WideDeepConfig` to be `1`:
+    ```python
+    self.host_device_mix = 1
     ```
 
-3. Configure the place of operators and optimizers. In `class WideDeepModel(nn.Cell)` of file `src/wide_and_deep.py`, add the attribute of running on host for `EmbeddingLookup`:
-
+2. Check placement of necessary operators and optimizers. In class `WideDeepModel` of file `src/wide_and_deep.py`, check the placement of `EmbeddingLookup` is at host:
     ```python
-    self.embeddinglookup = nn.EmbeddingLookup(target='CPU')
+    self.deep_embeddinglookup = nn.EmbeddingLookup()
+    self.wide_embeddinglookup = nn.EmbeddingLookup()
     ```
-    
-    In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, add the attribute of running on host for two optimizers:
-    
+   In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, check two optimizer are also at host:
     ```python
-    self.optimizer_w.sparse_opt.add_prim_attr('primitive_target', 'CPU')
-    ```
-    
-    ```python
-    self.optimizer_d.sparse_opt.add_prim_attr('primitive_target', 'CPU')
+    self.optimizer_w.sparse_opt.add_prim_attr("primitive_target", "CPU")
+    self.optimizer_d.sparse_opt.add_prim_attr("primitive_target", "CPU")
     ```
 
 ## Training the Model

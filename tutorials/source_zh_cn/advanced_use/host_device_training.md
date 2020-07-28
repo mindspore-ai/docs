@@ -22,7 +22,7 @@
 
 1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`为训练的主函数所在，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
 
-2. 准备数据集。数据集下载链接：<https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>。利用脚本`/src/preprocess_data.py`将数据集转换为MindRecord格式。
+2. 准备数据集。数据集下载链接：<https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>。利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
 
 3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件（每台机器的具体的IP信息不同，需要查看网络配置来设定，此为示例），如下所示：
 
@@ -44,32 +44,20 @@
 
 ## 配置混合执行
 
-1. 配置待训练参数的存储位置。在`train_and_eval_auto_parallel.py`文件`train_and_eval`函数的`model.train`调用中，增加配置`dataset_sink_mode=False`，以指示参数数据保持在主机端，而非加速器端。在`train_and_eval_auto_parallel.py`文件中改变配置`context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)`为`context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, mirror_mean=True)`，即配置为半自动并行，以适配混合并行模式。
-
-2. 配置待训练参数的稀疏性质。由于待训练参数的规模大，需将参数配置为稀疏，也就是：真正参与计算的并非全量的参数，而是其索引值。
-    
-    在`train_and_eval_auto_parallel.py`文件中增加配置`context.set_context(enable_sparse=True)`。
-    
-    在`src/wide_and_deep.py`文件的`class WideDeepModel(nn.Cell)`类的`construct`函数中，将函数的返回值替换为如下值，以适配参数的稀疏性：
-    
-    ```
-    return out, deep_id_embs
+1. 配置混合训练标识。在`src/config.py`文件中，设置`argparse_init`函数中的`host_device_mix`默认值为`1`，设置`WideDeepConfig`类的`__init__`函数中`self.host_device_mix`为`1`：
+    ```python
+    self.host_device_mix = 1
     ```
 
-3. 配置必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`class WideDeepModel(nn.Cell)`中，为`EmbeddingLookup`设置主机端执行的属性，
-
+2. 检查必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`WideDeepModel`类中，检查`EmbeddingLookup`为主机端执行：
     ```python
-    self.embeddinglookup = nn.EmbeddingLookup(target='CPU')
+    self.deep_embeddinglookup = nn.EmbeddingLookup()
+    self.wide_embeddinglookup = nn.EmbeddingLookup()
     ```
-    
-    在`src/wide_and_deep.py`文件的`class TrainStepWrap(nn.Cell)`中，为两个优化器增加配置主机端执行的属性。
-    
+    在`src/wide_and_deep.py`文件的`class TrainStepWrap(nn.Cell)`中，检查两个优化器主机端执行的属性。
     ```python
-    self.optimizer_w.sparse_opt.add_prim_attr('primitive_target', 'CPU')
-    ```
-    
-    ```python
-    self.optimizer_d.sparse_opt.add_prim_attr('primitive_target', 'CPU')
+    self.optimizer_w.sparse_opt.add_prim_attr("primitive_target", "CPU")
+    self.optimizer_d.sparse_opt.add_prim_attr("primitive_target", "CPU")
     ```
 
 ## 训练模型
