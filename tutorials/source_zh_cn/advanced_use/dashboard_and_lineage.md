@@ -579,5 +579,5 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 - 用户最多同时对比5个训练的标量曲线。
 
 由于`TensorSummary`会记录完整Tensor数据，数据量通常会比较大，为了控制内存占用和出于性能上的考虑，MindInsight对Tensor的大小以及返回前端展示的数值个数进行以下限制：
-- 最大支持含有1千万个数值的Tensor。
-- 在张量可视的表格视图下，每个标签的每个步骤返回前端的数值个数最大为10万。
+- MindInsight最大支持加载含有1千万个数值的Tensor。
+- Tensor加载后，在张量可视的表格视图下，最大支持查看10万个数值，如果所选择的维度查询得到的数值超过这一限制，则无法显示。

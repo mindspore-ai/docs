@@ -578,5 +578,5 @@ To ensure performance, MindInsight implements scalars comparision with the cache
 - The maximum of 5 trainings can be selected for scalars comparision at the same time.
 
 Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindInsight make the following restrictions with the size of tensor and the number of value responsed and displayed on the front end:
-- Support tensor containing up to 10 million values.
-- In the tensor-visible table view, the maximum number of value responsed to the front end for each step of each label is 100,000.
+- MindInsight supports loading tensor containing up to 10 million values.
+- After the tensor is loaded, in the tensor-visible table view, you can view a maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
