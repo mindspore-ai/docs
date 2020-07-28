@@ -69,7 +69,7 @@ Use the script `script/run_auto_parallel_train.sh`. Run the command `bash run_au
 where the first `1` is the number of accelerators, the second `1` is the number of epochs, `DATASET` is the path of dataset,
 and `RANK_TABLE_FILE` is the path of the above `rank_table_1p_0.json` file.
 
-The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch:
+The running log is in the directory of `device_0`, where `loss.log` contains every loss value of every step in the epoch. Here is an example:
 
 ```
 epoch: 1 step: 1, wide_loss is 0.6873926, deep_loss is 0.8878349

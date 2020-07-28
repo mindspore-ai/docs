@@ -65,7 +65,7 @@
 使用训练脚本`script/run_auto_parallel_train.sh`。执行命令：`bash run_auto_parallel_train.sh 1 1 DATASET RANK_TABLE_FILE`，
 其中第一个`1`表示用例使用的卡数，第二`1`表示训练的epoch数，`DATASET`是数据集所在路径，`RANK_TABLE_FILE`为上述`rank_table_1p_0.json`文件所在路径。
 
-运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内中多个loss值，如下：
+运行日志保存在`device_0`目录下，其中`loss.log`保存一个epoch内中多个loss值，其值类似如下：
 
 ```
 epoch: 1 step: 1, wide_loss is 0.6873926, deep_loss is 0.8878349
