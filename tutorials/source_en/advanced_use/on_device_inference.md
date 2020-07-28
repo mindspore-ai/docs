@@ -15,7 +15,19 @@
 
 ## Overview
 
-MindSpore Predict is a lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side. This tutorial describes how to use and compile MindSpore Predict.
+MindSpore Lite is a lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side. This tutorial describes how to use and compile MindSpore Lite.
+
+![](./images/on_device_inference_frame.png)
+
+Figure 1 On-device inference frame diagram
+
+Mindspore Lite's framework consists of frontend, IR, backend, Lite, RT and micro.
+
+- Frontend: It used for model generation. Users can  use the model building interface to build models, or transform third-party models into mindspore models.
+- IR: It includes the tensor definition, operator prototype definition and graph definition of mindspore. The back-end optimization is based on IR.
+- Backend: Graph optimization and high level optimization are independent of hardware, such as operator fusion and constant folding, while low level optimization is related to hardware; quantization includes weight quantization, activation value quantization and other post training quantization methods.
+- Lite RT: In the inference runtime, session provides the external interface, kernel registry is operator registry, scheduler is operator heterogeneous scheduler and executor is operator executor. Lite RT and shares with Micro the underlying infrastructure layers such as operator library, memory allocation, runtime thread pool and parallel primitives.
+- Micro: Code Gen generates .c files according to the model, and infrastructure such as the underlying operator library is shared with Lite RT.
 
 ## Compilation Method
 
@@ -92,7 +104,7 @@ To perform on-device model inference using MindSpore, perform the following step
    ```
 2. Call the `export` API to export the `.ms` model file on the device.
    ```python
-   export(net, input_data, file_name="./lenet.ms", file_format='LITE')
+   export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
    ```
 
 Take the LeNet network as an example. The generated on-device model file is `lenet.ms`. The complete sample code `lenet.py` is as follows:
@@ -147,7 +159,7 @@ if __name__ == '__main__':
     if is_ckpt_exist:
         param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
         load_param_into_net(net, param_dict)
-        export(net, input_data, file_name="./lenet.ms", file_format='LITE')
+        export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
         print("export model success.")
     else:
         print("checkpoint file does not exist.")
@@ -159,7 +171,7 @@ Use the `.ms` model file and image data as input to create a session and impleme
 
 ![](./images/side_infer_process.png)
 
-Figure 1 On-device inference sequence diagram
+Figure 2 On-device inference sequence diagram
 1. Load the `.ms` model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
    ```cpp
    // read model file
