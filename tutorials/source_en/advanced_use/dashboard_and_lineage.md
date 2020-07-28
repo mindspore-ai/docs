@@ -566,7 +566,7 @@ Figure 21 shows the scalars comparision function area, which allows you to view 
 To limit time of listing summaries, MindInsight lists at most 999 summary items.
 
 To limit memory usage, MindInsight limits the number of tags and steps:
-- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
+- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
 - There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 - There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
