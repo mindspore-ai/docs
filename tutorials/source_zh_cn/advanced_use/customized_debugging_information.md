@@ -227,6 +227,8 @@ val:[[1 1]
 
 在Ascend环境上执行训练，当训练结果和预期有偏差时，可以通过异步数据Dump功能保存算子的输入输出进行调试。
 
+> 异步数据Dump不支持`comm_ops`类别的算子，算子类别详见[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html)。
+
 1. 开启IR保存开关： `context.set_context(save_graphs=True)`。
 2. 执行网络脚本。
 3. 查看执行目录下的`hwopt_d_end_graph_{graph id}.ir`，找到需要Dump的算子名称。
@@ -250,6 +252,9 @@ val:[[1 1]
     }
     ```
 
+    > - 非数据下沉模式下，iteration需要设置成0，并且会Dump出每个epoch的数据。
+    > - 数据下沉模式iteration需要增加1。例如iteration-0会Dump出GetNext算子的数据，而iteration-1才会去Dump真正的计算图的数据。
+
 5. 设置数据Dump的环境变量。
 
     ```bash
@@ -258,9 +263,8 @@ val:[[1 1]
     export DATA_DUMP_CONFIG_PATH=data_dump.json
     ```
 
-    > 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-
-    > 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+    > - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+    > - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
 
 6. 再次执行用例进行异步数据Dump。
 7. 解析文件。
