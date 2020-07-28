@@ -299,7 +299,7 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     正确代码:
     ```python3
     ...
-    summary_collector = SummaryCollecotor('./summary_dir')
+    summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
 
     ...
@@ -309,8 +309,8 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     错误代码：
     ```python3
     ...
-    summary_collector1 = SummaryCollecotor('./summary_dir1')
-    summary_collector2 = SummaryCollecotor('./summary_dir2')
+    summary_collector1 = SummaryCollector('./summary_dir1')
+    summary_collector2 = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
     ```
 
@@ -319,7 +319,7 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
-    summary_collector = SummaryCollecotor('./summary_dir2')
+    summary_collector = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 4. 由于张量可视（`TensorSummary`）会记录原始张量数据，需要的存储空间较大。使用`TensorSummary`前和训练过程中请注意检查系统存储空间充足。

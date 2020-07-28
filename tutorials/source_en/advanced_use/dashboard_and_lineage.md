@@ -299,7 +299,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
     Right code:
     ```python3
     ...示例
-    summary_collector = SummaryCollecotor('./summary_dir')
+    summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
     ...
     model.eval(dataset， callbacks=[summary_collector])
@@ -308,8 +308,8 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
     Wrong code:
     ```python3
     ...
-    summary_collector1 = SummaryCollecotor('./summary_dir1')
-    summary_collector2 = SummaryCollecotor('./summary_dir2')
+    summary_collector1 = SummaryCollector('./summary_dir1')
+    summary_collector2 = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
     ```
 
@@ -318,7 +318,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
-    summary_collector = SummaryCollecotor('./summary_dir2')
+    summary_collector = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 4. Since tensor visualizatioin (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
