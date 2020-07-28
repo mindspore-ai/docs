@@ -41,8 +41,8 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
   - 硬盘空间10GB以上
 
 - 系统要求
-  - 系统：Ubuntu = 18.04.02LTS（验证可用）
-  - 内核：4.15.0-45-generic（验证可用）
+  - 系统环境仅支持Linux
+  - 推荐系统：Ubuntu = 18.04.02LTS
 
 - 软件依赖
   - [cmake](https://cmake.org/download/) >= 3.14.1
@@ -54,18 +54,15 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
   - decorator
   - scipy
 
-    > `numpy`、 `decorator`和`scipy`可以通过`pip`安装，参考命令如下。
+    > `numpy decorator scipy`可以通过`pip`安装，参考命令：`pip3 install numpy==1.16 decorator scipy`。
     
-    ```bash
-    pip3 install numpy==1.16 decorator scipy
-    ```
 
 编译步骤如下：
 
 1. 配置环境变量。
 
     ```bash
-    export LLVM_PATH={$LLVM_PATH}/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/llvm-config #设定llvm路径
+    export LLVM_PATH={$LLVM_PATH}/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/llvm-config #设定llvm路径
     export ANDROID_NDK={$NDK_PATH}/android-ndk-r16b #设定ndk路径
     ```
 
@@ -75,18 +72,16 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
    git clone https://gitee.com/mindspore/mindspore.git
    ```
 
-3. 在源码根目录下，执行如下命令编译MindSpore Predict。-I为编译MindSpore Predict的编译参数，-I的参数为目标端侧平台，目前仅支持安卓arm64平台。
+3. 在源码根目录下，执行如下命令编译MindSpore Lite。
 
    ```bash
-   sh build.sh -I arm64
+   cd mindspore/lite
+   sh build.sh 
    ```
 
 4. 获取编译结果。
 
-   进入源码的`predict/output`目录，即可查看生成的压缩包，包名为MSPredict-*版本号*-*HOST平台*_*DEVICE平台*.tar.gz，例如：MSPredict-0.1.0-linux_aarch64.tar.gz。 该压缩包包含以下目录：
-
-   - include：MindSpore Predict的头文件。
-   - lib：MindSpore Predict的动态库。
+   进入源码的`lite/build`目录，可查看编译后生成的文件。进入相对应的文件夹下执行命令，就可以使用MindSpore Lite的多种功能。
 
 ## 端侧推理使用
 
@@ -172,161 +167,56 @@ if __name__ == '__main__':
 ![](./images/side_infer_process.png)
 
 图2：端侧推理时序图
-1. 加载`.ms`模型文件到内存缓冲区，ReadFile函数功能需要用户参考[C++教程](http://www.cplusplus.com/doc/tutorial/files/)自行实现。
-   ```cpp
-   // read model file
-   std::string modelPath = "./models/lenet/lenet.ms";
-   size_t graphSize = 0;
 
-   /* ReadFile() here is a dummy function */
-   char *graphBuf = ReadFile(modelPath.c_str(), graphSize);
+1. 读取MindSpore端侧模型文件信息。ReadFile函数功能需要用户参考[C++教程](http://www.cplusplus.com/doc/tutorial/files/)自行实现。
+   ```cpp
+   // Read Model File
+   std::string model_path = "./lenet.ms";
+   ReadFile(model_path.c_str(), &model_size, buf);
+   
+   // Import Model
+   auto model = lite::Model::Import(content, size);
+   meta_graph.reset();
+   content = nullptr;
+   auto context = new lite::Context;
+   context->cpuBindMode = lite::NO_BIND;
+   context->deviceCtx.type = lite::DT_CPU;
+   context->threadNum = 4;
    ```
 
-2. 调用`CreateSession`接口创建`Session`，创建完成后可释放内存缓冲区中的模型文件。
+2. 调用`CreateSession`接口创建`Session`。
    ```cpp
-   // create session
-   Context ctx;
-   std::shared_ptr<Session> session = CreateSession(graphBuf, graphSize, ctx);
-   free(graphBuf);
+   // Create Session
+   auto session = session::LiteSession::CreateSession(context);
+   ASSERT_NE(nullptr, session);
    ```
 
-3. 从内存缓冲区中读取推理的输入数据，调用`SetData`接口将输入数据设置到`input tensor`中。
+3. 调用`Session`中的`CompileGraph`方法，传入模型。
    ```cpp
-   // load input buffer
-   size_t inputSize = 0;
-   std::string imagePath = "./data/input/lenet.bin";
-   char *inputBuf = ReadFile(imagePath.c_str(), inputSize);
-
-   //get input tensors
-   std::vector<Tensor *> inputs = session->GetInput();
-   //set input buffer
-   inputs[0]->SetData(inputBuf);
-   ```
-
-4. 调用`Session`中的`Run`接口执行推理。
-   ```cpp
-   // session run
-   int ret = session->Run(inputs);
-   ```
-
-5. 调用`GetAllOutput`接口获取输出。
-   ```cpp
-   // get output
-   std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
+   // Compile Graph
+   auto ret = session->CompileGraph(model.get());
+   ASSERT_EQ(lite::RET_OK, ret);
    ```
    
-6. 调用`Tensor`的`GetData`接口获取输出数据。
+4. 调用`Session`中的`GetInputs`方法，获取输入`Tensor`，获取图片信息设置为`data`，`data`即为用于推理的输入数据。
    ```cpp
-   // get output data
-   float *data = nullptr;
-   for (auto output : outputs) {
-     auto tensors = output.second;
-     for (auto tensor : tensors) {
-       data = (float *)(tensor->GetData());
-     }
-   }
+   auto inputs = session->GetInputs();
+   ASSERT_EQ(inputs.size(), 1);
+   auto inTensor = inputs.front();
+   ASSERT_NE(nullptr, inTensor);
+   (void)inTensor->MutableData();
+   ```
+
+5. 调用`Session`中的`RunGraph`接口执行推理。
+   ```cpp
+   // Run Graph
+   ret = session->RunGraph();
+   ASSERT_EQ(lite::RET_OK, ret);
+   ```
+
+6. 调用`GetOutputs`接口获取输出。
+   ```cpp
+   // Get Outputs
+   auto outputs = session->GetOutputs();
    ```
    
-7. 推理结束释放`input tensor`和`output tensor`。
-   ```cpp
-   // free inputs and outputs
-   for (auto &input : inputs) {
-     delete input;
-   }
-   inputs.clear(); 
-   for (auto &output : outputs) {
-     for (auto &outputTensor : output.second) {
-       delete outputTensor;
-     }
-   }
-   outputs.clear();
-   ```
-
-选取LeNet网络，推理输入为“`lenet.bin`”，完整示例代码`lenet.cpp`如下。
-> MindSpore Predict使用`FlatBuffers`定义模型，解析模型需要使用到`FlatBuffers`头文件，因此用户需要自行配置`FlatBuffers`头文件。
->
-> 具体做法：将MindSpore根目录`/third_party/flatbuffers/include`下的`flatbuffers`文件夹拷贝到`session.h`的同级目录。
-
-```cpp
-#include <string>
-#include <vector>
-#include "context.h"
-#include "session.h"
-#include "tensor.h"
-#include "errorcode.h"
-
-using namespace mindspore::predict;
-
-int main() {
-  std::string modelPath = "./models/lenet/lenet.ms";
-  std::string imagePath = "./data/input/lenet.bin";
-
-  // read model file
-  size_t graphSize = 0;
-
-  /* ReadFile() here is a dummy function */
-  char *graphBuf = ReadFile(modelPath.c_str(), graphSize);
-  if (graphBuf == nullptr) {
-    return -1;
-  }
-
-  // create session
-  Context ctx;
-  auto session = CreateSession(graphBuf, graphSize, ctx);
-  if (session == nullptr) {
-    free(graphBuf);
-    return -1;
-  }
-  free(graphBuf);
-
-  // load input buf
-  size_t inputSize = 0;
-  char *inputBuf = ReadFile(imagePath.c_str(), inputSize);
-  if (inputBuf == nullptr) {
-    return -1;
-  }
-
-  auto inputs = session->GetInput();
-  inputs[0]->SetData(inputBuf);
-
-  // session run
-  auto ret = session->Run(inputs);
-  if (ret != RET_OK) {
-    printf("run failed, error: %d\n", ret);
-    for (auto &input : inputs) {
-      delete input;
-    }
-    return -1;
-  }
-
-  // get output
-  auto outputs = session->GetAllOutput();
-    
-  // get output data
-  float *data = nullptr;
-    for (auto output : outputs) {
-    auto tensors = output.second;
-    for (auto tensor : tensors) {
-      data = (float *)(tensor->GetData());
-      //print the contents of the data
-      for (size_t i = 0; i < tensor->GetElementSize(); ++i) {
-        printf(" %f ", data[i]);
-      }
-      printf("\n");
-    }
-  }
-
-  // free inputs and outputs
-  for (auto &input : inputs) {
-    delete input;
-  }
-  inputs.clear();
-  for (auto &output : outputs) {
-    for (auto &outputTensor : output.second) {
-      delete outputTensor;
-    }
-  }
-  outputs.clear();
-  return 0;
-}
-```
