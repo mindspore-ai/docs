@@ -140,11 +140,15 @@ def resnet50_train(args_opt):
 
     # create model
     net = resnet50(class_num = class_num)
+    # reduction='mean' means that apply reduction of mean to loss
     loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     lr = Tensor(get_lr(global_step=0, total_epochs=epoch_size, steps_per_epoch=train_step_size))
     opt = Momentum(net.trainable_params(), lr, momentum=0.9, weight_decay=1e-4, loss_scale=loss_scale_num)
     loss_scale = FixedLossScaleManager(loss_scale_num, False)
 
+    # amp_level="O2" means that the hybrid precision of O2 mode is used for training
+    # the whole network except that batchnoram will be cast into float16 format and dynamic loss scale will be used
+    # 'keep_batchnorm_fp32 = False' means that use the float16 format
     model = Model(net, amp_level="O2", keep_batchnorm_fp32=False, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
 
     # define performance callback to show ips and loss callback to show loss for every epoch
