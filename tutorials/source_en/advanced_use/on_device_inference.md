@@ -98,68 +98,76 @@ To perform on-device model inference using MindSpore, perform the following step
    param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
-2. Call the `export` API to export the `.ms` model file on the device.
+2. Call the `export` API to export the `.pb` model file on the device.
    ```python
-   export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
+   export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
    ```
-
-Take the LeNet network as an example. The generated on-device model file is `lenet.ms`. The complete sample code `lenet.py` is as follows:
-```python
-import os
-import numpy as np
-import mindspore.nn as nn
-import mindspore.ops.operations as P
-import mindspore.context as context
-from mindspore.common.tensor import Tensor
-from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
-
-class LeNet(nn.Cell):
-    def __init__(self):
-        super(LeNet, self).__init__()
-        self.relu = P.ReLU()
-        self.batch_size = 32
-        self.conv1 = nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
-        self.fc1 = nn.Dense(400, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, 10)
-        
-    def construct(self, input_x):
-        output = self.conv1(input_x)
-        output = self.relu(output)
-        output = self.pool(output)
-        output = self.conv2(output)
-        output = self.relu(output)
-        output = self.pool(output)
-        output = self.reshape(output, (self.batch_size, -1))
-        output = self.fc1(output)
-        output = self.relu(output)
-        output = self.fc2(output)
-        output = self.relu(output)
-        output = self.fc3(output)
-        return output
-        
-if __name__ == '__main__':
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-    seed = 0
-    np.random.seed(seed)
-    origin_data = np.random.uniform(low=0, high=255, size=(32, 1, 32, 32)).astype(np.float32)
-    origin_data.tofile("lenet.bin")
-    input_data = Tensor(origin_data)
-    net = LeNet()
-    ckpt_file_path = "path_to/lenet.ckpt"
-
-    is_ckpt_exist = os.path.exists(ckpt_file_path)
-    if is_ckpt_exist:
-        param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
-        load_param_into_net(net, param_dict)
-        export(net, input_data, file_name="./lenet.ms", file_format='BINARY')
-        print("export model success.")
-    else:
-        print("checkpoint file does not exist.")
-```
+    Take the LeNet network as an example. The generated on-device model file is `lenet.pb`. The complete sample code `lenet.py` is as follows:
+    ```python
+    import os
+    import numpy as np
+    import mindspore.nn as nn
+    import mindspore.ops.operations as P
+    import mindspore.context as context
+    from mindspore.common.tensor import Tensor
+    from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+    
+    class LeNet(nn.Cell):
+        def __init__(self):
+            super(LeNet, self).__init__()
+            self.relu = P.ReLU()
+            self.batch_size = 32
+            self.conv1 = nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
+            self.conv2 = nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
+            self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+            self.reshape = P.Reshape()
+            self.fc1 = nn.Dense(400, 120)
+            self.fc2 = nn.Dense(120, 84)
+            self.fc3 = nn.Dense(84, 10)
+            
+        def construct(self, input_x):
+            output = self.conv1(input_x)
+            output = self.relu(output)
+            output = self.pool(output)
+            output = self.conv2(output)
+            output = self.relu(output)
+            output = self.pool(output)
+            output = self.reshape(output, (self.batch_size, -1))
+            output = self.fc1(output)
+            output = self.relu(output)
+            output = self.fc2(output)
+            output = self.relu(output)
+            output = self.fc3(output)
+            return output
+            
+    if __name__ == '__main__':
+        context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+        seed = 0
+        np.random.seed(seed)
+        origin_data = np.random.uniform(low=0, high=255, size=(32, 1, 32, 32)).astype(np.float32)
+        origin_data.tofile("lenet.bin")
+        input_data = Tensor(origin_data)
+        net = LeNet()
+        ckpt_file_path = "path_to/lenet.ckpt"
+    
+        is_ckpt_exist = os.path.exists(ckpt_file_path)
+        if is_ckpt_exist:
+            param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
+            load_param_into_net(net, param_dict)
+            export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
+            print("export model success.")
+        else:
+            print("checkpoint file does not exist.")
+    ```
+3. Calling MindSpore convert tool named `converter_lite`, convert model file (`.pb`) to on_device inference model file (`.ms`).
+    ```
+    ./converter_lite --fmk=MS --modelFile=./lenet.pb --outputFile=lenet
+    ```
+    Result:
+    ```
+    INFO [converter/converter.cc:146] Runconverter] CONVERTER RESULT: SUCCESS!
+    ```
+    This means that the model has been successfully converted to the mindspore on_device inference model.
 
 ### Implementing On-Device Inference
 
