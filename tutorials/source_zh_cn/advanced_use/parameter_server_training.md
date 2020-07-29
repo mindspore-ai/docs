@@ -15,6 +15,17 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/parameter_server_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
+Parameter Server(参数服务器)是分布式训练中一种广泛使用的架构，相较于同步的AllReduce训练方法，Parameter Server具有更好的灵活性、可扩展性以及节点容灾的能力。具体来讲，参数服务器既支持同步SGD，也支持异步SGD的训练算法；在扩展性上，将模型的计算与模型的更新分别部署在Worker和Server两类进程中，使得Worker和Server的资源可以独立地横向扩缩；另外，在大规模数据中心的环境下，计算设备、网络以及存储经常会出现各种故障而导致部分节点异常，而在参数服务器的架构下，能够较为容易地处理此类的故障而不会对训练中的任务产生影响。
+
+在MindSpore的参数服务器实现中，采用了开源的[ps-lite](https://github.com/dmlc/ps-lite)作为基础架构，基于其提供的远程通信能力以及抽象的Push/Pull原语，实现了同步SGD的分布式训练算法，另外结合Ascend中的高性能集合通信库HCCL，MindSpore还提供了Parameter Server和AllReduce的混合训练模式，支持将部分权重通过参数服务器进行存储和更新，其余权重仍然通过AllReduce算法进行训练。
+
+在ps-lite的架构设计中，一共包含三个独立的组件，分别是Server、Worker和Scheduler，作用分别是：
+
+- Server：保存模型的权重和反向计算的梯度值，并使用优化器通过Worker上传的梯度值对模型进行更新。
+
+- Worker：执行网络的正反向计算，正向计算的梯度值通过Push接口上传至Server中，并把Server更新好的模型下载到Worker本地。
+
+- Scheduler：用于建立Server和Worker的通信关系。
 
 ## 准备工作
 以LeNet在Ascend 910上使用Parameter Server，并且配置单Worker，单Server训练为例：
