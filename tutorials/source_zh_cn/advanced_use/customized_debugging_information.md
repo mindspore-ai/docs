@@ -252,8 +252,8 @@ val:[[1 1]
     }
     ```
 
-    > - 非数据下沉模式下，iteration需要设置成0，并且会Dump出每个epoch的数据。
-    > - 数据下沉模式iteration需要增加1。例如iteration-0会Dump出GetNext算子的数据，而iteration-1才会去Dump真正的计算图的数据。
+    > - 非数据下沉模式下，iteration需要设置成0，并且会Dump出每个iteration的数据。
+    > - 数据下沉模式iteration需要增加1。例如json中"iteration":0会Dump出GetNext算子的数据，而"iteration":1才会去Dump真正的计算图的第0个iteration数据。
 
 5. 设置数据Dump的环境变量。
 
