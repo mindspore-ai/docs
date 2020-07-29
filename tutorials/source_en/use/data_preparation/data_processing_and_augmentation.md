@@ -276,9 +276,9 @@ Data augmentation requires the `map` function. For details about how to use the 
 
 1. Import the module to the code.
     ```python
+    from mindspore.dataset.transforms.vision import Inter
     import mindspore.dataset.transforms.vision.c_transforms as transforms
     import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
     ```
 2. Define data augmentation operators. The following uses `Resize` as an example:
     ```python
@@ -305,7 +305,6 @@ Figure 2: Image after its size is reset
     ```python
     import mindspore.dataset.transforms.vision.py_transforms as transforms
     import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
     ```
 2. Define data augmentation operators and use the `ComposeOp` API to combine multiple data augmentation operations. The following uses `RandomCrop` as an example:
     ```python

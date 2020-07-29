@@ -276,9 +276,9 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
 
 1. 将该模块引入进代码。
     ```python
+    from mindspore.dataset.transforms.vision import Inter
     import mindspore.dataset.transforms.vision.c_transforms as transforms
     import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
     ```
 2. 定义数据增强算子，以`Resize`为例：
     ```python
@@ -305,7 +305,6 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
     ```python
     import mindspore.dataset.transforms.vision.py_transforms as transforms
     import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
     ```
 2. 定义数据增强算子，通过`ComposeOp`接口将多个数据增强组合使用, 以`RandomCrop`为例：
     ```python
