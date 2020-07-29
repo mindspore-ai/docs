@@ -29,9 +29,10 @@ Mindspore Lite's framework consists of frontend, IR, backend, Lite, RT and micro
 - Lite RT: In the inference runtime, session provides the external interface, kernel registry is operator registry, scheduler is operator heterogeneous scheduler and executor is operator executor. Lite RT and shares with Micro the underlying infrastructure layers such as operator library, memory allocation, runtime thread pool and parallel primitives.
 - Micro: Code Gen generates .c files according to the model, and infrastructure such as the underlying operator library is shared with Lite RT.
 
+
 ## Compilation Method
 
-You need to compile the MindSpore Predict by yourself. This section describes how to perform cross compilation in the Ubuntu environment.
+You need to compile the MindSpore Lite by yourself. This section describes how to perform cross compilation in the Ubuntu environment.
 
 The environment requirements are as follows:
 
@@ -40,8 +41,8 @@ The environment requirements are as follows:
   - Hard disk space: 10 GB or above
 
 - System requirements
-  - System: Ubuntu = 18.04.02LTS (availability is checked)
-  - Kernel: 4.15.0-45-generic (availability is checked)
+  - System is limited on Linux
+  - Recommend system: Ubuntu = 18.04.02LTS
 
 - Software dependencies
   - [cmake](https://cmake.org/download/) >= 3.14.1
@@ -53,13 +54,9 @@ The environment requirements are as follows:
   - decorator
   - scipy
     
-    > `numpy`, `decorator` and `scipy` can be installed through `pip`.  The reference command is as following.
+    > `numpy decorator scipy` can be installed through `pip`.  The reference command is as: `pip3 install numpy==1.16 decorator scipy`.
     
-    ```bash
-    pip3 install numpy==1.16 decorator scipy
-    ```
-
-
+    
 The compilation procedure is as follows:
 
 1. Configure environment variables.
@@ -75,18 +72,17 @@ The compilation procedure is as follows:
    git clone https://gitee.com/mindspore/mindspore.git
    ```
 
-3. Run the following command in the root directory of the source code to compile MindSpore Predict: -I indicates options for compiling MindSpore Predict and the parameter is the target platform architecture. Currently, only the Android arm64 platform is supported.
+3. Run the following command in the root directory of the source code to compile MindSpore Lite.
 
    ```bash
-   sh build.sh -I arm64
+   cd mindspore/lite
+   sh build.sh 
    ```
 
 4. Obtain the compilation result.
 
-   Go to the `predict/output` directory of the source code to view the generated package. The package name is MSPredict-*Version number*-*Host platform*_*Device platform*.tar.gz, for example, MSPredict-0.1.0-linux_aarch64.tar.gz. The package contains the following directories:
-
-   - include: MindSpore Predict header file.
-   - lib: MindSpore Predict dynamic library.
+   Go to the `lite/build` directory of the source code to view the generated documents. Then you can use various tools after changing directory.
+   
 
 ## Use of On-Device Inference
 
@@ -171,162 +167,54 @@ Use the `.ms` model file and image data as input to create a session and impleme
 
 ![](./images/side_infer_process.png)
 
-Figure 2 On-device inference sequence diagram
 1. Load the `.ms` model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
    ```cpp
-   // read model file
-   std::string modelPath = "./models/lenet/lenet.ms";
-   size_t graphSize = 0;
-
-   /* ReadFile() here is a dummy function */
-   char *graphBuf = ReadFile(modelPath.c_str(), graphSize);
+   // Read Model File
+   std::string model_path = "./lenet.ms";
+   ReadFile(model_path.c_str(), &model_size, buf);
+   
+   // Import Model
+   auto model = lite::Model::Import(content, size);
+   meta_graph.reset();
+   content = nullptr;
+   auto context = new lite::Context;
+   context->cpuBindMode = lite::NO_BIND;
+   context->deviceCtx.type = lite::DT_CPU;
+   context->threadNum = 4;
    ```
 
-2. Call the CreateSession API to create a session. After the session is created, the model file in the memory buffer can be released.
+2. Call the `CreateSession` API to get a session. 
    ```cpp
-   // create session
-   Context ctx;
-   std::shared_ptr<Session> session = CreateSession(graphBuf, graphSize, ctx);
-   free(graphBuf);
+   // Create Session
+   auto session = session::LiteSession::CreateSession(context);
+   ASSERT_NE(nullptr, session);
    ```
 
-3. Read the input data for inference from the memory buffer and call the `SetData` API to set the input data to `input tensor`.
+3. Call the `CompileGraph` API in previous `Session` and transport model.
    ```cpp
-   // load input buffer
-   size_t inputSize = 0;
-   std::string imagePath = "./data/input/lenet.bin";
-   char *inputBuf = ReadFile(imagePath.c_str(), inputSize);
-
-   //get input tensors
-   std::vector<Tensor *> inputs = session->GetInput();
-   //set input buffer
-   inputs[0]->SetData(inputBuf);
+   // Compile Graph
+   auto ret = session->CompileGraph(model.get());
+   ASSERT_EQ(lite::RET_OK, ret);
+   ```
+4. Call the `GetInputs` API to get input `tensor`, then set graph information as `data`, `data` will be used in to perform model inference.
+   ```cpp
+   auto inputs = session->GetInputs();
+   ASSERT_EQ(inputs.size(), 1);
+   auto inTensor = inputs.front();
+   ASSERT_NE(nullptr, inTensor);
+   (void)inTensor->MutableData();
    ```
 
-4. Call the `Run` API in the `session` to perform inference.
+5. Call the `RunGraph` API in the `Session` to perform inference.
    ```cpp
-   // session run
-   int ret = session->Run(inputs);
+   // Run Graph
+   ret = session->RunGraph();
+   ASSERT_EQ(lite::RET_OK, ret);
    ```
 
-5. Call the `GetAllOutput` API to obtain the output.
+6. Call the `GetOutputs` API to obtain the output.
    ```cpp
-   // get output
-   std::map<std::string, std::vector<Tensor *>> outputs = session->GetAllOutput();
+   // Get Outputs
+   auto outputs = session->GetOutputs();
    ```
    
-6. Call the `Getdata` API to get the output data.
-   ```cpp
-   // get output data
-   float *data = nullptr;
-   for (auto output : outputs) {
-     auto tensors = output.second;
-     for (auto tensor : tensors) {
-       data = (float *)(tensor->GetData());
-     }
-   }
-   ```
-
-7. Release input and output tensors after the inference is complete.
-   ```cpp
-   // free inputs and outputs
-   for (auto &input : inputs) {
-     delete input;
-   }
-   inputs.clear(); 
-   for (auto &output : outputs) {
-     for (auto &outputTensor : output.second) {
-       delete outputTensor;
-     }
-   }
-   outputs.clear();
-   ```
-
-Select the LeNet network and set the inference input to `lenet.bin`. The complete sample code `lenet.cpp` is as follows:
-> MindSpore Predict uses `FlatBuffers` to define models. The `FlatBuffers` header file is required for parsing models. Therefore, you need to configure the `FlatBuffers` header file.
->
-> Method: Copy the `flatbuffers` folder in MindSpore root directory`/third_party/flatbuffers/include` to the directory at the same level as `session.h`.
-
-```cpp
-#include <string>
-#include <vector>
-#include "context.h"
-#include "session.h"
-#include "tensor.h"
-#include "errorcode.h"
-
-using namespace mindspore::predict;
-
-int main() {
-  std::string modelPath = "./models/lenet/lenet.ms";
-  std::string imagePath = "./data/input/lenet.bin";
-
-  // read model file
-  size_t graphSize = 0;
-
-  /* ReadFile() here is a dummy function */
-  char *graphBuf = ReadFile(modelPath.c_str(), graphSize);
-  if (graphBuf == nullptr) {
-    return -1;
-  }
-
-  // create session
-  Context ctx;
-  auto session = CreateSession(graphBuf, graphSize, ctx);
-  if (session == nullptr) {
-    free(graphBuf);
-    return -1;
-  }
-  free(graphBuf);
-
-  // load input buf
-  size_t inputSize = 0;
-  char *inputBuf = ReadFile(imagePath.c_str(), inputSize);
-  if (inputBuf == nullptr) {
-    return -1;
-  }
-
-  auto inputs = session->GetInput();
-  inputs[0]->SetData(inputBuf);
-
-  // session run
-  auto ret = session->Run(inputs);
-  if (ret != RET_OK) {
-    printf("run failed, error: %d\n", ret);
-    for (auto &input : inputs) {
-      delete input;
-    }
-    return -1;
-  }
-
-  // get output
-  auto outputs = session->GetAllOutput();
-    
-  // get output data
-  float *data = nullptr;
-    for (auto output : outputs) {
-    auto tensors = output.second;
-    for (auto tensor : tensors) {
-      data = (float *)(tensor->GetData());
-      //print the contents of the data
-      for (size_t i = 0; i < tensor->GetElementSize(); ++i) {
-        printf(" %f ", data[i]);
-      }
-      printf("\n");
-    }
-  }
-
-  // free inputs and outputs
-  for (auto &input : inputs) {
-    delete input;
-  }
-  inputs.clear();
-  for (auto &output : outputs) {
-    for (auto &outputTensor : output.second) {
-      delete outputTensor;
-    }
-  }
-  outputs.clear();
-  return 0;
-}
-```
