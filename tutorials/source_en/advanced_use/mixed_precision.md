@@ -84,7 +84,7 @@ label = Tensor(np.zeros([64, 128]).astype(np.float32))
 # Define Loss and Optimizer
 loss = nn.SoftmaxCrossEntropyWithLogits()
 optimizer = Momentum(params=net.trainable_params(), learning_rate=0.1, momentum=0.9)
-train_network = amp.build_train_network(net, optimizer, loss, level="O2", loss_scale_manager=None)
+train_network = amp.build_train_network(net, optimizer, loss, level="O3", loss_scale_manager=None)
 
 # Run training
 output = train_network(predict, label)
