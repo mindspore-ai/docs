@@ -43,8 +43,3 @@ MindSpore API
    api/python/mindarmour/mindarmour.fuzzing
    api/python/mindarmour/mindarmour.diff_privacy
 
-.. toctree::
-   :maxdepth: 1
-   :caption: C++ API
-
-   predict <https://www.mindspore.cn/apicc/en/master/predict/namespacemembers.html>
