@@ -61,6 +61,7 @@ To read a dataset using the `MindDataset` object, perform the following steps:
 
 1. Create `MindDataset` for reading data.
     ```python
+    import os
     CV_FILE_NAME = os.path.join(MODULE_PATH, "./imagenet.mindrecord")
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```

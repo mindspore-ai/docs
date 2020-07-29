@@ -61,6 +61,7 @@ MindSpore天然支持读取MindSpore数据格式——`MindRecord`存储的数�
 
 1. 创建`MindDataset`，用于读取数据。
     ```python
+    import os
     CV_FILE_NAME = os.path.join(MODULE_PATH, "./imagenet.mindrecord")
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
