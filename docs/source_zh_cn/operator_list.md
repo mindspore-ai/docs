@@ -5,6 +5,7 @@
 - [算子支持](#算子支持)
     - [mindspore.nn](#mindsporenn)
     - [mindspore.ops.operations](#mindsporeopsoperations)
+    - [隐式类型转换](#隐式类型转换)
 
 <!-- /TOC -->
 
@@ -330,3 +331,54 @@
 | [mindspore.ops.operations.ScalarCast](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScalarCast)                       |    Supported |   Supported  |   Supported | inner_ops
 | [mindspore.ops.operations.ReverseSequence](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReverseSequence)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.operations.CropAndResize](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.CropAndResize)                 |    Supported  | Doing  | Doing | image_ops
+
+## 隐式类型转换
+### 转换规则
+* 标量与Tensor运算：运算时，将标量自动转为Tensor，数据类型和参与运算的Tensor数据类型保持一致；
+而当Tensor是bool数据类型，标量是int或float时，将标量和Tensor都转为数据类型为int32或float32的Tensor。
+* 不同数据类型Tensor运算：数据类型优先级排序为bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 < float64，
+运算时，先确定参与运算的Tensor中优先级相对最高的数据类型，然后将低优先级数据类型Tensor转换为相对最高优先级数据类型；
+而当int8和uint8数据类型的Tensor进行运算时，将其都转为int16的Tensor。
+* 不支持对Parameter进行数据类型转换：如果按照转换规则推导，需要对网络中定义的Parameter进行数据类型转换时，会抛出RuntimeError异常。
+
+### 参与转换的数据类型
+* bool
+* int8
+* uint8
+* int16
+* int32
+* int64
+* float16
+* float32
+* float64
+   
+### 支持算子
+| 算子名
+| :-----------
+| [mindspore.ops.operations.BitwiseAnd](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.BitwiseAnd)
+| [mindspore.ops.operations.BitwiseOr](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.BitwiseOr)
+| [mindspore.ops.operations.BitwiseXor](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.BitwiseXor)
+| [mindspore.ops.operations.TensorAdd](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TensorAdd)
+| [mindspore.ops.operations.Sub](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Sub)
+| [mindspore.ops.operations.Mul](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Mul)
+| [mindspore.ops.operations.Pow](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Pow)
+| [mindspore.ops.operations.Minimum](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Minimum)
+| [mindspore.ops.operations.Maximum](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Maximum)
+| [mindspore.ops.operations.RealDiv](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.RealDiv)
+| [mindspore.ops.operations.Div](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Div)
+| [mindspore.ops.operations.DivNoNan](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.DivNoNan)
+| [mindspore.ops.operations.FloorDiv](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.FloorDiv)
+| [mindspore.ops.operations.TruncateDiv](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TruncateDiv)
+| [mindspore.ops.operations.TruncateMod](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TruncateMod)
+| [mindspore.ops.operations.Mod](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Mod)
+| [mindspore.ops.operations.FloorMod](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.FloorMod)
+| [mindspore.ops.operations.Atan2](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Atan2)
+| [mindspore.ops.operations.Equal](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Equal)
+| [mindspore.ops.operations.ApproximateEqual](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ApproximateEqual)
+| [mindspore.ops.operations.NotEqual](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.NotEqual)
+| [mindspore.ops.operations.Greater](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Greater)
+| [mindspore.ops.operations.GreaterEqual](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GreaterEqual)
+| [mindspore.ops.operations.Less](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Less)
+| [mindspore.ops.operations.LessEqual](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LessEqual)
+| [mindspore.ops.operations.LogicalAnd](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LogicalAnd)
+| [mindspore.ops.operations.LogicalOr](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LogicalOr)
