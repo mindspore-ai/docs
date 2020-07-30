@@ -9,13 +9,14 @@
         - [后端设计](#后端设计)
         - [前端设计](#前端设计)
     - [接口设计](#接口设计)
-       - [文件接口设计](#文件接口设计) 
+        - [文件接口设计](#文件接口设计)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindinsight/graph_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 特性背景
+
 计算图可视的功能，主要协助开发者在下面这些场景中使用。
 
  - 开发者在编写深度学习神经网络的代码时，可以使用计算图的功能查看神经网络中算子的数据流走向，以及模型结构。
@@ -25,6 +26,7 @@
 ## 总体设计
 
 ### 概念设计
+
  |概念|说明|
  |--|--|
  |根节点 (root node) 子节点(subnode)|我们根据算子名称中的斜线，对节点划分层级。比如节点A 'Network' 和节点B 'Network/Conv2D'，我们称节点A为根节点， 称节点B为节点A的子节点。|
@@ -46,6 +48,7 @@
 ![类图设计](./images/graph_visual_class_design.png)
 
 ### 前端设计
+
 数据将通过Web UI进行绘图并展示，前端采用d3-graph-viz 3.x插件进行绘图辅助。
 
 ![输入图片说明](./images/graph_visual_right_side.png)  
@@ -59,9 +62,11 @@
 计算图中，根据斜线（/）对节点的名称划分层次，并逐层展示，参考`计算图主体展示`图。双击一个作用域节点后，将会展示它的子节点。
 
 ## 接口设计
+
 计算图中，主要有文件接口和RESTful API接口，其中文件接口为`summary.proto`文件，是MindInsight和MindSpore进行数据对接的接口。
 RESTful API接口是MindInsight前后端进行数据交互的接口。
 
 ### 文件接口设计
+
 MindSpore与MindInsight之间的数据交互，采用[protobuf](https://developers.google.cn/protocol-buffers/docs/pythontutorial?hl=zh-cn)定义数据格式。
 [summary.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_summary.proto)为总入口，计算图的消息对象定义为 `GraphProto`。`GraphProto`的详细定义可以参考[anf_ir.proto文件](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/datavisual/proto_files/mindinsight_anf_ir.proto)。

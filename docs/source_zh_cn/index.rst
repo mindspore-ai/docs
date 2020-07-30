@@ -10,10 +10,9 @@ MindSpore文档
    :glob:
    :maxdepth: 1
 
-   architecture
+   design
    roadmap
    benchmark
-   technical_white_paper
    network_list
    operator_list
    constraints_on_network_construction

@@ -1,8 +1,8 @@
-# 张量可视
+# 张量可视设计
 
 <!-- TOC -->
 
-- [张量可视](#张量可视)
+- [张量可视设计](#张量可视设计)
     - [特性背景](#特性背景)
     - [总体设计](#总体设计)
         - [后端设计](#后端设计)
@@ -12,8 +12,12 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindinsight/tensor_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+
 ## 特性背景
+
 张量可视能够帮助用户直观查看训练过程中的Tensor值，既支持以直方图的形式呈现Tensor的变化趋势，也支持查看某次step的具体Tensor值。Tensor包括权重值、梯度值、激活值等。
+
 ## 总体设计
 
 Tensor可视主要是解析由MindSpore的`TensorSummary`算子记录的Tensor数据生成的Summary文件，并把结果返回给前端展示。
@@ -48,9 +52,11 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
 图2将用户所记录的张量以直方图的形式进行展示。
 
 ### 接口设计
+
 在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindInsight和MindSpore进行数据对接的接口。 RESTful API接口是MindInsight前后端进行数据交互的接口，是内部接口。
 
 #### 文件接口设计
+
 `summary.proto`文件为总入口，其中张量的数据（TensorProto）存放在Summary的Value中，如下所示：
 ```
 {
