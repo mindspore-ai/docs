@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/use/multi_platform_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -58,15 +58,15 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
     res = model.eval(dataset)
     ```
     其中，  
-    `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.eval>。
-    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
+    `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.html#mindspore.Model.eval>。
+    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/r0.6/model_zoo/official/cv/lenet/eval.py>。
 
 2. 使用`model.predict`接口来进行推理操作。
    ```python
    model.predict(input_data)
    ```
    其中，  
-   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.predict>。
+   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.html#mindspore.Model.predict>。
 
 ## Ascend 310 AI处理器上推理
 
@@ -74,7 +74,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
 
 Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需要从ONNX或者GEIR模型进行转换。所以在Ascend 310 AI处理器上推理，需要下述两个步骤：
 
-1. 在训练平台上生成ONNX或GEIR格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX或GEIR格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/r0.6/use/saving_and_loading_model_parameters.html#geironnx)。
 
 2. 将ONNX/GEIR格式模型文件，转化为OM格式模型，并进行推理。
    - 云上（ModelArt环境），请参考[Ascend910训练和Ascend310推理的样例](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html)完成推理操作。
@@ -88,7 +88,7 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 
 ### 使用ONNX格式文件推理
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/r0.6/use/saving_and_loading_model_parameters.html#geironnx)。
 
 2. 在GPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如在Nvidia GPU上进行推理，使用常用的TensorRT，可参考[TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt)。
 
@@ -100,10 +100,10 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 ### 使用ONNX格式文件推理
 与在GPU上进行推理类似，需要以下几个步骤：
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/r0.6/use/saving_and_loading_model_parameters.html#geironnx)。
 
 2. 在CPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如使用ONNX Runtime，可以参考[ONNX Runtime说明文档](https://github.com/microsoft/onnxruntime)。
 
 ## 端侧推理
 
-端侧推理需使用MindSpore Predict推理引擎，详细操作请参考[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/on_device_inference.html)。
+端侧推理需使用MindSpore Predict推理引擎，详细操作请参考[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/r0.6/advanced_use/on_device_inference.html)。

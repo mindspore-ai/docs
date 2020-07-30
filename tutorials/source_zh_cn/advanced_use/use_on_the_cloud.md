@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/use_on_the_cloud.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/use_on_the_cloud.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -69,7 +69,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 ### 执行脚本准备
 
 新建一个自己的OBS桶（例如：`resnet50-train`），在桶中创建代码目录（例如：`resnet50_cifar10_train`），并将以下目录中的所有脚本上传至代码目录：
-> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
+> <https://gitee.com/mindspore/docs/tree/r0.6/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
 
 为了方便后续创建训练作业，先创建训练输出目录和日志输出目录，本示例创建的目录结构如下：
 
@@ -108,7 +108,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 ### 适配OBS数据
 
 MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing提供的API与OBS交互。ModelArts训练脚本在容器中执行，通常选用`/cache`目录作为容器数据存储路径。
-> 华为云MoXing提供了丰富的API供用户使用<https://github.com/huaweicloud/ModelArts-Lab/tree/master/docs/moxing_api_doc>，本示例中仅需要使用`copy_parallel`接口。
+> 华为云MoXing提供了丰富的API供用户使用<https://github.com/huaweicloud/ModelArts-Lab/tree/r0.6/docs/moxing_api_doc>，本示例中仅需要使用`copy_parallel`接口。
 
 1. 将OBS中存储的数据下载至执行容器。
 

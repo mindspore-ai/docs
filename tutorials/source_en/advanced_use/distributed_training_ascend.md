@@ -18,12 +18,12 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/r0.6/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## Preparations
 
@@ -154,7 +154,7 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/r0.6/tutorials/tutorial_code/resnet/resnet.py>
 
 ## Defining the Loss Function and Optimizer
 

@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/on_device_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -69,7 +69,7 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
 2. 从代码仓下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindspore.git
+   git clone https://gitee.com/mindspore/mindspore.git -b r0.6
    ```
 
 3. 在源码根目录下，执行如下命令编译MindSpore Lite。

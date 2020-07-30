@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -28,7 +28,7 @@
 
 > 数据集的下载和加载方式参考：
 >
-> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+> <https://www.mindspore.cn/tutorial/zh-CN/r0.6/advanced_use/distributed_training_ascend.html>。
 
 ### 配置分布式环境
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
 
-> 网络、优化器、损失函数的定义参考：<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+> 网络、优化器、损失函数的定义参考：<https://www.mindspore.cn/tutorial/zh-CN/r0.6/advanced_use/distributed_training_ascend.html>。
 
 ## 运行脚本
 
