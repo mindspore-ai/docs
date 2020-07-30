@@ -29,5 +29,15 @@
 | Graph Neural Networks（GNN）| Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py)                                          |  Supported |  Doing | Doing
 
 ## Pre-trained Models
+*It refers to the released MindSpore version. The hardware platforms that support model training are CPU, GPU and Ascend. As shown in the table below, ✓ indicates that the pre-trained model run on the selected platform.
 
-Coming soon.
+Domain | Sub Domain| Network | CPU   | GPU | Ascend | 0.5.0-beta* 
+|:------   |:------ | :------- |:------   |:------  |:----- |:-----
+|Computer Vision (CV) | Image Classification| [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py) |     |    | ✓   |  [Download](http://download.mindspore.cn/model_zoo/official/cv/alexnet/alexnet_ascend_beta0.5_cifar10_official_classification_20200716.tar.gz)
+|Computer Vision (CV) | Image Classification| [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)|    |   | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/lenet/lenet_ascend_beta0.5_cifar10_official_classification_20200716.tar.gz)
+|Computer Vision (CV) | Image Classification| [VGG16](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/vgg16/src/vgg.py)|    |   | ✓ | [Download](http://download.mindspore.cn/model_zoo/official/cv/vgg/vgg16_ascend_beta0.5_cifar10_official_classification_20200715.tar.gz)
+|Computer Vision (CV) | Image Classification| [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py) |    |    | ✓ |[Download](http://download.mindspore.cn/model_zoo/official/cv/resnet/resnet50_v1.5_ascend_alpha0.3_cifar10_official_classification_20200718.tar.gz)
+|Computer Vision (CV)  | Targets Detection| [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py) |   |    | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/yolo/yolov3_darknet53_ascend_beta0.5_coco2014_official_object_detection_20200717.tar.gz) 
+| Natural Language Processing (NLP) | Natural Language Understanding| [BERT_Base](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py) |     |    | ✓  |  [Download](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_beta0.5_cn-wiki_official_nlp_20200720.tar.gz)
+| Natural Language Processing (NLP) | Natural Language Understanding| [BERT_NEZHA](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)|   |    | ✓  |  [Download](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_nezha_ascend_beta0.5_cn-wiki_official_nlp_20200720.tar.gz) 
+| Natural Language Processing (NLP) | Natural Language Understanding| [Transformer](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_model.py)|    |   | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/nlp/transformer/transformer_ascend_beta0.5_wmtende_official_machine_translation_20200713.tar.gz)
