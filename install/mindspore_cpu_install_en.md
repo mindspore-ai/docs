@@ -1,6 +1,6 @@
 # MindSpore Installation Guide
 
-This document describes how to quickly install MindSpore on a Ubuntu system with a CPU environment.
+This document describes how to quickly install MindSpore in a Ubuntu system with a CPU environment.
 
 <!-- TOC -->
 
@@ -39,7 +39,7 @@ This document describes how to quickly install MindSpore on a Ubuntu system with
     conda activate {your_env_name}
     ```
 
-> Conda is a powerful Python environment management tool. It is recommended that a beginner read related information on the Internet first.
+> Conda is a powerful Python environment management tool. Beginners are adviced to check related information on the Internet.
 
 ## Installation Guide
 

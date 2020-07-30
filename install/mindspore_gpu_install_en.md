@@ -1,6 +1,6 @@
 # MindSpore Installation Guide
 
-This document describes how to quickly install MindSpore on a NVIDIA GPU environment.
+This document describes how to quickly install MindSpore in a NVIDIA GPU environment.
 
 <!-- TOC -->
 
@@ -46,7 +46,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
     conda activate {your_env_name}
     ```
 
-> Conda is a powerful Python environment management tool. It is recommended that a beginner read related information on the Internet first.
+> Conda is a powerful Python environment management tool. Beginners are adviced to check related information on the Internet.
 
 ## Installation Guide
 
@@ -97,7 +97,7 @@ This document describes how to quickly install MindSpore on a NVIDIA GPU environ
     print(F.tensor_add(x, y))
     ```
 
-- The outputs should be same as:
+- The outputs should be the same as:
 
     ```bash
     [[[ 2.  2.  2.  2.],
@@ -166,7 +166,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
       Access the root directory of the source code.
       First run the MindInsight compilation script under the `build` directory of the source code.
-      Then run the command to install the .whl package generated into the `output` directory of the source code.
+      Then run the command to install the .whl package generated in the `output` directory of the source code.
 
       ```bash
       cd mindinsight
