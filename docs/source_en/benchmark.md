@@ -3,7 +3,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes the MindSpore benchmarks. 
-For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
+For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
 
 ## Training Performance
 
@@ -32,7 +32,7 @@ For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee
 
 | Network | Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Wide & Deep | Recommend | Criteo | 0.6.0 | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 16000 | 796892 samples/sec | - |
+| Wide & Deep | Recommend | Criteo | 0.6.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 16000 | 796892 samples/sec | - |
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 16000*8 | 4872849 samples/sec | 0.76 |
 
 1. The preceding performance is obtained based on Atlas 800, and the model is data parallel.
@@ -42,7 +42,7 @@ For details about the MindSpore pre-trained model, see [Model Zoo](https://gitee
 
 | Network | Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Wide & Deep | Recommend | Criteo | 0.6.0 | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 1000 | 68715 samples/sec | - |
+| Wide & Deep | Recommend | Criteo | 0.6.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 1000 | 68715 samples/sec | - |
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 8000*8 | 283830 samples/sec | 0.51 |
 |  |  |  |  | Ascend: 16 * Ascend 910 </br> CPU：384 Cores | Mixed | 8000*16 | 377848 samples/sec | 0.34 |
 |  |  |  |  | Ascend: 32 * Ascend 910 </br> CPU：768 Cores | Mixed | 8000*32 | 433423 samples/sec | 0.20 |
