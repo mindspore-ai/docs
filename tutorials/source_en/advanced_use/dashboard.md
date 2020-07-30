@@ -9,7 +9,9 @@
     - [Computational Graph Visualization](#computational-graph-visualization)
     - [Dataset Graph Visualization](#dataset-graph-visualization)
     - [Image Visualization](#image-visualization)
-    - [Notices](#Notices)
+    - [Tensor Visualization](#tensor-visualization)
+    - [Notices](#notices)
+
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/dashboard.md" target="_blank"><img src="../_static/logo_source.png"></a>
@@ -173,15 +175,15 @@ Figure 13 shows tensors recorded by a user in a form of a histogram. Click the u
 2. When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
 
 3. To limit memory usage, MindInsight limits the number of tags and steps:
-- There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
-- There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
-- There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
-- There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
-- There are 20 steps at most for each tensor tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+   - There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
+   - There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+   - There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+   - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
+   - There are 20 steps at most for each tensor tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
 
 4. Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindInsight make the following restrictions with the size of tensor and the number of value responsed and displayed on the front end:
-- MindInsight supports loading tensor containing up to 10 million values.
-- After the tensor is loaded, in the tensor-visible table view, you can view a maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
+   - MindInsight supports loading tensor containing up to 10 million values.
+   - After the tensor is loaded, in the tensor-visible table view, you can view a maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
 
 5. Since tensor visualizatioin (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
    The storage space occupied by the tensor visualizatioin function can be reduced by the following methods:

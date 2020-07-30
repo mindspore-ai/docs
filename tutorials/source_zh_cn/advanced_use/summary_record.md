@@ -6,9 +6,9 @@
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-        - [方式一：通过SummaryCollector自动收集](#方式一：通过summaryCollector自动收集)
-        - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二：结合summary算子和summaryCollector，自定义收集网络中的数据)
-        - [方式三：自定义Callback记录数据](#方式三：自定义Callback记录数据)
+        - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
+        - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
+        - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
     - [注意事项](#注意事项)
 
 <!-- /TOC -->
@@ -17,6 +17,7 @@
 <a href="https://gitee.com/mindspore/docs/tree/master/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
+
 训练过程中的标量、图像、计算图以及模型超参等信息记录到文件中，通过可视化界面供用户查看。
 
 ## 操作流程
