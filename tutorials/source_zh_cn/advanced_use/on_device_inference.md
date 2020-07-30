@@ -15,7 +15,7 @@
 
 ## 概述
 
-MindSpore Lite是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。本教程介绍MindSpore Lite的编译方法和使用指南。
+MindSpore Lite是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型或第三方模型TensorFlow Lite、ONNX、Caffe在端侧进行推理的功能。本教程介绍MindSpore Lite的编译方法和对MindSpore训练出的模型进行推理的使用指南。
 
 ![](./images/on_device_inference_frame.jpg)
 
@@ -41,47 +41,43 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
   - 硬盘空间10GB以上
 
 - 系统要求
-  - 系统环境仅支持Linux
-  - 推荐系统：Ubuntu = 18.04.02LTS
+  - 系统环境支持Linux: Ubuntu = 18.04.02LTS
 
 - 软件依赖
   - [cmake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
-  - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
-  - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  - numpy >= 1.16
-  - decorator
-  - scipy
-
-    > `numpy decorator scipy`可以通过`pip`安装，参考命令：`pip3 install numpy==1.16 decorator scipy`。
-    
+  
+  > 仅在使用arm架构时需要安装`Android_NDK`，本示例采用x86，可跳过此项。
+                                                                                                                                                                                                                   
+  使用MindSpore Lite转换工具，需要添加更多的依赖项：
+  - [autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
+  - [libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
+  - [libressl](http://www.libressl.org/) >= 3.1.3
+  - [automake](https://www.gnu.org/software/automake/) >= 1.11.6
+  - [libevent](https://libevent.org) >= 2.0
+  - [m4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
+  - [openssl](https://www.openssl.org/) >= 1.1.1
 
 编译步骤如下：
-
-1. 配置环境变量。
-
-    ```bash
-    export LLVM_PATH={$LLVM_PATH}/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/llvm-config #设定llvm路径
-    export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b #设定ndk路径
-    ```
-
-2. 从代码仓下载源码。
+1. 从代码仓下载源码。
 
    ```bash
    git clone https://gitee.com/mindspore/mindspore.git
    ```
 
-3. 在源码根目录下，执行如下命令编译MindSpore Lite。
+2. 在源码根目录下，执行如下命令编译MindSpore Lite。
 
    ```bash
-   cd mindspore/lite
-   sh build.sh 
+   bash build.sh -I x86_64
    ```
 
-4. 获取编译结果。
-
-   进入源码的`lite/build`目录，可查看编译后生成的文件。进入相对应的文件夹下执行命令，就可以使用MindSpore Lite的多种功能。
+3. 进入源码的`mindspore/output`目录，获取编译结果`MSLite-0.6.0-linux_x86_64.tar.gz`。执行解压缩命令，获得编译后的工具包：
+   
+   ```bash
+   tar xvf MSLite-0.6.0-linux_x86_64.tar.gz
+   ```
+   
 
 ## 端侧推理使用
 
@@ -159,7 +155,7 @@ MindSpore进行端侧模型推理的步骤如下。
         else:
             print("checkpoint file does not exist.")
     ```
-3. 调用MindSpore端侧转化工具`converter_lite`工具，将模型文件(`.pb`)转换为端侧模型文件(`.ms`)。
+3. 在`mindspore/output/MSLite-0.6.0-linux_x86_64/converter`路径下，调用MindSpore端侧转换工具`converter_lite`，将模型文件(`.pb`)转换为端侧模型文件(`.ms`)。
     ```
     ./converter_lite --fmk=MS --modelFile=./lenet.pb --outputFile=lenet
     ```
@@ -177,55 +173,170 @@ MindSpore进行端侧模型推理的步骤如下。
 
 图2：端侧推理时序图
 
-1. 读取MindSpore端侧模型文件信息。ReadFile函数功能需要用户参考[C++教程](http://www.cplusplus.com/doc/tutorial/files/)自行实现。
-   ```cpp
-   // Read Model File
-   std::string model_path = "./lenet.ms";
-   ReadFile(model_path.c_str(), &model_size, buf);
-   
-   // Import Model
-   auto model = lite::Model::Import(content, size);
-   meta_graph.reset();
-   content = nullptr;
-   auto context = new lite::Context;
-   context->cpuBindMode = lite::NO_BIND;
-   context->deviceCtx.type = lite::DT_CPU;
-   context->threadNum = 4;
-   ```
-
+对上一步生成的端侧模型文件`lenet.ms`执行推理，步骤如下：
+1. 读取MindSpore端侧模型文件信息。
 2. 调用`CreateSession`接口创建`Session`。
-   ```cpp
-   // Create Session
-   auto session = session::LiteSession::CreateSession(context);
-   ASSERT_NE(nullptr, session);
-   ```
-
-3. 调用`Session`中的`CompileGraph`方法，传入模型。
-   ```cpp
-   // Compile Graph
-   auto ret = session->CompileGraph(model.get());
-   ASSERT_EQ(lite::RET_OK, ret);
-   ```
-   
+3. 调用`Session`中的`CompileGraph`方法，传入模型。   
 4. 调用`Session`中的`GetInputs`方法，获取输入`Tensor`，获取图片信息设置为`data`，`data`即为用于推理的输入数据。
-   ```cpp
-   auto inputs = session->GetInputs();
-   ASSERT_EQ(inputs.size(), 1);
-   auto inTensor = inputs.front();
-   ASSERT_NE(nullptr, inTensor);
-   (void)inTensor->MutableData();
-   ```
-
 5. 调用`Session`中的`RunGraph`接口执行推理。
-   ```cpp
-   // Run Graph
-   ret = session->RunGraph();
-   ASSERT_EQ(lite::RET_OK, ret);
-   ```
-
 6. 调用`GetOutputs`接口获取输出。
-   ```cpp
-   // Get Outputs
-   auto outputs = session->GetOutputs();
-   ```
+
+推理环节的完整示例代码如下：
+
+   ```CPP
+   #include <iostream>
+   #include <fstream>
+   #include "schema/model_generated.h"
+   #include "include/model.h"
+   #include "include/lite_session.h"
+   #include "include/errorcode.h"
+   #include "ir/dtype/type_id.h"
    
+   
+   char *ReadFile(const char *file, size_t *size) {
+     if (file == nullptr) {
+       std::cerr << "file is nullptr" << std::endl;
+       return nullptr;
+     }
+     if (size == nullptr) {
+       std::cerr << "size is nullptr" << std::endl;
+       return nullptr;
+     }
+     std::ifstream ifs(file);
+     if (!ifs.good()) {
+       std::cerr << "file: " << file << " is not exist" << std::endl;
+       return nullptr;
+     }
+   
+     if (!ifs.is_open()) {
+       std::cerr << "file: " << file << " open failed" << std::endl;
+       return nullptr;
+     }
+   
+     ifs.seekg(0, std::ios::end);
+     *size = ifs.tellg();
+     std::unique_ptr<char> buf(new char[*size]);
+   
+     ifs.seekg(0, std::ios::beg);
+     ifs.read(buf.get(), *size);
+     ifs.close();
+   
+     return buf.release();
+   }
+   
+   int main(int argc, const char **argv) {
+     size_t model_size;
+     std::string model_path = "./lenet.ms";
+   
+   // 1. Read File
+     auto model_buf = ReadFile(model_path.c_str(), &model_size);
+     if (model_buf == nullptr) {
+       std::cerr << "ReadFile return nullptr" << std::endl;
+       return -1;
+     }
+   
+   // 2. Import Model
+     auto model = mindspore::lite::Model::Import(model_buf, model_size);
+     if (model == nullptr) {
+       std::cerr << "Import model failed" << std::endl;
+       delete[](model_buf);
+       return -1;
+     }
+     delete[](model_buf);
+     auto context = new mindspore::lite::Context;
+     context->cpuBindMode = mindspore::lite::NO_BIND;
+     context->deviceCtx.type = mindspore::lite::DT_CPU;
+     context->threadNum = 4;
+   
+   // 3. Create Session
+     auto session = mindspore::session::LiteSession::CreateSession(context);
+     if (session == nullptr) {
+       std::cerr << "CreateSession failed" << std::endl;
+       return -1;
+     }
+     delete context;
+     auto ret = session->CompileGraph(model.get());
+     if (ret != mindspore::lite::RET_OK) {
+       std::cerr << "CompileGraph failed" << std::endl;
+       delete session;
+       return -1;
+     }
+   
+   // 4. Get Inputs
+     auto inputs = session->GetInputs();
+     if (inputs.size() != 1) {
+       std::cerr << "Lenet should has only one input" << std::endl;
+       delete session;
+       return -1;
+     }
+     auto in_tensor = inputs.front();
+     if (in_tensor == nullptr) {
+       std::cerr << "in_tensor is nullptr" << std::endl;
+       delete session;
+       return -1;
+     }
+     size_t data_size;
+     std::string data_path = "./data.bin";
+     auto input_buf = ReadFile(data_path.c_str(), &data_size);
+     if (input_buf == nullptr) {
+       std::cerr << "ReadFile return nullptr" << std::endl;
+       delete session;
+       return -1;
+     }
+     if (in_tensor->Size()!=data_size) {
+       std::cerr << "Input data size is not suit for model input" << std::endl;
+       delete[](input_buf);
+       delete session;
+       return -1;
+     }
+     auto *in_data = in_tensor->MutableData();
+     if (in_data == nullptr) {
+       std::cerr << "Data of in_tensor is nullptr" << std::endl;
+       delete[](input_buf);
+       delete session;
+       return -1;     
+     }
+     memcpy(in_data, input_buf, data_size);
+     delete[](input_buf);
+
+   // 5. Run Graph
+     ret = session->RunGraph();
+     if (ret != mindspore::lite::RET_OK) {
+       std::cerr << "RunGraph failed" << std::endl;
+       delete session;
+       return -1;
+     } 
+   
+   // 6. Get Outputs
+     auto outputs = session->GetOutputs();
+     if (outputs.size()!= 1) {
+       std::cerr << "Lenet should has only one output" << std::endl;
+       delete session;
+       return -1;     
+     }
+     auto out_tensor = outputs.front();
+     if (out_tensor == nullptr) {
+       std::cerr << "out_tensor is nullptr" << std::endl;
+       delete session;
+       return -1;     
+     }
+     if (out_tensor->data_type()!=mindspore::TypeId::kNumberTypeFloat32) {
+       std::cerr << "Output of lenet should in float32" << std::endl;
+       delete session;
+       return -1;     
+     }
+     auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
+     if (out_data == nullptr) {
+       std::cerr << "Data of out_tensor is nullptr" << std::endl;
+       delete session;
+       return -1;     
+     }
+     std::cout << "Output data: "; 
+     for (size_t i = 0; i < 10 & i < out_tensor->ElementsNum(); i++) {
+     std::cout << " " << out_data[i];
+     }
+     std::cout << std::endl;
+     delete session;
+     return 0;
+   }
+   ```
