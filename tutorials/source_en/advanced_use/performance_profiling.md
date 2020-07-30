@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. MindInsight Profiler can only support the Ascend chip now.
@@ -64,7 +64,7 @@ def test_profiler():
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/r0.6/advanced_use/mindinsight_commands.html).
 
 
 ### Performance Analysis

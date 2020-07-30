@@ -9,7 +9,7 @@
         - [MindSpore扩展数据类型](#mindspore扩展数据类型)
         - [表达式类型](#表达式类型)
         - [语句类型](#语句类型)
-        - [系统函数](#系统函数)
+        - [系统函数/系统类](#系统函数系统类)
         - [函数参数](#函数参数)
         - [操作符](#操作符)
         - [索引操作](#索引操作)
@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_zh_cn/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
   MindSpore完成从用户源码到计算图的编译，用户源码基于Python语法编写，当前MindSpore支持将普通函数或者继承自nn.Cell的实例转换生成计算图，暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。随着MindSpore的演进，这些约束可能会发生变化。
@@ -150,8 +150,8 @@
 ## 网络定义约束
 
 ### 整网实例类型
-* 带[@ms_function](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
-* 继承自[nn.Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)的Cell子类。
+* 带[@ms_function](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
+* 继承自[nn.Cell](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)的Cell子类。
 
 ### 网络输入类型
 * 整网的训练数据输入参数只能是Tensor类型。
@@ -164,13 +164,13 @@
 
 | 类别                   | 内容
 | :-----------          |:--------
-| `Cell`实例             |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
+| `Cell`实例             |[mindspore/nn/*](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
 | `Cell`实例的成员函数     | Cell的construct中可以调用其他类成员函数。
 | 函数                   | 自定义Python函数、前文中列举的系统函数。
 | dataclass实例          | 使用@dataclass装饰的类。
-| Primitive算子          |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html)
-| Composite算子          |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html)
-| constexpr生成算子       |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
+| Primitive算子          |[mindspore/ops/operations/*](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.operations.html)
+| Composite算子          |[mindspore/ops/composite/*](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.composite.html)
+| constexpr生成算子       |使用[@constexpr](https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
 
 
 ### 其他约束

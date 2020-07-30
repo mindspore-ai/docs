@@ -14,7 +14,7 @@ MindSpore's top priority plans in the year are displayed as follows. We will con
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_en/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 In general, we will make continuous improvements in the following aspects:
 1. Support more preset models.

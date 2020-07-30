@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_en/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -225,7 +225,7 @@ val:[[1 1]
 
 When the training result deviates from the expectation on Ascend, the input and output of the operator can be dumped for debugging through Asynchronous Data Dump.
 
-> `comm_ops` operators are not supported by Asynchronous Data Dump. `comm_ops` can be found in [Operator List](https://www.mindspore.cn/docs/en/master/operator_list.html).
+> `comm_ops` operators are not supported by Asynchronous Data Dump. `comm_ops` can be found in [Operator List](https://www.mindspore.cn/docs/en/r0.6/operator_list.html).
 
 1. Turn on the switch to save graph IR: `context.set_context(save_graphs=True)`.
 2. Execute training script.

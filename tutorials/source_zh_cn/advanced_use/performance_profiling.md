@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。目前仅支持在Ascend芯片上的性能调试。
@@ -66,7 +66,7 @@ def test_profiler():
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/r0.6/advanced_use/mindinsight_commands.html)。
 
 
 ### 性能分析

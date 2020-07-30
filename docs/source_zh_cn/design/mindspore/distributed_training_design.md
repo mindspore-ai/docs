@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/docs/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 背景
 
@@ -63,12 +63,12 @@
 
 1. 集合通信
 
-    - [management.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/communication/management.py): 这个文件中涵盖了集合通信过程中常用的`helper`函数接口，例如获取集群数量和卡的序号等。当在Ascend芯片上执行时，框架会加载环境上的`libhccl.so`库文件，通过它来完成从Python层到底层的通信接口调用。
-    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ops/operations/comm_ops.py): MindSpore将支持的集合通信操作都包装为算子的形式放在这个文件下，包括`AllReduce`、`AllGather`、`ReduceScatter`和`Broadcast`等。`PrimitiveWithInfer`中除了定义算子所需属性外，还包括构图过程中输入到输出的`shape`和`dtype`推导。
+    - [management.py](https://gitee.com/mindspore/mindspore/blob/r0.6/mindspore/communication/management.py): 这个文件中涵盖了集合通信过程中常用的`helper`函数接口，例如获取集群数量和卡的序号等。当在Ascend芯片上执行时，框架会加载环境上的`libhccl.so`库文件，通过它来完成从Python层到底层的通信接口调用。
+    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/r0.6/mindspore/ops/operations/comm_ops.py): MindSpore将支持的集合通信操作都包装为算子的形式放在这个文件下，包括`AllReduce`、`AllGather`、`ReduceScatter`和`Broadcast`等。`PrimitiveWithInfer`中除了定义算子所需属性外，还包括构图过程中输入到输出的`shape`和`dtype`推导。
 
 2. 梯度聚合
 
-    - [grad_reducer.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/grad_reducer.py): 这个文件实现了梯度聚合的过程。对入参`grads`用`HyperMap`展开后插入`AllReduce`算子，这里采用的是全局通信组，用户也可以根据自己网络的需求仿照这个模块进行自定义开发。MindSpore中单机和分布式执行共用一套网络封装接口，在`Cell`内部通过`ParallelMode`来区分是否要对梯度做聚合操作，网络封装接口建议参考`TrainOneStepCell`代码实现。
+    - [grad_reducer.py](https://gitee.com/mindspore/mindspore/blob/r0.6/mindspore/nn/wrap/grad_reducer.py): 这个文件实现了梯度聚合的过程。对入参`grads`用`HyperMap`展开后插入`AllReduce`算子，这里采用的是全局通信组，用户也可以根据自己网络的需求仿照这个模块进行自定义开发。MindSpore中单机和分布式执行共用一套网络封装接口，在`Cell`内部通过`ParallelMode`来区分是否要对梯度做聚合操作，网络封装接口建议参考`TrainOneStepCell`代码实现。
 
 
 ## 其他并行

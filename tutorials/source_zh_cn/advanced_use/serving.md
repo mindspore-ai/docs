@@ -12,7 +12,7 @@
         - [客户端示例](#客户端示例)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.6/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 
 ## 概述
@@ -43,7 +43,7 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 下面以一个简单的网络为例，演示MindSpore Serving如何使用。
 
 ### 导出模型
-使用[add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
+使用[add_model.py](https://gitee.com/mindspore/mindspore/blob/r0.6/serving/example/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
 ```python
 python add_model.py
@@ -117,5 +117,5 @@ client received: RPC OK
     Status status = stub_->Predict(&context, request, &reply);
     ```
 
-完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc)。 
+完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/r0.6/serving/example/cpp_client/ms_client.cc)。 
 
