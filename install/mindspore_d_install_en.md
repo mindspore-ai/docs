@@ -1,6 +1,6 @@
 # MindSpore Installation Guide
 
-This document describes how to quickly install MindSpore on an Ascend AI processor environment.
+This document describes how to quickly install MindSpore in an Ascend AI processor environment.
 
 <!-- TOC -->
 
@@ -52,7 +52,7 @@ This document describes how to quickly install MindSpore on an Ascend AI process
     conda activate {your_env_name}
     ```
 
-> Conda is a powerful Python environment management tool. It is recommended that a beginner read related information on the Internet first.
+> Conda is a powerful Python environment management tool. Beginers are adviced to check related information on the Internet.
 
 ### Configuring software package Dependencies
 
@@ -154,7 +154,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     print(F.tensor_add(x, y))
     ```
 
-- The outputs should be same as:
+- The outputs should be the same as:
 
     ```
     [[[ 2.  2.  2.  2.],
@@ -223,7 +223,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
       Access the root directory of the source code.
       First run the MindInsight compilation script under the `build` directory of the source code.
-      Then run the command to install the .whl package generated into the `output` directory of the source code.
+      Then run the command to install the .whl package generated in the `output` directory of the source code.
 
       ```bash
       cd mindinsight
