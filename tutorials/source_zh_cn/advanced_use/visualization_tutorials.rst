@@ -4,7 +4,9 @@
 .. toctree::
   :maxdepth: 1
 
-  dashboard_and_lineage
+  summary_record
+  dashboard
+  lineage_and_scalars_comparision
   system_metrics
   performance_profiling
   mindinsight_commands
