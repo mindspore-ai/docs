@@ -246,8 +246,8 @@ When the training result deviates from the expectation on Ascend, the input and 
     }
     ```
 
-    > - Iteration should be set to 0 in non data sink mode and data of every iteration will be dumped.
-    > - Iteration should increase by 1 in data sink mode. For example, data of GetNext will be dumped in iteration 0 and data of compute graph will be dumped in iteration 1.
+    > - Iteration should be set to 0 when `dataset_sink_mode` is False and data of every iteration will be dumped.
+    > - Iteration should increase by 1 when `dataset_sink_mode` is True. For example, data of GetNext will be dumped in iteration 0 and data of compute graph will be dumped in iteration 1.
 
 5. Set environment variables.
 
