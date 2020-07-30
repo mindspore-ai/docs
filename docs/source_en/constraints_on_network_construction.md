@@ -9,7 +9,7 @@
     - [MindSpore Extended Data Type](#mindspore-extended-data-type)
     - [Expression Types](#expression-types)
     - [Statement Types](#statement-types)
-    - [System Functions](#system-functions)
+    - [System Functions/Class](#system-functionsclasses)
     - [Function Parameters](#function-parameters)
     - [Operators](#operators)
     - [Index operation](#index-operation)
@@ -63,7 +63,7 @@
 | `not in`     | Only support Dictionary.
 | Assignment statement     | Accessed multiple subscripts of lists and dictionaries cannot be used as l-value.
 
-### System Functions/Class
+### System Functions/Classes
 
 | Functions/Class         | Compared with Python
 | :----------- |:--------
