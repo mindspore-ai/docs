@@ -58,7 +58,7 @@ export PS_VERBOSE=1                   # Print ps-lite log
 export MS_SERVER_NUM=1                # Server number
 export MS_WORKER_NUM=1                # Worker number
 export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
-export MS_SCHED_POST=XXXX             # Scheduler port
+export MS_SCHED_PORT=XXXX             # Scheduler port
 export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED represents the scheduler, MS_WORKER represents the worker, MS_PSERVER represents the Server
 ```
 
@@ -75,7 +75,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_POST=XXXX
+    export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_SCHED
     python train.py
     ```
@@ -87,7 +87,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_POST=XXXX
+    export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_PSERVER
     python train.py
     ```
@@ -99,7 +99,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
-    export MS_SCHED_POST=XXXX
+    export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_WORKER
     python train.py
     ```
