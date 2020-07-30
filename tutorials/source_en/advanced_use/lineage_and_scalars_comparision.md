@@ -7,7 +7,6 @@
     - [Model Lineage](#model-lineage)
     - [Dataset Lineage](#dataset-lineage)
     - [Scalars Comparision](#scalars-comparision)
-    - [Specifications](#specifications)
     - [Notices](#notices)
 
 <!-- /TOC -->

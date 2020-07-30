@@ -10,7 +10,7 @@
     - [数据并行](#数据并行)
         - [设计原理](#设计原理)
         - [代码实现](#代码实现)
-        - [其他并行](#其他并行)
+    - [其他并行](#其他并行)
 
 <!-- /TOC -->
 
@@ -71,7 +71,7 @@
     - [grad_reducer.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/wrap/grad_reducer.py): 这个文件实现了梯度聚合的过程。对入参`grads`用`HyperMap`展开后插入`AllReduce`算子，这里采用的是全局通信组，用户也可以根据自己网络的需求仿照这个模块进行自定义开发。MindSpore中单机和分布式执行共用一套网络封装接口，在`Cell`内部通过`ParallelMode`来区分是否要对梯度做聚合操作，网络封装接口建议参考`TrainOneStepCell`代码实现。
 
 
-### 其他并行
+## 其他并行
 
 建设中，即将上线。
 
