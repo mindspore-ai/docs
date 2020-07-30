@@ -49,7 +49,7 @@ The environment requirements are as follows:
   - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
   - [autoconf](http://ftp.gnu.org/gnu/autoconf/) 2.69
   - [LLVM 8.0.0](http://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz)
-  - [Android_NDK r16b](https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip)
+  - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
   - numpy >= 1.16
   - decorator
   - scipy
@@ -63,7 +63,7 @@ The compilation procedure is as follows:
 
     ```bash
     export LLVM_PATH={$LLVM_PATH}/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/llvm-config #Set the LLVM path.
-    export ANDROID_NDK={$NDK_PATH}/android-ndk-r16b #Set the NDK path.
+    export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b #Set the NDK path.
     ```
 
 2. Download source code from the code repository.
