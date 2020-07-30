@@ -27,20 +27,20 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <br/>
 
-Q: What should I do when error prompts during pip install ?
+Q: What should I do when error prompts during pip install?
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
 use `python3.7 -m pip install` instead of `pip install` command.
 
 <br/>
 
-Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website ?
+Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
 
 ### Source Code Compilation Installation
 
-Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors ?
+Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors?
 
 A: MindSpore imports third party dependencies through submodule mechanism, among which `protobuf` v3.8.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
 
@@ -52,13 +52,13 @@ A: The third party libraries will be installed in build/mindspore/.mslib, you ca
 
 <br/>
 
-Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version ?
+Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?
 
 A: At the moment some software might need manual upgrade. (**Note**：MindSpore requires Python3.7.5 and gcc7.3，the default version in Ubuntu 16.04 are Python3.5 and gcc5，whereas the one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
 
 <br/>
 
-Q: What should I do if there is a prompt `tclsh not found` when I compile MindSpore from source code ?
+Q: What should I do if there is a prompt `tclsh not found` when I compile MindSpore from source code?
 
 A: Please install the software manually if there is any suggestion of certain `software not found`.
 
@@ -72,7 +72,7 @@ A: Please change the Chinese directory to English, and make sure there are no Ch
 
 ### Model Support
 
-Q: What types of model is currently supported by MindSpore for training ?
+Q: What types of model is currently supported by MindSpore for training?
 
 A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
 
@@ -84,13 +84,13 @@ A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are und
 
 ### Backend Support
 
-Q: When install or run MindSpore, are there any requirements for hardwares like GPU, NPU and so forth ?
+Q: When install or run MindSpore, are there any requirements for hardwares like GPU, NPU and so forth?
 
 A: MindSpore currently supports Ascend AI processor, CPU and GPU。For common models like lenet you can try run MindSpore on CPU alone.
 
 <br/>
 
-Q: Does MindSpore have any plan on supporting other types of heterogeneous computing hardwares ?
+Q: Does MindSpore have any plan on supporting other types of heterogeneous computing hardwares?
 
 A: MindSpore provides pluggable device management interface so that developer could easily integrate other types of heterogeneous computing hardwares like FPGA to MindSpore. We welcome more backend support in MindSpore from the community.
 
@@ -108,13 +108,13 @@ A: The MindSpore CPU version can be installed on Windows 10.
 
 ### Programming Language
 
-Q: The recent announced programming language such as taichi got Python extensions that could be directly used as `import taichi as ti`. Does MindSpore have similar support ?
+Q: The recent announced programming language such as taichi got Python extensions that could be directly used as `import taichi as ti`. Does MindSpore have similar support?
 
 A: MindSpore supports Python native expression via `import mindspore`。
 
 <br/>
 
-Q: Does MindSpore plan to support more programming languages other than Python ?
+Q: Does MindSpore plan to support more programming languages other than Python?
 
 A：MindSpore currently supports Python extensions，bindings for languages like C++、Rust、Julia are on the way.
 
