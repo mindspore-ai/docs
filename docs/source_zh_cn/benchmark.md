@@ -2,7 +2,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-本文介绍MindSpore的基准性能。MindSpore预训练模型可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+本文介绍MindSpore的基准性能。MindSpore网络定义可参考[Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
 
 ## 训练性能
 
@@ -31,7 +31,7 @@
 
 | Network | Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Wide & Deep | Recommend | Criteo | 0.6.0 | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 16000 | 796892 samples/sec | - |
+| Wide & Deep | Recommend | Criteo | 0.6.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 16000 | 796892 samples/sec | - |
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 16000*8 | 4872849 samples/sec | 0.76 |
 
 1. 以上数据基于Atlas 800测试获得，且网络模型为数据并行。
@@ -41,7 +41,7 @@
 
 | Network | Network Type | Dataset | MindSpore Version | Resource &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Precision | Batch Size | Throughput |  Speedup |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Wide & Deep | Recommend | Criteo | 0.6.0 | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 8000 | 68715 samples/sec | - |
+| Wide & Deep | Recommend | Criteo | 0.6.0-beta | Ascend: 1 * Ascend 910 </br> CPU：24 Cores | Mixed | 8000 | 68715 samples/sec | - |
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 8000*8 | 283830 samples/sec | 0.51 |
 |  |  |  |  | Ascend: 16 * Ascend 910 </br> CPU：384 Cores | Mixed | 8000*16 | 377848 samples/sec | 0.34 |
 |  |  |  |  | Ascend: 32 * Ascend 910 </br> CPU：768 Cores | Mixed | 8000*32 | 433423 samples/sec | 0.20 |
