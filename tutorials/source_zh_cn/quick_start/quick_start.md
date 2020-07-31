@@ -317,8 +317,8 @@ if __name__ == "__main__":
 
 ### 配置模型保存
 
-MindSpore提供了callback机制，可以在训练过程中执行自定义逻辑，这里使用框架提供的`ModelCheckpoint`和`LossMonitor`为例。
-`ModelCheckpoint`可以保存网络模型和参数，以便进行后续的fine-tuning（微调）操作，`LossMonitor`可以监控训练过程中`loss`值的变化。
+MindSpore提供了callback机制，可以在训练过程中执行自定义逻辑，这里使用框架提供的`ModelCheckpoint`为例。
+`ModelCheckpoint`可以保存网络模型和参数，以便进行后续的fine-tuning（微调）操作。
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -334,7 +334,7 @@ if __name__ == "__main__":
 
 ### 配置训练网络
 
-通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。
+通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。`LossMonitor`可以监控训练过程中`loss`值的变化。
 这里把`epoch_size`设置为1，对数据集进行1个迭代的训练。
 
 
