@@ -282,6 +282,8 @@ Data augmentation requires the `map` function. For details about how to use the 
     ```
 2. Define data augmentation operators. The following uses `Resize` as an example:
     ```python
+    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    DATA_DIR = "/path/to/imagefolder_directory"
     dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Decode images. 
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(input_columns="image", operations=resize_op)
@@ -308,6 +310,8 @@ Figure 2: Image after its size is reset
     ```
 2. Define data augmentation operators and use the `ComposeOp` API to combine multiple data augmentation operations. The following uses `RandomCrop` as an example:
     ```python
+    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    DATA_DIR = "/path/to/imagefolder_directory"
     dataset = ds.ImageFolderDatasetV2(DATA_DIR)
 
     transforms_list = [
