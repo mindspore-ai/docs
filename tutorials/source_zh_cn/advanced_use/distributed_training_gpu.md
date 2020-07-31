@@ -79,6 +79,10 @@ if __name__ == "__main__":
 
 在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
+> 你可以在这里找到样例的运行脚本：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/run_gpu.sh>。
+
 ```bash
 #!/bin/bash
 
@@ -93,7 +97,7 @@ echo "start training"
 mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-脚本需要传入变量`DATA_PATH`，表示数据集的路径，resnet50_distributed_training.py是适配GPU后的Python文件。日志文件保存`device`目录下，关于Loss部分结果保存在`train.log`中。将loss值 `grep`出来后，示例如下：
+脚本需要传入变量`DATA_PATH`，表示数据集的路径。此外，我们需要修改下`resnet50_distributed_training.py`文件，将`device_target`设置为`GPU`，并调用`init("nccl")`来使能NCCL。日志文件保存`device`目录下，关于Loss部分结果保存在`train.log`中。将loss值 `grep`出来后，示例如下：
 
 ```
 epoch: 1 step: 1, loss is 2.3025854

@@ -8,4 +8,4 @@ mkdir device
 cp ./resnet50_distributed_training.py ./resnet.py ./device
 cd ./device
 echo "start training"
-pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
+mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
