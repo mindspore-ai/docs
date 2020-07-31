@@ -17,7 +17,7 @@
 
 MindSpore Lite是一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。本教程介绍MindSpore Lite的编译方法和使用指南。
 
-![](./images/on_device_inference_frame.png)
+![](./images/on_device_inference_frame.jpg)
 
 图1：端侧推理架构图
 
@@ -173,7 +173,7 @@ MindSpore进行端侧模型推理的步骤如下。
 
 将`.ms`模型文件和图片数据作为输入，创建`session`在端侧实现推理。
 
-![](./images/side_infer_process.png)
+![](./images/side_infer_process.jpg)
 
 图2：端侧推理时序图
 

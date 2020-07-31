@@ -17,7 +17,7 @@
 
 MindSpore Lite is a lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side. This tutorial describes how to use and compile MindSpore Lite.
 
-![](./images/on_device_inference_frame.png)
+![](./images/on_device_inference_frame.jpg)
 
 Figure 1 On-device inference frame diagram
 
@@ -173,7 +173,7 @@ To perform on-device model inference using MindSpore, perform the following step
 
 Use the `.ms` model file and image data as input to create a session and implement inference on the device.
 
-![](./images/side_infer_process.png)
+![](./images/side_infer_process.jpg)
 
 1. Load the `.ms` model file to the memory buffer. The ReadFile function needs to be implemented by users, according to the [C++ tutorial](http://www.cplusplus.com/doc/tutorial/files/).
    ```cpp
