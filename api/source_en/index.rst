@@ -8,13 +8,14 @@ MindSpore API
 
 .. toctree::
    :maxdepth: 1
-   :caption: Python API
+   :caption: MindSpore Python API
 
    api/python/mindspore/mindspore
    api/python/mindspore/mindspore.dtype
    api/python/mindspore/mindspore.common.initializer
    api/python/mindspore/mindspore.communication
    api/python/mindspore/mindspore.context
+   api/python/mindspore/mindspore.hub
    api/python/mindspore/mindspore.nn
    api/python/mindspore/mindspore.nn.dynamic_lr
    api/python/mindspore/mindspore.nn.learning_rate_schedule
@@ -31,8 +32,15 @@ MindSpore API
    api/python/mindspore/mindspore.mindrecord
    api/python/mindspore/mindspore.profiler
 
+.. toctree::
+   :maxdepth: 1
+   :caption: MindInsight Python API
+
    api/python/mindinsight/mindinsight.lineagemgr
 
+.. toctree::
+   :maxdepth: 1
+   :caption: MindArmour Python API
 
    api/python/mindarmour/mindarmour
    api/python/mindarmour/mindarmour.utils
@@ -42,4 +50,3 @@ MindSpore API
    api/python/mindarmour/mindarmour.defenses
    api/python/mindarmour/mindarmour.fuzzing
    api/python/mindarmour/mindarmour.diff_privacy
-
