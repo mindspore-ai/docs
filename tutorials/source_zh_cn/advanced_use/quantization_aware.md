@@ -74,7 +74,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 
 接下来，以LeNet网络为例，展开叙述3、6两个步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r0.6/model_zoo/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r0.6/model_zoo/official/cv/lenet_quant> 。
 
 ### 定义融合网络
 
