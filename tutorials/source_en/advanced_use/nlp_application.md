@@ -250,14 +250,14 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
     ============== Starting Data Pre-processing ==============
     vocab_size:  252192
     ============== Starting Training ==============
-    Epoch:[  1/ 20], step: [    1/  390], loss: [0.6935], avg los: [0.6935], time: [628,2482ms]
-    Epoch:[  1/ 20], step: [    2/  390], loss: [0.6924], avg los: [0.6929], time: [97.1351ms]
+    epoch: 1 step: 1, loss is 0.6935
+    epoch: 1 step: 2, loss is 0.6924
     ...
-    Epoch:[  10/ 20], step: [  389/  390], loss: [0.2675], avg los: [0.2997], time: [71.5523ms]
-    Epoch:[  10/ 20], step: [  390/  390], loss: [0.3232], avg los: [0.2997], time: [772.3286ms]
+    epoch: 10 step: 389, loss is 0.2675
+    epoch: 10 step: 390, loss is 0.3232
     ...
-    Epoch:[  20/ 20], step: [  389/  390], loss: [0.1354], avg los: [0.1318], time: [68.1632ms]
-    Epoch:[  20/ 20], step: [  390/  390], loss: [0.2855], avg los: [0.1322], time: [760.9208ms]
+    epoch: 20 step: 389, loss is 0.1354
+    epoch: 20 step: 390, loss is 0.2855
     ```
 
 2. Check the saved CheckPoint files.
