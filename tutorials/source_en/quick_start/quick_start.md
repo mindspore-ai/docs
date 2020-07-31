@@ -316,8 +316,8 @@ if __name__ == "__main__":
 
 ### Saving the Configured Model
 
-MindSpore provides the callback mechanism to execute customized logic during training. `ModelCheckpoint` and `LossMonitor` provided by the framework are used in this example.
-`ModelCheckpoint` can save network models and parameters for subsequent fine-tuning. `LossMonitor` can monitor the changes of the `loss` value during training.
+MindSpore provides the callback mechanism to execute customized logic during training. `ModelCheckpoint` provided by the framework is used in this example.
+`ModelCheckpoint` can save network models and parameters for subsequent fine-tuning.
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -333,7 +333,7 @@ if __name__ == "__main__":
 
 ### Configuring the Network Training
 
-Use the `model.train` API provided by MindSpore to easily train the network.
+Use the `model.train` API provided by MindSpore to easily train the network. `LossMonitor` can monitor the changes of the `loss` value during training.
 In this example, set `epoch_size` to 1 to train the dataset for five iterations.
 
 ```python
