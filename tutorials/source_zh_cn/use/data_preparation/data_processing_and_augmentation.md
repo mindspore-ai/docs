@@ -282,6 +282,8 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
     ```
 2. 定义数据增强算子，以`Resize`为例：
     ```python
+    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    DATA_DIR = "/path/to/imagefolder_directory"
     dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Decode images. 
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(input_columns="image", operations=resize_op)
@@ -308,6 +310,8 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
     ```
 2. 定义数据增强算子，通过`ComposeOp`接口将多个数据增强组合使用, 以`RandomCrop`为例：
     ```python
+    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    DATA_DIR = "/path/to/imagefolder_directory"
     dataset = ds.ImageFolderDatasetV2(DATA_DIR)
 
     transforms_list = [
