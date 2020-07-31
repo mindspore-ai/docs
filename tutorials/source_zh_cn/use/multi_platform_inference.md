@@ -98,6 +98,10 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
     ``` 
     其中，  
     `hub.load_weights`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/r0.6/api/python/mindspore/mindspore.hub.html#mindspore.hub.load_weights>。
+    使用hub功能接口之前，需要安装bs4依赖包，具体安装代码为：
+    ```python
+    pip install bs4
+    ```
 
 2. 使用`model.predict`接口来进行推理操作。
    ```python

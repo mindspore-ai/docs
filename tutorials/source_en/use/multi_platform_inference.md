@@ -100,6 +100,12 @@ MindSpore supports the following inference scenarios based on the hardware platf
     In the preceding information:
         
     `hub.load_weights` is an API for loading model parameters. PLease check the details in <https://www.mindspore.cn/api/en/r0.6/api/python/mindspore/mindspore.hub.html#mindspore.hub.load_weights>.
+    
+    if want to use `hub`, need to isntall the requirement package `bs4`. The install as following:
+   
+    ```python
+    pip install bs4
+    ```
 
 2. Use the `model.predict` API to perform inference.
    ```python
