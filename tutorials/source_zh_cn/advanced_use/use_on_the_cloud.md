@@ -269,7 +269,7 @@ if __name__ == '__main__':
 ## 创建训练任务
 
 准备好数据和执行脚本以后，需要创建训练任务将MindSpore脚本真正运行起来。首次使用ModelArts的用户可以根据本章节了解ModelArts创建训练作业的流程。
-> 本章节以MindSpore 0.5.0-alpha版本为例。ModelArts支持的MindSpore版本以创建训练作业时"算法来源"->"常用框架"->"AI引擎"可选择的版本为准。
+> 本章节以MindSpore 0.5.0-beta版本为例。ModelArts支持的MindSpore版本以创建训练作业时"算法来源"->"常用框架"->"AI引擎"可选择的版本为准。
 
 ### 进入ModelArts控制台
 
