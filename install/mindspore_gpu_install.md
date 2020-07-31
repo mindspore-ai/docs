@@ -188,7 +188,7 @@
 
 | 版本号                 | 操作系统            | 可执行文件安装依赖                                           | 源码编译安装依赖         |
 | ---------------------- | :------------------ | :----------------------------------------------------------- | :----------------------- |
-| MindArmour master | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 0.6.0-beta <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/r0.6/setup.py) | 与可执行文件安装依赖相同 |
+| MindArmour 0.6.0-beta | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 0.6.0-beta <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/r0.6/setup.py) | 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
