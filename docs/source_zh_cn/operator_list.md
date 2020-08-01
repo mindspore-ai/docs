@@ -415,3 +415,4 @@
 | [mindspore.ops.operations.ScatterSub](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterSub)
 | [mindspore.ops.operations.ScatterMul](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterMul)
 | [mindspore.ops.operations.ScatterDiv](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterDiv)
+
