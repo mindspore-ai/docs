@@ -289,7 +289,7 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     正确代码:
     ```python3
     ...
-    summary_collector = SummaryCollecotor('./summary_dir')
+    summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
 
     ...
@@ -299,8 +299,8 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     错误代码：
     ```python3
     ...
-    summary_collector1 = SummaryCollecotor('./summary_dir1')
-    summary_collector2 = SummaryCollecotor('./summary_dir2')
+    summary_collector1 = SummaryCollector('./summary_dir1')
+    summary_collector2 = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
     ```
 
@@ -309,6 +309,6 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
-    summary_collector = SummaryCollecotor('./summary_dir2')
+    summary_collector = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
