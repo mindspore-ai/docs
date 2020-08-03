@@ -79,7 +79,7 @@ The procedure for submitting the modification is the same as that for submitting
 
   ```
 
-- A blank line must be added before and after an image and an image title. Otherwise, the typesetting will be abnormal.
+- A blank line must be added before and after an image and an image title. Otherwise, the typesetting will be abnormal. For example as correctly:
 
    ```
   Example:
@@ -91,6 +91,19 @@ The procedure for submitting the modification is the same as that for submitting
   The following content.
   ```
 
+- A blank line must be added before and after a table. Otherwise, the typesetting will be abnormal. Tables are not supported in ordered or unordered lists. For example as correctly:
+
+  ```
+  ## Title
+
+  | Header1  | Header2
+  | :-----   | :----
+  | Body I1  | Body I2
+  | Body II1 | Body II2
+
+  The following content.
+  ```
+  
 - Mark the reference interface, path name, file name in the tutorial and document with "\` \`". If it's a function or method, don't use parentheses at the end. For example:
   
   - Reference method 
