@@ -76,6 +76,8 @@ MindSpore adds underscores (_) and digits at the end of the user-defined prefix 
 
 For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated during the 32th step of the second epoch after the script is executed for the third time.
 
+> - When the saved single model parameter is large (more than 64M), it will fail to save due to the limitation of Protobuf's own data size. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+> - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent file read and write confusion.
 
 ### CheckPoint Configuration Policies
 

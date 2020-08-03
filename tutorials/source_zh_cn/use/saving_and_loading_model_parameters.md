@@ -76,7 +76,8 @@ MindSpore为方便用户区分每次生成的文件，会在用户定义的前�
 
 例：`resnet50_3-2_32.ckpt` 表示运行第3次脚本生成的第2个epoch的第32个step的CheckPoint文件。
 
-> 当保存的单个模型参数较大时(超过64M)，会因为Protobuf自身对数据大小的限制，导致保存失败。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
+> - 当保存的单个模型参数较大时(超过64M)，会因为Protobuf自身对数据大小的限制，导致保存失败。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
+> - 当执行分布式并行训练任务时，每个进程需要设置不同`directory`参数，用以保存CheckPoint文件到不同的目录，以防文件发生读写错乱。
 
 
 ### CheckPoint配置策略
