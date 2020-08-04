@@ -43,7 +43,7 @@
 | [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv1dTranspose)                              |  Supported |  Doing | Doing |layer/conv
 | [mindspore.nn.Embedding](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Doing |  Supported | Doing |layer/embedding
 | [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Doing |Doing | Doing |layer/image
-| [mindspore.nn.SSIM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Doing |Doing | Doing |layer/image
+| [mindspore.nn.SSIM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Supported | Supported | Doing |layer/image
 | [mindspore.nn.PSNR](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Doing |Doing | Doing |layer/image
 | [mindspore.nn.CentralCrop](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Doing | Doing |layer/image
 | [mindspore.nn.LSTM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    | Doing | Supported | Supported |layer/lstm
