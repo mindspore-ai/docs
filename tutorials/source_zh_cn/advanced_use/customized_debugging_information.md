@@ -238,15 +238,17 @@ val:[[1 1]
     {
         "DumpSettings": {
             "net_name": "ResNet50",
-            "mode": 1,
+            "dump_mode": 0,
+            "op_debug_mode": 0,
             "iteration": 0,
             "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
         },
 
         "DumpSettingsSpec": {
             "net_name": "net name eg:ResNet50",
-            "mode": "0: dump all kernels, 1: dump kernels in kernels list",
-            "iteration": "specified iteration ",
+            "dump_mode": "0: dump all kernels, 1: dump kernels in kernels list",
+            "op_debug_mode": "0: close debug, 1: debug ai-core overflow, 2: debug atomic overflow, 3: debug all overflow",
+            "iteration": "specified iteration",
             "kernels": "op's full scope name which need to be dump"
         }
     }
