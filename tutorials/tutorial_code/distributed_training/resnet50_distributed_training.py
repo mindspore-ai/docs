@@ -89,7 +89,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.onehot = P.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.div = P.Div()
+        self.div = P.RealDiv()
         self.log = P.Log()
         self.sum_cross_entropy = P.ReduceSum(keep_dims=False)
         self.mul = P.Mul()
