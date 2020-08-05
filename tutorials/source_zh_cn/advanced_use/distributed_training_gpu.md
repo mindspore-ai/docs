@@ -82,6 +82,8 @@ if __name__ == "__main__":
 > 你可以在这里找到样例的运行脚本：
 >
 > <https://gitee.com/mindspore/docs/blob/r0.6/tutorials/tutorial_code/distributed_training/run_gpu.sh>。
+>
+> 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 
 ```bash
 #!/bin/bash
@@ -97,7 +99,7 @@ echo "start training"
 mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-脚本需要传入变量`DATA_PATH`，表示数据集的路径。此外，我们需要修改下`resnet50_distributed_training.py`文件，将`device_target`设置为`GPU`，并调用`init("nccl")`来使能NCCL。日志文件保存`device`目录下，关于Loss部分结果保存在`train.log`中。将loss值 `grep`出来后，示例如下：
+脚本需要传入变量`DATA_PATH`，表示数据集的路径。此外，我们需要修改下`resnet50_distributed_training.py`文件，由于在GPU上，我们无需设置`DEVICE_ID`环境变量，因此，在脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将`device_target`设置为`GPU`，并调用`init("nccl")`来使能NCCL。日志文件保存到device目录下，关于Loss部分结果保存在train.log中。将loss值grep出来后，示例如下：
 
 ```
 epoch: 1 step: 1, loss is 2.3025854
