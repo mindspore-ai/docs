@@ -151,12 +151,14 @@ metrics = {
 net = ResNet()
 loss = CrossEntropyLoss()
 opt = Momentum()
-model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics)
+model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, callbacks=TimeMonitor())
 ds_eval = create_dataset()
 output = model.eval(ds_eval)
 ```
 
 The `model.eval` method returns a dictionary that contains the metrics and results transferred to the metrics.
+
+The callback function can also be used in the eval process, and the user can call the related API or customize the callback method to achieve the desired function.
 
 You can also define your own metrics class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
 

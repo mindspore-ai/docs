@@ -282,8 +282,8 @@ The following uses a specific model parameter as an example. The parameter name 
 3. Modify values of model parameters.
 
    ```
-   new_param.set_parameter_data(tensor_slice) 
-   new_param_moments.set_parameter_data(tensor_slice_moments) 
+   new_param.set_parameter_data(tensor_slice, True)
+   new_param_moments.set_parameter_data(tensor_slice_moments, True)
    ```
 
    - `set_parameter_data`: sets the value of a model parameter. The API parameter type is Tensor or number.
@@ -389,7 +389,7 @@ User process:
            # merge the parallel parameters of the model
            allgather_net = get_allgather_cell()
            param_data = allgather_net(param_data)
-           layerwise_param.set_parameter_data(param_data)
+           layerwise_param.set_parameter_data(param_data, True)
 
        # convert param_dict to list type data
        param_list = []
@@ -553,7 +553,7 @@ User process:
            rank = get_rank()
            tensor_slice = Tensor(slice_list[rank])
            # modify model parameter data values
-           new_param.set_parameter_data(tensor_slice)
+           new_param.set_parameter_data(tensor_slice, True)
 
            # load the modified parameter data into the network
            weight = np.ones([4, 8]).astype(np.float32)
