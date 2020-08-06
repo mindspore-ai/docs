@@ -77,7 +77,7 @@ The entry function of an operator describes the internal process of compiling th
 4. Call `cce_build_code` to compile and generate an operator binary file.
 > The input parameters of the entry function require the input information of each operator, output information of each operator, operator attributes (optional), and `kernel_name` (name of the generated operator binary file). The input and output information is encapsulated in dictionaries, including the input and output shape and dtype when the operator is called on the network.
 
-For details about TBE operator development, visit the [TBE website](https://www.huaweicloud.com/ascend/tbe). For details about how to debug and optimize the TBE operator, visit the [Mind Studio website](https://www.huaweicloud.com/intl/en-us/ascend/mindstudio).
+For details about TBE operator development, visit the [TBE website](https://www.huaweicloud.com/ascend/dev/operator). For details about how to debug and optimize the TBE operator, visit the [Mind Studio website](https://www.huaweicloud.com/intl/en-us/ascend/mindstudio).
 
 ### Registering the Operator Information
 
