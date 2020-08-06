@@ -77,7 +77,7 @@ class CusSquare(PrimitiveWithInfer):
 4. 调用`cce_build_code`编译生成算子二进制。
 > 入口函数的输入参数有特殊要求，需要依次为：算子每个输入的信息、算子每个输出的信息、算子属性（可选）和`kernel_name`（生成算子二进制的名称）。输入和输出的信息用字典封装传入，其中包含该算子在网络中被调用时传入的实际输入和输出的shape和dtype。
 
-更多关于使用TBE开发算子的内容请参考[TBE文档](https://www.huaweicloud.com/ascend/tbe)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://www.huaweicloud.com/ascend/mindstudio)。
+更多关于使用TBE开发算子的内容请参考[TBE文档](https://www.huaweicloud.com/ascend/dev/operator)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://www.huaweicloud.com/ascend/mindstudio)。
 
 ### 注册算子信息
 
