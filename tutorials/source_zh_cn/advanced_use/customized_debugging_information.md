@@ -133,6 +133,7 @@ epoch: 20 step: 32 loss: 2.298344373703003
 同时可以对字典内的值进行修改和添加，上述用例中，在`begin`中定义一个`init_time`对象传递给`cb_params`字典。
 在每次`step_end`会做出判断，当训练时间大于设置的时间阈值时，会向`run_context`传递终止训练的信号，提前终止训练，并打印当前的`epoch`、`step`、`loss`的值。
 
+
 ## MindSpore metrics功能介绍
 
 当训练结束后，可以使用metrics评估训练结果的好坏。
@@ -152,12 +153,14 @@ metrics = {
 net = ResNet()
 loss = CrossEntropyLoss()
 opt = Momentum()
-model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics)
+model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, callbacks=TimeMonitor())
 ds_eval = create_dataset()
 output = model.eval(ds_eval)
 ```
 
 `model.eval`方法会返回一个字典，里面是传入metrics的指标和结果。
+
+在eval过程中也可以使用callback功能，用户可以调用相关API或自定义callback方法实现想要的功能。
 
 用户也可以定义自己的`metrics`类，通过继承`Metric`基类，并重写`clear`、`update`、`eval`三个方法即可实现。
 
