@@ -14,7 +14,6 @@
     - [CPU上推理](#cpu上推理)
         - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-2)
         - [使用ONNX格式文件推理](#使用onnx格式文件推理-1)
-    - [端侧推理](#端侧推理)
 
 <!-- /TOC -->
 
@@ -145,7 +144,3 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/r0.6/use/saving_and_loading_model_parameters.html#geironnx)。
 
 2. 在CPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如使用ONNX Runtime，可以参考[ONNX Runtime说明文档](https://github.com/microsoft/onnxruntime)。
-
-## 端侧推理
-
-端侧推理需使用MindSpore Predict推理引擎，详细操作请参考[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/r0.6/advanced_use/on_device_inference.html)。
