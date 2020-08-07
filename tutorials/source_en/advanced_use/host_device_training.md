@@ -14,7 +14,7 @@
 
 ## Overview
 
-In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogenous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for [distributed training](https://www.mindspore.cn/tutorial/en/master/advanced_use/distributed_training.html). When the size of a model is hundreds of GBs or several TBs,
+In deep learning, one usually has to deal with the huge model problem, in which the total size of parameters in the model is beyond the device memory capacity. To efficiently train a huge model, one solution is to employ homogenous accelerators (*e.g.*, Ascend 910 AI Accelerator and GPU) for distributed training. When the size of a model is hundreds of GBs or several TBs,
 the number of required accelerators is too overwhelming for people to access, resulting in this solution inapplicable.  One alternative is Host+Device hybrid training. This solution simultaneously leveraging the huge memory in hosts and fast computation in accelerators, is a promisingly
 efficient method for addressing huge model problem. 
 
