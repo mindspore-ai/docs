@@ -19,6 +19,7 @@ MindSpore API
    api/python/mindspore/mindspore.nn
    api/python/mindspore/mindspore.nn.dynamic_lr
    api/python/mindspore/mindspore.nn.learning_rate_schedule
+   api/python/mindspore/mindspore.nn.probability
    api/python/mindspore/mindspore.ops
    api/python/mindspore/mindspore.ops.composite
    api/python/mindspore/mindspore.ops.operations
