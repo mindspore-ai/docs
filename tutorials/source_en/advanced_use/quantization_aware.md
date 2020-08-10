@@ -74,7 +74,7 @@ Compared with common training, the quantization aware training requires addition
 
 Next, the LeNet network is used as an example to describe steps 3 and 6.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/lenet_quant>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant>.
 
 ### Defining a Fusion Network
 
