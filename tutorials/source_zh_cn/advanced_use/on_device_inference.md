@@ -47,8 +47,6 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
   - [cmake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  
-  > 仅在使用arm架构时需要安装`Android_NDK`，本示例采用x86，可跳过此项。
                                                                                                                                                                                                                    
   使用MindSpore Lite转换工具，需要添加更多的依赖项：
   - [autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
@@ -67,10 +65,29 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
    ```
 
 2. 在源码根目录下，执行如下命令编译MindSpore Lite。
-
-   ```bash
-   bash build.sh -I x86_64
-   ```
+   
+   - 编译转换工具： 
+   
+       ```bash
+       bash build.sh -I x86_64
+       ```
+   
+   - 编译推理框架：
+   
+       设定ANDROID_NDK路径：
+       ```bash
+       export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b 
+       ```
+   
+       用户需根据设备情况，可选择`arm64`：
+       ```bash
+       bash build.sh -I arm64
+       ```   
+   
+       或`arm32`：
+       ```bash
+       bash build.sh -I arm32
+       ```
 
 3. 进入源码的`mindspore/output`目录，获取编译结果`MSLite-0.6.0-linux_x86_64.tar.gz`。执行解压缩命令，获得编译后的工具包：
    
