@@ -112,7 +112,7 @@ MindSpore进行端侧模型推理的步骤如下。
    ```
 2. 调用`export`接口，导出模型文件(`.pb`)。
    ```python
-   export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
+   export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
    ```
 
     以LeNet网络为例，生成的端侧模型文件为`lenet.pb`，完整示例代码`lenet.py`如下。
@@ -167,7 +167,7 @@ MindSpore进行端侧模型推理的步骤如下。
         if is_ckpt_exist:
             param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
             load_param_into_net(net, param_dict)
-            export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
+            export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
             print("export model success.")
         else:
             print("checkpoint file does not exist.")

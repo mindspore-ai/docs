@@ -7,7 +7,7 @@
     - [Ascend 910 AI处理器上推理](#ascend-910-ai处理器上推理)
         - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理)
     - [Ascend 310 AI处理器上推理](#ascend-310-ai处理器上推理)
-        - [使用ONNX与GEIR格式文件推理](#使用onnx与geir格式文件推理)
+        - [使用ONNX与AIR格式文件推理](#使用onnx与air格式文件推理)
     - [GPU上推理](#gpu上推理)
         - [使用checkpoint格式文件推理](#使用checkpoint格式文件推理-1)
         - [使用ONNX格式文件推理](#使用onnx格式文件推理)
@@ -26,14 +26,14 @@
 
 按照原理不同，推理可以有两种方式：
 - 直接使用checkpiont文件进行推理，即在MindSpore训练环境下，使用推理接口加载数据及checkpoint文件进行推理。
-- 将checkpiont文件转化为通用的模型格式，如ONNX、GEIR格式模型文件进行推理，推理环境不需要依赖MindSpore。这样的好处是可以跨硬件平台，只要支持ONNX/GEIR推理的硬件平台即可进行推理。譬如在Ascend 910 AI处理器上训练的模型，可以在GPU/CPU上进行推理。
+- 将checkpiont文件转化为通用的模型格式，如ONNX、AIR格式模型文件进行推理，推理环境不需要依赖MindSpore。这样的好处是可以跨硬件平台，只要支持ONNX/AIR推理的硬件平台即可进行推理。譬如在Ascend 910 AI处理器上训练的模型，可以在GPU/CPU上进行推理。
 
 MindSpore支持的推理场景，按照硬件平台维度可以分为下面几种：
 
 硬件平台 | 模型文件格式 | 说明
 --|--|--
 Ascend 910 AI处理器 | checkpoint格式 | 与MindSpore训练环境依赖一致
-Ascend 310 AI处理器 | ONNX、GEIR格式 | 搭载了ACL框架，支持OM格式模型，需要使用工具转化模型为OM格式模型。
+Ascend 310 AI处理器 | ONNX、AIR格式 | 搭载了ACL框架，支持OM格式模型，需要使用工具转化模型为OM格式模型。
 GPU | checkpoint格式 | 与MindSpore训练环境依赖一致。
 GPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
 CPU | checkpoint格式 | 与MindSpore训练环境依赖一致。
@@ -41,7 +41,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
 
 > ONNX，全称Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。它使得不同的人工智能框架（如PyTorch, MXNet）可以采用相同格式存储模型数据并交互。详细了解，请参见ONNX官网<https://onnx.ai/>。
 
-> GEIR，全称Graph Engine Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。
+> AIR，全称Ascend Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。
 
 > ACL，全称Ascend Computer Language，提供Device管理、Context管理、Stream管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理等C++ API库，供用户开发深度神经网络应用。它匹配Ascend AI处理器，使能硬件的运行管理、资源管理能力。
 
@@ -107,13 +107,13 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
 
 ## Ascend 310 AI处理器上推理
 
-### 使用ONNX与GEIR格式文件推理
+### 使用ONNX与AIR格式文件推理
 
-Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需要从ONNX或者GEIR模型进行转换。所以在Ascend 310 AI处理器上推理，需要下述两个步骤：
+Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需要从ONNX或者AIR模型进行转换。所以在Ascend 310 AI处理器上推理，需要下述两个步骤：
 
-1. 在训练平台上生成ONNX或GEIR格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX或AIR格式模型，具体步骤请参考[模型导出-导出AIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#aironnx)。
 
-2. 将ONNX/GEIR格式模型文件，转化为OM格式模型，并进行推理。
+2. 将ONNX/AIR格式模型文件，转化为OM格式模型，并进行推理。
    - 云上（ModelArt环境），请参考[Ascend910训练和Ascend310推理的样例](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html)完成推理操作。
    - 本地的裸机环境（对比云上环境，即本地有Ascend 310 AI 处理器），请参考Ascend 310 AI处理器配套软件包的说明文档。
 
@@ -125,7 +125,7 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 
 ### 使用ONNX格式文件推理
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出AIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#aironnx)。
 
 2. 在GPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如在Nvidia GPU上进行推理，使用常用的TensorRT，可参考[TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt)。
 
@@ -137,7 +137,7 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 ### 使用ONNX格式文件推理
 与在GPU上进行推理类似，需要以下几个步骤：
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出GEIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#geironnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[模型导出-导出AIR模型和ONNX模型](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#aironnx)。
 
 2. 在CPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如使用ONNX Runtime，可以参考[ONNX Runtime说明文档](https://github.com/microsoft/onnxruntime)。
 

@@ -25,7 +25,7 @@
 |  FP16  |  16位浮点，半精度浮点算术，消耗更小内存。  |
 |  FP32  |  32位浮点，单精度浮点算术。  |
 |  GE  |  Graph Engine，MindSpore计算图执行引擎，主要负责根据前端的计算图完成硬件相关的优化（算子融合、内存复用等等）、device侧任务启动。  |
-| GEIR | Graph Engine Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。|
+| AIR | Ascend Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。|
 |  GHLO  |  Graph High Level Optimization，计算图高级别优化。GHLO包含硬件无关的优化（如死代码消除等）、自动并行和自动微分等功能。  |
 |  GLLO  |  Graph Low Level Optimization，计算图低级别优化。GLLO包含硬件相关的优化，以及算子融合、Buffer融合等软硬件结合相关的深度优化。  |
 |  Graph Mode  |  MindSpore的静态图模式，将神经网络模型编译成一整张图，然后下发执行，性能高。  |

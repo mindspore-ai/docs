@@ -7,7 +7,7 @@
     - [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
         - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file)
     - [Inference on the Ascend 310 AI processor](#inference-on-the-ascend-310-ai-processor)
-        - [Inference Using an ONNX or GEIR File](#inference-using-an-onnx-or-geir-file)
+        - [Inference Using an ONNX or AIR File](#inference-using-an-onnx-or-air-file)
     - [Inference on a GPU](#inference-on-a-gpu)
         - [Inference Using a Checkpoint File](#inference-using-a-checkpoint-file-1)
         - [Inference Using an ONNX File](#inference-using-an-onnx-file)
@@ -26,14 +26,14 @@ Models trained by MindSpore support the inference on different hardware platform
 
 The inference can be performed in either of the following methods based on different principles:
 - Use a checkpoint file for inference. That is, use the inference API to load data and the checkpoint file for inference in the MindSpore training environment.
-- Convert the checkpiont file into a common model format, such as ONNX or GEIR, for inference. The inference environment does not depend on MindSpore. In this way, inference can be performed across hardware platforms as long as the platform supports ONNX or GEIR inference. For example, models trained on the Ascend 910 AI processor can be inferred on the GPU or CPU.
+- Convert the checkpiont file into a common model format, such as ONNX or AIR, for inference. The inference environment does not depend on MindSpore. In this way, inference can be performed across hardware platforms as long as the platform supports ONNX or AIR inference. For example, models trained on the Ascend 910 AI processor can be inferred on the GPU or CPU.
 
 MindSpore supports the following inference scenarios based on the hardware platform:
 
 | Hardware Platform       | Model File Format | Description                              |
 | ----------------------- | ----------------- | ---------------------------------------- |
 | Ascend 910 AI processor | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
-| Ascend 310 AI processor | ONNX or GEIR      | Equipped with the ACL framework and supports the model in OM format. You need to use a tool to convert a model into the OM format. |
+| Ascend 310 AI processor | ONNX or AIR       | Equipped with the ACL framework and supports the model in OM format. You need to use a tool to convert a model into the OM format. |
 | GPU                     | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
 | GPU                     | ONNX              | Supports ONNX Runtime or SDK, for example, TensorRT. |
 | CPU                     | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
@@ -41,7 +41,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
 > Open Neural Network Exchange (ONNX) is an open file format designed for machine learning. It is used to store trained models. It enables different AI frameworks (such as PyTorch and MXNet) to store model data in the same format and interact with each other. For details, visit the ONNX official website <https://onnx.ai/>.
 
-> Graph Engine Intermediate Representation (GEIR) is an open file format defined by Huawei for machine learning and can better adapt to the Ascend AI processor. It is similar to ONNX.
+> Ascend Intermediate Representation (AIR) is an open file format defined by Huawei for machine learning and can better adapt to the Ascend AI processor. It is similar to ONNX.
 
 > Ascend Computer Language (ACL) provides C++ API libraries for users to develop deep neural network applications, including device management, context management, stream management, memory management, model loading and execution, operator loading and execution, and media data processing. It matches the Ascend AI processor and enables hardware running management and resource management.
 
@@ -110,13 +110,13 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
 ## Inference on the Ascend 310 AI processor
 
-### Inference Using an ONNX or GEIR File
+### Inference Using an ONNX or AIR File
 
-The Ascend 310 AI processor is equipped with the ACL framework and supports the OM format which needs to be converted from the model in ONNX or GEIR format. For inference on the Ascend 310 AI processor, perform the following steps:
+The Ascend 310 AI processor is equipped with the ACL framework and supports the OM format which needs to be converted from the model in ONNX or AIR format. For inference on the Ascend 310 AI processor, perform the following steps:
 
-1. Generate a model in ONNX or GEIR format on the training platform. For details, see [Export GEIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#geironnx).
+1. Generate a model in ONNX or AIR format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
 
-2. Convert the ONNX or GEIR model file into an OM model file and perform inference.
+2. Convert the ONNX or AIR model file into an OM model file and perform inference.
    - For performing inference in the cloud environment (ModelArt), see the [Ascend 910 training and Ascend 310 inference samples](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html).
    - For details about the local bare-metal environment where the Ascend 310 AI processor is deployed locally (compared with the cloud environment), see the document of the Ascend 310 AI processor software package.
 
@@ -128,7 +128,7 @@ The inference is the same as that on the Ascend 910 AI processor.
 
 ### Inference Using an ONNX File
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export GEIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#geironnx).
+1. Generate a model in ONNX format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
 
 2. Perform inference on a GPU by referring to the runtime or SDK document. For example, use TensorRT to perform inference on the NVIDIA GPU. For details, see [TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt).
 
@@ -140,7 +140,7 @@ The inference is the same as that on the Ascend 910 AI processor.
 ### Inference Using an ONNX File
 Similar to the inference on a GPU, the following steps are required:
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export GEIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#geironnx).
+1. Generate a model in ONNX format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
 
 2. Perform inference on a CPU by referring to the runtime or SDK document. For details about how to use the ONNX Runtime, see the [ONNX Runtime document](https://github.com/microsoft/onnxruntime).
 

@@ -25,7 +25,7 @@
 |  FP16  |  16-bit floating point, which is a half-precision floating point arithmetic format, consuming less memory.  |
 |  FP32  |  32-bit floating point, which is a single-precision floating point arithmetic format.  |
 |  GE  |  Graph Engine, MindSpore computational graph execution engine, which is responsible for optimizing hardware (such as operator fusion and memory overcommitment) based on the front-end computational graph and starting tasks on the device side.  |
-| GEIR | Graph Engine Intermediate Representation, such as ONNX, it is an open file format for machine learning. It is defined by Huawei and is better suited to Ascend AI processor.|
+| AIR | Ascend Intermediate Representation, such as ONNX, it is an open file format for machine learning. It is defined by Huawei and is better suited to Ascend AI processor.|
 |  GHLO  |  Graph High Level Optimization. GHLO includes optimization irrelevant to hardware (such as dead code elimination), auto parallel, and auto differentiation.  |
 |  GLLO  |  Graph Low Level Optimization. GLLO includes hardware-related optimization and in-depth optimization related to the combination of hardware and software, such as operator fusion and buffer fusion.  |
 |  Graph Mode  |  MindSpore static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution, featuring high performance.  |
