@@ -47,9 +47,7 @@ The environment requirements are as follows:
   - [cmake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 5.4
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  
-  > The stallation of `Android_NDK` is needed only when using arm. This time we choose to use x86, so you can skip this step. 
-                                                                                                                                                                                                                   
+                                                                                                                                                                                                               
   Using MindSpore Lite converter tool needs to add more dependencies：
   - [autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
   - [libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
@@ -69,9 +67,28 @@ The compilation procedure is as follows:
 
 2. Run the following command in the root directory of the source code to compile MindSpore Lite.
 
-   ```bash
-   bash build.sh -I x86_64
-   ```
+   - Compile converter tool:
+   
+       ```bash
+       bash build.sh -I x86_64
+       ```
+   
+   - Compile inference platform:
+   
+       Set path of ANDROID_NDK:
+       ```bash
+       export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b 
+       ```
+   
+       According to the phone，you can choose`arm64`:
+       ```bash
+       bash build.sh -I arm64
+       ```   
+   
+       or`arm32`:
+       ```bash
+       bash build.sh -I arm32
+       ```
 
 3. Go to the `mindspore/output` directory of the source code to obtain the compilation result. Unzip `MSLite-0.6.0-linux_x86_64.tar.gz` to get the result after building. 
       
