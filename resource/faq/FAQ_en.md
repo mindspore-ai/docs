@@ -27,6 +27,12 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <br/>
 
+Q: What should I do when error `SSL: CERTIFICATE_VERIFY_FAILED` occurs during pip install?
+
+A: Please append parameter `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` after pip install command and try again.
+
+<br/>
+
 Q: What should I do when error prompts during pip install?
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
