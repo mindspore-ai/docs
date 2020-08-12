@@ -9,6 +9,7 @@
         - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
+    - [运行MindInsight](#运行MindInsight)
     - [注意事项](#注意事项)
 
 <!-- /TOC -->
@@ -275,6 +276,51 @@ model.train(cnn_network, callbacks=[confusion_martrix])
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
+## 运行MindInsight
+按照上面教程完成数据收集后，启动MindInsight，即可可视化收集到的数据。启动MindInsight时，
+需要通过 `--summary-base-dir` 参数指定summary日志文件目录。
+
+其中指定的summary日志文件目录可以是一次训练的输出目录，也可以是多次训练输出目录的父目录。
+
+
+一次训练的输出目录结构如下：
+```
+└─summary_dir
+    events.out.events.summary.1596869898.hostname_MS
+    events.out.events.summary.1596869898.hostname_lineage
+```
+
+启动命令：
+```Bash
+mindinsight start --summary-base-dir ./summary_dir
+```
+
+多次训练的输出目录结构如下：
+```
+└─summary
+    ├─summary_dir1
+    │      events.out.events.summary.1596869898.hostname_MS
+    │      events.out.events.summary.1596869898.hostname_lineage
+    │
+    └─summary_dir2
+            events.out.events.summary.1596869998.hostname_MS
+            events.out.events.summary.1596869998.hostname_lineage
+```
+
+启动命令:
+```Bash
+mindinsight start --summary-base-dir ./summary
+```
+
+启动成功后，通过浏览器访问 `http://127.0.0.1:8080` 地址，即可查看可视化页面。
+
+停止MindInsight命令：
+```Bash
+mindinsight stop
+```
+
+更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html)页面。
+
 
 ## 注意事项
 
@@ -312,3 +358,5 @@ model.train(cnn_network, callbacks=[confusion_martrix])
     summary_collector = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
+
+3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
