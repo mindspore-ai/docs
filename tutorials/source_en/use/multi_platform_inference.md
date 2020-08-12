@@ -114,7 +114,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
 The Ascend 310 AI processor is equipped with the ACL framework and supports the OM format which needs to be converted from the model in ONNX or AIR format. For inference on the Ascend 310 AI processor, perform the following steps:
 
-1. Generate a model in ONNX or AIR format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
+1. Generate a model in ONNX or AIR format on the training platform. For details, see [Export AIR Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-air-model) and [Export ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-onnx-model).
 
 2. Convert the ONNX or AIR model file into an OM model file and perform inference.
    - For performing inference in the cloud environment (ModelArt), see the [Ascend 910 training and Ascend 310 inference samples](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html).
@@ -128,7 +128,7 @@ The inference is the same as that on the Ascend 910 AI processor.
 
 ### Inference Using an ONNX File
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
+1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-onnx-model).
 
 2. Perform inference on a GPU by referring to the runtime or SDK document. For example, use TensorRT to perform inference on the NVIDIA GPU. For details, see [TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt).
 
@@ -140,10 +140,10 @@ The inference is the same as that on the Ascend 910 AI processor.
 ### Inference Using an ONNX File
 Similar to the inference on a GPU, the following steps are required:
 
-1. Generate a model in ONNX format on the training platform. For details, see [Export AIR Model and ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#aironnx).
+1. Generate a model in ONNX format on the training platform. For details, see [Export ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-onnx-model).
 
 2. Perform inference on a CPU by referring to the runtime or SDK document. For details about how to use the ONNX Runtime, see the [ONNX Runtime document](https://github.com/microsoft/onnxruntime).
 
 ## On-Device Inference
 
-MindSpore Predict is an inference engine for on-device inference. For details, see [On-Device Inference](https://www.mindspore.cn/tutorial/en/master/advanced_use/on_device_inference.html).
+MindSpore Lite is an inference engine for on-device inference. For details, see [Export MINDIR Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-mindir-model) and [On-Device Inference](https://www.mindspore.cn/tutorial/en/master/advanced_use/on_device_inference.html).

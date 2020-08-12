@@ -110,11 +110,11 @@ To perform on-device model inference using MindSpore, perform the following step
    param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
-2. Call the `export` API to export the `.pb` model file on the device.
+2. Call the `export` API to export the `.mindir` model file on the device.
    ```python
    export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
    ```
-    Take the LeNet network as an example. The generated on-device model file is `lenet.pb`. The complete sample code `lenet.py` is as follows:
+    Take the LeNet network as an example. The generated on-device model file is `lenet.mindir`. The complete sample code `lenet.py` is as follows:
     ```python
     import os
     import numpy as np
@@ -171,9 +171,9 @@ To perform on-device model inference using MindSpore, perform the following step
         else:
             print("checkpoint file does not exist.")
     ```
-3. In `mindspore/output/MSLite-0.6.0-linux_x86_64/converter` directory, calling MindSpore convert tool named `converter_lite`, convert model file (`.pb`) to on_device inference model file (`.ms`).
+3. In `mindspore/output/MSLite-0.6.0-linux_x86_64/converter` directory, calling MindSpore convert tool named `converter_lite`, convert model file (`.mindir`) to on_device inference model file (`.ms`).
     ```
-    ./converter_lite --fmk=MS --modelFile=./lenet.pb --outputFile=lenet
+    ./converter_lite --fmk=MS --modelFile=./lenet.mindir --outputFile=lenet
     ```
     Result:
     ```

@@ -110,12 +110,12 @@ MindSpore进行端侧模型推理的步骤如下。
    param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
    load_param_into_net(net, param_dict)
    ```
-2. 调用`export`接口，导出模型文件(`.pb`)。
+2. 调用`export`接口，导出模型文件(`.mindir`)。
    ```python
    export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
    ```
 
-    以LeNet网络为例，生成的端侧模型文件为`lenet.pb`，完整示例代码`lenet.py`如下。
+    以LeNet网络为例，生成的端侧模型文件为`lenet.mindir`，完整示例代码`lenet.py`如下。
     ```python
     import os
     import numpy as np
@@ -172,9 +172,9 @@ MindSpore进行端侧模型推理的步骤如下。
         else:
             print("checkpoint file does not exist.")
     ```
-3. 在`mindspore/output/MSLite-0.6.0-linux_x86_64/converter`路径下，调用MindSpore端侧转换工具`converter_lite`，将模型文件(`.pb`)转换为端侧模型文件(`.ms`)。
+3. 在`mindspore/output/MSLite-0.6.0-linux_x86_64/converter`路径下，调用MindSpore端侧转换工具`converter_lite`，将模型文件(`.mindir`)转换为端侧模型文件(`.ms`)。
     ```
-    ./converter_lite --fmk=MS --modelFile=./lenet.pb --outputFile=lenet
+    ./converter_lite --fmk=MS --modelFile=./lenet.mindir --outputFile=lenet
     ```
    结果显示为：
    ```

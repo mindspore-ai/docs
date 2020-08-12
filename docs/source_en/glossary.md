@@ -40,7 +40,7 @@
 |  MindData  |  MindSpore data framework, which provides data loading, enhancement, dataset management, and visualization.  |
 |  MindInsight  |  MindSpore visualization component, which visualizes information such as scalars, images, computational graphs, and model hyperparameters.  |
 |  MindSpore  |  Huawei-leaded open-source deep learning framework.  |
-|  MindSpore Predict  |  A lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side.  |
+|  MindSpore Lite  |  A lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side.  |
 |  MNIST database  |  Modified National Handwriting of Images and Technology database, a large handwritten digit database, which is usually used to train various image processing systems.  |
 | ONNX | Open Neural Network Exchange, is an open format built to represent machine learning models.|
 |  PyNative Mode  |  MindSpore dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.  |

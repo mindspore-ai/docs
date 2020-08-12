@@ -9,7 +9,10 @@
     - [模型参数加载](#模型参数加载)
         - [用于推理验证](#用于推理验证)
         - [用于再训练场景](#用于再训练场景)
-    - [导出AIR模型和ONNX模型](#导出air模型和onnx模型)
+    - [导出模型](#导出模型)
+        - [导出AIR格式文件](#导出air格式文件)
+        - [导出ONNX格式文件](#导出onnx格式文件)
+        - [导出MINDIR格式文件](#导出mindir格式文件)
 
 <!-- /TOC -->
 
@@ -141,9 +144,14 @@ model.train(epoch, dataset)
 
 `load_checkpoint`方法会返回一个参数字典，`load_param_into_net`会把参数字典中相应的参数加载到网络或优化器中。
 
-## 导出AIR模型和ONNX模型
-当有了CheckPoint文件后，如果想继续做推理，就需要根据网络和CheckPoint生成对应的模型，当前我们支持基于昇腾AI处理器的AIR模型导出和通用ONNX模型的导出。
-下面以AIR为例说明模型导出的实现，代码如下：
+## 导出模型
+
+当有了CheckPoint文件后，如果想继续做推理，需要通过网络和CheckPoint生成对应的模型。`export`接口支持导出多种类型的模型文件格式，用于不同硬件平台的推理。
+
+### 导出AIR格式文件
+
+AIR格式文件仅支持昇腾AI处理器，导出该格式文件的代码样例如下：
+
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -153,15 +161,37 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.pb', file_format = 'AIR')
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.air', file_format = 'AIR')
 ```
-使用`export`接口之前，需要先导入`mindspore.train.serialization`。
-`input`用来指定导出模型的输入shape以及数据类型。
-如果要导出ONNX模型，只需要将`export`接口中的`file_format`参数指定为ONNX即可：`file_format = 'ONNX'`。
 
-## 导出MINDIR模型
-如果想将训练好的模型用于端测推理，就需要将网络和CheckPoint生成对应的MINDIR模型，当前我们支持基于静态图，不包含控制流语义的推理网络导出。
-下面以MINDIR为例说明模型导出的实现，代码如下：
+使用`export`接口之前，需要先导入`mindspore.train.serialization`。
+
+`input`用来指定导出模型的输入shape以及数据类型。
+
+建议使用`.air`作为AIR格式文件的后缀名。
+
+### 导出ONNX格式文件
+
+ONNX格式文件是一种较为通用的模型文件，可适用于昇腾AI处理器、GPU、CPU等多种硬件。导出该格式文件的代码样例如下：
+
+```python
+from mindspore.train.serialization import export
+import numpy as np
+resnet = ResNet50()
+# return a parameter dict for model
+param_dict = load_checkpoint("resnet50-2_32.ckpt")
+# load the parameter into net
+load_param_into_net(resnet, param_dict)
+input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.onnx', file_format = 'ONNX')
+```
+
+建议使用`.onnx`作为ONNX格式文件的后缀名。
+
+### 导出MINDIR格式文件
+
+MINDIR格式文件可用于MindSpore Lite端侧推理和MindSpore Serving推理服务。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
+
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -173,5 +203,5 @@ load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name = 'resnet50-2_32.mindir', file_format = 'MINDIR')
 ```
-使用`export`接口之前，需要先导入`mindspore.train.serialization`。
-`input`用来指定导出模型的输入shape以及数据类型。
+
+建议使用`.mindir`作为MINDIR格式文件的后缀名。
