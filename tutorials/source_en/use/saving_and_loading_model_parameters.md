@@ -9,7 +9,10 @@
     - [Loading Model Parameters](#loading-model-parameters)
         - [For Inference Validation](#for-inference-validation)
         - [For Retraining](#for-retraining)
-    - [Export AIR Model and ONNX Model](#export-air-model-and-onnx-model)
+    - [Export Model](#export-model)
+        - [Export AIR Model](#export-air-model)
+        - [Export ONNX Model](#export-onnx-model)
+        - [Export MINDIR Model](#export-mindir-model)
 
 <!-- /TOC -->
 
@@ -140,10 +143,14 @@ model.train(epoch, dataset)
 
 The `load_checkpoint` method returns a parameter dictionary and then the `load_param_into_net` method loads parameters in the parameter dictionary to the network or optimizer.
 
-## Export AIR Model and ONNX Model
-When you have a CheckPoint file, if you want to do inference, you need to generate corresponding models based on the network and CheckPoint.
-Currently we support the export of AIR models based on Ascend AI processor and the export of ONNX models. Taking the export of AIR model as an example to illustrate the implementation of model export,
-the code is as follows:
+## Export Model
+
+When you have a CheckPoint file, if you want to do inference, you need to generate corresponding models based on the network and CheckPoint. The `export` interface supports exporting multiple types of model file formats for inference on different hardware platforms.
+
+### Export AIR Model
+
+AIR format file only supports Ascend AI processor. The code example of exporting this format file is as follows:
+
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -153,13 +160,37 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.pb', file_format = 'AIR')
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.air', file_format = 'AIR')
 ```
-Before using the `export` interface, you need to import` mindspore.train.serialization`.
-The `input` parameter is used to specify the input shape and data type of the exported model.
-If you want to export the ONNX model, you only need to specify the `file_format` parameter in the` export` interface as ONNX: `file_format = 'ONNX'`.
 
-## Export MINDIR Model
+Before using the `export` interface, you need to import` mindspore.train.serialization`.
+
+The `input` parameter is used to specify the input shape and data type of the exported model.
+
+It is recommended to use '.air' as the suffix of AIR format files.
+
+### Export ONNX Model
+
+ONNX format file is a general model file, which can be applied to many kinds of hardware, such as Ascend AI processor, GPU, CPU, etc. The code example of exporting this format file is as follows:
+
+```python
+from mindspore.train.serialization import export
+import numpy as np
+resnet = ResNet50()
+# return a parameter dict for model
+param_dict = load_checkpoint("resnet50-2_32.ckpt")
+# load the parameter into net
+load_param_into_net(resnet, param_dict)
+input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.onnx', file_format = 'ONNX')
+```
+
+It is recommended to use '.onnx' as the suffix of ONNX format files.
+
+### Export MINDIR Model
+
+MINDIR format file can be applied to MindSpore Lite and MindSpore Serving. Currently, it supports inference network based on static graph without control flow semantics.
+
 If you want to do inference on the device, then you need to generate corresponding MINDIR models based on the network and CheckPoint.
 Currently we support the export of MINDIR models for inference based on graph mode, which don't contain control flow. Taking the export of MINDIR model as an example to illustrate the implementation of model export,
 the code is as follows:
@@ -174,5 +205,5 @@ load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name = 'resnet50-2_32.mindir', file_format = 'MINDIR')
 ```
-Before using the `export` interface, you need to import` mindspore.train.serialization`.
-The `input` parameter is used to specify the input shape and data type of the exported model.
+
+It is recommended to use '.mindir' as the suffix of MINDIR format files.

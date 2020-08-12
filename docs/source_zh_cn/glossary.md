@@ -40,7 +40,7 @@
 |  MindData  |  MindSpore数据框架，提供数据加载、增强、数据集管理以及可视化。  |
 |  MindInsight  |  MindSpore可视化组件，可视化标量、图像、计算图以及模型超参等信息。  |
 |  MindSpore  |  华为主导开源的深度学习框架。  |
-|  MindSpore Predict  |  一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。  |
+|  MindSpore Lite  |  一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。  |
 |  MNIST database  |  Modified National Institute of Standards and Technology database，一个大型手写数字数据库，通常用于训练各种图像处理系统。  |
 | ONNX | Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。|
 |  PyNative Mode  |  MindSpore的动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。  |
