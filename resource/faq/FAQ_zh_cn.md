@@ -27,6 +27,12 @@ A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通
 
 <br/>
 
+Q：使用pip安装时报错`SSL: CERTIFICATE_VERIFY_FAILED`，应该怎么办？
+
+A：在pip安装命令后添加参数`--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
+
+<br/>
+
 Q：使用pip安装时提示错误，应该怎么办？
 
 A：请执行`pip -V`查看是否绑定了Python3.7+。如果绑定的版本不对，建议使用`python3.7 -m pip install`代替`pip install`命令。
