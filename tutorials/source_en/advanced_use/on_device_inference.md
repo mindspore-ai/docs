@@ -112,7 +112,7 @@ To perform on-device model inference using MindSpore, perform the following step
    ```
 2. Call the `export` API to export the `.pb` model file on the device.
    ```python
-   export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
+   export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
    ```
     Take the LeNet network as an example. The generated on-device model file is `lenet.pb`. The complete sample code `lenet.py` is as follows:
     ```python
@@ -166,7 +166,7 @@ To perform on-device model inference using MindSpore, perform the following step
         if is_ckpt_exist:
             param_dict = load_checkpoint(ckpt_file_name=ckpt_file_path)
             load_param_into_net(net, param_dict)
-            export(net, input_data, file_name="./lenet.pb", file_format='BINARY')
+            export(net, input_data, file_name="./lenet.mindir", file_format='MINDIR')
             print("export model success.")
         else:
             print("checkpoint file does not exist.")

@@ -9,7 +9,7 @@
     - [模型参数加载](#模型参数加载)
         - [用于推理验证](#用于推理验证)
         - [用于再训练场景](#用于再训练场景)
-    - [导出GEIR模型和ONNX模型](#导出geir模型和onnx模型)
+    - [导出AIR模型和ONNX模型](#导出air模型和onnx模型)
 
 <!-- /TOC -->
 
@@ -141,9 +141,9 @@ model.train(epoch, dataset)
 
 `load_checkpoint`方法会返回一个参数字典，`load_param_into_net`会把参数字典中相应的参数加载到网络或优化器中。
 
-## 导出GEIR模型和ONNX模型
-当有了CheckPoint文件后，如果想继续做推理，就需要根据网络和CheckPoint生成对应的模型，当前我们支持基于昇腾AI处理器的GEIR模型导出和基于GPU的通用ONNX模型的导出。
-下面以GEIR为例说明模型导出的实现，代码如下：
+## 导出AIR模型和ONNX模型
+当有了CheckPoint文件后，如果想继续做推理，就需要根据网络和CheckPoint生成对应的模型，当前我们支持基于昇腾AI处理器的AIR模型导出和通用ONNX模型的导出。
+下面以AIR为例说明模型导出的实现，代码如下：
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -153,8 +153,25 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.pb', file_format = 'GEIR')
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.pb', file_format = 'AIR')
 ```
 使用`export`接口之前，需要先导入`mindspore.train.serialization`。
 `input`用来指定导出模型的输入shape以及数据类型。
 如果要导出ONNX模型，只需要将`export`接口中的`file_format`参数指定为ONNX即可：`file_format = 'ONNX'`。
+
+## 导出MINDIR模型
+如果想将训练好的模型用于端测推理，就需要将网络和CheckPoint生成对应的MINDIR模型，当前我们支持基于静态图，不包含控制流语义的推理网络导出。
+下面以MINDIR为例说明模型导出的实现，代码如下：
+```python
+from mindspore.train.serialization import export
+import numpy as np
+resnet = ResNet50()
+# return a parameter dict for model
+param_dict = load_checkpoint("resnet50-2_32.ckpt")
+# load the parameter into net
+load_param_into_net(resnet, param_dict)
+input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name = 'resnet50-2_32.mindir', file_format = 'MINDIR')
+```
+使用`export`接口之前，需要先导入`mindspore.train.serialization`。
+`input`用来指定导出模型的输入shape以及数据类型。
