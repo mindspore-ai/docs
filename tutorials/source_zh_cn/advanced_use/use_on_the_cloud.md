@@ -3,7 +3,6 @@
 
 <!-- TOC -->
 
-
 - [在云上使用MindSpore](#在云上使用mindspore)
     - [概述](#概述)
     - [准备工作](#准备工作)
@@ -41,7 +40,7 @@ ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成
 
 ### 拥有云上昇腾AI处理器资源
 
-确保你的账号已经拥有ModelArts昇腾AI处理器体验资格。如果你还没有体验资格，可以按照指引<https://www.mindspore.cn/install>申请云上体验资格。
+确保你的账号已经拥有ModelArts昇腾AI处理器资源，可在[这里](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dashboard)查看。
 
 ### 数据准备
 
