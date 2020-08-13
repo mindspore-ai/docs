@@ -5,10 +5,11 @@
 - [Summary Record](#summary-record)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
-    - [Preparing the Training Script](#preparing-the-training-script)
+    - [Preparing The Training Script](#preparing-the-training-script)
         - [Method one: Automatically collected through SummaryCollector](#method-one-automatically-collected-through-summarycollector)
         - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
         - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
+    - [Run MindInsight](#run-mindinsight)
     - [Notices](#notices)
 
 <!-- /TOC -->
@@ -25,7 +26,7 @@ Scalars, images, computational graphs, and model hyperparameters during training
 - Start MindInsight and specify the summary log file directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - During the training, when data is written into the summary log file, you can view the data on the web page.
 
-## Preparing the Training Script
+## Preparing The Training Script
 
 Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page.
 
@@ -273,6 +274,49 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
+## Run MindInsight
+After completing the data collection in the tutorial above, you can start MindInsight to visualize the collected data. When start MindInsight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
+
+The specified summary log file directory can be the output directory of a training or the parent directory of the output directory of multiple training.
+
+The output directory structure for a training is as follows
+```
+└─summary_dir
+    events.out.events.summary.1596869898.hostname_MS
+    events.out.events.summary.1596869898.hostname_lineage
+```
+
+Start command:
+```Bash
+mindinsight start --summary-base-dir ./summary_dir
+```
+
+The output directory structure of multiple training is as follows:
+```
+└─summary
+    ├─summary_dir1
+    │      events.out.events.summary.1596869898.hostname_MS
+    │      events.out.events.summary.1596869898.hostname_lineage
+    │
+    └─summary_dir2
+            events.out.events.summary.1596869998.hostname_MS
+            events.out.events.summary.1596869998.hostname_lineage
+```
+
+Start command:
+```Bash
+mindinsight start --summary-base-dir ./summary
+```
+
+After successful startup, the visual page can be viewed by visiting the `http://127.0.0.1:8080` address through the browser.
+
+Stop MindInsight command:
+```Bash
+mindinsight stop
+```
+
+For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html) page.
+
 ## Notices
 
 1. To limit time of listing summaries, MindInsight lists at most 999 summary items.
@@ -308,3 +352,5 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
     summary_collector = SummaryCollector('./summary_dir2')
     model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
+
+3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
