@@ -93,7 +93,7 @@
 | `**`         |标量、`Tensor`
 | `//`         |标量、`Tensor`
 | `%`          |标量、`Tensor`
-| `[]`         |操作对象类型支持`list`、`tuple`、`Tensor`，支持多重下标访问作为右值，但不支持多重下标访问作为左值，且索引类型不支持Tensor；Tuple、Tensor类型访问限制见切片操作中的说明。
+| `[]`         |操作对象类型支持`list`、`tuple`、`Tensor`，支持多重下标访问作为右值，但不支持多重下标访问作为左值，且索引类型仅当操作对象类型为`tuple(nn.Cell)`的取值操作时支持Tensor(这个操作目前Graph模式下仅GPU后端支持，其中`tuple(nn.Cell)`是指元素类型为nn.Cell的tuple类型)；Tuple、Tensor类型访问限制见切片操作中的说明。
 
 ### 索引操作
 
@@ -102,12 +102,15 @@
 - 切片索引：index为`slice`
   - 取值：`tensor_x[start:stop:step]`，其中Slice(start:stop:step)与Python的语法相同，这里不再赘述。
   - 赋值：`tensor_x[start:stop:step]=u`。
+
 - Ellipsis索引：index为`ellipsis`
   - 取值：`tensor_x[...]`。
   - 赋值：`tensor_x[...]=u`。
+
 - 布尔常量索引：index为`True`，index为`False`暂不支持。
   - 取值：`tensor_x[True]`。
   - 赋值：暂不支持。
+
 - Tensor索引：index为`Tensor`
   - 取值：`tensor_x[index]`，`index`必须是`int32`、`int64`类型的`Tensor`，元素取值范围在`[0, tensor_x.shape[0])`。
   - 赋值：`tensor_x[index]=U`。
@@ -124,10 +127,11 @@
       - 包含`Tensor`的`Tuple`需满足下面条件：
         每个`Tensor`的`shape`一样；
         `(len(Tuple),) + Tensor.shape`等于或者可广播为`index.shape + tensor_x.shape[1:]`。
-      
+
 - None常量索引：index为`None`
   - 取值：`tensor_x[None]`，结果与numpy保持一致。
   - 赋值：暂不支持。
+
 - tuple索引：index为`tuple`
   - tuple元素为slice:
     - 取值：例如`tensor_x[::, :4, 3:0:-1]`。
@@ -140,7 +144,27 @@
     - 赋值：例如`tensor_x[..., ::, 1:]=u`
   - 其他情况暂不支持
 
-另外tuple也支持切片取值操作，`tuple_x[start:stop:step]`，与Python的效果相同，这里不再赘述。
+tuple类型的切片取值操作，需要重点介绍一下操作对象类型为`tuple(nn.Cell)`的切片取值操作，该操作目前在Graph模式下仅GPU后端支持运行，其语法格式形如`layers[index](*inputs)`，具体示例代码如下：
+  ```python
+  class Net(nn.Cell):
+      def __init__(self):
+          super(Net, self).__init__()
+          self.relu = nn.ReLU()
+          self.softmax = nn.Softmax()
+          self.layers = (self.relu, self.softmax)
+
+      def construct(self, x, index):
+          x = self.layers[index](x)
+          return x
+  ```
+同时该语法有以下几个约束：
+* 只支持操作对象类型为`tuple(nn.Cell)`的切片取值操作。
+* 索引值index的数据类型需要是`int32`类型的Tensor标量。
+* 索引值index的取值范围为`[-n, n)`, 其中`n`为tuple的size，支持的tuple的size的最大值为1000。
+* tuple中的每个Cell元素的Construct函数的输入数据的数目，类型和shape要求相同，且Construct函数运行后输出的数据的数目，类型和shape也要求相同。
+* tuple中的每个Cell元素，需要在tuple定义之前完成定义。
+
+其它类型的tuple也支持切片取值操作, 但不支持索引类型为Tensor类型，支持`tuple_x[start:stop:step]`，其中操作对象为与Python的效果相同，这里不再赘述。
 
 ### 不支持的语法
 
