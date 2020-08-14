@@ -10,7 +10,7 @@ MindSpore Documentation
    :glob:
    :maxdepth: 1
 
-   architecture
+   design
    roadmap
    benchmark
    network_list
