@@ -69,13 +69,14 @@ from mindspore.dataset.transforms.vision import Inter
 import mindspore.common.dtype as mstype
 
 from mindarmour.diff_privacy import DPModel
-from mindarmour.diff_privacy import DPOptimizerClassFactory
 from mindarmour.diff_privacy import PrivacyMonitorFactory
+from mindarmour.diff_privacy import NoiseMechanismsFacotry
+from mindarmour.diff_privacy import ClipMechanismsFactory
 from mindarmour.utils.logger import LogUtil
 from lenet5_net import LeNet5
 from lenet5_config import mnist_cfg as cfg
 
-LOGGER = LogUtil.get_instances()
+LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
 TAG = 'Lenet5_train'
 ```
@@ -131,7 +132,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     create dataset for training or testing
     """
     # define dataset
-    ds1 = ds.Dataset(data_path)
+    ds1 = ds.MnistDataset(data_path)
 
     # define operation parameters
     resize_height, resize_width = 32, 32
@@ -334,13 +335,13 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    
 5. Display the result.
 
-   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with Gaussian noise and adaptive clip differential privacy is 97%.
+   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with Gaussian noise and adaptive clip differential privacy is mostly more than 95%.
    ```
    ============== Starting Training ==============
    ...
    ============== Starting Testing ==============
    ...
-   ============== Accuracy: 0.9767  ==============
+   ============== Accuracy: 0.9698  ==============
    ```
    
 ### References
