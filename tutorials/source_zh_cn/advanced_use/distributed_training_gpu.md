@@ -11,6 +11,7 @@
     - [数据并行模式加载数据集](#数据并行模式加载数据集)
     - [定义网络](#定义网络)
     - [运行脚本](#运行脚本)
+    - [运行多机脚本](#运行多机脚本)
 
 <!-- /TOC -->
 
@@ -43,6 +44,13 @@
   > NCCL-2.4.8下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
   >
   > 参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
+
+- 主机间免密登陆（涉及多机训练时需要）。若训练涉及多机，则需要配置多机间免密登陆，可参考以下步骤进行配置：
+  1. 每台主机确定同一个用户作为登陆用户（不推荐root）；
+  2. 执行`ssh-keygen -t rsa -P ""`生成密钥；
+  3. 执行`ssh-copy-id DEVICE-IP`设置需要免密登陆的机器IP；
+  4. 执行`ssh DEVICE-IP`，若不需要输入密码即可登录，则说明以上配置成功；
+  5. 在所有机器上执行以上命令，确保两两互通。
 
 ### 调用集合通信库
 
@@ -110,5 +118,29 @@ epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
+```
+
+## 运行多机脚本
+
+若训练涉及多机，则需要额外在`mpirun`命令中设置多机配置。你可以直接在`mpirun`命令中用`-H`选项进行设置，比如`mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py`，表示在ip为DEVICE1_IP和DEVICE2_IP的机器上分别起8个进程运行程序；或者也可以构造一个如下这样的hostfile文件，并将其路径传给`mpirun`的`--hostfile`的选项。hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。
+```bash
+DEVICE1 slots=8
+DEVICE2 slots=8
+```
+
+两机十六卡的执行脚本如下，需要传入变量`DATA_PATH`和`HOSTFILE`，表示数据集的路径和hostfile文件的路径。更多mpirun的选项设置可见OpenMPI的官网。
+
+```bash
+#!/bin/bash
+
+DATA_PATH=$1
+HOSTFILE=$2
+
+rm -rf device
+mkdir device
+cp ./resnet50_distributed_training.py ./resnet.py ./device
+cd ./device
+echo "start training"
+mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
