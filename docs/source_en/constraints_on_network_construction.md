@@ -93,7 +93,7 @@
 | `**`         |Scalar and `Tensor`
 | `//`         |Scalar and `Tensor`
 | `%`          |Scalar and `Tensor`
-| `[]`         |The operation object type can be `list`, `tuple`, or `Tensor`. Accessed multiple subscripts of lists and dictionaries can be used as r-values instead of l-values. The index type cannot be Tensor. For details about access constraints for the tuple and Tensor types, see the description of slicing operations.
+| `[]`         |The operation object type can be `list`, `tuple`, or `Tensor`. Accessed multiple subscripts of lists and dictionaries can be used as r-values instead of l-values. Only when the operation object type is `tuple(nn.Cell)`, the index type can be Tensor. `tuple(nn.Cell)` means all elements type of tuple are `nn.Cell`. For details about access constraints for the tuple and Tensor types, see the description of slicing operations.
 
 ### Index operation
 
@@ -145,7 +145,27 @@ The index operation includes `tuple` and` Tensor`. The following focuses on the 
     - Assignment: for example `tensor_x[..., ::, 1:] = u`.
   - Not supported in other situations
 
-In addition, tuple also supports slice value operation, `tuple_x [start: stop: step]`, which has the same effect as Python, and will not be repeated here.
+The slice value operations of the tuple type needs to focus on the slice value operation of the operation object type `tuple(nn.Cell)`. This operation is currently only supported by the GPU backend in Graph mode, and its syntax format is like `layers[index](*inputs)`, the example code is as follows:
+  ```python
+  class Net(nn.Cell):
+      def __init__(self):
+          super(Net, self).__init__()
+          self.relu = nn.ReLU()
+          self.softmax = nn.Softmax()
+          self.layers = (self.relu, self.softmax)
+
+      def construct(self, x, index):
+          x = self.layers[index](x)
+          return x
+  ```
+The grammar has the following constraints:
+* Only supports slice value operation with operation object type `tuple(nn.Cell)`.
+* The data type of the index value needs to be a Tensor scalar of type `int32`.
+* The value range of index value is `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
+* The number, type and shape of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape are also the same.
+* Each element in the tuple needs to be defined before the tuple is defined.
+
+Other types of tuple also support slice value operations, but do not support index type as Tensor, support `tuple_x [start: stop: step]`, which has the same effect as Python, and will not be repeated here.
 
 ### Unsupported Syntax
 
