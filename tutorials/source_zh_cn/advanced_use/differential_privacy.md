@@ -55,13 +55,14 @@ from mindspore.dataset.transforms.vision import Inter
 import mindspore.common.dtype as mstype
 
 from mindarmour.diff_privacy import DPModel
-from mindarmour.diff_privacy import DPOptimizerClassFactory
+from mindarmour.diff_privacy import NoiseMechanismsFacotry
+from mindarmour.diff_privacy import ClipMechanismsFactory
 from mindarmour.diff_privacy import PrivacyMonitorFactory
 from mindarmour.utils.logger import LogUtil
 from lenet5_net import LeNet5
 from lenet5_config import mnist_cfg as cfg
 
-LOGGER = LogUtil.get_instances()
+LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
 TAG = 'Lenet5_train'
 ```
@@ -117,7 +118,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     create dataset for training or testing
     """
     # define dataset
-    ds1 = ds.Dataset(data_path)
+    ds1 = ds.MnistDataset(data_path)
 
     # define operation parameters
     resize_height, resize_width = 32, 32
@@ -320,13 +321,13 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     
 5. 结果展示。
 
-   不加差分隐私的LeNet模型精度稳定在99%，加了Gaussian噪声，自适应Clip的差分隐私LeNet模型收敛，精度稳定在97.6%。
+   不加差分隐私的LeNet模型精度稳定在99%，加了Gaussian噪声，自适应Clip的差分隐私LeNet模型收敛，精度稳定在95%左右。
    ```
    ============== Starting Training ==============
    ...
    ============== Starting Testing ==============
    ...
-   ============== Accuracy: 0.9767  ==============
+   ============== Accuracy: 0.9698  ==============
    ```
      
 ### 引用
