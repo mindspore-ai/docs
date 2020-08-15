@@ -24,7 +24,8 @@
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)  |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [Transformer](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_model.py)  |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py)                          |  Doing |  Supported | Supported
-| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [MASS](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/mass/src/transformer)                     |  Supported |  Doing | Doing
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [MASS](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)                     |  Supported |  Doing | Doing
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TinyBert](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/tinybert/src/tinybert_model.py)                     |  Supported |  Doing | Doing
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction）  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/deepfm/src/deepfm.py)    |  Supported |  Doing | Doing
 | 推荐（Recommender） | 推荐系统、搜索、排序（Recommender System, Search ranking）  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/wide_and_deep/src/wide_and_deep.py)      |  Supported |  Doing | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)  |  Supported |  Doing | Doing
