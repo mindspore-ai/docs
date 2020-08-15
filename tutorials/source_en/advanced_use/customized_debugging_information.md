@@ -96,41 +96,76 @@ The main attributes of `cb_params` are as follows:
 
 You can inherit the callback base class to customize a callback object.
 
-The following example describes how to use a custom callback function.
+Here are two examples to further understand the usage of custom Callback.
 
-```python
-class StopAtTime(Callback):
-    def __init__(self, run_time):
-        super(StopAtTime, self).__init__()
-        self.run_time = run_time*60
+- Terminate training within the specified time.
 
-    def begin(self, run_context):
-        cb_params = run_context.original_args()
-        cb_params.init_time = time.time()
-    
-    def step_end(self, run_context):
-        cb_params = run_context.original_args()
-        epoch_num = cb_params.cur_epoch_num
-        step_num = cb_params.cur_step_num
-        loss = cb_params.net_outputs
-	cur_time = time.time()
-	if (cur_time - cb_params.init_time) > self.run_time:
-            print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
-            run_context.request_stop()
+    ```python
+    class StopAtTime(Callback):
+        def __init__(self, run_time):
+            super(StopAtTime, self).__init__()
+            self.run_time = run_time*60
 
-stop_cb = StopAtTime(run_time=10)
-model.train(100, dataset, callbacks=stop_cb)
-```
+        def begin(self, run_context):
+            cb_params = run_context.original_args()
+            cb_params.init_time = time.time()
 
-The output is as follows:
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+            step_num = cb_params.cur_step_num
+            loss = cb_params.net_outputs
+        cur_time = time.time()
+        if (cur_time - cb_params.init_time) > self.run_time:
+                print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
+                run_context.request_stop()
 
-```
-epoch: 20 step: 32 loss: 2.298344373703003
-```
+    stop_cb = StopAtTime(run_time=10)
+    model.train(100, dataset, callbacks=stop_cb)
+    ```
 
-This callback function is used to terminate the training within a specified period. You can use the `run_context.original_args` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
-In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin` and transferred to the `cb_params` dictionary.
-A decision is made at each `step_end`. When the training time is greater than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of epoch, step, and loss will be printed.
+    The output is as follows:
+
+    ```
+    epoch: 20 step: 32 loss: 2.298344373703003
+    ```
+
+    The implementation logic is: You can use the `run_context.original_args` method to obtain the `cb_params` dictionary, which contains the main attribute information described above.
+    In addition, you can modify and add values in the dictionary. In the preceding example, an `init_time` object is defined in `begin` and transferred to the `cb_params` dictionary.
+    A decision is made at each `step_end`. When the training time is greater than the configured time threshold, a training termination signal will be sent to the `run_context` to terminate the training in advance and the current values of epoch, step, and loss will be printed.
+
+- Save the checkpoint file with the highest accuracy during training.
+
+    ```python
+    from mindspore.train.serialization import _exec_save_checkpoint
+
+    class SaveCallback(Callback):
+        def __init__(self, model, eval_dataset):
+            super(SaveCallback, self).__init__()
+            self.model = model
+            self.eval_dataset = eval_dataset
+            self.acc = 0.5
+
+        def step_end(self, run_context):
+            cb_params = run_context.original_args()
+            epoch_num = cb_params.cur_epoch_num
+
+            result = self.model.eval(self.dataset)
+            if result['acc'] > self.acc:
+                self.acc = result['acc']
+                file_name = str(self.acc) + ".ckpt"
+                _exec_save_checkpoint(train_network=cb_params.train_network, ckpt_file_name=file_name)
+                print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
+
+
+    network = Lenet()
+    loss = nn.SoftmaxCrossEntryWithLogits()
+    oprimizer = nn.Momentum()
+    model = Model(network, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
+    model.train(epoch_size, train_dataset=ds_train, callback=SaveCallback(model, ds_eval))
+    ```
+
+    The specific implementation logic is: define a callback object, and initialize the object to receive the model object and the ds_eval (verification dataset). Verify the accuracy of the model in the step_end phase. When the accuracy is the current highest, manually trigger the save checkpoint method to save the current parameters.
 
 ## MindSpore Metrics
 
