@@ -1,0 +1,4 @@
+sphinx
+recommonmark
+sphinx-markdown-tables
+sphinx_rtd_theme
