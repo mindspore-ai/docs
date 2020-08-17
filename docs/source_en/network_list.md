@@ -26,7 +26,7 @@
 | Natural Language Processing (NLP) | Natural Language Understanding  | [MASS](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)                                          |  Supported |  Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TinyBert](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/tinybert/src/tinybert_model.py)                                          |  Supported |  Doing | Doing
 | Recommender | Recommender System, CTR prediction  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/deepfm/src/deepfm.py)                                          |  Supported |  Doing | Doing
-| Recommender | Recommender System, Search ranking  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/wide_and_deep/src/wide_and_deep.py)                                          |  Supported |  Doing | Doing
+| Recommender | Recommender System, Search ranking  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/wide_and_deep/src/wide_and_deep.py)                                          |  Supported |  Supported | Doing
 | Graph Neural Networks（GNN）| Text Classification  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)                                          |  Supported |  Doing | Doing
 | Graph Neural Networks（GNN）| Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py)                                          |  Supported |  Doing | Doing
 
