@@ -124,7 +124,15 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### 方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据
 
-MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。记录方式如下面的步骤所示。
+MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
+
+当前支持的Summary算子:
+- [ScalarSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=scalarsummary#mindspore.ops.operations.ScalarSummary): 记录标量数据
+- [TensorSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=tensorsummary#mindspore.ops.operations.TensorSummary): 记录张量数据
+- [ImageSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=imagesummary#mindspore.ops.operations.ImageSummary): 记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=histogramsummar#mindspore.ops.operations.HistogramSummary): 将张量数据转为直方图数据记录
+
+记录方式如下面的步骤所示。
 
 步骤一：在继承 `nn.Cell` 的衍生类的 `construct` 函数中调用Summary算子来采集图像或标量数据或者其他数据。
 
@@ -153,7 +161,7 @@ class CrossEntropyLoss(nn.Cell):
         self.off_value = Tensor(0.0, mstype.float32)
 
         # Init ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
+        self.scalar_summary = P.ScalarSummary()
 
     def construct(self, logits, label):
         label = self.one_hot(label, F.shape(logits)[1], self.on_value, self.off_value)
@@ -161,7 +169,7 @@ class CrossEntropyLoss(nn.Cell):
         loss = self.mean(loss, (-1,))
 
         # Record loss
-        self.sm_scalar("loss", loss)
+        self.scalar_summary("loss", loss)
         return loss
 
 
@@ -170,14 +178,14 @@ class MyOptimizer(Optimizer):
     def __init__(self, learning_rate, params, ......):
         ......
         # Initialize ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
+        self.scalar_summary = P.ScalarSummary()
         self.histogram_summary = P.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
         ......
         # Record learning rate here
-        self.sm_scalar("learning_rate", learning_rate)
+        self.scalar_summary("learning_rate", learning_rate)
 
         # Record weight
         self.histogram_summary(self.weight_names[0], self.paramters[0])
@@ -193,19 +201,22 @@ class Net(nn.Cell):
         ......
 
         # Init ImageSummary
-        self.sm_image = P.ImageSummary()
+        self.image_summary = P.ImageSummary()
         # Init TensorSummary
-        self.sm_tensor = P.TensorSummary()
+        self.tensor_summary = P.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
-        self.sm_image("image", data)
+        self.image_summary("image", data)
         # Record tensor by Summary operator
-        self.sm_tensor("tensor", data)
+        self.tensor_summary("tensor", data)
         ......
         return out
 
 ```
+
+> 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。
+> 比如使用两个 `ScalarSummary` 算子收集标量数据，给两个标量设置的名字不能是相同的。
 
 步骤二：在训练脚本中，实例化 `SummaryCollector`，并将其应用到 `model.train`。
 
@@ -324,7 +335,7 @@ mindinsight stop
 
 ## 注意事项
 
-1. 为了控制列出summary列表的用时，MindInsight最多支持发现999个summary列表条目。
+1. 为了控制列出summary文件目录的用时，MindInsight最多支持发现999个summary文件目录。
 
 2. 不能同时使用多个 `SummaryRecord` 实例 （`SummaryCollector` 中使用了 `SummaryRecord`）。
 
