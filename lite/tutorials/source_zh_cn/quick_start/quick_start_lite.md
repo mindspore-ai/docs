@@ -6,6 +6,6 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/quick_start/lite_quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/quick_start/quick_start_lite.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 
