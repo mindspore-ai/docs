@@ -19,3 +19,4 @@ MindSpore also provides the parallel distributed training function. It supports 
   distributed_training_ascend
   host_device_training
   checkpoint_for_hybrid_parallel
+  parameter_server_training
