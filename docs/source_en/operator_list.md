@@ -57,7 +57,7 @@
 | [mindspore.nn.MatrixSetDiag](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MatrixSetDiag)                       |  Supported | Doing  | Doing | layer/normalization
 | [mindspore.nn.LinSpace](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LinSpace)                       |  Supported | Doing  | Doing | layer/normalization
 | [mindspore.nn.MaxPool2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MaxPool2d)                                          |  Supported |  Supported |   Supported |layer/pooling
-| [mindspore.nn.AvgPool2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AvgPool2d)                                          |Doing |  Supported | Doing |layer/pooling
+| [mindspore.nn.AvgPool2d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AvgPool2d)                                          |  Supported |  Supported | Doing |layer/pooling
 | [mindspore.nn.L1Loss](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Doing |Doing | Doing |loss/loss
 | [mindspore.nn.MSELoss](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    |Supported |Doing | Doing |loss/loss
@@ -331,6 +331,9 @@
 | [mindspore.ops.operations.ScalarCast](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScalarCast)                       |    Supported |   Supported  |   Supported | inner_ops
 | [mindspore.ops.operations.ReverseSequence](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReverseSequence)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.operations.CropAndResize](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.CropAndResize)                 |    Supported  | Doing  | Doing | image_ops
+| [mindspore.ops.operations.SquaredDifference](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SquaredDifference)             |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.operations.Xdivy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xdivy)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.operations.Xlogy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
 
 ## Implicit Type Conversion
 ### conversion rules
