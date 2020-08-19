@@ -122,7 +122,15 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
-In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. The recording method is shown in the following steps.
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
+
+Summary operators currently supported:
+- [ScalarSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=scalarsummary#mindspore.ops.operations.ScalarSummary): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=tensorsummary#mindspore.ops.operations.TensorSummary): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=imagesummary#mindspore.ops.operations.ImageSummary): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=histogramsummar#mindspore.ops.operations.HistogramSummary): Convert tensor data into histogram data records.
+
+The recording method is shown in the following steps.
 
 Step 1: Call the summary operator in the `construct` function of the derived class that inherits `nn.Cell` to collect image or scalar data.
 
@@ -151,7 +159,7 @@ class CrossEntropyLoss(nn.Cell):
         self.off_value = Tensor(0.0, mstype.float32)
 
         # Init ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
+        self.scalar_summary = P.ScalarSummary()
 
     def construct(self, logits, label):
         label = self.one_hot(label, F.shape(logits)[1], self.on_value, self.off_value)
@@ -159,7 +167,7 @@ class CrossEntropyLoss(nn.Cell):
         loss = self.mean(loss, (-1,))
 
         # Record loss
-        self.sm_scalar("loss", loss)
+        self.scalar_summary("loss", loss)
         return loss
 
 
@@ -168,14 +176,14 @@ class MyOptimizer(Optimizer):
     def __init__(self, learning_rate, params, ......):
         ......
         # Initialize ScalarSummary
-        self.sm_scalar = P.ScalarSummary()
+        self.scalar_summary = P.ScalarSummary()
         self.histogram_summary = P.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
         ......
         # Record learning rate here
-        self.sm_scalar("learning_rate", learning_rate)
+        self.scalar_summary("learning_rate", learning_rate)
 
         # Record weight
         self.histogram_summary(self.weight_names[0], self.paramters[0])
@@ -192,18 +200,21 @@ class Net(nn.Cell):
         ......
 
         # Init ImageSummary
-        self.sm_image = P.ImageSummary()
+        self.image_summary = P.ImageSummary()
         # Init TensorSummary
-        self.sm_tensor = P.TensorSummary()
+        self.tensor_summary = P.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
-        self.sm_image("image", data)
+        self.image_summary("image", data)
         # Record tensor by Summary operator
-        self.sm_tensor("tensor", data)
+        self.tensor_summary("tensor", data)
         ......
         return out
 ```
+
+> In the same Summary operator, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
+> For example, if two `ScalarSummary` operators are used to collect scalar data, two scalars cannot be given the same name.
 
 Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
 

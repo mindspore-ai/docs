@@ -34,11 +34,11 @@ Figure 1 shows a change process of loss values during the neural network trainin
 
 Buttons from left to right in the upper right corner of the figure are used to display the chart in full screen, switch the Y-axis scale, enable or disable the rectangle selection, roll back the chart step by step, and restore the chart.
 
-- Full-screen Display: Display the scalar curve in full screen. Click the button again to restore it.
-- Switch Y-axis Scale: Perform logarithmic conversion on the Y-axis coordinate.
-- Enable/Disable Rectangle Selection: Draw a rectangle to select and zoom in a part of the chart. You can perform rectangle selection again on the zoomed-in chart.
+- Full-screen display: Display the scalar curve in full screen. Click the button again to restore it.
+- Switch Y-axis scale: Perform logarithmic conversion on the Y-axis coordinate.
+- Enable/Disable rectangle selection: Draw a rectangle to select and zoom in a part of the chart. You can perform rectangle selection again on the zoomed-in chart.
 - Step-by-step Rollback: Cancel operations step by step after continuously drawing rectangles to select and zooming in the same area.
-- Restore Chart: Restore a chart to the original state.
+- Restore chart: Restore a chart to the original state.
 
 There can set the threshold value to highlight the value or delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold set is less than 0.3, highlighted in red shows what is below the threshold, and it is intuitive to see the expected data value or some unusual value.
 
@@ -48,10 +48,10 @@ Figure 2: Scalar visualization function area
 
 Figure 2 shows the scalar visualization function area, which allows you to view scalar information by selecting different tags, different dimensions of the horizontal axis, and smoothness.
 
-- Tag: Select the required tags to view the corresponding scalar information.
-- Horizontal Axis: Select any of Step, Relative Time, and Absolute Time as the horizontal axis of the scalar curve.
-- Smoothness: Adjust the smoothness to smooth the scalar curve.
-- Scalar Synthesis: Synthesize two scalar curves and display them in a chart to facilitate comparison between the two curves or view the synthesized chart.
+- Tag selection: Select the required tags to view the corresponding scalar information.
+- Horizontal axis: Select any of Step, Relative Time, and Absolute Time as the horizontal axis of the scalar curve.
+- Smoothness: adjust the smoothness to smooth the scalar curve.
+- Scalar synthesis: Synthesize two scalar curves and display them in a chart to facilitate comparison between the two curves or view the synthesized chart.
 
 ![scalar_compound.png](./images/scalar_compound.png)
 
@@ -112,8 +112,8 @@ Figure 8: Dataset graph function area
 Figure 8 shows the dataset graph function area which includes the following content:
 
 - Legend: Display the meaning of each icon in the data lineage graph.
-- Data Processing Pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
-- Node Information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
+- Data processing pipeline: Display the data processing pipeline used for training. Select a single node in the graph to view details.
+- Node information: Display basic information about the selected node, including names and parameters of the data processing and augmentation operators.
 
 ## Image Visualization
 
@@ -132,8 +132,8 @@ Figure 10: Image visualization function area
 Figure 10 shows the function area of image visualization. You can view image information by selecting different tags, brightness, and contrast.
 
 - Tag: Select the required tags to view the corresponding image information.
-- Brightness Adjustment: Adjust the brightness of all displayed images.
-- Contrast Adjustment: Adjust the contrast of all displayed images.
+- Brightness adjustment: Adjust the brightness of all displayed images.
+- Contrast adjustment: Adjust the contrast of all displayed images.
 
 ## Tensor Visualization
 
