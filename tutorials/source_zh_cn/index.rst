@@ -32,6 +32,7 @@ MindSpore教程
 
    advanced_use/computer_vision_application
    advanced_use/nlp_application
+   advanced_use/second_order_optimizer_for_resnet50_application
 
 .. toctree::
    :glob:
