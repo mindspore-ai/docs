@@ -52,6 +52,7 @@ MindSpore教程
    advanced_use/mixed_precision
    advanced_use/graph_kernel_fusion
    advanced_use/quantization_aware
+   advanced_use/gradient_accumulation
 
 .. toctree::
    :glob:
