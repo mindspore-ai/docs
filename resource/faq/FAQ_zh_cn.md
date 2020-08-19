@@ -30,6 +30,18 @@ A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通
 
 <br/>
 
+Q：使用pip安装时报错`ProxyError(Cannot connect to proxy)`，应该怎么办？
+
+A：此问题一般是代理配置问题，Ubuntu环境下可通过`export http_proxy={your_proxy}`设置代理；Windows环境可以在cmd中通过`set http_proxy={your_proxy}`进行代理设置。
+
+<br/>
+
+Q: 一些常用的环境变量设置，在新启动的终端窗口中需要重新设置，容易忘记应该怎么办？
+
+A: 常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，可让环境变量设置在新启动的终端窗口中立即生效。
+
+<br/>
+
 Q：使用pip安装时提示错误，应该怎么办？
 
 A：请执行`pip -V`查看是否绑定了Python3.7+。如果绑定的版本不对，建议使用`python3.7 -m pip install`代替`pip install`命令。

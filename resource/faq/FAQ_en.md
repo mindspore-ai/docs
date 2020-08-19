@@ -33,6 +33,18 @@ A: Please append parameter `--trusted-host=ms-release.obs.cn-north-4.myhuaweiclo
 
 <br/>
 
+Q：What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?
+
+A：It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.
+
+<br/>
+
+Q：Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?
+
+A：You can write the frequently-used environment settings to `~/.bash_profile` or `~/.bashrc` so that the settings can take effect immediately when you start a new terminal window.
+
+<br/>
+
 Q: What should I do when error prompts during pip install?
 
 A: Please execute `pip -V` to check if pip is linked to Python3.7+. If not, we recommend you
