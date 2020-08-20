@@ -40,6 +40,8 @@
 4. 定义线性拟合过程的可视化函数
 5. 执行训练
 
+本次样例源代码请参考：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>。
+
 ## 环境准备
 
 系统：Ubuntu18.04
@@ -103,6 +105,7 @@ plt.title("Eval_data")
 plt.show()
 ```
 
+输出结果：
 
 ![png](./images/linear_regression_eval_datasets.png)
 
@@ -126,6 +129,8 @@ net = nn.Dense(1,1,TruncatedNormal(0.02),TruncatedNormal(0.02))
 print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input[0])
 ```
 
+输出结果：
+
     weight: -0.00034249047 bias: -0.019308656
     
 
@@ -143,6 +148,7 @@ plt.title("Eval data and net")
 plt.show()
 ```
 
+输出结果：
 
 ![png](./images/model_net_and_eval_datasets.png)
 
@@ -351,7 +357,7 @@ def plot_model_and_datasets(weight, bias, data_x, data_y):
 5. 图形展示模型函数和数据集。
 6. 清除本轮迭代的输出`display.clear_output`，起到动态可视化效果。
 
-迭代完成后，输出网络模型的权重值$w和b$。
+迭代完成后，输出网络模型的权重值$w$和$b$。
 
 
 ```python
@@ -374,6 +380,9 @@ print("loss_value:", loss_output.asnumpy())
 plot_model_and_datasets(net.weight.default_input, net.bias.default_input, data_x,data_y)
 print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input[0])
 ```
+
+输出结果：
+
 
     loss_value: 0.42879593
     
