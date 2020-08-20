@@ -17,4 +17,5 @@ MindSpore Documentation
    operator_list
    constraints_on_network_construction
    glossary
+   help_seeking_path
    community

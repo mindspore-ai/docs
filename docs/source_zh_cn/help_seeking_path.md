@@ -6,7 +6,7 @@
 
 MindSpore问题求助整体流程如图中所示，从用户使用MindSpore发现问题开始，直至选择到合适的问题解决方法。下面我们基于问题求助流程图对各种求助方法做解释说明。
 
-![solution](./images/problem_solving_process.png)
+![solution](./images/help_seeking_path.png)
 
 - 网站搜索
 
