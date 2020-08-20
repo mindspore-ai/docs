@@ -1,5 +1,7 @@
 # Host+Device混合训练
 
+`Ascend` `CPU` `模型训练` `中级` `高级`
+
 <!-- TOC -->
 
 - [Host+Device混合训练](#hostdevice混合训练)

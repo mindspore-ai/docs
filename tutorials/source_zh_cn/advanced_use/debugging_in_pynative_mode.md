@@ -1,5 +1,7 @@
 # 使用PyNative模式调试
 
+`Ascend` `GPU` `模型开发` `初级` `中级` `高级`
+
 <!-- TOC -->
 
 - [使用PyNative模式调试](#使用pynative模式调试)
