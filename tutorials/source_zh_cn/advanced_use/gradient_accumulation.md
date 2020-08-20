@@ -28,7 +28,7 @@
   
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-> 本教程用于GPU、Ascend 910 AI处理器。
+> 本教程用于GPU、Ascend 910 AI处理器, 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
 
 ## 创建梯度累积模型
 
@@ -232,7 +232,7 @@ class TrainClear(Cell):
 ```
 
 ### 定义训练过程
-- 每个Mini-batch通过正反向训练计算loss和梯度，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和
+每个Mini-batch通过正反向训练计算loss和梯度，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和
 累加梯度变量清零。
 
 ```python
@@ -305,7 +305,7 @@ class GradientAccumulation:
 ```python
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='MindSpore Gard Cumulative Example')
-    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU', 'CPU'],
+    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
                         help='device where the code will be implemented (default: Ascend)')
     parser.add_argument('--data_path', type=str, default="./Data",
                         help='path where the dataset is saved')
@@ -346,7 +346,7 @@ if __name__ == "__main__":
     
 2. 查看保存的CheckPoint文件。
 
-    训练过程中保存了CheckPoint文件gradient_accumulation.ckpt，即模型文件。
+    训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
 **验证模型**
 
