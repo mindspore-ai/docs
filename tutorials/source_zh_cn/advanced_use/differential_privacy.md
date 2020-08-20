@@ -1,5 +1,7 @@
 # 机器学习中的差分隐私
 
+`Ascend` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述

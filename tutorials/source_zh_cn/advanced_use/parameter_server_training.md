@@ -1,5 +1,7 @@
 # Parameter Server训练
 
+`Ascend` `模型训练` `中级` `高级`
+
 <!-- TOC -->
 
 - [Parameter Server训练](#parameter_server训练)
