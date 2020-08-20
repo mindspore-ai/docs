@@ -30,7 +30,7 @@
 | Graph Neural Networks（GNN）| Text Classification  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)                                          |  Supported |  Doing | Doing
 | Graph Neural Networks（GNN）| Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py)                                          |  Supported |  Doing | Doing
 
-> You can also use [MindWizard Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/README.md) to quickly generate classic network scripts.
+> You can also use [MindWizard Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/) to quickly generate classic network scripts.
 
 ## Pre-trained Models
 *It refers to the released MindSpore version. The hardware platforms that support model training are CPU, GPU and Ascend. As shown in the table below, ✓ indicates that the pre-trained model run on the selected platform.
