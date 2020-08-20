@@ -31,7 +31,7 @@
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)  |  Supported |  Doing | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py) |  Supported |  Doing | Doing
 
-> 你也可以使用 [MindWizard工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/README_CN.md) 快速生成经典网络脚本。
+> 你也可以使用 [MindWizard工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/) 快速生成经典网络脚本。
 
 ## 预训练模型
 *代表MindSpore已发布的版本号，支持网络训练的硬件平台有CPU、GPU和Ascend，以下表格中 ✓ 代表模型是基于选中的硬件平台训练而来。
