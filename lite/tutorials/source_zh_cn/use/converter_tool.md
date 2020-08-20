@@ -37,7 +37,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 | 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | 否 | 打印全部帮助信息。 | - | - |
-| `--fmk=<FMK>`  | 是 | 输入模型的原始格式（可从模型文件后缀识别）。 | MS、CAFFE、TFLITE、ONNX | - |
+| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MS、CAFFE、TFLITE、ONNX | - |
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |

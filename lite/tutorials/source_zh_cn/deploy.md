@@ -54,17 +54,25 @@ MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编
 
 ## 输出件说明
 
-编译完成后，进入源码的`mindspore/output`目录，可查看编译后生成的文件，命名为`MSLite-{version}-{platform}.tar.gz`。解压后，即可获得编译后的工具包。
-   
+编译完成后，进入源码的`mindspore/output`目录，可查看编译后生成的文件，命名为`mindspore-lite-{version}-{function}-{OS}.tar.gz`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}`。
+
+> version：输出件版本，与所编译的MindSpore版本一致。
+> function：输出件功能，`convert`表示为转换工具的输出件，`runtime`表示为推理框架的输出件。
+> OS：输出件应部署的操作系统。
+
 ```bash
-tar -xvf MSLite-{version}-{platform}.tar.gz
+tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 ```
+
+编译后的输出件一般包含以下几种，架构的选择会影响输出件的种类。
+
+> 编译x86可获得转换工具的输出件，编译ARM64默认可获得`arm64-cpu`的推理框架输出件，若添加`-e gpu`则获得`arm64-gpu`的推理框架输出件，编译ARM32同理。
 
 编译后的输出件一般包含以下几种，架构的选择会影响输出件的种类。
 
 | 目录 | 说明 | x86_64 | arm64 | arm32 |
 | --- | --- | --- | --- | --- |
-| include | 推理框架头文件 | 有 | 有 | 有 |
+| include | 推理框架头文件 | 无 | 有 | 有 |
 | lib | 推理框架动态库 | 有 | 有 | 有 |
 | benchmark | 基准测试工具 | 有 | 有 | 有 |
 | time_profiler | 模型网络层耗时分析工具 | 有 | 有 | 有 |
@@ -72,10 +80,10 @@ tar -xvf MSLite-{version}-{platform}.tar.gz
 | third_party | 第三方库头文件和库 | 有 | 有 | 有 |
 
 在x86_64、ARM两种架构下，`third party`的内容不同。其中：  
-- x86_64：包含`flatbuffers`（FlatBuffers头文件）和`protobuf`（Protobuf头文件与动态库）。
-- ARM：包含`flatbuffers`（FlatBuffers头文件）。
+- x86_64：`protobuf`（Protobuf的动态库）。
+- ARM：`flatbuffers`（FlatBuffers头文件）。
 
-> 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.6.0-beta版本为例：`export LD_LIBRARY_PATH=./MSLite-0.6.0-linux_x86_64/lib:./MSLite-0.6.0-linux_x86_64/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
+> 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.6.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.6.0/lib:./mindspore-lite-0.6.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
 
 ## 编译示例
 
@@ -112,5 +120,5 @@ git clone https://gitee.com/mindspore/mindspore.git
 以0.6.0-beta版本为例，x86_64架构Release版本编译完成之后，进入`mindspore/output`目录，执行如下解压缩命令，即可获取输出件`include`、`lib`、`benchmark`、`time_profiler`、`converter`和`third_party`。
    
 ```bash
-tar -xvf MSLite-0.6.0-linux_x86_64.tar.gz
+tar -xvf mindspore-lite-0.6.0-converter-ubuntu.tar.gz
 ```

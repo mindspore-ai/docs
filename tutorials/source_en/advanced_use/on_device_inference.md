@@ -90,10 +90,10 @@ The compilation procedure is as follows:
        bash build.sh -I arm32
        ```
 
-3. Go to the `mindspore/output` directory of the source code to obtain the compilation result. Unzip `MSLite-0.6.0-linux_x86_64.tar.gz` to get the result after building. 
+3. Go to the `mindspore/output` directory of the source code to obtain the compilation result. Unzip `mindspore-lite-0.6.0-converter-ubuntu.tar.gz` to get the result `mindspore-lite-0.6.0` after building. 
       
    ```bash
-   tar xvf MSLite-0.6.0-linux_x86_64.tar.gz
+   tar -xvf mindspore-lite-0.6.0-converter-ubuntu.tar.gz
    ```
 
 ## Use of On-Device Inference
@@ -171,7 +171,7 @@ To perform on-device model inference using MindSpore, perform the following step
         else:
             print("checkpoint file does not exist.")
     ```
-3. In `mindspore/output/MSLite-0.6.0-linux_x86_64/converter` directory, calling MindSpore convert tool named `converter_lite`, convert model file (`.mindir`) to on_device inference model file (`.ms`).
+3. In `mindspore/output/mindspore-lite-0.6.0/converter` directory, calling MindSpore convert tool named `converter_lite`, convert model file (`.mindir`) to on_device inference model file (`.ms`).
     ```
     ./converter_lite --fmk=MS --modelFile=./lenet.mindir --outputFile=lenet
     ```
