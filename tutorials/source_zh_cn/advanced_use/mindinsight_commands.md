@@ -39,12 +39,12 @@ mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
 |参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
 |---|---|---|---|---|---|---|
 |`-h, --help`|可选|显示启动命令的帮助信息。|-|-|-|-|
-|`--config <CONFIG>`|可选|指定配置文件或配置模块。|str|空|-|物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。|
-|`--workspace <WORKSPACE>`|可选|指定工作目录路径。|str|$HOME/mindinsight|-|-|
-|`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
-|`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|str|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是单点号(.)或双点号(..)。|
-|`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|int|3|-|设置为0时表示只加载一次数据。|
-|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|str|./|-|MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。|
+|`--config <CONFIG>`|可选|指定配置文件或配置模块。|String|空|-|物理文件路径（file:/path/to/config.py）或Python可识别的模块路径（python:path.to.config.module）。|
+|`--workspace <WORKSPACE>`|可选|指定工作目录路径。|String|$HOME/mindinsight|-|-|
+|`--port <PORT>`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|-|
+|`--url-path-prefix <URL_PATH_PREFIX>`|可选|指定Web服务URL地址前缀。|String|空|-|URL地址前缀由斜杠(/)分隔成多个部分，各部分支持由字母/数字/下划线/连字符/点号组成的字符串，但不能是单点号(.)或双点号(..)。|
+|`--reload-interval <RELOAD_INTERVAL>`|可选|指定加载数据的时间间隔（单位：秒）。|Integer|3|-|设置为0时表示只加载一次数据。|
+|`--summary-base-dir <SUMMARY_BASE_DIR>`|可选|指定加载训练日志数据的根目录路径。|String|./|-|MindInsight将遍历此路径下的直属子目录。若某个直属子目录包含日志文件，则该子目录被识别为日志文件目录，若根目录包含日志文件，则根目录被识别为日志文件目录。|
 
 > 服务启动时，命令行参数值将被保存为进程的环境变量，并以 `MINDINSIGHT_` 开头作为标识，如 `MINDINSIGHT_CONFIG`，`MINDINSIGHT_WORKSPACE`，`MINDINSIGHT_PORT` 等。
 
@@ -79,4 +79,4 @@ mindinsight stop [-h] [--port PORT]
 |参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
 |---|---|---|---|---|---|---|
 |`-h, --help`|可选|显示停止命令的帮助信息。|-|-|-|-|
-|`--port <PORT>`|可选|指定Web可视化服务端口。|int|8080|1~65535|-|
+|`--port <PORT>`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|-|
