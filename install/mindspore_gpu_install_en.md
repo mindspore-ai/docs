@@ -32,6 +32,7 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
 
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during `.whl` package installation. In other cases, you need to manually install dependency items.
 - MindSpore reduces dependency on Autoconf, Libtool, Automake versions for the convenience of users, default versions of these tools built in their systems are now supported.
+- After installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
 
 ### (Optional) Installing Conda
 
