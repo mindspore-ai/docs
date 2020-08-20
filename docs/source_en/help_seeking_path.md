@@ -18,16 +18,13 @@ The following flowchart shows the overall help-seeking process which starts from
 
 - User group consultation
 
-  - QQ user group number: 871543426.
-  - If you cannot solve the problem using the website search method and want a quick consultation, consult users in the QQ user group.
-  - After joining the group, discuss with other users. Technical experts in the group can also provide answers.
+  - If you cannot solve the problem using the website search method and want a quick consultation. Get support by joining the [Slack group](https://mindspore.slack.com/join/shared_invite/zt-dgk65rli-3ex4xvS4wHX7UDmsQmfu8w#/ ) and start a conversation with our members.
   - Resolve the problem by asking experts or communicating with other users.
 
 
 - Forum Help-Seeking
 
-  - If you want a detailed solution, start a help post on the [MindSpore forum](https://bbs.huaweicloud.com/forum/forum-1076-1.html).
-  - To improve the speed and quality of problem solving, refer to [post suggestions](https://bbs.huaweicloud.com/forum/thread-69695-1-1.html) before posting.
+  - If you want a detailed solution, start a help post on the [Ascend forum](https://forum.huawei.com/enterprise/en/forum-100504.html).
   - After the post is sent, a forum moderator collects the question and contacts technical experts to answer the question. The question will be resolved within three working days.
   - Resolve the problem by referring to solutions provided by technical experts.
   
