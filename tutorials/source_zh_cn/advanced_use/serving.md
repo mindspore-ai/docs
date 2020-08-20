@@ -35,10 +35,10 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 |参数名|属性|功能描述|参数类型|默认值|取值范围|
 |---|---|---|---|---|---|
 |`--help`|可选|显示启动命令的帮助信息。|-|-|-|
-|`--model_path=<MODEL_PATH>`|必选|指定待加载模型的存放路径。|str|空|-|
-|`--model_name=<MODEL_NAME>`|必选|指定待加载模型的文件名。|str|空|-|
-|`--port=<PORT>`|可选|指定Serving对外的端口号。|int|5500|1~65535|
-|`--device_id=<DEVICE_ID>`|可选|指定使用的设备号|int|0|0~7|
+|`--model_path=<MODEL_PATH>`|必选|指定待加载模型的存放路径。|String|空|-|
+|`--model_name=<MODEL_NAME>`|必选|指定待加载模型的文件名。|String|空|-|
+|`--port=<PORT>`|可选|指定Serving对外的端口号。|Integer|5500|1~65535|
+|`--device_id=<DEVICE_ID>`|可选|指定使用的设备号|Integer|0|0~7|
 
  > 执行启动命令前，需将`/{your python path}/lib:/{your python path}/lib/python3.7/site-packages/mindspore/lib`对应的路径加入到环境变量LD_LIBRARY_PATH中 。
 
@@ -51,10 +51,9 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 ```python
 python add_model.py
 ```
-执行脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[4]的一维Tensor，输出结果是两个输入Tensor之和。
+执行脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[2,2]的二维Tensor，输出结果是两个输入Tensor之和。
 
 ### 启动Serving推理服务
-`ms_serving`打包在MindSpore whl包安装路径中。
 ```bash
 ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 ```
@@ -70,7 +69,8 @@ python ms_client.py
 显示如下返回值说明Serving服务已正确执行Add网络的推理。
 ```
 ms client received:
-[2. 2. 2. 2.]
+[[2. 2.]
+ [2. 2.]]
 ```
 
 #### <span name="cpp客户端示例">C++客户端示例</span>
@@ -99,8 +99,8 @@ ms client received:
     ```
     显示如下返回值说明Serving服务已正确执行Add网络的推理。
     ```
-    Compute [1, 2, 3, 4] + [1, 2, 3, 4]
-    Add result is [2, 4, 6, 8]
+    Compute [[1, 2], [3, 4]] + [[1, 2], [3, 4]]
+    Add result is 2 4 6 8
     client received: RPC OK
     ```
 
