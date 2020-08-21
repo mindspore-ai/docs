@@ -1,5 +1,7 @@
 # Mixed Precision
 
+`Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Mixed Precision](#mixed-precision)

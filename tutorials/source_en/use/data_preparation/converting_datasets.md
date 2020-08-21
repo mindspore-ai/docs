@@ -1,5 +1,7 @@
 # Converting Datasets to the Mindspore Data Format
 
+`Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Converting Datasets to the Mindspore Data Format](#converting-datasets-to-the-mindspore-data-format)

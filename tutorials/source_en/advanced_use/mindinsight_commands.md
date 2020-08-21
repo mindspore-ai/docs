@@ -1,5 +1,7 @@
 # MindInsight Commands
 
+`Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/mindinsight_commands.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 <!-- TOC -->

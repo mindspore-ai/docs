@@ -1,5 +1,7 @@
 # Saving and Loading Model Parameters in the Hybrid Parallel Scenario
 
+`Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](#saving-and-loading-model-parameters-in-the-hybrid-parallel-scenario)

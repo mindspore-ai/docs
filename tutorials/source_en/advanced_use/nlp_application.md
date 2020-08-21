@@ -1,5 +1,7 @@
 # Natural Language Processing (NLP) Application
 
+`GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Natural Language Processing (NLP) Application](#natural-language-processing-nlp-application)

@@ -1,5 +1,7 @@
 # Model Security
 
+`Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
+
 <!-- TOC -->
 
 - [Model Security](#model-security)

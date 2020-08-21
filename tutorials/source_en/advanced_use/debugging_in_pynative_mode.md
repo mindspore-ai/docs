@@ -1,5 +1,7 @@
 # Debugging in PyNative Mode
 
+`Ascend` `GPU` `Model Development` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Debugging in PyNative Mode](#debugging-in-pynative-mode)

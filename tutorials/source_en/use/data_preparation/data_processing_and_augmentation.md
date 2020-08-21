@@ -1,5 +1,7 @@
 # Data Processing and Augmentation
 
+`Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Data Processing and Augmentation](#data-processing-and-augmentation)

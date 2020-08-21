@@ -1,5 +1,7 @@
 # Multi-Platform Inference
 
+`Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Multi-Platform Inference](#multi-platform-inference)

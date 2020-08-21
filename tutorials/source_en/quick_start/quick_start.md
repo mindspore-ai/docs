@@ -1,5 +1,7 @@
 # Implementing an Image Classification Application
 
+`Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 

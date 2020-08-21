@@ -1,5 +1,7 @@
 # Network Migration
 
+`Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Network Migration](#network-migration)

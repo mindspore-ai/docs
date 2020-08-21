@@ -1,5 +1,7 @@
 # Dashboard
 
+`Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Dashboard](#dashboard)
