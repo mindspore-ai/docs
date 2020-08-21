@@ -66,6 +66,7 @@ from mindarmour.evaluations.attack_evaluation import AttackEvaluate
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 LOGGER = LogUtil.get_instance()
+LOGGER.set_level(1)
 TAG = 'demo'
 ```
 
