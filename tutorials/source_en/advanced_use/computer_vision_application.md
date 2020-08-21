@@ -1,5 +1,7 @@
 # Computer Vision Applications
 
+`Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Computer Vision Applications](#computer-vision-applications)

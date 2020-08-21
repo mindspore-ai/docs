@@ -1,5 +1,7 @@
 # Loading the Dataset
 
+`Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Loading the Dataset](#loading-the-dataset)

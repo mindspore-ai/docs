@@ -1,5 +1,7 @@
 # Summary Record
 
+`Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Summary Record](#summary-record)

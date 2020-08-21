@@ -1,5 +1,7 @@
 # Saving and Loading Model Parameters
 
+`Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Saving and Loading Model Parameters](#saving-and-loading-model-parameters)

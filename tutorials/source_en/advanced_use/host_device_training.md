@@ -1,5 +1,7 @@
 # Host+Device Hybrid Training
 
+`Ascend` `CPU` `Model Training` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Host+Device Hybrid Training](#hostdevice-hybrid-training)

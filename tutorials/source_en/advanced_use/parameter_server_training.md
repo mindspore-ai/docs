@@ -1,5 +1,7 @@
 # Parameter Server Training
 
+`Ascend` `Model Training` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Parameter Server Training](#parameter-server-training)

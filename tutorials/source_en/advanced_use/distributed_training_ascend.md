@@ -1,5 +1,7 @@
 # Parallel Distributed Training (Ascend)
 
+`Ascend` `Model Training` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Parallel Distributed Training (Ascend)](#parallel-distributed-training-ascend)

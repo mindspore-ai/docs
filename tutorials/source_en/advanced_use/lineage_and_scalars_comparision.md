@@ -1,5 +1,7 @@
 # Lineage and Scalars Comparision
 
+`Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Lineage and Scalars Comparision](#lineage-and-scalars-comparision)
