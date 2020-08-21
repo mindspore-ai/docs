@@ -31,7 +31,7 @@ In the MindSpore model parallel scenario, each instance process stores only the 
 
 In the auto parallel scenario, MindSpore automatically generates the dividing strategy. The MindSpore checkpoint module supports automatic integrating, saving, and loading.
 
-In the hybrid parallel scenario, the dividing strategy is implemented by users. MindSpore saves only the data corresponding to each node. Users need to integrate, save, and load the checkpoint files by themselves. This tutorial describes how to integrate, save, and load checkpoint files in the hybrid parallel scenario.
+In the hybrid parallel scenario, the dividing strategy is implemented by users. MindSpore saves the slice strategy of model, which is the same on each node, and the data corresponding to each node is stored respectively. Users need to integrate, save, and load the checkpoint files by themselves. This tutorial describes how to integrate, save, and load checkpoint files in the hybrid parallel scenario.
 
 ### Application Scenario
 
@@ -41,7 +41,7 @@ Scenario 1: multi-device training and single-device inference
 
 The following describes the overall process of training on 64 devices and inference on a single device:
 
-1. Execute the training to automatically generate the checkpoint files.
+1. Execute the training to automatically generate the checkpoint files and the slice strategy files.
 
 2. Integrate the saved checkpoint files.
 
@@ -55,7 +55,7 @@ Scenario 2: The training is divided into multiple stages, and the cluster size i
 
 For example, in the training stage 1, the training environment with 64 devices is used, and in the training stage 2, the training environment with 56 devices is used. The overall operation process is as follows:
 
-1. Execute the training in stage 1 to automatically generate the checkpoint files.
+1. Execute the training in stage 1 to automatically generate the checkpoint files and the slice strategy files.
 
 2. Integrate the saved checkpoint files.
 
@@ -116,7 +116,7 @@ strategy = build_searched_strategy("./strategy_train.ckpt")
 
 In the preceding information:
 
-- `strategy_train.ckpt`: name of model slice strategy, set by users calling `set_auto_parallel_context` API and customizing `strategy_ckpt_save_file` parameter before training network, and the file saved on each node are the same.
+- `strategy_train.ckpt`: name of model slice strategy, set by users calling `set_auto_parallel_context` API and customizing `strategy_ckpt_save_file` parameter before training network.
 
 ### Integrate the Model Parallel Parameters
 
