@@ -38,7 +38,7 @@ MindSpore模型并行场景下，每个实例进程只保存有本节点对应�
 
 对于自动切分的模型并行场景（Auto Parallel），切分逻辑由MindSpore自动生成，MindSpore的CheckPoint模块可以支持自动合并保存和基于合并保存的加载能力。
 
-对于用户手动设置的并行场景（HyBrid Parallel），切分逻辑由用户自己实现，MindSpore在每个节点只保存本节点上的数据，用户需要自己实现CheckPoint文件的合并保存与加载功能。本教程用于指导用户在手动切分场景下，实现CheckPoint的合并保存与加载能力。
+对于用户手动设置的并行场景（HyBrid Parallel），切分逻辑由用户自己实现，MindSpore在每个节点上保存相同的模型参数切分策略文件和本节点上的数据，用户需要自己实现CheckPoint文件的合并保存与加载功能。本教程用于指导用户在手动切分场景下，实现CheckPoint的合并保存与加载能力。
 
 ### 使用场景
 
@@ -48,7 +48,7 @@ MindSpore模型并行场景下，每个实例进程只保存有本节点对应�
 
  以在64卡上训练，并在单卡上推理为例，整体操作流程如下：
 
-1. 执行训练，自动生成CheckPoint文件。
+1. 执行训练，自动生成CheckPoint文件和模型参数切分策略文件。
 
 2. 用户对保存的CheckPoint文件做合并处理。
 
@@ -62,7 +62,7 @@ MindSpore模型并行场景下，每个实例进程只保存有本节点对应�
 
 ​ 以训练阶段一是64卡训练环境，阶段二是56卡训练环境为例，整体操作流程如下：
 
-1. 执行阶段一训练，自动生成CheckPoint文件。
+1. 执行阶段一训练，自动生成CheckPoint文件和模型参数切分策略文件。
 
 2. 用户对保存的CheckPoint文件做合并处理。
 
@@ -124,7 +124,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 
 其中，
 
-- `strategy_train.ckpt`：保存的模型参数切分策略文件名称，训练网络之前由用户调用`set_auto_parallel_context`接口自定义`strategy_ckpt_save_file`参数生成，各个节点上保存的策略文件相同。
+- `strategy_train.ckpt`：保存的模型参数切分策略文件名称，训练网络之前由用户调用`set_auto_parallel_context`接口自定义`strategy_ckpt_save_file`参数生成。
 
 ### 对模型并行的参数做合并处理
 
