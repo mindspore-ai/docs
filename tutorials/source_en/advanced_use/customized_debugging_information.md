@@ -242,20 +242,15 @@ When the training result deviates from the expectation on Ascend, the input and 
             "op_debug_mode": 0,
             "iteration": 0,
             "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
-        },
-
-        "DumpSettingsSpec": {
-            "net_name": "net name eg:ResNet50",
-            "dump_mode": "0: dump all kernels, 1: dump kernels in kernels list",
-            "op_debug_mode": "0: close debug, 1: debug ai-core overflow, 2: debug atomic overflow, 3: debug all overflow",
-            "iteration": "specified iteration",
-            "kernels": "op's full scope name which need to be dump"
         }
     }
     ```
 
-    > - Iteration should be set to 0 when `dataset_sink_mode` is False and data of every iteration will be dumped.
-    > - Iteration should increase by 1 when `dataset_sink_mode` is True. For example, data of GetNext will be dumped in iteration 0 and data of compute graph will be dumped in iteration 1.
+    > - `net_name`: net name eg:ResNet50.
+    > - `dump_mode`: 0: dump all kernels, 1: dump kernels in kernels list.
+    > - `op_debug_mode`: please set to 0.
+    > - `iteration`: specified iteration to dump. `iteration` should be set to 0 when `dataset_sink_mode` is False and data of every iteration will be dumped.
+    > - `kernels`: `fullname_with_scope` of kernel which need to dump.
 
 5. Set environment variables.
 
