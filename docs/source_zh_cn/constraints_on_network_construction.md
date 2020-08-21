@@ -93,7 +93,7 @@
 | `**`         |标量、`Tensor`
 | `//`         |标量、`Tensor`
 | `%`          |标量、`Tensor`
-| `[]`         |操作对象类型支持`list`、`tuple`、`Tensor`，支持多重下标访问作为右值，但不支持多重下标访问作为左值，且索引类型仅当操作对象类型为`tuple(nn.Cell)`的取值操作时支持Tensor(这个操作目前Graph模式下仅GPU后端支持，其中`tuple(nn.Cell)`是指元素类型为nn.Cell的tuple类型)；Tuple、Tensor类型访问限制见切片操作中的说明。
+| `[]`         |操作对象类型支持`list`、`tuple`、`Tensor`，支持多重下标访问作为右值，但不支持多重下标访问作为左值，且索引类型仅当操作对象类型为元素类型为`nn.Cell`的tuple或list的取值操作时支持Tensor(这个操作目前Graph模式下仅GPU后端支持)；Tuple、Tensor类型访问限制见切片操作中的说明。
 
 ### 索引操作
 
@@ -144,7 +144,7 @@
     - 赋值：例如`tensor_x[..., ::, 1:]=u`
   - 其他情况暂不支持
 
-tuple类型的切片取值操作，需要重点介绍一下操作对象类型为`tuple(nn.Cell)`的切片取值操作，该操作目前在Graph模式下仅GPU后端支持运行，其语法格式形如`layers[index](*inputs)`，具体示例代码如下：
+tuple和list类型的索引取值操作，需要重点介绍一下元素类型为`nn.Cell`的tuple或list的索引取值操作，该操作目前在Graph模式下仅GPU后端支持运行，其语法格式形如`layers[index](*inputs)`，具体示例代码如下：
   ```python
   class Net(nn.Cell):
       def __init__(self):
@@ -158,13 +158,42 @@ tuple类型的切片取值操作，需要重点介绍一下操作对象类型为
           return x
   ```
 同时该语法有以下几个约束：
-* 只支持操作对象类型为`tuple(nn.Cell)`的切片取值操作。
-* 索引值index的数据类型需要是`int32`类型的Tensor标量。
-* 索引值index的取值范围为`[-n, n)`, 其中`n`为tuple的size，支持的tuple的size的最大值为1000。
+* 只支持元素类型为`nn.Cell`的tuple或list的索引取值操作。
+* 索引值index的类型为`int32`的Tensor标量，取值范围为`[-n, n)`, 其中`n`为tuple的size，支持的tuple的size的最大值为1000。
 * tuple中的每个Cell元素的Construct函数的输入数据的数目，类型和shape要求相同，且Construct函数运行后输出的数据的数目，类型和shape也要求相同。
 * tuple中的每个Cell元素，需要在tuple定义之前完成定义。
+* 该语法不支持做为if、while、for等控制流的运行分支，如果控制流的控制条件为常量除外。举例说明：
+  - 支持的写法：
+    ```python
+    class Net(nn.Cell):
+      def __init__(self, flag=True):
+          super(Net, self).__init__()
+          self.flag = flag
+          self.relu = nn.ReLU()
+          self.softmax = nn.Softmax()
+          self.layers = (self.relu, self.softmax)
 
-其它类型的tuple也支持切片取值操作, 但不支持索引类型为Tensor类型，支持`tuple_x[start:stop:step]`，其中操作对象为与Python的效果相同，这里不再赘述。
+      def construct(self, x, index):
+          if self.flag:
+            x = self.layers[index](x)
+          return x
+    ```
+  - 不支持的写法：
+    ```python
+    class Net(nn.Cell):
+      def __init__(self):
+          super(Net, self).__init__()
+          self.relu = nn.ReLU()
+          self.softmax = nn.Softmax()
+          self.layers = (self.relu, self.softmax)
+
+      def construct(self, x, index, flag):
+          if flag:
+            x = self.layers[index](x)
+          return x
+    ```
+
+tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支持`tuple_x[start:stop:step]`，其中操作对象为与Python的效果相同，这里不再赘述。
 
 ### 不支持的语法
 
