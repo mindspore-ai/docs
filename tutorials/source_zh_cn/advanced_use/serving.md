@@ -10,9 +10,10 @@
     - [应用示例](#应用示例)
         - [导出模型](#导出模型)
         - [启动Serving推理服务](#启动serving推理服务)
-        - [客户端示例](#客户端示例)
+        - [gRPC客户端示例](#gRPC客户端示例)
             - [Python客户端示例](#python客户端示例)
             - [C++客户端示例](#cpp客户端示例)
+        - [REST API客户端示例](#restapi客户端示例)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
@@ -37,10 +38,12 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 |`--help`|可选|显示启动命令的帮助信息。|-|-|-|
 |`--model_path=<MODEL_PATH>`|必选|指定待加载模型的存放路径。|String|空|-|
 |`--model_name=<MODEL_NAME>`|必选|指定待加载模型的文件名。|String|空|-|
-|`--port=<PORT>`|可选|指定Serving对外的端口号。|Integer|5500|1~65535|
+|`--port=<PORT>`|可选|指定Serving对外的gRPC端口号。|Integer|5500|1~65535|
+|`--rest_api_port=<PORT>`|可选|指定Serving对外的REST API端口号。|Integer|5501|1~65535|
 |`--device_id=<DEVICE_ID>`|可选|指定使用的设备号|Integer|0|0~7|
 
  > 执行启动命令前，需将`/{your python path}/lib:/{your python path}/lib/python3.7/site-packages/mindspore/lib`对应的路径加入到环境变量LD_LIBRARY_PATH中 。
+ > port与rest_api_port不可相同。
 
 ## 应用示例
 下面以一个简单的网络为例，演示MindSpore Serving如何使用。
@@ -57,9 +60,10 @@ python add_model.py
 ```bash
 ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 ```
-当服务端打印日志`MS Serving Listening on 0.0.0.0:5500`时，表示Serving服务已加载推理模型完毕。
+当服务端打印日志`MS Serving grpc Listening on 0.0.0.0:5500`时，表示Serving gRPC服务已加载推理模型完毕。
+当服务端打印日志`MS Serving restful Listening on 0.0.0.0:5501`时，表示Serving REST服务已加载推理模型完毕。
 
-### 客户端示例
+### gRPC客户端示例
 #### <span name="python客户端示例">Python客户端示例</span>
 获取[ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py)，启动Python客户端。
 ```bash
@@ -91,7 +95,7 @@ ms client received:
         ```
         其中`{grpc_install_dir}`为gRPC安装时的路径，请替换为实际gRPC安装路径。
 
-2. 启动客户端
+2. 启动gRPC客户端
 
     执行ms_client，向Serving服务发送推理请求：
     ```bash
@@ -129,7 +133,8 @@ ms client received:
     
     //set shape
     TensorShape shape;
-    shape.add_dims(4);
+    shape.add_dims(2);
+    shape.add_dims(2);
     *data.mutable_tensor_shape() = shape;
     
     //set type
@@ -149,4 +154,25 @@ ms client received:
     ```
 
 完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc)。 
+
+### REST API客户端示例
+以data形式发送数据：
+```
+curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]"}' http://127.0.0.1:5501
+```
+
+显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+```
+{"data":[[2,4], [6,8]]}
+```
+
+以tensor形式发送数据：
+```
+curl -X POST -d '{"tensor": [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]"}' http://127.0.0.1:5501
+```
+
+显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+```
+{"tensor":[[2,4], [6,8]]}
+```
 
