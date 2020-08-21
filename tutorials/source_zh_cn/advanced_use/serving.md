@@ -13,7 +13,7 @@
         - [gRPC客户端示例](#gRPC客户端示例)
             - [Python客户端示例](#python客户端示例)
             - [C++客户端示例](#cpp客户端示例)
-        - [REST API客户端示例](#restapi客户端示例)
+        - [REST API客户端示例](#rest-api客户端示例)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
@@ -156,23 +156,29 @@ ms client received:
 完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc)。 
 
 ### REST API客户端示例
-以data形式发送数据：
-```
-curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]"}' http://127.0.0.1:5501
-```
+1. `data`形式发送数据：
 
-显示如下返回值，说明Serving服务已正确执行Add网络的推理：
-```
-{"data":[[2,4], [6,8]]}
-```
+    data字段：由网络模型每个输入/输出数据展平后组合而成。
+    
+    如本例中，将模型输入数据`[[1, 2], [3, 4]]`和`[[1, 2], [3, 4]]`展平组合成data形式的数据`[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`
+    ```
+    curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]}' http://127.0.0.1:5501
+    ```
+    显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+    ```
+    {"data":[[2.0,4.0,6.0,8.0]]}
+    ```
 
-以tensor形式发送数据：
-```
-curl -X POST -d '{"tensor": [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]"}' http://127.0.0.1:5501
-```
+2. `tensor`形式发送数据：
 
-显示如下返回值，说明Serving服务已正确执行Add网络的推理：
-```
-{"tensor":[[2,4], [6,8]]}
-```
+    tensor字段：由网络模型每个输入/输出组合而成。
+    
+    如本例中，将模型输入数据`[[1, 2], [3, 4]]`和`[[1, 2], [3, 4]]`组合成tensor形式的数据`[[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]`
+    ```
+    curl -X POST -d '{"tensor": [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]}' http://127.0.0.1:5501
+    ```
+    显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+    ```
+    {"tensor":[[2.0,4.0], [6.0,8.0]]}
+    ```
 
