@@ -60,7 +60,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 ```
 
 整体执行流程如下：
-1. 准备ImagNet数据集，处理需要的数据集；
+1. 准备ImageNet数据集，处理需要的数据集；
 2. 定义ResNet50网络；
 3. 定义损失函数和THOR优化器；
 4. 加载数据集并进行训练，训练完成后，查看结果及保存模型文件；
@@ -69,7 +69,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 ## 准备环节
 
-在动手进行实践之前，确保你已经正确安装了MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
+实践前，确保已经正确安装MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)安装MindSpore。
 
 ### 准备数据集
 
@@ -89,8 +89,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
     │      n02504013
     │      n07871810
     │      ......
-                
-            
+
 ```
 ### 配置分布式环境变量
 #### Ascend 910
@@ -160,7 +159,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 
 ## 定义网络
-本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Cov2d`和
+本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
 和`Dense`算子。定义好的网络模型在在源码`src/resnet_thor.py`脚本中，自定义的算子`Conv2d_thor`和`Dense_thor`在`src/thor_layer.py`脚本中。
 
 -  使用`Conv2d_thor`替换原网络模型中的`Conv2d`
@@ -287,7 +286,7 @@ if __name__ == "__main__":
 
 ### 配置训练网络
 
-通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个Model_thor类，继承MindSpore提供的Model类。在Model_thor类中增加二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
+通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个Model_Thor类，继承MindSpore提供的Model类。在Model_Thor类中增加二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
 
 
 ```python
@@ -311,7 +310,7 @@ if __name__ == "__main__":
 ### 运行脚本
 训练脚本定义完成之后，调`scripts`目录下的shell脚本，启动分布式训练进程。
 #### Ascend 910
-目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，用来保存日志信息以及算子编译信息。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，目录名称为`train_parallel`+ `device_id`，用来保存日志信息，算子编译信息以及训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 使用以下命令运行脚本：
 ```
@@ -339,17 +338,21 @@ epoch: 42 step: 5004, loss is 1.6453942
 ...
 ```
 
-训练完后，即保存的模型文件，示例如下:
+训练完后，每张卡训练产生的checkpoint文件保存在各自训练目录下，`device_0`产生的checkpoint文件示例如下:
 
 ```bash
-resnet-42_5004.ckpt
+└─train_parallel0
+    ├─resnet-1_5004.ckpt
+    ├─resnet-2_5004.ckpt
+    │      ......
+    ├─resnet-42_5004.ckpt
 ```
 
 其中，
-`resnet-42_5004.ckpt`：指保存的模型参数文件。名称具体含义checkpoint_*网络名称*-*第几个epoch*_*第几个step*.ckpt。
+`*.ckpt`：指保存的模型参数文件。checkpoint文件名称具体含义：*网络名称*-*epoch数*_*step数*.ckpt。
 
 ##### GPU
-在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 ```
 sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
 ```
@@ -374,10 +377,22 @@ epoch: 42 step: 5004, loss is 1.9023
 ...
 ```
 
-训练完后，即保存的模型文件，示例如下:
+训练完后，保存的模型文件示例如下:
 
 ```bash
-resnet-42_5004.ckpt
+└─train_parallel
+    ├─ckpt_0
+        ├─resnet-1_5004.ckpt
+        ├─resnet-2_5004.ckpt
+    	│      ......
+        ├─resnet-42_5004.ckpt
+	......
+    ├─ckpt_7
+        ├─resnet-1_5004.ckpt
+        ├─resnet-2_5004.ckpt
+        │      ......
+        ├─resnet-42_5004.ckpt
+
 ```
 
 ## 模型推理
