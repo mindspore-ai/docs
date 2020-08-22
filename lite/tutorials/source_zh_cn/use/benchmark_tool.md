@@ -37,6 +37,7 @@ Benchmark工具是一款可以对MindSpore Lite模型进行基准测试的工具
 			[--inDataType=<INDATATYPE>] [--loopCount=<LOOPCOUNT>]
 			[--numThreads=<NUMTHREADS>] [--omModelPath=<OMMODELPATH>]
 			[--resizeDims=<RESIZEDIMS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+			[--fp16Priority=<FP16PRIORITY>]
 ```
 
 下面提供详细的参数说明。
@@ -56,6 +57,7 @@ Benchmark工具是一款可以对MindSpore Lite模型进行基准测试的工具
 | `--omModelPath=<OMMODELPATH>` | 可选 | 指定OM模型的文件路径，此参数仅当`device`类型为NPU时可选设置。 | String | null | - |
 | `--resizeDims=<RESIZEDIMS>` | 可选 | 指定测试模型输入数据需要调整的尺寸大小。 | String | null | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
+| `--fp16Priority=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Bool | false | true, false |
 
 ## 使用示例
 
