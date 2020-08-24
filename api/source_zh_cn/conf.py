@@ -78,6 +78,8 @@ html_search_language = 'zh'
 
 html_search_options = {'dict': '../resource/jieba.txt'}
 
+html_static_path = ['_static']
+
 # -- Options for Texinfo output -------------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
