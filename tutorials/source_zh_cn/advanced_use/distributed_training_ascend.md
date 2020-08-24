@@ -215,12 +215,11 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 ## 训练网络
 
-`context.set_auto_parallel_context`是配置并行训练参数的接口，必须在`Model`初始化前调用。如用户未指定参数，框架会自动根据并行模式为用户设置参数的经验值。如数据并行模式下，`parameter_broadcast`默认打开。主要参数包括：
+`context.set_auto_parallel_context`是配置并行训练参数的接口，必须在初始化网络之前调用。主要参数包括：
 
 - `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
-- `parameter_broadcast`： 参数初始化广播开关，`DATA_PARALLEL`和`HYBRID_PARALLEL`模式下，默认值为`True`。
 - `mirror_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
-- `enable_parallel_optimizer`：开发中特性。打开优化器模型并行开关，通过拆分权重到各卡分别进行更新再同步的方式以提升性能。该特性只在数据并行模式和参数量大于机器数时有效。
+- `enable_parallel_optimizer`：开发中特性。打开优化器模型并行开关，通过拆分权重到各卡分别进行更新再同步的方式以提升性能。该参数目前只在数据并行模式和参数量大于机器数时有效，支持`Lamb`和`Adam`优化器。
 
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
