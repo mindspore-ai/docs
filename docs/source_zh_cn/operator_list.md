@@ -3,9 +3,14 @@
 <!-- TOC -->
 
 - [算子支持](#算子支持)
-    - [mindspore.nn](#mindsporenn)
-    - [mindspore.ops.operations](#mindsporeopsoperations)
-    - [隐式类型转换](#隐式类型转换)
+  - [mindspore.nn](#mindsporenn)
+  - [mindspore.ops.operations](#mindsporeopsoperations)
+  - [functional 算子](#functional-算子)
+    - [functional算子列表](#functional算子列表)
+  - [隐式类型转换](#隐式类型转换)
+    - [转换规则](#转换规则)
+    - [参与转换的数据类型](#参与转换的数据类型)
+    - [支持算子](#支持算子)
 
 <!-- /TOC -->
 
@@ -334,6 +339,63 @@
 | [mindspore.ops.operations.SquaredDifference](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SquaredDifference)  |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xdivy](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xdivy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xlogy](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
+
+## functional 算子
+
+为了简化没有属性的算子的调用流程，我们提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子本身支持情况可以查询算子支持情况[mindspore.ops.operations](#mindsporeopsoperations)。
+
+例如`P.Pow`算子，我们提供了functional版本的`F.pow`算子。可以直接使用
+
+```python
+import mindspore
+from mindspore.ops import operations as P
+input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
+input_y = 3.0
+pow = P.Pow()
+pow(input_x, input_y)
+```
+
+->
+
+```python
+from mindspore.ops import functional as F
+F.pow(input_x, input_y)
+```
+
+### functional算子列表
+
+当前functional支持了一部分没有属性的算子，后续会进一步补齐完整。
+
+| 操作名                | 对应functional算子
+| :-----------         | :-----------
+| [mindspore.ops.operations.Pack](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Pack)    |  pack
+| [mindspore.ops.operations.TensorAdd](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TensorAdd)    |  tensor_add
+| [mindspore.ops.operations.AssignSub](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.AssignSub)    |  assign_sub
+| [mindspore.ops.operations.AddN](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.AddN)    |  addn
+| [mindspore.ops.operations.Square](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Square)    |  square
+| [mindspore.ops.operations.Sqrt](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Sqrt)    |  sqrt
+| [mindspore.ops.operations.Equal](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Equal)    |  equal
+| [mindspore.ops.operations.NotEqual](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.NotEqual)    |  not_equal
+| [mindspore.ops.operations.LogicalNot](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LogicalNot)    |  logical_not
+| [mindspore.ops.operations.LogicalAnd](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LogicalAnd)    |  logical_and
+| [mindspore.ops.operations.LogicalOr](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.LogicalOr)    |  logical_or
+| [mindspore.ops.operations.ExpandDims](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ExpandDims)    |  expand_dims
+| [mindspore.ops.operations.DType](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.DType)    |  dtype
+| [mindspore.ops.operations.Cast](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Cast)    |  cast
+| [mindspore.ops.operations.Reshape](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Reshape)    |  reshape
+| [mindspore.ops.operations.Shape](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Shape)    |  shape
+| [mindspore.ops.operations.GatherV2](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GatherV2)    |  gather
+| [mindspore.ops.operations.Rank](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Rank)    |  rank
+| [mindspore.ops.operations.Size](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Size)    |  size
+| [mindspore.ops.operations.Fill](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Fill)    |  fill
+| [mindspore.ops.operations.OnesLike](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.OnesLike)    |  ones_like
+| [mindspore.ops.operations.Tile](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Tile)    |  tile
+| [mindspore.ops.operations.Select](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Select)    |  select
+| [mindspore.ops.operations.ScatterNd](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterNd)    |  scatter_nd
+| [mindspore.ops.operations.GatherNd](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.GatherNd)    |  gather_nd
+| [mindspore.ops.operations.ControlDepend](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ControlDepend)    |  control_depend
+| [mindspore.ops.operations.Print](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Print)    |  print
+| [mindspore.ops.operations.Assign](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Assign)    |  assign
 
 ## 隐式类型转换
 ### 转换规则
