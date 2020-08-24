@@ -72,7 +72,7 @@ import mindspore.common.dtype as mstype
 
 from mindarmour.diff_privacy import DPModel
 from mindarmour.diff_privacy import PrivacyMonitorFactory
-from mindarmour.diff_privacy import NoiseMechanismsFacotry
+from mindarmour.diff_privacy import NoiseMechanismsFactory
 from mindarmour.diff_privacy import ClipMechanismsFactory
 from mindarmour.utils.logger import LogUtil
 from lenet5_net import LeNet5
@@ -85,7 +85,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>.
    
    ```python
    cfg = edict({
@@ -101,9 +101,9 @@ TAG = 'Lenet5_train'
         'device_target': 'Ascend',  # device used
         'data_path': './MNIST_unzip',  # the path of training and testing data set
         'dataset_sink_mode': False,  # whether deliver all training data to device one time
-        'micro_batches': 16,  # the number of small batches split from an original batch
+        'micro_batches': 32,  # the number of small batches split from an original batch
         'norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters
-        'initial_noise_multiplier': 1.0,  # the initial multiplication coefficient of the noise added to training
+        'initial_noise_multiplier': 0.05,  # the initial multiplication coefficient of the noise added to training
         # parameters' gradients
         'noise_mechanisms': 'Gaussian',  # the method of adding noise in gradients while training
         'clip_mechanisms': 'Gaussian',  # the method of adaptive clipping gradients while training
