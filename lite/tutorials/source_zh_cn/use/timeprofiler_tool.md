@@ -29,7 +29,7 @@ TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗
 使用编译好的TimeProfiler工具进行模型网络层耗时分析时，其命令格式如下所示。
 
 ```bash
-./timeprofiler --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] 
+./timeprofiler --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
 ```
 
 下面提供详细的参数说明。
@@ -42,6 +42,7 @@ TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗
 | `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 4 | - |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer   | 1      | -1：表示中核<br>1：表示大核<br>0：表示不绑定 |
 | `--inDataPath=<INDATAPATH>` | 可选 | 指定模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
+| `--fp16Priority=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Bool | false | true, false |
 
 ## 使用示例
 
