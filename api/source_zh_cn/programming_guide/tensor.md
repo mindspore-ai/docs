@@ -6,9 +6,9 @@
     - [概述](#概述)
     - [常量张量](#常量张量)
     - [变量张量](#变量张量)
-    - [张量的属性和操作](#张量的属性和操作)
+    - [张量的属性和方法](#张量的属性和方法)
         - [属性](#属性)
-        - [操作](#操作)
+        - [方法](#方法)
     - [张量操作](#张量操作)
         - [结构操作](#结构操作)
         - [数学运算](#数学运算)
@@ -94,7 +94,7 @@ Parameter (name=x, value=[[0 1 2] [3 4 5]])
 Parameter (name=y, value=[[1. 1. 1.] [1. 1. 1.]]
 ```
   
-## 张量的属性和操作
+## 张量的属性和方法
 ### 属性
 
 张量的属性包括形状（shape）和数据类型（dtype）。
@@ -121,9 +121,9 @@ print(x_shape, x_dtype)
 (2, 2) Int32
 ```
  
-### 操作
+### 方法
 
-张量的常见操作包括`all`、`any`和`asnumpy`。
+张量的方法包括`all`、`any`和`asnumpy`。
 - all(axis, keep_dims)：在指定维度上通过“and”操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
 - any(axis, keep_dims)：在指定维度上通过“any”操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
 - asnumpy()：将Tensor转换为NumPy的array。
@@ -195,7 +195,7 @@ True
 
   MindSpore的索引操作跟NumPy的索引操作保持一致，包括取值和赋值，支持整数索引、bool索引、None索引、切片索引、Tensor索引和混合索引。
   
-  支持索引操作的算子主要有`Slice`、`StridedSlice`、`Gather`、`GatherNd`、`ScatterUpdate`、`ScatterNdUpdate`等。
+  支持索引操作的算子主要有`Slice`、`StridedSlice`、`GatherV2`、`GatherNd`、`ScatterUpdate`、`ScatterNdUpdate`等。
 
   代码样例如下：
 
@@ -225,10 +225,10 @@ True
 - 维度变化
 
   MindSpore的维度变化，主要涉及shape改变、维度扩展、维度消除、转置，支持的算子有`Reshape`、`ExpandDims`、`Squeeze`、`Transpose`、Reduce类算子，具体含义如下：
-  - Reshape：改变张量的shape，改变前后张量中元素个数保持一致。
-  - ExpanDims：在张量里插入一维，长度为1。
-  - Squeeze：将张量里长度为1的维度消除。
-  - Transpose：将张量转置，交换维度。
+  - `Reshape`：改变张量的shape，改变前后张量中元素个数保持一致。
+  - `ExpanDims`：在张量里插入一维，长度为1。
+  - `Squeeze`：将张量里长度为1的维度消除。
+  - `Transpose`：将张量转置，交换维度。
   - Reduce类算子：对张量在指定维度上按照一定计算规则进行归约，Tensor的`all`和`any`接口就是归约操作中的两种。
 
   代码样例如下：
@@ -248,9 +248,9 @@ True
 - 合并分割
 
   MindSpore可以将多个张量合并为一个，也可以将一个张量拆分成多个，支持的算子有`Pack`、`Concat`和`Split`，具体含义如下：
-  - Pack：将多个Tensor打包成一个，会增加一个维度，增加维度的长度等于参与打包算子的个数。
-  - Concat：将多个Tensor在某一个维度上进行拼接，不会增加维度。
-  - Split：将一个Tensor进行拆分。
+  - `Pack`：将多个Tensor打包成一个，会增加一个维度，增加维度的长度等于参与打包算子的个数。
+  - `Concat`：将多个Tensor在某一个维度上进行拼接，不会增加维度。
+  - `Split`：将一个Tensor进行拆分。
 
   代码样例如下：
 
