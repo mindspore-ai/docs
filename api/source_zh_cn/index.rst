@@ -8,6 +8,12 @@ MindSpore API
 
 .. toctree::
    :maxdepth: 1
+   :caption: 编程指南
+
+   programming_guide/tensor
+
+.. toctree::
+   :maxdepth: 1
    :caption: MindSpore Python API
 
    api/python/mindspore/mindspore
