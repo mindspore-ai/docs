@@ -306,7 +306,7 @@ class GradWrap(nn.Cell):
 
 ### 反向传播更新权重
 
-`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式10，但是考虑的因素更多，具体信息请参考[官网说明](www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
+`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式10，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
 
 
 ```python
