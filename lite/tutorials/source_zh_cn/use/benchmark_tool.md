@@ -79,10 +79,10 @@ Model = ml_face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 
 
 ### 精度测试
 
-Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MinSpore模型输出的精确性。在精确度测试任务中，除了需要设置`modelPath`参数以外，还必须设置`calibDataPath`参数。例如：
+Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelPath`参数以外，还必须设置`calibDataPath`参数。例如：
 
 ```bash
-./benchmark --modelPath=./models/face/age/ml_face_age.ms --inDataPath=./data/input/1_3_120_120_NCHW.bin --device=NPU --accuracyThreshold=3 --calibDataPath=./data/output/face/ml_face_age.out
+./benchmark --modelPath=./models/face/age/ml_face_age.ms --inDataPath=./data/input/ml_face_age.ms.bin --device=NPU --accuracyThreshold=3 --calibDataPath=./data/output/face/ml_face_age.ms.out
 ```
 
 这条命令指定了测试模型的输入数据、标杆数据，同时指定了模型推理程序在NPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
