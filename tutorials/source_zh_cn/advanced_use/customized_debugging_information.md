@@ -282,20 +282,15 @@ val:[[1 1]
             "op_debug_mode": 0,
             "iteration": 0,
             "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
-        },
-
-        "DumpSettingsSpec": {
-            "net_name": "net name eg:ResNet50",
-            "dump_mode": "0: dump all kernels, 1: dump kernels in kernels list",
-            "op_debug_mode": "0: close debug, 1: debug ai-core overflow, 2: debug atomic overflow, 3: debug all overflow",
-            "iteration": "specified iteration",
-            "kernels": "op's full scope name which need to be dump"
         }
     }
     ```
 
-    > - 非数据下沉模式下，iteration需要设置成0，并且会Dump出每个iteration的数据。
-    > - 数据下沉模式iteration需要增加1。例如json中"iteration":0会Dump出GetNext算子的数据，而"iteration":1才会去Dump真正的计算图的第0个iteration数据。
+    > - `net_name`：自定义的网络名称，例如："Resnet50"。
+    > - `dump_mode`：设置成0，表示Dump所有的算子；设置成1，表示Dump`"kernel"`里面制定的算子。
+    > - `op_debug_mode`：该属性用于算子溢出调试，在使用Dump功能的时候，请设置成0。
+    > - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
+    > - `kernels`：指定需要Dump的算子名称(`fullname_with_scope`)。
 
 5. 设置数据Dump的环境变量。
 
