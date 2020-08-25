@@ -29,11 +29,10 @@ Figure 1: System metrics Ascend AI processor board
 Figure 1 is a table, each row shows the information of each NPU chip at a certain time. The metrics in each column are as follows:
 
 - **Name**: The name of the chip.
-- **NPU**: The chip number, from `0` to `7`.
+- **ID**: The chip ID, from `0` to `7`.
 - **Available**: Whether the chip is available.
 - **Health**: The chip health status.
 - **IP Address**: The chip IP address.
-- **AI Core(%)**: The chip utilization.
 - **HBM-Usage(MB)**: The chip used HBM memory.
 - **Power(W)**: The chip power.
 - **Temp(°C)**: The chip temperature.
