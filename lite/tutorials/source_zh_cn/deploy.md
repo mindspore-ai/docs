@@ -3,18 +3,26 @@
 <!-- TOC -->
 
 - [部署](#部署)
-    - [环境要求](#环境要求)
-    - [编译选项](#编译选项)
-    - [输出件说明](#输出件说明)
-    - [编译示例](#编译示例)
+    - [Linux环境部署](#linux环境部署)
+        - [环境要求](#环境要求)
+        - [编译选项](#编译选项)
+        - [输出件说明](#输出件说明)
+        - [编译示例](#编译示例)
+    - [Windows环境部署](#windows环境部署)  
+        - [环境要求](#环境要求-1)
+        - [编译选项](#编译选项-1)
+        - [输出件说明](#输出件说明-1)
+        - [编译示例](#编译示例-1)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-本文档介绍如何在Ubuntu系统上快速安装MindSpore Lite。
+本文档介绍如何在Ubuntu和Windows系统上快速安装MindSpore Lite。
 
-## 环境要求
+## Linux环境部署
+
+### 环境要求
 
 - 编译环境仅支持x86_64版本的Linux：推荐使用Ubuntu 18.04.02LTS
 
@@ -37,7 +45,7 @@
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
   
   
-## 编译选项
+### 编译选项
 
 MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编译选项。
 
@@ -52,7 +60,7 @@ MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编
 
 > 在`-I`参数变动时，即切换适用架构时，无法使用`-i`参数进行增量编译。
 
-## 输出件说明
+### 输出件说明
 
 编译完成后，进入源码的`mindspore/output`目录，可查看编译后生成的文件，命名为`mindspore-lite-{version}-{function}-{OS}.tar.gz`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}-{function}-{OS}`。
 
@@ -87,7 +95,7 @@ tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 
 > 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
 
-## 编译示例
+### 编译示例
 
 首先，从MindSpore代码仓下载源码。
 
@@ -125,3 +133,52 @@ git clone https://gitee.com/mindspore/mindspore.git
 tar -xvf mindspore-lite-0.7.0-converter-ubuntu.tar.gz
 tar -xvf mindspore-lite-0.7.0-runtime-x86-cpu.tar.gz
 ```
+
+## Windows环境部署
+
+### 环境要求
+
+- 编译环境仅支持32位或64位Windows系统
+
+- 编译依赖（基本项）
+  - [CMake](https://cmake.org/download/) >= 3.14.1
+  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+
+### 编译选项
+
+MindSpore Lite的编译选项如下。
+
+| 参数  |  参数说明  | 取值范围 | 是否必选 |
+| -------- | ----- | ---- | ---- |
+| lite | 设置该参数，则对Mindspore Lite工程进行编译，否则对Mindspore工程进行编译 | - | 是 |
+| [n] | 设定编译时所用的线程数，否则默认设定为6线程 | - | 否 |
+
+### 输出件说明
+
+编译完成后，进入源码的`mindspore/output/`目录，可查看编译后生成的文件，命名为命名为`mindspore-lite-{version}-converter-win-{process_unit}.zip`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}`。
+
+> version：输出件版本，与所编译的MindSpore版本一致。
+> process_unit：输出件应部署的处理器类型。
+
+### 编译示例
+
+首先，使用git工具从MindSpore代码仓下载源码。
+
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+```
+
+然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
+
+- 以默认线程数（6线程）编译Windows版本。
+    ```bash
+    call build.bat lite
+    ```
+- 以指定线程数8编译Windows版本。
+    ```bash
+    call build.bat lite 8
+    ```
+   
+> `build.bat`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+   
+编译完成之后，进入`mindspore/output/`目录，解压后即可获取输出件`converter`。
