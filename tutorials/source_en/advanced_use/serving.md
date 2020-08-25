@@ -61,6 +61,8 @@ If the server prints the `MS Serving Listening on 0.0.0.0:5500` log, the Serving
 
 ### Client Samples
 #### <span name="python-client-sample">Python Client Sample</span>
+ > Before running the client sample, add the path `/{your python path}/lib/python3.7/site-packages/mindspore/` to the environment variable `PYTHONPATH`.
+
 Obtain [ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py) and start the Python client.
 ```bash
 python ms_client.py
