@@ -1,6 +1,6 @@
 # Differential Privacy in Machine Learning
 
-`Ascend` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
+`Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 

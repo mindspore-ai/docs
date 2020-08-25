@@ -1,5 +1,7 @@
 # Operator List
 
+`Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Operator List](#operator-list)

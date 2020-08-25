@@ -1,6 +1,6 @@
 # RoadMap
 
-MindSpore's top priority plans in the year are displayed as follows. We will continuously adjust the priority based on user feedback.
+`Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
@@ -15,6 +15,8 @@ MindSpore's top priority plans in the year are displayed as follows. We will con
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/roadmap.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+MindSpore's top priority plans in the year are displayed as follows. We will continuously adjust the priority based on user feedback.
 
 In general, we will make continuous improvements in the following aspects:
 1. Support more preset models.

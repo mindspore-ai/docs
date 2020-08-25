@@ -1,12 +1,6 @@
 # Overall Architecture
 
-This document describes the overall architecture of MindSpore.
-
-<!-- TOC -->
-
-- [Overall Architecture](#overall-architecture)
-
-<!-- /TOC -->
+`Ascend` `GPU` `CPU` `On Device` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
