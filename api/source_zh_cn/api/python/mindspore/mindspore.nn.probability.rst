@@ -13,6 +13,9 @@ mindspore.nn.probability.bnn_layers
 .. automodule:: mindspore.nn.probability.bnn_layers
     :members:
     
+    .. autoclass:: WithBNNLossCell    
+        :members:
+    
 mindspore.nn.probability.distribution
 -------------------------------------
 
