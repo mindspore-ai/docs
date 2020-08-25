@@ -1,5 +1,15 @@
 # Network List
 
+`Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
+
+<!-- TOC -->
+
+- [Network List](#network-list)
+    - [Model Zoo](#model-zoo)
+    - [Pre-trained Models](#pre-trained-models)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/tree/master/docs/source_en/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo

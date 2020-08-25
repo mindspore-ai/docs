@@ -1,10 +1,10 @@
 ﻿# Seeking Help and Support
 
-This document describes how to seek help and support when you encounter problems in using MindSpore.
+`Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/help_seeking_path.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-The following flowchart shows the overall help-seeking process which starts from users encountering a problem in using MindSpore and ends with they finding a proper solution. Help-seeking methods are introduced based on the flowchart.
+This document describes how to seek help and support when you encounter problems in using MindSpore. The following flowchart shows the overall help-seeking process which starts from users encountering a problem in using MindSpore and ends with they finding a proper solution. Help-seeking methods are introduced based on the flowchart.
 
 ![solution](./images/help_seeking_path.png)
 

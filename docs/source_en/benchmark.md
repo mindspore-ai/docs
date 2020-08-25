@@ -1,5 +1,18 @@
 # Benchmarks
 
+`Ascend` `Model Training` `Intermediae` `Expert`
+
+<!-- TOC -->
+
+- [Benchmarks](#benchmarks)
+    - [Training Performance](#training-performance)
+        - [ResNet](#resnet)
+        - [BERT](#bert)
+        - [Wide & Deep (data parallel)](#wide--deep-data-parallel)
+        - [Wide & Deep (Host-Device model parallel)](#wide--deep-host-device-model-parallel)
+
+<!-- /TOC -->
+
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes the MindSpore benchmarks. 

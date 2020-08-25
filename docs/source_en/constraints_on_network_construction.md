@@ -1,5 +1,7 @@
 # Constraints on Network Construction Using Python
 
+`Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
+ 
 <!-- TOC -->
 
 - [Constraints on Network Construction Using Python](#constraints-on-network-construction-using-python)
