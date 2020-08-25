@@ -11,7 +11,6 @@ MindSpore API
    :caption: 编程指南
 
    programming_guide/api_structure
-   programming_guide/tensor
 
 .. toctree::
    :maxdepth: 1
