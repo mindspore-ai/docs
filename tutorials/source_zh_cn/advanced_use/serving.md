@@ -65,6 +65,8 @@ ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 
 ### gRPC客户端示例
 #### <span name="python客户端示例">Python客户端示例</span>
+ > 执行客户端前，需将`/{your python path}/lib/python3.7/site-packages/mindspore`对应的路径加入到环境变量PYTHONPATH中。
+
 获取[ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py)，启动Python客户端。
 ```bash
 python ms_client.py
