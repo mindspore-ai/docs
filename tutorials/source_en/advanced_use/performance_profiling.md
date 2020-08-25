@@ -1,10 +1,10 @@
-# Performance Profiler
+# Performance Profiler(Ascend)
 
 `Ascend` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Performance Profiler](#performance-profiler)
+- [Performance Profiler(Ascend)](#performance-profiler-ascend)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
@@ -21,7 +21,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
-Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. MindInsight Profiler can only support the Ascend chip now.
+Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.
 
 ## Operation Process
 
@@ -61,7 +61,7 @@ def test_profiler():
     
     # Profiler end
     profiler.analyse()
-``` 
+```
 
 
 ## Launch MindInsight
