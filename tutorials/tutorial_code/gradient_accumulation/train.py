@@ -1,6 +1,5 @@
 import argparse
 import os
-from collections.abc import Iterable
 
 import mindspore.nn as nn
 from mindspore import ParameterTuple
@@ -37,6 +36,7 @@ class TrainForwardBackward(Cell):
     def __init__(self, network, optimizer, grad_sum, sens=1.0):
         super(TrainForwardBackward, self).__init__(auto_prefix=False)
         self.network = network
+        self.network.set_grad()
         self.network.add_flags(defer_inline=True)
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
@@ -87,17 +87,6 @@ class GradientAccumulation:
         self._train_forward_backward = self._build_train_forward_backward_network()
         self._train_optim = self._build_train_optim()
         self._train_clear = self._build_train_clear()
-
-    @staticmethod
-    def _transform_callbacks(callbacks):
-        """Transform callback to a list."""
-        if callbacks is None:
-            return []
-
-        if isinstance(callbacks, Iterable):
-            return list(callbacks)
-
-        return [callbacks]
 
     def _build_train_forward_backward_network(self):
         """Build forward and backward network"""
