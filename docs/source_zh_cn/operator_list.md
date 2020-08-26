@@ -5,14 +5,13 @@
 <!-- TOC -->
 
 - [算子支持](#算子支持)
-  - [mindspore.nn](#mindsporenn)
-  - [mindspore.ops.operations](#mindsporeopsoperations)
-  - [functional 算子](#functional-算子)
-    - [functional算子列表](#functional算子列表)
-  - [隐式类型转换](#隐式类型转换)
-    - [转换规则](#转换规则)
-    - [参与转换的数据类型](#参与转换的数据类型)
-    - [支持算子](#支持算子)
+    - [mindspore.nn](#mindsporenn)
+    - [mindspore.ops.operations](#mindsporeopsoperations)
+    - [mindspore.ops.functional](#mindsporeopsfunctional)
+    - [隐式类型转换](#隐式类型转换)
+        - [转换规则](#转换规则)
+        - [参与转换的数据类型](#参与转换的数据类型)
+        - [支持算子](#支持算子)
 
 <!-- /TOC -->
 
@@ -344,31 +343,7 @@
 | [mindspore.ops.operations.Xdivy](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xdivy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xlogy](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
 
-## functional 算子
-
-为了简化没有属性的算子的调用流程，我们提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子本身支持情况可以查询算子支持情况[mindspore.ops.operations](#mindsporeopsoperations)。
-
-例如`P.Pow`算子，我们提供了functional版本的`F.pow`算子。可以直接使用
-
-```python
-import mindspore
-from mindspore.ops import operations as P
-input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
-input_y = 3.0
-pow = P.Pow()
-pow(input_x, input_y)
-```
-
-->
-
-```python
-from mindspore.ops import functional as F
-F.pow(input_x, input_y)
-```
-
-### functional算子列表
-
-当前functional支持了一部分没有属性的算子，后续会进一步补齐完整。
+## mindspore.ops.functional
 
 | 操作名                | 对应functional算子
 | :-----------         | :-----------
@@ -400,6 +375,9 @@ F.pow(input_x, input_y)
 | [mindspore.ops.operations.ControlDepend](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ControlDepend)    |  control_depend
 | [mindspore.ops.operations.Print](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Print)    |  print
 | [mindspore.ops.operations.Assign](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Assign)    |  assign
+| [mindspore.ops.operations.Pow](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Pow)    |  tensor_pow
+
+> 当前functional支持了一部分没有属性的算子，后续会进一步补齐完整。
 
 ## 隐式类型转换
 ### 转换规则
