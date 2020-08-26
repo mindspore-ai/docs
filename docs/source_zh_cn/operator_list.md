@@ -48,10 +48,10 @@
 | [mindspore.nn.Conv2dBnAct](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2dBnAct)                              |  Supported |  Supported | Supported |layer/conv
 | [mindspore.nn.Conv1d](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv1d)                              |  Supported |  Supported | Doing |layer/conv
 | [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv1dTranspose)                              |  Supported |  Supported | Doing |layer/conv
-| [mindspore.nn.Embedding](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Doing |  Supported | Doing |layer/embedding
+| [mindspore.nn.Embedding](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Supported |  Supported | Doing |layer/embedding
 | [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Doing |Doing | Doing |layer/image
 | [mindspore.nn.SSIM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Supported | Supported | Doing |layer/image
-| [mindspore.nn.PSNR](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Doing |Doing | Doing |layer/image
+| [mindspore.nn.PSNR](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Supported |Doing | Doing |layer/image
 | [mindspore.nn.CentralCrop](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Doing | Doing |layer/image
 | [mindspore.nn.LSTM](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    | Doing | Supported | Supported |layer/lstm
 | [mindspore.nn.GlobalBatchNorm](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.GlobalBatchNorm)                                      |  Supported |Doing | Doing |layer/normalization
@@ -65,7 +65,7 @@
 | [mindspore.nn.LinSpace](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.LinSpace)                       |  Supported | Doing  | Doing | layer/normalization
 | [mindspore.nn.MaxPool2d](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MaxPool2d)                                          |  Supported |  Supported |   Supported |layer/pooling
 | [mindspore.nn.AvgPool2d](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.AvgPool2d)                                          |  Supported |  Supported | Doing |layer/pooling
-| [mindspore.nn.L1Loss](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Doing |Supported | Doing |loss/loss
+| [mindspore.nn.L1Loss](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Supported |Supported | Doing |loss/loss
 | [mindspore.nn.MSELoss](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    | Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyWithLogits)  |  Supported |  Supported |   Doing |loss/loss
