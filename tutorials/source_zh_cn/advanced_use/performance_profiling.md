@@ -29,6 +29,9 @@
 - 启动MindInsight，并通过启动参数指定Profiler文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
 - 在训练列表找到对应训练，点击性能分析，即可在页面中查看训练性能数据。
 
+## 环境准备
+在使用性能分析工具之前，要确保后台工具进程（ada）正确启动，要求用户使用root启动ada进程，启动命令为：`/usr/local/Ascend/driver/tools/ada`。
+
 ## 准备训练脚本
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
@@ -183,4 +186,9 @@ Timeline主要包含如下几个部分：
 ## 规格
 
 - 为了控制性能测试时生成数据的大小，大型网络建议性能调试的step数目限制在10以内。
+
+  > 如何控制step数目请参考数据准备教程：
+  >
+  > <https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_preparation.html>
+
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。

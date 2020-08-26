@@ -23,7 +23,7 @@ Performance data like operators' execution time is recorded in files and can be 
 
 > The GPU operation process is the same as that in Ascend chip.
 >
-> https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id3
+> <https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id3>
 
 ## Preparing the Training Script
 
@@ -31,7 +31,37 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 > The sample code is the same as that in Ascend chip：
 >
-> https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id4
+> <https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id4>
+
+Users can get profiling data by user-defined callback:
+
+```python
+class StopAtStep(Callback):
+    def __init__(self, start_step, stop_step):
+        super(StopAtStep, self).__init__()
+        self.start_step = start_step
+        self.stop_step = stop_step
+        self.already_analysed = False
+        
+    def step_begin(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.start_step:
+            self.profiler = Profiler()
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.stop_step and not self.already_analysed:
+            self.profiler.analyse()
+            self.already_analysed = True
+            
+    def end(self, run_context):
+        if not self.already_analysed:
+            self.profiler.analyse()
+```
+
+The code above is just a example. Users should implement callback by themselves.
 
 ## Launch MindInsight
 

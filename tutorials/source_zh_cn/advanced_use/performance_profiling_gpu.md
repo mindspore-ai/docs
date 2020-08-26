@@ -23,7 +23,7 @@
 
 > 操作流程可以参考Ascend 910上profiler的操作：
 >
-> https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id3
+> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id3>
 
 ## 准备训练脚本
 
@@ -33,7 +33,37 @@
 
 > 样例代码与Ascend使用方式一致可以参考：
 >
-> https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id4
+> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id4>
+
+GPU场景下还可以用自定义callback的方式收集性能数据，示例如下：
+
+```python
+class StopAtStep(Callback):
+    def __init__(self, start_step, stop_step):
+        super(StopAtStep, self).__init__()
+        self.start_step = start_step
+        self.stop_step = stop_step
+        self.already_analysed = False
+        
+    def step_begin(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.start_step:
+            self.profiler = Profiler()
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        step_num = cb_params.cur_step_num
+        if step_num == self.stop_step and not self.already_analysed:
+            self.profiler.analyse()
+            self.already_analysed = True
+            
+    def end(self, run_context):
+        if not self.already_analysed:
+            self.profiler.analyse()
+```
+
+以上代码仅供参考，用户可根据所需场景自由实现。
 
 ## 启动MindInsight
 
