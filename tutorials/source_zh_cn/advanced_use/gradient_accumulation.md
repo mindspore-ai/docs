@@ -95,6 +95,7 @@ class TrainForwardBackward(Cell):
     def __init__(self, network, optimizer, grad_sum, sens=1.0):
         super(TrainForwardBackward, self).__init__(auto_prefix=False)
         self.network = network
+        self.network.set_grad()
         self.network.add_flags(defer_inline=True)
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
