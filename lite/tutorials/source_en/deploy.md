@@ -66,22 +66,25 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 ```
 
+For the x86 architecture, you can obtain the output of the conversion tool and inference framework；But for the ARM architecture, you only get inference framework.
+
 Generally, the compiled output files include the following types. The architecture selection affects the types of output files.
 
-> For the x86 architecture, you can obtain the output of the conversion tool; for the Arm 64-bit architecture, you can obtain the output of the `arm64-cpu` inference framework. If `-e gpu` is added, you can obtain the output of the `arm64-cpu` inference framework. The compilation for arm 64-bit is the same as that for arm 32-bit.
+> For the Arm 64-bit architecture, you can obtain the output of the `arm64-cpu` inference framework. If `-e gpu` is added, you can obtain the output of the `arm64-gpu` inference framework. The compilation for arm 64-bit is the same as that for arm 32-bit.
 
-| Directory | Description | x86_64 | Arm 64-bit | Arm 32-bit |
-| --- | --- | --- | --- | --- |
-| include | Inference framework header file | No | Yes | Yes |
-| lib | Inference framework dynamic library | Yes | Yes | Yes |
-| benchmark | Benchmark test tool | Yes | Yes | Yes |
-| time_profiler | Time consumption analysis tool at the model network layer | Yes | Yes | Yes |
-| converter | Model conversion tool | Yes | No | No |
-| third_party | Header file and library of the third-party library | Yes | Yes | Yes |
+| Directory | Description | converter | runtime |
+| --- | --- | --- | --- | 
+| include | Inference framework header file | No | Yes |
+| lib | Inference framework dynamic library | No | Yes |
+| benchmark | Benchmark test tool | No | Yes |
+| time_profiler | Time consumption analysis tool at the model network layer| No | Yes |
+| converter | Model conversion tool  | Yes | No | No |
+| third_party | Header file and library of the third-party library | Yes | Yes |
 
-The contents of `third party` vary depending on the architecture as follows:  
-- x86_64: `protobuf` (Protobuf dynamic library).
-- arm:  `flatbuffers` (FlatBuffers header file).
+Take the 0.7.0-beta version and CPU as an example. The contents of `third party` and `lib` vary depending on the architecture as follows:  
+- `mindspore-lite-0.7.0-converter-ubuntu`: include `protobuf` (Protobuf dynamic library).
+- `mindspore-lite-0.7.0-runtime-x86-cpu`: include `flatbuffers` (FlatBuffers header file).
+TODO: Add document content.
 
 > Before running the tools in the `converter`, `benchmark`, or `time_profiler` directory, you need to configure environment variables and set the paths of the dynamic libraries of MindSpore Lite and Protobuf to the paths of the system dynamic libraries. The following uses the 0.7.0-beta version as an example: `export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`.
 

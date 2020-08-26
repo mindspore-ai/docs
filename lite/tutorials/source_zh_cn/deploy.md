@@ -65,25 +65,27 @@ MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编
 ```bash
 tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 ```
+编译x86可获得转换工具`converter`与推理框架`runtime`功能的输出件，编译ARM仅能获得推理框架`runtime`。
 
-编译后的输出件一般包含以下几种，架构的选择会影响输出件的种类。
+输出件中包含以下几类子项，功能不同所含内容也会有所区别。
 
-> 编译x86可获得转换工具的输出件，编译ARM64默认可获得`arm64-cpu`的推理框架输出件，若添加`-e gpu`则获得`arm64-gpu`的推理框架输出件，编译ARM32同理。
+> 编译ARM64默认可获得`arm64-cpu`的推理框架输出件，若添加`-e gpu`则获得`arm64-gpu`的推理框架输出件，编译ARM32同理。
 
-编译后的输出件一般包含以下几种，架构的选择会影响输出件的种类。
+| 目录 | 说明 | converter | runtime |
+| --- | --- | --- | --- |
+| include | 推理框架头文件 | 无 | 有 |
+| lib | 推理框架动态库 | 无 | 有 | 
+| benchmark | 基准测试工具 | 无 | 有 | 
+| time_profiler | 模型网络层耗时分析工具 | 无 | 有 | 
+| converter | 模型转换工具 | 有 | 无 | 
+| third_party | 第三方库头文件和库 | 有 | 有 | 
 
-| 目录 | 说明 | x86_64 | arm64 | arm32 |
-| --- | --- | --- | --- | --- |
-| include | 推理框架头文件 | 无 | 有 | 有 |
-| lib | 推理框架动态库 | 有 | 有 | 有 |
-| benchmark | 基准测试工具 | 有 | 有 | 有 |
-| time_profiler | 模型网络层耗时分析工具 | 有 | 有 | 有 |
-| converter | 模型转换工具 | 有 | 无 | 无 |
-| third_party | 第三方库头文件和库 | 有 | 有 | 有 |
-
-在x86_64、ARM两种架构下，`third party`的内容不同。其中：  
-- x86_64：`protobuf`（Protobuf的动态库）。
-- ARM：`flatbuffers`（FlatBuffers头文件）。
+以0.7.0-beta版本，CPU编译为例，不同包名下，`third party`与`lib`的内容不同：
+  
+- `mindspore-lite-0.7.0-converter-ubuntu`：包含`protobuf`（Protobuf的动态库）。
+- `mindspore-lite-0.7.0-runtime-x86-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）。
+- `mindspore-lite-0.7.0-runtime-arm64-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）和`liboptimize.so`。
+TODO：补全文件内容
 
 > 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
 
