@@ -7,7 +7,7 @@ Training Process Visualization
    summary_record
    dashboard
    lineage_and_scalars_comparision
-   system_metrics
+   hardware_resources
    performance_profiling
    performance_profiling_gpu
    mindinsight_commands

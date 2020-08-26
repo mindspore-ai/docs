@@ -1,4 +1,4 @@
-# System Metrics
+# Hardware Resources
 
 `Ascend` `Model Optimization` `Intermediate` `Expert`
 
@@ -11,20 +11,20 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/system_metrics.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-Users can view system metrics such as Ascend AI processor, CPU, memory, etc., so as to allocate appropriate resources for training.
-Just [Start MindInsight](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html#start-the-service), and click "System Metrics" in the navigation bar to view it.
+Users can view hardware resources such as Ascend AI processor, CPU, memory, etc., so as to allocate appropriate resources for training.
+Just [Start MindInsight](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html#start-the-service), and click "Hardware Resources" in the navigation bar to view it.
 
 ## Ascend AI Processor Board
 
 The Ascend AI processor board is used to view the current information of each NPU chip.
 
-![sysmetric_npu.png](./images/sysmetric_npu.png)
+![resources_npu.png](./images/resources_npu.png)
 
-Figure 1: System metrics Ascend AI processor board
+Figure 1: Hardware resources Ascend AI processor board
 
 Figure 1 is a table, each row shows the information of each NPU chip at a certain time. The metrics in each column are as follows:
 
@@ -43,9 +43,9 @@ Figure 1 is a table, each row shows the information of each NPU chip at a certai
 
 The CPU board is used to view the current system CPU total and the information of each core.
 
-![sysmetric_cpu.png](./images/sysmetric_cpu.png)
+![resources_cpu.png](./images/resources_cpu.png)
 
-Figure 2: System Metrics CPU board
+Figure 2: Hardware resources CPU board
 
 The two-dimensional table in Figure 2 shows the percentage of CPU utilization for each core; the following two rows show the detailed metrics of *CPU-total* and *CPU-selected*.
 
@@ -68,8 +68,8 @@ The two-dimensional table in Figure 2 shows the percentage of CPU utilization fo
 
 The memory board is used to view the current system memory information.
 
-![sysmetric_mem.png](./images/sysmetric_mem.png)
+![resources_mem.png](./images/resources_mem.png)
 
-Figure 3: Hardware resource memory board
+Figure 3: Hardware resources memory board
 
 Figure 3 shows a pie chart showing used memory and available memory. Other memory types are classified into *others*.
