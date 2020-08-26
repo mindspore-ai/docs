@@ -15,6 +15,7 @@ MindSpore文档
    benchmark
    network_list
    operator_list
+   case
    constraints_on_network_construction
    glossary
    help_seeking_path
