@@ -6,6 +6,7 @@
 
   architecture
   technical_white_paper
+  design/mindspore/ir
   design/mindspore/distributed_training_design
   design/mindinsight/profiler_design
   design/mindinsight/training_visual_design
