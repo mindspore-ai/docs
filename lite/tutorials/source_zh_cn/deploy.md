@@ -1,7 +1,5 @@
 # 部署
 
-本文档介绍如何在Ubuntu系统上快速安装MindSpore Lite。
-
 <!-- TOC -->
 
 - [部署](#部署)
@@ -12,7 +10,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/deploy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+本文档介绍如何在Ubuntu系统上快速安装MindSpore Lite。
 
 ## 环境要求
 
@@ -54,10 +54,12 @@ MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编
 
 ## 输出件说明
 
-编译完成后，进入源码的`mindspore/output`目录，可查看编译后生成的文件，命名为`mindspore-lite-{version}-{function}-{OS}.tar.gz`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}`。
+编译完成后，进入源码的`mindspore/output`目录，可查看编译后生成的文件，命名为`mindspore-lite-{version}-{function}-{OS}.tar.gz`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}-{function}-{OS}`。
 
 > version：输出件版本，与所编译的MindSpore版本一致。
+>
 > function：输出件功能，`convert`表示为转换工具的输出件，`runtime`表示为推理框架的输出件。
+>
 > OS：输出件应部署的操作系统。
 
 ```bash
@@ -83,7 +85,7 @@ tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 - x86_64：`protobuf`（Protobuf的动态库）。
 - ARM：`flatbuffers`（FlatBuffers头文件）。
 
-> 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.6.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.6.0/lib:./mindspore-lite-0.6.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
+> 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
 
 ## 编译示例
 
@@ -117,8 +119,9 @@ git clone https://gitee.com/mindspore/mindspore.git
     
 > `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
    
-以0.6.0-beta版本为例，x86_64架构Release版本编译完成之后，进入`mindspore/output`目录，执行如下解压缩命令，即可获取输出件`include`、`lib`、`benchmark`、`time_profiler`、`converter`和`third_party`。
+以0.7.0-beta版本为例，x86_64架构Release版本编译完成之后，进入`mindspore/output`目录，执行如下解压缩命令，即可获取输出件`include`、`lib`、`benchmark`、`time_profiler`、`converter`和`third_party`。
    
 ```bash
-tar -xvf mindspore-lite-0.6.0-converter-ubuntu.tar.gz
+tar -xvf mindspore-lite-0.7.0-converter-ubuntu.tar.gz
+tar -xvf mindspore-lite-0.7.0-runtime-x86-cpu.tar.gz
 ```

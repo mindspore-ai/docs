@@ -89,10 +89,10 @@ MindSpore Lite的框架主要由Frontend、IR、Backend、Lite RT、Micro构成�
        bash build.sh -I arm32
        ```
 
-3. 进入源码的`mindspore/output`目录，获取编译结果`mindspore-lite-0.6.0-converter-ubuntu.tar.gz`。执行解压缩命令，获得编译后的工具包`mindspore-lite-0.6.0`：
+3. 进入源码的`mindspore/output`目录，获取编译结果`mindspore-lite-0.7.0-converter-ubuntu.tar.gz`。执行解压缩命令，获得编译后的工具包`mindspore-lite-0.7.0`：
    
    ```bash
-   tar -xvf mindspore-lite-0.6.0-converter-ubuntu.tar.gz
+   tar -xvf mindspore-lite-0.7.0-converter-ubuntu.tar.gz
    ```
    
 
@@ -172,7 +172,7 @@ MindSpore进行端侧模型推理的步骤如下。
         else:
             print("checkpoint file does not exist.")
     ```
-3. 在`mindspore/output/mindspore-lite-0.6.0/converter`路径下，调用MindSpore端侧转换工具`converter_lite`，将模型文件(`.mindir`)转换为端侧模型文件(`.ms`)。
+3. 在`mindspore/output/mindspore-lite-0.7.0/converter`路径下，调用MindSpore端侧转换工具`converter_lite`，将模型文件(`.mindir`)转换为端侧模型文件(`.ms`)。
     ```
     ./converter_lite --fmk=MS --modelFile=./lenet.mindir --outputFile=lenet
     ```
