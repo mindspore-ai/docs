@@ -12,7 +12,7 @@ MindSpore端侧教程
    :caption: 快速入门
 
    deploy
-   quick_start/quick_start_lite
+   quick_start/quick_start
 
 .. toctree::
    :glob:
@@ -20,4 +20,7 @@ MindSpore端侧教程
    :caption: 使用指南
 
    use/converter_tool
-   use/tools
+   use/runtime
+   use/benchmark_tool
+   use/timeprofiler_tool
+   use/post_training_quantization

@@ -1,6 +1,6 @@
-# 术语
+﻿# 术语
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/glossary.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 |  术语/缩略语  |  说明  | 
 | -----    | -----    |
