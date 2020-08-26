@@ -11,4 +11,5 @@ MindSpore Lite Documentation
    :maxdepth: 1
 
    architecture
+   operator_list
    glossary

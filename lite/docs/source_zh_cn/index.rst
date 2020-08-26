@@ -11,4 +11,6 @@ MindSpore端侧文档
    :maxdepth: 1
 
    architecture
+   roadmap
+   operator_list
    glossary
