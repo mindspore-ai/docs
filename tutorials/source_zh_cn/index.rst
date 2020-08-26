@@ -34,6 +34,7 @@ MindSpore教程
    advanced_use/nlp_application
    advanced_use/second_order_optimizer_for_resnet50_application
    advanced_use/synchronization_training_and_evaluation
+   advanced_use/bert_poetry
 
 .. toctree::
    :glob:
