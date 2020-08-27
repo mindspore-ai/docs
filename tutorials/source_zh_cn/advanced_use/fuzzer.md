@@ -18,7 +18,7 @@
 
 传统软件的决策逻辑由代码逻辑决定，传统软件通过代码行覆盖率来判断当前测试是否充分，理想情况下覆盖率越高，代码测试越充分。然而，对于深度神经网络而言，程序的决策逻辑由训练数据、网络模型结构和参数通过某种黑盒机制决定，代码行覆盖率已不足以评估测试的充分性。需要根据深度网络的特点选择更为适合的测试评价准则，指导神经网络进行更为充分的测试，发现更多的边缘错误用例，从而确保模型的通用性、鲁棒性。
 
-MindArmourd的Fuzzer模块以神经元覆盖率作为测试评价准则。神经元覆盖率，是指通过一组输入观察到的、激活的神经元数量和神经元输出值的范围。我们通过神经元覆盖率来指导输入变异，让输入能够激活更多的神经元，神经元值的分布范围更广，从而探索不同类型的模型输出结果、错误行为。
+MindArmour的Fuzzer模块以神经元覆盖率作为测试评价准则。神经元覆盖率，是指通过一组输入观察到的、激活的神经元数量和神经元输出值的范围。我们通过神经元覆盖率来指导输入变异，让输入能够激活更多的神经元，神经元值的分布范围更广，从而探索不同类型的模型输出结果、错误行为。
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
@@ -135,13 +135,13 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
    eval_metrics =['accuracy', 'kmnc', 'attack_success_rate']
    ```
 
-3. 初始化种子队列，种子队列中的每个种子，包含3个值：原始图片、图片标签、变异标记。变异标记初始化时均为0。
+3. 初始化种子队列，种子队列中的每个种子，包含3个值：原始图片、图片标签。
 
    ```python
    # make initial seeds
    initial_seeds = []
    for img, label in zip(test_images, test_labels):
-   	initial_seeds.append([img, label, 0])
+   	initial_seeds.append([img, label])
    initial_seeds = initial_seeds[:100]
    ```
 
@@ -184,7 +184,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
    Neural_coverage_KMNC: 0.4797
    ```
 
-   Fuzz测试前种子的KMNC神经元覆盖率为8.5%，Fuzz后，KMNC神经元覆盖率为47.97%，神经元覆盖率提升，样本的多样性提升。Fuzz后，模型对于Fuzz生成样本的准确率为96.8%，使用了对抗攻击方法的样本，攻击成功率为79.29%。由于初始化种子、变异方法和相应的参数均为随机选择的，结果有一定的浮动是正常的。
+   Fuzz测试前种子的KMNC神经元覆盖率为8.5%，Fuzz后，KMNC神经元覆盖率为47.97%，神经元覆盖率提升，样本的多样性提升。Fuzz后，模型对于Fuzz生成样本的准确率为79.29%，使用了对抗攻击方法的样本，攻击成功率为47.97%。由于初始化种子、变异方法和相应的参数均为随机选择的，结果有一定的浮动是正常的。
 
    原始图片：
 
