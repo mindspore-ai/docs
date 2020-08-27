@@ -259,7 +259,7 @@ def mul(x, y):
     return x * y
 
 def mainf(x, y):
-    return C.GradOperation('get_all', get_all=True)(mul)(x, y)
+    return C.GradOperation(get_all=True)(mul)(x, y)
 
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
@@ -354,7 +354,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, x, label):
         weights = self.weights
-        return C.GradOperation('get_by_list', get_by_list=True)(self.network, weights)(x, label)
+        return C.GradOperation(get_by_list=True)(self.network, weights)(x, label)
 
 net = LeNet5()
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)
