@@ -16,6 +16,7 @@
     - [特性支持](#特性支持)
 
 <!-- /TOC -->
+此文档已经转移到[新的位置](https://www.mindspore.cn/docs/zh-CN/master/FAQ.html)，此页面后续会下线。
 
 ## 安装类
 

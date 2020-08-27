@@ -16,6 +16,8 @@
     - [Supported Features](#supported-features)
 
 <!-- /TOC -->
+This document has been transferred to a [new location](https://www.mindspore.cn/docs/en/master/FAQ.html). This page will be offline later。
+
 
 ## Installation
 
