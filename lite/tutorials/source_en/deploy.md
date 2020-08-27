@@ -21,12 +21,11 @@ This document describes how to quickly install MindSpore Lite on the Ubuntu syst
 - Compilation dependencies (basics):
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Python](https://www.python.org/) >= 3.7
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  
+
   > - `Android_NDK` needs to be installed only when the Arm version is compiled. Skip this dependency when the x86_64 version is compiled.
   > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
-  
+
 - Compilation dependencies (additional dependencies required by the MindSpore Lite model conversion tool, which is required only for compilation of the x86_64 version)
   - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
   - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
@@ -34,9 +33,9 @@ This document describes how to quickly install MindSpore Lite on the Ubuntu syst
   - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
   - [Libevent](https://libevent.org) >= 2.0
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
-  - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
-  
-  
+  - [OpenSSL](https://www.openssl.org/) >= 1.1.1
+
+
 ## Compilation Options
 
 MindSpore Lite provides multiple compilation options. You can select different compilation options as required.
@@ -56,7 +55,7 @@ MindSpore Lite provides multiple compilation options. You can select different c
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is named `mindspore-lite-{version}-{function}-{OS}.tar.gz`. After decompression, the tool package named `mindspore-lite-{version}-{function}-{OS}` can be obtained.
 
-> version: version of the output, consistent with that of the MindSpore. 
+> version: version of the output, consistent with that of the MindSpore.
 >
 > function: function of the output. `convert` indicates the output of the conversion tool and `runtime` indicates the output of the inference framework.
 >
@@ -73,7 +72,7 @@ Generally, the compiled output files include the following types. The architectu
 > For the Arm 64-bit architecture, you can obtain the output of the `arm64-cpu` inference framework. If `-e gpu` is added, you can obtain the output of the `arm64-gpu` inference framework. The compilation for arm 64-bit is the same as that for arm 32-bit.
 
 | Directory | Description | converter | runtime |
-| --- | --- | --- | --- | 
+| --- | --- | --- | --- |
 | include | Inference framework header file | No | Yes |
 | lib | Inference framework dynamic library | No | Yes |
 | benchmark | Benchmark test tool | No | Yes |
@@ -102,22 +101,22 @@ Then, run the following commands in the root directory of the source code to com
     ```bash
     bash build.sh -I x86_64 -d
     ```
-   
+
 - Release version of the x86_64 architecture, with the number of threads set:
     ```bash
     bash build.sh -I x86_64 -j32
     ```
-    
+
 - Release version of the Arm 64-bit architecture in incremental compilation mode, with the number of threads set:
     ```bash
-    bash build.sh -I arm64 -i -j32 
+    bash build.sh -I arm64 -i -j32
     ```
-   
+
 - Release version of the Arm 64-bit architecture in incremental compilation mode, with the built-in GPU operator compiled:
     ```bash
-    bash build.sh -I arm64 -e gpu 
+    bash build.sh -I arm64 -e gpu
     ```
-    
+
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
 
 Take the 0.7.0-beta version as an example. After the release version of the x86_64 architecture is compiled, go to the `mindspore/output` directory and run the following decompression command to obtain the output files `include`, `lib`, `benchmark`, `time_profiler`, `converter`, and `third_party`:
