@@ -143,7 +143,9 @@ tar -xvf mindspore-lite-0.7.0-runtime-x86-cpu.tar.gz
 
 - 编译依赖（基本项）
   - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+  - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) >= 7.3.0
+  - [Python](https://www.python.org/) >= 3.7.5
+  - [Git](https://git-scm.com/downloads) >= 2.28.0
 
 ### 编译选项
 
