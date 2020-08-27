@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/system_metrics.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -21,7 +21,7 @@
 
 昇腾AI处理器看板用于查看当前各芯片的信息。
 
-![sysmetric_npu.png](./images/sysmetric_npu.png)
+![resources_npu.png](./images/resources_npu.png)
 
 图1：硬件资源昇腾AI处理器看板
 
@@ -30,7 +30,7 @@
 - **名称**: 芯片名称。
 - **编号**: 芯片编号，从`0`到`7`.
 - **是否空闲**: 芯片是否空闲。
-- **健康状态**: 芯片健康指数。
+- **健康状态**: 芯片健康状态。
 - **IP地址**: 芯片IP地址。
 - **已用HBM内存(MB)**: 芯片已用的HBM内存。
 - **功率(W)**: 芯片功率。
@@ -42,7 +42,7 @@
 
 CPU看板用于查看当前系统CPU总计及每个核的信息。
 
-![sysmetric_cpu.png](./images/sysmetric_cpu.png)
+![resources_cpu.png](./images/resources_cpu.png)
 
 图2：硬件资源CPU看板
 
@@ -67,7 +67,7 @@ CPU看板用于查看当前系统CPU总计及每个核的信息。
 
 内存用于查看当前系统内存的信息。
 
-![sysmetric_mem.png](./images/sysmetric_mem.png)
+![resources_mem.png](./images/resources_mem.png)
 
 图3：硬件资源内存看板
 
