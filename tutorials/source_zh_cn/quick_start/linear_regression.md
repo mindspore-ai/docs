@@ -297,7 +297,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, data, label):
         weights = self.weights
-        return C.GradOperation('get_by_list', get_by_list=True) \
+        return C.GradOperation(get_by_list=True) \
             (self.network, weights)(data, label)
 
 ```

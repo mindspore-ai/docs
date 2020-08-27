@@ -100,7 +100,7 @@ class TrainForwardBackward(Cell):
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
-        self.grad = C.GradOperation('grad', get_by_list=True, sens_param=True)
+        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
         self.hyper_map = C.HyperMap()
 

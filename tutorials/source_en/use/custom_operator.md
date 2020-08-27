@@ -232,7 +232,7 @@ def test_grad_net():
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
     square = Net()
-    grad = C.GradOperation('grad_with_sens', sens_param=True)
+    grad = C.GradOperation(sens_param=True)
     dx = grad(square)(Tensor(x), Tensor(sens))
     print("x: ", x)
     print("dx: ", dx)
