@@ -20,4 +20,4 @@
 ## 简介
 MindSpore作为新一代深度学习框架，是源于全产业的最佳实践，最佳匹配昇腾处理器算力，支持终端、边缘、云全场景灵活部署，开创全新的AI编程范式，降低AI开发门槛。MindSpore是一种全新的深度学习计算框架，旨在实现易开发、高效执行、全场景覆盖三大目标。为了实现易开发的目标，MindSpore采用基于源码转换（Source Code Transformation，SCT）的自动微分（Automatic Differentiation，AD）机制，该机制可以用控制流表示复杂的组合。函数被转换成函数中间表达（Intermediate Representation，IR），中间表达构造出一个能够在不同设备上解析和执行的计算图。在执行前，计算图上应用了多种软硬件协同优化技术，以提升端、边、云等不同场景下的性能和效率。MindSpore支持动态图，更易于检查运行模式。由于采用了基于源码转换的自动微分机制，所以动态图和静态图之间的模式切换非常简单。为了在大型数据集上有效训练大模型，通过高级手动配置策略，MindSpore可以支持数据并行、模型并行和混合并行训练，具有很强的灵活性。此外，MindSpore还有“自动并行”能力，它通过在庞大的策略空间中进行高效搜索来找到一种快速的并行策略。MindSpore框架的具体优势，请查看详细介绍。
 
-[查看技术白皮书](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/%E7%99%BD%E7%9A%AE%E4%B9%A6/MindSpore%EF%BC%9A%E4%B8%80%E7%A7%8D%E5%85%A8%E5%9C%BA%E6%99%AF%E8%A6%86%E7%9B%96%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97%E6%A1%86%E6%9E%B6.pdf)
+[查看技术白皮书](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/white_paper/MindSpore_white_paper.pdf)
