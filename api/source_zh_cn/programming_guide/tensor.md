@@ -25,6 +25,8 @@
 张量里的数据分为不同的类型，支持的类型有int8、int16、int32、int64、uint8、uint16、uint32、uint64、float16、float32、float64、bool_，与NumPy里的数据类型一一对应。
 
 不同维度的张量分别表示不同的数据，0维张量表示标量，1维张量表示向量，2维张量表示矩阵，3维张量可以表示彩色图像的RGB三通道等等。
+
+> 本文档中的所有示例，都是在PyNative模式下运行的，暂不支持CPU。
   
 ## 常量张量
 
@@ -39,34 +41,36 @@ import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
 
-x = Tensor(np.array([1, 2], [3, 4]]), mstype.int32)
+x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 y = Tensor(1.0, mstype.int32)
 z = Tensor(2, mstype.int32)
 m = Tensor(True, mstype.bool_)
 n = Tensor((1, 2, 3), mstype.int16)
 p = Tensor([4.0, 5.0, 6.0], mstype.float64)
 
-print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p, "\n\n", q)
+print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p)
 ```
 
 输出如下：
 
 ```
 [[1 2]
- [3 4]]
+ [3 4]] 
 
-1.0
+1 
 
-2
+2 
 
-True
+True 
 
-[1, 2, 3] 
+[1 2 3] 
+
+[4. 5. 6.]
 ```
 
 ## 变量张量
 
-变量张量的值在网络中可以被更新，用来表示需要被更新的参数，MindSpore使用Tensor的子类Parameter构造变量张量，构造时支持传入Tensor Initializer。
+变量张量的值在网络中可以被更新，用来表示需要被更新的参数，MindSpore使用Tensor的子类Parameter构造变量张量，构造时支持传入Tensor或者Initializer。
 
 代码样例如下：
 
@@ -87,11 +91,13 @@ print(x, "\n\n", y, "\n\n", z)
 
 ```
 [[0 1 2]
- [3 4 5]]
+ [3 4 5]] 
 
-Parameter (name=x, value=[[0 1 2] [3 4 5]])
+Parameter (name=x, value=[[0 1 2] 
+                          [3 4 5]]) 
 
-Parameter (name=y, value=[[1. 1. 1.] [1. 1. 1.]]
+Parameter (name=y, value=[[[1. 1. 1.]
+                           [1. 1. 1.]]])
 ```
   
 ## 张量的属性和方法
@@ -108,7 +114,7 @@ import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
 
-x = Tensor(np.array([1, 2], [3, 4]]), mstype.int32)
+x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 x_shape = x.shape
 x_dtype = x.dtype
 
@@ -125,7 +131,7 @@ print(x_shape, x_dtype)
 
 张量的方法包括`all`、`any`和`asnumpy`。
 - all(axis, keep_dims)：在指定维度上通过“and”操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
-- any(axis, keep_dims)：在指定维度上通过“any”操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
+- any(axis, keep_dims)：在指定维度上通过“or”操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
 - asnumpy()：将Tensor转换为NumPy的array。
 
 代码样例如下：
@@ -135,24 +141,24 @@ import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
 
-x = Tensor(np.array([1, 2], [3, 4]]), mstype.int32)
+x = Tensor(np.array([[True, True], [False, False]]), mstype.bool_)
 x_all = x.all()
-x_any = a.any()
+x_any = x.any()
 x_array = x.asnumpy()
 
 print(x_all, "\n\n", x_any, "\n\n", x_array)
-
 ```
 
 输出如下：
 
 ```
-False
+False 
 
-True
+True 
 
-[[True True]
- [False True]]
+[[ True  True]
+ [False False]]
+
 ```
 
 ## 张量操作
@@ -184,9 +190,9 @@ True
   
   ```
   [[1. 1.]
-  [1. 1.]]
+   [1. 1.]] 
 
-  1.0
+  1.0 
 
   [1 2 3]
   ```
@@ -203,22 +209,35 @@ True
   import numpy as np
   from mindspore import Tensor
   from mindspore.common import dtype as mstype
-
-  x = Tensor(np.arange(3*4*5).reshape((3, 4, 5)))
+  
+  x = Tensor(np.arange(3*4*5).reshape((3, 4, 5)), mstype.int32)
   indices = Tensor(np.array([[0, 1], [1, 2]]), mstype.int32)
-  y = [:3, indices, 3]
-
+  y = x[:3, indices, 3]
+  
   print(x, "\n\n", y)
   ```
   
   输出如下：
   
   ```
-  [[[3 8]
-    [8 13]]
-  [[23 28]
+  [[[ 0  1  2  3  4]
+    [ 5  6  7  8  9]
+    [10 11 12 13 14]
+    [15 16 17 18 19]]
+   [[20 21 22 23 24]
+    [25 26 27 28 29]
+    [30 31 32 33 34]
+    [35 36 37 38 39]]
+   [[40 41 42 43 44]
+    [45 46 47 48 49]
+    [50 51 52 53 54]
+    [55 56 57 58 59]]]
+
+  [[[ 3  8]
+    [ 8 13]]
+   [[23 28]
     [28 33]]
-  [[43 48]
+   [[43 48]
     [48 53]]]
   ```
  
@@ -237,12 +256,36 @@ True
   import numpy as np
   from mindspore import Tensor
   from mindspore.ops import operations as P
-
-  x = Tensor(np.arange(2*3).reshape((2, 3)))
-  y = P.Reshape()(x, (4, 3, 5))
+  
+  x = Tensor(np.arange(2*3).reshape((1, 2, 3)))
+  y = P.Reshape()(x, (1, 3, 2))
   z = P.ExpandDims()(x, 1)
-  m = P.Squeeze(axis=3)(x)
-  n = P.Transpose()(x, (0, 2, 3, 1))
+  m = P.Squeeze(axis=0)(x)
+  n = P.Transpose()(x, (2, 0, 1))
+  
+  print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n)
+  ```
+  
+  输出如下：
+  
+  ```
+  [[[0 1 2]
+    [3 4 5]]] 
+
+  [[[0 1]
+    [2 3]
+    [4 5]]] 
+
+  [[[[0 1 2]
+     [3 4 5]]]] 
+
+  [[0 1 2]
+   [3 4 5]] 
+
+  [[[0 3]]
+   [[1 4]]
+   [[2 5]]]
+
   ```
 
 - 合并分割
@@ -258,31 +301,33 @@ True
   import numpy as np
   from mindspore import Tensor
   from mindspore.ops import operations as P
-
+  
   x = Tensor(np.arange(2*3).reshape((2, 3)))
-  x = Tensor(np.arange(2*3).reshape((2, 3)))
+  y = Tensor(np.arange(2*3).reshape((2, 3)))
   z = P.Pack(axis=0)((x, y))
   m = P.Concat(axis=0)((x, y))
   n = P.Split(0, 2)(x)
-
-  print(z, "\n\n", m, "\n\n", n[0], "\n", n[1])
+  
+  print(x, "\n\n", z, "\n\n", m, "\n\n", n)
   ```
 
   输出如下：
   
   ```
+  [[0 1 2]
+   [3 4 5]] 
+
   [[[0 1 2]
     [3 4 5]]
-  [[0 1 2]
+   [[0 1 2]
     [3 4 5]]] 
 
   [[0 1 2]
-  [3 4 5]
-  [0 1 2]
-  [3 4 5]] 
+   [3 4 5]
+   [0 1 2]
+   [3 4 5]] 
 
-  [[0 1 2]] 
-  [[3 4 5]]
+  (Tensor(shape=[1, 3], dtype=Int64, [[0 1 2]]), Tensor(shape=[1, 3], dtype=Int64, [[3 4 5]]))
   ```
 
 ### 数学运算
@@ -299,8 +344,9 @@ MindSpore支持对张量进行广播，包括显式广播和隐式广播。显�
 import numpy as np
 from mindspore import Tensor
 from mindspore.ops import operations as P
+from mindspore.common import dtype as mstype
 
-x = Tensor(np.arange(2*3).reshape((2, 3)))
+x = Tensor(np.arange(2*3).reshape((2, 3)), mstype.int32)
 y = P.Tile()(x, (2, 3))
 
 print(x, "\n\n", y)
