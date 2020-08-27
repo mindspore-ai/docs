@@ -81,7 +81,7 @@
 | ReduceProd            |          | √        | √        | √         |          |          | math_ops         | ReduceProd                      |               |                    |
 | ReduceSum             |          | √        | √        | √         |          |          | math_ops         | Sum                             |               | ReduceSum          |
 | ReLU                  |          | √        | √        | √         |          | √        | layer/activation | Relu                            | ReLU          | Relu               |
-| ReLU6                 |          | √        |          |           |          | √        | layer/activation | Relu6                           |               | Clip*              |
+| ReLU6                 |          | √        |          |           |          | √        | layer/activation | Relu6                           | ReLU6               | Clip*              |
 | Reshape               |          | √        | √        | √         |          | √        | array_ops        | Reshape                         | Reshape       | Reshape,Flatten    |
 | Resize                |          |          |          |           |          |          |                  | ResizeBilinear, NearestNeighbor | Interp        |                    |
 | Reverse               |          |          |          |           |          |          |                  | reverse                         |               |                    |
@@ -107,7 +107,7 @@
 | Stack                 |          |          |          |           |          |          |                  | Stack                           |               |                    |
 | Sub                   |          | √        | √        | √         |          | √        | math_ops         | Sub                             |               |  Sub               |
 | Tan                   |          |          |          |           |          |          |                  |                                 |               | Tan                |
-| Tanh                  |          | √        |          |           |          |          | layer/activation | Tanh                            |               |                    |
+| Tanh                  |          | √        |          |           |          |          | layer/activation | Tanh                            | TanH              |                    |
 | TensorAdd             |          | √        | √        | √         |          | √        | math_ops         |                                 |               |                    |
 | Tile                  |          | √        |          |           |          |          | array_ops        | Tile                            |               | Tile               |
 | TopK                  |          | √        | √        | √         |          |          | nn_ops           | TopKV2                          |               |                    |
@@ -118,7 +118,7 @@
 | Unsqueeze             |          |          |          |           |          |          |                  |                                 |               | Unsqueeze          |
 | Unstack               |          |          |          |           |          |          |                  | Unstack                         |               |                    |
 | Where                 |          |          |          |           |          |          |                  |  Where                          |               |                    |
-| ZerosLike             |          | √        |          |           |          |          | array_ops        | ZerosLike                       |               |                    |                            
+| ZerosLike             |          | √        |          |           |          |          | array_ops        | ZerosLike                       |               |                    |             
 
 * Clip: only support convert clip(0, 6) to Relu6.
 * DEQUANTIZE: only support to convert fp16 to fp32.
