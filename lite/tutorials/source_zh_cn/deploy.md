@@ -29,12 +29,11 @@
 - 编译依赖（基本项）
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Python](https://www.python.org/) >= 3.7
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  
+
   > - 仅在编译ARM版本时需要安装`Android_NDK`，编译x86_64版本可跳过此项。
   > - 如果安装并使用`Android_NDK`，需配置环境变量，命令参考：`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
-                                                                              
+
 - 编译依赖（MindSpore Lite模型转换工具所需附加项，仅编译x86_64版本时需要）
   - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
   - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
@@ -42,9 +41,9 @@
   - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
   - [Libevent](https://libevent.org) >= 2.0
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
-  - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
-  
-  
+  - [OpenSSL](https://www.openssl.org/) >= 1.1.1
+
+
 ### 编译选项
 
 MindSpore Lite提供多种编译方式，用户可根据需要选择不同的编译选项。
@@ -82,14 +81,14 @@ tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 | 目录 | 说明 | converter | runtime |
 | --- | --- | --- | --- |
 | include | 推理框架头文件 | 无 | 有 |
-| lib | 推理框架动态库 | 无 | 有 | 
-| benchmark | 基准测试工具 | 无 | 有 | 
-| time_profiler | 模型网络层耗时分析工具 | 无 | 有 | 
-| converter | 模型转换工具 | 有 | 无 | 
-| third_party | 第三方库头文件和库 | 有 | 有 | 
+| lib | 推理框架动态库 | 无 | 有 |
+| benchmark | 基准测试工具 | 无 | 有 |
+| time_profiler | 模型网络层耗时分析工具 | 无 | 有 |
+| converter | 模型转换工具 | 有 | 无 |
+| third_party | 第三方库头文件和库 | 有 | 有 |
 
 以0.7.0-beta版本，CPU编译为例，不同包名下，`third party`与`lib`的内容不同：
-  
+
 - `mindspore-lite-0.7.0-converter-ubuntu`：包含`protobuf`（Protobuf的动态库）。
 - `mindspore-lite-0.7.0-runtime-x86-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）。
 - `mindspore-lite-0.7.0-runtime-arm64-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）和`liboptimize.so`。
@@ -111,26 +110,26 @@ git clone https://gitee.com/mindspore/mindspore.git
     ```bash
     bash build.sh -I x86_64 -d
     ```
-   
+
 - 编译x86_64架构Release版本，同时设定线程数。
     ```bash
     bash build.sh -I x86_64 -j32
     ```
-      
+
 - 增量编译ARM64架构Release版本，同时设定线程数。
     ```bash
-    bash build.sh -I arm64 -i -j32 
+    bash build.sh -I arm64 -i -j32
     ```
-   
+
 - 编译ARM64架构Release版本，同时编译内置的GPU算子。
     ```bash
-    bash build.sh -I arm64 -e gpu 
+    bash build.sh -I arm64 -e gpu
     ```
-    
+
 > `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-   
+
 以0.7.0-beta版本为例，x86_64架构Release版本编译完成之后，进入`mindspore/output`目录，执行如下解压缩命令，即可获取输出件`include`、`lib`、`benchmark`、`time_profiler`、`converter`和`third_party`。
-   
+
 ```bash
 tar -xvf mindspore-lite-0.7.0-converter-ubuntu.tar.gz
 tar -xvf mindspore-lite-0.7.0-runtime-x86-cpu.tar.gz
@@ -180,7 +179,7 @@ git clone https://gitee.com/mindspore/mindspore.git
     ```bash
     call build.bat lite 8
     ```
-   
+
 > `build.bat`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-   
+
 编译完成之后，进入`mindspore/output/`目录，解压后即可获取输出件`converter`。
