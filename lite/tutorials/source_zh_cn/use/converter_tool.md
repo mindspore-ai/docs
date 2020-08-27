@@ -47,7 +47,11 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
-| `--quantType=<QUANTTYPE>` | 否 | 设置模型的训练类型 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
+| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
+|` --inputInferenceType=<INPUTINFERENCETYPE>` | 否 | 设置感知量化模型输入数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inputInferenceType保持一致。 | FLOAT、INT8 | FLOAT |
+| `--inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输出类型和inferenceType保持一致。 | FLOAT、INT8 | FLOAT |
+| `--stdDev=<STDDEV> `| 否 | 感知量化模型转换时用于设置输入数据的标准差。 | （0，+∞） | 128 |
+| `--mean=<MEAN>` | 否 | 感知量化模型转换时用于设置输入数据的均值。 | [-128, 127] | -0.5 |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
@@ -99,11 +103,17 @@ bash build.sh -I x86_64
       ./converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
       ```
 
+   - 感知量化模型输入设置为int8，输出设置为int8
+   
+       ```bash
+      ./converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining --inputInferenceType=INT8  --inferenceType=INT8
+      ```
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
+   
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
-  
+
 
 ## Windows环境使用说明
 

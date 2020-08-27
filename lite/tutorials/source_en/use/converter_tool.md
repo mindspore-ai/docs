@@ -33,7 +33,7 @@ You can enter `./converter_lite --help` to obtain help information in real time.
 
 The following describes the parameters in detail.
 
- 
+
 | Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | No | Prints all help information. | - | - |
@@ -41,7 +41,11 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the training type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
+| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
+|`--inputInferenceType=<INPUTRINFERENCETYPE>`  | No(supported by aware quant models only) | Sets the input data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the input data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
+|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
+|`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
+|`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter
@@ -88,13 +92,17 @@ The following describes how to use the conversion command by using several commo
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 
-   - TensorFlow Lite perceptual quantization model `model_quant.tflite`
+   - TensorFlow Lite aware quantization model `model_quant.tflite`
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining
+      ```
+  - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be int8
+      ```bash
+      ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining  --inputInferenceType=INT8  --inferenceType=INT8
       ```
 
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
-   
+  
