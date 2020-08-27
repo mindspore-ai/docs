@@ -1,4 +1,4 @@
-# ops模块
+﻿# ops模块
 
 <!-- TOC -->
 
@@ -20,7 +20,7 @@ ops主要包括operations、functional和composite，可通过ops直接获取到
 
 ## mindspore.ops.operations
 
-operations提供了所有的Primitive算子接口，是开放给用户的最低阶算子接口。
+operations提供了所有的Primitive算子接口，是开放给用户的最低阶算子接口。算子支持情况可查询[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html#mindspore-ops-operations)。
 
 Primitive算子也称为算子原语，它直接封装了底层的Ascend、GPU、AICPU、CPU等多种算子的具体实现，为用户提供基础算子能力。
 
@@ -47,24 +47,9 @@ output = [ 1.  8. 64.]
 
 ## mindspore.ops.functional
 
-为了简化没有属性的算子的调用流程，MindSpore提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子支持情况可以查询[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html#mindspore-ops-operations)。
+为了简化没有属性的算子的调用流程，MindSpore提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子支持情况可以查询[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html#mindspore-ops-functional)。
 
 例如`P.Pow`算子，我们提供了functional版本的`F.tensor_pow`算子。
-
-使用operations的代码样例如下：
-
-```python
-import numpy as np
-import mindspore
-from mindspore import Tensor
-from mindspore.ops import operations as P
-
-input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
-input_y = 3.0
-pow = P.Pow()
-output = pow(input_x, input_y)
-print("output =", output)
-```
 
 使用functional的代码样例如下：
 
@@ -138,4 +123,4 @@ tensor [[2.4, 4.2]
 scalar 3
 ```
 
-此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的求梯度的函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html#mindspore.ops.composite.GradOperation)。
+此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html#mindspore.ops.composite.GradOperation)。
