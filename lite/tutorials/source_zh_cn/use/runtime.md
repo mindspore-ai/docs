@@ -11,21 +11,22 @@
         - [使用示例](#使用示例)
     - [图编译](#图编译)
         - [可变维度](#可变维度)
+        - [使用示例](#使用示例-1)
         - [图编译](#图编译-1)
     - [输入数据](#输入数据)
         - [获取输入Tensor](#获取输入tensor)
         - [数据拷贝](#数据拷贝)
-        - [使用示例](#使用示例-1)
+        - [使用示例](#使用示例-2)
     - [图执行](#图执行)
         - [执行会话](#执行会话)
         - [绑核](#绑核)
         - [回调运行](#回调运行)
-        - [使用示例](#使用示例-2)
+        - [使用示例](#使用示例-3)
     - [获取输出](#获取输出)
         - [获取输出Tensor](#获取输出tensor)
-        - [使用示例](#使用示例-3)
-    - [获取版本号](#获取版本号)
         - [使用示例](#使用示例-4)
+    - [获取版本号](#获取版本号)
+        - [使用示例](#使用示例-5)
 
 <!-- /TOC -->
 
@@ -114,7 +115,19 @@ if (session == nullptr) {
 
 ### 可变维度
 
-TODO：该功能还在开发中。
+使用MindSpore Lite进行推理时，在已完成会话创建与图编译之后，如果需要对输入的shape进行Resize，则可以通过对输入的tensor重新设置shape，然后调用session的Resize()接口。
+
+### 使用示例
+
+下面代码演示如何对MindSpore Lite的输入进行Resize()：
+```cpp
+// Assume we have created a LiteSession instance named session.
+auto inputs = session->GetInputs();
+std::vector<int> resize_shape = {1, 128, 128, 3};
+// Assume the model has only one input,resize input shape to [1, 128, 128, 3]
+inputs[0]->set_shape(resize_shape);
+session->Resize(inputs);
+```
 
 ### 图编译
 
@@ -351,4 +364,3 @@ MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/
 #include "include/version.h"
 std::string version = mindspore::lite::Version(); 
 ```
-
