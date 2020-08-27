@@ -17,7 +17,7 @@ net = nn.PSNR()
 img1 = Tensor(np.random.random((1,3,16,16)), mindspore.float32)
 img2 = Tensor(np.random.random((1,3,16,16)), mindspore.float32)
 output = net(img1, img2)
-print("output = ", output)
+print("output =", output)
 ```
 
 输出如下：

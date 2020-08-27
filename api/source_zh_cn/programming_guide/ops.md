@@ -37,7 +37,7 @@ input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
 input_y = 3.0
 pow = P.Pow()
 output = pow(input_x, input_y)
-print("output = ", output)
+print("output =", output)
 ```
 
 输出如下：
@@ -63,7 +63,7 @@ input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
 input_y = 3.0
 pow = P.Pow()
 output = pow(input_x, input_y)
-print("output = ", output)
+print("output =", output)
 ```
 
 使用functional的代码样例如下：
@@ -77,7 +77,7 @@ from mindspore.ops import functional as F
 input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
 input_y = 3.0
 output = F.tensor_pow(input_x, input_y)
-print("output = ", output)
+print("output =", output)
 ```
 
 输出如下：
@@ -91,34 +91,51 @@ composite提供了一些算子的组合，包括clip_by_value和random相关的�
 
 算子的组合可以直接像一般函数一样使用，例如使用`normal`生成一个随机分布：
 ```python
+from mindspore.common import dtype as mstype
+from mindspore.ops import composite as C
+from mindspore import Tensor
+
 mean = Tensor(1.0, mstype.float32)
 stddev = Tensor(1.0, mstype.float32)
-output = C.normal((4, 16), mean, stddev, seed=5)
+output = C.normal((2, 3), mean, stddev, seed=5)
+print("ouput =", output)
 ```
+输出如下：
+```
+output = [[2.4911082  0.7941146  1.3117087]
+ [0.30582333  1.772938  1.525996]]
+```
+
+> 以上代码运行于MindSpore的GPU版本。
 
 针对涉及图变换的函数，用户可以使用`MultitypeFuncGraph`定义一组重载的函数，根据不同类型，走到不同实现。
 
 代码样例如下：
 ```python
+import numpy as np
+from mindspore.ops.composite import MultitypeFuncGraph
+from mindspore import Tensor
+from mindspore.ops import functional as F
+
 add = MultitypeFuncGraph('add')
 @add.register("Number", "Number")
-def add_scala(x, y):
-    return scala_add(x, y)
-
+def add_scalar(x, y):
+    return F.scalar_add(x, y)
 
 @add.register("Tensor", "Tensor")
 def add_tensor(x, y):
-    return tensor_add(x, y)
+    return F.tensor_add(x, y)
 
 tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-print('tensor', mainf(tensor1, tensor2))
-print('scale', mainf(1, 2))
+print('tensor', add(tensor1, tensor2))
+print('scalar', add(1, 2))
 ```
 输出如下：
 ```
-tensor [[2.4, 4.2], [4.4, 6.4]]
-scale 3
+tensor [[2.4, 4.2] 
+ [4.4, 6.4]]
+scalar 3
 ```
 
 此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的求梯度的函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html#mindspore.ops.composite.GradOperation)。
