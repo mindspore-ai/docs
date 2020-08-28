@@ -16,7 +16,7 @@
         - [REST API客户端示例](#rest-api客户端示例)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 
 ## 概述
@@ -50,7 +50,7 @@ ms_serving [--help] [--model_path=<MODEL_PATH>] [--model_name=<MODEL_NAME>] [--p
 ### 导出模型
  > 导出模型之前，需要配置MindSpore[基础环境](https://www.mindspore.cn/install)。
 
-使用[add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
+使用[add_model.py](https://gitee.com/mindspore/mindspore/blob/r0.7/serving/example/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
 ```python 
 python add_model.py
@@ -70,7 +70,7 @@ ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 #### <span name="python客户端示例">Python客户端示例</span>
  > 执行客户端前，需将`/{your python path}/lib/python3.7/site-packages/mindspore`对应的路径添加到环境变量PYTHONPATH中。
 
-获取[ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py)，启动Python客户端。
+获取[ms_client.py](https://gitee.com/mindspore/mindspore/blob/r0.7/serving/example/python_client/ms_client.py)，启动Python客户端。
 ```bash
 python ms_client.py
 ```
@@ -155,7 +155,7 @@ ms client received:
 3. 调用gRPC接口和已经启动的Serving服务通信，并取回返回值。
     ```Status status = stub_->Predict(&context, request, &reply);```
 
-完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc)。 
+完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/r0.7/serving/example/cpp_client/ms_client.cc)。 
 
 ### REST API客户端示例
 1. `data`形式发送数据：

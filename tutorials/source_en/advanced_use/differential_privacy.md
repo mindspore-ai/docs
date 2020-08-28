@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -45,7 +45,7 @@ MindArmour differential privacy module Differential-Privacy implements the diffe
 
 The LeNet model and MNIST dataset are used as an example to describe how to use the differential privacy optimizer to train a neural network model on MindSpore.
 
-> This example is for the Ascend 910 AI processor. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>.
+> This example is for the Ascend 910 AI processor. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/r0.7/example/mnist_demo/lenet5_dp.py>.
 
 ## Implementation
 
@@ -85,7 +85,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/r0.7/example/mnist_demo/lenet5_dp.py>.
    
    ```python
    cfg = edict({

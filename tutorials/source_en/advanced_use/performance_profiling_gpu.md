@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.
@@ -23,7 +23,7 @@ Performance data like operators' execution time is recorded in files and can be 
 
 > The GPU operation process is the same as that in Ascend chip.
 >
-> <https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id3>
+> <https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/performance_profiling.html#id3>
 
 ## Preparing the Training Script
 
@@ -31,7 +31,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 > The sample code is the same as that in Ascend chip：
 >
-> <https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#id4>
+> <https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/performance_profiling.html#id4>
 
 Users can get profiling data by user-defined callback:
 
@@ -65,7 +65,7 @@ The code above is just a example. Users should implement callback by themselves.
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/mindinsight_commands.html).
 
 
 ### Performance Analysis

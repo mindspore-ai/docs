@@ -13,9 +13,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/synchronization_training_and_evaluation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/synchronization_training_and_evaluation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/synchronization_training_and_evaluation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/synchronization_training_and_evaluation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -26,11 +26,11 @@
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
 
-完整示例请参考[notebook](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/synchronization_training_and_evaluation.ipynb)。
+完整示例请参考[notebook](https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/synchronization_training_and_evaluation.ipynb)。
 
 ## 定义回调函数EvalCallBack
 
-实现思想：每隔n个epoch验证一次模型精度，由于在自定义函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.train.html?highlight=callback#mindspore.train.callback.Callback)；
+实现思想：每隔n个epoch验证一次模型精度，由于在自定义函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/api/zh-CN/r0.7/api/python/mindspore/mindspore.train.html?highlight=callback#mindspore.train.callback.Callback)；
 
 核心实现：回调函数的`epoch_end`内设置验证点，如下：
 

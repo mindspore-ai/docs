@@ -16,9 +16,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/customized_debugging_information.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/customized_debugging_information.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/customized_debugging_information.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -267,7 +267,7 @@ val:[[1 1]
 
 在Ascend环境上执行训练，当训练结果和预期有偏差时，可以通过异步数据Dump功能保存算子的输入输出进行调试。
 
-> 异步数据Dump不支持`comm_ops`类别的算子，算子类别详见[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html)。
+> 异步数据Dump不支持`comm_ops`类别的算子，算子类别详见[算子支持列表](https://www.mindspore.cn/docs/zh-CN/r0.7/operator_list.html)。
 
 1. 开启IR保存开关： `context.set_context(save_graphs=True)`。
 2. 执行网络脚本。

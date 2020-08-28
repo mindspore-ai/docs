@@ -18,8 +18,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/data_loading_enhance/data_loading_enhancement.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/use/data_preparation/data_processing_and_augmentation.md" target="_blank"><img src="../../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/data_loading_enhance/data_loading_enhancement.ipynb" target="_blank"><img src="../../_static/logo_notebook.png"></a>
 
 ## 概述
 
