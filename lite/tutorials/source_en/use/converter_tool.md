@@ -6,7 +6,6 @@
     - [Overview](#overview)
     - [Environment Preparation](#environment-preparation)
     - [Parameter Description](#parameter-description)
-    - [Model Visualization](#model-visualization)
     - [Example](#example)
 
 <!-- /TOC -->
@@ -15,7 +14,7 @@
 
 ## Overview
 
-MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models and visualization of converted models. The converted models can be used for inference. The command line parameters contain multiple personalized options, providing a convenient conversion method for users.
+MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference. The command line parameters contain multiple personalized options, providing a convenient conversion method for users.
 
 Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, and ONNX.
 
@@ -47,11 +46,6 @@ The following describes the parameters in detail.
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter
 
-## Model Visualization
-
-The model visualization tool provides a method for checking the model conversion result. You can run the JSON command to generate a `*.json` file and compare it with the original model to determine the conversion effect.
-
-TODO: This function is under development now.
 
 ## Example
 
@@ -104,5 +98,3 @@ The following describes how to use the conversion command by using several commo
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
    
-
-You can use the model visualization tool to visually check the converted MindSpore Lite model. This function is under development.

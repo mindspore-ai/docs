@@ -7,12 +7,10 @@
     - [Linux环境使用说明](#linux环境使用说明)
         - [环境准备](#环境准备)
         - [参数说明](#参数说明)
-        - [模型可视化](#模型可视化)
         - [使用示例](#使用示例)
     - [Windows环境使用说明](#windows环境使用说明)
         - [环境准备](#环境准备-1)
         - [参数说明](#参数说明-1)
-        - [模型可视化](#模型可视化-1)
         - [使用示例](#使用示例-1)
 
 <!-- /TOC -->
@@ -21,7 +19,7 @@
 
 ## 概述
 
-MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模型转换，同时提供转化后模型可视化的功能，转换后的模型可用于推理。命令行参数包含多种个性化选项，为用户提供方便的转换途径。
+MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。命令行参数包含多种个性化选项，为用户提供方便的转换途径。
 
 目前支持的输入格式有：MindSpore、TensorFlow Lite、Caffe和ONNX。
 
@@ -54,11 +52,6 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 
-### 模型可视化
-
-模型可视化工具提供了一种查验模型转换结果的方法。用户可使用Json命令生成`*.json`文件，与原模型相对比，确定转化效果。
-
-TODO: 此功能还在开发中。
 
 ### 使用示例
 
@@ -110,8 +103,7 @@ bash build.sh -I x86_64
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
-   
-你可以选择使用模型打印工具，可视化查验上述转化后生成的MindSpore Lite模型。本部分功能开发中。
+  
 
 ## Windows环境使用说明
 
@@ -127,9 +119,6 @@ bash build.sh -I x86_64
 
 参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/converter_tool.html#id4)
 
-### 模型可视化
-
-参考Linux环境模型转换工具的[模型可视化](https://www.mindspore.cn/lite/docs/zh-CN/master/converter_tool.html#id5)
 
 ### 使用示例
 
@@ -186,4 +175,3 @@ set MSLOG=INFO
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
    
-你可以选择使用模型打印工具，可视化查验上述转化后生成的MindSpore Lite模型。本部分功能开发中。
