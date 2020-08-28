@@ -13,22 +13,21 @@
         - [Client Samples](#client-samples)
             - [Python Client Sample](#python-client-sample)
             - [C++ Client Sample](#cpp-client-sample)
+        - [REST API Client Sample](#rest-api-client-sample)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
-
 
 ## Overview
 
 MindSpore Serving is a lightweight and high-performance service module that helps MindSpore developers efficiently deploy online inference services in the production environment. After completing model training using MindSpore, you can export the MindSpore model and use MindSpore Serving to create an inference service for the model. Currently, only Ascend 910 is supported.
 
-
 ## Starting Serving
 After MindSpore is installed using `pip`, the Serving executable program is stored in `/{your python path}/lib/python3.7/site-packages/mindspore/ms_serving`.
 Run the following command to start Serving:
-```bash
-ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
-                  [--port <PORT>] [--device_id <DEVICE_ID>]
+```bash 
+ms_serving [--help] [--model_path=<MODEL_PATH>] [--model_name=<MODEL_NAME>] [--port=<PORT1>] 
+                    [--rest_api_port=<PORT2>] [--device_id=<DEVICE_ID>]
 ```
 Parameters are described as follows:
 
@@ -37,15 +36,19 @@ Parameters are described as follows:
 |`--help`|Optional|Displays the help information about the startup command. |-|-|-|
 |`--model_path=<MODEL_PATH>`|Mandatory|Path for storing the model to be loaded. |String|Null|-|
 |`--model_name=<MODEL_NAME>`|Mandatory|Name of the model file to be loaded. |String|Null|-|
-|`--=port <PORT>`|Optional|Specifies the external Serving port number. |Integer|5500|1–65535|
+|`--port=<PORT>`|Optional|Specifies the external Serving gRPC port number. |Integer|5500|1–65535|
+|`--rest_api_port=<PORT2>`|Specifies the external Serving REST API port number. |Integer|5500|1–65535|
 |`--device_id=<DEVICE_ID>`|Optional|Specifies device ID to be used.|Integer|0|0 to 7|
 
  > Before running the startup command, add the path `/{your python path}/lib:/{your python path}/lib/python3.7/site-packages/mindspore/lib` to the environment variable `LD_LIBRARY_PATH`.
+ > port and rest_ api_port cannot be the same.
 
 ## Application Example
 The following uses a simple network as an example to describe how to use MindSpore Serving.
 
 ### Exporting Model
+ > Before exporting the model, you need to configure MindSpore [base environment](https://www.mindspore.cn/install/en).
+
 Use [add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
 
 ```python
@@ -115,7 +118,7 @@ The client code consists of the following parts:
       explicit MSClient(std::shared_ptr<Channel> channel) :  stub_(MSService::NewStub(channel)) {}
      private:
       std::unique_ptr<MSService::Stub> stub_;
-    };MSClient client(grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
+    };
     
     MSClient client(grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
     
@@ -151,3 +154,27 @@ The client code consists of the following parts:
     ```
 
 For details about the complete code, see [ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc). 
+
+### REST API Client Sample
+1. Send data in the form of `data`:
+    `data` field: flatten each input data of network model into one-dimensional data. Suppose the network model has n inputs, and the final data structure is a two-dimensional list of 1 * n.
+    As in this example, flatten the model input data `[[1.0, 2.0], [3.0, 4.0]]` and `[[1.0, 2.0], [3.0, 4.0]]` to form `[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`.
+    ```
+    curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]}' http://127.0.0.1:5501
+    ```
+    The following return values are displayed, indicating that the serving service has correctly executed the reasoning of the add network, and the output data structure is similar to that of the input:
+    ```
+    {"data":[[2.0,4.0,6.0,8.0]]}
+    ```
+
+2. Send data in the form of `tensor`:
+    `tensor` field: composed of each input of the network model, keeping the original shape of input.
+    As in this example, the model input data `[[1.0, 2.0], [3.0, 4.0]]` and `[[1.0, 2.0], [3.0, 4.0]]` are combined into `[[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]`.
+    ```
+    curl -X POST -d '{"tensor": [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]}' http://127.0.0.1:5501
+    ```
+    The following return values are displayed, indicating that the serving service has correctly executed the reasoning of the add network, and the output data structure is similar to that of the input:
+    ```
+    {"tensor":[[2.0,4.0], [6.0,8.0]]}
+    ```
+  > REST APICurrently only int32 and fp32 are supported as inputs.
