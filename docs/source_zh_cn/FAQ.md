@@ -1,5 +1,7 @@
 # FAQ
 
+`Ascend` `GPU` `CPU` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
+
 <!-- TOC -->
 
 - [FAQ](#faq)
@@ -16,6 +18,7 @@
     - [特性支持](#特性支持)
 
 <!-- /TOC -->
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 安装类
 
