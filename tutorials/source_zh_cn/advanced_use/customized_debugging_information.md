@@ -33,7 +33,7 @@ Callback是回调函数的意思，但它其实不是一个函数而是一个类
 
 MindSpore提供Callback能力，支持用户在训练/推理的特定阶段，插入自定义的操作。包括：
 
-- MindSpore框架提供的`ModelCheckpoint`、`LossMonitor`、`SummaryStep`等Callback函数。
+- MindSpore框架提供的`ModelCheckpoint`、`LossMonitor`、`SummaryCollector`等Callback函数。
 - MindSpore支持用户自定义Callback。
 
 使用方法：在`model.train`方法中传入Callback对象，它可以是一个Callback列表，例：
@@ -41,13 +41,13 @@ MindSpore提供Callback能力，支持用户在训练/推理的特定阶段，�
 ```python
 ckpt_cb = ModelCheckpoint()                                                            
 loss_cb = LossMonitor()
-summary_cb = SummaryStep()
+summary_cb = SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
 `ModelCheckpoint`可以保存模型参数，以便进行再训练或推理。
 `LossMonitor`可以在日志中输出loss，方便用户查看，同时它还会监控训练过程中的loss值变化情况，当loss值为`Nan`或`Inf`时终止训练。
-SummaryStep可以把训练过程中的信息存储到文件中，以便后续进行查看或可视化展示。
+`SummaryCollector` 可以把训练过程中的信息存储到文件中，以便后续进行查看或可视化展示。
 在训练过程中，Callback列表会按照定义的顺序执行Callback函数。因此在定义过程中，需考虑Callback之间的依赖关系。
 
 ### 自定义Callback

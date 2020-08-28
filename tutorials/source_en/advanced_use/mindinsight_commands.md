@@ -1,6 +1,6 @@
 # MindInsight Commands
 
-`Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+`Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 

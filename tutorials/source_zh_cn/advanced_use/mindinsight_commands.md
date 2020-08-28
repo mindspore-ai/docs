@@ -1,6 +1,6 @@
 # MindInsight相关命令
 
-`Ascend` `GPU` `模型调优` `中级` `高级`
+`Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
