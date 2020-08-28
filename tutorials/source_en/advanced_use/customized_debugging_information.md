@@ -31,7 +31,7 @@ For example, you can monitor the loss, save model parameters, dynamically adjust
 
 MindSpore provides the callback capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
 
-- Callback functions such as `ModelCheckpoint`, `LossMonitor`, and `SummaryStep` provided by the MindSpore framework
+- Callback functions such as `ModelCheckpoint`, `LossMonitor`, and `SummaryCollector` provided by the MindSpore framework
 - Custom callback functions
 
 Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
@@ -39,13 +39,13 @@ Usage: Transfer the callback object in the `model.train` method. The callback ob
 ```python
 ckpt_cb = ModelCheckpoint()                                                            
 loss_cb = LossMonitor()
-summary_cb = SummaryStep()
+summary_cb = SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 ```
 
 `ModelCheckpoint` can save model parameters for retraining or inference.
 `LossMonitor` can output loss information in logs for users to view. In addition, `LossMonitor` monitors the loss value change during training. When the loss value is `Nan` or `Inf`, the training terminates.
-SummaryStep can save the training information to a file for later use.
+`SummaryCollector` can save the training information to files for later use.
 During the training process, the callback list will execute the callback function in the defined order. Therefore, in the definition process, the dependency between callbacks needs to be considered.
 
 ### Custom Callback
