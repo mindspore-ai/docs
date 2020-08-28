@@ -1,6 +1,6 @@
 # Computational Graph Visualization Design
 
-`Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
+`Ascend` `GPU` `CPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
