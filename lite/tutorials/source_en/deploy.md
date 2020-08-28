@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes how to quickly install MindSpore Lite on the Ubuntu system.
 
@@ -92,7 +92,7 @@ TODO: Add document content.
 First, download source code from the MindSpore code repository.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r0.7
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:

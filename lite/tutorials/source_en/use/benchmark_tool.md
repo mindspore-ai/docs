@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/use/benchmark_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/benchmark_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -22,9 +22,9 @@ The Benchmark tool is used to perform benchmark testing on a MindSpore Lite mode
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install compilation dependencies and perform compilation. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/en/master/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/en/master/deploy.html#id5) in the deployment document.
+- Compilation: Install compilation dependencies and perform compilation. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description] (https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id4) in the deployment document.
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description] (https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
 
 ## Parameter Description
 

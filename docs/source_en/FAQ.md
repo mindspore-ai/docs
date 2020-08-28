@@ -18,7 +18,7 @@
     - [Supported Features](#supported-features)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/docs/source_en/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Installation
 
@@ -103,7 +103,7 @@ A: After MindSpore is installed on a CPU hardware platform, run the `python -c'i
 
 Q: What can I do if the LSTM example on the official website cannot run on Ascend?
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/docs/en/master/operator_list.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/docs/en/r0.7/operator_list.html) to view the supported operators.
 
 <br/>
 
@@ -121,7 +121,7 @@ A: MindSpore uses protocol buffers (protobuf) to store training parameters and c
 
 Q: How do I use models trained by MindSpore on Ascend 310?
 
-A: Ascend 310 supports the offline model (OM). Therefore, you need to export the Open Neural Network Exchange (ONNX) or Ascend intermediate representation (AIR) model and then convert it into OM supported by Ascend 310. For details, see [Multi-Platform Inference](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html).
+A: Ascend 310 supports the offline model (OM). Therefore, you need to export the Open Neural Network Exchange (ONNX) or Ascend intermediate representation (AIR) model and then convert it into OM supported by Ascend 310. For details, see [Multi-Platform Inference](https://www.mindspore.cn/tutorial/en/r0.7/use/multi_platform_inference.html).
 
 <br/>
 
@@ -133,19 +133,19 @@ A: When building a network, use `if self.training: x = dropput(x)`. During verif
 
 Q: Where can I view the sample code or tutorial of MindSpore training and inference?
 
-A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/index.html).
+A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/r0.7/index.html).
 
 <br/>
 
 Q: What types of model is currently supported by MindSpore for training?
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md) for detailed information.
 
 <br/>
 
 Q: What are the available recommendation or text generation networks or models provided by MindSpore?
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo).
 
 <br/>
 
@@ -163,7 +163,7 @@ A: Ascend 310 can only be used for inference. MindSpore supports training on Asc
 
 Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/en/master/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md).
+A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/en/r0.7/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md).
 
 <br/>
 
@@ -175,13 +175,13 @@ A: MindSpore provides pluggable device management interface so that developer co
 
 Q: What is the relationship between MindSpore and ModelArts? Can MindSpore be used on ModelArts?
 
-A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
+A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
 
 <br/>
 
 Q: Does MindSpore support Windows 10?
 
-A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, please refer to the [MindSpore official website tutorial](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindspore_cpu_win_install.html)
+A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, please refer to the [MindSpore official website tutorial](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/mindspore_cpu_win_install.html)
 
 ## Backend Running
 
@@ -207,7 +207,7 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
-You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/en/master/advanced_use/debugging_in_pynative_mode.html).
+You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/debugging_in_pynative_mode.html).
 
 ## Programming Language Extensions
 
@@ -253,7 +253,7 @@ A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Mo
 
 Q: How do I migrate scripts or models of other frameworks to MindSpore?
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/master/advanced_use/network_migration.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/network_migration.html).
 
 <br/>
 
