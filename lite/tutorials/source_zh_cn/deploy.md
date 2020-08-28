@@ -158,7 +158,7 @@ MindSpore Lite的编译选项如下。
 
 ### 输出件说明
 
-编译完成后，进入源码的`mindspore/output/`目录，可查看编译后生成的文件，命名为命名为`mindspore-lite-{version}-converter-win-{process_unit}.zip`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}`。
+编译完成后，进入源码的`mindspore/output/`目录，可查看编译后生成的文件，命名为`mindspore-lite-{version}-converter-win-{process_unit}.zip`。解压后，即可获得编译后的工具包，名称为`mindspore-lite-{version}`。
 
 > version：输出件版本，与所编译的MindSpore版本一致。
 > process_unit：输出件应部署的处理器类型。
