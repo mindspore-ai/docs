@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_zh_cn/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 本文档介绍如何在Ubuntu和Windows系统上快速安装MindSpore Lite。
 
@@ -101,7 +101,7 @@ TODO：补全文件内容
 首先，从MindSpore代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r0.7
 ```
 
 然后，在源码根目录下，执行如下命令，可编译不同版本的MindSpore Lite。
@@ -168,7 +168,7 @@ MindSpore Lite的编译选项如下。
 首先，使用git工具从MindSpore代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r0.7
 ```
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。

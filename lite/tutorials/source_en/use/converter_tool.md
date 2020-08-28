@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/lite/tutorials/source_en/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -23,9 +23,9 @@ Currently, the following input formats are supported: MindSpore, TensorFlow Lite
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- Compilation: Install basic and additional compilation dependencies and perform compilation. The compilation version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id5) in the deployment document.
+- Compilation: Install basic and additional compilation dependencies and perform compilation. The compilation version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id5) in the deployment document.
 
-- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id4) in the deployment document.
+- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
 
 ## Parameter Description
 
