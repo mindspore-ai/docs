@@ -25,9 +25,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -41,7 +41,7 @@
 5. 加载保存的模型，进行推理。
 6. 验证模型，加载测试数据集和训练后的模型，验证结果精度。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/r0.7/tutorials/tutorial_code/lenet.py> 。
 
 
 这是简单、基础的应用流程，其他高级、复杂的应用可以基于这个基本流程进行扩展。
@@ -87,7 +87,7 @@
 import os
 ```
 
-详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/api/zh-CN/master/index.html)中搜索查询。
+详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/api/zh-CN/r0.7/index.html)中搜索查询。
 
 ### 配置运行信息
 
@@ -183,7 +183,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 先进行shuffle、batch操作，再进行repeat操作，这样能保证1个epoch内数据不重复。
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_processing_and_augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/tutorial/zh-CN/r0.7/use/data_preparation/data_processing_and_augmentation.html)章节。
 
 
 ## 定义网络

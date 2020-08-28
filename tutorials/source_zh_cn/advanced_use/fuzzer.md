@@ -12,7 +12,7 @@
         - [运用Fuzzer](#运用Fuzzer)
         
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -22,7 +22,7 @@ MindArmour的Fuzzer模块以神经元覆盖率作为测试评价准则。神经�
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
-> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_mnist_fuzzing.py>
+> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r0.7/example/mnist_demo/lenet5_mnist_fuzzing.py>
 
 ## 实现阶段
 
@@ -60,7 +60,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
 
 ### 运用Fuzzer
 
-1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/model_security.html>)
+1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/model_security.html>)
 
    ```python
    ...
@@ -101,7 +101,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
 
    数据变异方法一定要包含基于图像像素值变化的方法。
 
-   前两种图像变化方法的可配置参数，以及推荐参数范围请参考：<https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzzing/image_transform.py>对应的类方法，也可以均设置为`'auto_param': True`，变异参数将在推荐范围内随机生成。
+   前两种图像变化方法的可配置参数，以及推荐参数范围请参考：<https://gitee.com/mindspore/mindarmour/blob/r0.7/mindarmour/fuzzing/image_transform.py>对应的类方法，也可以均设置为`'auto_param': True`，变异参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。
 

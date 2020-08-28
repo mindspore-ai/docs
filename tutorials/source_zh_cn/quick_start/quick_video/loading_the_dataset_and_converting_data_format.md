@@ -8,6 +8,6 @@
 
 **查看更多内容**：
 
-<https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html>
+<https://www.mindspore.cn/tutorial/zh-CN/r0.7/use/data_preparation/loading_the_datasets.html>
 
-<https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/converting_datasets.html>
+<https://www.mindspore.cn/tutorial/zh-CN/r0.7/use/data_preparation/converting_datasets.html>

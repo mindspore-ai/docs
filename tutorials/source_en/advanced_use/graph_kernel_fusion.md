@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -100,7 +100,7 @@ context.set_context(enable_graph_kernel=True)
 
 2. `BERT-large` training network
 
-    Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
+    Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
       
 
 ## Effect Evaluation

@@ -8,4 +8,4 @@
 
 **Install now**: <https://www.mindspore.cn/install/en>
 
-**See more**: <https://www.mindspore.cn/tutorial/en/master/advanced_use/dashboard.html>
+**See more**: <https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/dashboard.html>

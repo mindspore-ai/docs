@@ -11,11 +11,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
-用户可查看昇腾AI处理器、CPU、内存等系统指标，从而分配适当的资源进行训练。直接[启动MindInsight](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html#id3)，点击导航栏的“硬件资源”即可查看。
+用户可查看昇腾AI处理器、CPU、内存等系统指标，从而分配适当的资源进行训练。直接[启动MindInsight](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/mindinsight_commands.html#id3)，点击导航栏的“硬件资源”即可查看。
 
 ## 昇腾AI处理器看板
 

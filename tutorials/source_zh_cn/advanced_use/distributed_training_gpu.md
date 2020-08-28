@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -31,7 +31,7 @@
 
 > 数据集的下载和加载方式参考：
 >
-> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+> <https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/distributed_training_ascend.html>。
 
 ### 配置分布式环境
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
 
-> 网络、优化器、损失函数的定义参考：<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+> 网络、优化器、损失函数的定义参考：<https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/distributed_training_ascend.html>。
 
 ## 运行脚本
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 > 你可以在这里找到样例的运行脚本：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/run_gpu.sh>。
+> <https://gitee.com/mindspore/docs/blob/r0.7/tutorials/tutorial_code/distributed_training/run_gpu.sh>。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 

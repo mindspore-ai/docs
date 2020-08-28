@@ -18,8 +18,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/computer_vision_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/computer_vision_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@ def classify(image):
 
 选择合适的model是关键。这里的model一般指的是深度卷积神经网络，如AlexNet、VGG、GoogLeNet、ResNet等等。
 
-MindSpore实现了典型的卷积神经网络，开发者可以参考[model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official)。
+MindSpore实现了典型的卷积神经网络，开发者可以参考[model_zoo](https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo/official)。
 
 MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet、ResNet。
 
@@ -63,7 +63,7 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 6. 加载保存的模型进行推理
 
 
-> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet>
+> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r0.7/tutorials/tutorial_code/resnet>
 
 下面对任务流程中各个环节及代码关键片段进行解释说明。
 
@@ -148,7 +148,7 @@ tar -zvxf cifar-10-binary.tar.gz
 
 ResNet通常是较好的选择。首先，它足够深，常见的有34层，50层，101层。通常层次越深，表征能力越强，分类准确率越高。其次，可学习，采用了残差结构，通过shortcut连接把低层直接跟高层相连，解决了反向传播过程中因为网络太深造成的梯度消失问题。此外，ResNet网络的性能很好，既表现为识别的准确率，也包括它本身模型的大小和参数量。
 
-MindSpore Model Zoo中已经实现了ResNet模型，可以采用[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)。调用方法如下：
+MindSpore Model Zoo中已经实现了ResNet模型，可以采用[ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/resnet/src/resnet.py)。调用方法如下：
 
 ```python
 network = resnet50(class_num=10)

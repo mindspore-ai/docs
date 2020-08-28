@@ -11,12 +11,12 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/hardware_resources.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 Users can view hardware resources such as Ascend AI processor, CPU, memory, etc., so as to allocate appropriate resources for training.
-Just [Start MindInsight](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html#start-the-service), and click "Hardware Resources" in the navigation bar to view it.
+Just [Start MindInsight](https://www.mindspore.cn/tutorial/en/r0.7/advanced_use/mindinsight_commands.html#start-the-service), and click "Hardware Resources" in the navigation bar to view it.
 
 ## Ascend AI Processor Board
 

@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/quantization_aware.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/quantization_aware.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Background
 
@@ -51,7 +51,7 @@ Aware quantization training specifications
 | Specification | Description                              |
 | ------------- | ---------------------------------------- |
 | Hardware      | Supports hardware platforms based on the GPU or Ascend AI 910 processor. |
-| Network       | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo>. |
+| Network       | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo>. |
 | Algorithm     | Supports symmetric and asymmetric quantization algorithms in MindSpore fake quantization training. |
 | Solution      | Supports 4-, 7-, and 8-bit quantization solutions. |
 
@@ -76,7 +76,7 @@ Compared with common training, the quantization aware training requires addition
 
 Next, the LeNet network is used as an example to describe steps 3 and 6.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo/official/cv/lenet_quant>.
 
 ### Defining a Fusion Network
 
@@ -175,7 +175,7 @@ The preceding describes the quantization aware training from scratch. A more com
     2. Define a network.
     3. Define a fusion network.
     4. Define an optimizer and loss function.
-    5. Load a model file and retrain the model. Load an existing model file and retrain the model based on the fusion network to generate a fusion model. For details, see <https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#id6>.
+    5. Load a model file and retrain the model. Load an existing model file and retrain the model based on the fusion network to generate a fusion model. For details, see <https://www.mindspore.cn/tutorial/en/r0.7/use/saving_and_loading_model_parameters.html#id6>.
     6. Generate a quantization network.
     7. Perform quantization training.
 
@@ -183,7 +183,7 @@ The preceding describes the quantization aware training from scratch. A more com
 
 The inference using a quantization model is the same as common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as ONNX or AIR). 
 
-For details, see <https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html>.
+For details, see <https://www.mindspore.cn/tutorial/en/r0.7/use/multi_platform_inference.html>.
 
 - To use a checkpoint file obtained after quantization aware training for inference, perform the following steps:
 

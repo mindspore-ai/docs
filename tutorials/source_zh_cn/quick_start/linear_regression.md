@@ -26,9 +26,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -42,7 +42,7 @@
 4. 定义线性拟合过程的可视化函数
 5. 执行训练
 
-本次样例源代码请参考：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>。
+本次样例源代码请参考：<https://gitee.com/mindspore/docs/blob/r0.7/tutorials/tutorial_code/linear_regression.py>。
 
 ## 环境准备
 
@@ -306,7 +306,7 @@ class GradWrap(nn.Cell):
 
 ### 反向传播更新权重
 
-`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式10，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
+`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式10，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/r0.7/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
 
 
 ```python

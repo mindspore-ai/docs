@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/model_security.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r0.7/tutorials/source_en/advanced_use/model_security.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -31,7 +31,7 @@ At the beginning of AI algorithm design, related security threats are sometimes 
 
 This section describes how to use MindArmour in adversarial attack and defense by taking the Fast Gradient Sign Method (FGSM) attack algorithm and Natural Adversarial Defense (NAD) algorithm as examples.
 
-> The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_safety>
+> The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/docs/tree/r0.7/tutorials/tutorial_code/model_safety>
 > - `mnist_attack_fgsm.py`: contains attack code.
 > - `mnist_defense_nad.py`: contains defense code.
 
