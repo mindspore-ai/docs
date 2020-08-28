@@ -1,5 +1,7 @@
 # Profiler设计文档
 
+`Ascend` `GPU` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
+
 <!-- TOC -->
 
 - [Profiler设计文档](#profiler设计文档)
