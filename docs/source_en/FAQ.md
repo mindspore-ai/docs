@@ -1,5 +1,7 @@
 # FAQ
 
+`Ascend` `GPU` `CPU` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [FAQ](#faq)
@@ -16,6 +18,7 @@
     - [Supported Features](#supported-features)
 
 <!-- /TOC -->
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Installation
 
