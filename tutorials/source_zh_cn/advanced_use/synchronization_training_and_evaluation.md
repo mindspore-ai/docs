@@ -1,4 +1,4 @@
-# 同步训练和验证模型
+﻿# 同步训练和验证模型
 
 <!-- TOC -->
 
@@ -58,8 +58,8 @@ class EvalCallBack(Callback):
         cur_epoch = cb_param.cur_epoch_num
         if cur_epoch % self.eval_per_epoch == 0:
             acc = self.model.eval(self.eval_dataset, dataset_sink_mode=True)
-            epoch_per_eval["epoch"].append(cur_epoch)
-            epoch_per_eval["acc"].append(acc["Accuracy"])
+            self.epoch_per_eval["epoch"].append(cur_epoch)
+            self.epoch_per_eval["acc"].append(acc["Accuracy"])
             print(acc)
 
 ```
