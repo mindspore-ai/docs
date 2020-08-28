@@ -55,22 +55,22 @@ print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p)
 
 ```
 [[1 2]
- [3 4]] 
+ [3 4]]
 
-1 
+1
 
-2 
+2
 
-True 
+True
 
-[1 2 3] 
+[1 2 3]
 
 [4. 5. 6.]
 ```
 
 ## 变量张量
 
-变量张量的值在网络中可以被更新，用来表示需要被更新的参数，MindSpore使用Tensor的子类Parameter构造变量张量，构造时支持传入Tensor或者Initializer。
+变量张量的值在网络中可以被更新，用来表示需要被更新的参数，MindSpore使用Tensor的子类Parameter构造变量张量，构造时支持传入Tensor、Initializer或者Number。
 
 代码样例如下：
 
@@ -83,21 +83,24 @@ from mindspore.common.initializer import initializer
 x = Tensor(np.arange(2*3).reshape((2, 3)))
 y = Parameter(x, name="x")
 z = Parameter(initializer('ones', [1, 2, 3], mstype.float32), name='y')
+m = Parameter(2.0, name='m')
 
-print(x, "\n\n", y, "\n\n", z)
+print(x, "\n\n", y, "\n\n", z, "\n\n", m)
 ```
 
 输出如下：
 
 ```
 [[0 1 2]
- [3 4 5]] 
+ [3 4 5]]
 
-Parameter (name=x, value=[[0 1 2] 
-                          [3 4 5]]) 
+Parameter (name=x, value=[[0 1 2]
+                          [3 4 5]])
 
 Parameter (name=y, value=[[[1. 1. 1.]
                            [1. 1. 1.]]])
+
+Parameter (name=m, value=2.0)
 ```
   
 ## 张量的属性和方法
@@ -152,9 +155,9 @@ print(x_all, "\n\n", x_any, "\n\n", x_array)
 输出如下：
 
 ```
-False 
+False
 
-True 
+True
 
 [[ True  True]
  [False False]]
@@ -190,9 +193,9 @@ True
   
   ```
   [[1. 1.]
-   [1. 1.]] 
+   [1. 1.]]
 
-  1.0 
+  1.0
 
   [1 2 3]
   ```
@@ -270,17 +273,17 @@ True
   
   ```
   [[[0 1 2]
-    [3 4 5]]] 
+    [3 4 5]]]
 
   [[[0 1]
     [2 3]
-    [4 5]]] 
+    [4 5]]]
 
   [[[[0 1 2]
-     [3 4 5]]]] 
+     [3 4 5]]]]
 
   [[0 1 2]
-   [3 4 5]] 
+   [3 4 5]]
 
   [[[0 3]]
    [[1 4]]
@@ -315,17 +318,17 @@ True
   
   ```
   [[0 1 2]
-   [3 4 5]] 
+   [3 4 5]]
 
   [[[0 1 2]
     [3 4 5]]
    [[0 1 2]
-    [3 4 5]]] 
+    [3 4 5]]]
 
   [[0 1 2]
    [3 4 5]
    [0 1 2]
-   [3 4 5]] 
+   [3 4 5]]
 
   (Tensor(shape=[1, 3], dtype=Int64, [[0 1 2]]), Tensor(shape=[1, 3], dtype=Int64, [[3 4 5]]))
   ```
@@ -357,7 +360,7 @@ print(x, "\n\n", y)
 
 ```
 [[0 1 2]
- [3 4 5]] 
+ [3 4 5]]
 
 [[0 1 2 0 1 2 0 1 2]
  [3 4 5 3 4 5 3 4 5]
