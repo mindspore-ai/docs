@@ -61,7 +61,7 @@
 | OneHot                |          | √        |          |           |          |          | OneHot      |               |                    |
 | Pad                   |          | √        | √        | √         |          |          | Pad         |               | Pad                |
 | Pow                   |          | √        | √        | √         |          |         | Pow          | Power         | Power              |
-| PReLU                 |          | √        |          |          |          | √        | Prelu       | PReLU         | PRelu              |
+| PReLU                 |          | √        |          |          |          | √        |        | PReLU         |              |
 | Range                 |          | √        |          |           |          |          | Range       |               |                    |
 | Rank                  |          | √        |          |           |          |          | Rank        |               |                    |
 | ReduceMax             | √        | √        | √        | √         |          |          | ReduceMax   |               | ReduceMax          |
