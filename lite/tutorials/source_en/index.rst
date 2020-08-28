@@ -12,7 +12,7 @@ MindSpore Lite Tutorials
    :caption: Quick Start
 
    deploy
-   quick_start/quick_start_lite
+   quick_start/quick_start
 
 .. toctree::
    :glob:
@@ -20,4 +20,6 @@ MindSpore Lite Tutorials
    :caption: Use
 
    use/converter_tool
-   use/tools
+   use/runtime
+   use/benchmark_tool
+   use/timeprofiler_tool
