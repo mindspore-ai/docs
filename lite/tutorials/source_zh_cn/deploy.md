@@ -89,10 +89,11 @@ tar -xvf mindspore-lite-{version}-{function}-{OS}.tar.gz
 
 以0.7.0-beta版本，CPU编译为例，不同包名下，`third party`与`lib`的内容不同：
 
-- `mindspore-lite-0.7.0-converter-ubuntu`：包含`protobuf`（Protobuf的动态库）。
-- `mindspore-lite-0.7.0-runtime-x86-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）。
-- `mindspore-lite-0.7.0-runtime-arm64-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite的动态库）和`liboptimize.so`。
-TODO：补全文件内容
+- `mindspore-lite-0.7.0-converter-ubuntu`：`third party`包含`protobuf`（Protobuf的动态库）。
+- `mindspore-lite-0.7.0-runtime-x86-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite推理框架的动态库）。
+- `mindspore-lite-0.7.0-runtime-arm64-cpu`：`third party`包含`flatbuffers`（FlatBuffers头文件），`lib`包含`libmindspore-lite.so`（MindSpore Lite推理框架的动态库）和`liboptimize.so`（MindSpore Lite算子性能优化库）。
+
+> `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在armv8.2和支持fp16特性的CPU上使用。
 
 > 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本为例：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`。
 

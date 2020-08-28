@@ -81,9 +81,11 @@ Generally, the compiled output files include the following types. The architectu
 | third_party | Header file and library of the third-party library | Yes | Yes |
 
 Take the 0.7.0-beta version and CPU as an example. The contents of `third party` and `lib` vary depending on the architecture as follows:  
-- `mindspore-lite-0.7.0-converter-ubuntu`: include `protobuf` (Protobuf dynamic library).
-- `mindspore-lite-0.7.0-runtime-x86-cpu`: include `flatbuffers` (FlatBuffers header file).
-TODO: Add document content.
+- `mindspore-lite-0.7.0-converter-ubuntu`: `third party`include `protobuf` (Protobuf dynamic library).
+- `mindspore-lite-0.7.0-runtime-x86-cpu`: `third party`include `flatbuffers` (FlatBuffers header file), `lib`include`libmindspore-lite.so`(Dynamic library of MindSpore Lite inference framework). 
+- `mindspore-lite-0.7.0-runtime-arm64-cpu`: `third party`include `flatbuffers` (FlatBuffers header file), `lib`include`libmindspore-lite.so`(Dynamic library of MindSpore Lite inference framework) and `liboptimize.so`(Dynamic library of MindSpore Lite advanced operators).
+
+> `liboptimize.so` only exits in runtime-arm64 outputs, and only can be used in the CPU which supports armv8.2 and fp16.
 
 > Before running the tools in the `converter`, `benchmark`, or `time_profiler` directory, you need to configure environment variables and set the paths of the dynamic libraries of MindSpore Lite and Protobuf to the paths of the system dynamic libraries. The following uses the 0.7.0-beta version as an example: `export LD_LIBRARY_PATH=./mindspore-lite-0.7.0/lib:./mindspore-lite-0.7.0/third_party/protobuf/lib:${LD_LIBRARY_PATH}`.
 
