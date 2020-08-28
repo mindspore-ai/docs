@@ -69,11 +69,14 @@ We sincerely hope that you can join the discussion in the user community and con
 * Protect data privacy during training and inference.
 
 ## Inference Framework
-* Support TensorFlow, Caffe, and ONNX model formats.
-* Support iOS.
-* Improve more CPU operators.
-* Support more CV/NLP models.
-* Online learning.
-* Support deployment on IoT devices.
-* Low-bit quantization.
-* CPU and NPU heterogeneous scheduling.
+* Continuous optimization for operator, and add more operator.
+* Support NLP neural networks.
+* Visualization for MindSpore lite model.
+* MindSpore Micro, which supports ARM Cortex-A and Cortex-M with Ultra-lightweight.
+* Support re-training and federated learning on mobile device.
+* Support auto-parallel.
+* MindData on mobile device, which supports image resize and pixel data transform.
+* Support post-training quantize, which supports inference with mixed precision to improve performance.
+* Support Kirin NPU, MTK APU.
+* Support inference for multi models with pipeline.
+* C++ API for model construction.
