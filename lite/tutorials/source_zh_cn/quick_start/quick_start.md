@@ -17,6 +17,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## 概述
 
 我们推荐你从端侧Android图像分类demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
@@ -79,16 +81,16 @@ MindSpore Model Zoo中图像分类模型可[在此下载](#TODO)。
 
 3. 在Android设备上，点击“继续安装”，安装完即可查看到设备摄像头捕获的内容和推理结果。
 
-    ![install](../images/lite_quick_start_install.jpg)
+    ![install](../images/lite_quick_start_install.png)
 
     如下图所示，成功识别出图中内容是键盘和鼠标。
 
-    ![result](../images/lite_quick_start_app_result.jpg)
+    ![result](../images/lite_quick_start_app_result.png)
 
 
 ## 示例程序详细说明  
 
-本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/tutorial/zh-CN/master/use/lite_runtime.html)中完成模型推理的过程。
+本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/runtime.html)中完成模型推理的过程。
 
 > 此处详细说明示例程序的JNI层实现，JAVA层运用Android Camera 2 API实现开启设备摄像头以及图像帧处理等功能，需读者具备一定的Android开发基础知识。
 
