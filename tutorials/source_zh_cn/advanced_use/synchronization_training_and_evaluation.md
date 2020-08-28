@@ -41,23 +41,23 @@
 
 - `model`：即是MindSpore中的`Model`函数。
 - `eval_dataset`：验证数据集。
-- `epoch_per_eval`：记录验证模型的精度和相应的epoch数，其数据形式为`{"epoch":[],"acc":[]}`。
+- `epoch_per_eval`：记录验证模型的精度和相应的epoch数，其数据形式为`{"epoch": [], "acc": []}`。
 
 ```python
-import matplotlib.pyplot as plt
 from mindspore.train.callback import Callback
 
 class EvalCallBack(Callback):
-    def __init__(self, model, eval_dataset, eval_per_epoch):
+    def __init__(self, model, eval_dataset, eval_per_epoch, epoch_per_eval):
         self.model = model
         self.eval_dataset = eval_dataset
         self.eval_per_epoch = eval_per_epoch
+        self.epoch_per_eval = epoch_per_eval
         
     def epoch_end(self, run_context):
         cb_param = run_context.original_args()
         cur_epoch = cb_param.cur_epoch_num
         if cur_epoch % self.eval_per_epoch == 0:
-            acc = self.model.eval(self.eval_dataset,dataset_sink_mode = True)
+            acc = self.model.eval(self.eval_dataset, dataset_sink_mode=True)
             epoch_per_eval["epoch"].append(cur_epoch)
             epoch_per_eval["acc"].append(acc["Accuracy"])
             print(acc)
@@ -79,12 +79,10 @@ class EvalCallBack(Callback):
 - `epoch_per_eval`：定义收集`epoch`数和对应模型精度信息的字典。
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore.train import Model
 from mindspore import context
 from mindspore.nn.metrics import Accuracy
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
@@ -98,10 +96,10 @@ if __name__ == "__main__":
     ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",directory=ckpt_save_dir, config=config_ck)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     
-    epoch_per_eval = {"epoch":[],"acc":[]}
-    eval_cb = EvalCallBack(model,eval_data,eval_per_epoch)
+    epoch_per_eval = {"epoch": [], "acc": []}
+    eval_cb = EvalCallBack(model, eval_data, eval_per_epoch, epoch_per_eval)
     
-    model.train(epoch_size, train_data, callbacks=[ckpoint_cb, LossMonitor(375),eval_cb],
+    model.train(epoch_size, train_data, callbacks=[ckpoint_cb, LossMonitor(375), eval_cb],
                 dataset_sink_mode=True)
 ```
 
@@ -152,11 +150,13 @@ lenet_ckpt
 
 
 ```python
+import matplotlib.pyplot as plt
+
 def eval_show(epoch_per_eval):
     plt.xlabel("epoch number")
     plt.ylabel("Model accuracy")
     plt.title("Model accuracy variation chart")
-    plt.plot(epoch_per_eval["epoch"],epoch_per_eval["acc"],"red")
+    plt.plot(epoch_per_eval["epoch"], epoch_per_eval["acc"], "red")
     plt.show()
 
 eval_show(epoch_per_eval)
