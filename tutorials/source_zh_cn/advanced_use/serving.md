@@ -23,13 +23,12 @@
 
 MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。当前Serving仅支持Ascend 910。
 
-
 ## 启动Serving服务
-通过pip安装MindSpore后，Serving可执行程序位于`/{your python path}/lib/python3.7/site-packages/mindspore/ms_serving` 。
+通过pip安装MindSpore后，Serving可执行程序位于`/{your python path}/lib/python3.7/site-packages/mindspore/ms_serving`。
 启动Serving服务命令如下
-```bash
-ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
-                  [--port <PORT>] [--device_id <DEVICE_ID>]
+```bash 
+ms_serving [--help] [--model_path=<MODEL_PATH>] [--model_name=<MODEL_NAME>] [--port=<PORT1>] 
+                            [--rest_api_port=<PORT2>] [--device_id=<DEVICE_ID>]
 ```
 参数含义如下
 
@@ -38,8 +37,8 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 |`--help`|可选|显示启动命令的帮助信息。|-|-|-|
 |`--model_path=<MODEL_PATH>`|必选|指定待加载模型的存放路径。|String|空|-|
 |`--model_name=<MODEL_NAME>`|必选|指定待加载模型的文件名。|String|空|-|
-|`--port=<PORT>`|可选|指定Serving对外的gRPC端口号。|Integer|5500|1~65535|
-|`--rest_api_port=<PORT>`|可选|指定Serving对外的REST API端口号。|Integer|5501|1~65535|
+|`--port=<PORT1>`|可选|指定Serving对外的gRPC端口号。|Integer|5500|1~65535|
+|`--rest_api_port=<PORT2>`|可选|指定Serving对外的REST API端口号。|Integer|5501|1~65535|
 |`--device_id=<DEVICE_ID>`|可选|指定使用的设备号|Integer|0|0~7|
 
  > 执行启动命令前，需将`/{your python path}/lib:/{your python path}/lib/python3.7/site-packages/mindspore/lib`对应的路径加入到环境变量LD_LIBRARY_PATH中 。
@@ -49,23 +48,27 @@ ms_serving [--help] [--model_path <MODEL_PATH>] [--model_name <MODEL_NAME>]
 下面以一个简单的网络为例，演示MindSpore Serving如何使用。
 
 ### 导出模型
+ > 导出模型之前，需要配置MindSpore[基础环境](https://www.mindspore.cn/install)。
+
 使用[add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
-```python
+```python 
 python add_model.py
 ```
+
 执行脚本，生成`tensor_add.mindir`文件，该模型的输入为两个shape为[2,2]的二维Tensor，输出结果是两个输入Tensor之和。
 
 ### 启动Serving推理服务
-```bash
+```bash 
 ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 ```
-当服务端打印日志`MS Serving grpc Listening on 0.0.0.0:5500`时，表示Serving gRPC服务已加载推理模型完毕。
-当服务端打印日志`MS Serving restful Listening on 0.0.0.0:5501`时，表示Serving REST服务已加载推理模型完毕。
+
+当服务端打印日志`MS Serving gRPC start success, listening on 0.0.0.0:5500`时，表示Serving gRPC服务已加载推理模型完毕。
+当服务端打印日志`MS Serving RESTful start, listening on 0.0.0.0:5501`时，表示Serving REST服务已加载推理模型完毕。
 
 ### gRPC客户端示例
 #### <span name="python客户端示例">Python客户端示例</span>
- > 执行客户端前，需将`/{your python path}/lib/python3.7/site-packages/mindspore`对应的路径加入到环境变量PYTHONPATH中。
+ > 执行客户端前，需将`/{your python path}/lib/python3.7/site-packages/mindspore`对应的路径添加到环境变量PYTHONPATH中。
 
 获取[ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py)，启动Python客户端。
 ```bash
@@ -73,7 +76,7 @@ python ms_client.py
 ```
 
 显示如下返回值说明Serving服务已正确执行Add网络的推理。
-```
+```bash
 ms client received:
 [[2. 2.]
  [2. 2.]]
@@ -104,8 +107,7 @@ ms client received:
     ./ms_client --target=localhost:5500
     ```
     显示如下返回值说明Serving服务已正确执行Add网络的推理。
-    ```
-    Compute [[1, 2], [3, 4]] + [[1, 2], [3, 4]]
+    ```Compute [[1, 2], [3, 4]] + [[1, 2], [3, 4]]
     Add result is 2 4 6 8
     client received: RPC OK
     ```
@@ -119,7 +121,7 @@ ms client received:
       explicit MSClient(std::shared_ptr<Channel> channel) :  stub_(MSService::NewStub(channel)) {}
      private:
       std::unique_ptr<MSService::Stub> stub_;
-    };MSClient client(grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
+    };
     
     MSClient client(grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
     
@@ -151,36 +153,37 @@ ms client received:
     *request.add_data() = data;
     ```
 3. 调用gRPC接口和已经启动的Serving服务通信，并取回返回值。
-    ```
-    Status status = stub_->Predict(&context, request, &reply);
-    ```
+    ```Status status = stub_->Predict(&context, request, &reply);```
 
 完整代码参考[ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc)。 
 
 ### REST API客户端示例
 1. `data`形式发送数据：
 
-    data字段：由网络模型每个输入/输出数据展平后组合而成。
+    data字段：将网络模型每个输入数据展平成一维数据，假设网络模型有n个输入，最后data数据结构为1*n的二维list。
     
-    如本例中，将模型输入数据`[[1, 2], [3, 4]]`和`[[1, 2], [3, 4]]`展平组合成data形式的数据`[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`
+    如本例中，将模型输入数据`[[1.0, 2.0], [3.0, 4.0]]`和`[[1.0, 2.0], [3.0, 4.0]]`展平后组合成data形式的数据`[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`
+    
     ```
     curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]}' http://127.0.0.1:5501
     ```
-    显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+   
+    显示如下返回值，说明Serving服务已正确执行Add网络的推理，输出数据结构同输入类似：
     ```
     {"data":[[2.0,4.0,6.0,8.0]]}
     ```
 
 2. `tensor`形式发送数据：
 
-    tensor字段：由网络模型每个输入/输出组合而成。
+    tensor字段：由网络模型每个输入组合而成，保持输入的原始shape。
     
-    如本例中，将模型输入数据`[[1, 2], [3, 4]]`和`[[1, 2], [3, 4]]`组合成tensor形式的数据`[[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]`
+    如本例中，将模型输入数据`[[1.0, 2.0], [3.0, 4.0]]`和`[[1.0, 2.0], [3.0, 4.0]]`组合成tensor形式的数据`[[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]`
     ```
     curl -X POST -d '{"tensor": [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]]}' http://127.0.0.1:5501
     ```
-    显示如下返回值，说明Serving服务已正确执行Add网络的推理：
+    显示如下返回值，说明Serving服务已正确执行Add网络的推理，输出数据结构同输入类似：
     ```
     {"tensor":[[2.0,4.0], [6.0,8.0]]}
     ```
+ > REST API当前只支持int32和fp32数据输入。
 
