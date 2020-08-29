@@ -145,4 +145,4 @@ Ascend 310 AI处理器上搭载了ACL框架，他支持OM格式，而OM格式需
 
 ## 端侧推理
 
-端侧推理需使用MindSpore Lite推理引擎，详细操作请参考[导出MINDIR格式文件](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)和[端侧推理教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/on_device_inference.html)。
+端侧推理需使用MindSpore Lite推理引擎，详细操作请参考[导出MINDIR格式文件](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)和[端侧推理教程](https://www.mindspore.cn/lite)。
