@@ -46,10 +46,10 @@ The following describes the parameters in detail.
 
 ## Example
 
-Take the `tcpclassify.ms` model as an example and set the number of model inference cycles to 10. The command for using TimeProfiler to analyze the time consumption at the network layer is as follows:
+Take the `test_timeprofiler.ms` model as an example and set the number of model inference cycles to 10. The command for using TimeProfiler to analyze the time consumption at the network layer is as follows:
 
 ```bash
-./timeprofiler --modelPath=./models/tcpclassify.ms --loopCount=10
+./timeprofiler --modelPath=./models/test_timeprofiler.ms --loopCount=10
 ```
 
 After this command is executed, the TimeProfiler tool outputs the statistics on the running time of the model at the network layer. In this example, the command output is as follows: The statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.

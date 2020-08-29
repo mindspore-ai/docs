@@ -68,13 +68,13 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `calibDataPath`. For example:
 
 ```bash
-./benchmark --modelPath=./models/face_age.ms
+./benchmark --modelPath=./models/test_benchmark.ms
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
 
 ```
-Model = face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
+Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
 ### Accuracy Test
@@ -82,7 +82,7 @@ Model = face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.
 The accuracy test performed by the Benchmark tool is to verify the accuracy of the MinSpore model output by setting benchmark data. In an accuracy test, in addition to the `modelPath` parameter, the `calibDataPath` parameter must be set. For example:
 
 ```bash
-./benchmark --modelPath=./models/face_age.ms --inDataPath=./input/face_age.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/face_age.out
+./benchmark --modelPath=./models/test_benchmark.ms --inDataPath=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark.out
 ```
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
