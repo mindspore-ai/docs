@@ -29,7 +29,9 @@
 - 算子实现：通过TBE（Tensor Boost Engine）提供的特性语言接口，描述算子内部计算逻辑的实现。TBE提供了开发昇腾AI芯片自定义算子的能力。你可以在<https://www.huaweicloud.com/ascend/tbe>页面申请公测。
 - 算子信息：描述TBE算子的基本信息，如算子名称、支持的输入输出类型等。它是后端做算子选择和映射时的依据。
 
-本文将以自定义Square算子为例，介绍自定义算子的步骤。更多详细内容可参考MindSpore源码中[tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe)下的用例。
+本文将以自定义Square算子为例，介绍自定义算子的步骤。
+
+> 更多详细内容可参考MindSpore源码中[tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe)下的用例。
 
 ## 注册算子原语
 
@@ -79,11 +81,11 @@ class CusSquare(PrimitiveWithInfer):
 4. 调用`cce_build_code`编译生成算子二进制。
 > 入口函数的输入参数有特殊要求，需要依次为：算子每个输入的信息、算子每个输出的信息、算子属性（可选）和`kernel_name`（生成算子二进制的名称）。输入和输出的信息用字典封装传入，其中包含该算子在网络中被调用时传入的实际输入和输出的shape和dtype。
 
-更多关于使用TBE开发算子的内容请参考[TBE文档](https://www.huaweicloud.com/ascend/dev/operator)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://www.huaweicloud.com/ascend/mindstudio)。
+更多关于使用TBE开发算子的内容请参考[TBE文档](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0063.html)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html)。
 
 ### 注册算子信息
 
-算子信息是指导后端选择算子实现的关键信息，同时也指导后端为算子插入合适的类型和格式转换。它通过`TBERegOp`接口定义，通过`op_info_register`装饰器将算子信息与算子实现入口函数绑定。当算子实现py文件被导入时，`op_info_register`装饰器会将算子信息注册到后端的算子信息库中。更多关于算子信息的使用方法请参考`TBERegOp`的成员方法的注释说明。
+算子信息是指导后端选择算子实现的关键信息，同时也指导后端为算子插入合适的类型和格式转换。它通过`TBERegOp`接口定义，通过`op_info_register`装饰器将算子信息与算子实现入口函数绑定。当算子实现py文件被导入时，`op_info_register`装饰器会将算子信息注册到后端的算子信息库中。更多关于算子信息的使用方法请参考`TBERegOp`的成员方法的注释说明，算子信息的字段含义可以参考[TBE文档](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html)。
 
 > - 算子信息中定义输入输出信息的个数和顺序、算子实现入口函数的参数中的输入输出信息的个数和顺序、算子原语中输入输出名称列表的个数和顺序，三者要完全一致。
 > - 算子如果带属性，在算子信息中需要用`attr`描述属性信息，属性的名称与算子原语定义中的属性名称要一致。
