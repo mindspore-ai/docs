@@ -22,9 +22,9 @@ The Benchmark tool is used to perform benchmark testing on a MindSpore Lite mode
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install compilation dependencies and perform compilation. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
+- Compilation: Install compilation dependencies and perform compilation. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description] (https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
 
 ## Parameter Description
 
@@ -48,7 +48,7 @@ The following describes the parameters in detail.
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
 | `--calibDataPath=<CALIBDATAPATH>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | −1: medium core<br/>1: large core<br/>0: not bound |
-| `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU, NPU, or GPU |
+| `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
 | `--inDataPath=<INDATAPATH>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -        |
 | `--inDataType=<INDATATYPE>` | Optional | Specifies the file type of the input data of the tested model.  | String | Bin | Img: The input data is an image. Bin: The input data is a binary file.|
@@ -68,13 +68,13 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `calibDataPath`. For example:
 
 ```bash
-./benchmark --modelPath=./models/face_age.ms
+./benchmark --modelPath=./models/test_benchmark.ms
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
 
 ```
-Model = face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
+Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
 ### Accuracy Test
@@ -82,10 +82,10 @@ Model = face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.
 The accuracy test performed by the Benchmark tool is to verify the accuracy of the MinSpore model output by setting benchmark data. In an accuracy test, in addition to the `modelPath` parameter, the `calibDataPath` parameter must be set. For example:
 
 ```bash
-./benchmark --modelPath=./models/face_age.ms --inDataPath=./input/face_age.bin --device=NPU --accuracyThreshold=3 --calibDataPath=./output/face_age.out
+./benchmark --modelPath=./models/test_benchmark.ms --inDataPath=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark.out
 ```
 
-This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the NPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
+This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
 
 ```
 InData0: 139.947 182.373 153.705 138.945 108.032 164.703 111.585 227.402 245.734 97.7776 201.89 134.868 144.851 236.027 18.1142 22.218 5.15569 212.318 198.43 221.853
