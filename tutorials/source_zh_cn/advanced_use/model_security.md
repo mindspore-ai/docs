@@ -42,8 +42,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 ### 引入相关包
 
 ```python
-import sys
-import time
+import os
 import numpy as np
 from scipy.special import softmax
 
@@ -53,11 +52,12 @@ import mindspore.dataset.transforms.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.transforms.vision import Inter
 import mindspore.nn as nn
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
 from mindspore import Model
 from mindspore import Tensor
 from mindspore import context
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore.train.callback import LossMonitor
 
 from mindarmour.attacks.gradient_method import FastGradientSignMethod
 from mindarmour.utils.logger import LogUtil
@@ -66,7 +66,7 @@ from mindarmour.evaluations.attack_evaluation import AttackEvaluate
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 LOGGER = LogUtil.get_instance()
-LOGGER.set_level(1)
+LOGGER.set_level("INFO")
 TAG = 'demo'
 ```
 
@@ -75,7 +75,7 @@ TAG = 'demo'
 利用MindSpore的dataset提供的`MnistDataset`接口加载MNIST数据集。
 
 ```python
-# generate training data
+# generate dataset for train of test
 def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                            num_parallel_workers=1, sparse=True):
     """
@@ -175,45 +175,52 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
             return x
     ```
 
-2. 加载预训练的LeNet模型，您也可以训练并保存自己的MNIST模型，参考快速入门。利用上面定义的数据加载函数`generate_mnist_dataset`载入数据。
+2. 训练LeNet模型。利用上面定义的数据加载函数`generate_mnist_dataset`载入数据。
 
     ```python
-    ckpt_name = './trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
-    net = LeNet5()
-    load_dict = load_checkpoint(ckpt_name)
-    load_param_into_net(net, load_dict)
-    
-    # get test data
-    data_list = "./MNIST_unzip/test"
+    mnist_path = "./MNIST_unzip/"
     batch_size = 32
-    dataset = generate_mnist_dataset(data_list, batch_size, sparse=False)
+    # train original model
+    ds_train = generate_mnist_dataset(os.path.join(mnist_path, "train"),
+                                      batch_size=batch_size, repeat_size=1,
+                                      sparse=False)
+    net = LeNet5()
+    loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
+    opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
+    model = Model(net, loss, opt, metrics=None)
+    model.train(10, ds_train, callbacks=[LossMonitor()],
+                dataset_sink_mode=False)
+    
+    # 2. get test data
+    ds_test = generate_mnist_dataset(os.path.join(mnist_path, "test"),
+                                     batch_size=batch_size, repeat_size=1,
+                                     sparse=False)
+    inputs = []
+    labels = []
+    for data in ds_test.create_tuple_iterator():
+        inputs.append(data[0].astype(np.float32))
+        labels.append(data[1])
+    test_inputs = np.concatenate(inputs)
+    test_labels = np.concatenate(labels)
     ```
     
 3. 测试模型。
 
     ```python
     # prediction accuracy before attack
-    model = Model(net)
-    batch_num = 3  # the number of batches of attacking samples
-    test_images = []
-    test_labels = []
-    predict_labels = []
-    i = 0
-    for data in dataset.create_tuple_iterator():
-        i += 1
-        images = data[0].astype(np.float32)
-        labels = data[1]
-        test_images.append(images)
-        test_labels.append(labels)
-        pred_labels = np.argmax(model.predict(Tensor(images)).asnumpy(),
-                                axis=1)
-        predict_labels.append(pred_labels)
-        if i >= batch_num:
-            break
-    predict_labels = np.concatenate(predict_labels)
-    true_labels = np.argmax(np.concatenate(test_labels), axis=1)
-    accuracy = np.mean(np.equal(predict_labels, true_labels))
-    LOGGER.info(TAG, "prediction accuracy before attacking is : %s", accuracy)
+    net.set_train(False)
+    test_logits = []
+    batches = test_inputs.shape[0] // batch_size
+    for i in range(batches):
+        batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
+        batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
+        logits = net(Tensor(batch_inputs)).asnumpy()
+        test_logits.append(logits)
+    test_logits = np.concatenate(test_logits)
+    
+    tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
+    accuracy = np.mean(tmp)
+    LOGGER.info(TAG, 'prediction accuracy before attacking is : %s', accuracy)
     ```
     
     测试结果中分类精度达到了98%。
@@ -228,22 +235,27 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 
 ```python
 # attacking
-attack = FastGradientSignMethod(net, eps=0.3)
-start_time = time.clock()
-adv_data = attack.batch_generate(np.concatenate(test_images),
-                                 np.concatenate(test_labels), batch_size=32)
-stop_time = time.clock()
-np.save('./adv_data', adv_data)
-pred_logits_adv = model.predict(Tensor(adv_data)).asnumpy()
-# rescale predict confidences into (0, 1).
-pred_logits_adv = softmax(pred_logits_adv, axis=1)
-pred_labels_adv = np.argmax(pred_logits_adv, axis=1)
-accuracy_adv = np.mean(np.equal(pred_labels_adv, true_labels))
-LOGGER.info(TAG, "prediction accuracy after attacking is : %s", accuracy_adv)
-attack_evaluate = AttackEvaluate(np.concatenate(test_images).transpose(0, 2, 3, 1),
-                                 np.concatenate(test_labels),
+# get adv data
+attack = FastGradientSignMethod(net, eps=0.3, loss_fn=loss)
+adv_data = attack.batch_generate(test_inputs, test_labels)
+
+# get accuracy of adv data on original model
+adv_logits = []
+for i in range(batches):
+    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
+    logits = net(Tensor(batch_inputs)).asnumpy()
+    adv_logits.append(logits)
+
+adv_logits = np.concatenate(adv_logits)
+adv_proba = softmax(adv_logits, axis=1)
+tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
+accuracy_adv = np.mean(tmp)
+LOGGER.info(TAG, 'prediction accuracy after attacking is : %s', accuracy_adv)
+
+attack_evaluate = AttackEvaluate(test_inputs.transpose(0, 2, 3, 1),
+                                 test_labels,
                                  adv_data.transpose(0, 2, 3, 1),
-                                 pred_logits_adv)
+                                 adv_proba)
 LOGGER.info(TAG, 'mis-classification rate of adversaries is : %s',
             attack_evaluate.mis_classification_rate())
 LOGGER.info(TAG, 'The average confidence of adversarial class is : %s',
@@ -256,8 +268,6 @@ LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
 LOGGER.info(TAG, 'The average structural similarity between original '
             'samples and adversarial samples are: %s',
             attack_evaluate.avg_ssim())
-LOGGER.info(TAG, 'The average costing time is %s',
-            (stop_time - start_time)/(batch_num*batch_size))
 ```
 
 攻击结果如下：
@@ -269,7 +279,6 @@ The average confidence of adversarial class is : 0.803375
 The average confidence of true class is : 0.042139
 The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.698870, 0.465888, 0.300000)
 The average structural similarity between original samples and adversarial samples are: 0.332538
-The average costing time is 0.003125
 ```
 
 对模型进行FGSM无目标攻击后，模型精度由98.9%降到5.2%，误分类率高达95%，成功攻击的对抗样本的预测类别的平均置信度（ACAC）为 0.803375，成功攻击的对抗样本的真实类别的平均置信度（ACTC）为 0.042139，同时给出了生成的对抗样本与原始样本的零范数距离、二范数距离和无穷范数距离，平均每个对抗样本与原始样本间的结构相似性为0.332538，平均每生成一张对抗样本所需时间为0.003125s。
@@ -287,59 +296,55 @@ NaturalAdversarialDefense（NAD）是一种简单有效的对抗样本防御方�
 调用MindArmour提供的NAD防御接口（NaturalAdversarialDefense）。
 
 ```python
-from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindarmour.defenses import NaturalAdversarialDefense
 
 
-loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
-opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
-
+# defense
+net.set_train()
 nad = NaturalAdversarialDefense(net, loss_fn=loss, optimizer=opt,
                                 bounds=(0.0, 1.0), eps=0.3)
-net.set_train()
-nad.batch_defense(np.concatenate(test_images), np.concatenate(test_labels),
-                  batch_size=32, epochs=20)
+nad.batch_defense(test_inputs, test_labels, batch_size=32, epochs=10)
 
 # get accuracy of test data on defensed model
 net.set_train(False)
-acc_list = []
-pred_logits_adv = []
-for i in range(batch_num):
-    batch_inputs = test_images[i]
-    batch_labels = test_labels[i]
+test_logits = []
+for i in range(batches):
+    batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
+    batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
     logits = net(Tensor(batch_inputs)).asnumpy()
-    pred_logits_adv.append(logits)
-    label_pred = np.argmax(logits, axis=1)
-    acc_list.append(np.mean(np.argmax(batch_labels, axis=1) == label_pred))
-pred_logits_adv = np.concatenate(pred_logits_adv)
-pred_logits_adv = softmax(pred_logits_adv, axis=1)
+    test_logits.append(logits)
 
-LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s',
-             np.mean(acc_list))
-acc_list = []
-for i in range(batch_num):
-    batch_inputs = adv_data[i * batch_size: (i + 1) * batch_size]
-    batch_labels = test_labels[i]
+test_logits = np.concatenate(test_logits)
+
+tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
+accuracy = np.mean(tmp)
+LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s', accuracy)
+
+# get accuracy of adv data on defensed model
+adv_logits = []
+for i in range(batches):
+    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
     logits = net(Tensor(batch_inputs)).asnumpy()
-    label_pred = np.argmax(logits, axis=1)
-    acc_list.append(np.mean(np.argmax(batch_labels, axis=1) == label_pred))
+    adv_logits.append(logits)
 
-attack_evaluate = AttackEvaluate(np.concatenate(test_images),
-                                 np.concatenate(test_labels),
-                                 adv_data,
-                                 pred_logits_adv)
+adv_logits = np.concatenate(adv_logits)
+adv_proba = softmax(adv_logits, axis=1)
+tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
+accuracy_adv = np.mean(tmp)
+
+attack_evaluate = AttackEvaluate(test_inputs.transpose(0, 2, 3, 1),
+                                 test_labels,
+                                 adv_data.transpose(0, 2, 3, 1),
+                                 adv_proba)
 
 LOGGER.info(TAG, 'accuracy of adv data on defensed model is : %s',
-            np.mean(acc_list))
+            np.mean(accuracy_adv))
 LOGGER.info(TAG, 'defense mis-classification rate of adversaries is : %s',
             attack_evaluate.mis_classification_rate())
 LOGGER.info(TAG, 'The average confidence of adversarial class is : %s',
             attack_evaluate.avg_conf_adv_class())
 LOGGER.info(TAG, 'The average confidence of true class is : %s',
             attack_evaluate.avg_conf_true_class())
-LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
-            'samples and adversarial samples are: %s',
-            attack_evaluate.avg_lp_distance())
 ```
 
 ### 防御效果
@@ -350,8 +355,7 @@ accuracy of adv data on defensed model is : 0.856370
 defense mis-classification rate of adversaries is : 0.143629
 The average confidence of adversarial class is : 0.616670
 The average confidence of true class is : 0.177374
-The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.493417, 0.432914, 0.300000)
 ```
 
-使用NAD进行对抗样本防御后，模型对于对抗样本的误分类率从95%降至14%，模型有效地防御了对抗样本。同时，模型对于原来测试数据集的分类精度达97%，使用NAD防御功能，并未降低模型的分类精度。
+使用NAD进行对抗样本防御后，模型对于对抗样本的误分类率从95%降至14%，模型有效地防御了对抗样本。同时，模型对于原来测试数据集的分类精度达97%。
 
