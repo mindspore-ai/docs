@@ -28,7 +28,7 @@
 |  |  |  |  | Ascend: 16 * Ascend 910 </br> CPU：384 Cores | Mixed | 256 | 32768 images/sec | 0.96 |
 
 1. 以上数据基于华为云AI开发平台ModelArts测试获得，是训练过程整体下沉至Ascend 910 AI处理器执行所得的平均性能。
-2. 业界其他开源框架数据可参考：[ResNet-50 v1.5 for TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/r0.7/TensorFlow/Classification/ConvNets/resnet50v1.5)。
+2. 业界其他开源框架数据可参考：[ResNet-50 v1.5 for TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Classification/ConvNets/resnet50v1.5)。
 
 ### BERT
 
@@ -38,7 +38,7 @@
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 96 | 2069 sentences/sec | 0.96 |
 
 1. 以上数据基于华为云AI开发平台ModelArts测试获得，其中网络包含24个隐藏层，句长为128个token，字典表包含21128个token。  
-2. 业界其他开源框架数据可参考：[BERT For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/r0.7/TensorFlow/LanguageModeling/BERT)。
+2. 业界其他开源框架数据可参考：[BERT For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/LanguageModeling/BERT)。
 
 ### Wide & Deep (数据并行)
 
@@ -48,7 +48,7 @@
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 16000*8 | 4872849 samples/sec | 0.76 |
 
 1. 以上数据基于Atlas 800测试获得，且网络模型为数据并行。
-2. 业界其他开源框架数据可参考：[Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/r0.7/TensorFlow/Recommendation/WideAndDeep)。
+2. 业界其他开源框架数据可参考：[Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep)。
 
 ### Wide & Deep (Host-Device混合计算模型并行)
 
@@ -60,4 +60,4 @@
 |  |  |  |  | Ascend: 32 * Ascend 910 </br> CPU：768 Cores | Mixed | 8000*32 | 433423 samples/sec | 0.20 |
 
 1. 以上数据基于Atlas 800测试获得，且网络模型为模型并行。
-2. 业界其他开源框架数据可参考：[Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/r0.7/TensorFlow/Recommendation/WideAndDeep)。
+2. 业界其他开源框架数据可参考：[Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep)。
