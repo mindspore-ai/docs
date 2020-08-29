@@ -77,7 +77,7 @@ Users can access the Performance Profiler by selecting a specific training from 
 Figure 1：Overall Performance
 
 Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline. Operator Performance Analysis is supportted only:  
-- Operator Performance: It will collect the execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
+- Operator Performance: It will collect the average execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
 
 Users can click the detail link to see the details of each components.
 
