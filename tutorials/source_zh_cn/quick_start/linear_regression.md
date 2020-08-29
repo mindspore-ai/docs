@@ -52,6 +52,7 @@ MindSpore版本：GPU
 
 设置MindSpore运行配置
 
+第三方支持包：`matplotlib`，未安装此包的，可使用命令`pip install matplotlib`预先安装。
 
 ```python
 from mindspore import context
@@ -268,7 +269,7 @@ $$w_{ud}=w_{s}-\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{10}$$
 
 $$w_{ud}=w_{s}-\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{11}$$
 
-当权重$w$在更新的过程中假如临近$w_{min}$在增加或者减少一个$\Delta{w}$，从左边或者右边越过了$w_{min}$，公式10都会使权重往反的方向移动，那么最终$w_{s}$的值会在$w_{min}$附近来回迭代，在实际训练中我们也是这样采用迭代的方式取得最优权重$w$，使得损失函数无限逼近局部最小值。
+当权重$w$在更新的过程中假如临近$w_{min}$在增加或者减少一个$\Delta{w}$，从左边或者右边越过了$w_{min}$，公式11都会使权重往反的方向移动，那么最终$w_{s}$的值会在$w_{min}$附近来回迭代，在实际训练中我们也是这样采用迭代的方式取得最优权重$w$，使得损失函数无限逼近局部最小值。
 
 同理：对于公式5中的另一个权重$b$容易得出其更新公式为：
 
@@ -306,7 +307,7 @@ class GradWrap(nn.Cell):
 
 ### 反向传播更新权重
 
-`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式10，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/r0.7/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
+`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式11，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/r0.7/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
 
 
 ```python
@@ -400,4 +401,4 @@ print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input
 
 ## 总结
 
-本次体验我们了解了线性拟合的算法原理，并在MindSpore框架下实现了相应的算法定义，了解了线性拟合这类的线性回归模型在MindSpore中的训练过程，并最终拟合出了一条接近目标函数的模型函数。另外有兴趣的可以调整数据集的生成区间从（-10,10）扩展到（-100,100），看看权重值是否更接近目标函数；调整学习率大小，看看拟合的效率是否有变化；当然也可以探索如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数或者更高阶的函数。
+本次体验我们了解了线性拟合的算法原理，并在MindSpore框架下实现了相应的算法定义，了解了线性拟合这类的线性回归模型在MindSpore中的训练过程，并最终拟合出了一条接近目标函数的模型函数。另外有兴趣的可以调整数据集的生成区间从（-10,10）扩展到（-100,100），看看权重值是否更接近目标函数；调整学习率大小，看看拟合的效率是否有变化；当然也可以探索如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数或者更高次的函数。
