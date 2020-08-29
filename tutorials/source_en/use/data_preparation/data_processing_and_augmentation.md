@@ -248,7 +248,7 @@ def zip(self, datasets):
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
    
-2. Use `zip()` to combine the `data1` column of the dataset `ds1`and the `data2` column of the dataset `ds2` into the dataset `ds3`.
+2. Use `zip()` to combine the `data` column of the dataset `ds1`and the `data2` column of the dataset `ds2` into the dataset `ds3`.
     ```python
     ds3 = ds.zip((ds1, ds2))
     for data in ds3.create_dict_iterator():
@@ -256,11 +256,11 @@ def zip(self, datasets):
     ```
     The output is as follows:
     ```
-    {'data1': array([0, 1, 2], dtype=int64), 'data2': array([-3, -2, -1], dtype=int64)}
-    {'data1': array([1, 2, 3], dtype=int64), 'data2': array([-2, -1,  0], dtype=int64)}
-    {'data1': array([2, 3, 4], dtype=int64), 'data2': array([-1,  0,  1], dtype=int64)}
-    {'data1': array([3, 4, 5], dtype=int64), 'data2': array([0, 1, 2], dtype=int64)}
-    {'data1': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
+    {'data': array([0, 1, 2], dtype=int64), 'data2': array([-3, -2, -1], dtype=int64)}
+    {'data': array([1, 2, 3], dtype=int64), 'data2': array([-2, -1,  0], dtype=int64)}
+    {'data': array([2, 3, 4], dtype=int64), 'data2': array([-1,  0,  1], dtype=int64)}
+    {'data': array([3, 4, 5], dtype=int64), 'data2': array([0, 1, 2], dtype=int64)}
+    {'data': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
     ```
 ## Data Augmentation
 During image training, especially when the dataset size is relatively small, you can preprocess images by using a series of data augmentation operations, thereby enriching the datasets.  
