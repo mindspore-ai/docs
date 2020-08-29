@@ -20,7 +20,7 @@ The TimeProfiler tool can be used to analyze the time consumption of forward inf
 
 To use the TimeProfiler tool, you need to prepare the environment as follows:
 
-- Compilation: Install compilation dependencies and perform compilation. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profiler` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
+- Compilation: Install compilation dependencies and perform compilation. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profiler` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
 
 - Run: Obtain the `time_profiler` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
 
@@ -46,10 +46,10 @@ The following describes the parameters in detail.
 
 ## Example
 
-Take the `tcpclassify.ms` model as an example and set the number of model inference cycles to 10. The command for using TimeProfiler to analyze the time consumption at the network layer is as follows:
+Take the `test_timeprofiler.ms` model as an example and set the number of model inference cycles to 10. The command for using TimeProfiler to analyze the time consumption at the network layer is as follows:
 
 ```bash
-./timeprofiler --modelPath=./models/tcpclassify.ms --loopCount=10
+./timeprofiler --modelPath=./models/test_timeprofiler.ms --loopCount=10
 ```
 
 After this command is executed, the TimeProfiler tool outputs the statistics on the running time of the model at the network layer. In this example, the command output is as follows: The statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
