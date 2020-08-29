@@ -28,7 +28,7 @@
 | Computer Vision (CV)  | Mobile Image Classification<br>Image Classification<br>Semantic Tegmentation  | [MobileNetV3](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/mobilenetv3/src/mobilenetV3.py)                   |  Doing |  Supported | Doing
 |Computer Vision (CV)  | Targets Detection  | [SSD](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/ssd/src/ssd.py)                   |  Supported |Doing | Doing
 | Computer Vision (CV)  | Targets Detection  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)         |  Supported |  Doing | Doing
-| Computer Vision (CV)  | Targets Detection  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)         |  Supported |  Doing | Doing
+| Computer Vision (CV)  | Targets Detection  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)         |  Supported |  Doing | Doing
 | Computer Vision (CV)  | Targets Detection  | [FasterRCNN](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/faster_rcnn/src/FasterRcnn/faster_rcnn_r50.py)         |  Supported |  Doing | Doing
 | Computer Vision (CV) | Semantic Segmentation  | [DeeplabV3](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/deeplabv3/src/deeplabv3.py)                                           |  Supported |  Doing | Doing
 | Computer Vision（CV） | Targets Detection  | [WarpCTC](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/warpctc/src/warpctc.py)                    |  Doing |  Supported | Doing
