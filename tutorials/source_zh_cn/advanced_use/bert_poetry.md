@@ -123,7 +123,7 @@ pip install bert4keras
 pip install bottle
 ```
 
-数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/r0.7/keras-bert-poetry-generator)其中的`poetry.txt`。
+数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
 BERT-Base模型的预训练ckpt：可在[MindSpore官网](https://www.mindspore.cn/docs/zh-CN/r0.7/network_list.html)下载。
 
