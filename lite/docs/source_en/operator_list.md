@@ -18,14 +18,14 @@
 | Broadcast             |          | √        |          |           |          |          | BroadcastTo |               | Expand             |
 | Cast                  | √        | √        |          | √         |          |          | Cast, DEQUANTIZE*  |        | Cast               |
 | Ceil                  |          | √        | √        | √         |          |          | Ceil        |               | Ceil               |
-| Concat                | √        | √        | √        | √         |          | √        | Concat      | Concat        | Concat             |
-| Conv2d                | √        | √        | √        | √         |          | √        | Conv2D      | Convolution   | Conv               |
-| Conv2dTranspose       | √        | √        | √        | √         |          | √        | DeConv2D    | Deconvolution | ConvTranspose      |
+| Concat                | √        | √        | √        | √         | √        | √        | Concat      | Concat        | Concat             |
+| Conv2d                | √        | √        | √        | √         | √        | √        | Conv2D      | Convolution   | Conv               |
+| Conv2dTranspose       | √        | √        | √        | √         | √        | √        | DeConv2D    | Deconvolution | ConvTranspose      |
 | Cos                   |          | √        | √        | √         |          |          | Cos         |               | Cos                |
 | Crop                  |          | √        | √        | √         |          |          |             |  Crop         |                    |
 | DeDepthwiseConv2D     |          | √        | √        | √         |          |          |             |  Deconvolution| ConvTranspose      |
 | DepthToSpace          |          | √        | √        | √         |          |          | DepthToSpace|               | DepthToSpace       |
-| DepthwiseConv2dNative | √        | √        | √        | √         |          | √        | DepthwiseConv2D | Convolution   | Convolution    |
+| DepthwiseConv2dNative | √        | √        | √        | √         | √        | √        | DepthwiseConv2D | Convolution   | Convolution    |
 | Div                   | √        | √        | √        | √         |          | √        | Div, RealDiv         |               | Div                |
 | Eltwise               | √        | √        |          |           |          |          |             |  Eltwise      |                    |
 | Elu                   |          | √        |          |           |          |          |  Elu        |               | Elu                |
@@ -52,7 +52,7 @@
 | LogicalNot            |          | √        | √        | √         |          |          | LogicalNot  |               |                    |
 | LogicalOr             | √        | √        |          |           |          |          | LogicalOr   |               |                    |
 | LSTM                  |          | √        |          |           |          |          |             |               |                    |
-| MatMul                |          | √        | √        | √         |          | √        |             |               | MatMul             |
+| MatMul                |          | √        | √        | √         | √        | √        |             |               | MatMul             |
 | Maximum               | √        | √        |          |           |          |          | Maximum     |               | Max                |
 | MaxPool               | √        | √        | √        | √         |          | √        | MaxPooling  | Pooling       | MaxPool            |
 | Minimum               | √        | √        |          |           |          |          | Minimum     |               | Min                |
@@ -83,7 +83,7 @@
 | Shape                 |          | √        |          |          |          |          | Shape       |               | Shape              |
 | Sigmoid               | √        | √        | √        | √         |          | √        | Logistic    | Sigmoid       | Sigmoid            |
 | Sin                   |          | √        | √        | √         |          |          | Sin         |               | Sin                |
-| Slice                 |          | √        | √        | √         |          | √        | Slice       |               | Slice              |
+| Slice                 |          | √        | √        | √         | √        | √        | Slice       |               | Slice              |
 | Softmax               | √        | √        | √        | √         |          | √        | Softmax     | Softmax       | Softmax            |
 | SpaceToBatch          |          | √        |          |           |          |          |             |               |                    |
 | SpaceToBatchND        |          | √        |          |           |          |          | SpaceToBatchND |            |                    |
