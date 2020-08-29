@@ -29,7 +29,9 @@ The related concepts are as follows:
 - Operator implementation: describes the implementation of the internal computation logic for an operator through the DSL API provided by the Tensor Boost Engine (TBE). The TBE supports the development of custom operators based on the Ascend AI chip. You can apply for Open Beta Tests (OBTs) by visiting <https://www.huaweicloud.com/ascend/tbe>.
 - Operator information: describes basic information about a TBE operator, such as the operator name and supported input and output types. It is the basis for the backend to select and map operators.
 
-This section takes a Square operator as an example to describe how to customize an operator. For details, see cases in [tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe) in the MindSpore source code.
+This section takes a Square operator as an example to describe how to customize an operator.
+
+> For details, see cases in [tests/st/ops/custom_ops_tbe](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe) in the MindSpore source code.
 
 ## Registering the Operator Primitive
 
@@ -79,7 +81,7 @@ The entry function of an operator describes the internal process of compiling th
 4. Call `cce_build_code` to compile and generate an operator binary file.
 > The input parameters of the entry function require the input information of each operator, output information of each operator, operator attributes (optional), and `kernel_name` (name of the generated operator binary file). The input and output information is encapsulated in dictionaries, including the input and output shape and dtype when the operator is called on the network.
 
-For details about TBE operator development, visit the [TBE website](https://www.huaweicloud.com/ascend/dev/operator). For details about how to debug and optimize the TBE operator, visit the [Mind Studio website](https://www.huaweicloud.com/intl/en-us/ascend/mindstudio).
+For details about TBE operator development, visit the [TBE website]((https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0063.html)). For details about how to debug and optimize the TBE operator, visit the [Mind Studio website](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html).
 
 ### Registering the Operator Information
 
@@ -91,7 +93,7 @@ The operator information is key for the backend to select the operator implement
 
 ### Example
 
-The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info ` is the operator information, which is defined by `TBERegOp`.
+The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info ` is the operator information, which is defined by `TBERegOp`. The specific field meaning of the operator information visit the [TBE website](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html).
 
 Note the following parameters when setting `TBERegOp`:
 
