@@ -82,47 +82,71 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 
 定义融合网络，在定义网络后，替换指定的算子。
 
-1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的3个算子`nn.Conv2d`、`nn.batchnorm`和`nn.relu`。
-2. 使用`nn.DenseBnAct`算子替换原网络模型中的3个算子`nn.Dense`、`nn.batchnorm`和`nn.relu`。
+1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的2个算子`nn.Conv2d`、和`nn.Relu`。
+2. 使用`nn.DenseBnAct`算子替换原网络模型中的2个算子`nn.Dense`、和`nn.Relu`。
 
-> 即使`nn.Dense`和`nn.Conv2d`算子后面没有`nn.batchnorm`和`nn.relu`，都要按规定使用上述两个算子进行融合替换。
+> 无论`nn.Dense`和`nn.Conv2d`算子后面有没有`nn.BatchNorm`和`nn.Relu`，都要按规定使用上述两个算子进行融合替换。
 
-原网络模型的定义如下所示：
+原网络模型LeNet5的定义如下所示：
 
 ```python
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+    """weight initial for conv layer"""
+    weight = weight_variable()
+    return nn.Conv2d(in_channels, out_channels,
+                     kernel_size=kernel_size, stride=stride, padding=padding,
+                     weight_init=weight, has_bias=False, pad_mode="valid")
+
+
+def fc_with_initialize(input_channels, out_channels):
+    """weight initial for fc layer"""
+    weight = weight_variable()
+    bias = weight_variable()
+    return nn.Dense(input_channels, out_channels, weight, bias)
+
+
+def weight_variable():
+    """weight initial"""
+    return TruncatedNormal(0.02)
+
+
 class LeNet5(nn.Cell):
-    def __init__(self, num_class=10):
+    """
+    Lenet network
+
+    Args:
+        num_class (int): Num classes. Default: 10.
+
+    Returns:
+        Tensor, output tensor
+    Examples:
+        >>> LeNet(num_class=10)
+
+    """
+    def __init__(self, num_class=10, channel=1):
         super(LeNet5, self).__init__()
         self.num_class = num_class
-        
-        self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-        self.bn1 = nn.batchnorm(6)
-        self.act1 = nn.relu()
-        
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        self.bn2 = nn.batchnorm(16)
-        self.act2 = nn.relu()
-        
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.act3 = nn.relu()
-        self.fc3 = nn.Dense(84, self.num_class)
+        self.conv1 = conv(channel, 6, 5)
+        self.conv2 = conv(6, 16, 5)
+        self.fc1 = fc_with_initialize(16 * 5 * 5, 120)
+        self.fc2 = fc_with_initialize(120, 84)
+        self.fc3 = fc_with_initialize(84, self.num_class)
+        self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
 
     def construct(self, x):
         x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.act1(x)
+        x = self.relu(x)
         x = self.max_pool2d(x)
         x = self.conv2(x)
-        x = self.bn2(x)
-        x = self.act2(x)
+        x = self.relu(x)
         x = self.max_pool2d(x)
-        x = self.flattern(x)
+        x = self.flatten(x)
         x = self.fc1(x)
-        x = self.act3(x)
+        x = self.relu(x)
         x = self.fc2(x)
-        x = self.act3(x)
+        x = self.relu(x)
         x = self.fc3(x)
         return x
 ```
