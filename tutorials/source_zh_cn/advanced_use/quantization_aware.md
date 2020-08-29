@@ -82,8 +82,8 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 
 定义融合网络，在定义网络后，替换指定的算子。
 
-1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的2个算子`nn.Conv2d`、和`nn.Relu`。
-2. 使用`nn.DenseBnAct`算子替换原网络模型中的2个算子`nn.Dense`、和`nn.Relu`。
+1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的2个算子`nn.Conv2d`和`nn.Relu`。
+2. 使用`nn.DenseBnAct`算子替换原网络模型中的2个算子`nn.Dense`和`nn.Relu`。
 
 > 无论`nn.Dense`和`nn.Conv2d`算子后面有没有`nn.BatchNorm`和`nn.Relu`，都要按规定使用上述两个算子进行融合替换。
 

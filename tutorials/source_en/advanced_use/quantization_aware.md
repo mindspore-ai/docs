@@ -82,47 +82,71 @@ Next, the LeNet network is used as an example to describe steps 3 and 6.
 
 Define a fusion network and replace the specified operators.
 
-1. Use the `nn.Conv2dBnAct` operator to replace the three operators `nn.Conv2d`, `nn.batchnorm`, and `nn.relu` in the original network model.
-2. Use the `nn.DenseBnAct` operator to replace the three operators `nn.Dense`, `nn.batchnorm`, and `nn.relu` in the original network model.
+1. Use the `nn.Conv2dBnAct` operator to replace the two operators `nn.Conv2d` and `nn.Relu` in the original network model.
+2. Use the `nn.DenseBnAct` operator to replace the two operators `nn.Dense` and `nn.Relu` in the original network model.
 
-> Even if the `nn.Dense` and `nn.Conv2d` operators are not followed by `nn.batchnorm` and `nn.relu`, the preceding two replacement operations must be performed as required.
+> Even if the `nn.Dense` and `nn.Conv2d` operators are not followed by `nn.Batchnorm` and `nn.Relu`, the preceding two replacement operations must be performed as required.
 
-The definition of the original network model is as follows:
+The definition of the original network model LeNet5 is as follows:
 
 ```python
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+    """weight initial for conv layer"""
+    weight = weight_variable()
+    return nn.Conv2d(in_channels, out_channels,
+                     kernel_size=kernel_size, stride=stride, padding=padding,
+                     weight_init=weight, has_bias=False, pad_mode="valid")
+
+
+def fc_with_initialize(input_channels, out_channels):
+    """weight initial for fc layer"""
+    weight = weight_variable()
+    bias = weight_variable()
+    return nn.Dense(input_channels, out_channels, weight, bias)
+
+
+def weight_variable():
+    """weight initial"""
+    return TruncatedNormal(0.02)
+
+
 class LeNet5(nn.Cell):
-    def __init__(self, num_class=10):
+    """
+    Lenet network
+
+    Args:
+        num_class (int): Num classes. Default: 10.
+
+    Returns:
+        Tensor, output tensor
+    Examples:
+        >>> LeNet(num_class=10)
+
+    """
+    def __init__(self, num_class=10, channel=1):
         super(LeNet5, self).__init__()
         self.num_class = num_class
-        
-        self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-        self.bn1 = nn.batchnorm(6)
-        self.act1 = nn.relu()
-        
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        self.bn2 = nn.batchnorm(16)
-        self.act2 = nn.relu()
-        
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.act3 = nn.relu()
-        self.fc3 = nn.Dense(84, self.num_class)
+        self.conv1 = conv(channel, 6, 5)
+        self.conv2 = conv(6, 16, 5)
+        self.fc1 = fc_with_initialize(16 * 5 * 5, 120)
+        self.fc2 = fc_with_initialize(120, 84)
+        self.fc3 = fc_with_initialize(84, self.num_class)
+        self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
 
     def construct(self, x):
         x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.act1(x)
+        x = self.relu(x)
         x = self.max_pool2d(x)
         x = self.conv2(x)
-        x = self.bn2(x)
-        x = self.act2(x)
+        x = self.relu(x)
         x = self.max_pool2d(x)
-        x = self.flattern(x)
+        x = self.flatten(x)
         x = self.fc1(x)
-        x = self.act3(x)
+        x = self.relu(x)
         x = self.fc2(x)
-        x = self.act3(x)
+        x = self.relu(x)
         x = self.fc3(x)
         return x
 ```
