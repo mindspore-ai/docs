@@ -29,9 +29,9 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/deploy.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/deploy.html#id5)，安装编译依赖基本项与模型转换工具所需附加项，并编译x86_64版本。
+- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/deploy.html#id5)，安装编译依赖基本项与模型转换工具所需附加项，并编译x86_64版本。
 
-- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/tutorial/zh-CN/master/deploy.html#id4)，获得`converter`工具，并配置环境变量。
+- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html#id4)，获得`converter`工具，并配置环境变量。
 
 ### 参数说明
 
@@ -59,7 +59,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 ### 使用示例
 
-首先，在源码根目录下，输入命令进行编译，可参考`deploy.md`。
+首先，在源码根目录下，输入命令进行编译，可参考`compile.md`。
 ```bash
 bash build.sh -I x86_64
 ```
@@ -121,9 +121,9 @@ bash build.sh -I x86_64
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id7)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id10)，安装编译依赖基本项与模型转换工具所需附加项，并编译Windows版本。
+- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id7)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id10)，安装编译依赖基本项与模型转换工具所需附加项，并编译Windows版本。
 
-- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id9)，获得`converter`工具，并将MinGW/bin目录下的几个依赖文件（libgcc_s_seh-1.dll、libwinpthread-1.dll、libssp-0.dll、libstdc++-6.dll）拷贝至`converter`工具的主目录。
+- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id9)，获得`converter`工具，并将MinGW/bin目录下的几个依赖文件（libgcc_s_seh-1.dll、libwinpthread-1.dll、libssp-0.dll、libstdc++-6.dll）拷贝至`converter`工具的主目录。
 
 ### 参数说明
 
@@ -132,7 +132,7 @@ bash build.sh -I x86_64
 
 ### 使用示例
 
-首先，使用cmd工具在源码根目录下，输入命令进行编译，可参考`deploy.md`。
+首先，使用cmd工具在源码根目录下，输入命令进行编译，可参考`compile.md`。
 ```bash
 call build.bat lite
 ```

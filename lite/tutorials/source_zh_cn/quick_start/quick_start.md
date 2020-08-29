@@ -136,7 +136,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html)生成`libmindspore-lite.so`库文件，或直接下载MindSpore Lite提供的已编译完成的AMR64、ARM32、x86等[软件包](#TODO)。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html)生成`libmindspore-lite.so`库文件，或直接下载MindSpore Lite提供的已编译完成的AMR64、ARM32、x86等[软件包](#TODO)。
 
 在Android Studio中将编译完成的`libmindspore-lite.so`库文件（可包含多个兼容架构），分别放置在APP工程的`app/libs/ARM64-V8a`（ARM64）或`app/libs/armeabi-v7a`（ARM32）目录下，并在应用的`build.gradle`文件中配置CMake编译支持，以及`arm64-v8a`和`armeabi-v7a`的编译支持。　　
 

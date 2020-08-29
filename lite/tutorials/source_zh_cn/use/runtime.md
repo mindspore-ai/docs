@@ -354,6 +354,22 @@ if (out_tensor == nullptr) {
 }
 ``` 
 
+下面示例代码演示了使用`GetOutputByTensorName`接口获取输出`MSTensor`的方法：
+
+```cpp
+// We can use GetOutputTensorNames method to get all name of output tensor of model which is in order.
+auto tensor_names = this->GetOutputTensorNames();
+// Assume we have created a LiteSession instance named session before.
+// Use output tensor name returned by GetOutputTensorNames as key
+for (auto tensor_name : tensor_names) {
+    auto out_tensor = this->GetOutputByTensorName(tensor_name);
+    if (out_tensor == nullptr) {
+        std::cerr << "Output tensor is nullptr" << std::endl;
+        return -1;
+    }
+}
+```
+
 ## 获取版本号
 MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到版本号字符串。
 
