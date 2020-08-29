@@ -1,8 +1,8 @@
-# Deploy
+# Compile
 
 <!-- TOC -->
 
-- [Deployment](#deployment)
+- [compilation](#compilation)
     - [Environment Requirements](#environment-requirements)
     - [Compilation Options](#compilation-options)
     - [Output Description](#output-description)
@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/deploy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/compile.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes how to quickly install MindSpore Lite on the Ubuntu system.
 
@@ -57,7 +57,7 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 
 > version: version of the output, consistent with that of the MindSpore.
 >
-> function: function of the output. `convert` indicates the output of the conversion tool and `runtime` indicates the output of the inference framework.
+> function: function of the output. `converter` indicates the output of the conversion tool and `runtime` indicates the output of the inference framework.
 >
 > OS: OS on which the output will be deployed.
 
