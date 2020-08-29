@@ -54,7 +54,7 @@ ds1 = ds.MnistDataset(MNIST_DATASET_PATH, MNIST_SCHEMA)  # Create MNIST dataset.
 ds1 = ds1.shuffle(buffer_size=10000) 
 ds1 = ds1.batch(32, drop_remainder=True)
 ds1 = ds1.repeat(10)
-``` 
+```
 上面操作先对数据进行混洗，再将每32条数据组成一个batch，最后将数据集重复10次。
 
 下面将构造一个简单数据集`ds1`，并对其进行数据处理操作，来介绍各类数据处理操作的详细使用。
@@ -239,7 +239,7 @@ MindSpore提供`zip`函数，可将多个数据集合并成1个数据集。
 ```python
 def zip(self, datasets):
 ```
-1. 采用前面构造数据集`ds1`的方法，构造1个数据集`ds2`。
+1. 参考前面`generator_func`函数构造数据集`ds1`的方法，定义`generator_func2`函数用于构造1个数据集`ds2`。
     ```python
     def generator_func2():
         for i in range(5):
@@ -248,7 +248,7 @@ def zip(self, datasets):
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
    
-2. 通过`zip`将数据集`ds1`的`data1`列和数据集`ds2`的`data2`列合并成数据集`ds3`。
+2. 通过`zip`将数据集`ds1`的`data`列和数据集`ds2`的`data2`列合并成数据集`ds3`。
     ```python
     ds3 = ds.zip((ds1, ds2))
     for data in ds3.create_dict_iterator():
@@ -256,11 +256,11 @@ def zip(self, datasets):
     ```
     输出如下所示：
     ```
-    {'data1': array([0, 1, 2], dtype=int64), 'data2': array([-3, -2, -1], dtype=int64)}
-    {'data1': array([1, 2, 3], dtype=int64), 'data2': array([-2, -1,  0], dtype=int64)}
-    {'data1': array([2, 3, 4], dtype=int64), 'data2': array([-1,  0,  1], dtype=int64)}
-    {'data1': array([3, 4, 5], dtype=int64), 'data2': array([0, 1, 2], dtype=int64)}
-    {'data1': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
+    {'data': array([0, 1, 2], dtype=int64), 'data2': array([-3, -2, -1], dtype=int64)}
+    {'data': array([1, 2, 3], dtype=int64), 'data2': array([-2, -1,  0], dtype=int64)}
+    {'data': array([2, 3, 4], dtype=int64), 'data2': array([-1,  0,  1], dtype=int64)}
+    {'data': array([3, 4, 5], dtype=int64), 'data2': array([0, 1, 2], dtype=int64)}
+    {'data': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
     ```
 ## 数据增强
 在图片训练中，尤其在数据集较小的情况下，用户可以通过一系列的数据增强操作对图片进行预处理，从而丰富了数据集。  
