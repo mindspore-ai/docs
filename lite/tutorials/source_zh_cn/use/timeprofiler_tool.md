@@ -46,10 +46,10 @@ TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗
 
 ## 使用示例
 
-使用TimeProfiler对`tcpclassify.ms`模型的网络层进行耗时分析，并且设置模型推理循环运行次数为10，则其命令代码如下：
+使用TimeProfiler对`test_timeprofiler.ms`模型的网络层进行耗时分析，并且设置模型推理循环运行次数为10，则其命令代码如下：
 
 ```bash
-./timeprofiler --modelPath=./models/tcpclassify.ms --loopCount=10
+./timeprofiler --modelPath=./models/test_timeprofiler.ms --loopCount=10
 ```
 
 该条命令执行后，TimeProfiler工具会输出模型网络层运行耗时的相关统计信息。对于本例命令，输出的统计信息如下。其中统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimess`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
