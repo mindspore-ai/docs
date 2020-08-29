@@ -48,7 +48,7 @@ Benchmark工具是一款可以对MindSpore Lite模型进行基准测试的工具
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
 | `--calibDataPath=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | -1：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
-| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、NPU、GPU |
+| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
 | `--inDataPath=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
 | `--inDataType=<INDATATYPE>` | 可选 | 指定测试模型输入数据的文件类型。 | String | bin | img：表示输入数据的文件类型为图片<br>bin：表示输入数据的类型为二进制文件 |
@@ -82,10 +82,10 @@ Model = face_age.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.
 Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelPath`参数以外，还必须设置`calibDataPath`参数。例如：
 
 ```bash
-./benchmark --modelPath=./models/face_age.ms --inDataPath=./input/face_age.bin --device=NPU --accuracyThreshold=3 --calibDataPath=./output/face_age.out
+./benchmark --modelPath=./models/face_age.ms --inDataPath=./input/face_age.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/face_age.out
 ```
 
-这条命令指定了测试模型的输入数据、标杆数据，同时指定了模型推理程序在NPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
+这条命令指定了测试模型的输入数据、标杆数据，同时指定了模型推理程序在CPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
 
 ```
 InData0: 139.947 182.373 153.705 138.945 108.032 164.703 111.585 227.402 245.734 97.7776 201.89 134.868 144.851 236.027 18.1142 22.218 5.15569 212.318 198.43 221.853
