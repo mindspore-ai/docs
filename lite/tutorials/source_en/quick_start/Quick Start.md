@@ -36,7 +36,7 @@ In addition, you can use the preset model to perform migration learning to imple
 
 ## Converting a Model
 
-After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#mindir). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter.html) to convert the .mindir model to a .ms model.
+After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#mindir). Use the MindSpore Lite [model conversion tool](https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/use/converter_tool.md) to convert the .mindir model to a .ms model.
 
 Take the MindSpore MobileNetV2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 ```bash
@@ -86,7 +86,7 @@ The following section describes how to build and execute an on-device image clas
 
 ## Detailed Description of the Sample Program  
 
-This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://www.mindspore.cn/tutorial/zh-CN/master/use/lite_runtime.html).
+This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/use/runtime.md).
 
 > This following describes the JNI layer implementation of the sample program. At the Java layer, the Android Camera 2 API is used to enable a device camera and process image frames. Readers are expected to have the basic Android development knowledge.
 
@@ -132,7 +132,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html) to generate the `libmindspore-lite.so` library file.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/compile.md) to generate the `libmindspore-lite.so` library file.
 
 In Android Studio, place the compiled `libmindspore-lite.so` library file (which can contain multiple compatible architectures) in the `app/libs/ARM64-V8a` (Arm64) or `app/libs/armeabi-v7a` (Arm32) directory of the application project. In the `build.gradle` file of the application, configure the compilation support of CMake, `arm64-v8a`, and `armeabi-v7a`.　　
 
@@ -311,7 +311,7 @@ The inference code process is as follows. For details about the complete code, s
             float scores[RET_CATEGORY_SUM];
             for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                 scores[i] = temp_scores[i];
-         }
+            }
         
             // Converted to text information that needs to be displayed in the APP. 
             std::string retStr = "";
@@ -325,13 +325,12 @@ The inference code process is as follows. For details about the complete code, s
                         retStr += ";";
                     }
                 }
-            } else {
+            else {
                 MS_PRINT("MindSpore run net failed!");
                 for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                     retStr += " :0.0;";
                 }
             }
-        
             return retStr;
         }      
         ```
