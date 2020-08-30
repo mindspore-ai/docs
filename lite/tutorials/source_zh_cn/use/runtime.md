@@ -13,20 +13,21 @@
         - [可变维度](#可变维度)
         - [使用示例](#使用示例-1)
         - [图编译](#图编译-1)
+        - [使用示例](#使用示例-2)
     - [输入数据](#输入数据)
         - [获取输入Tensor](#获取输入tensor)
         - [数据拷贝](#数据拷贝)
-        - [使用示例](#使用示例-2)
+        - [使用示例](#使用示例-3)
     - [图执行](#图执行)
         - [执行会话](#执行会话)
         - [绑核](#绑核)
         - [回调运行](#回调运行)
-        - [使用示例](#使用示例-3)
+        - [使用示例](#使用示例-4)
     - [获取输出](#获取输出)
         - [获取输出Tensor](#获取输出tensor)
-        - [使用示例](#使用示例-4)
-    - [获取版本号](#获取版本号)
         - [使用示例](#使用示例-5)
+    - [获取版本号](#获取版本号)
+        - [使用示例](#使用示例-6)
 
 <!-- /TOC -->
 
@@ -119,7 +120,7 @@ if (session == nullptr) {
 
 ### 使用示例
 
-下面代码演示如何对MindSpore Lite的输入进行Resize()：
+下面代码演示如何对MindSpore Lite的输入进行Resize：
 ```cpp
 // Assume we have created a LiteSession instance named session.
 auto inputs = session->GetInputs();
@@ -132,6 +133,22 @@ session->Resize(inputs);
 ### 图编译
 
 在图执行前，需要调用`LiteSession`的`CompileGraph`接口进行图编译，进一步解析从文件中加载的Model实例，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议`ListSession`创建一次，编译一次，多次执行。
+
+### 使用示例
+
+下面代码演示如何进行图编译:
+```cpp
+// Assume we have created a LiteSession instance named session and a Model instance named model before.
+// The methods of creating model and session can refer to "Import Model" and "Create Session" two sections.
+auto ret = session->CompileGraph(model);
+if (ret != RET_OK) {
+    std::cerr << "CompileGraph failed" << std::endl;
+    // session and model need to be released by users manually.
+    delete (session);
+    delete (model);
+    return ret;
+}
+```
 
 ## 输入数据
 
@@ -318,7 +335,7 @@ if (out_data == nullptr) {
 }
 // Print the first 10 float data or all output data of the output tensor. 
 std::cout << "Output data: ";
-for (size_t i = 0; i < 10 & i < out_tensor->ElementsNum(); i++) {
+for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
     std::cout << " " << out_data[i];
 }
 std::cout << std::endl;
@@ -353,6 +370,22 @@ if (out_tensor == nullptr) {
     return -1;
 }
 ``` 
+
+下面示例代码演示了使用`GetOutputByTensorName`接口获取输出`MSTensor`的方法：
+
+```cpp
+// We can use GetOutputTensorNames method to get all name of output tensor of model which is in order.
+auto tensor_names = this->GetOutputTensorNames();
+// Assume we have created a LiteSession instance named session before.
+// Use output tensor name returned by GetOutputTensorNames as key
+for (auto tensor_name : tensor_names) {
+    auto out_tensor = this->GetOutputByTensorName(tensor_name);
+    if (out_tensor == nullptr) {
+        std::cerr << "Output tensor is nullptr" << std::endl;
+        return -1;
+    }
+}
+```
 
 ## 获取版本号
 MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到版本号字符串。
