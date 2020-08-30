@@ -1,8 +1,8 @@
-﻿# Quick Start (Lite)
+﻿# Quick Start 
 
 <!-- TOC -->
 
-- [Quick Start (Lite)](#quick-start-lite)
+- [Quick Start ](#quick-start)
     - [Overview](#overview)
     - [Selecting a Model](#selecting-a-model)
     - [Converting a Model](#converting-a-model)
@@ -17,11 +17,14 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## Overview
 
 It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
      
 This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore team.  
+
 1. Select an image classification model.
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
@@ -32,11 +35,11 @@ This tutorial demonstrates the on-device deployment process based on the image c
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
 Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) to download image classification models in MindSpore ModelZoo.
-In addition, you can use the preset model to perform migration learning to implement your image classification tasks. For details, see [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#id6).
+In addition, you can use the preset model to perform migration learning to implement your image classification tasks. 
 
 ## Converting a Model
 
-After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#mindir). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html) to convert the .mindir model to a .ms model.
+After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#mindir). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/tutorial/en/master/use/converter_tool.html) to convert the .mindir model to a .ms model.
 
 Take the MindSpore MobileNetV2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 ```bash
@@ -51,7 +54,7 @@ The following section describes how to build and execute an on-device image clas
 
 - Android Studio 3.2 or later (Android 4.0 or later is recommended.)
 - Native development kit (NDK) 21.3
-- CMake
+- CMake 10.1
 - Android software development kit (SDK) 26 or later
 - OpenCV 4.0.0 or later (included in the sample code)
 
@@ -79,14 +82,12 @@ The following section describes how to build and execute an on-device image clas
 
 3. Continue the installation on the Android device. After the installation is complete, you can view the content captured by a camera and the inference result.
 
-    As shown in the following figure, the keyboard and mouse are successfully identified.
-
     ![result](../images/lite_quick_start_app_result.jpg)
 
 
 ## Detailed Description of the Sample Program  
 
-This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/runtime.html).
+This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://www.mindspore.cn/lite/tutorial/en/master/use/runtime.html).
 
 > This following describes the JNI layer implementation of the sample program. At the Java layer, the Android Camera 2 API is used to enable a device camera and process image frames. Readers are expected to have the basic Android development knowledge.
 
@@ -132,7 +133,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html) to generate the `libmindspore-lite.so` library file.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/compile.html) to generate the `libmindspore-lite.so` library file.
 
 In Android Studio, place the compiled `libmindspore-lite.so` library file (which can contain multiple compatible architectures) in the `app/libs/ARM64-V8a` (Arm64) or `app/libs/armeabi-v7a` (Arm32) directory of the application project. In the `build.gradle` file of the application, configure the compilation support of CMake, `arm64-v8a`, and `armeabi-v7a`.　　
 
@@ -152,7 +153,7 @@ android{
 }
 ```
 
-Create a link to the `.so` or `.a` library file in the `app/CMakeLists.txt` file:
+Create a link to the `.so` library file in the `app/CMakeLists.txt` file:
 
 ```
 # Set MindSpore Lite Dependencies.
@@ -182,7 +183,7 @@ In this example, the  download.gradle File configuration auto download ` libmind
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
-libmindspore-lite.so[libmindspore-lite.so]( https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
+libmindspore-lite.so [libmindspore-lite.so]( https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
 
 libmindspore-lite include [libmindspore-lite include]( https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/include.zip)
 

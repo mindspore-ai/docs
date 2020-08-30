@@ -83,7 +83,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mind
 
     ![install](../images/lite_quick_start_install.png)
 
-    如下图所示，成功识别出图中内容是键盘和鼠标。
+    识别结果如下图所示。
 
     ![result](../images/lite_quick_start_app_result.jpg)
 
