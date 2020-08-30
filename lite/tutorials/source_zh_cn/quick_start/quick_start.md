@@ -33,12 +33,12 @@
 ## 选择模型
 
 MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。  
-MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite))。
+MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms))。
 同时，你也可以使用预置模型做迁移学习，以实现自己的图像分类任务。
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)将.mindir模型转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/use/converter_tool.md)将.mindir模型转换成.ms格式。
 
 以MindSpore MobilenetV2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 ```bash
@@ -90,7 +90,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mind
 
 ## 示例程序详细说明  
 
-本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/runtime.html)中完成模型推理的过程。
+本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/use/runtime.md)中完成模型推理的过程。
 
 > 此处详细说明示例程序的JNI层实现，JAVA层运用Android Camera 2 API实现开启设备摄像头以及图像帧处理等功能，需读者具备一定的Android开发基础知识。
 
@@ -134,7 +134,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html)生成`libmindspore-lite.so`库文件。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译]https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/compile.md)生成`libmindspore-lite.so`库文件。
 
 本示例中，bulid过程由download.gradle文件配置自动下载`libmindspore-lite.so`以及OpenCV的libopencv_java4.so库文件，并放置在`app/libs/arm64-v8a`目录下。
 
@@ -301,8 +301,9 @@ target_link_libraries(
         
             float *temp_scores = static_cast<float * >(branch1_tensor[0]->MutableData());
             float scores[RET_CATEGORY_SUM];
-            scores[i] = temp_scores[i];
-         }
+            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+               scores[i] = temp_scores[i];
+            }
         
             // Converted to text information that needs to be displayed in the APP. 
             std::string retStr = "";
@@ -315,8 +316,8 @@ target_link_libraries(
                         retStr += score_str;
                         retStr += ";";
                     }
-                }
-            } else {
+            }
+           else {
                 MS_PRINT("MindSpore run net failed!");
                 for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                     retStr += " :0.0;";

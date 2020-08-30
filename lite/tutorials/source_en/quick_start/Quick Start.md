@@ -31,7 +31,7 @@ This tutorial demonstrates the on-device deployment process based on the image c
 ## Selecting a Model
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
-Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/) to download image classification models in MindSpore ModelZoo.
+Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) to download image classification models in MindSpore ModelZoo.
 In addition, you can use the preset model to perform migration learning to implement your image classification tasks. For details, see [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#id6).
 
 ## Converting a Model
@@ -323,8 +323,8 @@ The inference code process is as follows. For details about the complete code, s
                         std::string score_str = std::to_string(scores[i]);
                         retStr += score_str;
                         retStr += ";";
-                    }
-                }
+                   }
+             }
             else {
                 MS_PRINT("MindSpore run net failed!");
                 for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
