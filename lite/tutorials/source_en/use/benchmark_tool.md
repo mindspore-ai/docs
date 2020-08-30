@@ -16,22 +16,22 @@
 
 ## Overview
 
-The Benchmark tool is used to perform benchmark testing on a MindSpore Lite model and is implemented using the C++ language. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+The Benchmark tool is used to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
 ## Environment Preparation
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install compilation dependencies and perform compilation. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/master/deploy.html#id2) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/master/deploy.html#id5) in the compilation document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id4) in the compilation document.
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
 
 ## Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
 
 ```bash
-./benchmark --modelPath=<MODELPATH> [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+./benchmark [--modelPath=<MODELPATH>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
 			[--calibDataPath=<CALIBDATAPATH>] [--cpuBindMode=<CPUBINDMODE>]
 			[--device=<DEVICE>] [--help] [--inDataPath=<INDATAPATH>]
 			[--inDataType=<INDATATYPE>] [--loopCount=<LOOPCOUNT>]
@@ -50,12 +50,9 @@ The following describes the parameters in detail.
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | −1: medium core<br/>1: large core<br/>0: not bound |
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
-| `--inDataPath=<INDATAPATH>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -        |
-| `--inDataType=<INDATATYPE>` | Optional | Specifies the file type of the input data of the tested model.  | String | Bin | Img: The input data is an image. Bin: The input data is a binary file.|
+| `--inDataPath=<INDATAPATH>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
 | `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value is a positive integer. | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | Optional | Specifies the number of threads for running the model inference program. | Integer | 2 | - |
-| `--omModelPath=<OMMODELPATH>` | Optional | Specifies the file path of the OM model. This parameter is optional only when the `device` type is NPU. | String | Null  | -        |
-| `--resizeDims=<RESIZEDIMS>` | Optional | Specifies the size to be adjusted for the input data of the tested model. | String | Null  | -        |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--fp16Priority=<FP16PIORITY>` | Optional | Specifies whether the float16 operator is preferred. | Bool | false | true, false |
 

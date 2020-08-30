@@ -11,7 +11,7 @@ MindSpore端侧教程
    :maxdepth: 1
    :caption: 快速入门
 
-   deploy
+   build
    quick_start/quick_start
 
 .. toctree::

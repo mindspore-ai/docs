@@ -11,7 +11,7 @@ MindSpore Lite Tutorials
    :maxdepth: 1
    :caption: Quick Start
 
-   compile
+   build
    quick_start/quick_start
 
 .. toctree::

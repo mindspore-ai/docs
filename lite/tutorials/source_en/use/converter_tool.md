@@ -4,9 +4,10 @@
 
 - [Model Conversion Tool](#model-conversion-tool)
     - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
+    - [Linux Environment Instructions](#linux-environment-instructions)    
+        - [Environment Preparation](#environment-preparation)
+        - [Parameter Description](#parameter-description)
+        - [Example](#example)      
 
 <!-- /TOC -->
 
@@ -18,15 +19,17 @@ MindSpore Lite provides a tool for offline model conversion. It supports convers
 
 Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, and ONNX.
 
-## Environment Preparation
+## Linux Environment Instructions
+
+### Environment Preparation
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- Compilation: Install basic and additional compilation dependencies and perform compilation. The compilation version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id2) and [Compilation Example] (https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id5) in the compilation document.
+- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example] (https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id4) in the compilation document.
+- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
 
-## Parameter Description
+### Parameter Description
 
 You can use `./converter_lite ` to complete the conversion. In addition, you can set multiple parameters as required.
 You can enter `./converter_lite --help` to obtain help information in real time.
@@ -51,7 +54,7 @@ The following describes the parameters in detail.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter
 
 
-## Example
+### Example
 
 First, in the root directory of the source code, run the following command to perform compilation. For details, see `compile.md`.
 ```bash
@@ -96,6 +99,7 @@ The following describes how to use the conversion command by using several commo
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining
       ```
+     
   - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be int8
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining  --inputInferenceType=INT8  --inferenceType=INT8
@@ -105,4 +109,73 @@ The following describes how to use the conversion command by using several commo
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
-  
+ 
+## Windows Environment Instructions
+
+### Environment Preparation  
+
+To use the MindSpore Lite model conversion tool, the following environment preparations are required.
+
+-Compile: The model conversion tool code is in the `mindspore/lite/tools/converter` directory of the MindSpore source code, refer to the [Environment Requirements](https://www.mindspore.cn/lite/tutorials/en) in the deployment document /master/compile.html#id6) and [Compile Example](https://www.mindspore.cn/lite/tutorials/en/master/deploy.html#id8) to compile the Windows version.
+
+-Run: Refer to [Compile Output](https://www.mindspore.cn/lite/tutorials/en/master/compile.html#id9) in the deployment document to obtain the `converter` tool, and set MinGW/ Copy several dependent files (libgcc_s_seh-1.dll, libwinpthread-1.dll, libssp-0.dll, libstdc++-6.dll) in the bin directory to the main directory of the `converter` tool.
+
+### Parameter Description
+
+Reference description Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/tutorials/en/master/converter_tool.html#id4)
+
+### Example
+
+First, use the cmd tool to enter the command to compile in the root directory of the source code, refer to `compile.md`.
+```bash
+call build.bat lite
+```
+
+Then, set the log printing level to INFO.
+```bash
+set MSLOG=INFO
+```
+
+Several common examples are selected below to illustrate the use of conversion commands.
+
+-Take Caffe model LeNet as an example to execute the conversion command.
+
+   ```bash
+   call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
+   ```
+
+   In this example, because the Caffe model is used, two input files of model structure and model weight are required. Then plus fmk type and output path two parameters which are required, you can successfully execute.
+
+   The result is shown as:
+   ```
+   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   ```
+   This means that the Caffe model has been successfully converted to the MindSpore Lite model and the new file `lenet.ms` has been obtained.
+   
+- Take MindSpore, TensorFlow Lite, ONNX model format and perceptual quantization model as examples to execute conversion commands.
+
+   - MindSpore model `model.mindir`
+      ```bash
+      call converter_lite --fmk=MS --modelFile=model.mindir --outputFile=model
+      ```
+   
+   - TensorFlow Lite model`model.tflite`
+      ```bash
+      call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
+      ```
+   
+   - ONNX model`model.onnx`
+      ```bash
+      call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
+      ```
+
+   - TensorFlow Lite awaring quant model `model_quant.tflite`
+      ```bash
+      call converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
+      ```
+
+   In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
+   ```
+   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   ```   
+
