@@ -180,7 +180,7 @@ A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindS
 
 Q: Does MindSpore support Windows 10?
 
-A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, please refer to the [MindSpore official website tutorial](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindspore_cpu_win_install.html)
+A: The MindSpore CPU version can be installed on Windows 10. For details about the installation procedure, please refer to the [MindSpore official website tutorial](https://www.mindspore.cn/install/en)
 
 ## Backend Running
 
