@@ -6,40 +6,39 @@
     - [0.7.0-beta](#070-beta)
         - [Releasenotes](#releasenotes)
         - [Downloads](#downloads)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Tutorials, API and Docs](#tutorials-api-and-docs)
     - [0.6.0-beta](#060-beta)
-        - [Releasenotes](#releasenotes)
-        - [Downloads](#downloads)
+        - [Releasenotes](#releasenotes-1)
+        - [Downloads](#downloads-1)
         - [Tutorials](#tutorials)
         - [API](#api)
         - [Docs](#docs)
     - [0.5.0-beta](#050-beta)
-        - [Releasenotes](#releasenotes)
-        - [Downloads](#downloads)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Releasenotes](#releasenotes-2)
+        - [Downloads](#downloads-2)
+        - [Tutorials](#tutorials-1)
+        - [API](#api-1)
+        - [Docs](#docs-1)
     - [0.3.0-alpha](#030-alpha)
-        - [Releasenotes](#releasenotes)
-        - [Downloads](#downloads)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Releasenotes](#releasenotes-3)
+        - [Downloads](#downloads-3)
+        - [Tutorials](#tutorials-2)
+        - [API](#api-2)
+        - [Docs](#docs-2)
     - [0.2.0-alpha](#020-alpha)
-        - [Releasenotes](#releasenotes)
-        - [Downloads](#downloads)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Releasenotes](#releasenotes-4)
+        - [Downloads](#downloads-4)
+        - [Tutorials](#tutorials-3)
+        - [API](#api-3)
+        - [Docs](#docs-3)
     - [0.1.0-alpha](#010-alpha)
-        - [Releasenotes](#releasenotes)
-        - [Downloads](#downloads)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Releasenotes](#releasenotes-5)
+        - [Downloads](#downloads-5)
+        - [Tutorials](#tutorials-4)
+        - [API](#api-4)
+        - [Docs](#docs-4)
     - [master(unstable)](#masterunstable)
+        - [Tutorials, API and Docs](#tutorials-api-and-docs-1)
 
 <!-- /TOC -->
 
@@ -70,17 +69,13 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/aarch64/mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl>   |   928754efcde8c2106e1af4fb883899d8f66aa864e0ac1ba7358a291792d898a2   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/x86_64/mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl>   |   bd3725991f227dde57afb1d11baf694a6ae0591d68355de18465a05b161bab14   |
 
-### Tutorials
+### Tutorials, API and Docs
 
-<https://www.mindspore.cn/tutorial/en/r0.7/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/r0.7/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/r0.7/index.html>
+| Category | MindSpore | MindSpore Lite |
+| --- | --- | --- |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/r0.7/index.html> | <https://www.mindspore.cn/lite/tutorial/en/r0.7/index.html> |
+| API | <https://www.mindspore.cn/api/en/r0.7/index.html> | <https://www.mindspore.cn/lite/apic/en/r0.7/lite/namespacemembers.html> |
+| Docs | <https://www.mindspore.cn/docs/en/r0.7/index.html> | <https://www.mindspore.cn/lite/docs/en/r0.7/index.html> |
 
 ## 0.6.0-beta
 
@@ -273,14 +268,10 @@
 
 ## master(unstable)
 
-### Tutorials
+### Tutorials, API and Docs
 
-<https://www.mindspore.cn/tutorial/en/master/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/master/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/master/index.html>
+| Category | MindSpore | MindSpore Lite |
+| --- | --- | --- |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/master/index.html> | <https://www.mindspore.cn/lite/tutorial/en/master/index.html> |
+| API | <https://www.mindspore.cn/api/en/master/index.html> | <https://www.mindspore.cn/lite/apic/en/master/lite/namespacemembers.html> |
+| Docs | <https://www.mindspore.cn/docs/en/master/index.html> | <https://www.mindspore.cn/lite/docs/en/master/index.html> |
