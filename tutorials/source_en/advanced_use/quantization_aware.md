@@ -82,10 +82,10 @@ Next, the LeNet network is used as an example to describe steps 3 and 6.
 
 Define a fusion network and replace the specified operators.
 
-1. Use the `nn.Conv2dBnAct` operator to replace the two operators `nn.Conv2d` and `nn.Relu` in the original network model.
-2. Use the `nn.DenseBnAct` operator to replace the two operators `nn.Dense` and `nn.Relu` in the original network model.
+1. Use the `nn.Conv2dBnAct` operator to replace the two operators `nn.Conv2d` and `nn.ReLU` in the original network model.
+2. Use the `nn.DenseBnAct` operator to replace the two operators `nn.Dense` and `nn.ReLU` in the original network model.
 
-> Even if the `nn.Dense` and `nn.Conv2d` operators are not followed by `nn.Batchnorm` and `nn.Relu`, the preceding two replacement operations must be performed as required.
+> Even if the `nn.Dense` and `nn.Conv2d` operators are not followed by `nn.BatchNorm*` and `nn.ReLU`, the preceding two replacement operations must be performed as required.
 
 The definition of the original network model LeNet5 is as follows:
 
