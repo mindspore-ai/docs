@@ -54,13 +54,6 @@ MindSpore Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Usage on Device
-
-   advanced_use/on_device_inference
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: Network Migration
 
    advanced_use/network_migration

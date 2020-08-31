@@ -148,4 +148,4 @@ Similar to the inference on a GPU, the following steps are required:
 
 ## On-Device Inference
 
-MindSpore Lite is an inference engine for on-device inference. For details, see [Export MINDIR Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-mindir-model) and [On-Device Inference](https://www.mindspore.cn/tutorial/en/master/advanced_use/on_device_inference.html).
+MindSpore Lite is an inference engine for on-device inference. For details, see [Export MINDIR Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-mindir-model) and [On-Device Inference](https://www.mindspore.cn/lite/en).
