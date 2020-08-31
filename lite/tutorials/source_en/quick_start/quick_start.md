@@ -1,8 +1,8 @@
-﻿# Quick Start 
+﻿# Implementing an Image Classification Application
 
 <!-- TOC -->
 
-- [Quick Start ](#quick-start)
+- [Implementing an Image Classification Application](#implementing-an-image-classification-application)
     - [Overview](#overview)
     - [Selecting a Model](#selecting-a-model)
     - [Converting a Model](#converting-a-model)
@@ -133,7 +133,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/tutorial/en/master/compile.html) to generate the `libmindspore-lite.so` library file.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/tutorial/en/master/build.html) to generate the `libmindspore-lite.so` library file.
 
 In Android Studio, place the compiled `libmindspore-lite.so` library file (which can contain multiple compatible architectures) in the `app/libs/ARM64-V8a` (Arm64) or `app/libs/armeabi-v7a` (Arm32) directory of the application project. In the `build.gradle` file of the application, configure the compilation support of CMake, `arm64-v8a`, and `armeabi-v7a`.　　
 
