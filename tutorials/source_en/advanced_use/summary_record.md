@@ -342,7 +342,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
     Right code:
     ```python3
-    ...示例
+    ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
     ...

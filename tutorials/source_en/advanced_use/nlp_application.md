@@ -15,7 +15,7 @@
         - [Configuring Environment Information](#configuring-environment-information)
         - [Preprocessing the Dataset](#preprocessing-the-dataset)
         - [Defining the Network](#defining-the-network)
-        - [Pre-Traning](#pre-training)
+        - [Pre-Training](#pre-training)
         - [Defining the Optimizer and Loss Function](#defining-the-optimizer-and-loss-function)
         - [Training and Saving the Model](#training-and-saving-the-model)
         - [Validating the Model](#validating-the-model)
