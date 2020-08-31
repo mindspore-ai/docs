@@ -42,8 +42,7 @@ The MNIST dataset is used as an example to describe how to customize a simple mo
 ### Importing Related Packages
 
 ```python
-import sys
-import time
+import os
 import numpy as np
 from scipy.special import softmax
 
@@ -53,11 +52,12 @@ import mindspore.dataset.transforms.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.transforms.vision import Inter
 import mindspore.nn as nn
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
 from mindspore import Model
 from mindspore import Tensor
 from mindspore import context
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore.train.callback import LossMonitor
 
 from mindarmour.attacks.gradient_method import FastGradientSignMethod
 from mindarmour.utils.logger import LogUtil
@@ -66,7 +66,7 @@ from mindarmour.evaluations.attack_evaluation import AttackEvaluate
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 LOGGER = LogUtil.get_instance()
-LOGGER.set_level(1)
+LOGGER.set_level("INFO")
 TAG = 'demo'
 ```
 
@@ -75,7 +75,7 @@ TAG = 'demo'
 Use the `MnistDataset` API provided by the MindSpore dataset to load the MNIST dataset.
 
 ```python
-# generate training data
+# generate dataset for train of test
 def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                            num_parallel_workers=1, sparse=True):
     """
@@ -127,100 +127,108 @@ The LeNet model is used as an example. You can also create and train your own mo
 1. Define the LeNet model network.
 
    ```python
-   def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
-       weight = weight_variable()
-       return nn.Conv2d(in_channels, out_channels,
-                        kernel_size=kernel_size, stride=stride, padding=padding,
-                        weight_init=weight, has_bias=False, pad_mode="valid")
-
-    
-   def fc_with_initialize(input_channels, out_channels):
-       weight = weight_variable()
-       bias = weight_variable()
-       return nn.Dense(input_channels, out_channels, weight, bias)
+    def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
+        weight = weight_variable()
+        return nn.Conv2d(in_channels, out_channels,
+                         kernel_size=kernel_size, stride=stride, padding=padding,
+                         weight_init=weight, has_bias=False, pad_mode="valid")
     
     
-   def weight_variable():
-       return TruncatedNormal(0.02)
+    def fc_with_initialize(input_channels, out_channels):
+        weight = weight_variable()
+        bias = weight_variable()
+        return nn.Dense(input_channels, out_channels, weight, bias)
     
     
-   class LeNet5(nn.Cell):
-       """
-       Lenet network
-       """
-       def __init__(self):
-           super(LeNet5, self).__init__()
-           self.conv1 = conv(1, 6, 5)
-           self.conv2 = conv(6, 16, 5)
-           self.fc1 = fc_with_initialize(16*5*5, 120)
-           self.fc2 = fc_with_initialize(120, 84)
-           self.fc3 = fc_with_initialize(84, 10)
-           self.relu = nn.ReLU()
-           self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-           self.flatten = nn.Flatten()
+    def weight_variable():
+        return TruncatedNormal(0.02)
     
-       def construct(self, x):
-           x = self.conv1(x)
-           x = self.relu(x)
-           x = self.max_pool2d(x)
-           x = self.conv2(x)
-           x = self.relu(x)
-           x = self.max_pool2d(x)
-           x = self.flatten(x)
-           x = self.fc1(x)
-           x = self.relu(x)
-           x = self.fc2(x)
-           x = self.relu(x)
-           x = self.fc3(x)
-           return x
+    
+    class LeNet5(nn.Cell):
+        """
+        Lenet network
+        """
+        def __init__(self):
+            super(LeNet5, self).__init__()
+            self.conv1 = conv(1, 6, 5)
+            self.conv2 = conv(6, 16, 5)
+            self.fc1 = fc_with_initialize(16*5*5, 120)
+            self.fc2 = fc_with_initialize(120, 84)
+            self.fc3 = fc_with_initialize(84, 10)
+            self.relu = nn.ReLU()
+            self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+            self.flatten = nn.Flatten()
+    
+        def construct(self, x):
+            x = self.conv1(x)
+            x = self.relu(x)
+            x = self.max_pool2d(x)
+            x = self.conv2(x)
+            x = self.relu(x)
+            x = self.max_pool2d(x)
+            x = self.flatten(x)
+            x = self.fc1(x)
+            x = self.relu(x)
+            x = self.fc2(x)
+            x = self.relu(x)
+            x = self.fc3(x)
+            return x
    ```
 
-2. Load the pre-trained LeNet model. You can also train and save your own MNIST model. For details, see Quick Start. Use the defined data loading function `generate_mnist_dataset` to load data.
+2. Train LeNet model. Use the defined data loading function `generate_mnist_dataset` to load data.
 
-   ```python
-   ckpt_name = './trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
-   net = LeNet5()
-   load_dict = load_checkpoint(ckpt_name)
-   load_param_into_net(net, load_dict)
-   
-   # get test data
-   data_list = "./MNIST_unzip/test"
-   batch_size = 32
-   dataset = generate_mnist_dataset(data_list, batch_size, sparse=False)
-   ```
+    ```python
+    mnist_path = "./MNIST_unzip/"
+    batch_size = 32
+    # train original model
+    ds_train = generate_mnist_dataset(os.path.join(mnist_path, "train"),
+                                      batch_size=batch_size, repeat_size=1,
+                                      sparse=False)
+    net = LeNet5()
+    loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
+    opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
+    model = Model(net, loss, opt, metrics=None)
+    model.train(10, ds_train, callbacks=[LossMonitor()],
+                dataset_sink_mode=False)
+    
+    # get test data
+    ds_test = generate_mnist_dataset(os.path.join(mnist_path, "test"),
+                                     batch_size=batch_size, repeat_size=1,
+                                     sparse=False)
+    inputs = []
+    labels = []
+    for data in ds_test.create_tuple_iterator():
+        inputs.append(data[0].astype(np.float32))
+        labels.append(data[1])
+    test_inputs = np.concatenate(inputs)
+    test_labels = np.concatenate(labels)
+    ```
 
 3. Test the model.
 
-   ```python
-   # prediction accuracy before attack
-   model = Model(net)
-   batch_num = 3  # the number of batches of attacking samples
-   test_images = []
-   test_labels = []
-   predict_labels = []
-   i = 0
-   for data in dataset.create_tuple_iterator():
-       i += 1
-       images = data[0].astype(np.float32)
-       labels = data[1]
-       test_images.append(images)
-       test_labels.append(labels)
-       pred_labels = np.argmax(model.predict(Tensor(images)).asnumpy(),
-                               axis=1)
-       predict_labels.append(pred_labels)
-       if i >= batch_num:
-           break
-   predict_labels = np.concatenate(predict_labels)
-   true_labels = np.argmax(np.concatenate(test_labels), axis=1)
-   accuracy = np.mean(np.equal(predict_labels, true_labels))
-   LOGGER.info(TAG, "prediction accuracy before attacking is : %s", accuracy)
-   ```
+    ```python
+    # prediction accuracy before attack
+    net.set_train(False)
+    test_logits = []
+    batches = test_inputs.shape[0] // batch_size
+    for i in range(batches):
+        batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
+        batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
+        logits = net(Tensor(batch_inputs)).asnumpy()
+        test_logits.append(logits)
+    test_logits = np.concatenate(test_logits)
+    
+    tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
+    accuracy = np.mean(tmp)
+    LOGGER.info(TAG, 'prediction accuracy before attacking is : %s', accuracy)
+    
+    ```
 
-   The classification accuracy reaches 98%.
-
-   ```python 
-   prediction accuracy before attacking is : 0.9895833333333334
-   ```
+    The classification accuracy reaches 98%.
+    
+    ```python 
+    prediction accuracy before attacking is : 0.9895833333333334
+    ```
 
 ## Adversarial Attack
 
@@ -228,22 +236,27 @@ Call the FGSM API provided by MindArmour.
 
 ```python
 # attacking
-attack = FastGradientSignMethod(net, eps=0.3)
-start_time = time.clock()
-adv_data = attack.batch_generate(np.concatenate(test_images),
-                                 np.concatenate(test_labels), batch_size=32)
-stop_time = time.clock()
-np.save('./adv_data', adv_data)
-pred_logits_adv = model.predict(Tensor(adv_data)).asnumpy()
-# rescale predict confidences into (0, 1).
-pred_logits_adv = softmax(pred_logits_adv, axis=1)
-pred_labels_adv = np.argmax(pred_logits_adv, axis=1)
-accuracy_adv = np.mean(np.equal(pred_labels_adv, true_labels))
-LOGGER.info(TAG, "prediction accuracy after attacking is : %s", accuracy_adv)
-attack_evaluate = AttackEvaluate(np.concatenate(test_images).transpose(0, 2, 3, 1),
-                                 np.concatenate(test_labels),
+# get adv data
+attack = FastGradientSignMethod(net, eps=0.3, loss_fn=loss)
+adv_data = attack.batch_generate(test_inputs, test_labels)
+
+# get accuracy of adv data on original model
+adv_logits = []
+for i in range(batches):
+    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
+    logits = net(Tensor(batch_inputs)).asnumpy()
+    adv_logits.append(logits)
+
+adv_logits = np.concatenate(adv_logits)
+adv_proba = softmax(adv_logits, axis=1)
+tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
+accuracy_adv = np.mean(tmp)
+LOGGER.info(TAG, 'prediction accuracy after attacking is : %s', accuracy_adv)
+
+attack_evaluate = AttackEvaluate(test_inputs.transpose(0, 2, 3, 1),
+                                 test_labels,
                                  adv_data.transpose(0, 2, 3, 1),
-                                 pred_logits_adv)
+                                 adv_proba)
 LOGGER.info(TAG, 'mis-classification rate of adversaries is : %s',
             attack_evaluate.mis_classification_rate())
 LOGGER.info(TAG, 'The average confidence of adversarial class is : %s',
@@ -256,8 +269,6 @@ LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
 LOGGER.info(TAG, 'The average structural similarity between original '
             'samples and adversarial samples are: %s',
             attack_evaluate.avg_ssim())
-LOGGER.info(TAG, 'The average costing time is %s',
-            (stop_time - start_time)/(batch_num*batch_size))
 ```
 
 The attack results are as follows:
@@ -269,7 +280,6 @@ The average confidence of adversarial class is : 0.803375
 The average confidence of true class is : 0.042139
 The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.698870, 0.465888, 0.300000)
 The average structural similarity between original samples and adversarial samples are: 0.332538
-The average costing time is 0.003125
 ```
 
 After the untargeted FGSM attack is performed on the model, the accuracy of model decreases from 98.9% to 5.2% on adversarial examples, while the misclassification ratio reaches 95%, and the Average Confidence of Adversarial Class (ACAC) is 0.803375, the Average Confidence of True Class (ACTC) is 0.042139. The zero-norm distance, two-norm distance, and infinity-norm distance between the generated adversarial examples and the original benign examples are provided. The average structural similarity between each adversarial example and the original example is 0.332538. It takes 0.003125s to generate an adversarial example on average.
@@ -287,60 +297,55 @@ Natural Adversarial Defense (NAD) is a simple and effective adversarial example 
 Call the NAD API provided by MindArmour.
 
 ```python
-from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindarmour.defenses import NaturalAdversarialDefense
 
 
-loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
-opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
-
+# defense
+net.set_train()
 nad = NaturalAdversarialDefense(net, loss_fn=loss, optimizer=opt,
                                 bounds=(0.0, 1.0), eps=0.3)
-net.set_train()
-nad.batch_defense(np.concatenate(test_images), np.concatenate(test_labels),
-                  batch_size=32, epochs=20)
+nad.batch_defense(test_inputs, test_labels, batch_size=32, epochs=10)
 
 # get accuracy of test data on defensed model
 net.set_train(False)
-acc_list = []
-pred_logits_adv = []
-for i in range(batch_num):
-    batch_inputs = test_images[i]
-    batch_labels = test_labels[i]
+test_logits = []
+for i in range(batches):
+    batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
+    batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
     logits = net(Tensor(batch_inputs)).asnumpy()
-    pred_logits_adv.append(logits)
-    label_pred = np.argmax(logits, axis=1)
-    acc_list.append(np.mean(np.argmax(batch_labels, axis=1) == label_pred))
-pred_logits_adv = np.concatenate(pred_logits_adv)
-pred_logits_adv = softmax(pred_logits_adv, axis=1)
+    test_logits.append(logits)
 
-LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s',
-             np.mean(acc_list))
-acc_list = []
-for i in range(batch_num):
-    batch_inputs = adv_data[i * batch_size: (i + 1) * batch_size]
-    batch_labels = test_labels[i]
+test_logits = np.concatenate(test_logits)
+
+tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
+accuracy = np.mean(tmp)
+LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s', accuracy)
+
+# get accuracy of adv data on defensed model
+adv_logits = []
+for i in range(batches):
+    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
     logits = net(Tensor(batch_inputs)).asnumpy()
-    label_pred = np.argmax(logits, axis=1)
-    acc_list.append(np.mean(np.argmax(batch_labels, axis=1) == label_pred))
+    adv_logits.append(logits)
 
-attack_evaluate = AttackEvaluate(np.concatenate(test_images),
-                                 np.concatenate(test_labels),
-                                 adv_data,
-                                 pred_logits_adv)
+adv_logits = np.concatenate(adv_logits)
+adv_proba = softmax(adv_logits, axis=1)
+tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
+accuracy_adv = np.mean(tmp)
+
+attack_evaluate = AttackEvaluate(test_inputs.transpose(0, 2, 3, 1),
+                                 test_labels,
+                                 adv_data.transpose(0, 2, 3, 1),
+                                 adv_proba)
 
 LOGGER.info(TAG, 'accuracy of adv data on defensed model is : %s',
-            np.mean(acc_list))
+            np.mean(accuracy_adv))
 LOGGER.info(TAG, 'defense mis-classification rate of adversaries is : %s',
             attack_evaluate.mis_classification_rate())
 LOGGER.info(TAG, 'The average confidence of adversarial class is : %s',
             attack_evaluate.avg_conf_adv_class())
 LOGGER.info(TAG, 'The average confidence of true class is : %s',
             attack_evaluate.avg_conf_true_class())
-LOGGER.info(TAG, 'The average distance (l0, l2, linf) between original '
-            'samples and adversarial samples are: %s',
-            attack_evaluate.avg_lp_distance())
-
 ```
 
 ### Defense Effect
@@ -351,9 +356,7 @@ accuracy of adv data on defensed model is :  0.856370
 defense mis-classification rate of adversaries is : 0.143629
 The average confidence of adversarial class is : 0.616670
 The average confidence of true class is : 0.177374
-The average distance (l0, l2, linf) between original samples and adversarial samples are: (1.493417, 0.432914, 0.300000)
-
 ```
 
-After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 14%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. The NAD function does not reduce the classification accuracy of the model.
+After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 14%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. 
 
