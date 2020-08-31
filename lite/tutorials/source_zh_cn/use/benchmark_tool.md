@@ -52,7 +52,7 @@ Benchmark工具进行的精度测试主要是通过设置标杆数据来对比�
 ./benchmark --modelPath=./models/test_benchmark.ms --inDataPath=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark.out
 ```
 
-这条命令指定了测试模型的输入数据、标杆数据，同时指定了模型推理程序在CPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
+这条命令指定了测试模型的输入数据、标杆数据（默认的输入及标杆数据类型均为float32），同时指定了模型推理程序在CPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
 
 ```
 InData0: 139.947 182.373 153.705 138.945 108.032 164.703 111.585 227.402 245.734 97.7776 201.89 134.868 144.851 236.027 18.1142 22.218 5.15569 212.318 198.43 221.853
@@ -62,6 +62,13 @@ Mean bias of node age_out : 0%
 Mean bias of all nodes: 0%
 =======================================================
 ```
+
+原模型输入输出数据类型为uint8时，需要将其减去128再转换为int8类型后才能作为标杆数据验证精度，输出数据类型为int8时需要在参数中指定calibDataType为INT8。
+
+```bash
+./benchmark --modelPath=./models/test_benchmark_int8.ms --inDataPath=./input/test_benchmark_int8.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark_int8.out --calibDataType=INT8
+```
+
 
 ## 参数说明
 
@@ -84,6 +91,7 @@ Mean bias of all nodes: 0%
 | `--modelPath=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
 | `--calibDataPath=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
+| `--calibDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | -1：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
 | `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU |
 | `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
