@@ -21,7 +21,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [LeNet](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/lenet/src/lenet.py)    |  Supported |  Supported | Supported
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/resnet/src/resnet.py)   |  Supported |  Supported | Doing
 |计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet-101](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/resnet/src/resnet.py)                    |  Supported |Doing | Doing
-|计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNext50](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/resnext50/src/image_classification.py)         |  Supported | Supported | Doing
+|计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNext50](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/resnext50/src/image_classification.py)         |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [VGG16](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/vgg16/src/vgg.py)  |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [InceptionV3](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/inceptionv3/src/inception_v3.py) |  Supported |  Supported | Doing
 | 计算机视觉（CV）  | 移动端图像分类（Mobile Image Classification）<br>目标检测（Image Classification）<br>语义分割（Semantic Tegmentation）  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/mobilenetv2/src/mobilenetV2.py)        |  Supported |  Supported | Doing
