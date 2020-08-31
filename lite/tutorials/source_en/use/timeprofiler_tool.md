@@ -20,9 +20,9 @@ The TimeProfiler tool can be used to analyze the time consumption of forward inf
 
 To use the TimeProfiler tool, you need to prepare the environment as follows:
 
-- Compilation: Install compilation dependencies and perform compilation. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profiler` directory of the MindSpore source code. For details about the compilation operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id2) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r0.7/deploy.html#id5) in the deployment document.
+- Compilation: Install build dependencies and perform build. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profiler` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/r0.7/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/r0.7/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `time_profiler` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html#id4) in the deployment document.
+- Run: Obtain the `time_profiler` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/r0.7/build.html#output-description) in the build document.
 
 ## Parameter Description
 
