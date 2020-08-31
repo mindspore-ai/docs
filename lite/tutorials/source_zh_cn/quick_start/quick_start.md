@@ -40,9 +40,9 @@ MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mind
 
 如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)将.mindir模型转换成.ms格式。
 
-以MindSpore MobilenetV2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
+以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 ```bash
-./converter_lite --fmk=MS --modelFile=mobilenet_v2.mindir --outputFile=mobilenet_v2.ms
+./converter_lite --fmk=MS --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
 
 ## 部署应用
@@ -53,7 +53,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mind
 
 - Android Studio >= 3.2 (推荐4.0以上版本)
 - NDK 21.3
-- CMake 10.1 
+- CMake 3.10.2 
 - Android SDK >= 26
 - OpenCV >= 4.0.0 （本示例代码已包含）
 
@@ -134,7 +134,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html)生成`libmindspore-lite.so`库文件。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html)生成`libmindspore-lite.so`库文件。
 
 本示例中，bulid过程由download.gradle文件配置自动下载`libmindspore-lite.so`以及OpenCV的`libopencv_java4.so`库文件，并放置在`app/libs/arm64-v8a`目录下。
 
@@ -192,7 +192,7 @@ target_link_libraries(
 
 ### 下载及部署模型文件
 
-从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenet_v2.ms`，同样通过`download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
+从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
 
 注：若下载失败请手工下载模型文件，mobilenetv2.ms [下载链接](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
 
