@@ -285,7 +285,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
     Right code:
     ```python3
-    ...示例
+    ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
     ...
