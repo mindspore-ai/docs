@@ -25,7 +25,7 @@ Currently, the following input formats are supported: MindSpore, TensorFlow Lite
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements] (https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example] (https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
+- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
 
 - Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
 
