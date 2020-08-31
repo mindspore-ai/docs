@@ -144,7 +144,7 @@ A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Rel
 
 Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？
 
-A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/mindspore/model_zoo)。
+A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
 
 <br/>
 
@@ -180,7 +180,7 @@ A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为�
 
 Q：MindSpore是否支持Windows 10？
 
-A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindspore_cpu_win_install.html)。
+A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/install/)。
 
 ## 后端运行
 
