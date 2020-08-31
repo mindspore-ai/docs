@@ -85,7 +85,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
     识别结果如下图所示。
 
-    ![result](../images/lite_quick_start_app_result.jpg)
+    ![result](../images/lite_quick_start_app_result.png)
 
 
 ## 示例程序详细说明  
