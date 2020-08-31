@@ -41,9 +41,9 @@ In addition, you can use the preset model to perform migration learning to imple
 
 After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#mindir). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/lite/tutorial/en/master/use/converter_tool.html) to convert the .mindir model to a .ms model.
 
-Take the MindSpore MobileNetV2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
+Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 ```bash
-./converter_lite --fmk=MS --modelFile=mobilenet_v2.mindir --outputFile=mobilenet_v2.ms
+./converter_lite --fmk=MS --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
 
 ## Deploying an Application
@@ -54,7 +54,7 @@ The following section describes how to build and execute an on-device image clas
 
 - Android Studio 3.2 or later (Android 4.0 or later is recommended.)
 - Native development kit (NDK) 21.3
-- CMake 10.1
+- CMake 3.10.2
 - Android software development kit (SDK) 26 or later
 - OpenCV 4.0.0 or later (included in the sample code)
 
@@ -133,7 +133,7 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/docs/en/master/compile.html) to generate the `libmindspore-lite.so` library file.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/lite/tutorial/en/master/compile.html) to generate the `libmindspore-lite.so` library file.
 
 In Android Studio, place the compiled `libmindspore-lite.so` library file (which can contain multiple compatible architectures) in the `app/libs/ARM64-V8a` (Arm64) or `app/libs/armeabi-v7a` (Arm32) directory of the application project. In the `build.gradle` file of the application, configure the compilation support of CMake, `arm64-v8a`, and `armeabi-v7a`.　　
 
@@ -195,7 +195,7 @@ libopencv include [libopencv include]( https://download.mindspore.cn/model_zoo/o
 
 ### Downloading and Deploying a Model File
 
-In this example, the  download.gradle File configuration auto download `mobilenet_v2.ms `and placed in the 'app / libs / arm64-v8a' directory.
+In this example, the  download.gradle File configuration auto download `mobilenetv2.ms `and placed in the 'app / libs / arm64-v8a' directory.
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
