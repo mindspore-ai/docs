@@ -1,6 +1,6 @@
 # Parameter Server Training
 
-`Ascend` `Model Training` `Intermediate` `Expert`
+`Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -19,16 +19,16 @@
 ## Overview
 A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
 
-In the parameter server implementation of MindSpore, the open-source [ps-lite](https://github.com/dmlc/ps-lite) is used as the basic architecture. Based on the remote communication capability provided by the [ps-lite](https://github.com/dmlc/ps-lite) and abstract Push/Pull primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance Huawei collective communication library (HCCL) in Ascend, MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
+In the parameter server implementation of MindSpore, the open-source [ps-lite](https://github.com/dmlc/ps-lite) is used as the basic architecture. Based on the remote communication capability provided by the [ps-lite](https://github.com/dmlc/ps-lite) and abstract Push/Pull primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
 
 The ps-lite architecture consists of three independent components: server, worker, and scheduler. Their functions are as follows:
 
-- Server: saves model weights and backward computation gradients, and updates the model using gradients pushed by workers. (In the current version, only a single server is supported.)
+- Server: saves model weights and backward computation gradients, and updates the model using gradients pushed by workers. 
+
 - Worker: performs forward and backward computation on the network. The gradient value for forward computation is uploaded to a server through the `Push` API, and the model updated by the server is downloaded to the worker through the `Pull` API.
 
 - Scheduler: establishes the communication relationship between the server and worker.
 
-> The current version supports only the Ascend 910 AI Processor. The support for GPU platform is under development.
 
 ## Preparations
 The following describes how to use parameter server to train LeNet on Ascend 910:
