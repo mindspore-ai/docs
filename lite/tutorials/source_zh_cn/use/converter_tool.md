@@ -27,7 +27,7 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 - 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)编译x86_64版本。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#output-description)，获得`converter`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)，获得`converter`工具，并配置环境变量。
 
 ### 参数说明
 

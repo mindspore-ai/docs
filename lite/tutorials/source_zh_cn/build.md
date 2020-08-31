@@ -6,11 +6,10 @@
     - [Linux环境编译](#linux环境编译)
         - [环境要求](#环境要求)
         - [编译选项](#编译选项)
-        - [编译示例](#编译示例)        
+        - [编译示例](#编译示例) 
         - [编译输出](#编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)              
-
+            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明) 
 
 <!-- /TOC -->
 
@@ -129,7 +128,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 │       ├── protobuf # Protobuf的动态库
 
 ```
-    
+
 #### 模型推理框架runtime及其他工具目录结构说明
 
 推理框架可在`-I x86_64`、`-I arm64`和`-I arm32`编译选项下获得，内容包括以下几部分：
@@ -144,7 +143,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
+    │   └── time_profile # 模型网络层耗时分析工具
     
     ```
 
@@ -159,7 +158,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
+    │   └── time_profile # 模型网络层耗时分析工具
       
     ```
 
@@ -173,10 +172,10 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
+    │   └── time_profile # 模型网络层耗时分析工具
       
     ```
 
 > 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
 > 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 3. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译CPU为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:${LD_LIBRARY_PATH}`；配置benchmark和time_profiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`
+> 3. 运行converter、benchmark或time_profile目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`
