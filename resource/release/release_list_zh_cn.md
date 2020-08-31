@@ -6,40 +6,39 @@
     - [0.7.0-beta](#070-beta)
         - [版本说明](#版本说明)
         - [下载地址](#下载地址)
-        - [教程](#教程)
-        - [API](#api)
-        - [文档](#文档)
+        - [教程、API、文档](#教程api文档)
     - [0.6.0-beta](#060-beta)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址)
+        - [版本说明](#版本说明-1)
+        - [下载地址](#下载地址-1)
         - [教程](#教程)
         - [API](#api)
         - [文档](#文档)
     - [0.5.0-beta](#050-beta)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址)
-        - [教程](#教程)
-        - [API](#api)
-        - [文档](#文档)
+        - [版本说明](#版本说明-2)
+        - [下载地址](#下载地址-2)
+        - [教程](#教程-1)
+        - [API](#api-1)
+        - [文档](#文档-1)
     - [0.3.0-alpha](#030-alpha)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址)
-        - [教程](#教程)
-        - [API](#api)
-        - [文档](#文档)
+        - [版本说明](#版本说明-3)
+        - [下载地址](#下载地址-3)
+        - [教程](#教程-2)
+        - [API](#api-2)
+        - [文档](#文档-2)
     - [0.2.0-alpha](#020-alpha)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址)
-        - [教程](#教程)
-        - [API](#api)
-        - [文档](#文档)
+        - [版本说明](#版本说明-4)
+        - [下载地址](#下载地址-4)
+        - [教程](#教程-3)
+        - [API](#api-3)
+        - [文档](#文档-3)
     - [0.1.0-alpha](#010-alpha)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址)
-        - [教程](#教程)
-        - [API](#api)
-        - [文档](#文档)
+        - [版本说明](#版本说明-5)
+        - [下载地址](#下载地址-5)
+        - [教程](#教程-4)
+        - [API](#api-4)
+        - [文档](#文档-4)
     - [master(unstable)](#masterunstable)
+        - [教程、API、文档](#教程api文档-1)
 
 <!-- /TOC -->
 
@@ -68,14 +67,13 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/aarch64/mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl>   |   928754efcde8c2106e1af4fb883899d8f66aa864e0ac1ba7358a291792d898a2   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/x86_64/mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl>   |   bd3725991f227dde57afb1d11baf694a6ae0591d68355de18465a05b161bab14   |
 
-### 教程
-<https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html>
+### 教程、API、文档
 
-### API
-<https://www.mindspore.cn/api/zh-CN/r0.7/index.html>
-
-### 文档
-<https://www.mindspore.cn/docs/zh-CN/r0.7/index.html>
+| 类别 | MindSpore | MindSpore Lite |
+| --- | --- | --- |
+| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/index.html> |
+| API | <https://www.mindspore.cn/api/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/apic/zh-CN/r0.7/lite/namespacemembers.html> |
+| 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html> |
 
 
 ## 0.6.0-beta
@@ -245,11 +243,10 @@
 
 ## master(unstable)
 
-### 教程
-<https://www.mindspore.cn/tutorial/zh-CN/master/index.html>
+### 教程、API、文档
 
-### API
-<https://www.mindspore.cn/api/zh-CN/master/index.html>
-
-### 文档
-<https://www.mindspore.cn/docs/zh-CN/master/index.html>
+| 类别 | MindSpore | MindSpore Lite |
+| --- | --- | --- |
+| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/master/index.html> | <https://www.mindspore.cn/lite/tutorial/zh-CN/master/index.html> |
+| API | <https://www.mindspore.cn/api/zh-CN/master/index.html> | <https://www.mindspore.cn/lite/apic/zh-CN/master/lite/namespacemembers.html> |
+| 文档 | <https://www.mindspore.cn/docs/zh-CN/master/index.html> | <https://www.mindspore.cn/lite/docs/zh-CN/master/index.html> |
