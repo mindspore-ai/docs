@@ -1,8 +1,8 @@
-# 快速入门
+# 实现一个图像分类应用
 
 <!-- TOC -->
 
-- [快速入门](#快速入门)
+- [实现一个图像分类应用](#实现一个图像分类应用)
     - [概述](#概述)
     - [选择模型](#选择模型)
     - [转换模型](#转换模型)
@@ -28,32 +28,32 @@
 2. 将模型转换成MindSpore Lite模型格式。
 3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对设备摄像头捕获的内容进行分类，并在APP图像预览界面中，显示出最可能的分类结果。
    
-> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/lite/image_classif)。
+> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/lite/image_classification)。
 
 ## 选择模型
 
 MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。  
-MindSpore Model Zoo中图像分类模型可[在此下载](#TODO)。
-同时，你也可以使用预置模型做迁移学习，以实现自己的图像分类任务，操作流程参见[重训练章节](https://www.mindspore.cn/tutorial/zh-CN/r0.7/use/saving_and_loading_model_parameters.html#id6)。
+MindSpore Model Zoo中图像分类模型可[在此下载](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)。
+同时，你也可以使用预置模型做迁移学习，以实现自己的图像分类任务。
 
 ## 转换模型
 
-如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/r0.7/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/use/converter_tool.html)将.mindir模型转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/r.07/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/use/converter_tool.html)将.mindir模型转换成.ms格式。
 
-以MindSpore MobilenetV2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
+以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 ```bash
-./converter_lite --fmk=MS --modelFile=mobilenet_v2.mindir --outputFile=mobilenet_v2.ms
+./converter_lite --fmk=MS --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
 
 ## 部署应用
 
-接下来介绍如何构建和执行mindspore Lite端侧图像分类任务。
+接下来介绍如何构建和执行MindSpore Lite端侧图像分类任务。
 
 ### 运行依赖
 
 - Android Studio >= 3.2 (推荐4.0以上版本)
 - NDK 21.3
-- CMake
+- CMake 3.10.2 
 - Android SDK >= 26
 - OpenCV >= 4.0.0 （本示例代码已包含）
 
@@ -83,9 +83,9 @@ MindSpore Model Zoo中图像分类模型可[在此下载](#TODO)。
 
     ![install](../images/lite_quick_start_install.png)
 
-    如下图所示，成功识别出图中内容是键盘和鼠标。
+    识别结果如下图所示。
 
-    ![result](../images/lite_quick_start_app_result.png)
+    ![result](../images/lite_quick_start_app_result.jpg)
 
 
 ## 示例程序详细说明  
@@ -112,9 +112,7 @@ app
 |   |   └── model.ms # 存放模型文件
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
-|   |   ├── include # 存放MindSpore调用相关的头文件
-|   |   |   └── ...
-│   |   |
+|   |   ├── ..
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
 │   |
@@ -136,9 +134,21 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/deploy.html)生成`libmindspore-lite.so`库文件，或直接下载MindSpore Lite提供的已编译完成的AMR64、ARM32、x86等[软件包](#TODO)。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/build.html)生成`libmindspore-lite.so`库文件。
 
-在Android Studio中将编译完成的`libmindspore-lite.so`库文件（可包含多个兼容架构），分别放置在APP工程的`app/libs/ARM64-V8a`（ARM64）或`app/libs/armeabi-v7a`（ARM32）目录下，并在应用的`build.gradle`文件中配置CMake编译支持，以及`arm64-v8a`和`armeabi-v7a`的编译支持。　　
+本示例中，bulid过程由download.gradle文件配置自动下载`libmindspore-lite.so`以及OpenCV的`libopencv_java4.so`库文件，并放置在`app/libs/arm64-v8a`目录下。
+
+注： 若自动下载失败，请手动下载相关库文件并将其放在对应位置：
+
+libmindspore-lite.so [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
+
+libmindspore-lite include文件  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/include.zip)
+
+libopencv_java4.so  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/opencv%204.4.0/libopencv_java4.so)
+
+libopencv include文件  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/opencv%204.4.0/include.zip)
+
+
 
 ```
 android{
@@ -156,7 +166,7 @@ android{
 }
 ```
 
-在`app/CMakeLists.txt`文件中建立`.so`或`.a`库文件链接，如下所示。
+在`app/CMakeLists.txt`文件中建立`.so`库文件链接，如下所示。
 
 ```
 # Set MindSpore Lite Dependencies.
@@ -182,7 +192,9 @@ target_link_libraries(
 
 ### 下载及部署模型文件
 
-从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenet_v2.ms`，放置在`app/src/main/assets`工程目录下。
+从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
+
+注：若下载失败请手工下载模型文件，mobilenetv2.ms [下载链接](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
 
 ### 编写端侧推理代码
 
@@ -207,7 +219,6 @@ target_link_libraries(
         
         // Create context.
         lite::Context *context = new lite::Context;
-        context->cpu_bind_mode_ = lite::NO_BIND;
         context->device_ctx_.type = lite::DT_CPU;
         context->thread_num_ = numThread;  //Specify the number of threads to run inference
         
@@ -224,7 +235,7 @@ target_link_libraries(
             CreateSession(modelBuffer, bufferLen, ctx);  
             session = mindspore::session::LiteSession::CreateSession(ctx);
             auto model = mindspore::lite::Model::Import(modelBuffer, bufferLen);
-            int ret = session->CompileGraph(model); // Compile Graph 
+            int ret = session->CompileGraph(model);
         }
         ```
     
@@ -257,8 +268,8 @@ target_link_libraries(
     memcpy(inTensor->MutableData(), dataHWC,
         inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
     delete[] (dataHWC);
-    ```
-    
+   ```
+   
 3. 对输入Tensor按照模型进行推理，获取输出Tensor，并进行后处理。    
 
    - 图执行，端测推理。
@@ -270,7 +281,7 @@ target_link_libraries(
 
    - 获取输出数据。
         ```cpp
-        auto msOutputs = mSession->GetOutputs();
+        auto msOutputs = mSession->GetOutputMapByNode();
         std::string retStr = ProcessRunnetResult(msOutputs, ret);
         ```
         
@@ -288,19 +299,12 @@ target_link_libraries(
         
             int OUTPUTS_LEN = branch1_tensor[0]->ElementsNum();
         
-        
-            MS_PRINT("OUTPUTS_LEN:%d",  OUTPUTS_LEN);
-        
             float *temp_scores = static_cast<float * >(branch1_tensor[0]->MutableData());
-        
             float scores[RET_CATEGORY_SUM];
             for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                if (temp_scores[i] > 0.5){
-                    MS_PRINT("MindSpore scores[%d] : [%f]",  i, temp_scores[i]);
-                }
-                scores[i] = temp_scores[i];
-         }
-   
+               scores[i] = temp_scores[i];
+            }
+        
             // Converted to text information that needs to be displayed in the APP. 
             std::string retStr = "";
             if (runnetRet == 0) {
@@ -308,12 +312,12 @@ target_link_libraries(
                     if (scores[i] > 0.3){
                         retStr += g_labels_name_map[i];
                         retStr += ":";
-                        std::string score_str = std::to_string(scores[i]);
+                   std::string score_str = std::to_string(scores[i]);
                         retStr += score_str;
                         retStr += ";";
                     }
-                }
-            } else {
+            }
+           else {
                 MS_PRINT("MindSpore run net failed!");
                 for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                     retStr += " :0.0;";
