@@ -8,10 +8,6 @@
         - [环境准备](#环境准备)
         - [参数说明](#参数说明)
         - [使用示例](#使用示例)
-    - [Windows环境使用说明](#windows环境使用说明)
-        - [环境准备](#环境准备-1)
-        - [参数说明](#参数说明-1)
-        - [使用示例](#使用示例-1)
 
 <!-- /TOC -->
 
@@ -29,9 +25,9 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/deploy.html#id5)，安装编译依赖基本项与模型转换工具所需附加项，并编译x86_64版本。
+- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)编译x86_64版本。
 
-- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html#id4)，获得`converter`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#output-description)，获得`converter`工具，并配置环境变量。
 
 ### 参数说明
 
@@ -113,75 +109,3 @@ bash build.sh -I x86_64
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
-
-
-## Windows环境使用说明
-
-### 环境准备
-
-使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
-
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id7)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/master/deploy.html#id10)，安装编译依赖基本项与模型转换工具所需附加项，并编译Windows版本。
-
-- 运行：参考部署文档中的[输出件说明](https://www.mindspore.cn/lite/docs/zh-CN/master/compile.html#id9)，获得`converter`工具，并将MinGW/bin目录下的几个依赖文件（libgcc_s_seh-1.dll、libwinpthread-1.dll、libssp-0.dll、libstdc++-6.dll）拷贝至`converter`工具的主目录。
-
-### 参数说明
-
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/master/converter_tool.html#id4)
-
-
-### 使用示例
-
-首先，使用cmd工具在源码根目录下，输入命令进行编译，可参考`compile.md`。
-```bash
-call build.bat lite
-```
-
-然后，设置日志打印级别为INFO。
-```bash
-set MSLOG=INFO
-```
-
-下面选取了几个常用示例，说明转换命令的使用方法。
-
-- 以Caffe模型LeNet为例，执行转换命令。
-
-   ```bash
-   call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
-   ```
-
-   本例中，因为采用了Caffe模型，所以需要模型结构、模型权值两个输入文件。再加上其他必需的fmk类型和输出路径两个参数，即可成功执行。
-
-   结果显示为：
-   ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
-   ```
-   这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
-   
-- 以MindSpore、TensorFlow Lite、ONNX模型格式和感知量化模型为例，执行转换命令。
-
-   - MindSpore模型`model.mindir`
-      ```bash
-      call converter_lite --fmk=MS --modelFile=model.mindir --outputFile=model
-      ```
-   
-   - TensorFlow Lite模型`model.tflite`
-      ```bash
-      call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
-      ```
-   
-   - ONNX模型`model.onnx`
-      ```bash
-      call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
-      ```
-
-   - TensorFlow Lite感知量化模型`model_quant.tflite`
-      ```bash
-      call converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
-      ```
-
-   以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
-   ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
-   ```
-   

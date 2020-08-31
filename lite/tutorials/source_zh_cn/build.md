@@ -9,22 +9,18 @@
         - [编译示例](#编译示例)        
         - [编译输出](#编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)            
-    - [Windows环境编译](#windows环境编译)  
-        - [环境要求](#环境要求-1)
-        - [编译选项](#编译选项-1)
-        - [编译示例](#编译示例-1)        
+            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)              
 
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/compile.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/build.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-本章节介绍如何在Ubuntu系统上快速编译出MindSpore Lite，其包含的模块如下：
+本章节介绍如何快速编译出MindSpore Lite，其包含的模块如下：
 
 | 模块 | 支持平台 | 说明 |
 | --- | ---- | ---- |
-| converter | Linux、Windows | 模型转换工具 |
+| converter | Linux | 模型转换工具 |
 | runtime | Linux、Android | 模型推理框架 |
 | benchmark | Linux、Android | 基准测试工具 |
 | time_profiler | Linux、Android | 性能分析工具 |
@@ -54,7 +50,8 @@
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
 
-> 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+> - 当安装完依赖项Android_NDK后，需配置环境变量:`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
+> - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
 
 ### 编译选项
 
@@ -66,7 +63,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 否 |
 | -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 否 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
-| -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | gpu | 否 |
+| -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | GPU | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
@@ -146,6 +143,8 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
+    │   └── include # 推理框架头文件  
+    │   └── time_profiler # 模型网络层耗时分析工具
     
     ```
 
@@ -180,49 +179,4 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 
 > 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
 > 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 3. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译CPU为例：配置converter：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib`；配置benchmark和time_profiler：`export LD_LIBRARY_PATH=./mindspore-lite-0.7.0-runtime-x86-cpu/lib`
-
-
-## Windows环境编译
-
-### 环境要求
-
-- 支持的编译环境为：Windows 10，64位。
-
-- 编译依赖
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) >= 7.3.0
-  - [Python](https://www.python.org/) >= 3.7.5
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
-
-> 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-
-### 编译选项
-
-MindSpore Lite的编译选项如下。
-
-| 参数  |  参数说明  | 是否必选 |
-| -------- | ----- | ---- | 
-| **lite** | **设置该参数，则对Mindspore Lite工程进行编译** | **是** |
-| [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
-
-### 编译示例
-
-首先，使用git工具从MindSpore代码仓下载源码。
-
-```bash
-git clone https://gitee.com/mindspore/mindspore.git
-```
-
-然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
-
-- 以默认线程数（6线程）编译Windows版本。
-    ```bash
-    call build.bat lite
-    ```
-- 以指定线程数8编译Windows版本。
-    ```bash
-    call build.bat lite 8
-    ```
-
-编译完成之后，进入`mindspore/output/`目录，解压后即可获取输出件`mindspore-lite-0.7.0-converter-win-cpu.zip`，其中含有转换工具可执行文件。
+> 3. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译CPU为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:${LD_LIBRARY_PATH}`；配置benchmark和time_profiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`
