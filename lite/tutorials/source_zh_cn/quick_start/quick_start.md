@@ -1,8 +1,8 @@
-# 快速入门
+# 实现一个图像分类应用
 
 <!-- TOC -->
 
-- [快速入门](#快速入门)
+- [实现一个图像分类应用](#实现一个图像分类应用)
     - [概述](#概述)
     - [选择模型](#选择模型)
     - [转换模型](#转换模型)
@@ -33,7 +33,7 @@
 ## 选择模型
 
 MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。  
-MindSpore Model Zoo中图像分类模型可[在此下载]((https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms))。
+MindSpore Model Zoo中图像分类模型可[在此下载](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)。
 同时，你也可以使用预置模型做迁移学习，以实现自己的图像分类任务。
 
 ## 转换模型
@@ -134,7 +134,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/compile.html)生成`libmindspore-lite.so`库文件。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html)生成`libmindspore-lite.so`库文件。
 
 本示例中，bulid过程由download.gradle文件配置自动下载`libmindspore-lite.so`以及OpenCV的`libopencv_java4.so`库文件，并放置在`app/libs/arm64-v8a`目录下。
 
