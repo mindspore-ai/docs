@@ -22,9 +22,9 @@ Benchmark工具是一款可以对MindSpore Lite模型进行基准测试的工具
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
-- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)执行编译。
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id3)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)，获得`benchmark`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)，获得`benchmark`工具，并配置环境变量。
 
 ## 使用示例
 

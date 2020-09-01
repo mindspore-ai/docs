@@ -7,11 +7,7 @@
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
         - [Example](#example)
-    - [Windows Environment Instructions](#windows-environment-instructions)
-        - [Environment Preparation](#environment-preparation-1)
         - [Parameter Description](#parameter-description)
-        - [Example](#example-1)
-        - [Parameter Description](#parameter-description-1)
 
 <!-- /TOC -->
 
@@ -88,75 +84,6 @@ The following describes how to use the conversion command by using several commo
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
- 
-## Windows Environment Instructions
-
-### Environment Preparation  
-
-To use the MindSpore Lite model conversion tool, the following environment preparations are required.
-
--Compile: The model conversion tool code is in the `mindspore/lite/tools/converter` directory of the MindSpore source code, refer to the [Environment Requirements](https://www.mindspore.cn/lite/tutorials/en) in the deployment document /master/compile.html#id6) and [Compile Example](https://www.mindspore.cn/lite/tutorials/en/master/deploy.html#id8) to compile the Windows version.
-
--Run: Refer to [Compile Output](https://www.mindspore.cn/lite/tutorials/en/master/compile.html#id9) in the deployment document to obtain the `converter` tool, and set MinGW/ Copy several dependent files (libgcc_s_seh-1.dll, libwinpthread-1.dll, libssp-0.dll, libstdc++-6.dll) in the bin directory to the main directory of the `converter` tool.
-
-### Parameter Description
-
-Reference description Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/tutorials/en/master/converter_tool.html#id4)
-
-### Example
-
-First, use the cmd tool to enter the command to compile in the root directory of the source code, refer to `compile.md`.
-```bash
-call build.bat lite
-```
-
-Then, set the log printing level to INFO.
-```bash
-set MSLOG=INFO
-```
-
-Several common examples are selected below to illustrate the use of conversion commands.
-
--Take Caffe model LeNet as an example to execute the conversion command.
-
-   ```bash
-   call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
-   ```
-
-   In this example, because the Caffe model is used, two input files of model structure and model weight are required. Then plus fmk type and output path two parameters which are required, you can successfully execute.
-
-   The result is shown as:
-   ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
-   ```
-   This means that the Caffe model has been successfully converted to the MindSpore Lite model and the new file `lenet.ms` has been obtained.
-   
-- Take MindSpore, TensorFlow Lite, ONNX model format and perceptual quantization model as examples to execute conversion commands.
-
-   - MindSpore model `model.mindir`
-      ```bash
-      call converter_lite --fmk=MS --modelFile=model.mindir --outputFile=model
-      ```
-   
-   - TensorFlow Lite model`model.tflite`
-      ```bash
-      call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
-      ```
-   
-   - ONNX model`model.onnx`
-      ```bash
-      call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
-      ```
-
-   - TensorFlow Lite awaring quant model `model_quant.tflite`
-      ```bash
-      call converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
-      ```
-
-   In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
-   ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
-   ```   
 
 ### Parameter Description
 
