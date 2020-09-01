@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/tree/master/docs/source_en/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo
 
@@ -53,7 +53,7 @@ Domain | Sub Domain| Network | Dataset | CPU   | GPU | Ascend | 0.5.0-beta*
 |Computer Vision (CV) | Image Classification| [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)| MNIST |   |   | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/lenet/lenet_ascend_0.5.0_mnist_official_classification_20200716.tar.gz)
 |Computer Vision (CV) | Image Classification| [VGG16](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/vgg16/src/vgg.py)|    CIFAR-10 | |   | ✓ | [Download](http://download.mindspore.cn/model_zoo/official/cv/vgg/vgg16_ascend_0.5.0_cifar10_official_classification_20200715.tar.gz)
 |Computer Vision (CV) | Image Classification| [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py) | CIFAR-10|   |    | ✓ |[Download](http://download.mindspore.cn/model_zoo/official/cv/resnet/resnet50_v1.5_ascend_0.3.0_cifar10_official_classification_20200718.tar.gz)
-|Computer Vision (CV)  | Targets Detection| [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py) | COCO 2014|   |    | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/yolo/yolov3_darknet53_ascend_0.5.0_coco2014_official_object_detection_20200717.tar.gz) 
+|Computer Vision (CV)  | Targets Detection| [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py) | COCO 2014|   |    | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/yolo/yolov3_darknet53_ascend_0.5.0_coco2014_official_object_detection_20200717.tar.gz) 
 | Natural Language Processing (NLP) | Natural Language Understanding| [BERT_Base](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py) | zhwiki |   |    | ✓  |  [Download](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz)
 | Natural Language Processing (NLP) | Natural Language Understanding| [BERT_NEZHA](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)| zhwiki|  |    | ✓  |  [Download](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_nezha_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz) 
 | Natural Language Processing (NLP) | Natural Language Understanding| [Transformer](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_model.py)| WMT English-German|   |   | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/nlp/transformer/transformer_ascend_0.5.0_wmtende_official_machine_translation_20200713.tar.gz)

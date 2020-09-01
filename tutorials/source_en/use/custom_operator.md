@@ -38,7 +38,7 @@ This section takes a Square operator as an example to describe how to customize 
 The primitive of an operator is a subclass inherited from `PrimitiveWithInfer`. The type name of the subclass is the operator name.
 
 The definition of the custom operator primitive is the same as that of the built-in operator primitive.  
-- The attribute is defined by the input parameter of the constructor function `__init__`. The operator in this test case has no attribute. Therefore, `__init__` has only one input parameter. For details about test cases in which operators have attributes, see [custom add3](https://gitee.com/mindspore/mindspore/tree/master/tests/st/ops/custom_ops_tbe/cus_add3.py) in the MindSpore source code.
+- The attribute is defined by the input parameter of the constructor function `__init__`. The operator in this test case has no attribute. Therefore, `__init__` has only one input parameter. For details about test cases in which operators have attributes, see [custom add3](https://gitee.com/mindspore/mindspore/blob/master/tests/st/ops/custom_ops_tbe/cus_add3.py) in the MindSpore source code.
 - The input and output names are defined by the `init_prim_io_names` function.
 - The shape inference method of the output tensor is defined in the `infer_shape` function, and the dtype inference method of the output tensor is defined in the `infer_dtype` function.
 
