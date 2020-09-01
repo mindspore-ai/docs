@@ -11,7 +11,6 @@ MindSpore端侧教程
    :maxdepth: 1
    :caption: 快速入门
 
-   build
    quick_start/quick_start
 
 .. toctree::
@@ -19,8 +18,8 @@ MindSpore端侧教程
    :maxdepth: 1
    :caption: 使用指南
 
+   build
    use/converter_tool
    use/runtime
    use/benchmark_tool
    use/timeprofiler_tool
-   use/post_training_quantization

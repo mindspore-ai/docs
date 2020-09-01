@@ -1,13 +1,13 @@
-﻿# 模型转换工具
+﻿# 转换为MindSpore Lite模型
 
 <!-- TOC -->
 
-- [模型转换工具](#模型转换工具)
+- [转换为MindSpore Lite模型](#转换为mindspore-lite模型)
     - [概述](#概述)
     - [Linux环境使用说明](#linux环境使用说明)
         - [环境准备](#环境准备)
-        - [参数说明](#参数说明)
         - [使用示例](#使用示例)
+        - [参数说明](#参数说明)
 
 <!-- /TOC -->
 
@@ -28,30 +28,6 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 - 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)编译x86_64版本。
 
 - 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)，获得`converter`工具，并配置环境变量。
-
-### 参数说明
-
-使用`./converter_lite <args>`即可完成转换，同时提供了多种参数设置，用户可根据需要来选择使用。
-此外，用户可输入`./converter_lite --help`获取实时帮助。
-
-下面提供详细的参数说明。
-
-| 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
-| -------- | ------- | ----- | --- | ---- |
-| `--help` | 否 | 打印全部帮助信息。 | - | - |
-| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MS、CAFFE、TFLITE、ONNX | - |
-| `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
-| `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
-| `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
-| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
-|` --inputInferenceType=<INPUTINFERENCETYPE>` | 否 | 设置感知量化模型输入数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inputInferenceType保持一致。 | FLOAT、INT8 | FLOAT |
-| `--inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输出类型和inferenceType保持一致。 | FLOAT、INT8 | FLOAT |
-| `--stdDev=<STDDEV> `| 否 | 感知量化模型转换时用于设置输入数据的标准差。 | （0，+∞） | 128 |
-| `--mean=<MEAN>` | 否 | 感知量化模型转换时用于设置输入数据的均值。 | [-128, 127] | -0.5 |
-
-> - 参数名和参数值之间用等号连接，中间不能有空格。
-> - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
-
 
 ### 使用示例
 
@@ -109,3 +85,27 @@ bash build.sh -I x86_64
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
+
+> 训练后量化示例请参考<https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/post_training_quantization.html>。
+
+### 参数说明
+
+MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需要来选择使用。此外，用户可输入`./converter_lite --help`获取实时帮助。
+
+下面提供详细的参数说明。
+
+| 参数  |  是否必选   |  参数说明  | 取值范围 | 默认值 |
+| -------- | ------- | ----- | --- | ---- |
+| `--help` | 否 | 打印全部帮助信息。 | - | - |
+| `--fmk=<FMK>`  | 是 | 输入模型的原始格式。 | MS、CAFFE、TFLITE、ONNX | - |
+| `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
+| `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
+| `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
+| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
+|` --inputInferenceType=<INPUTINFERENCETYPE>` | 否 | 设置感知量化模型输入数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inputInferenceType保持一致。 | FLOAT、INT8 | FLOAT |
+| `--inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输出类型和inferenceType保持一致。 | FLOAT、INT8 | FLOAT |
+| `--stdDev=<STDDEV> `| 否 | 感知量化模型转换时用于设置输入数据的标准差。 | （0，+∞） | 128 |
+| `--mean=<MEAN>` | 否 | 感知量化模型转换时用于设置输入数据的均值。 | [-128, 127] | -0.5 |
+
+> - 参数名和参数值之间用等号连接，中间不能有空格。
+> - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。

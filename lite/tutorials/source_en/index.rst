@@ -11,7 +11,6 @@ MindSpore Lite Tutorials
    :maxdepth: 1
    :caption: Quick Start
 
-   build
    quick_start/quick_start
 
 .. toctree::
@@ -19,6 +18,7 @@ MindSpore Lite Tutorials
    :maxdepth: 1
    :caption: Use
 
+   build
    use/converter_tool
    use/runtime
    use/benchmark_tool

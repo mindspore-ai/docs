@@ -1,13 +1,17 @@
-# Converter Tool
+# Convert to MindSpore Lite
 
 <!-- TOC -->
 
-- [Model Conversion Tool](#model-conversion-tool)
+- [Convert to MindSpore Lite](#convert-to-mindspore-lite)
     - [Overview](#overview)
-    - [Linux Environment Instructions](#linux-environment-instructions)    
+    - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
+        - [Example](#example)
+    - [Windows Environment Instructions](#windows-environment-instructions)
+        - [Environment Preparation](#environment-preparation-1)
         - [Parameter Description](#parameter-description)
-        - [Example](#example)      
+        - [Example](#example-1)
+        - [Parameter Description](#parameter-description-1)
 
 <!-- /TOC -->
 
@@ -28,31 +32,6 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 - Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
 
 - Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
-
-### Parameter Description
-
-You can use `./converter_lite ` to complete the conversion. In addition, you can set multiple parameters as required.
-You can enter `./converter_lite --help` to obtain help information in real time.
-
-The following describes the parameters in detail.
-
-
-| Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
-| -------- | ------- | ----- | --- | ---- |
-| `--help` | No | Prints all help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MS, CAFFE, TFLITE, or ONNX | - |
-| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
-| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
-| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
-|`--inputInferenceType=<INPUTRINFERENCETYPE>`  | No(supported by aware quant models only) | Sets the input data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the input data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
-|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
-|`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
-|`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
-
-> - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
-> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter
-
 
 ### Example
 
@@ -179,3 +158,26 @@ Several common examples are selected below to illustrate the use of conversion c
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```   
 
+### Parameter Description
+
+MindSpore Lite model conversion tool provides multiple parameters.
+You can enter `./converter_lite --help` to obtain help information in real time.
+
+The following describes the parameters in detail.
+
+
+| Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
+| -------- | ------- | ----- | --- | ---- |
+| `--help` | No | Prints all help information. | - | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MS, CAFFE, TFLITE, or ONNX | - |
+| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
+| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
+| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
+| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
+|`--inputInferenceType=<INPUTRINFERENCETYPE>`  | No(supported by aware quant models only) | Sets the input data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the input data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
+|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | FLOAT or INT8 | FLOAT |
+|`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
+|`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
+
+> - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
+> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter

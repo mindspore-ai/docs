@@ -1,14 +1,14 @@
-# Build
+# Build MindSpore Lite
 
 <!-- TOC -->
 
-- [compilation](#compilation)
+- [Build MindSpore Lite](#build-mindspore-lite)
     - [Linux Environment Compilation](#linux-environment-compilation)
         - [Environment Requirements](#environment-requirements)
         - [Compilation Options](#compilation-options)
         - [Compilation Example](#compilation-example)
         - [Output Description](#output-description)
-            - [Description of Converter's Directory Structure](#description-of-converter-directory-structure)
+            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
 
 <!-- /TOC -->

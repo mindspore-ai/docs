@@ -1,12 +1,12 @@
-﻿# TimeProfiler工具
+﻿# 使用TimeProfiler进行耗时分析
 
 <!-- TOC -->
 
-- [TimeProfiler工具](#timeprofiler工具)
+- [使用TimeProfiler进行耗时分析](#使用timeprofiler进行耗时分析)
     - [概述](#概述)
     - [环境准备](#环境准备)
-    - [参数说明](#参数说明)
     - [使用示例](#使用示例)
+    - [参数说明](#参数说明)
 
 <!-- /TOC -->
 
@@ -23,26 +23,6 @@ TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗
 - 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profile`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)执行编译。
 
 - 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)，获得`timeprofile`工具，并配置环境变量。
-
-## 参数说明
-
-使用编译好的TimeProfiler工具进行模型网络层耗时分析时，其命令格式如下所示。
-
-```bash
-./timeprofile --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
-```
-
-下面提供详细的参数说明。
-
-| 参数名            | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围 |
-| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
-| `--help` | 可选 | 显示`timeprofiler`命令的帮助信息。 | - | - | - |
-| `--modelPath=<MODELPATH> ` | 必选 | 指定需要进行耗时分析的MindSpore Lite模型的文件路径。 | String | null   | -        |
-| `--loopCount=<LOOPCOUNT>` | 可选 | 指定TimeProfiler工具进行耗时分析时，模型推理的运行次数，其值为正整数。 | Integer | 100 | - |
-| `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 4 | - |
-| `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer   | 1      | -1：表示中核<br>1：表示大核<br>0：表示不绑定 |
-| `--inDataPath=<INDATAPATH>` | 可选 | 指定模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
-| `--fp16Priority=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Bool | false | true, false |
 
 ## 使用示例
 
@@ -91,3 +71,23 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 -----------------------------------------------------------------------------------------
 ```
+
+## 参数说明
+
+使用编译好的TimeProfiler工具进行模型网络层耗时分析时，其命令格式如下所示。
+
+```bash
+./timeprofile --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
+```
+
+下面提供详细的参数说明。
+
+| 参数名            | 属性 | 功能描述                                                     | 参数类型 | 默认值 | 取值范围 |
+| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
+| `--help` | 可选 | 显示`timeprofiler`命令的帮助信息。 | - | - | - |
+| `--modelPath=<MODELPATH> ` | 必选 | 指定需要进行耗时分析的MindSpore Lite模型的文件路径。 | String | null   | -        |
+| `--loopCount=<LOOPCOUNT>` | 可选 | 指定TimeProfiler工具进行耗时分析时，模型推理的运行次数，其值为正整数。 | Integer | 100 | - |
+| `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 4 | - |
+| `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer   | 1      | -1：表示中核<br>1：表示大核<br>0：表示不绑定 |
+| `--inDataPath=<INDATAPATH>` | 可选 | 指定模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
+| `--fp16Priority=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Bool | false | true, false |
