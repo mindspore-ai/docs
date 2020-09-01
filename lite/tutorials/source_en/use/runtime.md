@@ -1,13 +1,13 @@
-# Runtime User Guide
+# Use Runtime for Model Inference 
 
 <!-- TOC -->
 
-- [Runtime User Guide](#runtime-user-guide)
+- [Use Runtime for Model Inference](#use-runtime-for-model-inference)
     - [Overview](#overview)
     - [Reading Models](#reading-models)
     - [Session Creation](#session-creation)
         - [Creating Contexts](#creating-contexts)
-        - [Creating Sessions](#creating-sessions-1)
+        - [Creating Sessions](#creating-sessions)
         - [Example](#example)
     - [Graph Compilation](#graph-compilation)
         - [Variable Dimension](#variable-dimension)
