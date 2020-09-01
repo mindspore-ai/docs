@@ -107,7 +107,8 @@ ms client received:
     ./ms_client --target=localhost:5500
     ```
     显示如下返回值说明Serving服务已正确执行Add网络的推理。
-    ```Compute [[1, 2], [3, 4]] + [[1, 2], [3, 4]]
+    ```
+    Compute [[1, 2], [3, 4]] + [[1, 2], [3, 4]]
     Add result is 2 4 6 8
     client received: RPC OK
     ```

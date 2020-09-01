@@ -346,7 +346,7 @@ mindinsight stop
     自定义callback中如果使用 `SummaryRecord`，则其不能和 `SummaryCollector` 同时使用。
 
     正确代码:
-    ```python3
+    ```
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
@@ -356,7 +356,7 @@ mindinsight stop
     ```
 
     错误代码：
-    ```python3
+    ```
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -364,7 +364,7 @@ mindinsight stop
     ```
 
     错误代码：
-    ```python3
+    ```
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')

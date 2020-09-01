@@ -341,7 +341,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     If the custom callback use `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
 
     Right code:
-    ```python3
+    ```
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(epoch=2, train_dataset, callbacks=[summary_collector])
@@ -350,7 +350,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```python3
+    ```
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -358,7 +358,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```python3
+    ```
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
