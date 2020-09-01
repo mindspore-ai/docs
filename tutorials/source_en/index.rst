@@ -54,6 +54,13 @@ MindSpore Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Inference Service
+
+   advanced_use/serving
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Network Migration
 
    advanced_use/network_migration
