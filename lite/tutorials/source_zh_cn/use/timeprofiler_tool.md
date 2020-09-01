@@ -20,9 +20,9 @@ TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗
 
 使用TimeProfiler工具，需要进行如下环境准备工作。
 
-- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profile`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id2)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)执行编译。
+- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profile`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id3)执行编译。
 
-- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)，获得`timeprofile`工具，并配置环境变量。
+- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)，获得`timeprofile`工具，并配置环境变量。
 
 ## 使用示例
 
