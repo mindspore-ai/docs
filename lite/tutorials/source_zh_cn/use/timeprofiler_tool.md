@@ -14,7 +14,7 @@
 
 ## 概述
 
-TimeProfiler工具可以对MindSpore Lite模型网络层的前向推理进行耗时分析，由C++语言编码实现。
+转换模型后执行推理前，你可以使用TimeProfiler工具对MindSpore Lite模型网络层的前向推理进行耗时分析，它由C++语言编码实现。
 
 ## 环境准备
 
