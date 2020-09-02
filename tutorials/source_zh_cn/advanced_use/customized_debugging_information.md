@@ -140,7 +140,7 @@ Callback可以把训练过程中的重要信息记录下来，通过一个字典
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
-    from mindspore.train.serialization import _exec_save_checkpoint
+    from mindspore.train.serialization import save_checkpoint
 
     class SaveCallback(Callback):
         def __init__(self, model, eval_dataset):
@@ -157,7 +157,7 @@ Callback可以把训练过程中的重要信息记录下来，通过一个字典
             if result['acc'] > self.acc:
                 self.acc = result['acc']
                 file_name = str(self.acc) + ".ckpt"
-                _exec_save_checkpoint(train_network=cb_params.train_network, ckpt_file_name=file_name)
+                save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
 
 
