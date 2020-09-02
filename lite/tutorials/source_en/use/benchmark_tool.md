@@ -16,7 +16,7 @@
 
 ## Overview
 
-The Benchmark tool is used to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
 ## Environment Preparation
 

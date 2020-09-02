@@ -14,7 +14,7 @@
 
 ## Overview
 
-The TimeProfiler tool can be used to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model. The analysis is implemented using the C++ language.
+After model conversion and before inference, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model. The analysis is implemented using the C++ language.
 
 ## Environment Preparation
 
