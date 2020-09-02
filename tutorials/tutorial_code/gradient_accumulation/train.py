@@ -9,7 +9,7 @@ from mindspore.ops import composite as C
 from mindspore.ops import functional as F
 from mindspore.ops import operations as P
 from mindspore.train.dataset_helper import DatasetHelper
-from mindspore.train.serialization import _exec_save_checkpoint
+from mindspore.train.serialization import save_checkpoint
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
@@ -124,7 +124,7 @@ class GradientAccumulation:
 
             train_dataset.reset()
 
-        _exec_save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
+        save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
 
 
 if __name__ == "__main__":

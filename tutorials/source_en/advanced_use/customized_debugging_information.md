@@ -138,7 +138,7 @@ Here are two examples to further understand the usage of custom Callback.
 - Save the checkpoint file with the highest accuracy during training.
 
     ```python
-    from mindspore.train.serialization import _exec_save_checkpoint
+    from mindspore.train.serialization import save_checkpoint
 
     class SaveCallback(Callback):
         def __init__(self, model, eval_dataset):
@@ -155,7 +155,7 @@ Here are two examples to further understand the usage of custom Callback.
             if result['acc'] > self.acc:
                 self.acc = result['acc']
                 file_name = str(self.acc) + ".ckpt"
-                _exec_save_checkpoint(train_network=cb_params.train_network, ckpt_file_name=file_name)
+                save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
 
 
