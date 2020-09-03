@@ -169,7 +169,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 
 2. 调用`save_checkpoint`接口，将参数数据写入文件，生成新的CheckPoint文件。
    ```
-   save_checkpoint(save_obj, “./CKP-Integrated_1-4_32.ckpt”)
+   save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
    ```
     其中，
     - `save_checkpoint`： 通过该接口将网络模型参数信息存入文件。

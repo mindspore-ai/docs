@@ -165,7 +165,7 @@ The parameter name is model\_parallel\_weight and the dividing strategy is to pe
 2. Call the `save_checkpoint` API to write the parameter data to a file and generate a new checkpoint file.
 
    ```
-   save_checkpoint(save_obj, “./CKP-Integrated_1-4_32.ckpt”)
+   save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
    ```
 
    In the preceding information:
