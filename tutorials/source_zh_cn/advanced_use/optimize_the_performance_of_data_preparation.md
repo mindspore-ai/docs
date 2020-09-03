@@ -251,9 +251,9 @@ shuffle性能优化建议如下：
     for data in ds2.create_dict_iterator():
         print(data["data"])
     ```
-    ```
-    输出：
 
+    输出：
+    ```
     before shuffle:
     [0 1 2 3 4]
     [1 2 3 4 5]

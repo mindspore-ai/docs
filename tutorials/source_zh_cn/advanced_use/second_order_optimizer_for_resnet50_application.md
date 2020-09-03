@@ -351,7 +351,7 @@ epoch: 42 step: 5004, loss is 1.6453942
 其中，
 `*.ckpt`：指保存的模型参数文件。checkpoint文件名称具体含义：*网络名称*-*epoch数*_*step数*.ckpt。
 
-##### GPU
+#### GPU
 在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 ```
 sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
