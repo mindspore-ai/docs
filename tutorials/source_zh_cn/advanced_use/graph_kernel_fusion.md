@@ -10,7 +10,6 @@
     - [样例脚本](#样例脚本)
   - [效果评估](#效果评估)
     - [计算图](#计算图)
-    - [训练单step时间](#训练单step时间)
 
 <!-- /TOC -->
 
@@ -148,7 +147,3 @@ context.set_context(enable_graph_kernel=True)
     ![组合算子融合](./images/graph_kernel_fusion_example_fuse_composite_after.png)
 
     图5：组合算子融合后计算图
-  
-### 训练单step时间
-
-BERT-large场景：BERT-large网络启用图算融合后，在保持与启用前精度一致的前提下，训练的单step时间可提升10%以上。

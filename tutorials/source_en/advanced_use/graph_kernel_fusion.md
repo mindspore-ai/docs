@@ -10,7 +10,6 @@
     - [Sample Scripts](#sample-scripts)
   - [Effect Evaluation](#effect-evaluation)
     - [Computational Graph](#computational-graph)
-    - [Training Time for One Step](#training-time-for-one-step)
 
 <!-- /TOC -->
 
@@ -148,7 +147,3 @@ To verify whether the graph kernel fusion takes effect, you can compare the chan
     ![Composite operator fusion](./images/graph_kernel_fusion_example_fuse_composite_after.png)
 
     Figure 5 Computational graph after composite operator fusion
-  
-### Training Time for One Step
-
-BERT-large scenario: After the graph kernel fusion function is enabled for the BERT-large network, the training time for one step can be improved by more than 10% while the accuracy is the same as that before the function is enabled.
