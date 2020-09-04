@@ -1,6 +1,8 @@
+# ErrorCode and MetaType
+
 Description of error code and meta type supported in MindSpore Lite.
 
-# ErrorCode
+## ErrorCode
 
 | Definition  | Value | Description |
 | ---  | --- | --- |
@@ -23,7 +25,7 @@ Description of error code and meta type supported in MindSpore Lite.
 | RET_INFER_ERR | -501 | Failed to infer shape. | 
 | RET_INFER_INVALID | -502 | Invalid infer shape before runtime. | 
 
-# MetaType
+## MetaType
 An **enum** type.
 
 | Type Name | Definition | Value | Description |

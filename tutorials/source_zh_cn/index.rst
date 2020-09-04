@@ -36,6 +36,7 @@ MindSpore教程
    advanced_use/synchronization_training_and_evaluation
    advanced_use/bert_poetry
    advanced_use/optimize_the_performance_of_data_preparation
+   advanced_use/mobilenetv2_incremental_learning
 
 .. toctree::
    :glob:
