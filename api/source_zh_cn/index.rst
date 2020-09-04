@@ -41,12 +41,6 @@ MindSpore API
 
 .. toctree::
    :maxdepth: 1
-   :caption: MindInsight Python API
-
-   api/python/mindinsight/mindinsight.lineagemgr
-
-.. toctree::
-   :maxdepth: 1
    :caption: MindArmour Python API
 
    api/python/mindarmour/mindarmour

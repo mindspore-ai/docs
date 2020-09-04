@@ -16,8 +16,6 @@ import os
 # sys.path.insert(0, os.path.abspath('.'))
 
 import mindspore
-# If you don't want to generate MindInsight APIs, comment this line.
-import mindinsight
 # If you don't want to generate MindArmour APIs, comment this line.
 import mindarmour
 
