@@ -3,28 +3,29 @@
 
 <!-- TOC -->
 
-- [增量学习](#增量学习)
-  - [概述](#概述)
-  - [任务描述及准备](#任务描述及准备)
-    - [环境配置](#环境配置)
-    - [下载代码](#下载代码)
-    - [准备预训练模型](#准备预训练模型)
-    - [准备数据](#准备数据)
-  - [预训练模型加载代码详解](#预训练模型加载代码详解)
-  - [参数简介](#参数简介)
-    - [运行Python文件](#运行python文件)
-    - [运行Shell脚本](#运行shell脚本)
-  - [加载增量学习训练](#加载增量学习训练)
-    - [CPU加载训练](#cpu加载训练)
-    - [GPU加载训练](#gpu加载训练)
-    - [Ascend加载训练](#ascend加载训练)
-    - [增量学习训练结果](#增量学习训练结果)
-  - [验证增量学习训练模型](#验证增量学习训练模型)
-    - [验证模型](#验证模型)
-    - [验证结果](#验证结果)
+- [MobileNetV2 增量学习](#mobilenetv2-增量学习)
+    - [概述](#概述)
+    - [任务描述及准备](#任务描述及准备)
+        - [环境配置](#环境配置)
+        - [下载代码](#下载代码)
+        - [准备预训练模型](#准备预训练模型)
+        - [准备数据](#准备数据)
+    - [预训练模型加载代码详解](#预训练模型加载代码详解)
+    - [参数简介](#参数简介)
+        - [运行Python文件](#运行python文件)
+        - [运行Shell脚本](#运行shell脚本)
+    - [加载增量学习训练](#加载增量学习训练)
+        - [CPU加载训练](#cpu加载训练)
+        - [GPU加载训练](#gpu加载训练)
+        - [Ascend加载训练](#ascend加载训练)
+        - [增量学习训练结果](#增量学习训练结果)
+    - [验证增量学习训练模型](#验证增量学习训练模型)
+        - [验证模型](#验证模型)
+        - [验证结果](#验证结果)
+
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/mobilenetv2_incremental_learn.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/mobilenetv2_incremental_learning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -336,7 +337,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/device0/log0.log`中查看打印信息，输出结果如下：
 
-    ```Shell
+    ```
     train args: Namespace(dataset_path='.\\dataset\\train', platform='CPU', \
     pretrain_ckpt='.\\pretrain_checkpoint\\mobilenetV2.ckpt', train_method='incremental_learn')
     cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
@@ -352,7 +353,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - Windows上使用`dir checkpoint`查看保存的模型文件：
 
-    ```Shell
+    ```
     dir checkpoint
     2020//0814 11:20        267,727 mobilenetv2_head_1.ckpt
     2020//0814 11:21        267,727 mobilenetv2_head_10.ckpt
@@ -365,7 +366,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - Linux上使用`ls ./checkpoint`查看保存的模型文件：
 
-    ```Shell
+    ```
     ls ./checkpoint/
     mobilenetv2_head_1.ckpt  mobilenetv2_head_2.ckpt
     mobilenetv2_head_3.ckpt  mobilenetv2_head_4.ckpt
@@ -387,10 +388,10 @@ sh run_infer.sh CPU /store/dataset/openimage/val/ ../pretrain_checkpoint/mobilen
 
 ### 验证结果
 
-- 运行Python文件时在交互式命令行中输出验证结果，Shell脚本将把这些信息写入`./infer.log`中，需要使用`cat ./infer.log`查看，以Window运行结果为例，结果如下：
+运行Python文件时在交互式命令行中输出验证结果，Shell脚本将把这些信息写入`./infer.log`中，需要使用`cat ./infer.log`查看，以Window运行结果为例，结果如下：
 
-  ```Shell
-  result:{'acc': 0.9466666666666666666667}
-  pretrain_ckpt = .\pretrain_checkpoint\mobilenetV2.ckpt
-  head_ckpt = .\checkpoint\mobilenetv2_head_15.ckpt
-  ```
+```
+result:{'acc': 0.9466666666666666666667}
+pretrain_ckpt = .\pretrain_checkpoint\mobilenetV2.ckpt
+head_ckpt = .\checkpoint\mobilenetv2_head_15.ckpt
+```
