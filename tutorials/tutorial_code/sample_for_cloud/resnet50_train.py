@@ -24,7 +24,8 @@ from mindspore import context
 from mindspore import Tensor
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-from mindspore.train.model import Model, ParallelMode
+from mindspore.train.model import Model
+from mindspore.context import ParallelMode
 from mindspore.train.callback import Callback, LossMonitor
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
 from mindspore.communication.management import init
@@ -121,7 +122,7 @@ def resnet50_train(args_opt):
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          mirror_mean=True)
+                                          gradients_mean=True)
         init()
         local_data_path = os.path.join(local_data_path, str(device_id))
 
