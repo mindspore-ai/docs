@@ -11,5 +11,6 @@ MindSpore Lite Documentation
    :maxdepth: 1
 
    architecture
+   apicc/apicc
    operator_list
    glossary
