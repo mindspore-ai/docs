@@ -193,7 +193,7 @@ if args.pre_trained:
 定义优化器及损失函数的示例代码如下：
 
 ```python
-loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True)
+loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 opt = nn.Momentum(network.trainable_params(), cfg.learning_rate, cfg.momentum)
 loss_cb = LossMonitor()
 ```

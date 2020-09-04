@@ -63,7 +63,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
     ```python
     network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
@@ -86,7 +86,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
     ```python
     network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 

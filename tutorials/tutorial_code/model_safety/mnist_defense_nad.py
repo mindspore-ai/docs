@@ -57,7 +57,7 @@ def test_nad_method():
     load_dict = load_checkpoint(ckpt_name)
     load_param_into_net(net, load_dict)
 
-    loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
+    loss = SoftmaxCrossEntropyWithLogits(sparse=False)
     opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
 
     nad = NaturalAdversarialDefense(net, loss_fn=loss, optimizer=opt,

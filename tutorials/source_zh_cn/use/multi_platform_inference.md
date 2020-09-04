@@ -62,7 +62,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
    首先构建模型，然后使用`mindspore.train.serialization`模块的`load_checkpoint`和`load_param_into_net`从本地加载模型与参数，传入验证数据集后即可进行模型推理，验证数据集的处理方式与训练数据集相同。
     ```python
     network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
@@ -84,7 +84,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
    首先构建模型，然后使用`hub.load_weights`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
     ```python
     network = LeNet5(cfg.num_classes)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 

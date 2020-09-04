@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     epoch_size = args_opt.epoch_size
     net = resnet50(args_opt.batch_size, args_opt.num_classes)
-    ls = SoftmaxCrossEntropyWithLogits(sparse=True, is_grad=False, reduction="mean")
+    ls = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
 
     model = Model(net, loss_fn=ls, optimizer=opt, metrics={'acc'})

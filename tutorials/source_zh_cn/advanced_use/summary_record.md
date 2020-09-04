@@ -108,7 +108,7 @@ class AlexNet(nn.Cell):
 context.set_context(mode=context.GRAPH_MODE)
 
 network = AlexNet(num_classes=10)
-loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 lr = Tensor(0.1)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
 model = Model(network, loss, opt)

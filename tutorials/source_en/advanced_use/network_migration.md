@@ -223,7 +223,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
    After the network is defined, the loss function and optimizer need to be defined accordingly.
 
    ```python
-   loss = SoftmaxCrossEntropyWithLogits(sparse=True)
+   loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
    opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), lr, config.momentum, config.weight_decay, config.loss_scale)
    ```
 

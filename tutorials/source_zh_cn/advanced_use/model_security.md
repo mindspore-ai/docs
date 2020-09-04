@@ -185,7 +185,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                                       batch_size=batch_size, repeat_size=1,
                                       sparse=False)
     net = LeNet5()
-    loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=False)
+    loss = SoftmaxCrossEntropyWithLogits(sparse=False)
     opt = nn.Momentum(net.trainable_params(), 0.01, 0.09)
     model = Model(net, loss, opt, metrics=None)
     model.train(10, ds_train, callbacks=[LossMonitor()],

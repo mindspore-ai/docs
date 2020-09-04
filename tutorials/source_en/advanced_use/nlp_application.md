@@ -193,7 +193,7 @@ if args.pre_trained:
 The sample code for defining the optimizer and loss function is as follows:
 
 ```python
-loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True)
+loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 opt = nn.Momentum(network.trainable_params(), cfg.learning_rate, cfg.momentum)
 loss_cb = LossMonitor()
 ```
