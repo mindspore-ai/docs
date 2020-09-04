@@ -170,7 +170,7 @@ MindSpore中定义损失函数和优化器的代码样例如下：
 
 ```python
 # loss function definition
-ls = SoftmaxCrossEntropyWithLogits(sparse=True, is_grad=False, reduction="mean")
+ls = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 
 # optimization definition
 opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)

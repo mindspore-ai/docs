@@ -179,7 +179,7 @@ if __name__ == "__main__":
     epoch_size = 1
     mnist_path = "./MNIST_Data"
     # define the loss function
-    net_loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction='mean')
+    net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     repeat_size = 1
     # create the network
     network = LeNet5()

@@ -218,7 +218,7 @@ if __name__ == "__main__":
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
     network = LeNet5(10)
-    net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+    net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     model = GradientAccumulation(network, net_loss, net_opt)
 

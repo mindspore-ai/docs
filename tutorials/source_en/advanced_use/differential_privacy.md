@@ -233,7 +233,7 @@ Load the LeNet network, define the loss function, configure the checkpoint param
 
 ```python
 network = LeNet5()
-net_loss = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction="mean")
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
                              keep_checkpoint_max=cfg.keep_checkpoint_max)
 ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",

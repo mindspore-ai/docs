@@ -256,7 +256,7 @@ Call the defined loss function in the `__main__` function.
 if __name__ == "__main__":
     ...
     #define the loss function
-    net_loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction='mean')
+    net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     ...
 ```
 
