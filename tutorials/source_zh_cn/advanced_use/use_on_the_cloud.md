@@ -164,13 +164,13 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
     ```python
     import os
     from mindspore import context
-    from mindspore.train.model import ParallelMode
+    from mindspore.context import ParallelMode
 
     device_num = int(os.getenv('RANK_SIZE'))
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          mirror_mean=True)
+                                          gradients_mean=True)
     ```
 
 ### 示例代码
@@ -183,7 +183,7 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
 import os
 import argparse
 from mindspore import context
-from mindspore.train.model import ParallelMode
+from mindspore.context import ParallelMode
 import mindspore.dataset.engine as de
 
 device_id = int(os.getenv('DEVICE_ID'))
@@ -201,7 +201,7 @@ def resnet50_train(args_opt):
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          mirror_mean=True)
+                                          gradients_mean=True)
     train_dataset = create_dataset(local_data_path)
 
 if __name__ == '__main__':
@@ -220,7 +220,7 @@ if __name__ == '__main__':
 import os
 import argparse
 from mindspore import context
-from mindspore.train.model import ParallelMode
+from mindspore.context import ParallelMode
 import mindspore.dataset.engine as de
 
 # adapt to cloud: used for downloading data
@@ -244,7 +244,7 @@ def resnet50_train(args_opt):
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          mirror_mean=True)
+                                          gradients_mean=True)
         # adapt to cloud: define distributed local data path
         local_data_path = os.path.join(local_data_path, str(device_id))
 

@@ -28,7 +28,8 @@ from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore import Tensor
 from mindspore.ops import operations as P
 from mindspore.nn.optim.momentum import Momentum
-from mindspore.train.model import Model, ParallelMode
+from mindspore.train.model import Model
+from mindspore.context import ParallelMode
 from mindspore import context
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
@@ -117,7 +118,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, mirror_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
