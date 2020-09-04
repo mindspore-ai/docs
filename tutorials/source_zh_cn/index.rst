@@ -68,10 +68,9 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 端云使用
+   :caption: 云上使用
 
    advanced_use/use_on_the_cloud
-   advanced_use/on_device_inference
 
 .. toctree::
    :glob:
