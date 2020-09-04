@@ -203,20 +203,20 @@ MindSpore支持`TruncatedNormal`、`Normal`、`Uniform`等多种参数初始化�
 
 ```python
 import mindspore.nn as nn
+from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):
     """
     Lenet network structure
     """
     #define the operator required
-    def __init__(self, num_class=10, channel=1):
+    def __init__(self, num_class=10, num_channel=1):
         super(LeNet5, self).__init__()
-        self.num_class = num_class
-        self.conv1 = nn.Conv2d(channel, 6, 5, pad_mode='valid')
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
         self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
-        self.fc1 = nn.Dense(16 * 5 * 5, 120)
-        self.fc2 = nn.Dense(120, 84)
-        self.fc3 = nn.Dense(84, self.num_class)
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
@@ -257,7 +257,7 @@ from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 if __name__ == "__main__":
     ...
     #define the loss function
-    net_loss = SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True, reduction='mean')
+    net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     ...
 ```
 
@@ -346,18 +346,20 @@ python lenet.py --device_target=CPU
 训练过程中loss打印示例如下：
 
 ```bash
+epoch: 1 step: 1, loss is 2.3025916
+epoch: 1 step: 2, loss is 2.302577
+epoch: 1 step: 3, loss is 2.3023994
+epoch: 1 step: 4, loss is 2.303059
+epoch: 1 step: 5, loss is 2.3025753
+epoch: 1 step: 6, loss is 2.3027692
+epoch: 1 step: 7, loss is 2.3026521
+epoch: 1 step: 8, loss is 2.3014607
 ...
-epoch: 1 step: 262, loss is 1.9212162
-epoch: 1 step: 263, loss is 1.8498616
-epoch: 1 step: 264, loss is 1.7990671
-epoch: 1 step: 265, loss is 1.9492403
-epoch: 1 step: 266, loss is 2.0305142
-epoch: 1 step: 267, loss is 2.0657792
-epoch: 1 step: 268, loss is 1.9582214
-epoch: 1 step: 269, loss is 0.9459006
-epoch: 1 step: 270, loss is 0.8167224
-epoch: 1 step: 271, loss is 0.7432692
-...
+epoch: 1 step: 1871, loss is 0.048939988
+epoch: 1 step: 1872, loss is 0.028885357
+epoch: 1 step: 1873, loss is 0.09475248
+epoch: 1 step: 1874, loss is 0.046067055
+epoch: 1 step: 1875, loss is 0.12366105
 ```
 
 训练完后，即保存的模型文件，示例如下:
@@ -416,7 +418,7 @@ python lenet.py --device_target=CPU
 ```
 ...
 ============== Starting Testing ==============
-============== Accuracy:{'Accuracy': 0.9742588141025641} ==============
+============== Accuracy:{'Accuracy': 0.9663477564102564} ==============
 ```
 
-可以在打印信息中看出模型精度数据，示例中精度数据达到97.4%，模型质量良好。
+可以在打印信息中看出模型精度数据，示例中精度数据达到96.6%，模型质量良好。随着网络迭代次数`epoch_size`增加，模型精度会进一步提高。
