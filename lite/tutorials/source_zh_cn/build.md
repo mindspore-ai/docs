@@ -126,7 +126,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 │   └── converter # 模型转换工具
 │   └── third_party # 第三方库头文件和库
 │       ├── protobuf # Protobuf的动态库
-
+        ├── flatbuffers # Flatbuffers的动态库
 ```
 
 #### 模型推理框架runtime及其他工具目录结构说明
@@ -178,4 +178,4 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 
 > 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
 > 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 3. 运行converter、benchmark或time_profile目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`
+> 3. 运行converter、benchmark或time_profile目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`
