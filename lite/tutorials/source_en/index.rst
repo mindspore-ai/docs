@@ -20,6 +20,5 @@ MindSpore Lite Tutorials
 
    build
    use/converter_tool
+   use/evaluating_the_model
    use/runtime
-   use/benchmark_tool
-   use/timeprofiler_tool
