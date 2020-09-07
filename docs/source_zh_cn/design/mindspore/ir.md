@@ -76,7 +76,7 @@ lambda (x, y)
     let c = b * %1 in
     c end
 ```
-对应的MindIR为[ir.dot](./images/ir/ir.dot)：
+对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/ir.dot)：
 
 ![](./images/ir/ir.png)
 
@@ -106,7 +106,8 @@ def hof(x):
     return res
 ```
 
-对应的MindIR为[hof.dot](./images/ir/hof.dot)：
+对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/hof.dot)：
+
 ![](./images/ir/hof.png)
 
 在实际网络训练脚本中，自动求导泛函`GradOperation`和优化器中常用到的`Partial`和`HyperMap`都是典型的高阶函数。高阶语义极大地提升了MindSpore表达的灵活性和简洁性。
@@ -126,7 +127,8 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-对应的MindIR为[cf.dot](./images/ir/cf.dot)：
+对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/cf.dot)：
+
 ![](./images/ir/cf.png)
 
 其中`fibonacci`是顶层函数图，在顶层中有两个函数图被`switch`选择调用。`✓fibonacci`是第一个`if`的True分支，`✗fibonacci`是第一个`if`的False分支。在`✗fibonacci`中被调用的`✓✗fibonacci`是`elif`的True分支，`✗✗fibonacci`是`elif`的False分支。这里需要理解的关键是在MindIR中，条件跳转和递归是以高阶控制流的形式表达的。例如，`✓fibonacci`和`✗fibonacci`是作为`switch`算子的参数传入，`switch`根据条件参数选择哪一个函数作为返回值。因此，`switch`是把输入的函数当成普通的值做了一个二元选择操作，并没有调用，而真正的函数调用是在紧随`switch`后的CNode上完成。
@@ -151,7 +153,8 @@ def ms_closure():
     return out1, out2
 ```
 
-对应的MindIR为[closure.dot](./images/ir/closure.dot)：
+对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/closure.dot)：
+
 ![](./images/ir/closure.png)
 
 在例子中，`a`和`b`是自由变量，因为`func_inner`中变量`a`和`b`是引用的其父图`func_outer`中定义的参数。变量`closure`是一个闭包，它是函数`func_inner`与其上下文`func_outer(1, 2)`的结合。因此，`out1`的结果是4，因为其等价于`1+2+1`，`out2`的结果是5，因为其等价于`1+2+2`。
