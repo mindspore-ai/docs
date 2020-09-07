@@ -35,7 +35,7 @@ MindSpore是一个多元化的机器学习框架。既可以在手机等端侧�
 
 目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。 
 
->你可以在这里找到完整可运行的样例代码：https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2
+>你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2>
 
 ## 任务描述及准备
 
@@ -114,7 +114,7 @@ MindSpore是一个多元化的机器学习框架。既可以在手机等端侧�
 在Gitee中克隆[MindSpore开源项目仓库](https://gitee.com/mindspore/mindspore.git)，进入`./model_zoo/official/cv/mobilenetv2/`。  
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore/pulls/5766
+git clone https://gitee.com/mindspore/mindspore.git
 cd ./mindspore/model_zoo/official/cv/mobilenetv2
 ```
 
@@ -144,12 +144,12 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ### 准备预训练模型  
 
-[下载预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetV2.ckpt)到以下目录：  
+[下载预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt)到以下目录：  
 `./pretrain_checkpoint/[pretrain_checkpoint_file]`  
 
 ```Python
 mkdir pretrain_checkpoint
-wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetV2.ckpt
+wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt
 ```
 
 ### 准备数据
@@ -247,7 +247,7 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH] [HEAD_CKPT_PATH]
 
 ## 加载增量学习训练  
 
-Windows系统上，MobileNetV2做增量学习训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做增量学习训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](#参数简介)。
+Windows系统上，MobileNetV2做增量学习训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做增量学习训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mobilenetv2_incremental_learning.html#id8)。
 
 Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。 增量学习成功开始训练，`./train/device*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
@@ -376,7 +376,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 ### 验证模型
 
-使用验证集测试模型性能，需要输入必要[参数](#参数简介)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`infer.log`文件。
+使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mobilenetv2_incremental_learning.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`infer.log`文件。
 
 ```Shell
 # Windows/Linux with Python
