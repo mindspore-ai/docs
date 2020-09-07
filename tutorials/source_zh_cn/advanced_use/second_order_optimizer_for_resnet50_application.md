@@ -114,7 +114,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     if target == "Ascend":
         device_num, rank_id = _get_rank_info()
     else:
-        init("nccl")
+        init()
         rank_id = get_rank()
         device_num = get_group_size()
     if device_num == 1:
@@ -249,7 +249,7 @@ if __name__ == "__main__":
     # learning rate setting
     lr = get_model_lr(0, config.lr_init, config.lr_decay, config.lr_end_epoch, step_size, decay_epochs=39)
     # define the optimizer
-    net_opt = opt = THOR(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum,
+    opt = THOR(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum,
                filter(lambda x: 'matrix_A' in x.name, net.get_parameters()),
                filter(lambda x: 'matrix_G' in x.name, net.get_parameters()),
                filter(lambda x: 'A_inv_max' in x.name, net.get_parameters()),
@@ -360,20 +360,18 @@ sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`: 实际的运行卡数。
 
-在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init("nccl")`来使能NCCL。
+在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init()`来使能NCCL。
 
 训练过程中loss打印示例如下：
 ```bash
 ...
-epoch: 1 step: 5004, loss is 4.3069
-epoch: 2 step: 5004, loss is 3.5695
-epoch: 3 step: 5004, loss is 3.5893
-epoch: 4 step: 5004, loss is 3.1987
-epoch: 5 step: 5004, loss is 3.3526
+epoch: 1 step: 5004, loss is 4.2546034
+epoch: 2 step: 5004, loss is 4.0819564
+epoch: 3 step: 5004, loss is 3.7005644
+epoch: 4 step: 5004, loss is 3.2668946
+epoch: 5 step: 5004, loss is 3.023509
 ......
-epoch: 40 step: 5004, loss is 1.9482
-epoch: 41 step: 5004, loss is 1.8950
-epoch: 42 step: 5004, loss is 1.9023
+epoch: 36 step: 5004, loss is 1.645802
 ...
 ```
 
@@ -385,13 +383,13 @@ epoch: 42 step: 5004, loss is 1.9023
         ├─resnet-1_5004.ckpt
         ├─resnet-2_5004.ckpt
     	│      ......
-        ├─resnet-42_5004.ckpt
+        ├─resnet-36_5004.ckpt
 	......
     ├─ckpt_7
         ├─resnet-1_5004.ckpt
         ├─resnet-2_5004.ckpt
         │      ......
-        ├─resnet-42_5004.ckpt
+        ├─resnet-36_5004.ckpt
 
 ```
 
@@ -434,7 +432,7 @@ if __name__ == "__main__":
 ```
 
 ### 执行推理
-推理网络定义完成之后，调用/scripts目录下的shell脚本，进行推理。
+推理网络定义完成之后，调用`scripts`目录下的shell脚本，进行推理。
 #### Ascend 910
 在Ascend 910硬件平台上，推理的执行命令如下：
 ```
@@ -462,5 +460,5 @@ sh run_eval_gpu.sh [DATASET_PATH] [CHECKPOINT_PATH]
 
 推理的结果如下：
 ```
-result: {'top_5_accuracy': 0.9281169974391805, 'top_1_accuracy': 0.7593830025608195} ckpt=train_parallel0/resnet-42_5004.ckpt
+result: {'top_5_accuracy': 0.9287972151088348, 'top_1_accuracy': 0.7597031049935979} ckpt=train_parallel/resnet-36_5004.ckpt
 ```
