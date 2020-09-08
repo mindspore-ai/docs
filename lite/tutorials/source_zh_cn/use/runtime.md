@@ -49,12 +49,22 @@ Runtime总体使用流程如下图所示：
 - `Operator`：算子原型，包含算子的属性，以及shape、data type和format的推导方法。
 - `Kernel`：算子库提供算子的具体实现，提供算子forward的能力。
 - `Tensor`：MindSpore Lite使用的Tensor，提供了Tensor内存操作的功能和接口。
-   
+  
 ## 读取模型
 
 在MindSpore Lite中，模型文件是从模型转换工具转换得到的`.ms`文件。进行模型推理时，需要从文件系统加载模型，并进行模型解析，这部分操作主要在Model中实现。Model持有权重数据、算子属性等模型数据。
 
 模型通过Model类的静态`Import`方法从内存数据中创建。函数返回的`Model`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
+
+```cpp
+/// \brief   Static method to create a Model pointer.
+///
+/// \param[in] model_buf  Define the buffer read from a model file.
+/// \param[in] size  Define bytes number of model buffer.
+///
+/// \return  Pointer of MindSpore Lite Model.
+static Model *Import(const char *model_buf, size_t size);
+```
 
 ## 创建会话
 
@@ -66,15 +76,65 @@ Runtime总体使用流程如下图所示：
 
 MindSpore Lite支持异构推理，推理时的主选后端由`Context`中的`device_ctx_`指定，默认为CPU。在进行图编译时，会根据主选后端进行算子选型调度。
 
+```cpp
+/// \brief   DeviceType defined for holding user's preferred backend.
+typedef enum {
+  DT_CPU, /**< CPU device type */
+  DT_GPU, /**< GPU device type */
+  DT_NPU  /**< NPU device type, not supported yet */
+} DeviceType;
+
+/// \brief   DeviceContext defined for holding DeviceType.
+typedef struct {
+  DeviceType type; /**< device type */
+} DeviceContext;
+
+DeviceContext device_ctx_{DT_CPU};
+```
+
 MindSpore Lite内置一个进程共享的线程池，推理时通过`thread_num_`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
+
+```cpp
+int thread_num_ = 2; /**< thread number config for thread pool */
+```
 
 MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`，推理时会生成一个默认的`allocator`，也可以通过`Context`方法在多个`Context`中共享内存分配器。
 
 如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在创建完Session后，Context即可释放。
 
+```cpp
+/// \brief  Allocator defined a memory pool for malloc memory and free memory dynamically.
+///
+/// \note List public class and interface for reference.
+class Allocator;
+
+/// \brief  Context defined for holding environment variables during runtime.
+class MS_API Context {
+ public:
+  /// \brief  Constructor of MindSpore Lite Context using input value for parameters.
+  ///
+  /// \param[in] thread_num  Define the work thread number during the runtime.
+  /// \param[in] allocator  Define the allocator for malloc.
+  /// \param[in] device_ctx  Define device information during the runtime.
+  Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx);
+    
+ public:
+	std::shared_ptr<Allocator> allocator = nullptr;
+}
+```
+
 ### 创建会话
 
 用上一步创建得到的`Context`，调用LiteSession的静态`CreateSession`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
+
+```cpp
+/// \brief  Static method to create a LiteSession pointer.
+///
+/// \param[in] context  Define the context of session to be created.
+///
+/// \return  Pointer of MindSpore Lite LiteSession.
+static LiteSession *CreateSession(lite::Context *context);
+```
 
 ### 使用示例
 
@@ -118,6 +178,20 @@ if (session == nullptr) {
 
 使用MindSpore Lite进行推理时，在已完成会话创建与图编译之后，如果需要对输入的shape进行Resize，则可以通过对输入的tensor重新设置shape，然后调用session的Resize()接口。
 
+```cpp
+/// \brief  Get input MindSpore Lite MSTensors of model.
+///
+/// \return  The vector of MindSpore Lite MSTensor.
+virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+
+/// \brief  Resize inputs shape.
+///
+/// \param[in] inputs  Define the new inputs shape.
+///
+/// \return  STATUS as an error code of resize inputs, STATUS is defined in errorcode.h.
+virtual int Resize(const std::vector<tensor::MSTensor *> &inputs) = 0;
+```
+
 ### 使用示例
 
 下面代码演示如何对MindSpore Lite的输入进行Resize：
@@ -133,6 +207,17 @@ session->Resize(inputs);
 ### 图编译
 
 在图执行前，需要调用`LiteSession`的`CompileGraph`接口进行图编译，进一步解析从文件中加载的Model实例，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议`LiteSession`创建一次，编译一次，多次执行。
+
+```cpp
+/// \brief  Compile MindSpore Lite model.
+///
+/// \note  CompileGraph should be called before RunGraph.
+///
+/// \param[in] model  Define the model to be compiled.
+///
+/// \return  STATUS as an error code of compiling graph, STATUS is defined in errorcode.h.
+virtual int CompileGraph(lite::Model *model) = 0;
+```
 
 ### 使用示例
 
@@ -159,11 +244,42 @@ if (ret != RET_OK) {
 MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
 1. 使用`GetInputsByName`方法，根据模型输入节点的名称来获取模型输入Tensor中连接到该节点的Tensor的vector。
+
+   ```cpp
+   /// \brief  Get input MindSpore Lite MSTensors of model by node name.
+   ///
+   /// \param[in] node_name  Define node name.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetInputsByName(const std::string &node_name) const = 0;
+   ```
+
 2. 使用`GetInputs`方法，直接获取所有的模型输入Tensor的vector。
+
+   ```cpp
+   /// \brief  Get input MindSpore Lite MSTensors of model.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+   ```
 
 ### 数据拷贝
 
 当获取到模型的输入，就需要向Tensor中填入数据。通过`MSTensor`的`Size`方法来获取Tensor应该填入的数据大小，通过`data_type`方法来获取Tensor的数据类型，通过`MSTensor`的`MutableData`方法来获取可写的指针。
+
+```cpp
+/// \brief  Get byte size of data in MSTensor.
+///
+/// \return  Byte size of data in MSTensor.
+virtual size_t Size() const = 0;
+
+/// \brief  Get the pointer of data in MSTensor.
+///
+/// \note  The data pointer can be used to both write and read data in MSTensor.
+///
+/// \return  The pointer points to data in MSTensor.
+virtual void *MutableData() const = 0;
+```
 
 ### 使用示例
 
@@ -204,11 +320,30 @@ memcpy(in_data, input_buf, data_size);
 
 MindSpore Lite会话在进行图编译以后，即可使用`LiteSession`的`RunGraph`进行模型推理。
 
+```cpp
+/// \brief  Run session with callback.
+///
+/// \param[in] before  Define a call_back_function to be called before running each node.
+/// \param[in] after  Define a call_back_function to be called after running each node.
+///
+/// \note RunGraph should be called after CompileGraph.
+///
+/// \return  STATUS as an error code of running graph, STATUS is defined in errorcode.h.
+virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
+```
+
 ### 绑核
 
 MindSpore Lite内置线程池支持绑核、解绑操作，通过调用`BindThread`接口，可以将线程池中的工作线程绑定到指定CPU核，用于性能分析。绑核操作与创建`LiteSession`时用户指定的上下文有关，绑核操作会根据上下文中的绑核策略进行线程与CPU的亲和性设置。
 
-需要注意的是，绑核是一个亲和性操作，不保证一定能绑定到指定的CPU核，会受到系统调度的影响。而且绑核后，需要在执行完代码后进行解绑操作，示例如下：
+```cpp
+/// \brief  Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
+///
+/// \param[in] if_bind  Define whether to bind or unbind threads.
+virtual void BindThread(bool if_bind) = 0;
+```
+
+需要注意的是，绑核是一个亲和性操作，不保证一定能绑定到指定的CPU核，会受到系统调度的影响。而且绑核后，需要在执行完代码后进行解绑操作。示例如下：
 
 ```cpp
 // Assume we have created a LiteSession instance named session.
@@ -233,6 +368,17 @@ Mindspore Lite可以在调用`RunGraph`时，传入两个`KernelCallBack`函数�
 - 当前运行的节点名称
 - 推理当前节点前的输入输出Tensor
 - 推理当前节点后的输入输出Tensor
+
+```cpp
+/// \brief  callbackParam defines input arguments for callback function.
+struct CallBackParam {
+std::string name_callback_param; /**< node name argument */
+std::string type_callback_param; /**< node type argument */
+};
+
+/// \brief  Kernelcallback defines the function pointer for callback.
+using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>;
+```
 
 ### 使用示例
 
@@ -301,11 +447,68 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。
 
 MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
 1. 使用`GetOutputsByNodeName`方法，根据模型输出节点的名称来获取模型输出`MSTensor`中连接到该节点的Tensor的vector。
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+   ///
+   /// \param[in] node_name Define node name.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+   ```
+
 2. 使用`GetOutputMapByNode`方法，直接获取所有的模型输出节点的名称和连接到该节点的模型输出`MSTensor`的一个map。
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model mapped by node name.
+   ///
+   /// \return  The map of output node name and MindSpore Lite MSTensor.
+   virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const = 0;
+   ```
+
 3. 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+   ///
+   /// \param[in] tensor_name  Define tensor name.
+   ///
+   /// \return  Pointer of MindSpore Lite MSTensor.
+   virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+   ```
+
 4. 使用`GetOutputMapByTensor`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
 
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
+   ///
+   /// \return  The map of output tensor name and MindSpore Lite MSTensor.
+   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const = 0;
+   ```
+
 当获取到模型的输出Tensor，就需要向Tensor中填入数据。通过`MSTensor`的`Size`方法来获取Tensor应该填入的数据大小，通过`data_type`方法来获取`MSTensor`的数据类型，通过`MSTensor`的`MutableData`方法来获取可读写的内存指针。
+
+```c++
+/// \brief  Get byte size of data in MSTensor.
+///
+/// \return  Byte size of data in MSTensor.
+virtual size_t Size() const = 0;
+
+/// \brief  Get data type of the MindSpore Lite MSTensor.
+///
+/// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
+/// suitable for MSTensor.
+///
+/// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
+virtual TypeId data_type() const = 0;
+
+/// \brief  Get the pointer of data in MSTensor.
+///
+/// \note The data pointer can be used to both write and read data in MSTensor.
+///
+/// \return  The pointer points to data in MSTensor.
+virtual void *MutableData() const = 0;
+```
 
 ### 使用示例
 
@@ -369,7 +572,7 @@ if (out_tensor == nullptr) {
     std::cerr << "Output tensor is nullptr" << std::endl;
     return -1;
 }
-``` 
+```
 
 下面示例代码演示了使用`GetOutputByTensorName`接口获取输出`MSTensor`的方法：
 

@@ -50,12 +50,22 @@ Its components and their functions are described as follows:
 - `Operator`: operator prototype, including operator attributes and methods for inferring the shape, data type, and format.
 - `Kernel`: operator, which provides specific operator implementation and the operator forwarding function.
 - `Tensor`: tensor used by MindSpore Lite, which provides functions and APIs for tensor memory operations.
-   
+  
 ## Reading Models
 
 In MindSpore Lite, a model file is an `.ms` file converted using the model conversion tool. During model inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the Model component. The Model component holds model data such as weight data and operator attributes.
 
 A model is created based on memory data using the static `Import` method of the Model class. The `Model` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
+
+```cpp
+/// \brief   Static method to create a Model pointer.
+///
+/// \param[in] model_buf  Define the buffer read from a model file.
+/// \param[in] size  Define bytes number of model buffer.
+///
+/// \return  Pointer of MindSpore Lite Model.
+static Model *Import(const char *model_buf, size_t size);
+```
 
 ## Session Creation
 
@@ -67,13 +77,65 @@ Contexts save some basic configuration parameters required by sessions to guide 
 
 MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `device_ctx_` in `Context` and is CPU by default. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
 
+```cpp
+/// \brief   DeviceType defined for holding user's preferred backend.
+typedef enum {
+  DT_CPU, /**< CPU device type */
+  DT_GPU, /**< GPU device type */
+  DT_NPU  /**< NPU device type, not supported yet */
+} DeviceType;
+
+/// \brief   DeviceContext defined for holding DeviceType.
+typedef struct {
+  DeviceType type; /**< device type */
+} DeviceContext;
+
+DeviceContext device_ctx_{DT_CPU};
+```
+
 MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number be no more than 4. Otherwise, the performance may be affected.
 
+```c++
+int thread_num_ = 2; /**< thread number config for thread pool */
+```
+
 MindSpore Lite supports dynamic memory allocation and release. If `allocator` is not specified, a default `allocator` is generated during inference. You can also use the `Context` method to allow multiple `Context` to share the memory allocator.
+
+If users create the `Context` by using `new`,  it should be released by using `delete` once it's not required. Usually the `Context` is released after finishing the session creation.
+
+```cpp
+/// \brief  Allocator defined a memory pool for malloc memory and free memory dynamically.
+///
+/// \note List public class and interface for reference.
+class Allocator;
+
+/// \brief  Context defined for holding environment variables during runtime.
+class MS_API Context {
+ public:
+  /// \brief  Constructor of MindSpore Lite Context using input value for parameters.
+  ///
+  /// \param[in] thread_num  Define the work thread number during the runtime.
+  /// \param[in] allocator  Define the allocator for malloc.
+  /// \param[in] device_ctx  Define device information during the runtime.
+  Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx);
+    
+ public:
+	std::shared_ptr<Allocator> allocator = nullptr;
+}
+```
 
 ### Creating Sessions
 
 Use the `Context` created in the previous step to call the static `CreateSession` method of LiteSession to create `LiteSession`. The `LiteSession` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
+
+```cpp
+/// \brief  Static method to create a LiteSession pointer.
+///
+/// \param[in] context  Define the context of session to be created.
+///
+/// \return  Pointer of MindSpore Lite LiteSession.
+static LiteSession *CreateSession(lite::Context *context);
+```
 
 ### Example
 
@@ -117,6 +179,20 @@ if (session == nullptr) {
 
 When using MindSpore Lite for inference, after the session creation and graph compilation have been completed, if you need to resize the input shape, you can reset the shape of the input tensor, and then call the session's Resize() interface.
 
+```cpp
+/// \brief  Get input MindSpore Lite MSTensors of model.
+///
+/// \return  The vector of MindSpore Lite MSTensor.
+virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+
+/// \brief  Resize inputs shape.
+///
+/// \param[in] inputs  Define the new inputs shape.
+///
+/// \return  STATUS as an error code of resize inputs, STATUS is defined in errorcode.h.
+virtual int Resize(const std::vector<tensor::MSTensor *> &inputs) = 0;
+```
+
 ### Example
 
 The following code demonstrates how to resize the input of MindSpore Lite:
@@ -133,6 +209,17 @@ session->Resize(inputs);
 ### Compiling Graphs
 
 Before graph execution, call the `CompileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieve multiple executions with one creation and one compilation.
+
+```cpp
+/// \brief  Compile MindSpore Lite model.
+///
+/// \note  CompileGraph should be called before RunGraph.
+///
+/// \param[in] model  Define the model to be compiled.
+///
+/// \return  STATUS as an error code of compiling graph, STATUS is defined in errorcode.h.
+virtual int CompileGraph(lite::Model *model) = 0;
+```
 
 ### Example
 
@@ -160,11 +247,42 @@ Before graph execution, you need to copy the input data to model input tensors.
 MindSpore Lite provides the following methods to obtain model input tensors.
 
 1. Use the `GetInputsByName` method to obtain vectors of the model input tensors that are connected to the model input node based on the node name.
+
+   ```cpp
+   /// \brief  Get input MindSpore Lite MSTensors of model by node name.
+   ///
+   /// \param[in] node_name  Define node name.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetInputsByName(const std::string &node_name) const = 0;
+   ```
+
 2. Use the `GetInputs` method to directly obtain the vectors of all model input tensors.
+
+   ```cpp
+   /// \brief  Get input MindSpore Lite MSTensors of model.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+   ```
 
 ### Copying Data
 
 After model input tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of tensors, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
+
+```cpp
+/// \brief  Get byte size of data in MSTensor.
+///
+/// \return  Byte size of data in MSTensor.
+virtual size_t Size() const = 0;
+
+/// \brief  Get the pointer of data in MSTensor.
+///
+/// \note  The data pointer can be used to both write and read data in MSTensor.
+///
+/// \return  The pointer points to data in MSTensor.
+virtual void *MutableData() const = 0;
+```
 
 ### Example
 
@@ -205,9 +323,28 @@ Note:
 
 After a MindSpore Lite session performs graph compilation, you can use `RunGraph` of `LiteSession` for model inference.
 
+```cpp
+/// \brief  Run session with callback.
+///
+/// \param[in] before  Define a call_back_function to be called before running each node.
+/// \param[in] after  Define a call_back_function to be called after running each node.
+///
+/// \note RunGraph should be called after CompileGraph.
+///
+/// \return  STATUS as an error code of running graph, STATUS is defined in errorcode.h.
+virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
+```
+
 ### Core Binding
 
 The built-in thread pool of MindSpore Lite supports core binding and unbinding. By calling the `BindThread` API, you can bind working threads in the thread pool to specified CPU cores for performance analysis. The core binding operation is related to the context specified when `LiteSession` is created. The core binding operation sets the affinity between a thread and CPU based on the core binding policy in the context.
+
+```cpp
+/// \brief  Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
+///
+/// \param[in] if_bind  Define whether to bind or unbind threads.
+virtual void BindThread(bool if_bind) = 0;
+```
 
 Note that core binding is an affinity operation, which is affected by system scheduling. Therefore, successful binding to the specified CPU core cannot be ensured. After executing the code of core binding, you need to perform the unbinding operation. The following is an example:
 
@@ -234,6 +371,17 @@ MindSpore Lite can transfer two `KernelCallBack` function pointers to call back 
 - Name of the running node
 - Input and output tensors before inference of the current node
 - Input and output tensors after inference of the current node
+
+```cpp
+/// \brief  CallBackParam defines input arguments for callback function.
+struct CallBackParam {
+std::string name_callback_param; /**< node name argument */
+std::string type_callback_param; /**< node type argument */
+};
+
+/// \brief  KernelCallBack defines the function pointer for callback.
+using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>;
+```
 
 ### Example
 
@@ -301,12 +449,69 @@ delete (model);
 After performing inference, MindSpore Lite can obtain the model inference result.
 
 MindSpore Lite provides the following methods to obtain the model output `MSTensor`.
-1. Use the `GetOutputsByName` method to obtain vectors of the model output `MSTensor` that is connected to the model output node based on the node name.
+1. Use the `GetOutputsByNodeName` method to obtain vectors of the model output `MSTensor` that is connected to the model output node based on the node name.
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+   ///
+   /// \param[in] node_name Define node name.
+   ///
+   /// \return  The vector of MindSpore Lite MSTensor.
+   virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+   ```
+
 2. Use the `GetOutputMapByNode` method to directly obtain the mapping between the names of all model output nodes and the model output `MSTensor` connected to the nodes.
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model mapped by node name.
+   ///
+   /// \return  The map of output node name and MindSpore Lite MSTensor.
+   virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const = 0;
+   ```
+
 3. Use the `GetOutputByTensorName` method to obtain the model output `MSTensor` based on the tensor name.
+
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+   ///
+   /// \param[in] tensor_name  Define tensor name.
+   ///
+   /// \return  Pointer of MindSpore Lite MSTensor.
+   virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+   ```
+
 4. Use the `GetOutputMapByTensor` method to directly obtain the mapping between the names of all model output tensors and the model output `MSTensor`.
 
+   ```cpp
+   /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
+   ///
+   /// \return  The map of output tensor name and MindSpore Lite MSTensor.
+   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const = 0;
+   ```
+
 After model output tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of `MSTensor`, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
+
+```cpp
+/// \brief  Get byte size of data in MSTensor.
+///
+/// \return  Byte size of data in MSTensor.
+virtual size_t Size() const = 0;
+
+/// \brief  Get data type of the MindSpore Lite MSTensor.
+///
+/// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
+/// suitable for MSTensor.
+///
+/// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
+virtual TypeId data_type() const = 0;
+
+/// \brief  Get the pointer of data in MSTensor.
+///
+/// \note The data pointer can be used to both write and read data in MSTensor.
+///
+/// \return  The pointer points to data in MSTensor.
+virtual void *MutableData() const = 0;
+```
 
 ### Example
 
@@ -370,7 +575,7 @@ if (out_tensor == nullptr) {
     std::cerr << "Output tensor is nullptr" << std::endl;
     return -1;
 }
-``` 
+```
 
 The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputByTensorName` method.
 
