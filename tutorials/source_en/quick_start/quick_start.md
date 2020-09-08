@@ -36,17 +36,17 @@ During the practice, a simple image classification function is implemented. The 
 1. Process the required dataset. The MNIST dataset is used in this example.
 2. Define a network. The LeNet network is used in this example.
 3. Define the loss function and optimizer.
-4. Load dataset, perform training. After the training is complete, check the result and save the model file.
+4. Load the dataset and perform training. After the training is complete, check the result and save the model file.
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
 > You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py>. 
 
-This is a simple and basic application process. For other advanced and complex applications, extend this basic process as needed.
+This is a simple and basic workflow. For applying to other advanced and complex applications, extend this basic process as appropriate.
 
 ## Preparations
 
-Before you start, check whether MindSpore has been correctly installed. If no, install MindSpore on your computer by visiting [MindSpore installation page](https://www.mindspore.cn/install).  
+Before you start, check whether MindSpore has been correctly installed. If not, install MindSpore on your computer by visiting [MindSpore installation page](https://www.mindspore.cn/install/en).  
 
 In addition, you shall have basic mathematical knowledge such as Python coding basics, probability, and matrix.
 
@@ -179,9 +179,9 @@ In the preceding information:
 `batch_size`: number of data records in each group. Currently, each group contains 32 data records.  
 `repeat_size`: number of replicated data records.
 
-Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data during an epoch is unique.
+Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data is unique during one epoch.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see section "Data Processing and Augmentation" in the MindSpore Tutorials (https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html).
+> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing and Augmentation](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html) in the MindSpore Tutorials.
 
 
 ## Defining the Network
@@ -194,7 +194,7 @@ The LeNet network is relatively simple. In addition to the input layer, the LeNe
 
 You can initialize the full connection layers and convolutional layers by `Normal`.
 
-MindSpore supports multiple parameter initialization methods, such as `TruncatedNormal`, `Normal`, and `Uniform`, default value is `Normal`. For details, see the description of the `mindspore.common.initializer` module of the MindSpore API.
+MindSpore supports multiple parameter initialization methods, such as `TruncatedNormal`, `Normal`, and `Uniform`, default value is `Normal`. For details, see the description of the `mindspore.common.initializer` module in the MindSpore API.
 
 To use MindSpore for neural network definition, inherit `mindspore.nn.cell.Cell`. `Cell` is the base class of all neural networks (such as `Conv2d`).
 
@@ -340,7 +340,7 @@ In the preceding information:
 `Lenet. Py`: the script file you wrote.  
 `--device_target CPU`: Specify the hardware platform.The   parameters are 'CPU', 'GPU' or 'Ascend'.
 
-Loss values are output during training, as shown in the following figure. Although loss values may fluctuate, they gradually decrease and the accuracy gradually increases in general. Loss values displayed each time may be different because of their randomicity.
+Loss values are printed during training, as shown in the following figure. Although loss values may fluctuate, they gradually decrease and the accuracy gradually increases in general. Loss values displayed each time may be different because of their randomicity.
 
 The following is an example of loss values output during training:
 
@@ -374,7 +374,7 @@ In the preceding information:
 
 ## Validating the Model
 
-After get the model file, we verify the generalization ability of the model.
+After obtaining the model file, we verify the generalization ability of the model.
 
 
 ```python
@@ -411,11 +411,11 @@ In the preceding information:
 `Lenet. Py`: the script file you wrote.
 `--device_target CPU`: Specify the hardware platform.The parameters are 'CPU', 'GPU' or 'Ascend'.
 
-Command output similar to the following is displayed:
+After executing the command, the result is displayed as follows:
 
 ```
 ============== Starting Testing ==============
 ============== Accuracy:{'Accuracy': 0.9663477564102564} ==============
 ```
 
-The model accuracy data is displayed in the output content. In the example, the accuracy reaches 96.6%, indicating a good model quality. The model accuracy will be improved with more iterations `epoch_size`.
+The model accuracy is displayed in the output content. In the example, the accuracy reaches 96.6%, indicating a good model quality. The model accuracy will be improved with more iterations `epoch_size`.
