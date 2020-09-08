@@ -11,5 +11,6 @@ MindSpore端侧文档
    :maxdepth: 1
 
    architecture
+   apicc/apicc
    operator_list
    glossary
