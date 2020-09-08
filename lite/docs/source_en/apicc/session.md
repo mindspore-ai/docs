@@ -1,15 +1,18 @@
 # mindspore::session 
 
+#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
+
 ## LiteSession
 
 LiteSession defines session in MindSpore Lite for compiling Model and forwarding model.
 
 **Constructors & Destructors**
+
 ```
 LiteSession()
 ```
 Constructor of MindSpore Lite LiteSession using default value for parameters.
-    
 ```
 ~LiteSession()
 ```
@@ -38,7 +41,7 @@ Compile MindSpore Lite model.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in errorcode.h.
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
 ```
 virtual std::vector <tensor::MSTensor *> GetInputs() const
@@ -66,18 +69,17 @@ Get input MindSpore Lite MSTensors of model by node name.
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
 ```
 Run session with callback. 
-    
 > Note: RunGraph should be called after CompileGraph.
-    
+
 - Parameters
 
-    - `before`: Define a call_back_function to be called before running each node.
+    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/lite/docs/en/master/apicc/session.html#kernelcallback) function. Define a callback function to be called before running each node.
 
-    - `after`: Define a call_back_function called after running each node.
+    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/lite/docs/en/master/apicc/session.html#kernelcallback) function. Define a callback function to be called after running each node.
 
 - Returns
 
-    STATUS as an error code of running graph, STATUS is defined in errorcode.h.
+    STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
 ```   
 virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const
@@ -157,7 +159,7 @@ Resize inputs shape.
 
 - Returns
 
-    STATUS as an error code of resize inputs, STATUS is defined in errorcode.h.
+    STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
 **Static Public Member Functions**
 
@@ -173,13 +175,20 @@ Static method to create a LiteSession pointer.
 - Returns
 
     Pointer of MindSpore Lite LiteSession.
+## KernelCallBack
 
-        
+```
+using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
+```
+
+A function wrapper. KernelCallBack defined the function pointer for callback.
+
 ## CallBackParam
 
-CallBackParam defines input arguments for callBack function.
-    
+A **struct**. CallBackParam defines input arguments for callback function.
+
 **Attributes**
+
 ```
 name_callback_param
 ```

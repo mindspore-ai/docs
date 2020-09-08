@@ -3,31 +3,31 @@
 <!-- TOC -->
 
 - [Use Runtime for Model Inference](#use-runtime-for-model-inference)
-    - [Overview](#overview)
-    - [Reading Models](#reading-models)
-    - [Session Creation](#session-creation)
-        - [Creating Contexts](#creating-contexts)
-        - [Creating Sessions](#creating-sessions)
-        - [Example](#example)
-    - [Graph Compilation](#graph-compilation)
-        - [Variable Dimension](#variable-dimension)
-        - [Example](#example-1)
-        - [Compiling Graphs](#compiling-graphs)
-        - [Example](#example-2)
-    - [Data Input](#data-input)
-        - [Obtaining Input Tensors](#obtaining-input-tensors)
-        - [Copying Data](#copying-data)
-        - [Example](#example-3)
-    - [Graph Execution](#graph-execution)
-        - [Executing Sessions](#executing-sessions)
-        - [Core Binding](#core-binding)
-        - [Callback Running](#callback-running)
-        - [Example](#example-4)
-    - [Obtaining Outputs](#obtaining-outputs)
-        - [Obtaining Output Tensors](#obtaining-output-tensors)
-        - [Example](#example-5)
-    - [Obtaining Version String](#obtaining-version-string)
-        - [Example](#example-6)
+  - [Overview](#overview)
+  - [Reading Models](#reading-models)
+  - [Session Creation](#session-creation)
+    - [Creating Contexts](#creating-contexts)
+    - [Creating Sessions](#creating-sessions)
+    - [Example](#example)
+  - [Graph Compilation](#graph-compilation)
+    - [Variable Dimension](#variable-dimension)
+    - [Example](#example-1)
+    - [Compiling Graphs](#compiling-graphs)
+    - [Example](#example-2)
+  - [Data Input](#data-input)
+    - [Obtaining Input Tensors](#obtaining-input-tensors)
+    - [Copying Data](#copying-data)
+    - [Example](#example-3)
+  - [Graph Execution](#graph-execution)
+    - [Executing Sessions](#executing-sessions)
+    - [Core Binding](#core-binding)
+    - [Callback Running](#callback-running)
+    - [Example](#example-4)
+  - [Obtaining Outputs](#obtaining-outputs)
+    - [Obtaining Output Tensors](#obtaining-output-tensors)
+    - [Example](#example-5)
+  - [Obtaining Version String](#obtaining-version-string)
+    - [Example](#example-6)
 
 <!-- /TOC -->
 
@@ -132,7 +132,7 @@ session->Resize(inputs);
 
 ### Compiling Graphs
 
-Before graph execution, call the `CompileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `ListSession` achieve multiple executions with one creation and one compilation.
+Before graph execution, call the `CompileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieve multiple executions with one creation and one compilation.
 
 ### Example
 
