@@ -20,7 +20,7 @@ MindSpore教程
    :maxdepth: 1
    :caption: 使用指南
 
-   use/data_preparation/data_preparation
+   use/data_preparation
    use/defining_the_network
    use/saving_and_loading_model_parameters
    use/multi_platform_inference
@@ -57,6 +57,9 @@ MindSpore教程
    advanced_use/graph_kernel_fusion
    advanced_use/quantization_aware
    advanced_use/gradient_accumulation
+   advanced_use/dataset_conversion
+   advanced_use/auto_augmentation
+   advanced_use/auto_data_acceleration
 
 .. toctree::
    :glob:
