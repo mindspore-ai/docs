@@ -28,54 +28,23 @@ Description of error code and meta type supported in MindSpore Lite.
 ## MetaType
 An **enum** type.
 
-| Type Name | Definition | Value | Description |
-| --- | --- | --- | --- |
-| Type type |kTypeUnknown| 0 | Unknown type. |
-|  |kMetaTypeBegin| 0 | The beginning of meta type. |
-|  |kMetaTypeType | 1 | * |
-|  |kMetaTypeAnything| 2 | * |
-|  |kMetaTypeObject| 3 | Indicating an object. |
-|  |kMetaTypeTypeType| 4 | * | 
-|  |kMetaTypeProblem| 5 | Indicating Problem. |
-|  |kMetaTypeExternal| 6 | Indicating External. |
-|  |kMetaTypeNone| 7 | Indicating None. |
-|  |kMetaTypeNull| 8 | Indicating Null. |
-|  |kMetaTypeEllipsis| 9 | Indicating Ellipsis. |
-|  |kMetaTypeEnd| 10 | The end of meta type. |
-| Object types |kObjectTypeBegin| 10 | The beginning of object type. |
-|  |kObjectTypeNumber| 11 | Indicating a number. |
-|  |kObjectTypeString| 12 | Indicating a string. |
-|  |kObjectTypeList| 13 | Indicating a list. |
-|  |kObjectTypeTuple| 14 | Indicating a tuple. |
-|  |kObjectTypeSlice| 15 | Indicating a slice. |
-|  |kObjectTypeKeyword| 16 | Indicating a keyword. |
-|  |kObjectTypeTensorType| 17 | Indicating a tensor type. |
-|  |kObjectTypeRowTensorType| 18 | Indicating a row tensor type. |
-|  |kObjectTypeSparseTensorType| 19 | Indicating a sparse tensor type. |
-|  |kObjectTypeUndeterminedType| 20 | Indicating a undetermined type. |
-|  |kObjectTypeClass| 21 | Indicating a class. |
-|  |kObjectTypeDictionary| 22 | Indicating a dictionary. |
-|  |kObjectTypeFunction| 23 | Indicating a function. |
-|  |kObjectTypeJTagged| 24 | Indicating a JTagged. |
-|  |kObjectTypeSymbolicKeyType| 25 | Indicating a symbolic key type.|
-|  |kObjectTypeEnvType| 26 | Indicating an Env type.|
-|  |kObjectTypeRefKey| 27 | Indicating a Ref key. |
-|  |kObjectTypeRef| 28 | Indicating Ref. |
-|  |kObjectTypeEnd| 29 | The end of object type. |
-| Number Types |kNumberTypeBegin| 29 | The beginning of number type. |
-|  |kNumberTypeBool| 30 | Indicating a data type of bool. |
-|  |kNumberTypeInt| 31 | Indicating a data type of int. |
-|  |kNumberTypeInt8| 32 | Indicating a data type of int8. |
-|  |kNumberTypeInt16| 33 | Indicating a data type of int16. |
-|  |kNumberTypeInt32| 34 | Indicating a data type of int32. |
-|  |kNumberTypeInt64| 35 | Indicating a data type of int64. |
-|  |kNumberTypeUInt| 36 | Indicating a data type of unit. |
-|  |kNumberTypeUInt8| 37 | Indicating a data type of unit8. |
-|  |kNumberTypeUInt16| 38 | Indicating a data type of uint16. |
-|  |kNumberTypeUInt32| 39 | Indicating a data type of uint32. |
-|  |kNumberTypeUInt64| 40 | Indicating a data type of uint64. |
-|  |kNumberTypeFloat| 41 | Indicating a data type of float. |
-|  |kNumberTypeFloat16| 42 | Indicating a data type of float16. |
-|  |kNumberTypeFloat32| 43 | Indicating a data type of float32. |
-|  |kNumberTypeFloat64| 44 | Indicating a data type of float64.|
-|  |kNumberTypeEnd| 45 | The end of number type. |
+| Type Definition | Value | Description |
+| --- | --- | --- |
+|kNumberTypeBegin| 29 | The beginning of number type. |
+|kNumberTypeBool| 30 | Indicating a data type of bool. |
+|kNumberTypeInt| 31 | Indicating a data type of int. |
+|kNumberTypeInt8| 32 | Indicating a data type of int8. |
+|kNumberTypeInt16| 33 | Indicating a data type of int16. |
+|kNumberTypeInt32| 34 | Indicating a data type of int32. |
+|kNumberTypeInt64| 35 | Indicating a data type of int64. |
+|kNumberTypeUInt| 36 | Indicating a data type of unit. |
+|kNumberTypeUInt8| 37 | Indicating a data type of unit8. |
+|kNumberTypeUInt16| 38 | Indicating a data type of uint16. |
+|kNumberTypeUInt32| 39 | Indicating a data type of uint32. |
+|kNumberTypeUInt64| 40 | Indicating a data type of uint64. |
+|kNumberTypeFloat| 41 | Indicating a data type of float. |
+|kNumberTypeFloat16| 42 | Indicating a data type of float16. |
+|kNumberTypeFloat32| 43 | Indicating a data type of float32. |
+|kNumberTypeFloat64| 44 | Indicating a data type of float64.|
+|kNumberTypeEnd| 45 | The end of number type. |
+

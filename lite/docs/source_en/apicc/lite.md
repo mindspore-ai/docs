@@ -1,4 +1,11 @@
-# mindspore::lite context
+# mindspore::lite
+
+#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+
+#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
+
 
 ## Allocator
 
@@ -17,7 +24,7 @@ Context()
 Constructor of MindSpore Lite Context using default value for parameters.
 
 ```
-Context(int thread_num, std::shared_ptr< Allocator > allocator, DeviceContext device_ctx)
+Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx)
 ```
 Constructor of MindSpore Lite Context using input value for parameters.
 
@@ -42,31 +49,31 @@ Destructor of MindSpore Lite Context.
 
 ``` 
 float16_priority
-``` 
+```
 A **bool** value. Defaults to **false**. Prior enable float16 inference.
 
 ```
 device_ctx_{DT_CPU}
 ```
-A **DeviceContext** struct.
+A [**DeviceContext**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#devicecontext) struct defined at the bottom of the text. Using to specify the device.
 
 ``` 
 thread_num_
-``` 
+```
 
 An **int** value. Defaults to **2**. Thread number config for thread pool.
 
 ``` 
 allocator
-``` 
+```
 
-A **std::shared_ptr<Allocator>** pointer.
+A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#allocator).
 
 ``` 
 cpu_bind_mode_ 
-``` 
+```
 
-A **CpuBindMode** enum variable. Defaults to **MID_CPU**.     
+A [**CpuBindMode**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#cpubindmode) enum variable. Defaults to **MID_CPU**.     
 
 ## ModelImpl
 ModelImpl defines the implement class of Model in MindSpore Lite.
@@ -98,7 +105,7 @@ Get MindSpore Lite Primitive by name.
 
 - Parameters 
 
-    - `name`: Define name of primitive to be returned.
+    - `name`: Define name of Primitive to be returned.
     
 - Returns 
 
@@ -134,6 +141,7 @@ Static method to create a Model pointer.
 
     Pointer of MindSpore Lite Model.
         
+
 **Public Attributes**
 ```
  model_impl_ 
@@ -141,7 +149,7 @@ Static method to create a Model pointer.
 The **pointer** of implement of model in MindSpore Lite. Defaults to **nullptr**.
 
 ## ModelBuilder
-ModelBuilder is defined by MindSpore Lite.
+ModelBuilder is defined to build the model.
 
 **Constructors & Destructors**
 ```
@@ -161,17 +169,17 @@ Destructor of MindSpore Lite ModelBuilder.
 virtual std::string AddOp(const PrimitiveC &op, const std::vector<OutEdge> &inputs)
 ```
 
-Add primitive into model builder for model building.
+Add Primitive into model builder for model building.
 
 - Parameters    
 
-    - `op`: Define the primitive to be added.   
+    - `op`: Define the Primitive to be added.   
 
-    - `inputs`: Define input edge of primitive to be added.
+    - `inputs`: A vector of [**OutEdge**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#outedge). Define input edge of Primitive to be added.
     
 - Returns   
 
-    ID of the added primitive.
+    ID of the added Primitive.
 
 ```  
 const schema::MetaGraph* GetMetaGraph() const
@@ -188,7 +196,11 @@ virtual Model *Construct()
 Finish constructing the model.
 
 ## OutEdge
+
+A **struct**. OutEdge defines the edge in the gragh.
+
 **Attributes**
+
 ```
 nodeId
 ```
@@ -205,53 +217,51 @@ An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
 **Attributes**
 ``` 
 MID_CPU = -1
-``` 
+```
 Bind middle cpu first.
 
 ``` 
 HIGHER_CPU = 1
-``` 
+```
 Bind higher cpu first.
 
 ``` 
 NO_BIND = 0
-``` 
+```
 No bind.
-    
 ## DeviceType
 An **enum** type. DeviceType defined for holding user's preferred backend.
 
 **Attributes**
 ``` 
 DT_CPU = -1
-``` 
+```
 CPU device type.
 
 ``` 
 DT_GPU = 1
-``` 
+```
 GPU device type.
 
 ``` 
 DT_NPU = 0
-``` 
+```
 NPU device type, not supported yet.
-    
 ## DeviceContext
 
-A **struct** . DeviceContext defined for holding DeviceType.
+A **struct**. DeviceContext defined for holding DeviceType.
 
 **Attributes**
 ``` 
 type
-``` 
-A **DeviceType** variable. The device type.
+```
+A [**DeviceType**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#devicetype) variable. The device type.
 
 ## Version
 
 ``` 
 std::string Version()
-``` 
+```
 Global method to get a version string.
 
 - Returns

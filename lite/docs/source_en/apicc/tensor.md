@@ -1,5 +1,8 @@
 # mindspore::tensor
 
+#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+
+
 ## MSTensor
 
 MSTensor defined tensor in MindSpore Lite.
@@ -7,19 +10,19 @@ MSTensor defined tensor in MindSpore Lite.
 **Constructors & Destructors**
 ``` 
 MSTensor()
-``` 
+```
 Constructor of MindSpore Lite MSTensor.
 
 - Returns
 
     Instance of MindSpore Lite MSTensor.
-     
+    
 ``` 
 virtual ~MSTensor()
-``` 
+```
 
 Destructor of MindSpore Lite Model.
-    
+
 **Public Member Functions**
 
 ```
@@ -27,7 +30,7 @@ virtual TypeId data_type() const
 ```
 Get data type of the MindSpore Lite MSTensor.
 
-> Note: TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are suitable for MSTensor.
+> Note: TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
 
 - Returns
 
@@ -135,7 +138,7 @@ static MSTensor *CreateTensor(TypeId data_type, const std::vector<int> &shape)
 
 Static method to create a MSTensor pointer.
 
-> Note: TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are suitable for MSTensor.
+> Note: TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
 
 - Parameters
 
