@@ -55,9 +55,9 @@ The procedure for loading common datasets is as follows. The following describes
 
 ## Loading Datasets of a Specific Data Format
 
-### MindSpore Data Format
-MindSpore supports reading of datasets stored in MindSpore data format, that is, `MindRecord` which has better performance and features.  
-> For details about how to convert datasets to the MindSpore data format, see the [Converting the Dataset to MindSpore Data Format](converting_datasets.md).
+### MindSpore Data Format 
+MindSpore supports reading datasets stored in MindSpore data format, such as reading datasets stored in `MindRecord`. By this nature, MindSpore may have better performance and characteristics. 
+> For details about how to convert datasets to the MindSpore data format, see [Converting the Dataset to MindSpore Data Format](converting_datasets.md).
 
 To read a dataset using the `MindDataset` object, perform the following steps:
 
@@ -68,7 +68,7 @@ To read a dataset using the `MindDataset` object, perform the following steps:
     data_set = ds.MindDataset(dataset_file=CV_FILE_NAME)
     ```
     In the preceding information:  
-    `dataset_file`: specifies the MindRecord file or list of MindRecord files.
+    `dataset_file`: specifies the MindRecord file or the list of MindRecord files.
 
 2. Create a dictionary iterator and read data records through the iterator.
     ```python
@@ -81,13 +81,13 @@ To read a dataset using the `MindDataset` object, perform the following steps:
 ### `Manifest` Data Format
 `Manifest` is a data format file supported by Huawei ModelArts. For details, see <https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html>.
 
-MindSpore provides dataset classes for datasets in Manifest format. Run the following commands to configure the dataset directory and define the dataset instance to be loaded:
+MindSpore provides dataset classes for datasets in `Manifest` format. Run the following commands to configure the dataset directory and define the dataset instance to be loaded:
 ```python
 DATA_DIR = "manifest_dataset_path"
 
 manifest_dataset = ds.ManifestDataset(DATA_DIR)
 ```
-Currently, ManifestDataset supports only datasets of images and labels. The default column names are "image" and "label".
+Currently, ManifestDataset supports only datasets of images and labels. The default column names are 'image' and 'label'.
 
 ### `TFRecord` Data Format
 MindSpore can also read datasets in the `TFRecord` data format through the `TFRecordDataset` object.
@@ -121,7 +121,7 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
     ```
     In the preceding information:  
     `datasetType`: data format. TF indicates the TFRecord data format.  
-    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are image and label.   
+    `columns`: column information field, which is defined based on the actual column names of the dataset. In the preceding schema file example, the dataset columns are 'image' and 'label'.   
     `numRows`: row information field, which controls the maximum number of rows for loading data. If the number of defined rows is greater than the actual number of rows, the actual number of rows prevails during loading.
     
     When creating the TFRecordDataset, input the schema file path. An example is as follows:
@@ -151,12 +151,12 @@ MindSpore can also read datasets in the `TFRecord` data format through the `TFRe
     ```
 
 ## Loading a Custom Dataset
-In real scenarios, there are various datasets. For a custom dataset or a dataset that can't be loaded by APIs directly, there are tow ways.
-One is converting the dataset to MindSpore data format (for details, see [Converting Datasets to the Mindspore Data Format](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html)). The other one is using the `GeneratorDataset` object.
+In real scenarios, there are various datasets. For a custom dataset or a dataset that cannot be loaded by APIs directly, there are two ways.
+One is to convert the dataset to MindSpore data format (for details, see [Converting Datasets to the Mindspore Data Format](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html)). The other one is to use the `GeneratorDataset` object.
 The following shows how to use `GeneratorDataset`.
 
 1. Define an iterable object to generate a dataset. There are two examples following. One is a customized function which contains `yield`. The other one is a customized class which contains `__getitem__`.
-   Both of them will generator a dataset with numbers from 0 to 9.
+   Both of them will generate a dataset with numbers from 0 to 9.
    > The custom iterable object returns a tuple of `numpy arrays` as a row of data each time. 
 
    An example of a custom function is as follows:
@@ -189,7 +189,7 @@ Define a `Generator` and transfer it to `GeneratorDataset` to create a dataset a
    ```
 
 3. After creating a dataset, create an iterator for the dataset to obtain the corresponding data. Iterator creation methods are as follows:
-   - Create an iterator whose return value is of the sequence type. As is shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
+   - Create an iterator whose return value is a sequence type. As shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
       ```python
       print("dataset1:") 
       for data in dataset1.create_tuple_iterator():  # each data is a sequence
@@ -225,7 +225,7 @@ Define a `Generator` and transfer it to `GeneratorDataset` to create a dataset a
       [array([9], dtype=int64)]
       ```
 
-   - Create an iterator whose return value is of the dictionary type. As is shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
+   - Create an iterator whose return value is a dictionary type. As shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
       ```python
       print("dataset1:") 
       for data in dataset1.create_dict_iterator():  # each data is a dictionary
