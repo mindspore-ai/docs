@@ -87,3 +87,4 @@ MindSpore教程
    advanced_use/model_security
    advanced_use/differential_privacy
    advanced_use/fuzzer
+   advanced_use/membership_inference
