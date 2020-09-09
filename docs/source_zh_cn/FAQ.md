@@ -23,6 +23,13 @@
 ## 安装类
 
 ### pip安装
+
+Q：安装MindSpore版本：GPU、CUDA 10.1、0.5.0-beta、Ubuntu-x86，出现问题：`cannot open shared object file:file such file or dorectory`。
+
+A：从报错情况来看，是cublas库没有找到。一般的情况下是cublas库没有安装，或者是因为没有加入到环境变量中去。通常cublas是随着cuda以及驱动一起安装的，确认安装后把cublas所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
+
+<br/>
+
 Q：使用pip安装时报错：`SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？
 
 A：在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
@@ -51,7 +58,15 @@ Q：MindSpore网站安装页面找不到MindInsight和MindArmour的whl包，无�
 
 A：您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，通过`pip install`命令进行安装。
 
+<br/>
+
 ### 源码编译安装
+
+Q：MindSpore安装：版本0.6.0-beta + Ascend 910 + Ubuntu_arm + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
+
+A：`libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录find到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
+
+<br/>
 
 Q：源码编译MindSpore过程时间过长，或时常中断该怎么办？
 
@@ -75,11 +90,15 @@ Q：当源码编译MindSpore，提示`tclsh not found`时，应该怎么办？
 
 A：当有此提示时说明要用户安装`tclsh`；如果仍提示缺少其他软件，同样需要安装其他软件。
 
+<br/>
+
 ### 环境变量
 
 Q: 一些常用的环境变量设置，在新启动的终端窗口中需要重新设置，容易忘记应该怎么办？
 
 A: 常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，可让环境变量设置在新启动的终端窗口中立即生效。
+
+<br/>
 
 ### 安装验证
 
@@ -98,6 +117,8 @@ print(F.tensor_add(x,y))
 
 A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命令：`python -c 'import mindspore'`，如果没有显示`No module named 'mindspore'`等错误即安装成功。问题中的验证代码仅用于验证Ascend平台安装是否成功。
 
+<br/>
+
 ## 算子支持
 
 Q：官网的LSTM示例在Ascend上跑不通
@@ -110,17 +131,19 @@ Q：conv2d设置为(3,10),Tensor[2,2,10,10]，在ModelArts上利用Ascend跑，�
 
 A：这是TBE这个算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
+<br/>
+
 ## 网络模型
 
-Q：MindSpore现支持直接读取哪些其他框架的模型？支持哪些格式呢？
+Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如Pytorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？
 
-A：MindSpore采用protbuf存储训练参数，无法直接读取其他框架的模型。如果想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的save_checkpoint接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
+A： MindSpore采用protbuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的`save_checkpoint`接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
 
 <br/>
 
-Q：MindSpore训练的模型如何在Ascend 310 上使用？
+Q：用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？
 
-A：Ascend 310 支持OM模型，所以先导出ONNX或AIR模型，再转化为Ascend 310 支持的OM模型，具体步骤参考[多平台推理](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)
+A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
 
 <br/>
 
@@ -152,11 +175,13 @@ Q：MindSpore模型训练代码能有多简单？
 
 A：除去网络定义，MindSpore提供了Model类的接口，大多数场景只需几行代码就可完成模型训练。
 
+<br/>
+
 ## 平台系统
 
 Q：Ascend 310 不能安装MindSpore么？
 
-A：Ascend 310只能用作推理，MindSpore支持在Ascend 910训练，训练出的模型转化为.om模型可用于Ascend 310上推理。
+A：Ascend 310只能用作推理，MindSpore支持在Ascend 910训练，训练出的模型转化为OM模型可用于Ascend 310上推理。
 
 <br/>
 
@@ -182,7 +207,15 @@ Q：MindSpore是否支持Windows 10？
 
 A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装步骤可以查阅[MindSpore官网教程](https://www.mindspore.cn/install/)。
 
+<br/>
+
 ## 后端运行
+
+Q：请问自己制作的黑底白字`28*28`的数字图片，使用MindSpore训练出来的模型做预测，报错提示`wrong shape of image`是怎么回事？
+
+A：首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时对数据是有要求的，需要设置为`28*28`的灰度图，就是单通道才可以。
+
+<br/>
 
 Q：MindSpore的operation算子报错：`device target [CPU] is not supported in pynative mode`
 
@@ -208,6 +241,8 @@ A：这边的问题是选择了Graph模式却使用了PyNative的写法，所以
 - Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
 用户可以参考[官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/debugging_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
 
+<br/>
+
 ## 编程语言拓展
 
 Q：最近出来的taichi编程语言有Python扩展，类似`import taichi as ti`就能直接用了，MindSpore是否也支持？
@@ -220,11 +255,25 @@ Q：MindSpore是否（计划）支持多语言扩展？
 
 A：MindSpore目前支持Python扩展，针对C++、Rust、Julia等语言的支持正在开发中。
 
+<br/>
+
 ## 特性支持
+
+Q：MindSpore并行模型训练的优势和特色有哪些？
+
+A：MindSpore分布式训练除了支持数据并行，还支持算子级模型并行，可以对算子输入tensor进行切分并行。在此基础上支持自动并行，用户只需要写单卡脚本，就能自动切分到多个节点并行执行。
+
+<br/>
+
+Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
+
+A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子,自定义算子[详见这里](https://www.mindspore.cn/tutorial/zh-CN/master/use/custom_operator.html)。
+
+<br/>
 
 Q：MindSpore有轻量的端侧推理引擎么？
 
-A：MindSpore有自己的端侧推理引擎，当前版本中已开源了端侧推理的部分功能。预计8月底会有更新，届时MindSpore端侧推理引擎在易用性，性能，算子完备度，以及第三方模型支持方面会更加完善和强大。
+A：MindSpore轻量化推理框架MindSpore Lite已于r0.7版本正式上线，欢迎试用并提出宝贵意见，概述、教程和文档等请参考[MindSpore Lite](https://www.mindspore.cn/lite)
 
 <br/>
 
