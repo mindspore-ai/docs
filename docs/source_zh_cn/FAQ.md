@@ -223,6 +223,12 @@ A：pynative 模式目前只支持Ascend和GPU，暂时还不支持CPU。
 
 <br/>
 
+Q：在Ascend平台上，执行用例有时候会报错run time error，如何获取更详细的日志帮助问题定位？
+
+A：可以通过开启slog获取更详细的日志信息以便于问题定位，修改`/var/log/npu/conf/slog/slog.conf`中的配置，可以控制不同的日志级别，对应关系为：0:debug、1:info、2:warning、3:error、4:null(no output log)，默认值为1。
+
+<br/>
+
 Q：使用ExpandDims算子报错：`Pynative run op ExpandDims failed`。具体代码：
 
 ```python
