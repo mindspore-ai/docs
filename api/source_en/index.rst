@@ -38,13 +38,14 @@ MindSpore API
    :caption: MindArmour Python API
 
    api/python/mindarmour/mindarmour
+   api/python/mindarmour/mindarmour.adv_robustness.attacks
+   api/python/mindarmour/mindarmour.adv_robustness.defenses
+   api/python/mindarmour/mindarmour.adv_robustness.detectors
+   api/python/mindarmour/mindarmour.adv_robustness.evaluations
+   api/python/mindarmour/mindarmour.fuzz_testing
+   api/python/mindarmour/mindarmour.privacy.diff_privacy
+   api/python/mindarmour/mindarmour.privacy.evaluation
    api/python/mindarmour/mindarmour.utils
-   api/python/mindarmour/mindarmour.evaluations
-   api/python/mindarmour/mindarmour.detectors
-   api/python/mindarmour/mindarmour.attacks
-   api/python/mindarmour/mindarmour.defenses
-   api/python/mindarmour/mindarmour.fuzzing
-   api/python/mindarmour/mindarmour.diff_privacy
 
 .. toctree::
    :maxdepth: 1
