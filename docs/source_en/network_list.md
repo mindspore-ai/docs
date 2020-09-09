@@ -47,7 +47,7 @@
 ## Pre-trained Models
 *It refers to the released MindSpore version. The hardware platforms that support model training are CPU, GPU and Ascend. As shown in the table below, ✓ indicates that the pre-trained model run on the selected platform.
 
-Domain | Sub Domain| Network | Dataset | CPU   | GPU | Ascend | 0.5.0-beta* 
+| Domain | Sub Domain| Network | Dataset | CPU   | GPU | Ascend | 0.5.0-beta* 
 |:------   |:------ | :------- |:------ |:------   |:------  |:----- |:-----
 |Computer Vision (CV) | Image Classification| [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py) | CIFAR-10|    |    | ✓   |  [Download](http://download.mindspore.cn/model_zoo/official/cv/alexnet/alexnet_ascend_0.5.0_cifar10_official_classification_20200716.tar.gz)
 |Computer Vision (CV) | Image Classification| [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)| MNIST |   |   | ✓  | [Download](http://download.mindspore.cn/model_zoo/official/cv/lenet/lenet_ascend_0.5.0_mnist_official_classification_20200716.tar.gz)
