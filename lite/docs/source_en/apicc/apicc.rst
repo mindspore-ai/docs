@@ -8,4 +8,5 @@ C++ API
   lite
   session
   tensor
+  dataset
   errorcode_and_metatype
