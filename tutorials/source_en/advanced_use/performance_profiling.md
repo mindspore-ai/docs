@@ -37,6 +37,10 @@ Before using Profiler, make sure the process of ada in background running right.
 
 To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script. At first, the MindSpore `Profiler` object need to be set after set context and before the network and HCCL initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
 
+> The parameters of Profiler are as follows：
+>
+> <https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.profiler.html>
+
 The sample code is as follows:
 
 ```python
@@ -49,7 +53,7 @@ def test_profiler():
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
     
     # Init Profiler
-    profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
+    profiler = Profiler()
     
     # Init hyperparameter
     epoch = 2

@@ -11,6 +11,7 @@
     - [Launch MindInsight](#launch-mindinsight)
         - [Performance Analysis](#performance-analysis)
             - [Operator Performance Analysis](#operator-performance-analysis)
+            - [Timeline Analysis](#timeline-analysis)
 
 <!-- /TOC -->
 
@@ -70,7 +71,7 @@ The MindInsight launch command can refer to [MindInsight Commands](https://www.m
 
 ### Performance Analysis
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only support operation analysis now, the others modules will publish soon.
+Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only support operation analysis and Timeline Analysis now, the others modules will publish soon.
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -109,3 +110,11 @@ Figure 3 displays the statistics for the Kernel, including:
 - Pie graph to show the proportion time occupied by each kernel activity. And the top 15 kernel activities with longest exection time.
 - The statistical table's column include activity name, operation name, execution frequency, total time, average time.
 - The search box on the right, which can support fuzzy search for activity name/operator full name.
+
+#### Timeline Analysis
+
+The usage is almost same as that in Ascend. The difference is GPU Timeline displays the operation information and CUDA activity.
+
+> The usage is follow as:
+>
+> <https://www.mindspore.cn/tutorial/en/master/advanced_use/performance_profiling.html#timeline-analysis>

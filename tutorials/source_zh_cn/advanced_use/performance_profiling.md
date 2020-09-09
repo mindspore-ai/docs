@@ -36,6 +36,11 @@
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
 - `set_context`之后，初始化网络和HCCL之前，需要初始化MindSpore `Profiler`对象。
+
+  > Profiler支持的参数可以参考：
+  >
+  > <https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.profiler.html>
+
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
 样例代码如下：
@@ -50,7 +55,7 @@ def test_profiler():
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
     
     # Init Profiler
-    profiler = Profiler(output_path='./data', is_detail=True, is_show_op_path=False, subgraph='all')
+    profiler = Profiler()
     
     # Init hyperparameter
     epoch = 2
