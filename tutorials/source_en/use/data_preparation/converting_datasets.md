@@ -20,7 +20,7 @@
 
 ## Overview
 
-You can convert non-standard datasets and common datasets into the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.   
+You can convert non-standard datasets and common datasets to the MindSpore data format so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, therefore using datasets in the MindSpore data format can deliver a better user experience.   
 The MindSpore data format has the following features:  
 1. Unified storage and access of user data are implemented, simplifying training data reading.
 2. Data is aggregated for storage, efficient reading, and easy management and transfer.
@@ -39,7 +39,7 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     from mindspore.mindrecord import FileWriter
     ```
 
-2. Define a dataset schema which defines dataset fields and field types.
+2. Define a dataset schema which specifies dataset fields and field types.
 
     ```python
     cv_schema_json = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
@@ -49,7 +49,7 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
     The field type can be int32, int64, float32, float64, string, or bytes.  
     The field shape can be a one-dimensional array represented by [-1], a two-dimensional array represented by [m, n], or a three-dimensional array represented by [x, y, z].  
     > 1. The type of a field with the shape attribute can only be int32, int64, float32, or float64.  
-    > 2. If the field has the shape attribute, prepare the data of `numpy.ndarray` type and transfer the data to the `write_raw_data` API.  
+    > 2. If the field has the shape attribute, prepare the data type as `numpy.ndarray` before transferring the data to the `write_raw_data` API.  
     
     Examples:  
     - Image classification
@@ -97,9 +97,9 @@ MindSpore provides write operation tools to write user-defined raw data in MindS
 
 ## Converting Common Datasets to the MindSpore Data Format
 
-MindSpore provides utility classes to convert common datasets to the MindSpore data format. The following table lists common datasets and called utility classes:  
+MindSpore provides utility classes to convert common datasets to the MindSpore data format. The following table lists common datasets and utility classes to be called:  
 
-| Dataset  | Called Utility Class |
+| Dataset  | Utility Class |
 | -------- | ------------ |
 | CIFAR-10 | Cifar10ToMR  |
 | CIFAR-100| Cifar100ToMR |
@@ -153,7 +153,7 @@ You can use the `Cifar100ToMR` class to convert the raw CIFAR-100 data to the Mi
     ```
     > CIFAR-100 dataset download address: <https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz>
 
-2. Import the `Cifar100ToMR` class for dataset converting.
+2. Import the `Cifar100ToMR` class for converting the dataset.
 
     ```python
     from mindspore.mindrecord import Cifar100ToMR
