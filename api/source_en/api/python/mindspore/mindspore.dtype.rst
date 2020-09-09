@@ -6,6 +6,8 @@ Data Type
 
 .. class:: mindspore.dtype
 
+Create a data type object of MindSpore.
+
 The actual path of ``dtype`` is ``/mindspore/common/dtype.py``.
 Run the following command to import the package:
 
@@ -49,19 +51,19 @@ For other defined types, see the following table.
 ============================   =================
 Type                            Description
 ============================   =================
-``tensor``                      MindSpore's ``tensor`` type. Data format uses NCHW.
-``MetaTensor``                  A tensor only has data type and shape.
-``bool_``                       Bool number.
+``tensor``                      MindSpore's ``tensor`` type. Data format uses NCHW. For details, see [tensor](https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py).
+``MetaTensor``                  A tensor only has data type and shape. For details, see [MetaTensor](https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/common/parameter.py).
+``bool_``                       Boolean ``True`` or ``False``.
 ``int_``                        Integer scalar.
 ``uint``                        Unsigned integer scalar.
 ``float_``                      Floating-point scalar.
 ``number``                      Number, including ``int_`` , ``uint`` , ``float_`` and ``bool_`` .
 ``list_``                       List constructed by ``tensor`` , such as ``List[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
 ``tuple_``                      Tuple constructed by ``tensor`` , such as ``Tuple[T0,T1,...,Tn]`` , where the element ``Ti`` can be of different types.
-``function``                    Function. Return in two ways, one returns ``Func`` directly, the other returns ``Func(args: List[T0,T1,...,Tn], retval: T)`` .
-``type_type``                   Type of type.
+``function``                    Function. Return in two ways, when function is not None, returns Func directly, the other returns Func(args: List[T0,T1,...,Tn], retval: T) when function is None.
+``type_type``                   Type definition of type.
 ``type_none``                   No matching return type, corresponding to the ``type(None)`` in Python.
-``symbolic_key``                The value of a variable managed by embd, which is used as a key of the variable in ``env_type`` .
+``symbolic_key``                The value of a variable is used as a key of the variable in ``env_type`` .
 ``env_type``                    Used to store the gradient of the free variable of a function, where the key is the ``symbolic_key`` of the free variable's node and the value is the gradient.
 ============================   =================
 
