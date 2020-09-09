@@ -18,6 +18,8 @@ import os
 import mindspore
 # If you don't want to generate MindArmour APIs, comment this line.
 import mindarmour
+# If you don't want to generate MindSpore_Hub APIs, comment this line.
+import mindspore_hub
 
 
 # -- Project information -----------------------------------------------------

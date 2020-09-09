@@ -52,3 +52,8 @@ MindSpore API
    api/python/mindarmour/mindarmour.fuzzing
    api/python/mindarmour/mindarmour.diff_privacy
 
+.. toctree::
+   :maxdepth: 1
+   :caption: MindSpore Hub Python API
+
+   api/python/mindspore_hub/mindspore_hub
