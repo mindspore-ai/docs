@@ -129,7 +129,7 @@ from mindspore.common.initializer import TruncatedNormal
 from mindspore import nn
 
 net = nn.Dense(1,1,TruncatedNormal(0.02),TruncatedNormal(0.02))
-print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input[0])
+print("weight:", net.weight.set_data([0][0]), "bias:", net.bias.set_data([0]))
 ```
 
 输出结果：
@@ -144,7 +144,7 @@ print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input
 
 ```python
 x = np.arange(-10, 10, 0.1)
-y = x * (net.weight.default_input[0][0].asnumpy()) + (net.bias.default_input[0].asnumpy())
+y = x * (net.weight.set_data([0][0]).asnumpy()) + (net.bias.set_data([0]).asnumpy())
 plt.scatter(x1, y1, color="red", s=5)
 plt.plot(x, y, "blue")
 plt.title("Eval data and net")
@@ -373,15 +373,15 @@ for i in range(step_size):
     data_x,data_y = get_data(batch_size)
     grads = train_network(data_x,data_y) 
     optim(grads)
-    plot_model_and_datasets(net.weight.default_input, 
-                            net.bias.default_input, data_x, data_y)
+    plot_model_and_datasets(net.weight.data, 
+                            net.bias.data, data_x, data_y)
     display.clear_output(wait=True)
 
 output = net(eval_x)
 loss_output = criterion(output, eval_label)
 print("loss_value:", loss_output.asnumpy())
-plot_model_and_datasets(net.weight.default_input, net.bias.default_input, data_x,data_y)
-print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input[0])
+plot_model_and_datasets(net.weight.data, net.bias.data, data_x,data_y)
+print("weight:", net.weight.set_data([0][0]), "bias:", net.bias.set_data([0]))
 ```
 
 输出结果：

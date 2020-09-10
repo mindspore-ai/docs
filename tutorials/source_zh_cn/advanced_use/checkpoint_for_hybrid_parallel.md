@@ -233,11 +233,11 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 3. 修改模型参数数据值。 
 
     ```
-    new_param.set_parameter_data(tensor_slice, True)
-    new_param_moments.set_parameter_data(tensor_slice_moments, True)
+    new_param.set_data(tensor_slice, True)
+    new_param_moments.set_data(tensor_slice_moments, True)
     ```
 
-    - `set_parameter_data`：设置模型参数的值，接口参数类型为Tensor 或number。
+    - `set_data`：设置模型参数的值，接口参数类型为Tensor 或number。
 
 ### 步骤3：将修改后的参数数据加载到网络中
 
@@ -487,7 +487,7 @@ load_param_into_net(opt, param_dict)
             rank = get_rank()
             tensor_slice = Tensor(slice_list[rank])
             # modify model parameter data values
-            new_param.set_parameter_data(tensor_slice, True)
+            new_param.set_data(tensor_slice, True)
         
             # load the modified parameter data into the network
             weight = np.ones([4, 8]).astype(np.float32)

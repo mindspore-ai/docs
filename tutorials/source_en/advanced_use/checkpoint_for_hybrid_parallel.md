@@ -231,11 +231,11 @@ The following uses a specific model parameter as an example. The parameter name 
 3. Modify values of model parameters.
 
    ```
-   new_param.set_parameter_data(tensor_slice, True)
-   new_param_moments.set_parameter_data(tensor_slice_moments, True)
+   new_param.set_data(tensor_slice, True)
+   new_param_moments.set_data(tensor_slice_moments, True)
    ```
 
-   - `set_parameter_data`: sets the value of a model parameter. The API parameter type is Tensor or number.
+   - `set_data`: sets the value of a model parameter. The API parameter type is Tensor or number.
 
 ### Step 3: Loading the Modified Parameter Data to the Network
 
@@ -486,7 +486,7 @@ User process:
            rank = get_rank()
            tensor_slice = Tensor(slice_list[rank])
            # modify model parameter data values
-           new_param.set_parameter_data(tensor_slice, True)
+           new_param.set_data(tensor_slice, True)
 
            # load the modified parameter data into the network
            weight = np.ones([4, 8]).astype(np.float32)
