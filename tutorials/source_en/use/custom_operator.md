@@ -93,7 +93,7 @@ The operator information is key for the backend to select the operator implement
 
 ### Example
 
-The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info ` is the operator information, which is defined by `TBERegOp`. The specific field meaning of the operator information visit the [TBE website](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html).
+The following takes the TBE implementation `square_impl.py` of the `Square` operator as an example. `square_compute` is a computable function of the operator implementation. It describes the computation logic of `x * x` by calling the API provided by `te.lang.cce`. `cus_square_op_info ` is the operator information, which is defined by `TBERegOp`. For the specific field meaning of the operator information, visit the [TBE website](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0096.html).
 
 Note the following parameters when setting `TBERegOp`:
 
@@ -155,7 +155,7 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
 
 ## Using Custom Operators
 
-The usage of custom operators is the same as that of built-in operators on the network. The operators can be directly used by importing primitives. The following takes the single-operator network test of `CusSquare` as an example.
+The usage of custom operators is the same as that of built-in operators in the network. The operators can be directly used by importing primitives. The following takes the single-operator network test of `CusSquare` as an example.
 
 Define the network in the `test_square.py` file.
 
