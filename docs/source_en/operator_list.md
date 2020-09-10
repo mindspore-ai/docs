@@ -46,7 +46,7 @@
 | [mindspore.nn.Conv1d](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv1d)                              |  Supported |  Supported | Doing |layer/conv
 | [mindspore.nn.Conv1dTranspose](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv1dTranspose)                              |  Supported |  Supported | Doing |layer/conv
 | [mindspore.nn.Embedding](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Supported |  Supported | Doing |layer/embedding
-| [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Doing |Doing | Doing |layer/image
+| [mindspore.nn.ImageGradients](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Supported |Supported | Doing |layer/image
 | [mindspore.nn.SSIM](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Supported | Supported | Doing |layer/image
 | [mindspore.nn.PSNR](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Supported |Doing | Doing |layer/image
 | [mindspore.nn.CentralCrop](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Doing | Doing |layer/image
@@ -342,6 +342,7 @@
 | [mindspore.ops.operations.SquaredDifference](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.SquaredDifference)             |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xdivy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xdivy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xlogy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.operations.HistogramFixedWidth](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.HistogramFixedWidth)             |  Supported  | Doing  | Doing | math_ops
 
 ## mindspore.ops.functional
 
