@@ -63,6 +63,8 @@
 | `if`         | Same as that in Python. The input of the `if` condition must be a constant.
 | `in`         | Only supports judging whether constants exist in Tuple/List/Dictionary whose elements are all constants.
 | `not in`     | Only support Dictionary.
+| `is`         | Only support `True`, `False`, and `None`.
+| `is not`     | Only support `True`, `False`, and `None`.
 | Assignment statement     | Accessed multiple subscripts of lists and dictionaries cannot be used as l-value.
 
 ### System Functions/Classes
