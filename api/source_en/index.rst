@@ -29,7 +29,7 @@ MindSpore API
    api/python/mindspore/mindspore.dataset.config
    api/python/mindspore/mindspore.dataset.text
    api/python/mindspore/mindspore.dataset.transforms
-   api/python/mindspore/mindspore.dataset.transforms.vision
+   api/python/mindspore/mindspore.dataset.vision
    api/python/mindspore/mindspore.mindrecord
    api/python/mindspore/mindspore.profiler
 
