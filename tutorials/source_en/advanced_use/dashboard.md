@@ -1,6 +1,6 @@
 # Dashboard
 
-`Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -42,7 +42,7 @@ Buttons from left to right in the upper right corner of the figure are used to d
 - Step-by-step Rollback: Cancel operations step by step after continuously drawing rectangles to select and zooming in the same area.
 - Restore chart: Restore a chart to the original state.
 
-There can set the threshold value to highlight the value or delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold set is less than 0.3, highlighted in red shows what is below the threshold, and it is intuitive to see the expected data value or some unusual value.
+There can set the threshold value to highlight the value or delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold set is less than 1.5, highlighted in red shows what is below the threshold, and it is intuitive to see the expected data value or some unusual value.
 
 ![scalar_select.png](./images/scalar_select.png)
 

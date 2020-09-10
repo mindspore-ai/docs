@@ -1,6 +1,6 @@
 ﻿# 溯源和对比看板
 
-`Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
