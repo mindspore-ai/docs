@@ -24,7 +24,7 @@
 
 | 模块 | 支持平台 | 说明 |
 | --- | ---- | ---- |
-| converter | Linux | 模型转换工具 |
+| converter | Linux、Windows | 模型转换工具 |
 | runtime | Linux、Android | 模型推理框架 |
 | benchmark | Linux、Android | 基准测试工具 |
 | time_profiler | Linux、Android | 性能分析工具 |

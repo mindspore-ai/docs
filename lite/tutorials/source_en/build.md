@@ -24,7 +24,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
-| converter | Linux | Model Conversion Tool |
+| converter | Linux、Windows | Model Conversion Tool |
 | runtime | Linux、Android | Model Inference Framework |
 | benchmark | Linux、Android | Benchmarking Tool |
 | time_profiler | Linux、Android | Performance Analysis Tool |
