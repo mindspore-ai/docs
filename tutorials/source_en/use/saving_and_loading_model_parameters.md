@@ -30,8 +30,8 @@ The application scenarios are as follows:
     - After model training, save model parameters for inference or prediction.
     - During training, through real-time accuracy validation, save the model parameters with the highest accuracy for prediction.
 - Retraining.
-    - During a long-time training, save the generated CheckPoint files to prevent the training from starting from the beginning after it exits abnormally.
-    - Train a model, save parameters, and perform fine-tuning for different tasks.
+    - During a long-time training, save the generated CheckPoint files to prevent starting training from the initial state after the task exits abnormally.
+    - The fine-tuning scenario is to train a model and save the parameters. Based on this model, model training is carried out for the second similar task.
 
 A CheckPoint file of MindSpore is a binary file that stores the values of all training parameters. The Google Protocol Buffers mechanism with good scalability is adopted, which is independent of the development language and platform.
 The protocol format of CheckPoints is defined in `mindspore/ccsrc/utils/checkpoint.proto`.
@@ -82,7 +82,7 @@ MindSpore adds underscores (_) and digits at the end of the user-defined prefix 
 For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated during the 32th step of the second epoch after the script is executed for the third time.
 
 > - When the saved single model parameter is large (more than 64M), it will fail to save due to the limitation of Protobuf's own data size. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
-> - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent file read and write confusion.
+> - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent file from being read or written incorrectly.
 
 ### CheckPoint Configuration Policies
 
@@ -126,7 +126,7 @@ The `eval` method validates the accuracy of the trained model.
 
 ### For Retraining
 
-In the retraining after task interruption and fine-tuning scenarios, you can load network parameters and optimizer parameters to the model.
+In the retraining and fine-tuning scenarios for task interruption, you can load network parameters and optimizer parameters to the model.
 
 The sample code is as follows:
 ```python
@@ -167,7 +167,7 @@ export(resnet, Tensor(input), file_name = 'resnet50-2_32.air', file_format = 'AI
 
 Before using the `export` interface, you need to import` mindspore.train.serialization`.
 
-The `input` parameter is used to specify the input shape and data type of the exported model.
+The `input` parameter is used to specify the input shape and the data type of the exported model.
 
 It is recommended to use '.air' as the suffix of AIR format files.
 
