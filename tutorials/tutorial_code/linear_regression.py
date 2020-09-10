@@ -71,4 +71,4 @@ for i in range(step_size):
         print(loss_output.asnumpy())
 
 # Print final weight parameters
-print("weight:", net.weight.default_input[0][0], "bias:", net.bias.default_input[0])
+print("weight:", net.weight.set_data([0][0]), "bias:", net.bias.set_data([0]))
