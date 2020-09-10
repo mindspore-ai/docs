@@ -41,7 +41,7 @@
 5. 加载保存的模型，进行推理。
 6. 验证模型，加载测试数据集和训练后的模型，验证结果精度。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py> 。
 
 
 这是简单、基础的应用流程，其他高级、复杂的应用可以基于这个基本流程进行扩展。
@@ -131,7 +131,7 @@ if __name__ == "__main__":
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
-from mindspore.dataset.vision.import Inter
+from mindspore.dataset.vision import Inter
 from mindspore.common import dtype as mstype
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -383,7 +383,7 @@ checkpoint_lenet-1_1875.ckpt
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
 ...
-def test_net(args,network,model,mnist_path):
+def test_net(network,model,mnist_path):
     """define the evaluation method"""
     print("============== Starting Testing ==============")
     #load the saved model for evaluation
@@ -397,7 +397,7 @@ def test_net(args,network,model,mnist_path):
 
 if __name__ == "__main__":
     ...
-    test_net(args, network, model, mnist_path)
+    test_net(network, model, mnist_path)
 ```
 
 其中，   

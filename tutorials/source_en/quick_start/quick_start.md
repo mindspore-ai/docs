@@ -40,7 +40,7 @@ During the practice, a simple image classification function is implemented. The 
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet.py>. 
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py>. 
 
 This is a simple and basic workflow. For applying to other advanced and complex applications, extend this basic process as appropriate.
 
@@ -380,7 +380,7 @@ After obtaining the model file, we verify the generalization ability of the mode
 ```python
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
-def test_net(args,network,model,mnist_path):
+def test_net(network,model,mnist_path):
     """define the evaluation method"""
     print("============== Starting Testing ==============")
     #load the saved model for evaluation
@@ -394,7 +394,7 @@ def test_net(args,network,model,mnist_path):
 
 if __name__ == "__main__":
     ...
-    test_net(args, network, model, mnist_path)
+    test_net(network, model, mnist_path)
 ```
 
 In the preceding information:   
