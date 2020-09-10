@@ -106,7 +106,7 @@ GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.minds
 import os
 import mindspore.common.dtype as mstype
 import mindspore.dataset.engine as de
-import mindspore.dataset.transforms.vision.c_transforms as C
+import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.communication.management import init, get_rank, get_group_size
 
@@ -118,9 +118,9 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
         rank_id = get_rank()
         device_num = get_group_size()
     if device_num == 1:
-        ds = de.ImageFolderDatasetV2(dataset_path, num_parallel_workers=8, shuffle=True)
+        ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        ds = de.ImageFolderDatasetV2(dataset_path, num_parallel_workers=8, shuffle=True,
+        ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True,
                                      num_shards=device_num, shard_id=rank_id)
 
     image_size = 224
@@ -143,8 +143,8 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
             C.HWC2CHW()
         ]
     type_cast_op = C2.TypeCast(mstype.int32)
-    ds = ds.map(input_columns="image", num_parallel_workers=8, operations=trans)
-    ds = ds.map(input_columns="label", num_parallel_workers=8, operations=type_cast_op)
+    ds = ds.map(operations=trans, input_columns="image", num_parallel_workers=8)
+    ds = ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
 
     # apply batch operations
     ds = ds.batch(batch_size, drop_remainder=True)

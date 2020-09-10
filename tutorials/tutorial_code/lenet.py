@@ -27,7 +27,7 @@ from mindspore.common.initializer import Normal
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore.train import Model
-import mindspore.dataset.transforms.vision.c_transforms as CV
+import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.transforms.vision import Inter
 from mindspore.nn.metrics import Accuracy

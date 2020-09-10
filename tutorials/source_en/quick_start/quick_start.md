@@ -128,8 +128,8 @@ Define the `create_dataset` function to create a dataset. In this function, defi
 ```python
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.transforms.vision.c_transforms as CV
-from mindspore.dataset.transforms.vision import Inter
+import mindspore.dataset.vision.c_transforms as CV
+from mindspore.dataset.vision import Inter
 from mindspore.common import dtype as mstype
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -159,11 +159,11 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     type_cast_op = C.TypeCast(mstype.int32)  # change data type of label to int32 to fit network
     
     # apply map operations on images
-    mnist_ds = mnist_ds.map(input_columns="label", operations=type_cast_op, num_parallel_workers=num_parallel_workers)
-    mnist_ds = mnist_ds.map(input_columns="image", operations=resize_op, num_parallel_workers=num_parallel_workers)
-    mnist_ds = mnist_ds.map(input_columns="image", operations=rescale_op, num_parallel_workers=num_parallel_workers)
-    mnist_ds = mnist_ds.map(input_columns="image", operations=rescale_nml_op, num_parallel_workers=num_parallel_workers)
-    mnist_ds = mnist_ds.map(input_columns="image", operations=hwc2chw_op, num_parallel_workers=num_parallel_workers)
+    mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
+    mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+    mnist_ds = mnist_ds.map(operations=rescale_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+    mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image", num_parallel_workers=num_parallel_workers)
+    mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image", num_parallel_workers=num_parallel_workers)
 
     # apply DatasetOps
     buffer_size = 10000

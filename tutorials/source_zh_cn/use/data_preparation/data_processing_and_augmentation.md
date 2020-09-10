@@ -211,13 +211,13 @@ MindSpore提供`map`函数对数据集进行映射操作，用户可以将提供
 `map`函数定义如下：
 
 ```python
-def map(self, input_columns=None, operations=None, output_columns=None, columns_order=None,
+def map(self, operations=None, input_columns=None, output_columns=None, columns_order=None,
         num_parallel_workers=None):
 ```
 在以下示例中，使用`map`函数，将定义的匿名函数（lambda函数）作用于数据集`ds1`，使数据集中数据乘以2。
 ```python
 func = lambda x : x*2  # Define lambda function to multiply each element by 2.
-ds2 = ds1.map(input_columns="data", operations=func)
+ds2 = ds1.map(operations=func, input_columns="data")
 for data in ds2.create_dict_iterator():
     print(data["data"])
 ```
@@ -278,8 +278,8 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
 
 1. 将该模块引入进代码。
     ```python
-    from mindspore.dataset.transforms.vision import Inter
-    import mindspore.dataset.transforms.vision.c_transforms as transforms
+    from mindspore.dataset.vision import Inter
+    import mindspore.dataset.vision.c_transforms as transforms
     import matplotlib.pyplot as plt
     ```
 2. 定义数据增强算子，以`Resize`为例：
@@ -307,22 +307,23 @@ MindSpore提供`c_transforms`模块以及`py_transforms`模块函数供用户进
 
 1. 将该模块引入到代码。
     ```python
-    import mindspore.dataset.transforms.vision.py_transforms as transforms
+    import mindspore.dataset.vision.py_transforms as transforms
+    from mindspore.dataset.transforms.py_transforms import Compose
     import matplotlib.pyplot as plt
     ```
-2. 定义数据增强算子，通过`ComposeOp`接口将多个数据增强组合使用, 以`RandomCrop`为例：
+2. 定义数据增强算子，通过`Compose`接口将多个数据增强组合使用, 以`RandomCrop`为例：
     ```python
     # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
     DATA_DIR = "/path/to/imagefolder_directory"
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR)
+    dataset = ds.ImageFolderDataset(DATA_DIR)
 
     transforms_list = [
         transforms.Decode(),  # Decode images to PIL format.
         transforms.RandomCrop(size=(500,500)),
         transforms.ToTensor()  # Convert PIL images to Numpy ndarray.
     ]
-    compose = transforms.ComposeOp(transforms_list)
-    dataset = dataset.map(input_columns="image", operations=compose())
+    compose = Compose(transforms_list)
+    dataset = dataset.map(operations=compose, input_columns="image")
     for data in dataset.create_dict_iterator():
          print(data["image"])
          imgplot_resized = plt.imshow(data["image"].transpose(1, 2, 0))

@@ -22,7 +22,7 @@ import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 import mindspore.ops.functional as F
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as C
+import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.communication.management import init

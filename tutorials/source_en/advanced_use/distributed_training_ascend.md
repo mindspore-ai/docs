@@ -109,7 +109,7 @@ During distributed training, data is imported in data parallel mode. The followi
 import mindspore.common.dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.transforms.vision.c_transforms as vision
+import mindspore.dataset.vision.c_transforms as vision
 from mindspore.communication.management import get_rank, get_group_size
 
 def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
@@ -136,8 +136,8 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
 
     # apply map operations on images
-    data_set = data_set.map(input_columns="label", operations=type_cast_op)
-    data_set = data_set.map(input_columns="image", operations=c_trans)
+    data_set = data_set.map(operations=type_cast_op, input_columns="label")
+    data_set = data_set.map(operations=c_trans, input_columns="image")
 
     # apply shuffle operations
     data_set = data_set.shuffle(buffer_size=10)
