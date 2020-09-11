@@ -1,6 +1,6 @@
 # Converting Datasets to the Mindspore Data Format
 
-`Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

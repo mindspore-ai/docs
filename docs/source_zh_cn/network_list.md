@@ -1,6 +1,6 @@
 # 网络支持
 
-`Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
  
 <!-- TOC -->
 

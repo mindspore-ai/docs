@@ -1,6 +1,6 @@
 # Host+Device混合训练
 
-`Ascend` `CPU` `模型训练` `中级` `高级`
+`Linux` `Ascend` `CPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 

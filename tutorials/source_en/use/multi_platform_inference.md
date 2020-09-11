@@ -1,6 +1,6 @@
 # Multi-Platform Inference
 
-`Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

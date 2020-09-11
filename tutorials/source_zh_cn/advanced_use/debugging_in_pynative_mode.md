@@ -1,6 +1,6 @@
 # 使用PyNative模式调试
 
-`Ascend` `GPU` `模型开发` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `模型开发` `初级` `中级` `高级`
 
 <!-- TOC -->
 

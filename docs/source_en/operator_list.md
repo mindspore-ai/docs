@@ -1,6 +1,6 @@
 # Operator List
 
-`Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

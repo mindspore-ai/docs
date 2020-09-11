@@ -1,6 +1,6 @@
 # Mixed Precision
 
-`Ascend` `GPU` `Model Training` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 

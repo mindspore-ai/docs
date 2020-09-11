@@ -1,6 +1,6 @@
 # ResNet-50二阶优化实践
 
-`Ascend` `GPU` `模型开发` `模型调优` `高级`
+`Linux` `Ascend` `GPU` `模型开发` `模型调优` `高级`
 
 <!-- TOC -->
 

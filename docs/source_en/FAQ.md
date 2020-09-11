@@ -1,6 +1,6 @@
 # FAQ
 
-`Ascend` `GPU` `CPU` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

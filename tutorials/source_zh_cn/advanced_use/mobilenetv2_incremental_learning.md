@@ -1,5 +1,5 @@
 # MobileNetV2 增量学习
-`CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
+`Linux` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
 <!-- TOC -->
 

@@ -1,6 +1,6 @@
 # Benchmarks
 
-`Ascend` `Model Training` `Intermediae` `Expert`
+`Linux` `Ascend` `Model Training` `Intermediae` `Expert`
 
 <!-- TOC -->
 

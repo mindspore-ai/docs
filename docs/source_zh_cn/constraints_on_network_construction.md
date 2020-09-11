@@ -1,6 +1,6 @@
 # Python源码构造网络约束
 
-`Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
 <!-- TOC -->
 

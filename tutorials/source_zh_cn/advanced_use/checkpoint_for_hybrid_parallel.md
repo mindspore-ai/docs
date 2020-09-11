@@ -2,7 +2,7 @@
 
 # 手动设置并行场景模型参数的保存和加载
 
-`Ascend` `GPU` `模型训练` `中级` `高级`
+`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 
@@ -218,7 +218,7 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
         slice_list[0]  --- [1, 2, 3, 4]    对应device0   
         slice_list[1]  --- [5, 6, 7, 8]    对应device1     
 
-    与slice_list类似，slice_moments_list 也被切分为两个shape为[1, 4]的Tensor。
+    与`slice_list`类似，`slice_moments_list` 也被切分为两个shape为[1, 4]的Tensor。
 
 2. 在每个节点分别加载对应的数据切片。 
 
@@ -253,7 +253,7 @@ load_param_into_net(opt, param_dict)
 
 ### 示例场景说明
 
-整体场景：训练分为两个阶段，两阶段的集群规模不一致， 模拟FC层MatMul算子并行。
+整体场景：训练分为两个阶段，两阶段的集群规模不一致，模拟FC层MatMul算子并行。
 
 用户流程：
 

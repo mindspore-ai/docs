@@ -1,6 +1,6 @@
 # Differential Privacy in Machine Learning
 
-`Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
+`Linux` `Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 

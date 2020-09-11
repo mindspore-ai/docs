@@ -1,6 +1,6 @@
 # Computer Vision Applications
 
-`Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

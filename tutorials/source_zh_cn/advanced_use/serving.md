@@ -1,6 +1,6 @@
 # 基于MindSpore部署推理服务
 
-`Ascend` `环境准备` `企业` `高级`
+`Linux` `Ascend` `环境准备` `企业` `高级`
 
 <!-- TOC -->
 

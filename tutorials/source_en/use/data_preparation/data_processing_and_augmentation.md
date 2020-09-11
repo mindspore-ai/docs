@@ -1,6 +1,6 @@
 # Data Processing and Augmentation
 
-`Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
