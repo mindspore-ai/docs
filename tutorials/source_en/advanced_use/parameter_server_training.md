@@ -39,20 +39,27 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
 ### Parameter Setting
 
-In this training mode, you can use either of the following methods to control whether the training parameters are updated through the parameter server:
+1. First of all, Use `mindspore.context.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
+
+- This method should be called before `mindspore.communication.management.init()`.
+- If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorial/en/master/advanced_use/parameter_server_training.html#environment-variable-setting) below will not take effect.
+- Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
+
+2. In this training mode, you can use either of the following methods to control whether the training parameters are updated through the parameter server:
 
 - Use `mindspore.nn.Cell.set_param_ps()` to set all weight recursions of `nn.Cell`.
 - Use `mindspore.common.Parameter.set_param_ps()` to set the weight.
 
-On the basis of the [original training script](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
+3. On the basis of the [original training script](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 ```python
+context.set_ps_context(enable_ps=True)
 network = LeNet5(cfg.num_classes)
 network.set_param_ps()
 ```
 
 ### Environment Variable Setting
 
-MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_POST` must be consistent):
+MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
 
 ```
 export PS_VERBOSE=1                   # Print ps-lite log
@@ -67,38 +74,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 1. Shell scripts
 
-    Provide the shell scripts corresponding to the worker, server, and scheduler roles to start training, and the shell directory structure is as follows:
-
-    ```
-    └─mindspore
-        ├─model_zoo
-           └─official
-                └─cv
-                   └─lenets
-                       |   Scheduler.sh
-                       |   Server.sh
-                       |   Worker.sh
-    ```
-
-    The data directory structure is as follows:
-
-    ```
-    └─mindspore
-        ├─model_zoo
-           └─official
-                └─cv
-                   └─lenets
-                       └─Data
-     			├─test
-        		│      t10k-images.idx3-ubyte
-        		│      t10k-labels.idx1-ubyte
-        		│
-        		└─train
-              		|      train-images.idx3-ubyte
-               		|      train-labels.idx1-ubyte
-    ```
-
-    If it is an Ascend hardware, the content of the shell script is as follows. If it is a GPU device, then the `train.py` script need to specify `--device_ target="GPU"`.
+    Provide the shell scripts corresponding to the worker, server, and scheduler roles to start training:
 
     `Scheduler.sh`:
     ```bash
@@ -109,7 +85,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_SCHED
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     `Server.sh`:
@@ -121,7 +97,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_PSERVER
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     `Worker.sh`:
@@ -133,7 +109,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_WORKER
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     Run the following commands separately:
