@@ -1,0 +1,73 @@
+digraph mindspore {
+compound=true
+subgraph cluster_0x55c9669c3c70{
+id=cluster_0x55c9669c3c70
+label="test_f"
+fontname="HuaweiSans"
+node0x55c9669c6cc0_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td></tr>
+<tr><td colspan='2' bgcolor='cornsilk'>CNode([CNode]0)</td></tr>
+</table>>,]
+node0x55c9669c66a0_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td><td port='2'>2</td></tr>
+<tr><td colspan='3' bgcolor='cornsilk'>CNode(c)</td></tr>
+</table>>,]
+node0x55c9669c6960_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td><td port='2'>2</td></tr>
+<tr><td colspan='3' bgcolor='cornsilk'>CNode([CNode]1)</td></tr>
+</table>>,]
+node0x55c9669c58a0_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td><td port='2'>2</td></tr>
+<tr><td colspan='3' bgcolor='cornsilk'>CNode(b)</td></tr>
+</table>>,]
+node0x55c9669c4fb0_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td><td port='2'>2</td></tr>
+<tr><td colspan='3' bgcolor='cornsilk'>CNode(a)</td></tr>
+</table>>,]
+node0x55c9669c6b60_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>Primitive</td></tr><tr><td>return</td></tr></table>>,]
+node0x55c9669c9720_1[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>MultitypeFuncGraph</td></tr><tr><td>mul</td></tr></table>>,]
+node0x55c9669c9dd0_2[fontname="HuaweiSans",shape=oval,label="func",style=filled,fillcolor="palegreen",URL="#cluster_0x55c9669c7310",]
+node0x55c9669c9800_3[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>MultitypeFuncGraph</td></tr><tr><td>add</td></tr></table>>,]
+node0x55c9669c4430_4[fontname="HuaweiSans",shape=octagon,label="y",style=filled,fillcolor=paleturquoise,]
+node0x55c9669c9e80_5[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>MultitypeFuncGraph</td></tr><tr><td>sub</td></tr></table>>,]
+node0x55c9669c3fc0_6[fontname="HuaweiSans",shape=octagon,label="x",style=filled,fillcolor=paleturquoise,]
+node0x55c96692eeb0_7[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>Int32Imm</td></tr><tr><td>1</td></tr></table>>,]
+parameters_0x55c9669c3c70[shape=plaintext label=<<table bgcolor='paleturquoise' cellspacing='0' cellborder='1' border='0'><tr><td>parameters</td></tr><tr><td>x</td></tr><tr><td>y</td></tr></table>>,];}
+subgraph cluster_0x55c9669c7310{
+id=cluster_0x55c9669c7310
+label="func"
+fontname="HuaweiSans"
+node0x55c9669cc740_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td></tr>
+<tr><td colspan='2' bgcolor='cornsilk'>CNode([CNode]7)</td></tr>
+</table>>,]
+node0x55c9669cc5c0_0[fontname="HuaweiSans",shape=plaintext,label=<<table port='core'>
+<tr><td port='0'>0</td><td port='1'>1</td><td port='2'>2</td></tr>
+<tr><td colspan='3' bgcolor='cornsilk'>CNode([CNode]8)</td></tr>
+</table>>,]
+node0x55c9669cafc0_8[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>Primitive</td></tr><tr><td>return</td></tr></table>>,]
+node0x55c9669cc930_9[fontname="HuaweiSans",shape=plaintext,label=<<table port='core' cellborder='0' cellspacing='2' bgcolor='lavender'><tr><td bgcolor='white'>MultitypeFuncGraph</td></tr><tr><td>div</td></tr></table>>,]
+node0x55c9669cab20_10[fontname="HuaweiSans",shape=octagon,label="x",style=filled,fillcolor=paleturquoise,]
+node0x55c9669cacf0_11[fontname="HuaweiSans",shape=octagon,label="y",style=filled,fillcolor=paleturquoise,]
+parameters_0x55c9669c7310[shape=plaintext label=<<table bgcolor='paleturquoise' cellspacing='0' cellborder='1' border='0'><tr><td>parameters</td></tr><tr><td>x</td></tr><tr><td>y</td></tr></table>>,];}
+node0x55c9669c6b60_0:core->node0x55c9669c6cc0_0:0[arrowhead=vee,style=dashed]
+node0x55c9669c66a0_0:core->node0x55c9669c6cc0_0:1[arrowhead=vee,]
+node0x55c9669c9720_1:core->node0x55c9669c66a0_0:0[arrowhead=vee,style=dashed]
+node0x55c9669c58a0_0:core->node0x55c9669c66a0_0:1[arrowhead=vee,]
+node0x55c9669c6960_0:core->node0x55c9669c66a0_0:2[arrowhead=vee,]
+node0x55c9669c9dd0_2->node0x55c9669c6960_0:0[arrowhead=vee,style=dashed]
+node0x55c9669c9dd0_2->node0x55c9669cc740_0[lhead=cluster_0x55c9669c7310,dir=both,arrowhead=dot,style=filled,color="#444444"]
+node0x55c9669c4fb0_0:core->node0x55c9669c6960_0:1[arrowhead=vee,]
+node0x55c9669c58a0_0:core->node0x55c9669c6960_0:2[arrowhead=vee,]
+node0x55c9669c9800_3:core->node0x55c9669c58a0_0:0[arrowhead=vee,style=dashed]
+node0x55c9669c4fb0_0:core->node0x55c9669c58a0_0:1[arrowhead=vee,]
+node0x55c9669c4430_4->node0x55c9669c58a0_0:2[arrowhead=vee,]
+node0x55c9669c9e80_5:core->node0x55c9669c4fb0_0:0[arrowhead=vee,style=dashed]
+node0x55c9669c3fc0_6->node0x55c9669c4fb0_0:1[arrowhead=vee,]
+node0x55c96692eeb0_7:core->node0x55c9669c4fb0_0:2[arrowhead=vee,]
+node0x55c9669cafc0_8:core->node0x55c9669cc740_0:0[arrowhead=vee,style=dashed]
+node0x55c9669cc5c0_0:core->node0x55c9669cc740_0:1[arrowhead=vee,]
+node0x55c9669cc930_9:core->node0x55c9669cc5c0_0:0[arrowhead=vee,style=dashed]
+node0x55c9669cab20_10->node0x55c9669cc5c0_0:1[arrowhead=vee,]
+node0x55c9669cacf0_11->node0x55c9669cc5c0_0:2[arrowhead=vee,]
+}
