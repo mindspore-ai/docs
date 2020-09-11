@@ -55,11 +55,11 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
 ### Inference Using a Checkpoint File
 
-1. Input a validation dataset to validate a model using the `model.eval` API. 
+1. Use the `model.eval` interface for model validation. 
 
    1.1 Local Storage
 
-     When the pre-trained models are saved locally, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading model and parameters using `load_checkpoint` and `load_param_into_net` in `mindspore.train.serialization` module, and finally performing inference on validation dataset once created. The processing method of the validation dataset is the same as that of the training dataset.
+     When the pre-trained models are saved in local, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading model and parameters using `load_checkpoint` and `load_param_into_net` in `mindspore.train.serialization` module, and finally performing inference on validation dataset once created. The processing method of the validation dataset is the same as that of the training dataset.
 
     ```python
     network = LeNet5(cfg.num_classes)
@@ -119,8 +119,8 @@ The Ascend 310 AI processor is equipped with the ACL framework and supports the 
 1. Generate a model in ONNX or AIR format on the training platform. For details, see [Export AIR Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-air-model) and [Export ONNX Model](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-onnx-model).
 
 2. Convert the ONNX or AIR model file into an OM model file and perform inference.
-   - For performing inference in the cloud environment (ModelArt), see the [Ascend 910 training and Ascend 310 inference samples](https://support.huaweicloud.com/bestpractice-modelarts/modelarts_10_0026.html).
-   - For details about the local bare-metal environment where the Ascend 310 AI processor is deployed locally (compared with the cloud environment), see the document of the Ascend 310 AI processor software package.
+   - For performing inference in the cloud environment (ModelArt), see the [Ascend 910 training and Ascend 310 inference samples](https://support.huaweicloud.com/en-us/bestpractice-modelarts/modelarts_10_0026.html).
+   - For details about the local bare-metal environment where the Ascend 310 AI processor is deployed in local (compared with the cloud environment), see the document of the Ascend 310 AI processor software package.
 
 ## Inference on a GPU
 
