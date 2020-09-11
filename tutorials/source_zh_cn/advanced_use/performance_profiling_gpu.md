@@ -11,6 +11,7 @@
     - [启动MindInsight](#启动mindinsight)
         - [性能分析](#性能分析)
             - [算子性能分析](#算子性能分析)
+            - [Timeline分析](#timeline分析)
 
 <!-- /TOC -->
 
@@ -72,7 +73,7 @@ class StopAtStep(Callback):
 
 ### 性能分析
 
-用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景只支持算子耗时排名统计功能，其他功能敬请期待）。
+用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景只支持算子耗时排名统计和Timeline功能，其他功能敬请期待）。
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -109,3 +110,12 @@ class StopAtStep(Callback):
 - 统计图表：展示了各个kernel activity的占比以及前15个算子的耗时信息。
 - 内核信息列表：信息列表展示activity的名称、所属算子名称、执行次数、总时间、平均时间等信息。
 - 搜索：可以通过name(activity名称)以及op_full_name（所属算子名称）进程部分匹配的搜索。
+
+#### Timeline分析
+
+GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息和CUDA activity的信息。使用方法参考：
+
+>  样例代码与Ascend使用方式一致可以参考：
+>
+> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#timeline>
+
