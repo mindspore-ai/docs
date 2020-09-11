@@ -29,7 +29,6 @@ MindSpore API
    api/python/mindspore/mindspore.ops
    api/python/mindspore/mindspore.ops.composite
    api/python/mindspore/mindspore.ops.operations
-   api/python/mindspore/mindspore.parallel
    api/python/mindspore/mindspore.train
    api/python/mindspore/mindspore.dataset
    api/python/mindspore/mindspore.dataset.config
