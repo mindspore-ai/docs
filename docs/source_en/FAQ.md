@@ -23,6 +23,13 @@
 ## Installation
 
 ### Installing Using pip
+
+Q: What can I do if an error message `cannot open shared object file:file such file or directory` is displayed when I install MindSpore of the GPU, CUDA 10.1, 0.5.0-beta, or Ubuntu-x86 version?
+
+A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
+
+<br/>
+
 Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
@@ -53,6 +60,12 @@ Q: What should I do if I cannot find whl package for MindInsight or MindArmour o
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
 
 ### Source Code Compilation Installation
+
+Q: A sample fails to be executed after I installed MindSpore 0.6.0 beta on Ascend 910 using Ubuntu_aarch64 and Python 3.7.5 and manually downloaded the .whl package of the corresponding version, compiled and installed GMP6.1.2, and installed other Python library dependencies. An error message is displayed, indicating that the .so file cannot be found. What can I do?
+
+A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
+
+<br/>
 
 Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors?
 
@@ -113,15 +126,15 @@ A: This is a TBE operator restriction that the width of x must be greater than t
 
 ## Network Models
 
-Q: Which framework models can be directly read by MindSpore? What formats are supported?
+Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?
 
-A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. If you want to use the .ckpt file trained by a framework, read the parameters and then call the save_checkpoint API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
 
 <br/>
 
-Q: How do I use models trained by MindSpore on Ascend 310?
+Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?
 
-A: Ascend 310 supports the offline model (OM). Therefore, you need to export the Open Neural Network Exchange (ONNX) or Ascend intermediate representation (AIR) model and then convert it into OM supported by Ascend 310. For details, see [Multi-Platform Inference](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html).
 
 <br/>
 
@@ -185,6 +198,12 @@ A: The MindSpore CPU version can be installed on Windows 10. For details about t
 
 ## Backend Running
 
+Q: What can I do if an error message `wrong shape of image` is displayed when I use a model trained by MindSpore to perform prediction on a `28 x 28` digital image with white text on a black background?
+
+A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28 `gray scale image, that is, a single channel.
+
+<br/>
+
 Q: What can I do if the error message `device target [CPU] is not supported in pynative mode` is displayed for the operation operator of MindSpore?
 
 A: Currently, the PyNative mode supports only Ascend and GPU and does not support the CPU.
@@ -229,9 +248,22 @@ A：MindSpore currently supports Python extensions，bindings for languages like
 
 ## Supported Features
 
+Q: What are the advantages and features of MindSpore parallel model training?
+
+A: In addition to data parallelism, MindSpore distributed training also supports operator-level model parallelism. The operator input tensor can be tiled and parallelized. On this basis, automatic parallelism is supported. You only need to write a single-device script to automatically tile the script to multiple nodes for parallel execution.
+
+<br/>
+
+Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, click [here](https://www.mindspore.cn/tutorial/en/master/use/custom_operator.html).
+
+<br/>
+
 Q: Does MindSpore have a lightweight on-device inference engine?
 
-A: MindSpore has its own on-device inference engine. In the current version, some functions of on-device inference have been open-sourced. MindSpore on-device inference engine is expected to be updated at the end of August. By then, it will be more comprehensive and powerful in terms of usability, performance, operator completeness, and third-party model support.
+A:The MindSpore lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
+
+<br/>
 
 Q: How does MindSpore implement semantic collaboration and processing? Is the popular Formal Concept Analysis (FCA) used?
 

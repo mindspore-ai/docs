@@ -24,7 +24,7 @@
 
 ### pip安装
 
-Q：安装MindSpore版本：GPU、CUDA 10.1、0.5.0-beta、Ubuntu-x86，出现问题：`cannot open shared object file:file such file or dorectory`。
+Q：安装MindSpore版本：GPU、CUDA 10.1、0.5.0-beta、Ubuntu-x86，出现问题：`cannot open shared object file:file such file or directory`。
 
 A：从报错情况来看，是cublas库没有找到。一般的情况下是cublas库没有安装，或者是因为没有加入到环境变量中去。通常cublas是随着cuda以及驱动一起安装的，确认安装后把cublas所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
 
@@ -62,7 +62,7 @@ A：您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)
 
 ### 源码编译安装
 
-Q：MindSpore安装：版本0.6.0-beta + Ascend 910 + Ubuntu_arm + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
+Q：MindSpore安装：版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
 
 A：`libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录find到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
 
@@ -135,7 +135,7 @@ A：这是TBE这个算子的限制，x的width必须大于kernel的width。CPU�
 
 ## 网络模型
 
-Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如Pytorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？
+Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？
 
 A： MindSpore采用protbuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的`save_checkpoint`接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
 
