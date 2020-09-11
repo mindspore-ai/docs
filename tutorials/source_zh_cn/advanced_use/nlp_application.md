@@ -50,7 +50,7 @@ $垂直极性词 = 通用极性词 + 领域特有极性词$
 ## 准备及设计
 ### 下载数据集
 
-采用IMDB影评数据集作为实验数据。
+采用IMDb影评数据集作为实验数据。
 > 数据集下载地址：<http://ai.stanford.edu/~amaas/data/sentiment/>
 
 以下是负面影评（Negative）和正面影评（Positive）的案例。
@@ -78,7 +78,7 @@ $召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的�
 
 $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 
-在IMDB这个数据集中，正负样本数差别不大，可以简单地用精度（accuracy）作为分类器的衡量标准。
+在IMDb这个数据集中，正负样本数差别不大，可以简单地用精度（accuracy）作为分类器的衡量标准。
 
 
 ### 确定网络及流程
@@ -92,7 +92,7 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
 > 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
 > - `src/config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 > - `src/dataset.py`：数据集相关，包括转换成MindRecord文件，数据预处理等。
-> - `src/imdb.py`： 解析IMDB数据集的工具。
+> - `src/imdb.py`： 解析IMDb数据集的工具。
 > - `src/lstm.py`： 定义情感网络。
 > - `train.py`：模型的训练脚本。
 > - `eval.py`：模型的推理脚本。
