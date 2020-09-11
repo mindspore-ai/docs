@@ -120,9 +120,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考部署文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id5)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id7)编译Windows版本。
-
-- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id8)，获得`converter`工具,，并配置MinGW环境变量（在系统变量Path里添加MinGW的bin目录）。
+- 获取工具包：下载Windows转换工具的Zip包并解压至本地目录，获得`converter`工具。
 
 ### 参数说明
 
@@ -130,12 +128,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 ### 使用示例
 
-首先，使用cmd工具在源码根目录下，输入命令进行编译，可参考`build.md`。
-```bash
-call build.bat lite
-```
-
-然后，设置日志打印级别为INFO。
+首先，设置日志打印级别为INFO。
 ```bash
 set MSLOG=INFO
 ```
