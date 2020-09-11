@@ -33,7 +33,7 @@
 
 ### 同步模式
 
-在同步模式下，所有的设备同时读取参数的取值，并且当反向传播算法完成之后同步更新参数的取值。MindSpore目前采用的是同步训练模式。
+在同步模式下，所有的设备同时开始训练，并且当反向传播算法完成之后同步更新参数的取值。MindSpore目前采用的是同步训练模式。
 
 ## 数据并行
 
@@ -57,7 +57,7 @@
 
 4. 梯度聚合
 
-    数据并行理论上应该实现和单机一致的训练效果，为了保证计算逻辑的一致性，在梯度计算完成后插入`AllReduce`算子实现各卡间的梯度聚合操作。这里我们设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项，类比于学习率倍数放大或缩小。
+    数据并行理论上应该实现和单机一致的训练效果，为了保证计算逻辑的一致性，在梯度计算完成后插入`AllReduce`算子实现各卡间的梯度聚合操作。这里我们设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项，打开开关等价于学习率倍数缩小。
 
 5. 参数更新
 
@@ -68,7 +68,7 @@
 1. 集合通信
 
     - [management.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/communication/management.py): 这个文件中涵盖了集合通信过程中常用的`helper`函数接口，例如获取集群数量和卡的序号等。当在Ascend芯片上执行时，框架会加载环境上的`libhccl.so`库文件，通过它来完成从Python层到底层的通信接口调用。
-    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ops/operations/comm_ops.py): MindSpore将支持的集合通信操作都包装为算子的形式放在这个文件下，包括`AllReduce`、`AllGather`、`ReduceScatter`和`Broadcast`等。`PrimitiveWithInfer`中除了定义算子所需属性外，还包括构图过程中输入到输出的`shape`和`dtype`推导。
+    - [comm_ops.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ops/operations/comm_ops.py): MindSpore将支持的集合通信操作都封装为算子的形式放在这个文件下，包括`AllReduce`、`AllGather`、`ReduceScatter`和`Broadcast`等。`PrimitiveWithInfer`中除了定义算子所需属性外，还包括构图过程中输入到输出的`shape`和`dtype`推导。
 
 2. 梯度聚合
 
@@ -81,29 +81,45 @@
 
 ### 自动并行原理
 
-![自动并行图解](./images/auto_parallel_design.png)
+![自动并行图解](./images/auto_parallel.png)
 
-1. 通用的张量排布模型
+1. 分布式算子和张量排布模型
 
-    在上面的架构图中，自动并行流程会对单机的正向计算图（ANF Graph）进行遍历，以算子（Distributed Operator）为单位对张量进行切分建模，表示一个算子的输入输出张量如何分布到集群各个卡上（Tensor Layout）。这种模型充分地表达了张量和设备间的映射关系，并且可以通过算法推导得到任意排布的张量间通信转换方式（Tensor Redistribution）。
+    在上面的架构图中，自动并行流程会对单机的正向计算图（ANF Graph）进行遍历，以分布式算子（Distributed Operator）为单位对张量进行切分建模，表示一个算子的输入输出张量如何分布到集群各个卡上（Tensor Layout）。这种模型充分地表达了张量和设备间的映射关系，用户无需感知模型各切片放到哪个设备上运行，框架会自动调度分配。
 
-    为了得到张量的排布模型，每个算子都具有切分策略（Parallel Strategy），它表示算子的各个输入在相应维度的切分情况。通常情况下只要满足以2为基、均匀分配的原则，张量的任意维度均可切分。以下图为例，这是一个三维矩阵乘操作，它的切分策略由两个元组构成，分别表示`input`和`weight`的切分形式。其中元组中的元素与张量维度一一对应，`2^N`为切分份数，`1`表示不切。当我们想表示一个数据并行切分策略时，即`input`的`batch`维度切分，其他维度不切，可以表达为`strategy=((2^N, 1, 1),(1, 1, 1))`；当表示一个模型并行切分策略时，即`weight`的`channel`维度切分，其他维度不切，可以表达为`strategy=((1, 1, 1),(1, 1, 2^N))`；当表示一个混合并行切分策略时，可以表达为`strategy=((2^N, 1, 1),(1, 1, 2^N))`。
+    为了得到张量的排布模型，每个算子都具有切分策略（Shard Strategy），它表示算子的各个输入在相应维度的切分情况。通常情况下只要满足以2为基、均匀分配的原则，张量的任意维度均可切分。以下图为例，这是一个三维矩阵乘（BatchMatMul）操作，它的切分策略由两个元组构成，分别表示`input`和`weight`的切分形式。其中元组中的元素与张量维度一一对应，`2^N`为切分份数，`1`表示不切。当我们想表示一个数据并行切分策略时，即`input`的`batch`维度切分，其他维度不切，可以表达为`strategy=((2^N, 1, 1),(1, 1, 1))`；当表示一个模型并行切分策略时，即`weight`的非`batch`维度切分，这里以`channel`维度切分为例，其他维度不切，可以表达为`strategy=((1, 1, 1),(1, 1, 2^N))`；当表示一个混合并行切分策略时，其中一种切分策略为`strategy=((2^N, 1, 1),(1, 1, 2^N))`。
+
     ![算子切分定义](./images/operator_split.png)
     
-    依据算子的切分策略，框架将自动推导得到算子输入张量和输出张量的排布模型。这个排布模型由`device_matrix`，`tensor_shape`和`tensor map`组成，分别表示设备矩阵形状、张量形状、设备和张量维度间的映射关系。根据排布模型框架可以自动实现对整图的切分，并推导插入算子内张量重复计算及算子间不同排布的张量变换所需要的通信操作。以数据并行转模型并行为例，第一个数据并行矩阵乘的输出在`batch`维度存在切分，而第二个模型并行矩阵乘的输入需要全量张量，框架将会自动插入`AllGather`算子实现排布变换。
-    
-    ![张量排布变换](./images/tensor_redistribution.png)
-    
-    总体来说这种分布式表达打破了数据并行和模型并行的边界，轻松实现混合并行。并且用户无需感知模型各切片放到哪个设备上运行，框架会自动调度分配。从脚本层面上，用户仅需构造单机网络，即可表达并行算法逻辑。
+    依据切分策略，分布式算子中定义了推导算子输入张量和输出张量的排布模型的方法。这个排布模型由`device_matrix`，`tensor_shape`和`tensor map`组成，分别表示设备矩阵形状、张量形状、设备和张量维度间的映射关系。分布式算子会进一步根据张量排布模型判断是否要在图中中插入额外的计算、通信操作，以保证算子运算逻辑正确。
 
-2. 高效的并行策略搜索算法
+2. 张量排布变换
+
+    当前一个算子的输出张量模型和后一个算子的输入张量模型不一致时，就需要引入计算、通信操作的方式实现张量排布间的变化。自动并行流程引入了张量重排布算法（Tensor Redistribution），可以推导得到任意排布的张量间通信转换方式。下面三个样例表示公式`Z=(X×W)×V`的并行计算过程， 即两个二维矩阵乘操作，体现了不同并行方式间如何转换。
+    在样例一中，第一个数据并行矩阵乘的输出在行方向上存在切分，而第二个模型并行矩阵乘的输入需要全量张量，框架将会自动插入`AllGather`算子实现排布变换。
+    
+    ![张量排布变换](./images/tensor_redistribution1.png)
+    
+    在样例二中，第一个模型并行矩阵乘的输出在列方向上存在切分，而第二个数据并行矩阵乘的输入在行方向上存在切分，框架将会自动插入等价于集合通信中`AlltoAll`操作的通信算子实现排布变换。
+
+    ![张量排布变换](./images/tensor_redistribution2.png)
+
+
+    在样例三中，第一个混合并行矩阵乘的输出切分方式和第二个混合并行矩阵乘的输入切分方式一致，所以不需要引入重排布变换。但由于第二个矩阵乘操作中，两个输入的相关维度存在切分，所以需要插入`AllReduce`算子保证运算正确性。
+
+    ![张量排布变换](./images/tensor_redistribution3.png)
+
+
+    综上，1、2两点是自动并行实现的基础，总体来说这种分布式表达打破了数据并行和模型并行的边界，轻松实现混合并行。从脚本层面上，用户仅需构造单机网络，即可表达并行算法逻辑，框架将自动实现对整图切分。
+
+3. 切分策略搜索算法
 
     当用户熟悉了算子的切分表达，并手动对算子配置切分策略，这就是`SEMI_AUTO_PARALLEL`半自动并行模式。这种方式对手动调优有帮助，但还是具有一定的调试难度，用户需要掌握并行原理，并根据网络结构、集群拓扑等计算分析得到高性能的并行方案。为了进一步帮助用户加速并行网络训练过程，在半自动并行模式的基础上，`AUTO_PARALLEL`自动并行模式引入了并行切分策略自动搜索的特性。自动并行围绕硬件平台构建相应的代价函数模型（Cost Model），计算出一定数据量、一定算子在不同切分策略下的计算开销（Computation Cost），内存开销（Memory Cost）及通信开销（Communication Cost）。然后通过动态规划算法（Dynamic Programming）或者递归规划算法（Recursive Programming），以单卡的内存上限为约束条件，高效地搜索出性能较优的切分策略。
     
     策略搜索这一步骤代替了用户手动指定模型切分，在短时间内可以得到较高性能的切分方案，极大降低了并行训练的使用门槛。
 
 
-3. 便捷的分布式自动微分
+4. 分布式自动微分
 
     传统的手动模型切分除了需要关注正向网络通信还需要考虑网络反向的并行运算，MindSpore通过将通信操作包装为算子，并利用框架原有的自动微分操作自动生成通信算子反向，所以即便在进行分布式训练时，用户同样只需关注网络的前向传播，真正实现训练的全自动并行。
 
@@ -116,7 +132,7 @@
     - [ops_info](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/frontend/parallel/ops_info)：这个目录下包含了分布式算子的具体实现。在`operator_info.h`中定义了分布式算子实现的基类`OperatorInfo`，开发一个分布式算子需要继承于这个基类并显式实现相关的虚函数。其中`InferTensorInfo`，`InferTensorMap`和`InferDevMatrixShape`函数定义了推导该算子输入、输出张量排布模型的算法。`InferForwardCommunication`，`InferMirrorOps`等函数定义了切分该算子需要插入的额外计算、通信操作。`CheckStrategy`和`GenerateStrategies`函数定义了算子切分策略校验和生成。根据切分策略`SetCostUnderStrategy`将会产生该策略下分布式算子的并行开销值`operator_cost_`。
 
 3. 策略搜索算法
-    - [auto_parallel](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/frontend/parallel/auto_parallel)：这个目录下实现了并行策略搜索的算法。`graph_costmodel.h`定义了构图信息，其中每个点表示一个算子`OperatorInfo`，有向边`edge_costmodel.h`表示算子的输入输出关系及重排布的代价。`operator_costmodel.h`中定义了每个算子的代价模型，包括计算代价、通信代价和内存代价。`dp_algorithm_costmodel.h`主要描述了动态规划算法的主要流程，由一系列图操作组成。在`costmodel.h`中定义了cost和图操作的数据结构。
+    - [auto_parallel](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/frontend/parallel/auto_parallel)：这个目录下实现了切分策略搜索的算法。`graph_costmodel.h`定义了构图信息，其中每个点表示一个算子`OperatorInfo`，有向边`edge_costmodel.h`表示算子的输入输出关系及重排布的代价。`operator_costmodel.h`中定义了每个算子的代价模型，包括计算代价、通信代价和内存代价。`dp_algorithm_costmodel.h`主要描述了动态规划算法的主要流程，由一系列图操作组成。在`costmodel.h`中定义了cost和图操作的数据结构。
 
 4. 设备管理
     - [device_manager.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/frontend/parallel/device_manager.h)：这个文件实现了集群设备通信组的创建及管理。其中设备矩阵模型由`device_matrix.h`定义，通信域由`group_manager.h`管理。
