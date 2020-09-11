@@ -31,6 +31,7 @@ MindSpore Tutorials
 
    advanced_use/computer_vision_application
    advanced_use/nlp_application
+   advanced_use/synchronization_training_and_evaluation.md
 
 .. toctree::
    :glob:
