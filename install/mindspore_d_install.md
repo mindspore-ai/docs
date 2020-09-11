@@ -32,9 +32,9 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore 0.7.0-beta | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T300） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.7/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T300） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore 0.7.0-beta | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r0.7/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - Ascend 910 AI处理器配套软件包（对应版本[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
-- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T300）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
+- 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - GCC 7.3.0可以直接通过apt命令安装。
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
@@ -56,7 +56,7 @@
 
 ### 配套软件包依赖配置
 
- - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T300）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+ - 安装Ascend 910 AI处理器配套软件包（对应版本[Atlas Data Center Solution V100R020C10T400](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251811136?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251167910)）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -116,6 +116,7 @@
 
     # Environment variables that must be configured
     export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe  # TBE operator implementation tool path
+    export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp                             # OPP path
     export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}       # TBE operator compilation tool path
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                       # Python library that TBE implementation depends on
     ```
@@ -130,11 +131,12 @@
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
-    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/ascend-toolkit/{version}/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/nnae/{version}/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LD_LIBRARY_PATH}
 
     # Environment variables that must be configured
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/{version}/opp/op_impl/built-in/ai_core/tbe  # TBE operator implementation tool path
-    export PATH=${LOCAL_ASCEND}/ascend-toolkit/{version}/fwkacllib/ccec_compiler/bin/:${PATH}       # TBE operator compilation tool path
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/nnae/{version}/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
+    export ASCEND_OPP_PATH=${LOCAL_ASCEND}/nnae/{version}/opp                                       # OPP path
+    export PATH=${LOCAL_ASCEND}/nnae/{version}/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                # Python library that TBE implementation depends on
     ```
 
