@@ -16,9 +16,6 @@
 The sample can be run on CPU, GPU and Ascend 910 AI processor.
 """
 import os
-import urllib.request
-from urllib.parse import urlparse
-import gzip
 import argparse
 import mindspore.dataset as ds
 import mindspore.nn as nn
@@ -29,52 +26,11 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 from mindspore.train import Model
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.transforms.vision import Inter
+from mindspore.dataset.vision import Inter
 from mindspore.nn.metrics import Accuracy
 from mindspore.common import dtype as mstype
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-
-
-def unzipfile(gzip_path):
-    """unzip dataset file
-    Args:
-        gzip_path: dataset file path
-    """
-    open_file = open(gzip_path.replace('.gz',''), 'wb')
-    gz_file = gzip.GzipFile(gzip_path)
-    open_file.write(gz_file.read())
-    gz_file.close()
-
-
-def download_dataset():
-    """Download the dataset from http://yann.lecun.com/exdb/mnist/."""
-    print("******Downloading the MNIST dataset******")
-    train_path = "./MNIST_Data/train/"
-    test_path = "./MNIST_Data/test/"
-    train_path_check = os.path.exists(train_path)
-    test_path_check = os.path.exists(test_path)
-    if train_path_check == False and test_path_check ==False:
-        os.makedirs(train_path)
-        os.makedirs(test_path)
-    train_url = {"http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz", "http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz"}
-    test_url = {"http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz", "http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz"}
-    for url in train_url:
-        url_parse = urlparse(url)
-        # split the file name from url
-        file_name = os.path.join(train_path,url_parse.path.split('/')[-1])
-        if not os.path.exists(file_name.replace('.gz','')):
-            file = urllib.request.urlretrieve(url, file_name)
-            unzipfile(file_name)
-            os.remove(file_name)
-    for url in test_url:
-        url_parse = urlparse(url)
-        # split the file name from url
-        file_name = os.path.join(test_path,url_parse.path.split('/')[-1])
-        if not os.path.exists(file_name.replace('.gz','')):
-            file = urllib.request.urlretrieve(url, file_name)
-            unzipfile(file_name)
-            os.remove(file_name)
-
+from utils.dataset import download_dataset
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
                    num_parallel_workers=1):
@@ -143,7 +99,7 @@ class LeNet5(nn.Cell):
         return x
 
 
-def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
     """Define the training method."""
     print("============== Starting Training ==============")
     # load training dataset
@@ -151,7 +107,7 @@ def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink
     model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
 
 
-def test_net(args, network, model, mnist_path):
+def test_net(network, model, mnist_path):
     """Define the evaluation method."""
     print("============== Starting Testing ==============")
     # load the saved model for evaluation
@@ -191,5 +147,5 @@ if __name__ == "__main__":
     # group layers into an object with training and evaluation features
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
-    train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
-    test_net(args, network, model, mnist_path)
+    train_net(model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
+    test_net(network, model, mnist_path)
