@@ -19,7 +19,7 @@
         - [Defining the Optimizer and Loss Function](#defining-the-optimizer-and-loss-function)
         - [Training and Saving the Model](#training-and-saving-the-model)
         - [Validating the Model](#validating-the-model)
-    - [Experiment Result](#experiment-result)
+    - [Experimental Result](#experimental-result)
 
 <!-- /TOC -->
 
@@ -27,18 +27,18 @@
 
 ## Overview
 
-Sentiment classification is a subset of text classification in NLP, and is the most basic application of NLP. It is a process of analyzing and inferencing affective states and subjective information, that is, analyzing whether a person's sentiment is positive or negative.
+Sentiment classification is a subset of text classification in NLP, and is one of the most basic applications of NLP. It is a process of analyzing and inferencing affective states and subjective information, that is, analyzing whether a person's sentiment is positive or negative.
 
 > Generally, sentiments are classified into three categories: positive, negative, and neutral. In most cases, only positive and negative sentiments are used for training regardless of the neutral sentiments. The following dataset is a good example.
 
 [20 Newsgroups](http://qwone.com/~jason/20Newsgroups/) is a typical reference dataset for traditional text classification. It is a collection of approximately 20,000 news documents partitioned across 20 different newsgroups.
 Some of the newsgroups are very closely related to each other (such as comp.sys.ibm.pc.hardware and comp.sys.mac.hardware), while others are highly unrelated (such as misc.forsale and soc.religion.christian).
 
-As far as the network itself is concerned, the network structure of text classification is roughly similar to that of sentiment classification. After mastering how to construct the sentiment classification network, it is easy to construct a similar network which can be used in a text classification task with some parameter adjustments.
+In terms of the network itself, the network structure of text classification is roughly similar to that of sentiment classification. After mastering how to construct the sentiment classification network, it is easy to construct a similar network which can be used in a text classification task after fine-tuning some parameters.
 
-In the service context, text classification is to analyze the objective content in the text discussion, but sentiment classification is to find a viewpoint from the text. For example, "Forrest Gump has a clear theme and smooth pacing, which is excellent." In the text classification, this sentence is classified into a "movie" theme, but in the sentiment classification, this movie review is used to explore whether the sentiment is positive or negative.
+In the service context, text classification is to analyze the objective content discussed in the text, but sentiment classification is to find a viewpoint, which is supported by the content in the text. For example, "Forrest Gump has a clear theme and smooth pacing, which is excellent." In the text classification, this sentence is classified into a "movie" theme, but in the sentiment classification, this movie review is used to explore whether the sentiment is positive or negative.
 
-Compared with traditional text classification, sentiment classification is simpler and more practical. High-quality datasets can be collected on common shopping websites and movie websites to benefit the business domains. For example, based on the domain context, the system can automatically analyze opinions of specific types of customers on the current product, analyze sentiments by subject and user type, and recommend products based on the analysis result, improving the conversion rate and bringing more business benefits.
+Compared with traditional text classification, sentiment classification is simpler and more practical. High-quality datasets can be collected from common shopping websites and movie websites to benefit the business domains. For example, based on the domain context, the system can automatically analyze opinions of specific types of customers on the current product, analyze sentiments by subject and user type, and even recommend products based on the analysis result, therefore to improve the conversion rate and bring more business benefits.
 
 In special fields, some non-polar words also fully express a sentimental tendency of a user. For example, when an app is downloaded and used, "the app is stuck" and "the download speed is so slow" express users' negative sentiments. In the stock market, "bullish" and "bull market" express users' positive sentiments. Therefore, in essence, we hope that the model can be used to mine special expressions in the vertical field as polarity words for the sentiment classification system.
 
@@ -83,15 +83,15 @@ In the IMDb dataset, the number of positive and negative samples does not vary g
 ### Determining the Network and Process
 
 Currently, MindSpore GPU and CPU supports SentimentNet network based on the long short-term memory (LSTM) network for NLP.
-1. Load the dataset in use and process data.
-2. Use the SentimentNet network based on LSTM training data to generate a model.
+1. Load the dataset in use and process data if necessary.
+2. Use the SentimentNet network based on LSTM to train data and generate a model.
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
 > The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
-> - `src/config.py`：some configurations on the network, including the batch size and number of training epochs.
-> - `src/dataset.py`：dataset related definition，include MindRecord file convert and data-preprocess, etc.
-> - `src/imdb.py`： the util class for parsing IMDB dataset.
+> - `src/config.py`：some configurations of the network, including the batch size and number of training epochs.
+> - `src/dataset.py`：dataset related definition, including converted MindRecord file and preprocessed data.
+> - `src/imdb.py`： the utility class for parsing IMDb dataset.
 > - `src/lstm.py`： the definition of semantic net.
 > - `train.py`： the training script.
 > - `eval.py`： the evaluation script.
@@ -117,7 +117,7 @@ from mindspore.train.serialization import load_param_into_net, load_checkpoint
 
 ### Configuring Environment Information
 
-1. The `parser` module is used to transfer necessary information for running, such as storage paths of the dataset and the GloVe file. In this way, the frequently changed configurations can be entered during code running, which is more flexible.
+1. The `parser` module is used to transfer necessary information for running, such as storage paths of the dataset and the GloVe file. In this way, the frequently changed configurations can be entered during runtime, which is more flexible.
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
@@ -156,9 +156,9 @@ if args.preprocess == "true":
     print("============== Starting Data Pre-processing ==============")
     convert_to_mindrecord(cfg.embed_size, args.aclimdb_path, args.preprocess_path, args.glove_path)
 ```
-> After convert success, we can file `mindrecord` files under the directory `preprocess_path`. Usually, this operation does not need to be performed every time while the data set is unchanged.
+> After successful conversion, `mindrecord` files are generated under the directory `preprocess_path`. Usually, this operation does not need to be performed every time if the dataset is unchanged.
 
-> `convert_to_mindrecord` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
+> For `convert_to_mindrecord`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 > It consists of two steps:
 >1. Process the text dataset, including encoding, word segmentation, alignment, and processing the original GloVe data to adapt to the network structure.
@@ -178,7 +178,7 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        weight=Tensor(embedding_table),
                        batch_size=cfg.batch_size)
 ```
-> `SentimentNet` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
+> For `SentimentNet`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
 
 ### Pre-Training
 
@@ -217,7 +217,7 @@ else:
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
-> `lstm_create_dataset` You can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
+> For `lstm_create_dataset`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 ### Validating the Model
 
@@ -237,7 +237,7 @@ else:
 print("============== {} ==============".format(acc))
 ```
 
-## Experiment Result
+## Experimental Result
 After 20 epochs, the accuracy on the test set is about 84.19%.
 
 **Training Execution**
