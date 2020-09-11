@@ -102,7 +102,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 
 ## Configuring Environment Variables
 
-- In EulerOS, after MindSpore is installed, export runtime-related environment variables.
+- In EulerOS, **if Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables.
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
@@ -121,7 +121,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                       # Python library that TBE implementation depends on
     ```
 
-- In Ubuntu, after MindSpore is installed, export runtime-related environment variables. Note: you need to replace {version} in the following configuration with the actual version number on the environment.
+- In Ubuntu, **if Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. Note: you need to replace {version} in the following configuration with the actual version number on the environment.
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.

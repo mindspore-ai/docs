@@ -102,7 +102,7 @@
 
 ## 配置环境变量
 
-- EulerOS操作系统，安装好MindSpore之后，需要导出Runtime相关环境变量。
+- EulerOS操作系统，**如果Ascend 910 AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量。
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
@@ -121,7 +121,7 @@
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                       # Python library that TBE implementation depends on
     ```
 
-- Ubuntu操作系统，安装好MindSpore之后，需要导出Runtime相关环境变量，注意：需要将如下配置中{version}替换为环境上真实的版本号。
+- Ubuntu操作系统，**如果Ascend 910 AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，注意：需要将如下配置中{version}替换为环境上真实的版本号。
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
