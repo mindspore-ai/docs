@@ -15,6 +15,7 @@
     - [安装验证](#安装验证)
 - [安装MindInsight](#安装mindinsight)
 - [安装MindArmour](#安装mindarmour)
+- [安装MindSpore Hub](#安装mindspore-hub)
 
 <!-- /TOC -->
 
@@ -229,3 +230,9 @@
    ```bash
    python -c 'import mindarmour'
    ```
+
+# 安装MindSpore Hub
+
+当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
+
+具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。

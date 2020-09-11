@@ -15,6 +15,7 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
     - [Installation Verification](#installation-verification)
 - [Installing MindInsight](#installing-mindinsight)
 - [Installing MindArmour](#installing-mindarmour)
+- [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
 
@@ -231,3 +232,9 @@ If you need to conduct AI model security research or enhance the security of the
    ```bash
    python -c 'import mindarmour'
    ```
+
+# Installing MindSpore Hub
+
+If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
+
+For details about install steps, see [MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README.md).
