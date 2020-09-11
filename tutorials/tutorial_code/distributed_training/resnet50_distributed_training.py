@@ -22,7 +22,7 @@ import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 import mindspore.ops.functional as F
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as vision
+import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore import Tensor

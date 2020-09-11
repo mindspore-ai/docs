@@ -170,10 +170,10 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torchvision.datasets.ImageFolder                     | mindspore.dataset.ImageFolderDatasetV2                                 |
 | torchvision.ops.nms                                  | mindspore.ops.operations.NMSWithMask                                   |
 | torchvision.ops.roi_align                            | mindspore.ops.operations.ROIAlign                                      |
-| torchvision.transforms.CenterCrop                    | mindspore.dataset.transforms.vision.py_transforms.CenterCrop           |
-| torchvision.transforms.ColorJitter                   | mindspore.dataset.transforms.vision.py_transforms.RandomColorAdjust    |
-| torchvision.transforms.Compose                       | mindspore.dataset.transforms.vision.py_transforms.ComposeOp            |
-| torchvision.transforms.Normalize                     | mindspore.dataset.transforms.vision.py_transforms.Normalize            |
-| torchvision.transforms.RandomHorizontalFlip          | mindspore.dataset.transforms.vision.py_transforms.RandomHorizontalFlip |
-| torchvision.transforms.Resize                        | mindspore.dataset.transforms.vision.py_transforms.Resize               |
-| torchvision.transforms.ToTensor                      | mindspore.dataset.transforms.vision.py_transforms.ToTensor             |
+| torchvision.transforms.CenterCrop                    | mindspore.dataset.vision.py_transforms.CenterCrop           |
+| torchvision.transforms.ColorJitter                   | mindspore.dataset.vision.py_transforms.RandomColorAdjust    |
+| torchvision.transforms.Compose                       | mindspore.dataset.vision.py_transforms.Compose              |
+| torchvision.transforms.Normalize                     | mindspore.dataset.vision.py_transforms.Normalize            |
+| torchvision.transforms.RandomHorizontalFlip          | mindspore.dataset.vision.py_transforms.RandomHorizontalFlip |
+| torchvision.transforms.Resize                        | mindspore.dataset.vision.py_transforms.Resize               |
+| torchvision.transforms.ToTensor                      | mindspore.dataset.vision.py_transforms.ToTensor             |

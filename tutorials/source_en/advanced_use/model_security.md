@@ -48,9 +48,9 @@ from scipy.special import softmax
 
 from mindspore import dataset as ds
 import mindspore.common.dtype as mstype
-import mindspore.dataset.transforms.vision.c_transforms as CV
+import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.transforms.vision import Inter
+from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
@@ -102,13 +102,13 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
         ds1 = ds1.map(input_columns="label", operations=one_hot_enco,
                       num_parallel_workers=num_parallel_workers)
         type_cast_op = C.TypeCast(mstype.float32)
-    ds1 = ds1.map(input_columns="label", operations=type_cast_op,
+    ds1 = ds1.map(operations=type_cast_op, input_columns="label",
                   num_parallel_workers=num_parallel_workers)
-    ds1 = ds1.map(input_columns="image", operations=resize_op,
+    ds1 = ds1.map(operations=resize_op, input_columns="image",
                   num_parallel_workers=num_parallel_workers)
-    ds1 = ds1.map(input_columns="image", operations=rescale_op,
+    ds1 = ds1.map(operations=rescale_op, input_columns="image",
                   num_parallel_workers=num_parallel_workers)
-    ds1 = ds1.map(input_columns="image", operations=hwc2chw_op,
+    ds1 = ds1.map(operations=hwc2chw_op, input_columns="image",
                   num_parallel_workers=num_parallel_workers)
 
     # apply DatasetOps

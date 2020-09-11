@@ -48,7 +48,7 @@ from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer
 import mindspore.dataset as de
 import mindspore.dataset.transforms.c_transforms as C
-import mindspore.dataset.transforms.vision.c_transforms as vision
+import mindspore.dataset.vision.c_transforms as vision
 from mindarmour.diff_privacy.evaluation.membership_inference import MembershipInference
 from mindarmour.utils import LogUtil
 
@@ -99,8 +99,8 @@ def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_siz
                 changeswap_op]
 
     # Apply map operations on images.
-    data_set = data_set.map(input_columns="label", operations=type_cast_op)
-    data_set = data_set.map(input_columns="image", operations=c_trans)
+    data_set = data_set.map(operations=type_cast_op, input_columns="label")
+    data_set = data_set.map(operations=c_trans, input_columns="image")
 
     # Apply repeat operations.
     data_set = data_set.repeat(repeat_num)

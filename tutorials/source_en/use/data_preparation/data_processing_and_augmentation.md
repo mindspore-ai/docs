@@ -217,7 +217,7 @@ def map(self, input_columns=None, operations=None, output_columns=None, columns_
 In the following example, the `map` function is used to apply the defined anonymous function (lambda function) to the dataset `ds1` so that the data values in the dataset are multiplied by 2.
 ```python
 func = lambda x : x*2  # Define lambda function to multiply each element by 2.
-ds2 = ds1.map(input_columns="data", operations=func)
+ds2 = ds1.map(operations=func, input_columns="data")
 for data in ds2.create_dict_iterator():
     print(data["data"])
 ```
@@ -278,8 +278,8 @@ Data augmentation requires the `map` function. For details about how to use the 
 
 1. Import the module to the code.
     ```python
-    from mindspore.dataset.transforms.vision import Inter
-    import mindspore.dataset.transforms.vision.c_transforms as transforms
+    from mindspore.dataset.vision import Inter
+    import mindspore.dataset.vision.c_transforms as transforms
     import matplotlib.pyplot as plt
     ```
 2. Define data augmentation operators. The following uses `Resize` as an example:
@@ -288,7 +288,7 @@ Data augmentation requires the `map` function. For details about how to use the 
     DATA_DIR = "/path/to/imagefolder_directory"
     dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Decode images. 
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
-    dataset.map(input_columns="image", operations=resize_op)
+    dataset.map(operations=resize_op, input_columns="image")
 
     for data in dataset.create_dict_iterator():
         imgplot_resized = plt.imshow(data["image"])
@@ -307,22 +307,23 @@ Figure 2: Image after its size is reset
 
 1. Import the module to the code.
     ```python
-    import mindspore.dataset.transforms.vision.py_transforms as transforms
+    import mindspore.dataset.vision.py_transforms as transforms
+    from mindspore.transforms.py_transforms import Compose 
     import matplotlib.pyplot as plt
     ```
-2. Define data augmentation operators and use the `ComposeOp` API to combine multiple data augmentation operations. The following uses `RandomCrop` as an example:
+2. Define data augmentation operators and use the `Compose` API to combine multiple data augmentation operations. The following uses `RandomCrop` as an example:
     ```python
     # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
     DATA_DIR = "/path/to/imagefolder_directory"
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR)
+    dataset = ds.ImageFolderDataset(DATA_DIR)
 
     transforms_list = [
         transforms.Decode(),  # Decode images to PIL format.
         transforms.RandomCrop(size=(500,500)),
         transforms.ToTensor()  # Convert PIL images to Numpy ndarray.
     ]
-    compose = transforms.ComposeOp(transforms_list)
-    dataset = dataset.map(input_columns="image", operations=compose())
+    compose = Compose(transforms_list)
+    dataset = dataset.map(operations=compose, input_columns="image")
     for data in dataset.create_dict_iterator():
          print(data["image"])
          imgplot_resized = plt.imshow(data["image"].transpose(1, 2, 0))

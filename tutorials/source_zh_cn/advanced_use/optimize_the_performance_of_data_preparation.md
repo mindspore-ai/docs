@@ -303,7 +303,7 @@ shuffle性能优化建议如下：
 
     ```python
     import mindspore.dataset.transforms.c_transforms as c_transforms
-    import mindspore.dataset.transforms.vision.c_transforms as C
+    import mindspore.dataset.vision.c_transforms as C
     import matplotlib.pyplot as plt
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
@@ -311,7 +311,7 @@ shuffle性能优化建议如下：
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path,num_parallel_workers=4)
     transforms = C.RandomResizedCrop((800,800))
     # apply the transform to the dataset through dataset.map()
-    cifar10_dataset = cifar10_dataset.map(input_columns="image",operations=transforms,num_parallel_workers=4)
+    cifar10_dataset = cifar10_dataset.map(operations=transforms, input_columns="image", num_parallel_workers=4)
 
     data = next(cifar10_dataset.create_dict_iterator())
     plt.imshow(data["image"])
@@ -337,7 +337,7 @@ shuffle性能优化建议如下：
         print(data["data"])
 
     func = lambda x:x**2
-    ds4 = ds3.map(input_columns="data",operations=func,python_multiprocessing=True,num_parallel_workers=4)
+    ds4 = ds3.map(operations=func, input_columns="data", python_multiprocessing=True,num_parallel_workers=4)
     print("after map:")
     for data in ds4.create_dict_iterator():
         print(data["data"])
@@ -384,6 +384,6 @@ Map算子可以接收Tensor算子列表，并将按照顺序应用所有的这�
 
 ### 算子融合优化方案
 
-提供某些融合算子，这些算子将两个或多个算子的功能聚合到一个算子中。具体内容请参考[数据增强算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.transforms.vision.html)，与它们各自组件的流水线相比，这种融合算子提供了更好的性能。如图所示：
+提供某些融合算子，这些算子将两个或多个算子的功能聚合到一个算子中。具体内容请参考[数据增强算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html)，与它们各自组件的流水线相比，这种融合算子提供了更好的性能。如图所示：
 
 ![title](./images/operator_fusion.png)
