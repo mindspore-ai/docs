@@ -12,4 +12,5 @@ Here is a list of all classes with links to the namespace documentation for each
 | mindspore::lite | [ModelBuilder](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#modelbuilder) | ModelBuilder is defined to build the model. |
 | mindspore::session | [LiteSession](https://www.mindspore.cn/lite/docs/en/master/apicc/session.html#litesession) | LiteSession defines session in MindSpore Lite for compiling Model and forwarding model. |
 | mindspore::tensor | [MSTensor](https://www.mindspore.cn/lite/docs/en/master/apicc/tensor.html#mstensor) | MSTensor defines tensor in MindSpore Lite. |
+| mindspore::dataset | [LiteMat](https://www.mindspore.cn/lite/docs/en/master/apicc/dataset.html#litemat) |Class that represents a LiteMat of a Image. |
 
