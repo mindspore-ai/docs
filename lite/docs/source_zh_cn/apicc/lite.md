@@ -79,10 +79,6 @@ cpu_bind_mode_
 
 [**CpuBindMode**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
 
-## ModelImpl
-
-ModelImpl定义了MindSpore Lite中的Model的实现类。
-
 ## PrimitiveC
 
 PrimitiveC定义为算子的原型。
@@ -91,48 +87,24 @@ PrimitiveC定义为算子的原型。
 
 Model定义了MindSpore Lite中的模型，便于计算图管理。
 
-**构造函数和析构函数**
+**析构函数**
 
 ```
-Model()
-```
-
-MindSpore Lite Model的构造函数，使用默认参数。
-
-```
-virtual ~Model()
+~Model()
 ```
 
 MindSpore Lite Model的析构函数。
 
 **公有成员函数**
 
-```
-PrimitiveC* GetOp(const std::string &name) const
-```
-
-通过名称获取MindSpore Lite的Primitive对象。
-
-- 参数 
-
-  - `name`: 定义了所要返回的Primitive对象名。
-
-- 返回值 
-
-  指向MindSpore Lite Primitive的指针。
-
 ```     
-const schema::MetaGraph* GetMetaGraph() const
+void Destroy()
 ```
 
-获取在flatbuffers中定义的图。
-
-- 返回值  
-
-  指向flatbuffers中定义的图的指针。
+释放Model内的所有过程中动态分配的内存。
 
 ```
-void FreeMetaGraph()
+void Free()
 ```
 
 释放MindSpore Lite Model中的MetaGraph。
@@ -155,85 +127,6 @@ static Model *Import(const char *model_buf, size_t size)
 
   指向MindSpore Lite的Model的指针。
       
-
-**公有属性**
-
-```
- model_impl_ 
-```
-
-指向MindSpore Lite模型实现的指针型变量。默认为**nullptr**。
-
-## ModelBuilder
-
-ModelBuilder定义了MindSpore Lite中的模型构建器。
-
-**构造函数和析构函数**
-
-```
-ModelBuilder()
-```
-
-MindSpore Lite ModelBuilder的构造函数，使用默认参数。
-
-```
-virtual ~ModelBuilder()
-```
-
-MindSpore Lite ModelBuilder的析构函数。
-
-**公有成员函数**
-
-```
-virtual std::string AddOp(const PrimitiveC &op, const std::vector<OutEdge> &inputs)
-```
-
-向模型构建器中添加Primitive对象，用于构建模型。
-
-- 参数    
-
-  - `op`: 定义了添加的Primitive对象。   
-
-  - `inputs`: 一个[**OutEdge**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#outedge)结构体的向量, 定义了添加的Primitive对象的输入的边。
-
-- 返回值   
-
-  添加的Primitive对象的ID。
-
-```  
-const schema::MetaGraph* GetMetaGraph() const
-```
-
-获取在flatbuffers中所定义的图。
-
-- 返回值   
-
-  指向flatbuffers中所定义的图的指针。
-
-```
-virtual Model *Construct()
-```
-
-结束模型构建。
-
-## OutEdge
-
-一个结构体。OutEdge定义了计算图的边。
-
-**属性**
-
-```
-nodeId
-```
-
-**string**类型变量。 被当前边所连接的节点的ID。
-
-```
-outEdgeIndex
-```
-
-**size_t**类型变量。 当前边的索引。
-
 ## CpuBindMode
 枚举类型，设置cpu绑定策略。
 

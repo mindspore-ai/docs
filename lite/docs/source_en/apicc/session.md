@@ -81,15 +81,6 @@ Run session with callback.
 
     STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
-```   
-virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const
-```
-Get output MindSpore Lite MSTensors of model mapped by node name.
-
-- Returns
-
-    The map of output node name and MindSpore Lite MSTensor.
-
 ```      
 virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const
 ```
@@ -104,7 +95,7 @@ Get output MindSpore Lite MSTensors of model by node name.
     The vector of MindSpore Lite MSTensor.
 
 ```
-virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const
+virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputs() const
 ```
 Get output MindSpore Lite MSTensors of model mapped by tensor name.
 
@@ -148,14 +139,15 @@ Get output MindSpore Lite MSTensors of model by tensor name.
   Pointer of MindSpore Lite MSTensor.
 
 ```      
-virtual int Resize(const std::vector <tensor::MSTensor *> &inputs)
+virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims)
 
 ```
 Resize inputs shape.
 
 - Parameters
 
-    - `inputs`: Define the new inputs shape.
+    - `inputs`: Model inputs.
+    - `dims`: Define the new inputs shape.
 
 - Returns
 

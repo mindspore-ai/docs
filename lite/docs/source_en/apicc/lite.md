@@ -75,21 +75,13 @@ cpu_bind_mode_
 
 A [**CpuBindMode**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#cpubindmode) enum variable. Defaults to **MID_CPU**.     
 
-## ModelImpl
-ModelImpl defines the implement class of Model in MindSpore Lite.
-
 ## PrimitiveC
 Primitive is defined as prototype of operator.
 
 ## Model
 Model defines model in MindSpore Lite for managing graph.
 
-**Constructors & Destructors**
-```
-Model()
-```
-
-Constructor of MindSpore Lite Model using default value for parameters.
+**Destructors**
 
 ```
 virtual ~Model()
@@ -98,32 +90,16 @@ virtual ~Model()
 Destructor of MindSpore Lite Model.
 
 **Public Member Functions**
-```
-PrimitiveC* GetOp(const std::string &name) const
-```
-Get MindSpore Lite Primitive by name.
-
-- Parameters 
-
-    - `name`: Define name of Primitive to be returned.
-    
-- Returns 
-
-    The pointer of MindSpore Lite Primitive.
-
-```     
-const schema::MetaGraph* GetMetaGraph() const
-```
-Get graph defined in flatbuffers.
-
-- Returns  
-
-    The pointer of graph defined in flatbuffers.
 
 ```
-void FreeMetaGraph()
+void Free()
 ```
 Free MetaGraph in MindSpore Lite Model.
+
+```
+void Destroy()
+```
+Destroy all temporary memory in MindSpore Lite Model.
 
 **Static Public Member Functions**
 ```
@@ -141,76 +117,6 @@ Static method to create a Model pointer.
 
     Pointer of MindSpore Lite Model.
         
-
-**Public Attributes**
-```
- model_impl_ 
-```
-The **pointer** of implement of model in MindSpore Lite. Defaults to **nullptr**.
-
-## ModelBuilder
-ModelBuilder is defined to build the model.
-
-**Constructors & Destructors**
-```
-ModelBuilder()
-```
-
-Constructor of MindSpore Lite ModelBuilder using default value for parameters.
-
-```
-virtual ~ModelBuilder()
-```
-
-Destructor of MindSpore Lite ModelBuilder.
-
-**Public Member Functions**
-```
-virtual std::string AddOp(const PrimitiveC &op, const std::vector<OutEdge> &inputs)
-```
-
-Add Primitive into model builder for model building.
-
-- Parameters    
-
-    - `op`: Define the Primitive to be added.   
-
-    - `inputs`: A vector of [**OutEdge**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#outedge). Define input edge of Primitive to be added.
-    
-- Returns   
-
-    ID of the added Primitive.
-
-```  
-const schema::MetaGraph* GetMetaGraph() const
-```
-Get graph defined in flatbuffers.
-
-- Returns   
-
-    The pointer of graph defined in flatbuffers.
-
-```
-virtual Model *Construct()
-```
-Finish constructing the model.
-
-## OutEdge
-
-A **struct**. OutEdge defines the edge in the gragh.
-
-**Attributes**
-
-```
-nodeId
-```
-A **string** variable. ID of a node linked by this edge.
-
-```
-outEdgeIndex
-```
-A **size_t** variable. Index of this edge.
-
 ## CpuBindMode
 An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
 

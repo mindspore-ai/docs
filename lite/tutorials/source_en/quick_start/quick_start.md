@@ -289,25 +289,24 @@ The inference code process is as follows. For details about the complete code, s
 
    - Obtain the output data.
         ```cpp
-        auto msOutputs = mSession->GetOutputMapByNode();
+        auto msOutputs = mSession->GetOutputs();
         std::string retStr = ProcessRunnetResult(msOutputs, ret);
         ```
         
    - Perform post-processing of the output data.
         ```cpp
         std::string ProcessRunnetResult(std::unordered_map<std::string,
-                std::vector<mindspore::tensor::MSTensor *>> msOutputs,
-                int runnetRet) {
+                mindspore::tensor::MSTensor *> msOutputs, int runnetRet) {
         
             // Get model output results.
-            std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>>::iterator iter;
+            std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
             iter = msOutputs.begin();
             auto brach1_string = iter->first;
             auto branch1_tensor = iter->second;
         
-            int OUTPUTS_LEN = branch1_tensor[0]->ElementsNum();
+            int OUTPUTS_LEN = branch1_tensor->ElementsNum();
         
-            float *temp_scores = static_cast<float * >(branch1_tensor[0]->MutableData());
+            float *temp_scores = static_cast<float * >(branch1_tensor->MutableData());
         
             float scores[RET_CATEGORY_SUM];
             for (int i = 0; i < RET_CATEGORY_SUM; ++i) {

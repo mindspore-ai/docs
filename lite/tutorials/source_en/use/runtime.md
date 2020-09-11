@@ -460,16 +460,7 @@ MindSpore Lite provides the following methods to obtain the model output `MSTens
    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
    ```
 
-2. Use the `GetOutputMapByNode` method to directly obtain the mapping between the names of all model output nodes and the model output `MSTensor` connected to the nodes.
-
-   ```cpp
-   /// \brief  Get output MindSpore Lite MSTensors of model mapped by node name.
-   ///
-   /// \return  The map of output node name and MindSpore Lite MSTensor.
-   virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const = 0;
-   ```
-
-3. Use the `GetOutputByTensorName` method to obtain the model output `MSTensor` based on the tensor name.
+2. Use the `GetOutputByTensorName` method to obtain the model output `MSTensor` based on the tensor name.
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
@@ -480,13 +471,13 @@ MindSpore Lite provides the following methods to obtain the model output `MSTens
    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
    ```
 
-4. Use the `GetOutputMapByTensor` method to directly obtain the mapping between the names of all model output tensors and the model output `MSTensor`.
+3. Use the `GetOutputs` method to directly obtain the mapping between the names of all model output tensors and the model output `MSTensor`.
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
    ///
    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
-   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const = 0;
+   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
    ```
 
 After model output tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of `MSTensor`, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
