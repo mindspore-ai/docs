@@ -78,6 +78,7 @@ MindSpore教程
    :caption: 网络迁移
 
    advanced_use/network_migration
+   advanced_use/model_scripts_transformation
 
 .. toctree::
    :glob:
