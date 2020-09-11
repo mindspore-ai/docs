@@ -41,27 +41,35 @@ Figure 3: Model list
 
 Figure 3 shows all model information in groups. You can sort the model information in ascending or descending order by specified column.
 
+The overview page on the left shows information about optimization objective and related parameters.
+
+![targets.png](./images/targets.png)
+
+Figure 4: Overview page
+
+Figure 4 shows the optimization objective distribution, parameter importance, and scatter plots.
+
 ## Dataset Lineage
 
 Dataset lineage visualization is used to display data processing and augmentation information of all model trainings.
 
 ![data_label.png](./images/data_label.png)
 
-Figure 4: Data processing and augmentation operator selection area
+Figure 5: Data processing and augmentation operator selection area
 
-Figure 4 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
+Figure 5 shows the data processing and augmentation operator selection area, which lists names of data processing and augmentation operators that can be viewed. You can select required tags to view related parameters.
 
 ![data_chart.png](./images/data_chart.png)
 
-Figure 5: Dataset lineage function area
+Figure 6: Dataset lineage function area
 
-Figure 5 shows the dataset lineage function area, which visualizes the parameter information used for data processing and augmentation. You can select a specific area in the column to display the parameter information within the area.
+Figure 6 shows the dataset lineage function area, which visualizes the parameter information used for data processing and augmentation. You can select a specific area in the column to display the parameter information within the area.
 
 ![data_table.png](./images/data_table.png)
 
-Figure 6: Dataset lineage list
+Figure 7: Dataset lineage list
 
-Figure 6 shows the data processing and augmentation information of all model trainings.
+Figure 7 shows the data processing and augmentation information of all model trainings.
 
 > If user filters the model lineage and then switches to the data lineage page, the line chart will show the latest filtered column in model lineage.
 
@@ -71,9 +79,9 @@ Scalars Comparision can be used to compare scalar curves between multiple traini
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
-Figure 7: Scalars comparision curve area
+Figure 8: Scalars comparision curve area
 
-Figure 7 shows the scalar curve comparision between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
+Figure 8 shows the scalar curve comparision between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
 
 Buttons from left to right in the upper right corner of the figure are used to display the chart in full screen, switch the Y-axis scale, enable or disable the rectangle selection, roll back the chart step by step, and restore the chart.
 
@@ -85,9 +93,9 @@ Buttons from left to right in the upper right corner of the figure are used to d
 
 ![multi_scalars_select.png](./images/multi_scalars_select.png)
 
-Figure 8: Scalars comparision function area
+Figure 9: Scalars comparision function area
 
-Figure 8 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
+Figure 9 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 
 - Training: Select or filter the required trainings to view the corresponding scalar information.
 - Tag: Select the required tags to view the corresponding scalar information.
