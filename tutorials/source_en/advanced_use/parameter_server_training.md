@@ -67,7 +67,38 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 1. Shell scripts
 
-    Provide the shell scripts corresponding to the worker, server, and scheduler roles to start training:
+    Provide the shell scripts corresponding to the worker, server, and scheduler roles to start training, and the shell directory structure is as follows:
+
+    ```
+    └─mindspore
+        ├─model_zoo
+           └─official
+                └─cv
+                   └─lenets
+                       |   Scheduler.sh
+                       |   Server.sh
+                       |   Worker.sh
+    ```
+
+    The data directory structure is as follows:
+
+    ```
+    └─mindspore
+        ├─model_zoo
+           └─official
+                └─cv
+                   └─lenets
+                       └─Data
+     			├─test
+        		│      t10k-images.idx3-ubyte
+        		│      t10k-labels.idx1-ubyte
+        		│
+        		└─train
+              		|      train-images.idx3-ubyte
+               		|      train-labels.idx1-ubyte
+    ```
+
+    If it is an Ascend hardware, the content of the shell script is as follows. If it is a GPU device, then the `train.py` script need to specify `--device_ target="GPU"`.
 
     `Scheduler.sh`:
     ```bash

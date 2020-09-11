@@ -39,7 +39,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 ### 参数设置
 
 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新：
-  
+
 - 通过`mindspore.nn.Cell.set_param_ps()`对`nn.Cell`中所有权重递归设置
 - 通过`mindspore.common.Parameter.set_param_ps()`对此权重进行设置
 
@@ -66,9 +66,41 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 1. shell脚本
 
-    提供Worker，Server和Scheduler三个角色对应的shell脚本，以启动训练：
+    提供Worker，Server和Scheduler三个角色对应的shell脚本，以启动训练，shell脚本的结构如下：
+
+    ```
+    └─mindspore
+        ├─model_zoo
+           └─official
+                └─cv
+                   └─lenets
+                       |   Scheduler.sh
+                       |   Server.sh
+                       |   Worker.sh
+    ```
+
+    数据集的目录如下:
+
+    ```
+    └─mindspore
+        ├─model_zoo
+           └─official
+                └─cv
+                   └─lenets
+                       └─Data
+        		├─test
+        		│      t10k-images.idx3-ubyte
+        		│      t10k-labels.idx1-ubyte
+        		│
+        		└─train
+              		|      train-images.idx3-ubyte
+               		|      train-labels.idx1-ubyte
+    ```
+
+    如果是Ascend设备，那么脚本的内容如下所示，如果是GPU设备，那么`train.py`脚本需要指定`--device_target="GPU"`。
 
     `Scheduler.sh`:
+
     ```bash
     #!/bin/bash
     export PS_VERBOSE=1
