@@ -1,6 +1,6 @@
 # 术语
 
-`Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

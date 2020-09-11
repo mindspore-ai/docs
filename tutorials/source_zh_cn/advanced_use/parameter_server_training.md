@@ -1,6 +1,6 @@
 # Parameter Server训练
 
-`Ascend` `GPU` `模型训练` `中级` `高级`
+`Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 

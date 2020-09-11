@@ -1,6 +1,6 @@
 ﻿# Seeking Help and Support
 
-`Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/help_seeking_path.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

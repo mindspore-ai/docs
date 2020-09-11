@@ -1,6 +1,6 @@
 # RoadMap
 
-`Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Expert` `Contributor`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 

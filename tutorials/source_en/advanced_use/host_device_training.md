@@ -1,6 +1,6 @@
 # Host+Device Hybrid Training
 
-`Ascend` `CPU` `Model Training` `Intermediate` `Expert`
+`Linux` `Ascend` `CPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 

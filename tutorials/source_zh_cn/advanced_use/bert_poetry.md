@@ -1,6 +1,6 @@
 # 智能写诗
 
-`Ascend` `模型训练` `推理应用` `端侧` `高级`
+`Linux` `Ascend` `模型训练` `推理应用` `端侧` `高级`
 
 <!-- TOC -->
 
@@ -49,7 +49,7 @@
 
 ### Pre-training
 
-Pre-training是在无标签数据上进行的自编码训练，因此训练任务的设计尤为重要,BERT中的Pre-training包含两项任务MLM(Masked Language Model)和NSP(Next Sentence Prediction)。
+Pre-training是在无标签数据上进行的自编码训练，因此训练任务的设计尤为重要，BERT中的Pre-training包含两项任务MLM(Masked Language Model)和NSP(Next Sentence Prediction)。
 
 - **MLM任务**是在输入时，随机将部分token置换为[MASK]标记，然后通过注意力机制，由其上下文预测出被遮挡位置的原始token。
 
@@ -208,97 +208,97 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
 
 - 模型导出
 
-在使用Serving部署服务前，需要导出模型文件，在`poetry.py`中提供了`export_net`函数负责导出MINDIR模型，执行命令:
+    在使用Serving部署服务前，需要导出模型文件，在`poetry.py`中提供了`export_net`函数负责导出MINDIR模型，执行命令:
 
-```
-python poetry.py --export=True --ckpt_path=/your/ckpt/path
-```
+    ```
+    python poetry.py --export=True --ckpt_path=/your/ckpt/path
+    ```
 
-会在当前路径下生成`poetry.pb`文件。
+    会在当前路径下生成`poetry.pb`文件。
 
 - Serving服务
 
-在服务器侧启动Serving服务，并加载导出的MINDIR文件`poetry.pb`。
+    在服务器侧启动Serving服务，并加载导出的MINDIR文件`poetry.pb`。
 
-```
-cd serving
-./ms_serving --model_path=/path/to/your/MINDIR_file --model_name=your_mindir.pb
-```
+    ```
+    cd serving
+    ./ms_serving --model_path=/path/to/your/MINDIR_file --model_name=your_mindir.pb
+    ```
 
 - 预处理及后处理的服务
 
-预处理及后处理通过Flask框架来快速实现，在服务器侧运行`bert_flask.py`文件，启动Flask服务。
+    预处理及后处理通过Flask框架来快速实现，在服务器侧运行`bert_flask.py`文件，启动Flask服务。
 
-```
-python bert_flask.py
-```
+    ```
+    python bert_flask.py
+    ```
 
-通过以上步骤，服务端部署就已经完成。
+    通过以上步骤，服务端部署就已经完成。
 
 - 客户端
 
-可用电脑作为客户端，修改`poetry_client.py`中的url请求地址为推理服务启动的服务器IP，并确保端口与服务端`bert_flask.py`中的端口一致，例如：
+    可用电脑作为客户端，修改`poetry_client.py`中的url请求地址为推理服务启动的服务器IP，并确保端口与服务端`bert_flask.py`中的端口一致，例如：
 
-```
-url = 'http://10.155.170.71:8080/'
-```
+    ```
+    url = 'http://10.155.170.71:8080/'
+    ```
 
-运行`poetry_client.py`文件
+    运行`poetry_client.py`文件
 
-```
-python poetry_client.py
-```
+    ```
+    python poetry_client.py
+    ```
 
-此时在客户端输入指令，即可在远端服务器进行推理，返回生成的诗句。
+    此时在客户端输入指令，即可在远端服务器进行推理，返回生成的诗句。
 
-```
-选择模式：0-随机生成，1：续写，2：藏头诗
-0
-```
-```
-一朵黄花叶，
-千竿绿树枝。
-含香待夏晚，
-澹浩长风时。
-```
+    ```
+    选择模式：0-随机生成，1：续写，2：藏头诗
+    0
+    ```
+    ```
+    一朵黄花叶，
+    千竿绿树枝。
+    含香待夏晚，
+    澹浩长风时。
+    ```
 
-```
-选择模式：0-随机生成，1：续写，2：藏头诗
-1
-输入首句诗
-明月
-```
-```
-明月照三峡，
-长空一片云。
-秋风与雨过，
-唯有客舟分。
-寒影出何处，
-远林含不闻。
-不知前后事，
-何道逐风君。
-```
+    ```
+    选择模式：0-随机生成，1：续写，2：藏头诗
+    1
+    输入首句诗
+    明月
+    ```
+    ```
+    明月照三峡，
+    长空一片云。
+    秋风与雨过，
+    唯有客舟分。
+    寒影出何处，
+    远林含不闻。
+    不知前后事，
+    何道逐风君。
+    ```
 
-```
-选择模式：0-随机生成，1：续写，2：藏头诗
-2
-输入藏头诗
-人工智能
-```
-```
-人生事太远，
-工部与神期。
-智者岂无识，
-能文争有疑。
-```
+    ```
+    选择模式：0-随机生成，1：续写，2：藏头诗
+    2
+    输入藏头诗
+    人工智能
+    ```
+    ```
+    人生事太远，
+    工部与神期。
+    智者岂无识，
+    能文争有疑。
+    ```
 
-细读鉴赏一下，平仄、押韵、意味均有体现，AI诗人已然成形。
+    细读鉴赏一下，平仄、押韵、意味均有体现，AI诗人已然成形。
 
 
 > 友情提醒，修改其他类型数据集，也可以完成其他简单的生成类任务，如对春联，简单聊天机器人等，用户可尝试体验实现。
 
 
-## 参考资料
+## 参考文献
 
 [1] [BERT:Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 

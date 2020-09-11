@@ -1,6 +1,6 @@
 # Natural Language Processing (NLP) Application
 
-`GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Linux` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

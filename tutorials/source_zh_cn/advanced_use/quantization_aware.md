@@ -1,6 +1,6 @@
 # 量化
 
-`Ascend` `GPU` `模型调优` `高级`
+`Linux` `Ascend` `GPU` `模型调优` `高级`
 
 <!-- TOC -->
 

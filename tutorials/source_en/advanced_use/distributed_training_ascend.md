@@ -1,6 +1,6 @@
 # Parallel Distributed Training (Ascend)
 
-`Ascend` `Model Training` `Intermediate` `Expert`
+`Linux` `Ascend` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 

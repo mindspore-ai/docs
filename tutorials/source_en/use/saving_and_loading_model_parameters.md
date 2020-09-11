@@ -1,6 +1,6 @@
 # Saving and Loading Model Parameters
 
-`Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

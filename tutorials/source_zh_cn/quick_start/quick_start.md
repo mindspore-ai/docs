@@ -1,6 +1,6 @@
 # 实现一个图片分类应用
 
-`Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 

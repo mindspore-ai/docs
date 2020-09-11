@@ -185,7 +185,8 @@
     - Tensor加载后，在张量可视的表格视图下，最大支持查看10万个数值，如果所选择的维度查询得到的数值超过这一限制，则无法显示。
 
 5. 由于张量可视（`TensorSummary`）会记录原始张量数据，需要的存储空间较大。使用`TensorSummary`前和训练过程中请注意检查系统存储空间充足。
-   通过以下方法可以降低张量可视功能的存储空间占用：
+
+    通过以下方法可以降低张量可视功能的存储空间占用：
 
     1）避免使用`TensorSummary`记录较大的Tensor。
 
@@ -195,5 +196,5 @@
 
    备注：估算`TensorSummary`空间使用量的方法如下：
 
-   一个`TensorSummary`数据的大小 ＝ Tensor中的数值个数 * 4 bytes。假设使用`TensorSummary`记录的Tensor大小为32 * 1 * 256 * 256，则一个`TensorSummary`数据大约需要32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB。`TensorSummary`默认会记录20个步骤的数据，则记录这20组数据需要的空间约为20 * 8 MiB ＝ 160MiB。需要注意的是，由于数据结构等因素的开销，实际使用的存储空间会略大于160MiB。
+   一个`TensorSummary数据的大小 ＝ Tensor中的数值个数 * 4 bytes`。假设使用`TensorSummary`记录的Tensor大小为`32 * 1 * 256 * 256`，则一个`TensorSummary`数据大约需要`32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB`。`TensorSummary`默认会记录20个步骤的数据，则记录这20组数据需要的空间约为`20 * 8 MiB ＝ 160MiB`。需要注意的是，由于数据结构等因素的开销，实际使用的存储空间会略大于160MiB。
 6. 当使用`TensorSummary`时，由于记录完整Tensor数据，训练日志文件较大，MindInsight需要更多时间解析训练日志文件，请耐心等待。

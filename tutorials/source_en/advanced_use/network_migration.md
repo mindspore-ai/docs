@@ -1,6 +1,6 @@
 # Network Migration
 
-`Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

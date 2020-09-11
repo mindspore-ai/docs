@@ -1,6 +1,6 @@
 # Quantization
 
-`Ascend` `GPU` `Model Optimization` `Expert`
+`Linux` `Ascend` `GPU` `Model Optimization` `Expert`
 
 <!-- TOC -->
 

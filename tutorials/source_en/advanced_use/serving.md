@@ -1,6 +1,6 @@
 # MindSpore-based Inference Service Deployment
 
-`Ascend` `Environmental Setup` `Enterprise` `Expert`
+`Linux` `Ascend` `Environmental Setup` `Enterprise` `Expert`
 
 <!-- TOC -->
 

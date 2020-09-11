@@ -1,6 +1,6 @@
 # 总体架构
 
-`Ascend` `GPU` `CPU` `端侧` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `端侧` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

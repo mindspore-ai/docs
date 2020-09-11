@@ -1,6 +1,6 @@
 # Network List
 
-`Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Development` `Intermediate` `Expert`
 
 <!-- TOC -->
 

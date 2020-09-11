@@ -1,6 +1,6 @@
 # 将数据集转换为MindSpore数据格式
 
-`Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
 
 <!-- TOC -->
 
