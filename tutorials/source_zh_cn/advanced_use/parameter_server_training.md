@@ -38,20 +38,27 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 ### 参数设置
 
-在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新：
+1. 首先调用`mindspore.context.set_ps_context(enable_ps=True)`开启Parameter Server训练模式.
 
-- 通过`mindspore.nn.Cell.set_param_ps()`对`nn.Cell`中所有权重递归设置
-- 通过`mindspore.common.Parameter.set_param_ps()`对此权重进行设置
+- 此接口需在`mindspore.communication.management.init()`之前调用。
+- 若没有调用此接口，下面的[环境变量设置](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/parameter_server_training.html#id5)则不会生效。
+- 调用`mindspore.context.reset_ps_context()`可以关闭Parameter Server训练模式。
 
-在[原训练脚本](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)基础上，设置LeNet模型所有权重通过Parameter Server训练：
+2. 在本训练模式下，有以下两种调用接口方式以控制训练参数是否通过Parameter Server进行更新：
+
+- 通过`mindspore.nn.Cell.set_param_ps()`对`nn.Cell`中所有权重递归设置。
+- 通过`mindspore.common.Parameter.set_param_ps()`对此权重进行设置。
+
+3. 在[原训练脚本](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)基础上，设置LeNet模型所有权重通过Parameter Server训练：
 ```python
+context.set_ps_context(enable_ps=True)
 network = LeNet5(cfg.num_classes)
 network.set_param_ps()
 ```
 
 ### 环境变量设置
 
-MindSpore通过读取环境变量，控制Parameter Server训练，环境变量包括以下选项(其中MS_SCHED_HOST及MS_SCHED_POST所有脚本需保持一致)：
+MindSpore通过读取环境变量，控制Parameter Server训练，环境变量包括以下选项(其中`MS_SCHED_HOST`及`MS_SCHED_PORT`所有脚本需保持一致)：
 
 ```
 export PS_VERBOSE=1                   # Print ps-lite log
@@ -66,38 +73,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
 1. shell脚本
 
-    提供Worker，Server和Scheduler三个角色对应的shell脚本，以启动训练，shell脚本的结构如下：
-
-    ```
-    └─mindspore
-        ├─model_zoo
-           └─official
-                └─cv
-                   └─lenets
-                       |   Scheduler.sh
-                       |   Server.sh
-                       |   Worker.sh
-    ```
-
-    数据集的目录如下:
-
-    ```
-    └─mindspore
-        ├─model_zoo
-           └─official
-                └─cv
-                   └─lenets
-                       └─Data
-        		├─test
-        		│      t10k-images.idx3-ubyte
-        		│      t10k-labels.idx1-ubyte
-        		│
-        		└─train
-              		|      train-images.idx3-ubyte
-               		|      train-labels.idx1-ubyte
-    ```
-
-    如果是Ascend设备，那么脚本的内容如下所示，如果是GPU设备，那么`train.py`脚本需要指定`--device_target="GPU"`。
+    提供Worker，Server和Scheduler三个角色对应的shell脚本，以启动训练：
 
     `Scheduler.sh`:
 
@@ -109,7 +85,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_SCHED
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     `Server.sh`:
@@ -121,7 +97,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_PSERVER
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     `Worker.sh`:
@@ -133,7 +109,7 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
     export MS_SCHED_PORT=XXXX
     export MS_ROLE=MS_WORKER
-    python train.py
+    python train.py --device_target=Ascend --data_path=path/to/dataset
     ```
 
     最后分别执行：
