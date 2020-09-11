@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 背景
 
@@ -47,19 +47,19 @@
 
     每次开始进行并行训练前，通过调用`mindspore.communication.init`接口初始化通信资源，并自动创建全局通信组`WORLD_COMM_GROUP`。
 
-2. 数据分发
+2. 数据分发（Data distribution）
 
     数据并行的核心在于将数据集在样本维度拆分并下发到不同的卡上。在`mindspore.dataset`模块提供的所有数据集加载接口中都有`num_shards`和`shard_id`两个参数，它们用于将数据集拆分为多份并循环采样的方式，采集`batch`大小的数据到各自的卡上，当出现数据量不足的情况时将会从头开始采样。
 
 3. 网络构图
 
-    数据并行网络的书写方式与单机网络没有差别，这是因为在正反向传播过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，这里建议通过`numpy.random.seed`在每张卡上设置相同的随机数种子达到模型广播的目的。
+    数据并行网络的书写方式与单机网络没有差别，这是因为在正反向传播（Forward propogation & Backword Propogation）过程中各卡的模型间是独立执行的，只是保持了相同的网络结构。唯一需要特别注意的是为了保证各卡间训练同步，相应的网络参数初始化值应当是一致的，这里建议通过`numpy.random.seed`在每张卡上设置相同的随机数种子达到模型广播的目的。
 
-4. 梯度聚合
+4. 梯度聚合（Gradient aggregation）
 
     数据并行理论上应该实现和单机一致的训练效果，为了保证计算逻辑的一致性，在梯度计算完成后插入`AllReduce`算子实现各卡间的梯度聚合操作。这里我们设置了`mean`开关，用户可以选择是否要对求和后的梯度值进行求平均操作，也可以将其视为超参项，打开开关等价于学习率倍数缩小。
 
-5. 参数更新
+5. 参数更新（Parameter update）
 
     因为引入了梯度聚合操作，所以各卡的模型会以相同的梯度值一起进入参数更新步骤。因此MindSpore实现的是一种同步数据并行训练方式。理论上最终每卡训练出来的模型是相同的，如果网络中含有在样本维度的归约类型操作，网络的输出可能会有所差别，这是由数据并行的切分性质决定的。
 
