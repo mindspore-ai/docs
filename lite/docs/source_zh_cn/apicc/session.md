@@ -81,15 +81,6 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
     STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
-```   
-virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const
-```
-获取与节点名相关联的MindSpore Lite模型的MSTensors输出。
-
-- 返回值
-
-    包含输出节点名和MindSpore Lite MSTensor的容器类型变量。
-
 ```      
 virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const
 ```
@@ -104,7 +95,7 @@ virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string 
     MindSpore Lite MSTensor向量。
 
 ```
-virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const
+virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputs() const
 ```
 获取与张量名相关联的MindSpore Lite模型的MSTensors输出。
 
@@ -135,13 +126,14 @@ virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &te
     指向MindSpore Lite MSTensor的指针。
 
 ```      
-virtual int Resize(const std::vector <tensor::MSTensor *> &inputs)
+virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims)
 ```
 调整输入的形状。
 
 - 参数
 
-    - `inputs`: 定义了新的输入形状。
+    - `inputs`: 模型对应的所有输入。
+    - `dims`: 输入对应的新的shape，顺序注意要与inputs一致。
 
 - 返回值
 

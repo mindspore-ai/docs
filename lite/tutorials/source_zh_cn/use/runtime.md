@@ -457,16 +457,7 @@ MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
    ```
 
-2. 使用`GetOutputMapByNode`方法，直接获取所有的模型输出节点的名称和连接到该节点的模型输出`MSTensor`的一个map。
-
-   ```cpp
-   /// \brief  Get output MindSpore Lite MSTensors of model mapped by node name.
-   ///
-   /// \return  The map of output node name and MindSpore Lite MSTensor.
-   virtual std::unordered_map<std::string, std::vector<mindspore::tensor::MSTensor *>> GetOutputMapByNode() const = 0;
-   ```
-
-3. 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
+2. 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
@@ -477,13 +468,13 @@ MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
    ```
 
-4. 使用`GetOutputMapByTensor`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
+3. 使用`GetOutputs`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
    ///
    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
-   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputMapByTensor() const = 0;
+   virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
    ```
 
 当获取到模型的输出Tensor，就需要向Tensor中填入数据。通过`MSTensor`的`Size`方法来获取Tensor应该填入的数据大小，通过`data_type`方法来获取`MSTensor`的数据类型，通过`MSTensor`的`MutableData`方法来获取可读写的内存指针。
