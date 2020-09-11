@@ -21,6 +21,7 @@
 | Computer Vision (CV)  | Image Classification  | [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)              |  Supported |  Supported | Supported
 | Computer Vision (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)          |  Supported |  Supported | Doing
 |Computer Vision (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)                                              |  Supported |Doing | Doing
+|Computer Vision (CV)  | Image Classification  | [SE-ResNet50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)                                              |  Supported |Doing | Doing
 |Computer Vision (CV)  | Image Classification  | [ResNext50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnext50/src/image_classification.py)                                             |  Supported | Supported | Doing
 | Computer Vision (CV)  | Image Classification  | [VGG16](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/vgg16/src/vgg.py)                |  Supported |  Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [InceptionV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/inceptionv3/src/inception_v3.py)                |  Supported |  Doing | Doing
