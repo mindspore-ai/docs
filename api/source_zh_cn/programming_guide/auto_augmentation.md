@@ -3,110 +3,129 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [自动数据增强](#自动数据增强)
-	- [基于概率动态调整数据增强策略](#基于概率动态调整数据增强策略)
-	- [基于训练结果信息动态调整数据增强策略](#基于训练结果信息动态调整数据增强策略)
+    - [概述](#概述)
+    - [基于概率的自动数据增强](#基于概率的自动数据增强)
+        - [RandomApply](#RandomApply)
+        - [RandomChoice](#RandomChoice)
+        - [RandomSelectSubpolicy](#RandomSelectSubpolicy)
+    - [基于回调参数的自动数据增强](#基于回调参数的自动数据增强)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/auto_augment.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-## 基于概率动态调整数据增强策略
+## 概述
 
-MindSpore提供一系列基于概率的数据增强的API，用户可以对各种图像操作进行随机选择、组合，使数据增强更灵活。
+MindSpore除了可以让用户自定义数据增强的使用，还提供了一种自动数据增强方式，可以基于特定策略自动对图像进行数据增强处理。
 
-- [`RandomApply(transforms, prob=0.5)`](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.transforms.html?highlight=randomapply#mindspore.dataset.transforms.c_transforms.RandomApply)
-以一定的概率指定`transforms`操作，即可能执行，也可以能不执行；`transform`可以是一个，也可以是一系列。
+自动数据增强主要分为基于概率的自动数据增强和基于回调参数的自动数据增强。
 
-  ```python
+## 基于概率的自动数据增强
 
-  rand_apply_list = RandomApply([c_vision.RandomCrop(), c_vision.RandomColorAdjust()])
-  ds = ds.map(operations=rand_apply_list)
+MindSpore提供了一系列基于概率的自动数据增强API，用户可以对各种数据增强操作进行随机选择与组合，使数据增强更加灵活。
 
-  ```
+关于API的详细说明，可以参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.transforms.html)。
 
-  按50%的概率来顺序执行`RandomCrop`和`RandomColorAdjust`操作,否则都不执行。
+### RandomApply
 
-- [`RandomChoice(transforms)`](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.transforms.html?highlight=randomchoice#mindspore.dataset.transforms.c_transforms.RandomChoice)
-从`transfrom`操作中随机选择一个执行。
+API接收一个数据增强操作列表`transforms`，以一定的概率顺序执行列表中各数据增强操作，默认概率为0.5，否则都不执行。
 
-  ```python
+在下面的代码示例中，以0.5的概率来顺序执行`RandomCrop`和`RandomColorAdjust`操作，否则都不执行。
 
-  rand_choice = RandomChoice([c_vision.CenterCrop(), c_vision.RandomCrop()])
-  ds = ds.map(operations=rand_choice)
+```python
+import mindspore.dataset.vision.c_transforms as c_vision
+from mindspore.dataset.transforms.c_transforms import RandomApply
 
-  ```
+rand_apply_list = RandomApply([c_vision.RandomCrop(512), c_vision.RandomColorAdjust()])
+```
 
-  分别以50%概率来执行`CenterCrop`和`RandomCrop`操作。
+### RandomChoice
 
-- [`RandomSelectSubpolicy(policy)`](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.transforms.vision.html?highlight=randomselectsubpolicy#mindspore.dataset.transforms.vision.c_transforms.RandomSelectSubpolicy)
-用户可以预置策略（Policy），每次随机选择一个子策略（SubPolicy）组合，同一子策略中由若干个顺序执行的图像增强操作组成，每个操作与两个参数关联：1） 执行操作的概率 2）执行操作的幅度；
-对于一个batch中的每张图像，随机选择子策略来变换图像。
+API接收一个数据增强操作列表`transforms`，从中随机选择一个数据增强操作执行。
 
-  ```python
+在下面的代码示例中，等概率地在`CenterCrop`和`RandomCrop`中选择一个操作执行。
 
-  policy = [
-          [(c_vision.RandomRotation((45, 45)), 0.5), (c_vision.RandomVerticalFlip(), 1.0), (c_vision.RandomColorAdjust(), 0.8)],
-          [(c_vision.RandomRotation((90, 90)), 1), (c_vision.RandomColorAdjust(), 0.2)]
-          ]
-  ds = ds.map(operations=c_vision.RandomSelectSubpolicy(policy), input_columns=["image"])
+```python
+import mindspore.dataset.vision.c_transforms as c_vision
+from mindspore.dataset.transforms.c_transforms import RandomChoice
 
-  ```
+rand_choice = RandomChoice([c_vision.CenterCrop(512), c_vision.RandomCrop(512)])
+```
 
-  示例中包括2条子策略，其中子策略1中包含`RandomRotation`、`RandomVerticalFlip`、`RandomColorAdjust`3个操作，概率分别为0.5、1.0、0.8；子策略2中包含`RandomRotation`和`RandomColorAdjust`，概率分别为1.0、2.0。
+### RandomSelectSubpolicy
 
-## 基于训练结果信息动态调整数据增强策略
+API接收一个预置策略列表，包含一系列子策略组合，每一子策略由若干个顺序执行的数据增强操作及其执行概率组成。
 
-Mindspore的`sync_wait`接口支持按batch或epoch粒度来调整数据增强策略，实现训练过程中动态调整数据增强策略。
-`sync_wait`必须和`sync_update`配合使用实现数据pipeline上的同步回调。
+对各图像先等概率随机选择一种子策略，再依照子策略中的概率顺序执行各个操作。
 
-- [`sync_wait(condition_name, num_batch=1, callback=None)`](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html?highlight=sync_wait#mindspore.dataset.ImageFolderDatasetV2.sync_wait)
-- [`sync_update(condition_name, num_batch=None, data=None)`](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html?highlight=sync_update#mindspore.dataset.ImageFolderDatasetV2.sync_update)
+在下面的代码示例中，预置了两条子策略，子策略1中包含`RandomRotation`、`RandomVerticalFlip`和`RandomColorAdjust`三个操作，概率分别为0.5、1.0和0.8；子策略2中包含`RandomRotation`和`RandomColorAdjust`两个操作，概率分别为1.0和0.2。
 
-`sync_wait`将阻塞整个数据处理pipeline直到`sync_update`触发用户预先定义的`callback`函数。
+```python
+import mindspore.dataset.vision.c_transforms as c_vision
+from mindspore.dataset.vision.c_transforms import RandomSelectSubpolicy
 
-1. 用户预先定义class`Augment`，其中`preprocess`为`map`操作中的自定义数据增强函数，`update`为更新数据增强策略的回调函数。
+policy_list = [
+      [(c_vision.RandomRotation((45, 45)), 0.5), (c_vision.RandomVerticalFlip(), 1.0), (c_vision.RandomColorAdjust(), 0.8)],
+      [(c_vision.RandomRotation((90, 90)), 1.0), (c_vision.RandomColorAdjust(), 0.2)]
+      ]
+policy = RandomSelectSubpolicy(policy_list)
+```
 
-  ```python
-  import mindspore.dataset.vision.py_transforms as transforms
-  import mindspore.dataset as de
-  import numpy as np
+## 基于回调参数的自动数据增强
 
-  class Augment:
-      def __init__(self):
-          self.ep_num = 0
-          self.step_num = 0
+MindSpore的`sync_wait`接口支持按batch或epoch粒度在训练过程中动态调整数据增强策略，用户可以设定阻塞条件触发特定的数据增强操作。
 
-      def preprocess(self, input_):
-          return (np.array((input_ + self.step_num ** self.ep_num - 1), ))
+`sync_wait`将阻塞整个数据处理pipeline直到`sync_update`触发用户预先定义的`callback`函数，两者需配合使用，对应说明如下：
 
-      def update(self, data):
-          self.ep_num = data['ep_num']
-          self.step_num = data['step_num']
+- sync_wait(condition_name, num_batch=1, callback=None)
 
-  ```
+    该API为数据集添加一个阻塞条件`condition_name`，当`sync_update`调用时执行指定的`callback`函数。
 
-2. 数据处理pipeline先回调自定义的增强策略更新函数`auto_aug.update`，然后在`map`操作中按更新后的策略来执行`auto_aug.preprocess`中定义的数据增强。
+- sync_update(condition_name, num_batch=None, data=None)
 
-  ```python
+    该API用于释放对应`condition_name`的阻塞，并对`data`触发指定的`callback`函数。
 
-  arr = list(range(1, 4))
-  ds = de.NumpySlicesDataset(arr, shuffle=False)
-  aug = Augment()
-  ds= ds.sync_wait(condition_name="policy", callback=aug.update)
-  ds = ds.map(operations=[aug.preprocess])
+下面将演示基于回调参数的自动数据增强的用法。
 
-  ```
+1. 用户预先定义`Augment`类，其中`preprocess`为自定义的数据增强函数，`update`为更新数据增强策略的回调函数。
 
-3. 在每个step调用`sync_update`进行数据增强策略的更新。
+    ```python
+    import mindspore.dataset.vision.py_transforms as transforms
+    import mindspore.dataset as ds
+    import numpy as np
 
-  ```python
-  epochs = 5
-  itr = ds.create_tuple_iterator(num_epochs=epochs)
-  step_num = 0
-  for ep_num in range(epochs):
-      for data in itr:
-          print("epcoh: {}, step:{}, data :{}".format(ep_num, step_num, data))
-          step_num += 1
-          ds.sync_update(condition_name="policy", data={'ep_num': ep_num, 'step_num': step_num})
+    class Augment:
+        def __init__(self):
+            self.ep_num = 0
+            self.step_num = 0
 
-  ```
+        def preprocess(self, input_):
+            return (np.array((input_ + self.step_num ** self.ep_num - 1), ))
+
+        def update(self, data):
+            self.ep_num = data['ep_num']
+            self.step_num = data['step_num']
+    ```
+
+2. 数据处理pipeline先回调自定义的增强策略更新函数`update`，然后在`map`操作中按更新后的策略来执行`preprocess`中定义的数据增强操作。
+
+    ```python
+    arr = list(range(1, 4))
+    dataset = ds.NumpySlicesDataset(arr, shuffle=False)
+    aug = Augment()
+    dataset = dataset.sync_wait(condition_name="policy", callback=aug.update)
+    dataset = dataset.map(operations=[aug.preprocess])
+    ```
+
+3. 在每个step中调用`sync_update`进行数据增强策略的更新。
+
+    ```python
+    epochs = 5
+    itr = dataset.create_tuple_iterator(num_epochs=epochs)
+    step_num = 0
+    for ep_num in range(epochs):
+        for data in itr:
+            print("epcoh: {}, step:{}, data :{}".format(ep_num, step_num, data))
+            step_num += 1
+            dataset.sync_update(condition_name="policy", data={'ep_num': ep_num, 'step_num': step_num})
+    ```

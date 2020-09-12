@@ -50,10 +50,10 @@ import mindspore.dataset as ds
 
 ds1 = ds.MnistDataset(MNIST_DATASET_PATH, MNIST_SCHEMA)  # Create MNIST dataset.
 
-ds1 = ds1.shuffle(buffer_size=10000) 
+ds1 = ds1.shuffle(buffer_size=10000)
 ds1 = ds1.batch(32, drop_remainder=True)
 ds1 = ds1.repeat(10)
-``` 
+```
 In the preceding operations, data is shuffled, every 32 data records are combined into a batch, and then the dataset is repeated for 10 times.
 
 The following describes how to construct a simple dataset `ds1` and perform data processing operations on it.
@@ -211,7 +211,7 @@ You can customize the function or use `c_transforms` or `py_transforms` for data
 The definition of `map` is as follows:
 
 ```python
-def map(self, input_columns=None, operations=None, output_columns=None, columns_order=None,
+def map(self, operations=None, input_columns=None, output_columns=None, columns_order=None,
         num_parallel_workers=None):
 ```
 In the following example, the `map` function is used to apply the defined anonymous function (lambda function) to the dataset `ds1` so that the data values in the dataset are multiplied by 2.
@@ -247,8 +247,8 @@ def zip(self, datasets):
 
     ds2 = ds.GeneratorDataset(generator_func2, ["data2"])
     ```
-   
-2. Use `zip()` to combine the `data` column of the dataset `ds1`and the `data2` column of the dataset `ds2` into the dataset `ds3`.
+
+2. Use `zip` to combine the `data` column of the dataset `ds1`and the `data2` column of the dataset `ds2` into the dataset `ds3`.
     ```python
     ds3 = ds.zip((ds1, ds2))
     for data in ds3.create_dict_iterator():
@@ -286,7 +286,7 @@ Data augmentation requires the `map` function. For details about how to use the 
     ```python
     # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
     DATA_DIR = "/path/to/imagefolder_directory"
-    dataset = ds.ImageFolderDataset(DATA_DIR, decode=True)  # Decode images. 
+    dataset = ds.ImageFolderDataset(DATA_DIR, decode=True)  # Decode images.
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(operations=resize_op, input_columns="image")
 
@@ -308,7 +308,7 @@ Figure 2: Image after its size is reset
 1. Import the module to the code.
     ```python
     import mindspore.dataset.vision.py_transforms as transforms
-    from mindspore.transforms.py_transforms import Compose 
+    from mindspore.transforms.py_transforms import Compose
     import matplotlib.pyplot as plt
     ```
 2. Define data augmentation operators and use the `Compose` API to combine multiple data augmentation operations. The following uses `RandomCrop` as an example:
