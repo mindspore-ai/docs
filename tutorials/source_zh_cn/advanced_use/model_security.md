@@ -50,7 +50,7 @@ from mindspore import dataset as ds
 import mindspore.common.dtype as mstype
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.vision.import Inter
+from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal

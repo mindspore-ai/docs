@@ -124,7 +124,7 @@
     ```python
     import mindspore.dataset as ds
     import mindspore.common.dtype as mstype
-    import mindspore.dataset.transforms.vision.c_transforms as c_vision
+    import mindspore.dataset.vision.c_transforms as c_vision
 
     test_cache = ds.DatasetCache(session_id=1, size=0, spilling=True)
     ```
@@ -142,7 +142,7 @@
 
     # apply cache to map
     rescale_op = c_vision.Rescale(1.0 / 255.0, -1.0)
-    data = data.map(input_columns=["image"], operations=rescale_op, cache=test_cache)
+    data = data.map(operations=rescale_op, input_columns=["image"], cache=test_cache)
 
     num_iter = 0
     for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionary
@@ -224,7 +224,7 @@
 
     # use the session id passed in from the outside script when defining the cache
     test_cache = msds.DatasetCache(session_id = session_id, size = 0, spilling=False)
-    ds = de.ImageFolderDatasetV2(data_dir, num_samples=num_samples, cache = test_cache)
+    ds = de.ImageFolderDataset(data_dir, num_samples=num_samples, cache = test_cache)
     ```
 
 - **Step 5:**

@@ -179,7 +179,7 @@ tokenizer_op = text.JiebaTokenizer(HMM_FILE, MP_FILE)
 #打印分词后的数据输出
 print("------------------------after tokenize-----------------------------")
 
-dataset = dataset.map(input_columns=["text"], operations=jieba_op, num_parallel_workers=1)
+dataset = dataset.map(operations=jieba_op, input_columns=["text"], num_parallel_workers=1)
 
 for i in dataset.create_dict_iterator(num_epochs=1):
     token = text.to_str(i['text'])

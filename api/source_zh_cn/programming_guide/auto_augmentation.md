@@ -67,7 +67,7 @@ Mindspore的`sync_wait`接口支持按batch或epoch粒度来调整数据增强�
 1. 用户预先定义class`Augment`，其中`preprocess`为`map`操作中的自定义数据增强函数，`update`为更新数据增强策略的回调函数。
 
   ```python
-  import mindspore.dataset.transforms.vision.py_transforms as transforms
+  import mindspore.dataset.vision.py_transforms as transforms
   import mindspore.dataset as de
   import numpy as np
 
