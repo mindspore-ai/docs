@@ -83,7 +83,6 @@
 | [mindspore.nn.WithLossCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.WithLossCell)                                    |  Supported |  Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.WithGradCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.WithGradCell)                                    |  Supported | Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.TrainOneStepCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.TrainOneStepCell)                            |  Supported |  Supported | Doing |wrap/cell_wrapper
-| [mindspore.nn.DataWrapper](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.DataWrapper)                                      |Doing | Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.GetNextSingleOp](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.GetNextSingleOp)                              |Doing |  Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.WithEvalCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.WithEvalCell)                                    |  Supported |  Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.ParameterUpdate](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ParameterUpdate)                              |  Supported |Doing | Doing |wrap/cell_wrapper
