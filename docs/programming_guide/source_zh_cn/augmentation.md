@@ -10,7 +10,7 @@
         - [Resize](#resize)
         - [Invert](#invert)
     - [py_transforms](#py_transforms)
-        - [ComposeOp](#composeop)
+        - [Compose](#compose)
     - [使用说明](#使用说明)
 
 <!-- /TOC -->
@@ -40,7 +40,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 | py_transforms | RandomCrop | 在图像随机位置裁剪指定大小子图像。 |
 |  | Resize | 将图像缩放到指定大小。 |
 |  | Invert | 将图像进行反相。 |
-|  |ComposeOp | 将列表中的数据增强操作依次执行。 |
+|  |Compose | 将列表中的数据增强操作依次执行。 |
 
 ##  c_transforms
 
@@ -62,7 +62,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as c_trans
+import mindspore.dataset.vision.c_transforms as c_trans
 
 # 下载Cifar10数据集，将其解压到Cifar10Data目录
 DATA_DIR = "../data/dataset/testCifar10Data2"
@@ -77,7 +77,7 @@ dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 random_crop = c_trans.RandomCrop([10, 10])
 
 # 使用map算子将其作用到数据管道的数据集中
-dataset2 = dataset1.map(input_columns=["image"], operations=random_crop)
+dataset2 = dataset1.map(operations=random_crop, input_columns=["image"])
 
 # 启动数据管道，输出3个样本数据
 image_list1, label_list1 = [], []
@@ -130,7 +130,7 @@ Cropped image Shape: (10, 10, 3) , Cropped label: 9
 
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as c_trans
+import mindspore.dataset.vision.c_transforms as c_trans
 
 # 设置全局随机种子
 ds.config.set_seed(6)
@@ -148,7 +148,7 @@ dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 random_horizontal_flip = c_trans.RandomHorizontalFlip(prob=0.8)
 
 # 使用map算子将其作用到数据管道的数据集中
-dataset2 = dataset1.map(input_columns=["image"], operations=random_horizontal_flip)
+dataset2 = dataset1.map(operations=random_horizontal_flip, input_columns=["image"])
 
 # 启动数据管道，输出4个样本数据
 image_list1, label_list1 = [], []
@@ -205,7 +205,7 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as c_trans
+import mindspore.dataset.vision.c_transforms as c_trans
 
 # 下载MNIST数据集，将其解压到MnistData目录
 DATA_DIR = "../data/dataset/testMnistData2"
@@ -217,7 +217,7 @@ dataset1 = ds.MnistDataset(DATA_DIR, num_samples=4, shuffle=False)
 resize = c_trans.Resize(size=[101, 101])
 
 # 使用map算子将其作用到数据管道的数据集中
-dataset2 = dataset1.map(input_columns=["image"], operations=resize)
+dataset2 = dataset1.map(operations=resize, input_columns=["image"])
 
 # 启动数据管道
 image_list1, label_list1 = [], []
@@ -270,7 +270,7 @@ Flipped image Shape: (101, 101, 1) , Flipped label: 1
 
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.c_transforms as c_trans
+import mindspore.dataset.vision.c_transforms as c_trans
 
 # 设置全局随机种子
 ds.config.set_seed(8)
@@ -288,7 +288,7 @@ resize = c_trans.Resize(size=[101, 101])
 invert = c_trans.Invert()
 
 # 使用map算子将其作用到数据管道的数据集中(两个算子按顺序起作用)
-dataset2 = dataset1.map(input_columns=["image"], operations=[resize, invert])
+dataset2 = dataset1.map(operations=[resize, invert], input_columns=["image"])
 
 # 启动数据管道
 image_list1, label_list1 = [], []
@@ -336,23 +336,23 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 5
 
 下面将简要介绍几种常用的py_transforms模块数据增强算子的使用方法，更多的py_transforms模块数据增强算子参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html#module-mindspore.dataset.vision.py_transforms)。
 
-### ComposeOp
+### Compose
 
 ```python
 # 对输入图像进行解码，缩放组合操作
 
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
-import mindspore.dataset.transforms.vision.py_transforms as py_trans
-
+import mindspore.dataset.vision.py_transforms as py_trans
+from mindspore.dataset.transforms.py_transforms import Compose
 # 设置全局随机种子
 ds.config.set_seed(8)
 
 # 图像数据集目录
 DATA_DIR = "../data/dataset/testPK/data"
 
-# 使用ImageFolderDatasetV2读取数据集，获取5个样本
-dataset1 = ds.ImageFolderDatasetV2(DATA_DIR, num_samples=5, shuffle=True)
+# 使用ImageFolderDataset读取数据集，获取5个样本
+dataset1 = ds.ImageFolderDataset(DATA_DIR, num_samples=5, shuffle=True)
 
 # 创建一组数据增强算子的集合
 transforms_list = [
@@ -360,10 +360,10 @@ transforms_list = [
   py_trans.Resize(size=(200,200)),    # 缩放图像到[200, 200]大小
   py_trans.ToTensor()                 # 将PIL图像转换到Numpy
 ]
-compose_trans = py_trans.ComposeOp(transforms_list)
+compose_trans = Compose(transforms_list)
 
 # 使用map算子将其作用到数据管道的数据集中
-dataset2 = dataset1.map(input_columns=["image"], operations=compose_trans())
+dataset2 = dataset1.map(operations=compose_trans, input_columns=["image"])
 
 # 启动数据管道，输出5个样本数据
 image_list, label_list = [], []

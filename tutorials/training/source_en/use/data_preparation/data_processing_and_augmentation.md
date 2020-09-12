@@ -286,7 +286,7 @@ Data augmentation requires the `map` function. For details about how to use the 
     ```python
     # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
     DATA_DIR = "/path/to/imagefolder_directory"
-    dataset = ds.ImageFolderDatasetV2(DATA_DIR, decode=True)  # Decode images. 
+    dataset = ds.ImageFolderDataset(DATA_DIR, decode=True)  # Decode images. 
     resize_op = transforms.Resize(size=(500,500), interpolation=Inter.LINEAR)
     dataset.map(operations=resize_op, input_columns="image")
 

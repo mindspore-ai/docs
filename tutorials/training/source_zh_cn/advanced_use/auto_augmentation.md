@@ -159,7 +159,7 @@ imagenet_policy = [
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
       # create a train or eval imagenet2012 dataset for resnet50
-      ds = de.ImageFolderDatasetV2(dataset_path, num_parallel_workers=8,
+      ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
               shuffle=shuffle, num_samples=num_samples)
 
       image_size = 224
@@ -185,12 +185,12 @@ imagenet_policy = [
                   c_vision.Normalize(mean=mean, std=std),
                   c_vision.HWC2CHW()
                   ]
-      ds = ds.map(input_columns="image", num_parallel_workers=8, operations=trans)
+      ds = ds.map(operations=trans, input_columns="image", num_parallel_workers=8)
       if do_train:
-          ds = ds.map(input_columns=["image"], operations=c_vision.RandomSelectSubpolicy(imagenet_policy))
-          ds = ds.map(input_columns=["image"], num_parallel_workers=8,  operations=post_trans)
+          ds = ds.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
+          ds = ds.map(operations=post_trans, input_columns=["image"], num_parallel_workers=8)
       type_cast_op = c_transforms.TypeCast(mstype.int32)
-      ds = ds.map(input_columns="label", num_parallel_workers=8, operations=type_cast_op)
+      ds = ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
       # apply batch operations
       ds = ds.batch(batch_size, drop_remainder=True)
 

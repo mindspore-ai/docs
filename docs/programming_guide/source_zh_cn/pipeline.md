@@ -111,7 +111,7 @@ print("")
 
 # 为数据集创建一个映射操作
 # input_columns指定要处理的列，operation指定映射函数
-dataset = dataset.map(input_columns=["data"], operations=pyfunc)
+dataset = dataset.map(operations=pyfunc, input_columns=["data"])
 
 # 创建数据管道，输出映射后的数据
 for data in dataset.create_dict_iterator():
