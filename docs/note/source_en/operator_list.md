@@ -37,7 +37,7 @@
 | [mindspore.nn.Flatten](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.Dense](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.ClipByNorm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ClipByNorm)                                        |Supported | Supported | Doing |layer/basic
-| [mindspore.nn.Norm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Norm)                                                    |Doing | Supported | Doing |layer/basic
+| [mindspore.nn.Norm](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Norm)                                                    |Supported | Supported | Doing |layer/basic
 | [mindspore.nn.OneHot](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.OneHot)                                                |  Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.Range](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Range)                                                |  Supported |  Doing | Doing |layer/basic
 | [mindspore.nn.SequentialCell](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.SequentialCell)                                |Supported |  Supported | Doing |layer/container
