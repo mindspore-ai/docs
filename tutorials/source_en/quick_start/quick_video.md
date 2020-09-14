@@ -269,7 +269,7 @@ Provides video tutorials from installation to try-on, helping you quickly use Mi
                class="video-item-wraper" style="width: 33.3%;display: flex;justify-content: center;align-items: center;padding: 10px;box-sizing: border-box;">
                <a href="https://www.mindspore.cn/tutorial/en/master/quick_start/quick_video/gpu_operator_development.html" target="_blank"
                     style="position: relative;">
-                    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/GPU%E7%AE%97%E5%AD%90%E5%BC%80%E5%8F%91%E6%B1%87%E6%80%BB%E9%A1%B5.png"
+                    <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/GPU%E7%AE%97%E5%AD%90%E5%BC%80%E5%8F%91%E6%B1%87%E6%80%BB%E9%A1%B5en.png"
                          style="max-width: 100%;width: 400px;">
                     <svg style="position: absolute;left: 50%;top: 50%;width: 30px;height: 30px;transform: translate(-50%, -50%);"
                          data-v-1534670d="" id="图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg"
