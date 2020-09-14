@@ -22,13 +22,13 @@
 
 ## Overview
 
-Computer vision is the most widely researched and mature technology field of deep learning, and is widely used in scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, tracking, retrieval, recognition, promotion, and reconstruction.
+Computer vision is one of the most widely researched and mature technology fields of deep learning, and is widely applied to scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, tracking, retrieval, recognition, promotion, and reconstruction.
 
 This chapter describes how to apply MindSpore to computer vision scenarios based on image classification tasks.
 
 
 ## Image Classification
-Image classification is the most basic computer vision application and belongs to the supervised learning category. For example, determine the class of a digital image, such as cat, dog, airplane, or car. The function is as follows:
+Image classification is one of the most basic computer vision applications and belongs to the supervised learning category. For example, determine the class of a digital image, such as cat, dog, airplane, or car. The function is as follows:
 
 ```python
 def classify(image):
@@ -49,9 +49,9 @@ MindSpore supports the following image classification networks: LeNet, AlexNet, 
 
 Figure 1: CIFAR-10 dataset [1]
 
-Figure 1 shows that the CIFAR-10 dataset contains 10 classes of 60,000 images. Each class contains 6000 images. 50,000 images are for training and 10,000 images are for testing. The size of each image is 32 x 32 pixels.
+The CIFAR-10 dataset contains 10 classes of 60,000 images. Each class contains 6000 images. 50,000 images are for training and 10,000 images are for testing. The size of each image is 32 x 32 pixels.
 
-Generally, a training indicator of image classification is accuracy, that is, a ratio of a quantity of accurately predicted examples to a total quantity of predicted examples.
+Generally, a training indicator of image classification is accuracy, that is, a ratio of the quantity of accurately predicted examples to the total quantity of predicted examples.
 
 Next, let's use MindSpore to solve the image classification task. The overall process is as follows:
 1. Download the CIFAR-10 dataset.
@@ -61,12 +61,12 @@ Next, let's use MindSpore to solve the image classification task. The overall pr
 5. Call the high-level `Model` API to train and save the model file.
 6. Load the saved model for inference.
 
-> This example is for the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at： <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/resnet>.
+> This example uses the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at： <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/resnet>.
 
 The key parts of the task process code are explained below.
 
 ### Downloading the CIFAR-10 Dataset
-CIFAR-10 dataset download address: [the website of Cifar-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html) In this example, the data is in binary format. In the Linux environment, run the following command to download the dataset:
+CIFAR-10 dataset download address: [the website of Cifar-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html). In this example, the data is in binary format. In the Linux environment, run the following command to download the dataset:
 
 ```shell
 wget https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz
