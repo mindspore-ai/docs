@@ -21,7 +21,6 @@ MindSpore API
    api/python/mindspore/mindspore.common.initializer
    api/python/mindspore/mindspore.communication
    api/python/mindspore/mindspore.context
-   api/python/mindspore/mindspore.hub
    api/python/mindspore/mindspore.nn
    api/python/mindspore/mindspore.nn.dynamic_lr
    api/python/mindspore/mindspore.nn.learning_rate_schedule
