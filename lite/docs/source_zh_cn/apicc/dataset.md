@@ -91,7 +91,7 @@ bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float
     返回True或者False。
 
 ```
-bool Padd(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
+bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
 ```
 
 填充图像，通道支持为3和1。
