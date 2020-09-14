@@ -6,36 +6,30 @@
     - [概述](#概述)
     - [初始化](#初始化)
     - [属性](#属性)
-    - [接口](#方法)
+    - [方法](#方法)
     - [ParameterTuple](#parametertuple)
-    
-    
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/Parameter.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/parameter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
-Parameter是变量张量，代表在训练网络时，需要被更新的参数，是MetaTensor的一个子类。
-
+`Parameter`是变量张量，代表在训练网络时，需要被更新的参数，是`MetaTensor`的一个子类。
+`
 ## 初始化
 ```
 def __init__(self, default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
 
-`Initializer`是初始化器，保存了shape和dtype信息，可调用`to_tensor`方法生成存有数据的Tensor。
+- `Initializer`是初始化器，保存了shape和dtype信息，可调用`to_tensor`方法生成存有数据的Tensor。
 
-当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，
-`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。
+- 当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。`MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
 
-`MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，
-所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
+- 可为每个`Parameter`指定一个名称，便于后续操作和更新。
 
-可为每个`Parameter`指定一个名称，便于后续操作和更新。
-
-当`layerwise_parallel`为`True`时，参数广播和参数梯度聚合时会过滤掉该参数。
+- 当`layerwise_parallel`为`True`时，参数广播和参数梯度聚合时会过滤掉该参数。
 
 下例通过三种不同的数据类型构造了`Parameter`，三个`Parameter`都需要更新，都不采用layerwise并行。如下：
 ```
@@ -64,6 +58,7 @@ Parameter (name=z, value=2.0)
 ```
 
 ## 属性
+
 - `inited_param`：返回保存了实际数据的`Parameter`，如果`Parameter`原本保存的是`MetaTensor`，会将其转换为`Tensor`。
 
 - `name`：实例化`Parameter`时，为其指定的名字。
