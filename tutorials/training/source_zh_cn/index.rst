@@ -23,7 +23,6 @@ MindSpore教程
    use/data_preparation
    use/defining_the_network
    use/saving_and_loading_model_parameters
-   use/multi_platform_inference
 
 .. toctree::
    :glob:
@@ -60,13 +59,6 @@ MindSpore教程
    advanced_use/dataset_conversion
    advanced_use/auto_augmentation
    advanced_use/auto_data_acceleration
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 推理服务
-
-   advanced_use/serving
 
 .. toctree::
    :glob:
