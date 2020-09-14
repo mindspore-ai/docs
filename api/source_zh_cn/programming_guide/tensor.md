@@ -1,8 +1,8 @@
-# 张量
+# Tensor
 
 <!-- TOC -->
 
-- [张量](#张量)
+- [Tensor](#tensor)
     - [概述](#概述)
     - [张量构造](#张量构造)
     - [张量的属性和方法](#张量的属性和方法)
@@ -15,20 +15,17 @@
 
 ## 概述
 
-张量是MindSpore网络运算中的基本数据结构，即为多维数组。张量里的数据分为不同的类型，
-支持的类型有`int8`、`int16`、`int32`、`int64`、`uint8`、`uint16`、`uint32`、`uint64`、`float16`、`float32`、`float64`、`bool_`，
-与NumPy里的数据类型一一对应。
+张量（Tensor）是MindSpore网络运算中的基本数据结构。张量中的数据类型可参考[dtype](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dtype.html)。
 
 不同维度的张量分别表示不同的数据，0维张量表示标量，1维张量表示向量，2维张量表示矩阵，3维张量可以表示彩色图像的RGB三通道等等。
 
-> 本文档中的所有示例，都是在PyNative模式下运行的，暂不支持CPU。
+> 本文中的所有示例，支持在PyNative模式下运行，暂不支持CPU。
   
 ## 张量构造
 
-构造张量时支持传入`Tensor`、`float`、`int`、`bool`、`tuple`、`list`和`NumPy.array`。
+构造张量时，支持传入`Tensor`、`float`、`int`、`bool`、`tuple`、`list`和`NumPy.array`类型。
 
-`Tensor`作为初始值可指定dtype，如果没有指定dtype，`int`、`float`、`bool`分别对应`int32`、`float32`、`bool_`，
-`tuple`和`list`生成的1维`Tensor`数据类型与`tuple`和`list`里存放数据的类型相对应。
+`Tensor`作为初始值时，可指定dtype，如果没有指定dtype，`int`、`float`、`bool`分别对应`int32`、`float32`、`bool_`，`tuple`和`list`生成的1维`Tensor`数据类型与`tuple`和`list`里存放数据的类型相对应。
 
 代码样例如下：
 
@@ -65,6 +62,7 @@ True
 ```
   
 ## 张量的属性和方法
+
 ### 属性
 
 张量的属性包括形状（shape）和数据类型（dtype）。
@@ -94,8 +92,8 @@ print(x_shape, x_dtype)
 ### 方法
 
 张量的方法包括`all`、`any`和`asnumpy`。
-- `all(axis, keep_dims)`：在指定维度上通过`and`操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
-- `any(axis, keep_dims)`：在指定维度上通过`or`操作进行归约，axis代表归约维度，keep_dims表示是否保留归约后的维度。
+- `all(axis, keep_dims)`：在指定维度上通过`and`操作进行归约，`axis`代表归约维度，`keep_dims`表示是否保留归约后的维度。
+- `any(axis, keep_dims)`：在指定维度上通过`or`操作进行归约，参数含义同`all`。
 - `asnumpy()`：将`Tensor`转换为NumPy的array。
 
 代码样例如下：

@@ -4,24 +4,23 @@
 
 - [常用网络组件](#常用网络组件)
     - [概述](#概述)
-    - [GradOperation](#GradOperation)
-    - [WithLossCell](#WithLossCell)
-    - [TrainOneStepCell](#TrainOneStepCell)
+    - [GradOperation](#gradoperation)
+    - [WithLossCell](#withlosscell)
+    - [TrainOneStepCell](#trainonestepcell)
 
 <!-- /TOC -->
 
 ## 概述
 
-MindSpore封装一些常用的网络组件，用于网络的训练，推理，求梯度和数据处理等。
+MindSpore封装了一些常用的网络组件，用于网络的训练、推理、求梯度和数据处理等操作。
 
 这些网络组件可以直接被用户使用，同样也会在`model.train`和`model.eval`等更高级的封装接口内部进行使用。
 
-本节内容将会介绍三个网络组件，分别是`GradOperation`，`WithLossCell`和`TrainOneStepCell`，将会从功能，用户使用和内部使用三个方面来进行介绍。
+本节内容将会介绍三个网络组件，分别是`GradOperation`、`WithLossCell`和`TrainOneStepCell`，将会从功能、用户使用和内部使用三个方面来进行介绍。
   
 ## GradOperation
 
-GradOperation组件用于生成输入函数的梯度，利用`get_all`，`get_by_list`和`sens_param`参数
-控制梯度的计算方式，细节内容详见API文档。
+GradOperation组件用于生成输入函数的梯度，利用`get_all`、`get_by_list`和`sens_param`参数控制梯度的计算方式，细节内容详见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
 
 GradOperation的使用实例如下：
 
@@ -59,9 +58,7 @@ y = Tensor([[0.01, 0.3, 1.1], [0.1, 0.2, 1.3], [2.1, 1.2, 3.3]], dtype=mstype.fl
 GradNetWrtX(Net())(x, y)
 ```
 
-上面的例子是计算`Net`相对与x的梯度值，首先需要定义网络`Net`作为`GradOperation`的输入，
-实例创建了包含梯度运算的`GradNetWrtX`。调用`GradNetWrtX`是将网络传入`GradOperation`生成梯度函数，
-将输入数据传入梯度函数中返回最终结果。
+上面的例子是计算`Net`相对与x的梯度值，首先需要定义网络`Net`作为`GradOperation`的输入，实例创建了包含梯度运算的`GradNetWrtX`。调用`GradNetWrtX`是将网络传入`GradOperation`生成梯度函数，将输入数据传入梯度函数中返回最终结果。
 
 输出如下：
 
@@ -76,7 +73,7 @@ MindSpore涉及梯度计算的其他组件，例如`WithGradCell`和`TrainOneSte
 
 ## WithLossCell
 
-`WithLossCell`本质上是一个包含损失函数的`Cell`, 构造`WithLossCell`需要事先定义好网络和损失函数。
+`WithLossCell`本质上是一个包含损失函数的`Cell`，构造`WithLossCell`需要事先定义好网络和损失函数。
 
 下面通过一个实例来介绍其具体的使用， 首先需要构造一个网络，内容如下：
 
@@ -124,8 +121,7 @@ class LeNet(nn.Cell):
         return output
 ```
 
-下面是`WithLossCell`的使用实例，分别定义好网络和损失函数，然后创建一个`WithLossCell`，
-然后传入输入数据和标签数据，`WithLossCell`内部根据网络和损失函数返回计算结果
+下面是`WithLossCell`的使用实例，分别定义好网络和损失函数，然后创建一个`WithLossCell`，传入输入数据和标签数据，`WithLossCell`内部根据网络和损失函数返回计算结果。
 ```
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
@@ -137,7 +133,7 @@ print("+++++++++Loss+++++++++++++")
 print(loss)
 ```
 
-输出结果如下：
+输出如下：
 ```
 +++++++++Loss+++++++++++++
 2.302585
@@ -167,10 +163,9 @@ for i in range(5):
     print(res)
 ```
 
-用例中构造了优化器和一个`WithLossCell`的实例，然后传入`TrainOneStepCell` 中初始化一个训练网络，用例循环五次，相当于网络训练了五次，
-并输出每次的loss结果，由结果可以看出每次训练后loss值在逐渐减小。
+用例中构造了优化器和一个`WithLossCell`的实例，然后传入`TrainOneStepCell`中初始化一个训练网络，用例循环五次，相当于网络训练了五次，并输出每次的loss结果，由结果可以看出每次训练后loss值在逐渐减小。
 
-输出结果如下：
+输出如下：
 ```
 +++++++++result:0++++++++++++
 2.302585

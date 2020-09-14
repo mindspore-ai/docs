@@ -11,6 +11,8 @@ MindSpore API
    :caption: 编程指南
 
    programming_guide/api_structure
+   programming_guide/data_type
+   programming_guide/compute_component
 
 .. toctree::
    :maxdepth: 1
