@@ -8,7 +8,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/api_structure.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/api_structure.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 设计理念
 
