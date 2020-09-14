@@ -99,7 +99,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     # apply map operations on images
     if not sparse:
         one_hot_enco = C.OneHot(10)
-        ds1 = ds1.map(input_columns="label", operations=one_hot_enco,
+        ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
         type_cast_op = C.TypeCast(mstype.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",

@@ -154,8 +154,8 @@ for data in mnist_dataset.create_dict_iterator():
 1. 导入相关模块，重新加载数据集。
 
     ```python
-    from mindspore.dataset.transforms.vision import Inter
-    import mindspore.dataset.transforms.vision.c_transforms as transforms
+    from mindspore.dataset.vision import Inter
+    import mindspore.dataset.vision.c_transforms as transforms
 
     # 重新加载数据集
     mnist_dataset = ds.MnistDataset(DATA_DIR, num_samples=6, shuffle=False)
@@ -167,7 +167,7 @@ for data in mnist_dataset.create_dict_iterator():
     resize_op = transforms.Resize(size=(200,200), interpolation=Inter.LINEAR)
     crop_op = transforms.RandomCrop(150)
     transforms_list = [resize_op, crop_op]
-    ds4 = mnist_dataset.map(input_columns="image", operations=transforms_list)
+    ds4 = mnist_dataset.map(operations=transforms_list, input_columns="image")
     ```
 
 3. 查看数据增强效果。

@@ -67,7 +67,7 @@ from mindspore.train.serialization import load_checkpoint, load_param_into_net
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.dataset.vision.import Inter
+from mindspore.dataset.vision import Inter
 import mindspore.common.dtype as mstype
 
 from mindarmour.diff_privacy import DPModel
@@ -86,7 +86,7 @@ TAG = 'Lenet5_train'
 ### 参数配置
 
 1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_config.py>。
-   
+
    ```python
    cfg = edict({
         'num_classes': 10,  # the number of classes of model's output
@@ -151,7 +151,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     # apply map operations on images
     if not sparse:
         one_hot_enco = C.OneHot(10)
-        ds1 = ds1.map(input_columns="label", operations=one_hot_enco,
+        ds1 = ds1.map(operations=one_hot_enco, input_columns="label",
                       num_parallel_workers=num_parallel_workers)
         type_cast_op = C.TypeCast(mstype.float32)
     ds1 = ds1.map(operations=type_cast_op, input_columns="label",
@@ -324,17 +324,17 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     acc = model.eval(ds_eval, dataset_sink_mode=False)
     LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
    ```
-   
+
 4. 运行命令。
-    
+
    运行脚本，可在命令行输入命令：
-   
+
    ```bash
    python lenet_dp.py
    ```
-   
+
    其中`lenet5_dp.py`替换成你的脚本的名字。
-    
+
 5. 结果展示。
 
    不加差分隐私的LeNet模型精度稳定在99%，加了Gaussian噪声，自适应Clip的差分隐私LeNet模型收敛，精度稳定在95%左右。
@@ -345,7 +345,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
    ...
    ============== Accuracy: 0.9698  ==============
    ```
-     
+
 ### 引用
 
 [1] C. Dwork and J. Lei. Differential privacy and robust statistics. In STOC, pages 371–380. ACM, 2009.
@@ -353,6 +353,3 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 [2] Ilya Mironov. Rényi diﬀerential privacy. In IEEE Computer Security Foundations Symposium, 2017.
 
 [3] Abadi, M. e. a., 2016. *Deep learning with differential privacy.* s.l.:Proceedings of the 2016 ACM SIGSAC Conference on Computer and Communications Security.
-
-
-

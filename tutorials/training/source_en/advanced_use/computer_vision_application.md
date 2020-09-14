@@ -119,8 +119,8 @@ tar -zvxf cifar-10-binary.tar.gz
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
 
     # apply map operations on images
-    cifar_ds = cifar_ds.map(input_columns="label", operations=type_cast_op)
-    cifar_ds = cifar_ds.map(input_columns="image", operations=c_trans)
+    cifar_ds = cifar_ds.map(operations=type_cast_op, input_columns="label")
+    cifar_ds = cifar_ds.map(operations=c_trans, input_columns="image")
     ```
 
 3. Shuffle and batch process the data.

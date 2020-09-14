@@ -105,7 +105,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     3. 执行操作。
 
         ```python
-        dataset = dataset.map(input_columns=["text"], operations=text.SlidingWindow(2, 0))
+        dataset = dataset.map(operations=text.SlidingWindow(2, 0), input_columns=["text"])
         ```
 
     4. 执行之后输出效果。
