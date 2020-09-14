@@ -41,7 +41,7 @@
   import os
   import mindspore.dataset as ds
   from mindspore.mindrecord import FileWriter
-  import mindspore.dataset.transforms.vision.c_transforms as vision
+  import mindspore.dataset.vision.c_transforms as vision
   from PIL import Image
 
   ################################ 生成MindRecord文件 ################################
@@ -91,7 +91,7 @@
 
   data_set = ds.MindDataset(dataset_file=mindrecord_filename)  # 创建读取对象，默认开启shuffle
   decode_op = vision.Decode()
-  data_set = data_set.map(input_columns=["data"], operations=decode_op, num_parallel_workers=2)  # 解码data字段
+  data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)  # 解码data字段
   count = 0
   for item in data_set.create_dict_iterator():                 # 循环读取MindRecord中所有数据
       print("sample: {}".format(item))
@@ -421,7 +421,7 @@ MindSpore提供转换常见数据集的工具类，能够将常见的经典数�
   import os
   import mindspore.dataset as ds
   from mindspore.mindrecord import TFRecordToMR
-  import mindspore.dataset.transforms.vision.c_transforms as vision
+  import mindspore.dataset.vision.c_transforms as vision
   from PIL import Image
   import tensorflow as tf    # 需要tensorflow >= 2.1.0
 
@@ -512,7 +512,7 @@ MindSpore提供转换常见数据集的工具类，能够将常见的经典数�
 
   data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  # 创建读取对象，默认开启shuffle
   decode_op = vision.Decode()
-  data_set = data_set.map(input_columns=["image_bytes"], operations=decode_op, num_parallel_workers=2)  # 解码图像字段
+  data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)  # 解码图像字段
   count = 0
   for item in data_set.create_dict_iterator():                 # 循环读取MindRecord中所有数据
       print("sample: {}".format(item))

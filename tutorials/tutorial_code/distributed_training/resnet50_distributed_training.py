@@ -67,8 +67,8 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
 
     # apply map operations on images
-    data_set = data_set.map(input_columns="label", operations=type_cast_op)
-    data_set = data_set.map(input_columns="image", operations=c_trans)
+    data_set = data_set.map(operations=type_cast_op, input_columns="label")
+    data_set = data_set.map(operations=c_trans, input_columns="image")
 
     # apply shuffle operations
     data_set = data_set.shuffle(buffer_size=10)

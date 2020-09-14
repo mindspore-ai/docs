@@ -62,9 +62,10 @@
   from mindspore import context, Tensor, nn
   from mindspore.train.model import Model
   from mindspore.common import dtype as mstype
-  from mindspore.dataset.transforms import py_transforms
+  from mindspore.dataset.transforms.py_transforms import Compose
   from PIL import Image
   import cv2
+  import mindspore.dataset.vision.py_transforms as py_transforms
   
   context.set_context(mode=context.GRAPH_MODE,
                       device_target="Ascend",
@@ -73,7 +74,7 @@
   model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
   
   image = Image.open('cifar10/a.jpg')
-  transforms = py_transforms.ComposeOp([py_transforms.ToTensor()])
+  transforms = Compose([py_transforms.ToTensor()])
   
   # Initialize the number of classes based on the pre-trained model.
   network = mshub.load(model, num_classes=10)
