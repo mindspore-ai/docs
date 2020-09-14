@@ -127,7 +127,7 @@ MindSpore框架在nn的layer层内置了丰富的接口，主要内容如下：
 
   卷积层提供了一些卷积计算的功能，如普通卷积，深度卷积和卷积转置等。
   
-  主要接口有Conv2d，Conv1d，Conv2dTranspose，DepthwiseConv2d，Conv1dTranspose等。
+  主要接口有Conv2d，Conv1d，Conv2dTranspose，Conv1dTranspose等。
 
 - 池化层：
   
