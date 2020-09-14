@@ -11,7 +11,9 @@
         - [自定义Callback](#自定义callback)
     - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
     - [print算子功能介绍](#print算子功能介绍)
-    - [异步数据Dump功能介绍](#异步数据dump功能介绍)
+    - [数据Dump功能介绍](#数据dump功能介绍)
+        - [同步Dump功能介绍](#同步dump功能介绍)
+        - [异步Dump功能介绍](#异步dump功能介绍)
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
@@ -228,48 +230,105 @@ val:[[1 1]
 [1 1]]
 ```
 
-## 异步数据Dump功能介绍
+## 数据Dump功能介绍
 
-在Ascend环境上执行训练，当训练结果和预期有偏差时，可以通过异步数据Dump功能保存算子的输入输出进行调试。
+训练网络时，当训练结果和预期有偏差时，可以通过数据Dump功能保存算子的输入输出进行调试。Dump功能分为同步Dump和异步Dump，同步Dump同时支持GPU和Ascend，而异步Dump只支持Ascend。
 
-> 异步数据Dump不支持`comm_ops`类别的算子，算子类别详见[算子支持列表](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html)。
+### 同步Dump功能介绍
 
-1. 开启IR保存开关： `context.set_context(save_graphs=True)`。
-2. 执行网络脚本。
-3. 查看执行目录下的`hwopt_d_end_graph_{graph id}.ir`，找到需要Dump的算子名称。
-4. 配置Dump的json配置文件`data_dump.json`。
+1. 创建配置文件`data_dump.json`。
+
+    JSON文件的名称和位置可以自定义设置。
 
     ```json
     {
-        "DumpSettings": {
-            "net_name": "ResNet50",
+        "common_dump_settings": {
             "dump_mode": 0,
-            "op_debug_mode": 0,
+            "path": "/tmp/net/",
+            "net_name": "ResNet50",
             "iteration": 0,
-            "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
+            "input_output": 0,
+            "kernels": ["Default/Conv-op12"],
+            "support_device": [0,1,2,3,4,5,6,7]
+        },
+        "e2e_dump_settings": {
+            "enable": false,
+            "trans_flag": false
         }
     }
     ```
 
-    > - `net_name`：自定义的网络名称，例如："Resnet50"。
-    > - `dump_mode`：设置成0，表示Dump所有的算子；设置成1，表示Dump`"kernel"`里面制定的算子。
-    > - `op_debug_mode`：该属性用于算子溢出调试，在使用Dump功能的时候，请设置成0。
-    > - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
-    > - `kernels`：指定需要Dump的算子名称(`fullname_with_scope`)。
+    - `dump_mode`：设置成0，表示Dump出改网络中的所有算子；设置成1，表示Dump`"kernels"`里面制定的算子。
+    - `path`：Dump保存数据的绝对路径。
+    - `net_name`：自定义的网络名称，例如："ResNet50"。
+    - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
+    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
+    - `kernels`：算子的全称，可以通过开启IR保持开关`context.set_context(save_graphs=True)`执行用例，从生成的`hwopt_d_end_graph_{graph_id}.ir`文件获取。
+    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
+    - `enable`：开启E2E Dump。
+    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。
 
-5. 设置数据Dump的环境变量。
+2. 指定Dump的json配置文件。
 
     ```bash
-    export ENABLE_DATA_DUMP=1
-    export DATA_DUMP_PATH=/test
-    export DATA_DUMP_CONFIG_PATH=data_dump.json
+    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
     ```
 
-    > - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    > - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
 
-6. 再次执行用例进行异步数据Dump。
-7. 解析文件。
+3. 执行用例Dump数据。
+
+4. 解析Dump数据。
+    
+    通过`numpy.fromfile`读取Dump数据文件即可解析。
+
+### 异步Dump功能介绍
+
+1. 创建配置文件`data_dump.json`。
+
+    JSON文件的名称和位置可以自定义设置。
+
+    ```json
+    {
+        "common_dump_settings": {
+            "dump_mode": 0,
+            "path": "/test",
+            "net_name": "ResNet50",
+            "iteration": 0,
+            "input_output": 0,
+            "kernels": ["Default/Conv-op12"],
+            "support_device": [0,1,2,3,4,5,6,7]
+        },
+        "async_dump_settings": {
+            "enable": false,
+            "op_debug_mode": 0
+        }
+    }
+    ```
+
+    - `dump_mode`：设置成0，表示Dump出改网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
+    - `path`：Dump保存数据的相对路径，异步Dump生成的数据都会保存在`/var/log/npu/ide_deam/dump/`目录下。
+    - `net_name`：自定义的网络名称，例如："ResNet50"。
+    - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
+    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
+    - `kernels`：算子的全称。开启IR保持开关`context.set_context(save_graphs=True)`并执行用例，从生成的`hwopt_d_end_graph_{graph_id}.ir`文件获取。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。
+    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
+    - `enable`：开启异步Dump。
+    - `op_debug_mode`：该属性用于算子溢出调试，在使用Dump功能的时候，请设置成0。
+
+2. 设置数据Dump的环境变量。
+
+    ```bash
+    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
+    ```
+
+    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
+    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+
+3. 执行用例Dump数据。
+
+4. 解析文件。
 
     执行完用例后去`/var/log/npu/ide_daemon/dump/`目录下，运行如下命令解析Dump数据：
 
