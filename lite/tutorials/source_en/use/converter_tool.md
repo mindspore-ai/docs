@@ -119,9 +119,7 @@ The following describes the parameters in detail.
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- Compile: The model conversion tool code is in the `mindspore/lite/tools/converter` directory of the MindSpore source code, refer to the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements-1) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example-1) in the build document.
-
-- Run: Refer to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description-1) in the deployment document to obtain the `converter` tool, and set the environment variable of MinGW(Add the bin directory of MinGW in the system variable Path).
+- Get the toolkit: To obtain the 'Converter' tool, download the zip package of windows conversion tool and unzip it to the local directory.
 
 ### Parameter Description
 
@@ -129,12 +127,7 @@ Reference description Linux environment model conversion tool [parameter descrip
 
 ### Example
 
-First, use the cmd tool to enter the command to compile in the root directory of the source code, refer to `build.md`.
-```bash
-call build.bat lite
-```
-
-Then, set the log printing level to INFO.
+At first, set the log printing level to INFO.
 ```bash
 set MSLOG=INFO
 ```

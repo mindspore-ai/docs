@@ -9,12 +9,7 @@
         - [编译示例](#编译示例)
         - [编译输出](#编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)
-    - [Windows环境编译](#windows环境编译)  
-        - [环境要求](#环境要求-1)
-        - [编译选项](#编译选项-1)
-        - [编译示例](#编译示例-1)
-        - [编译输出](#编译输出-1)               
+            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)              
 
 <!-- /TOC -->
 
@@ -24,7 +19,7 @@
 
 | 模块 | 支持平台 | 说明 |
 | --- | ---- | ---- |
-| converter | Linux、Windows | 模型转换工具 |
+| converter | Linux | 模型转换工具 |
 | runtime | Linux、Android | 模型推理框架 |
 | benchmark | Linux、Android | 基准测试工具 |
 | time_profiler | Linux、Android | 性能分析工具 |
@@ -184,50 +179,3 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 > 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
 > 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
 > 3. 运行converter、benchmark或time_profile目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`。
-
-## Windows环境编译
-
-### 环境要求
-
-- 支持的编译环境为：Windows 10，64位。
-
-- 编译依赖
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
-  - [Python](https://www.python.org/) >= 3.7.5
-
-> 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
-
-### 编译选项
-
-MindSpore Lite的编译选项如下。
-
-| 参数  |  参数说明  | 是否必选 |
-| -------- | ----- | ---- | 
-| **lite** | **设置该参数，则对Mindspore Lite工程进行编译** | **是** |
-| [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
-
-### 编译示例
-
-首先，使用git工具从MindSpore代码仓下载源码。
-
-```bash
-git clone https://gitee.com/mindspore/mindspore.git
-```
-
-然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
-
-- 以默认线程数（6线程）编译Windows版本。
-    ```bash
-    call build.bat lite
-    ```
-- 以指定线程数8编译Windows版本。
-    ```bash
-    call build.bat lite 8
-    ```
-
-### 编译输出
-
-编译完成之后，进入`mindspore/output/`目录，解压后即可获取输出件`mindspore-lite-{version}-converter-win-cpu.zip`，其中含有转换工具可执行文件。
-
-> version：输出件版本号，与所编译的分支代码对应的版本一致。
