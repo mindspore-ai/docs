@@ -15,7 +15,6 @@ MindSpore API
    mindspore/mindspore.common.initializer
    mindspore/mindspore.communication
    mindspore/mindspore.context
-   mindspore/mindspore.hub
    mindspore/mindspore.nn
    mindspore/mindspore.nn.dynamic_lr
    mindspore/mindspore.nn.learning_rate_schedule

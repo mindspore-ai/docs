@@ -82,17 +82,16 @@ MindSpore supports the following inference scenarios based on the hardware platf
 
     1.2 Remote Storage
     
-    When the pre-trained models are saved remotely, the steps of performing inference on validation dataset are as follows: firstly creating a model, then loading model and parameters using `hub.load_weights`, and finally performing inference on validation dataset once created. The processing method of the validation dataset is the same as that of the training dataset.
+    When the pre-trained models are saved remotely, the steps of performing inference on validation dataset are as follows: firstly determine which model to be used, then loading model and parameters using `mindspore_hub.load`, and finally performing inference on validation dataset once created. The processing method of the validation dataset is the same as that of the training dataset.
 
     ```python
-    network = LeNet5(cfg.num_classes)
+    model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
+    network = mindspore_hub.load(model_uid, num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     print("============== Starting Testing ==============")
-    hub.load_weights(network, network_name="lenet", **{"device_target":
-                     "ascend", "dataset":"mnist", "version": "0.5.0"})
     dataset = create_dataset(os.path.join(args.data_path, "test"),
                              cfg.batch_size,
                              1)
@@ -101,7 +100,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
     ``` 
     In the preceding information:
         
-    `hub.load_weights` is an API for loading model parameters. PLease check the details in <https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.hub.html#mindspore.hub.load_weights>.
+    `mindpsore_hub.load` is an API for loading model parameters. PLease check the details in <https://www.mindspore.cn/api/en/master/api/python/mindspore_hub/mindspore_hub.html#module-mindspore_hub>.
 
 2. Use the `model.predict` API to perform inference.
    ```python

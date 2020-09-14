@@ -79,18 +79,17 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
     `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.Model.eval>。
     > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
 
-   1.2 模型保存在华为云
+   1.2 使用MindSpore Hub从华为云加载模型
     
-   首先构建模型，然后使用`hub.load_weights`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
+   首先构建模型，然后使用`mindspore_hub.load`从云端加载模型参数，传入验证数据集后即可进行推理，验证数据集的处理方式与训练数据集相同。
     ```python
-    network = LeNet5(cfg.num_classes)
+    model_uid = "mindspore/ascend/0.7/googlenet_v1_cifar10"  # using GoogleNet as an example.
+    network = mindspore_hub.load(model_uid, num_classes=10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), cfg.lr, cfg.momentum)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
     print("============== Starting Testing ==============")
-    hub.load_weights(network, network_name="lenet", **{"device_target":
-                     "ascend", "dataset":"mnist", "version": "0.5.0"})
     dataset = create_dataset(os.path.join(args.data_path, "test"),
                              cfg.batch_size,
                              1)
@@ -98,7 +97,7 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
     print("============== {} ==============".format(acc))
     ``` 
     其中，  
-    `hub.load_weights`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.hub.html#mindspore.hub.load_weights>。
+    `mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore_hub/mindspore_hub.html?highlight=hub#module-mindspore_hub>。
 
 2. 使用`model.predict`接口来进行推理操作。
    ```python
