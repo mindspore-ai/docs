@@ -91,7 +91,7 @@ Normalize image, currently the supports data type is float.
     Return True or False.
 
 ```
-bool Padd(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
+bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
 ```
 
 Padd image, the channel supports is 3 and 1.
