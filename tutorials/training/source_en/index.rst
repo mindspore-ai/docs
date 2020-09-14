@@ -22,7 +22,6 @@ MindSpore Tutorials
    use/data_preparation/data_preparation
    use/defining_the_network
    use/saving_and_loading_model_parameters
-   use/multi_platform_inference
 
 .. toctree::
    :glob:
@@ -52,13 +51,6 @@ MindSpore Tutorials
    advanced_use/graph_kernel_fusion
    advanced_use/quantization_aware
    advanced_use/gradient_accumulation
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: Inference Service
-
-   advanced_use/serving
 
 .. toctree::
    :glob:

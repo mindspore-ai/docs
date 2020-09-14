@@ -10,7 +10,6 @@ MindSpore Lite Documentation
    :glob:
    :maxdepth: 1
 
-   architecture
-   apicc/apicc
-   operator_list
-   glossary
+   architecture_lite
+   operator_list_lite
+   glossary_lite
