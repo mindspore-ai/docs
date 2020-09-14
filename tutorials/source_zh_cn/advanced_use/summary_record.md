@@ -373,3 +373,5 @@ mindinsight stop
     ```
 
 3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
+
+4. 当前 `SummaryCollector` 和 `SummaryRecord` 不支持GPU多卡运行的场景。

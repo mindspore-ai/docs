@@ -367,3 +367,5 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
 3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
+
+4. Currently, `SummaryCollector` and `SummaryRecord` do not support scenarios with GPU multi-card running.
