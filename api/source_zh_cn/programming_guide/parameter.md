@@ -15,21 +15,27 @@
 
 ## 概述
 
-`Parameter`是变量张量，代表在训练网络时，需要被更新的参数，是`MetaTensor`的一个子类。
-`
+`Parameter`是变量张量，代表在训练网络时，需要被更新的参数。本章主要介绍了`Parameter`的初始化以及属性和方法的使用，同时介绍了`ParameterTuple`。
+
 ## 初始化
 ```
 def __init__(self, default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
 
-- `Initializer`是初始化器，保存了shape和dtype信息，可调用`to_tensor`方法生成存有数据的Tensor。
+`Initializer`是初始化器，保存了shape和dtype信息，提供`to_tensor`方法生成存有数据的`Tensor`，可调用`initializer`接口生成`Initializer`对象。
 
-- 当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。`MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
+当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。
 
-- 可为每个`Parameter`指定一个名称，便于后续操作和更新。
+`MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
 
-- 当`layerwise_parallel`为`True`时，参数广播和参数梯度聚合时会过滤掉该参数。
+可为每个`Parameter`指定一个名称，便于后续操作和更新。
+
+当参数需要被更新时，需要将`requires_grad`设置为`True`。
+
+当`layerwise_parallel`（混合并行）配置为True时，参数广播和参数梯度聚合时会过滤掉该参数。
+
+有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/api/zh-CN/master/programming_guide/auto_parallel_context.html>。
 
 下例通过三种不同的数据类型构造了`Parameter`，三个`Parameter`都需要更新，都不采用layerwise并行。如下：
 ```
@@ -70,7 +76,8 @@ Parameter (name=z, value=2.0)
 
   如果是，就不再对其进行切分，如果不是，需要根据网络并行策略确认是否对其进行切分。
 
-- `is_init`：`Parameter`的初始化状态。
+- `is_init`：`Parameter`的初始化状态。在GE后端，Parameter需要一个`init graph`来从主机同步数据到设备侧，该标志表示数据是否已同步到设备。
+  此标志仅在GE后端起作用，其他后端将被设置为False。
 
 - `layerwise_parallel`：`Parameter`是否支持layerwise并行。如果支持，参数就不会进行广播和梯度聚合，反之则需要。
 
@@ -119,7 +126,7 @@ data:  Parameter (name=x, value=[[0 1 2]
 - `set_data`：设置`Parameter`保存的数据，支持传入`Tensor`、`Initializer`、`int`和`float`进行设置，
   将slice_shape设置为True时，可改变`Parameter`的shape，反之，设置的数据shape必须与`Parameter`原来的shape保持一致。
 
-- `set_param_ps`：控制训练参数是否通过[Parameter Server](https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/parameter_server_training.md)进行训练。
+- `set_param_ps`：控制训练参数是否通过[Parameter Server](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/parameter_server_training.html)进行训练。
 
 - `clone`：克隆`Parameter`，需要指定克隆之后的参数名称。
 

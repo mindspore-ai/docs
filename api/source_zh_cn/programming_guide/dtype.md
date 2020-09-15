@@ -18,6 +18,21 @@ MindSpore张量支持不同的数据类型，包含`int8`、`int16`、`int32`、
 
 详细的类型支持情况请参考<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dtype.html>。
 
+以下代码，打印MindSpore的数据类型int32。
+```
+from mindspore import dtype as mstype
+
+data_type = mstype.int32
+print(data_type)
+```
+
+输出如下：
+
+```
+Int32
+```
+
+
 ## 数据类型转换接口
 
 MindSpore提供了以下几个接口，实现与NumPy数据类型和Python内置的数据类型间的转换。
