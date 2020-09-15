@@ -105,7 +105,7 @@ context.get_auto_parallel_context("gradients_mean")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(parallel_mode=“auto_parallel”)
+context.set_auto_parallel_context(parallel_mode="auto_parallel")
 context.get_auto_parallel_context("parallel_mode")
 ```
 
@@ -162,7 +162,7 @@ MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(auto_parallel_search_mode=“dynamic_programming”)
+context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
 context.get_auto_parallel_context("auto_parallel_search_mode")
 ```
 
@@ -175,7 +175,7 @@ context.get_auto_parallel_context("auto_parallel_search_mode")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(strategy_ckpt_load_file=“./”)
+context.set_auto_parallel_context(strategy_ckpt_load_file="./")
 context.get_auto_parallel_context("strategy_ckpt_load_file")
 ```
 
@@ -188,7 +188,7 @@ context.get_auto_parallel_context("strategy_ckpt_load_file")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(strategy_ckpt_save_file=“./”)
+context.set_auto_parallel_context(strategy_ckpt_save_file="./")
 context.get_auto_parallel_context("strategy_ckpt_save_file")
 ```
 
