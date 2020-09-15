@@ -20,16 +20,16 @@
 
 使用TimeProfiler工具，需要进行如下环境准备工作。
 
-- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profile`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id3)执行编译。
+- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profiler`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id3)执行编译。
 
-- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)，获得`timeprofile`工具，并配置环境变量。
+- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)，获得`timeprofiler`工具，并配置环境变量。
 
 ## 使用示例
 
 使用TimeProfiler对`test_timeprofiler.ms`模型的网络层进行耗时分析，并且设置模型推理循环运行次数为10，则其命令代码如下：
 
 ```bash
-./timeprofile --modelPath=./models/test_timeprofiler.ms --loopCount=10
+./timeprofiler --modelPath=./models/test_timeprofiler.ms --loopCount=10
 ```
 
 该条命令执行后，TimeProfiler工具会输出模型网络层运行耗时的相关统计信息。对于本例命令，输出的统计信息如下。其中统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimess`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
@@ -77,7 +77,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 使用编译好的TimeProfiler工具进行模型网络层耗时分析时，其命令格式如下所示。
 
 ```bash
-./timeprofile --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
+./timeprofiler --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
 ```
 
 下面提供详细的参数说明。
