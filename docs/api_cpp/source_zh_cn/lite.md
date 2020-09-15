@@ -1,10 +1,10 @@
 # mindspore::lite
 
-#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/context.h)&gt;
 
-#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/model.h)&gt;
 
-#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
+#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/version.h)&gt;
 
 
 ## Allocator
@@ -24,24 +24,6 @@ Context()
 用默认参数构造MindSpore Lite Context 对象。
 
 ```
-Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx)
-```
-
-根据输入参数构造MindSpore Lite Context 对象。
-
-- 参数
-
-    - `thread_num`: 定义了执行线程数。
-
-    - `allocator`: 定义了内存分配器。
-
-    - `device_ctx`: 定义了设备信息。
-
-- 返回值
-  
-    MindSpore Lite Context 指针。
-
-```
 ~Context()
 ```
 
@@ -53,13 +35,13 @@ MindSpore Lite Context 的析构函数。
 float16_priority
 ```
 
-**bool** 值，默认为**false**，用于使能float16 推理。
+**bool**值，默认为**false**，用于使能float16 推理。
 
 ```
-device_ctx_{DT_CPU}
+device_type
 ```
 
-[**DeviceContext**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#devicecontext)结构体。用于设置设备信息。
+[**DeviceType**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
 
 ```
 thread_num_
@@ -71,13 +53,13 @@ thread_num_
 allocator
 ```
 
-指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#allocator)的指针。
+指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#allocator)的指针。
 
 ```
 cpu_bind_mode_ 
 ```
 
-[**CpuBindMode**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
+[**CpuBindMode**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
 
 ## PrimitiveC
 
@@ -172,18 +154,6 @@ DT_NPU = 0
 ```
 
 设备为NPU，暂不支持。
-
-## DeviceContext
-
-定义设备类型的结构体。
-
-**属性**
-
-```
-type
-```
-
-[**DeviceType**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#devicetype) 变量。设备类型。
 
 ## Version
 
