@@ -1,6 +1,6 @@
 # Distributed Training Design
 
-`Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
+`Linux` `Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
