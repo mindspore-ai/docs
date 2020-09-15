@@ -13,6 +13,7 @@
 | RET_NO_CHANGE | -4 | 无改变。 |
 | RET_SUCCESS_EXIT | -5 | 无错误退出。 |
 | RET_MEMORY_FAILED | -6 | 创建内存失败。 |
+| RET_NOT_SUPPORT | -7 | 尚未支持。 |
 | RET_OUT_OF_TENSOR_RANGE | -101 | 输出检查越界。 |
 | RET_INPUT_TENSOR_ERROR | -102 | 输入检查越界。 |
 | RET_REENTRANT_ERROR | -103 | 存在运行中的执行器。 |
@@ -24,6 +25,8 @@
 | RET_FORMAT_ERR | -401 | 张量格式检查失败。 |
 | RET_INFER_ERR | -501 | 维度推理失败。 |
 | RET_INFER_INVALID | -502 | 无效的维度推理。 |
+| RET_INPUT_PARAM_INVALID | -601 | 无效的用户输入参数。 |
+| RET_INPUT_PARAM_LACK | -602 | 缺少必要的输入参数。 |
 
 ## MetaType
 
