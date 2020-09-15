@@ -1,6 +1,6 @@
 # 模型脚本迁移
 
-`Ascend` `模型开发` `初级` `Linux`
+`Linux` `Ascend` `模型开发` `初级` `Linux`
 
 <!-- TOC -->
 

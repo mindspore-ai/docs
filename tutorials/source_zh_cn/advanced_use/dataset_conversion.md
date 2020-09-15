@@ -1,6 +1,6 @@
 # MindSpore数据格式转换
 
-`Ascend` `GPU` `CPU` `初级` `中级` `高级`
+ `Linux` `Ascend` `GPU` `CPU` `初级` `中级` `高级`
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
