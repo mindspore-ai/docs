@@ -76,11 +76,10 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
 
 ```bash
 ./benchmark [--modelPath=<MODELPATH>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
-			[--calibDataPath=<CALIBDATAPATH>] [--cpuBindMode=<CPUBINDMODE>]
-			[--device=<DEVICE>] [--help] [--inDataPath=<INDATAPATH>]
-			[--inDataType=<INDATATYPE>] [--loopCount=<LOOPCOUNT>]
-			[--numThreads=<NUMTHREADS>] [--omModelPath=<OMMODELPATH>]
-			[--resizeDims=<RESIZEDIMS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+			[--calibDataPath=<CALIBDATAPATH>] [--calibDataType=<CALIBDATATYPE>]
+			[--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
+			[--inDataPath=<INDATAPATH>] [--loopCount=<LOOPCOUNT>]
+			[--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
 			[--fp16Priority=<FP16PRIORITY>]
 ```
 
