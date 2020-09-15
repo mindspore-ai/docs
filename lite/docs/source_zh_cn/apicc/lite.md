@@ -21,31 +21,13 @@ Context类用于保存执行中的环境变量。
 Context()
 ```
 
-用默认参数构造MindSpore Lite Context 对象。
-
-```
-Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx)
-```
-
-根据输入参数构造MindSpore Lite Context 对象。
-
-- 参数
-
-    - `thread_num`: 定义了执行线程数。
-
-    - `allocator`: 定义了内存分配器。
-
-    - `device_ctx`: 定义了设备信息。
-
-- 返回值
-  
-    MindSpore Lite Context 指针。
+用默认参数构造MindSpore Lite Context对象。
 
 ```
 ~Context()
 ```
 
-MindSpore Lite Context 的析构函数。
+MindSpore Lite Context的析构函数。
 
 **公有属性**
 
@@ -53,19 +35,19 @@ MindSpore Lite Context 的析构函数。
 float16_priority
 ```
 
-**bool** 值，默认为**false**，用于使能float16 推理。
+**bool**值，默认为**false**，用于使能float16推理。
 
 ```
-device_ctx_{DT_CPU}
+device_type
 ```
 
-[**DeviceContext**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#devicecontext)结构体。用于设置设备信息。
+[**DeviceType**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
 
 ```
 thread_num_
 ```
 
-**int** 值，默认为**2**，设置线程数。
+**int**值，默认为**2**，设置线程数。
 
 ```
 allocator
@@ -172,18 +154,6 @@ DT_NPU = 0
 ```
 
 设备为NPU，暂不支持。
-
-## DeviceContext
-
-定义设备类型的结构体。
-
-**属性**
-
-```
-type
-```
-
-[**DeviceType**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/lite.html#devicetype) 变量。设备类型。
 
 ## Version
 
