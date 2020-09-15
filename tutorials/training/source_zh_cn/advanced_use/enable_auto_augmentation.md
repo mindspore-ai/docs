@@ -1,10 +1,11 @@
-# 自动数据增强
+# 应用自动数据增强
 
 `Linux` `Ascend` `GPU` `CPU` `中级` `高级`
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [自动数据增强](#自动数据增强)
+<!-- TOC -->
+
+- [应用自动数据增强](#应用自动数据增强)
     - [概述](#概述)
     - [ImageNet自动数据增强](#imagenet自动数据增强)
     - [参考文献](#参考文献)

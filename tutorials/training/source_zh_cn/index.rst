@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore教程
+使用MindSpore进行训练
 =============
 
 .. toctree::
@@ -18,69 +18,73 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用指南
+   :caption: 基础使用
 
    use/data_preparation
    use/defining_the_network
-   use/saving_and_loading_model_parameters
+   use/save_and_load_model
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 处理数据
+
+   advanced_use/converse_dataset
+   advanced_use/enable_cache
+   advanced_use/optimize_data_processing
+   
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 构建网络
+
+   advanced_use/custom_operator
+   advanced_use/migrate_script
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 调试网络
+
+   advanced_use/debug_in_pynative_mode
+   advanced_use/custom_debugging_info
+   advanced_use/visualization_tutorials
+   advanced_use/enable_auto_augmentation
+   advanced_use/synchronization_training_and_evaluation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 优化训练性能
+
+   advanced_use/distributed_training_tutorials
+   advanced_use/enable_mixed_precision
+   advanced_use/enable_graph_kernel_fusion
+   advanced_use/apply_gradient_accumulation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 压缩模型
+
+   advanced_use/apply_quantization_aware_training
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 模型安全和隐私
+
+   advanced_use/improve_model_security_nad
+   advanced_use/improve_model_security_differential_privacy
+   advanced_use/test_model_security_fuzzing
+   advanced_use/test_model_security_membership_inference
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: 应用实践
 
-   advanced_use/computer_vision_application
-   advanced_use/nlp_application
-   advanced_use/second_order_optimizer_for_resnet50_application
-   advanced_use/synchronization_training_and_evaluation
-   advanced_use/bert_poetry
-   advanced_use/optimize_the_performance_of_data_preparation
-   advanced_use/mobilenetv2_incremental_learning
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 模型调优
-
-   advanced_use/debugging_in_pynative_mode
-   advanced_use/customized_debugging_information
-   advanced_use/visualization_tutorials
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 性能优化
-
-   advanced_use/distributed_training_tutorials
-   advanced_use/mixed_precision
-   advanced_use/graph_kernel_fusion
-   advanced_use/quantization_aware
-   advanced_use/gradient_accumulation
-   advanced_use/dataset_conversion
-   advanced_use/auto_augmentation
-   advanced_use/auto_data_acceleration
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 云上使用
-
+   advanced_use/cv
+   advanced_use/nlp   
    advanced_use/use_on_the_cloud
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 网络迁移
-
-   advanced_use/network_migration
-   advanced_use/model_scripts_transformation
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: AI安全和隐私
-
-   advanced_use/model_security
-   advanced_use/differential_privacy
-   advanced_use/fuzzer
-   advanced_use/membership_inference

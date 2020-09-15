@@ -1,10 +1,10 @@
-# 智能写诗
+# 使用BERT网络实现智能写诗
 
 `Linux` `Ascend` `模型训练` `推理应用` `端侧` `高级`
 
 <!-- TOC -->
 
-- [智能写诗](#智能写诗)
+- [使用BERT实现智能写诗](#使用bert实现智能写诗)
     - [案例简介](#案例简介)
     - [模型介绍](#模型介绍)
     - [模型训练](#模型训练)
@@ -18,7 +18,7 @@
         - [训练](#训练)
         - [推理验证](#推理验证)
         - [服务部署](#服务部署)
-    - [参考资料](#参考资料)
+    - [参考文献](#参考文献)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/bert_poetry.md" target="_blank"><img src="../_static/logo_source.png"></a>

@@ -1,14 +1,15 @@
-# MindSpore数据格式转换
+# 转换数据集为MindRecord
 
 `Linux` `Ascend` `GPU` `CPU` `初级` `中级` `高级`
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [MindSpore数据格式转换](#mindspore数据格式转换)
-	- [概述](#概述)
-	- [基本概念](#基本概念)
-	- [相关接口说明](#相关接口说明)
-	- [将数据集转换为MindRecord](#将数据集转换为mindrecord)
+<!-- TOC -->
+
+- [转换数据集为MindRecord](#转换数据集为mindrecord)
+    - [概述](#概述)
+    - [基本概念](#基本概念)
+    - [相关接口说明](#相关接口说明)
+    - [将数据集转换为MindRecord](#将数据集转换为mindrecord)
 
 <!-- /TOC -->
 

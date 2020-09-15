@@ -1,10 +1,9 @@
-# MobileNetV2 增量学习
-
-`Linux` `Windows` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
+# 使用MobileNetV2网络实现增量学习
+`Windows` `Linux` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
 <!-- TOC -->
 
-- [MobileNetV2 增量学习](#mobilenetv2-增量学习)
+- [使用MobileNetV2网络实现增量学习](#使用mobilenetv2网络实现增量学习)
     - [概述](#概述)
     - [任务描述及准备](#任务描述及准备)
         - [环境配置](#环境配置)

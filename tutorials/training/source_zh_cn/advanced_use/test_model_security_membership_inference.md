@@ -1,18 +1,19 @@
-# 成员推理攻击
+# 使用成员推理测试模型安全性
 
 `Linux` `Ascend` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [成员推理攻击](#成员推理攻击)
+- [使用成员推理测试模型安全性](#使用成员推理测试模型安全性)
     - [概述](#概述)
     - [实现阶段](#实现阶段)
         - [导入需要的库文件](#导入需要的库文件)
+            - [引入相关包](#引入相关包)
         - [加载数据集](#加载数据集)
         - [建立模型](#建立模型)
         - [运用MembershipInference](#运用membershipinference)
     - [参考文献](#参考文献)
-        
+
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 

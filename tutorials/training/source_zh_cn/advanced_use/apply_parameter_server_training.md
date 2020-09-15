@@ -1,4 +1,4 @@
-# Parameter Server训练
+# 使用Parameter Server训练
 
 `Linux` `Ascend` `GPU` `模型训练` `中级` `高级`
 
