@@ -11,7 +11,9 @@
         - [Custom Callback](#custom-callback)
     - [MindSpore Metrics](#mindspore-metrics)
     - [MindSpore Print Operator](#mindspore-print-operator)
-    - [Asynchronous Data Dump](#asynchronous-data-dump)
+    - [Data Dump Introduction](#data-dump-introduction)
+        - [Synchronous Dump](#synchronous-dump)
+        - [Asynchronous Dump](#asynchronous-dump)
     - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
 
 <!-- /TOC -->
@@ -259,50 +261,106 @@ val:[[1 1]
 [1 1]]
 ```
 
-## Asynchronous Data Dump
+## Data Dump Introduction
 
-When the training result deviates from the expectation on Ascend, the input and output of the operator can be dumped for debugging through Asynchronous Data Dump.
+The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation. Data dump includes Synchronous Dump and Asynchronous Dump.
 
-> `comm_ops` operators are not supported by Asynchronous Data Dump. `comm_ops` can be found in [Operator List](https://www.mindspore.cn/docs/en/master/operator_list.html).
+### Synchronous Dump
 
-1. Turn on the switch to save graph IR: `context.set_context(save_graphs=True)`.
-2. Execute training script.
-3. Open `hwopt_d_end_graph_{graph id}.ir` in the directory you execute the script and find the name of the operators you want to Dump.
-4. Configure json file: `data_dump.json`.
+1. Create dump json file:`data_dump.json`.
+
+    The name and location of the JSON file can be customized.
 
     ```json
     {
-        "DumpSettings": {
-            "net_name": "ResNet50",
+        "common_dump_settings": {
             "dump_mode": 0,
-            "op_debug_mode": 0,
+            "path": "/tmp/net/",
+            "net_name": "ResNet50",
             "iteration": 0,
-            "kernels": ["Default/Conv2D-op2", "Default/TensorAdd-op10"]
+            "input_output": 0,
+            "kernels": ["Default/Conv-op12"],
+            "support_device": [0,1,2,3,4,5,6,7]
+        },
+        "e2e_dump_settings": {
+            "enable": false,
+            "trans_flag": false
         }
     }
     ```
 
-    > - `net_name`: net name eg:ResNet50.
-    > - `dump_mode`: 0: dump all kernels, 1: dump kernels in kernels list.
-    > - `op_debug_mode`: please set to 0.
-    > - `iteration`: specified iteration to dump. `iteration` should be set to 0 when `dataset_sink_mode` is False and data of every iteration will be dumped.
-    > - `kernels`: `fullname_with_scope` of kernel which need to dump.
+    - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
+    - `path`：The absolute path where dump saves data.
+    - `net_name`：net name eg:ResNet50.
+    - `iteration`：Specify the iterations to dump. All kernels in graph will be dumped.
+    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
+    - `kernels`：full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`.
+    - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
+    - `enable`：enable synchronous dump.
+    - `trans_flag`：enable trans flag. Transform the device data format into NCHW.
 
-5. Set environment variables.
+2. Specify the location of the JSON file.
 
     ```bash
-    export ENABLE_DATA_DUMP=1
-    export DATA_DUMP_PATH=/test
-    export DATA_DUMP_CONFIG_PATH=data_dump.json
+    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
     ```
 
-    > - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
-    > - Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
+    - Set the environment variables before executing the training script. Settings will not take effect during training.
+    - Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
 
-6. Execute the training script again.
-7. Parse the Dump file.
+3. Execute the training script to dump data.
 
-    Change directory to `/var/log/npu/ide_daemon/dump/` after training and execute the following commands to parse Dump data file:
+4. Parse the Dump file
+    
+    Call `numpy.fromfile` to parse dump data file.
+
+### Asynchronous Dump
+
+1. Create dump json file:`data_dump.json`.
+
+    The name and location of the JSON file can be customized.
+    ```json
+    {
+        "common_dump_settings": {
+            "dump_mode": 0,
+            "path": "/relative_path",
+            "net_name": "ResNet50",
+            "iteration": 0,
+            "input_output": 0,
+            "kernels": ["Default/Conv-op12"],
+            "support_device": [0,1,2,3,4,5,6,7]
+        },
+        "async_dump_settings": {
+            "enable": false,
+            "op_debug_mode": 0
+        }
+    }
+    ```
+
+    - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
+    - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_deam/dump/relative_path`.
+    - `net_name`：net name eg:ResNet50.
+    - `iteration`：Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
+    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
+    - `kernels`：Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
+    - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
+    - `enable`：enable Asynchronous Dump.
+    - `op_debug_mode`：please set to 0.
+
+2. Specify the json configuration file of Dump.
+
+    ```bash
+    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
+    ```
+
+    - Set the environment variables before executing the training script. Setting environment variables during training will not take effect.
+    - Dump environment variables need to be configured before calling `mindspore.communication.management.init`.
+
+3. Execute the training script to dump data.
+
+4. Parse the Dump file
+
+    Change directory to /var/log/npu/ide_daemon/dump/ after training, execute the following commands to parse Dump data file:
 
     ```bash
     python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
