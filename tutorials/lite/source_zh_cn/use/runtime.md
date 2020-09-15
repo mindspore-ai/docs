@@ -186,10 +186,11 @@ virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
 
 /// \brief  Resize inputs shape.
 ///
-/// \param[in] inputs  Define the new inputs shape.
+/// \param[in] inputs  Define Model inputs.
+/// \param[in] dims    Define All inputs new shape.
 ///
 /// \return  STATUS as an error code of resize inputs, STATUS is defined in errorcode.h.
-virtual int Resize(const std::vector<tensor::MSTensor *> &inputs) = 0;
+virtual int Resize(const std::vector<tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims) = 0;
 ```
 
 ### 使用示例
@@ -200,8 +201,9 @@ virtual int Resize(const std::vector<tensor::MSTensor *> &inputs) = 0;
 auto inputs = session->GetInputs();
 std::vector<int> resize_shape = {1, 128, 128, 3};
 // Assume the model has only one input,resize input shape to [1, 128, 128, 3]
-inputs[0]->set_shape(resize_shape);
-session->Resize(inputs);
+std::vector<std::vector<int>> new_shapes;
+new_shapes.push_back(resize_shape);
+session->Resize(inputs, new_shapes);
 ```
 
 ### 图编译
