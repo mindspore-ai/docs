@@ -9,12 +9,7 @@
         - [Compilation Example](#compilation-example)
         - [Output Description](#output-description)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-    - [Windows Environment Compilation](#windows-environment-compilation)
-        - [Environment Requirements](#environment-requirements-1)
-        - [Compilation Options](#compilation-options-1)
-        - [Compilation Example](#compilation-example-1)
-        - [Output Description](#output-description-1)                   
+            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)                 
 
 <!-- /TOC -->
 
@@ -24,7 +19,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
-| converter | Linux、Windows | Model Conversion Tool |
+| converter | Linux | Model Conversion Tool |
 | runtime | Linux、Android | Model Inference Framework |
 | benchmark | Linux、Android | Benchmarking Tool |
 | time_profiler | Linux、Android | Performance Analysis Tool |
@@ -183,49 +178,3 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 > 1. `liboptimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
 > 2. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
 > 3. Before running the tools in the converter, benchmark or time_profile directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries. Take the compiled under version 0.7.0-beta as an example: configure converter: `export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`; configure benchmark and timeprofiler: `export LD_LIBRARY_PATH= ./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`.
-
-## Windows Environment Compilation
-
-### Environment Requirements
-
-- The supported compilation environment is: Windows 10, 64-bit.
-
-- Compilation dependencies are:
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
-  - [Python](https://www.python.org/) >= 3.7.5
-  
-> The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries. Please make sure that the git network settings are correct and available in advance.
-
-### Compilation Options
-
-The compilation options of MindSpore Lite are as follows:
-
-| Parameter  |  Parameter Description   | Mandatory or Not |
-| -------- | ----- | ---- | 
-| **lite** | **Set this parameter to compile the Mindspore Lite project.** | **Yes** |
-| [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |  
-
-### Compilation Example
-
-First, use the git tool to download the source code from the MindSpore code repository.
-```bash
-git clone https://gitee.com/mindspore/mindspore.git
-```
-
-Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
-
-- Compile the Windows version with the default number of threads (6 threads).
-    ```bash
-    call build.bat lite
-    ```
-- Compile the Windows version with the specified number of threads 8.
-    ```bash
-    call build.bat lite 8
-    ```
-
-### Output Description
-
-After the compilation is complete, enter the `mindspore/output/` directory, unzip the output file `mindspore-lite-{version}-converter-win-cpu.zip`, which contains the conversion tool executable file.
-
-> version: version of the output, consistent with that of the MindSpore.
