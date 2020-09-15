@@ -11,25 +11,21 @@ MindSpore API
    :caption: MindSpore Python API
 
    mindspore/mindspore
-   mindspore/mindspore.dtype
    mindspore/mindspore.common.initializer
    mindspore/mindspore.communication
    mindspore/mindspore.context
-   mindspore/mindspore.nn
-   mindspore/mindspore.nn.dynamic_lr
-   mindspore/mindspore.nn.learning_rate_schedule
-   mindspore/mindspore.nn.probability
-   mindspore/mindspore.ops
-   mindspore/mindspore.ops.composite
-   mindspore/mindspore.ops.operations
-   mindspore/mindspore.train
    mindspore/mindspore.dataset
    mindspore/mindspore.dataset.config
    mindspore/mindspore.dataset.text
    mindspore/mindspore.dataset.transforms
    mindspore/mindspore.dataset.vision
    mindspore/mindspore.mindrecord
+   mindspore/mindspore.nn
+   mindspore/mindspore.nn.dynamic_lr
+   mindspore/mindspore.nn.probability
+   mindspore/mindspore.ops
    mindspore/mindspore.profiler
+   mindspore/mindspore.train
 
 .. toctree::
    :maxdepth: 1
