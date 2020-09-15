@@ -232,34 +232,49 @@ Currently, the following syntax is not supported in network constructors:
 
 
 ### Other Constraints
-Input parameters of the construct function on the entire network and parameters of functions modified by the ms_function decorator are generalized during the graph compilation. Therefore, they cannot be transferred to operators as constant input. Therefore, in graph mode, the parameter passed to the entry network can only be Tensor. As shown in the following example:
-* The following is an example of incorrect input:
-    ```python
-    class ExpandDimsTest(Cell):
+1. Input parameters of the `construct` function on the entire network and parameters of functions modified by the `ms_function` decorator are generalized during the graph compilation and cannot be passed to operators as constant input. Therefore, in graph mode, the parameter passed to the entry network can only be `Tensor`. As shown in the following example:
+    
+    * The following is an example of incorrect input:
+        ```python
+        class ExpandDimsTest(Cell):
+            def __init__(self):
+                super(ExpandDimsTest, self).__init__()
+                self.expandDims = P.ExpandDims()
+    
+            def construct(self, input_x, input_axis):
+                return self.expandDims(input_x, input_axis)
+        expand_dim = ExpandDimsTest()
+        input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
+        expand_dim(input_x, 0)
+        ```
+        In the example, `ExpandDimsTest` is a single-operator network with two inputs: `input_x` and `input_axis`. The second input of the `ExpandDims` operator must be a constant. This is because `input_axis` is required when the output dimension of the `ExpandDims` operator is deduced during graph compilation. As the network parameter input, the value of `input_axis` is generalized into a variable and cannot be determined. As a result, the output dimension of the operator cannot be deduced, causing the graph compilation failure. Therefore, the input required by deduction in the graph compilation phase must be a constant. In the API, the parameters of this type of operator that require constant input will be explained, marked `const input is needed`.
+    
+    * Directly enter the needed value or a member variable in a class for the constant input of the operator in the construct function. The following is an example of correct input:
+        ```python
+        class ExpandDimsTest(Cell):
+            def __init__(self, axis):
+                super(ExpandDimsTest, self).__init__()
+                self.expandDims = P.ExpandDims()
+                self.axis = axis
+    
+            def construct(self, input_x):
+                return self.expandDims(input_x, self.axis)
+        axis = 0
+        expand_dim = ExpandDimsTest(axis)
+        input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
+        expand_dim(input_x)
+        ```
+ 
+2. It is not allowed to modify `non-Parameter` type data members of the network. Examples are as follows:
+
+    ```
+    class Net(Cell):
         def __init__(self):
-            super(ExpandDimsTest, self).__init__()
-            self.expandDims = P.ExpandDims()
-
-        def construct(self, input_x, input_axis):
-            return self.expandDims(input_x, input_axis)
-    expand_dim = ExpandDimsTest()
-    input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-    expand_dim(input_x, 0)
+            super(Net, self).__init__()
+            self.num = 2
+            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
+    
+        def construct(self, x, y):
+            return x + y
     ```
-    In the example, ExpandDimsTest is a single-operator network with two inputs: input_x and input_axis. The second input of the ExpandDims operator must be a constant. This is because input_axis is required when the output dimension of the ExpandDims operator is deduced during graph compilation. As the network parameter input, the value of input_axis is generalized into a variable and cannot be determined. As a result, the output dimension of the operator cannot be deduced, causing the graph compilation failure. Therefore, the input required by deduction in the graph compilation phase must be a constant. In APIs, the "constant input is needed" is marked for parameters that require constant input of these operators.
-
-* Directly enter the needed value or a member variable in a class for the constant input of the operator in the construct function. The following is an example of correct input:
-    ```python
-    class ExpandDimsTest(Cell):
-        def __init__(self, axis):
-            super(ExpandDimsTest, self).__init__()
-            self.expandDims = P.ExpandDims()
-            self.axis = axis
-
-        def construct(self, input_x):
-            return self.expandDims(input_x, self.axis)
-    axis = 0
-    expand_dim = ExpandDimsTest(axis)
-    input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-    expand_dim(input_x)
-    ```
+In the network defined above, `self.num` is not a `Parameter` and cannot be modified, but `self.par` is a `Parameter` and can be modified.
