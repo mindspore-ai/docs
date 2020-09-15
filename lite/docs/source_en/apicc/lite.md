@@ -23,23 +23,6 @@ Context()
 
 Constructor of MindSpore Lite Context using default value for parameters.
 
-```
-Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx)
-```
-Constructor of MindSpore Lite Context using input value for parameters.
-
-- Parameters
-
-    - `thread_num`: Define the work thread number during the runtime.
-
-    - `allocator`: Define the allocator for malloc.
-
-    - `device_ctx`: Define device information during the runtime.
-
-- Returns
-
-    The instance of MindSpore Lite Context.
-
 ``` 
  ~Context()
 ```
@@ -53,9 +36,9 @@ float16_priority
 A **bool** value. Defaults to **false**. Prior enable float16 inference.
 
 ```
-device_ctx_{DT_CPU}
+device_type
 ```
-A [**DeviceContext**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#devicecontext) struct defined at the bottom of the text. Using to specify the device.
+A [**DeviceType**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
 
 ``` 
 thread_num_
@@ -153,16 +136,6 @@ GPU device type.
 DT_NPU = 0
 ```
 NPU device type, not supported yet.
-## DeviceContext
-
-A **struct**. DeviceContext defined for holding DeviceType.
-
-**Attributes**
-``` 
-type
-```
-A [**DeviceType**](https://www.mindspore.cn/lite/docs/en/master/apicc/lite.html#devicetype) variable. The device type.
-
 ## Version
 
 ``` 

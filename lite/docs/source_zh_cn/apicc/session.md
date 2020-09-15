@@ -73,9 +73,9 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 - 参数
 
-    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/session.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/session.html#kernelcallback)结构体。定义了运行每个节点之前调用的回调函数。
 
-    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/session.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/session.html#kernelcallback)结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 
@@ -159,7 +159,7 @@ static LiteSession *CreateSession(lite::Context *context)
 using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
 ```
 
-一个函数包装器。KernelCallBack 定义了指向回调函数的指针。
+一个函数包装器。KernelCallBack定义了指向回调函数的指针。
 
 ## CallBackParam
 
