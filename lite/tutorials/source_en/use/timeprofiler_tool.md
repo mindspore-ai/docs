@@ -20,16 +20,16 @@ After model conversion and before inference, you can use the TimeProfiler tool t
 
 To use the TimeProfiler tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profile` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the TimeProfiler tool is stored in the `mindspore/lite/tools/time_profiler` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `timeprofile` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
+- Run: Obtain the `timeprofiler` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
 
 ## Parameter Description
 
 The command used for analyzing the time consumption of forward inference at the network layer based on the compiled TimeProfiler tool is as follows:
 
 ```bash
-./timeprofile --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
+./timeprofiler --modelPath=<MODELPATH> [--help] [--loopCount=<LOOPCOUNT>] [--numThreads=<NUMTHREADS>] [--cpuBindMode=<CPUBINDMODE>] [--inDataPath=<INDATAPATH>] [--fp16Priority=<FP16PRIORITY>]
 ```
 
 The following describes the parameters in detail.
@@ -49,7 +49,7 @@ The following describes the parameters in detail.
 Take the `test_timeprofiler.ms` model as an example and set the number of model inference cycles to 10. The command for using TimeProfiler to analyze the time consumption at the network layer is as follows:
 
 ```bash
-./timeprofile --modelPath=./models/test_timeprofiler.ms --loopCount=10
+./timeprofiler --modelPath=./models/test_timeprofiler.ms --loopCount=10
 ```
 
 After this command is executed, the TimeProfiler tool outputs the statistics on the running time of the model at the network layer. In this example, the command output is as follows: The statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
