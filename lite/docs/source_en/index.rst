@@ -12,5 +12,7 @@ MindSpore Lite Documentation
 
    architecture
    apicc/apicc
+   image_classification
+   object_detection
    operator_list
    glossary
