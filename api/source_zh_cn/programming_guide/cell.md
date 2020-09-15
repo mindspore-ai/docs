@@ -15,6 +15,7 @@
     - [损失函数](#损失函数)
         - [内置损失函数](#内置损失函数)
         - [应用实例](#应用实例-1)
+    - [优化算法](#优化算法)
     - [构建自定义网络](#构建自定义网络)
 
 <!-- /TOC -->
@@ -304,6 +305,9 @@ print(loss(input_data, target_data))
 
 此用例构造了两个Tensor数据，利用`nn.L1Loss()`接口定义了loss，将`input_data`和`target_data`传入loss，执行L1Loss的计算，结果为1.5。若loss = nn.L1Loss(reduction='sum')，则结果为9.0。若loss = nn.L1Loss(reduction='none')，结果为[[1. 0. 2.] [1. 2. 3.]]。
 
+## 优化算法
+
+`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，详细说明参见[optim](https://www.mindspore.cn/api/zh-CN/master/programming_guide/optim.html)。
 
 ## 构建自定义网络
 

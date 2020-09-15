@@ -2,60 +2,60 @@
 
 <!-- TOC -->
 
-- [AI安全与隐私保护](AI安全与隐私保护)
+- [AI安全与隐私保护](#ai安全与隐私保护)
     - [概述](#概述)
     - [对抗鲁棒性](#对抗鲁棒性)
-        - [Attack](#Attack)
-        - [Defense](#Defense)
-        - [Detector](#Detector)
+        - [Attack](#attack)
+        - [Defense](#defense)
+        - [Detector](#detector)
     - [模型安全测试](#模型安全测试)
-        - [Fuzzer](#Fuzzer)
+        - [Fuzzer](#fuzzer)
     - [差分隐私训练](#差分隐私训练)
-        - [DPModel](#DPModel)
+        - [DPModel](#dpmodel)
     - [隐私泄露风险评估](#隐私泄露风险评估)
-        - [MembershipInference](#MembershipInference)
+        - [MembershipInference](#membershipinference)
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/security_and_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## 概述
 
-本篇是AI安全与隐私保护的编程指南。
-
-AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour是MindSpore的一个子项目，为MindSpore提供安全与隐私保护能力，主要包括对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估等技术。
+本篇主要介绍AI安全与隐私保护。AI作为一种通用技术，在带来巨大机遇和效益的同时也面临着新的安全与隐私保护的挑战。MindArmour是MindSpore的一个子项目，为MindSpore提供安全与隐私保护能力，主要包括对抗鲁棒性、模型安全测试、差分隐私训练、隐私泄露风险评估等技术。
 
 ## 对抗鲁棒性
 
 ### Attack
-Attack基类定义了对抗样本生成的使用接口，其子类实现了各种具体的生成算法，支持安全工作人员快速高效地生成对抗样本，用于攻击AI模型，以评估模型的鲁棒性。
+`Attack`基类定义了对抗样本生成的使用接口，其子类实现了各种具体的生成算法，支持安全工作人员快速高效地生成对抗样本，用于攻击AI模型，以评估模型的鲁棒性。
 
 ### Defense
-Defense基类定义了对抗训练的使用接口，其子类实现了各种具体的对抗训练算法，增强模型的对抗鲁棒性。
+`Defense`基类定义了对抗训练的使用接口，其子类实现了各种具体的对抗训练算法，增强模型的对抗鲁棒性。
 
 ### Detector
-Detector基类定义了对抗样本检测的使用借口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
+`Detector`基类定义了对抗样本检测的使用借口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
 
-详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/model_security.html)
+详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/model_security.html)。
 
 ## 模型安全测试
 
 ### Fuzzer 
 
-Fuzzer类基于神经元覆盖率增益控制fuzzing流程，采用自然扰动和对抗样本生成方法作为变异策略，激活更多的神经元，从而探索不同类型的模型输出结果、错误行为，指导用户增强模型鲁棒性。
+`Fuzzer`类基于神经元覆盖率增益控制fuzzing流程，采用自然扰动和对抗样本生成方法作为变异策略，激活更多的神经元，从而探索不同类型的模型输出结果、错误行为，指导用户增强模型鲁棒性。
 
-详细内容，请参考[模型安全测试官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/fuzzer.html)
+详细内容，请参考[模型安全测试官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/fuzzer.html)。
 
 ## 差分隐私训练
 
 ### DPModel
 
-DPModel继承了mindspore.Model，提供了差分隐私训练的入口函数。
+`DPModel`继承了`mindspore.Model`，提供了差分隐私训练的入口函数。
 
-详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/differential_privacy.html)
+详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/differential_privacy.html)。
 
 ## 隐私泄露风险评估
 
 ### MembershipInference
 
-MembershipInference类提供了一种模型逆向分析方法，能够基于模型对样本的预测信息，推测某个样本是否在模型的训练集中，以此评估模型的隐私泄露风险。
+`MembershipInference`类提供了一种模型逆向分析方法，能够基于模型对样本的预测信息，推测某个样本是否在模型的训练集中，以此评估模型的隐私泄露风险。
 
-详细内容，请参考[隐私泄露风险评估官方教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/membership_inference.html)
+详细内容，请参考[隐私泄露风险评估官方教程](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/membership_inference.html)。

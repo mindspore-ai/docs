@@ -1,13 +1,13 @@
-# Optim
+# optim
 
 <!-- TOC -->
 
-- [Optim](#Optim)
+- [optim](#optim)
     - [概述](#概述)
     - [学习率](#学习率)
         - [dynamic_lr](#dynamic_lr)
         - [learning_rate_schedule](#learning_rate_schedule)
-    - [optimzer](#optimzer)
+    - [Optimzer](#optimzer)
         - [如何使用](#如何使用)
         - [内置优化器](#内置优化器)
 
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 ```
 
 
-## optimzer
+## Optimzer
 ### 如何使用
 为了使用`mindspore.nn.optim`，我们需要构建一个`Optimizer`对象。这个对象能够保持当前参数状态并基于计算得到的梯度进行参数更新。
 
