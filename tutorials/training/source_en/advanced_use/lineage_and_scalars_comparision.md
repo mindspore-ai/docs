@@ -1,10 +1,10 @@
-# Lineage and Scalars Comparision
+# View Lineage and Scalars Comparision
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Lineage and Scalars Comparision](#lineage-and-scalars-comparision)
+- [View Lineage and Scalars Comparision](#view-lineage-and-scalars-comparision)
     - [Overview](#overview)
     - [Model Lineage](#model-lineage)
     - [Dataset Lineage](#dataset-lineage)

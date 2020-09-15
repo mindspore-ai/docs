@@ -1,10 +1,10 @@
-# Customized Debugging Information
+# Custom Debugging Information
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Customized Debugging Information](#customized-debugging-information)
+- [Custom Debugging Information](#custom-debugging-information)
     - [Overview](#overview)
     - [Introduction to Callback](#introduction-to-callback)
         - [Callback Capabilities of MindSpore](#callback-capabilities-of-mindspore)

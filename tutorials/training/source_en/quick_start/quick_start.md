@@ -4,7 +4,6 @@
 
 <!-- TOC -->
 
-
 - [Implementing an Image Classification Application](#implementing-an-image-classification-application)
     - [Overview](#overview)
     - [Preparations](#preparations)

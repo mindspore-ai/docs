@@ -1,10 +1,10 @@
-# Network Migration
+# Migrate Training Scripts of Third Party Frameworks
 
 `Linux` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Network Migration](#network-migration)
+- [Migrate Training Scripts of Third Party Frameworks](#migrate-training-scripts-of-third-party-frameworks)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Operator Assessment](#operator-assessment)

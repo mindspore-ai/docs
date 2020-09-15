@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [Performance Profiler（GPU）](#performance-profiler-gpu)
+- [Performance Profiler（GPU）](#performance-profilergpu)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)

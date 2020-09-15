@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Tutorials
+Train with MindSpore
 ===================
 
 .. toctree::
@@ -17,21 +17,29 @@ MindSpore Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Use
+   :caption: Basic Use
 
    use/data_preparation/data_preparation
    use/defining_the_network
-   use/saving_and_loading_model_parameters
+   use/save_and_load_model
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Application
+   :caption: Process Data
 
-   advanced_use/computer_vision_application
-   advanced_use/nlp_application
-   advanced_use/synchronization_training_and_evaluation.md
-   advanced_use/optimize_the_performance_of_data_preparation.md
+   advanced_use/converse_dataset
+   advanced_use/enable_cache
+   advanced_use/optimize_data_processing
+   
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: ¹¹½¨ÍøÂç
+
+   advanced_use/custom_operator
+   advanced_use/migrate_script
 
 .. toctree::
    :glob:
@@ -63,8 +71,18 @@ MindSpore Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: AI Security and Privacy
+   :caption: Model Security and Privacy
 
-   advanced_use/model_security
-   advanced_use/differential_privacy
+   advanced_use/improve_model_security_nad
+   advanced_use/improve_model_security_differential_privacy
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Application
+
+   advanced_use/computer_vision_application
+   advanced_use/nlp_application
+   advanced_use/synchronization_training_and_evaluation.md
+   advanced_use/optimize_the_performance_of_data_preparation.md
 

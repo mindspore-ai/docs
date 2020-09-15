@@ -1,10 +1,10 @@
-# Summary Record
+# Collect Summary Record
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Summary Record](#summary-record)
+- [Collect Summary Record](#collect-summary-record)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing The Training Script](#preparing-the-training-script)

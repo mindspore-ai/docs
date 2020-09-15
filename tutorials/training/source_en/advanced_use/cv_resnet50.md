@@ -1,10 +1,10 @@
-# Computer Vision Applications
+# Image Classification Using Resnet-50 Network
 
 `Linux` `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Computer Vision Applications](#computer-vision-applications)
+- [Image Classification Using Resnet-50 Network](#image-classification-using-resnet-50-network)
     - [Overview](#overview)
     - [Image Classification](#image-classification)
     - [Task Description and Preparation](#task-description-and-preparation)

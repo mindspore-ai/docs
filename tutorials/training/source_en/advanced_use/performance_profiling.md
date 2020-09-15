@@ -4,9 +4,10 @@
 
 <!-- TOC -->
 
-- [Performance Profiler(Ascend)](#performance-profiler-ascend)
+- [Performance Profiler(Ascend)](#performance-profilerascend)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
+    - [Preparing the Environment](#preparing-the-environment)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launch MindInsight](#launch-mindinsight)
         - [Performance Analysis](#performance-analysis)

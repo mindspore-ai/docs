@@ -1,10 +1,10 @@
-# Differential Privacy in Machine Learning
+# Improve Model Security with Differential Privacy Mechanism
 
 `Linux` `Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
-- [Differential Privacy in Machine Learning](#differential-privacy-in-machine-learning)
+- [Improve Model Security with Differential Privacy Mechanism](#improve-model-security-with-differential-privacy-mechanism)
     - [Overview](#overview)
     - [Implementation](#implementation)
         - [Importing Library Files](#importing-library-files)
