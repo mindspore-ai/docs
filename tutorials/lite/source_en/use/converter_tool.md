@@ -79,7 +79,7 @@ The following describes how to use the conversion command by using several commo
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining
       ```
      
-  - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be int8
+  - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be float
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining  --inferenceType=FLOAT
       ```
