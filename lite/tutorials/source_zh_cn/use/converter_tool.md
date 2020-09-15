@@ -75,10 +75,10 @@ bash build.sh -I x86_64
       ./converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
       ```
 
-   - 感知量化模型输入设置为int8，输出设置为int8
+   - 感知量化模型输入输出类型设置为float
    
        ```bash
-      ./converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining --inputInferenceType=INT8  --inferenceType=INT8
+      ./converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining --inferenceType=FLOAT
       ```
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
    
@@ -102,8 +102,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
 | `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
-|` --inputInferenceType=<INPUTINFERENCETYPE>` | 否 | 设置感知量化模型输入数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inputInferenceType保持一致。 | FLOAT、INT8 | FLOAT |
-| `--inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输出类型和inferenceType保持一致。 | FLOAT、INT8 | FLOAT |
+|` --inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输入输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inferenceType保持一致。 |SAME、 FLOAT、INT8 | SAME |
 | `--stdDev=<STDDEV> `| 否 | 感知量化模型转换时用于设置输入数据的标准差。 | （0，+∞） | 128 |
 | `--mean=<MEAN>` | 否 | 感知量化模型转换时用于设置输入数据的均值。 | [-128, 127] | -0.5 |
 
