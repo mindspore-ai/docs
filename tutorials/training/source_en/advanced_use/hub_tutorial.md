@@ -1,6 +1,6 @@
 ## Submitting, Loading and Fine-tuning Models using MindSpore Hub
 
-`Ascend` `GPU` `MindSpore Hub` `Model Submission` `Model Loading` `Model Fine-tuning` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `MindSpore Hub` `Model Submission` `Model Loading` `Model Fine-tuning` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

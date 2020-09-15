@@ -1,5 +1,5 @@
 # 深度概率编程
-`Ascend` `GPU` `全流程` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -39,7 +39,7 @@ MindSpore深度概率编程（MindSpore Deep Probabilistic Programming, MDP）�
 本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。
 
 #### 定义贝叶斯神经网络
-本例子使用的是贝叶斯LeNet。利用bnn_layers构建贝叶斯神经网络的方法与构建普通的神经网络相同。值得注意的是，bnn_layers和普通的神经网络层可以互相组合。
+本例子使用的是贝叶斯LeNet。利用`bnn_layers`构建贝叶斯神经网络的方法与构建普通的神经网络相同。值得注意的是，`bnn_layers`和普通的神经网络层可以互相组合。
 
 ```
 import mindspore.nn as nn
@@ -89,8 +89,8 @@ class BNNLeNet5(nn.Cell):
 ```
 #### 定义损失函数和优化器
 接下来需要定义损失函数（Loss）和优化器（Optimizer）。损失函数是深度学习的训练目标，也叫目标函数，可以理解为神经网络的输出（Logits）和标签(Labels)之间的距离，是一个标量数据。
-常见的损失函数包括均方误差、L2损失、Hinge损失、交叉熵等等。图像分类应用通常采用交叉熵损失（CrossEntropy）。
-优化器用于神经网络求解（训练）。由于神经网络参数规模庞大，无法直接求解，因而深度学习中采用随机梯度下降算法（SGD）及其改进算法进行求解。MindSpore封装了常见的优化器，如SGD、Adam、Momemtum等等。本例采用Adam优化器，通常需要设定两个参数，学习率（learnin _rate）和权重衰减项（weight decay）。
+常见的损失函数包括均方误差、L2损失、Hinge损失、交叉熵等等。图像分类应用通常采用交叉熵损失（`CrossEntropy`）。
+优化器用于神经网络求解（训练）。由于神经网络参数规模庞大，无法直接求解，因而深度学习中采用随机梯度下降算法（SGD）及其改进算法进行求解。MindSpore封装了常见的优化器，如`SGD`、`Adam`、`Momemtum`等等。本例采用`Adam`优化器，通常需要设定两个参数，学习率（`learnin _rate`）和权重衰减项（`weight decay`）。
 MindSpore中定义损失函数和优化器的代码样例如下：
 
 ```
@@ -198,7 +198,7 @@ decoder = Decoder()
 vae = VAE(encoder, decoder, hidden_size=400, latent_size=20)
 ```
 ### 定义损失函数和优化器
-接下来需要定义损失函数（Loss）和优化器（Optimizer）。本例使用的损失函数是ELBO，ELBO是变分推断专用的损失函数；本例使用的优化器是Adam。
+接下来需要定义损失函数（Loss）和优化器（Optimizer）。本例使用的损失函数是`ELBO`，`ELBO`是变分推断专用的损失函数；本例使用的优化器是`Adam`。
 MindSpore中定义损失函数和优化器的代码样例如下：
 
 ```
@@ -307,7 +307,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 #### 定义损失函数和优化器
-接下来需要定义损失函数（Loss）和优化器（Optimizer）。本例使用交叉熵损失作为损失函数，Adam作为优化器。
+接下来需要定义损失函数（Loss）和优化器（Optimizer）。本例使用交叉熵损失作为损失函数，`Adam`作为优化器。
 
 ```
 network = LeNet5()
@@ -403,7 +403,7 @@ train_bnn_network = bnn_transformer.transform_to_bnn_model()
 
 ### 不确定性估计
 不确定性估计工具箱基于MindSpore Deep probability Programming (MDP)，适用于主流的深度学习模型，如回归、分类、目标检测等。在推理阶段，利用不确定性估计工具箱，开发人员只需通过训练模型和训练数据集，指定需要估计的任务和样本，即可得到任意不确定性（aleatoric uncertainty）和认知不确定性（epistemic uncertainty）。基于不确定性信息，开发人员可以更好地理解模型和数据集。
-以分类任务为例，本例中使用的模型是LeNet，数据集为MNist，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
+以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
 
 ```
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation

@@ -1,6 +1,6 @@
 ## 使用MindSpore Hub提交、加载和微调模型
 
-`Ascend` `GPU` `MindSpore Hub` `模型上传` `模型加载` `模型微调` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `MindSpore Hub` `模型上传` `模型加载` `模型微调` `初级` `中级` `高级`
 
 <!-- TOC -->
 

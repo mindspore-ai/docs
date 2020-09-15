@@ -1,7 +1,7 @@
 
 # MindSpore IR (MindIR)
 
-`Framework Development` `Intermediate` `Expert` `Contributor`
+`Linux` `Windows` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
