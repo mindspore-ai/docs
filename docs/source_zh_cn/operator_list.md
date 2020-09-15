@@ -99,7 +99,7 @@
 | :-----------                                 |:------   |:------  |:-----|:---
 | [mindspore.ops.operations.Flatten](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Flatten)                             |  Supported | Supported    |Supported | nn_ops
 | [mindspore.ops.operations.Softmax](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Softmax)                             |    Supported | Supported    |  Supported | nn_ops
-| [mindspore.ops.operations.Acosh](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Acosh)                                 |  Doing | Doing | Doing | nn_ops
+| [mindspore.ops.operations.Acosh](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Acosh)                                 |  Supported | Doing | Doing | nn_ops
 | [mindspore.ops.operations.FloorMod](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.FloorMod)                           |  Supported | Doing | Doing | nn_ops
 | [mindspore.ops.operations.Elu](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Elu)                                     |  Supported | Doing | Doing | nn_ops
 | [mindspore.ops.operations.MirrorPad](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.MirrorPad)                                     |  Supported | Supported | Doing | nn_ops
