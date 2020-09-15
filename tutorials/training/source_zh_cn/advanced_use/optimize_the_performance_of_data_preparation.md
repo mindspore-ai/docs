@@ -27,8 +27,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/optimize_the_performance_of_data_preparation.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/optimize_the_performance_of_data_preparation/optimize_the_performance_of_data_preparation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/optimize_the_performance_of_data_preparation.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/optimize_the_performance_of_data_preparation/optimize_the_performance_of_data_preparation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 
 ## 概述
@@ -127,7 +127,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
     # create Cifar10Dataset for reading data
-    cifar10_dataset = ds.Cifar10Dataset(cifar10_path,num_parallel_workers=4)
+    cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
     ```
@@ -156,12 +156,12 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
     cifar10_path = './dataset/Cifar10Data/cifar-10-batches-py/'
     cifar10_mindrecord_path = './transform/cifar10.record'
 
-    cifar10_transformer = Cifar10ToMR(cifar10_path,cifar10_mindrecord_path)
+    cifar10_transformer = Cifar10ToMR(cifar10_path, cifar10_mindrecord_path)
     # executes transformation from Cifar10 to MindRecord
     cifar10_transformer.transform(['label'])
 
     # create MindDataset for reading data
-    cifar10_mind_dataset = ds.MindDataset(dataset_file=cifar10_mindrecord_path,num_parallel_workers=4)
+    cifar10_mind_dataset = ds.MindDataset(dataset_file=cifar10_mindrecord_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_mind_dataset.create_dict_iterator()))
     ```
@@ -180,7 +180,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
             yield (np.array([i]),)
 
     # create GeneratorDataset for reading data
-    dataset = ds.GeneratorDataset(source=generator_func(5),column_names=["data"],num_parallel_workers=4)
+    dataset = ds.GeneratorDataset(source=generator_func(5), column_names=["data"], num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(dataset.create_dict_iterator()))
     ```
@@ -213,7 +213,7 @@ shuffle性能优化建议如下：
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
     # create Cifar10Dataset for reading data
-    cifar10_dataset = ds.Cifar10Dataset(cifar10_path,shuffle=True)
+    cifar10_dataset = ds.Cifar10Dataset(cifar10_path, shuffle=True)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
     ```
@@ -239,9 +239,9 @@ shuffle性能优化建议如下：
     ```python
     def generator_func():
         for i in range(5):
-            yield (np.array([i,i+1,i+2,i+3,i+4]),)
+            yield (np.array([i, i+1, i+2, i+3, i+4]),)
 
-    ds1 = ds.GeneratorDataset(source=generator_func,column_names=["data"])
+    ds1 = ds.GeneratorDataset(source=generator_func, column_names=["data"])
     print("before shuffle:")
     for data in ds1.create_dict_iterator():
         print(data["data"])
@@ -308,7 +308,7 @@ shuffle性能优化建议如下：
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
     # create Cifar10Dataset for reading data
-    cifar10_dataset = ds.Cifar10Dataset(cifar10_path,num_parallel_workers=4)
+    cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     transforms = C.RandomResizedCrop((800,800))
     # apply the transform to the dataset through dataset.map()
     cifar10_dataset = cifar10_dataset.map(operations=transforms, input_columns="image", num_parallel_workers=4)
@@ -329,15 +329,15 @@ shuffle性能优化建议如下：
     ```python
     def generator_func():
         for i in range(5):
-            yield (np.array([i,i+1,i+2,i+3,i+4]),)
+            yield (np.array([i, i+1, i+2, i+3, i+4]),)
 
-    ds3 = ds.GeneratorDataset(source=generator_func,column_names=["data"])
+    ds3 = ds.GeneratorDataset(source=generator_func, column_names=["data"])
     print("before map:")
     for data in ds3.create_dict_iterator():
         print(data["data"])
 
     func = lambda x:x**2
-    ds4 = ds3.map(operations=func, input_columns="data", python_multiprocessing=True,num_parallel_workers=4)
+    ds4 = ds3.map(operations=func, input_columns="data", python_multiprocessing=True, num_parallel_workers=4)
     print("after map:")
     for data in ds4.create_dict_iterator():
         print(data["data"])

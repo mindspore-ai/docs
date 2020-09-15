@@ -1,5 +1,7 @@
 ﻿# 算子支持
 
+`Linux` `Ascend` `端侧` `推理应用` `初级` `中级` `高级`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 > √勾选的项为MindSpore Lite所支持的算子。

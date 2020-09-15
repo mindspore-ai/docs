@@ -1,6 +1,6 @@
 ﻿# Synchronizing Model Training and Validation
 
-`Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert` `Model Export` `Model Training`
+`Linux` `Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert` `Model Export` `Model Training`
 
 <!-- TOC -->
 

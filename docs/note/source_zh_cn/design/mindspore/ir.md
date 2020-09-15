@@ -1,6 +1,6 @@
 # MindSpore IR（MindIR）
 
-`Linux` `框架开发` `中级` `高级` `贡献者`
+`Linux` `Windows` `框架开发` `中级` `高级` `贡献者`
 
 <!-- TOC -->
 

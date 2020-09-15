@@ -1,5 +1,8 @@
 # 总体架构
 
+`Linux` `Windows` `端侧` `推理应用` `中级` `高级` `贡献者`
+
+
 <a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 MindSpore Lite框架的总体架构如下所示：

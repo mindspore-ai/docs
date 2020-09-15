@@ -1,5 +1,7 @@
 ﻿# Operator List
 
+`Linux` `On Device` `Inference Application` `Beginner` `Intermediate` `Expert`
+
 <a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_en/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 > √ The checked items are the operators supported by MindSpore Lite。
