@@ -231,34 +231,49 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
 
 
 ### 其他约束
-整网construct函数输入的参数以及使用ms_function装饰器修饰的函数的参数在图编译过程中会进行泛化，不能作为常量输入传给算子使用。所以，在图模式下，限制入口网络的参数只能是Tensor，如下例所示：
-* 错误的写法如下：
-    ```python
-    class ExpandDimsTest(Cell):
+1. 整网`construct`函数输入的参数以及使用`ms_function`装饰器修饰的函数的参数在图编译过程中会进行泛化，不能作为常量输入传给算子使用。所以，在图模式下，限制入口网络的参数只能是`Tensor`，如下例所示：
+    
+    * 错误的写法如下：
+        ```python
+        class ExpandDimsTest(Cell):
+            def __init__(self):
+                super(ExpandDimsTest, self).__init__()
+                self.expandDims = P.ExpandDims()
+    
+            def construct(self, input_x, input_axis):
+                return self.expandDims(input_x, input_axis)
+        expand_dim = ExpandDimsTest()
+        input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
+        expand_dim(input_x, 0)
+        ```
+        在示例中，`ExpandDimsTest`是一个只有单算子的网络，网络的输入有`input_x`和`input_axis`两个。因为`ExpandDims`算子的第二个输入需要是常量，这是因为在图编译过程中推导`ExpandDims`算子输出维度的时候需要用到，而`input_axis`作为网络参数输入会泛化成变量，无法确定其值，从而无法推导算子的输出维度导致图编译失败。所以在图编译阶段需要值推导的输入都应该是常量输入。在API中，这类算子需要常量输入的参数会进行说明，标注"constant input is needed"。
+    
+    * 正确的写法是在construct函数里面对算子的常量输入直接填入需要的值或者是一个类的成员变量，如下：
+        ```python
+        class ExpandDimsTest(Cell):
+            def __init__(self, axis):
+                super(ExpandDimsTest, self).__init__()
+                self.expandDims = P.ExpandDims()
+                self.axis = axis
+    
+            def construct(self, input_x):
+                return self.expandDims(input_x, self.axis)
+        axis = 0
+        expand_dim = ExpandDimsTest(axis)
+        input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
+        expand_dim(input_x)
+        ```
+
+2. 不允许修改网络的非`Parameter`类型数据成员。示例如下：
+
+    ```
+    class Net(Cell):
         def __init__(self):
-            super(ExpandDimsTest, self).__init__()
-            self.expandDims = P.ExpandDims()
-
-        def construct(self, input_x, input_axis):
-            return self.expandDims(input_x, input_axis)
-    expand_dim = ExpandDimsTest()
-    input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-    expand_dim(input_x, 0)
+            super(Net, self).__init__()
+            self.num = 2
+            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
+    
+        def construct(self, x, y):
+            return x + y
     ```
-    在示例中，ExpandDimsTest是一个只有单算子的网络，网络的输入有input_x和input_axis两个。因为ExpandDims算子的第二个输入需要是常量，这是因为在图编译过程中推导ExpandDims算子输出维度的时候需要用到，而input_axis作为网络参数输入会泛化成变量，无法确定其值，从而无法推导算子的输出维度导致图编译失败。所以在图编译阶段需要值推导的输入都应该是常量输入。在API中，这类算子需要常量输入的参数会进行说明，标注"constant input is needed"。
-
-* 正确的写法是在construct函数里面对算子的常量输入直接填入需要的值或者是一个类的成员变量，如下：
-    ```python
-    class ExpandDimsTest(Cell):
-        def __init__(self, axis):
-            super(ExpandDimsTest, self).__init__()
-            self.expandDims = P.ExpandDims()
-            self.axis = axis
-
-        def construct(self, input_x):
-            return self.expandDims(input_x, self.axis)
-    axis = 0
-    expand_dim = ExpandDimsTest(axis)
-    input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-    expand_dim(input_x)
-    ```
+    上面所定义的网络里，`self.num`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
