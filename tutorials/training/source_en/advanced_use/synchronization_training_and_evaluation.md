@@ -32,7 +32,7 @@ Implementation idea: The model accuracy is validated every n epochs. The model a
 
 Core implementation: Validation points are set in `epoch_end` of the callback function as follows:
 
-`cur_epoch % eval_per_epoch == 0`: indicates that the model accuracy is validated every `eval_per_epoch` epochs.
+`cur_epoch % eval_per_epoch == 0`: indicates that the model accuracy is validated every `eval_per_epoch` epoch.
 
 - `cur_epoch`: indicates epoch value in the current training process.
 - `eval_per_epoch`: indicates user-defined value, that is, the validation frequency.
@@ -40,7 +40,7 @@ Core implementation: Validation points are set in `epoch_end` of the callback fu
 Other parameters are described as follows:
 
 - `model`: indicates `Model` function in MindSpore.
-- `eval_dataset`: indicates validation dataset.
+- `eval_dataset`: indicates the validation dataset.
 - `epoch_per_eval`: records the accuracy of the validation model and the corresponding number of epochs. The data format is `{"epoch": [], "acc": []}`.
 
 ```python
@@ -75,7 +75,7 @@ The parameters are described as follows:
     - `keep_checkpoint_max`: indicates the maximum number of models that can be saved.
 - `ckpoint_cb`: defines the name and path for saving the model.
 - `model`: defines a model.
-- `model.train`: indicates model training function.
+- `model.train`: indicates the model training function.
 - `epoch_per_eval`: defines the number for collecting `epoch` and the dictionary of corresponding model accuracy information.
 
 ```python
