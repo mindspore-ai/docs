@@ -89,6 +89,7 @@ bash build.sh -I x86_64
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/errorcode_and_metatype.html)。
 
 > 训练后量化示例请参考<https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/post_training_quantization.html>。
 
@@ -175,3 +176,4 @@ set MSLOG=INFO
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```   
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/errorcode_and_metatype.html)。

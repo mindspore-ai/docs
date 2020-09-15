@@ -89,6 +89,8 @@ The following describes how to use the conversion command by using several commo
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```
 
+- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.
+
 ### Parameter Description
 
 MindSpore Lite model conversion tool provides multiple parameters.
@@ -174,3 +176,4 @@ Several common examples are selected below to illustrate the use of conversion c
    ```
    INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
    ```   
+- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.

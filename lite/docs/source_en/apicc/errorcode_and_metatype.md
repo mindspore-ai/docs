@@ -13,6 +13,7 @@ Description of error code and meta type supported in MindSpore Lite.
 | RET_NO_CHANGE | -4 | No change. | 
 | RET_SUCCESS_EXIT | -5 | No error but exit. | 
 | RET_MEMORY_FAILED | -6 | Fail to create memory. | 
+| RET_NOT_SUPPORT | -7 | Fail to support. |
 | RET_OUT_OF_TENSOR_RANGE | -101 | Failed to check range. | 
 | RET_INPUT_TENSOR_ERROR | -102 | Failed to check input tensor. | 
 | RET_REENTRANT_ERROR | -103 | Exist executor running. | 
@@ -24,6 +25,8 @@ Description of error code and meta type supported in MindSpore Lite.
 | RET_FORMAT_ERR | -401 | Failed to check the tensor format. | 
 | RET_INFER_ERR | -501 | Failed to infer shape. | 
 | RET_INFER_INVALID | -502 | Invalid infer shape before runtime. | 
+| RET_INPUT_PARAM_INVALID | -601 | Invalid input param by user. |
+| RET_INPUT_PARAM_LACK | -602 | Lack input param by user. |
 
 ## MetaType
 An **enum** type.
