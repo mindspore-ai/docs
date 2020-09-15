@@ -14,7 +14,7 @@ MindSpore API
    programming_guide/data_type
    programming_guide/compute_component
    programming_guide/execution_management
-   programming_guide/auto_parallel_context
+   programming_guide/auto_parallel
    programming_guide/advanced_use
 
 .. toctree::
