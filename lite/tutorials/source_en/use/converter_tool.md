@@ -127,7 +127,7 @@ Reference description Linux environment model conversion tool [parameter descrip
 
 ### Example
 
-At first, set the log printing level to INFO.
+Set the log printing level to INFO.
 ```bash
 set MSLOG=INFO
 ```
