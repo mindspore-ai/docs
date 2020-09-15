@@ -7,17 +7,13 @@
     - [张量操作](#张量操作)
         - [标量运算](#标量运算)
             - [加法](#加法)
-            - [Element-wise除法](#element-wise除法)
             - [Element-wise乘法](#element-wise乘法)
             - [求三角函数](#求三角函数)
         - [向量运算](#向量运算)
-            - [Concat](#concat)
             - [Squeeze](#squeeze)
-            - [求Sparse2Dense(改变tensor维度使其变稠密)](#求sparse2dense改变tensor维度使其变稠密)
-            - [ScalarCast](#scalarcast)
+            - [求Sparse2Dense](#求sparse2dense)
         - [矩阵运算](#矩阵运算)
             - [矩阵乘法](#矩阵乘法)
-            - [常见范数](#常见范数)
             - [广播机制](#广播机制)
     - [网络操作](#网络操作)
         - [特征提取](#特征提取)
@@ -71,7 +67,7 @@
 
 有些标量运算符对常用的数学运算符进行了重载。并且支持类似NumPy的广播特性。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了对input_x作乘方数为input_y的乘方操作：
 ```python
 import numpy as np            
 import mindspore
@@ -99,43 +95,9 @@ print(input_x + input_y)
 [4.0 5.0 7.0]
 ```
 
-除了普通加外，还有element-wise加法：
-```python
-import TODO
-
-net = NetAddN()
-input_x = Tensor(np.array([1, 2, 3]), mindspore.float32)
-input_y = Tensor(np.array([4, 5, 6]), mindspore.float32)
-net(input_x, input_y, input_x, input_y)[10.0, 14.0, 18.0]
-```
-
-输出如下：（TODO）
-
-#### Element-wise除法
-
-以下代码实现了XXX（TODO）：
-```python
-input_x = Tensor(np.array([-4.0, 5.0, 6.0]), mindspore.float32)
-input_y = Tensor(np.array([3.0, 2.0, 3.0]), mindspore.float32)
-div = P.Div()
-div(input_x, input_y)
-```
-
-输出如下：（TODO）
-
-以下代码实现了XXX（TODO）：
-```python
-input_x = Tensor(np.array([2, 4, -1]), mindspore.int32))
-input_y = Tensor(np.array([3, 3, 3]), mindspore.int32)
-floor_div = P.FloorDiv()
-floor_div(input_x, input_y)[0, 1, -1]
-```
-
-输出如下：（TODO）
-
 #### Element-wise乘法
 
-以下代码实现了XXX（TODO）：
+以下代码实现了Element-wise乘法示例：
 ```python
 input_x = Tensor(np.array([1.0, 2.0, 3.0]), mindspore.float32)
 input_y = Tensor(np.array([4.0, 5.0, 6.0]), mindspore.float32)
@@ -150,45 +112,35 @@ mul(input_x, input_y)
 
 #### 求三角函数
 
-以下代码实现了XXX（TODO）：
+以下代码实现了Acos：
 ```python
 acos = P.ACos()
 input_x = Tensor(np.array([0.74, 0.04, 0.30, 0.56]), mindspore.float32)
 output = acos(input_x)
 ```
 
-输出如下：（TODO）
+输出如下：[42.268584, 87.707557, 72.542397，55.944202] 
 
 ### 向量运算
 
 向量运算符只在一个特定轴上运算，将一个向量映射到一个标量或者另外一个向量。
 
-#### Concat
-
-以下代码实现了XXX（TODO）：
-```python
-data1 = Tensor(np.array([[0, 1], [2, 1]]).astype(np.int32))
-data2 = Tensor(np.array([[0, 1], [2, 1]]).astype(np.int32))
-op = P.Concat()
-output = op((data1, data2))
-```
-
-输出如下：（TODO）
-
 #### Squeeze
 
-以下代码实现了XXX（TODO）：
+以下代码实现了压缩第3个通道维度为1的通道：
 ```python
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
 squeeze = P.Squeeze(2)
 output = squeeze(input_tensor)
 ```
 
-输出如下：（TODO）
+输出如下：[[1, 1],
+         [1, 1],
+         [1, 1]]
 
-#### 求Sparse2Dense(改变tensor维度使其变稠密)
+#### 求Sparse2Dense
 
-以下代码实现了XXX（TODO）：
+以下代码实现了对Sparse2Dense示例：
 ```python
 indices = Tensor([[0, 1], [1, 2]])
 values = Tensor([1, 2], dtype=ms.float32)
@@ -196,17 +148,9 @@ dense_shape = (3, 4)
 out = P.SparseToDense()(indices, values, dense_shape)
 ```
 
-输出如下：（TODO）
-
-#### ScalarCast
-
-以下代码实现了XXX（TODO）：
-```python
-scalar_cast = P.ScalarCast()
-output = scalar_cast(255.0, mindspore.int32)
-```
-
-输出如下：（TODO）
+输出如下：[[0, 1, 0, 0],
+          [0, 0, 2, 0],
+          [0, 0, 0, 0]]
 
 ### 矩阵运算
 
@@ -214,7 +158,7 @@ output = scalar_cast(255.0, mindspore.int32)
 
 #### 矩阵乘法
 
-以下代码实现了XXX（TODO）：
+以下代码实现了input_x 和 input_y的矩阵乘法：
 ```python
 input_x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
 input_y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
@@ -222,33 +166,19 @@ matmul = P.MatMul()
 output = matmul(input_x, input_y)
 ```
 
-输出如下：（TODO）
-
-#### 常见范数
-
-以下代码实现了XXX（TODO）：
-```python
-input_x = Tensor(np.ones([128, 64, 32, 64]), mindspore.float32)
-scale = Tensor(np.ones([64]), mindspore.float32)
-bias = Tensor(np.ones([64]), mindspore.float32)
-mean = Tensor(np.ones([64]), mindspore.float32)
-variance = Tensor(np.ones([64]), mindspore.float32)
-batch_norm = P.BatchNorm()
-output = batch_norm(input_x, scale, bias, mean, variance)
-```
-
-输出如下：（TODO）
+输出如下：[3, 12]
 
 #### 广播机制
 
-广播表示XXX（TODO）。
+广播表示输入各变量channel数目不一致时，改变他们的channel 数以得到结果。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了广播机制的示例：
 ```python
 from mindspore import Tensor
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops.operations as P
+
 init()
 class Net(nn.Cell):
     def __init__(self):
@@ -263,19 +193,17 @@ net = Net()
 output = net(input_)
 ```
 
-输出如下：（TODO）
-
 ## 网络操作
 
 网络操作包括特征提取、激活函数、LossFunction、优化算法等。
 
 ### 特征提取
 
-特征提取是XXX（TODO）。
+特征提取是机器学习中的常见操作，核心是提取较原输入更且代表性的Tensor表达。
 
 #### 卷积操作
 
-以下代码实现了XXX（TODO）：
+以下代码实现了常见卷积操作之一的2D convolution 操作：
 ```python
 input = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32))
@@ -285,7 +213,8 @@ conv2d(input, weight)
 
 #### 卷积的反向传播算子操作
 
-以下代码实现了XXX（TODO）：
+以下代码实现了反向梯度算子传播操作的具体代码，输出存于dout， weight：
+
 ```python
 dout = Tensor(np.ones([10, 32, 30, 30]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
@@ -296,7 +225,7 @@ conv2d_backprop_input(dout, weight, F.shape(x))
 
 ### 激活函数
 
-以下代码实现了XXX（TODO）：
+以下代码实现Softmax激活函数计算：
 ```python
 input_x = Tensor(np.array([1, 2, 3, 4, 5]), mindspore.float32)
 softmax = P.Softmax()
@@ -312,7 +241,7 @@ softmax(input_x)
 
 #### L1Loss
 
-以下代码实现了XXX（TODO）：
+以下代码实现了L1 loss function：
 ```python
 loss = P.SmoothL1Loss()
 input_data = Tensor(np.array([1, 2, 3]), mindspore.float32)
@@ -329,7 +258,7 @@ loss(input_data, target_data)
 
 #### SGD
 
-以下代码实现了XXX（TODO）：
+以下代码实现了SGD梯度下降算法的具体实现，输出是result：
 ```python
 sgd = P.SGD()
 parameters = Tensor(np.array([2, -0.5, 1.7, 4]), mindspore.float32)
@@ -341,8 +270,6 @@ stat = Tensor(np.array([1.5, -0.3, 0.2, -0.7]), mindspore.float32)
 result = sgd(parameters, gradient, learning_rate, accum, momentum, stat)
 ```
 
-输出如下：（TODO）
-
 ## 数组操作
 
 数组操作指操作对象是一些数组的操作。
@@ -351,47 +278,43 @@ result = sgd(parameters, gradient, learning_rate, accum, momentum, stat)
 
 返回跟输入的数据类型一致的并且适配Mindspore的Tensor变量，常用于Mindspore工程内。
 
-以下代码实现了XXX（TODO）：
 ```python
 input_tensor = Tensor(np.array([[2, 2], [2, 2]]), mindspore.float32)
 type = P.DType()(input_tensor)
 ```
 
-输出如下：（TODO）
-
 ### Cast
 
 转换输入的数据类型并且输出与目标数据类型相同的变量。
 
-以下代码实现了XXX（TODO）：
 ```python
 input_np = np.random.randn(2, 3, 4, 5).astype(np.float32)
 input_x = Tensor(input_np)
 type_dst = mindspore.float16
 cast = P.Cast()
 result = cast(input_x, type_dst)
+print(result.type())
 ```
-
-输出如下：（TODO）
+输出结果: mindspore.float16
 
 ### Shape
 
 返回输入数据的形状。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了返回输入数据input_tensor的操作：
 ```python
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
 shape = P.Shape()
 output = shape(input_tensor)
 ```
 
-输出如下：（TODO）
+输出如下： [3, 2, 1]
 
 ## 图像操作
 
 图像操作包括图像预处理操作，如图像剪切（Crop，便于得到大量训练样本）和大小变化（Reise，用于构建图像金子塔等）。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了Crop和Resize操作：
 ```python
 class CropAndResizeNet(nn.Cell):
     def __init__(self, crop_size):
@@ -416,8 +339,6 @@ output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index))
 print(output.asnumpy())
 ```
 
-输出如下：（TODO）
-
 ## 编码运算
 
 编码运算包括BoundingBox Encoding、BoundingBox Decoding、IOU计算等。
@@ -426,14 +347,13 @@ print(output.asnumpy())
 
 对物体所在区域方框进行编码，得到类似PCA的更精简信息，以便做后续类似特征提取，物体检测，图像恢复等任务。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了对anchor_box和groundtruth_box的boundingbox encode：
 ```python
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 groundtruth_box = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
 boundingbox_encode = P.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
 boundingbox_encode(anchor_box, groundtruth_box)
 ```
-
 输出如下:
 
 ```
@@ -445,7 +365,7 @@ boundingbox_encode(anchor_box, groundtruth_box)
 
 编码器对区域位置信息解码之后，用此算子进行解码。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了：
 ```python
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 deltas = Tensor([[3,1,2,2],[1,s2,1,4]],mindspore.float32)
@@ -464,22 +384,23 @@ boundingbox_decode(anchor_box, deltas)
 
 计算预测的物体所在方框和真实物体所在方框的交集区域与并集区域的占比大小，常作为一种损失函数，用以优化模型。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了计算两个变量anchor_boxes和gt_boxes之间的IOU，以out输出：
 ```python
 iou = P.IOU()
 anchor_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
 gt_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
+out = iou(anchor_boxes, gt_boxes)
 ```
 
 ## 调试操作
 
-调试操作指的是用于调试网络的一些常用算子及其操作，例如Debug等。
+调试操作指的是用于调试网络的一些常用算子及其操作，例如Debug等, 此操作非常方便，对入门深度学习重要，极大提高学习者的学习体验。
 
 ### Debug
 
 输出Tensor变量的数值，方便用户随时随地打印想了解或者debug必需的某变量数值。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了输出x这一变量的值：
 ```python
 class DebugNN(nn.Cell):
     def __init__(self,):
@@ -495,7 +416,7 @@ class DebugNN(nn.Cell):
 
 打印中间变量的梯度，是比较常用的算子，目前仅支持Pynative模式。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了打印中间变量(例中x,y)的梯度：
 ```python
 def hook_fn(grad_out):
     print(grad_out)
@@ -523,7 +444,7 @@ backward(1, 2)
 
 完成在训练时的量化和反量化操作。
 
-以下代码实现了XXX（TODO）：
+以下代码实现了设置量化所需输入三个参数，输入tensor， 输出tensor和量化结果范围，最后对它实现量化,量化结果为output_tensor：
 ```python
 input_tensor = Tensor(np.random.rand(3, 16, 5, 5), mstype.float32)
 min_tensor = Tensor(np.array([-6]), mstype.float32)
