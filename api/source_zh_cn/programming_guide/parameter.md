@@ -35,7 +35,7 @@ def __init__(self, default_input, name, requires_grad=True, layerwise_parallel=F
 
 当`layerwise_parallel`（混合并行）配置为True时，参数广播和参数梯度聚合时会过滤掉该参数。
 
-有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/api/zh-CN/master/programming_guide/auto_parallel_context.html>。
+有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/api/zh-CN/master/programming_guide/auto_parallel.html>。
 
 下例通过三种不同的数据类型构造了`Parameter`，三个`Parameter`都需要更新，都不采用layerwise并行。如下：
 ```
