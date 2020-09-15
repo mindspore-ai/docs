@@ -1,8 +1,8 @@
-# optim模块
+# Optim
 
 <!-- TOC -->
 
-- [优化器](#优化器)
+- [Optim](#Optim)
     - [概述](#概述)
     - [学习率](#学习率)
         - [dynamic_lr](#dynamic_lr)
@@ -17,36 +17,41 @@
 
 ## 概述
 
-mindSpore.nn.optim是Mindspore框架中实现各种优化算法的模块，包含常用的优化器，学习率等，并且接口具备足够的通用性，可以将以后更新、更复杂的方法集成到模块里。
+`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，包含常用的优化器、学习率等，并且接口具备足够的通用性，可以将以后更新、更复杂的方法集成到模块里。
 
-mindspore.nn.optim为模型提供常用的优化器，如SGD、ADAM、Momentum。优化器用于计算和更新梯度，模型优化算法的选择直接关系到最终模型的性能，如果有时候效果不好，未必是特征或者模型设计的问题，很有可能是优化算法的问题；
-同时还有mindspore.nn提供的学习率的模块，学习率learing_rate分为dynamic_lr和learning_rate_schedule，都是动态学习率，但是实现方式不同，学习率最为监督学习以及深度学习中重要的参数，其决定着目标函数是否能收敛到局部最小值以及何时能收敛到最小值。
-合适的学习率能够使目标函数在合适的的时间内收敛到局部最小值。
+`mindspore.nn.optim`为模型提供常用的优化器，如`SGD`、`ADAM`、`Momentum`。优化器用于计算和更新梯度，模型优化算法的选择直接关系到最终模型的性能，如果有时候效果不好，未必是特征或者模型设计的问题，很有可能是优化算法的问题；同时还有`mindspore.nn`提供的学习率的模块，学习率分为`dynamic_lr`和`learning_rate_schedule`，都是动态学习率，但是实现方式不同，学习率最为监督学习以及深度学习中重要的参数，其决定着目标函数是否能收敛到局部最小值以及何时能收敛到最小值。合适的学习率能够使目标函数在合适的的时间内收敛到局部最小值。
 
 > 本文档中的所有示例，支持CPU，GPU，Ascend环境。
 
 ## 学习率
 ### dynamic_lr
 
-mindspore.nn.dynamic_lr模块有以下几个类，piecewise_constant_lr类是得到分段不变的学习速率，exponential_decay_lr类是基于指数衰减函数计算学习率，natural_exp_decay_lr类是基于自然指数衰减函数计算学习率，inverse_decay_lr类是基于反时间衰减函数计算学习速率，cosine_decay_lr类是基于余弦衰减函数计算学习率，polynomial_decay_lr类是基于多项式衰减函数计算学习率，warmup_lr类是提高学习率，它们是属于dynamic_lr的不同实现方式。
+`mindspore.nn.dynamic_lr`模块有以下几个类：
 
-例如piecewise_constant_lr类代码样例如下：
+- `piecewise_constant_lr`类：基于得到分段不变的学习速率。
+- `exponential_decay_lr`类：基于指数衰减函数计算学习率。
+- `natural_exp_decay_lr`类：基于自然指数衰减函数计算学习率。
+- `inverse_decay_lr`类：基于反时间衰减函数计算学习速率。
+- `cosine_decay_lr`类：基于余弦衰减函数计算学习率。
+- `polynomial_decay_lr`类：基于多项式衰减函数计算学习率。
+- `warmup_lr`类：提高学习率。
+
+它们是属于`dynamic_lr`的不同实现方式。
+
+例如`piecewise_constant_lr`类代码样例如下：
 
 ```
-class mindspore.nn.dynamic_lr.piecewise_constant_lr(milestone, learning_rates)
+from mindspore.nn.dynamic_lr import piecewise_constant_lr
 
-Parameters:
-    milestone (Union[list[int], tuple[int]]) – A list of milestone. This list is a monotone increasing list. Every element is a milestone step, and must be greater than 0.
-    learning_rates (Union[list[float], tuple[float]]) – A list of learning rates.
+def test_dynamic_lr():
+    milestone = [2, 5, 10]
+    learning_rates = [0.1, 0.05, 0.01]
+    lr = piecewise_constant_lr(milestone, learning_rates)
+    print(lr)
 
-Returns:
-    list[float]. The size of list
-```
 
-```
-milestone = [2, 5, 10]
-learning_rates = [0.1, 0.05, 0.01]
-piecewise_constant_lr(milestone, learning_rates)
+if __name__ == '__main__':
+    test_dynamic_lr()
 ```
 
 返回结果如下：
@@ -56,49 +61,50 @@ piecewise_constant_lr(milestone, learning_rates)
 
 ### learning_rate_schedule
 
-mindspore.nn.learning_rate_schedule模块下有以下几个类。ExponentialDecayLR类，NaturalExpDecayLR类，InverseDecayLR类，CosineDecayLR类，PolynomialDecayLR类，WarmUpLR类。它们都属于learning_rate_schedule，只是实现方式不同。
+`mindspore.nn.learning_rate_schedule`模块下有以下几个类：`ExponentialDecayLR`类、`NaturalExpDecayLR`类、`InverseDecayLR`类、`CosineDecayLR`类、`PolynomialDecayLR`类和`WarmUpLR`类。它们都属于`learning_rate_schedule`，只是实现方式不同，各自含义如下：
 
-ExponentialDecayLR类是基于指数衰减函数计算学习率，NaturalExpDecayLR类是基于自然指数衰减函数巨酸学习率,InverseDecayLR类是基于反时间衰减函数计算学习速率，CosineDecayLR类是基于余弦衰减函数计算学习率，PolynomialDecayLR类是基于多项式衰减函数计算学习率，WarmUpLR类是提高学习率，它们是属于learning_rate_schedule的不同实现方式。
+- `ExponentialDecayLR`类：基于指数衰减函数计算学习率。
+- `NaturalExpDecayLR`类：基于自然指数衰减函数计算学习率。
+- `InverseDecayLR`类：基于反时间衰减函数计算学习速率。
+- `CosineDecayLR`类：基于余弦衰减函数计算学习率。
+- `PolynomialDecayLR`类：基于多项式衰减函数计算学习率。
+- `WarmUpLR`类：提高学习率。
+
+它们是属于`learning_rate_schedule`的不同实现方式。
 
 例如ExponentialDecayLR类代码样例如下：
 ```
-class ExponentialDecayLR(learning_rate, decay_rate, decay_steps, is_stair=False)
-
-Parameters:
-    learning_rate(float) - The initial value of learning rate.
-    decay_rate(float) - The decay rate.
-    decay_steps(int) - A value used to calculate decayed learning rate.
-    is_stair(bool) - if true,learning rate decay once every decay_steps times. Default: False.
-
-inputs:
-    Tensor.The current step number.
-
-Returns:
-    Tensor. The learning rate value for the current step.
-```
-
-```
 from mindspore.common import dtype as mstype
 from mindspore import Tensor
+from mindspore.nn.learning_rate_schedule import ExponentialDecayLR
+
+def test_learning_rate_schedule():
+    learning_rate = 0.1    # learning_rate(float) - The initial value of learning rate.
+    decay_rate = 0.9    # decay_rate(float) - The decay rate.
+    decay_steps = 4    # decay_steps(int) - A value used to calculate decayed learning rate.
+    global_step = Tensor(2, mystype.int32)
+    exponential_decay_lr = ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
+    res = exponential_decay_lr(global_step)
+    print(res)
 
 
-learning_rate = 0.1    # learning_rate(float) - The initial value of learning rate.
-decay_rate = 0.9    # decay_rate(float) - The decay rate.
-decay_steps = 4    # decay_steps(int) - A value used to calculate decayed learning rate.
-global_step = Tensor(2, mystype.int32)
-exponential_decay_lr = ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
-exponential_decay_lr(global_step)
+if __name__ == '__main__':
+    test_learning_rate_schedule()
+```
 
+返回结果如下：
+```
+0.094868325
 ```
 
 
 ## optimzer
 ### 如何使用
-为了使用mindspore.nn.optim，我们需要构建一个optimizer对象。这个对象能够保持当前参数状态并基于计算得到的梯度进行参数更新。
+为了使用`mindspore.nn.optim`，我们需要构建一个`Optimizer`对象。这个对象能够保持当前参数状态并基于计算得到的梯度进行参数更新。
 
 - 构建
 
-为了构建一个Optimizer，我们需要给它一个包含可需要优化的参数（必须是Variable对象）的iterable。然后，你可以设置optimizer的参数选项，比如学习率，权重衰减等等。
+为了构建一个`Optimizer`，我们需要给它一个包含可需要优化的参数（必须是Variable对象）的iterable。然后，你可以设置Optimizer的参数选项，比如学习率，权重衰减等等。
 
 代码样例如下：
 
@@ -117,7 +123,7 @@ optim = nn.Adam(group_params, learning_rate=0.1, weight_decay=0.0)
 优化器也支持为没个参数单独设置选项。若想这么做，不要直接传入变量Variable，而是传入一个字典的iterable。每一个字典都分别定义了一组参数，并且包含一个key键，这个key键对应相应的参数value值。其他的key键应该是优化器所接受的其他参数，并且会被用于对这组参数的优化。
 
 我们仍然能够传递选项作为关键字参数，在未重写这些选项的组中，它们会被用作默认值。当你只想改动一个参数组的选项，但其他参数组的选项不变时，这是非常有用的。
-例如，当我们想制定每一层的学习率时，以SGD为例：
+例如，当我们想制定每一层的学习率时，以`SGD`为例：
 
 ```
 from mindspore import nn
@@ -132,16 +138,16 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 
 ### 内置优化器
 
-深度学习优化算法大概常用的有SGD、Adam、Ftrl、lazyadam、Momentum、RMSprop、Lars、Proximal_ada_grad和lamb这几种。
-在mindspore.nn.optim模块中，他们都有对应的类实现。例如：
+深度学习优化算法大概常用的有`SGD`、`Adam`、`Ftrl`、`lazyadam`、`Momentum`、`RMSprop`、`Lars`、`Proximal_ada_grad`和`lamb`这几种。
+在`mindspore.nn.optim`模块中，他们都有对应的类实现。例如：
 
-- SGD，默认参数为纯SGD，设置momentum参数不为0，考虑了一阶动量，设置nesterov为True后变成NAG，即Nesterov Accelerated Gradient，在计算梯度时计算的是向前走一步所在位置的梯度。
+- `SGD`，默认参数为纯SGD，设置`momentum`参数不为0，考虑了一阶动量，设置`nesterov`为True后变成`NAG`，即`Nesterov Accelerated Gradient`，在计算梯度时计算的是向前走一步所在位置的梯度。
 
-- RMSprop，考虑了二阶动量，对于不同的参数有不同的学习率，即自适应学习率，对Adagrad进行了优化，通过指数平滑只考虑一定窗口内的二阶动量。
+- `RMSprop`，考虑了二阶动量，对于不同的参数有不同的学习率，即自适应学习率，对`Adagrad`进行了优化，通过指数平滑只考虑一定窗口内的二阶动量。
 
-- Adam，同时考虑了一阶动量和二阶动量，可以看成RMSprop上进一步考虑了一阶动量。
+- `Adam`，同时考虑了一阶动量和二阶动量，可以看成`RMSprop`上进一步考虑了一阶动量。
 
-例如SGD的代码样例如下：
+例如`SGD`的代码样例如下：
 
 ```
 from mindspore import nn
