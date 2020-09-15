@@ -126,7 +126,7 @@ class LeNet(nn.Cell):
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
 net = LeNet()
-criterion = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True)
+criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_with_criterion = WithLossCell(net, criterion)
 loss = net_with_criterion(data, label)
 print("+++++++++Loss+++++++++++++")
@@ -153,7 +153,7 @@ learning_rate = 0.01
 momentum = 0.9
 
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), learning_rate, momentum)
-criterion = nn.SoftmaxCrossEntropyWithLogits(is_grad=False, sparse=True)
+criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 net_with_criterion = WithLossCell(net, criterion)
 train_network = TrainOneStepCell(net_with_criterion, optimizer)  # optimizer
 for i in range(5):
