@@ -28,6 +28,9 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/quick_start.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+&nbsp;&nbsp;
+<a href="https://www.huaweicloud.com/ascend/codeLab_MindSpore/MindSpore" target="_blank"><img src="../_static/logo_online_experience.png"></a>
+
 
 ## 概述
 
