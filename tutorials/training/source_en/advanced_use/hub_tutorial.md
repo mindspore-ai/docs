@@ -5,11 +5,11 @@
 <!-- TOC -->
 
 - [Submitting, Loading and Fine-tuning Models using MindSpore Hub](#submitting-loading-and-fine-tuning-models-using-mindspore-hub)
-  - [Overview](#overview)
-  - [How to submit models](#how-to-submit-models)
-    - [Steps](#steps)
-  - [How to load models](#how-to-load-models)
-  - [Model Fine-tuning](#model-fine-tuning)
+    - [Overview](#overview)
+    - [How to submit models](#how-to-submit-models)
+        - [Steps](#steps)
+    - [How to load models](#how-to-load-models)
+    - [Model Fine-tuning](#model-fine-tuning)
 
 <!-- /TOC -->
 

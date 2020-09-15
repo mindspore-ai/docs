@@ -1,10 +1,10 @@
-# Custom Operators
+# Custom Operators(Ascend)
 
 `Linux` `Ascend` `Model Development` `Expert`
 
 <!-- TOC -->
 
-- [Custom Operators](#custom-operators)
+- [Custom Operators(Ascend)](#custom-operatorsascend)
     - [Overview](#overview)
     - [Registering the Operator Primitive](#registering-the-operator-primitive)
     - [Implementing a TBE Operator and Registering the Operator Information](#implementing-a-tbe-operator-and-registering-the-operator-information)

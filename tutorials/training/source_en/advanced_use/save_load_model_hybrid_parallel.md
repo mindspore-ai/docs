@@ -1,10 +1,10 @@
-# Saving and Loading Model Parameters in the Hybrid Parallel Scenario
+# Save and Load Models in Hybrid Parallel Mode
 
 `Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](#saving-and-loading-model-parameters-in-the-hybrid-parallel-scenario)
+- [Save and Load Models in Hybrid Parallel Mode](#save-and-load-models-in-hybrid-parallel-mode)
     - [Overview](#overview)
         - [Background](#background)
         - [Application Scenario](#application-scenario)
@@ -12,7 +12,7 @@
         - [Overall Process](#overall-process)
         - [Preparations](#preparations)
             - [Importing the Checkpoint Files in rank id order](#importing-the-checkpoint-files-in-rank-id-order)
-            - [Obtaining the slice strategy of model](#obtaining-the-slice-strategy-of-model)
+            - [Obtaining a List of All Parameters on the Network](#obtaining-a-list-of-all-parameters-on-the-network)
         - [Integrate the Model Parallel Parameters](#integrate-the-model-parallel-parameters)
         - [Saving the Data and Generating a New Checkpoint File](#saving-the-data-and-generating-a-new-checkpoint-file)
     - [Loading the Integrated and Saved Checkpoint File](#loading-the-integrated-and-saved-checkpoint-file)

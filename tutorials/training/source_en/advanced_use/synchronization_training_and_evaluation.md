@@ -1,10 +1,10 @@
-﻿# Synchronizing Model Training and Validation
+﻿# Evaluate the Model while Training
 
 `Linux` `Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert` `Model Export` `Model Training`
 
 <!-- TOC -->
 
-- [Synchronizing Model Training and Validation](#synchronizing-model-training-and-validation)
+- [Evaluate the Model while Training](#evaluate-the-model-while-training)
     - [Overview](#overview)
     - [Defining the Callback Function EvalCallBack](#defining-the-callback-function-evalcallback)
     - [Defining and Executing the Training Network](#defining-and-executing-the-training-network)

@@ -1,10 +1,10 @@
-# Debugging in PyNative Mode
+# Debug in PyNative Mode
 
 `Linux` `Ascend` `GPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Debugging in PyNative Mode](#debugging-in-pynative-mode)
+- [Debug in PyNative Mode](#debug-in-pynative-mode)
     - [Overview](#overview)
     - [Executing a Single Operator](#executing-a-single-operator)
     - [Executing a Common Function](#executing-a-common-function)

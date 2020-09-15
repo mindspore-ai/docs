@@ -1,10 +1,10 @@
-# Host+Device Hybrid Training
+# Apply Host&Device Hybrid Training
 
 `Linux` `Ascend` `CPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Host+Device Hybrid Training](#hostdevice-hybrid-training)
+- [Apply Host&Device Hybrid Training](#apply-hostdevice-hybrid-training)
     - [Overview](#overview)
     - [Preliminaries](#preliminaries)
     - [Configuring for Hybrid Training](#configuring-for-hybrid-training)
