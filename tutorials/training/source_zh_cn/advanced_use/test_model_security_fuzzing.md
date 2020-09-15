@@ -1,16 +1,16 @@
-# AI模型安全测试
+# 使用fuzzer模块测试模型安全性
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
 
 <!-- TOC -->
 
-- [AI模型安全测试](#ai模型安全测试)
+- [使用fuzzer模块测试模型安全性](#使用fuzzer模块测试模型安全性)
     - [概述](#概述)
     - [实现阶段](#实现阶段)
-        - [导入需要的库文件](#引入相关包)
+        - [导入需要的库文件](#导入需要的库文件)
         - [参数配置](#参数配置)
-        - [运用Fuzzer](#运用Fuzzer)
-        
+        - [运用Fuzzer](#运用fuzzer)
+
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 

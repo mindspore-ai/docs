@@ -1,9 +1,8 @@
-准备数据
+加载数据集
 ========
 
 .. toctree::
   :maxdepth: 1
 
-  image_loading
-  text_loading
-  
+  load_dataset_image
+  load_dataset_text

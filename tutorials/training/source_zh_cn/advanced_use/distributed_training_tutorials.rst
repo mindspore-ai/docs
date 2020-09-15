@@ -19,6 +19,6 @@
 
   distributed_training_ascend
   distributed_training_gpu
-  host_device_training
-  checkpoint_for_hybrid_parallel
-  parameter_server_training
+  apply_host_device_training
+  apply_parameter_server_training
+  save_load_model_hybrid_parallel
