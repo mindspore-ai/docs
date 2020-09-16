@@ -15,6 +15,7 @@ MindSpore API
    api/python/mindspore/mindspore.communication
    api/python/mindspore/mindspore.context
    api/python/mindspore/mindspore.dataset
+   api/python/mindspore/mindspore.dataset.config
    api/python/mindspore/mindspore.dataset.text
    api/python/mindspore/mindspore.dataset.transforms
    api/python/mindspore/mindspore.dataset.vision
