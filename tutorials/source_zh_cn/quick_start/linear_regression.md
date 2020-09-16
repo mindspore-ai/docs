@@ -1,6 +1,6 @@
 # 实现简单线性函数拟合
 
-`Linux` `Windows` `CPU` `GPU` `全流程` `初级` `中级` `高级`
+`Linux` `Windows` `Ascend` `CPU` `GPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -39,15 +39,11 @@
 4. 拟合过程可视化准备
 5. 执行训练
 
+本例的源代码地址：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>。
+
 ## 环境准备
 
-系统：Windows 10 X86，Linux Ubuntu 18.04
-
-MindSpore版本：CPU-Windows，CPU-Linux
-
 设置MindSpore运行配置
-
-第三方支持包：`matplotlib`，未安装此包的，可使用命令`pip install matplotlib`预先安装。
 
 
 ```python
@@ -59,6 +55,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 `GRAPH_MODE`：自定义调试模式。
 
 `device_target`：设置MindSpore的训练硬件为CPU。
+
+> 本教程代码依赖`matplotlib`第三方支持包，可使用命令`pip install matplotlib`安装。
 
 ## 生成数据集
 
@@ -151,7 +149,7 @@ print("The y label value shape:", dict_datasets["label"].shape)
 
 ## 定义训练网络
 
-在MindSpore中使用`nn.Dense`生成单个数据输入，单个数据暑促和的线性模型为：
+在MindSpore中使用`nn.Dense`生成单个数据输入，单个数据输出的线性函数模型：
 
 $$f(x)=wx+b\tag{1}$$
 
@@ -253,7 +251,7 @@ $$w_{t}=w_{t-1}-\alpha\frac{\partial{J(w_{t-1})}}{\partial{w}}\tag{3}$$
 - $w_{t}$为迭代后的权重值。
 - $w_{t-1}$为迭代前的权重值。
 - $\alpha$为学习率。
-- $\frac{\partial{J(w_{t-1})}}{\partial{w}}$为损失函数对权重$w_{t-1}$的微分。
+- $\frac{\partial{J(w_{t-1}\ )}}{\partial{w}}$为损失函数对权重$w_{t-1}$的微分。
 
 函数中所有的权重值更新完成后，将值传入到模型函数中，这个过程就是反向传播过程，实现此过程需要使用MindSpore中的优化器函数，如下：
 
@@ -303,9 +301,7 @@ def plot_model_and_datasets(net, eval_data):
 
 ### 定义回调函数
 
-MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/customized_debugging_information.html#callback)
-
-- `display.clear_output`：清除打印内容，实现动态拟合效果。
+MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/customized_debugging_information.html#callback>)。
 
 
 ```python
@@ -326,10 +322,10 @@ class ImageShowCallback(Callback):
 
 完成以上过程后，可以使用训练数`ds_train`对模型训练，这里调用`model.train`进行，其中参数解释：
 
-- `epoch`：训练迭代的整个数据集的次数，int类型。
+- `epoch`：训练迭代的整个数据集的次数。
 - `ds_train`：训练数据集。
 - `callbacks`：训练过程中需要调用的回调函数。
-- `dataset_sink_model`：数据集下沉模式，bool类型，支持Ascend，GPU计算平台，本例为CPU计算平台设置为False。
+- `dataset_sink_model`：数据集下沉模式，支持Ascend、GPU计算平台，本例为CPU计算平台设置为False。
 
 
 ```python
