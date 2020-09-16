@@ -32,18 +32,17 @@
 |  LSTM  |  Long short-term memory, an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence.  |
 |  Manifest  |  A data format file. Huawei ModelArt adopts this format. For details, see <https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html>.  |
 |  ME  |  Mind Expression, MindSpore frontend, which is used to compile tasks from user source code to computational graphs, control execution during training, maintain contexts (in non-sink mode), and dynamically generate graphs (in PyNative mode).  |
-|  MindArmour  |  MindSpore security component, which is used for AI adversarial example management, AI model attack defense and enhancement, and AI model robustness evaluation.  |
+|  MindArmour  |  The security module of MindSpore, which improves the confidentiality, integrity and usability of the model through technical means such as differential privacy and adversarial attack and defense. MindArmour prevents attackers from maliciously modifying the model or cracking the internal components of the model to steal the parameters of the model.  |
 |  MindData  |  MindSpore data framework, which provides data loading, enhancement, dataset management, and visualization.  |
 |  MindInsight  |  MindSpore visualization component, which visualizes information such as scalars, images, computational graphs, and model hyperparameters.  |
+|  MindRecord  |  It is a data format defined by MindSpore, it is a module for reading, writing, searching and converting data sets in MindSpore format.  |
 |  MindSpore  |  Huawei-leaded open-source deep learning framework.  |
 |  MindSpore Lite  |  A lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side.  |
-| MindSpore  Micro | MindSpore AI engine with smaller package size for IOT devices. |
 |  MNIST database  |  Modified National Handwriting of Images and Technology database, a large handwritten digit database, which is usually used to train various image processing systems.  |
 | ONNX | Open Neural Network Exchange, is an open format built to represent machine learning models.|
 |  PyNative Mode  |  MindSpore dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.  |
 |  ResNet-50  |  Residual Neural Network 50, a residual neural network proposed by four Chinese people, including Kaiming He from Microsoft Research Institute.  |
-| RT | Runtime. |
 |  Schema  |  Data set structure definition file, which defines the fields contained in a dataset and the field types.  |
 |  Summary  |  An operator that monitors the values of tensors on the network. It is a peripheral operation in the figure and does not affect the data flow.  |
-|  TBE  |  Tensor Boost Engine, an operator development tool that is extended based on the Tensor Virtual Machine (TVM) framework.  |
+|  TBE  |  Tensor Boost Engine, it is a self-developed NPU operator development tool developed by Huawei, which is expanded on the basis of the TVM (Tensor Virtual Machine) framework. It provides a set of Python API to implement development activities and develop custom operators.   |
 |  TFRecord  |  Data format defined by TensorFlow.  |
