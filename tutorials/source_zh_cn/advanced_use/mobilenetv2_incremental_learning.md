@@ -1,27 +1,28 @@
 # MobileNetV2 增量学习
-`Linux` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
+
+`Linux` `Windows` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
 <!-- TOC -->
 
 - [MobileNetV2 增量学习](#mobilenetv2-增量学习)
-    - [概述](#概述)
-    - [任务描述及准备](#任务描述及准备)
-        - [环境配置](#环境配置)
-        - [下载代码](#下载代码)
-        - [准备预训练模型](#准备预训练模型)
-        - [准备数据](#准备数据)
-    - [预训练模型加载代码详解](#预训练模型加载代码详解)
-    - [参数简介](#参数简介)
-        - [运行Python文件](#运行python文件)
-        - [运行Shell脚本](#运行shell脚本)
-    - [加载增量学习训练](#加载增量学习训练)
-        - [CPU加载训练](#cpu加载训练)
-        - [GPU加载训练](#gpu加载训练)
-        - [Ascend加载训练](#ascend加载训练)
-        - [增量学习训练结果](#增量学习训练结果)
-    - [验证增量学习训练模型](#验证增量学习训练模型)
-        - [验证模型](#验证模型)
-        - [验证结果](#验证结果)
+  - [概述](#概述)
+  - [任务描述及准备](#任务描述及准备)
+    - [环境配置](#环境配置)
+    - [下载代码](#下载代码)
+    - [准备预训练模型](#准备预训练模型)
+    - [准备数据](#准备数据)
+  - [预训练模型加载代码详解](#预训练模型加载代码详解)
+  - [参数简介](#参数简介)
+    - [运行Python文件](#运行python文件)
+    - [运行Shell脚本](#运行shell脚本)
+  - [加载增量学习训练](#加载增量学习训练)
+    - [CPU加载训练](#cpu加载训练)
+    - [GPU加载训练](#gpu加载训练)
+    - [Ascend加载训练](#ascend加载训练)
+    - [增量学习训练结果](#增量学习训练结果)
+  - [验证增量学习训练模型](#验证增量学习训练模型)
+    - [验证模型](#验证模型)
+    - [验证结果](#验证结果)
 
 <!-- /TOC -->
 
@@ -33,17 +34,17 @@
 
 MindSpore是一个多元化的机器学习框架。既可以在手机等端侧和PC等设备上运行，也可以在云上的服务器集群上运行。目前MobileNetV2支持在Windows系统中使用单核CPU做增量学习，在EulerOS、Ubuntu系统中使用单个或者多个Ascend AI处理器或GPU中做增量学习，本教程将会介绍如何在不同系统与处理器下的MindSpore框架中做增量学习的训练与验证。
 
-目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。 
+目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。
 
 >你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r0.7/model_zoo/official/cv/mobilenetv2>
-
-
 
 ## 任务描述及准备
 
 ### 环境配置
 
 若在本地环境运行，需要安装MindSpore框架，配置CPU、GPU或Ascend AI处理器。若在华为云环境上运行，不需要安装MindSpore框架，不需要配置Ascend AI处理器、CPU与GPU，可以跳过本小节。
+
+Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地址中不同层级目录，下文中默认使用`/`，若用户使用Windows操作系统，路径地址中`/`需自行更改为`\`。
 
 1. 安装MindSpore框架
     在EulerOS、Ubuntu或者Windows等系统上需要根据系统和处理器架构[安装对应r0.7版本MindSpore框架](https://www.mindspore.cn/install)。
@@ -122,7 +123,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 代码结构如下：
 
-```
+```bash
 ├─MobileNetV2
     ├─README.md     # descriptions about MobileNetV2
     ├─scripts
@@ -134,6 +135,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
     │   launch.py      # start Python script
     │   lr_generator.py     # learning rate config
     │   mobilenetV2.py      # MobileNetV2 architecture
+    │   mobilenetV2_fusion.py      # MobileNetV2 fusion architecture
     │   models.py        # net utils to load ckpt_file, define_net...
     │   utils.py        # net utils to switch precision, set_context and so on
     ├─train.py      # training script
@@ -147,9 +149,9 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 ### 准备预训练模型  
 
 [下载预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt)到以下目录：  
-`./pretrain_checkpoint/[pretrain_checkpoint_file]`  
+`./pretrain_checkpoint/`  
 
-```Python
+```bash
 mkdir pretrain_checkpoint
 wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt
 ```
@@ -160,7 +162,7 @@ wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/l
 
 数据集结构如下：
 
-```
+```bash
 └─ImageFolder
     ├─train  
     │   class1Folder
@@ -205,17 +207,20 @@ wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/l
 24:              param.requires_grad = False
 ```
 
-## 参数简介  
+## 参数简介
+
+每个参数需要用户根据自己本地的处理器类型、数据地址与预训练模型地址等修改为相应的值。
 
 ### 运行Python文件
+
 在Windows与Linux系统上训练时，运行`train.py`时需要传入`dataset_path`、`platform`、`train_method`与`pretrain_ckpt`四个参数。验证时，运行`eval.py`并且传入`dataset_path`、`platform`、`pretrain_ckpt`与`head_ckpt`四个参数。
 
-```Shell
+```bash
 # Windows/Linux train with Python file
-python train.py --dataset_path [dataset_path] --platform [platform] --pretrain_ckpt [pretrain_checkpoint_path] --train_method[("train", "fine_tune", "incremental_learn")]
+python train.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --train_method[("train", "fine_tune", "incremental_learn")] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH]
 
 # Windows/Linux eval with Python file
-python eval.py --dataset_path [dataset_path] --platform [platform] --pretrain_ckpt [pretrain_checkpoint_path] --head_ckpt [head_ckpt_path]
+python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --head_ckpt [HEAD_CHECKPOINT_PATH]
 ```
 
 - `--dataset_path`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
@@ -224,13 +229,13 @@ python eval.py --dataset_path [dataset_path] --platform [platform] --pretrain_ck
 - `--pretrain_ckpt`：增量训练或调优时，需要传入pretrain_checkpoint文件路径以加载预训练好的模型参数权重。
 - `--head_ckpt`：增量训练模型验证时，需要传入head_net预训练模型路径以加载预训练好的模型参数权重。
 
-
 ### 运行Shell脚本
+
 在Linux系统上时，可以选择运行Shell脚本文件`./scripts/run_train.sh`与`./scripts/run_eval.sh`。运行时需要在交互界面中同时传入参数。  
 
-```Shell
+```bash
 # Windows doesn't support Shell
-# Linux train with Shell script 
+# Linux train with Shell script
 sh run_train.sh [PLATFORM] [DEVICE_NUM] [VISIABLE_DEVICES(0,1,2,3,4,5,6,7)] [RANK_TABLE_FILE] [DATASET_PATH] [TRAIN_METHOD] [CKPT_PATH]
 
 # Linux eval with Shell script for incremental learn
@@ -251,7 +256,7 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH] [HEAD_CKPT_PATH]
 
 Windows系统上，MobileNetV2做增量学习训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做增量学习训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/mobilenetv2_incremental_learning.html#id8)。
 
-Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。 增量学习成功开始训练，`./train/device*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
+Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。 增量学习成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
 ### CPU加载训练  
 
@@ -263,16 +268,16 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   使用样例1：通过Python文件调用1个CPU处理器。
 
-    ```Shell
+    ```bash
     # Windows or Linux with Python
-    python train.py --platform CPU --dataset_path /store/dataset/OpenImage/train/ -- train_method incremental_learn --pretrain_ckpt ./pretrain_checkpoint/mobilenetV2.ckpt
+    python train.py --platform CPU --dataset_path [TRAIN_DATASET_PATH] -- train_method incremental_learn --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2.ckpt
     ```
 
   使用样例2：通过Shell文件调用1个CPU处理器。
 
-    ```Shell
+    ```bash
     # Linux with Shell
-    sh run_train.sh CPU /store/dataset/OpenImage/train/ incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh CPU [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
     ```
 
 ### GPU加载训练  
@@ -285,23 +290,23 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - 使用样例1：通过Python文件调用1个GPU处理器。
 
-    ```Shell
+    ```bash
     # Windows or Linux with Python
-    python train.py --platform GPU --dataset_path /store/dataset/OpenImage/train/ --pretrain_ckpt ./pretrain_checkpoint/mobilenetV2.ckpt --train_method incremental_learn
+    python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH]  --train_method incremental_learn --pretrain_ckpt ./pretrain_checkpoint/mobilenetV2.ckpt
     ```
 
   - 使用样例2：通过Shell脚本调用1个GPU处理器，设备ID为`“0”`。
 
-    ```Shell
+    ```bash
     # Linux with Shell
-    sh run_train.sh GPU 1 0 /store/dataset/OpenImage/train/ incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
     ```
 
   - 使用样例3：通过Shell脚本调用8个GPU处理器，设备ID为`“0,1,2,3,4,5,6,7”`。
 
-    ```Shell
+    ```bash
     # Linux with Shell
-    sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 /store/dataset/OpenImage/train/ incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
     ```
 
 ### Ascend加载训练  
@@ -314,23 +319,23 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - 使用样例1：通过Python文件调用1个Ascend处理器。
 
-    ```Shell
+    ```bash
     # Windows or Linux with Python
-    python train.py --platform Ascend --dataset_path /store/dataset/OpenImage/train/ --train_method incremental_learn --pretrain_ckpt  ./pretrain_checkpoint/mobilenetV2.ckpt
+    python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --train_method incremental_learn --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2.ckpt
     ```
 
   - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
 
-    ```Shell
+    ```bash
     # Linux with Shell
-    sh run_train.sh Ascend 1 0 ~/rank_table.json /store/dataset/OpenImage/train/ incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH]  incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
     ```
 
   - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
 
-    ```Shell
+    ```bash
     # Linux with Shell
-    sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json /store/dataset/OpenImage/train/ incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH]  incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
     ```
 
 ### 增量学习训练结果  
@@ -339,23 +344,23 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/device0/log0.log`中查看打印信息，输出结果如下：
 
-    ```
-    train args: Namespace(dataset_path='.\\dataset\\train', platform='CPU', \
-    pretrain_ckpt='.\\pretrain_checkpoint\\mobilenetV2.ckpt', train_method='incremental_learn')
+    ```bash
+    train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
+    pretrain_ckpt='./pretrain_checkpoint/mobilenetv2.ckpt', train_method='incremental_learn')
     cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
-    'epoch_size': 15, 'warmup_epochs': 0, 'lr_max': 0.03, 'lr_end': 0.03, 'momentum': 0.9, \
+    'epoch_size': 200, 'warmup_epochs': 0, 'lr_max': 0.03, 'lr_end': 0.03, 'momentum': 0.9, \
     'weight_decay': 4e-05, 'label_smooth': 0.1, 'loss_scale': 1024, 'save_checkpoint': True, \
     'save_checkpoint_epochs': 1, 'keep_checkpoint_max': 20, 'save_checkpoint_path': './checkpoint', \
     'platform': 'CPU'}
     Processing batch: 16: 100%|███████████████████████████████████████████ █████████████████████| 16/16 [00:00<?, ?it/s]
-    epoch[15], iter[16] cost: 256.030, per step time: 256.030, avg loss: 1.775total cos 7.2574 s
+    epoch[200], iter[16] cost: 256.030, per step time: 256.030, avg loss: 1.775total cos 7.2574 s
     ```
 
 - 查看保存的checkpoint文件。
 
   - Windows上使用`dir checkpoint`查看保存的模型文件：
 
-    ```
+    ```bash
     dir checkpoint
     2020//0814 11:20        267,727 mobilenetv2_head_1.ckpt
     2020//0814 11:21        267,727 mobilenetv2_head_10.ckpt
@@ -368,32 +373,33 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
   - Linux上使用`ls ./checkpoint`查看保存的模型文件：
 
-    ```
+    ```bash
     ls ./checkpoint/
     mobilenetv2_head_1.ckpt  mobilenetv2_head_2.ckpt
     mobilenetv2_head_3.ckpt  mobilenetv2_head_4.ckpt
     ...
     ```
+
 ## 验证增量学习训练模型
 
 ### 验证模型
 
-使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/mobilenetv2_incremental_learning.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`infer.log`文件。
+使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/tutorial/zh-CN/r0.7/advanced_use/mobilenetv2_incremental_learning.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
 
-```Shell
+```bash
 # Windows/Linux with Python
-python eval.py --dataset_path \store\dataset\openimage\val\ --platform CPU pretrain_ckpt .\pretrain_checkpoint\mobilenetV2.ckpt --head_ckpt .\checkpoint\mobilenetv2_head_15,ckpt
+python eval.py --platform CPU --dataset_path [VAL_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2.ckpt --head_ckpt ./checkpoint/mobilenetv2_head_15.ckpt
 
 # Linux with Shell
-sh run_infer.sh CPU /store/dataset/openimage/val/ ../pretrain_checkpoint/mobilenetV2.ckpt ../checkpoint/mobilenetv2_head_15.ckpt
+sh run_eval.sh CPU [VAL_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2.ckpt ../checkpoint/mobilenetv2_head_15.ckpt
 ```
 
 ### 验证结果
 
-运行Python文件时在交互式命令行中输出验证结果，Shell脚本将把这些信息写入`./infer.log`中，需要使用`cat ./infer.log`查看，以Window运行结果为例，结果如下：
+运行Python文件时在交互式命令行中输出验证结果，Shell脚本将把这些信息写入`./eval.log`中，需要使用`cat ./eval.log`查看，结果如下：
 
-```
+``` shell
 result:{'acc': 0.9466666666666666666667}
-pretrain_ckpt = .\pretrain_checkpoint\mobilenetV2.ckpt
-head_ckpt = .\checkpoint\mobilenetv2_head_15.ckpt
+pretrain_ckpt = ./pretrain_checkpoint/mobilenetv2.ckpt
+head_ckpt = ./checkpoint/mobilenetv2_head_15.ckpt
 ```
