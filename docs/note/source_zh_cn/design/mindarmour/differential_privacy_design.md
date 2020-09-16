@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindarmour/differential_privacy_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindarmour/differential_privacy_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 总体设计
 
