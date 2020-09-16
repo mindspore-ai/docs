@@ -34,29 +34,35 @@ MindConverter是一款将PyTorch模型脚本转换至MindSpore的脚本迁移工
 MindConverter提供命令行（Command-line interface, CLI）的使用方式，命令如下。
 
 ```bash
-mindconverter [-h] [--version] --in_file IN_FILE [--output OUTPUT]
-              [--report REPORT]
+usage: mindconverter [-h] [--version] [--in_file IN_FILE]
+                     [--model_file MODEL_FILE] [--shape SHAPE]
+                     [--output OUTPUT] [--report REPORT]
+                     [--project_path PROJECT_PATH]
 
 optional arguments:
-  -h, --help               Show this help message and exit.
-  --version                Show program's version number and exit.
-  --in_file IN_FILE        Specify path for script file to use AST schema to 
-                           do script conversation.
-  --model_file MODEL_FILE  PyTorch .pth model file path to use graph 
-                           based schema to do script generation. When 
-                           `--in_file` and `--model_path` are both provided,
-                           use AST schema as default.
-  --shape SHAPE            Optional, excepted input tensor shape of 
-                           `--model_file`. It's required when use graph based 
-                           schema.
-  --output OUTPUT          Optional, specify path for converted script file 
-                           directory. Default is output directory in the
-                           current working directory.
-  --report REPORT          Optional, specify report directory. Default is 
-                           the current working directorys.
-  --project_path PROJECT   Optional, pytorch scripts project path. If pytorch  
-                           project is not in PYTHONPATH, please assign 
-                           `--project_path` when use graph based schema.
+  -h, --help            show this help message and exit
+  --version             show program version number and exit
+  --in_file IN_FILE     Specify path for script file to use AST schema to do
+                        script conversation.
+  --model_file MODEL_FILE
+                        PyTorch .pth model file path to use graph based schema
+                        to do script generation. When `--in_file` and
+                        `--model_file` are both provided, use AST schema as
+                        default.
+  --shape SHAPE         Optional, excepted input tensor shape of
+                        `--model_file`. It is required when use graph based
+                        schema. Usage: --shape 3,244,244
+  --output OUTPUT       Optional, specify path for converted script file
+                        directory. Default output directory is `output` folder
+                        in the current working directory.
+  --report REPORT       Optional, specify report directory. Default is
+                        converted script directory.
+  --project_path PROJECT_PATH
+                        Optional, PyTorch scripts project path. If PyTorch
+                        project is not in PYTHONPATH, please assign
+                        `--project_path` when use graph based schema. Usage:
+                        --project_path ~/script_file/
+
 ```
 
 **MindConverter提供两种模型脚本迁移方案：**
@@ -149,5 +155,5 @@ mindconverter --model_file /home/user/model.pth --shape 3,224,224 \
 
 ## 注意事项
 
-1. PyTorch不作为MindInsight明确声明的依赖库，但若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库；
+1. PyTorch不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成）；
 2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
