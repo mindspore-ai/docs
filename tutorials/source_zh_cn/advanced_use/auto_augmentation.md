@@ -1,6 +1,6 @@
 # 自动数据增强
 
-`Linux` `Ascend` `GPU` `CPU` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `中级` `高级` `数据准备`
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -15,11 +15,12 @@
 
 ## 概述
 
-AutoAugment是在一系列图像增强子策略的搜索空间中通过搜索算法找到适合特定数据集的图像增强方案，针对ImageNet数据集的数据增强增强策略包含25条子策略，每条子策略中包含两种变换，针对一个batch中的每张图像随机挑选一个子策略的组合，以预定的概率来决定是否执行子策略中的每种变换。
+自动数据增强（AutoAugment）[1]是在一系列图像增强子策略的搜索空间中，通过搜索算法找到适合特定数据集的图像增强方案。MindSpore的`c_transforms`模块提供了丰富的C++算子来实现AutoAugment，用户也可以自定义函数或者算子来实现。
+更多MindSpore算子的详细说明参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html)。
 
-MindSpore的`c_transforms`模块提供了丰富的c_vision++算子来实现AutoAugment，用户也可以自定义函数或者算子来实现。更多MindSpore算子的详细说明参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html)。
+MindSpore算子和AutoAugment中的算子的对应关系如下：
 
-| AutoAugment增强算子 | MindSpore算子 |描述 |
+| AutoAugment算子 | MindSpore算子 |描述 |
 |:-------------------:|:------|--------------|
 |shearX|RandomAffine|横向剪切|
 |shearY|RandomAffine|纵向剪切|
@@ -36,115 +37,25 @@ MindSpore的`c_transforms`模块提供了丰富的c_vision++算子来实现AutoA
 |equalize|Equalize|均衡图像直方图|
 |invert|Invert|反转图像|
 
-ImageNet数据集的增强策略定义如下：
-
-```python
-# define autoAugment operators
-
-PARAMETER_MAX = 10
-
-def float_parameter(level, maxval):
-    return float(level) * maxval /  PARAMETER_MAX
-
-def int_parameter(level, maxval):
-    return int(level * maxval / PARAMETER_MAX)
-
-def shear_x(level):
-    v = float_parameter(level, 0.3)
-    return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, shear=(-v,-v)), c_vision.RandomAffine(degrees=0, shear=(v, v))])
-
-def shear_y(level):
-    v = float_parameter(level, 0.3)
-    return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, shear=(0, 0, -v,-v)), c_vision.RandomAffine(degrees=0, shear=(0, 0, v, v))])
-
-def translate_x(level):
-    v = float_parameter(level, 150 / 331)
-    return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, translate=(-v,-v)), c_vision.RandomAffine(degrees=0, translate=(v, v))])
-
-def translate_y(level):
-    v = float_parameter(level, 150 / 331)
-    return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, translate=(0, 0, -v,-v)), c_vision.RandomAffine(degrees=0, translate=(0, 0, v, v))])
-
-def color_impl(level):
-    v = float_parameter(level, 1.8) + 0.1
-    return c_vision.RandomColor(degrees=(v, v))
-
-def rotate_impl(level):
-    v = int_parameter(level, 30)
-    return c_transforms.RandomChoice([c_vision.RandomRotation(degrees=(-v, -v)), c_vision.RandomRotation(degrees=(v, v))])
-
-def solarize_impl(level):
-    level = int_parameter(level, 256)
-    v = 256 - level
-    return c_vision.RandomSolarize(threshold=(0, v))
-
-def posterize_impl(level):
-    level = int_parameter(level, 4)
-    v = 4 - level
-    return c_vision.RandomPosterize(bits=(v, v))
-
-def contrast_impl(level):
-    v = float_parameter(level, 1.8) + 0.1
-    return c_vision.RandomColorAdjust(contrast=(v, v))
-
-def autocontrast_impl(level):
-    return c_vision.AutoContrast()
-
-def sharpness_impl(level):
-    v = float_parameter(level, 1.8) + 0.1
-    return c_vision.RandomSharpness(degrees=(v, v))
-
-def brightness_impl(level):
-    v = float_parameter(level, 1.8) + 0.1
-    return c_vision.RandomColorAdjust(brightness=(v, v))
-
-# define AutoAugment policy
-imagenet_policy = [
-      [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
-      [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-      [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
-      [(posterize_impl(7), 0.6), (posterize_impl(6), 0.6)],
-      [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
-
-      [(c_vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
-      [(solarize_impl(3), 0.6), (c_vision.Equalize(), 0.6)],
-      [(posterize_impl(5), 0.8), (c_vision.Equalize(), 1.0)],
-      [(rotate_impl(3), 0.2), (solarize_impl(8), 0.6)],
-      [(c_vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
-
-      [(rotate_impl(8), 0.8), (color_impl(0), 0.4)],
-      [(rotate_impl(9), 0.4), (c_vision.Equalize(), 0.6)],
-      [(c_vision.Equalize(), 0.0), (c_vision.Equalize(), 0.8)],
-      [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
-      [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
-
-      [(rotate_impl(8), 0.8), (color_impl(2), 1.0)],
-      [(color_impl(8), 0.8), (solarize_impl(7), 0.8)],
-      [(sharpness_impl(7), 0.4), (c_vision.Invert(), 0.6)],
-      [(shear_x(5), 0.6), (c_vision.Equalize(), 1.0)],
-      [(color_impl(0), 0.4), (c_vision.Equalize(), 0.6)],
-
-      [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
-      [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-      [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
-      [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
-      [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
-      ]
-```
-
 ## ImageNet自动数据增强
+本教程以在ImageNet数据集上实现AutoAugment作为示例。
 
-用户可以使用Mindspore提供的`RandomSelectSubpolicy`接口来实现自动数据增强，
+针对ImageNet数据集的数据增强策略包含25条子策略，每条子策略中包含两种变换，针对一个batch中的每张图像随机挑选一个子策略的组合，以预定的概率来决定是否执行子策略中的每种变换。
+
+用户可以使用MindSpore中`c_transforms`模块的`RandomSelectSubpolicy`接口来实现AutoAugment，
 在ImageNet分类训练中标准的数据增强方式分以下几个步骤:
 
-1. `RandomCropDecodeResize`：随机裁剪后进行解码。
-2. `RandomHorizontalFlip`：水平方向上随机翻转。
-3. `Normalize`：归一化。
-4. `HWC2CHW`：shape变换。
+一. `RandomCropDecodeResize`：随机裁剪后进行解码。
 
-在步骤1后插入AutoAugment变换，如下所示：
+二. `RandomHorizontalFlip`：水平方向上随机翻转。
 
-1. 引入mindspore数据增强模块。
+三. `Normalize`：归一化。
+
+四. `HWC2CHW`：shape变换。
+
+在步骤一后插入AutoAugment变换，如下所示：
+
+1. 引入MindSpore数据增强模块。
 
     ```python
     import mindspore.common.dtype as mstype
@@ -154,7 +65,108 @@ imagenet_policy = [
     import matplotlib.pyplot as plt
     ```
 
-2. 在`RandomCropDecodeResize`操作后插入AutoAugment变换。
+2. 定义MindSpore算子到AutoAugment算子的映射：
+
+    ```python
+    # define AutoAugment operators
+
+    PARAMETER_MAX = 10
+
+    def float_parameter(level, maxval):
+        return float(level) * maxval /  PARAMETER_MAX
+
+    def int_parameter(level, maxval):
+        return int(level * maxval / PARAMETER_MAX)
+
+    def shear_x(level):
+        v = float_parameter(level, 0.3)
+        return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, shear=(-v,-v)), c_vision.RandomAffine(degrees=0, shear=(v, v))])
+
+    def shear_y(level):
+        v = float_parameter(level, 0.3)
+        return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, shear=(0, 0, -v,-v)), c_vision.RandomAffine(degrees=0, shear=(0, 0, v, v))])
+
+    def translate_x(level):
+        v = float_parameter(level, 150 / 331)
+        return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, translate=(-v,-v)), c_vision.RandomAffine(degrees=0, translate=(v, v))])
+
+    def translate_y(level):
+        v = float_parameter(level, 150 / 331)
+        return c_transforms.RandomChoice([c_vision.RandomAffine(degrees=0, translate=(0, 0, -v,-v)), c_vision.RandomAffine(degrees=0, translate=(0, 0, v, v))])
+
+    def color_impl(level):
+        v = float_parameter(level, 1.8) + 0.1
+        return c_vision.RandomColor(degrees=(v, v))
+
+    def rotate_impl(level):
+        v = int_parameter(level, 30)
+        return c_transforms.RandomChoice([c_vision.RandomRotation(degrees=(-v, -v)), c_vision.RandomRotation(degrees=(v, v))])
+
+    def solarize_impl(level):
+        level = int_parameter(level, 256)
+        v = 256 - level
+        return c_vision.RandomSolarize(threshold=(0, v))
+
+    def posterize_impl(level):
+        level = int_parameter(level, 4)
+        v = 4 - level
+        return c_vision.RandomPosterize(bits=(v, v))
+
+    def contrast_impl(level):
+        v = float_parameter(level, 1.8) + 0.1
+        return c_vision.RandomColorAdjust(contrast=(v, v))
+
+    def autocontrast_impl(level):
+        return c_vision.AutoContrast()
+
+    def sharpness_impl(level):
+        v = float_parameter(level, 1.8) + 0.1
+        return c_vision.RandomSharpness(degrees=(v, v))
+
+    def brightness_impl(level):
+        v = float_parameter(level, 1.8) + 0.1
+        return c_vision.RandomColorAdjust(brightness=(v, v))
+
+    ```
+
+3. 定义ImageNet数据集的AutoAugment策略：
+    ```python
+    # define AutoAugment policy
+    imagenet_policy = [
+          [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
+          [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
+          [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+          [(posterize_impl(7), 0.6), (posterize_impl(6), 0.6)],
+          [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+
+          [(c_vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
+          [(solarize_impl(3), 0.6), (c_vision.Equalize(), 0.6)],
+          [(posterize_impl(5), 0.8), (c_vision.Equalize(), 1.0)],
+          [(rotate_impl(3), 0.2), (solarize_impl(8), 0.6)],
+          [(c_vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
+
+          [(rotate_impl(8), 0.8), (color_impl(0), 0.4)],
+          [(rotate_impl(9), 0.4), (c_vision.Equalize(), 0.6)],
+          [(c_vision.Equalize(), 0.0), (c_vision.Equalize(), 0.8)],
+          [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+          [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
+
+          [(rotate_impl(8), 0.8), (color_impl(2), 1.0)],
+          [(color_impl(8), 0.8), (solarize_impl(7), 0.8)],
+          [(sharpness_impl(7), 0.4), (c_vision.Invert(), 0.6)],
+          [(shear_x(5), 0.6), (c_vision.Equalize(), 1.0)],
+          [(color_impl(0), 0.4), (c_vision.Equalize(), 0.6)],
+
+          [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+          [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
+          [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+          [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
+          [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+        ]
+
+    ```
+
+4. 在`RandomCropDecodeResize`操作后插入AutoAugment变换。
 
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
@@ -200,7 +212,7 @@ imagenet_policy = [
       return ds
     ```
 
-3. 验证自动数据增强效果。
+5. 验证自动数据增强效果。
 
     ```python
     # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
@@ -223,12 +235,12 @@ imagenet_policy = [
     plt.show()
     ```
 
-    >为了更好演示效果从数据集中只读取5张图片并且不进行`shuffle`，并且为了更好显示图片不进行`Normalize`和`HWC2CHW`操作。
+    >为了更好演示效果，从数据集中只读取5张图片并且不进行`shuffle`且不进行`Normalize`和`HWC2CHW`操作。
 
-    运行结果可以看到，batch中每张图像的增强效果，X方向表示1个batch的5张图像，Y方向表示5个bacth。
 
     ![augment](./images/auto_augmentation.png)
 
+    运行结果可以看到，batch中每张图像的增强效果，X方向表示1个batch的5张图像，Y方向表示5个bacth。
 ## 参考文献
 
 [1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501)
