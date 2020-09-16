@@ -1,28 +1,24 @@
 # 实现简单线性函数拟合
 
-`Linux` `GPU` `全流程` `初级` `中级` `高级`
-
-作者：[杨奕](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;编辑：[吕明赋](https://gitee.com/lvmingfu)
+`Linux` `Windows` `Ascend` `CPU` `GPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [实现简单线性函数拟合](#实现简单线性函数拟合)   
-    - [概述](#概述)
-    - [环境准备](#环境准备)  
-    - [生成数据集](#生成数据集)
-        - [定义数据集生成函数](#定义数据集生成函数)
-        - [生成测试数据](#生成测试数据)
+- [概述](#概述)
+- [环境准备](#环境准备)
+- [生成数据集](#生成数据集)
+    - [定义数据集生成函数](#定义数据集生成函数)
+    - [定义数据增强函数](#定义数据增强函数)
+- [定义训练网络](#定义训练网络)
+- [定义前向传播网络与反向传播网络并关联](#定义前向传播网络与反向传播网络并关联)
     - [定义前向传播网络](#定义前向传播网络)
-        - [初始化网络模型](#初始化网络模型)
-        - [查看初始化的网络模型](#查看初始化的网络模型)
-        - [定义损失函数](#定义损失函数)
-        - [损失函数与网络结合](#损失函数与网络结合)
     - [定义反向传播网络](#定义反向传播网络)
-        - [实现梯度函数](#实现梯度函数)
-        - [反向传播更新权重](#反向传播更新权重)
-    - [定义模型拟合过程可视化函数](#定义模型拟合过程可视化函数)
-    - [执行训练](#执行训练)    
-    - [总结](#总结)
+    - [关联前向和反向传播网络](#关联前向和反向传播网络)
+- [拟合过程可视化准备](#拟合过程可视化准备)
+    - [定义绘图函数](#定义绘图函数)
+    - [定义回调函数](#定义回调函数)
+- [执行训练](#执行训练)
+- [总结](#总结)
 
 <!-- /TOC -->
 
@@ -30,374 +26,331 @@
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
+
 ## 概述
 
 回归问题算法通常是利用一系列属性来预测一个值，预测的值是连续的。例如给出一套房子的一些特征数据，如面积、卧室数等等来预测房价，利用最近一周的气温变化和卫星云图来预测未来的气温情况等。如果一套房子实际价格为500万元，通过回归分析的预测值为499万元，则认为这是一个比较好的回归分析。在机器学习问题中，常见的回归分析有线性回归、多项式回归、逻辑回归等。本例子介绍线性回归算法，并通过MindSpore进行线性回归AI训练体验。
 
-主要流程如下：
+整体流程如下：
 
 1. 生成数据集
-2. 定义前向传播网络
-3. 定义反向传播网络
-4. 定义线性拟合过程的可视化函数
+2. 定义训练网络
+3. 定义前向传播网络与反向传播网络并关联
+4. 拟合过程可视化准备
 5. 执行训练
 
-本次样例源代码请参考：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>。
+本例的源代码地址：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>。
 
 ## 环境准备
 
-系统：Ubuntu18.04
-
-MindSpore版本：GPU
-
 设置MindSpore运行配置
 
-第三方支持包：`matplotlib`，未安装此包的，可使用命令`pip install matplotlib`预先安装。
 
 ```python
 from mindspore import context
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 ```
 
-`PYNATIVE_MODE`：自定义调试模式。
+`GRAPH_MODE`：自定义调试模式。
 
-`device_target`：设置MindSpore的训练硬件为GPU。
+`device_target`：设置MindSpore的训练硬件为CPU。
+
+> 本教程代码依赖`matplotlib`第三方支持包，可使用命令`pip install matplotlib`安装。
 
 ## 生成数据集
 
 ### 定义数据集生成函数
 
-`get_data`用于生成训练数据集和测试数据集。由于拟合的是线性数据，假定要拟合的目标函数为：$y=2x+3$，那么我们需要的训练数据集应随机分布于函数周边，这里采用了$y=2x+3+noise$的方式生成，其中`noise`为遵循标准正态分布规律的随机数值。
+`get_data`用于生成训练数据集和测试数据集。由于拟合的是线性数据，假定要拟合的目标函数为：$f(x)=2x+3$，那么我们需要的训练数据集应随机分布于函数周边，这里采用了$f(x)=2x+3+noise$的方式生成，其中`noise`为遵循标准正态分布规律的随机数值。
 
 
 ```python
 import numpy as np
-import mindspore as ms
-from mindspore import Tensor
- 
-def get_data(num,w=2.0, b=3.0):
-    np_x = np.ones([num, 1])
-    np_y = np.ones([num, 1])
+
+def get_data(num, w=2.0, b=3.0):
     for i in range(num):
         x = np.random.uniform(-10.0, 10.0)
-        np_x[i] = x
         noise = np.random.normal(0, 1)
         y = x * w + b + noise
-        np_y[i] = y
-    return Tensor(np_x,ms.float32), Tensor(np_y,ms.float32)
+        yield np.array([x]).astype(np.float32), np.array([y]).astype(np.float32)
 ```
 
-数据生成函数将有以下两个作用。
-
-1. 生成训练数据，对模型函数进行训练。
-2. 生成验证数据，在训练结束后，对模型函数进行精度验证。
-
-### 生成测试数据
-
-使用数据生成函数`get_data`随机生成50组验证数据，并可视化展示。
+使用`get_data`生成50组测试数据，可视化展示。
 
 
 ```python
 import matplotlib.pyplot as plt
 
-eval_x, eval_label = get_data(50)
-x1, y1 = eval_x.asnumpy(), eval_label.asnumpy()
-plt.scatter(x1, y1, color="red", s=5)
-plt.title("Eval_data")
+eval_data = list(get_data(50))
+x_target_label = np.array([-10, 10, 0.1])
+y_target_label = x_target_label * 2 + 3
+x_eval_label,y_eval_label = zip(*eval_data)
+
+plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
+plt.plot(x_target_label, y_target_label, color="green")
+plt.title("Eval data")
 plt.show()
 ```
 
 输出结果：
+
 
 ![png](./images/linear_regression_eval_datasets.png)
 
 
-## 定义前向传播网络
+上图中绿色线条部分为目标函数，红点部分为验证数据`eval_data`。
 
-### 初始化网络模型
+### 定义数据增强函数
 
-使用`nn.Dense`定义了网络模型，即为线性模型，
+先使用MindSpore的数据转换函数`GeneratorDataset`转换成适应MindSpore训练的数据类型，然后再使用`batch`、`repeat`对数据进行增强操作，操作解释如下：
 
-$$y=wx+b\tag{1}$$
-
-其中，权重值$w$对应`weight`，$b$对应`bias`，并将其打印出来。
+- `ds.GeneratorDataset`：将生成的数据转换为MindSpore的数据集，并且将生成的数据的x，y值存入到`data`和`label`的数组中。
+- `batch`：将`batch_size`个数据组合成一个batch。
+- `repeat`：将数据集数量倍增。
 
 
 ```python
-from mindspore.common.initializer import TruncatedNormal
-from mindspore import nn
+from mindspore import dataset as ds
 
-net = nn.Dense(1,1,TruncatedNormal(0.02),TruncatedNormal(0.02))
-print("weight:", net.weight.set_data([0][0]), "bias:", net.bias.set_data([0]))
+def create_dataset(num_data, batch_size=16, repeat_size=1):
+    input_data = ds.GeneratorDataset(list(get_data(num_data)), column_names=['data', 'label'])
+    input_data = input_data.batch(batch_size)
+    input_data = input_data.repeat(repeat_size)
+    return input_data
+```
+
+使用数据集增强函数生成训练数据，并查看训练数据的格式。
+
+
+```python
+num_data = 1600
+batch_size = 16
+repeat_size = 1
+
+ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size) 
+print("The dataset size of ds_train:", ds_train.get_dataset_size())
+dict_datasets = ds_train.create_dict_iterator().get_next()
+
+print(dict_datasets.keys())
+print("The x label value shape:", dict_datasets["data"].shape)
+print("The y label value shape:", dict_datasets["label"].shape)
 ```
 
 输出结果：
 
-    weight: -0.00034249047 bias: -0.019308656
+    The dataset size of ds_train: 100
+    dict_keys(['data', 'label'])
+    The x label value shape: (16, 1)
+    The y label value shape: (16, 1)
     
 
-### 查看初始化的网络模型
+通过定义的`create_dataset`将生成的1600个数据增强为了100组shape为16x1的数据集。
 
-我们将验证数据集和初始化的模型函数可视化。
+## 定义训练网络
+
+在MindSpore中使用`nn.Dense`生成单个数据输入，单个数据输出的线性函数模型：
+
+$$f(x)=wx+b\tag{1}$$
+
+并使用Normal算子随机初始化权重$w$和$b$。
 
 
 ```python
-x = np.arange(-10, 10, 0.1)
-y = x * (net.weight.set_data([0][0]).asnumpy()) + (net.bias.set_data([0]).asnumpy())
-plt.scatter(x1, y1, color="red", s=5)
-plt.plot(x, y, "blue")
-plt.title("Eval data and net")
+from mindspore.common.initializer import Normal
+from mindspore import nn
+
+class LinearNet(nn.Cell):
+    def __init__(self):
+        super(LinearNet, self).__init__()
+        self.fc = nn.Dense(1, 1, Normal(0.02), Normal(0.02))
+
+    def construct(self, x):
+        x = self.fc(x)
+        return x
+```
+
+调用网络查看初始化的模型参数。
+
+
+```python
+net = LinearNet()
+model_params = net.trainable_params()
+print(model_params)
+```
+
+输出结果：
+
+    [Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
+    [[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
+    
+
+初始化网络模型后，接下来将初始化的网络函数和训练数据集进行可视化，了解拟合前的模型函数情况。
+
+
+```python
+from mindspore import Tensor
+
+x_model_label = np.array([-10, 10, 0.1])
+y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] + 
+                 Tensor(model_params[1]).asnumpy()[0])
+
+plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
+plt.plot(x_model_label, y_model_label, color="blue")
+plt.plot(x_target_label, y_target_label, color="green")
 plt.show()
 ```
 
 输出结果：
 
+
 ![png](./images/model_net_and_eval_datasets.png)
 
 
-红色的点：为之前生成的50组验证数据集。
+从上图中可以看出，蓝色线条的初始化模型函数与绿色线条的目标函数还是有较大的差别的。
 
-蓝色的线：初始化的模型网络。
+## 定义前向传播网络与反向传播网络并关联
 
-### 定义损失函数
+接下来需要定义模型的损失函数，这里采用均方差的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失损失函数公式为：
 
-我们的网络模型表达式为：
+$$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
-$$h(x)=wx+b\tag{2}$$
+假设训练数据第$i$个数据为$(x_i,y^{(i)})$，公式2中的参数解释如下：
 
-一般地，数学上对线性回归模型采用均方差的方式来判断模型是否拟合得很好，即均方差的值$J(w)$值越小，函数模型便拟合得越好，验证数据代入后，预测得到的y值就越准确。公式2对应m个数据的均方差公式为：
+- $J(w)$为损失值。
 
-$$J(w)=\frac{1}{m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{3}$$
+- $m$为样本数据的数量，本例中$m$的值为`batch_size`。
 
-为了方便后续的计算，我们采用0.5倍的均方差的表达式来进行计算，均方差值整体缩小至0.5倍的计算方式对判断模型拟合的好坏没有影响。
+- $h(x_i)$为第$i$个数据的$x_i$值代入模型网络（公式1）后的预测值。
 
-$$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{4}$$
+- $y^{(i)}$为第$i$个数据中的$y^{(i)}$值（label值）。
 
-公式4即为网络训练中的损失函数，其中参数：
+### 定义前向传播网络
 
-- $J(w)$为均方差。
+前向传播网络包含两个部分，其中：
 
-- $m$为样本数据的数量。
+1. 将参数带入到模型网络中得出预测值。
+2. 使用预测值和训练数据计算出loss值。
 
-- $h(x_i)$为第$i$个数据的$x_i$值代入模型网络（公式2）后的预测值。
-
-- $y^{(i)}$为第$i$个数据中的$y$值（label值）。
-
-在MindSpore中定义损失函数的方法如下。
+在MindSpore中使用如下方式实现。
 
 
 ```python
-from mindspore.ops import operations as P
-
-class MyLoss(nn.loss.loss._Loss):
-    def __init__(self,reduction='mean'):
-        super().__init__(reduction)
-        self.square = P.Square()
-    def construct(self, data, label):
-        x = self.square(data-label) * 0.5
-        return self.get_loss(x)
+net = LinearNet()
+net_loss = nn.loss.MSELoss()
 ```
 
-其中:
+### 定义反向传播网络
 
-- `nn.loss.loss._Loss`：是MindSpore自定义loss算子的一个基类。
+反向传播网络的目标是不断变换权重值，使得loss值取得最小值，一般的在线性网络中采用权重更新公式：
 
-- `P.Square`：MindSpore训练的框架中的平方算子，算子需要注册过才能在框架的计算图中使用。
+$$w_{t}=w_{t-1}-\alpha\frac{\partial{J(w_{t-1})}}{\partial{w}}\tag{3}$$
 
-### 损失函数与网络结合
+公式3参数解释：
 
-接下来我们需要将loss函数的表达式和网络net关联在一起，在MindSpore中需要`nn.WithLossCell`，实现方法如下：
+- $w_{t}$为迭代后的权重值。
+- $w_{t-1}$为迭代前的权重值。
+- $\alpha$为学习率。
+- $\frac{\partial{J(w_{t-1}\ )}}{\partial{w}}$为损失函数对权重$w_{t-1}$的微分。
+
+函数中所有的权重值更新完成后，将值传入到模型函数中，这个过程就是反向传播过程，实现此过程需要使用MindSpore中的优化器函数，如下：
 
 
 ```python
-criterion = MyLoss()
-loss_opeartion = nn.WithLossCell(net, criterion) 
+opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 ```
 
-其中：
+### 关联前向和反向传播网络
 
-- `net`：网络模型。
-
-- `criterion`：即为实例化的loss函数。
-
-上述从数据代入到计算出loss值的过程为AI训练中的前向传播过程。
-
-## 定义反向传播网络
-
-有了损失函数后，我们如何使得损失函数最小呢？我们可以将公式1代入到损失函数公式4中展开：
-
-$$J(w,b)=\frac{1}{2m}\sum_{i=1}^m(wx_i+b-y^{(i)})^2\tag{5}$$
-
-公式5可以将$J(w)$看作为凹函数，对权重值$w$微分可求得：
-
-$$\frac{\partial{J(w)}}{\partial{w}}=\frac{1}{m}\sum_{i=1}^mx_i(wx_i+b-y^{(i)})\tag{6}$$
-
-
-由凹函数的特性可以知道，当公式6等于0时，损失函数有最小值：
-
-$$\sum_{i=1}^mx_i(wx_i+b-y^{(i)})=0\tag{7}$$  
-
-假设有一个$w_{min}$使得公式7成立。我们如何将初始的权重$w_{s}$逐步的变成$w_{min}$，在这里采取迭代法，也就是梯度下降方法
-
-当权重$w_{s}<w_{min}$，那么我们需要更新权重$w_{s}$的值，将其往右移动使得权重值$w_{s}$变大，增加量为$\Delta{w}$，其中：
-
-$$\Delta{w}=\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{8}$$
-
-公式8中：
-
-$\alpha$：表示一个系数,即深度学习中的学习率learning_rate，一般设置为正数。
-
-$\frac{\partial{J(w_{s})}}{\partial{w}}$：表示损失函数$J(w)$在$w_{s}$的导数，可以理解为在$w_{s}$处的梯度下降率即坡度，由凹函数的性质可知，由于$w_{s}<w_{min}$，所以其值为负数。
-
-公式8为负数，那么我们对权重值向右移动的更新公式即可以写为：
-
-$$w_{ud}=w_{s}-\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{9}$$
-
-$w_{ud}$：更新的后权重数值。
-
-$w_{s}$：表示初始的权重。
-
-当$w_{s}>w_{min}$，权重值需要左移即权重值变小接近$w_{min}$，才能使得损失函数逐步的变小，由凹函数的性质可知，在$w_{s}$处的导数为正（损失函数在$w_{min}$右边单调上升），公式8的值为正。其权重的更新公式为：
-
-$$w_{ud}=w_{s}-\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{10}$$
-
-
-当$w_{s}=w_{min}$时，到$\frac{\partial{J(w_{s})}}{\partial{w}}$=0，即梯度消失，其表达式也可写为公式9的样式。
-
-在考虑了全区间的情况后，可以得出权重$w$的更新公式即为：
-
-$$w_{ud}=w_{s}-\alpha\frac{\partial{J(w_{s})}}{\partial{w}}\tag{11}$$
-
-当权重$w$在更新的过程中假如临近$w_{min}$在增加或者减少一个$\Delta{w}$，从左边或者右边越过了$w_{min}$，公式11都会使权重往反的方向移动，那么最终$w_{s}$的值会在$w_{min}$附近来回迭代，在实际训练中我们也是这样采用迭代的方式取得最优权重$w$，使得损失函数无限逼近局部最小值。
-
-同理：对于公式5中的另一个权重$b$容易得出其更新公式为：
-
-$$b_{ud}=b_{s}-\alpha\frac{\partial{J(b_{s})}}{\partial{b}}\tag{12}$$
-
-
-当所有的权重更新完成后，将新的权重赋值给初始权重：即$w_{s}$=$w_{ud}$，$b_{s}$=$b_{ud}$。将新的初始权重传递回到模型函数中，这样就完成了反向传播的过程。
-
-> 当遇到多项式的回归模型时，上述梯度方法也适用，由于权重数量的增加，需要将权重的名称更新为$w_0,w_1,w_2,...,w_n$，引入矩阵的表达方式，公式将会更加简洁，这里就不多介绍了。
-
-### 实现梯度函数
-
-在MindSpore中的所有要编入计算图的类都需要继承`nn.Cell`算子。MindSpore的梯度计算函数采用如下方式。
+定义完成前向传播和反向传播后，在MindSpore中需要调用`Model`函数，将前面定义的网络，损失函数，优化器函数关联起来，使之变成完整的计算网络。
 
 
 ```python
-from mindspore.ops import composite as C
+from mindspore.train import Model
 
-class GradWrap(nn.Cell):
-    """ GradWrap definition """
-    def __init__(self, network):
-        super().__init__(auto_prefix=False)
-        self.network = network
-        self.weights = ms.ParameterTuple(filter(lambda x: x.requires_grad,
-            network.get_parameters()))
-
-    def construct(self, data, label):
-        weights = self.weights
-        return C.GradOperation(get_by_list=True) \
-            (self.network, weights)(data, label)
-
+model = Model(net, net_loss, opt)
 ```
 
-上述代码中`GradWrap`实现的是对各个权重的微分$\frac{\partial{J(w)}}{\partial{w}}$，其展开式子参考公式6。
+## 拟合过程可视化准备
 
-### 反向传播更新权重
+### 定义绘图函数
 
-`nn.RMSProp`为完成权重更新的函数，更新方式大致为公式11，但是考虑的因素更多，具体信息请参考[官网说明](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html?highlight=rmsprop#mindspore.nn.RMSProp)。
-
-
-```python
-train_network = GradWrap(loss_opeartion) 
-train_network.set_train()
-optim = nn.RMSProp(params=net.trainable_params(),learning_rate=0.02)
-```
-
-通过以上操作，我们就完成了前向传播网络和反向传播网络的定义，接下来可以加载训练数据进行线性拟合了。
-
-## 定义模型拟合过程可视化函数
-
-定义一个可视化函数`plot_model_and_datasets`，将模型函数和验证数据集打印出来，观察其变化。
+为了使得整个训练过程更容易理解，需要将训练过程的测试数据、目标函数和模型网络进行可视化，这里定义了可视化函数，将在每个step训练结束后调用，展示模型网络的拟合过程。
 
 
 ```python
-import time 
+import matplotlib.pyplot as plt
+import time
 
-def plot_model_and_datasets(weight, bias, data_x, data_y):
+def plot_model_and_datasets(net, eval_data):
+    weight = net.trainable_params()[0]
+    bias = net.trainable_params()[1]
     x = np.arange(-10, 10, 0.1)
-    y = x * ((weight[0][0]).asnumpy()) + ((bias[0]).asnumpy())
-    plt.scatter(x1,y1,color="red",s=5)
-    plt.scatter(data_x.asnumpy(), data_y.asnumpy(), color="black", s=5)
-    plt.plot(x, y, "blue")
+    y = x * Tensor(weight).asnumpy()[0][0] + Tensor(bias).asnumpy()[0]
+    x1, y1 = zip(*eval_data)
+    x_target = x
+    y_target = x_target * 2 + 3
+    
     plt.axis([-11, 11, -20, 25])
+    plt.scatter(x1, y1, color="red", s=5)
+    plt.plot(x, y, color="blue")
+    plt.plot(x_target, y_target, color="green")
     plt.show()
     time.sleep(0.02)
 ```
 
-上述函数的参数：
+### 定义回调函数
 
-- `weight`：模型函数的权重，即$w$。
-
-- `bias`：模型函数的权重，即$b$。
-
-- `data_x`：训练数据的$x$值。
-
-- `data_y`：训练数据的$y$值。
-
-> 可视化过程中，红色的点是验证数据集，黑色的点是单个batch的训练数据，蓝色的线条是正在训练的回归模型。
-
-## 执行训练
-
-其训练过程如下：
-
-1. 设置训练的迭代次数`step_size`。
-2. 设置单次迭代的训练数据量`batch_size`。
-3. 正向传播训练`grads`。
-4. 反向传播训练`optim`。
-5. 图形展示模型函数和数据集。
-6. 清除本轮迭代的输出`display.clear_output`，起到动态可视化效果。
-
-迭代完成后，输出网络模型的权重值$w$和$b$。
+MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/customized_debugging_information.html#callback>)。
 
 
 ```python
 from IPython import display
+from mindspore.train.callback import Callback
 
-step_size = 200
-batch_size = 16
+class ImageShowCallback(Callback):
+    def __init__(self, net, eval_data):
+        self.net = net
+        self.eval_data = eval_data
+        
+    def step_end(self, run_context):
+        plot_model_and_datasets(self.net, self.eval_data)
+        display.clear_output(wait=True)
+```
 
-for i in range(step_size):
-    data_x,data_y = get_data(batch_size)
-    grads = train_network(data_x,data_y) 
-    optim(grads)
-    plot_model_and_datasets(net.weight.data, 
-                            net.bias.data, data_x, data_y)
-    display.clear_output(wait=True)
+## 执行训练
 
-output = net(eval_x)
-loss_output = criterion(output, eval_label)
-print("loss_value:", loss_output.asnumpy())
-plot_model_and_datasets(net.weight.data, net.bias.data, data_x,data_y)
-print("weight:", net.weight.set_data([0][0]), "bias:", net.bias.set_data([0]))
+完成以上过程后，可以使用训练数`ds_train`对模型训练，这里调用`model.train`进行，其中参数解释：
+
+- `epoch`：训练迭代的整个数据集的次数。
+- `ds_train`：训练数据集。
+- `callbacks`：训练过程中需要调用的回调函数。
+- `dataset_sink_model`：数据集下沉模式，支持Ascend、GPU计算平台，本例为CPU计算平台设置为False。
+
+
+```python
+
+from mindspore.train.callback import LossMonitor
+
+epoch = 1
+imageshow_cb = ImageShowCallback(net, eval_data)
+model.train(epoch, ds_train, callbacks=[imageshow_cb], dataset_sink_mode=False)
+
+plot_model_and_datasets(net,eval_data)
+print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
 
 输出结果：
-
-
-    loss_value: 0.42879593
-    
 
 
 ![gif](./images/linear_regression.gif)
 
 
-    weight: 1.9990227 bias: 2.9115517
+    Parameter (name=fc.weight, value=[[2.0065749]]) 
+    Parameter (name=fc.bias, value=[3.0089042])
     
 
-可以看到最终得到的线性拟合的权重值非常接近目标函数权重weight=2、bias=3。
+训练完成后打印出最终模型的权重参数，其中weight接近于2.0，bias接近于3.0，模型训练完成，符合预期。
 
 ## 总结
 
