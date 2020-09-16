@@ -17,7 +17,7 @@
 
 ## Overview
 
-MindSpore supports the following running modes which are optimized in terms of debugging or running:
+MindSpore supports the following running modes which are optimized for debugging or running:
 
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
@@ -105,12 +105,12 @@ print(output.asnumpy())
  [3. 3. 3.]]
 ```
 
-> Parallel execution and summary is not supported in PyNative mode, so parallel and summary related operators can not be used.
+> Parallel execution and summary are not supported in PyNative mode, so parallel and summary related operators cannot be used.
 
 
 ### Improving PyNative Performance
 
-MindSpore provides the staging function to improve the execution speed of inference tasks in PyNative mode. This function compiles Python functions or Python class methods into computational graphs in PyNative mode and improves the execution speed by using graph optimization technologies, as shown in the following example:
+MindSpore provides the Staging function to improve the execution speed of inference tasks in PyNative mode. This function compiles Python functions or Python class methods into computational graphs in PyNative mode and improves the execution speed by using graph optimization technologies, as shown in the following example:
 
 ```python
 import numpy as np
