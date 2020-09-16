@@ -5,4 +5,3 @@
   :maxdepth: 1
 
   data_processing_acceleration
-  cache

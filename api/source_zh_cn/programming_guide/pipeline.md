@@ -11,7 +11,6 @@
         - [repeat](#repeat)
         - [zip](#zip)
         - [concat](#concat)
-        - [project](#project)
 
 <!-- /TOC -->
 
@@ -45,30 +44,26 @@ MindSpore目前支持的常用数据处理算子如下表所示，更多数据�
 
 ![shuffle](./images/shuffle.png)
 
-```python
-# 将数据集进行混洗操作
+下面的样例先构建了一个随机数据集，然后对其进行混洗操作，最后展示了混洗后的数据结果。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 设置全局随机种子，确保shuffle的行为可预测
 ds.config.set_seed(0)
 
-# 构建一个generator
 def generator_func():
     for i in range(5):
         yield (np.array([i, i+1, i+2]),)
 
-# 从generator中构建数据管道
 dataset1 = ds.GeneratorDataset(generator_func, ["data"])
 
-# 为数据集创建一个混洗操作
-# buffer_size代表创建一个存放size个样本的容器，再从此容器中随机采样样本进行输出
-# 当buffer_size设置为dataset的长度时，是全局混洗
 dataset1 = dataset1.shuffle(buffer_size=2)
 for data in dataset1.create_dict_iterator():
     print(data)
 ```
+
+输出结果如下：
 
 ```
 {'data': Tensor(shape=[3], dtype=int64, value=[0, 1, 2])}
@@ -86,13 +81,12 @@ for data in dataset1.create_dict_iterator():
 
 ![map](./images/map.png)
 
-```python
-# 将数据集进行映射操作
+下面的样例先构建了一个随机数据集，然后定义了数据翻倍的映射函数并将其作用于数据集，最后对比展示了映射前后的数据结果。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 构建一个generator
 def generator_func():
     for i in range(5):
         yield (np.array([i, i+1, i+2]),)
@@ -100,23 +94,20 @@ def generator_func():
 def pyfunc(x):
     return x*2
 
-# 从generator中构建数据管道
 dataset = ds.GeneratorDataset(generator_func, ["data"])
 
-# 创建数据管道，输出原始数据
 for data in dataset.create_dict_iterator():
     print(data)
 
-print("")
+print("------ after processing ------")
 
-# 为数据集创建一个映射操作
-# input_columns指定要处理的列，operation指定映射函数
 dataset = dataset.map(operations=pyfunc, input_columns=["data"])
 
-# 创建数据管道，输出映射后的数据
 for data in dataset.create_dict_iterator():
     print(data)
 ```
+
+输出结果如下：
 
 ```
 {'data': Tensor(shape=[3], dtype=int64, value=[0, 1, 2])}
@@ -124,7 +115,7 @@ for data in dataset.create_dict_iterator():
 {'data': Tensor(shape=[3], dtype=int64, value=[2, 3, 4])}
 {'data': Tensor(shape=[3], dtype=int64, value=[3, 4, 5])}
 {'data': Tensor(shape=[3], dtype=int64, value=[4, 5, 6])}
-
+------ after processing ------
 {'data': Tensor(shape=[3], dtype=int64, value=[0, 2, 4])}
 {'data': Tensor(shape=[3], dtype=int64, value=[2, 4, 6])}
 {'data': Tensor(shape=[3], dtype=int64, value=[4, 6, 8])}
@@ -138,43 +129,38 @@ for data in dataset.create_dict_iterator():
 
 ![batch](./images/batch.png)
 
-```python
-# 将数据集进行分批操作
+下面的样例先构建了一个随机数据集，然后分别展示了保留多余数据与否的数据集分批结果，其中批大小为2。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 构建一个generator
 def generator_func():
     for i in range(5):
         yield (np.array([i, i+1, i+2]),)
 
-# 从generator中构建数据管道
 dataset1 = ds.GeneratorDataset(generator_func, ["data"])
 
-# 为数据集划分批次，batch_size代表每2个样本为一个批次
-# drop_remainder代表是否丢弃最后不能完整构成批次的样本
-# 在此例子中，5%2=1，但因为drop_remainder=False，因此保留最后一个单独的样本
 dataset1 = dataset1.batch(batch_size=2, drop_remainder=False)
 for data in dataset1.create_dict_iterator():
     print(data)
 
-print("")
+print("------ drop remainder ------")
 
-# 从generator中构建数据管道
 dataset2 = ds.GeneratorDataset(generator_func, ["data"])
 
-# 丢弃最后不能完整构成批次的样本
 dataset2 = dataset2.batch(batch_size=2, drop_remainder=True)
 for data in dataset2.create_dict_iterator():
     print(data)
 ```
 
+输出结果如下：
+
 ```
 {'data': Tensor(shape=[2, 3], dtype=int64, value=[[0, 1, 2], [1, 2, 3]])}
 {'data': Tensor(shape=[2, 3], dtype=int64, value=[[2, 3, 4], [3, 4, 5]])}
 {'data': Tensor(shape=[1, 3], dtype=int64, value=[[4, 5, 6]])}
-
+------ drop remainder ------
 {'data': Tensor(shape=[2, 3], dtype=int64, value=[[0, 1, 2], [1, 2, 3]])}
 {'data': Tensor(shape=[2, 3], dtype=int64, value=[[2, 3, 4], [3, 4, 5]])}
 ```
@@ -187,26 +173,24 @@ for data in dataset2.create_dict_iterator():
 
 ![repeat](./images/repeat.png)
 
-```python
-# 将数据集进行加倍操作
+下面的样例先构建了一个随机数据集，然后将其重复2次，最后展示了重复后的数据结果。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 构建一个generator
 def generator_func():
     for i in range(5):
         yield (np.array([i, i+1, i+2]),)
 
-# 从generator中构建数据管道
 dataset1 = ds.GeneratorDataset(generator_func, ["data"])
 
-# 为数据集创建一个加倍操作
-# count参数代表将数据集内容扩充为原来的count倍
 dataset1 = dataset1.repeat(count=2)
 for data in dataset1.create_dict_iterator():
     print(data)
 ```
+
+输出结果如下：
 
 ```
 {'data': Tensor(shape=[3], dtype=int64, value=[0, 1, 2])}
@@ -230,33 +214,30 @@ for data in dataset1.create_dict_iterator():
 
   ![zip](./images/zip.png)
 
-```python
-# 将数据集进行合并操作
+下面的样例先构建了两个不同样本数的随机数据集，然后将其进行列拼接，最后展示了拼接后的数据结果。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 构建一个generator
 def generator_func():
     for i in range(7):
         yield (np.array([i, i+1, i+2]),)
 
-# 构建另一个generator
 def generator_func2():
     for i in range(4):
         yield (np.array([1, 2]),)
 
-# 从generator中构建数据管道
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])
 dataset2 = ds.GeneratorDataset(generator_func2, ["data2"])
 
-# 为数据集创建一个合并操作
-# 新的dataset3会拥有2个列名，分别为data1，data2，同时因为data2的数据较少，会与data2的数据长度对齐
 dataset3 = ds.zip((dataset1, dataset2))
 
 for data in dataset3.create_dict_iterator():
     print(data)
 ```
+
+输出结果如下：
 
 ```
 {'data1': Tensor(shape=[3], dtype=int64, value= [0, 1, 2]), 'data2': Tensor(shape=[2], dtype=int64, value= [1, 2])}
@@ -273,84 +254,34 @@ for data in dataset3.create_dict_iterator():
 
 ![concat](./images/concat.png)
 
-```python
-# 将数据集进行连接操作
+下面的样例先构建了两个随机数据集，然后将其进行行拼接，最后展示了拼接后的数据结果。值得一提的是，使用`+`运算符也能达到同样的效果。
 
+```python
 import numpy as np
 import mindspore.dataset as ds
 
-# 构建一个generator
 def generator_func():
     for i in range(2):
         yield (np.array([0, 0, 0]),)
 
-# 构建另一个generator
 def generator_func2():
     for i in range(2):
         yield (np.array([1, 2, 3]),)
 
-# 从generator中构建数据管道
 dataset1 = ds.GeneratorDataset(generator_func, ["data1"])
 dataset2 = ds.GeneratorDataset(generator_func2, ["data1"])
 
-# 为数据集创建一个连接操作，将dataset2合并到dataset1的data1列中
 dataset3 = dataset1.concat(dataset2)
-
-# 值得一提的是，使用'+'运算符可以达到上面同样的效果
-# dataset3 = dataset1 + dataset2
 
 for data in dataset3.create_dict_iterator():
     print(data)
-
 ```
+
+输出结果如下：
 
 ```
 {'data1': Tensor(shape=[3], dtype=int64, value= [0, 0, 0])}
 {'data1': Tensor(shape=[3], dtype=int64, value= [0, 0, 0])}
-{'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3])}
-{'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3])}
-```
-
-### project
-
-对数据集列进行映射，将指定列按顺序保留并向下传递到数据管道中，其余列将被丢弃。
-
->`project`还可以用于改变column排列的顺序！
-
-![project](./images/project.png)
-
-```python
-# 将数据集进行投影操作
-
-import numpy as np
-import mindspore.dataset as ds
-
-# 构建一个generator
-def generator_func():
-    for i in range(2):
-        yield (np.array([1, 2, 3]), np.array([7, 8, 9]), )
-
-# 从generator中构建数据管道
-dataset = ds.GeneratorDataset(generator_func, ["data1", "data2"])
-
-# 构建数据管道，获得原始数据
-for data in dataset.create_dict_iterator():
-    print(data)
-
-print("")
-
-# 为数据集创建一个投影操作，只保留data1的数据
-dataset = dataset.project(columns=["data1"])
-
-# 构建数据管道，获得投影后的数据
-for data in dataset.create_dict_iterator():
-    print(data)
-```
-
-```
-{'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3]), 'data2': Tensor(shape=[3], dtype=int64, value= [7, 8, 9])}
-{'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3]), 'data2': Tensor(shape=[3], dtype=int64, value= [7, 8, 9])}
-
 {'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3])}
 {'data1': Tensor(shape=[3], dtype=int64, value= [1, 2, 3])}
 ```

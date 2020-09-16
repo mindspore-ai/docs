@@ -120,12 +120,12 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     resize_width = 224
     rescale = 1.0 / 255.0
     shift = 0.0
-    
+
     # get rank_id and rank_size
     rank_id = get_rank()
     rank_size = get_group_size()
     data_set = ds.Cifar10Dataset(data_path, num_shards=rank_size, shard_id=rank_id)
-    
+
     # define map operations
     random_crop_op = vision.RandomCrop((32, 32), (4, 4, 4, 4))
     random_horizontal_op = vision.RandomHorizontalFlip()
@@ -139,7 +139,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     c_trans += [resize_op, rescale_op, normalize_op, changeswap_op]
 
     # apply map operations on images
-    data_set = data_set.map(operations=type_cast_op, operations=type_cast_op, input_columns="label")
+    data_set = data_set.map(operations=type_cast_op, input_columns="label")
     data_set = data_set.map(operations=c_trans, input_columns="image")
 
     # apply shuffle operations
@@ -193,7 +193,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         self.sparse = sparse
         self.max = P.ReduceMax(keep_dims=True)
         self.sub = P.Sub()
-        
+
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
