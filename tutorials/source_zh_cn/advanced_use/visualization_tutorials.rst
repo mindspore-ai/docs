@@ -9,4 +9,5 @@
   lineage_and_scalars_comparision
   performance_profiling
   performance_profiling_gpu
+  debugger
   mindinsight_commands
