@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Lite Tutorials
+Using MindSpore on Mobile and IoT
 ========================
 
 .. toctree::
@@ -16,9 +16,9 @@ MindSpore Lite Tutorials
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Use
+   :caption: Basic Use
 
-   build
+   use/build
    use/converter_tool
    use/evaluating_the_model
    use/runtime

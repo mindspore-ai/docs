@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore端侧教程
+在手机或IoT设备上使用MindSpore
 ==================
 
 .. toctree::
@@ -16,9 +16,9 @@ MindSpore端侧教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用指南
+   :caption: 基础使用
 
-   build
+   use/build
    use/converter_tool
    use/evaluating_the_model
    use/runtime

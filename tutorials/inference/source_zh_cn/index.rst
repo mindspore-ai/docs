@@ -3,19 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore教程
+使用MindSpore推理
 =============
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用指南
+   :caption: 推理模型
 
-   use/multi_platform_inference
+   multi_platform_inference
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 推理服务
+   :caption: 搭建推理服务
 
-   advanced_use/serving
+   serving

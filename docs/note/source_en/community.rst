@@ -1,4 +1,4 @@
-Community
+Participate in MindSpore Community
 =========
 
 Contributing Code
