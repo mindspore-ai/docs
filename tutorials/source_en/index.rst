@@ -66,6 +66,7 @@ MindSpore Tutorials
    :caption: Network Migration
 
    advanced_use/network_migration
+   advanced_use/model_scripts_transformation
 
 .. toctree::
    :glob:
