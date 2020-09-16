@@ -199,7 +199,7 @@ output = model.eval(ds_eval)
 
 `model.eval`方法会返回一个字典，里面是传入metrics的指标和结果。
 
-在eval过程中也可以使用callback功能，用户可以调用相关API或自定义callback方法实现想要的功能。
+在eval过程中也可以使用`Callback`功能，用户可以调用相关API或自定义`Callback`方法实现想要的功能。
 
 用户也可以定义自己的`metrics`类，通过继承`Metric`基类，并重写`clear`、`update`、`eval`三个方法即可实现。
 
@@ -207,7 +207,7 @@ output = model.eval(ds_eval)
 
 `accuracy`继承了`EvaluationBase`基类，重写了上述三个方法。  
 `clear`方法会把类中相关计算参数初始化。  
-`update`方法接受预测值和标签值，更新accuracy内部变量。  
+`update`方法接受预测值和标签值，更新`accuracy`内部变量。  
 `eval`方法会计算相关指标，返回计算结果。  
 调用`accuracy`的`eval`方法，即可得到计算结果。  
 
