@@ -32,9 +32,10 @@
 |  LSTM  |  Long short-term memory，长短期记忆，对应的网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。  |
 |  Manifest  |  一种数据格式文件，华为ModelArts采用了该格式，详细说明请参见<https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0009.html>。  |
 |  ME  |  Mind Expression，MindSpore前端，主要完成从用户源码到计算图的编译任务、训练中控制执行及上下文维护（非下沉模式配置下）、动态图（PyNative模式）等。  |
-|  MindArmour  |  MindSpore安全组件，用于AI对抗样本管理，AI模型防攻击和增强，AI模型健壮性评测。  |
+|  MindArmour  |  MindSpore安全模块，通过差分隐私、对抗性攻防等技术手段，提升模型的保密性、完整性和可用性，阻止攻击者对模型进行恶意修改或是破解模型的内部构件，窃取模型的参数。  |
 |  MindData  |  MindSpore数据框架，提供数据加载、增强、数据集管理以及可视化。  |
 |  MindInsight  |  MindSpore可视化组件，可视化标量、图像、计算图以及模型超参等信息。  |
+|  MindRecord  |  MindSpore定义的一种数据格式，是一个执行读取、写入、搜索和转换MindSpore格式数据集的模块。  |
 |  MindSpore  |  华为主导开源的深度学习框架。  |
 |  MindSpore Lite  |  一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。  |
 |  MNIST database  |  Modified National Institute of Standards and Technology database，一个大型手写数字数据库，通常用于训练各种图像处理系统。  |
@@ -43,5 +44,5 @@
 |  ResNet-50  |  Residual Neural Network 50，由微软研究院的Kaiming He等四名华人提出的残差神经网络。  |
 |  Schema  |  数据集结构定义文件，用于定义数据集包含哪些字段以及字段的类型。  |
 |  Summary  |  是对网络中Tensor取值进行监测的一种算子，在图中是“外围”操作，不影响数据流本身。  |
-|  TBE  |  Tensor Boost Engine，在TVM（ Tensor Virtual Machine ）框架基础上扩展的算子开发工具。  |
+|  TBE  |  Tensor Boost Engine，华为自研的NPU算子开发工具，在TVM（ Tensor Virtual Machine ）框架基础上扩展，提供了一套Python API来实施开发活动，进行自定义算子开发。 |
 |  TFRecord  |  Tensorflow定义的数据格式。  |
