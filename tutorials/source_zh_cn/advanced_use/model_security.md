@@ -198,8 +198,8 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     inputs = []
     labels = []
     for data in ds_test.create_tuple_iterator():
-        inputs.append(data[0].astype(np.float32))
-        labels.append(data[1])
+        inputs.append(data[0].asnumpy().astype(np.float32))
+        labels.append(data[1].asnumpy())
     test_inputs = np.concatenate(inputs)
     test_labels = np.concatenate(labels)
     ```

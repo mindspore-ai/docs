@@ -124,7 +124,7 @@ DATA_DIR = "VOC2012/"
 
 # 使用VOCDataset读取数据集，指定为Segmentation任务，同时指定num_samples以获取2个样本数据
 # decode参数会将读取的图像解码
-dataset = ds.VOCDataset(DATA_DIR, task="Segmentation", mode="train", num_samples=2, decode=True, shuffle=False)
+dataset = ds.VOCDataset(DATA_DIR, task="Segmentation", usage="train", num_samples=2, decode=True, shuffle=False)
 print("[Segmentation]:")
 for data in dataset.create_dict_iterator():
     # 原图像
@@ -133,7 +133,7 @@ for data in dataset.create_dict_iterator():
     print("target shape:", data["target"].shape)
 
 # 接下来是Detection任务
-dataset = ds.VOCDataset(DATA_DIR, task="Detection", mode="train", num_samples=1, decode=True, shuffle=False)
+dataset = ds.VOCDataset(DATA_DIR, task="Detection", usage="train", num_samples=1, decode=True, shuffle=False)
 print("[Detection]:")
 for data in dataset.create_dict_iterator():
     # 原图像
@@ -213,7 +213,7 @@ DATA_DIR = "mindrecord_dataset_path"
 mindrecord_dataset = ds.MindDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in mindrecord_dataset.create_dict_iterator():
+for data in mindrecord_dataset.create_dict_iterator(output_numpy=True):
     print(data["label"])
 ```
 
@@ -369,8 +369,8 @@ TFRecord是Tensorflow定义的一种二进制数据文件格式。
     ```
 
     ```
-    {'col1': array(1, dtype=int64), 'col2': array(3, dtype=int64)}
-    {'col1': array(2, dtype=int64), 'col2': array(4, dtype=int64)}
+    {'col1': Tensor(shape=[], dtype=Int64, value= 1), 'col2': Tensor(shape=[], dtype=Int64, value= 3)}
+    {'col1': Tensor(shape=[], dtype=Int64, value= 2), 'col2': Tensor(shape=[], dtype=Int64, value= 4)}
     ```
 
 ### text数据格式
@@ -383,8 +383,8 @@ DATA_DIR = "text_file_path"
 text_dataset = ds.TextFileDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in text_dataset.create_dict_iterator():
-    print(data["label"])
+for data in text_dataset.create_dict_iterator(output_numpy=True):
+    print(data["text"])
 ```
 
 ### CSV数据格式
@@ -397,8 +397,8 @@ DATA_DIR = "csv_file_path"
 csv_dataset = ds.CSVDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in csv_dataset.create_dict_iterator():
-    print(data["label"])
+for data in csv_dataset.create_dict_iterator(output_numpy=True):
+    print(data["1"])
 ```
 
 >更多数据格式文件加载说明，参见对应[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)。

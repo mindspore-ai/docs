@@ -198,8 +198,8 @@ The LeNet model is used as an example. You can also create and train your own mo
     inputs = []
     labels = []
     for data in ds_test.create_tuple_iterator():
-        inputs.append(data[0].astype(np.float32))
-        labels.append(data[1])
+        inputs.append(data[0].asnumpy().astype(np.float32))
+        labels.append(data[1].asnumpy())
     test_inputs = np.concatenate(inputs)
     test_labels = np.concatenate(labels)
     ```

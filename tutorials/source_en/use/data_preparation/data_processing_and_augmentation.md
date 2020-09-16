@@ -256,11 +256,11 @@ def zip(self, datasets):
     ```
     The output is as follows:
     ```
-    {'data': array([0, 1, 2], dtype=int64), 'data2': array([-3, -2, -1], dtype=int64)}
-    {'data': array([1, 2, 3], dtype=int64), 'data2': array([-2, -1,  0], dtype=int64)}
-    {'data': array([2, 3, 4], dtype=int64), 'data2': array([-1,  0,  1], dtype=int64)}
-    {'data': array([3, 4, 5], dtype=int64), 'data2': array([0, 1, 2], dtype=int64)}
-    {'data': array([4, 5, 6], dtype=int64), 'data2': array([1, 2, 3], dtype=int64)}
+    {'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2]), 'data2': Tensor(shape=[3], dtype=Int64, value= [-3, -2, -1])}
+    {'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'data2': Tensor(shape=[3], dtype=Int64, value= [-2, -1,  0])}
+    {'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4]), 'data2': Tensor(shape=[3], dtype=Int64, value= [-1,  0,  1])}
+    {'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5]), 'data2': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+    {'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), 'data2': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
     ```
 ## Data Augmentation
 During image training, especially when the dataset size is relatively small, you can preprocess images by using a series of data augmentation operations, thereby enriching the datasets.  
@@ -291,7 +291,7 @@ Data augmentation requires the `map` function. For details about how to use the 
     dataset.map(operations=resize_op, input_columns="image")
 
     for data in dataset.create_dict_iterator():
-        imgplot_resized = plt.imshow(data["image"])
+        imgplot_resized = plt.imshow(data["image"].asnumpy())
         plt.show()
     ```
 The running result shows that the original image is changed from 1024 x 683 pixels to 500 x 500 pixels after data processing by using `Resize`.
@@ -326,7 +326,7 @@ Figure 2: Image after its size is reset
     dataset = dataset.map(operations=compose, input_columns="image")
     for data in dataset.create_dict_iterator():
          print(data["image"])
-         imgplot_resized = plt.imshow(data["image"].transpose(1, 2, 0))
+         imgplot_resized = plt.imshow(data["image"].asnumpy().transpose(1, 2, 0))
          plt.show()
     ```
 

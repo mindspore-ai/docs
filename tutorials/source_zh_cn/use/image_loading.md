@@ -63,8 +63,8 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     # 创建迭代器并展示样本及标签
     mnist_it = mnist_dataset.create_dict_iterator()
     data = mnist_it.get_next()
-    plt.imshow(data['image'].squeeze(), cmap=plt.cm.gray)
-    plt.title(data['label'], fontsize=20)
+    plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
+    plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()
     ```
 
@@ -175,8 +175,8 @@ for data in mnist_dataset.create_dict_iterator():
     ```python
     mnist_it = ds4.create_dict_iterator()
     data = mnist_it.get_next()
-    plt.imshow(data['image'].squeeze(), cmap=plt.cm.gray)
-    plt.title(data['label'], fontsize=20)
+    plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
+    plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()
     ```
 
