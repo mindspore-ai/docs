@@ -58,11 +58,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### 加载数据集
 
-利用MindSpore的dataset提供的`MnistDataset`接口加载MNIST数据集，此部分代码由model_zoo中lenet目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>)导入。
 
 ### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由model_zoo中lenet目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练模型
 将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
 **验证模型**
 
-通过model_zoo中lenet目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
 $ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
