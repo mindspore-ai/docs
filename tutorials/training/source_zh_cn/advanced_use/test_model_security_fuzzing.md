@@ -72,7 +72,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
    ds = generate_mnist_dataset(data_list, batch_size, sparse=False)
    train_images = []
    for data in ds.create_tuple_iterator():
-       images = data[0].astype(np.float32)
+       images = data[0].asnumpy().astype(np.float32)
        train_images.append(images)
        train_images = np.concatenate(train_images, axis=0)
    
@@ -83,8 +83,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
    test_images = []
    test_labels = []
    for data in ds.create_tuple_iterator():
-       images = data[0].astype(np.float32)
-       labels = data[1]
+       images = data[0].asnumpy().astype(np.float32)
+       labels = data[1].asnumpy()
        test_images.append(images)
        test_labels.append(labels)
    test_images = np.concatenate(test_images, axis=0)

@@ -53,7 +53,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 #打印分词后的数据输出
@@ -65,7 +65,7 @@ basic_tokenizer = text.BasicTokenizer()
 
 dataset = dataset.map(operations=basic_tokenizer)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text'])
     print(token)
 ```
@@ -104,7 +104,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 # 字符串列表，其中每个元素都是字符串类型的单词。
@@ -126,7 +126,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text'])
     print(token)
 ```
@@ -171,7 +171,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 tokenizer_op = text.JiebaTokenizer(HMM_FILE, MP_FILE)
@@ -181,7 +181,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=jieba_op, input_columns=["text"], num_parallel_workers=1)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text'])
     print(token)
 ```
@@ -212,7 +212,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 tokenizer_op = text.RegexTokenizer(delim_pattern)
@@ -222,7 +222,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text']).tolist()
     print(token)
 ```
@@ -250,7 +250,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 # 从文件数据中构建一个vocab对象
@@ -262,7 +262,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text'])
     print(token)
 ```
@@ -290,7 +290,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 tokenizer_op = text.UnicodeCharTokenizer()
@@ -300,7 +300,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text']).tolist()
     print(token)
 ```
@@ -332,7 +332,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 tokenizer_op = text.UnicodeScriptTokenizer()
@@ -342,7 +342,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text']).tolist()
     print(token)      
 ```
@@ -374,7 +374,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 tokenizer_op = text.WhitespaceTokenizer()
@@ -384,7 +384,7 @@ print("------------------------after tokenize-----------------------------")
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text']).tolist()
     print(token)
 ```
@@ -417,7 +417,7 @@ dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False
 print("------------------------before tokenize----------------------------")
 
 # 输出分词之前的数据
-for data in dataset.create_dict_iterator():
+for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 #打印分词后的数据输出
@@ -432,7 +432,7 @@ tokenizer_op = text.WordpieceTokenizer(vocab=vocab)
 
 dataset = dataset.map(operations=tokenizer_op)
 
-for i in dataset.create_dict_iterator(num_epochs=1):
+for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
     token = text.to_str(i['text'])
     print(token)
 ```

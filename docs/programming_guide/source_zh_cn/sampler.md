@@ -310,9 +310,9 @@ for data in dataset.create_dict_iterator():
 ```
 
 ```
-{'data': array(0, dtype=int64)}
-{'data': array(3, dtype=int64)}
-{'data': array(6, dtype=int64)}
+{'data': Tensor(shape=[], dtype=Int64, value= 0)}
+{'data': Tensor(shape=[], dtype=Int64, value= 3)}
+{'data': Tensor(shape=[], dtype=Int64, value= 6)}
 ```
 
 ## 自定义采样器
