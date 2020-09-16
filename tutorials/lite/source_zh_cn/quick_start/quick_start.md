@@ -53,9 +53,9 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 - Android Studio >= 3.2 (推荐4.0以上版本)
 - NDK 21.3
-- CMake 3.10.2 
+- [CMake](https://cmake.org/download) 3.10.2
 - Android SDK >= 26
-- OpenCV >= 4.0.0 （本示例代码已包含）
+-  [JDK]( https://www.oracle.com/downloads/otn-pub/java/JDK/)  >= 1.8    
 
 ### 构建与运行
 
@@ -79,9 +79,13 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
     Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。
 
+    手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+
 3. 在Android设备上，点击“继续安装”，安装完即可查看到设备摄像头捕获的内容和推理结果。
 
     ![install](../images/lite_quick_start_install.png)
+
+    
 
     识别结果如下图所示。
 
@@ -98,29 +102,22 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ```
 app
-|
-├── libs # 存放MindSpore Lite依赖的库文件
-│   └── arm64-v8a
-│       ├── libopencv_java4.so
-│       └── libmindspore-lite.so
-│
-├── opencv # opencv 相关依赖文件
-│   └── ...
-|
 ├── src/main
 │   ├── assets # 资源文件
-|   |   └── model.ms # 存放模型文件
+|   |   └── mobilenetv2.ms # 存放模型文件
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
 |   |   ├── ..
+|   |   ├── mindspore_lite_x.x.x-minddata-arm64-cpu # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
+|   |   └── MsNetWork.cpp # MindSpore接口封装
 │   |
 │   ├── java # java层应用代码
 │   │   └── com.huawei.himindsporedemo 
 │   │       ├── gallery.classify # 图像处理及MindSpore JNI调用相关实现
 │   │       │   └── ...
-│   │       └── obejctdetect # 开启摄像头及绘制相关实现
+│   │       └── widget # 开启摄像头及绘制相关实现
 │   │           └── ...
 │   │   
 │   ├── res # 存放Android相关的资源文件
@@ -129,6 +126,7 @@ app
 ├── CMakeList.txt # cmake编译入口文件
 │
 ├── build.gradle # 其他Android配置文件
+├── download.gradle # 工程依赖文件下载
 └── ...
 ```
 
@@ -136,19 +134,11 @@ app
 
 Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html)生成`libmindspore-lite.so`库文件。
 
-本示例中，bulid过程由download.gradle文件配置自动下载`libmindspore-lite.so`以及OpenCV的`libopencv_java4.so`库文件，并放置在`app/libs/arm64-v8a`目录下。
+本示例中，build过程由download.gradle文件自动从华为服务器下载MindSpore Lite版本文件，并放置在`app/src/ main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu`目录下。
 
 注： 若自动下载失败，请手动下载相关库文件并将其放在对应位置：
 
-libmindspore-lite.so [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
-
-libmindspore-lite include文件  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/include.zip)
-
-libopencv_java4.so  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/opencv%204.4.0/libopencv_java4.so)
-
-libopencv include文件  [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/opencv%204.4.0/include.zip)
-
-
+MindSpore Lite版本 [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
 
 ```
 android{
@@ -169,23 +159,29 @@ android{
 在`app/CMakeLists.txt`文件中建立`.so`库文件链接，如下所示。
 
 ```
-# Set MindSpore Lite Dependencies.
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/include/MindSpore)
-add_library(mindspore-lite SHARED IMPORTED )
-set_target_properties(mindspore-lite PROPERTIES
-    IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/libs/libmindspore-lite.so")
+# ============== Set MindSpore Dependencies. =============
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/flatbuffers/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION})
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/ir/dtype)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/schema)
 
-# Set OpenCV Dependecies.
-include_directories(${CMAKE_SOURCE_DIR}/opencv/sdk/native/jni/include)
-add_library(lib-opencv SHARED IMPORTED )
-set_target_properties(lib-opencv PROPERTIES
-    IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/libs/libopencv_java4.so")
+add_library(mindspore-lite SHARED IMPORTED )
+add_library(minddata-lite SHARED IMPORTED )
+
+set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libmindspore-lite.so)
+set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libminddata-lite.so)
+# --------------- MindSpore Lite set End. --------------------
 
 # Link target library.       
 target_link_libraries(
     ...
-    mindspore-lite
-    lib-opencv
+     # --- mindspore ---
+        minddata-lite
+        mindspore-lite
     ...
 )
 ```
@@ -218,13 +214,12 @@ target_link_libraries(
         *labelEnv = labelNet;
         
         // Create context.
-        lite::Context *context = new lite::Context;
-        context->device_ctx_.type = lite::DT_CPU;
-        context->thread_num_ = numThread;  //Specify the number of threads to run inference
+        mindspore::lite::Context *context = new mindspore::lite::Context;
+        context->thread_num_ = num_thread;
         
         // Create the mindspore session.
-        labelNet->CreateSessionMS(modelBuffer, bufferLen, "device label", context);
-        delete(context);
+        labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
+        delete (context);
         
         ```
         
@@ -245,7 +240,7 @@ target_link_libraries(
 
     ```cpp
     // Convert the Bitmap image passed in from the JAVA layer to Mat for OpenCV processing
-    BitmapToMat(env, srcBitmap, matImageSrc);
+     BitmapToMat(env, srcBitmap, matImageSrc);
    // Processing such as zooming the picture size.
     matImgPreprocessed = PreProcessImageData(matImageSrc);  
 
@@ -270,7 +265,38 @@ target_link_libraries(
     delete[] (dataHWC);
    ```
    
-3. 对输入Tensor按照模型进行推理，获取输出Tensor，并进行后处理。    
+3. 对输入数据进行处理。
+
+   ```cpp
+   bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
+     bool ret = false;
+     LiteMat lite_mat_resize;
+     LiteMat &lite_norm_mat_cut = *lite_norm_mat_ptr;
+     ret = ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
+     if (!ret) {
+       MS_PRINT("ResizeBilinear error");
+       return false;
+     }
+     LiteMat lite_mat_convert_float;
+     ret = ConvertTo(lite_mat_resize, lite_mat_convert_float, 1.0 / 255.0);
+     if (!ret) {
+       MS_PRINT("ConvertTo error");
+       return false;
+     }
+     LiteMat lite_mat_cut;
+     ret = Crop(lite_mat_convert_float, lite_mat_cut, 16, 16, 224, 224);
+     if (!ret) {
+       MS_PRINT("Crop error");
+       return false;
+     }
+     float means[3] = {0.485, 0.456, 0.406};
+     float vars[3] = {1.0 / 0.229, 1.0 / 0.224, 1.0 / 0.225};
+     SubStractMeanNormalize(lite_mat_cut, lite_norm_mat_cut, means, vars);
+     return true;
+   }
+   ```
+
+4. 对输入Tensor按照模型进行推理，获取输出Tensor，并进行后处理。    
 
    - 图执行，端测推理。
 
@@ -281,7 +307,12 @@ target_link_libraries(
 
    - 获取输出数据。
         ```cpp
-        auto msOutputs = mSession->GetOutputs();
+        auto names = mSession->GetOutputTensorNames();
+        std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs;
+        for (const auto &name : names) {
+            auto temp_dat =mSession->GetOutputByTensorName(name);
+            msOutputs.insert(std::pair<std::string, mindspore::tensor::MSTensor *> {name, temp_dat});
+          }
         std::string retStr = ProcessRunnetResult(msOutputs, ret);
         ```
         
@@ -290,39 +321,34 @@ target_link_libraries(
         std::string ProcessRunnetResult(std::unordered_map<std::string,
                 mindspore::tensor::MSTensor *> msOutputs, int runnetRet) {
         
-            // Get model output results.
-            std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
-            iter = msOutputs.begin();
-            auto brach1_string = iter->first;
-            auto branch1_tensor = iter->second;
+          std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
+          iter = msOutputs.begin();
         
-            int OUTPUTS_LEN = branch1_tensor->ElementsNum();
+          // The mobilenetv2.ms model output just one branch.
+          auto outputTensor = iter->second;
+          int tensorNum = outputTensor->ElementsNum();
         
-            float *temp_scores = static_cast<float * >(branch1_tensor->MutableData());
-            float scores[RET_CATEGORY_SUM];
-            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-               scores[i] = temp_scores[i];
-            }
+          // Get a pointer to the first score.
+          float *temp_scores = static_cast<float *>(outputTensor->MutableData());
         
-            // Converted to text information that needs to be displayed in the APP. 
-            std::string retStr = "";
-            if (runnetRet == 0) {
-                for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                    if (scores[i] > 0.3){
-                        retStr += g_labels_name_map[i];
-                        retStr += ":";
-                   std::string score_str = std::to_string(scores[i]);
-                        retStr += score_str;
-                        retStr += ";";
-                    }
-            }
-           else {
-                MS_PRINT("MindSpore run net failed!");
-                for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                    retStr += " :0.0;";
-                }
-            }
+          float scores[RET_CATEGORY_SUM];
+          for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+             if (temp_scores[i] > 0.5) {
+              MS_PRINT("MindSpore scores[%d] : [%f]", i, temp_scores[i]);
+             }
+            scores[i] = temp_scores[i];
+          }
         
-            return retStr;
+          // Score for each category.
+          // Converted to text information that needs to be displayed in the APP.
+          std::string categoryScore = "";
+          for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+            categoryScore += labels_name_map[i];
+            categoryScore += ":";
+            std::string score_str = std::to_string(scores[i]);
+            categoryScore += score_str;
+            categoryScore += ";";
+          }
+          return categoryScore;
         }      
         ```
