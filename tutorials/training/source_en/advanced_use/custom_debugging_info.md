@@ -338,7 +338,7 @@ The input and output of the operator can be saved for debugging through the data
     ```
 
     - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_deam/dump/relative_path`.
+    - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_daemon/dump/relative_path`.
     - `net_name`：net name eg:ResNet50.
     - `iteration`：Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
     - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
