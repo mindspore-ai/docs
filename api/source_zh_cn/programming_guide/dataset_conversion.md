@@ -93,7 +93,7 @@
   decode_op = vision.Decode()
   data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)  # 解码data字段
   count = 0
-  for item in data_set.create_dict_iterator():                 # 循环读取MindRecord中所有数据
+  for item in data_set.create_dict_iterator(output_numpy=True):                 # 循环读取MindRecord中所有数据
       print("sample: {}".format(item))
       count += 1
   print("Got {} samples".format(count))
@@ -391,7 +391,7 @@ MindSpore提供转换常见数据集的工具类，能够将常见的经典数�
 
   data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  # 创建读取对象，默认开启shuffle
   count = 0
-  for item in data_set.create_dict_iterator():                  # 循环读取MindRecord中所有数据
+  for item in data_set.create_dict_iterator(output_numpy=True):                  # 循环读取MindRecord中所有数据
       print("sample: {}".format(item))
       count += 1
   print("Got {} samples".format(count))
@@ -514,7 +514,7 @@ MindSpore提供转换常见数据集的工具类，能够将常见的经典数�
   decode_op = vision.Decode()
   data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)  # 解码图像字段
   count = 0
-  for item in data_set.create_dict_iterator():                 # 循环读取MindRecord中所有数据
+  for item in data_set.create_dict_iterator(output_numpy=True):                 # 循环读取MindRecord中所有数据
       print("sample: {}".format(item))
       count += 1
   print("Got {} samples".format(count))

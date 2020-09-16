@@ -96,12 +96,12 @@ num_samples = len(image_list1) + len(image_list2)
 for i in range(num_samples):
     if i < len(image_list1):
         plt.subplot(2, len(image_list1), i + 1)
-        plt.imshow(image_list1[i])
-        plt.title(label_list1[i])
+        plt.imshow(image_list1[i].asnumpy())
+        plt.title(label_list1[i].asnumpy())
     else:
         plt.subplot(2, len(image_list2), i + 1)
-        plt.imshow(image_list2[i % len(image_list2)])
-        plt.title(label_list2[i % len(image_list2)])
+        plt.imshow(image_list2[i % len(image_list2)].asnumpy())
+        plt.title(label_list2[i % len(image_list2)].asnumpy())
 plt.show()
 ```
 
@@ -167,12 +167,12 @@ num_samples = len(image_list1) + len(image_list2)
 for i in range(num_samples):
     if i < len(image_list1):
         plt.subplot(2, len(image_list1), i + 1)
-        plt.imshow(image_list1[i])
-        plt.title(label_list1[i])
+        plt.imshow(image_list1[i].asnumpy())
+        plt.title(label_list1[i].asnumpy())
     else:
         plt.subplot(2, len(image_list2), i + 1)
-        plt.imshow(image_list2[i % len(image_list2)])
-        plt.title(label_list2[i % len(image_list2)])
+        plt.imshow(image_list2[i % len(image_list2)].asnumpy())
+        plt.title(label_list2[i % len(image_list2)].asnumpy())
 plt.show()
 ```
 
@@ -236,12 +236,12 @@ num_samples = len(image_list1) + len(image_list2)
 for i in range(num_samples):
     if i < len(image_list1):
         plt.subplot(2, len(image_list1), i + 1)
-        plt.imshow(image_list1[i].squeeze(), cmap=plt.cm.gray)
-        plt.title(label_list1[i])
+        plt.imshow(image_list1[i].asnumpy().squeeze(), cmap=plt.cm.gray)
+        plt.title(label_list1[i].asnumpy())
     else:
         plt.subplot(2, len(image_list2), i + 1)
-        plt.imshow(image_list2[i % len(image_list2)].squeeze(), cmap=plt.cm.gray)
-        plt.title(label_list2[i % len(image_list2)])
+        plt.imshow(image_list2[i % len(image_list2)].asnumpy().squeeze(), cmap=plt.cm.gray)
+        plt.title(label_list2[i % len(image_list2)].asnumpy())
 plt.show()
 ```
 
@@ -307,12 +307,12 @@ num_samples = len(image_list1) + len(image_list2)
 for i in range(num_samples):
     if i < len(image_list1):
         plt.subplot(2, len(image_list1), i + 1)
-        plt.imshow(image_list1[i].squeeze(), cmap=plt.cm.gray)
-        plt.title(label_list1[i])
+        plt.imshow(image_list1[i].asnumpy().squeeze(), cmap=plt.cm.gray)
+        plt.title(label_list1[i].asnumpy())
     else:
         plt.subplot(2, len(image_list2), i + 1)
-        plt.imshow(image_list2[i % len(image_list2)].squeeze(), cmap=plt.cm.gray)
-        plt.title(label_list2[i % len(image_list2)])
+        plt.imshow(image_list2[i % len(image_list2)].asnumpy().squeeze(), cmap=plt.cm.gray)
+        plt.title(label_list2[i % len(image_list2)].asnumpy())
 plt.show()
 ```
 
@@ -376,8 +376,8 @@ for data in dataset2.create_dict_iterator():
 num_samples = len(image_list)
 for i in range(num_samples):
     plt.subplot(1, len(image_list), i + 1)
-    plt.imshow(image_list[i].transpose(1, 2, 0))
-    plt.title(label_list[i])
+    plt.imshow(image_list[i].asnumpy().transpose(1, 2, 0))
+    plt.title(label_list[i].asnumpy())
 plt.show()
 ```
 

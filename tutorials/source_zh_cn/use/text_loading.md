@@ -64,7 +64,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
 2. 创建迭代器，通过迭代器获取数据。
 
     ```python
-    for data in dataset.create_dict_iterator():
+    for data in dataset.create_dict_iterator(output_numpy=True):
         print(text.to_str(data['text']))
     ```
 
@@ -94,7 +94,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     2. 原始数据输出效果。
 
         ```python
-        for data in dataset.create_dict_iterator():
+        for data in dataset.create_dict_iterator(output_numpy=True):
                 print(text.to_str(data['text']).tolist())
         ```
 
@@ -111,7 +111,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     4. 执行之后输出效果。
 
         ```python
-        for data in dataset.create_dict_iterator():
+        for data in dataset.create_dict_iterator(output_numpy=True):
                 print(text.to_str(data['text']).tolist())
         ```
 
@@ -136,7 +136,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     2. 数据输出效果。
 
         ```python
-        for data in dataset.create_dict_iterator():
+        for data in dataset.create_dict_iterator(output_numpy=True):
                 print(text.to_str(data['text']).tolist())
         ```
 
@@ -177,7 +177,7 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
 3. 创建迭代器，通过迭代器获取数据。
 
     ```python
-    for i in dataset.create_dict_iterator(num_epochs=1):
+    for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
             token = text.to_str(i['text']).tolist()
             print(token)
     ```

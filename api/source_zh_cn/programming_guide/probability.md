@@ -859,7 +859,7 @@ trained_loss = vi.get_train_loss()
 ```python
 generated_sample = vae.generate_sample(64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
-    sample_x = Tensor(sample['image'], dtype=mstype.float32)
+    sample_x = Tensor(sample['image'].asnumpy(), dtype=mstype.float32)
     reconstructed_sample = vae.reconstruct_sample(sample_x)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
@@ -873,8 +873,8 @@ ConditionalVAE训练过程和vae的过程类似，但需要注意的是使用训
 sample_label = Tensor([i for i in range(0, 8)] * 8, dtype=mstype.int32)
 generated_sample = cvae.generate_sample(sample_label, 64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
-    sample_x = Tensor(sample['image'], dtype=mstype.float32)
-    sample_y = Tensor(sample['label'], dtype=mstype.int32)
+    sample_x = Tensor(sample['image'].asnumpy(), dtype=mstype.float32)
+    sample_y = Tensor(sample['label'].asnumpy(), dtype=mstype.int32)
     reconstructed_sample = cvae.reconstruct_sample(sample_x, sample_y)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
@@ -989,8 +989,8 @@ def train_model(train_net, net, dataset):
     accs = []
     loss_sum = 0
     for i, data in enumerate(dataset.create_dict_iterator()):
-        train_x = Tensor(data['image'].astype(np.float32))
-        label = Tensor(data['label'].astype(np.int32))
+        train_x = Tensor(data['image'].asnumpy().astype(np.float32))
+        label = Tensor(data['label'].asnumpy().astype(np.int32))
         loss = train_net(train_x, label)
         output = net(train_x)
         log_output = P.LogSoftmax(axis=1)(output)
@@ -1006,8 +1006,8 @@ def train_model(train_net, net, dataset):
 def validate_model(net, dataset):
     accs = []
     for _, data in enumerate(dataset.create_dict_iterator()):
-        train_x = Tensor(data['image'].astype(np.float32))
-        label = Tensor(data['label'].astype(np.int32))
+        train_x = Tensor(data['image'].asnumpy().astype(np.float32))
+        label = Tensor(data['label'].asnumpy().astype(np.int32))
         output = net(train_x)
         log_output = P.LogSoftmax(axis=1)(output)
         acc = np.mean(log_output.asnumpy().argmax(axis=1) == label.asnumpy())
@@ -1404,7 +1404,7 @@ if __name__ == '__main__':
                                        ale_uncer_model_path=None,
                                        save_model=False)
     for eval_data in ds_eval.create_dict_iterator():
-        eval_data = Tensor(eval_data['image'], mstype.float32)
+        eval_data = Tensor(eval_data['image'].asnumpy(), mstype.float32)
         epistemic_uncertainty = evaluation.eval_epistemic_uncertainty(eval_data)
         aleatoric_uncertainty = evaluation.eval_aleatoric_uncertainty(eval_data)
     print('The shape of epistemic uncertainty is ', epistemic_uncertainty.shape)

@@ -202,27 +202,27 @@ Define a `Generator` and transfer it to `GeneratorDataset` to create a dataset a
      The output is as follows:
       ```
       dataset1:
-      [array([0], dtype=int64)]
-      [array([1], dtype=int64)]
-      [array([2], dtype=int64)]
-      [array([3], dtype=int64)]
-      [array([4], dtype=int64)]
-      [array([5], dtype=int64)]
-      [array([6], dtype=int64)]
-      [array([7], dtype=int64)]
-      [array([8], dtype=int64)]
-      [array([9], dtype=int64)]
+      [Tensor(shape=[1], dtype=Int64, value= [0])]
+      [Tensor(shape=[1], dtype=Int64, value= [1])]
+      [Tensor(shape=[1], dtype=Int64, value= [2])]
+      [Tensor(shape=[1], dtype=Int64, value= [3])]
+      [Tensor(shape=[1], dtype=Int64, value= [4])]
+      [Tensor(shape=[1], dtype=Int64, value= [5])]
+      [Tensor(shape=[1], dtype=Int64, value= [6])]
+      [Tensor(shape=[1], dtype=Int64, value= [7])]
+      [Tensor(shape=[1], dtype=Int64, value= [8])]
+      [Tensor(shape=[1], dtype=Int64, value= [9])]
       dataset2:
-      [array([0], dtype=int64)]
-      [array([1], dtype=int64)]
-      [array([2], dtype=int64)]
-      [array([3], dtype=int64)]
-      [array([4], dtype=int64)]
-      [array([5], dtype=int64)]
-      [array([6], dtype=int64)]
-      [array([7], dtype=int64)]
-      [array([8], dtype=int64)]
-      [array([9], dtype=int64)]
+      [Tensor(shape=[1], dtype=Int64, value= [0])]
+      [Tensor(shape=[1], dtype=Int64, value= [1])]
+      [Tensor(shape=[1], dtype=Int64, value= [2])]
+      [Tensor(shape=[1], dtype=Int64, value= [3])]
+      [Tensor(shape=[1], dtype=Int64, value= [4])]
+      [Tensor(shape=[1], dtype=Int64, value= [5])]
+      [Tensor(shape=[1], dtype=Int64, value= [6])]
+      [Tensor(shape=[1], dtype=Int64, value= [7])]
+      [Tensor(shape=[1], dtype=Int64, value= [8])]
+      [Tensor(shape=[1], dtype=Int64, value= [9])]
       ```
 
    - Create an iterator whose return value is a dictionary type. As shown in the following, create the iterators for `dataset1` and `dataset2`, and print the output.
@@ -238,25 +238,25 @@ Define a `Generator` and transfer it to `GeneratorDataset` to create a dataset a
      The output is as follows:
      ```
      dataset1:
-     {'data': array([0], dtype=int64)}
-     {'data': array([1], dtype=int64)}
-     {'data': array([2], dtype=int64)}
-     {'data': array([3], dtype=int64)}
-     {'data': array([4], dtype=int64)}
-     {'data': array([5], dtype=int64)}
-     {'data': array([6], dtype=int64)}
-     {'data': array([7], dtype=int64)}
-     {'data': array([8], dtype=int64)}
-     {'data': array([9], dtype=int64)}
+     {'data': Tensor(shape=[], dtype=Int64, value= [0])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [1])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [2])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [3])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [4])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [5])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [6])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [7])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [8])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [9])}
      dataset2:
-     {'data': array([0], dtype=int64)}
-     {'data': array([1], dtype=int64)}
-     {'data': array([2], dtype=int64)}
-     {'data': array([3], dtype=int64)}
-     {'data': array([4], dtype=int64)}
-     {'data': array([5], dtype=int64)}
-     {'data': array([6], dtype=int64)}
-     {'data': array([7], dtype=int64)}
-     {'data': array([8], dtype=int64)}
-     {'data': array([9], dtype=int64)}
+     {'data': Tensor(shape=[], dtype=Int64, value= [0])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [1])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [2])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [3])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [4])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [5])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [6])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [7])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [8])}
+     {'data': Tensor(shape=[], dtype=Int64, value= [9])}
      ```
