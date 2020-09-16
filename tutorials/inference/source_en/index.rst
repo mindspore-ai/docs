@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Tutorials
+Inference Using MindSpore
 ===================
 
 .. toctree::
@@ -11,11 +11,11 @@ MindSpore Tutorials
    :maxdepth: 1
    :caption: Use
 
-   use/multi_platform_inference
+   multi_platform_inference
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Inference Service
 
-   advanced_use/serving
+   serving

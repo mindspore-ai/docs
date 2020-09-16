@@ -1,12 +1,12 @@
-设计文档
+设计说明
 ===========
 
 .. toctree::
   :maxdepth: 1
 
-  architecture
-  technical_white_paper
-  design/mindspore/ir
+  design/technical_white_paper
+  design/mindspore/architecture
+  design/mindspore/mindir
   design/mindspore/distributed_training_design
   design/mindinsight/profiler_design
   design/mindinsight/training_visual_design

@@ -3,11 +3,11 @@
 `Linux` `Windows` `端侧` `推理应用` `中级` `高级` `贡献者`
 
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/architecture.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/lite/docs/source_zh_cn/architecture.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 MindSpore Lite框架的总体架构如下所示：
 
-![architecture](images/MindSpore-Lite-architecture.png)
+![architecture](./images/MindSpore-Lite-architecture.png)
 
 - **前端（Frontend）：** 负责模型生成，用户可以通过模型构建接口构建模型，将第三方模型和MindSpore训练的模型转换为MindSpore Lite模型，其中第三方模型包括TensorFlow Lite、Caffe 1.0和ONNX模型。
 

@@ -37,11 +37,14 @@
 |  MindInsight  |  MindSpore可视化组件，可视化标量、图像、计算图以及模型超参等信息。  |
 |  MindSpore  |  华为主导开源的深度学习框架。  |
 |  MindSpore Lite  |  一个轻量级的深度神经网络推理引擎，提供了将MindSpore训练出的模型在端侧进行推理的功能。  |
+|  MindSpore  Micro | 应用在IoT设备的，包大小更小的MindSpore AI引擎。 |
 |  MNIST database  |  Modified National Institute of Standards and Technology database，一个大型手写数字数据库，通常用于训练各种图像处理系统。  |
 | ONNX | Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。|
 |  PyNative Mode  |  MindSpore的动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。  |
 |  ResNet-50  |  Residual Neural Network 50，由微软研究院的Kaiming He等四名华人提出的残差神经网络。  |
+| RT | Runtime运行时。 |
 |  Schema  |  数据集结构定义文件，用于定义数据集包含哪些字段以及字段的类型。  |
 |  Summary  |  是对网络中Tensor取值进行监测的一种算子，在图中是“外围”操作，不影响数据流本身。  |
 |  TBE  |  Tensor Boost Engine，在TVM（ Tensor Virtual Machine ）框架基础上扩展的算子开发工具。  |
 |  TFRecord  |  Tensorflow定义的数据格式。  |
+

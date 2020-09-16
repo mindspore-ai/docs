@@ -37,10 +37,12 @@
 |  MindInsight  |  MindSpore visualization component, which visualizes information such as scalars, images, computational graphs, and model hyperparameters.  |
 |  MindSpore  |  Huawei-leaded open-source deep learning framework.  |
 |  MindSpore Lite  |  A lightweight deep neural network inference engine that provides the inference function for models trained by MindSpore on the device side.  |
+| MindSpore  Micro | MindSpore AI engine with smaller package size for IOT devices. |
 |  MNIST database  |  Modified National Handwriting of Images and Technology database, a large handwritten digit database, which is usually used to train various image processing systems.  |
 | ONNX | Open Neural Network Exchange, is an open format built to represent machine learning models.|
 |  PyNative Mode  |  MindSpore dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.  |
 |  ResNet-50  |  Residual Neural Network 50, a residual neural network proposed by four Chinese people, including Kaiming He from Microsoft Research Institute.  |
+| RT | Runtime. |
 |  Schema  |  Data set structure definition file, which defines the fields contained in a dataset and the field types.  |
 |  Summary  |  An operator that monitors the values of tensors on the network. It is a peripheral operation in the figure and does not affect the data flow.  |
 |  TBE  |  Tensor Boost Engine, an operator development tool that is extended based on the Tensor Virtual Machine (TVM) framework.  |

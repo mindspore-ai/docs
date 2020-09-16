@@ -3,20 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Documentation
-=======================
+MindSpore Note
+=================
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
    design
-   roadmap
-   benchmark
-   network_list
-   operator_list
-   constraints_on_network_construction
-   glossary
-   FAQ
-   help_seeking_path
-   community
+   Specification_list
+   note
