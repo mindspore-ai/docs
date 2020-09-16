@@ -1,10 +1,20 @@
 # Built html files
-api/build_en
-api/build_zh_cn
-docs/build_en
-docs/build_zh_cn
-tutorials/build_en
-tutorials/build_zh_cn
+docs/api_cpp/build_en
+docs/api_cpp/build_zh_cn
+docs/api_java/build_en
+docs/api_java/build_zh_cn
+docs/api_python/build_en
+docs/api_python/build_zh_cn
+docs/faq/build_en
+docs/faq/build_zh_cn
+docs/note/build_en
+docs/note/build_zh_cn
+docs/programming_guide/build_en
+docs/programming_guide/build_zh_cn
+tutorials/inference/build_en
+tutorials/inference/build_zh_cn
+tutorials/training/build_en
+tutorials/training/build_zh_cn
 
 # Workspace
 .idea/
