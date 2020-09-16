@@ -1,6 +1,18 @@
 mindspore.train
 ===============
 
+mindspore.train.model
+---------------------
+
+.. automodule::  mindspore.train.model
+    :members:
+
+mindspore.train.dataset_helper
+------------------------------
+
+.. automodule:: mindspore.train.dataset_helper
+    :members:
+
 mindspore.train.summary
 -----------------------
 
