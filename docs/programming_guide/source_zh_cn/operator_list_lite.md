@@ -1,4 +1,4 @@
-﻿# 算子支持
+﻿# MindSpore Lite 算子支持
 
 `Linux` `Ascend` `端侧` `推理应用` `初级` `中级` `高级`
 

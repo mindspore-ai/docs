@@ -6,31 +6,32 @@
     - [概述](#概述)
     - [分布式并行配置](#分布式并行配置)
         - [通用配置](#通用配置)
-          - [device_num](#device_num)
-          - [global_rank](#global_rank)
-          - [gradients_mean](#gradients_mean)
-          - [parallel_mode](#parallel_mode)
+            - [device_num](#device_num)
+            - [global_rank](#global_rank)
+            - [gradients_mean](#gradients_mean)
+            - [parallel_mode](#parallel_mode)
+            - [all_reduce_fusion_config](#all_reduce_fusion_config)
         - [自动并行配置](#自动并行配置)
-          - [gradient_fp32_sync](#gradient_fp32-sync)
-          - [loss_repeated_mean](#loss_repeated_mean)
-          - [auto_parallel_search_mode](#auto_parallel_search_mode)
-          - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
-          - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
-          - [full_batch](#full_batch)
+            - [gradient_fp32_sync](#gradient_fp32_sync)
+            - [loss_repeated_mean](#loss_repeated_mean)
+            - [auto_parallel_search_mode](#auto_parallel_search_mode)
+            - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
+            - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
+            - [full_batch](#full_batch)
         - [数据并行配置](#数据并行配置)
-          - [enable_parallel_optimizer](#enable_parallel_optimizer)
+            - [enable_parallel_optimizer](#enable_parallel_optimizer)
         - [混合并行配置](#混合并行配置)
-          - [layerwise_parallel](#layerwise_parallel)
+            - [layerwise_parallel](#layerwise_parallel)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
-        - [get_rank](#get_rank)
         - [get_group_size](#get_group_size)
-    - [数据并行](#数据并行)
-    - [自动并行](#自动并行)
+        - [get_rank](#get_rank)
+        - [数据并行](#数据并行)
+        - [自动并行](#自动并行)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/auto_parallel_context.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/auto_parallel.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -105,7 +106,7 @@ context.get_auto_parallel_context("gradients_mean")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(parallel_mode=“auto_parallel”)
+context.set_auto_parallel_context(parallel_mode="auto_parallel")
 context.get_auto_parallel_context("parallel_mode")
 ```
 
@@ -162,7 +163,7 @@ MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(auto_parallel_search_mode=“dynamic_programming”)
+context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
 context.get_auto_parallel_context("auto_parallel_search_mode")
 ```
 
@@ -175,7 +176,7 @@ context.get_auto_parallel_context("auto_parallel_search_mode")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(strategy_ckpt_load_file=“./”)
+context.set_auto_parallel_context(strategy_ckpt_load_file="./")
 context.get_auto_parallel_context("strategy_ckpt_load_file")
 ```
 
@@ -188,7 +189,7 @@ context.get_auto_parallel_context("strategy_ckpt_load_file")
 ```python
 from mindspore import context	
 
-context.set_auto_parallel_context(strategy_ckpt_save_file=“./”)
+context.set_auto_parallel_context(strategy_ckpt_save_file="./")
 context.get_auto_parallel_context("strategy_ckpt_save_file")
 ```
 

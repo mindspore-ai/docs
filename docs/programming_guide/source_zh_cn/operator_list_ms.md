@@ -1,10 +1,10 @@
-# 算子支持
+# MindSpore 算子支持
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [算子支持](#算子支持)
+- [MindSpore 算子支持](#mindspore-算子支持)
     - [mindspore.nn](#mindsporenn)
     - [mindspore.ops.operations](#mindsporeopsoperations)
     - [mindspore.ops.functional](#mindsporeopsfunctional)
