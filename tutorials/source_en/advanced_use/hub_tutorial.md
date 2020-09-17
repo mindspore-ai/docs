@@ -1,29 +1,29 @@
-## Submitting, Loading and Fine-tuning Models using MindSpore Hub
+# Submitting, Loading and Fine-tuning Models using MindSpore Hub
 
 `Linux` `Ascend` `GPU` `MindSpore Hub` `Model Submission` `Model Loading` `Model Fine-tuning` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
 - [Submitting, Loading and Fine-tuning Models using MindSpore Hub](#submitting-loading-and-fine-tuning-models-using-mindspore-hub)
-  - [Overview](#overview)
-  - [How to submit models](#how-to-submit-models)
-    - [Steps](#steps)
-  - [How to load models](#how-to-load-models)
-  - [Model Fine-tuning](#model-fine-tuning)
+    - [Overview](#overview)
+    - [How to submit models](#how-to-submit-models)
+        - [Steps](#steps)
+    - [How to load models](#how-to-load-models)
+    - [Model Fine-tuning](#model-fine-tuning)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-### Overview
+## Overview
 
 MindSpore Hub is a pre-trained model application tool of the MindSpore ecosystem, which serves as a channel for model developers and application developers. It not only provides model developers with a convenient and fast channel for model submission, but also provides application developers with simple model loading and fine-tuning APIs. For model developers who are interested in publishing models into MindSpore Hub, this tutorial introduces the specific steps to submit models using GoogleNet as an example. It also describes how to load/fine-tune MindSpore Hub models for application developers who aim to do inference/transfer learning on new dataset.  In summary, this tutorial helps the model developers submit models efficiently and enables the application developers to perform inference or fine-tuning using MindSpore Hub APIs quickly. 
 
-### How to submit models
+## How to submit models
 
 We accept publishing models to MindSpore Hub via PR in [hub](https://gitee.com/mindspore/hub) repo. Here we use GoogleNet as an example to list the steps of model submission to MindSpore Hub. 
 
-#### Steps
+### Steps
 
 1. Host your pre-trained model in a storage location where we are able to access. 
 
@@ -81,7 +81,7 @@ We accept publishing models to MindSpore Hub via PR in [hub](https://gitee.com/m
 
 Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://hub.mindspore.com/mindspore) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md) for more information about model submission. 
 
-### How to load models
+## How to load models
 
 `mindspore_hub.load` API is used to load the pre-trained model in a single line of code. The main process of model loading is as follows:
 
@@ -116,7 +116,7 @@ network.set_train(False)
 out = network(transforms(image))
 ```
 
-### Model Fine-tuning
+## Model Fine-tuning
 
 When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network. 
 
