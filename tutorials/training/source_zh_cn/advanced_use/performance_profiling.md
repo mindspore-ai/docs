@@ -194,6 +194,6 @@ Timeline主要包含如下几个部分：
 
   > 如何控制step数目请参考数据准备教程：
   >
-  > <https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_preparation.html>
+  > <https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation.html>
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
