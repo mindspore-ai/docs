@@ -1,10 +1,10 @@
-# 应用差分隐私优化器提升模型安全性
+# 应用差分隐私机制保护用户隐私
 
 `Linux` `Ascend` `模型开发` `模型调优` `企业` `高级`
 
 <!-- TOC -->
 
-- [应用差分隐私优化器](#应用差分隐私优化器)
+- [应用差分隐私机制保护用户隐私](#应用差分隐私机制保护用户隐私)
     - [概述](#概述)
     - [实现阶段](#实现阶段)
         - [导入需要的库文件](#导入需要的库文件)
@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/protect_user_privacy_with_differential_privacy.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -45,7 +45,7 @@ MindArmour的差分隐私模块Differential-Privacy，实现了差分隐私优�
 
 这里以LeNet模型，MNIST 数据集为例，说明如何在MindSpore上使用差分隐私优化器训练神经网络模型。
 
-> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>
+> 本例面向Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>
 
 ## 实现阶段
 
@@ -70,13 +70,11 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 import mindspore.common.dtype as mstype
 
-from mindarmour.diff_privacy import DPModel
-from mindarmour.diff_privacy import NoiseMechanismsFactory
-from mindarmour.diff_privacy import ClipMechanismsFactory
-from mindarmour.diff_privacy import PrivacyMonitorFactory
+from mindarmour.privacy.diff_privacy import DPModel
+from mindarmour.privacy.diff_privacy import NoiseMechanismsFactory
+from mindarmour.privacy.diff_privacy import ClipMechanismsFactory
+from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
 from mindarmour.utils.logger import LogUtil
-from lenet5_net import LeNet5
-from lenet5_config import mnist_cfg as cfg
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
@@ -85,7 +83,7 @@ TAG = 'Lenet5_train'
 
 ### 参数配置
 
-1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_config.py>。
+1. 设置运行环境、数据集路径、模型训练参数、checkpoint存储参数、差分隐私参数，`data_path`数据路径替换成你的数据集所在路径。更多配置可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>。
 
    ```python
    cfg = edict({
@@ -99,7 +97,7 @@ TAG = 'Lenet5_train'
         'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
         'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
         'device_target': 'Ascend',  # device used
-        'data_path': './MNIST_unzip',  # the path of training and testing data set
+        'data_path': '../../common/dataset/MNIST',  # the path of training and testing data set
         'dataset_sink_mode': False,  # whether deliver all training data to device one time
         'micro_batches': 32,  # the number of small batches split from an original batch
         'norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters

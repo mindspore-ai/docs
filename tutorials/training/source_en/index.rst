@@ -74,7 +74,7 @@ Train with MindSpore
    :caption: Model Security and Privacy
 
    advanced_use/improve_model_security_nad
-   advanced_use/improve_model_security_differential_privacy
+   advanced_use/protect_user_privacy_with_differential_privacy
 
 .. toctree::
    :glob:
