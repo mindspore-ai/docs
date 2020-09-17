@@ -64,12 +64,6 @@ Mean bias of all nodes: 0%
 ```
 
 
-When the origin model's input or output data type is uint8, they needs to be reduced by 128 and converted to int8 type before it can be used as benchmark data to verify accuracy. And when the output data type is INT8, you need to specify calibDataType as INT8 in the parameter.
-
-```bash
-./benchmark --modelPath=./models/test_benchmark_int8.ms --inDataPath=./input/test_benchmark_int8.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark_int8.out --calibDataType=INT8
-```
-
 ## Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
@@ -90,7 +84,7 @@ The following describes the parameters in detail.
 | `--modelPath=<MODELPATH>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
 | `--calibDataPath=<CALIBDATAPATH>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
-| `--calibDataType=<CALIBDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | FLOAT or INT8 |
+| `--calibDataType=<CALIBDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | UINT8, FLOAT or INT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | −1: medium core<br/>1: large core<br/>0: not bound |
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
