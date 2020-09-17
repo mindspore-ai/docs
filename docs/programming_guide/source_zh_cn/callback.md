@@ -1,29 +1,26 @@
-# MindSpore Callback回调函数机制
+# Callback机制
 
 <!-- TOC -->
 
-- [概述](#概述)
-- [MindSpore内置回调函数](#mindspore内置回调函数)
-- [MindSpore自定义回调函数](#mindspore自定义回调函数)
+- [Callback机制](#callback机制)
+  - [概述](#概述)
+  - [MindSpore内置回调函数](#mindspore内置回调函数)
+  - [MindSpore自定义回调函数](#mindspore自定义回调函数)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/callback.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/callback.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 Callback回调函数在MindSpore中被实现为一个类，Callback机制类似于一种监控模式，可以帮助用户观察网络训练过程中各种参数的变化情况和网络内部的状态，还可以根据用户的指定，在达到特定条件后执行相应的操作，在训练过程中，Callback列表会按照定义的顺序执行Callback函数。Callback机制让用户可以及时有效地掌握网络模型的训练状态，并根据需要随时作出调整，可以极大地提升用户的开发效率。
 
-在MindSpore中，Callback机制一般用在网络训练过程`model.train`中，用户可以通过配置不同的内置回调函数传入不同的参数，从而实现各种功能。例如，可以通过`LossMonitor`监控每一个epoch的loss变化情况，通过checkpoint保存网络参数和模型进行再训练或推理，通过`TimeMonitor`监控每一个epoch，每一个step的训练时间，以及提前终止训练，动态调整参数等。
+在MindSpore中，Callback机制一般用在网络训练过程`model.train`中，用户可以通过配置不同的内置回调函数传入不同的参数，从而实现各种功能。例如，可以通过`LossMonitor`监控每一个epoch的loss变化情况，通过`ModelCheckpoint`保存网络参数和模型进行再训练或推理，通过`TimeMonitor`监控每一个epoch，每一个step的训练时间，以及提前终止训练，动态调整参数等。
 
 ## MindSpore内置回调函数
 
 - ModelCheckpoint
 
-    与模型训练过程相结合，保存训练后的模型和网络参数，方便进行再推理或再训练。
-
-- CheckpointConfig
-
-    一般与`ModelCheckpoint`配合使用，可自定义配置checkpoint的保存策略。
+    与模型训练过程相结合，保存训练后的模型和网络参数，方便进行再推理或再训练。`ModelCheckpoint`一般与`CheckpointConfig`配合使用，`CheckpointConfig`是一个参数配置类，可自定义配置checkpoint的保存策略。
 
     详细内容，请参考[Checkpoint官网教程](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html)。
 

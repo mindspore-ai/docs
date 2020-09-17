@@ -9,7 +9,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/ops.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/ops.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 MindSpore的ops模块主要存放算子相关接口，同时包含算子的校验和正反向关联的逻辑。
 
