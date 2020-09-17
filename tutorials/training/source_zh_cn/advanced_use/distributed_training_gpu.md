@@ -10,7 +10,6 @@
         - [下载数据集](#下载数据集)
         - [配置分布式环境](#配置分布式环境)
         - [调用集合通信库](#调用集合通信库)
-    - [数据并行模式加载数据集](#数据并行模式加载数据集)
     - [定义网络](#定义网络)
     - [运行脚本](#运行脚本)
     - [运行多机脚本](#运行多机脚本)
@@ -146,3 +145,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
+在GPU上进行分布式训练时，模型参数的保存和加载可参考[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/distributed_training_ascend.html#id12)

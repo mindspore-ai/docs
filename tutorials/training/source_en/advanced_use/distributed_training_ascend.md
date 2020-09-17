@@ -17,6 +17,11 @@
         - [Defining the Optimizer](#defining-the-optimizer)
     - [Training the Network](#training-the-network)
     - [Running the Script](#running-the-script)
+    - [Distributed Training Model Parameters Saving and Loading](#distributed-training-model-parameters-saving-and-loading)
+        - [Auto Parallel Mode](#auto-parallel-mode)
+        - [Data Parallel Mode](#data-parallel-mode)
+        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
+        - [Hybrid Parallel Mode](#hybrid-parallel-mode)
 
 <!-- /TOC -->
 
@@ -219,7 +224,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 > You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
-If multiple network cases exist in the script, call `context.reset_auto_parallel_context()` to restore all parameters to default values before executing the next case.
+If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
 In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL`.
 
@@ -334,3 +339,172 @@ epoch: 8 step: 156, loss is 1.2943741
 epoch: 9 step: 156, loss is 1.2316195
 epoch: 10 step: 156, loss is 1.1533381
 ```
+
+## Distributed Training Model Parameters Saving and Loading
+
+The below content introduced how to save and load models under the four distributed parallel training modes respectively. Before saving model parameters for distributed training, it is necessary to configure distributed environment variables and collective communication library in accordance with this tutorial.
+
+### Auto Parallel Mode
+
+It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. The code is as follows：
+
+```python
+def test_train_cifar(epoch_size=10):
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    loss_cb = LossMonitor()
+    dataset = create_dataset(data_path)
+    batch_size = 32
+    num_classes = 10
+    net = resnet50(batch_size, num_classes)
+    loss = SoftmaxCrossEntropyExpand(sparse=True)
+    opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
+    save_path = '...'
+    ckpt_config = CheckpointConfig()
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory=save_path, config=ckpt_config)
+    model = Model(net, loss_fn=loss, optimizer=opt)
+    model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
+```
+
+After saving the checkpoint file, users can easily load model parameters for reasoning or retraining. For example, the following code can be used for retraining:
+
+```python
+net = Net()
+param_dict = load_checkpoint(save_path)
+load_param_into_net(net, param_dict)
+```
+
+For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#checkpoint-configuration-policies).
+
+### Data Parallel Mode
+
+Under Data Parallel Mode, checkpoint can be used as shown in the following example:
+
+```python
+from mindspore.train import Model
+from context import set_auto_parallel_context, reset_auto_parallel_context
+from mindspore.nn import Momentum, Cell, Flatten, ReLU
+from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, LossMonitor
+from mindspore.communication.management import get_rank
+from mindspore.common.parameter import Parameter
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+# define network
+class DataParallelNet(Cell):
+	def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
+		super().__init__()
+		weight_np = np.full(test_size, 0.1, dtype=np.float32)
+		self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
+		self.relu = ReLU()
+		self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
+		if strategy is not None:
+			self.fc.set_strategy(strategy)
+
+	def construct(self, inputs, label):
+		x = self.relu(inputs)
+		x = self.fc(x, self.weight)
+		return x
+```
+
+Assuming that the Data Parallel mode is used to train and save the model on an 8P machine, the data needs to be obtained first, and the parallel strategy and parallel mode need to be set. The code is as follows:
+
+```python
+# create data sets
+parallel_dataset = CreateData()
+# set parallel strategy
+strategy = ((1, 1), (1, 8))
+# create network model
+net = DataParallelNet(strategy=strategy)
+# reset parallel mode
+context.reset_auto_parallel_context()
+# set parallel mode, data parallel mode is selected for training and model saving. If you want to choose auto parallel 
+# mode, you can simply change the value of parallel_mode parameter to ParallelMode.AUTO_PARALLEL.
+context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, device_num=8)
+```
+
+Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows：
+
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+# define checkpoint save path
+ckpt_path = './rank_{}_ckpt'.format(get_rank)
+# create a ModelCheckpoint object
+ckpt_callback = ModelCheckpoint(prefix='data_parallel', directory=ckpt_path, config=ckpt_config)
+# set optimizer and loss function
+opt = Momentum()
+loss = SoftmaxCrossEntropyExpand()
+model = Model(net, loss_fb=loss, optimizer=opt)
+# After training, the system will automatically save the checkpoint file.
+model.train(train_dataset=parallel_dataset, callbacks=[ckpt_callback, loss])
+# After training, reset the parallel mode to avoid unnecessary trouble when retraining.
+context.reset_auto_parallel_context()
+```
+
+After saving the checkpoint file, users can also use `load_checkpoint` and `load_param_into_Net` to load the model parameters.
+
+### Semi Auto Parallel Mode
+
+The whole process of using checkpoint in Semi Auto parallel Mode also starts from defining a network model.
+
+```python
+class SemiAutoParallelNet(Cell):
+	def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
+		super().__init__()
+		mul_np = np.full(mul_size, 0.5, dtype=np.float32)
+		equal_np = np.full(test_size, 0.1, dtype=np.float32)
+		self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
+		self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
+		self.mul = P.Mul()
+		self.equal = P.Equal()
+		if strategy is not None:
+			self.mul.set_strategy(strategy)
+			self.equal.set_strategy(strategy2)
+
+	def construct(self, inputs, label):
+		x = self.mul(inputs, self.mul_weight)
+		x = self.equal(x, self.equal_weight)
+		return x
+```
+
+It is assumed that Semi Auto Parallel Mode is also trained and saved on an 8p machine. The code for getting data and setting the parallel strategy and parallel mode is as follows:
+
+```python
+# create data sets
+parallel_dataset = CreateData()
+# set parallel strategy
+strategy = ((1, 1), (1, 8))
+# create network model
+net = SemiAutoParallelNet(strategy=strategy, strategy2=strategy)
+# reset parallel mode
+context.reset_auto_parallel_context()
+# set parallel mode, data parallel mode is selected for training and model saving. If you want to choose auto parallel 
+# mode, you can simply change the value of parallel_mode parameter to ParallelMode.AUTO_PARALLEL.
+context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
+	                              strategy_ckpt_save_file='./rank_{}_ckpt/strategy.txt'.format(get_rank))
+```
+
+Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows：
+
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+# define checkpoint save path
+ckpt_path = './rank_{}_ckpt'.format(get_rank)
+# create a ModelCheckpoint object
+ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory=ckpt_path, config=ckpt_config)
+# set optimizer and loss function
+opt = Momentum()
+loss = SoftmaxCrossEntropyExpand()
+model = Model(net, loss_fb=loss, optimizer=opt)
+# After you've trained your network, the system will automatically save the checkpoint file.
+model.train(train_dataset=parallel_dataset, callbacks=[ckpt_callback, loss])
+# After training, reset the parallel mode to avoid unnecessary trouble when retraining.
+context.reset_auto_parallel_context()
+```
+
+After saving the checkpoint file, users can also use `load_checkpoint`, `load_param_into_Net` to load the model parameters。
+
+### Hybrid Parallel Mode
+
+For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorial/en/master/advanced_use/checkpoint_for_hybrid_parallel.html).
