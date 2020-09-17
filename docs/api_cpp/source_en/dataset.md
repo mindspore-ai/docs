@@ -6,6 +6,8 @@
 
 ## Functions of image_process.h 
 
+### ResizeBilinear
+
 ```
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
@@ -21,6 +23,8 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
 - Returns
 
     Return True or False.
+
+### InitFromPixel
 
 ```
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
@@ -40,6 +44,8 @@ Initialize LiteMat from pixel, currently the conversion supports rbgaTorgb and r
 
     Return True or False.
 
+### ConvertTo
+
 ```
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
@@ -55,6 +61,8 @@ Convert the data type, currently it supports converting the data type from uint8
 - Returns
 
     Return True or False.
+
+### Crop
 
 ```
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
@@ -74,6 +82,8 @@ Crop image, the channel supports is 3 and 1.
 
     Return True or False.
 
+### SubStractMeanNormalize
+
 ```
 bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float *norm)
 ```
@@ -90,11 +100,13 @@ Normalize image, currently the supports data type is float.
 
     Return True or False.
 
+### Pad
+
 ```
 bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
 ```
 
-Padd image, the channel supports is 3 and 1.
+Pad image, the channel supports is 3 and 1.
 
 - Parameters
 
@@ -111,6 +123,8 @@ Padd image, the channel supports is 3 and 1.
 - Returns
 
     Return True or False.
+
+### Affine
 
 ```
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
@@ -140,6 +154,8 @@ Apply affine transformation for 3 channel image.
     - `dsize`: The size of the output image.
     - `borderValue`: The pixel value is used for filing after the image is captured.
 
+### GetDefaultBoxes
+
 ```
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
@@ -154,6 +170,8 @@ Get default anchor boxes for Faster R-CNN, SSD, YOLO etc.
 
     Return the default boxes.
 
+### ConvertBoxes
+
 ```
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
@@ -165,6 +183,8 @@ Convert the prediction boxes to the actual boxes with (y, x, h, w).
     - `boxes`: Actual size box.
     - `default_boxes`: Default box.
     - `config`: Objects of BoxesConfig structure.
+
+### ApplyNms
 
 ```
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
@@ -190,6 +210,7 @@ Class that represents a lite Mat of a Image.
 
 **Constructors & Destructors**
 
+### LiteMat
 
 ```
 LiteMat()
@@ -211,6 +232,7 @@ Destructor of MindSpore dataset LiteMat.
 
 **Public Member Functions**
 
+### Init
 
 ```
 void Init(int width, LDataType data_type = LDataType::UINT8)
@@ -222,6 +244,8 @@ void Init(int width, int height, int channel, LDataType data_type = LDataType::U
 
 The function to initialize the channel, width and height of the image, but the parameters are different.
 
+### IsEmpty
+
 ```
 bool IsEmpty() const
 ```
@@ -232,6 +256,8 @@ A function to determine whether the object is empty.
 
     Return True or False.
 
+### Release
+
 ```
 void Release()
 ```
@@ -239,6 +265,8 @@ void Release()
 A function to release memory.
 
 **Private Member Functions**
+
+### AlignMalloc
 
 ```
 void *AlignMalloc(unsigned int size)
@@ -253,6 +281,8 @@ Apply for memory alignment.
 - Returns
 
    Return the size of a pointer.
+
+### AlignFree
 
 ```
 void AlignFree(void *ptr)
@@ -269,6 +299,8 @@ Initialize the value of elem_size_ by data_type.
 - Parameters
 
     - `data_type`: Type of data.
+
+### addRef
 
 ```
  int addRef(int *p, int value)

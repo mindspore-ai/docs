@@ -21,4 +21,5 @@
    use/build
    use/converter_model
    use/evaluating_the_model
+   use/image_processing
    use/runtime

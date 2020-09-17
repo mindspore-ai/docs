@@ -9,7 +9,8 @@
         - [编译示例](#编译示例)
         - [编译输出](#编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)             
+            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)
+            - [图像处理库目录结构说明](#图像处理库目录结构说明)              
 
 <!-- /TOC -->
 
@@ -23,6 +24,7 @@
 | runtime | Linux、Android | 模型推理框架 |
 | benchmark | Linux、Android | 基准测试工具 |
 | timeprofiler | Linux、Android | 性能分析工具 |
+| imageprocess | Linux、Android | 图像处理库 |
 
 ## Linux环境编译
 
@@ -64,6 +66,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
 | -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | GPU | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
+| -n | 指定编译轻量级图片处理模块 | 无 | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 
@@ -97,11 +100,17 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -e gpu
     ```
 
+- 编译ARM64带图像预处理模块。
+    ```bash
+    bash build.sh -I arm64 -n lite_cv
+    ```
+
 ### 编译输出
 
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为两部分：
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark和性能分析工具timeprofiler。
+- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -114,6 +123,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 ```
 
 #### 模型转换工具converter目录结构说明
@@ -179,3 +189,18 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 > 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
 > 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
 > 3. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`。
+
+#### 图像处理库目录结构说明
+
+图像处理库在`-I arm64 -n lite_cv`编译选项下获得，内容包括以下几部分：
+
+```
+|
+├── mindspore-lite-{version}-minddata-{os}-{device} 
+│   └── include # 头文件
+│       ├── lite_cv # 图像处理库头文件
+│   └── lib # 动态库
+│       ├── libminddata-lite.so # 图像处理动态库
+│   └── third_party # 第三方库头文件和库
+│       ├── flatbuffers # Flatbuffers的动态库
+```
