@@ -508,16 +508,16 @@ virtual void *MutableData() const = 0;
 
 ### Example
 
-The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputMapByNode` method and print the first ten data or all data records of each output `MSTensor`.
+The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
 
 ```cpp
 // Assume we have created a LiteSession instance named session before.
-auto output_map = session->GetOutputMapByNode();
+auto output_map = session->GetOutputs();
 // Assume that the model has only one output node.
 auto out_node_iter = output_map.begin();
 std::string name = out_node_iter->first;
 // Assume that the unique output node has only one output tensor.
-auto out_tensor = out_node_iter->second.front();
+auto out_tensor = out_node_iter->second;
 if (out_tensor == nullptr) {
     std::cerr << "Output tensor is nullptr" << std::endl;
     return -1;
@@ -541,7 +541,7 @@ std::cout << std::endl;
 // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
 ```
 
-Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputMapByNode`, `GetOutputByTensorName` and `GetOutputMapByTensor` methods do not need to be released by users. 
+Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
 
 The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputsByNodeName` method.
 
@@ -549,19 +549,6 @@ The following sample code shows how to obtain the output `MSTensor` from `LiteSe
 // Assume we have created a LiteSession instance named session before.
 // Assume that model has a output node named output_node_name_0.
 auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
-// Assume that output node named output_node_name_0 has only one output tensor.
-auto out_tensor = output_vec.front();
-if (out_tensor == nullptr) {
-    std::cerr << "Output tensor is nullptr" << std::endl;
-    return -1;
-}
-```
-
-The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputMapByTensor` method.
-
-```cpp
-// Assume we have created a LiteSession instance named session before.
-auto output_map = session->GetOutputMapByTensor();
 // Assume that output node named output_node_name_0 has only one output tensor.
 auto out_tensor = output_vec.front();
 if (out_tensor == nullptr) {
