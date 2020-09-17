@@ -6,6 +6,8 @@
 
 ## image_process.h文件的函数
 
+### ResizeBilinear
+
 ```
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
@@ -21,6 +23,8 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 - 返回值
 
     返回True或者False。
+
+### InitFromPixel
 
 ```
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
@@ -40,6 +44,8 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
 
     返回True或者False。
 
+### ConvertTo
+
 ```
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
@@ -55,6 +61,8 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 - 返回值
 
     返回True或者False。
+
+### Crop
 
 ```
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
@@ -74,6 +82,8 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
     返回True或者False。
 
+### SubStractMeanNormalize
+
 ```
 bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float *norm)
 ```
@@ -90,8 +100,10 @@ bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float
 
     返回True或者False。
 
+### Pad
+
 ```
-bool Padd(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
+bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
 ```
 
 填充图像，通道支持为3和1。
@@ -111,6 +123,8 @@ bool Padd(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int
 - 返回值
 
     返回True或者False。
+
+### Affine
 
 ```
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
@@ -140,6 +154,8 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
     - `dsize`: 输出图像的大小。
     - `borderValue`: 采图之后用于填充的像素值。
 
+### GetDefaultBoxes
+
 ```
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
@@ -154,6 +170,8 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
     返回默认框。
 
+### ConvertBoxes
+
 ```
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
@@ -165,6 +183,8 @@ void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vecto
     - `boxes`: 实际框的大小。
     - `default_boxes`: 默认框。
     - `config`: BoxesConfig结构体对象。
+
+### ApplyNms
 
 ```
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
@@ -190,6 +210,7 @@ LiteMat是一个处理图像的类。
 
 **构造函数和析构函数**
 
+### LiteMat
 
 ```
 LiteMat()
@@ -211,6 +232,7 @@ MindSpore dataset LiteMat的析构函数。
 
 **公有成员函数**
 
+### Init
 
 ```
 void Init(int width, LDataType data_type = LDataType::UINT8)
@@ -222,6 +244,8 @@ void Init(int width, int height, int channel, LDataType data_type = LDataType::U
 
 该函数用于初始化图像的通道，宽度和高度，参数不同。
 
+### IsEmpty
+
 ```
 bool IsEmpty() const
 ```
@@ -232,6 +256,8 @@ bool IsEmpty() const
 
     返回True或者False。
 
+### Release
+
 ```
 void Release()
 ```
@@ -239,6 +265,8 @@ void Release()
 释放内存的函数。
 
 **私有成员函数**
+
+### AlignMalloc
 
 ```
 void *AlignMalloc(unsigned int size)
@@ -254,11 +282,16 @@ void *AlignMalloc(unsigned int size)
 
    返回指针的大小。
 
+### AlignFree
+
 ```
 void AlignFree(void *ptr)
 ```
 
 释放指针内存大小的方法。
+
+
+### InitElemSize
 
 ```
 void InitElemSize(LDataType data_type)

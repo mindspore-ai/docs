@@ -21,4 +21,5 @@ Using MindSpore on Mobile and IoT
    use/build
    use/converter_tool
    use/evaluating_the_model
+   use/image_processing
    use/runtime

@@ -9,7 +9,8 @@
         - [Compilation Example](#compilation-example)
         - [Output Description](#output-description)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)                 
+            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
+            - [Description of Imageprocess's Directory Structure](#description-of-imageprocesss-directory-structure)
 
 <!-- /TOC -->
 
@@ -23,6 +24,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | runtime | Linux、Android | Model Inference Framework |
 | benchmark | Linux、Android | Benchmarking Tool |
 | timeprofiler | Linux、Android | Performance Analysis Tool |
+| imageprocess | Linux、Android | Image Processing Library |
 
 ## Linux Environment Compilation
 
@@ -64,6 +66,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
 | -e | In the Arm architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
 | -h | Displays the compilation help information. | None | No |
+| -n | Specifies to compile the lightweight image processing module. | None | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 
@@ -97,11 +100,17 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -e gpu
     ```
 
+- Compile ARM64 with image preprocessing module:
+    ```bash
+    bash build.sh -I arm64 -n lite_cv
+    ```
+
 ### Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into two parts.
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：Contains model inference framework、benchmarking tool and performance analysis tool.
+- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：Contains image processing library ImageProcess.
 
 > version: version of the output, consistent with that of the MindSpore.
 >
@@ -114,6 +123,7 @@ Execute the decompression command to obtain the compiled output:
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 ```
 #### Description of Converter's Directory Structure
 
@@ -178,3 +188,18 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 > 1. `liboptimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
 > 2. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
 > 3. Before running the tools in the converter, benchmark or time_profiler directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries. Take the compiled under version 0.7.0-beta as an example: configure converter: `export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`; configure benchmark and timeprofiler: `export LD_LIBRARY_PATH= ./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`.
+
+#### Description of Imageprocess's Directory Structure
+
+The image processing library is only available under the `-I arm64 -n lite_cv` compilation option, and the content includes the following parts:
+
+```
+|
+├── mindspore-lite-{version}-minddata-{os}-{device} 
+│   └── include # Head file
+│       ├── lite_cv # Image processing library header file
+│   └── lib # Dynamic library
+│       ├── libminddata-lite.so # Image processing dynamic library
+│   └── third_party # Third-party Iibrary header files and libraries
+│       ├── flatbuffers # Header files of FlatBuffers
+```
