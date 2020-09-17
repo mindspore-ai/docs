@@ -9,7 +9,7 @@
     - [概念](#概念)
         - [量化](#量化)
         - [伪量化节点](#伪量化节点)
-    - [感知量化训练](#感知量化训练-1)
+    - [感知量化训练](#感知量化训练)
     - [感知量化训练示例](#感知量化训练示例)
         - [定义融合网络](#定义融合网络)
         - [转化为量化网络](#转化为量化网络)
@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/quantization_aware.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 背景
 
@@ -51,7 +51,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU、Ascend AI 910处理器的硬件平台 |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
+| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo>。 |
 | 算法支持 | 在MindSpore的伪量化训练中，支持非对称和对称的量化算法。 |
 | 方案支持 | 支持4、7和8比特的量化方案。 |
 
@@ -76,7 +76,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 
 接下来，以LeNet网络为例，展开叙述3、6两个步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet_quant> 。
 
 ### 定义融合网络
 
@@ -170,7 +170,7 @@ net = qat.convert_quant_network(net, quant_delay=0, bn_fold=False, freeze_bn=100
   2.  定义网络。
   3.  定义融合网络。
   4.  定义优化器和损失函数。
-  5.  加载模型文件模型重训。加载已有模型文件，基于融合网络重新训练生成融合模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#id6>
+  5.  加载模型文件模型重训。加载已有模型文件，基于融合网络重新训练生成融合模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#id6>
   6.  转化量化网络。
   7.  进行量化训练。
 
@@ -178,7 +178,7 @@ net = qat.convert_quant_network(net, quant_delay=0, bn_fold=False, freeze_bn=100
 
 使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（ONNX、AIR等）进行推理。
 
-> 推理详细说明请参见<https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html>。
+> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/use/multi_platform_inference.html>
 
 - 使用感知量化训练后得到的checkpoint文件进行推理：
 
