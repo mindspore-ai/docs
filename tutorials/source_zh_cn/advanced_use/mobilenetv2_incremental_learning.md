@@ -147,13 +147,22 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ### 准备预训练模型  
 
-[下载预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt)到以下目录：  
+用户需要根据不同处理器种类[下载CPU/GPU预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt)或[下载Ascend预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt)到以下目录：  
 `./pretrain_checkpoint/`  
 
-```bash
-mkdir pretrain_checkpoint
-wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ckpt
-```
+- CPU/GPU 处理器
+
+    ```bash
+    mkdir pretrain_checkpoint
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt
+    ```
+
+- Ascend AI处理器
+
+    ```bash
+    mkdir pretrain_checkpoint
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt
+    ```
 
 ### 准备数据
 
