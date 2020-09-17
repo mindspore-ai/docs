@@ -1,29 +1,29 @@
-## 使用MindSpore Hub提交、加载和微调模型
+# 使用MindSpore Hub提交、加载和微调模型
 
 `Linux` `Ascend` `GPU` `MindSpore Hub` `模型上传` `模型加载` `模型微调` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用MindSpore Hub提交、加载和微调模型](#使用MindSporeHub提交加载和微调模型)
-  - [概述](#概述)
-  - [模型上传](#模型上传)
-    - [步骤](#步骤)
-  - [模型加载](#模型加载)
-  - [模型微调](#模型微调)
+- [使用MindSpore Hub提交、加载和微调模型](#使用mindspore-hub提交加载和微调模型)
+    - [概述](#概述)
+    - [模型上传](#模型上传)
+        - [步骤](#步骤)
+    - [模型加载](#模型加载)
+    - [模型微调](#模型微调)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-### 概述
+## 概述
 
 MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开发者和应用开发者的管道，它不仅向模型开发者提供了方便快捷的模型发布通道，而且向应用开发者提供了简单易用的模型加载和微调API。本教程以GoogleNet为例，对想要将模型发布到MindSpore Hub的模型开发者介绍了模型上传步骤，也对想要使用MindSpore Hub模型进行推理或者微调的应用开发者描述了具体操作流程。总之，本教程可以帮助模型开发者有效地提交模型，并使得应用开发者利用MindSpore Hub的接口快速实现模型推理或微调。
 
-### 模型上传
+## 模型上传
 
 我们接收用户通过向 [hub](https://gitee.com/mindspore/hub) 仓提交PR的方式向MindSpore Hub发布模型。这里我们以GoogleNet为例，列出模型提交到MindSpore Hub的步骤。
 
-#### 步骤
+### 步骤
 
 1. 将你的预训练模型托管在可以访问的存储位置。
 
@@ -81,7 +81,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
 
 一旦你的PR合并到 `mindspore/hub` 的master分支，你的模型将于24小时内在 [MindSpore Hub 网站](https://hub.mindspore.com/mindspore) 上显示。有关模型上传的更多详细信息，请参考 [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md) 。
 
-### 模型加载 
+## 模型加载 
 
 `mindspore_hub.load` API用于加载预训练模型，可以实现一行代码加载模型。主要的模型加载流程如下：
 
@@ -118,7 +118,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
   out = network(transforms(image))
   ```
 
-### 模型微调 
+## 模型微调 
 
 在使用 `mindspore_hub.load` 进行模型加载时，可以增加一个额外的参数项只加载神经网络的特征提取部分。这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 include_top）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top` 取值为True或者False，表示是否保留顶层的全连接网络。* 
 
