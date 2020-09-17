@@ -102,12 +102,12 @@ The following describes the parameters in detail.
 | Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | No | Prints all help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MS, CAFFE, TFLITE, or ONNX | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, or ONNX | - |
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
 | `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
-|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the input and output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | SAME FLOAT or INT8 | SAME |
+|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the input and output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | UINT8, FLOAT or INT8 | FLOAT |
 |`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
 |`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
 
@@ -153,7 +153,7 @@ Several common examples are selected below to illustrate the use of conversion c
 
    - MindSpore model `model.mindir`
       ```bash
-      call converter_lite --fmk=MS --modelFile=model.mindir --outputFile=model
+      call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
    
    - TensorFlow Lite model`model.tflite`
