@@ -28,6 +28,10 @@
     - [使用示例](#使用示例-5)
   - [获取版本号](#获取版本号)
     - [使用示例](#使用示例-6)
+  - [Session并行](#Session并行)
+    - [单Session并行](#单session并行)
+    - [多Session并行](#多session并行)
+    - [使用示例](#使用示例-7)  
 
 <!-- /TOC -->
 
@@ -178,20 +182,7 @@ if (session == nullptr) {
 
 使用MindSpore Lite进行推理时，在已完成会话创建与图编译之后，如果需要对输入的shape进行Resize，则可以通过对输入的tensor重新设置shape，然后调用session的Resize()接口。
 
-```cpp
-/// \brief  Get input MindSpore Lite MSTensors of model.
-///
-/// \return  The vector of MindSpore Lite MSTensor.
-virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
-
-/// \brief  Resize inputs shape.
-///
-/// \param[in] inputs  Define Model inputs.
-/// \param[in] dims    Define all inputs new shape.
-///
-/// \return  STATUS as an error code of resize inputs, STATUS is defined in errorcode.h.
-virtual int Resize(const std::vector<tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims) = 0;
-```
+> 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
 
 ### 使用示例
 
@@ -592,4 +583,113 @@ MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/
 ```cpp
 #include "include/version.h"
 std::string version = mindspore::lite::Version(); 
+```
+
+## Session并行
+MindSpore Lite支持多个`LiteSession`并行推理，但不支持多个线程同时调用单个`LiteSession`的`RunGraph`接口。
+
+### 单Session并行
+
+MindSpore Lite不支持多线程并行执行单个`LiteSession`的推理，否则会得到以下错误信息：
+```cpp
+ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
+```
+
+### 多Session并行
+
+MindSpore Lite支持多个`LiteSession`同时进行推理的场景，每个`LiteSession`的线程池和内存池都是独立的。
+
+### 使用示例
+
+下面代码演示了如何创建多个`LiteSession`，并且并行执行推理的过程：
+```cpp
+#include <thread>
+#include "src/common/file_utils.h"
+#include "include/model.h"
+#include "include/version.h"
+#include "include/context.h"
+#include "include/lite_session.h"
+
+mindspore::session::LiteSession *GenerateSession(mindspore::lite::Model *model) {
+  if (model == nullptr) {
+    std::cerr << "Read model file failed while running" << std::endl;
+    return nullptr;
+  }
+  auto context = new (std::nothrow) mindspore::lite::Context;
+  if (context == nullptr) {
+    std::cerr << "New context failed while running" << std::endl;
+    return nullptr;
+  }
+
+  auto session = mindspore::session::LiteSession::CreateSession(context);
+  delete (context);
+  if (session == nullptr) {
+    std::cerr << "CreateSession failed while running" << std::endl;
+    return nullptr;
+  }
+  auto ret = session->CompileGraph(model);
+  if (ret != mindspore::lite::RET_OK) {
+    std::cout << "CompileGraph failed while running" << std::endl;
+    delete (session);
+    return nullptr;
+  }
+  auto msInputs = session->GetInputs();
+  for (auto msInput : msInputs) {
+    (void)msInput->MutableData();
+  }
+  return session;
+}
+
+int main(int argc, const char **argv) {
+  size_t size = 0;
+  char *graphBuf = mindspore::lite::ReadFile("test.ms", &size);
+  if (graphBuf == nullptr) {
+    std::cerr << "Read model file failed while running" << std::endl;
+    return -1;
+  }
+  auto model = mindspore::lite::Model::Import(graphBuf, size);
+  if (model == nullptr) {
+    std::cerr << "Import model file failed while running" << std::endl;
+    delete[](graphBuf);
+    return -1;
+  }
+  delete[](graphBuf);
+  auto session1 = GenerateSession(model);
+  if (session1 == nullptr) {
+    std::cerr << "GenerateSession failed" << std::endl;
+    delete(model);
+    return -1;
+  }
+  auto session2 = GenerateSession(model);
+  if (session2 == nullptr) {
+    std::cerr << "GenerateSession failed" << std::endl;
+    delete(model);
+    return -1;
+  }
+
+  std::thread thread1([&](){
+    auto status = session1->RunGraph();
+    if (status != 0) {
+      std::cerr << "Inference error " << status << std::endl;
+      return;
+    }
+    std::cout << "Session1 inference success" << std::endl;
+  });
+
+  std::thread thread2([&](){
+    auto status = session2->RunGraph();
+    if (status != 0) {
+      std::cerr << "Inference error " << status << std::endl;
+      return;
+    }
+    std::cout << "Session2 inference success" << std::endl;
+  });
+
+  thread1.join();
+  thread2.join();
+  delete (session1);
+  delete (session2);
+  delete (model);
+  return 0;
+}
 ```
