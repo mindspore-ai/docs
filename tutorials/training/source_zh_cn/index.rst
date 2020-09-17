@@ -11,8 +11,8 @@
    :maxdepth: 1
    :caption: 快速入门
 
-   quick_start/linear_regression
    quick_start/quick_start
+   quick_start/linear_regression
    quick_start/quick_video
 
 .. toctree::
