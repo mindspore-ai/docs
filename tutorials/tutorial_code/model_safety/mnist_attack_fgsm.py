@@ -55,7 +55,7 @@ def test_fast_gradient_sign_method():
     test_labels = []
     predict_labels = []
     i = 0
-    for data in ds.create_tuple_iterator(output_numpy=True):
+    for data in ds.create_tuple_iterator():
         i += 1
         images = data[0].asnumpy().astype(np.float32)
         labels = data[1].asnumpy()

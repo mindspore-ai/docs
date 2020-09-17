@@ -278,7 +278,7 @@ assert os.path.exists(MINDRECORD_FILE_NAME + ".db")
 
 data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  
 count = 0
-for item in data_set.create_dict_iterator():  
+for item in data_set.create_dict_iterator(ouput_numpy=True):
     print("sample: {}".format(item))
     count += 1
 print("Got {} samples".format(count))
