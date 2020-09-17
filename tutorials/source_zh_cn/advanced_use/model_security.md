@@ -59,9 +59,9 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.train.callback import LossMonitor
 
-from mindarmour.attacks.gradient_method import FastGradientSignMethod
+from mindarmour.adv_robustness.attacks import FastGradientSignMethod
 from mindarmour.utils.logger import LogUtil
-from mindarmour.evaluations.attack_evaluation import AttackEvaluate
+from mindarmour.adv_robustness.evaluations import AttackEvaluate
 
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
@@ -178,7 +178,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 2. 训练LeNet模型。利用上面定义的数据加载函数`generate_mnist_dataset`载入数据。
 
     ```python
-    mnist_path = "./MNIST_unzip/"
+    mnist_path = "./MNIST/"
     batch_size = 32
     # train original model
     ds_train = generate_mnist_dataset(os.path.join(mnist_path, "train"),
@@ -197,9 +197,9 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
                                      sparse=False)
     inputs = []
     labels = []
-    for data in ds_test.create_tuple_iterator():
-        inputs.append(data[0].asnumpy().astype(np.float32))
-        labels.append(data[1].asnumpy())
+    for data in ds_test.create_tuple_iterator(output_numpy=True):
+        inputs.append(data[0].astype(np.float32))
+        labels.append(data[1])
     test_inputs = np.concatenate(inputs)
     test_labels = np.concatenate(labels)
     ```
@@ -296,7 +296,7 @@ NaturalAdversarialDefense（NAD）是一种简单有效的对抗样本防御方�
 调用MindArmour提供的NAD防御接口（NaturalAdversarialDefense）。
 
 ```python
-from mindarmour.defenses import NaturalAdversarialDefense
+from mindarmour.adv_robustness.defenses import NaturalAdversarialDefense
 
 
 # defense

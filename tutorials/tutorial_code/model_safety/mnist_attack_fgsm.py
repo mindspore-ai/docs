@@ -11,57 +11,42 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""
-mnist_attack_fgsm
-The sample can be run on Ascend 910 AI processor.
-"""
-import sys
 import time
 import numpy as np
-import pytest
 from scipy.special import softmax
 
 from mindspore import Model
 from mindspore import Tensor
 from mindspore import context
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
-from mindarmour.attacks.gradient_method import FastGradientSignMethod
-
+from mindarmour.adv_robustness.attacks import FastGradientSignMethod
+from mindarmour.adv_robustness.evaluations import AttackEvaluate
 from mindarmour.utils.logger import LogUtil
-from mindarmour.evaluations.attack_evaluation import AttackEvaluate
 
-from lenet5_net import LeNet5
-
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-
-
-sys.path.append("..")
-from data_processing import generate_mnist_dataset
+from examples.common.networks.lenet5.lenet5_net import LeNet5
+from examples.common.dataset.data_processing import generate_mnist_dataset
 
 LOGGER = LogUtil.get_instance()
+LOGGER.set_level('INFO')
 TAG = 'FGSM_Test'
 
 
-@pytest.mark.level1
-@pytest.mark.platform_arm_ascend_training
-@pytest.mark.platform_x86_ascend_training
-@pytest.mark.env_card
-@pytest.mark.component_mindarmour
 def test_fast_gradient_sign_method():
     """
-    FGSM-Attack test
+    FGSM-Attack test for CPU device.
     """
     # upload trained network
-    ckpt_name = './trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
+    ckpt_path = '../../../common/networks/lenet5/trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
     net = LeNet5()
-    load_dict = load_checkpoint(ckpt_name)
+    load_dict = load_checkpoint(ckpt_path)
     load_param_into_net(net, load_dict)
 
     # get test data
-    data_list = "./MNIST_unzip/test"
+    data_list = "../../../common/dataset/MNIST/test"
     batch_size = 32
-    ds = generate_mnist_dataset(data_list, batch_size, sparse=False)
+    ds = generate_mnist_dataset(data_list, batch_size)
 
     # prediction accuracy before attack
     model = Model(net)
@@ -70,7 +55,7 @@ def test_fast_gradient_sign_method():
     test_labels = []
     predict_labels = []
     i = 0
-    for data in ds.create_tuple_iterator():
+    for data in ds.create_tuple_iterator(output_numpy=True):
         i += 1
         images = data[0].asnumpy().astype(np.float32)
         labels = data[1].asnumpy()
@@ -82,15 +67,16 @@ def test_fast_gradient_sign_method():
         if i >= batch_num:
             break
     predict_labels = np.concatenate(predict_labels)
-    true_labels = np.argmax(np.concatenate(test_labels), axis=1)
+    true_labels = np.concatenate(test_labels)
     accuracy = np.mean(np.equal(predict_labels, true_labels))
     LOGGER.info(TAG, "prediction accuracy before attacking is : %s", accuracy)
 
     # attacking
-    attack = FastGradientSignMethod(net, eps=0.3)
+    loss = SoftmaxCrossEntropyWithLogits(sparse=True)
+    attack = FastGradientSignMethod(net, eps=0.3, loss_fn=loss)
     start_time = time.clock()
     adv_data = attack.batch_generate(np.concatenate(test_images),
-                                     np.concatenate(test_labels), batch_size=32)
+                                     true_labels, batch_size=32)
     stop_time = time.clock()
     np.save('./adv_data', adv_data)
     pred_logits_adv = model.predict(Tensor(adv_data)).asnumpy()
@@ -100,7 +86,7 @@ def test_fast_gradient_sign_method():
     accuracy_adv = np.mean(np.equal(pred_labels_adv, true_labels))
     LOGGER.info(TAG, "prediction accuracy after attacking is : %s", accuracy_adv)
     attack_evaluate = AttackEvaluate(np.concatenate(test_images).transpose(0, 2, 3, 1),
-                                     np.concatenate(test_labels),
+                                     np.eye(10)[true_labels],
                                      adv_data.transpose(0, 2, 3, 1),
                                      pred_logits_adv)
     LOGGER.info(TAG, 'mis-classification rate of adversaries is : %s',
@@ -120,4 +106,6 @@ def test_fast_gradient_sign_method():
 
 
 if __name__ == '__main__':
+    # device_target can be "CPU", "GPU" or "Ascend"
+    context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
     test_fast_gradient_sign_method()
