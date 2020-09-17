@@ -37,6 +37,8 @@ float16_priority
 
 **bool**值，默认为**false**，用于使能float16 推理。
 
+> 使能float16推理可能会导致模型推理精度下降，因为在模型推理的中间过程中，有些变量可能会超出float16的数值范围。
+
 ```
 device_type
 ```

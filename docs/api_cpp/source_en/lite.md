@@ -35,6 +35,8 @@ float16_priority
 ```
 A **bool** value. Defaults to **false**. Prior enable float16 inference.
 
+> Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
+
 ```
 device_type
 ```
