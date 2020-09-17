@@ -1,6 +1,6 @@
-# 使用工具迁移第三方框架脚本
+# 迁移第三方框架脚本
 
-`Linux` `Ascend` `模型开发` `初级` `Linux`
+`Linux` `Ascend` `模型开发` `初级`
 
 <!-- TOC -->
 
@@ -8,6 +8,7 @@
   - [概述](#概述)
   - [安装](#安装)
   - [用法](#用法)
+  - [使用场景](#使用场景)
   - [使用示例](#使用示例)
     - [基于AST的脚本转换示例](#基于AST的脚本转换示例)
     - [基于图结构的脚本生成示例](#基于图结构的脚本生成示例)
@@ -78,6 +79,7 @@ optional arguments:
 
 另外，当使用基于图结构的脚本生成方案时，请确保原PyTorch项目已在Python包搜索路径中，可通过CLI进入Python交互式命令行，通过import的方式判断是否已满足；若未加入，可通过`--project_path`命令手动将项目路径传入，以确保MindConverter可引用到原PyTorch脚本。
 
+
 > 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动项目添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
 
 > 此处MindConverter需要引用原PyTorch脚本，是因为PyTorch模型反向序列化过程中会引用原脚本。
@@ -98,6 +100,7 @@ MindConverter提供两种技术方案，以应对不同脚本迁移场景：
 > 1. 基于图结构的脚本生成方案，目前仅支持单输入、单输出模型，对于多输入模型暂不支持；
 > 2. 基于图结构的脚本生成方案，由于要基于推理模式加载PyTorch模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐；
 > 3. 基于图结构的脚本生成方案持续优化中。
+
 
 ## 使用示例
 
@@ -148,7 +151,48 @@ mindconverter --model_file /home/user/model.pth --shape 3,224,224 \
 基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原PyTorch脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
 
 
-另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以input_shape, output_shape标识），便于用户手动修改。
+另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），将生成如下代码：
+
+```python
+class Classifier(nn.Cell):
+
+    def __init__(self):
+        super(Classifier, self).__init__()
+        ...
+        self.reshape = onnx.Reshape(input_shape=(1, 1280, 1, 1),
+                                    output_shape=(1, 1280))
+        ...
+
+    def construct(self, x):
+        ...
+        # Suppose input of `reshape` is x.
+        reshape_output = self.reshape(x)
+        ...
+
+```
+
+通过`input_shape`、`output_shape`参数，用户可以十分便捷地完成算子替换，替换结果如下：
+
+```python
+from mindspore.ops import operations as P
+...
+
+class Classifier(nn.Cell):
+
+    def __init__(self):
+        super(Classifier, self).__init__()
+        ...
+        self.reshape = P.Reshape(input_shape=(1, 1280, 1, 1),
+                                 output_shape=(1, 1280))
+        ...
+
+    def construct(self, x):
+        ...
+        # Suppose input of `reshape` is x.
+        reshape_output = self.reshape(x, (1, 1280))
+        ...
+
+```
 
 
 > 注意：其中`--output`与`--report`参数可省略，若省略，该命令将在当前工作目录（Working directory）下自动创建`output`目录，将生成的脚本、转换报告输出至该目录。
