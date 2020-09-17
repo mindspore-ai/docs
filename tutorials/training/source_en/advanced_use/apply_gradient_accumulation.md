@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -29,7 +29,7 @@ Different from the traditional training method, the concept of mini-batch is int
   
 The ultimate objective is to achieve the same effect as training with N x mini-batch data.
 
-> This tutorial is applicable to GPUs and Ascend 910 AI Processors. You can download the main training sample code from <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>.
+> This tutorial is applicable to GPUs and Ascend 910 AI Processors. You can download the main training sample code from <https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/gradient_accumulation>.
 
 ## Creating a Gradient Accumulation Model
 
@@ -58,11 +58,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### Loading the Dataset
 
-Use the `MnistDataset` API provided by the dataset of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet/src/dataset.py>) in the lenet directory of model_zoo.
+Use the `MnistDataset` API provided by the dataset of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet/src/dataset.py>) in the lenet directory of model_zoo.
 
 ### Defining the Network
 
-The following uses the LeNet network as an example. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet/src/lenet.py>) in the lenet directory of model_zoo.
+The following uses the LeNet network as an example. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet/src/lenet.py>) in the lenet directory of model_zoo.
 
 ### Defining the Training Model
 The training process is divided into three parts: forward and backward training, parameter update, and accumulated gradient clearance.
@@ -252,7 +252,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Model Validation**
 
-Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
+Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
 
 ```shell
 $ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
