@@ -31,7 +31,7 @@
 | 计算机视觉（CV）  | 目标检测（Targets Detection）  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)   |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Targets Detection）  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)   |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Targets Detection）  | [FasterRCNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/faster_rcnn/src/FasterRcnn/faster_rcnn_r50.py)  |  Supported |  Doing | Doing
-| 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeeplabV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/deeplabv3.py)                    |  Supported |  Doing | Doing
+| 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeeplabV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/nets/deeplab_v3/deeplab_v3.py)                    |  Supported |  Doing | Doing
 | 计算机视觉（CV） | 目标检测（Targets Detection）  | [WarpCTC](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/warpctc/src/warpctc.py)                    |  Doing |  Supported | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [BERT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/bert/src/bert_model.py)  |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [Transformer](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_model.py)  |  Supported |  Doing | Doing
