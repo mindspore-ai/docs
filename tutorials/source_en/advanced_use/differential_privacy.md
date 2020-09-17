@@ -45,7 +45,7 @@ MindArmour differential privacy module Differential-Privacy implements the diffe
 
 The LeNet model and MNIST dataset are used as an example to describe how to use the differential privacy optimizer to train a neural network model on MindSpore.
 
-> This example is for the Ascend 910 AI processor. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>.
+> This example is for the Ascend 910 AI processor. You can download the complete sample code from <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_dp.py>.
 
 ## Implementation
 
@@ -70,13 +70,11 @@ import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 import mindspore.common.dtype as mstype
 
-from mindarmour.diff_privacy import DPModel
-from mindarmour.diff_privacy import PrivacyMonitorFactory
-from mindarmour.diff_privacy import NoiseMechanismsFactory
-from mindarmour.diff_privacy import ClipMechanismsFactory
+from mindarmour.privacy.diff_privacy import DPModel
+from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory
+from mindarmour.privacy.diff_privacy import NoiseMechanismsFactory
+from mindarmour.privacy.diff_privacy import ClipMechanismsFactory
 from mindarmour.utils.logger import LogUtil
-from lenet5_net import LeNet5
-from lenet5_config import mnist_cfg as cfg
 
 LOGGER = LogUtil.get_instance()
 LOGGER.set_level('INFO')
@@ -85,7 +83,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/example/mnist_demo/lenet5_dp.py>.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
    
    ```python
    cfg = edict({
@@ -99,7 +97,7 @@ TAG = 'Lenet5_train'
         'save_checkpoint_steps': 234,  # the interval steps for saving checkpoint file of the model
         'keep_checkpoint_max': 10,  # the maximum number of checkpoint files would be saved
         'device_target': 'Ascend',  # device used
-        'data_path': './MNIST_unzip',  # the path of training and testing data set
+        'data_path': '../../common/dataset/MNIST',  # the path of training and testing data set
         'dataset_sink_mode': False,  # whether deliver all training data to device one time
         'micro_batches': 32,  # the number of small batches split from an original batch
         'norm_bound': 1.0,  # the clip bound of the gradients of model's training parameters
