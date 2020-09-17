@@ -43,7 +43,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 > 你可以在这里下载完整的示例代码：
 <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor> 。
 
-### 示例代码目录结构
+示例代码目录结构
 
 ```shell
 ├── resnet_thor
@@ -89,12 +89,12 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 ```
 └─ImageNet2012
     ├─ilsvrc
-    │      n03676483/
-    │      n04067472/
-    │      n01622779/
+    │      n03676483
+    │      n04067472
+    │      n01622779
     │      ......
     └─ilsvrc_eval
-    │      n03018349/
+    │      n03018349
     │      n02504013
     │      n07871810
     │      ......
@@ -181,7 +181,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 ...
 from src.resnet_thor import resnet50
 ...
-f __name__ == "__main__":
+if __name__ == "__main__":
     ...
     # define the net
     net = resnet50(class_num=config.class_num, damping=damping, loss_scale=config.loss_scale,
@@ -340,7 +340,7 @@ epoch: 2 step: 5004, loss is 3.740064
 epoch: 3 step: 5004, loss is 4.0546017
 epoch: 4 step: 5004, loss is 3.7598825
 epoch: 5 step: 5004, loss is 3.3744206
-......
+...
 epoch: 40 step: 5004, loss is 1.6907625
 epoch: 41 step: 5004, loss is 1.8217756
 epoch: 42 step: 5004, loss is 1.6453942
@@ -355,6 +355,7 @@ epoch: 42 step: 5004, loss is 1.6453942
     ├─resnet-2_5004.ckpt
     │      ......
     ├─resnet-42_5004.ckpt
+    │      ......
 ```
 
 其中，
@@ -379,7 +380,7 @@ epoch: 2 step: 5004, loss is 4.0819564
 epoch: 3 step: 5004, loss is 3.7005644
 epoch: 4 step: 5004, loss is 3.2668946
 epoch: 5 step: 5004, loss is 3.023509
-......
+...
 epoch: 36 step: 5004, loss is 1.645802
 ...
 ```
@@ -393,12 +394,14 @@ epoch: 36 step: 5004, loss is 1.645802
         ├─resnet-2_5004.ckpt
     	│      ......
         ├─resnet-36_5004.ckpt
-	......
+        │      ......
+    ......
     ├─ckpt_7
         ├─resnet-1_5004.ckpt
         ├─resnet-2_5004.ckpt
         │      ......
         ├─resnet-36_5004.ckpt
+        │      ......
 
 ```
 
