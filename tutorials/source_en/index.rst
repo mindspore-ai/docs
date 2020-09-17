@@ -33,6 +33,8 @@ MindSpore Tutorials
    advanced_use/nlp_application
    advanced_use/synchronization_training_and_evaluation.md
    advanced_use/optimize_the_performance_of_data_preparation.md
+   advanced_use/second_order_optimizer_for_resnet50_application.md
+
 .. toctree::
    :glob:
    :maxdepth: 1
