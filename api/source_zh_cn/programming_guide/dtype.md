@@ -16,7 +16,7 @@ MindSpore张量支持不同的数据类型，包含`int8`、`int16`、`int32`、
 
 在MindSpore的运算处理流程中，Python中的`int`数会被转换为定义的int64类型，`float`数会被转换为定义的`float32`类型。
 
-详细的类型支持情况请参考<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dtype.html>。
+详细的类型支持情况请参考<https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.html#mindspore.dtype>。
 
 以下代码，打印MindSpore的数据类型int32。
 ```
