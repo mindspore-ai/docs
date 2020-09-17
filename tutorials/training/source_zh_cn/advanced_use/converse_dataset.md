@@ -8,7 +8,6 @@
 - [转换数据集为MindRecord](#转换数据集为mindrecord)
     - [概述](#概述)
     - [基本概念](#基本概念)
-    - [相关接口说明](#相关接口说明)
     - [将数据集转换为MindRecord](#将数据集转换为mindrecord)
 
 <!-- /TOC -->
@@ -17,7 +16,7 @@
 
 ## 概述
 
-用户可以将非标准的数据集和常见的经典数据集转换为MindSpore数据格式即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。   
+用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。   
 
 MindSpore数据格式具备的特征如下：  
 1. 实现多变的用户数据统一存储、访问，训练数据读取更简便；
@@ -25,17 +24,17 @@ MindSpore数据格式具备的特征如下：
 3. 高效数据编解码操作，对用户透明、无感知；
 4. 灵活控制分区大小，实现分布式训练。
 
-MindSpore的目标是将用户的数据集通过归一化操作生成MindSpore数据格式，进一步通过MindDataset实现数据的读取，并用于训练过程。
+MindSpore数据格式的目标是归一化用户的数据集，并进一步通过MindDataset实现数据的读取，并用于训练过程。
 
 ![data_conversion_concept](./images/data_conversion_concept.png)
 
 ## 基本概念
 
-一个MindRecord文件由数据文件和索引文件组成：
+一个MindRecord文件由数据文件和索引文件组成，且数据文件及索引文件暂不支持重命名操作：
 
 - 数据文件
 
-    包含文件头、标量数据页、块数据页，用于存储用户归一化后的训练数据。
+    包含文件头、标量数据页、块数据页，用于存储用户归一化后的训练数据，且单个MindRecord文件建议小于20G，用户可将大数据集进行分片存储为多个MindRecord文件。
 
 - 索引文件
 
@@ -49,31 +48,13 @@ MindSpore的目标是将用户的数据集通过归一化操作生成MindSpore�
 
     文件头主要用来存储文件头大小、标量数据页大小、块数据页大小、Schema信息、索引字段、统计信息、文件分区信息、标量数据与块数据对应关系等，是MindRecord文件的元信息。
 
-    > Schema为数据集结构定义文件，用于定义数据集包含哪些字段以及字段的类型。更多说明及介绍可参考[Schema相关规范](#将数据集转换为mindrecord)。
-
 - 标量数据页
 
     标量数据页主要用来存储整型、字符串、浮点型数据，如图像的Label、图像的文件名、图像的长宽等信息，即适合用标量来存储的信息会保存在这里。
 
 - 块数据页
 
-    块数据页主要用来存储二进制串、Numpy数组等数据，如二进制图像文件本身、文本转换成的字典等。
-
-## 相关接口说明
-
-| 接口名 | 接口说明 |
-| --- | --- |
-| FileWriter | 用于将用户定义的原始数据写为MindRecord文件。 |
-| FileReader | 用于读取MindRecord文件。 |
-| MindPage | 用于实现MindSpore数据格式的检索及统计功能。 |
-| Cifar10ToMR | 用于将CIFAR-10数据集转换为MindRecord格式。 |
-| Cifar100ToMR | 用于将CIFAR-100数据集转换为MindRecord格式。 |
-| ImageNetToMR | 用于将ImageNet数据集转换为MindRecord格式。 |
-| MnistToMR | 用于将MNIST数据集转换为MindRecord格式。 |
-| TFRecordToMR | 用于将TFRecord格式数据集文件转换为MindRecord格式。 |
-| CsvToMR | 用于将CSV格式数据集文件转换为MindRecord格式。 |
-
-更多详细接口说明，请参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.mindrecord.html)。
+    块数据页主要用来存储二进制串、NumPy数组等数据，如二进制图像文件本身、文本转换成的字典等。
 
 ## 将数据集转换为MindRecord
 

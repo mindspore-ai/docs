@@ -30,9 +30,8 @@
    :caption: 处理数据
 
    advanced_use/converse_dataset
-   advanced_use/enable_cache
    advanced_use/optimize_data_processing
-   
+
 
 .. toctree::
    :glob:
@@ -87,5 +86,5 @@
    :caption: 应用实践
 
    advanced_use/cv
-   advanced_use/nlp   
+   advanced_use/nlp
    advanced_use/use_on_the_cloud

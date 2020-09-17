@@ -19,12 +19,6 @@
 
 MindSpore提供的`mindspore.dataset`库可以帮助用户构建数据集对象，分批次地读取文本数据。同时，在各个数据集类中还内置了数据处理和数据分词算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
 
-MindSpore目前支持加载文本领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_loading.html)章节。
-
-MindSpore目前支持的数据处理和数据分词算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/api/zh-CN/master/programming_guide/pipeline.html)与[分词器](https://www.mindspore.cn/api/zh-CN/master/programming_guide/tokenizer.html)章节。
-
-MindSpore目前支持的数据采样器及其详细使用方法，可参考编程指南中[采样器](https://www.mindspore.cn/api/zh-CN/master/programming_guide/sampler.html)章节。
-
 下面，本教程将简要演示如何使用MindSpore加载和处理文本数据。
 
 ## 准备
@@ -44,15 +38,18 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
         └─tokenizer.txt
     ```
 
-3. 导入`mindspore.dataset`库。
+3. 导入`mindspore.dataset`和`mindspore.dataset.text`库。
 
     ```python
     import mindspore.dataset as ds
+    import mindspore.dataset.text as text
     ```
 
 ## 加载数据集
 
-使用`mindspore.dataset`中的`TextFileDataset`类加载数据集。
+MindSpore目前支持加载文本领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_loading.html)章节。
+
+下面演示使用`mindspore.dataset`中的`TextFileDataset`类加载数据集。
 
 1. 配置数据集目录，创建数据集对象。
 
@@ -77,6 +74,8 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
     ```
 
 ## 数据处理
+
+MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/api/zh-CN/master/programming_guide/pipeline.html)章节。
 
 在生成`dataset`对象后可对其进行数据处理操作，比如`SlidingWindow`、`shuffle`等。
 
@@ -160,7 +159,9 @@ MindSpore目前支持的数据采样器及其详细使用方法，可参考编�
 
 ## 数据分词
 
-使用`WhitespaceTokenizer`分词器来分词,该分词是按照空格来进行分词。
+MindSpore目前支持的数据分词算子及其详细使用方法，可参考编程指南中[分词器](https://www.mindspore.cn/api/zh-CN/master/programming_guide/tokenizer.html)章节。
+
+下面演示使用`WhitespaceTokenizer`分词器来分词，该分词是按照空格来进行分词。
 
 1. 创建`tokenizer`。
 

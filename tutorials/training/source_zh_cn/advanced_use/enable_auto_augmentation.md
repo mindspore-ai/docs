@@ -187,8 +187,6 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
           post_trans = [
                   c_vision.RandomHorizontalFlip(prob=0.5),
-                  #c_vision.Normalize(mean=mean, std=std),
-                  #c_vision.HWC2CHW()
                   ]
       else:
           trans = [
@@ -238,10 +236,10 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
     >为了更好演示效果，从数据集中只读取5张图片并且不进行`shuffle`且不进行`Normalize`和`HWC2CHW`操作。
 
-
     ![augment](./images/auto_augmentation.png)
 
     运行结果可以看到，batch中每张图像的增强效果，X方向表示1个batch的5张图像，Y方向表示5个bacth。
+    
 ## 参考文献
 
 [1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501)
