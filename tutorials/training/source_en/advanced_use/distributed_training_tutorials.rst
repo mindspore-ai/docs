@@ -17,6 +17,7 @@ MindSpore also provides the parallel distributed training function. It supports 
   :maxdepth: 1
 
   distributed_training_ascend
+  distributed_training_gpu
   apply_host_device_training
   apply_parameter_server_training
   save_load_model_hybrid_parallel
