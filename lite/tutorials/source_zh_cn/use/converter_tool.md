@@ -53,7 +53,7 @@ bash build.sh -I x86_64
 
    结果显示为：
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
    
@@ -87,7 +87,7 @@ bash build.sh -I x86_64
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
    
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
 - 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/errorcode_and_metatype.html)。
 
@@ -145,7 +145,7 @@ set MSLOG=INFO
 
    结果显示为：
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
    
@@ -173,6 +173,6 @@ set MSLOG=INFO
 
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```   
 - 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/errorcode_and_metatype.html)。
