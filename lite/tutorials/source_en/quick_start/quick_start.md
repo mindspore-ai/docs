@@ -109,7 +109,7 @@ app
 │   |   └── MindSporeNetnative.h # header file
 │   |
 │   ├── java # application code at the Java layer
-│   │   └── com.huawei.himindsporedemo 
+│   │   └── com.mindspore.himindsporedemo
 │   │       ├── gallery.classify # implementation related to image processing and MindSpore JNI calling
 │   │       │   └── ...
 │   │       └── widget # implementation related to camera enabling and drawing
@@ -183,7 +183,7 @@ In this example, the  download.gradle File configuration auto download  MindSpor
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
-MindSpore Lite version [MindSpore Lite version]( https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
+MindSpore Lite version [MindSpore Lite version](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ### Downloading and Deploying a Model File
 
