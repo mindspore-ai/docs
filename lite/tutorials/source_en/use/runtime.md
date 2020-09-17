@@ -28,6 +28,10 @@
     - [Example](#example-5)
   - [Obtaining Version String](#obtaining-version-string)
     - [Example](#example-6)
+  - [Session parallel launch](#session-parallel-launch)
+    - [Single Session parallel launch](#single-session-parallel-launch)
+    - [Multiple Session parallel launch](#multiple-session-parallel-launch)
+    - [Example](#example-7)  
 
 <!-- /TOC -->
 
@@ -178,6 +182,8 @@ if (session == nullptr) {
 ### Variable Dimension
 
 When using MindSpore Lite for inference, after the session creation and graph compilation have been completed, if you need to resize the input shape, you can reset the shape of the input tensor, and then call the session's Resize() interface.
+
+> Not all models support variable dimensions. For example, when there is a MatMul operator in the model whose input Tensor is a weight tensor and an input tensor, calling the variable dimension interface will cause the shape of the input tensor and the weight tensor being unmatched.
 
 ```cpp
 /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -595,4 +601,113 @@ The following sample code shows how to obtain version string using `Version` met
 ```cpp
 #include "include/version.h"
 std::string version = mindspore::lite::Version(); 
+```
+
+## Session parallel launch
+MindSpore Lite supports multiple `LiteSession` parallel inferences, but does not support multiple threads calling the `RunGraph` interface of a single `LiteSession` at the same time.
+
+### Single Session parallel launch
+
+MindSpore Lite does not support multi-threaded parallel calling of the inference interface of a single `LiteSession`, otherwise we will get the following error message:
+```cpp
+ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
+```
+
+### Multiple Session parallel launch
+
+MindSpore Lite supports multiple `LiteSession` in doing inference in parallel. The thread pool and memory pool of each `LiteSession` are independent.
+
+### Example
+
+The following code shows how to create multiple `LiteSession` and do inference in parallel:
+```cpp
+#include <thread>
+#include "src/common/file_utils.h"
+#include "include/model.h"
+#include "include/version.h"
+#include "include/context.h"
+#include "include/lite_session.h"
+
+mindspore::session::LiteSession *GenerateSession(mindspore::lite::Model *model) {
+  if (model == nullptr) {
+    std::cerr << "Read model file failed while running" << std::endl;
+    return nullptr;
+  }
+  auto context = new (std::nothrow) mindspore::lite::Context;
+  if (context == nullptr) {
+    std::cerr << "New context failed while running" << std::endl;
+    return nullptr;
+  }
+
+  auto session = mindspore::session::LiteSession::CreateSession(context);
+  delete (context);
+  if (session == nullptr) {
+    std::cerr << "CreateSession failed while running" << std::endl;
+    return nullptr;
+  }
+  auto ret = session->CompileGraph(model);
+  if (ret != mindspore::lite::RET_OK) {
+    std::cout << "CompileGraph failed while running" << std::endl;
+    delete (session);
+    return nullptr;
+  }
+  auto msInputs = session->GetInputs();
+  for (auto msInput : msInputs) {
+    (void)msInput->MutableData();
+  }
+  return session;
+}
+
+int main(int argc, const char **argv) {
+  size_t size = 0;
+  char *graphBuf = mindspore::lite::ReadFile("test.ms", &size);
+  if (graphBuf == nullptr) {
+    std::cerr << "Read model file failed while running" << std::endl;
+    return -1;
+  }
+  auto model = mindspore::lite::Model::Import(graphBuf, size);
+  if (model == nullptr) {
+    std::cerr << "Import model file failed while running" << std::endl;
+    delete[](graphBuf);
+    return -1;
+  }
+  delete[](graphBuf);
+  auto session1 = GenerateSession(model);
+  if (session1 == nullptr) {
+    std::cerr << "GenerateSession failed" << std::endl;
+    delete(model);
+    return -1;
+  }
+  auto session2 = GenerateSession(model);
+  if (session2 == nullptr) {
+    std::cerr << "GenerateSession failed" << std::endl;
+    delete(model);
+    return -1;
+  }
+
+  std::thread thread1([&](){
+    auto status = session1->RunGraph();
+    if (status != 0) {
+      std::cerr << "Inference error " << status << std::endl;
+      return;
+    }
+    std::cout << "Session1 inference success" << std::endl;
+  });
+
+  std::thread thread2([&](){
+    auto status = session2->RunGraph();
+    if (status != 0) {
+      std::cerr << "Inference error " << status << std::endl;
+      return;
+    }
+    std::cout << "Session2 inference success" << std::endl;
+  });
+
+  thread1.join();
+  thread2.join();
+  delete (session1);
+  delete (session2);
+  delete (model);
+  return 0;
+}
 ```
