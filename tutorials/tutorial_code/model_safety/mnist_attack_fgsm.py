@@ -72,8 +72,8 @@ def test_fast_gradient_sign_method():
     i = 0
     for data in ds.create_tuple_iterator():
         i += 1
-        images = data[0].astype(np.float32)
-        labels = data[1]
+        images = data[0].asnumpy().astype(np.float32)
+        labels = data[1].asnumpy()
         test_images.append(images)
         test_labels.append(labels)
         pred_labels = np.argmax(model.predict(Tensor(images)).asnumpy(),

@@ -213,7 +213,7 @@ DATA_DIR = "mindrecord_dataset_path"
 mindrecord_dataset = ds.MindDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in mindrecord_dataset.create_dict_iterator():
+for data in mindrecord_dataset.create_dict_iterator(output_numpy=True):
     print(data["label"])
 ```
 
@@ -369,8 +369,8 @@ TFRecord是Tensorflow定义的一种二进制数据文件格式。
     ```
 
     ```
-    {'col1': array(1, dtype=int64), 'col2': array(3, dtype=int64)}
-    {'col1': array(2, dtype=int64), 'col2': array(4, dtype=int64)}
+    {'col1': Tensor(shape=[], dtype=Int64, value= 1), 'col2': Tensor(shape=[], dtype=Int64, value= 3)}
+    {'col1': Tensor(shape=[], dtype=Int64, value= 2), 'col2': Tensor(shape=[], dtype=Int64, value= 4)}
     ```
 
 ### text数据格式
@@ -383,7 +383,7 @@ DATA_DIR = "text_file_path"
 text_dataset = ds.TextFileDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in text_dataset.create_dict_iterator():
+for data in text_dataset.create_dict_iterator(output_numpy=True):
     print(data["label"])
 ```
 
@@ -397,7 +397,7 @@ DATA_DIR = "csv_file_path"
 csv_dataset = ds.CSVDataset(DATA_DIR)
 
 # 启动数据管道读取
-for data in csv_dataset.create_dict_iterator():
+for data in csv_dataset.create_dict_iterator(output_numpy=True):
     print(data["label"])
 ```
 

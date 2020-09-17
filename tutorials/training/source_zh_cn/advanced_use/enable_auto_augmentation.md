@@ -232,7 +232,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
             step_num += 1
             for index in range(rows):
                 fig.add_subplot(rows, columns, ep_num * rows + index + 1)
-                plt.imshow(data['image'][index])
+                plt.imshow(data['image'].asnumpy()[index])
     plt.show()
     ```
 

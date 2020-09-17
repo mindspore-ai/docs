@@ -71,8 +71,8 @@ def test_nad_method():
     inputs = []
     labels = []
     for data in ds_test.create_tuple_iterator():
-        inputs.append(data[0].astype(np.float32))
-        labels.append(data[1])
+        inputs.append(data[0].asnumpy().astype(np.float32))
+        labels.append(data[1].asnumpy())
     inputs = np.concatenate(inputs)
     labels = np.concatenate(labels)
 

@@ -132,7 +132,8 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     The output is as follows:
     ```
-    {'image': array([[[235, 235, 235],
+    {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
+          [[[235, 235, 235],
             [230, 230, 230],
             [234, 234, 234],
             ...,
@@ -142,7 +143,7 @@ Based on the preceding suggestions of data loading performance optimization, the
             ...,
             [120, 120, 119],
             [146, 146, 146],
-            [177, 174, 190]]], dtype=uint8), 'label': array(9, dtype=uint32)}
+            [177, 174, 190]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
     ```
 
 2. Use the `Cifar10ToMR` class to convert the CIFAR-10 dataset into MindSpore data format. In this example, the CIFAR-10 dataset in Python file format is used. Then use the `MindDataset` class to load the dataset in MindSpore data format. The multi-thread optimization solution is used for data loading. Four threads are enabled to concurrently complete the task. Finally, a dictionary iterator is created for data and a data record is read through the iterator.
@@ -166,7 +167,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     The output is as follows:
     ```
-    {'data': array([255, 216, 255, ...,  63, 255, 217], dtype=uint8), 'id': array(30474, dtype=int64), 'label': array(2, dtype=int64)}
+    {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]), 'id': Tensor(shape=[], dtype=Int64, value= 30474), 'label': Tensor(shape=[], dtype=Int64, value= 2)}
     ```
 
 3. The `GeneratorDataset` class is used to load the user-defined dataset, and the multi-process optimization solution is used. Four processes are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data, and a data record is read through the iterator.
@@ -185,7 +186,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     The output is as follows:
     ```
-    {'data': array([0], dtype=int64)}
+    {'data': Tensor(shape=[1], dtype=Int64, value= [0])}
     ```
 
 ## Optimizing the Shuffle Performance
@@ -218,7 +219,8 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 
     The output is as follows:
     ```
-    {'image': array([[[254, 254, 254],
+    {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
+          [[[254, 254, 254],
             [255, 255, 254],
             [255, 255, 254],
             ...,
@@ -228,7 +230,7 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
             ...,
             [ 64,  61,  63],
             [ 63,  58,  60],
-            [ 61,  56,  58]]], dtype=uint8), 'label': array(9, dtype=uint32)}
+            [ 61,  56,  58]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
     ```
 
 2. Use the `shuffle` function to shuffle data. Set `buffer_size` to 3 and use the `GeneratorDataset` class to generate data.
@@ -312,7 +314,7 @@ Based on the preceding suggestions of data augmentation performance optimization
     cifar10_dataset = cifar10_dataset.map(operations=transforms, input_columns="image", num_parallel_workers=4)
 
     data = next(cifar10_dataset.create_dict_iterator())
-    plt.imshow(data["image"])
+    plt.imshow(data["image"].asnumpy())
     plt.show()
     ```
 

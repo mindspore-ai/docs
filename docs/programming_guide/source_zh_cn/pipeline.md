@@ -71,11 +71,11 @@ for data in dataset1.create_dict_iterator():
 ```
 
 ```
-{'data': array([0, 1, 2], dtype=int64)}
-{'data': array([2, 3, 4], dtype=int64)}
-{'data': array([3, 4, 5], dtype=int64)}
-{'data': array([1, 2, 3], dtype=int64)}
-{'data': array([4, 5, 6], dtype=int64)}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 ```
 
 ### map
@@ -119,17 +119,17 @@ for data in dataset.create_dict_iterator():
 ```
 
 ```
-{'data': array([0, 1, 2], dtype=int64)}
-{'data': array([1, 2, 3], dtype=int64)}
-{'data': array([2, 3, 4], dtype=int64)}
-{'data': array([3, 4, 5], dtype=int64)}
-{'data': array([4, 5, 6], dtype=int64)}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 
-{'data': array([0, 2, 4], dtype=int64)}
-{'data': array([2, 4, 6], dtype=int64)}
-{'data': array([4, 6, 8], dtype=int64)}
-{'data': array([ 6,  8, 10], dtype=int64)}
-{'data': array([ 8, 10, 12], dtype=int64)}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 2, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 4, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 6, 8])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [ 6,  8, 10])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [ 8, 10, 12])}
 ```
 
 ### batch
@@ -171,12 +171,12 @@ for data in dataset2.create_dict_iterator():
 ```
 
 ```
-{'data': array([[0, 1, 2], [1, 2, 3]], dtype=int64)}
-{'data': array([[2, 3, 4], [3, 4, 5]], dtype=int64)}
-{'data': array([[4, 5, 6]], dtype=int64)}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [1, 2, 3]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value= [[2, 3, 4], [3, 4, 5]])}
+{'data': Tensor(shape=[1, 3], dtype=Int64, value= [[4, 5, 6]])}
 
-{'data': array([[0, 1, 2], [1, 2, 3]], dtype=int64)}
-{'data': array([[2, 3, 4], [3, 4, 5]], dtype=int64)}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [1, 2, 3]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value= [[2, 3, 4], [3, 4, 5]])}
 ```
 
 ### repeat
@@ -209,16 +209,16 @@ for data in dataset1.create_dict_iterator():
 ```
 
 ```
-{'data': array([0, 1, 2], dtype=int64)}
-{'data': array([1, 2, 3], dtype=int64)}
-{'data': array([2, 3, 4], dtype=int64)}
-{'data': array([3, 4, 5], dtype=int64)}
-{'data': array([4, 5, 6], dtype=int64)}
-{'data': array([0, 1, 2], dtype=int64)}
-{'data': array([1, 2, 3], dtype=int64)}
-{'data': array([2, 3, 4], dtype=int64)}
-{'data': array([3, 4, 5], dtype=int64)}
-{'data': array([4, 5, 6], dtype=int64)}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 ```
 
 ### zip
@@ -259,10 +259,10 @@ for data in dataset3.create_dict_iterator():
 ```
 
 ```
-{'data1': array([0, 1, 2], dtype=int64), 'data2': array([1, 2], dtype=int64)}
-{'data1': array([1, 2, 3], dtype=int64), 'data2': array([1, 2], dtype=int64)}
-{'data1': array([2, 3, 4], dtype=int64), 'data2': array([1, 2], dtype=int64)}
-{'data1': array([3, 4, 5], dtype=int64), 'data2': array([1, 2], dtype=int64)}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
 ```
 
 ### concat
@@ -305,10 +305,10 @@ for data in dataset3.create_dict_iterator():
 ```
 
 ```
-{'data1': array([0, 0, 0], dtype=int64)}
-{'data1': array([0, 0, 0], dtype=int64)}
-{'data1': array([1, 2, 3], dtype=int64)}
-{'data1': array([1, 2, 3], dtype=int64)}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
 ```
 
 ### project
@@ -348,9 +348,9 @@ for data in dataset.create_dict_iterator():
 ```
 
 ```
-{'data1': array([1, 2, 3], dtype=int64), 'data2': array([7, 8, 9], dtype=int64)}
-{'data1': array([1, 2, 3], dtype=int64), 'data2': array([7, 8, 9], dtype=int64)}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'data2': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'data2': Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
 
-{'data1': array([1, 2, 3], dtype=int64)}
-{'data1': array([1, 2, 3], dtype=int64)}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
 ```
