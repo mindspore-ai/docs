@@ -114,7 +114,7 @@ app
 |   |   └── MsNetWork.cpp # MindSpore接口封装
 │   |
 │   ├── java # java层应用代码
-│   │   └── com.huawei.himindsporedemo 
+│   │   └── com.mindspore.himindsporedemo
 │   │       ├── gallery.classify # 图像处理及MindSpore JNI调用相关实现
 │   │       │   └── ...
 │   │       └── widget # 开启摄像头及绘制相关实现
@@ -138,7 +138,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 注： 若自动下载失败，请手动下载相关库文件并将其放在对应位置：
 
-MindSpore Lite版本 [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%200.7/libmindspore-lite.so)
+MindSpore Lite版本 [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ```
 android{
