@@ -79,7 +79,7 @@ data_set = ds.MindDataset(dataset_file=mindrecord_filename)
 decode_op = vision.Decode()
 data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)  
 count = 0
-for item in data_set.create_dict_iterator():   
+for item in data_set.create_dict_iterator(output_numpy=True):
     print("sample: {}".format(item))
     count += 1
 print("Got {} samples".format(count))
@@ -379,7 +379,7 @@ data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)
 decode_op = vision.Decode()
 data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)  
 count = 0
-for item in data_set.create_dict_iterator():         
+for item in data_set.create_dict_iterator(output_numpy=True):
     print("sample: {}".format(item))
     count += 1
 print("Got {} samples".format(count))

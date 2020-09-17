@@ -145,7 +145,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
             ...,
             [120, 120, 119],
             [146, 146, 146],
-            [177, 174, 190]]], dtype=uint8), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
+            [177, 174, 190]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
     ```
 
 2. 使用`Cifar10ToMR`这个类将CIFAR-10数据集转换为MindSpore数据格式，这里使用的是CIFAR-10 python文件格式的数据集，然后使用`MindDataset`类加载MindSpore数据格式数据集，加载数据采取多线程优化方案，开启了4个线程并发完成任务，最后对数据创建了字典迭代器，并通过迭代器读取了一条数据记录。
