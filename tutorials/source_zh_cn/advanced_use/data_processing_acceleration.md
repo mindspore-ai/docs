@@ -27,10 +27,10 @@
 
     数据加载的方式有三种：
     1. 内置高性能的数据加载类算子，如CIFAR数据集、MNIST数据集等；
-    2. 将数据集转换成MindRecord，使用MindDataset算子进行加载；
-    3. 用户自定义数据集——GeneratorDataset。
+    2. 将数据集转换成MindRecord，使用`MindDataset`算子进行加载；
+    3. 用户自定义数据集——`GeneratorDataset`。
 
-    > 优先使用内置的数据加载类算子以及MindDataset，如果无法满足用户需求，则在撰写用户自定数据集加载时，需要关注本身数据集加载的性能优化。
+    > 优先使用内置的数据加载类算子以及`MindDataset`，如果无法满足用户需求，则在撰写用户自定数据集加载时，需要关注本身数据集加载的性能优化。
 
 - 数据混洗
 
@@ -77,20 +77,20 @@
 
     - 计算资源的分配
 
-    当我们进行分布式训练时，一台设备机器上会启动多个训练进程，而这些训练进程会通过操作系统本身的策略进行计算资源的分配与抢占，当进程较多时，可能会由于计算资源的竞争而导致数据处理性能的下降，因此这时需要进行人工分配计算资源，避免各个进程的计算资源竞争。
+        当我们进行分布式训练时，一台设备机器上会启动多个训练进程，而这些训练进程会通过操作系统本身的策略进行计算资源的分配与抢占，当进程较多时，可能会由于计算资源的竞争而导致数据处理性能的下降，因此这时需要进行人工分配计算资源，避免各个进程的计算资源竞争。
 
-    ```shell
-    numactl --cpubind=0 python train.py
-    or
-    taskset -c 0-15 python train.py
-    ```
+        ```shell
+        numactl --cpubind=0 python train.py
+        or
+        taskset -c 0-15 python train.py
+        ```
 
-    > `numactl`的方式较为粗粒度，直接指定`numa node id`，而`taskset`的方式是细粒度的，它能够直接指定`numa node`上的`cpu core`，其中0-15表示的`core id`从0到15。
+        > `numactl`的方式较为粗粒度，直接指定`numa node id`，而`taskset`的方式是细粒度的，它能够直接指定`numa node`上的`cpu core`，其中0-15表示的`core id`从0到15。
 
     - CPU频率设置
 
-    要想充分发挥host端CPU的最大算力，CPU频率的设置至关重要。一般地，linux内核支持调节CPU主频，降低功耗，已到达节能的效果。通过选择系统空闲状态不同的电源管理策略，可以实现不同程度降低服务器功耗。但是，更低的功耗策略意味着CPU唤醒更慢对性能影响更大。因此如果发现CPU模式为conservative或者powersave，可以使用cpupower设置CPU Performance模式，对数据处理的性能提升有非常大的效果。
+        要想充分发挥host端CPU的最大算力，CPU频率的设置至关重要。一般地，linux内核支持调节CPU主频，降低功耗，已到达节能的效果。通过选择系统空闲状态不同的电源管理策略，可以实现不同程度降低服务器功耗。但是，更低的功耗策略意味着CPU唤醒更慢对性能影响更大。因此如果发现CPU模式为conservative或者powersave，可以使用cpupower设置CPU Performance模式，对数据处理的性能提升有非常大的效果。
 
-    ```shell
-    cpupower frequency-set -g performance
-    ```
+        ```shell
+        cpupower frequency-set -g performance
+        ```
