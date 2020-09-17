@@ -1,14 +1,14 @@
-# Convert to MindSpore Lite
+# Convert to MindSpore Lite Model
 
 <!-- TOC -->
 
-- [Convert to MindSpore Lite](#convert-to-mindspore-lite)
+- [Convert to MindSpore Lite Model](#convert-to-mindspore-lite-model)
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
         - [Example](#example)
         - [Parameter Description](#parameter-description)
-    - [Windows Environment Instructions](#windows-environment-instructions)    
+    - [Windows Environment Instructions](#windows-environment-instructions)
         - [Environment Preparation](#environment-preparation-1)
         - [Parameter Description](#parameter-description-1)
         - [Example](#example-1)

@@ -19,6 +19,6 @@
    :caption: 基础使用
 
    use/build
-   use/converter_tool
+   use/converter_model
    use/evaluating_the_model
    use/runtime
