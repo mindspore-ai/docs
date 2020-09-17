@@ -6,8 +6,8 @@
 <!-- TOC -->
 - [AI模型安全测试](#ai模型安全测试)
     - [背景](#背景)
-    - [Fuzzer设计图](#Fuzzer设计图)
-    - [Fuzzer流程](#Fuzzer流程)
+    - [Fuzz Testing设计图](#fuzz-testing设计图)
+    - [Fuzz Testing流程](#fuzz-testing流程)
     - [代码实现](#代码实现)
     - [参考文献](#参考文献)
 
@@ -17,9 +17,9 @@
 
 ## 背景
 
-不同于[传统程序的Fuzz安全测试](https://zhuanlan.zhihu.com/p/43432370)，MindArmour针对深度神经网络，提供AI模型安全测试模块Fuzzer。根据神经网络的特点，引入神经元覆盖率[1]的概念，作为Fuzz的测试指导，引导Fuzz朝神经元覆盖率增加的方向生成样本，让输入能够激活更多的神经元，神经元值的分布范围更广，以充分测试DNN，探索不同类型的模型输出结果、模型错误行为。
+不同于[传统程序的Fuzz安全测试](https://zhuanlan.zhihu.com/p/43432370)，MindArmour针对深度神经网络，提供AI模型安全测试模块fuzz_testing。根据神经网络的特点，引入神经元覆盖率[1]的概念，作为Fuzz的测试指导，引导Fuzz朝神经元覆盖率增加的方向生成样本，让输入能够激活更多的神经元，神经元值的分布范围更广，以充分测试DNN，探索不同类型的模型输出结果、模型错误行为。
 
-## Fuzzer设计图
+## Fuzz Testing设计图
 
 AI模型安全测试设计图如下。
 
@@ -27,7 +27,7 @@ AI模型安全测试设计图如下。
 
 在用户接口层，需要用户提供原始数据集`DataSet`、被测试模型`Model`和配置Fuzzer参数`Fuzzer configuration`。Fuzzer模块对模型和数据进行Fuzz测试后，返回安全评估报告`Security Report`。
 
-Fuzzer架构主要包括三个模块：
+Fuzz Testing架构主要包括三个模块：
 
 1. Natural Threat/Adversarial Example Generator（数据变异模块）：
 
@@ -43,17 +43,17 @@ Fuzzer架构主要包括三个模块：
 
 3. Evaluation（评估模块）：
 
-   评估Fuzzer效果，生成数据的质量，变异方法的强度。支持3个类型5种指标，包括通用评价指标：accuracy，神经元覆盖率指标：kmnc， nbc，snac，对抗攻击评价指标：attack_success_rate。
+   评估Fuzz Testing的效果，生成数据的质量，变异方法的强度。支持3个类型5种指标，包括通用评价指标：accuracy，神经元覆盖率指标：kmnc， nbc，snac，对抗攻击评价指标：attack_success_rate。
 
-## Fuzzer流程
+## Fuzz Testing流程
 
 ![fuzz_process](./images/fuzz_process.png)
 
-具体的Fuzzer流程如下：
+具体的Fuzz Testing流程如下：
 
 1. 根据策略从种子队列中选择一个种子A。
 2. 随机选择变异策略，对种子A进行变异，生成多个变种数据A1，A2...
-3. 用目标模型对变种A1，A2...进行预测，如果变种使得目标模型预测错误，则改变种进入Failed tests。
+3. 用目标模型对变种A1，A2...进行预测，如果变种的语意与种子保持一致，则进入Fuzzed Tests。
 4. 若目标模型对于变种的预测结果是正确的，用神经元覆盖率指标进行分析。
 5. 如果变种使得覆盖率增加，那么将该变种放入种子队列，用于下一轮变异。
 
