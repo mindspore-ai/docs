@@ -20,7 +20,7 @@
 
 分词就是将连续的字序列按照一定的规范重新组合成词序列的过程，合理的进行分词有助于语义的理解。
 
-MindSpore提供了多种用途的分词器，能够帮助用户高性能地处理文本，用户可以构建自己的字典，使用适当的标记器将句子拆分为不同的标记，并通过查找操作获取字典中标记的索引。
+MindSpore提供了多种用途的分词器（Tokenizer），能够帮助用户高性能地处理文本，用户可以构建自己的字典，使用适当的标记器将句子拆分为不同的标记，并通过查找操作获取字典中标记的索引。
 
 MindSpore目前提供的分词器如下表所示。此外，用户也可以根据需要实现自定义的分词器。
 
@@ -56,7 +56,7 @@ input_list = ["床前明月光", "疑是地上霜", "举头望明月", "低头�
                 "😀嘿嘿😃哈哈😄大笑😁嘻嘻", "繁體字"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
@@ -71,17 +71,16 @@ vocab = text.Vocab.from_list(vocab_list)
 tokenizer_op = text.BertTokenizer(vocab=vocab)
 dataset = dataset.map(operations=tokenizer_op)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text'])
-    print(token)
+    print(text.to_str(i['text']))
 ```
 
 输出结果如下：
 
 ```
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 床前明月光
 疑是地上霜
 举头望明月
@@ -89,7 +88,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 I am making small mistakes during working hours
 😀嘿嘿😃哈哈😄大笑😁嘻嘻
 繁體字
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['床' '前' '明' '月' '光']
 ['疑' '是' '地' '上' '霜']
 ['举' '头' '望' '明' '月']
@@ -113,7 +112,7 @@ input_list = ["床前明月光", "疑是地上霜", "举头望明月", "低头�
                 "😀嘿嘿😃哈哈😄大笑😁嘻嘻", "繁體字"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
@@ -123,19 +122,18 @@ MP_FILE = "jieba.dict.utf8"
 jieba_op = text.JiebaTokenizer(HMM_FILE, MP_FILE)
 dataset = dataset.map(operations=jieba_op, input_columns=["text"], num_parallel_workers=1)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text'])
-    print(token)
+    print(text.to_str(i['text']))
 ```
 
 输出结果如下：
 
 ```
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 今天天气太好了我们一起去外面玩吧
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['今天天气' '太好了' '我们' '一起' '去' '外面' '玩吧']
 ```
 
@@ -152,28 +150,27 @@ import mindspore.dataset.text as text
 input_list = ["I saw a girl with a telescope."]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-vocab = text.SentencePieceVocab.from_file([VOCAB_FILE], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
+vocab = text.SentencePieceVocab.from_dataset(dataset, 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
 dataset = dataset.map(operations=tokenizer_op)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text'])
-    print(token)
+    print(text.to_str(i['text']))
 ```
 
 输出结果如下：
 
 ```
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 I saw a girl with a telescope.
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['▁I' '▁sa' 'w' '▁a' '▁girl' '▁with' '▁a' '▁te' 'les' 'co' 'pe' '.']
 ```
 
@@ -190,7 +187,7 @@ import mindspore.dataset.text as text
 input_list = ["Welcome to Beijing!", "北京欢迎您！", "我喜欢English!"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
@@ -198,21 +195,20 @@ for data in dataset.create_dict_iterator(output_numpy=True):
 tokenizer_op = text.UnicodeCharTokenizer()
 dataset = dataset.map(operations=tokenizer_op)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text']).tolist()
-    print(token)
+    print(text.to_str(i['text']).tolist())
 ```
 
 输出结果如下：
 
 ```
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 Welcome to Beijing!
 北京欢迎您！
 我喜欢English!
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['W', 'e', 'l', 'c', 'o', 'm', 'e', ' ', 't', 'o', ' ', 'B', 'e', 'i', 'j', 'i', 'n', 'g', '!']
 ['北', '京', '欢', '迎', '您', '！']
 ['我', '喜', '欢', 'E', 'n', 'g', 'l', 'i', 's', 'h', '!']
@@ -231,7 +227,7 @@ import mindspore.dataset.text as text
 input_list = ["Welcome to Beijing!", "北京欢迎您！", "我喜欢English!"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
@@ -239,22 +235,20 @@ for data in dataset.create_dict_iterator(output_numpy=True):
 tokenizer_op = text.WhitespaceTokenizer()
 dataset = dataset.map(operations=tokenizer_op)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text']).tolist()
-    print(token)
+    print(text.to_str(i['text']).tolist())
 ```
 
 输出结果如下：
 
 ```
->> Tokenize Result
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 Welcome to Beijing!
 北京欢迎您！
 我喜欢English!
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['Welcome', 'to', 'Beijing!']
 ['北京欢迎您！']
 ['我喜欢English!']
@@ -270,29 +264,28 @@ Welcome to Beijing!
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
-input_list = ["my", "favorite", "book", "is", "love", "during", "the", "cholera", "era", "what", "我", "最", "喜", "欢", "的", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
+input_list = ["my", "favorite", "book", "is", "love", "during", "the", "cholera", "era", "what", "我", "最", "喜", "欢", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
-print("------------------------before tokenize----------------------------")
+print("------------------------before tokenization----------------------------")
 
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-vocab = text.Vocab.from_list(vocab_list)
+vocab = text.Vocab.from_list(input_list)
 tokenizer_op = text.WordpieceTokenizer(vocab=vocab)
 dataset = dataset.map(operations=tokenizer_op)
 
-print("------------------------after tokenize-----------------------------")
+print("------------------------after tokenization-----------------------------")
 
 for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-    token = text.to_str(i['text'])
-    print(token)
+    print(text.to_str(i['text']))
 ```
 
 输出结果如下：
 
 ```
-------------------------before tokenize----------------------------
+------------------------before tokenization----------------------------
 my
 favorite
 book
@@ -318,7 +311,7 @@ what
 爱
 情
 您
-------------------------after tokenize-----------------------------
+------------------------after tokenization-----------------------------
 ['my']
 ['favor' '##ite']
 ['book']
