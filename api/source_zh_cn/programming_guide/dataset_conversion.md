@@ -19,7 +19,7 @@
 
 ## 概述
 
-用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式，即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindRecord可以获得更好的性能体验。
+用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式，即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindRecord可以获得更好的性能。
 
 ## 非标准数据集转换MindRecord
 

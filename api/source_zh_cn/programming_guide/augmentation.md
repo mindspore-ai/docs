@@ -375,7 +375,7 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 3
 
 ## 使用说明
 
-请勿混用`c_transforms`与`py_transforms`，因为`c_transforms`是在C++内维护buffer管理，`py_transforms`是在Python内维护buffer管理，两者混用会降低性能。
+请勿混用`c_transforms`与`py_transforms`，因为两者作用于图片的格式不同，混用会降低处理性能。
 
 ![tranform_pipeline](./images/tranform_pipeline.png)
 
