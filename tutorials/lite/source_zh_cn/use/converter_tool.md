@@ -106,10 +106,15 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--modelFile=<MODELFILE>` | 是 | 输入模型的路径。 | - | - |
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
-| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | PostTraining：训练后量化<br>AwareTraining：感知量化。 | - |
+| `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | WeightQuant：训练后量化（权重量化）<br>PostTraining：训练后量化（全量化）<br>AwareTraining：感知量化 | - |
 |` --inferenceType=<INFERENCETYPE>` | 否 | 设置感知量化模型输入输出数据类型，如果和原模型不一致则转换工具会在模型前插转换算子，使得转换后的模型输入类型和inferenceType保持一致。 | UINT8、FLOAT、INT8 | FLOAT |
 | `--stdDev=<STDDEV> `| 否 | 感知量化模型转换时用于设置输入数据的标准差。 | （0，+∞） | 128 |
 | `--mean=<MEAN>` | 否 | 感知量化模型转换时用于设置输入数据的均值。 | [-128, 127] | -0.5 |
+| `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前仅支持8bit量化 | 8 | 8 |
+| `--quantSize=<QUANTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  （0，+∞） | 0 |
+| `--convWeightQuantChannelThreshold=<CONVWEIGHTQUANTCHANNELTHRESHOLD>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | （0，+∞） | 16 | 
+| `--config_file=<CONFIGFILE>` | 否 | 训练后量化（全量化）校准数据集配置文件路径  |  - | -  |
+
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
