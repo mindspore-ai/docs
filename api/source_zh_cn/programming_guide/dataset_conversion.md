@@ -23,7 +23,7 @@
 
 ## 非标准数据集转换MindRecord
 
-下面主要介绍如何将CV类数据和NLP类数据转换为MindRecord，并通过`MindDataset`实现MindRecoed文件的读取。
+下面主要介绍如何将CV类数据和NLP类数据转换为MindRecord，并通过`MindDataset`实现MindRecord文件的读取。
 
 ### 转换CV类数据集
 
