@@ -36,7 +36,7 @@ Train with MindSpore
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: ¹¹½¨ÍøÂç
+   :caption: 
 
    advanced_use/custom_operator
    advanced_use/migrate_script
@@ -67,6 +67,8 @@ Train with MindSpore
    :caption: Network Migration
 
    advanced_use/network_migration
+   advanced_use/migrate_3rd_scripts_mindconverter
+
 
 .. toctree::
    :glob:
