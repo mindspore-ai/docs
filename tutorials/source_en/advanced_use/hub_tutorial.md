@@ -91,30 +91,29 @@ Once your PR is merged into master branch here, your model will show up in [Mind
 
 - Complete the task of loading model using `url` , as shown in the example below:
 
-```python
-import mindspore_hub as mshub
-import mindspore
-from mindspore import context, Tensor, nn
-from mindspore.train.model import Model
-from mindspore.common import dtype as mstype
-from mindspore.dataset.transforms import py_transforms
-from PIL import Image
-import cv2
+  ```python
 
-context.set_context(mode=context.GRAPH_MODE,
-                    device_target="Ascend",
-                    device_id=0)
+  import mindspore_hub as mshub
+  import mindspore
+  from mindspore import context, Tensor, nn
+  from mindspore.train.model import Model
+  from mindspore.common import dtype as mstype
+  import mindspore.dataset.vision.py_transforms as py_transforms
+  
+  context.set_context(mode=context.GRAPH_MODE,
+                      device_target="Ascend",
+                      device_id=0)
+  
+  model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+  
+  # Initialize the number of classes based on the pre-trained model.
+  network = mshub.load(model, num_classes=10)
+  network.set_train(False)
+  
+  # ...
 
-model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
-
-image = Image.open('cifar10/a.jpg')
-transforms = py_transforms.ComposeOp([py_transforms.ToTensor()])
-
-# Initialize the number of classes based on the pre-trained model.
-network = mshub.load(model, num_classes=10)
-network.set_train(False)
-out = network(transforms(image))
-```
+  ```
+- After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html).
 
 ## Model Fine-tuning
 
@@ -128,56 +127,83 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
 
    ```python
    import mindspore
-   from mindspore import context
+   from mindspore import nn, context, Tensor
+   from mindpsore.train.serialization import save_checkpoint
+   from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+   from mindspore.ops import operations as P
+   from mindspore.nn import Momentum
+   
+   import math
+   import numpy as np
+   
    import mindspore_hub as mshub
+   from src.dataset import create_dataset
    
    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend",
                        save_graphs=False)
-   
-   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', include_top=False)
+   model_url = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+   network = mshub.load(model_url, include_top=False, num_classes=1000)
    network.set_train(False)
    ```
 
 3. Add a new classification layer into current model architecture.
 
    ```python
-   from mindspore import nn
-
+   class ReduceMeanFlatten(nn.Cell):
+       def __init__(self):
+           super(ReduceMeanFlatten, self).__init__()
+           self.mean = P.ReduceMean(keep_dims=True)
+           self.flatten = nn.Flatten()
+       
+       def construct(self, x):
+           x = self.mean(x, (2, 3))
+           x = self.flatten(x)
+           return x
+   
    # Check MindSpore Hub website to conclude that the last output shape is 1024.
    last_channel = 1024
    
    # The number of classes in target task is 26.
    num_classes = 26
+   
+   reducemean_flatten = ReduceMeanFlatten()
+   
    classification_layer = nn.Dense(last_channel, num_classes)
    classification_layer.set_train(True)
    
-   train_network = nn.SequentialCell([network, classification_layer])
+   train_network = nn.SequentialCell([network, reducemean_flatten, classification_layer])
    ```
 
 4. Define `loss` and `optimizer` for training.
 
    ```python
-   from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+   epoch_size = 60
    
    # Wrap the backbone network with loss.
-   loss_fn = SoftmaxCrossEntropyWithLogits()
+   loss_fn = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
    loss_net = nn.WithLossCell(train_network, loss_fn)
    
-   # Create an optimizer.
-   optim = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum, config.weight_decay)
+   lr = get_lr(global_step=0,
+               lr_init=0,
+               lr_max=0.05,
+               lr_end=0.001,
+               warmup_epochs=5,
+               total_epochs=epoch_size)
    
+   # Create an optimizer.
+   optim = Momentum(filter(lambda x: x.requires_grad, loss_net.get_parameters()), Tensor(lr), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
    ```
 
 5. Create dataset and start fine-tuning. As is shown below, the new dataset used for fine-tuning is the garbage classification data located at `/ssd/data/garbage/train` folder.
 
    ```python
-   from src.dataset import create_dataset
-   from mindspore.train.serialization import save_checkpoint
-   
-   dataset = create_dataset("/ssd/data/garbage/train", do_train=True, batch_size=32)
-   
-   epoch_size = 15
+   dataset = create_dataset("/ssd/data/garbage/train",
+                            do_train=True,
+                            batch_size=32,
+                            platform="Ascend",
+                            repeat_num=1)
+
    for epoch in range(epoch_size):
        for i, items in enumerate(dataset):
            data, label = items
@@ -185,7 +211,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
            label = mindspore.Tensor(label)
            
            loss = train_net(data, label)
-           print(f"epoch: {epoch}, loss: {loss}")
+           print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
        # Save the ckpt file for each epoch.
        ckpt_path = f"./ckpt/garbage_finetune_epoch{epoch}.ckpt"
        save_checkpoint(train_network, ckpt_path)
@@ -196,20 +222,30 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
    ```python
    from mindspore.train.serialization import load_checkpoint, load_param_into_net
    
-   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', include_top=False)
-   train_network = nn.SequentialCell([network, nn.Dense(last_channel, num_classes)])
+   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', pretrained=False,
+                        include_top=False, num_classes=1000)
+   
+   reducemean_flatten = ReduceMeanFlatten()
+   
+   classification_layer = nn.Dense(last_channel, num_classes)
+   classification_layer.set_train(False)
+   softmax = nn.Softmax()
+   network = nn.SequentialCell([network, reducemean_flatten, 
+                               classification_layer, softmax])
    
    # Load a pre-trained ckpt file.
-   ckpt_path = "./ckpt/garbage_finetune_epoch15.ckpt"
+   ckpt_path = "./ckpt/garbage_finetune_epoch59.ckpt"
    trained_ckpt = load_checkpoint(ckpt_path)
-   load_param_into_net(train_network, trained_ckpt)
+   load_param_into_net(network, trained_ckpt)
    
    # Define loss and create model.
-   loss = SoftmaxCrossEntropyWithLogits()
-   model = Model(network, loss_fn=loss, metrics={'acc'})
+   model = Model(network, metrics={'acc'}, eval_network=network)
    
-   eval_dataset = create_dataset("/ssd/data/garbage/train", do_train=False, 
-                                 batch_size=32)
+   eval_dataset = create_dataset("/ssd/data/garbage/test",
+                            do_train=True,
+                            batch_size=32,
+                            platform="Ascend",
+                            repeat_num=1)
    
    res = model.eval(eval_dataset)
    print("result:", res, "ckpt=", ckpt_path)
