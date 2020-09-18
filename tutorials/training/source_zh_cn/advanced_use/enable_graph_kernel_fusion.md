@@ -4,16 +4,16 @@
 
 <!-- TOC -->
 
-- [图算融合](#图算融合)
-  - [概述](#概述)
-  - [启用方法](#启用方法)
-    - [样例脚本](#样例脚本)
-  - [效果评估](#效果评估)
-    - [计算图](#计算图)
+- [使能图算融合](#使能图算融合)
+    - [概述](#概述)
+    - [启用方法](#启用方法)
+        - [样例脚本](#样例脚本)
+    - [效果评估](#效果评估)
+        - [计算图](#计算图)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/enable_graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -100,7 +100,7 @@ context.set_context(enable_graph_kernel=True)
 2. `BERT-large`训练网络
 
     以`BERT-large`网络的训练模型为例，数据集和训练脚本可参照
-    <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>，同样我们只需修改`context`参数即可。  
+    <https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/nlp/bert>，同样我们只需修改`context`参数即可。  
 
 ## 效果评估
 
