@@ -220,24 +220,24 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
 
         ```
         {
-         "datasetType": "TF",
-         "numRows": 3,
          "columns": {
              "image": {
                  "type": "uint8",
                  "rank": 1
                  },
              "label" : {
-                 "type": "int64",
+                 "type": "string",
                  "rank": 1
+                 }
+             "id" : {
+                 "type": "int64",
+                 "rank": 0
                  }
              }
          }
         ```
 
-        - `datasetType`: 数据格式的类型，这里`TF`是指TFRecord数据格式。
-        - `columns`：列信息字段，需要根据数据集的实际列名定义，上面Schema文件示例中，数据集列为`image`和`label`两列。
-        - `numRows`：行数信息字段，控制加载数据的最大行数。如果定义的行数大于实际行数，加载时则以实际行数为准。
+        - `columns`：列信息字段，需要根据数据集的实际列名定义。上面的示例中，数据集列为`image`、`label`和`id`。
 
         然后在创建`TFRecordDataset`时将Schema文件路径传入。
 

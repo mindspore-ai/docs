@@ -18,7 +18,7 @@
 
 ## 概述
 
-MindSpore提供了多种用途的采样器，帮助用户对数据集进行不同形式的采样，以满足训练需求，能够解决诸如数据集过大或样本类别分布不均等问题。只需在加载数据集时传入采样器对象，即可实现数据的采样。
+MindSpore提供了多种用途的采样器（Sampler），帮助用户对数据集进行不同形式的采样，以满足训练需求，能够解决诸如数据集过大或样本类别分布不均等问题。只需在加载数据集时传入采样器对象，即可实现数据的采样。
 
 MindSpore目前提供的采样器类别如下表所示。此外，用户也可以根据需要实现自定义的采样器类。
 
@@ -94,9 +94,9 @@ DATA_DIR = "Cifar10Data/"
 
 weights = [1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 sampler = ds.WeightedRandomSampler(weights, num_samples=6)
-dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
+dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 
-for data in dataset1.create_dict_iterator():
+for data in dataset.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 ```
 
@@ -126,9 +126,9 @@ DATA_DIR = "Cifar10Data/"
 
 indices = [0, 1, 2, 3, 4, 5]
 sampler = ds.SubsetRandomSampler(indices, num_samples=3)
-dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
+dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 
-for data in dataset1.create_dict_iterator():
+for data in dataset.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 ```
 
@@ -154,9 +154,9 @@ ds.config.set_seed(3)
 DATA_DIR = "Cifar10Data/"
 
 sampler = ds.PKSampler(num_val=2, class_column='label', num_samples=20)
-dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
+dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 
-for data in dataset1.create_dict_iterator():
+for data in dataset.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 ```
 
@@ -228,9 +228,9 @@ class MySampler(ds.Sampler):
 
 DATA_DIR = "Cifar10Data/"
 
-dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=MySampler())
+dataset = ds.Cifar10Dataset(DATA_DIR, sampler=MySampler())
 
-for data in dataset1.create_dict_iterator():
+for data in dataset.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 ```
 

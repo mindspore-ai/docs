@@ -47,7 +47,6 @@ MindSpore目前支持加载图像领域常用的经典数据集和多种数据�
 
     ```python
     DATA_DIR = "./MNIST"
-    # 为方便展示，指定num_samples只获取6个样本
     mnist_dataset = ds.MnistDataset(DATA_DIR, num_samples=6, shuffle=False)
     ```
 
@@ -56,13 +55,14 @@ MindSpore目前支持加载图像领域常用的经典数据集和多种数据�
     ```python
     import matplotlib.pyplot as plt
 
-    # 创建迭代器并展示样本及标签
     mnist_it = mnist_dataset.create_dict_iterator()
     data = mnist_it.get_next()
     plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
     plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()
     ```
+
+    图片展示如下：
 
     ![mnist_5](./images/mnist_5.png)
 
@@ -75,10 +75,11 @@ MindSpore目前支持的数据处理算子及其详细使用方法，可参考�
 下面演示构建pipeline，对MNIST数据集进行`shuffle`、`batch`、`repeat`等操作。
 
 ```python
-# 查看原始数据label
 for data in mnist_dataset.create_dict_iterator():
     print(data['label'])
 ```
+
+输出结果如下：
 
 ```python
 5
@@ -92,14 +93,14 @@ for data in mnist_dataset.create_dict_iterator():
 1.  对数据集进行混洗。
 
     ```python
-    # 固定随机种子便于展示混洗结果
     ds.config.set_seed(58)
-
     ds1 = mnist_dataset.shuffle(buffer_size=6)
-    # 查看混洗后数据label
+
     for data in ds1.create_dict_iterator():
         print(data['label'])
     ```
+
+    输出结果如下：
 
     ```python
     4
@@ -114,10 +115,12 @@ for data in mnist_dataset.create_dict_iterator():
 
     ```python
     ds2 = ds1.batch(batch_size=2)
-    # 查看分批后数据label
+
     for data in ds2.create_dict_iterator():
         print(data['label'])
     ```
+
+    输出结果如下：
 
     ```python
     [4 2]
@@ -129,10 +132,12 @@ for data in mnist_dataset.create_dict_iterator():
 
     ```python
     ds3 = ds2.repeat(count=2)
-    # 查看复制后数据label
+
     for data in ds3.create_dict_iterator():
         print(data['label'])
     ```
+
+    输出结果如下：
 
     ```python
     [4 2]
@@ -159,7 +164,6 @@ MindSpore目前支持的数据增强算子及其详细使用方法，可参考�
     from mindspore.dataset.vision import Inter
     import mindspore.dataset.vision.c_transforms as transforms
 
-    # 重新加载数据集
     mnist_dataset = ds.MnistDataset(DATA_DIR, num_samples=6, shuffle=False)
     ```
 
