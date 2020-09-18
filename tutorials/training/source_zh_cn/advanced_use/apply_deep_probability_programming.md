@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_deep_probability_program.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 深度学习模型具有强大的拟合能力，而贝叶斯理论具有很好的可解释能力。MindSpore深度概率编程（MindSpore Deep Probabilistic Programming, MDP）将深度学习和贝叶斯学习结合，通过设置网络权重为分布、引入隐空间分布等，可以对分布进行采样前向传播，由此引入了不确定性，从而增强了模型的鲁棒性和可解释性。MDP不仅包含通用、专业的概率学习编程语言，适用于“专业”用户，而且支持使用开发深度学习模型的逻辑进行概率编程，让初学者轻松上手；此外，还提供深度概率学习的工具箱，拓展贝叶斯应用功能。
