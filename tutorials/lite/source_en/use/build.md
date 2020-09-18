@@ -50,6 +50,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
   - [Libevent](https://libevent.org) >= 2.0
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1
+  - [Python](https://www.python.org/) >= 3.7.5
   
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
