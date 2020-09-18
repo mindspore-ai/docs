@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 执行主要有三种方式：单算子、普通函数和网络训练模型。
@@ -239,7 +239,7 @@ epoch: 1 step: 1874, loss is 0.0346688
 epoch: 1 step: 1875, loss is 0.017264696
 ```
 
-> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/debugging_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
+> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
 
 ### 执行推理模型
 通过调用Model的train接口可以实现推理。为了方便评估模型的好坏，可以在Model接口初始化的时候设置评估指标Metric。

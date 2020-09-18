@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 MindSpore在Model_zoo也已经提供了大量的目标检测、自然语言处理等多种网络模型，供用户直接使用，但是对于某些高级用户而言可能想要自行设计网络或者自定义训练循环，下面就对自定义训练网络、自定义训练循环和边训练边推理三种场景进行介绍，另外对On device执行方式进行详细介绍。
@@ -21,13 +21,13 @@ MindSpore在Model_zoo也已经提供了大量的目标检测、自然语言处�
 ## 自定义训练网络
 在自定义训练网络前，需要先了解下MindSpore的网络支持、Python源码构造网络约束和算子支持情况。
 
-- 网络支持：当前MindSpore已经支持多种网络，按类型分为计算机视觉、自然语言处理、推荐和图神经网络，可以通过[网络支持](https://www.mindspore.cn/docs/zh-CN/master/network_list.html)查看具体支持的网络情况。如果现有网络无法满足用户需求，用户可以根据实际需要定义自己的网络。
+- 网络支持：当前MindSpore已经支持多种网络，按类型分为计算机视觉、自然语言处理、推荐和图神经网络，可以通过[网络支持](https://www.mindspore.cn/doc/note/zh-CN/r1.0/network_list.html)查看具体支持的网络情况。如果现有网络无法满足用户需求，用户可以根据实际需要定义自己的网络。
 
-- Python源码构造网络约束：MindSpore暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。详细情况可以查看[Python源码构造网络约束](https://www.mindspore.cn/docs/zh-CN/master/constraints_on_network_construction.html)了解。随着MindSpore的演进，这些约束可能会发生变化。
+- Python源码构造网络约束：MindSpore暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。详细情况可以查看[Python源码构造网络约束](https://www.mindspore.cn/doc/note/zh-CN/r1.0/constraints_on_network_construction.html)了解。随着MindSpore的演进，这些约束可能会发生变化。
 
-- 算子支持：顾名思义，网络的基础是算子，所以用户自定义训练网络前要对MindSpore当前支持的算子有所了解，可以通过查看[算子支持](https://www.mindspore.cn/docs/zh-CN/master/operator_list.html)了解不同的后端（Ascend、GPU和CPU）的算子实现情况。
+- 算子支持：顾名思义，网络的基础是算子，所以用户自定义训练网络前要对MindSpore当前支持的算子有所了解，可以通过查看[算子支持](https://www.mindspore.cn/doc/note/zh-CN/r1.0/operator_list.html)了解不同的后端（Ascend、GPU和CPU）的算子实现情况。
 
-> 当开发网络遇到内置算子不足以满足需求时，用户也可以参考[自定义算子](https://www.mindspore.cn/tutorial/zh-CN/master/use/custom_operator.html)，方便快捷地扩展昇腾AI处理器的自定义算子。
+> 当开发网络遇到内置算子不足以满足需求时，用户也可以参考[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_operator_ascend.html)，方便快捷地扩展昇腾AI处理器的自定义算子。
 
 代码样例如下：
 ```python
@@ -255,10 +255,10 @@ epoch: 9/10, losses: 2.305952548980713
 epoch: 10/10, losses: 1.4282708168029785
 ```
 
-> 典型的使用场景是梯度累积，详细查看[梯度累积](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/gradient_accumulation.html)。
+> 典型的使用场景是梯度累积，详细查看[梯度累积](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_gradient_accumulation.html)。
 
 ## 边训练边推理
-对于某些数据量较大、训练时间较长的复杂网络，为了能掌握训练的不同阶段模型精度的指标变化情况，可以通过边训练边推理的方式跟踪精度的变化情况。具体可以参考[同步训练和验证模型](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/synchronization_training_and_evaluation.html)。
+对于某些数据量较大、训练时间较长的复杂网络，为了能掌握训练的不同阶段模型精度的指标变化情况，可以通过边训练边推理的方式跟踪精度的变化情况。具体可以参考[同步训练和验证模型](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/synchronization_training_and_evaluation.html)。
 
 ## on-device执行
 当前MindSpore支持的后端包括Ascend、GPU、CPU，所谓On Device中的Device通常指Ascend（昇腾）AI处理器。
