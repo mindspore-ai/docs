@@ -80,65 +80,15 @@ static Model *Import(const char *model_buf, size_t size);
 
 MindSpore Lite支持异构推理，推理时的主选后端由`Context`中的`device_ctx_`指定，默认为CPU。在进行图编译时，会根据主选后端进行算子选型调度。
 
-```cpp
-/// \brief   DeviceType defined for holding user's preferred backend.
-typedef enum {
-  DT_CPU, /**< CPU device type */
-  DT_GPU, /**< GPU device type */
-  DT_NPU  /**< NPU device type, not supported yet */
-} DeviceType;
-
-/// \brief   DeviceContext defined for holding DeviceType.
-typedef struct {
-  DeviceType type; /**< device type */
-} DeviceContext;
-
-DeviceContext device_ctx_{DT_CPU};
-```
-
 MindSpore Lite内置一个进程共享的线程池，推理时通过`thread_num_`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
-
-```cpp
-int thread_num_ = 2; /**< thread number config for thread pool */
-```
 
 MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`，推理时会生成一个默认的`allocator`，也可以通过`Context`方法在多个`Context`中共享内存分配器。
 
 如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在创建完Session后，Context即可释放。
 
-```cpp
-/// \brief  Allocator defined a memory pool for malloc memory and free memory dynamically.
-///
-/// \note List public class and interface for reference.
-class Allocator;
-
-/// \brief  Context defined for holding environment variables during runtime.
-class MS_API Context {
- public:
-  /// \brief  Constructor of MindSpore Lite Context using input value for parameters.
-  ///
-  /// \param[in] thread_num  Define the work thread number during the runtime.
-  /// \param[in] allocator  Define the allocator for malloc.
-  /// \param[in] device_ctx  Define device information during the runtime.
-  Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx);
-    
- public:
-	std::shared_ptr<Allocator> allocator = nullptr;
-}
-```
-
 ### 创建会话
 
 用上一步创建得到的`Context`，调用LiteSession的静态`CreateSession`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
-
-```cpp
-/// \brief  Static method to create a LiteSession pointer.
-///
-/// \param[in] context  Define the context of session to be created.
-///
-/// \return  Pointer of MindSpore Lite LiteSession.
-static LiteSession *CreateSession(lite::Context *context);
-```
 
 ### 使用示例
 
@@ -151,13 +101,16 @@ if (context == nullptr) {
     return RET_ERROR;
 }
 // The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
-context->device_ctx_.type = lite::DT_GPU;
+context->device_type_ = lite::DT_GPU;
 // The medium core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
 context->cpu_bind_mode_ = MID_CPU;
 // Configure the number of worker threads in the thread pool to 2, including the main thread. 
 context->thread_num_ = 2;
 // Allocators can be shared across multiple Contexts.
-auto *context2 = new Context(context->thread_num_, context->allocator, context->device_ctx_);
+auto *context2 = new Context();
+context2->thread_num_ = context->thread_num_; 
+context2->allocator = context->allocator; 
+context2->device_type_ = context->device_type_; 
 context2->cpu_bind_mode_ = context->cpu_bind_mode_;
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
@@ -170,7 +123,7 @@ if (session1 == nullptr) {
 // session1 and session2 can share one memory pool.
 auto session2 = session::LiteSession::CreateSession(context2);
 delete (context2);
-if (session == nullptr) {
+if (session2 == nullptr) {
     MS_LOG(ERROR) << "CreateSession failed while running %s", modelName.c_str();
     return RET_ERROR;
 }

@@ -81,65 +81,15 @@ Contexts save some basic configuration parameters required by sessions to guide 
 
 MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `device_ctx_` in `Context` and is CPU by default. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
 
-```cpp
-/// \brief   DeviceType defined for holding user's preferred backend.
-typedef enum {
-  DT_CPU, /**< CPU device type */
-  DT_GPU, /**< GPU device type */
-  DT_NPU  /**< NPU device type, not supported yet */
-} DeviceType;
-
-/// \brief   DeviceContext defined for holding DeviceType.
-typedef struct {
-  DeviceType type; /**< device type */
-} DeviceContext;
-
-DeviceContext device_ctx_{DT_CPU};
-```
-
 MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number be no more than 4. Otherwise, the performance may be affected.
-
-```c++
-int thread_num_ = 2; /**< thread number config for thread pool */
-```
 
 MindSpore Lite supports dynamic memory allocation and release. If `allocator` is not specified, a default `allocator` is generated during inference. You can also use the `Context` method to allow multiple `Context` to share the memory allocator.
 
 If users create the `Context` by using `new`,  it should be released by using `delete` once it's not required. Usually the `Context` is released after finishing the session creation.
 
-```cpp
-/// \brief  Allocator defined a memory pool for malloc memory and free memory dynamically.
-///
-/// \note List public class and interface for reference.
-class Allocator;
-
-/// \brief  Context defined for holding environment variables during runtime.
-class MS_API Context {
- public:
-  /// \brief  Constructor of MindSpore Lite Context using input value for parameters.
-  ///
-  /// \param[in] thread_num  Define the work thread number during the runtime.
-  /// \param[in] allocator  Define the allocator for malloc.
-  /// \param[in] device_ctx  Define device information during the runtime.
-  Context(int thread_num, std::shared_ptr<Allocator> allocator, DeviceContext device_ctx);
-    
- public:
-	std::shared_ptr<Allocator> allocator = nullptr;
-}
-```
-
 ### Creating Sessions
 
 Use the `Context` created in the previous step to call the static `CreateSession` method of LiteSession to create `LiteSession`. The `LiteSession` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
-
-```cpp
-/// \brief  Static method to create a LiteSession pointer.
-///
-/// \param[in] context  Define the context of session to be created.
-///
-/// \return  Pointer of MindSpore Lite LiteSession.
-static LiteSession *CreateSession(lite::Context *context);
-```
 
 ### Example
 
@@ -152,13 +102,16 @@ if (context == nullptr) {
     return RET_ERROR;
 }
 // The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
-context->device_ctx_.type = lite::DT_GPU;
+context->device_type_ = lite::DT_GPU;
 // The medium core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
 context->cpu_bind_mode_ = MID_CPU;
 // Configure the number of worker threads in the thread pool to 2, including the main thread. 
 context->thread_num_ = 2;
 // Allocators can be shared across multiple Contexts.
-auto *context2 = new Context(context->thread_num_, context->allocator, context->device_ctx_);
+auto *context2 = new Context();
+context2->thread_num_ = context->thread_num_; 
+context2->allocator = context->allocator; 
+context2->device_type_ = context->device_type_; 
 context2->cpu_bind_mode_ = context->cpu_bind_mode_;
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
@@ -171,7 +124,7 @@ if (session1 == nullptr) {
 // session1 and session2 can share one memory pool.
 auto session2 = session::LiteSession::CreateSession(context2);
 delete (context2);
-if (session == nullptr) {
+if (session2 == nullptr) {
     MS_LOG(ERROR) << "CreateSession failed while running %s", modelName.c_str();
     return RET_ERROR;
 }
