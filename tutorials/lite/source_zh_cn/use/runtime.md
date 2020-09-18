@@ -496,16 +496,16 @@ virtual void *MutableData() const = 0;
 
 ### 使用示例
 
-下面示例代码演示了使用`GetOutputMapByNode`接口获取输出`MSTensor`，并打印了每个输出`MSTensor`的前十个数据或所有数据：
+下面示例代码演示了使用`GetOutputs`接口获取输出`MSTensor`，并打印了每个输出`MSTensor`的前十个数据或所有数据：
 
 ```cpp
 // Assume we have created a LiteSession instance named session before.
-auto output_map = session->GetOutputMapByNode();
+auto output_map = session->GetOutputs();
 // Assume that the model has only one output node.
 auto out_node_iter = output_map.begin();
 std::string name = out_node_iter->first;
 // Assume that the unique output node has only one output tensor.
-auto out_tensor = out_node_iter->second.front();
+auto out_tensor = out_node_iter->second;
 if (out_tensor == nullptr) {
     std::cerr << "Output tensor is nullptr" << std::endl;
     return -1;
@@ -529,7 +529,7 @@ std::cout << std::endl;
 // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
 ```
 
-需要注意的是，`GetOutputsByNodeName`、`GetOutputMapByNode`、`GetOutputByTensorName`和`GetOutputMapByTensor`方法返回的vector或map不需要用户释放。 
+需要注意的是，`GetOutputsByNodeName`、`GetOutputByTensorName`和`GetOutputs`方法返回的vector或map不需要用户释放。
 
 下面示例代码演示了使用`GetOutputsByNodeName`接口获取输出`MSTensor`的方法：
 
@@ -537,19 +537,6 @@ std::cout << std::endl;
 // Assume we have created a LiteSession instance named session before.
 // Assume that model has a output node named output_node_name_0.
 auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
-// Assume that output node named output_node_name_0 has only one output tensor.
-auto out_tensor = output_vec.front();
-if (out_tensor == nullptr) {
-    std::cerr << "Output tensor is nullptr" << std::endl;
-    return -1;
-}
-```
-
-下面示例代码演示了使用`GetOutputMapByTensor`接口获取输出`MSTensor`的方法：
-
-```cpp
-// Assume we have created a LiteSession instance named session before.
-auto output_map = session->GetOutputMapByTensor();
 // Assume that output node named output_node_name_0 has only one output tensor.
 auto out_tensor = output_vec.front();
 if (out_tensor == nullptr) {
