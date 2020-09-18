@@ -175,7 +175,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-I arm32`:  
     ```
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu
+    ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # Benchmarking Tool
     │   └── lib # Inference framework dynamic library
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
