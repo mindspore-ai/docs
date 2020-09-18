@@ -175,7 +175,7 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 - 当编译选项为`-I arm32`时：
     ```
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu
+    ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # 基准测试工具
     │   └── lib # 推理框架动态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
