@@ -97,7 +97,7 @@ output = train_network(predict, label)
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html>；
+3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html>；
 
 4. 使用`Model`接口封装网络模型、优化器和损失函数，在该步骤中MindSpore会将有需要的算子自动进行类型转换。
 

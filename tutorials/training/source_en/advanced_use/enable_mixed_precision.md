@@ -97,7 +97,7 @@ The procedure of using automatic mixed precision by API 'Model' is as follows:
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
 
-3. Create dataset.You can learn detail step at <https://www.mindspore.cn/tutorial/en/master/quick_start/quick_start.html>.
+3. Create dataset.You can learn detail step at <https://www.mindspore.cn/tutorial/training/en/r1.0/quick_start/quick_start.html>.
 
 4. Use the `Model` API to encapsulate the network model and optimizer. In this step, MindSpore automatically converts the operators to the required format.
 

@@ -1,6 +1,6 @@
 # nn模块
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/nn.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/nn.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，主要包括各种模型层、损失函数、优化器等。
 

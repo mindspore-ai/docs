@@ -3,17 +3,17 @@
 <!-- TOC -->
 
 - [优化算法](#优化算法)
-  - [概述](#概述)
-  - [学习率](#学习率)
-    - [dynamic_lr](#dynamic_lr)
-    - [learning_rate_schedule](#learning_rate_schedule)
-  - [Optimzer](#optimzer)
-    - [如何使用](#如何使用)
-    - [内置优化器](#内置优化器)
+    - [概述](#概述)
+    - [学习率](#学习率)
+        - [dynamic_lr](#dynamic_lr)
+        - [learning_rate_schedule](#learning_rate_schedule)
+    - [Optimzer](#optimzer)
+        - [如何使用](#如何使用)
+        - [内置优化器](#内置优化器)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/optim.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/optim.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
