@@ -30,7 +30,7 @@
 - 在训练列表找到对应训练，点击性能分析，即可在页面中查看训练性能数据。
 
 ## 环境准备
-在使用性能分析工具之前，要确保后台工具进程（ada）正确启动，要求用户使用root启动ada进程，启动命令为：`/usr/local/Ascend/driver/tools/ada`。
+在使用性能分析工具之前，要确保后台工具进程（ada）正确启动，要求用户使用HwHiAiUser用户组的用户或root启动ada进程，并使用同用户跑训练脚本，启动命令为：`/usr/local/Ascend/driver/tools/ada`。
 
 ## 准备训练脚本
 
