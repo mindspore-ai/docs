@@ -170,13 +170,13 @@ The preceding describes the quantization aware training from scratch. A more com
     4. Define a fusion network.
     5. Define an optimizer and loss function.
     6. Generate a quantative network based on the fusion network.
-    7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/en/r1.0/use/saving_and_loading_model_parameters.html#id6>.
+    7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#for-retraining>.
 
 ### Inference
 
 The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as ONNX or MINDIR). 
 
-For details, see <https://www.mindspore.cn/tutorial/inference/en/r1.0/use/multi_platform_inference.html>.
+For details, see <https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html>.
 
 - To use a checkpoint file obtained after quantization aware training for inference, perform the following steps:
 
