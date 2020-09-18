@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/ir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 简介
 中间表示（IR）是程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，因此IR的设计需要考虑从源语言到目标语言的转换难度，同时考虑程序分析和优化的易用性和性能。
@@ -76,7 +76,7 @@ lambda (x, y)
     let c = b * %1 in
     c end
 ```
-对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/ir.dot)：
+对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/images/ir/ir.dot)：
 
 ![](./images/ir/ir.png)
 
@@ -106,7 +106,7 @@ def hof(x):
     return res
 ```
 
-对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/hof.dot)：
+对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/images/ir/hof.dot)：
 
 ![](./images/ir/hof.png)
 
@@ -127,7 +127,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/cf.dot)：
+对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/images/ir/cf.dot)：
 
 ![](./images/ir/cf.png)
 
@@ -153,7 +153,7 @@ def ms_closure():
     return out1, out2
 ```
 
-对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/design/mindspore/images/ir/closure.dot)：
+对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindspore/images/ir/closure.dot)：
 
 ![](./images/ir/closure.png)
 
