@@ -149,6 +149,9 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
 When you have a CheckPoint file, if you want to do inference, you need to generate corresponding models based on the network and CheckPoint. The `export` interface supports exporting multiple types of model file formats for inference on different hardware platforms.
 
+> `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
+> eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`.
+
 ### Export AIR Model
 
 AIR format file only supports Ascend AI processor. The code example of exporting this format file is as follows:
@@ -161,8 +164,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.air', file_format = 'AIR')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
 ```
 
 Before using the `export` interface, you need to import` mindspore.train.serialization`.
@@ -183,8 +186,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.onnx', file_format = 'ONNX')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX')
 ```
 
 It is recommended to use '.onnx' as the suffix of ONNX format files.
@@ -204,8 +207,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.mindir', file_format = 'MINDIR')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.mindir', file_format='MINDIR')
 ```
 
 It is recommended to use '.mindir' as the suffix of MINDIR format files.
