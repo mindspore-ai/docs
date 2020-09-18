@@ -67,7 +67,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
     ![start_sdk](../images/lite_quick_start_sdk.png)
 
-    （可选）若安装时出现NDK版本问题，可手动下载相应的[NDK版本](https://developer.android.com/ndk/downloads?hl=zh-cn)（本示例代码使用的NDK版本为21.3），并在`Project Structure`的`Android NDK location`设置中指定SDK的位置。
+    （可选）若安装时出现NDK版本问题，可手动下载相应的[NDK版本](https://developer.android.com/ndk/downloads?hl=zh-cn)（本示例代码使用的NDK版本为21.3），并在`Project Structure`的`Android NDK location`设置中指定NDK的位置。
 
     ![project_structure](../images/lite_quick_start_project_structure.png)
 

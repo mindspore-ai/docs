@@ -68,7 +68,7 @@ The following section describes how to build and execute an on-device image clas
 
     ![start_sdk](../images/lite_quick_start_sdk.png)
 
-    (Optional) If an NDK version issue occurs during the installation, manually download the corresponding [NDK version](https://developer.android.com/ndk/downloads) (the version used in the sample code is 21.3). Specify the SDK location in `Android NDK location` of `Project Structure`.
+    (Optional) If an NDK version issue occurs during the installation, manually download the corresponding [NDK version](https://developer.android.com/ndk/downloads) (the version used in the sample code is 21.3). Specify the NDK location in `Android NDK location` of `Project Structure`.
 
     ![project_structure](../images/lite_quick_start_project_structure.png)
 
