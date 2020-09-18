@@ -50,6 +50,7 @@
   - [Libevent](https://libevent.org) >= 2.0
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
+  - [Python](https://www.python.org/) >= 3.7.5
 
 > - 当安装完依赖项Android_NDK后，需配置环境变量:`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
 > - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
