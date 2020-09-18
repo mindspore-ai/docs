@@ -73,9 +73,9 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 - 参数
 
-    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/session.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/session.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
 
-    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/session.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/session.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 

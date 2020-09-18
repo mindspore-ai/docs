@@ -43,7 +43,7 @@ float16_priority
 device_type
 ```
 
-[**DeviceType**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
+[**DeviceType**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
 
 ```
 thread_num_
@@ -55,13 +55,13 @@ thread_num_
 allocator
 ```
 
-指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#allocator)的指针。
+指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#allocator)的指针。
 
 ```
 cpu_bind_mode_ 
 ```
 
-[**CpuBindMode**](https://www.mindspore.cn/lite/docs/zh-CN/r1.0/apicc/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
+[**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
 
 ## PrimitiveC
 
