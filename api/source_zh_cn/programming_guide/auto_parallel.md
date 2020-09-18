@@ -46,7 +46,7 @@ MindSpore提供了分布式并行训练的功能，它支持了包括数据并�
 MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管理，用户可根据自身需求和实际情况来进行个性化的配置。这些配置可分为四大类：
 
 - 通用配置：对数据并行和自动并行均起作用的配置，如：`device_num`、`global_rank`。
-- 自动并行配置：仅在自动并行模式下起作用的配置，如：`gradient_fp32_sync`、`loss_repeated_mean`。
+- 自动并行配置：仅在自动并行模式下起作用的配置，如：`gradient_fp32_sync`。
 - 数据并行配置：仅在数据并行模式下起作用的配置，如：`enable_parallel_optimizer`。
 - 混合并行配置：仅在混合并行模式下起作用的配置，如：`layerwise_parallel`。
 
