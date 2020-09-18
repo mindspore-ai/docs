@@ -150,6 +150,9 @@ model.train(epoch, dataset)
 
 当有了CheckPoint文件后，如果想继续做推理，需要通过网络和CheckPoint生成对应的模型。`export`接口支持导出多种类型的模型文件格式，用于不同硬件平台的推理。
 
+> `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
+> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`
+
 ### 导出AIR格式文件
 
 AIR格式文件仅支持昇腾AI处理器，导出该格式文件的代码样例如下：
@@ -162,8 +165,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.air', file_format = 'AIR')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
 ```
 
 使用`export`接口之前，需要先导入`mindspore.train.serialization`。
@@ -184,8 +187,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.onnx', file_format = 'ONNX')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX')
 ```
 
 建议使用`.onnx`作为ONNX格式文件的后缀名。
@@ -202,8 +205,8 @@ resnet = ResNet50()
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-input = np.random.uniform(0.0, 1.0, size = [32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name = 'resnet50-2_32.mindir', file_format = 'MINDIR')
+input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
+export(resnet, Tensor(input), file_name='resnet50-2_32.mindir', file_format='MINDIR')
 ```
 
 建议使用`.mindir`作为MINDIR格式文件的后缀名。
