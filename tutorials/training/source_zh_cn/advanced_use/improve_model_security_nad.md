@@ -17,8 +17,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/model_security.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/model_security.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/improve_model_security_nad.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/model_security.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -31,7 +31,8 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
 
-> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_safety>
+> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code
+>/model_safety>
 > - `mnist_attack_fgsm.py`：包含攻击代码。
 > - `mnist_defense_nad.py`：包含防御代码。
 
@@ -59,9 +60,9 @@ from mindspore import Tensor
 from mindspore import context
 from mindspore.train.callback import LossMonitor
 
-from mindarmour.attacks.gradient_method import FastGradientSignMethod
+from mindarmour.adv_robustness.attacks import FastGradientSignMethod
 from mindarmour.utils.logger import LogUtil
-from mindarmour.evaluations.attack_evaluation import AttackEvaluate
+from mindarmour.adv_robustness.evaluations import AttackEvaluate
 
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
@@ -178,7 +179,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 2. 训练LeNet模型。利用上面定义的数据加载函数`generate_mnist_dataset`载入数据。
 
     ```python
-    mnist_path = "./MNIST_unzip/"
+    mnist_path = "./MNIST/"
     batch_size = 32
     # train original model
     ds_train = generate_mnist_dataset(os.path.join(mnist_path, "train"),
@@ -296,7 +297,7 @@ NaturalAdversarialDefense（NAD）是一种简单有效的对抗样本防御方�
 调用MindArmour提供的NAD防御接口（NaturalAdversarialDefense）。
 
 ```python
-from mindarmour.defenses import NaturalAdversarialDefense
+from mindarmour.adv_robustness.defenses import NaturalAdversarialDefense
 
 
 # defense
