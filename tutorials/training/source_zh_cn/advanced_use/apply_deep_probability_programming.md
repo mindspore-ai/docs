@@ -1,48 +1,56 @@
-# 进行深度概率编程
-`Linux` `Ascend` `GPU` `全流程` `初级` `中级` `高级`
+# 深度概率编程
+`Ascend` `GPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [进行深度概率编程](#进行深度概率编程)
+- [深度概率编程](#深度概率编程)
     - [概述](#概述)
-        - [贝叶斯神经网络](#贝叶斯神经网络)
-            - [处理数据集](#处理数据集)
-            - [定义贝叶斯神经网络](#定义贝叶斯神经网络)
-            - [定义损失函数和优化器](#定义损失函数和优化器)
-            - [训练网络](#训练网络)
-        - [变分推断](#变分推断)
-            - [定义变分自编码器](#定义变分自编码器)
+    - [使用贝叶斯神经网络](#使用贝叶斯神经网络)
+        - [处理数据集](#处理数据集)
+        - [定义贝叶斯神经网络](#定义贝叶斯神经网络)
+        - [定义损失函数和优化器](#定义损失函数和优化器)
+        - [训练网络](#训练网络)
+    - [使用变分自编码器](#使用变分自编码器)
+        - [定义变分自编码器](#定义变分自编码器)
         - [定义损失函数和优化器](#定义损失函数和优化器-1)
-            - [处理数据](#处理数据)
-            - [训练网络](#训练网络-1)
-            - [生成新样本或重构输入样本](#生成新样本或重构输入样本)
-        - [DNN一键转换成BNN](#dnn一键转换成bnn)
-            - [定义DNN模型](#定义dnn模型)
-            - [定义损失函数和优化器](#定义损失函数和优化器-2)
-            - [实例化TransformToBNN](#实例化transformtobnn)
-            - [功能一：转换整个模型](#功能一转换整个模型)
-            - [功能二：转换指定类型的层](#功能二转换指定类型的层)
-        - [不确定性估计](#不确定性估计)
+        - [处理数据](#处理数据)
+        - [训练网络](#训练网络-1)
+        - [生成新样本或重构输入样本](#生成新样本或重构输入样本)
+    - [DNN一键转换成BNN](#dnn一键转换成bnn)
+        - [定义DNN模型](#定义dnn模型)
+        - [定义损失函数和优化器](#定义损失函数和优化器-2)
+        - [实例化TransformToBNN](#实例化transformtobnn)
+        - [实现功能一：转换整个模型](#实现功能一转换整个模型)
+        - [实现功能二：转换指定类型的层](#实现功能二转换指定类型的层)
+    - [使用不确定性估计工具箱](#使用不确定性估计工具箱)
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_deep_probability_program.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## 概述
-MindSpore深度概率编程（MindSpore Deep Probabilistic Programming, MDP）的目标是将深度学习和贝叶斯学习结合，并能面向不同的开发者。具体来说，对于专业的贝叶斯学习用户，提供概率采样、推理算法和模型构建库；另一方面，为不熟悉贝叶斯深度学习的用户提供了高级的API，从而不用更改深度学习编程逻辑，即可利用贝叶斯模型。
+深度学习模型具有强大的拟合能力，而贝叶斯理论具有很好的可解释能力。MindSpore深度概率编程（MindSpore Deep Probabilistic Programming, MDP）将深度学习和贝叶斯学习结合，通过设置网络权重为分布、引入隐空间分布等，可以对分布进行采样前向传播，由此引入了不确定性，从而增强了模型的鲁棒性和可解释性。MDP不仅包含通用、专业的概率学习编程语言，适用于“专业”用户，而且支持使用开发深度学习模型的逻辑进行概率编程，让初学者轻松上手；此外，还提供深度概率学习的工具箱，拓展贝叶斯应用功能。
 
-本章将详细介绍深度概率编程在MindSpore上的应用。
+本章将详细介绍深度概率编程在MindSpore上的应用。在动手进行实践之前，确保，你已经正确安装了MindSpore 0.7.0-beta及其以上版本。本章的具体内容如下：
+1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网（Bayesian Neural Network, BNN）；
+2. 介绍如何使用[variational模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/infer/variational)和[dpn模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/dpn)实现变分自编码器（Variational AutoEncoder, VAE）；
+3. 介绍如何使用[transforms模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/transforms)实现DNN（Deep Neural Network, DNN）一键转BNN；
+4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
 
-### 贝叶斯神经网络
-本例子利用贝叶斯神经网络实现一个简单的图片分类功能，整体流程如下：
-1. 处理MNIST数据集。
-2. 定义贝叶斯LeNet网络。
-3. 定义损失函数和优化器。
+## 使用贝叶斯神经网络
+贝叶斯神经网络是由概率模型和神经网络组成的基本模型，它的权重不再是一个确定的值，而是一个分布。本例介绍了如何使用MDP中的bnn_layers模块实现贝叶斯神经网络，并利用贝叶斯神经网络实现一个简单的图片分类功能，整体流程如下：
+1. 处理MNIST数据集；
+2. 定义贝叶斯LeNet网络；
+3. 定义损失函数和优化器；
 4. 加载数据集并进行训练。
 
-#### 处理数据集
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>
+
+### 处理数据集
 本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。
 
-#### 定义贝叶斯神经网络
-本例子使用的是贝叶斯LeNet。利用`bnn_layers`构建贝叶斯神经网络的方法与构建普通的神经网络相同。值得注意的是，`bnn_layers`和普通的神经网络层可以互相组合。
+### 定义贝叶斯神经网络
+本例使用的是Bayesian LeNet。利用bnn_layers模块构建贝叶斯神经网络的方法与构建普通的神经网络相同。值得注意的是，`bnn_layers`和普通的神经网络层可以互相组合。
 
 ```
 import mindspore.nn as nn
@@ -90,10 +98,13 @@ class BNNLeNet5(nn.Cell):
         x = self.fc3(x)
         return x
 ```
-#### 定义损失函数和优化器
+### 定义损失函数和优化器
 接下来需要定义损失函数（Loss）和优化器（Optimizer）。损失函数是深度学习的训练目标，也叫目标函数，可以理解为神经网络的输出（Logits）和标签(Labels)之间的距离，是一个标量数据。
-常见的损失函数包括均方误差、L2损失、Hinge损失、交叉熵等等。图像分类应用通常采用交叉熵损失（`CrossEntropy`）。
-优化器用于神经网络求解（训练）。由于神经网络参数规模庞大，无法直接求解，因而深度学习中采用随机梯度下降算法（SGD）及其改进算法进行求解。MindSpore封装了常见的优化器，如`SGD`、`Adam`、`Momemtum`等等。本例采用`Adam`优化器，通常需要设定两个参数，学习率（`learnin _rate`）和权重衰减项（`weight decay`）。
+
+常见的损失函数包括均方误差、L2损失、Hinge损失、交叉熵等等。图像分类应用通常采用交叉熵损失（CrossEntropy）。
+
+优化器用于神经网络求解（训练）。由于神经网络参数规模庞大，无法直接求解，因而深度学习中采用随机梯度下降算法（SGD）及其改进算法进行求解。MindSpore封装了常见的优化器，如`SGD`、`Adam`、`Momemtum`等等。本例采用`Adam`优化器，通常需要设定两个参数，学习率（`learning_rate`）和权重衰减项（`weight_decay`）。
+
 MindSpore中定义损失函数和优化器的代码样例如下：
 
 ```
@@ -104,7 +115,7 @@ criterion = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 optimizer = AdamWeightDecay(params=network.trainable_params(), learning_rate=0.0001)
 ```
 
-#### 训练网络
+### 训练网络
 贝叶斯神经网络的训练过程与DNN基本相同，唯一不同的是将`WithLossCell`替换为适用于BNN的`WithBNNLossCell`。除了`backbone`和`loss_fn`两个参数之外，`WithBNNLossCell`增加了`dnn_factor`和`bnn_factor`两个参数。`dnn_factor`是由损失函数计算得到的网络整体损失的系数，`bnn_factor`是每个贝叶斯层的KL散度的系数，这两个参数是用来平衡网络整体损失和贝叶斯层的KL散度的，防止KL散度的值过大掩盖了网络整体损失。
 
 ```
@@ -160,9 +171,16 @@ def validate_model(net, dataset):
     return acc_mean
 ```
 
-### 变分推断
-#### 定义变分自编码器
-我们只需要自定义编码器和解码器，编码器和解码器都是神经网络。
+## 使用变分自编码器
+接下来介绍如何使用MDP中的variational模块和dpn模块实现变分自编码器。变分自编码器是经典的应用了变分推断的深度概率模型，用来学习潜在变量的表示，通过该模型，不仅可以压缩输入数据，还可以生成该类型的新图像。本例的整体流程如下：
+1. 定义变分自编码器；
+2. 定义损失函数和优化器；
+3. 处理数据；
+4. 训练网络；
+5. 生成新样本或重构输入样本。
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/dpn>
+### 定义变分自编码器
+使用dpn模块来构造变分自编码器尤为简单，你只需要自定义编码器和解码器（DNN模型），调用`VAE`接口即可。
 
 ```
 class Encoder(nn.Cell):
@@ -213,11 +231,11 @@ optimizer = nn.Adam(params=vae.trainable_params(), learning_rate=0.001)
 
 net_with_loss = nn.WithLossCell(vae, net_loss)
 ```
-#### 处理数据
+### 处理数据
 本例使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。
 
-#### 训练网络
-使用`SVI`接口对VAE网络进行训练。
+### 训练网络
+使用variational模块中的`SVI`接口对VAE网络进行训练。
 
 ```
 from mindspore.nn.probability.infer import SVI
@@ -227,7 +245,7 @@ vae = vi.run(train_dataset=ds_train, epochs=10)
 trained_loss = vi.get_train_loss()
 ```
 通过`vi.run`可以得到训练好的网络，使用`vi.get_train_loss`可以得到训练之后的损失。
-#### 生成新样本或重构输入样本
+### 生成新样本或重构输入样本
 利用训练好的VAE网络，我们可以生成新的样本或重构输入样本。
 
 ```
@@ -238,9 +256,14 @@ for sample in ds_train.create_dict_iterator():
     reconstructed_sample = vae.reconstruct_sample(sample_x)
 ```
 
-### DNN一键转换成BNN
-对于不熟悉贝叶斯模型的DNN研究人员，MDP提供了高级API`TransformToBNN`，支持DNN模型一键转换成BNN模型。
-#### 定义DNN模型
+## DNN一键转换成BNN
+对于不熟悉贝叶斯模型的DNN研究人员，MDP提供了高级API`TransformToBNN`，支持DNN模型一键转换成BNN模型。目前在LeNet，ResNet，MobileNet，VGG等模型上验证了API的通用性。本例将会介绍如何使用transforms模块中的`TransformToBNN`API实现DNN一键转换成BNN，整体流程如下：
+1. 定义DNN模型；
+2. 定义损失函数和优化器；
+3. 实现功能一：转换整个模型；
+4. 实现功能二：转换指定类型的层。
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/transforms>
+### 定义DNN模型
 本例使用的DNN模型是LeNet。
 
 ```
@@ -309,7 +332,21 @@ class LeNet5(nn.Cell):
         x = self.fc3(x)
         return x
 ```
-#### 定义损失函数和优化器
+LeNet的网络结构如下：
+
+```
+LeNet5
+  (conv1) Conv2dinput_channels=1, output_channels=6, kernel_size=(5, 5),stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+  (conv2) Conv2dinput_channels=6, output_channels=16, kernel_size=(5, 5),stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+  (fc1) Densein_channels=400, out_channels=120, weight=Parameter (name=fc1.weight), has_bias=True, bias=Parameter (name=fc1.bias)
+  (fc2) Densein_channels=120, out_channels=84, weight=Parameter (name=fc2.weight), has_bias=True, bias=Parameter (name=fc2.bias)
+  (fc3) Densein_channels=84, out_channels=10, weight=Parameter (name=fc3.weight), has_bias=True, bias=Parameter (name=fc3.bias)
+  (relu) ReLU
+  (max_pool2d) MaxPool2dkernel_size=2, stride=2, pad_mode=VALID
+  (flatten) Flatten
+```
+
+### 定义损失函数和优化器
 接下来需要定义损失函数（Loss）和优化器（Optimizer）。本例使用交叉熵损失作为损失函数，`Adam`作为优化器。
 
 ```
@@ -324,7 +361,7 @@ optimizer = AdamWeightDecay(params=network.trainable_params(), learning_rate=0.0
 net_with_loss = WithLossCell(network, criterion)
 train_network = TrainOneStepCell(net_with_loss, optimizer)
 ```
-#### 实例化TransformToBNN
+### 实例化TransformToBNN
 `TransformToBNN`的`__init__`函数定义如下：
 
 ```
@@ -346,7 +383,7 @@ from mindspore.nn.probability import transforms
 
 bnn_transformer = transforms.TransformToBNN(train_network, 60000, 0.000001)
 ```
-#### 功能一：转换整个模型
+### 实现功能一：转换整个模型
 `transform_to_bnn_model`方法可以将整个DNN模型转换为BNN模型。其定义如下:
 
 ```
@@ -377,12 +414,86 @@ bnn_transformer = transforms.TransformToBNN(train_network, 60000, 0.000001)
        """
 ```
 参数`get_dense_args`指定从DNN模型的全连接层中获取哪些参数，`get_conv_args`指定从DNN模型的卷积层中获取哪些参数，参数`add_dense_args`和`add_conv_args`分别指定了要为BNN层指定哪些新的参数值。需要注意的是，`add_dense_args`中的参数不能与`get_dense_args`重复，`add_conv_args`和`get_conv_args`也是如此。
+
 在MindSpore中将整个DNN模型转换成BNN模型的代码如下：
 
 ```
 train_bnn_network = bnn_transformer.transform_to_bnn_model()
 ```
-#### 功能二：转换指定类型的层
+整个模型转换后的结构如下：
+
+```
+LeNet5
+  (conv1) ConvReparam
+    in_channels=1, out_channels=6, kernel_size=(5, 5), stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, weight_mean=Parameter (name=conv1.weight_posterior.mean), weight_std=Parameter (name=conv1.weight_posterior.untransformed_std), has_bias=False
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (conv2) ConvReparam
+    in_channels=6, out_channels=16, kernel_size=(5, 5), stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, weight_mean=Parameter (name=conv2.weight_posterior.mean), weight_std=Parameter (name=conv2.weight_posterior.untransformed_std), has_bias=False
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (fc1) DenseReparam
+    in_channels=400, out_channels=120, weight_mean=Parameter (name=fc1.weight_posterior.mean), weight_std=Parameter (name=fc1.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc1.bias_posterior.mean), bias_std=Parameter (name=fc1.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (fc2) DenseReparam
+    in_channels=120, out_channels=84, weight_mean=Parameter (name=fc2.weight_posterior.mean), weight_std=Parameter (name=fc2.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc2.bias_posterior.mean), bias_std=Parameter (name=fc2.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (fc3) DenseReparam
+    in_channels=84, out_channels=10, weight_mean=Parameter (name=fc3.weight_posterior.mean), weight_std=Parameter (name=fc3.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc3.bias_posterior.mean), bias_std=Parameter (name=fc3.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (relu) ReLU
+  (max_pool2d) MaxPool2dkernel_size=2, stride=2, pad_mode=VALID
+  (flatten) Flatten
+```
+可以看到，整个LeNet网络中的卷积层和全连接层都转变成了相应的贝叶斯层。
+
+### 实现功能二：转换指定类型的层
 `transform_to_bnn_layer`方法可以将DNN模型中指定类型的层（nn.Dense或者nn.Conv2d）转换为对应的贝叶斯层。其定义如下:
 
 ```
@@ -404,8 +515,76 @@ train_bnn_network = bnn_transformer.transform_to_bnn_model()
 ```
 参数`dnn_layer`指定将哪个类型的DNN层转换成BNN层，`bnn_layer`指定DNN层将转换成哪个类型的BNN层，`get_args`和`add_args`分别指定从DNN层中获取哪些参数和要为BNN层的哪些参数重新赋值。
 
-### 不确定性估计
-不确定性估计工具箱基于MindSpore Deep probability Programming (MDP)，适用于主流的深度学习模型，如回归、分类、目标检测等。在推理阶段，利用不确定性估计工具箱，开发人员只需通过训练模型和训练数据集，指定需要估计的任务和样本，即可得到任意不确定性（aleatoric uncertainty）和认知不确定性（epistemic uncertainty）。基于不确定性信息，开发人员可以更好地理解模型和数据集。
+在MindSpore中将DNN模型中的Dense层转换成相应贝叶斯层`DenseReparam`的代码如下：
+
+```
+train_bnn_network = bnn_transformer.transform_to_bnn_layer(nn.Dense, bnn_layers.DenseReparam)
+```
+转换后网络的结构如下：
+
+```
+LeNet5
+  (conv1) Conv2dinput_channels=1, output_channels=6, kernel_size=(5, 5),stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+  (conv2) Conv2dinput_channels=6, output_channels=16, kernel_size=(5, 5),stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=False
+  (fc1) DenseReparam
+    in_channels=400, out_channels=120, weight_mean=Parameter (name=fc1.weight_posterior.mean), weight_std=Parameter (name=fc1.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc1.bias_posterior.mean), bias_std=Parameter (name=fc1.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (fc2) DenseReparam
+    in_channels=120, out_channels=84, weight_mean=Parameter (name=fc2.weight_posterior.mean), weight_std=Parameter (name=fc2.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc2.bias_posterior.mean), bias_std=Parameter (name=fc2.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (fc3) DenseReparam
+    in_channels=84, out_channels=10, weight_mean=Parameter (name=fc3.weight_posterior.mean), weight_std=Parameter (name=fc3.weight_posterior.untransformed_std), has_bias=True, bias_mean=Parameter (name=fc3.bias_posterior.mean), bias_std=Parameter (name=fc3.bias_posterior.untransformed_std)
+    (weight_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (weight_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    (bias_prior) NormalPrior
+      (normal) Normalmean = 0.0, standard deviation = 0.1
+      
+    (bias_posterior) NormalPosterior
+      (normal) Normalbatch_shape = None
+      
+    
+  (relu) ReLU
+  (max_pool2d) MaxPool2dkernel_size=2, stride=2, pad_mode=VALID
+  (flatten) Flatten
+```
+可以看到，LeNet网络中的卷积层保持不变，全连接层变成了对应的贝叶斯层`DenseReparam`。
+
+## 使用不确定性估计工具箱
+贝叶斯神经网络的优势之一就是可以获取不确定性，MDP在上层提供了不确定性估计的工具箱，用户可以很方便地使用该工具箱计算不确定性。不确定性意味着深度学习模型对预测结果的不确定程度。目前，大多数深度学习算法只能给出预测结果，而不能判断预测结果的可靠性。不确定性主要有两种类型：偶然不确定性和认知不确定性。
+- 偶然不确定性（Aleatoric Uncertainty）：描述数据中的内在噪声，即无法避免的误差，这个现象不能通过增加采样数据来削弱。
+- 认知不确定性（Epistemic Uncertainty）：模型自身对输入数据的估计可能因为训练不佳、训练数据不够等原因而不准确，可以通过增加训练数据等方式来缓解。
+
+不确定性估计工具箱，适用于主流的深度学习模型，如回归、分类等。在推理阶段，利用不确定性估计工具箱，开发人员只需通过训练模型和训练数据集，指定需要估计的任务和样本，即可得到任意不确定性和认知不确定性。基于不确定性信息，开发人员可以更好地理解模型和数据集。
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>
+
 以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
 
 ```
@@ -431,5 +610,4 @@ for eval_data in ds_eval.create_dict_iterator():
     epistemic_uncertainty = evaluation.eval_epistemic_uncertainty(eval_data)
     aleatoric_uncertainty = evaluation.eval_aleatoric_uncertainty(eval_data)
 ```
-
 
