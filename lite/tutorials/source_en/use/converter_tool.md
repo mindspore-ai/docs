@@ -53,7 +53,7 @@ The following describes how to use the conversion command by using several commo
 
    The output is as follows:
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
    This indicates that the Caffe model is successfully converted into the MindSpore Lite model and the new file `lenet.ms` is generated.
    
@@ -86,7 +86,7 @@ The following describes how to use the conversion command by using several commo
 
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
 
 - If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.
@@ -145,7 +145,7 @@ Several common examples are selected below to illustrate the use of conversion c
 
    The result is shown as:
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```
    This means that the Caffe model has been successfully converted to the MindSpore Lite model and the new file `lenet.ms` has been obtained.
    
@@ -173,6 +173,6 @@ Several common examples are selected below to illustrate the use of conversion c
 
    In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
    ```
-   INFO [converter/converter.cc:190] Runconverter] CONVERTER RESULT: SUCCESS!
+   CONVERTER RESULT SUCCESS:0
    ```   
 - If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.
