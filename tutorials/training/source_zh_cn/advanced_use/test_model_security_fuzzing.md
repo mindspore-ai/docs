@@ -12,7 +12,7 @@
         - [运用Fuzzer](#运用fuzzer)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -60,7 +60,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
 
 ### 运用Fuzzer
 
-1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/model_security.html>)
+1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/model_security.html>)
 
    ```python
    ...

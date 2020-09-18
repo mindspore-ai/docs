@@ -16,8 +16,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/tree/r1.0/tutorials/notebook/mindinsight" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -129,10 +129,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
 
 当前支持的Summary算子:
-- [ScalarSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=scalarsummary#mindspore.ops.operations.ScalarSummary): 记录标量数据
-- [TensorSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=tensorsummary#mindspore.ops.operations.TensorSummary): 记录张量数据
-- [ImageSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=imagesummary#mindspore.ops.operations.ImageSummary): 记录图片数据
-- [HistogramSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=histogramsummar#mindspore.ops.operations.HistogramSummary): 将张量数据转为直方图数据记录
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScalarSummary): 记录标量数据
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TensorSummary): 记录张量数据
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ImageSummary): 记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.HistogramSummary): 将张量数据转为直方图数据记录
 
 记录方式如下面的步骤所示。
 
@@ -332,7 +332,7 @@ mindinsight start --summary-base-dir ./summary
 mindinsight stop
 ```
 
-更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html)页面。
+更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html)页面。
 
 
 ## 注意事项
