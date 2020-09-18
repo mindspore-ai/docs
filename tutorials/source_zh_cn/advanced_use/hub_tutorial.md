@@ -97,9 +97,6 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
   from mindspore import context, Tensor, nn
   from mindspore.train.model import Model
   from mindspore.common import dtype as mstype
-  from mindspore.dataset.transforms.py_transforms import Compose
-  from PIL import Image
-  import cv2
   import mindspore.dataset.vision.py_transforms as py_transforms
   
   context.set_context(mode=context.GRAPH_MODE,
@@ -108,16 +105,14 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
   
   model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
   
-  # Test an image from CIFAR-10 dataset
-  image = Image.open('cifar10/a.jpg')
-  transforms = Compose([py_transforms.ToTensor()])
-  
   # Initialize the number of classes based on the pre-trained model.
   network = mshub.load(model, num_classes=10)
   network.set_train(False)
-  out = network(transforms(image))
+  
+  # ...
+  
   ```
-
+- 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)。
 ## 模型微调 
 
 在使用 `mindspore_hub.load` 进行模型加载时，可以增加一个额外的参数项只加载神经网络的特征提取部分。这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 include_top）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top` 取值为True或者False，表示是否保留顶层的全连接网络。* 
@@ -130,55 +125,83 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
 
    ```python
    import mindspore
-   from mindspore import context
+   from mindspore import nn, context, Tensor
+   from mindpsore.train.serialization import save_checkpoint
+   from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+   from mindspore.ops import operations as P
+   from mindspore.nn import Momentum
+   
+   import math
+   import numpy as np
+   
    import mindspore_hub as mshub
+   from src.dataset import create_dataset
    
    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend",
                        save_graphs=False)
-   
-   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', include_top=False)
+   model_url = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+   network = mshub.load(model_url, include_top=False, num_classes=1000)
    network.set_train(False)
    ```
 
 3. 在现有模型结构基础上增加一个与新任务相关的分类层。
 
    ```python
-   from mindspore import nn
-
+   class ReduceMeanFlatten(nn.Cell):
+       def __init__(self):
+           super(ReduceMeanFlatten, self).__init__()
+           self.mean = P.ReduceMean(keep_dims=True)
+           self.flatten = nn.Flatten()
+       
+       def construct(self, x):
+           x = self.mean(x, (2, 3))
+           x = self.flatten(x)
+           return x
+   
    # Check MindSpore Hub website to conclude that the last output shape is 1024.
    last_channel = 1024
    
    # The number of classes in target task is 26.
    num_classes = 26
+   
+   reducemean_flatten = ReduceMeanFlatten()
+   
    classification_layer = nn.Dense(last_channel, num_classes)
    classification_layer.set_train(True)
    
-   train_network = nn.SequentialCell([network, classification_layer])
+   train_network = nn.SequentialCell([network, reducemean_flatten, classification_layer])
    ```
 
 4. 为模型训练选择损失函数和优化器。
 
    ```python
-   from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+   epoch_size = 60
    
    # Wrap the backbone network with loss.
-   loss_fn = SoftmaxCrossEntropyWithLogits()
+   loss_fn = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
    loss_net = nn.WithLossCell(train_network, loss_fn)
    
+   lr = get_lr(global_step=0,
+               lr_init=0,
+               lr_max=0.05,
+               lr_end=0.001,
+               warmup_epochs=5,
+               total_epochs=epoch_size)
+   
    # Create an optimizer.
-   optim = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum, config.weight_decay)
+   optim = Momentum(filter(lambda x: x.requires_grad, loss_net.get_parameters()), Tensor(lr), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
    ```
    
 5. 构建数据集，开始重训练。如下所示，进行微调任务的数据集为垃圾分类数据集，存储位置为 `/ssd/data/garbage/train`。 
 
    ```python
-   from src.dataset import create_dataset
-   from mindspore.train.serialization import save_checkpoint
-   
-   dataset = create_dataset("/ssd/data/garbage/train", do_train=True, batch_size=32)
-   
-   epoch_size = 15
+   dataset = create_dataset("/ssd/data/garbage/train",
+                            do_train=True,
+                            batch_size=32,
+                            platform="Ascend",
+                            repeat_num=1)
+
    for epoch in range(epoch_size):
        for i, items in enumerate(dataset):
            data, label = items
@@ -186,7 +209,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
            label = mindspore.Tensor(label)
            
            loss = train_net(data, label)
-           print(f"epoch: {epoch}, loss: {loss}")
+           print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
        # Save the ckpt file for each epoch.
        ckpt_path = f"./ckpt/garbage_finetune_epoch{epoch}.ckpt"
        save_checkpoint(train_network, ckpt_path)
@@ -197,20 +220,30 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
    ```python
    from mindspore.train.serialization import load_checkpoint, load_param_into_net
    
-   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', include_top=False)
-   train_network = nn.SequentialCell([network, nn.Dense(last_channel, num_classes)])
+   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', pretrained=False,
+                        include_top=False, num_classes=1000)
+   
+   reducemean_flatten = ReduceMeanFlatten()
+   
+   classification_layer = nn.Dense(last_channel, num_classes)
+   classification_layer.set_train(False)
+   softmax = nn.Softmax()
+   network = nn.SequentialCell([network, reducemean_flatten, 
+                               classification_layer, softmax])
    
    # Load a pre-trained ckpt file.
-   ckpt_path = "./ckpt/garbage_finetune_epoch15.ckpt"
+   ckpt_path = "./ckpt/garbage_finetune_epoch59.ckpt"
    trained_ckpt = load_checkpoint(ckpt_path)
-   load_param_into_net(train_network, trained_ckpt)
+   load_param_into_net(network, trained_ckpt)
    
    # Define loss and create model.
-   loss_fn = SoftmaxCrossEntropyWithLogits()
-   model = Model(network, loss_fn=loss, metrics={'acc'})
+   model = Model(network, metrics={'acc'}, eval_network=network)
    
-   eval_dataset = create_dataset("/ssd/data/garbage/train", do_train=False, 
-                                 batch_size=32)
+   eval_dataset = create_dataset("/ssd/data/garbage/test",
+                            do_train=True,
+                            batch_size=32,
+                            platform="Ascend",
+                            repeat_num=1)
    
    res = model.eval(eval_dataset)
    print("result:", res, "ckpt=", ckpt_path)
