@@ -23,7 +23,7 @@
 
 ## 非标准数据集转换MindRecord
 
-下面主要介绍如何将CV类数据和NLP类数据转换为MindRecord，并通过`MindDataset`实现MindRecoed文件的读取。
+下面主要介绍如何将CV类数据和NLP类数据转换为MindRecord，并通过`MindDataset`实现MindRecord文件的读取。
 
 ### 转换CV类数据集
 
@@ -87,9 +87,7 @@ print("Got {} samples".format(count))
 
 ### 转换NLP类数据集
 
-> NLP类数据一般会先经过预处理转换为字典序，本示例只演示转换后的字典序数据如何写入MindRecord文件，而不包括预处理过程。
-
-本示例主要介绍用户如何将自己的NLP类数据集转换成MindRecord，并使用`MindDataset`读取。
+本示例主要介绍用户如何将自己的NLP类数据集转换成MindRecord，并使用`MindDataset`读取。为了方便展示，此处略去了将文本转换成字典序的预处理过程。
 
 本示例首先创建一个包含100条记录的MindRecord文件，其样本包含八个字段，均为整形数组，然后使用`MindDataset`读取该MindRecord文件。
 
@@ -120,7 +118,7 @@ writer.add_schema(nlp_schema, "it is a preprocessed nlp dataset")
 data = []
 for i in range(100):  
     i += 1
-    
+
     sample = {"source_sos_ids": np.array([i, i+1, i+2, i+3, i+4], dtype=np.int64),
             "source_sos_mask": np.array([i*1, i*2, i*3, i*4, i*5, i*6, i*7], dtype=np.int64),
             "source_eos_ids": np.array([i+5, i+6, i+7, i+8, i+9, i+10], dtype=np.int64),
