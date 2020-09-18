@@ -40,7 +40,7 @@ A **bool** value. Defaults to **false**. Prior enable float16 inference.
 ```
 device_type
 ```
-A [**DeviceType**](https://www.mindspore.cn/lite/docs/en/r1.0/apicc/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
+A [**DeviceType**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
 
 ``` 
 thread_num_
@@ -52,13 +52,13 @@ An **int** value. Defaults to **2**. Thread number config for thread pool.
 allocator
 ```
 
-A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/lite/docs/en/r1.0/apicc/lite.html#allocator).
+A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#allocator).
 
 ``` 
 cpu_bind_mode_ 
 ```
 
-A [**CpuBindMode**](https://www.mindspore.cn/lite/docs/en/r1.0/apicc/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.     
+A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.     
 
 ## PrimitiveC
 Primitive is defined as prototype of operator.
