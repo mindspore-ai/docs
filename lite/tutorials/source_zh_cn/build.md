@@ -165,7 +165,8 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
     │   └── benchmark # 基准测试工具
     │   └── lib # 推理框架动态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-    │       ├── liboptimize.so # MindSpore Lite算子性能优化库  
+    │       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库  
+    │       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库 
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
@@ -187,9 +188,10 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
       
     ```
 
-> 1. `liboptimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2和支持fp16特性的CPU上使用。
-> 2. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 3. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`。
+> 1. `libmindspore-lite-optimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持dotprod指令的CPU上使用的性能优化库。
+> 2. `libmindspore-lite-fp16.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.22及以上版本且支持fp16的CPU上使用的性能优化库。
+> 3. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
+> 4. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。以0.7.0-beta版本下编译为例：配置converter：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-0.7.0-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`；配置benchmark和timeprofiler：`export LD_LIBRARY_PATH=./output/mindspore-lite-0.7.0-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`。
 
 #### 图像处理库目录结构说明
 
