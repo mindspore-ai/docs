@@ -46,15 +46,15 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 用户可以使用MindSpore中`c_transforms`模块的`RandomSelectSubpolicy`接口来实现AutoAugment，
 在ImageNet分类训练中标准的数据增强方式分以下几个步骤:
 
-一. `RandomCropDecodeResize`：随机裁剪后进行解码。
+- `RandomCropDecodeResize`：随机裁剪后进行解码。
 
-二. `RandomHorizontalFlip`：水平方向上随机翻转。
+- `RandomHorizontalFlip`：水平方向上随机翻转。
 
-三. `Normalize`：归一化。
+- `Normalize`：归一化。
 
-四. `HWC2CHW`：shape变换。
+- `HWC2CHW`：图片通道变化。
 
-在步骤一后插入AutoAugment变换，如下所示：
+在`RandomCropDecodeResize`后插入AutoAugment变换，如下所示：
 
 1. 引入MindSpore数据增强模块。
 
@@ -196,16 +196,16 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
                   c_vision.Normalize(mean=mean, std=std),
                   c_vision.HWC2CHW()
                   ]
-      ds = ds.map(operations=trans, input_columns="image", num_parallel_workers=8)
+      ds = ds.map(operations=trans, input_columns="image")
       if do_train:
           ds = ds.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
-          ds = ds.map(operations=post_trans, input_columns=["image"], num_parallel_workers=8)
+          ds = ds.map(operations=post_trans, input_columns="image")
       type_cast_op = c_transforms.TypeCast(mstype.int32)
-      ds = ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
-      # apply batch operations
+      ds = ds.map(operations=type_cast_op, input_columns="label")
+      # apply batch operation
       ds = ds.batch(batch_size, drop_remainder=True)
 
-      # apply dataset repeat operation
+      # apply repeat operation
       ds = ds.repeat(repeat_num)
 
       return ds
@@ -238,8 +238,8 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
     ![augment](./images/auto_augmentation.png)
 
-    运行结果可以看到，batch中每张图像的增强效果，X方向表示1个batch的5张图像，Y方向表示5个bacth。
-    
+    运行结果可以看到，batch中每张图像的增强效果，水平方向表示1个batch的5张图像，垂直方向表示5个bacth。
+
 ## 参考文献
 
 [1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501)
