@@ -278,17 +278,17 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 `Bijector`类是所有Bejictor的基类。其接口包括：
 
 1. 类特征函数
-  - `name`：无参函数，返回 `name` 的值。
-  - `is_dtype`：无参函数，返回 `dtype` 的值。
-  - `parameter`：无参函数，返回 `parameter` 的值。
-  - `is_constant_jacobian`：无参函数，返回 `is_constant_jacobian` 的值。
-  - `is_injective`：无参函数，返回 `is_injective` 的值。
+   - `name`：无参函数，返回 `name` 的值。
+   - `is_dtype`：无参函数，返回 `dtype` 的值。
+   - `parameter`：无参函数，返回 `parameter` 的值。
+   - `is_constant_jacobian`：无参函数，返回 `is_constant_jacobian` 的值。
+   - `is_injective`：无参函数，返回 `is_injective` 的值。
 
 2. 映射函数
-  - `forward`：正向映射，创建派生类后由派生类的 `_forward` 决定参数。
-  - `inverse`：反向映射，创建派生类后由派生类的 `_inverse` 决定参数。
-  - `forward_log_jacobian`：正向映射的导数的对数，创建派生类后由派生类的 `_forward_log_jacobian` 决定参数。
-  - `inverse_log_jacobian`：反向映射的导数的对数，创建派生类后由派生类的 `_inverse_log_jacobian` 决定参数。
+   - `forward`：正向映射，创建派生类后由派生类的 `_forward` 决定参数。
+   - `inverse`：反向映射，创建派生类后由派生类的 `_inverse` 决定参数。
+   - `forward_log_jacobian`：正向映射的导数的对数，创建派生类后由派生类的 `_forward_log_jacobian` 决定参数。
+   - `inverse_log_jacobian`：反向映射的导数的对数，创建派生类后由派生类的 `_inverse_log_jacobian` 决定参数。
 
 * `Bijector` 作为函数调用：
 输入是一个 `Distribution` 类：生成一个 `TransformedDistribution` **（不可在图内调用）**。
@@ -297,47 +297,47 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 `PowerTransform`做如下变量替换：$Y = g(X) = {(1 + X * c)}^{1 / c}$。其接口包括：
 
 1. 类特征函数
-  - `power`：无参函数，返回 `power` 的值。
+   - `power`：无参函数，返回 `power` 的值。
 
 2. 映射函数
-  - `forward`：正向映射，输入为 `Tensor` 。
-  - `inverse`：反向映射，输入为 `Tensor` 。
-  - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
-  - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+   - `forward`：正向映射，输入为 `Tensor` 。
+   - `inverse`：反向映射，输入为 `Tensor` 。
+   - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+   - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### 指数变换映射Exp
 `Exp`做如下变量替换：$Y = g(X)= exp(X)$。其接口包括：
 
-1. 映射函数
-  - `forward`：正向映射，输入为 `Tensor` 。
-  - `inverse`：反向映射，输入为 `Tensor` 。
-  - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
-  - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+映射函数
+- `forward`：正向映射，输入为 `Tensor` 。
+- `inverse`：反向映射，输入为 `Tensor` 。
+- `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+- `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### 标量仿射变换映射ScalarAffine
 `ScalarAffine`做如下变量替换：Y = g(X) = a * X + b。其接口包括：
 
 1. 类特征函数
-  - `scale`：无参函数，返回scale的值。
-  - `shift`：无参函数，返回shift的值。
+   - `scale`：无参函数，返回scale的值。
+   - `shift`：无参函数，返回shift的值。
 
 2. 映射函数
-  - `forward`：正向映射，输入为 `Tensor` 。
-  - `inverse`：反向映射，输入为 `Tensor` 。
-  - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
-  - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+   - `forward`：正向映射，输入为 `Tensor` 。
+   - `inverse`：反向映射，输入为 `Tensor` 。
+   - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+   - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### Softplus变换映射Softplus
 `Softplus`做如下变量替换：$Y = g(X) = log(1 + e ^ {kX}) / k $。其接口包括：
 
 1. 类特征函数
-  - `sharpness`：无参函数，返回 `sharpness` 的值。
+   - `sharpness`：无参函数，返回 `sharpness` 的值。
 
 2. 映射函数
-  - `forward`：正向映射，输入为 `Tensor` 。
-  - `inverse`：反向映射，输入为 `Tensor` 。
-  - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
-  - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+   - `forward`：正向映射，输入为 `Tensor` 。
+   - `inverse`：反向映射，输入为 `Tensor` 。
+   - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+   - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 ### PyNative模式下调用Bijector实例
 
@@ -444,7 +444,7 @@ class Net(nn.Cell):
         inverse_log_jaco = self.s1.inverse_log_jacobian(value)
 		return forward, inverse, forward_log_jaco, inverse_log_jaco
 ```
-调用网络
+调用网络：
 ```python
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
@@ -469,20 +469,20 @@ inverse_log_jaco:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 
 1. 类特征函数
 
-  - `bijector`：无参函数，返回分布的变换方法。
-  - `distribution`：无参函数，返回原始分布。
-  - `is_linear_transformation`：无参函数，返回线性变换标志。
+   - `bijector`：无参函数，返回分布的变换方法。
+   - `distribution`：无参函数，返回原始分布。
+   - `is_linear_transformation`：无参函数，返回线性变换标志。
 
 2. 接口函数（以下接口函数的参数与构造函数中 `distribution` 的对应接口的参数相同）。
 
-  - `cdf`：累积分布函数（cdf）。
-  - `log_cdf`：对数累积分布函数（cdf）。
-  - `survival_function`：生存函数。
-  - `log_survival`：对数生存函数。
-  - `prob`：概率密度函数（pdf）/ 概率质量函数（pmf）。
-  - `log_prob`：对数似然函数。
-  - `sample`：随机取样。
-  - `mean`：无参数。只有当 `Bijector.is_constant_jacobian=true` 时可调用。
+   - `cdf`：累积分布函数（cdf）。
+   - `log_cdf`：对数累积分布函数（cdf）。
+   - `survival_function`：生存函数。
+   - `log_survival`：对数生存函数。
+   - `prob`：概率密度函数（pdf）/ 概率质量函数（pmf）。
+   - `log_prob`：对数似然函数。
+   - `sample`：随机取样。
+   - `mean`：无参数。只有当 `Bijector.is_constant_jacobian=true` 时可调用。
 
 ### PyNative模式下调用TransformedDistribution实例
 
@@ -644,7 +644,7 @@ class Net(nn.Cell):
         return cdf, sample
 ```
 
-调用网络
+调用网络：
 ```python
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
@@ -842,7 +842,7 @@ class TransformToBNN:
 API`TransformToBNN`主要实现了两个功能：
 - 功能一：转换整个模型
 
-  `transform_to_bnn_model`方法可以将整个DNN模型转换为BNN模型。其定义如下
+  `transform_to_bnn_model`方法可以将整个DNN模型转换为BNN模型。其定义如下：
 
   ```
     def transform_to_bnn_model(self,
@@ -876,7 +876,7 @@ API`TransformToBNN`主要实现了两个功能：
 
 - 功能二：转换指定类型的层
 
-  `transform_to_bnn_layer`方法可以将DNN模型中指定类型的层（`nn.Dense`或者`nn.Conv2d`）转换为对应的贝叶斯层。其定义如下
+  `transform_to_bnn_layer`方法可以将DNN模型中指定类型的层（`nn.Dense`或者`nn.Conv2d`）转换为对应的贝叶斯层。其定义如下：
 
   ```
    def transform_to_bnn_layer(self, dnn_layer, bnn_layer, get_args=None, add_args=None):
