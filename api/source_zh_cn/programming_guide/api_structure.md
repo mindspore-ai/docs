@@ -40,7 +40,7 @@ def cost(x, y): return x * (x + y)
 
 
 def test_grad(x, y):
-    return C.grad_all(cost)(Tensor(x, dtype=ms.float32), Tensor(y, dtype=ms.float32))
+    return C.GradOperation(get_all=True)(cost)(Tensor(x, dtype=ms.float32), Tensor(y, dtype=ms.float32))
 
 
 def main():
@@ -62,7 +62,7 @@ MindSpore向用户提供了3个不同层次的API，支撑用户进行网络构�
 
 - Low-Level Python API
 
-  第一层为低阶API，主要包括张量定义、基础算子、自动微分等模块，用户可使用低阶API轻松实现张量定义和求导计算，例如用户可通过`Tensor`接口自定义张量，使用`ops.composite`模块下的`grad_all`算子计算函数在指定处的导数。
+  第一层为低阶API，主要包括张量定义、基础算子、自动微分等模块，用户可使用低阶API轻松实现张量定义和求导计算，例如用户可通过`Tensor`接口自定义张量，使用`ops.composite`模块下的`GradOperation`算子计算函数在指定处的导数。
 
 - Medium-Level Python API
 
