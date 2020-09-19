@@ -32,7 +32,7 @@ Performance data like operators' execution time is recorded in files and can be 
 
 ## Preparing the Environment
 
-Before using Profiler, make sure the process of ada in background running right. The ada process must using the root user to run. The start command is `/usr/local/Ascend/driver/tools/ada`.
+Before using Profiler, make sure the process of ada in background running right. The ada process must using users in HwHiAiUser user group or the root user to run, and run the scripts using the same user. The start command is `/usr/local/Ascend/driver/tools/ada`.
 
 ## Preparing the Training Script
 
