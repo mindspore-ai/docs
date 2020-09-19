@@ -440,19 +440,18 @@
 | [mindspore.ops.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.SoftmaxCrossEntropyWithLogits)    | The last dimension of logits and labels can't be splited; Only supports using output[0].
 | [mindspore.ops.MatMul](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.MatMul)    |   `transpose_a=True` is not supported.
 | [mindspore.ops.BatchMatMul](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.BatchMatMul)    |   `transpore_a=True` is not supported.
-| [mindspore.ops.PReLU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.PReLU)    |  The shard strategy in channel dimension of input_x should be consistent with weight.
-| [mindspore.ops.OneHot](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.OneHot)    |  Only support 1-dim indices.
+| [mindspore.ops.PReLU](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.PReLU)    |  When the shape of weight is not [1], the shard strategy in channel dimension of input_x should be consistent with weight.
+| [mindspore.ops.OneHot](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.OneHot)    |  Only support 1-dim indices. Must configure strategy for the output and the first and second inputs.
 | [mindspore.ops.ReduceSum](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceSum)    |  None
-| [mindspore.ops.ReduceMax](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceMax)    |  None
-| [mindspore.ops.ReduceMin](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)    |  None
-| [mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ArgMinWithValue)    |  The output index can't be used as the input of other operators.
-| [mindspore.ops.ArgMaxWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ArgMaxWithValue)    |  The output index can't be used as the input of other operators.
+| [mindspore.ops.ReduceMax](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceMax)    |  When the input_x is splited on the axis dimension, the distributed result may be inconsistent with that on the single machine.
+| [mindspore.ops.ReduceMin](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)    |  When the input_x is splited on the axis dimension, the distributed result may be inconsistent with that on the single machine.
+| [mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ArgMinWithValue)    |  The output index can't be used as the input of other operators. When the input_x is splited on the axis dimension, the distributed result may be inconsistent with that on the single machine.
+| [mindspore.ops.ArgMaxWithValue](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ArgMaxWithValue)    |  The output index can't be used as the input of other operators. When the input_x is splited on the axis dimension, the distributed result may be inconsistent with that on the single machine.
 | [mindspore.ops.ReduceMean](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReduceMean)    |  None
 | [mindspore.ops.Reshape](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.Reshape)    |  Configuring shard strategy is not supported.
 | [mindspore.ops.StridedSlice](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.StridedSlice)    |  Only support mask with all 0 values; The dimension needs to be split should be all extracted; Split is not supported when the strides of dimension is 1.
 | [mindspore.ops.Tile](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.Tile)    |  Only support configuring shard strategy for multiples.
 | [mindspore.ops.Transpose](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.Transpose)    |  None
-| [mindspore.ops.Diag](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.Diag)    |  Configuring shard strategy is not supported.
 
 > Repeated calculation means that the device is not fully used. For example, the cluster has 8 devices to run distributed training, the splitting strategy only cuts the input into 4 copies. In this case, double counting will occur.
 >
