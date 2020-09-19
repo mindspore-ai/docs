@@ -19,7 +19,7 @@ Using MindSpore on Mobile and IoT
    :caption: Basic Use
 
    use/build
-   convert_model
+   use/convert_model
    use/evaluating_the_model
    use/image_processing
    use/runtime
