@@ -159,8 +159,7 @@ Figure 12: Table display
 Figure 12 shows tensors recorded by a user in a form of a table which includes the following function:
 
 - Click the small square button on the right side of the table to zoom in the table.
-- The white box in the table shows the tensor data under which dimension is currently displayed, where the colon `:` represents all values of the current dimension, you can enter the corresponding index or `:` in the box and press `Enter` or click the button of tick on the back to query tensor data for specific dimensions.
-   Assuming a certain dimension is 32, the index range is -32 to 31. Note: tensor data from 0 to 2 dimensions can be queried. Tensor data of more than two dimensions is not supported, in other word, the query conditions of more than two colons `:` cannot be set.
+- The white box in the table shows the tensor data under which dimension is currently displayed. The colon `:` indicates index range of the current dimension which is basically the same as the meaning of Python index. If no specific index is specified, it indicates all the values of the current dimension and `2:5` indicates the value of index from 2 to 5 (not including 5). you can enter the corresponding index or index range containing `:` in the box and press `Enter` or click the button of tick on the back to query tensor data for specific dimensions. Assuming a certain dimension is 32, the index range is -32 to 31. Note: tensor data from 0 to 2 dimensions can be queried. Tensor data of more than two dimensions is not supported, in other word, the query conditions of more than two colons `:` cannot be set.
 - Query the tensor data of a specific step by dragging the hollow circle below the table.
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
