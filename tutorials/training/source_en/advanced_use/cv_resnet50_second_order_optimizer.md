@@ -29,7 +29,7 @@
             - [GPU](#gpu-2)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/second_order_optimizer_for_resnet50_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -40,7 +40,7 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 > Download address of the complete code example:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor>
+<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/resnet_thor>
 
 Directory Structure of Code Examples
 
@@ -101,10 +101,10 @@ The directory structure is as follows:
 ```
 ### Configuring Distributed Environment Variables
 #### Ascend 910
-For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorial/en/master/advanced_use/distributed_training_ascend.html#id4).
+For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/distributed_training_ascend.html#configuring-distributed-environment-variables).
 
 #### GPU
-For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorial/en/master/advanced_use/distributed_training_gpu.html#id4).
+For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/distributed_training_gpu.html#configuring-distributed-environment-variables).
 
 
 ## Loading the Dataset
@@ -163,11 +163,11 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return ds
 ```
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see [Data Processing and Augmentation](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html).
+> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see [Data Processing and Augmentation](https://www.mindspore.cn/tutorial/training/en/r1.0/use/data_preparation.html).
 
 
 ## Defining the Network
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
  The defined network model stores in the `src/resnet_thor.py` script in the source code, and the customized operators `Conv2d_thor` and `Dense_thor` store in the `src/thor_layer.py` script.
 
 -  Use `Conv2d_thor` to replace `Conv2d` in the original network model.

@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
@@ -24,17 +24,17 @@
 
 > 操作流程可以参考Ascend 910上profiler的操作：
 >
-> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id3>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/performance_profiling.html#id3>
 
 ## 准备训练脚本
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
 - `set_context`之后，需要初始化MindSpore `Profiler`对象，GPU场景下初始化Profiler对象时只有output_path参数有效。
-- 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
+- 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
 > 样例代码与Ascend使用方式一致可以参考：
 >
-> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id4>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/performance_profiling.html#id4>
 
 GPU场景下还可以用自定义callback的方式收集性能数据，示例如下：
 
@@ -68,7 +68,7 @@ class StopAtStep(Callback):
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html)。
 
 
 ### 性能分析
@@ -110,7 +110,7 @@ class StopAtStep(Callback):
 
 - 统计图表：展示了各个kernel activity的占比以及前15个算子的耗时信息。
 - 内核信息列表：信息列表展示activity的名称、所属算子名称、执行次数、总时间、平均时间等信息。
-- 搜索：可以通过name(activity名称)以及op_full_name（所属算子名称）进程部分匹配的搜索。
+- 搜索：可以通过name(activity名称)以及`op_full_name`（所属算子名称）进程部分匹配的搜索。
 
 #### Timeline分析
 
@@ -118,5 +118,5 @@ GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处
 
 >  样例代码与Ascend使用方式一致可以参考：
 >
-> <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#timeline>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/performance_profiling.html#timeline>
 

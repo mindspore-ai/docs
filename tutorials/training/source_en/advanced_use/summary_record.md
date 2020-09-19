@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -127,10 +127,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
 
 Summary operators currently supported:
-- [ScalarSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=scalarsummary#mindspore.ops.operations.ScalarSummary): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=tensorsummary#mindspore.ops.operations.TensorSummary): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=imagesummary#mindspore.ops.operations.ImageSummary): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html?highlight=histogramsummar#mindspore.ops.operations.HistogramSummary): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScalarSummary): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TensorSummary): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ImageSummary): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.HistogramSummary): Convert tensor data into histogram data records.
 
 The recording method is shown in the following steps.
 
@@ -328,7 +328,7 @@ Stop MindInsight command:
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/mindinsight_commands.html) page.
 
 ## Notices
 

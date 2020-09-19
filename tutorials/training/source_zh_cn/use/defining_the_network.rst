@@ -4,4 +4,4 @@
 .. toctree::
   :maxdepth: 1
 
-  网络支持 <https://www.mindspore.cn/docs/zh-CN/master/network_list.html>
+  网络支持 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/network_list.html>
