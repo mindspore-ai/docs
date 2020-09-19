@@ -39,9 +39,9 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 ## 自动混合精度
 
-使用自动混合精度，需要调用相应的接口，将待训练网络和优化器作为输入传进去；该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。
+使用自动混合精度，需要调用相应的接口，将待训练网络和优化器作为输入传进去；该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。可以使用`amp`接口和`Model`接口两种方式实现混合精度。
 
-具体的实现步骤为：
+使用`amp`接口具体的实现步骤为：
 1. 引入MindSpore的混合精度的接口`amp`；
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
@@ -92,6 +92,77 @@ train_network = amp.build_train_network(net, optimizer, loss, level="O3", loss_s
 output = train_network(predict, label)
 ```
 
+使用`Model`接口具体的实现步骤为：
+1. 引入MindSpore的模型训练接口`Model`；
+
+2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
+
+3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html>；
+
+4. 使用`Model`接口封装网络模型、优化器和损失函数，在该步骤中MindSpore会将有需要的算子自动进行类型转换。
+
+代码样例如下：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import context
+from mindspore.common.initializer import Normal
+from mindspore.train import Model
+from src.dataset import create_dataset
+
+context.set_context(mode=context.GRAPH_MODE)
+context.set_context(device_target="Ascend")
+
+# Define network
+class LeNet5(nn.Cell):
+    """
+    Lenet network
+
+    Args:
+        num_class (int): Number of classes. Default: 10.
+        num_channel (int): Number of channels. Default: 1.
+
+    Returns:
+        Tensor, output tensor
+    Examples:
+        >>> LeNet(num_class=10)
+
+    """
+    def __init__(self, num_class=10, num_channel=1):
+        super(LeNet5, self).__init__()
+        self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
+        self.conv2 = nn.Conv2d(6, 16, 5, pad_mode='valid')
+        self.fc1 = nn.Dense(16 * 5 * 5, 120, weight_init=Normal(0.02))
+        self.fc2 = nn.Dense(120, 84, weight_init=Normal(0.02))
+        self.fc3 = nn.Dense(84, num_class, weight_init=Normal(0.02))
+        self.relu = nn.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
+
+    def construct(self, x):
+        x = self.max_pool2d(self.relu(self.conv1(x)))
+        x = self.max_pool2d(self.relu(self.conv2(x)))
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+# create dataset
+ds_train = create_dataset("/dataset/train", 32)
+
+# Initialize network
+network = LeNet5(10)
+
+# Define Loss and Optimizer
+net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+
+# Run training
+model.train(epoch=10, train_dataset=ds_train)
+```
 
 ## 手动混合精度
 
