@@ -20,10 +20,7 @@
 
 > 下表的性能是在mate30手机上测试的。
 
-| 模型名称               | 模型链接 | 大小 | 精度 | CPU 4线程时延 |
-|-----------------------|----------|----------|----------|-----------|
-| SSD |         |         |         |          |
-| Faster_RCNN |          |         |         |          |
-| YoloV3_Darknet53 | |  |  |  |
-| Mask_RCNN | |  |  |  |
+| 模型名称               | 大小 | mAP(IoU=0.50:0.95) | CPU 4线程时延(ms) |
+|-----------------------| :----------: | :----------: | :-----------: |
+| [MobileNetv2-SSD](https://download.mindspore.cn/model_zoo/official/lite/ssd_mobilenetv2_lite/ssd.ms) | 16.7 | 0.22 | 25.4 |
 
