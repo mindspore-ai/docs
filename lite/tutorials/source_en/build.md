@@ -164,8 +164,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── benchmark # Benchmarking Tool
     │   └── lib # Inference framework dynamic library
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │       ├── libmindspore-lite-fp16.so # Operator performance float16 library in MindSpore Lite
-    │       ├── libmindspore-lite-optimize.so # Operator performance optimization library in MindSpore Lite  
+    │       ├── libmindspore-lite-fp16.so # Operator performance optimization library support float16 in MindSpore Lite
+    │       ├── libmindspore-lite-optimize.so # Operator performance optimization library support dotprod instruction in MindSpore Lite  
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
