@@ -9,4 +9,4 @@ If you want to contribute code, please read https://gitee.com/mindspore/mindspor
 Contributing Documents
 ----------------------
 
-If you want to contribute documents, please read https://gitee.com/mindspore/docs/blob/master/CONTRIBUTING_DOC.md .
+If you want to contribute documents, please read https://gitee.com/mindspore/docs/blob/r1.0/CONTRIBUTING_DOC.md .
