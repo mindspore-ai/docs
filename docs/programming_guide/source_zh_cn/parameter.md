@@ -19,7 +19,7 @@
 
 ## 初始化
 ```
-def __init__(self, default_input, name, requires_grad=True, layerwise_parallel=False)
+mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
 
@@ -124,7 +124,7 @@ data:  Parameter (name=x, value=[[0 1 2]
   当初始化`Parameter`传入的数据是`Initializer`时，可调用该接口将`Parameter`保存的数据转换为`Tensor`。
 
 - `set_data`：设置`Parameter`保存的数据，支持传入`Tensor`、`Initializer`、`int`和`float`进行设置，
-  将slice_shape设置为True时，可改变`Parameter`的shape，反之，设置的数据shape必须与`Parameter`原来的shape保持一致。
+  将方法的入参`slice_shape`设置为True时，可改变`Parameter`的shape，反之，设置的数据shape必须与`Parameter`原来的shape保持一致。
 
 - `set_param_ps`：控制训练参数是否通过[Parameter Server](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/parameter_server_training.html)进行训练。
 
@@ -139,13 +139,13 @@ from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(data=initializer('ones', [1, 2, 3], mstype.float32), name='x')
+x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='x')
 
 print(x)
 print(x.clone(prefix="x_c"))
 print(x.init_data())
 print(x.set_param_ps())
-print(x.set_parameter_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
+print(x.set_data(default_input=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
 
 输出如下：
@@ -173,9 +173,9 @@ from mindspore import Tensor, Parameter, ParameterTuple
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(data=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
-y = Parameter(data=initializer('ones', [1, 2, 3], mstype.float32), name='y')
-z = Parameter(data=2.0, name='z')
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
+z = Parameter(default_input=2.0, name='z')
 params = ParameterTuple((x, y, z))
 params_copy = params.clone("params_copy")
 print(params, "\n")
