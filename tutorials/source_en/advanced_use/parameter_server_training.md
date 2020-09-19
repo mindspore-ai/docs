@@ -25,7 +25,7 @@ The ps-lite architecture consists of three independent components: server, worke
 
 - Server: saves model weights and backward computation gradients, and updates the model using gradients pushed by workers. 
 
-- Worker: performs forward and backward computation on the network. The gradient value for forward computation is uploaded to a server through the `Push` API, and the model updated by the server is downloaded to the worker through the `Pull` API.
+- Worker: performs forward and backward computation on the network. The gradient value for backward computation is uploaded to a server through the `Push` API, and the model updated by the server is downloaded to the worker through the `Pull` API.
 
 - Scheduler: establishes the communication relationship between the server and worker.
 
