@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/timeprofiler_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -20,9 +20,9 @@
 
 使用TimeProfiler工具，需要进行如下环境准备工作。
 
-- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profiler`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id3)执行编译。
+- 编译：TimeProfiler工具代码在MindSpore源码的`mindspore/lite/tools/time_profiler`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id3)执行编译。
 
-- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html#id4)，获得`timeprofiler`工具，并配置环境变量。
+- 运行：参考部署文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id4)，获得`timeprofiler`工具，并配置环境变量。
 
 ## 使用示例
 
