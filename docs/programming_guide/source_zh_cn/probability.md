@@ -763,7 +763,7 @@ decoder = Decoder()
 cvae = ConditionalVAE(encoder, decoder, hidden_size=400, latent_size=20, num_classes=10)
 ```
 
-加载数据集，我们可以使用Mnist数据集，具体的数据加载和预处理过程可以参考这里[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)，这里会用到create_dataset函数创建数据迭代器。
+加载数据集，我们可以使用Mnist数据集，具体的数据加载和预处理过程可以参考这里[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)，这里会用到create_dataset函数创建数据迭代器。
 
 ```python
 ds_train = create_dataset(image_path, 128, 1)
@@ -819,7 +819,7 @@ The shape of the generated sample is  (64, 1, 32, 32)
 
 下面的范例使用MindSpore的`nn.probability.bnn_layers`中的API实现BNN图片分类模型。MindSpore的`nn.probability.bnn_layers`中的API包括`NormalPrior`，`NormalPosterior`，`ConvReparam`，`DenseReparam`和`WithBNNLossCell`。BNN与DNN的最大区别在于，BNN层的weight和bias不再是确定的值，而是服从一个分布。其中，`NormalPrior`，`NormalPosterior`分别用来生成服从正态分布的先验分布和后验分布；`ConvReparam`和`DenseReparam`分别是使用reparameteration方法实现的贝叶斯卷积层和全连接层；`WithBNNLossCell`是用来封装BNN和损失函数的。
 
-如何使用`nn.probability.bnn_layers`中的API构建贝叶斯神经网络并实现图片分类，可以参考教程[使用贝叶斯网络](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/deep_probability_program.html#id3)。
+如何使用`nn.probability.bnn_layers`中的API构建贝叶斯神经网络并实现图片分类，可以参考教程[使用贝叶斯网络](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_program.html#id3)。
 
 ## 贝叶斯转换
 
@@ -872,7 +872,7 @@ API`TransformToBNN`主要实现了两个功能：
        """
        
   ```
-  参数`get_dense_args`指定从DNN模型的全连接层中获取哪些参数，默认值是DNN模型的全连接层和BNN的全连接层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Dense)；`get_conv_args`指定从DNN模型的卷积层中获取哪些参数，默认值是DNN模型的卷积层和BNN的卷积层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)；参数`add_dense_args`和`add_conv_args`分别指定了要为BNN层指定哪些新的参数值。需要注意的是，`add_dense_args`中的参数不能与`get_dense_args`重复，`add_conv_args`和`get_conv_args`也是如此。
+  参数`get_dense_args`指定从DNN模型的全连接层中获取哪些参数，默认值是DNN模型的全连接层和BNN的全连接层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Dense)；`get_conv_args`指定从DNN模型的卷积层中获取哪些参数，默认值是DNN模型的卷积层和BNN的卷积层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)；参数`add_dense_args`和`add_conv_args`分别指定了要为BNN层指定哪些新的参数值。需要注意的是，`add_dense_args`中的参数不能与`get_dense_args`重复，`add_conv_args`和`get_conv_args`也是如此。
 
 - 功能二：转换指定类型的层
 
@@ -897,7 +897,7 @@ API`TransformToBNN`主要实现了两个功能：
   ```
   参数`dnn_layer`指定将哪个类型的DNN层转换成BNN层，`bnn_layer`指定DNN层将转换成哪个类型的BNN层，`get_args`和`add_args`分别指定从DNN层中获取哪些参数和要为BNN层的哪些参数重新赋值。
 
-如何在MindSpore中使用API`TransformToBNN`可以参考教程[DNN一键转换成BNN](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/deep_probability_program.html#dnnbnn)
+如何在MindSpore中使用API`TransformToBNN`可以参考教程[DNN一键转换成BNN](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_program.html#dnnbnn)
 
 ## 贝叶斯工具箱
 
