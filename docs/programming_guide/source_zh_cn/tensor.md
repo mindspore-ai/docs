@@ -91,7 +91,7 @@ print(x_shape, x_dtype)
  
 ### 方法
 
-张量的方法包括`all`、`any`和`asnumpy`。
+张量的方法包括`all`、`any`和`asnumpy`，`all`和`any`方法目前只支持Ascend。
 - `all(axis, keep_dims)`：在指定维度上通过`and`操作进行归约，`axis`代表归约维度，`keep_dims`表示是否保留归约后的维度。
 - `any(axis, keep_dims)`：在指定维度上通过`or`操作进行归约，参数含义同`all`。
 - `asnumpy()`：将`Tensor`转换为NumPy的array。
