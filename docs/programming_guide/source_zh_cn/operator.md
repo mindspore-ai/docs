@@ -69,7 +69,7 @@
 
 以下代码实现了对input_x作乘方数为input_y的乘方操作：
 ```python
-import numpy as np            
+import numpy as np
 import mindspore
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -99,28 +99,43 @@ print(input_x + input_y)
 
 以下代码实现了Element-wise乘法示例：
 ```python
+import numpy as np
+import mindspore
+from mindspore import Tensor
+import mindspore.ops.operations as P
+
 input_x = Tensor(np.array([1.0, 2.0, 3.0]), mindspore.float32)
 input_y = Tensor(np.array([4.0, 5.0, 6.0]), mindspore.float32)
 mul = P.Mul()
-mul(input_x, input_y)
+res = mul(input_x, input_y)
+
+print(res)
 ```
 
 输出如下：
 ```
-[4, 10, 18]
+[4. 10. 18]
 ```
 
 #### 求三角函数
 
 以下代码实现了Acos：
 ```python
+import numpy as np
+import mindspore
+from mindspore import Tensor
+import mindspore.ops.operations as P
+
 acos = P.ACos()
 input_x = Tensor(np.array([0.74, 0.04, 0.30, 0.56]), mindspore.float32)
 output = acos(input_x)
+print(output)
 ```
 
-输出如下：[42.268584, 87.707557, 72.542397，55.944202] 
-
+输出如下：
+```
+[0.7377037, 1.5307858, 1.2661037，0.97641146]
+```
 ### 向量运算
 
 向量运算符只在一个特定轴上运算，将一个向量映射到一个标量或者另外一个向量。
@@ -129,28 +144,47 @@ output = acos(input_x)
 
 以下代码实现了压缩第3个通道维度为1的通道：
 ```python
+import numpy as np
+import mindspore
+from mindspore import Tensor
+import mindspore.ops.operations as P
+
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
 squeeze = P.Squeeze(2)
 output = squeeze(input_tensor)
+
+print(output)
 ```
 
-输出如下：[[1, 1],
-         [1, 1],
-         [1, 1]]
-
+输出如下：
+```
+[[1. 1.]
+ [1. 1.]
+ [1. 1.]]
+```
 #### 求Sparse2Dense
 
 以下代码实现了对Sparse2Dense示例：
 ```python
+import numpy as np
+import mindspore as ms
+from mindspore import Tensor
+import mindspore.ops.operations as P
+
 indices = Tensor([[0, 1], [1, 2]])
 values = Tensor([1, 2], dtype=ms.float32)
 dense_shape = (3, 4)
 out = P.SparseToDense()(indices, values, dense_shape)
+
+print(out)
 ```
 
-输出如下：[[0, 1, 0, 0],
-          [0, 0, 2, 0],
-          [0, 0, 0, 0]]
+输出如下：
+```
+[[0, 1, 0, 0],
+ [0, 0, 2, 0],
+ [0, 0, 0, 0]]
+```
 
 ### 矩阵运算
 
@@ -160,13 +194,23 @@ out = P.SparseToDense()(indices, values, dense_shape)
 
 以下代码实现了input_x 和 input_y的矩阵乘法：
 ```python
+import numpy as np
+import mindspore
+from mindspore import Tensor
+import mindspore.ops.operations as P
+
 input_x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
 input_y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
 matmul = P.MatMul()
 output = matmul(input_x, input_y)
+
+print(output)
 ```
 
-输出如下：[3, 12]
+输出如下：
+```
+[[3. 3. 3. 3.]]
+```
 
 #### 广播机制
 
@@ -178,6 +222,7 @@ from mindspore import Tensor
 from mindspore.communication import init
 import mindspore.nn as nn
 import mindspore.ops.operations as P
+import numpy as np
 
 init()
 class Net(nn.Cell):
@@ -199,14 +244,19 @@ output = net(input_)
 
 ### 特征提取
 
-特征提取是机器学习中的常见操作，核心是提取较原输入更且代表性的Tensor表达。
+特征提取是机器学习中的常见操作，核心是提取比原输入更具代表性的Tensor。
 
 #### 卷积操作
 
 以下代码实现了常见卷积操作之一的2D convolution 操作：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 input = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
-weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32))
+weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
 conv2d = P.Conv2D(out_channel=32, kernel_size=3)
 conv2d(input, weight)
 ```
@@ -216,6 +266,12 @@ conv2d(input, weight)
 以下代码实现了反向梯度算子传播操作的具体代码，输出存于dout， weight：
 
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+import mindspore.ops.functional as F
+
 dout = Tensor(np.ones([10, 32, 30, 30]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
 x = Tensor(np.ones([10, 32, 32, 32]))
@@ -227,14 +283,21 @@ conv2d_backprop_input(dout, weight, F.shape(x))
 
 以下代码实现Softmax激活函数计算：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 input_x = Tensor(np.array([1, 2, 3, 4, 5]), mindspore.float32)
 softmax = P.Softmax()
-softmax(input_x)
+res = softmax(input_x)
+
+print(res)
 ```
 
 输出如下：
 ```
-[0.01165623, 0.03168492, 0.08612854, 0.23412167, 0.6364086]
+[0.01165623 0.03168492 0.08612854 0.23412167 0.6364086]
 ```
 
 ### LossFunction
@@ -243,6 +306,11 @@ softmax(input_x)
 
 以下代码实现了L1 loss function：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 loss = P.SmoothL1Loss()
 input_data = Tensor(np.array([1, 2, 3]), mindspore.float32)
 target_data = Tensor(np.array([1, 2, 2]), mindspore.float32)
@@ -251,7 +319,7 @@ loss(input_data, target_data)
 
 输出如下：
 ```
-[0, 0, 0.5]
+[0.  0.  0.5]
 ```
 
 ### 优化算法
@@ -260,6 +328,11 @@ loss(input_data, target_data)
 
 以下代码实现了SGD梯度下降算法的具体实现，输出是result：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 sgd = P.SGD()
 parameters = Tensor(np.array([2, -0.5, 1.7, 4]), mindspore.float32)
 gradient = Tensor(np.array([1, -1, 0.5, 2]), mindspore.float32)
@@ -268,6 +341,13 @@ accum = Tensor(np.array([0.1, 0.3, -0.2, -0.1]), mindspore.float32)
 momentum = Tensor(0.1, mindspore.float32)
 stat = Tensor(np.array([1.5, -0.3, 0.2, -0.7]), mindspore.float32)
 result = sgd(parameters, gradient, learning_rate, accum, momentum, stat)
+
+print(result)
+```
+
+输出如下：
+```
+[0.  0.  0.  0.]
 ```
 
 ## 数组操作
@@ -279,8 +359,20 @@ result = sgd(parameters, gradient, learning_rate, accum, momentum, stat)
 返回跟输入的数据类型一致的并且适配Mindspore的Tensor变量，常用于Mindspore工程内。
 
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 input_tensor = Tensor(np.array([[2, 2], [2, 2]]), mindspore.float32)
-type = P.DType()(input_tensor)
+typea = P.DType()(input_tensor)
+
+print(typea)
+```
+
+输出如下：
+```
+Float32
 ```
 
 ### Cast
@@ -288,6 +380,11 @@ type = P.DType()(input_tensor)
 转换输入的数据类型并且输出与目标数据类型相同的变量。
 
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 input_np = np.random.randn(2, 3, 4, 5).astype(np.float32)
 input_x = Tensor(input_np)
 type_dst = mindspore.float16
@@ -295,7 +392,11 @@ cast = P.Cast()
 result = cast(input_x, type_dst)
 print(result.type())
 ```
-输出结果: mindspore.float16
+
+输出结果:
+```
+mindspore.float16
+```
 
 ### Shape
 
@@ -303,12 +404,21 @@ print(result.type())
 
 以下代码实现了返回输入数据input_tensor的操作：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
 shape = P.Shape()
 output = shape(input_tensor)
+print(output)
 ```
 
-输出如下： [3, 2, 1]
+输出如下：
+```
+[3, 2, 1]
+```
 
 ## 图像操作
 
@@ -316,12 +426,18 @@ output = shape(input_tensor)
 
 以下代码实现了Crop和Resize操作：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore.common.dtype as mstype
+from mindpore.ops import composite as C
+
 class CropAndResizeNet(nn.Cell):
     def __init__(self, crop_size):
         super(CropAndResizeNet, self).__init__()
         self.crop_and_resize = P.CropAndResize()
         self.crop_size = crop_size
-    @ms_function
+
     def construct(self, x, boxes, box_index):
         return self.crop_and_resize(x, boxes, box_index, self.crop_size)
 
@@ -349,13 +465,19 @@ print(output.asnumpy())
 
 以下代码实现了对anchor_box和groundtruth_box的boundingbox encode：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 groundtruth_box = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
 boundingbox_encode = P.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
-boundingbox_encode(anchor_box, groundtruth_box)
+res = boundingbox_encode(anchor_box, groundtruth_box)
+print(res)
 ```
-输出如下:
 
+输出如下:
 ```
 [[5.0000000e-01  5.0000000e-01  -6.5504000e+04  6.9335938e-01]
  [-1.0000000e+00  2.5000000e-01  0.0000000e+00  4.0551758e-01]]
@@ -367,14 +489,19 @@ boundingbox_encode(anchor_box, groundtruth_box)
 
 以下代码实现了：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 deltas = Tensor([[3,1,2,2],[1,s2,1,4]],mindspore.float32)
 boundingbox_decode = P.BoundingBoxDecode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0), max_shape=(768, 1280), wh_ratio_clip=0.016)
-boundingbox_decode(anchor_box, deltas)
+res = boundingbox_decode(anchor_box, deltas)
+print(res)
 ```
 
-输出如下
-
+输出如下：
 ```
 [[4.1953125  0.  0.  5.1953125]
  [2.140625  0.  3.859375  60.59375]]
@@ -386,10 +513,23 @@ boundingbox_decode(anchor_box, deltas)
 
 以下代码实现了计算两个变量anchor_boxes和gt_boxes之间的IOU，以out输出：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore
+
 iou = P.IOU()
 anchor_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
 gt_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
 out = iou(anchor_boxes, gt_boxes)
+print(out)
+```
+
+输出如下：
+```
+[[0.  -0.  0.]
+ [0.  -0.  0.]
+ [0.   0.  0.]]
 ```
 
 ## 调试操作
@@ -402,11 +542,14 @@ out = iou(anchor_boxes, gt_boxes)
 
 以下代码实现了输出x这一变量的值：
 ```python
+from mindspore import nn
+
 class DebugNN(nn.Cell):
     def __init__(self,):
         self.debug = nn.Debug()
 
     def construct(self, x, y):
+        self.debug()
         x = self.add(x, y)
         self.debug(x)
         return x
@@ -418,10 +561,16 @@ class DebugNN(nn.Cell):
 
 以下代码实现了打印中间变量(例中x,y)的梯度：
 ```python
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore.common.dtype as mstype
+from mindpore.ops import composite as C
+
 def hook_fn(grad_out):
     print(grad_out)
 
-grad_all = GradOperation(get_all=True)
+grad_all = C.GradOperation(get_all=True)
 hook = P.HookBackward(hook_fn)
 
 def hook_test(x, y):
@@ -431,23 +580,7 @@ def hook_test(x, y):
     return z
 
 def backward(x, y):
-    return grad_all(hook_test)(x, y)
+    return grad_all(hook_test)(Tensor(x, mstype.float32), Tensor(y, mstype.float32))
 
 backward(1, 2)
-```
-
-## 量化操作
-
-量化操作指对Tensor做量化或者反量化操作。量化操作指将浮点数用整数的加和表示，利用整数加和并行加速时速度快的优点，实现在可接受精度损失下的性能提升。反量化指其反过程，其在精度要求高的地方常被用到。
-
-### MinMaxUpdatePerLayer
-
-完成在训练时的量化和反量化操作。
-
-以下代码实现了设置量化所需输入三个参数，输入tensor， 输出tensor和量化结果范围，最后对它实现量化,量化结果为output_tensor：
-```python
-input_tensor = Tensor(np.random.rand(3, 16, 5, 5), mstype.float32)
-min_tensor = Tensor(np.array([-6]), mstype.float32)
-max_tensor = Tensor(np.array([6]), mstype.float32)
-output_tensor = FakeQuantPerLayer(num_bits=8)(input_tensor, min_tensor, max_tensor)
 ```
