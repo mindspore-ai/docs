@@ -47,7 +47,7 @@ The overview page on the left shows information about optimization objective and
 
 Figure 4: Overview page
 
-Figure 4 shows the optimization objective distribution, parameter importance, and scatter plots.
+Figure 4 shows the optimization objective distribution, parameter importance, and scatter plots. You can select the optimization objective to view the importance of the parameters, and then click the histogram to view the scatter plot of the parameters and optimization objective.
 
 ## Dataset Lineage
 
