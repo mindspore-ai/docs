@@ -71,7 +71,7 @@ optional arguments:
 
 > The AST mode will be enabled, if both `--in_file` and `--model_file` are specified.
 
-For the Grapa mode, `--shape` is mandatory. 
+For the Graph mode, `--shape` is mandatory. 
 
 For the AST mode, `--shape` is ignored.
 
@@ -81,7 +81,7 @@ Please note that your original PyTorch project is included in the module search 
 
 > Assume the project is located at `/home/user/project/model_training`, users can use this command to add the project to `PYTHONPATH` : `export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
 
-> MindConverter needs the original PyTourch scripts because of the reverse serialization.
+> MindConverter needs the original PyTorch scripts because of the reverse serialization.
 
 
 
