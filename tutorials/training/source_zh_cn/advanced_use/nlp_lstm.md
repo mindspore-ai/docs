@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/nlp_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/source_zh_cn/training/advanced_use/nlp_lstm.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/nlp_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述

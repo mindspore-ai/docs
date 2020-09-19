@@ -25,14 +25,14 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
 本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> <https://gitee.com/mindspore/docs/blob/r1.0/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## 准备环节
 
@@ -164,7 +164,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/r1.0/tutorials/tutorial_code/resnet/resnet.py>
 
 ## 定义损失函数及优化器
 
@@ -377,7 +377,7 @@ param_dict = load_checkpoint(save_path)
 load_param_into_net(net, param_dict)
 ```
 
-checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#checkpoint)。
+checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#checkpoint)。
 
 ### 数据并行模式
 
@@ -511,4 +511,4 @@ context.reset_auto_parallel_context()
 
 ### 手动混合并行模式
 
-手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/checkpoint_for_hybrid_parallel.html)。
+手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/checkpoint_for_hybrid_parallel.html)。
