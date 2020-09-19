@@ -174,7 +174,7 @@ The preceding describes the quantization aware training from scratch. A more com
 
 ### Inference
 
-The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as ONNX or MINDIR). 
+The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as AIR or MINDIR). 
 
 For details, see <https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html>.
 
