@@ -354,6 +354,8 @@
 | [mindspore.ops.operations.Xdivy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xdivy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.Xlogy](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.operations.HistogramFixedWidth](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.HistogramFixedWidth)             |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.operations.Eps](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Eps)                         |  Supported  | Supported  | Doing | math_ops
+| [mindspore.ops.operations.ReLUV2](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ReLUV2)       |  Supported | Doing  | Doing | nn_ops
 
 ## mindspore.ops.functional
 
