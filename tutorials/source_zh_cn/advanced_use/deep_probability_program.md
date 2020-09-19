@@ -35,7 +35,7 @@
 1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网（Bayesian Neural Network, BNN）；
 2. 介绍如何使用[variational模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/infer/variational)和[dpn模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/dpn)实现变分自编码器（Variational AutoEncoder, VAE）；
 3. 介绍如何使用[transforms模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/transforms)实现DNN（Deep Neural Network, DNN）一键转BNN；
-4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
+4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/tree/blob/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
 
 ## 使用贝叶斯神经网络
 贝叶斯神经网络是由概率模型和神经网络组成的基本模型，它的权重不再是一个确定的值，而是一个分布。本例介绍了如何使用MDP中的bnn_layers模块实现贝叶斯神经网络，并利用贝叶斯神经网络实现一个简单的图片分类功能，整体流程如下：
