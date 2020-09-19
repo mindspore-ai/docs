@@ -1,6 +1,6 @@
 # 优化数据准备的性能
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
 <!-- TOC -->
 
@@ -92,9 +92,9 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 ![title](./images/data_loading_performance_scheme.png)
 
 数据加载性能优化建议如下：
-- 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](#id16)。
-- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[MindSpore数据格式转换](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](#id16)。
-- 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](#id17)。
+- 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16)。
+- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[MindSpore数据格式转换](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16)。
+- 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17)。
 
 ### 代码示例
 
@@ -271,10 +271,10 @@ shuffle性能优化建议如下：
 
 
 数据增强性能优化建议如下：
-- 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](#id16)、[Compose优化方案](#compose)或者[算子融合优化方案](#id18)。
-- 如果使用了`py_transforms`模块进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](#id16)、[多进程优化方案](#id17)、[Compose优化方案](#compose)或者[算子融合优化方案](#id18)。
+- 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16)、[Compose优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id18)。
+- 如果使用了`py_transforms`模块进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16)、[多进程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17)、[Compose优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id18)。
 - `c_transforms`模块是在C++内维护buffer管理，`py_transforms`模块是在Python内维护buffer管理。因为Python和C++切换的性能成本，建议不要混用算子。
-- 如果用户使用了自定义Python函数进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](#id16)或者[多进程优化方案](#id17)，如果还是无法提升性能，就需要对自定义的Python代码进行优化。
+- 如果用户使用了自定义Python函数进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16)或者[多进程优化方案](https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17)，如果还是无法提升性能，就需要对自定义的Python代码进行优化。
 
 ### 代码示例
 
