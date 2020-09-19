@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/use/text_loading.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -75,7 +75,7 @@ MindSpore目前支持加载文本领域常用的经典数据集和多种数据�
 
 ## 数据处理
 
-MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/api/zh-CN/master/programming_guide/pipeline.html)章节。
+MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/pipeline.html)章节。
 
 在生成`dataset`对象后可对其进行数据处理操作，比如`SlidingWindow`、`shuffle`等。
 
