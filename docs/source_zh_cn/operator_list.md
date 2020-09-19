@@ -99,10 +99,12 @@
 | [mindspore.nn.WithEvalCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.WithEvalCell)                                    |  Supported |  Supported | Doing |wrap/cell_wrapper
 | [mindspore.nn.ParameterUpdate](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.ParameterUpdate)                              |  Supported |Doing | Doing |wrap/cell_wrapper
 | [mindspore.nn.DistributedGradReducer](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.DistributedGradReducer)                |  Supported |Doing | Doing |wrap/grad_reducer
-| [mindspore.nn.DynamicLossScaleUpdateCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.DynamicLossScaleUpdateCell)        | Doing |Doing | Doing |wrap/loss_scale
-| [mindspore.nn.FixedLossScaleUpdateCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.FixedLossScaleUpdateCell)            | Doing |Doing | Doing |wrap/loss_scale
-| [mindspore.nn.TrainOneStepWithLossScaleCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.TrainOneStepWithLossScaleCell)  | Doing |Doing | Doing |wrap/loss_scale
+| [mindspore.nn.DynamicLossScaleUpdateCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.DynamicLossScaleUpdateCell)        | Supported |Supported | Doing |wrap/loss_scale
+| [mindspore.nn.FixedLossScaleUpdateCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.FixedLossScaleUpdateCell)            | Supported |Supported | Doing |wrap/loss_scale
+| [mindspore.nn.TrainOneStepWithLossScaleCell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.TrainOneStepWithLossScaleCell)  | Supported |Supported | Doing |wrap/loss_scale
 | [mindspore.nn.Cell](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Cell)                                                    |  Supported |  Supported |   Supported |cell
+| [mindspore.nn.EmbeddingLookup](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.EmbeddingLookup)                                          |Supported |  Supported | Supported |layer/embedding
+| [mindspore.nn.Pad](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.nn.html#mindspore.nn.Pad)                                        |Supported | Supported | Doing |layer/basic
 
 ## mindspore.ops.operations
 
@@ -356,6 +358,8 @@
 | [mindspore.ops.HistogramFixedWidth](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.HistogramFixedWidth)  |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.Eps](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.Eps)                         |  Supported  | Supported  | Doing | math_ops
 | [mindspore.ops.ReLUV2](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.ReLUV2)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.BNTrainingReduce](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.BNTrainingReduce)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.BNTrainingUpdate](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.BNTrainingUpdate)       |  Supported | Doing  | Doing | nn_ops
 
 ## mindspore.ops.functional
 
