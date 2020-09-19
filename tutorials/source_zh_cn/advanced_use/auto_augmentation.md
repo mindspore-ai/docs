@@ -1,6 +1,6 @@
 # 自动数据增强
 
-`Linux` `Ascend` `GPU` `CPU` `中级` `高级` `数据准备`
+`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 

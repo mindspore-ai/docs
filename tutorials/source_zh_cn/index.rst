@@ -59,7 +59,6 @@ MindSpore教程
    advanced_use/gradient_accumulation
    advanced_use/dataset_conversion
    advanced_use/auto_augmentation
-   advanced_use/auto_data_acceleration
 
 .. toctree::
    :glob:
