@@ -25,7 +25,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 - Server：保存模型的权重和反向计算的梯度值，并使用优化器通过Worker上传的梯度值对模型进行更新。
 
-- Worker：执行网络的正反向计算，正向计算的梯度值通过Push接口上传至Server中，通过Pull接口把Server更新好的模型下载到Worker本地。
+- Worker：执行网络的正反向计算，反向计算的梯度值通过Push接口上传至Server中，通过Pull接口把Server更新好的模型下载到Worker本地。
 
 - Scheduler：用于建立Server和Worker的通信关系。
 
