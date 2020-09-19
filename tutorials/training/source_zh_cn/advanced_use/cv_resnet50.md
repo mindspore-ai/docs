@@ -18,8 +18,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/computer_vision_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/computer_vision_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/computer_vision_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -63,7 +63,7 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 6. 加载保存的模型进行推理
 
 
-> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/resnet>
+> 本例面向Ascend 910 AI处理器硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/resnet>
 
 下面对任务流程中各个环节及代码关键片段进行解释说明。
 

@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ### 概述
 
@@ -56,7 +56,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
    |       ├── md_validator.py
    |       └── md_validator.py 
    ```
-   注意，`{model_name}_{model_version}_{dataset}.md` 文件中需要补充如下所示的 `file-format`、`asset-link` 和 `asset-sha256` 信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值，其中MindSpore Hub支持的模型文件格式有 [MindSpore CKPT](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#checkpoint-configuration-policies)，[AIR](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)，[MindIR](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#export-mindir-model)，[ONNX](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html) 和 [MSLite](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)。
+   注意，`{model_name}_{model_version}_{dataset}.md` 文件中需要补充如下所示的 `file-format`、`asset-link` 和 `asset-sha256` 信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值，其中MindSpore Hub支持的模型文件格式有 [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies)，[AIR](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html)，[MindIR](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#export-mindir-model)，[ONNX](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html) 和 [MSLite](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)。
 
     ```shell script
    file-format: ckpt  
@@ -112,7 +112,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
   # ...
   
   ```
-- 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/zh-CN/master/use/multi_platform_inference.html)。
+- 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html)。
 ### 模型微调 
 
 在使用 `mindspore_hub.load` 进行模型加载时，可以增加一个额外的参数项只加载神经网络的特征提取部分。这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 include_top）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top` 取值为True或者False，表示是否保留顶层的全连接网络。* 

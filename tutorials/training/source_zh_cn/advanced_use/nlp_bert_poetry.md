@@ -21,7 +21,7 @@
     - [参考文献](#参考文献)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/bert_poetry.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/nlp_bert_poetry.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 五千年历史孕育了深厚的中华文化，而诗词是中华文化不可或缺的一部分，欣赏过诗词就可以感受到当中纯净、辽阔的意境，极致的感性，恰恰弥补了节奏紧迫的现代生活带给我们的拥挤感、浮躁感，古语曰：熟读唐诗三百首，不会作诗也会吟，今天理科生MindSpore也来秀一秀文艺范儿！
 
@@ -125,7 +125,7 @@ pip install bottle
 
 数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
-BERT-Base模型的预训练ckpt：可在[MindSpore官网](https://www.mindspore.cn/docs/zh-CN/master/network_list.html)下载。
+BERT-Base模型的预训练ckpt：可在[MindSpore官网](https://www.mindspore.cn/doc/note/zh-CN/r1.0/network_list_ms.html)下载。
 
 ### 训练
 
