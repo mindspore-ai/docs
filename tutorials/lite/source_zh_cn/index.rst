@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 在手机或IoT设备上使用MindSpore
-==================
+=============================
 
 .. toctree::
    :glob:
@@ -19,7 +19,9 @@
    :caption: 基础使用
 
    use/build
-   use/converter_model
+   convert_model
    use/evaluating_the_model
    use/image_processing
    use/runtime
+   use/benchmark_tool
+   use/timeprofiler_tool

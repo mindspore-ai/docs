@@ -1,5 +1,5 @@
-规格说明
-===========
+Specification Note
+==================
 
 .. toctree::
   :maxdepth: 1
@@ -8,4 +8,6 @@
   network_list
   operator_list
   constraints_on_network_construction
+  image_classification
+  object_detection
 

@@ -1,5 +1,5 @@
 Computer Vision
-===========
+===============
 
 .. toctree::
   :maxdepth: 1
