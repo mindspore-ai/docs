@@ -85,7 +85,7 @@ Crop image, the channel supports is 3 and 1.
 ### SubStractMeanNormalize
 
 ```
-bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float *norm)
+bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
 Normalize image, currently the supports data type is float.
@@ -95,7 +95,7 @@ Normalize image, currently the supports data type is float.
     - `src`: Input image data.
     - `dst`: Output image data.
     - `mean`: Mean of the data set.
-    - `norm`: Norm of the data set.
+    - `std`: Norm of the data set.
 - Returns
 
     Return True or False.
@@ -103,7 +103,7 @@ Normalize image, currently the supports data type is float.
 ### Pad
 
 ```
-bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
+bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
 
 Pad image, the channel supports is 3 and 1.
@@ -117,9 +117,9 @@ Pad image, the channel supports is 3 and 1.
     - `left`: The length of left.
     - `right`: The length of right.
     - `pad_type`: The type of pad.
-    - `fill_r`: R.
+    - `fill_b_or_gray`: B or GRAY.
     - `fill_g`: G.
-    - `fill_b`: B.
+    - `fill_r`: R.
 - Returns
 
     Return True or False.
