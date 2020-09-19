@@ -9,16 +9,24 @@
     - [准备环节](#准备环节)
         - [准备数据集](#准备数据集)
         - [配置分布式环境变量](#配置分布式环境变量)
+            - [Ascend 910](#ascend-910)
+            - [GPU](#gpu)
     - [加载处理数据集](#加载处理数据集)
     - [定义网络](#定义网络)
     - [定义损失函数及THOR优化器](#定义损失函数及thor优化器)
         - [定义损失函数](#定义损失函数)
         - [定义优化器](#定义优化器)
     - [训练网络](#训练网络)
-		- [配置模型保存](#配置模型保存)
+        - [配置模型保存](#配置模型保存)
         - [配置训练网络](#配置训练网络)
-		- [运行脚本](#运行脚本)
+        - [运行脚本](#运行脚本)
+            - [Ascend 910](#ascend-910-1)
+            - [GPU](#gpu-1)
     - [模型推理](#模型推理)
+        - [定义推理网络](#定义推理网络)
+        - [执行推理](#执行推理)
+            - [Ascend 910](#ascend-910-2)
+            - [GPU](#gpu-2)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/advanced_use/second_order_optimizer_for_resnet50_application.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
@@ -155,7 +163,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return ds
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_processing_and_augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理与数据增强](https://www.mindspore.cn/api/zh-CN/master/programming_guide/data_pipeline.html)章节。
 
 
 ## 定义网络

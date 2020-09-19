@@ -35,7 +35,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/tree/master/api/source_zh_cn/programming_guide/probability.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/probability.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合，包括概率分布、概率分布映射、深度概率网络、概率推断算法、贝叶斯层、贝叶斯转换和贝叶斯工具箱，面向不同的开发者。对于专业的贝叶斯学习用户，提供概率采样、推理算法和模型构建库；另一方面，为不熟悉贝叶斯深度学习的用户提供了高级的API，从而不用更改深度学习编程逻辑，即可利用贝叶斯模型。
 

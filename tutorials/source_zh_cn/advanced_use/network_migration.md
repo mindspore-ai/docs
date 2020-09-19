@@ -67,7 +67,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 2. 加载数据集和预处理。
 
-    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_preparation.html)。
+    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation.html)。
     
     本例中加载了Cifar-10数据集，可同时支持单卡和多卡的场景。
 
@@ -269,6 +269,6 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 ## 样例参考
 
-1. [常用数据集读取样例](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)
+1. [常用数据集读取样例](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_loading.html)
 
 2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)

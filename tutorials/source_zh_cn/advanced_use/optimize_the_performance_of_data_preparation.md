@@ -100,7 +100,7 @@ import numpy as np
 
 ## 数据加载性能优化
 
-MindSpore为用户提供了多种数据加载方式，其中包括常用数据集加载、用户自定义数据集加载、MindSpore数据格式加载，详情内容请参考[加载数据集](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/loading_the_datasets.html)。对于数据集加载，底层实现方式的不同，会导致数据集加载的性能存在差异，如下所示：
+MindSpore为用户提供了多种数据加载方式，其中包括常用数据集加载、用户自定义数据集加载、MindSpore数据格式加载，详情内容请参考[加载数据集](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_loading.html)。对于数据集加载，底层实现方式的不同，会导致数据集加载的性能存在差异，如下所示：
 
 |      | 常用数据集 | 用户自定义 | MindRecord |
 | :----: | :----: | :----: | :----: |
@@ -113,7 +113,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
 数据加载性能优化建议如下：
 - 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](#id16)。
-- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[将数据集转换为MindSpore数据格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/converting_datasets.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](#id16)。
+- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[将数据集转换为MindSpore数据格式](https://www.mindspore.cn/api/zh-CN/master/programming_guide/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](#id16)。
 - 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](#id17)。
 
 ### 代码示例
@@ -193,7 +193,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
 ## shuffle性能优化
 
-shuffle操作主要是对有序的数据集或者进行过repeat的数据集进行混洗，MindSpore专门为用户提供了`shuffle`函数，其中设定的`buffer_size`参数越大，混洗程度越大，但时间、计算资源消耗也会大。该接口支持用户在整个pipeline的任何时候都可以对数据进行混洗，具体内容请参考[shuffle处理](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_processing_and_augmentation.html#shuffle)。但是因为底层的实现方式不同，该方式的性能不如直接在[内置加载算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)中设置`shuffle`参数直接对数据进行混洗。
+shuffle操作主要是对有序的数据集或者进行过repeat的数据集进行混洗，MindSpore专门为用户提供了`shuffle`函数，其中设定的`buffer_size`参数越大，混洗程度越大，但时间、计算资源消耗也会大。该接口支持用户在整个pipeline的任何时候都可以对数据进行混洗，具体内容请参考[shuffle处理](https://www.mindspore.cn/api/zh-CN/master/programming_guide/pipeline.html#shuffle)。但是因为底层的实现方式不同，该方式的性能不如直接在[内置加载算子](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.html)中设置`shuffle`参数直接对数据进行混洗。
 
 ### 性能优化方案
 
@@ -277,7 +277,7 @@ shuffle性能优化建议如下：
 - 使用内置Python算子（`py_transforms`模块）进行数据增强。
 - 用户可根据自己的需求，自定义Python函数进行数据增强。
 
-具体的内容请参考[数据增强](https://www.mindspore.cn/tutorial/zh-CN/master/use/data_preparation/data_processing_and_augmentation.html#id3)。因为底层的实现方式不同，所以性能还是有一定的差异，如下所示：
+具体的内容请参考[数据增强](https://www.mindspore.cn/api/zh-CN/master/programming_guide/augmentation.html)。因为底层的实现方式不同，所以性能还是有一定的差异，如下所示：
 
 |   模块   | 底层接口 | 说明 |
 | :----: | :----: | :----: |

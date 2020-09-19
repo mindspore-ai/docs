@@ -11,7 +11,7 @@
         - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
-    - [运行MindInsight](#运行MindInsight)
+    - [运行MindInsight](#运行mindinsight)
     - [注意事项](#注意事项)
 
 <!-- /TOC -->
@@ -129,10 +129,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
 
 当前支持的Summary算子:
-- [ScalarSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=scalarsummary#mindspore.ops.operations.ScalarSummary): 记录标量数据
-- [TensorSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=tensorsummary#mindspore.ops.operations.TensorSummary): 记录张量数据
-- [ImageSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=imagesummary#mindspore.ops.operations.ImageSummary): 记录图片数据
-- [HistogramSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.operations.html?highlight=histogramsummar#mindspore.ops.operations.HistogramSummary): 将张量数据转为直方图数据记录
+- [ScalarSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html?highlight=scalarsummary#mindspore.ops.ScalarSummary): 记录标量数据
+- [TensorSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html?highlight=tensorsummary#mindspore.ops.TensorSummary): 记录张量数据
+- [ImageSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html?highlight=imagesummary#mindspore.ops.ImageSummary): 记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html?highlight=histogramsummar#mindspore.ops.HistogramSummary): 将张量数据转为直方图数据记录
 
 记录方式如下面的步骤所示。
 

@@ -123,4 +123,4 @@ tensor [[2.4, 4.2]
 scalar 3
 ```
 
-此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.composite.html#mindspore.ops.composite.GradOperation)。
+此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
