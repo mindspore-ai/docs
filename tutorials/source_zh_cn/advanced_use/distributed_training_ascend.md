@@ -402,7 +402,7 @@ class DataParallelNet(Cell):
 		self.relu = ReLU()
 		self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
 		if strategy is not None:
-			self.fc.set_strategy(strategy)
+			self.fc.shard(strategy)
 
 	def construct(self, inputs, label):
 		x = self.relu(inputs)
@@ -462,8 +462,8 @@ class SemiAutoParallelNet(Cell):
 		self.mul = P.Mul()
 		self.equal = P.Equal()
 		if strategy is not None:
-			self.mul.set_strategy(strategy)
-			self.equal.set_strategy(strategy2)
+			self.mul.shard(strategy)
+			self.equal.shard(strategy2)
 
 	def construct(self, inputs, label):
 		x = self.mul(inputs, self.mul_weight)
@@ -508,6 +508,24 @@ context.reset_auto_parallel_context()
 ```
 
 保存好checkpoint文件后，用户同样可以使用`load_checkpoint`，`load_param_into_net`来加载模型参数。
+
+以上介绍的三种并行训练模式，checkpoint文件的保存方式都是每张卡上均保存完整的checkpoint文件，在以上三种并行训练模式上，用户还可以选择每张卡上只保存本卡的checkpoint文件，下面以半自动并行模式（Semi Auto Parallel）为例，进行说明。
+
+只需要改动设置checkpoint保存策略的代码，将`CheckpointConfig`中的`integrated_save`参数设置为Fasle，便可实现每张卡上只保存本卡的checkpoint文件，具体改动如下：
+
+将checkpoint配置策略由
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+```
+
+改为
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+```
+
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考(https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/checkpoint_for_hybrid_parallel.html#checkpoint)。
 
 ### 手动混合并行模式
 

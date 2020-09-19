@@ -398,7 +398,7 @@ class DataParallelNet(Cell):
 		self.relu = ReLU()
 		self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
 		if strategy is not None:
-			self.fc.set_strategy(strategy)
+			self.fc.shard(strategy)
 
 	def construct(self, inputs, label):
 		x = self.relu(inputs)
@@ -458,8 +458,8 @@ class SemiAutoParallelNet(Cell):
 		self.mul = P.Mul()
 		self.equal = P.Equal()
 		if strategy is not None:
-			self.mul.set_strategy(strategy)
-			self.equal.set_strategy(strategy2)
+			self.mul.shard(strategy)
+			self.equal.shard(strategy2)
 
 	def construct(self, inputs, label):
 		x = self.mul(inputs, self.mul_weight)
@@ -504,6 +504,24 @@ context.reset_auto_parallel_context()
 ```
 
 After saving the checkpoint file, users can also use `load_checkpoint`, `load_param_into_Net` to load the model parameters。
+
+For the three parallel training modes described above, the checkpoint file is saved in a complete way on each card. Users also can save only the checkpoint file of this card on each card, take Semi Auto parallel Mode as an example for explanation.
+
+Only by changing the code that sets the checkpoint saving policy, the checkpoint file of each card can be saved on itself. The specific changes are as follows:
+
+Change the checkpoint configuration policy from:
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
+```
+
+to:
+```python
+# config checkpoint
+ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
+```
+
+It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to(https://www.mindspore.cn/tutorial/en/master/advanced_use/checkpoint_for_hybrid_parallel.html#integrating-the-saved-checkpoint-files)。
 
 ### Hybrid Parallel Mode
 
