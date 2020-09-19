@@ -1,6 +1,6 @@
 # 转换数据集为MindRecord
 
-`Linux` `Ascend` `GPU` `CPU` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
 
 <!-- TOC -->
