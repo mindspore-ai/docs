@@ -19,6 +19,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/image_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## 概述
 
 图像预处理的主要目的是消除图像中无关的信息，恢复有用的真实信息，增强有关信息的可检测性和最大限度地简化数据，从而改进特征抽取、图像分割、匹配和识别的可靠性。此处是通过创建LiteMat对象，在推理前对图像数据进行处理，达到模型推理所需要的数据格式要求。
@@ -34,7 +36,7 @@
 
 ## 对图像进行初始化
 
-这边使用的是`image_process.h`文件中的[InitFromPixel](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/dataset.html#initfrompixel)函数对图像进行初始化操作。
+这边使用的是`image_process.h`文件中的[InitFromPixel](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/dataset.html#initfrompixel)函数对图像进行初始化操作。
 
 ```
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m);
@@ -57,7 +59,7 @@ InitFromPixel(pixel_ptr, LPixelType::RGBA2GRAY, LDataType::UINT8, rgba_mat.cols,
 
 ### 对图像进行缩放操作
 
-这边利用的是`image_process.h`中的[ResizeBilinear](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/dataset.html#resizebilinear)函数通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
+这边利用的是`image_process.h`中的[ResizeBilinear](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/dataset.html#resizebilinear)函数通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
 
 ```
 bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h);
@@ -79,7 +81,7 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 
 ### 对图像数据类型进行转换
 
-这边利用的是`image_process.h`中的[ConvertTo](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/dataset.html#convertto)函数对图像数据类型进行转换，目前支持的转换是将uint8转换为float。
+这边利用的是`image_process.h`中的[ConvertTo](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/dataset.html#convertto)函数对图像数据类型进行转换，目前支持的转换是将uint8转换为float。
 
 ```
 bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0);
@@ -101,7 +103,7 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 
 ### 对图像数据进行裁剪
 
-这边利用的是`image_process.h`中的[Crop](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/dataset.html#crop)函数对图像进行裁剪，目前支持通道3和1。
+这边利用的是`image_process.h`中的[Crop](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/dataset.html#crop)函数对图像进行裁剪，目前支持通道3和1。
 
 ```
 bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h);
@@ -123,7 +125,7 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 
 ### 对图像数据进行归一化处理
 
-为了消除数据指标之间的量纲影响，通过标准化处理来解决数据指标之间的可比性问题，这边利用的是`image_process.h`中的[SubStractMeanNormalize](https://www.mindspore.cn/lite/docs/zh-CN/master/apicc/dataset.html#substractmeannormalize)函数对图像数据进行归一化处理。
+为了消除数据指标之间的量纲影响，通过标准化处理来解决数据指标之间的可比性问题，这边利用的是`image_process.h`中的[SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/dataset.html#substractmeannormalize)函数对图像数据进行归一化处理。
 
 ```
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, float *mean, float *norm);
