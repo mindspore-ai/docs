@@ -44,7 +44,7 @@ Figure 1: Table view
 
 Figure 1 displays tensors recorded by a user in a form of a table. The following functions are included:
 
-- The input boxes under the table display the tensor data of the current dimension. The colon (:) indicates all values of the current dimension. You can enter the corresponding index in the box (the meaning is the same as that of the Python index, and negative values are supported) or use `:` to query tensor data in a specific dimension.
+- The input boxes under the table display the tensor data of the current dimension. The colon (:) indicates index range of the current dimension which is basically the same as the meaning of Python index. If no specific index is specified, it indicates all the values of the current dimension and `2:5` indicates the value of index from 2 to 5 (not including 5). You can enter the corresponding index in the box or use index range containing `:` to query tensor data in a specific dimension.
 - Drag the thumb of the linear slider below the table to query the tensor data of a specific step.
 
 ![tensor_histogram.png](./images/tensor_histogram.png)
