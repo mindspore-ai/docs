@@ -19,7 +19,7 @@
    :caption: 基础使用
 
    use/build
-   convert_model
+   use/convert_model
    use/evaluating_the_model
    use/image_processing
    use/runtime
