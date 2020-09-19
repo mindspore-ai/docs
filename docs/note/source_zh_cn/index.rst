@@ -11,5 +11,5 @@ MindSpore Note
    :maxdepth: 1
 
    design
-   Specification_list
-   note
+   specification_note
+   others

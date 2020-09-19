@@ -1,16 +1,16 @@
-# 网络支持
+# MindSpore网络支持
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
  
 <!-- TOC -->
 
-- [网络支持](#网络支持)
+- [MindSpore网络支持](#mindspore网络支持)
     - [Model Zoo](#model-zoo)
     - [预训练模型](#预训练模型)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/network_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/network_list_ms.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Model Zoo
 
