@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_en/design/mindinsight/profiler_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/design/mindinsight/profiler_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Background
 
