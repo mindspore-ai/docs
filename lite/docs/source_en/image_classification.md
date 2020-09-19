@@ -4,7 +4,7 @@
 
 ## Image classification introduction
 
-Image classification is to identity what an image represents, to predict the object list and the probabilites. For example，the following tabel shows the classification results after mode inference. 
+Image classification is to identity what an image represents, to predict the object list and the probabilites. For example，the following tabel shows the classification results after mode inference.
 
 ![image_classification](images/image_classification_result.png)
 
@@ -23,11 +23,10 @@ The following table shows the data of some image classification models using Min
 
 > The performance of the table below is tested on the mate30.
 
-| model name  | link | size | precision | CPU 4 thread delay |
-|-----------------------|----------|----------|----------|-----------|
-| MobileNetV2 |         |         |         |          |
-| LeNet |          |         |         |          |
-| AlexNet | |  |  |  |
-| GoogleNet | |  |  |  |
-| ResNext50 | |  |  |  |
-
+| Model name         | Size(Mb) | Top1 | Top5 | F1 | CPU 4 thread delay (ms) |
+|-----------------------| :----------: | :----------: | :----------: | :----------: | :-----------: |
+| [MobileNetV2](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) | 11.5 | - | - | 65.5% | 14.595 |
+| [Inceptionv3](https://download.mindspore.cn/model_zoo/official/lite/inceptionv3_lite/inceptionv3.ms) | 90.9 | 78.62% | 94.08% | - | 92.086 |
+| [Shufflenetv2](https://download.mindspore.cn/model_zoo/official/lite/shufflenetv2_lite/shufflenetv2.ms) | 8.8 | 67.74% | 87.62% | - | 8.303 |
+| [GoogleNet](https://download.mindspore.cn/model_zoo/official/lite/googlenet_lite/googlenet.ms) | 25.3 | 72.2% | 90.06% | - | 23.257 |
+| [ResNext50](https://download.mindspore.cn/model_zoo/official/lite/resnext50_lite/resnext50.ms) | 95.8 | 73.1% | 91.21% | - | 138.164 |
