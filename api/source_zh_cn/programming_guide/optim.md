@@ -82,7 +82,7 @@ def test_learning_rate_schedule():
     learning_rate = 0.1    # learning_rate(float) - The initial value of learning rate.
     decay_rate = 0.9    # decay_rate(float) - The decay rate.
     decay_steps = 4    # decay_steps(int) - A value used to calculate decayed learning rate.
-    global_step = Tensor(2, mystype.int32)
+    global_step = Tensor(2, mstype.int32)
     exponential_decay_lr = ExponentialDecayLR(learning_rate, decay_rate, decay_steps)
     res = exponential_decay_lr(global_step)
     print(res)
@@ -153,7 +153,22 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 from mindspore import nn
 from mindspore.train import Model
 from .optimizer import Optimizer
+from mindspore import Tensor
+import mindspore.ops.operations as P
+import numpy as np
+import mindspore.common.dtype as mstype
+from mindpore.ops import composite as C
+from mindspore.common.parameter import Parameter
 
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.matmul = P.MatMul()
+        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+    def construct(self, x, y):
+        x = x * self.z
+        out = self.matmul(x, y)
+        return out
 
 net = Net()
 optim = nn.SGD(params=net.trainable_params())
