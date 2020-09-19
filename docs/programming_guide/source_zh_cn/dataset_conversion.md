@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/dataset_conversion.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/api/docs/programming_guide/source_zh_cn/dataset_conversion.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -159,7 +159,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 | TFRecord | TFRecordToMR |
 | CSV File | CsvToMR |
 
-更多数据集转换的详细说明可参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.mindrecord.html)。
+更多数据集转换的详细说明可参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/api/python/mindspore/mindspore.mindrecord.html)。
 
 ### 转换CIFAR-10数据集
 
