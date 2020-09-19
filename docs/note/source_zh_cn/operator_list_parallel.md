@@ -58,18 +58,17 @@
 | [mindspore.ops.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.SoftmaxCrossEntropyWithLogits)    | 输入（logits、labels）的最后一维不能切分；有两个输出，正向的loss只支持取[0]
 | [mindspore.ops.MatMul](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.MatMul)    |  不支持`transpose_a=True`
 | [mindspore.ops.BatchMatMul](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.BatchMatMul)    |  不支持`transpore_a=True`
-| [mindspore.ops.PReLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.PReLU)    |  输入（input_x）的Channel维要和weight的切分方式一致
-| [mindspore.ops.OneHot](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.OneHot)    |  仅支持输入（indices）是1维的Tensor
+| [mindspore.ops.PReLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.PReLU)    |  weight的shape在非[1]的情况下，输入（input_x）的Channel维要和weight的切分方式一致
+| [mindspore.ops.OneHot](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.OneHot)    |  仅支持输入（indices）是1维的Tensor，切分策略要配置输出的切分策略，以及第1和第2个输入的切分策略
 | [mindspore.ops.ReduceSum](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceSum)    |  None
-| [mindspore.ops.ReduceMax](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceMax)    |  None
-| [mindspore.ops.ReduceMin](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)    |  None
-| [mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ArgMinWithValue)    |  第一个输出(index)不能作为其他算子的输入
-| [mindspore.ops.ArgMaxWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ArgMaxWithValue)    |  第一个输出(index)不能作为其他算子的输入
+| [mindspore.ops.ReduceMax](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceMax)    |  输入在轴（axis）的维度进行切分时，分布式结果可能会和单机不一致
+| [mindspore.ops.ReduceMin](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)    |  输入在轴（axis）的维度进行切分时，分布式结果可能会和单机不一致
+| [mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ArgMinWithValue)    |  输入在轴（axis）的维度进行切分时，分布式结果可能会和单机不一致
+| [mindspore.ops.ArgMaxWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ArgMaxWithValue)    |  输入在轴（axis）的维度进行切分时，分布式结果可能会和单机不一致
 | [mindspore.ops.ReduceMean](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ReduceMean)    |  None
 | [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Reshape)    |  不支持配置切分策略
 | [mindspore.ops.StridedSlice](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.StridedSlice)    |  仅支持值为全0的mask；需要切分的维度必须全部提取；输入在strides不为1对应的维度不支持切分
 | [mindspore.ops.Tile](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Tile)    |  仅支持对multiples配置切分策略
 | [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Transpose)    |  None
-| [mindspore.ops.Diag](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Diag)    |  不支持配置切分策略
 
 > 重复计算是指，机器没有用满，比如：集群有8张卡跑分布式训练，切分策略只对输入切成了4份。这种情况下会发生重复计算。
