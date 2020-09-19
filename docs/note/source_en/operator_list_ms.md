@@ -1,10 +1,10 @@
-# Operator List
+# MindSpore Operator List
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Operator List](#operator-list)
+- [MindSpore Operator List](#mindspore-operator-list)
     - [mindspore.nn](#mindsporenn)
     - [mindspore.ops.operations](#mindsporeopsoperations)
     - [mindspore.ops.functional](#mindsporeopsfunctional)
@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/operator_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/operator_list_ms.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## mindspore.nn
 
@@ -390,6 +390,7 @@
 | [mindspore.ops.operations.Pow](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.Pow)    |  tensor_pow
 
 > At present, functional supports some operators without attributes, which will be further completed in the future.
+<<<<<<< HEAD:docs/programming_guide/source_en/operator_list.md
 
 ## Distributed Operator
 
@@ -543,3 +544,5 @@ when the Tensor of int8 and uint8 data types are operated, they are converted to
 | [mindspore.ops.operations.ScatterMul](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterMul)
 | [mindspore.ops.operations.ScatterDiv](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScatterDiv)
 
+=======
+>>>>>>> 6ecfdc1... update contents for 1.0:docs/note/source_en/operator_list_ms.md

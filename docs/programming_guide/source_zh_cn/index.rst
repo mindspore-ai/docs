@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore API
-=============
+MindSpore编程指南
+===================
 
 .. toctree::
    :maxdepth: 1
-   :caption: 编程指南
 
    api_structure
    data_type
