@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -28,7 +28,7 @@
 2. 将模型转换成MindSpore Lite模型格式。
 3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对设备摄像头捕获的内容进行分类，并在APP图像预览界面中，显示出最可能的分类结果。
    
-> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification)。
+> 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/lite/image_classification)。
 
 ## 选择模型
 
@@ -38,7 +38,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/zh-CN/master/use/saving_and_loading_model_parameters.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)将.mindir模型转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/converter_tool.html)将.mindir模型转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 ```bash
@@ -94,7 +94,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ## 示例程序详细说明  
 
-本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/runtime.html)中完成模型推理的过程。
+本端侧图像分类Android示例程序分为JAVA层和JNI层，其中，JAVA层主要通过Android Camera 2 API实现摄像头获取图像帧，以及相应的图像处理等功能；JNI层在[Runtime](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/runtime.html)中完成模型推理的过程。
 
 > 此处详细说明示例程序的JNI层实现，JAVA层运用Android Camera 2 API实现开启设备摄像头以及图像帧处理等功能，需读者具备一定的Android开发基础知识。
 
@@ -132,7 +132,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html)生成`libmindspore-lite.so`库文件。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html)生成`libmindspore-lite.so`库文件。
 
 本示例中，build过程由download.gradle文件自动从华为服务器下载MindSpore Lite版本文件，并放置在`app/src/ main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu`目录下。
 

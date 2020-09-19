@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/lite/tutorials/source_en/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_en/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -29,9 +29,9 @@ Currently, the following input formats are supported: MindSpore, TensorFlow Lite
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/tutorial/en/master/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/tutorial/en/master/build.html#compilation-example) in the build document.
+- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/lite/tutorial/en/master/build.html#output-description) in the build document.
+- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html#output-description) in the build document.
 
 ### Example
 
@@ -88,7 +88,7 @@ The following describes how to use the conversion command by using several commo
    ```
    CONVERTER RESULT SUCCESS:0
    ```
-- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.
+- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/r1.0/errorcode_and_metatype.html) will be output.
 
 ### Parameter Description
 
@@ -123,7 +123,7 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
 
 ### Parameter Description
 
-Reference description Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/tutorial/en/master/use/converter_tool.html#parameter-description).
+Reference description Linux environment model conversion tool [parameter description](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/converter_tool.html#parameter-description).
 
 ### Example
 
@@ -174,4 +174,4 @@ Several common examples are selected below to illustrate the use of conversion c
    ```
    CONVERTER RESULT SUCCESS:0
    ```   
-- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/lite/docs/en/master/apicc/errorcode_and_metatype.html) will be output.
+- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/r1.0/errorcode_and_metatype.html) will be output.
