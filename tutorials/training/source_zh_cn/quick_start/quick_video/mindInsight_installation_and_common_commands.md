@@ -8,4 +8,4 @@
 
 **立即安装**：<https://www.mindspore.cn/install>
 
-**查看更多命令**：<https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/mindinsight_commands.html>
+**查看更多命令**：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html>

@@ -7,8 +7,9 @@
 </video>
 
 **See More**：
-<https://www.mindspore.cn/tutorial/en/master/use/data_preparation/loading_the_datasets.html>
 
-<https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html>
+<https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_loading.html>
+
+<https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_conversion.html>
 
               
