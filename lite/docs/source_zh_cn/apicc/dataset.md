@@ -85,7 +85,7 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ### SubStractMeanNormalize
 
 ```
-bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float *norm)
+bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std);
 ```
 
 规一化图像，当前支持的数据类型为float。
@@ -95,7 +95,7 @@ bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float
     - `src`: 输入的图片数据。
     - `dst`: 输出图像数据。
     - `mean`: 数据集的均值。
-    - `norm`: 数据集的方差。
+    - `std`: 数据集的方差。
 - 返回值
 
     返回True或者False。
@@ -103,7 +103,7 @@ bool SubStractMeanNormalize(LiteMat &src, LiteMat &dst, const float *mean, float
 ### Pad
 
 ```
-bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int left, const int right, const PaddBorderType pad_type, uint8_t fill_r, uint8_t fill_g, uint8_t fill_b)
+bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
 
 填充图像，通道支持为3和1。
@@ -117,9 +117,9 @@ bool Pad(LiteMat &src, LiteMat &dst, const int top, const int bottom, const int 
     - `left`: 图片左边长度。
     - `right`: 图片右边长度。
     - `pad_type`: padding的类型。
-    - `fill_r`: R.
+    - `fill_b_or_gray`: B或者GRAY.
     - `fill_g`: G.
-    - `fill_b`: B.
+    - `fill_r`: R.
 - 返回值
 
     返回True或者False。

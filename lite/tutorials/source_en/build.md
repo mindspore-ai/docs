@@ -66,7 +66,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
 | -e | In the Arm architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
 | -h | Displays the compilation help information. | None | No |
-| -n | Specifies to compile the lightweight image processing module. | None | No |
+| -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 
@@ -107,7 +107,7 @@ Then, run the following commands in the root directory of the source code to com
 
 ### Output Description
 
-After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into two parts.
+After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：Contains model inference framework、benchmarking tool and performance analysis tool.
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：Contains image processing library ImageProcess.
