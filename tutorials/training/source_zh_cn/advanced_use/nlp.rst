@@ -4,5 +4,5 @@
 .. toctree::
   :maxdepth: 1
 
-  nlp_lstm
+  nlp_sentimentnet
   nlp_bert_poetry

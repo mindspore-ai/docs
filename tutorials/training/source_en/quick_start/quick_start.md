@@ -25,7 +25,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/training/blob/r1.0/tutorials/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 

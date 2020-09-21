@@ -176,7 +176,7 @@ net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_c
 
 使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（AIR、MINDIR等）进行推理。
 
-> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/use/multi_platform_inference.html>
+> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html>
 
 - 使用感知量化训练后得到的checkpoint文件进行推理：
 

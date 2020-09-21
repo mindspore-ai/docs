@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/network_migration.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -265,7 +265,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 ### 推理阶段
 
-在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html)。
+在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html)。
 
 ## 样例参考
 

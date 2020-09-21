@@ -31,7 +31,7 @@ Before you start working on your scripts, prepare your operator assessment and h
 
 ### Operator Assessment
 
-Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/en/r1.0/operator_list.html).
+Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/note/en/r1.0/operator_list.html).
 
 Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Conv2d) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d) exist in the MindSpore Operator List.
 
@@ -69,7 +69,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
 2. Load and preprocess a dataset.
 
-   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/tutorial/en/r1.0/use/data_preparation/data_preparation.html).
+   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/tutorial/training/en/r1.0/use/data_preparation.html).
 
    In this example, the CIFAR-10 dataset is loaded, which supports both single-GPU and multi-GPU scenarios.
 
@@ -270,7 +270,7 @@ Run your scripts on ModelArts. For details, see [Using MindSpore on Cloud](https
 
 ### Inference Phase
 
-Models trained on the Ascend 910 AI processor can be used for inference on different hardware platforms. Refer to the [Multi-platform Inference Tutorial](https://www.mindspore.cn/tutorial/en/r1.0/inference/multi_platform_inference.html) for detailed steps.
+Models trained on the Ascend 910 AI processor can be used for inference on different hardware platforms. Refer to the [Multi-platform Inference Tutorial](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html) for detailed steps.
 
 ## Examples
 

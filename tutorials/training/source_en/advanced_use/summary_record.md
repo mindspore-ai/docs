@@ -127,10 +127,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
 
 Summary operators currently supported:
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ScalarSummary): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.TensorSummary): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.ImageSummary): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.operations.html#mindspore.ops.operations.HistogramSummary): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.HistogramSummary): Convert tensor data into histogram data records.
 
 The recording method is shown in the following steps.
 
