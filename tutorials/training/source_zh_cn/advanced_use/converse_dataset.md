@@ -9,6 +9,7 @@
     - [概述](#概述)
     - [基本概念](#基本概念)
     - [将数据集转换为MindRecord](#将数据集转换为mindrecord)
+    - [读取MindRecord数据集](#读取MindRecord数据集)
 
 <!-- /TOC -->
 
@@ -97,12 +98,14 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 5. 创建`FileWriter`对象，传入文件名及分片数量，然后添加Schema文件及索引，调用`write_raw_data`接口写入数据，最后调用`commit`接口生成本地数据文件。
 
     ```python    
-    writer = FileWriter(file_name="testWriter.mindrecord", shard_num=4)
+    writer = FileWriter(file_name="test.mindrecord", shard_num=4)
     writer.add_schema(cv_schema_json, "test_schema")
     writer.add_index(indexes)
     writer.write_raw_data(data)
     writer.commit()
     ```
+
+    该示例会生成 `test.mindrecord0`，`test.mindrecord0.db`，`test.mindrecord1`，`test.mindrecord1.db`，`test.mindrecord2`，`test.mindrecord2.db`，`test.mindrecord3`，`test.mindrecord3.db` 共8个文件，称为MindRecord数据集。`test.mindrecord0` 和 `test.mindrecord0.db` 称为1个MindRecord文件，其中：`test.mindrecord0`为数据文件，`test.mindrecord0.db`为索引文件。
 
     **接口说明：**
     - `write_raw_data`：将数据写入到内存之中。  
@@ -111,7 +114,28 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 6. 如果需要在现有数据格式文件中增加新数据，可以调用`open_for_append`接口打开已存在的数据文件，继续调用`write_raw_data`接口写入新数据，最后调用`commit`接口生成本地数据文件。
 
     ```python
-    writer = FileWriter.open_for_append("testWriter.mindrecord0")
+    writer = FileWriter.open_for_append("test.mindrecord0")
     writer.write_raw_data(data)
     writer.commit()
+    ```
+
+## 读取MindRecord数据集
+
+下面将简单演示如何读取MindRecord数据集成Dataset。
+
+1. 导入读取类`MindDataset`。
+
+    ```python
+    import mindspore.dataset as ds
+    ```
+
+2. 使用`MindDataset`读取MindRecord数据集。
+
+    ```python
+    data_set = ds.MindDataset(dataset_file="test.mindrecord0")     # Read full data set
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        print("sample: {}".format(item))
+        count += 1
+    print("Got {} samples".format(count))
     ```

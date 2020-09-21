@@ -163,7 +163,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 ### 转换CIFAR-10数据集
 
-用户可以通过`Cifar10ToMR`类，将CIFAR-10原始数据转换为MindRecord。
+用户可以通过`Cifar10ToMR`类，将CIFAR-10原始数据转换为MindRecord，并使用MindDataset读取。
 
 1. 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)并解压，其目录结构如下所示。
 
@@ -198,9 +198,25 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     - `CIFAR10_DIR`：CIFAR-10数据集的文件夹路径。  
     - `MINDRECORD_FILE`：输出的MindRecord文件路径。
 
+4. 通过`MindDataset`读取MindRecord。
+
+    ```
+    import mindspore.dataset as ds
+    import mindspore.dataset.vision.c_transforms as vision
+
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
+    decode_op = vision.Decode()
+    data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        print("sample: {}".format(item))
+        count += 1
+    print("Got {} samples".format(count))
+    ```
+
 ### 转换ImageNet数据集
 
-用户可以通过`ImageNetToMR`类，将ImageNet原始数据（图片、标注）转换为MindRecord。
+用户可以通过`ImageNetToMR`类，将ImageNet原始数据（图片、标注）转换为MindRecord，并使用MindDataset读取。
 
 1. 下载[ImageNet数据集](http://image-net.org/download)，将所有图片存放在同一文件夹，用一个映射文件记录图片和标签的对应关系。映射文件包含2列，分别为各类别图片目录和标签ID，用空格隔开，映射文件示例如下：
 
@@ -225,7 +241,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     IMAGENET_MAP_FILE = "./testImageNetDataWhole/labels_map.txt"
     IMAGENET_IMAGE_DIR = "./testImageNetDataWhole/images"
     MINDRECORD_FILE = "./testImageNetDataWhole/imagenet.mindrecord"
-    PARTITION_NUMBER = 4
+    PARTITION_NUMBER = 8
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
     imagenet_transformer.transform()
     ```
@@ -234,6 +250,22 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     - `IMAGENET_MAP_FILE`：ImageNet数据集标签映射文件的路径。  
     - `IMAGENET_IMAGE_DIR`：包含ImageNet所有图片的文件夹路径。  
     - `MINDRECORD_FILE`：输出的MindRecord文件路径。
+
+4. 通过`MindDataset`读取MindRecord。
+
+    ```
+    import mindspore.dataset as ds
+    import mindspore.dataset.vision.c_transforms as vision
+
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE + "0")
+    decode_op = vision.Decode()
+    data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        print("sample: {}".format(item))
+        count += 1
+    print("Got {} samples".format(count))
+    ```
 
 ### 转换CSV数据集
 
