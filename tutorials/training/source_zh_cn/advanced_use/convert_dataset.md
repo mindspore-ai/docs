@@ -2,18 +2,17 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-
 <!-- TOC -->
 
 - [转换数据集为MindRecord](#转换数据集为mindrecord)
     - [概述](#概述)
     - [基本概念](#基本概念)
     - [将数据集转换为MindRecord](#将数据集转换为mindrecord)
-    - [读取MindRecord数据集](#读取MindRecord数据集)
+    - [读取MindRecord数据集](#读取mindrecord数据集)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/converse_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -105,7 +104,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
     writer.commit()
     ```
 
-    该示例会生成 `test.mindrecord0`，`test.mindrecord0.db`，`test.mindrecord1`，`test.mindrecord1.db`，`test.mindrecord2`，`test.mindrecord2.db`，`test.mindrecord3`，`test.mindrecord3.db` 共8个文件，称为MindRecord数据集。`test.mindrecord0` 和 `test.mindrecord0.db` 称为1个MindRecord文件，其中：`test.mindrecord0`为数据文件，`test.mindrecord0.db`为索引文件。
+    该示例会生成`test.mindrecord0`、`test.mindrecord0.db`、`test.mindrecord1`、`test.mindrecord1.db`、`test.mindrecord2`、`test.mindrecord2.db`、`test.mindrecord3`、`test.mindrecord3.db`共8个文件，称为MindRecord数据集。`test.mindrecord0`和`test.mindrecord0.db`称为1个MindRecord文件，其中`test.mindrecord0`为数据文件，`test.mindrecord0.db`为索引文件。
 
     **接口说明：**
     - `write_raw_data`：将数据写入到内存之中。  
@@ -121,7 +120,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 
 ## 读取MindRecord数据集
 
-下面将简单演示如何读取MindRecord数据集成Dataset。
+下面将简单演示如何通过`MindDataset`读取MindRecord数据集。
 
 1. 导入读取类`MindDataset`。
 
