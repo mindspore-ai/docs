@@ -1,6 +1,6 @@
 # 梯度累积
 
-`Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
+`Linux` `GPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
@@ -30,7 +30,7 @@
   
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-> 本教程用于GPU、Ascend 910 AI处理器, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
+> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
 
 ## 创建梯度累积模型
 
@@ -130,8 +130,8 @@ class TrainClear(Cell):
         self.hyper_map = C.HyperMap()
 
     def construct(self):
-        seccess = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
-        return seccess
+        success = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
+        return success
 ```
 
 ### 定义训练过程
@@ -208,8 +208,8 @@ class GradientAccumulation:
 ```python
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='MindSpore Gard Cumulative Example')
-    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
-                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU'],
+                        help='device where the code will be implemented (default: GPU)')
     parser.add_argument('--data_path', type=str, default="./Data",
                         help='path where the dataset is saved')
     args = parser.parse_args()
@@ -231,9 +231,11 @@ if __name__ == "__main__":
 
 **执行训练**
 1. 运行训练代码，查看运行结果。
+
     ```shell
     $ python train.py --data_path=./MNIST_Data
     ```
+
     输出如下，可以看到loss值随着训练逐步降低：
 
     ```shell
@@ -246,7 +248,7 @@ if __name__ == "__main__":
     epoch: 10 step: 448 loss is  0.06443884
     epoch: 10 step: 449 loss is  0.0067842817
     ```
-    
+
 2. 查看保存的CheckPoint文件。
 
     训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
@@ -256,7 +258,7 @@ if __name__ == "__main__":
 通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
+$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
 输出如下，可以看到使用验证的数据集，正确率在96.31%左右，与batch_size为32的验证结果一致。
