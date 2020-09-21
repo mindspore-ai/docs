@@ -99,9 +99,7 @@ For the second demand, the Graph mode is recommended. As the computational graph
 Some typical image classification networks such as ResNet and VGG have been tested for the Graph mode. Note that: 
 
 > 1. Currently, the Graph mode does not support models with multiple inputs. Only models with a single input and single output are supported.
-
 > 2. The Dropout operator will be lost after conversion because the inference mode is used to load the PyTorch model. Manually re-implement is necessary.
-
 > 3. The Graph-based mode will be continuously developed and optimized with further updates.
 
 
