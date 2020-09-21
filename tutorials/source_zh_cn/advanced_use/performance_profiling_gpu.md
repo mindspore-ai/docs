@@ -26,6 +26,10 @@
 >
 > <https://www.mindspore.cn/tutorial/zh-CN/master/advanced_use/performance_profiling.html#id3>
 
+> 普通用户默认情况下无权访问目标设备上的NVIDIA GPU性能计数器。如果普通用户需要在训练脚本中使用profiler性能统计能力，则需参考以下网址的说明进行权限配置。
+>
+> <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
+
 ## 准备训练脚本
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
