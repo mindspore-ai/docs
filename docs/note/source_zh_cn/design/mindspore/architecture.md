@@ -1,4 +1,4 @@
-# 总体架构
+# MindSpore总体架构
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `端侧` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
