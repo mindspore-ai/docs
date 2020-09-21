@@ -521,7 +521,7 @@ to:
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to(https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/save_load_model_hybrid_parallel#integrating-the-saved-checkpoint-files)。
+It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
 
 ### Hybrid Parallel Mode
 

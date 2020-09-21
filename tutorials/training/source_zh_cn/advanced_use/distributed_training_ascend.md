@@ -525,7 +525,7 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考(https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/save_load_model_hybrid_parallel.html)。
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/save_load_model_hybrid_parallel.html#checkpoint)。
 
 ### 手动混合并行模式
 
