@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/hub_tutorial.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ### Overview
 
@@ -27,7 +27,7 @@ We accept publishing models to MindSpore Hub via PR in [hub](https://gitee.com/m
 
 1. Host your pre-trained model in a storage location where we are able to access. 
 
-2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
+2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
    ```shell script
    googlenet
@@ -57,7 +57,7 @@ We accept publishing models to MindSpore Hub via PR in [hub](https://gitee.com/m
    |       └── md_validator.py 
    ```
    
-   Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively. The MindSpore Hub supports multiple model file formats including [MindSpore CKPT](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#checkpoint-configuration-policies), [AIR](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html), [MindIR](https://www.mindspore.cn/tutorial/en/master/use/saving_and_loading_model_parameters.html#export-mindir-model), [ONNX](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html) and [MSLite](https://www.mindspore.cn/lite/tutorial/en/master/use/converter_tool.html).
+   Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively. The MindSpore Hub supports multiple model file formats including [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies), [AIR](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html), [MindIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-mindir-model), [ONNX](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html) and [MSLite](https://www.mindspore.cn/doc/lite/en/r1.0/use/converter_tool.html).
 
      ```shell script
    file-format: ckpt  
@@ -113,7 +113,7 @@ Once your PR is merged into master branch here, your model will show up in [Mind
   # ...
   
   ```
-- After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/en/master/use/multi_platform_inference.html).
+- After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html).
 
 ### Model Fine-tuning
 

@@ -41,7 +41,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor> 。
+<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/resnet_thor> 。
 
 示例代码目录结构
 
@@ -164,11 +164,11 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return ds
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/data_preparation.html)和[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/pipeline.html)和[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/augmentation.html)章节。
 
 
 ## 定义网络
-本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
+本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
 和`Dense`算子。定义好的网络模型在在源码`src/resnet_thor.py`脚本中，自定义的算子`Conv2d_thor`和`Dense_thor`在`src/thor_layer.py`脚本中。
 
 -  使用`Conv2d_thor`替换原网络模型中的`Conv2d`
