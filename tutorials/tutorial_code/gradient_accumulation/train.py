@@ -129,8 +129,8 @@ class GradientAccumulation:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='MindSpore Gard Cumulative Example')
-    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
-                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU'],
+                        help='device where the code will be implemented (default: GPU)')
     parser.add_argument('--data_path', type=str, default="./Data",
                         help='path where the dataset is saved')
     args = parser.parse_args()
