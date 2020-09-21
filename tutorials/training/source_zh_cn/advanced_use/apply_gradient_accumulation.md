@@ -29,7 +29,7 @@
   
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
+> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/gradient_accumulation>
 
 ## 创建梯度累积模型
 

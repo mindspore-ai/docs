@@ -25,7 +25,7 @@
 
 >本例面向Ascend 910处理器，您可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
+><https://gitee.com/mindspore/mindarmour/blob/r1.0/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## 实现阶段
 

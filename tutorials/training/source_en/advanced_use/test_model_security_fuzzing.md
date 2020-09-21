@@ -12,7 +12,7 @@
         - [Fuzz Testing Application](#fuzz-testing-application)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/fuzzer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -22,7 +22,7 @@ The fuzz testing module of MindArmour uses the neuron coverage rate as the test 
 
 The LeNet model and MNIST dataset are used as an example to describe how to use Fuzz testing.
 
-> This example is for CPUs, GPUs, and Ascend 910 AI processors. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
+> This example is for CPUs, GPUs, and Ascend 910 AI processors. You can download the complete sample code at <https://gitee.com/mindspore/mindarmour/blob/r1.0/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>.
 
 ## Implementation
 
@@ -60,7 +60,7 @@ For details about the API configuration, see the `context.set_context`.
 
 ### Fuzz testing Application
 
-1. Create a LeNet model and load the MNIST dataset. The operation is the same as that for [Model Security](<https://www.mindspore.cn/tutorial/en/master/advanced_use/model_security.html>).
+1. Create a LeNet model and load the MNIST dataset. The operation is the same as that for [Model Security](<https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/improve_model_security_nad.html>).
 
    ```python
    ...
@@ -101,7 +101,7 @@ For details about the API configuration, see the `context.set_context`.
 
    The data mutation method must include the method based on the image pixel value changes.
 
-   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py. For  randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
+   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to https://gitee.com/mindspore/mindarmour/blob/r1.0/mindarmour/fuzz_testing/image_transform.py. For  randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
 
    For details about how to set parameters based on the attack defense method, see the corresponding attack method class.
 
