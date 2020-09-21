@@ -1,16 +1,16 @@
-# Debugger
+# Using Debugger
 
 `Linux` `Ascend` `GPU` `Graph Mode` `Debug Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Debugger](#debugger)
+- [Using Debugger](#using-debugger)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Debugger Environment Preparation](#debugger-environment-preparation)
     - [Debugger UI Introduction](#debugger-UI-introduction)
         - [Computational Graph](#computational-graph)
-        - [Runtime Node List](#runtime-node-list)
+        - [Node List](#node-list)
         - [Graph Node Details](#graph-node-details)
         - [Conditional Breakpoint](#conditional-breakpoint)
         - [Training Control](#training-control)
@@ -28,7 +28,7 @@ MindSpore Debugger is a debugging tool for training in `Graph Mode`. It can be a
 In `Graph Mode` training, the computation results of intermediate nodes in the computational graph can not be acquired from python layer, which makes it difficult for users to do the debugging. By applying MindSpore Debugger, users can:
 
 - Visualize the computational graph on the UI and analyze the output of the graph node;
-- Set conditional breakpoint to monitor training exceptions (such as Nan/Inf), if the condition (Nan/Inf etc.) is met, users can track the cause of the bug when an exception occurs;
+- Set a conditional breakpoint to monitor training exceptions (such as INF), if the condition is met, users can track the cause of the bug when an exception occurs;
 - Visualize and analyze the change of parameters, such as weights.   
 
 ## Operation Process
@@ -57,95 +57,102 @@ The Debugger related parameters:
 
 For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/en/master/advanced_use/mindinsight_commands.html).
 
-Then，specify the environment variable `export ENABLE_MS_DEBUGGER=1` to set the train in debugger mode. 
-Set environment variable `export MS_DEBUGGER_PORT=50051` to specify the MindInsight debugger-port, which the training will communicate with.
+Then, set `export ENABLE_MS_DEBUGGER=1` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
+`export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
+`export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
+
+If the memory space of your equipment is limited, you can use the memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
 
 Besides, do not use dataset sink mode (Set the parameter `dataset_sink_mode` in `model.train` to `False`) to ensure the Debugger can acquire information for all steps.
 
 ## Debugger UI Introduction
 
 After the Debugger environment preparation, users can run the training script. 
-Before the execution of the computational graph in the first step, the MindInsight Debugger UI will show the information of the computational graph after optimization. 
+Before the execution of the computational graph, the MindInsight Debugger UI will show the information of the optimized computational graph.
 The following are the Debugger UI components.
 
+![debugger_init_page](./images/debugger_init_page.png)
+
+Figure 1： The initial UI of debugger
+
 ### Computational Graph
-
-![debugger_graph.png](./images/debugger_graph.png)
-
-Figure 1： The Computational Graph Area
-
-![debugger_graph_expand.png](./images/debugger_graph_expand.png)
-
-Figure 2： The Expanded Computational Graph
 
 Debugger will display the optimized computational graph in the upper middle area of the page.
 Users can click the box (stand for one `scope`) to expand the graph, and analyze the nodes contained in that `scope`.
 
-By clicking the buttons in the upper right corner, users can easily traverse the computational graph.
+In the GPU environment, there are `Current Node` and `Next Node` buttons in the upper right corner of the computational graph panel,
+which are used to return to the current execution node and execute the next node respectively. Users can easily execute one node at a time.
 
-The area on the top shows the training metadata, such as the `device` being used and the current training `step`. 
+The area on the top shows the training metadata, such as the `Client IP` (address and port of the training script process),
+`Device ID` being used and the current training `Step`.
 
-### Runtime Node List
+### Node List
 
-![debugger_node_list](./images/debugger_node_list.png)
-
-Figure 3： The Computational Graph `node list`
-
-As shown in Figure 3，the Computational Graph `node list` will be displayed on the left of the page.
-The `node list` can be expanded according to the `scope` of the nodes. 
+As shown in Figure 1，the Computational Graph `Node List` will be displayed on the left of the page.
+The `Node List` can be expanded according to the `scope` of the nodes.
 When clicking one node in the list, the computational graph on the right will also be expanded and choose the corresponding node automatically.
 
 The search bar on the top can be used to search for nodes in the graph by node name.
 
 ### Graph Node Details
 
-![debugger_tensor_overview](./images/debugger_tensor_overview.png)
+![debugger_tensor_info](./images/debugger_tensor_info.png)
 
-Figure 4： The Graph Node Details
+Figure 2： The Graph Node Details
 
 When choosing one node on the graph, the details of this node will be displayed at the bottom.
 The `Tensor Value Overview` area will show the input nodes and the outputs of this node. The `Type`, `Shape` and `Value` of the `Tensor` can also be viewed.
 
+For GPU environment, after selecting an executable node on the graph, right-click to select `Continue to` on this node, 
+which means running the training script to the selected node within one step. 
+After left-click `Continue to`, the training script will be executed and paused after running to this node.
+
 ![debugger_tensor_value](./images/debugger_tensor_value.png)
 
-Figure 5： `Tensor` Value Visualization
+Figure 3： `Tensor` Value Visualization
 
 Some outputs of the node contain too many dimensions. 
-For these `Tensors`, users can click the `view` link and visualize the `Tensor` in the new panel, which is shown in Figure 5. 
+For these `Tensors`, users can click the `View` link and visualize the `Tensor` in the new panel, which is shown in Figure 3.
+
+![debugger_tensor_compare](./images/debugger_tensor_compare.png)
+
+Figure 4: Previous Step Value Compare For Parameter Nodes
+
+In addition, the output of the parameter nodes can be compared with their output in the previous step. 
+Click the `Compare with Previous Step` button to enter the comparison interface, as shown in Figure 4.
 
 ### Conditional Breakpoint
 
-![debugger_watchpoint](./images/debugger_watchpoint.png)
+![debugger_set_watch_point](./images/debugger_set_watch_point.png)
 
-Figure 6： Set Conditional Breakpoint (Watch Point)
+Figure 5： Set Conditional Breakpoint (Watch Point)
 
-In order to monitor the training and find out the bugs, users can set conditional breakpoints (called `Watch Points` on UI) to analyze the outputs of the 
-specified nodes automatically. Figure 6 displays how to set a `Watch Point`:
+In order to monitor the training and find out the bugs, users can set conditional breakpoints (called `Watch Point List` on UI) to analyze the outputs of the 
+specified nodes automatically. Figure 5 displays how to set a `Watch Point`:
 - At first, click the `+` button on the upper right corner, and then choose a watch condition;
-- Select the nodes to be watched in the `Runtime Node List`, tick the boxes at the front of the chosen nodes;
-- Click the `confirm` button to add this `Watch Point`.
+- Select the nodes to be watched in the `Node List`, tick the boxes in the front of the chosen nodes;
+- Click the `OK` button to add this `Watch Point`.
 
 The outputs of the watched nodes will be checked by the corresponding conditions. Once the condition is satisfied, the training will pause, and users can analyze 
-the triggered `Watch Points` on the Debugger UI.
+the triggered `Watch Point List` on the Debugger UI.
 
-![debugger_watchpoint_hit](./images/debugger_watchpoint_hit.png)
+![debugger_watch_point_hit](./images/debugger_watch_point_hit.png)
 
-Figure 7： The Triggered `Watch Points`
+Figure 6： The Triggered `Watch Point List`
 
-Figure 7 displays the triggered `Watch Points`, the displayed area is the same as the `Runtime Node List`.
+Figure 6 displays the triggered `Watch Point List`, the displayed area is the same as the `Node List`.
 The triggered nodes and corresponding conditions are displayed in the execution order. Click one line in the list, the node will be shown in the computational graph automatically.
 Users can further trace the reason of the bug by analyzing the node details.  
 
 ### Training Control
 
-![debugger_train_control](./images/debugger_train_control.png)
+At the bottom of the watchpoint setting panel is the training control panel, which shows the training control functions of the debugger, 
+with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
-Figure 8： The Training Control
-
-Figure 8 displays the Debugger training control, which contains `STEP`, `CONTINUE` and `TERMINATE`:
-
-- `STEP` stands for executing the training for several steps, the number of the `step` can be specified in the above bar;
-- `CONTINUE` stands for executing the training until the `Watch Points` is triggered;
+- `OK` stands for executing the training for several steps, the number of the `step` can be specified in the above bar.
+The training will be paused until the `Watch Point List` is triggered, or the number of `step` is executed.
+- `CONTINUE` stands for executing the training until the `Watch Point List` is triggered, or the training is finished.
+- `PAUSE` stands for pausing the training.
 - `TERMINATE` stands for terminating the training.
 
 ## Debugger Usage Example
@@ -154,34 +161,27 @@ Figure 8 displays the Debugger training control, which contains `STEP`, `CONTINU
 
     ![debugger_waiting](./images/debugger_waiting.png)
     
-    Figure 9： Debugger Start and Waiting for the Training
+    Figure 7： Debugger Start and Waiting for the Training
     
     The Debugger server is launched and waiting for the training to connect.
 
-2. Run the training script, after a while, the computational graph will be displayed on Debugger UI.
+2. Run the training script, after a while, the computational graph will be displayed on Debugger UI, as shown in Figure 1.
 
-    ![debugger_before_train](./images/debugger_before_train.png)
+3. Set conditional breakpoints for the training, as shown in Figure 5.
     
-    Figure 10： Computational Graph is displayed on Debugger UI
+    In Figure 5, the conditions are selected, and some nodes are watched, which means whether there is any output meeting the conditions in the training process of these nodes.
+    After setting the conditional breakpoint, users can set steps in the control panel and click `OK` or `CONTINUE` to continue training.
 
-3. Set conditional breakpoints for the training.
-
-    ![debugger_set_watchpoint](./images/debugger_set_watchpoint.png)
-    
-    Figure 11： Set Conditional Breakpoint
-    
-    In Figure 11, the condition `NAN` is selected, and will watch all the nodes in `Default scope`. All the outputs in forward computation will be checked to see if `NAN` exists. 
-    After setting the conditional breakpoints, users can choose `STEP` or `CONTINUE` to continue the training.
-
-4. The conditional breakpoints are triggered.
-
-    ![debugger_watchpoint_trigger](./images/debugger_watchpoint_trigger.png)
-    
-    Figure 12： The Triggered Conditional Breakpoints
+4. The conditional breakpoints are triggered, as shown in Figure 6.
     
     When the conditional breakpoints are triggered, users can analyze the corresponding node details to find out the reason of the bug.
 
 ## Notices
 
 - Debugger will slow down the training performance.
-- One Debugger Server can only be connected by one training process.
+- A single Debugger Server can only be connected to one training process.
+- The debugger does not support distributed training scenarios.
+- The debugger does not support multi-graph training scenarios.
+- When too many `Watch Points` are set, the system may run out of memory.
+- Debugger cannot get the initialization parameters of the neural network based on Davinci device.
+- For GPU environment, only the parameter nodes that meet the conditions can be compared with the results of themselves in the previous step: the node executed with the `Next Node` and `Continue to`, and the parameter nodes as the input of the `Watch Points`. Otherwise, `Compare with Previous Step` cannot be used.
