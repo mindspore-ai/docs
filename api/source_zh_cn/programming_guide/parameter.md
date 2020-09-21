@@ -69,9 +69,6 @@ Parameter (name=z, value=2.0)
 
 - `name`：实例化`Parameter`时，为其指定的名字。
 
-- `cast_type`：用于`PyNative`模式下的混合精度，如果设置了`cast_type`，会在训练前，将`Parameter`自动转换成我们设置的`cast_type`，
-  `cast_type`仅支持设置为`float32`、`float16`和`None`，设置为`None`，就不做转换。
-
 - `sliced`：用在自动并行场景下，表示`Parameter`里保存的数据是否是分片数据。
 
   如果是，就不再对其进行切分，如果不是，需要根据网络并行策略确认是否对其进行切分。
@@ -97,7 +94,6 @@ x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
 print("name: ", x.name, "\n",
       "sliced: ", x.sliced, "\n",
       "is_init: ", x.is_init, "\n",
-      "cast_type: ", x.cast_type, "\n",
       "inited_param: ", x.inited_param, "\n",
       "requires_grad: ", x.requires_grad, "\n",
       "layerwise_parallel: ", x.layerwise_parallel, "\n",
@@ -110,7 +106,6 @@ print("name: ", x.name, "\n",
 name:  x
 sliced:  False
 is_init:  False
-cast_type:  None
 inited_param:  None
 requires_grad:  True
 layerwise_parallel:  False
