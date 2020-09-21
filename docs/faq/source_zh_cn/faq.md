@@ -18,7 +18,7 @@
     - [特性支持](#特性支持)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_zh_cn/FAQ.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_zh_cn/faq.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 安装类
 
