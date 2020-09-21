@@ -292,19 +292,20 @@ rank_id = get_rank()
 ```python
 from mindspore.ops import operations as P
 
-mul = P.Mul().set_prim_attr("cross_batch", True)
+mul = P.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
 
-出于性能考虑，MindSpore提供了通信算子融合功能，`fusion`值相同的同类通信算子会融合在一起，`fusion`值为0时，表示不融合。
+出于性能考虑，MindSpore提供了`AllGather`和`AllReduce`算子的融合功能，`fusion`值相同的同类算子（算子类型以及通信域相同）会融合在一起，`fusion`的值必须大于等于0，且当`fusion`值为0时，表示不融合。
 
 代码样例如下：
 
 ```python
 from mindspore.ops import operations as P
 
-allreduce = P.AllReduce().set_prim_attr("fusion", 1)
+allreduce1 = P.AllReduce().add_prim_attr("fusion", 1)
+allreduce2 = P.AllReduce().add_prim_attr("fusion", 1)
 ```
 
 ## 数据并行
