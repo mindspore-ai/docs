@@ -28,8 +28,8 @@ Train with MindSpore
    :maxdepth: 1
    :caption: Process Data
 
+   advanced_use/convert_dataset
    advanced_use/optimize_data_processing
-   
 
 .. toctree::
    :glob:
@@ -47,7 +47,8 @@ Train with MindSpore
    advanced_use/debug_in_pynative_mode
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
-   advanced_use/synchronization_training_and_evaluation.md
+   advanced_use/enable_auto_augmentation
+   advanced_use/synchronization_training_and_evaluation
 
 .. toctree::
    :glob:

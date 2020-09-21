@@ -163,7 +163,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 ### 转换CIFAR-10数据集
 
-用户可以通过`Cifar10ToMR`类，将CIFAR-10原始数据转换为MindRecord，并使用MindDataset读取。
+用户可以通过`Cifar10ToMR`类，将CIFAR-10原始数据转换为MindRecord，并使用`MindDataset`读取。
 
 1. 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)并解压，其目录结构如下所示。
 
@@ -200,7 +200,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 4. 通过`MindDataset`读取MindRecord。
 
-    ```
+    ```python
     import mindspore.dataset as ds
     import mindspore.dataset.vision.c_transforms as vision
 
@@ -216,7 +216,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 ### 转换ImageNet数据集
 
-用户可以通过`ImageNetToMR`类，将ImageNet原始数据（图片、标注）转换为MindRecord，并使用MindDataset读取。
+用户可以通过`ImageNetToMR`类，将ImageNet原始数据（图片、标注）转换为MindRecord，并使用`MindDataset`读取。
 
 1. 下载[ImageNet数据集](http://image-net.org/download)，将所有图片存放在同一文件夹，用一个映射文件记录图片和标签的对应关系。映射文件包含2列，分别为各类别图片目录和标签ID，用空格隔开，映射文件示例如下：
 
@@ -253,7 +253,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 4. 通过`MindDataset`读取MindRecord。
 
-    ```
+    ```python
     import mindspore.dataset as ds
     import mindspore.dataset.vision.c_transforms as vision
 
