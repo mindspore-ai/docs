@@ -55,7 +55,6 @@
 | LogicalNot            |          | √        | √        | √         | √        | √        | LogicalNot  |               |                    |
 | LogicalOr             | √        | √        |          |           |          |          | LogicalOr   |               |                    |
 | LSTM                  |          | √        |          |           |          |          |             |               |                    |
-| L2Norm                |          | √        |          |           |          |          | L2Norm      |               | ReduceL2           |
 | MatMul                |          | √        | √        | √         | √        | √        |             |               | MatMul             |
 | Maximum               | √        | √        |          |           |          |          | Maximum     |               | Max                |
 | MaxPool               | √        | √        | √        | √         | √        | √        | MaxPooling  | Pooling       | MaxPool            |
