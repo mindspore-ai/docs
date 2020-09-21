@@ -1,6 +1,6 @@
 # Apply Gradient Accumulation Algorithm
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+`Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -29,7 +29,7 @@ Different from the traditional training method, the concept of mini-batch is int
   
 The ultimate objective is to achieve the same effect as training with N x mini-batch data.
 
-> This tutorial is applicable to GPUs and Ascend 910 AI Processors. You can download the main training sample code from <https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/gradient_accumulation>.
+> This tutorial is applicable to GPUs. You can download the main training sample code from <https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/gradient_accumulation>.
 
 ## Creating a Gradient Accumulation Model
 
@@ -129,8 +129,8 @@ class TrainClear(Cell):
         self.hyper_map = C.HyperMap()
 
     def construct(self):
-        seccess = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
-        return seccess
+        success = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
+        return success
 ```
 
 ### Defining the Training Process
@@ -207,8 +207,8 @@ Call the network, optimizer, and loss function, and then customize the `train_pr
 ```python
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='MindSpore Gard Cumulative Example')
-    parser.add_argument('--device_target', type=str, default="Ascend", choices=['Ascend', 'GPU'],
-                        help='device where the code will be implemented (default: Ascend)')
+    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU'],
+                        help='device where the code will be implemented (default: GPU)')
     parser.add_argument('--data_path', type=str, default="./Data",
                         help='path where the dataset is saved')
     args = parser.parse_args()
@@ -230,9 +230,11 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Training Execution**
 1. Run the training code and view the running result.
+
     ```shell
     $ python train.py --data_path=./MNIST_Data
     ```
+
     The output is as follows. The loss value decreases during training.
 
     ```shell
@@ -245,7 +247,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
     epoch: 10 step: 448 loss is  0.06443884
     epoch: 10 step: 449 loss is  0.0067842817
     ```
-    
+
 2. Check the saved checkpoint files.
 
     The model file `gradient_accumulation.ckpt` is saved during training.
@@ -255,7 +257,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
 
 ```shell
-$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
+$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
 The output is as follows. The accuracy of the validation dataset is about 96.31%, which is the same as the result when the value of batch_size is 32.
