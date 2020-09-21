@@ -116,7 +116,7 @@ A: After MindSpore is installed on a CPU hardware platform, run the `python -c'i
 
 Q: What can I do if the LSTM example on the official website cannot run on Ascend?
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/programming_guide/en/r1.0/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/r1.0/operator_list_ms.html) to view the supported operators.
 
 <br/>
 
@@ -146,7 +146,7 @@ A: When building a network, use `if self.training: x = dropput(x)`. During verif
 
 Q: Where can I view the sample code or tutorial of MindSpore training and inference?
 
-A: Please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/en/r1.0/index.html).
+A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/r1.0/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html).
 
 <br/>
 
@@ -183,12 +183,6 @@ A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can tr
 Q: Does MindSpore have any plan on supporting other types of heterogeneous computing hardwares?
 
 A: MindSpore provides pluggable device management interface so that developer could easily integrate other types of heterogeneous computing hardwares like FPGA to MindSpore. We welcome more backend support in MindSpore from the community.
-
-<br/>
-
-Q: What is the relationship between MindSpore and ModelArts? Can MindSpore be used on ModelArts?
-
-A: ModelArts is an online training and inference platform on HUAWEI CLOUD. MindSpore is a Huawei deep learning framework. You can view the tutorials on the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/use_on_the_cloud.html) to learn how to train MindSpore models on ModelArts.
 
 <br/>
 

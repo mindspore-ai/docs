@@ -123,7 +123,7 @@ A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命
 
 Q：官网的LSTM示例在Ascend上跑不通
 
-A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/operator_list_ms.html)查看算子支持情况。
+A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/note/zh-CN/r1.0/operator_list_ms.html)查看算子支持情况。
 
 <br/>
 
@@ -155,7 +155,7 @@ A：在构造网络的时候可以通过 `if self.training: x = dropput(x)`，�
 
 Q：从哪里可以查看MindSpore训练及推理的样例代码或者教程？
 
-A：可以访问[MindSpore官网教程](https://www.mindspore.cn/tutorial/zh-CN/r1.0/index.html)。
+A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html)。
 
 <br/>
 
