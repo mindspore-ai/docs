@@ -13,10 +13,11 @@
 | Argmin                |          | √        | √        | √         |          |          | Argmin     |               |                    |
 | AvgPool               | √        | √        | √        | √         | √        | √        | MeanPooling| Pooling       | AveragePool        |
 | BatchNorm             | √        | √        | √        | √         | √        | √        |            | BatchNorm     | BatchNormalization |
-| BatchToSpace          |          | √        | √        | √         |          |          | BatchToSpace, BatchToSpaceND |  |               |
-| BiasAdd               |          | √        | √        | √         | √        | √         |           |                | BiasAdd            |
+| BatchToSpace          |          | √        | √        | √         |          |          | BatchToSpace |  |               |
+| BatchToSpaceND        |          | √        | √        |           |          |          | BatchToSpaceND |  |               |
+| BiasAdd               |          | √        | √        | √         | √        | √        |           |                | BiasAdd            |
 | Broadcast             |          | √        |          |           |          |          | BroadcastTo |               | Expand             |
-| Cast                  | √        | √        |          | √         | √        | √        | Cast, DEQUANTIZE*  |        | Cast               |
+| Cast                  | √        | √        | √        | √         | √        | √        | Cast, DEQUANTIZE*  |        | Cast               |
 | Ceil                  |          | √        | √        | √         | √        | √        | Ceil        |               | Ceil               |
 | Concat                | √        | √        | √        | √         | √        | √        | Concat      | Concat        | Concat             |
 | Conv2d                | √        | √        | √        | √         | √        | √        | Conv2D      | Convolution   | Conv               |
@@ -26,6 +27,7 @@
 | DeDepthwiseConv2D     |          | √        | √        | √         |          |          |             |  Deconvolution| ConvTranspose      |
 | DepthToSpace          |          | √        | √        | √         |          |          | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | √        | √        | √        | √         | √        | √        | DepthwiseConv2D | Convolution   | Convolution    |
+| DetectionPostProcess  |          | √        |          |           |          |          | DetectionPostProcess |      |                    |
 | Div                   | √        | √        | √        | √         | √        | √        | Div, RealDiv         |               | Div                |
 | Eltwise               | √        | √        |          |           |          |          |             |  Eltwise      |                    |
 | Elu                   |          | √        |          |           |          |          |  Elu        |               | Elu                |
@@ -37,7 +39,7 @@
 | Floor                 |          | √        | √        | √         | √        | √        | flOOR       |               | Floor              |
 | FloorDiv              | √        | √        |          |           |          |          | FloorDiv    |               |                    |
 | FloorMod              | √        | √        |          |           |          |          | FloorMod    |               |                    |
-| FullConnection        |          | √        | √        | √         | √        | √        | FullyConnected  | InnerProduct  |                |
+| FullConnection        | √        | √        | √        | √         | √        | √        | FullyConnected  | InnerProduct  |                |
 | GatherNd              |          | √        | √        | √         |          |          | GatherND    |               |                    |
 | GatherV2              |          | √        | √        | √         |          |          | Gather      |               | Gather             |
 | Greater               | √        | √        | √        | √         |          |          | Greater     |               | Greater            |
@@ -52,14 +54,16 @@
 | LogicalNot            |          | √        | √        | √         | √        | √        | LogicalNot  |               |                    |
 | LogicalOr             | √        | √        |          |           |          |          | LogicalOr   |               |                    |
 | LSTM                  |          | √        |          |           |          |          |             |               |                    |
+| L2Norm                |          | √        |          |           |          |          | L2Norm      |               | ReduceL2           |
 | MatMul                |          | √        | √        | √         | √        | √        |             |               | MatMul             |
 | Maximum               | √        | √        |          |           |          |          | Maximum     |               | Max                |
 | MaxPool               | √        | √        | √        | √         | √        | √        | MaxPooling  | Pooling       | MaxPool            |
 | Minimum               | √        | √        |          |           |          |          | Minimum     |               | Min                |
 | Mul                   | √        | √        | √        | √         | √        | √        | Mul         |               | Mul                |
+| Neg                   |          | √        |          |           |          |          | Neg         |               | Neg                |
 | NotEqual              | √        | √        | √        | √         |          |          | NotEqual    |               |                    |
 | OneHot                |          | √        |          |           |          |          | OneHot      |               |                    |
-| Pad                   |          | √        | √        | √         |          |          | Pad         |               | Pad                |
+| Pad                   | √        | √        | √        | √         |          |          | Pad         |               | Pad                |
 | Pow                   |          | √        | √        | √         |          |         | Pow          | Power         | Power              |
 | PReLU                 |          | √        |          |           | √        | √        |        | PReLU         |              |
 | Range                 |          | √        |          |           |          |          | Range       |               |                    |
@@ -85,8 +89,8 @@
 | Sin                   |          | √        | √        | √         | √        | √        | Sin         |               | Sin                |
 | Slice                 |          | √        | √        | √         | √        | √        | Slice       |               | Slice              |
 | Softmax               | √        | √        | √        | √         | √        | √        | Softmax     | Softmax       | Softmax            |
-| SpaceToBatch          |          | √        |          |           |          |          |             |               |                    |
-| SpaceToBatchND        |          | √        |          |           |          |          | SpaceToBatchND |            |                    |
+| SpaceToBatch          |          | √        | √        |           |          |          | SpaceToBatch   |               |                    |
+| SpaceToBatchND        |          | √        | √        |           |          |          | SpaceToBatchND |            |                    |
 | SpaceToDepth          |          | √        |          |           |          |          | SpaceToDepth   |            | SpaceToDepth       |
 | SparseToDense         |          | √        |          |           |          |          |  SpareToDense  |            |                    |
 | Split                 | √        | √        | √        | √         |          |          | Split, SplitV  |            |                    |
