@@ -80,7 +80,6 @@
 | [mindspore.nn.MSELoss](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    |Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyWithLogits)  |  Supported |  Supported |   Supported |loss/loss
-| [mindspore.nn.SoftmaxCrossEntropyExpand](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyExpand)     |  Supported |Supported | Doing |loss/loss
 | [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.CosineEmbeddingLoss)                                                |Supported |Supported | Doing |loss/loss
 | [mindspore.nn.ProximalAdagrad](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.ProximalAdagrad)                              | Supported | Doing | Doing |optim/ProximalAdagrad
 | [mindspore.nn.LazyAdam](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.LazyAdam)                                            | Supported | Doing | Doing |optim/lazyadam
