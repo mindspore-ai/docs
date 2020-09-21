@@ -237,7 +237,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
    loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
    ```
 
-   You can use a built-in assessment method of `Model` by setting the [metrics](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/customized_debugging_information.html#mindspore-metrics) attribute.
+   You can use a built-in assessment method of `Model` by setting the [metrics](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/custom_debugging_info.html#mindspore-metrics) attribute.
 
    ```python
    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})

@@ -36,7 +36,7 @@ MindSpore是一个多元化的机器学习框架。既可以在手机等端侧�
 
 目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。
 
->你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2>
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/mobilenetv2>
 
 ## 任务描述及准备
 
@@ -74,7 +74,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 4. 配置Ascend环境  
     以Ascend 910 AI处理器为例，1个8个处理器环境的json配置文件`hccl_config.json`示例如下。单/多处理器环境可以根据以下示例调整`"server_count"`与`device`：
 
-    ```json
+    ```
     {
         "version": "1.0",
         "server_count": "1",

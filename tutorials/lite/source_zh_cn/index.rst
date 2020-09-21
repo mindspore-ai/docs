@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 在手机或IoT设备上使用MindSpore
-=============================
+=================================
 
 .. toctree::
    :glob:

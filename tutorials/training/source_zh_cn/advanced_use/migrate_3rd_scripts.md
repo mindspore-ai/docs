@@ -233,7 +233,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
     ```
 
-    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/customized_debugging_information.html#mindspore-metrics)属性设置希望使用的评估方法。
+    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#mindspore-metrics)属性设置希望使用的评估方法。
     
     ```python
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})

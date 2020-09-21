@@ -107,7 +107,7 @@ MindSpore supports the following inference scenarios based on the hardware platf
    model.predict(input_data)
    ```
    In the preceding information:  
-   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/r1.0/api/mindspore/mindspore.html#mindspore.Model.predict>.
+   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.html#mindspore.Model.predict>.
 
 ## Inference on the Ascend 310 AI processor
 

@@ -301,7 +301,7 @@ def plot_model_and_datasets(net, eval_data):
 
 ### 定义回调函数
 
-MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/customized_debugging_information.html#callback>)。
+MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#callback>)。
 
 
 ```python
