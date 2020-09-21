@@ -55,7 +55,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 - NDK 21.3
 - [CMake](https://cmake.org/download) 3.10.2
 - Android SDK >= 26
--  [JDK]( https://www.oracle.com/downloads/otn-pub/java/JDK/)  >= 1.8    
+- JDK >= 1.8  
 
 ### 构建与运行
 
