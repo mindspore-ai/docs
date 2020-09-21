@@ -56,7 +56,7 @@ The following section describes how to build and execute an on-device image clas
 - Native development kit (NDK) 21.3
 - [CMake](https://cmake.org/download) 3.10.2  
 - Android software development kit (SDK) 26 or later
--  [JDK]( https://www.oracle.com/downloads/otn-pub/java/JDK/)  1.8 or later 
+- JDK 1.8 or later
 
 ### Building and Running
 
@@ -80,7 +80,7 @@ The following section describes how to build and execute an on-device image clas
 
     For details about how to connect the Android Studio to a device for debugging, see <https://developer.android.com/studio/run/device>.
 
-    The mobile phone needs to be turn on "USB debugging mode" before Android Studio can recognize the mobile phone. Huawei mobile phones generally turn on "USB debugging model" in Settings > system and update > developer Options > USB debugging.
+    The mobile phone needs to turn on "USB debugging mode" for Android Studio to recognize the phone. In general, Huawei mobile phones turn on "USB debugging mode" in Settings -> System and Update -> Developer Options -> USB Debugging.
 
 3. Continue the installation on the Android device. After the installation is complete, you can view the content captured by a camera and the inference result.
 
@@ -179,7 +179,7 @@ target_link_libraries(
 
 
 
-In this example, the  download.gradle File configuration auto download  MindSpore Lite version,  placed in the `app/src/main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu` directory.
+In this example, the build process automatically downloads the MindSpore Lite version file by the download.gradle file and saves it in the `app/src/main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu` directory.
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
@@ -187,7 +187,7 @@ MindSpore Lite version [MindSpore Lite version](https://download.mindspore.cn/mo
 
 ### Downloading and Deploying a Model File
 
-In this example, the  download.gradle File configuration auto download `mobilenetv2.ms `and placed in the 'app / libs / arm64-v8a' directory.
+In this example, the build process automatically downloads the `mobilenetv2.ms ` by the download.gradle file and saves in the 'app / libs / arm64-v8a' directory.
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
@@ -266,7 +266,7 @@ The inference code process is as follows. For details about the complete code, s
     delete[] (dataHWC);
    ```
    
-3. Pretreat the input data.
+3. Preprocessing the input data.
 
    ```cpp
    bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
