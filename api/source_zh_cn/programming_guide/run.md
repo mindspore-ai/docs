@@ -228,6 +228,8 @@ if __name__ == "__main__":
     model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
 ```
 
+> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)的下载数据集部分，下同。
+
 输出如下：
 ```python
 epoch: 1 step: 1, loss is 2.300784
@@ -364,6 +366,13 @@ if __name__ == "__main__":
     acc = model.eval(ds_eval, dataset_sink_mode=True)
     print("============== {} ==============".format(acc))
 ```
+
+其中，
+`load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
+`checkpoint_lenet-1_1875.ckpt`：保存的CheckPoint模型文件名称。
+`load_param_into_net`：通过该接口把参数加载到网络中。
+
+> `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)的训练网络部分。
 
 输出如下：
 ```python
