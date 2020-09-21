@@ -43,7 +43,7 @@ After you retrain a model provided by MindSpore, export the model in the [.mindi
 
 Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 ```bash
-./converter_lite --fmk=MS --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
+./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
 
 ## Deploying an Application
