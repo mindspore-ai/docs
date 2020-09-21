@@ -158,7 +158,7 @@ network = LeNet5(10)
 # Define Loss and Optimizer
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 net_opt = nn.Momentum(network.trainable_params(),learning_rate=0.01, momentum=0.9)
-model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()}，amp_level="O3")
 
 # Run training
 model.train(epoch=10, train_dataset=ds_train)
