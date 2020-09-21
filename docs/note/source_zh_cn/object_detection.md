@@ -12,7 +12,7 @@
 | ----- | ---- | ---------------- |
 | mouse | 0.78 | [10, 25, 35, 43] |
 
-使用MindSpore Lite实现对象检测的[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/object_detection)。
+使用MindSpore Lite实现对象检测的[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/lite/object_detection)。
 
 ## 对象检测模型列表
 
