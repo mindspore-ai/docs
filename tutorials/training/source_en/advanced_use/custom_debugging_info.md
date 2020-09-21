@@ -343,7 +343,7 @@ The input and output of the operator can be saved for debugging through the data
     - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_daemon/dump/relative_path`.
     - `net_name`：net name eg:ResNet50.
     - `iteration`：Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
-    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
+    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
     - `kernels`：Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
     - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`：enable Asynchronous Dump.
