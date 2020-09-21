@@ -41,6 +41,7 @@ random.seed(1)
 parser = argparse.ArgumentParser(description='Image classification')
 parser.add_argument('--run_distribute', type=bool, default=False, help='Run distribute.')
 parser.add_argument('--device_num', type=int, default=1, help='Device num.')
+parser.add_argument('--device_target', type=str, default="Ascend", help='Device choice Ascend or GPU')
 parser.add_argument('--do_train', type=bool, default=True, help='Do train or not.')
 parser.add_argument('--do_eval', type=bool, default=False, help='Do eval or not.')
 parser.add_argument('--epoch_size', type=int, default=1, help='Epoch size.')
@@ -50,12 +51,13 @@ parser.add_argument('--checkpoint_path', type=str, default=None, help='CheckPoin
 parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path.')
 args_opt = parser.parse_args()
 
-device_id = int(os.getenv('DEVICE_ID'))
-
 data_home = args_opt.dataset_path
 
-context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-context.set_context(device_id=device_id)
+context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
+
+if args_opt.device_target == "Ascend":
+    device_id = int(os.getenv('DEVICE_ID'))
+    context.set_context(device_id=device_id)
 
 def create_dataset(repeat_num=1, training=True):
     """
