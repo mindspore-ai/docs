@@ -19,7 +19,7 @@ MindSpore Tutorials
    :maxdepth: 1
    :caption: Use
 
-   use/data_preparation/data_preparation
+   use/data_preparation
    use/defining_the_network
    use/saving_and_loading_model_parameters
    use/multi_platform_inference
@@ -54,6 +54,8 @@ MindSpore Tutorials
    advanced_use/graph_kernel_fusion
    advanced_use/quantization_aware
    advanced_use/gradient_accumulation
+   advanced_use/dataset_conversion
+   advanced_use/auto_augmentation
 
 .. toctree::
    :glob:
