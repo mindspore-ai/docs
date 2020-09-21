@@ -61,7 +61,7 @@ The following describes how to use the conversion command by using several commo
 
    - MindSpore model `model.mindir`
       ```bash
-      ./converter_lite --fmk=MS --modelFile=model.mindir --outputFile=model
+      ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
    
    - TensorFlow Lite model `model.tflite`
@@ -107,7 +107,7 @@ The following describes the parameters in detail.
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
 | `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
-|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the input and output data type of the converted model. If the type is different from the origin model, the convert tool will insert data type convert op before the model to make sure the output data type is same as the input of origin model. | UINT8, FLOAT or INT8 | FLOAT |
+|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) | Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
 |`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
 |`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
 

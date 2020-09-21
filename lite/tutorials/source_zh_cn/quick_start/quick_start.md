@@ -42,7 +42,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 ```bash
-./converter_lite --fmk=MS --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
+./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
 
 ## 部署应用
