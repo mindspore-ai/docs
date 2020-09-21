@@ -16,7 +16,7 @@
 | BatchToSpace          |          | Supported        | Supported        | Supported         |          |          | BatchToSpace, BatchToSpaceND |  |               |
 | BiasAdd               |          | Supported        | Supported        | Supported         | Supported        | Supported         |           |                | BiasAdd            |
 | Broadcast             |          | Supported        |          |           |          |          | BroadcastTo |               | Expand             |
-| Cast                  | Supported        | Supported        |          | Supported         | Supported        | Supported        | Cast, DEQUANTIZE*  |        | Cast               |
+| Cast                  | Supported        | Supported        | Supported| Supported         | Supported        | Supported        | Cast, DEQUANTIZE*  |        | Cast               |
 | Ceil                  |          | Supported        | Supported        | Supported         | Supported        | Supported        | Ceil        |               | Ceil               |
 | Concat                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Concat      | Concat        | Concat             |
 | Conv2d                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Conv2D      | Convolution   | Conv               |
@@ -26,6 +26,7 @@
 | DeDepthwiseConv2D     |          | Supported        | Supported        | Supported         |          |          |             |  Deconvolution| ConvTranspose      |
 | DepthToSpace          |          | Supported        | Supported        | Supported         |          |          | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   | Convolution    |
+| DetectionPostProcess  |          | Supported        |       |          |                   |          | DetectionPostProcess |           |                 |
 | Div                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Div, RealDiv         |               | Div                |
 | Eltwise               | Supported        | Supported        |          |           |          |          |             |  Eltwise      |                    |
 | Elu                   |          | Supported        |          |           |          |          |  Elu        |               | Elu                |
@@ -37,7 +38,7 @@
 | Floor                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | flOOR       |               | Floor              |
 | FloorDiv              | Supported        | Supported        |          |           |          |          | FloorDiv    |               |                    |
 | FloorMod              | Supported        | Supported        |          |           |          |          | FloorMod    |               |                    |
-| FullConnection        |          | Supported        | Supported        | Supported         | Supported        | Supported        | FullyConnected  | InnerProduct  |                |
+| FullConnection        | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | FullyConnected  | InnerProduct  |                |
 | GatherNd              |          | Supported        | Supported        | Supported         |          |          | GatherND    |               |                    |
 | GatherV2              |          | Supported        | Supported        | Supported         |          |          | Gather      |               | Gather             |
 | Greater               | Supported        | Supported        | Supported        | Supported         |          |          | Greater     |               | Greater            |
@@ -52,14 +53,16 @@
 | LogicalNot            |          | Supported        | Supported        | Supported         | Supported        | Supported        | LogicalNot  |               |                    |
 | LogicalOr             | Supported        | Supported        |          |           |          |          | LogicalOr   |               |                    |
 | LSTM                  |          | Supported        |          |           |          |          |             |               |                    |
+| L2Norm                |          | Supported        |          |           |          |          | L2Norm      |               | ReduceL2                   |
 | MatMul                |          | Supported        | Supported        | Supported         | Supported        | Supported        |             |               | MatMul             |
 | Maximum               | Supported        | Supported        |          |           |          |          | Maximum     |               | Max                |
 | MaxPool               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | MaxPooling  | Pooling       | MaxPool            |
 | Minimum               | Supported        | Supported        |          |           |          |          | Minimum     |               | Min                |
 | Mul                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Mul         |               | Mul                |
+| Neg                   |          | Supported        |          |           |          |          |   Neg       |               | Neg                   |
 | NotEqual              | Supported        | Supported        | Supported        | Supported         |          |          | NotEqual    |               |                    |
 | OneHot                |          | Supported        |          |           |          |          | OneHot      |               |                    |
-| Pad                   |          | Supported        | Supported        | Supported         |          |          | Pad         |               | Pad                |
+| Pad                   | Supported        | Supported        | Supported        | Supported         |          |          | Pad         |               | Pad                |
 | Pow                   |          | Supported        | Supported        | Supported         |          |         | Pow          | Power         | Power              |
 | PReLU                 |          | Supported        |          |           | Supported        | Supported        |        | PReLU         |              |
 | Range                 |          | Supported        |          |           |          |          | Range       |               |                    |
@@ -85,8 +88,8 @@
 | Sin                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Sin         |               | Sin                |
 | Slice                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       |               | Slice              |
 | Softmax               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Softmax     | Softmax       | Softmax            |
-| SpaceToBatch          |          | Supported        |          |           |          |          |             |               |                    |
-| SpaceToBatchND        |          | Supported        |          |           |          |          | SpaceToBatchND |            |                    |
+| SpaceToBatch          |          | Supported        | Supported        |           |          |          |             |               |                    |
+| SpaceToBatchND        |          | Supported        | Supported         |           |          |          | SpaceToBatchND |            |                    |
 | SpaceToDepth          |          | Supported        |          |           |          |          | SpaceToDepth   |            | SpaceToDepth       |
 | SparseToDense         |          | Supported        |          |           |          |          |  SpareToDense  |            |                    |
 | Split                 | Supported        | Supported        | Supported        | Supported         |          |          | Split, SplitV  |            |                    |
