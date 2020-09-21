@@ -16,7 +16,7 @@
 | BatchToSpace          |          | Supported        | Supported        | Supported         |          |          | BatchToSpace, BatchToSpaceND |  |               |
 | BiasAdd               |          | Supported        | Supported        | Supported         | Supported        | Supported         |           |                | BiasAdd            |
 | Broadcast             |          | Supported        |          |           |          |          | BroadcastTo |               | Expand             |
-| Cast                  | Supported        | Supported        | Supported| Supported         | Supported        | Supported        | Cast, DEQUANTIZE*  |        | Cast               |
+| Cast                  | Supported        | Supported        | Supported| Supported         | Supported        | Supported        | Cast, QUANTIZE, DEQUANTIZE  |        | Cast               |
 | Ceil                  |          | Supported        | Supported        | Supported         | Supported        | Supported        | Ceil        |               | Ceil               |
 | Concat                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Concat      | Concat        | Concat             |
 | Conv2d                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Conv2D      | Convolution   | Conv               |
@@ -31,8 +31,8 @@
 | Eltwise               | Supported        | Supported        |          |           |          |          |             |  Eltwise      |                    |
 | Elu                   |          | Supported        |          |           |          |          |  Elu        |               | Elu                |
 | Equal                 | Supported        | Supported        | Supported        | Supported         |          |          | Equal       |               | Equal              |
-| Exp                   |          | Supported        |          |           | Supported        | Supported        | Exp         |               | Exp                |
-| ExpandDims            |          | Supported        |          |           |          |          |             |               |                    |
+| Exp                   |          | Supported        |          |           | Supported        | Supported        | Exp         |  Exp             | Exp                |
+| ExpandDims            |          | Supported        |          |           |          |          |ExpandDims             |               |                    |
 | Fill                  |          | Supported        |          |           |          |          | Fill        |               |                    |
 | Flatten               |          | Supported        |          |           |          |          |             | Flatten       |                    |
 | Floor                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | flOOR       |               | Floor              |
@@ -44,16 +44,16 @@
 | Greater               | Supported        | Supported        | Supported        | Supported         |          |          | Greater     |               | Greater            |
 | GreaterEqual          | Supported        | Supported        | Supported        | Supported         |          |          | GreaterEqual|               |                    |
 | Hswish                | Supported        | Supported        | Supported        | Supported         |          |          | HardSwish   |               |                    |
+| L2Norm                |         | Supported        |          |           |         |         | L2_NORMALIZATION   |               |            |
 | LeakyReLU             | Supported        | Supported        |          |           | Supported        | Supported        | LeakyRelu   |               | LeakyRelu          |
 | Less                  | Supported        | Supported        | Supported        | Supported         |          |          | Less        |               | Less               |
 | LessEqual             | Supported        | Supported        | Supported        | Supported         |          |          | LessEqual   |               |                    |
-| LRN     |          | Supported        |          |           |          |          | LocalResponseNorm  |        | Lrn                |
+| LRN     |          | Supported        |          |           |          |          | LocalResponseNorm  |        | Lrn, LRN                |
 | Log                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Log         |               | Log                |
 | LogicalAnd            | Supported        | Supported        |          |           |          |          | LogicalAnd  |               |                    |
 | LogicalNot            |          | Supported        | Supported        | Supported         | Supported        | Supported        | LogicalNot  |               |                    |
 | LogicalOr             | Supported        | Supported        |          |           |          |          | LogicalOr   |               |                    |
 | LSTM                  |          | Supported        |          |           |          |          |             |               |                    |
-| L2Norm                |          | Supported        |          |           |          |          | L2Norm      |               | ReduceL2                   |
 | MatMul                |          | Supported        | Supported        | Supported         | Supported        | Supported        |             |               | MatMul             |
 | Maximum               | Supported        | Supported        |          |           |          |          | Maximum     |               | Max                |
 | MaxPool               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | MaxPooling  | Pooling       | MaxPool            |
@@ -62,17 +62,18 @@
 | Neg                   |          | Supported        |          |           |          |          |   Neg       |               | Neg                   |
 | NotEqual              | Supported        | Supported        | Supported        | Supported         |          |          | NotEqual    |               |                    |
 | OneHot                |          | Supported        |          |           |          |          | OneHot      |               |                    |
-| Pad                   | Supported        | Supported        | Supported        | Supported         |          |          | Pad         |               | Pad                |
+| Pad                   | Supported        | Supported        | Supported        | Supported         |          |          | Pad, MirrorPad         |               | Pad                |
 | Pow                   |          | Supported        | Supported        | Supported         |          |         | Pow          | Power         | Power              |
 | PReLU                 |          | Supported        |          |           | Supported        | Supported        |        | PReLU         |              |
 | Range                 |          | Supported        |          |           |          |          | Range       |               |                    |
 | Rank                  |          | Supported        |          |           |          |          | Rank        |               |                    |
+| ReduceASum            |          | Supported        |          |           |          |          |          |   Reduction            |           |
 | ReduceMax             | Supported        | Supported        | Supported        | Supported         |          |          | ReduceMax   |               | ReduceMax          |
-| ReduceMean            | Supported        | Supported        | Supported        | Supported         |          |          | Mean        |               | ReduceMean         |
+| ReduceMean            | Supported        | Supported        | Supported        | Supported         |          |          | Mean        | Reduction              | ReduceMean         |
 | ReduceMin             | Supported        | Supported        | Supported        | Supported         |          |          | ReduceMin   |               | ReduceMin          |
 | ReduceProd            | Supported        | Supported        | Supported        | Supported         |          |          | ReduceProd  |               |                    |
-| ReduceSum             | Supported        | Supported        | Supported        | Supported         |          |          | Sum         |               | ReduceSum          |
-| ReduceSumSquare       | Supported        | Supported        | Supported        | Supported         |          |          |             |               |                    |
+| ReduceSum             | Supported        | Supported        | Supported        | Supported         |          |          | Sum         | Reduction              | ReduceSum          |
+| ReduceSumSquare       | Supported        | Supported        | Supported        | Supported         |          |          |             |  Reduction             |                    |
 | ReLU                  | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Relu        | ReLU          | Relu               |
 | ReLU6                 | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Relu6       | ReLU6         | Clip*              |
 | Reshape               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Reshape     | Reshape       | Reshape,Flatten    |
@@ -86,7 +87,7 @@
 | Shape                 |          | Supported        |          |          |          |          | Shape       |               | Shape              |
 | Sigmoid               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Logistic    | Sigmoid       | Sigmoid            |
 | Sin                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Sin         |               | Sin                |
-| Slice                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       |               | Slice              |
+| Slice                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       | Slice              | Slice              |
 | Softmax               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Softmax     | Softmax       | Softmax            |
 | SpaceToBatch          |          | Supported        | Supported        |           |          |          |             |               |                    |
 | SpaceToBatchND        |          | Supported        | Supported         |           |          |          | SpaceToBatchND |            |                    |
@@ -101,7 +102,7 @@
 | Stack                 |          | Supported        |          |           |          |          | Stack       |               |                    |
 | Sub                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Sub         |               |  Sub               |
 | Tanh                  | Supported        | Supported        |          |           | Supported        | Supported        | Tanh        | TanH          |                    |
-| Tile                  |          | Supported        |          |           |          |          | Tile        |               | Tile               |
+| Tile                  |          | Supported        |          |           |          |          | Tile        | Tile              | Tile               |
 | TopK                  |          | Supported        | Supported        | Supported         |          |          | TopKV2      |               |                    |
 | Transpose             | Supported        | Supported        |          |           | Supported        | Supported        | Transpose   | Permute       | Transpose          |
 | Unique                |          | Supported        |          |           |          |          | Unique      |               |                    |
@@ -111,4 +112,3 @@
 | ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |             
 
 * Clip: only support convert clip(0, 6) to Relu6.
-* DEQUANTIZE: only support to convert fp16 to fp32.
