@@ -31,9 +31,9 @@ MindSpore Tutorials
 
    advanced_use/computer_vision_application
    advanced_use/nlp_application
-   advanced_use/synchronization_training_and_evaluation.md
-   advanced_use/optimize_the_performance_of_data_preparation.md
-   advanced_use/second_order_optimizer_for_resnet50_application.md
+   advanced_use/synchronization_training_and_evaluation
+   advanced_use/optimize_the_performance_of_data_preparation
+   advanced_use/second_order_optimizer_for_resnet50_application
 
 .. toctree::
    :glob:
@@ -80,4 +80,3 @@ MindSpore Tutorials
    advanced_use/model_security
    advanced_use/differential_privacy
    advanced_use/fuzzer
-
