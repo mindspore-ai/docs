@@ -297,7 +297,7 @@ val:[[1 1]
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
-    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
+    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数设置仅支持Ascend，GPU上只能Dump算子的输出。
     - `kernels`：算子的全称，可以通过开启IR保持开关`context.set_context(save_graphs=True)`执行用例，从生成的`ir`文件获取。例如，`device_target`为`Ascend`时，可以从`hwopt_d_end_graph_{graph_id}.ir`中获取算子全称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `enable`：开启E2E Dump。

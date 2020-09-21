@@ -293,7 +293,7 @@ The input and output of the operator can be saved for debugging through the data
     - `path`：The absolute path where dump saves data.
     - `net_name`：net name eg:ResNet50.
     - `iteration`：Specify the iterations to dump. All kernels in graph will be dumped.
-    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
+    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
     - `kernels`：full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `ir` file. You can get it from `hwopt_d_end_graph_{graph_id}.ir` when `device_target` is `Ascend` and you can get it from `hwopt_pm_7_getitem_tuple.ir` when `device_target` is `GPU`.
     - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`：enable synchronous dump.
