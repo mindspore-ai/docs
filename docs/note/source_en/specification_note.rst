@@ -1,5 +1,5 @@
 Specification Note
-==================
+====================
 
 .. toctree::
   :maxdepth: 1

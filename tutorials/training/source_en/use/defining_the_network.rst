@@ -1,5 +1,5 @@
 Defining the Network
-====================
+========================
 
 .. toctree::
   :maxdepth: 1

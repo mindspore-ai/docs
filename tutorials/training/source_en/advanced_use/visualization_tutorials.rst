@@ -1,5 +1,5 @@
 Training Process Visualization
-==============================
+==================================
 
 .. toctree::
    :maxdepth: 1
