@@ -277,4 +277,16 @@ Currently, the following syntax is not supported in network constructors:
         def construct(self, x, y):
             return x + y
     ```
-In the network defined above, `self.num` is not a `Parameter` and cannot be modified, but `self.par` is a `Parameter` and can be modified.
+    In the network defined above, `self.num` is not a `Parameter` and cannot be modified, but `self.par` is a `Parameter` and can be modified.
+
+3. When an undefined class member is used in the `construct` function, it will be treated as `None` instead of throwing `AttributeError` like the Python interpreter. Examples are as follows:
+    
+     ```
+     class Net(Cell):
+         def __init__(self):
+             super(Net, self).__init__()
+    
+         def construct(self, x):
+             return x + self.y
+     ```
+     In the network defined above, the undefined class member `self.y` is used in `construct`, and `self.y` will be treated as `None`.
