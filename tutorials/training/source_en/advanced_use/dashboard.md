@@ -20,7 +20,7 @@
 
 ## Overview
 
-Training dashboard is an important part of mindinsight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational visualization, data visualization, image visualization and tensor visualization.
+Training dashboard is an important part of mindinsight's visualization component, and its tags include scalar visualization, parameter distribution visualization, computational graph visualization, data graph visualization, image visualization and tensor visualization.
 
 Access the Training Dashboard by selecting a specific training from the training list.
 
