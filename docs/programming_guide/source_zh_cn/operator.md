@@ -214,7 +214,7 @@ print(output)
 
 #### 广播机制
 
-广播表示输入各变量channel数目不一致时，改变他们的channel 数以得到结果。
+广播表示输入各变量channel数目不一致时，改变他们的channel数以得到结果。
 
 以下代码实现了广播机制的示例：
 ```python
@@ -224,7 +224,6 @@ import mindspore.nn as nn
 import mindspore.ops.operations as P
 import numpy as np
 
-init()
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -258,7 +257,24 @@ import mindspore
 input = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
 conv2d = P.Conv2D(out_channel=32, kernel_size=3)
-conv2d(input, weight)
+res = conv2d(input, weight)
+
+print(res)
+```
+输出如下：
+```
+[[[[288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   ...
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]]
+
+   ...
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]]]]
 ```
 
 #### 卷积的反向传播算子操作
@@ -276,7 +292,27 @@ dout = Tensor(np.ones([10, 32, 30, 30]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
 x = Tensor(np.ones([10, 32, 32, 32]))
 conv2d_backprop_input = P.Conv2DBackpropInput(out_channel=32, kernel_size=3)
-conv2d_backprop_input(dout, weight, F.shape(x))
+res = conv2d_backprop_input(dout, weight, F.shape(x))
+
+print(res)
+```
+输出如下：
+```
+[[[[ 32. 64. 96. ... 96. 64. 32.]
+   [ 64. 128. 192. ... 192. 128. 64.]
+   [ 96. 192. 288. ... 288. 192. 96.]
+   ...
+   [ 96. 192. 288. ... 288. 192. 96.]
+   [ 64. 128. 192. ... 192. 128. 64.]
+   [ 32. 64. 96. ... 96. 64. 32.]]
+
+  [[ 32. 64. 96. ... 96. 64. 32.]
+   [ 64. 128. 192. ... 192. 128. 64.]
+   [ 96. 192. 288. ... 288. 192. 96.]
+   ...
+   [ 96. 192. 288. ... 288. 192. 96.]
+   [ 64. 128. 192. ... 192. 128. 64.]
+   [ 32. 64. 96. ... 96. 64. 32.]]]]
 ```
 
 ### 激活函数
@@ -314,7 +350,8 @@ import mindspore
 loss = P.SmoothL1Loss()
 input_data = Tensor(np.array([1, 2, 3]), mindspore.float32)
 target_data = Tensor(np.array([1, 2, 2]), mindspore.float32)
-loss(input_data, target_data)
+res = loss(input_data, target_data)
+print(res)
 ```
 
 输出如下：
@@ -390,12 +427,12 @@ input_x = Tensor(input_np)
 type_dst = mindspore.float16
 cast = P.Cast()
 result = cast(input_x, type_dst)
-print(result.type())
+print(type(result))
 ```
 
 输出结果:
 ```
-mindspore.float16
+<class 'mindspore.common.tensor.Tensor'>
 ```
 
 ### Shape
@@ -430,7 +467,7 @@ from mindspore import Tensor
 import mindspore.ops.operations as P
 import numpy as np
 import mindspore.common.dtype as mstype
-from mindpore.ops import composite as C
+from mindspore.ops import composite as C
 
 class CropAndResizeNet(nn.Cell):
     def __init__(self, crop_size):
@@ -453,6 +490,29 @@ crop_size = (24, 24)
 crop_and_resize = CropAndResizeNet(crop_size=crop_size)
 output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index))
 print(output.asnumpy())
+```
+输出如下:
+```
+[[[[ 6.51672244e-01 -1.85958534e-01 5.19907832e-01]
+[ 1.53466597e-01 4.10562098e-01 6.26138210e-01]
+[ 6.62892580e-01 3.81776541e-01 4.69261825e-01]
+...
+[-5.83377600e-01 -3.53377648e-02 -6.01786733e-01]
+[ 1.36125124e+00 5.84172308e-02 -6.41442612e-02]
+[-9.11651254e-01 -1.19495761e+00 1.96810793e-02]]
+
+[[ 6.06956100e-03 -3.73778701e-01 1.88935513e-03]
+[-1.06859171e+00 2.00272346e+00 1.37180305e+00]
+[ 1.69524819e-01 2.90421434e-02 -4.12243098e-01]
+...
+
+[[-2.04489112e-01 2.36615837e-01 1.33802962e+00]
+[ 1.08329034e+00 -9.00492966e-01 -8.21497202e-01]
+[ 7.54147097e-02 -3.72897685e-01 -2.91040149e-02]
+...
+[ 1.12317121e+00 8.98950577e-01 4.22795087e-01]
+[ 5.13781667e-01 5.12095273e-01 -3.68211865e-01]
+[-7.04941899e-02 -1.09924078e+00 6.89047515e-01]]]]
 ```
 
 ## 编码运算
@@ -495,7 +555,7 @@ import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
-deltas = Tensor([[3,1,2,2],[1,s2,1,4]],mindspore.float32)
+deltas = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
 boundingbox_decode = P.BoundingBoxDecode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0), max_shape=(768, 1280), wh_ratio_clip=0.016)
 res = boundingbox_decode(anchor_box, deltas)
 print(res)
@@ -565,7 +625,7 @@ from mindspore import Tensor
 import mindspore.ops.operations as P
 import numpy as np
 import mindspore.common.dtype as mstype
-from mindpore.ops import composite as C
+from mindspore.ops import composite as C
 
 def hook_fn(grad_out):
     print(grad_out)
@@ -583,4 +643,8 @@ def backward(x, y):
     return grad_all(hook_test)(Tensor(x, mstype.float32), Tensor(y, mstype.float32))
 
 backward(1, 2)
+```
+输出如下：
+```
+(Tensor(shape=[], dtype=Float32, value=2),)
 ```
