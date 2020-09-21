@@ -53,7 +53,7 @@ Runtime总体使用流程如下图所示：
 - `Operator`：算子原型，包含算子的属性，以及shape、data type和format的推导方法。
 - `Kernel`：算子库提供算子的具体实现，提供算子forward的能力。
 - `Tensor`：MindSpore Lite使用的Tensor，提供了Tensor内存操作的功能和接口。
-  
+
 ## 读取模型
 
 在MindSpore Lite中，模型文件是从模型转换工具转换得到的`.ms`文件。进行模型推理时，需要从文件系统加载模型，并进行模型解析，这部分操作主要在Model中实现。Model持有权重数据、算子属性等模型数据。
@@ -104,13 +104,13 @@ if (context == nullptr) {
 context->device_type_ = lite::DT_GPU;
 // The medium core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
 context->cpu_bind_mode_ = MID_CPU;
-// Configure the number of worker threads in the thread pool to 2, including the main thread. 
+// Configure the number of worker threads in the thread pool to 2, including the main thread.
 context->thread_num_ = 2;
 // Allocators can be shared across multiple Contexts.
 auto *context2 = new Context();
-context2->thread_num_ = context->thread_num_; 
-context2->allocator = context->allocator; 
-context2->device_type_ = context->device_type_; 
+context2->thread_num_ = context->thread_num_;
+context2->allocator = context->allocator;
+context2->device_type_ = context->device_type_;
 context2->cpu_bind_mode_ = context->cpu_bind_mode_;
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
@@ -267,14 +267,6 @@ memcpy(in_data, input_buf, data_size);
 MindSpore Lite会话在进行图编译以后，即可使用`LiteSession`的`RunGraph`进行模型推理。
 
 ```cpp
-/// \brief  Run session with callback.
-///
-/// \param[in] before  Define a call_back_function to be called before running each node.
-/// \param[in] after  Define a call_back_function to be called after running each node.
-///
-/// \note RunGraph should be called after CompileGraph.
-///
-/// \return  STATUS as an error code of running graph, STATUS is defined in errorcode.h.
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
 ```
 
@@ -473,7 +465,7 @@ if (out_data == nullptr) {
     std::cerr << "Data of out_tensor is nullptr" << std::endl;
     return -1;
 }
-// Print the first 10 float data or all output data of the output tensor. 
+// Print the first 10 float data or all output data of the output tensor.
 std::cout << "Output data: ";
 for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
     std::cout << " " << out_data[i];
@@ -501,12 +493,13 @@ if (out_tensor == nullptr) {
 下面示例代码演示了使用`GetOutputByTensorName`接口获取输出`MSTensor`的方法：
 
 ```cpp
+// Assume we have created a LiteSession instance named session.
 // We can use GetOutputTensorNames method to get all name of output tensor of model which is in order.
-auto tensor_names = this->GetOutputTensorNames();
+auto tensor_names = session->GetOutputTensorNames();
 // Assume we have created a LiteSession instance named session before.
 // Use output tensor name returned by GetOutputTensorNames as key
 for (auto tensor_name : tensor_names) {
-    auto out_tensor = this->GetOutputByTensorName(tensor_name);
+    auto out_tensor = session->GetOutputByTensorName(tensor_name);
     if (out_tensor == nullptr) {
         std::cerr << "Output tensor is nullptr" << std::endl;
         return -1;
@@ -522,7 +515,7 @@ MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/
 下面代码演示如何获取MindSpore Lite的版本号：
 ```cpp
 #include "include/version.h"
-std::string version = mindspore::lite::Version(); 
+std::string version = mindspore::lite::Version();
 ```
 
 ## Session并行
@@ -596,13 +589,13 @@ int main(int argc, const char **argv) {
   delete[](graphBuf);
   auto session1 = GenerateSession(model);
   if (session1 == nullptr) {
-    std::cerr << "GenerateSession failed" << std::endl;
+    std::cerr << "Generate session 1 failed" << std::endl;
     delete(model);
     return -1;
   }
   auto session2 = GenerateSession(model);
   if (session2 == nullptr) {
-    std::cerr << "GenerateSession failed" << std::endl;
+    std::cerr << "Generate session 2 failed" << std::endl;
     delete(model);
     return -1;
   }
