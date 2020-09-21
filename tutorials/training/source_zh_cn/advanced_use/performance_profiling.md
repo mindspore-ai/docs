@@ -39,7 +39,7 @@
 
   > Profiler支持的参数可以参考：
   >
-  > <https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.profiler.html>
+  > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.profiler.html>
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
@@ -75,7 +75,7 @@ def test_profiler():
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html)。
 
 
 ### 性能分析

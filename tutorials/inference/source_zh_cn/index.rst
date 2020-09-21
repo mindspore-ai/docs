@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 使用MindSpore推理
-=============
+=================================
 
 .. toctree::
    :glob:

@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 使用MindSpore进行训练
-=============
+=================================
 
 .. toctree::
    :glob:

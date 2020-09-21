@@ -27,7 +27,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
 
 1. 将你的预训练模型托管在可以访问的存储位置。
 
-2. 按照 [模板](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py) 在你自己的代码仓中添加模型生成文件 `mindspore_hub_conf.py`，文件放置的位置如下： 
+2. 按照 [模板](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/googlenet/mindspore_hub_conf.py) 在你自己的代码仓中添加模型生成文件 `mindspore_hub_conf.py`，文件放置的位置如下： 
 
    ```shell script
    googlenet
@@ -40,7 +40,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
    ├── mindspore_hub_conf.py
    ```
 
-3. 按照 [模板](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md) 在 `hub/mshub_res/assets/mindspore/ascend/0.7` 文件夹下创建`{model_name}_{model_version}_{dataset}.md` 文件，其中 `ascend` 为模型运行的硬件平台，`0.7` 为MindSpore的版本号，`hub/mshub_res`的目录结构为：
+3. 按照 [模板](https://gitee.com/mindspore/hub/blob/r1.0/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md) 在 `hub/mshub_res/assets/mindspore/ascend/0.7` 文件夹下创建`{model_name}_{model_version}_{dataset}.md` 文件，其中 `ascend` 为模型运行的硬件平台，`0.7` 为MindSpore的版本号，`hub/mshub_res`的目录结构为：
 
    ```shell script
    hub
@@ -56,7 +56,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
    |       ├── md_validator.py
    |       └── md_validator.py 
    ```
-   注意，`{model_name}_{model_version}_{dataset}.md` 文件中需要补充如下所示的 `file-format`、`asset-link` 和 `asset-sha256` 信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值，其中MindSpore Hub支持的模型文件格式有 [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies)，[AIR](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html)，[MindIR](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#export-mindir-model)，[ONNX](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html) 和 [MSLite](https://www.mindspore.cn/lite/tutorial/zh-CN/master/use/converter_tool.html)。
+   注意，`{model_name}_{model_version}_{dataset}.md` 文件中需要补充如下所示的 `file-format`、`asset-link` 和 `asset-sha256` 信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值，其中MindSpore Hub支持的模型文件格式有 [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies)，[AIR](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html)，[MindIR](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#export-mindir-model)，[ONNX](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html) 和 [MSLite](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/converter_tool.html)。
 
     ```shell script
    file-format: ckpt  
@@ -112,7 +112,7 @@ MindSpore Hub是MindSpore生态的预训练模型应用工具，作为模型开�
   # ...
   
   ```
-- 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/multi_platform_inference.html)。
+- 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html)。
 ### 模型微调 
 
 在使用 `mindspore_hub.load` 进行模型加载时，可以增加一个额外的参数项只加载神经网络的特征提取部分。这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 include_top）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top` 取值为True或者False，表示是否保留顶层的全连接网络。* 
