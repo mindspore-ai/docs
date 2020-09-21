@@ -5,19 +5,19 @@
 > √ The checked items are the operators supported by MindSpore Lite。
 
 | Operation               | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | Tensorflow <br/>Lite op supported | Caffe <br/>Lite op supported | Onnx <br/>Lite op supported |
-|-----------------------|----------|----------|-----------|----------|----------|------------------|----------|----------|----------|
-| Abs                   |          | √        | √        | √         | √        | √        | Abs        |               | Abs                |
-| Add                   | √        | √        | √        | √         | √        | √        | Add        |               | Add                |
-| AddN                  |          | √        |          |           |          |          | AddN       |               |                    |
-| Argmax                |          | √        | √        | √         |          |          | Argmax     | ArgMax        | ArgMax             |
-| Argmin                |          | √        | √        | √         |          |          | Argmin     |               |                    |
-| AvgPool               | √        | √        | √        | √         | √        | √        | MeanPooling| Pooling       | AveragePool        |
-| BatchNorm             | √        | √        | √        | √         | √        | √        |            | BatchNorm     | BatchNormalization |
-| BatchToSpace          |          | √        | √        | √         |          |          | BatchToSpace |  |               |
-| BatchToSpaceND        |          | √        | √        |           |          |          | BatchToSpaceND |  |               |
-| BiasAdd               |          | √        | √        | √         | √        | √        |           |                | BiasAdd            |
+|-----------------------|----------|----------|----------|-----------|----------|----------|------------|----------------|--------------------|
+| Abs                   |          | √        | √        | √         | √        | √        | Abs        |                | Abs                |
+| Add                   | √        | √        | √        | √         | √        | √        | Add        |                | Add                |
+| AddN                  |          | √        |          |           |          |          | AddN       |                |                    |
+| Argmax                |          | √        | √        | √         |          |          | Argmax     | ArgMax         | ArgMax             |
+| Argmin                |          | √        | √        | √         |          |          | Argmin     |                |                    |
+| AvgPool               | √        | √        | √        | √         | √        | √        | MeanPooling| Pooling        | AveragePool        |
+| BatchNorm             | √        | √        | √        | √         | √        | √        |            | BatchNorm      | BatchNormalization |
+| BatchToSpace          |          | √        | √        | √         |          |          | BatchToSpace |              |                    |
+| BatchToSpaceND        |          | √        | √        |           |          |          | BatchToSpaceND |            |                    |
+| BiasAdd               |          | √        | √        | √         | √        | √        |             |               | BiasAdd            |
 | Broadcast             |          | √        |          |           |          |          | BroadcastTo |               | Expand             |
-| Cast                  | √        | √        | √        | √         | √        | √        | Cast, DEQUANTIZE*  |        | Cast               |
+| Cast                  | √        | √        | √        | √         | √        | √        | Cast, QUANTIZE, DEQUANTIZE  |        | Cast      |
 | Ceil                  |          | √        | √        | √         | √        | √        | Ceil        |               | Ceil               |
 | Concat                | √        | √        | √        | √         | √        | √        | Concat      | Concat        | Concat             |
 | Conv2d                | √        | √        | √        | √         | √        | √        | Conv2D      | Convolution   | Conv               |
@@ -28,12 +28,12 @@
 | DepthToSpace          |          | √        | √        | √         |          |          | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | √        | √        | √        | √         | √        | √        | DepthwiseConv2D | Convolution   | Convolution    |
 | DetectionPostProcess  |          | √        |          |           |          |          | DetectionPostProcess |      |                    |
-| Div                   | √        | √        | √        | √         | √        | √        | Div, RealDiv         |               | Div                |
+| Div                   | √        | √        | √        | √         | √        | √        | Div, RealDiv         |      | Div                |
 | Eltwise               | √        | √        |          |           |          |          |             |  Eltwise      |                    |
-| Elu                   |          | √        |          |           |          |          |  Elu        |               | Elu                |
+| Elu                   |          | √        |          |           |          |          | Elu         |               | Elu                |
 | Equal                 | √        | √        | √        | √         |          |          | Equal       |               | Equal              |
-| Exp                   |          | √        |          |           | √        | √        | Exp         |               | Exp                |
-| ExpandDims            |          | √        |          |           |          |          |             |               |                    |
+| Exp                   |          | √        |          |           | √        | √        | Exp         | Exp           | Exp                |
+| ExpandDims            |          | √        |          |           |          |          | ExpandDims  |               |                    |
 | Fill                  |          | √        |          |           |          |          | Fill        |               |                    |
 | Flatten               |          | √        |          |           |          |          |             | Flatten       |                    |
 | Floor                 |          | √        | √        | √         | √        | √        | flOOR       |               | Floor              |
@@ -45,10 +45,11 @@
 | Greater               | √        | √        | √        | √         |          |          | Greater     |               | Greater            |
 | GreaterEqual          | √        | √        | √        | √         |          |          | GreaterEqual|               |                    |
 | Hswish                | √        | √        | √        | √         |          |          | HardSwish   |               |                    |
+| L2Norm                |          | √        |          |           |          |          | L2_NORMALIZATION   |        |                    |
 | LeakyReLU             | √        | √        |          |           | √        | √        | LeakyRelu   |               | LeakyRelu          |
 | Less                  | √        | √        | √        | √         |          |          | Less        |               | Less               |
 | LessEqual             | √        | √        | √        | √         |          |          | LessEqual   |               |                    |
-| LRN     |          | √        |          |           |          |          | LocalResponseNorm  |        | Lrn                |
+| LRN                   |          | √        |          |           |          |          | LocalResponseNorm  |        | Lrn, LRN           |
 | Log                   |          | √        | √        | √         | √        | √        | Log         |               | Log                |
 | LogicalAnd            | √        | √        |          |           |          |          | LogicalAnd  |               |                    |
 | LogicalNot            |          | √        | √        | √         | √        | √        | LogicalNot  |               |                    |
@@ -63,17 +64,18 @@
 | Neg                   |          | √        |          |           |          |          | Neg         |               | Neg                |
 | NotEqual              | √        | √        | √        | √         |          |          | NotEqual    |               |                    |
 | OneHot                |          | √        |          |           |          |          | OneHot      |               |                    |
-| Pad                   | √        | √        | √        | √         |          |          | Pad         |               | Pad                |
-| Pow                   |          | √        | √        | √         |          |         | Pow          | Power         | Power              |
-| PReLU                 |          | √        |          |           | √        | √        |        | PReLU         |              |
+| Pad                   | √        | √        | √        | √         |          |          | Pad, MirrorPad   |          | Pad                |
+| Pow                   |          | √        | √        | √         |          |          | Pow         | Power         | Power              |
+| PReLU                 |          | √        |          |           | √        | √        |             | PReLU         |                    |
 | Range                 |          | √        |          |           |          |          | Range       |               |                    |
 | Rank                  |          | √        |          |           |          |          | Rank        |               |                    |
+| ReduceASum            |          | √        |          |           |          |          |             |  Reduction    |                    |
 | ReduceMax             | √        | √        | √        | √         |          |          | ReduceMax   |               | ReduceMax          |
-| ReduceMean            | √        | √        | √        | √         |          |          | Mean        |               | ReduceMean         |
+| ReduceMean            | √        | √        | √        | √         |          |          | Mean        | Reduction     | ReduceMean         |
 | ReduceMin             | √        | √        | √        | √         |          |          | ReduceMin   |               | ReduceMin          |
 | ReduceProd            | √        | √        | √        | √         |          |          | ReduceProd  |               |                    |
-| ReduceSum             | √        | √        | √        | √         |          |          | Sum         |               | ReduceSum          |
-| ReduceSumSquare       | √        | √        | √        | √         |          |          |             |               |                    |
+| ReduceSum             | √        | √        | √        | √         |          |          | Sum         | Reduction     | ReduceSum          |
+| ReduceSumSquare       | √        | √        | √        | √         |          |          |             | Reduction     |                    |
 | ReLU                  | √        | √        | √        | √         | √        | √        | Relu        | ReLU          | Relu               |
 | ReLU6                 | √        | √        | √        | √         | √        | √        | Relu6       | ReLU6         | Clip*              |
 | Reshape               | √        | √        | √        | √         | √        | √        | Reshape     | Reshape       | Reshape,Flatten    |
@@ -84,32 +86,31 @@
 | Rsqrt                 |          | √        | √        | √         | √        | √        | Rsqrt       |               |                    |
 | Scale                 |          | √        |          |           | √        | √        |             |  Scale        |                    |
 | ScatterNd             |          | √        |          |           |          |          | ScatterNd   |               |                    |
-| Shape                 |          | √        |          |          |          |          | Shape       |               | Shape              |
+| Shape                 |          | √        |          |           |          |          | Shape       |               | Shape              |
 | Sigmoid               | √        | √        | √        | √         | √        | √        | Logistic    | Sigmoid       | Sigmoid            |
 | Sin                   |          | √        | √        | √         | √        | √        | Sin         |               | Sin                |
-| Slice                 |          | √        | √        | √         | √        | √        | Slice       |               | Slice              |
+| Slice                 |          | √        | √        | √         | √        | √        | Slice       | Slice         | Slice              |
 | Softmax               | √        | √        | √        | √         | √        | √        | Softmax     | Softmax       | Softmax            |
-| SpaceToBatch          |          | √        | √        |           |          |          | SpaceToBatch   |               |                    |
+| SpaceToBatch          |          | √        | √        |           |          |          | SpaceToBatch   |            |                    |
 | SpaceToBatchND        |          | √        | √        |           |          |          | SpaceToBatchND |            |                    |
 | SpaceToDepth          |          | √        |          |           |          |          | SpaceToDepth   |            | SpaceToDepth       |
 | SparseToDense         |          | √        |          |           |          |          |  SpareToDense  |            |                    |
 | Split                 | √        | √        | √        | √         |          |          | Split, SplitV  |            |                    |
 | Sqrt                  |          | √        | √        | √         | √        | √        | Sqrt        |               | Sqrt               |
 | Square                |          | √        | √        | √         | √        | √        | Square      |               |                    |
-| SquaredDifference     |          | √        |          |           |          |          |  SquaredDifference |         |                    |
+| SquaredDifference     |          | √        |          |           |          |          |  SquaredDifference |        |                    |
 | Squeeze               |          | √        | √        | √         |          |          | Squeeze     |               | Squeeze            |
 | StridedSlice          |          | √        | √        | √         |          |          | StridedSlice|               |                    |
 | Stack                 |          | √        |          |           |          |          | Stack       |               |                    |
 | Sub                   | √        | √        | √        | √         | √        | √        | Sub         |               |  Sub               |
 | Tanh                  | √        | √        |          |           | √        | √        | Tanh        | TanH          |                    |
-| Tile                  |          | √        |          |           |          |          | Tile        |               | Tile               |
+| Tile                  |          | √        |          |           |          |          | Tile        | Tile          | Tile               |
 | TopK                  |          | √        | √        | √         |          |          | TopKV2      |               |                    |
 | Transpose             | √        | √        |          |           | √        | √        | Transpose   | Permute       | Transpose          |
 | Unique                |          | √        |          |           |          |          | Unique      |               |                    |
 | Unsqueeze             |          | √        | √        | √         |          |          |             |               | Unsqueeze          |
 | Unstack               |          | √        |          |           |          |          | Unstack     |               |                    |
 | Where                 |          | √        |          |           |          |          |  Where      |               |                    |
-| ZerosLike             |          | √        |          |           |          |          | ZerosLike   |               |               |             
+| ZerosLike             |          | √        |          |           |          |          | ZerosLike   |               |                    |             
 
 * Clip: only support convert clip(0, 6) to Relu6.
-* DEQUANTIZE: only support to convert fp16 to fp32.

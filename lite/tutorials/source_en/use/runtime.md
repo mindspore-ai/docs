@@ -1,4 +1,4 @@
-# Use Runtime for Model Inference 
+# Use Runtime for Model Inference
 
 <!-- TOC -->
 
@@ -54,7 +54,7 @@ Its components and their functions are described as follows:
 - `Operator`: operator prototype, including operator attributes and methods for inferring the shape, data type, and format.
 - `Kernel`: operator, which provides specific operator implementation and the operator forwarding function.
 - `Tensor`: tensor used by MindSpore Lite, which provides functions and APIs for tensor memory operations.
-  
+
 ## Reading Models
 
 In MindSpore Lite, a model file is an `.ms` file converted using the model conversion tool. During model inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the Model component. The Model component holds model data such as weight data and operator attributes.
@@ -105,13 +105,13 @@ if (context == nullptr) {
 context->device_type_ = lite::DT_GPU;
 // The medium core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
 context->cpu_bind_mode_ = MID_CPU;
-// Configure the number of worker threads in the thread pool to 2, including the main thread. 
+// Configure the number of worker threads in the thread pool to 2, including the main thread.
 context->thread_num_ = 2;
 // Allocators can be shared across multiple Contexts.
 auto *context2 = new Context();
-context2->thread_num_ = context->thread_num_; 
-context2->allocator = context->allocator; 
-context2->device_type_ = context->device_type_; 
+context2->thread_num_ = context->thread_num_;
+context2->allocator = context->allocator;
+context2->device_type_ = context->device_type_;
 context2->cpu_bind_mode_ = context->cpu_bind_mode_;
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
@@ -285,14 +285,6 @@ Note:
 After a MindSpore Lite session performs graph compilation, you can use `RunGraph` of `LiteSession` for model inference.
 
 ```cpp
-/// \brief  Run session with callback.
-///
-/// \param[in] before  Define a call_back_function to be called before running each node.
-/// \param[in] after  Define a call_back_function to be called after running each node.
-///
-/// \note RunGraph should be called after CompileGraph.
-///
-/// \return  STATUS as an error code of running graph, STATUS is defined in errorcode.h.
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
 ```
 
@@ -491,7 +483,7 @@ if (out_data == nullptr) {
     std::cerr << "Data of out_tensor is nullptr" << std::endl;
     return -1;
 }
-// Print the first 10 float data or all output data of the output tensor. 
+// Print the first 10 float data or all output data of the output tensor.
 std::cout << "Output data: ";
 for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
     std::cout << " " << out_data[i];
@@ -519,12 +511,13 @@ if (out_tensor == nullptr) {
 The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputByTensorName` method.
 
 ```cpp
+// Assume we have created a LiteSession instance named session.
 // We can use GetOutputTensorNames method to get all name of output tensor of model which is in order.
-auto tensor_names = this->GetOutputTensorNames();
+auto tensor_names = session->GetOutputTensorNames();
 // Assume we have created a LiteSession instance named session before.
 // Use output tensor name returned by GetOutputTensorNames as key
 for (auto tensor_name : tensor_names) {
-    auto out_tensor = this->GetOutputByTensorName(tensor_name);
+    auto out_tensor = session->GetOutputByTensorName(tensor_name);
     if (out_tensor == nullptr) {
         std::cerr << "Output tensor is nullptr" << std::endl;
         return -1;
@@ -540,7 +533,7 @@ The following sample code shows how to obtain version string using `Version` met
 
 ```cpp
 #include "include/version.h"
-std::string version = mindspore::lite::Version(); 
+std::string version = mindspore::lite::Version();
 ```
 
 ## Session parallel launch
@@ -614,13 +607,13 @@ int main(int argc, const char **argv) {
   delete[](graphBuf);
   auto session1 = GenerateSession(model);
   if (session1 == nullptr) {
-    std::cerr << "GenerateSession failed" << std::endl;
+    std::cerr << "Generate session 1 failed" << std::endl;
     delete(model);
     return -1;
   }
   auto session2 = GenerateSession(model);
   if (session2 == nullptr) {
-    std::cerr << "GenerateSession failed" << std::endl;
+    std::cerr << "Generate session 2 failed" << std::endl;
     delete(model);
     return -1;
   }
