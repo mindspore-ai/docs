@@ -38,7 +38,9 @@ context.set_context(mode=context.GRAPH_MODE)
 ```
 
 ### 模式切换
-实现两种模式之间的切换，可以通过`context.set_context(mode=context.GRAPH_MODE)`切换为Graph模式；同样地，MindSpore处于Graph模式时，可以通过 `context.set_context(mode=context.PYNATIVE_MODE)`切换为PyNative模式。
+实现两种模式之间的切换。
+
+MindSpore处于PYNATIVE模式时，可以通过`context.set_context(mode=context.GRAPH_MODE)`切换为Graph模式；同样地，MindSpore处于Graph模式时，可以通过 `context.set_context(mode=context.PYNATIVE_MODE)`切换为PyNative模式。
 
 代码样例如下：
 ```python
@@ -60,7 +62,7 @@ conv(input_data)
 ## 硬件管理
 硬件管理部分主要包括`device_target`和`device_id`两个参数。
 
-- `device_target`： 用于设置目标设备，支持Ascend、GPU和CPU，默认设置是Ascend。
+- `device_target`： 用于设置目标设备，支持Ascend、GPU和CPU，可以根据实际环境情况设置。
 
 - `device_id`： 表示卡物理序号，即卡所在机器中的实际序号。如果目标设备为Ascend，且规格为N*Ascend（其中N>1，如8*Ascend），在非分布式模式执行的情况下，为了避免设备的使用冲突，可以通过设置`device_id`决定程序执行的device编号，该编号范围为：0 ~ 服务器总设备数量-1，服务器总设备数量不能超过4096，默认为设备0。
 
