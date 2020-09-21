@@ -241,6 +241,8 @@ if __name__ == "__main__":
             print("epoch: {0}/{1}, losses: {2}".format(step + 1, epoch, output.asnumpy(), flush=True))
 ```
 
+> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)的下载数据集部分，下同。
+
 输出如下：
 ```python
 epoch: 1/10, losses: 2.294034719467163
