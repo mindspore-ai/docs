@@ -110,7 +110,7 @@ MindSpore Lite训练后量化分为两类：
    校准数据集可以选择测试数据集的子集，要求`/dir/images`目录下存放的每个文件均是预处理好的输入数据，每个文件都可以直接用于推理的输入。
 3. 以MindSpore模型为例，执行全量化的模型转换命令:
     ```
-    ./converter_lite --fmk=MS --modelFile=lenet.ms --outputFile=lenet_quant --quantType=PostTraining --config_file=config.cfg
+    ./converter_lite --fmk=MINDIR --modelFile=lenet.mindir --outputFile=lenet_quant --quantType=PostTraining --config_file=config.cfg
     ```
 4. 上述命令执行成功后，便可得到量化后的模型`lenet_quant.ms`，通常量化后的模型大小会下降到FP32模型的1/4。
 
