@@ -9,18 +9,18 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/api/source_zh_cn/programming_guide/api_structure.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/api_structure.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 总体架构
 MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景覆盖三大目标，其中易开发表现为API友好、调试难度低以及额外的自动化属性，高效执行包括计算效率、数据预处理效率和分布式训练效率，全场景则指框架同时支持云、边缘以及端侧场景。
 
-MindSpore总体架构分为前端表示层（Mind Expression，ME）、计算图引擎（Graph Engine，GE）和后端运行时三个部分。ME提供了用户级应用软件编程接口（Application Programming Interface，API），用于构建和训练神经网络，并将用户的Python代码转换为数据流图。GE是算子和硬件资源的管理器，负责控制从ME接收的数据流图的执行。后端运行时包含云、边、端上不同环境中的高效运行环境，例如CPU、GPU、Ascend AI处理器、 Android/iOS等。更多总体架构的相关内容请参见[总体架构](https://www.mindspore.cn/docs/zh-CN/master/architecture.html)。
+MindSpore总体架构分为前端表示层（Mind Expression，ME）、计算图引擎（Graph Engine，GE）和后端运行时三个部分。ME提供了用户级应用软件编程接口（Application Programming Interface，API），用于构建和训练神经网络，并将用户的Python代码转换为数据流图。GE是算子和硬件资源的管理器，负责控制从ME接收的数据流图的执行。后端运行时包含云、边、端上不同环境中的高效运行环境，例如CPU、GPU、Ascend AI处理器、 Android/iOS等。更多总体架构的相关内容请参见[总体架构](https://www.mindspore.cn/docs/note/zh-CN/r1.0/design/mindspore/architecture.html)。
 
 ## 设计理念
 
 MindSpore源于全产业的最佳实践，向数据科学家和算法工程师提供了统一的模型训练、推理和导出等接口，支持端、边、云等不同场景下的灵活部署，推动深度学习和科学计算等领域繁荣发展。
 
-MindSpore提供了Python编程范式，用户使用Python原生控制逻辑即可构建复杂的神经网络模型，AI编程变得简单，具体示例请参见[实现一个图片分类应用](https://www.mindspore.cn/tutorial/zh-CN/master/quick_start/quick_start.html)。
+MindSpore提供了Python编程范式，用户使用Python原生控制逻辑即可构建复杂的神经网络模型，AI编程变得简单，具体示例请参见[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)。
 
 目前主流的深度学习框架的执行模式有两种，分别为静态图模式和动态图模式。静态图模式拥有较高的训练性能，但难以调试。动态图模式相较于静态图模式虽然易于调试，但难以高效执行。MindSpore提供了动态图和静态图统一的编码方式，大大增加了静态图和动态图的可兼容性，用户无需开发多套代码，仅变更一行代码便可切换动态图/静态图模式，例如设置`context.set_context(mode=context.PYNATIVE_MODE)`切换成动态图模式，设置`context.set_context(mode=context.GRAPH_MODE)`即可切换成静态图模式，用户可拥有更轻松的开发调试及性能体验。
 

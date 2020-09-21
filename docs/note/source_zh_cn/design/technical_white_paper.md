@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/source_zh_cn/technical_white_paper.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/technical_white_paper.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 引言
 深度学习研究和应用在近几十年得到了爆炸式的发展，掀起了人工智能的第三次浪潮，并且在图像识别、语音识别与合成、无人驾驶、机器视觉等方面取得了巨大的成功。这也对算法的应用以及依赖的框架有了更高级的要求。深度学习框架的不断发展使得在大型数据集上训练神经网络模型时，可以方便地使用大量的计算资源。

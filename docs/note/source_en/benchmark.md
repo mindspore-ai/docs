@@ -16,7 +16,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes the MindSpore benchmarks. 
-For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
+For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo).
 
 ## Training Performance
 
