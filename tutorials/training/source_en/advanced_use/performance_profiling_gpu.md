@@ -26,6 +26,11 @@ Performance data like operators' execution time is recorded in files and can be 
 >
 > <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/performance_profiling.html#preparing-the-environment>
 
+> By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
+> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description: 
+>
+> <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
+
 ## Preparing the Training Script
 
 To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.Only the output_path in parameters is worked in GPU now. Then, at the end of the training, `Profiler.analyse` should be called to finish profiling and generate the perforamnce analyse results.
