@@ -9,7 +9,7 @@ Inference Using MindSpore
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Use
+   :caption: Inference Model
 
    multi_platform_inference
    multi_platform_inference_ascend_910

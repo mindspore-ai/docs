@@ -260,7 +260,7 @@ epoch: 10/10, losses: 1.4282708168029785
 > 典型的使用场景是梯度累积，详细查看[梯度累积](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_gradient_accumulation.html)。
 
 ## 边训练边推理
-对于某些数据量较大、训练时间较长的复杂网络，为了能掌握训练的不同阶段模型精度的指标变化情况，可以通过边训练边推理的方式跟踪精度的变化情况。具体可以参考[同步训练和验证模型](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/synchronization_training_and_evaluation.html)。
+对于某些数据量较大、训练时间较长的复杂网络，为了能掌握训练的不同阶段模型精度的指标变化情况，可以通过边训练边推理的方式跟踪精度的变化情况。具体可以参考[同步训练和验证模型](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/evaluate_the_model_during_training.html)。
 
 ## on-device执行
 当前MindSpore支持的后端包括Ascend、GPU、CPU，所谓On Device中的Device通常指Ascend（昇腾）AI处理器。

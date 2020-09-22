@@ -1,10 +1,10 @@
-﻿# Evaluate the Model while Training
+﻿# Evaluate the Model during Training
 
 `Linux` `Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert` `Model Export` `Model Training`
 
 <!-- TOC -->
 
-- [Evaluate the Model while Training](#evaluate-the-model-while-training)
+- [Evaluate the Model during Training](#evaluate-the-model-during-training)
     - [Overview](#overview)
     - [Defining the Callback Function EvalCallBack](#defining-the-callback-function-evalcallback)
     - [Defining and Executing the Training Network](#defining-and-executing-the-training-network)
@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/synchronization_training_and_evaluation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ The procedure is as follows:
 2. Define a training network and execute it.
 3. Draw a line chart based on the model accuracy under different epochs and select the optimal model.
 
-For a complete example, see [notebook](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/synchronization_training_and_evaluation.ipynb).
+For a complete example, see [notebook](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb).
 
 ## Defining the Callback Function EvalCallBack
 
@@ -164,7 +164,7 @@ eval_show(epoch_per_eval)
 
 The output is as follows:
 
-![png](./images/synchronization_training_and_evaluation.png)
+![png](./images/evaluate_the_model_during_training.png)
 
 
 You can easily select the optimal model based on the preceding figure.

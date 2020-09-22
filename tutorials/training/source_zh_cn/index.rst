@@ -51,7 +51,7 @@
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
-   advanced_use/synchronization_training_and_evaluation
+   advanced_use/evaluate_the_model_during_training
 
 .. toctree::
    :glob:

@@ -1,10 +1,10 @@
-# Saving and Loading Model Parameters
+# Saving and Loading a Model
 
 `Linux` `Ascend` `GPU` `CPU` `Model Export` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Saving and Loading Model Parameters](#saving-and-loading-model-parameters)
+- [Saving and Loading a Model](#saving-and-loading-a-model)
     - [Overview](#overview)
     - [Saving Model Parameters](#saving-model-parameters)
         - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)

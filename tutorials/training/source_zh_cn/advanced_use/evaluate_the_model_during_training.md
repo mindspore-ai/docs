@@ -13,9 +13,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/synchronization_training_and_evaluation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/synchronization_training_and_evaluation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -26,7 +26,7 @@
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
 
-完整示例请参考[notebook](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/synchronization_training_and_evaluation.ipynb)。
+完整示例请参考[notebook](https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/evaluate_the_model_during_training.ipynb)。
 
 ## 定义回调函数EvalCallBack
 
@@ -166,7 +166,7 @@ eval_show(epoch_per_eval)
 
 输出结果：
 
-![png](./images/synchronization_training_and_evaluation.png)
+![png](./images/evaluate_the_model_during_training.png)
 
 
 从上图可以一目了然地挑选出需要的最优模型。
