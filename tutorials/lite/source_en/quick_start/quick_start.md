@@ -104,7 +104,7 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore_lite_x.x.x-minddata-arm64-cpu` #MindSpore Lite version
+|   |   ├── mindspore_lite_1.0.0-minddata-arm64-cpu` #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
@@ -127,9 +127,13 @@ app
 
 ### Configuring MindSpore Lite Dependencies
 
-When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html) to generate the `libmindspore-lite.so` library file.
+When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
-In Android Studio, place the compiled `libmindspore-lite.so` library file (which can contain multiple compatible architectures) in the `app/libs/ARM64-V8a` (Arm64) or `app/libs/armeabi-v7a` (Arm32) directory of the application project. In the `build.gradle` file of the application, configure the compilation support of CMake, `arm64-v8a`, and `armeabi-v7a`.　　
+In this example, the build process automatically downloads the `mindspore-lite-1.0.0-minddata-arm64-cpu` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+
+Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
+
+mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [Download link](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ```
 android{
@@ -177,17 +181,9 @@ target_link_libraries(
 )
 ```
 
-
-
-In this example, the build process automatically downloads the MindSpore Lite version file by the download.gradle file and saves it in the `app/src/main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu` directory.
-
-Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
-
-MindSpore Lite version [MindSpore Lite version](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
-
 ### Downloading and Deploying a Model File
 
-In this example, the build process automatically downloads the `mobilenetv2.ms ` by the download.gradle file and saves in the 'app / libs / arm64-v8a' directory.
+In this example, the build process automatically downloads the `mobilenetv2.ms` by the `app/download.gradle` file and saves in the `app/src/main/assets` directory.
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
