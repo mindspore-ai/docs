@@ -85,7 +85,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ## 样例代码
 
-样例代码可[点击下载](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry.rar)，可直接运行体验实现写诗效果，代码结构如下:
+样例代码可[点击下载](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry_c.rar)，可直接运行体验实现写诗效果，代码结构如下:
 
 ```
 └─bert_poetry
@@ -96,9 +96,10 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
     ├── fused_layer_norm.py                # 定义fused_layer_norm
     ├── __init__.py                        # __init__
     ├── utils.py                           # 定义Fine-tuning正向网络结构
-    └── poetry_dataset.py                  # 部分代码取自[2]，解析poetry.txt，生成所需dataset
+    ├── poetry_utils.py                    # 分词器 Tokenizer
+    └── poetry_dataset.py                  # 解析poetry.txt，生成所需dataset
   ├── vocab.txt                            # 词汇表
-  ├── generator.py                         # 部分代码取自[2]，推理生成诗句使用函数
+  ├── generator.py                         # 推理生成诗句使用函数
   ├── poetry.py                            # 训练、推理、导出函数
   ├── serving
     ├── ms_serving                         # 启动服务器侧serving
@@ -113,19 +114,14 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ### 基础信息
 
-基于MindSpore 0.6.0-beta版本，在Ascend 910AI处理器平台上进行训练及推理。
+基于MindSpore 0.7.0-beta版本，在Ascend 910AI处理器平台上进行训练及推理。
 
 ### 数据准备
 
-安装bert4keras [3]，需要用到其中的`Tokenizer`和`load_vocab`函数，安装命令如下：
-```
-pip install bert4keras
-pip install bottle
-```
 
 数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
-BERT-Base模型的预训练ckpt：可在[MindSpore官网](https://www.mindspore.cn/doc/note/zh-CN/r1.0/network_list_ms.html)下载。
+BERT-Base模型的预训练ckpt：可在[MindSpore官网](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz)下载。
 
 ### 训练
 
