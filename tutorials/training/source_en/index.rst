@@ -12,6 +12,7 @@ Train with MindSpore
    :caption: Quick Start
 
    quick_start/quick_start
+   quick_start/linear_regression
    quick_start/quick_video
 
 .. toctree::
