@@ -82,7 +82,7 @@ In the preceding information,
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-> For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/en/r1.0/advanced_use/distributed_training_ascend.html>.
+> For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/distributed_training_ascend.html>.
 
 ## Running the Script
 
