@@ -91,7 +91,7 @@ void Destroy()
 void Free()
 ```
 
-释放MindSpore Lite Model中的MetaGraph。
+释放MindSpore Lite Model中的MetaGraph，用于减小运行时的内存。
 
 **静态公有成员函数**
 
