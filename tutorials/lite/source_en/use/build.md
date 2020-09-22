@@ -198,11 +198,15 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 
 ```
 |
-├── mindspore-lite-{version}-minddata-{os}-{device} 
-│   └── include # Head file
+├── mindspore-lite-{version}-minddata-{os}-{device}
+│   └── benchmark # Benchmarking Tool 
+│   └── include # Head file(Only show files related to image processing)
 │       ├── lite_cv # Image processing library header file
-│   └── lib # Dynamic library
+│           ├── image_process.h # Image processing function header file
+│           ├── lite_mat.h # Image data class structure header file
+│   └── lib # Dynamic library(Only show files related to image processing)
 │       ├── libminddata-lite.so # Image processing dynamic library
 │   └── third_party # Third-party Iibrary header files and libraries
 │       ├── flatbuffers # Header files of FlatBuffers
+│   └── time_profiler # Model network layer time-consuming analysis tool
 ```
