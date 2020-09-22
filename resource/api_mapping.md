@@ -43,7 +43,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.load                                           | mindspore.train.serialization.load_checkpoint                          |
 | torch.log                                            | mindspore.ops.operations.Log                                           |
 | torch.log1p                                          | mindspore.ops.operations.Log1p                                         |
-| torch.matmul                                         | mindspore.ops.operations.MatMul                                        |
+| torch.matmul                                         | mindspore.nn.MatMul                                                    |
 | torch.max                                            | mindspore.ops.operations.Maximum                                       |
 | torch.mean                                           | mindspore.ops.operations.ReduceMean                                    |
 | torch.min                                            | mindspore.ops.operations.Minimum                                       |
