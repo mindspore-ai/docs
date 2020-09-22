@@ -108,7 +108,7 @@ app
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
 |   |   ├── ..
-|   |   ├── mindspore_lite_x.x.x-minddata-arm64-cpu # MindSpore Lite版本
+|   |   ├── mindspore-lite-1.0.0-minddata-arm64-cpu # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
 |   |   └── MsNetWork.cpp # MindSpore接口封装
@@ -132,13 +132,19 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html)生成`libmindspore-lite.so`库文件。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/lite/tutorial/zh-CN/master/build.html)生成`mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
 
-本示例中，build过程由download.gradle文件自动从华为服务器下载MindSpore Lite版本文件，并放置在`app/src/ main/cpp/mindspore_lite_x.x.x-minddata-arm64-cpu`目录下。
+> version：输出件版本号，与所编译的分支代码对应的版本一致。
+>
+> device：当前分为cpu（内置CPU算子）和gpu（内置CPU和GPU算子）。
+>
+> os：输出件应部署的操作系统。
 
-注： 若自动下载失败，请手动下载相关库文件并将其放在对应位置：
+本示例中，build过程由`app/download.gradle`文件自动从华为服务器下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
-MindSpore Lite版本 [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
+注： 若自动下载失败，请手动下载相关库文件，解压后将其放在对应位置：
+
+ mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ```
 android{
@@ -188,7 +194,7 @@ target_link_libraries(
 
 ### 下载及部署模型文件
 
-从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
+从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`app/download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
 
 注：若下载失败请手工下载模型文件，mobilenetv2.ms [下载链接](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
 
