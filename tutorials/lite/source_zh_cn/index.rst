@@ -20,6 +20,6 @@
 
    use/build
    use/convert_model
-   use/evaluating_the_model
+   use/data_preprocessing
    use/image_processing
    use/runtime
