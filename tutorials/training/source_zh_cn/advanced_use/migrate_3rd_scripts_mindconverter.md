@@ -114,7 +114,7 @@ mindconverter --in_file /home/user/model.py \
               --report /home/user/output/report
 ```
 
-转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/r1.0/specification_note.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
+转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
