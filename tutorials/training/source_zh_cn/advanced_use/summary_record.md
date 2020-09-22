@@ -44,6 +44,7 @@ MindSpore目前支持三种方式将数据记录到summary日志文件中。
 
 样例代码如下：
 ```python
+import mindspore
 import mindspore.nn as nn
 from mindspore import context
 from mindspore import Tensor
@@ -51,6 +52,7 @@ from mindspore.train import Model
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.ops import operations as P
 from mindspore.train.callback import SummaryCollector
+from mindspore.nn.metrics import Accuracy
 
 """AlexNet initial."""
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid"):
@@ -65,7 +67,7 @@ def fc_with_initialize(input_channels, out_channels):
     return nn.Dense(input_channels, out_channels, weight, bias)
 
 def weight_variable():
-    return TruncatedNormal(0.02)  # 0.02
+    return TruncatedNormal(0.02)
 
 
 class AlexNet(nn.Cell):
@@ -109,16 +111,16 @@ context.set_context(mode=context.GRAPH_MODE)
 
 network = AlexNet(num_classes=10)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-lr = Tensor(0.1)
+lr = Tensor(0.5, mindspore.float32)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
-model = Model(network, loss, opt)
+model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 ds_train = create_dataset('./dataset_path')
 
 # Init a SummaryCollector callback instance, and use it in model.train or model.eval
 summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
 
 # Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-model.train(epoch=1, ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
 
 ds_eval = create_dataset('./dataset_path')
 model.eval(ds_eval, callbacks=[summary_collector])
@@ -227,17 +229,18 @@ class Net(nn.Cell):
 ```python
 from mindspore import Model, nn, context
 from mindspore.train.callback import SummaryCollector
+......
 
 context.set_context(mode=context.GRAPH_MODE)
 net = Net()
 loss_fn = CrossEntropyLoss()
 optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
+model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
 
 train_ds = create_mindrecord_dataset_for_training()
 
 summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-model.train(epoch=2, train_ds, callbacks=[summary_collector])
+model.train(epoch=2, train_dataset=train_ds, callbacks=[summary_collector])
 ```
 
 ### 方式三：自定义Callback记录数据
@@ -281,7 +284,7 @@ class ConfusionMatrixCallback(Callback):
 ...
 
 confusion_martrix = ConfusionMartrixCallback(summary_dir='./summary_dir')
-model.train(cnn_network, callbacks=[confusion_martrix])
+model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
@@ -349,7 +352,7 @@ mindinsight stop
     ```
     ...
     summary_collector = SummaryCollector('./summary_dir')
-    model.train(epoch=2, train_dataset, callbacks=[summary_collector])
+    model.train(2, train_dataset, callbacks=[summary_collector])
 
     ...
     model.eval(dataset， callbacks=[summary_collector])
@@ -360,7 +363,7 @@ mindinsight stop
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
-    model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
+    model.train(2, train_dataset, callbacks=[summary_collector1, summary_collector2])
     ```
 
     错误代码：
@@ -369,7 +372,7 @@ mindinsight stop
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
     summary_collector = SummaryCollector('./summary_dir2')
-    model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
+    model.train(2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 
 3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
