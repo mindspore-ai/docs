@@ -42,6 +42,7 @@ When you write a training script, you just instantiate the `SummaryCollector` an
 
 The sample code is as follows:
 ```python
+import mindspore
 import mindspore.nn as nn
 from mindspore import context
 from mindspore import Tensor
@@ -49,6 +50,7 @@ from mindspore.train import Model
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.ops import operations as P
 from mindspore.train.callback import SummaryCollector
+from mindspore.nn.metrics import Accuracy
 
 """AlexNet initial."""
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid"):
@@ -63,7 +65,7 @@ def fc_with_initialize(input_channels, out_channels):
     return nn.Dense(input_channels, out_channels, weight, bias)
 
 def weight_variable():
-    return TruncatedNormal(0.02)  # 0.02
+    return TruncatedNormal(0.02)
 
 
 class AlexNet(nn.Cell):
@@ -107,16 +109,16 @@ context.set_context(mode=context.GRAPH_MODE)
 
 network = AlexNet(num_classes=10)
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-lr = Tensor(0.1)
+lr = Tensor(0.5, dtype=mindspore.float32)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
-model = Model(network, loss, opt)
+model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 ds_train = create_dataset('./dataset_path')
 
 # Init a SummaryCollector callback instance, and use it in model.train or model.eval
 summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
 
 # Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-model.train(epoch=1, ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
 
 ds_eval = create_dataset('./dataset_path')
 model.eval(ds_eval, callbacks=[summary_collector])
@@ -225,6 +227,7 @@ The sample code is as follows:
 ```python
 from mindspore import Model, nn, context
 from mindspore.train.callback import SummaryCollector
+......
 
 context.set_context(mode=context.GRAPH_MODE)
 net = Net()
@@ -235,7 +238,7 @@ model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)
 train_ds = create_mindrecord_dataset_for_training()
 
 summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-model.train(epoch=2, train_ds, callbacks=[summary_collector])
+model.train(epoch=2, train_dataset=train_ds, callbacks=[summary_collector])
 ```
 
 ### Method three: Custom callback recording data
@@ -279,7 +282,7 @@ class ConfusionMatrixCallback(Callback):
 ...
 
 confusion_martrix = ConfusionMartrixCallback(summary_dir='./summary_dir')
-model.train(cnn_network, callbacks=[confusion_martrix])
+model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 ```
 
 The above three ways, support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
@@ -344,7 +347,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
     ...
     summary_collector = SummaryCollector('./summary_dir')
-    model.train(epoch=2, train_dataset, callbacks=[summary_collector])
+    model.train(2, train_dataset, callbacks=[summary_collector])
     ...
     model.eval(dataset， callbacks=[summary_collector])
     ```
@@ -354,7 +357,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
-    model.train(epoch=2, train_dataset, callbacks=[summary_collector1, summary_collector2])
+    model.train(2, train_dataset, callbacks=[summary_collector1, summary_collector2])
     ```
 
     Wrong code:
@@ -363,7 +366,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')
     summary_collector = SummaryCollector('./summary_dir2')
-    model.train(epoch=2, train_dataset, callbacks=[confusion_callback, summary_collector])
+    model.train(2, train_dataset, callbacks=[confusion_callback, summary_collector])
     ```
 
 3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
