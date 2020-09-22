@@ -8,7 +8,7 @@
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Debugger Environment Preparation](#debugger-environment-preparation)
-    - [Debugger UI Introduction](#debugger-UI-introduction)
+    - [Debugger UI Introduction](#debugger-ui-introduction)
         - [Computational Graph](#computational-graph)
         - [Node List](#node-list)
         - [Graph Node Details](#graph-node-details)
@@ -43,7 +43,7 @@ At first, install MindInsight and launch it in debugger mode. MindSpore will sen
 
 The command to launch MindInsight in debugger mode is as follows: 
 
-```shell script
+```shell
 mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER_PORT}
 ```
 

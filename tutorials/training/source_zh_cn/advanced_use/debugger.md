@@ -41,7 +41,7 @@ MindSpore调试器是为图模式训练提供的调试工具，可以用来查�
 
 MindInsight调试服务启动命令：
 
-```shell script
+```shell
 mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER_PORT}
 ```
 
