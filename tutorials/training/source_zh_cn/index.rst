@@ -23,6 +23,7 @@
    use/data_preparation
    use/defining_the_network
    use/save_and_load_model
+   use/load_and_publish_model
 
 .. toctree::
    :glob:
@@ -49,6 +50,7 @@
 
    advanced_use/debug_in_pynative_mode
    advanced_use/custom_debugging_info
+   advanced_use/fine_tuning_after_load
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
    advanced_use/synchronization_training_and_evaluation
