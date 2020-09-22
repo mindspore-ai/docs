@@ -199,11 +199,15 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 
 ```
 |
-├── mindspore-lite-{version}-minddata-{os}-{device} 
-│   └── include # 头文件
+├── mindspore-lite-{version}-minddata-{os}-{device}
+│   └── benchmark # 基准测试工具 
+│   └── include # 头文件(此处只展示和图像处理相关的文件)
 │       ├── lite_cv # 图像处理库头文件
-│   └── lib # 动态库
+│           ├── image_process.h # 图像处理函数头文件
+│           ├── lite_mat.h # 图像数据类结构头文件
+│   └── lib # 动态库(此处只展示和图像处理相关的文件)
 │       ├── libminddata-lite.so # 图像处理动态库
 │   └── third_party # 第三方库头文件和库
 │       ├── flatbuffers # Flatbuffers的动态库
+│   └── time_profiler # 模型网络层耗时分析工具
 ```
