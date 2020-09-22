@@ -118,11 +118,6 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ### 数据准备
 
-安装bert4keras [3]，需要用到其中的`Tokenizer`和`load_vocab`函数，安装命令如下：
-```
-pip install bert4keras
-pip install bottle
-```
 
 数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
