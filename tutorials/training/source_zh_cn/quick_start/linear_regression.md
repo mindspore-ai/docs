@@ -22,7 +22,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/r1.0/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 

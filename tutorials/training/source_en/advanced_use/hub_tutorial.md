@@ -57,7 +57,7 @@ We accept publishing models to MindSpore Hub via PR in [hub](https://gitee.com/m
    |       └── md_validator.py 
    ```
    
-   Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively. The MindSpore Hub supports multiple model file formats including [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies), [AIR](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html), [MindIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-mindir-model), [ONNX](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html) and [MSLite](https://www.mindspore.cn/doc/lite/en/r1.0/use/converter_tool.html).
+   Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively. The MindSpore Hub supports multiple model file formats including [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies), [AIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-air-model), [MindIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-mindir-model), [ONNX](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-onnx-model) and [MSLite](https://www.mindspore.cn/doc/lite/en/r1.0/use/converter_tool.html).
 
      ```shell script
    file-format: ckpt  
@@ -113,7 +113,7 @@ Once your PR is merged into master branch here, your model will show up in [Mind
   # ...
   
   ```
-- After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/training/en/r1.0/multi_platform_inference.html).
+- After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html).
 
 ### Model Fine-tuning
 

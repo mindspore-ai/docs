@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/optimize_the_performance_of_data_preparation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
