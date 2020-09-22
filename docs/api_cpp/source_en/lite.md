@@ -79,7 +79,7 @@ Destructor of MindSpore Lite Model.
 ```
 void Free()
 ```
-Free MetaGraph in MindSpore Lite Model.
+Free MetaGraph in MindSpore Lite Model to reduce memory usage during inference.
 
 ```
 void Destroy()

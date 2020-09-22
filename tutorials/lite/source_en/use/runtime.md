@@ -61,15 +61,7 @@ In MindSpore Lite, a model file is an `.ms` file converted using the model conve
 
 A model is created based on memory data using the static `Import` method of the Model class. The `Model` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
 
-```cpp
-/// \brief   Static method to create a Model pointer.
-///
-/// \param[in] model_buf  Define the buffer read from a model file.
-/// \param[in] size  Define bytes number of model buffer.
-///
-/// \return  Pointer of MindSpore Lite Model.
-static Model *Import(const char *model_buf, size_t size);
-```
+If there is a large limitation on the runtime memory, you can use the `Free` interface to reduce the memory usage after the `Model` is compiled. But once the `Free` interface of a certain `Model` is called, the `Model` can no longer perform graph compilation.
 
 ## Session Creation
 
@@ -182,6 +174,7 @@ if (ret != RET_OK) {
     delete (model);
     return ret;
 }
+model->Free();
 ```
 
 ## Data Input
@@ -602,6 +595,7 @@ int main(int argc, const char **argv) {
     delete(model);
     return -1;
   }
+  model->Free();
 
   std::thread thread1([&](){
     auto status = session1->RunGraph();

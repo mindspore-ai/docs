@@ -60,15 +60,7 @@ Runtime总体使用流程如下图所示：
 
 模型通过Model类的静态`Import`方法从内存数据中创建。函数返回的`Model`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
 
-```cpp
-/// \brief   Static method to create a Model pointer.
-///
-/// \param[in] model_buf  Define the buffer read from a model file.
-/// \param[in] size  Define bytes number of model buffer.
-///
-/// \return  Pointer of MindSpore Lite Model.
-static Model *Import(const char *model_buf, size_t size);
-```
+如果对运行时内存有较大的限制，可以在`Model`被图编译以后，使用`Free`接口来降低内存占用。但一旦调用了某个`Model`的`Free`接口，该`Model`就不能再进行图编译了。
 
 ## 创建会话
 
@@ -179,6 +171,7 @@ if (ret != RET_OK) {
     delete (model);
     return ret;
 }
+model->Free();
 ```
 
 ## 输入数据
@@ -599,6 +592,7 @@ int main(int argc, const char **argv) {
     delete(model);
     return -1;
   }
+  model->Free();
 
   std::thread thread1([&](){
     auto status = session1->RunGraph();
