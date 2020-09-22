@@ -5,14 +5,10 @@
 <!-- TOC -->
 
 - [推理模型总览](#推理模型总览)
-    - [概述](#概述)
-    - [端侧推理](#端侧推理)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
-
-## 概述
 
 基于MindSpore训练后的模型，支持在不同的硬件平台上执行推理。本文介绍各平台上的推理流程。
 
@@ -40,7 +36,3 @@ CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
 > OM，全称Offline Model，华为Ascend AI处理器支持的离线模型，实现算子调度的优化，权值数据重排、压缩，内存使用优化等可以脱离设备完成的预处理功能。
 
 > TensorRT，NVIDIA 推出的高性能深度学习推理的SDK，包括深度推理优化器和runtime，提高深度学习模型在边缘设备上的推断速度。详细请参见<https://developer.nvidia.com/tensorrt>。
-
-## 端侧推理
-
-端侧推理需使用MindSpore Lite推理引擎，详细操作请参考[导出MINDIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/save_load_model_hybrid_parallel.html#mindir)和[端侧推理教程](https://www.mindspore.cn/lite)。

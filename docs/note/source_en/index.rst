@@ -11,16 +11,10 @@ MindSpore Note
    :maxdepth: 1
    :caption: Design
    
-   design/mindspore/architecture
-   design/mindspore/architecture_lite
-   design/mindspore/mindir
-   design/mindspore/distributed_training_design
-   design/mindinsight/training_visual_design
-   design/mindinsight/graph_visual_design
-   design/mindinsight/tensor_visual_design
-   design/mindinsight/profiler_design
-   design/mindarmour/differential_privacy_design
-   design/mindarmour/fuzzer_design
+   design/overall
+   design/mindspore
+   design/mindinsight
+   design/mindarmour
 
 
 .. toctree::
@@ -32,8 +26,8 @@ MindSpore Note
    network_list
    operator_list
    constraints_on_network_construction
-   image_classification
-   object_detection
+   image_classification_lite
+   object_detection_lite
 
 .. toctree::
    :glob:

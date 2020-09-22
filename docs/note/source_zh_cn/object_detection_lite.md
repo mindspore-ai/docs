@@ -1,6 +1,6 @@
-﻿# 目标检测
+﻿# 目标检测模型支持（Lite）
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/object_detection.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/object_detection_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 目标检测介绍
 

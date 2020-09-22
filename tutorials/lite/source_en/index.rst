@@ -23,5 +23,3 @@ Using MindSpore on Mobile and IoT
    use/evaluating_the_model
    use/image_processing
    use/runtime
-   use/benchmark_tool
-   use/timeprofiler_tool

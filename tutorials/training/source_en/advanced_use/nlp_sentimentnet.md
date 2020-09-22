@@ -1,10 +1,10 @@
-# Natural Language Processing (NLP) Application
+# Realize Sentiment Classification With SentimentNet
 
 `Linux` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Natural Language Processing (NLP) Application](#natural-language-processing-nlp-application)
+- [Realize Sentiment Classification With SentimentNet](#realize-sentiment-classification-with-sentimentnet)
     - [Overview](#overview)
     - [Preparation and Design](#preparation-and-design)
         - [Downloading the Dataset](#downloading-the-dataset)

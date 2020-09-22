@@ -16,7 +16,7 @@
         - [REST API客户端示例](#rest-api客户端示例)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 
 ## 概述
