@@ -12,6 +12,11 @@ Inference Using MindSpore
    :caption: Use
 
    multi_platform_inference
+   multi_platform_inference_ascend_910
+   multi_platform_inference_ascend_310
+   multi_platform_inference_gpu
+   multi_platform_inference_cpu
+   On-Device Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html#on-device-inference>
 
 .. toctree::
    :glob:

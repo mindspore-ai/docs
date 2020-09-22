@@ -1,18 +1,18 @@
-# Migrate From Third Party Framework
+# Migrate From Third Party Framework With Tools
 
 `Linux` `Ascend` `Model Development` `Beginner`
 
 <!-- TOC -->
 
-- [Model Scripts Transformation](#Model-Scripts-Transformation)
-  - [Overview](#Overview)
-  - [Installation](#Installation)
-  - [Usage](#Usage)
-  - [Scenario](#Scenario)
-  - [Example](#Example)
-    - [AST-Based Conversion](#AST-Based-Conversion)
-    - [Graph-Based Conversion](#Graph-Based-Conversion)
-  - [Caution](#Caution)
+- [Migrate From Third Party Framework With Tools](#migrate-from-third-party-framework-with-tools)
+    - [Overview](#overview)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Scenario](#scenario)
+    - [Example](#example)
+        - [AST-Based Conversion](#ast-based-conversion)
+        - [Graph-Based Conversion](#graph-based-conversion)
+    - [Caution](#caution)
 
 <!-- /TOC -->
 

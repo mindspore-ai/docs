@@ -1,4 +1,4 @@
-# 总体架构
+# MindSpore Lite总体架构
 
 `Linux` `Windows` `端侧` `推理应用` `中级` `高级` `贡献者`
 

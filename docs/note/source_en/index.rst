@@ -9,7 +9,40 @@ MindSpore Note
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Design
+   
+   design/mindspore/architecture
+   design/mindspore/architecture_lite
+   design/mindspore/mindir
+   design/mindspore/distributed_training_design
+   design/mindinsight/training_visual_design
+   design/mindinsight/graph_visual_design
+   design/mindinsight/tensor_visual_design
+   design/mindinsight/profiler_design
+   design/mindarmour/differential_privacy_design
+   design/mindarmour/fuzzer_design
 
-   design
-   specification_note
-   others
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Specification Note
+
+   benchmark
+   network_list
+   operator_list
+   constraints_on_network_construction
+   image_classification
+   object_detection
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Others
+
+   glossary
+   roadmap
+   help_seeking_path
+   community
+
+ 

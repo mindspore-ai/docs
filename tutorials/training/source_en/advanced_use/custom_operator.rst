@@ -1,3 +1,6 @@
+Custom Operator
+===============
+
 .. toctree::
   :maxdepth: 1
 

@@ -7,6 +7,6 @@
   train
   infer
   performance_optimization
-  user_defined
+  customized
   security_and_privacy
   extension
