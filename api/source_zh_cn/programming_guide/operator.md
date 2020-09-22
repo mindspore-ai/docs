@@ -335,7 +335,7 @@ print(output)
 ```python
 from mindspore import Tensor
 from mindspore.communication import init
-import mindspore.nn as nn
+from mindspore import nn
 import mindspore.ops.operations as P
 import numpy as np
 
@@ -587,6 +587,7 @@ import mindspore.ops.operations as P
 import numpy as np
 import mindspore.common.dtype as mstype
 from mindspore.ops import composite as C
+from mindspore import nn
 
 class CropAndResizeNet(nn.Cell):
     def __init__(self, crop_size):
