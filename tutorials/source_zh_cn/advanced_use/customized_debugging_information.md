@@ -120,10 +120,10 @@ class Callback():
             epoch_num = cb_params.cur_epoch_num
             step_num = cb_params.cur_step_num
             loss = cb_params.net_outputs
-        cur_time = time.time()
-        if (cur_time - cb_params.init_time) > self.run_time:
-            print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
-            run_context.request_stop()
+            cur_time = time.time()
+            if (cur_time - cb_params.init_time) > self.run_time:
+                print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
+                run_context.request_stop()
 
     stop_cb = StopAtTime(run_time=10)
     model.train(100, dataset, callbacks=stop_cb)
