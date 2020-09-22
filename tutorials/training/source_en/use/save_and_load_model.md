@@ -117,7 +117,7 @@ resnet = ResNet50()
 load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1) # define the test dataset
 loss = CrossEntropyLoss()
-model = Model(resnet, loss)
+model = Model(resnet, loss, metrics={"accuracy"})
 acc = model.eval(dataset_eval)
 ```
 
