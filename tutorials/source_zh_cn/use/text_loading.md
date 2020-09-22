@@ -17,7 +17,7 @@
 
 ## 概述
 
-MindSpore提供的`mindspore.dataset`库可以帮助用户构建数据集对象，分批次地读取文本数据。同时，在各个数据集类中还内置了数据处理和数据分词算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
+MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对象，分批次地读取文本数据。同时，在各个数据集类中还内置了数据处理和数据分词算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
 
 下面，本教程将简要演示如何使用MindSpore加载和处理文本数据。
 
@@ -38,7 +38,7 @@ MindSpore提供的`mindspore.dataset`库可以帮助用户构建数据集对象�
         └─tokenizer.txt
     ```
 
-3. 导入`mindspore.dataset`和`mindspore.dataset.text`库。
+3. 导入`mindspore.dataset`和`mindspore.dataset.text`模块。
 
     ```python
     import mindspore.dataset as ds

@@ -6,24 +6,12 @@
 
 - [Optimizing the Data Preparation Performance](#optimizing-the-data-preparation-performance)
     - [Overview](#overview)
-    - [Overall Process](#overall-process)
     - [Preparations](#preparations)
-        - [Importing Modules](#importing-modules)
-        - [Downloading the Required Dataset](#downloading-the-required-dataset)
     - [Optimizing the Data Loading Performance](#optimizing-the-data-loading-performance)
-        - [Performance Optimization Solution](#performance-optimization-solution)
-        - [Code Example](#code-example)
     - [Optimizing the Shuffle Performance](#optimizing-the-shuffle-performance)
-        - [Performance Optimization Solution](#performance-optimization-solution-1)
-        - [Code Example](#code-example-1)
     - [Optimizing the Data Augmentation Performance](#optimizing-the-data-augmentation-performance)
-        - [Performance Optimization Solution](#performance-optimization-solution-2)
-        - [Code Example](#code-example-2)
+    - [Optimizing the Operating System Performance](#optimizing-the-operating-system-performance)
     - [Performance Optimization Solution Summary](#performance-optimization-solution-summary)
-        - [Multi-thread Optimization Solution](#multi-thread-optimization-solution)
-        - [Multi-process Optimization Solution](#multi-process-optimization-solution)
-        - [Compose Optimization Solution](#compose-optimization-solution)
-        - [Operator Fusion Optimization Solution](#operator-fusion-optimization-solution)
 
 <!-- /TOC -->
 
@@ -31,18 +19,13 @@
 
 ## Overview
 
-Data is the most important factor of deep learning. Data quality determines the upper limit of deep learning result, whereas model quality enables the result to approach the upper limit.Therefore, high-quality data input  is beneficial to the entire deep neural network. During the entire data processing and data augmentation process, data continuously flows through a "pipeline" to the training system, as shown in the following figure:
+Data is the most important factor of deep learning. Data quality determines the upper limit of deep learning result, whereas model quality enables the result to approach the upper limit. Therefore, high-quality data input  is beneficial to the entire deep neural network. During the entire data processing and data augmentation process, data continuously flows through a "pipeline" to the training system.
 
 ![title](./images/pipeline.png)
 
 MindSpore provides data processing and data augmentation functions for users. In the pipeline process, if each step can be properly used, the data performance will be greatly improved. This section describes how to optimize performance during data loading, data processing, and data augmentation based on the CIFAR-10 dataset.
 
-## Overall Process
-- Prepare data.
-- Optimize the data loading performance.
-- Optimize the shuffle performance.
-- Optimize the data augmentation performance.
-- Summarize the performance optimization solution.
+In addition, the storage, the architecture and the computing resources of the operating system will influence the performance of data processing to a certain extent.
 
 ## Preparations
 
@@ -50,13 +33,11 @@ MindSpore provides data processing and data augmentation functions for users. In
 
 The `dataset` module provides APIs for loading and processing datasets.
 
-
 ```python
 import mindspore.dataset as ds
 ```
 
 The `numpy` module is used to generate ndarrays.
-
 
 ```python
 import numpy as np
@@ -71,26 +52,27 @@ import numpy as np
 
 The directory structure is as follows:
 
-
-    dataset/Cifar10Data
-    ├── cifar-10-batches-bin
-    │   ├── batches.meta.txt
-    │   ├── data_batch_1.bin
-    │   ├── data_batch_2.bin
-    │   ├── data_batch_3.bin
-    │   ├── data_batch_4.bin
-    │   ├── data_batch_5.bin
-    │   ├── readme.html
-    │   └── test_batch.bin
-    └── cifar-10-batches-py
-        ├── batches.meta
-        ├── data_batch_1
-        ├── data_batch_2
-        ├── data_batch_3
-        ├── data_batch_4
-        ├── data_batch_5
-        ├── readme.html
-        └── test_batch
+```
+dataset/Cifar10Data
+├── cifar-10-batches-bin
+│   ├── batches.meta.txt
+│   ├── data_batch_1.bin
+│   ├── data_batch_2.bin
+│   ├── data_batch_3.bin
+│   ├── data_batch_4.bin
+│   ├── data_batch_5.bin
+│   ├── readme.html
+│   └── test_batch.bin
+└── cifar-10-batches-py
+    ├── batches.meta
+    ├── data_batch_1
+    ├── data_batch_2
+    ├── data_batch_3
+    ├── data_batch_4
+    ├── data_batch_5
+    ├── readme.html
+    └── test_batch
+```
 
 In the preceding information:
 - The `cifar-10-batches-bin` directory is the directory for storing the CIFAR-10 dataset in binary format.
@@ -98,7 +80,7 @@ In the preceding information:
 
 ## Optimizing the Data Loading Performance
 
-MindSpore provides multiple data loading methods, including common dataset loading, user-defined dataset loading, and MindSpore data format loading. For details, see [Loading Datasets](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/loading_the_datasets.html). The dataset loading performance varies depending on the underlying implementation method.
+MindSpore provides multiple data loading methods, including common dataset loading, user-defined dataset loading, and MindSpore data format loading. For details, see [Dataset Loading](https://www.mindspore.cn/api/en/master/programming_guide/dataset_loading.html). The dataset loading performance varies depending on the underlying implementation method.
 
 |      | Common Dataset | User-defined Dataset | MindRecord Dataset |
 | :----: | :----: | :----: | :----: |
@@ -110,16 +92,15 @@ MindSpore provides multiple data loading methods, including common dataset loadi
 ![title](./images/data_loading_performance_scheme.png)
 
 Suggestions on data loading performance optimization are as follows:
-- Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.dataset.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](#multi-thread-optimization-solution).
-- For a dataset format that is not supported, convert the format to MindSpore data format and then use the `MindDataset` class to load the dataset. For details, see [Converting Datasets into MindSpore Data Format](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/converting_datasets.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](#multi-thread-optimization-solution).
-- For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification. If the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](#multi-process-optimization-solution).
+- Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.dataset.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16).
+- For a dataset format that is not supported, convert the format to MindSpore data format and then use the `MindDataset` class to load the dataset. For details, see [Convert Dataset to MindRecord](https://www.mindspore.cn/api/en/master/programming_guide/dataset_conversion.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16).
+- For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification. If the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17).
 
 ### Code Example
 
 Based on the preceding suggestions of data loading performance optimization, the `Cifar10Dataset` class of built-in loading operators, the `MindDataset` class after data conversion, and the `GeneratorDataset` class are used to load data. The sample code is displayed as follows:
 
 1. Use the `Cifar10Dataset` class of built-in operators to load the CIFAR-10 dataset in binary format. The multi-thread optimization solution is used for data loading. Four threads are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data and a data record is read through the iterator.
-
 
     ```python
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
@@ -148,7 +129,6 @@ Based on the preceding suggestions of data loading performance optimization, the
 
 2. Use the `Cifar10ToMR` class to convert the CIFAR-10 dataset into MindSpore data format. In this example, the CIFAR-10 dataset in Python file format is used. Then use the `MindDataset` class to load the dataset in MindSpore data format. The multi-thread optimization solution is used for data loading. Four threads are enabled to concurrently complete the task. Finally, a dictionary iterator is created for data and a data record is read through the iterator.
 
-
     ```python
     from mindspore.mindrecord import Cifar10ToMR
 
@@ -166,12 +146,12 @@ Based on the preceding suggestions of data loading performance optimization, the
     ```
 
     The output is as follows:
+
     ```
     {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]), 'id': Tensor(shape=[], dtype=Int64, value= 30474), 'label': Tensor(shape=[], dtype=Int64, value= 2)}
     ```
 
 3. The `GeneratorDataset` class is used to load the user-defined dataset, and the multi-process optimization solution is used. Four processes are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data, and a data record is read through the iterator.
-
 
     ```python
     def generator_func(num):
@@ -185,13 +165,14 @@ Based on the preceding suggestions of data loading performance optimization, the
     ```
 
     The output is as follows:
+
     ```
     {'data': Tensor(shape=[1], dtype=Int64, value= [0])}
     ```
 
 ## Optimizing the Shuffle Performance
 
-The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process. For details, see [Shuffle Processing](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html#shuffle). However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.dataset.html).
+The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process. For details, see [Shuffle Processing](https://www.mindspore.cn/api/en/master/programming_guide/pipeline.html#shuffle). However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.dataset.html).
 
 ### Performance Optimization Solution
 
@@ -199,14 +180,13 @@ The shuffle operation is used to shuffle ordered datasets or repeated datasets. 
 
 Suggestions on shuffle performance optimization are as follows:
 - Use the `shuffle` parameter of built-in loading operators to shuffle data.
-- If the `shuffle` function is used and the performance still cannot meet the requirements, increase the value of the `buffer_size` parameter to improve the performance.
+- If the `shuffle` function is used and the performance still cannot meet the requirements, adjust the value of the `buffer_size` parameter to improve the performance.
 
 ### Code Example
 
 Based on the preceding shuffle performance optimization suggestions, the `shuffle` parameter of the `Cifar10Dataset` class of built-in loading operators and the `Shuffle` function are used to shuffle data. The sample code is displayed as follows:
 
 1. Use the built-in operator in `Cifar10Dataset` class to load the CIFAR-10 dataset. In this example, the CIFAR-10 dataset in binary format is used, and the `shuffle` parameter is set to True to perform data shuffle. Finally, a dictionary iterator is created for the data and a data record is read through the iterator.
-
 
     ```python
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
@@ -218,6 +198,7 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
     ```
 
     The output is as follows:
+
     ```
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
           [[[235, 235, 235],
@@ -235,7 +216,6 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 
 2. Use the `shuffle` function to shuffle data. Set `buffer_size` to 3 and use the `GeneratorDataset` class to generate data.
 
-
     ```python
     def generator_func():
         for i in range(5):
@@ -251,9 +231,10 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
     for data in ds2.create_dict_iterator():
         print(data["data"])
     ```
-    ```
+
     The output is as follows:
 
+    ```
     before shuffle:
     [0 1 2 3 4]
     [1 2 3 4 5]
@@ -275,31 +256,28 @@ During image classification training, especially when the dataset is small, user
 - Use the built-in Python operator (`py_transforms` module) to perform data augmentation.
 - Users can define Python functions as needed to perform data augmentation.
 
-For details, see [Data Augmentation](https://www.mindspore.cn/tutorial/en/master/use/data_preparation/data_processing_and_augmentation.html#id3). The performance varies according to the underlying implementation methods.
+For details, see [Data Augmentation](https://www.mindspore.cn/api/en/master/programming_guide/augmentation.html). The performance varies according to the underlying implementation methods.
 
 | Module | Underlying API | Description |
 | :----: | :----: | :----: |
 | c_transforms | C++ (based on OpenCV) | High performance |
 | py_transforms | Python (based on PIL) | This module provides multiple image augmentation functions and the method for converting PIL images into NumPy arrays. |
 
-
 ### Performance Optimization Solution
 
 ![title](./images/data_enhancement_performance_scheme.png)
 
-
 Suggestions on data augmentation performance optimization are as follows:
-- The `c_transforms` module is preferentially used to perform data augmentation for its highest performance. If the performance cannot meet the requirements, refer to [Multi-thread Optimization Solution](#multi-thread-optimization-solution), [Compose Optimization Solution](#compose-optimization-solution), or [Operator Fusion Optimization Solution](#operator-fusion-optimization-solution).
-- If the `py_transforms` module is used to perform data augmentation and the performance still cannot meet the requirements, refer to [Multi-thread Optimization Solution](#multi-thread-optimization-solution), [Multi-process Optimization Solution](#multi-process-optimization-solution), [Compose Optimization Solution](#compose-optimization-solution), or [Operator Fusion Optimization Solution](#operator-fusion-optimization-solution).
+- The `c_transforms` module is preferentially used to perform data augmentation for its highest performance. If the performance cannot meet the requirements, refer to [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16), [Compose Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#compose), or [Operator Fusion Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id18).
+- If the `py_transforms` module is used to perform data augmentation and the performance still cannot meet the requirements, refer to [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16), [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17), [Compose Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#compose), or [Operator Fusion Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id18).
 - The `c_transforms` module maintains buffer management in C++, and the `py_transforms` module maintains buffer management in Python. Because of the performance cost of switching between Python and C++, it is advised not to use different operator types together.
-- If the user-defined Python functions are used to perform data augmentation and the performance still cannot meet the requirements, use the [Multi-thread Optimization Solution](#multi-thread-optimization-solution) or [Multi-process Optimization Solution](#multi-process-optimization-solution). If the performance still cannot be improved, in this case, optimize the user-defined Python code.
+- If the user-defined Python functions are used to perform data augmentation and the performance still cannot meet the requirements, use the [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id16) or [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/en/master/advanced_use/optimize_the_performance_of_data_preparation.html#id17). If the performance still cannot be improved, in this case, optimize the user-defined Python code.
 
 ### Code Example
 
 Based on the preceding suggestions of data augmentation performance optimization, the `c_transforms` module and user-defined Python function are used to perform data augmentation. The code is displayed as follows:
 
 1. The `c_transforms` module is used to perform data augmentation. During data augmentation, the multi-thread optimization solution is used. Four threads are enabled to concurrently complete the task. The operator fusion optimization solution is used and the `RandomResizedCrop` fusion class is used to replace the `RandomResize` and `RandomCrop` classes.
-
 
     ```python
     import mindspore.dataset.transforms.c_transforms as c_transforms
@@ -322,9 +300,7 @@ Based on the preceding suggestions of data augmentation performance optimization
 
     ![png](./images/cifar10_c_transforms.png)
 
-
 2. A user-defined Python function is used to perform data augmentation. During data augmentation, the multi-process optimization solution is used, and four processes are enabled to concurrently complete the task.
-
 
     ```python
     def generator_func():
@@ -344,6 +320,7 @@ Based on the preceding suggestions of data augmentation performance optimization
     ```
 
     The output is as follows:
+
     ```
     before map:
     [0 1 2 3 4]
@@ -358,6 +335,50 @@ Based on the preceding suggestions of data augmentation performance optimization
     [ 9 16 25 36 49]
     [16 25 36 49 64]
     ```
+
+## Optimizing the Operating System Performance
+
+Data processing is performed on the host. Therefore, configurations of the host or operating system may affect the performance of data processing.  Major factors include storage, NUMA architecture, and CPU (computing resources).
+
+1. Storage
+
+    Solid State Drive (SSD) is recommended for storing large datasets. SSD reduces the impact of I/O on data processing.
+
+    > In most cases, after a dataset is loaded, it is stored in page cache of the operating system. To some extent, this reduces I/O overheads and accelerates reading subsequent epochs.
+
+2. NUMA architecture
+
+    NUMA (Non-uniform Memory Architecture) is developed to solve the scalability problem of traditional Symmetric Multi-processor systems. The NUMA system has multiple memory buses. Several processors are connected to one memory via memory bus to form a group. This way, the entire large system is divided into several groups, the concept of this group is called a node in the NUMA system. Memory belonging to this node is called local memory, memory belonging to other nodes (with respect to this node) is called foreign memory. Therefore, the latency for each node to access its local memory is different from accessing foreign memory. This needs to be avoided during data processing. Generally, the following command can be used to bind a process to a node:
+
+    ```shell
+    numactl --cpubind=0 --membind=0 python train.py
+    ```
+
+    The example above binds the `train.py` process to `numa node` 0.
+
+3. CPU (computing resource)
+
+    CPU affects data processing in two aspects: resource allocation and CPU frequency.
+
+    - Resource allocation
+
+        In distributed training, multiple training processes are run on one device. These training processes allocate and compete for computing resources based on the policy of the operating system. When there are a large number of processes, data processing performance may deteriorate due to resource contention. In some cases, user needs to manually allocate resources to avoid resource contention.
+
+        ```shell
+        numactl --cpubind=0 python train.py
+        or
+        taskset -c 0-15 python train.py
+        ```
+
+        > The `numactl` method directly specifies `numa node id`. The `taskset` method allows for finer control by specifying `cpu core` within a `numa node`. The `core id` range from 0 to 15.
+
+    - CPU frequency
+
+        The setting of CPU frequency is critical to maximizing the computing power of the host CPU. Generally, the Linux kernel supports the tuning of the CPU frequency to reduce power consumption. Power consumption can be reduced to varying degrees by selecting power management policies for different system idle states. However, lower power consumption means slower CPU wake-up which in turn impacts performance. Therefore, if the CPU's power setting is in conservative or powersave mode, cpupower command can be used to switch performance modes, resulting in significant data processing performance improvement.
+
+        ```shell
+        cpupower frequency-set -g performance
+        ```
 
 ## Performance Optimization Solution Summary
 
@@ -387,3 +408,10 @@ Map operators can receive the Tensor operator list and apply all these operators
 Some fusion operators are provided to aggregate the functions of two or more operators into one operator. For details, see [Data Augmentation Operators](https://www.mindspore.cn/api/en/master/api/python/mindspore/mindspore.dataset.vision.html). Compared with the pipelines of their components, such fusion operators provide better performance. As shown in the figure:
 
 ![title](./images/operator_fusion.png)
+
+### Operating System Optimization Solution
+
+- Use Solid State Drive to store the date.
+- Bind the process to NUMA node.
+- Manually allocate more computing resources.
+- Set higher CPU frequency.

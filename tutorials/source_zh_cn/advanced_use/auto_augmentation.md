@@ -15,8 +15,7 @@
 
 ## 概述
 
-自动数据增强（AutoAugment）[1]是在一系列图像增强子策略的搜索空间中，通过搜索算法找到适合特定数据集的图像增强方案。MindSpore的`c_transforms`模块提供了丰富的C++算子来实现AutoAugment，用户也可以自定义函数或者算子来实现。
-更多MindSpore算子的详细说明参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html)。
+自动数据增强（AutoAugment）[1]是在一系列图像增强子策略的搜索空间中，通过搜索算法找到适合特定数据集的图像增强方案。MindSpore的`c_transforms`模块提供了丰富的C++算子来实现AutoAugment，用户也可以自定义函数或者算子来实现。更多MindSpore算子的详细说明参见[API文档](https://www.mindspore.cn/api/zh-CN/master/api/python/mindspore/mindspore.dataset.vision.html)。
 
 MindSpore算子和AutoAugment中的算子的对应关系如下：
 
@@ -38,6 +37,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 |invert|Invert|反转图像|
 
 ## ImageNet自动数据增强
+
 本教程以在ImageNet数据集上实现AutoAugment作为示例。
 
 针对ImageNet数据集的数据增强策略包含25条子策略，每条子策略中包含两种变换，针对一个batch中的每张图像随机挑选一个子策略的组合，以预定的概率来决定是否执行子策略中的每种变换。
@@ -69,7 +69,6 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
     ```python
     # define AutoAugment operators
-
     PARAMETER_MAX = 10
 
     def float_parameter(level, maxval):
@@ -126,10 +125,10 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
     def brightness_impl(level):
         v = float_parameter(level, 1.8) + 0.1
         return c_vision.RandomColorAdjust(brightness=(v, v))
-
     ```
 
 3. 定义ImageNet数据集的AutoAugment策略：
+
     ```python
     # define AutoAugment policy
     imagenet_policy = [
@@ -163,7 +162,6 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
           [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
           [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
         ]
-
     ```
 
 4. 在`RandomCropDecodeResize`操作后插入AutoAugment变换。
