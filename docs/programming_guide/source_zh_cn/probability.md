@@ -830,7 +830,7 @@ The shape of the generated sample is  (64, 1, 32, 32)
 
 下面的范例使用MindSpore的`nn.probability.bnn_layers`中的API实现BNN图片分类模型。MindSpore的`nn.probability.bnn_layers`中的API包括`NormalPrior`，`NormalPosterior`，`ConvReparam`，`DenseReparam`和`WithBNNLossCell`。BNN与DNN的最大区别在于，BNN层的weight和bias不再是确定的值，而是服从一个分布。其中，`NormalPrior`，`NormalPosterior`分别用来生成服从正态分布的先验分布和后验分布；`ConvReparam`和`DenseReparam`分别是使用reparameteration方法实现的贝叶斯卷积层和全连接层；`WithBNNLossCell`是用来封装BNN和损失函数的。
 
-如何使用`nn.probability.bnn_layers`中的API构建贝叶斯神经网络并实现图片分类，可以参考教程[使用贝叶斯网络](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_program.html#id3)。
+如何使用`nn.probability.bnn_layers`中的API构建贝叶斯神经网络并实现图片分类，可以参考教程[使用贝叶斯网络](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_programming.html#id3)。
 
 ## 贝叶斯转换
 
@@ -908,7 +908,7 @@ API`TransformToBNN`主要实现了两个功能：
   ```
   参数`dnn_layer`指定将哪个类型的DNN层转换成BNN层，`bnn_layer`指定DNN层将转换成哪个类型的BNN层，`get_args`和`add_args`分别指定从DNN层中获取哪些参数和要为BNN层的哪些参数重新赋值。
 
-如何在MindSpore中使用API`TransformToBNN`可以参考教程[DNN一键转换成BNN](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_program.html#dnnbnn)
+如何在MindSpore中使用API`TransformToBNN`可以参考教程[DNN一键转换成BNN](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_programming.html#dnnbnn)
 
 ## 贝叶斯工具箱
 

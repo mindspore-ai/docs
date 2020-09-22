@@ -5,14 +5,10 @@
 <!-- TOC -->
 
 - [Multi-Platform Inference Overview](#multi-platform-inference-overview)
-    - [Overview](#overview)
-    - [On-Device Inference](#on-device-inference)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
-
-## Overview
 
 Models trained by MindSpore support the inference on different hardware platforms. This document describes the inference process on each platform.
 
@@ -40,7 +36,3 @@ MindSpore supports the following inference scenarios based on the hardware platf
 > Offline Model (OM) is supported by the Huawei Ascend AI processor. It implements preprocessing functions that can be completed without devices, such as operator scheduling optimization, weight data rearrangement and compression, and memory usage optimization.
 
 > NVIDIA TensorRT is an SDK for high-performance deep learning inference. It includes a deep learning inference optimizer and runtime to improve the inference speed of the deep learning model on edge devices. For details, see <https://developer.nvidia.com/tensorrt>.
-
-## On-Device Inference
-
-MindSpore Lite is an inference engine for on-device inference. For details, see [Export MINDIR Model](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-mindir-model) and [On-Device Inference](https://www.mindspore.cn/lite/en).

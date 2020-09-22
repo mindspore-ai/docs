@@ -134,7 +134,7 @@ A: MindSpore uses protocol buffers (protobuf) to store training parameters and c
 
 Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference_ascend_310.html).
 
 <br/>
 

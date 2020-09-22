@@ -1,6 +1,6 @@
-﻿# MindSpore Lite Image Classification Model Support
+﻿# Image Classification Model Support (Lite)
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/image_classification.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_en/image_classification_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Image classification introduction
 

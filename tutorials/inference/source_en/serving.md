@@ -16,7 +16,7 @@
         - [REST API Client Sample](#rest-api-client-sample)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/serving.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
