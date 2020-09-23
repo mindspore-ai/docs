@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/load_and_publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/use/load_and_publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -103,7 +103,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    - [AIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-air-model)
    - [MindIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-mindir-model)
    - [ONNX](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#export-onnx-model)
-   - [MSLite](https://www.mindspore.cn/doc/lite/en/r1.0/use/converter_tool.html)
+   - [MSLite](https://www.mindspore.cn/tutorial/lite/en/r1.0/use/converter_tool.html)
 
    For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7`.
 

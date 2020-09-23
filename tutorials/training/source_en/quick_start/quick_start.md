@@ -84,7 +84,7 @@ Currently, the `os` libraries are required. For ease of understanding, other req
 import os
 ```
 
-For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/python_api/en/r1.0/index.html).
+For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/api_python/en/r1.0/index.html).
 
 ### Configuring the Running Information
 
