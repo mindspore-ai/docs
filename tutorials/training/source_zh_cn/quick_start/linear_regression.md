@@ -52,7 +52,7 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 ```
 
-`GRAPH_MODE`：自定义调试模式。
+`GRAPH_MODE`：图模式。
 
 `device_target`：设置MindSpore的训练硬件为CPU。
 
