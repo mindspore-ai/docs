@@ -1,24 +1,109 @@
-# Fine-tuning Models using MindSpore Hub
+# Loading a Model for inference for transfer learning 
 
-`Linux` `Ascend` `GPU` `Model Loading` `Model Fine-tuning` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Fine-tuning Models using MindSpore Hub](#fine-tuning-models-using-mindspore-hub)
+- [Loading a Model for inference for transfer learning](#loading-a-model-for-inference-for-transfer-learning)
     - [Overview](#overview)
-    - [Model Fine-tuning](#model-fine-tuning)
+    - [Loading the local Model](#loading-the-local-model)
+        - [For Inference Validation](#for-inference-validation)
+        - [For Transfer Training](#for-transfer-training)
+    - [Loading the Model from Hub](#loading-the-model-from-hub)
+        - [For Inference Validation](#for-inference-validation-1)
+        - [For Transfer Training](#for-transfer-training-1)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/fine_tuning_after_load.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-Fine-tuning is TODO.
+CheckPoints which saved locally during model training, or download from [MindSpore Hub](https://www.mindspore.cn/resources/hub/) are used for inference and transfer training.
 
-This tutorial describes how to fine-tune MindSpore Hub models for application developers who aim to do inference/transfer learning on new dataset, it helps users to perform inference or fine-tuning using MindSpore Hub APIs quickly. 
+The following uses examples to describe how to load models from local and MindSpore Hub.
 
-## Model Fine-tuning
+## Loading the local Model
+
+After saving CheckPoint files, you can load parameters.
+
+### For Inference Validation
+
+In inference-only scenarios, use `load_checkpoint` to directly load parameters to the network for subsequent inference validation.
+
+The sample code is as follows:
+
+```python
+resnet = ResNet50()
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
+dateset_eval = create_dataset(os.path.join(mnist_path, "test"), 32, 1) # define the test dataset
+loss = CrossEntropyLoss()
+model = Model(resnet, loss, metrics={"accuracy"})
+acc = model.eval(dataset_eval)
+```
+
+The `load_checkpoint` method loads network parameters in the parameter file to the model. After the loading, parameters in the network are those saved in CheckPoints.
+The `eval` method validates the accuracy of the trained model.
+
+### For Transfer Training
+
+In the retraining and fine-tuning scenarios for task interruption, you can load network parameters and optimizer parameters to the model.
+
+The sample code is as follows:
+```python
+# return a parameter dict for model
+param_dict = load_checkpoint("resnet50-2_32.ckpt")
+resnet = ResNet50()
+opt = Momentum()
+# load the parameter into net
+load_param_into_net(resnet, param_dict)
+# load the parameter into operator
+load_param_into_net(opt, param_dict)
+loss = SoftmaxCrossEntropyWithLogits()
+model = Model(resnet, loss, opt)
+model.train(epoch, dataset)
+```
+
+The `load_checkpoint` method returns a parameter dictionary and then the `load_param_into_net` method loads parameters in the parameter dictionary to the network or optimizer.
+
+## Loading the Model from Hub
+
+### For Inference Validation
+
+`mindspore_hub.load` API is used to load the pre-trained model in a single line of code. The main process of model loading is as follows:
+
+1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub).
+
+   For example, if you aim to perform image classification on CIFAR-10 dataset using GoogleNet, please search on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) with the keyword `GoogleNet`. Then all related models will be returned.  Once you enter into the related model page, you can get the website `url`.
+
+2. Complete the task of loading model using `url` , as shown in the example below:
+
+   ```python
+
+   import mindspore_hub as mshub
+   import mindspore
+   from mindspore import context, Tensor, nn
+   from mindspore.train.model import Model
+   from mindspore.common import dtype as mstype
+   import mindspore.dataset.vision.py_transforms as py_transforms
+
+   context.set_context(mode=context.GRAPH_MODE,
+                        device_target="Ascend",
+                        device_id=0)
+
+   model = "mindspore/ascend/0.7/googlenet_v1_cifar10"
+
+   # Initialize the number of classes based on the pre-trained model.
+   network = mshub.load(model, num_classes=10)
+   network.set_train(False)
+
+   # ...
+
+   ```
+
+3. After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html).
+
+### For Transfer Training
 
 When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network. 
 
