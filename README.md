@@ -18,7 +18,7 @@ If you have any comments or suggestions on the documents, submit them in Issues.
 
 ```
 docs
-├───docs // Technical documents about architecture, network list, operator list, grogramming guide and so on. Configuration files for API generation.
+├───docs // Technical documents about architecture, network list, operator list, programming guide and so on. Configuration files for API generation.
 │ 
 ├───install // Installation guide.
 │ 
