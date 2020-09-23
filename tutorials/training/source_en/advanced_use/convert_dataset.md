@@ -58,7 +58,7 @@ Data file consists of the following key parts:
 
 ## Convert Dataset to MindRecord
 
-The following tutorial demonstrates how to convert image data and its annotations to MindRecord format. For details about MindSpore data format conversion, see the [MindSpore Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_conversion.html) section in the programming guide.
+The following tutorial demonstrates how to convert image data and its annotations to MindRecord format.
 
 1. Import the `FileWriter` class for file writing.
 

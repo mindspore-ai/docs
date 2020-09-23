@@ -65,7 +65,7 @@
 | Category | URL |
 | --- | --- |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.0/index.html> |
-| Docs | Programming Guide <https://www.mindspore.cn/doc/programming_guide/en/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
 
 ## 0.7.0-beta
 
@@ -336,4 +336,4 @@
 | Category | URL |
 | --- | --- |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/master/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/master/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/master/index.html> |
-| Docs | Programming Guide <https://www.mindspore.cn/doc/programming_guide/en/master/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/master/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/master/index.html> |

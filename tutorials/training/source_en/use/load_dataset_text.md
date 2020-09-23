@@ -47,7 +47,7 @@ Tutorials below briefly demonstrate how to load and process text data using Mind
 
 ## Load Dataset
 
-MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class and load customized data. For details about how to load various datasets, see the [Dataset Loading](https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_loading.html) section in the programming guide.
+MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class and load customized data. 
 
 The following demonstrates loading datasets using the `TextFileDataset` in `mindspore.dataset` module.
 
@@ -74,8 +74,6 @@ The following demonstrates loading datasets using the `TextFileDataset` in `mind
     ```
 
 ## Process Data
-
-For details about the data processing operators supported by MindSpore, see the [Data Processing](https://www.mindspore.cn/doc/programming_guide/en/r1.0/pipeline.html) section in the programming guide.
 
 The following demonstrates how to perform data processing after a `dataset` is created, such as `SlidingWindow`, `shuffle` etc.
 
@@ -153,8 +151,6 @@ The following demonstrates how to perform data processing after a `dataset` is c
         ```
 
 ## Tokenization
-
-For details about tokenizers supported by MindSpore, see the section [Tokenizer](https://www.mindspore.cn/doc/programming_guide/en/r1.0/tokenizer.html) in the programming guide.
 
 The following demonstrates how to use the `WhitespaceTokenizer` to tokenize words with space.
 
