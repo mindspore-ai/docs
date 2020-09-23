@@ -1,10 +1,10 @@
-# 使用MobileNetV2网络实现增量学习
+# 使用MobileNetV2网络实现微调（Fine Tune）
 
 `Windows` `Linux` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用MobileNetV2网络实现增量学习](#使用mobilenetv2网络实现增量学习)
+- [使用MobileNetV2网络实现微调](#使用mobilenetv2网络实现微调)
     - [概述](#概述)
     - [任务描述及准备](#任务描述及准备)
         - [环境配置](#环境配置)
@@ -15,24 +15,24 @@
     - [参数简介](#参数简介)
         - [运行Python文件](#运行python文件)
         - [运行Shell脚本](#运行shell脚本)
-    - [加载增量学习训练](#加载增量学习训练)
+    - [加载微调训练](#加载微调训练)
         - [CPU加载训练](#cpu加载训练)
         - [GPU加载训练](#gpu加载训练)
         - [Ascend加载训练](#ascend加载训练)
-        - [增量学习训练结果](#增量学习训练结果)
-    - [验证增量学习训练模型](#验证增量学习训练模型)
+        - [微调训练结果](#微调训练结果)
+    - [验证微调训练模型](#验证微调训练模型)
         - [验证模型](#验证模型)
         - [验证结果](#验证结果)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/cv_mobilenetv2_incremental_learning.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
-计算机视觉任务中，从头开始训练一个网络耗时巨大，需要大量计算能力。预训练模型选择的常见的OpenImage、ImageNet、VOC、COCO等公开大型数据集，规模达到几十万甚至超过上百万张。大部分任务数据规模较大，训练网络模型时，如果不使用预训练模型，从头开始训练网络，需要消耗大量的时间与计算能力，模型容易陷入局部极小值和过拟合。因此大部分任务都会选择预训练模型，在其上做增量学习。  
+计算机视觉任务中，从头开始训练一个网络耗时巨大，需要大量计算能力。预训练模型选择的常见的OpenImage、ImageNet、VOC、COCO等公开大型数据集，规模达到几十万甚至超过上百万张。大部分任务数据规模较大，训练网络模型时，如果不使用预训练模型，从头开始训练网络，需要消耗大量的时间与计算能力，模型容易陷入局部极小值和过拟合。因此大部分任务都会选择预训练模型，在其上做微调（也称为Fine Tune）。  
 
-MindSpore是一个多元化的机器学习框架。既可以在手机等端侧和PC等设备上运行，也可以在云上的服务器集群上运行。目前MobileNetV2支持在Windows系统中使用单核CPU做增量学习，在EulerOS、Ubuntu系统中使用单个或者多个Ascend AI处理器或GPU中做增量学习，本教程将会介绍如何在不同系统与处理器下的MindSpore框架中做增量学习的训练与验证。
+MindSpore是一个多元化的机器学习框架。既可以在手机等端侧和PC等设备上运行，也可以在云上的服务器集群上运行。目前MobileNetV2支持在Windows、EulerOS和Ubuntu系统中使用单个CPU做微调，也可以使用单个或者多个Ascend AI处理器或GPU做微调，本教程将会介绍如何在不同系统与处理器下的MindSpore框架中做微调的训练与验证。
 
 目前，Window上暂只支持支持CPU，Ubuntu与EulerOS上支持CPU、GPU与Ascend AI处理器三种处理器。
 
@@ -63,25 +63,25 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 
     ```Python
     elif config.platform == "GPU":
-        context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, \
-            save_graphs=False)
-        init("nccl")
-        context.set_auto_parallel_context(device_num=get_group_size(),
-                                          parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          mirror_mean=True)
+        context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, save_graphs=False)
+        if config.run_distribute:
+            init("nccl")
+            context.set_auto_parallel_context(device_num=get_group_size(),
+                                              parallel_mode=ParallelMode.DATA_PARALLEL,
+                                              gradients_mean=True)
     ```
 
 4. 配置Ascend环境  
     以Ascend 910 AI处理器为例，1个8个处理器环境的json配置文件`hccl_config.json`示例如下。单/多处理器环境可以根据以下示例调整`"server_count"`与`device`：
 
-    ```
+    ```json
     {
         "version": "1.0",
         "server_count": "1",
         "server_list": [
             {
                 "server_id": "10.155.111.140",
-                "device": [ba
+                "device": [
                     {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
                     {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
                     {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
@@ -101,13 +101,13 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 
     ```Python
     elif config.platform == "Ascend":
-        context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, \
-            device_id=config.device_id, save_graphs=False)
+        context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, device_id=config.device_id,
+                            save_graphs=False)
         if config.run_distribute:
             context.set_auto_parallel_context(device_num=config.rank_size,
                                               parallel_mode=ParallelMode.DATA_PARALLEL,
-                                              parameter_broadcast=True, mirror_mean=True)
-            auto_parallel_context().set_all_reduce_fusion_split_indices([140])
+                                              gradients_mean=True,
+                                              all_reduce_fusion_config=[140])
             init()
     ...
     ```
@@ -142,7 +142,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
     └─eval.py       #  evaluation script
 ```
 
-运行增量学习训练与测试时，Windows、Ubuntu与EulersOS上可以使用Python文件`train.py`与`eval.py`，Ubuntu与EulerOS上还可以使用Shell脚本文件`run_train.sh`与`run_eval.sh`。
+运行微调训练与测试时，Windows、Ubuntu与EulersOS上可以使用Python文件`train.py`与`eval.py`，Ubuntu与EulerOS上还可以使用Shell脚本文件`run_train.sh`与`run_eval.sh`。
 
 使用脚本文件`run_train.sh`时，该文件会将运行`launch.py`并且将参数传入`launch.py`，`launch.py`根据分配的CPU、GPU或Ascend AI处理器数量，启动单个/多个进程运行`train.py`，每一个进程分配对应的一个处理器。
 
@@ -185,35 +185,34 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ## 预训练模型加载代码详解
 
-在增量学习时，需要加载预训练模型。不同数据集和任务中特征提取层（卷积层）分布趋于一致，但是特征向量的组合（全连接层）不相同，分类数量（全连接层output_size)通常也不一致。在增量学习时，只加载与训练特征提取层参数，不加载与训练全连接层参数；在微调与初始训练时，加载与训练特征提取层参数与全连接层参数。
+在微调时，需要加载预训练模型。不同数据集和任务中特征提取层（卷积层）分布趋于一致，但是特征向量的组合（全连接层）不相同，分类数量（全连接层output_size）通常也不一致。在微调时，只加载与训练特征提取层参数，不加载与训练全连接层参数；在微调与初始训练时，加载与训练特征提取层参数与全连接层参数。
 
-在训练与测试之前，首先按照代码第1行，构建MobileNetV2的backbone网络，head网络，并且构建包含这两个子网络的MobileNetV2网络。代码第4-11行展示了如何在`fine_tune`训练模式下，将预训练模型加载入`net`(MobileNetV2)；在`incremental_learn`训练模式下，将预训练模型分别加载入backbone_net子网络，并且冻结backbone_net中的参数，不参与训练。代码第22-24行展示了如何冻结网络参数。
+在训练与测试之前，首先按照代码第1行，构建MobileNetV2的backbone网络，head网络，并且构建包含这两个子网络的MobileNetV2网络。代码第3-10行展示了如何定义`backbone_net`与`head_net`，以及将两个子网络置入`mobilenet_v2`中。代码第12-23行，展示了在微调训练模式下，需要将预训练模型加载`入backbone_net`子网络，并且冻结`backbone_net`中的参数，不参与训练。代码第21-23行展示了如何冻结网络参数。
 
 ```Python
  1:  backbone_net, head_net, net = define_net(args_opt, config)
  2:  ...
- 3:  def define_net(args, config):
- 4:      backbone_net = MobileNetV2Backbone(platform=args.platform)
- 5:      head_net = MobileNetV2Head(input_channel=backbone_net.out_channels, num_classes=config.num_classes)
- 6:      net = mobilenet_v2(backbone_net, head_net)  
- 7:      if args.pretrain_ckpt:
- 8:          if args.train_method == "fine_tune":
- 9:              load_ckpt(net, args.pretrain_ckpt)
-10:          elif args.train_method == "incremental_learn":
-11:              load_ckpt(backbone_net, args.pretrain_ckpt, trainable=False)
-12:          elif args.train_method == "train":
-13:              pass
-14:          else:
-15:              raise ValueError("must input the usage of pretrain_ckpt when the pretrain_ckpt isn't None")
-16:      return backbone_net, head_net, net
-17:  ...
-18:  def load_ckpt(network, pretrain_ckpt_path, trainable=True):
-19:      """load the pretrain checkpoint and with the param trainable or not"""
-20:      param_dict = load_checkpoint(pretrain_ckpt_path)
-21:      load_param_into_net(network, param_dict)
-22:      if not trainable:
-23:          for param in network.get_parameters():
-24:              param.requires_grad = False
+ 3:  def define_net(config, is_training):
+ 4:      backbone_net = MobileNetV2Backbone()
+ 5:      activation = config.activation if not is_training else "None"
+ 6:      head_net = MobileNetV2Head(input_channel=backbone_net.out_channels,
+ 7:                                 num_classes=config.num_classes,
+ 8:                                 activation=activation)
+ 9:      net = mobilenet_v2(backbone_net, head_net)
+10:      return backbone_net, head_net, net
+11:  ...
+12：  if args_opt.pretrain_ckpt and args_opt.freeze_layer == "backbone":
+13：     load_ckpt(backbone_net, args_opt.pretrain_ckpt, trainable=False)
+14:  ...
+15:  def load_ckpt(network, pretrain_ckpt_path, trainable=True):
+16:      """
+17:      train the param weight or not
+18:      """
+19:      param_dict = load_checkpoint(pretrain_ckpt_path)
+20:      load_param_into_net(network, param_dict)
+21:      if not trainable:
+22:          for param in network.get_parameters():
+23:              param.requires_grad = False
 ```
 
 ## 参数简介
@@ -222,21 +221,20 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ### 运行Python文件
 
-在Windows与Linux系统上训练时，运行`train.py`时需要传入`dataset_path`、`platform`、`train_method`与`pretrain_ckpt`四个参数。验证时，运行`eval.py`并且传入`dataset_path`、`platform`、`pretrain_ckpt`与`head_ckpt`四个参数。
+在Windows与Linux系统上训练时，运行`train.py`时需要传入`dataset_path`、`platform`、`pretrain_ckpt`与`freeze_layer`四个参数。验证时，运行`eval.py`并且传入`dataset_path`、`platform`、`pretrain_ckpt`三个参数。
 
 ```bash
 # Windows/Linux train with Python file
-python train.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --train_method[("train", "fine_tune", "incremental_learn")] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH]
+python train.py --platform [PLATFORM] --dataset_path [DATASET_PATH]  --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --freeze_layer[("none", "backbone")]
 
 # Windows/Linux eval with Python file
-python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --head_ckpt [HEAD_CHECKPOINT_PATH]
+python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH]
 ```
 
 - `--dataset_path`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
 - `--platform`：处理器类型，默认为“Ascend”，可以设置为“CPU”或"GPU"。
-- `--train_method`：训练方法，必须输入“train"、"fine_tune"和incremental_learn"其中一个。
 - `--pretrain_ckpt`：增量训练或调优时，需要传入pretrain_checkpoint文件路径以加载预训练好的模型参数权重。
-- `--head_ckpt`：增量训练模型验证时，需要传入head_net预训练模型路径以加载预训练好的模型参数权重。
+- `--freeze_layer`：冻结网络层，输入“none"、"backbone"其中一个。
 
 ### 运行Shell脚本
 
@@ -245,10 +243,10 @@ python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ck
 ```bash
 # Windows doesn't support Shell
 # Linux train with Shell script
-sh run_train.sh [PLATFORM] [DEVICE_NUM] [VISIABLE_DEVICES(0,1,2,3,4,5,6,7)] [RANK_TABLE_FILE] [DATASET_PATH] [TRAIN_METHOD] [CKPT_PATH]
+sh run_train.sh [PLATFORM] [DEVICE_NUM] [VISIABLE_DEVICES(0,1,2,3,4,5,6,7)] [RANK_TABLE_FILE] [DATASET_PATH] [CKPT_PATH] [FREEZE_LAYER]
 
-# Linux eval with Shell script for incremental learn
-sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH] [HEAD_CKPT_PATH]
+# Linux eval with Shell script for fine tune
+sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 ```
 
 - `[PLATFORM]`：处理器类型，默认为“Ascend”，可以设置为“GPU”。
@@ -256,16 +254,14 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH] [HEAD_CKPT_PATH]
 - `[VISIABLE_DEVICES(0,1,2,3,4,5,6,7)]`：字符串格式的的设备ID，训练将会根据`[VISIABLE_DEVICES]`将进程绑定到对应ID的设备上，多个设备ID之间使用','分隔，建议ID数量与进程数量相同。
 - `[RANK_TABLE_FILE]`：platform选择Ascend时，需要配置Ascend的配置Json文件,。
 - `[DATASET_PATH]`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
-- `[CKPT_PATH]`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重。
-- `[TRAIN_METHOD]`：训练方法，必须输入`train`、`fine_tune`和`incremental_learn`其中一个。
-- `[PRETRAIN_CKPT_PATH]`：针对增量学习的模型做验证时，需要输入主干网络层保存模型路径。
-- `[HEAD_CKPT_PATH]`：针对增量学习的模型做验证时，需要输入全连接层保存模型路径。
+- `[CKPT_PATH]`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重
+- `[FREEZE_LAYER]`：针对微调的模型做验证时，需要选择不冻结网络或者冻结backbone。
 
-## 加载增量学习训练  
+## 加载微调训练  
 
-Windows系统上，MobileNetV2做增量学习训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做增量学习训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/cv_mobilenetv2_incremental_learning.html#id8)。
+Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/training/source_zh_cn/r1.0/advanced_use/cv_mobilenetv2_fine_tune.html#id8)。
 
-Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。 增量学习成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
+Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
 ### CPU加载训练  
 
@@ -279,14 +275,14 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     ```bash
     # Windows or Linux with Python
-    python train.py --platform CPU --dataset_path [TRAIN_DATASET_PATH] -- train_method incremental_learn --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2.ckpt
+    python train.py --platform CPU --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
     ```
 
   使用样例2：通过Shell文件调用1个CPU处理器。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh CPU [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh CPU [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetV2_cpu_gpu.ckpt backbone
     ```
 
 ### GPU加载训练  
@@ -301,21 +297,21 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     ```bash
     # Windows or Linux with Python
-    python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH]  --train_method incremental_learn --pretrain_ckpt ./pretrain_checkpoint/mobilenetV2.ckpt
+    python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
     ```
 
   - 使用样例2：通过Shell脚本调用1个GPU处理器，设备ID为`“0”`。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetV2.ckpt
+    sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
     ```
 
   - 使用样例3：通过Shell脚本调用8个GPU处理器，设备ID为`“0,1,2,3,4,5,6,7”`。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
+    sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
     ```
 
 ### Ascend加载训练  
@@ -330,36 +326,36 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     ```bash
     # Windows or Linux with Python
-    python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --train_method incremental_learn --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2.ckpt
+    python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
     ```
 
   - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH]  incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
+    sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
     ```
 
   - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH]  incremental_learn ../pretrain_checkpoint/mobilenetv2.ckpt
+    sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
     ```
 
-### 增量学习训练结果  
+### 微调训练结果  
 
 - 查看运行结果。
 
-  - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/device0/log0.log`中查看打印信息，输出结果如下：
+  - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/rank0/log0.log`中查看打印信息，输出结果如下：
 
     ```bash
     train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
-    pretrain_ckpt='./pretrain_checkpoint/mobilenetv2.ckpt', train_method='incremental_learn')
+    pretrain_ckpt='./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt', freeze_layer='backbone')
     cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
     'epoch_size': 200, 'warmup_epochs': 0, 'lr_max': 0.03, 'lr_end': 0.03, 'momentum': 0.9, \
     'weight_decay': 4e-05, 'label_smooth': 0.1, 'loss_scale': 1024, 'save_checkpoint': True, \
-    'save_checkpoint_epochs': 1, 'keep_checkpoint_max': 20, 'save_checkpoint_path': './checkpoint', \
+    'save_checkpoint_epochs': 1, 'keep_checkpoint_max': 20, 'save_checkpoint_path': './', \
     'platform': 'CPU'}
     Processing batch: 16: 100%|███████████████████████████████████████████ █████████████████████| 16/16 [00:00<?, ?it/s]
     epoch[200], iter[16] cost: 256.030, per step time: 256.030, avg loss: 1.775total cos 7.2574 s
@@ -370,37 +366,37 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
   - Windows上使用`dir checkpoint`查看保存的模型文件：
 
     ```bash
-    dir checkpoint
-    2020//0814 11:20        267,727 mobilenetv2_head_1.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_head_10.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_head_11.ckpt
+    dir ckpt_0
+    2020//0814 11:20        267,727 mobilenetv2_1.ckpt
+    2020//0814 11:21        267,727 mobilenetv2_10.ckpt
+    2020//0814 11:21        267,727 mobilenetv2_11.ckpt
     ...
-    2020//0814 11:21        267,727 mobilenetv2_head_7.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_head_8.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_head_9.ckpt
+    2020//0814 11:21        267,727 mobilenetv2_7.ckpt
+    2020//0814 11:21        267,727 mobilenetv2_8.ckpt
+    2020//0814 11:21        267,727 mobilenetv2_9.ckpt
     ```
 
   - Linux上使用`ls ./checkpoint`查看保存的模型文件：
 
     ```bash
-    ls ./checkpoint/
-    mobilenetv2_head_1.ckpt  mobilenetv2_head_2.ckpt
-    mobilenetv2_head_3.ckpt  mobilenetv2_head_4.ckpt
+    ls ./ckpt_0/
+    mobilenetv2_1.ckpt  mobilenetv2_2.ckpt
+    mobilenetv2_3.ckpt  mobilenetv2_4.ckpt
     ...
     ```
 
-## 验证增量学习训练模型
+## 验证微调训练模型
 
 ### 验证模型
 
-使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/cv_mobilenetv2_incremental_learning.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
+使用验证集测试模型性能，需要输入必要[参数](https://www.mindspore.cn/tutorial/training/source_zh_cn/r1.0/advanced_use/cv_mobilenetv2_fine_tune.html#id8)，`--platform`默认为“Ascend”，可自行设置为"CPU"或"GPU"。最终在交互式命令行中展示标准输出与错误输出，或者将其写入`eval.log`文件。
 
 ```bash
 # Windows/Linux with Python
-python eval.py --platform CPU --dataset_path [VAL_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2.ckpt --head_ckpt ./checkpoint/mobilenetv2_head_15.ckpt
+python eval.py --platform CPU --dataset_path [VAL_DATASET_PATH] --pretrain_ckpt ./ckpt_0/mobilenetv2_15.ckpt
 
 # Linux with Shell
-sh run_eval.sh CPU [VAL_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2.ckpt ../checkpoint/mobilenetv2_head_15.ckpt
+sh run_eval.sh CPU [VAL_DATASET_PATH] ../ckpt_0/mobilenetv2_15.ckpt
 ```
 
 ### 验证结果
@@ -409,6 +405,5 @@ sh run_eval.sh CPU [VAL_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2.ckpt ..
 
 ```bash
 result:{'acc': 0.9466666666666666666667}
-pretrain_ckpt = ./pretrain_checkpoint/mobilenetv2.ckpt
-head_ckpt = ./checkpoint/mobilenetv2_head_15.ckpt
+pretrain_ckpt = ./ckpt_0/mobilenetv2_15.ckpt
 ```
