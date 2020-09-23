@@ -16,7 +16,7 @@
 
 ## 概述
 
-用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能体验。   
+用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能。   
 
 MindSpore数据格式具备的特征如下：  
 1. 实现多变的用户数据统一存储、访问，训练数据读取更简便；
@@ -24,7 +24,7 @@ MindSpore数据格式具备的特征如下：
 3. 高效数据编解码操作，对用户透明、无感知；
 4. 灵活控制分区大小，实现分布式训练。
 
-MindSpore数据格式的目标是归一化用户的数据集，并进一步通过MindDataset实现数据的读取，并用于训练过程。
+MindSpore数据格式的目标是归一化用户的数据集，并进一步通过`MindDataset`实现数据的读取，并用于训练过程。
 
 ![data_conversion_concept](./images/data_conversion_concept.png)
 

@@ -17,7 +17,7 @@
 
 ## 概述
 
-在计算机视觉任务中，图像数据往往因为容量限制难以直接全部读入内存。MindSpore提供的`mindspore.dataset`库可以帮助用户构建数据集对象，分批次地读取图像数据。同时，在各个数据集类中还内置了数据处理和数据增强算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
+在计算机视觉任务中，图像数据往往因为容量限制难以直接全部读入内存。MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对象，分批次地读取图像数据。同时，在各个数据集类中还内置了数据处理和数据增强算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
 
 下面，本教程将以加载MNIST数据集为例，演示如何使用MindSpore加载和处理图像数据。
 
@@ -31,7 +31,7 @@
         └─train-labels.idx1-ubyte
     ```
 
-2. 导入`mindspore.dataset`库。
+2. 导入`mindspore.dataset`模块。
 
     ```python
     import mindspore.dataset as ds
@@ -41,7 +41,7 @@
 
 MindSpore目前支持加载图像领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_loading.html)章节。
 
-下面演示使用`mindspore.dataset`库中的`MnistDataset`类加载MNIST数据集。
+下面演示使用`mindspore.dataset`模块中的`MnistDataset`类加载MNIST数据集。
 
 1. 配置数据集目录，创建MNIST数据集对象。
 
@@ -90,7 +90,7 @@ for data in mnist_dataset.create_dict_iterator():
 2
 ```
 
-1.  对数据集进行混洗。
+1. 对数据集进行混洗。
 
     ```python
     ds.config.set_seed(58)
@@ -111,7 +111,7 @@ for data in mnist_dataset.create_dict_iterator():
     9
     ```
 
-2.  对数据集进行分批。
+2. 对数据集进行分批。
 
     ```python
     ds2 = ds1.batch(batch_size=2)
@@ -128,7 +128,7 @@ for data in mnist_dataset.create_dict_iterator():
     [5 9]
     ```
 
-3.  对pipeline操作进行重复。
+3. 对pipeline操作进行重复。
 
     ```python
     ds3 = ds2.repeat(count=2)
