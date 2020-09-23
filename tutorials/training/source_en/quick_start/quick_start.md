@@ -180,7 +180,7 @@ In the preceding information:
 
 Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data is unique during one epoch.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.0/use/data_preparation.html) and [Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.0/augmentation.html) in the MindSpore Tutorials.
+> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.0/use/data_preparation.html) in the MindSpore Tutorials.
 
 
 ## Defining the Network

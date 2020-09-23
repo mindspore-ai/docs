@@ -80,7 +80,7 @@ In the preceding information:
 
 ## Optimizing the Data Loading Performance
 
-MindSpore provides multiple data loading methods, including common dataset loading, user-defined dataset loading, and MindSpore data format loading. For details, see [Dataset Loading](https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_loading.html). The dataset loading performance varies depending on the underlying implementation method.
+MindSpore provides multiple data loading methods, including common dataset loading, user-defined dataset loading, and MindSpore data format loading. The dataset loading performance varies depending on the underlying implementation method.
 
 |      | Common Dataset | User-defined Dataset | MindRecord Dataset |
 | :----: | :----: | :----: | :----: |
@@ -93,7 +93,7 @@ MindSpore provides multiple data loading methods, including common dataset loadi
 
 Suggestions on data loading performance optimization are as follows:
 - Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.dataset.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
-- For a dataset format that is not supported, convert the format to MindSpore data format and then use the `MindDataset` class to load the dataset. For details, see [MindSpore Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_conversion.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
+- For a dataset format that is not supported, convert the format to MindSpore data format and then use the `MindDataset` class to load the dataset. If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
 - For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification. If the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/optimize_data_processing.html#multi-process-optimization-solution).
 
 ### Code Example
@@ -172,7 +172,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
 ## Optimizing the Shuffle Performance
 
-The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process. For details, see [Shuffle](https://www.mindspore.cn/doc/programming_guide/en/r1.0/pipeline.html#shuffle). However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.dataset.html).
+The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process. However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.dataset.html).
 
 ### Performance Optimization Solution
 
@@ -256,7 +256,7 @@ During image classification training, especially when the dataset is small, user
 - Use the built-in Python operator (`py_transforms` module) to perform data augmentation.
 - Users can define Python functions as needed to perform data augmentation.
 
-For details, see [Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.0/augmentation.html). The performance varies according to the underlying implementation methods.
+The performance varies according to the underlying implementation methods.
 
 | Module | Underlying API | Description |
 | :----: | :----: | :----: |
