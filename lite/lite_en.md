@@ -35,7 +35,7 @@
                 <span style="color:#1a1c33;">Convert to MindSpore Lite Model</span>
             </div>
             <div style="font-size:0.9rem; color:#333">
-            MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference.MindSpore Lite.
+            MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference.
             </div>
         </div>
     </a>
@@ -48,7 +48,7 @@
                 <span style="color:#1a1c33;">Perform Benchmark Testing</span>
             </div>
             <div style="font-size:0.9rem; color:#333">
-            After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model.
+            After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model.
             </div>
         </div>
     </a>
@@ -61,7 +61,7 @@
                 <span style="color:#1a1c33;">Use TimeProfiler to Analyze the Time Consumption</span>
             </div>
             <div style="font-size:0.9rem; color:#333">
-            After model conversion and before inference, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model.
+            After model conversion and before the inference, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model.
             </div>
         </div>
     </a>
@@ -128,7 +128,7 @@
                 <span style="color:#1a1c33;">MindSpore Lite Operator List</span>
             </div>
             <div style="font-size:0.9rem; color:#333">
-            This document introduces the operator support of Mindspore Lite.
+            This document introduces the operators supported by Mindspore Lite.
             </div>
         </div>
     </a>
@@ -141,7 +141,7 @@
                 <span style="color:#1a1c33;">Image Classification Model Support (Lite)</span>
             </div>
             <div style="font-size:0.9rem; color:#333">
-            Image classification is to identity what an image represents, to predict the object list and the probabilites.This document lists image classification models that can be inferred using mindspore Lite.
+            Image classification is to identity what an image represents, to predict the object list and the probabilites. This document lists image classification models that can be inferred using mindspore Lite.
             </div>
         </div>
     </a>
