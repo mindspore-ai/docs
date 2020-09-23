@@ -39,7 +39,7 @@ This tutorial uses the MNIST dataset as an example to demonstrate how to load an
 
 ## Load Dataset
 
-MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. User can also implement custom dataset class to load customized data. For details about how to load various datasets, see the [Dataset Loading](https://www.mindspore.cn/doc/programming_guide/en/r1.0/dataset_loading.html) section in the programming guide.
+MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. User can also implement custom dataset class to load customized data.
 
 The following shows how to load the MNIST dataset using the `MnistDataset` in the `mindspore.dataset` module.
 
@@ -66,11 +66,8 @@ The following shows how to load the MNIST dataset using the `MnistDataset` in th
 
     ![mnist_5](./images/mnist_5.png)
 
-In addition, user can pass in a sampler to specify the sampling process during dataset loading. For details about the samplers supported by MindSpore, see the [Sampler](https://www.mindspore.cn/doc/programming_guide/en/r1.0/sampler.html) section in the programming guide.
-
+In addition, user can pass in a sampler to specify the sampling process during dataset loading.
 ## Process Data
-
-For details about the data processing operators supported by MindSpore, see the [Data Processing](https://www.mindspore.cn/doc/programming_guide/en/r1.0/pipeline.html) section in the programming guide.
 
 The following demonstrates how to construct a pipeline and perform operations such as `shuffle`, `batch` and `repeat` on MNIST dataset.
 
@@ -153,8 +150,6 @@ The output is as follows:
     > Having `repeat` in the pipeline results in the execution of repeated operations defined in the entire pipeline, instead of simply copying the current dataset.
 
 ## Augmentation
-
-For details about augmentation operators supported by Mindspore, see the [Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.0/augmentation.html) section in the programming guide.
 
 The following demonstrates how to use the `c_transforms` module to augment data in the MNIST dataset.
 

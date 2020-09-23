@@ -49,7 +49,7 @@ For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mind
 |  |  |  |  | Ascend: 8 * Ascend 910 </br> CPU：192 Cores | Mixed | 16000*8 | 4872849 samples/sec | 0.76 |
 
 1. The preceding performance is obtained based on Atlas 800, and the model is data parallel.
-2. For details about other open source frameworks, see [Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep)。
+2. For details about other open source frameworks, see [Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep).
 
 ### Wide & Deep (Host-Device model parallel)
 
@@ -61,4 +61,4 @@ For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mind
 |  |  |  |  | Ascend: 32 * Ascend 910 </br> CPU：768 Cores | Mixed | 8000*32 | 433423 samples/sec | 0.20 |
 
 1. The preceding performance is obtained based on Atlas 800, and the model is model parallel.
-2. For details about other open source frameworks, see [Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep)。
+2. For details about other open source frameworks, see [Wide & Deep For TensorFlow](https://github.com/NVIDIA/DeepLearningExamples/tree/master/TensorFlow/Recommendation/WideAndDeep).
