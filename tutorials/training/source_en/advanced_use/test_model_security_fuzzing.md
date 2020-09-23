@@ -1,10 +1,10 @@
-﻿﻿# Test Model Security Using Fuzz Testing
+﻿﻿# Model Security Test by Fuzz
 
 `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
-- [Test Model Security Using Fuzz Testing](#test-model-security-using-fuzz-testing)
+- [Model Security Test by Fuzz](#model-security-test-by-fuzz)
     - [Overview](#overview)
     - [Implementation](#implementation)
         - [Importing Library Files](#importing-library-files)

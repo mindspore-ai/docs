@@ -1,8 +1,8 @@
-# Preprocess image data
+# Preprocess Image Data
 
 <!-- TOC -->
 
-- [Preprocess image data](#preprocess-image-data)
+- [Preprocess Image Data](#preprocess-image-data)
     - [Overview](#Overview)
     - [Import image preprocessing function library](#import-image-preprocessing-function-library)
     - [Initialize the image](#initialize-the-image)

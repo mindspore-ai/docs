@@ -21,6 +21,6 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 搭建推理服务
+   :caption: 推理服务
 
    serving
