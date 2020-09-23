@@ -121,7 +121,7 @@ In the conversion report, non-transformed code is listed as follows:
 line <row>:<col> [UnConvert] 'operator' didn't convert. ...
 ```
 
-For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/r1.0/specification_note.html#operator_api) for more information about operator mapping.
+For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/r1.0/index.html#operator_api) for more information about operator mapping.
 
 
 Here is an example of the conversion report:
