@@ -55,7 +55,7 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 ```
 
-`GRAPH_MODE`: user-defined commissioning mode.
+`GRAPH_MODE`: graph mode.
 
 `device_target`: sets the MindSpore training hardware to CPU.
 
