@@ -22,7 +22,7 @@ Callback回调函数在MindSpore中被实现为一个类，Callback机制类似�
 
     与模型训练过程相结合，保存训练后的模型和网络参数，方便进行再推理或再训练。`ModelCheckpoint`一般与`CheckpointConfig`配合使用，`CheckpointConfig`是一个参数配置类，可自定义配置checkpoint的保存策略。
 
-    详细内容，请参考[Checkpoint官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/save_load_model_hybrid_parallel.html)。
+    详细内容，请参考[Checkpoint官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/save_model.html)。
 
 - SummaryCollector
 

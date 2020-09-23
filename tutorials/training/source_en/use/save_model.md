@@ -10,7 +10,7 @@
         - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
     - [Export MINDIR Model](#export-mindir-model)
     - [Export AIR Model](#export-air-model)
-        - [Export ONNX Model](#export-onnx-model)
+    - [Export ONNX Model](#export-onnx-model)
 
 <!-- /TOC -->
 
@@ -142,7 +142,7 @@ It is recommended to use '.air' as the suffix of AIR format files.
 > `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
 > eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`.
 
-### Export ONNX Model
+## Export ONNX Model
 
 When you have a CheckPoint file, if you want to do inference on Ascend AI processor, GPU, or CPU, you need to generate ONNX models based on the network and CheckPoint. ONNX format file is a general model file, which can be applied to many kinds of hardware, such as Ascend AI processor, GPU, CPU, etc. The code example of exporting this format file is as follows:
 

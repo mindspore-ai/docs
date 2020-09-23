@@ -33,7 +33,7 @@ virtual int CompileGraph(lite::Model *model)
 ```
 Compile MindSpore Lite model. 
 
-> Note: CompileGraph should be called before RunGraph.
+> CompileGraph should be called before RunGraph.
 
 - Parameters
 
@@ -69,7 +69,7 @@ Get input MindSpore Lite MSTensors of model by node name.
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
 ```
 Run session with callback. 
-> Note: RunGraph should be called after CompileGraph.
+> RunGraph should be called after CompileGraph.
 
 - Parameters
 
