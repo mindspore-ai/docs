@@ -373,7 +373,7 @@ param_dict = load_checkpoint(save_path)
 load_param_into_net(net, param_dict)
 ```
 
-For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#checkpoint-configuration-policies).
+For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#checkpoint-configuration-policies).
 
 ### Data Parallel Mode
 

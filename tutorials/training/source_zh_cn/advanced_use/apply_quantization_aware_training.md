@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [感知量化训练](#感知量化训练)
+- [应用感知量化训练](#应用感知量化训练)
     - [背景](#背景)
     - [概念](#概念)
         - [量化](#量化)
@@ -170,7 +170,7 @@ net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_c
   4.  定义融合网络。
   5.  定义优化器和损失函数。
   6.  基于融合网络转化生成量化网络。
-  7.  加载模型文件重训。加载已有非量化模型文件，基于量化网络重新训练生成量化模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#id6>。
+  7.  加载模型文件重训。加载已有非量化模型文件，基于量化网络重新训练生成量化模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/load_model_for_inference_and_transfer.html>。
 
 ### 进行推理
 

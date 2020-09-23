@@ -377,7 +377,7 @@ param_dict = load_checkpoint(save_path)
 load_param_into_net(net, param_dict)
 ```
 
-checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_and_load_model.html#checkpoint)。
+checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/save_model.html#checkpoint)。
 
 ### 数据并行模式
 

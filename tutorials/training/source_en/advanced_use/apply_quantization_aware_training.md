@@ -170,7 +170,7 @@ The preceding describes the quantization aware training from scratch. A more com
     4. Define a fusion network.
     5. Define an optimizer and loss function.
     6. Generate a quantative network based on the fusion network.
-    7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_and_load_model.html#for-retraining>.
+    7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/r1.0/use/load_model_for_inference_and_transfer.html>.
 
 ### Inference
 
