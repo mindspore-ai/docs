@@ -12,7 +12,7 @@
         - [运用Fuzz Testing](#运用fuzz-testing)
         
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -22,7 +22,7 @@ MindArmour的fuzz_testing模块以神经元覆盖率作为测试评价准则。�
 
 这里以LeNet模型，MNIST数据集为例，说明如何使用Fuzzer。
 
-> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/r1.0/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>
+> 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/ai_fuzzer/lenet5_mnist_fuzzing.py>
 
 ## 实现阶段
 
@@ -60,7 +60,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 ### 运用Fuzz Testing
 
-1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/improve_model_security_nad.html>)
+1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html>)
 
    ```python
    ...
@@ -101,7 +101,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
    数据变异方法中一定要包含基于图像像素值变化的方法。
 
-   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用于自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/blob/r1.0/mindarmour/fuzz_testing/image_transform.py>
+   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用于自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>
    中对应的类方法。算法随机选择参数，则`params`设置为`'auto_param': [True]`，参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。

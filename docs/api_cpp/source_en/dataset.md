@@ -1,7 +1,7 @@
 # mindspore::dataset
 
-#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
-#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
+#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 
 ## Functions of image_process.h 

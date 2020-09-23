@@ -1,6 +1,6 @@
 # mindspore::tensor
 
-#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/ms_tensor.h)&gt;
+#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
 
 
 ## MSTensor
@@ -29,7 +29,7 @@ virtual TypeId data_type() const
 ```
 获取MindSpore Lite MSTensor的数据类型。
 
-> 注意：TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型可用于MSTensor。
+> 注意：TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型可用于MSTensor。
 
 - 返回值
 

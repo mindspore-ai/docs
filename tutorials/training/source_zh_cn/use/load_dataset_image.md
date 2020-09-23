@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@
 
 ## 加载数据集
 
-MindSpore目前支持加载图像领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_loading.html)章节。
+MindSpore目前支持加载图像领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)章节。
 
 下面演示使用`mindspore.dataset`模块中的`MnistDataset`类加载MNIST数据集。
 
@@ -66,11 +66,11 @@ MindSpore目前支持加载图像领域常用的经典数据集和多种数据�
 
     ![mnist_5](./images/mnist_5.png)
 
-此外，用户还可以在数据集加载时传入sampler指定数据采样方式。MindSpore目前支持的数据采样器及其详细使用方法，可参考编程指南中[采样器](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/sampler.html)章节。
+此外，用户还可以在数据集加载时传入sampler指定数据采样方式。MindSpore目前支持的数据采样器及其详细使用方法，可参考编程指南中[采样器](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/sampler.html)章节。
 
 ## 数据处理
 
-MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/pipeline.html)章节。
+MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)章节。
 
 下面演示构建pipeline，对MNIST数据集进行`shuffle`、`batch`、`repeat`等操作。
 
@@ -154,7 +154,7 @@ for data in mnist_dataset.create_dict_iterator():
 
 ## 数据增强
 
-MindSpore目前支持的数据增强算子及其详细使用方法，可参考编程指南中[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/augmentation.html)章节。
+MindSpore目前支持的数据增强算子及其详细使用方法，可参考编程指南中[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
 
 下面演示使用`c_transforms`模块对MNIST数据集进行数据增强。
 

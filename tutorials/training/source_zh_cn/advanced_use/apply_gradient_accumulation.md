@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -29,7 +29,7 @@
   
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.0/tutorials/tutorial_code/gradient_accumulation>
+> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
 
 ## 创建梯度累积模型
 
@@ -58,11 +58,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/src/dataset.py>)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>)导入。
 
 ### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/src/lenet.py>)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练模型
 将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
@@ -254,7 +254,7 @@ if __name__ == "__main__":
 
 **验证模型**
 
-通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
 $ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU

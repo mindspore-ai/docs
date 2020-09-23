@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/use/publish_model.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 1. Host your pre-trained model in a storage location where we are able to access. 
 
-2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
+2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
    ```shell
    googlenet
@@ -63,10 +63,10 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ```   
 
    The MindSpore Hub supports multiple model file formats including:
-   - [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#checkpoint-configuration-policies)
-   - [MindIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#export-mindir-model)
-   - [AIR](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#export-air-model)
-   - [ONNX](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#export-onnx-model)
+   - [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint-configuration-policies)
+   - [MindIR](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model)
+   - [AIR](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-air-model)
+   - [ONNX](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-onnx-model)
 
    For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7`.
 

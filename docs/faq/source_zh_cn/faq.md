@@ -18,7 +18,7 @@
     - [特性支持](#特性支持)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_zh_cn/faq.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/faq.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 安装类
 
@@ -123,7 +123,7 @@ A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命
 
 Q：官网的LSTM示例在Ascend上跑不通
 
-A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/note/zh-CN/r1.0/operator_list_ms.html)查看算子支持情况。
+A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)查看算子支持情况。
 
 <br/>
 
@@ -143,7 +143,7 @@ A： MindSpore采用protbuf存储训练参数，无法直接读取其他框架�
 
 Q：用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？
 
-A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference_ascend_310.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
+A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
 
 <br/>
 
@@ -155,19 +155,19 @@ A：在构造网络的时候可以通过 `if self.training: x = dropput(x)`，�
 
 Q：从哪里可以查看MindSpore训练及推理的样例代码或者教程？
 
-A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html)。
+A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
 
 <br/>
 
 Q：MindSpore支持哪些模型的训练？
 
-A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md)。
+A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md)。
 
 <br/>
 
 Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？
 
-A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo)。
+A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
 
 <br/>
 
@@ -187,7 +187,7 @@ A：Ascend 310只能用作推理，MindSpore支持在Ascend 910训练，训练�
 
 Q：安装运行MindSpore时，是否要求平台有GPU、NPU等计算单元？需要什么硬件支持？
 
-A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/r1.0/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md)获取最新信息。
+A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/master/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md)获取最新信息。
 
 <br/>
 
@@ -199,7 +199,7 @@ A：MindSpore提供了可插拔式的设备管理接口，其他计算单元（�
 
 Q：MindSpore与ModelArts是什么关系，在ModelArts中能使用MindSpore吗？
 
-A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
+A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
 
 <br/>
 
@@ -245,7 +245,7 @@ A：这边的问题是选择了Graph模式却使用了PyNative的写法，所以
 - PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
 
 - Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
-用户可以参考[官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
 
 <br/>
 
@@ -273,7 +273,7 @@ A：MindSpore分布式训练除了支持数据并行，还支持算子级模型�
 
 Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？
 
-A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子,自定义算子[详见这里](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_operator_ascend.html)。
+A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子,自定义算子[详见这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_ascend.html)。
 
 <br/>
 
@@ -309,7 +309,7 @@ A：TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待Min
 
 Q：其他框架的脚本或者模型怎么迁移到MindSpore？
 
-A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/migrate_3rd_scripts.html)的介绍。
+A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_3rd_scripts.html)的介绍。
 
 <br/>
 

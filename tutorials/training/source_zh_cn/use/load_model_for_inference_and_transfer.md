@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -99,7 +99,7 @@ model.train(epoch, dataset)
 
    ```
 
-3. 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html)。
+3. 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html)。
 
 ### 用于迁移学习
 

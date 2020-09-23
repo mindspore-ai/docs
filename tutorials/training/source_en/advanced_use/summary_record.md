@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -129,10 +129,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
 
 Summary operators currently supported:
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.HistogramSummary): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.HistogramSummary): Convert tensor data into histogram data records.
 
 The recording method is shown in the following steps.
 
@@ -331,7 +331,7 @@ Stop MindInsight command:
 mindinsight stop
 ```
 
-For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/mindinsight_commands.html) page.
+For more parameter Settings, see the [MindInsight related commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html) page.
 
 ## Notices
 

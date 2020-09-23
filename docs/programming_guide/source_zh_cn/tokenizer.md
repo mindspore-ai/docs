@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -36,7 +36,7 @@ MindSpore目前提供的分词器如下表所示。此外，用户也可以根�
 | WhitespaceTokenizer | 根据空格符对标量文本数据进行分词。 |
 | WordpieceTokenizer | 根据单词集对标量文本数据进行分词。 |
 
-更多分词器的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.dataset.text.html)。
+更多分词器的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.text.html)。
 
 ## MindSpore分词器
 

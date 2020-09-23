@@ -6,4 +6,4 @@
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Saving%20and%20Loading%20Model%20Parameters.mp4" type="video/mp4">
 </video>
 
-**View the full tutorial**：<https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html>
+**View the full tutorial**：<https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html>

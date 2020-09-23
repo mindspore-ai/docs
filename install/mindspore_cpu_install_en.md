@@ -22,7 +22,7 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore 1.0.0 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
+| MindSpore master | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
 
 - GCC 7.3.0 can be installed by using apt command.
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
@@ -63,7 +63,7 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
 1. Download the source code from the code repository.
 
     ```bash
-    git clone https://gitee.com/mindspore/mindspore.git -b r1.0
+    git clone https://gitee.com/mindspore/mindspore.git
     ```
 
 2. Run the following command in the root directory of the source code to compile MindSpore:
@@ -98,7 +98,7 @@ If you need to conduct AI model security research or enhance the security of the
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindArmour 1.0.0 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py). | Same as the executable file installation dependencies. |
+| MindArmour master | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py). | Same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -123,7 +123,7 @@ If you need to conduct AI model security research or enhance the security of the
 1. Download the source code from the code repository.
 
    ```bash
-   git clone https://gitee.com/mindspore/mindarmour.git -b r1.0
+   git clone https://gitee.com/mindspore/mindarmour.git
    ```
 
 2. Run the following command in the root directory of the source code to compile and install MindArmour:

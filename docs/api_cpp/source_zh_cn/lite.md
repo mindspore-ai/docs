@@ -1,10 +1,10 @@
 # mindspore::lite
 
-#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/context.h)&gt;
+#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
-#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/model.h)&gt;
+#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
 
-#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/version.h)&gt;
+#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
 
 
 ## Allocator
@@ -43,7 +43,7 @@ float16_priority
 device_type
 ```
 
-[**DeviceType**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
+[**DeviceType**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicetype)枚举类型。默认为**DT_CPU**，用于设置设备信息。
 
 ```
 thread_num_
@@ -55,13 +55,13 @@ thread_num_
 allocator
 ```
 
-指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#allocator)的指针。
+指针类型，指向内存分配器[**Allocator**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator)的指针。
 
 ```
 cpu_bind_mode_ 
 ```
 
-[**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
+[**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#cpubindmode)枚举类型，默认为**MID_CPU**。 
 
 ## PrimitiveC
 

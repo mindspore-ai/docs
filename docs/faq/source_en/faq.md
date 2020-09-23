@@ -18,7 +18,7 @@
     - [Supported Features](#supported-features)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/faq/source_en/faq.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/faq.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Installation
 
@@ -116,7 +116,7 @@ A: After MindSpore is installed on a CPU hardware platform, run the `python -c'i
 
 Q: What can I do if the LSTM example on the official website cannot run on Ascend?
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/r1.0/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
 
 <br/>
 
@@ -134,7 +134,7 @@ A: MindSpore uses protocol buffers (protobuf) to store training parameters and c
 
 Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference_ascend_310.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
 
 <br/>
 
@@ -146,19 +146,19 @@ A: When building a network, use `if self.training: x = dropput(x)`. During verif
 
 Q: Where can I view the sample code or tutorial of MindSpore training and inference?
 
-A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/r1.0/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html).
+A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/master/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/master/index.html).
 
 <br/>
 
 Q: What types of model is currently supported by MindSpore for training?
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md) for detailed information.
 
 <br/>
 
 Q: What are the available recommendation or text generation networks or models provided by MindSpore?
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
 
 <br/>
 
@@ -176,7 +176,7 @@ A: Ascend 310 can only be used for inference. MindSpore supports training on Asc
 
 Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/r1.0/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md).
+A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/master/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md).
 
 <br/>
 
@@ -226,7 +226,7 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
-You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/debug_in_pynative_mode.html).
+You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
 
 ## Programming Language Extensions
 
@@ -249,7 +249,7 @@ A: In addition to data parallelism, MindSpore distributed training also supports
 <br/>
 
 Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, click [here](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/custom_operator_ascend.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, click [here](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_ascend.html).
 
 <br/>
 
@@ -285,7 +285,7 @@ A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Mo
 
 Q: How do I migrate scripts or models of other frameworks to MindSpore?
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/migrate_3rd_scripts.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts.html).
 
 <br/>
 

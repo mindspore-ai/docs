@@ -23,9 +23,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 
 ## Overview
@@ -40,7 +40,7 @@ The whole process is as follows:
 4. Prepare for fitting process visualization.
 5. Perform training.
 
-Source code address of this example: <https://gitee.com/mindspore/docs/blob/r1.0/tutorials/tutorial_code/linear_regression.py>.
+Source code address of this example: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>.
 
 ## Environment Preparation
 
@@ -302,7 +302,7 @@ def plot_model_and_datasets(net, eval_data):
 
 ### Defining the Callback Function
 
-MindSpore provides tools to customize the model training process. The following calls the visualization function in `step_end` to display the fitting process. For more information, see [Customized Debugging Information](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/custom_debugging_info.html#callback).
+MindSpore provides tools to customize the model training process. The following calls the visualization function in `step_end` to display the fitting process. For more information, see [Customized Debugging Information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#callback).
 
 
 ```python

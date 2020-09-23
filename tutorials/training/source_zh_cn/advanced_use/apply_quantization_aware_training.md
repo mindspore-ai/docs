@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 背景
 
@@ -51,7 +51,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU、Ascend AI 910处理器的硬件平台 |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo>。 |
+| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
 | 算法支持 | 在MindSpore的伪量化训练中，支持非对称和对称的量化算法。 |
 | 方案支持 | 支持4、7和8比特的量化方案。 |
 
@@ -74,7 +74,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 
 接下来，以LeNet网络为例，展开叙述2、3两个步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant> 。
 
 ### 定义融合网络
 
@@ -170,13 +170,13 @@ net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_c
   4.  定义融合网络。
   5.  定义优化器和损失函数。
   6.  基于融合网络转化生成量化网络。
-  7.  加载模型文件重训。加载已有非量化模型文件，基于量化网络重新训练生成量化模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/use/load_model_for_inference_and_transfer.html>。
+  7.  加载模型文件重训。加载已有非量化模型文件，基于量化网络重新训练生成量化模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_model_for_inference_and_transfer.html>。
 
 ### 进行推理
 
 使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（AIR、MINDIR等）进行推理。
 
-> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/multi_platform_inference.html>
+> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html>
 
 - 使用感知量化训练后得到的checkpoint文件进行推理：
 

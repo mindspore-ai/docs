@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/design/mindinsight/tensor_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindinsight/tensor_visual_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 特性背景
 
@@ -55,7 +55,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
 
 ### 接口设计
 
-在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/utils/summary.proto)文件，是MindInsight和MindSpore进行数据对接的接口。 RESTful API接口是MindInsight前后端进行数据交互的接口，是内部接口。
+在张量可视中，主要有文件接口和RESTful API接口，其中文件接口为[summary.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/summary.proto)文件，是MindInsight和MindSpore进行数据对接的接口。 RESTful API接口是MindInsight前后端进行数据交互的接口，是内部接口。
 
 #### 文件接口设计
 
@@ -100,4 +100,4 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
     repeated Value value = 1;
 }
 ```
-而TensorProto的定义在[anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/ccsrc/utils/anf_ir.proto)文件中。
+而TensorProto的定义在[anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/anf_ir.proto)文件中。

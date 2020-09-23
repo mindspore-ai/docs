@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/apply_parameter_server_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/apply_parameter_server_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
@@ -35,14 +35,14 @@ The following describes how to use parameter server to train LeNet on Ascend 910
 
 ### Training Script Preparation
 
-Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/) by referring to <https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/lenet>.
+Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/mnist/) by referring to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet>.
 
 ### Parameter Setting
 
 1. First of all, Use `mindspore.context.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
 
 - This method should be called before `mindspore.communication.management.init()`.
-- If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
+- If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
 - Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
 
 2. In this training mode, you can use either of the following methods to control whether the training parameters are updated through the parameter server:
@@ -50,7 +50,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 - Use `mindspore.nn.Cell.set_param_ps()` to set all weight recursions of `nn.Cell`.
 - Use `mindspore.common.Parameter.set_param_ps()` to set the weight.
 
-3. On the basis of the [original training script](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
+3. On the basis of the [original training script](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 ```python
 context.set_ps_context(enable_ps=True)
 network = LeNet5(cfg.num_classes)

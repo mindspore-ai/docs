@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_zh_cn/multi_platform_inference_gpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/multi_platform_inference_gpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 使用checkpoint格式文件推理
 
@@ -18,6 +18,6 @@
 
 ## 使用ONNX格式文件推理
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/save_load_model_hybrid_parallel.html#onnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/save_load_model_hybrid_parallel.html#onnx)。
 
 2. 在GPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如在Nvidia GPU上进行推理，使用常用的TensorRT，可参考[TensorRT backend for ONNX](https://github.com/onnx/onnx-tensorrt)。

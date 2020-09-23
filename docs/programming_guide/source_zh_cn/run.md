@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 执行主要有三种方式：单算子、普通函数和网络训练模型。
@@ -228,7 +228,7 @@ if __name__ == "__main__":
     model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
 ```
 
-> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)的下载数据集部分，下同。
+> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的下载数据集部分，下同。
 
 输出如下：
 ```python
@@ -241,7 +241,7 @@ epoch: 1 step: 1874, loss is 0.0346688
 epoch: 1 step: 1875, loss is 0.017264696
 ```
 
-> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
+> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
 
 ### 执行推理模型
 通过调用Model的train接口可以实现推理。为了方便评估模型的好坏，可以在Model接口初始化的时候设置评估指标Metric。
@@ -372,7 +372,7 @@ if __name__ == "__main__":
 `checkpoint_lenet-1_1875.ckpt`：保存的CheckPoint模型文件名称。
 `load_param_into_net`：通过该接口把参数加载到网络中。
 
-> `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)的训练网络部分。
+> `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的训练网络部分。
 
 输出如下：
 ```python

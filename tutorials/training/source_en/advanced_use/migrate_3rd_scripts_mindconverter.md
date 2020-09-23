@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -121,7 +121,7 @@ In the conversion report, non-transformed code is listed as follows:
 line <row>:<col> [UnConvert] 'operator' didn't convert. ...
 ```
 
-For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/r1.0/index.html#operator_api) for more information about operator mapping.
+For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/master/index.html#operator_api) for more information about operator mapping.
 
 
 Here is an example of the conversion report:

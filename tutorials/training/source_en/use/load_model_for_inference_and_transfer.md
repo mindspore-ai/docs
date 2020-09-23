@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/use/load_model_for_inference_and_transfer.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -101,7 +101,7 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/inference/en/r1.0/multi_platform_inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference.html).
 
 ### For Transfer Training
 

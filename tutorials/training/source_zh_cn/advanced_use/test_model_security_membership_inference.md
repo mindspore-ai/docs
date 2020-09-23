@@ -13,7 +13,7 @@
       
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -25,7 +25,7 @@
 
 >本例面向Ascend 910处理器，您可以在这里下载完整的样例代码：
 >
-><https://gitee.com/mindspore/mindarmour/blob/r1.0/examples/privacy/membership_inference/example_vgg_cifar.py>
+><https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## 实现阶段
 

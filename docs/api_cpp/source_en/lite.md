@@ -1,10 +1,10 @@
 # mindspore::lite
 
-#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/context.h)&gt;
+#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
-#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/model.h)&gt;
+#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
 
-#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/version.h)&gt;
+#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
 
 
 ## Allocator
@@ -40,7 +40,7 @@ A **bool** value. Defaults to **false**. Prior enable float16 inference.
 ```
 device_type
 ```
-A [**DeviceType**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
+A [**DeviceType**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
 
 ``` 
 thread_num_
@@ -52,13 +52,13 @@ An **int** value. Defaults to **2**. Thread number config for thread pool.
 allocator
 ```
 
-A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#allocator).
+A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator).
 
 ``` 
 cpu_bind_mode_ 
 ```
 
-A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/r1.0/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.     
+A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.     
 
 ## PrimitiveC
 Primitive is defined as prototype of operator.
