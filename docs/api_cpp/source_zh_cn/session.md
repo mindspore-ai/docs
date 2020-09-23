@@ -33,7 +33,7 @@ virtual int CompileGraph(lite::Model *model)
 ```
 编译MindSpore Lite模型。
 
-> 注意： CompileGraph必须在RunGraph方法之前调用。
+> CompileGraph必须在RunGraph方法之前调用。
 
 - 参数
 
@@ -69,7 +69,7 @@ std::vector <tensor::MSTensor *> GetInputsByName(const std::string &node_name) c
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
 ```
 运行带有回调函数的会话。
-> 注意： RunGraph必须在CompileGraph方法之后调用。
+> RunGraph必须在CompileGraph方法之后调用。
 
 - 参数
 
