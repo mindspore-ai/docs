@@ -60,6 +60,35 @@
 
 ### Downloads
 
+|   Module Name   |   Hardware Platform   |   Operating System   |      Download Links      |       SHA-256     |
+|    ---   |    ---   |    ---   |       ---      |    ---      |
+|   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/ubuntu_x86/mindspore_ascend-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   4682be18cffdf86346bdb286ccd9e05f33be4138415dbc7db1650d029510ee44    |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/ubuntu_aarch64/mindspore_ascend-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   6912fcc0488f3a8fa336d9680f506b5f0c97c5d82844d8fbfd9163bbcbe3140a    |
+|      |      |   EulerOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/euleros_x86/mindspore_ascend-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   20fb5d35ccd7c1354084da48fa8e3cb93b6fa4843211be82a542dff775c39c0a   |
+|      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/euleros_aarch64/mindspore_ascend-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   b9700fc718e28026269f4639c7a963653a485c7213eed7d534ed26f89d98a44e   |
+|      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/centos_x86/mindspore_ascend-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   453d4ddb93e3e0ed79ac2ec16920994b387376682d07ba71f1e1387cccd57ded   |
+|      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/centos_aarch64/mindspore_ascend-1.0.0-cp37-cp37m-linux_aarch64.whl>   |f2066bfd3ffdeb458c6cdcdec2eb0c47c444336c7d983134638ae2de0cec0564   |
+|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/gpu/ubuntu_x86/cuda-10.1/mindspore_gpu-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   af2b3b7744fdd475333a81e3dfadc81be2156e67e660477f92b584807b34cb70   |
+|      |   CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/cpu/ubuntu_x86/mindspore-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   a0a3c81b500d442d0324d82ed49808a32fb62c9e776fe614a863345965180f7c   |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/cpu/ubuntu_aarch64/mindspore-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   eb3bf9d7a40a4f7bbb3ba566b8353ff8a2f89f2fae08d770af0f7d8b9f83d3ea   |
+|      |         |   Windows-x64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/cpu/windows_x64/mindspore-1.0.0-cp37-cp37m-win_amd64.whl>   |   d30c89941939164fc1af8e406b202c1671a1309991a957a0f950b8c71775fcc9   |
+|   MindInsight   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/ubuntu_x86/mindinsight-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   dd951904ef10adbb93501c3cbafa6b4d34b1e8e5c4efe4fcaa7af49f0c081041   |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/ubuntu_aarch64/mindinsight-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   fc02c2ba823cc23eceb89c1c4f93e103502714ce5b4b7ea020c8d744220ae260   |
+|      |      |   EulerOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/euleros_x86/mindinsight-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   2df33884fe557e1073ac7bf18fef135dd2f0a90d8dfbc1a0fe6ab223fd959e9c   |
+|      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/euleros_aarch64/mindinsight-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   27bbdb4354f43b696068cc926dfa4a967e5aa48e3f9276a9501df84966bd465e   |
+|      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/centos_x86/mindinsight-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   8eab8881dd585731dfdedaec16b456fe6e80242199efbdc5703e20382b59aeab   |
+|      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/centos_aarch64/mindinsight-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   3f76f2ff8c809b638136748348d5860b2ef6f6412ec37db2e02d00a7bc53c91f   |
+|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindInsight/ascend/ubuntu_x86/mindinsight-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   dd951904ef10adbb93501c3cbafa6b4d34b1e8e5c4efe4fcaa7af49f0c081041   |
+|   MindArmour   |   Ascend910   |   Ubuntu-x86/EulerOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindArmour/x86_64/mindarmour-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   a139ded76899e5901889fc4e578165ef78584a127f9c264830e4e2806c30cc82   |
+|      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindArmour/aarch64/mindarmour-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   e895ba5a0d207e0cb3e93acdfaaa399a63161443371ef68d626d29542e41d940   |
+|      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindArmour/x86_64/mindarmour-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   a139ded76899e5901889fc4e578165ef78584a127f9c264830e4e2806c30cc82   |
+|   MindSporeHub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/Hub/any/mindspore_hub-1.0.0-py37-none-any.whl>   |0cb7ea4c8cd81279bc61558e1102da14516d2ea9653269cb0519c7085df8e3c3   |
+|   MindSpore Lite RT   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindsSpore/lite/android_aarch32/mindspore-lite-1.0.0-runtime-arm32-cpu.tar.gz>   |ce8a7af939ddde3f51961a163af796ea8547584b973a5fa65b307c20879ebead   |
+|      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindsSpore/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-cpu.tar.gz>   |b702e53c08e6c2db3ae0df15e81169862d4fd6112674c31b18b5c32d72cad90a   |
+|      |   GPU   |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindsSpore/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-gpu.tar.gz>   |85e88836135bf31f41a17c87f2d777ef1a18894e41b9c07a9cb50aa025b649eb   |
+|   MindSpore Lite Converter   |   CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindsSpore/lite/ubuntu_x86/mindspore-lite-1.0.0-converter-ubuntu.tar.gz> |baaf3e1d88416da535432949810c80e76e4189b3567b952b9d99397fcda0cad8   |
+|      |      |   Windows-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindsSpore/lite/windows_x86/mindspore-lite-1.0.0-converter-win-cpu.zip>   |6eae6f46ebe98697cf0a36268159d74a95ddf743ee27ec6de2088d469c753960   |
+
 ### Tutorials, API and Docs
 
 | Category | URL |
