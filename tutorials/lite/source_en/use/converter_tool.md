@@ -119,7 +119,7 @@ The following describes the parameters in detail.
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- Get the toolkit: To obtain the 'Converter' tool, download the zip package of windows conversion tool and unzip it to the local directory.
+- Get the toolkit: To obtain the 'Converter' tool, download the [zip package](https://www.mindspore.cn/versions/en) of windows conversion tool and unzip it to the local directory.
 
 ### Parameter Description
 

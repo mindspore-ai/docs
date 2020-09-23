@@ -30,7 +30,7 @@ virtual TypeId data_type() const
 ```
 Get data type of the MindSpore Lite MSTensor.
 
-> Note: TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
+> TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
 
 - Returns
 
@@ -88,7 +88,7 @@ virtual void *MutableData() const
 Get the pointer of data in MSTensor.
 
 
-> Note: The data pointer can be used to both write and read data in MSTensor.
+> The data pointer can be used to both write and read data in MSTensor.
 
 - Returns
 
