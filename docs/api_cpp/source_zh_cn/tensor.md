@@ -29,7 +29,7 @@ virtual TypeId data_type() const
 ```
 获取MindSpore Lite MSTensor的数据类型。
 
-> 注意：TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型可用于MSTensor。
+> TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型可用于MSTensor。
 
 - 返回值
 
@@ -81,7 +81,7 @@ virtual void *MutableData() const
 ```
 获取MSTensor中的数据的指针。
 
-> 注意：该数据指针可用于对MSTensor中的数据进行读取和写入。
+> 该数据指针可用于对MSTensor中的数据进行读取和写入。
 
 - 返回值
 

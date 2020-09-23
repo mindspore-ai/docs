@@ -195,7 +195,7 @@ class Classifier(nn.Cell):
 ```
 
 
-> 注意：其中`--output`与`--report`参数可省略，若省略，该命令将在当前工作目录（Working directory）下自动创建`output`目录，将生成的脚本、转换报告输出至该目录。
+> 其中`--output`与`--report`参数可省略，若省略，该命令将在当前工作目录（Working directory）下自动创建`output`目录，将生成的脚本、转换报告输出至该目录。
 
 ## 注意事项
 

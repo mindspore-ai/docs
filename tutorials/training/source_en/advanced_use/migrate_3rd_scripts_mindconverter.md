@@ -194,7 +194,7 @@ class Classifier(nn.Cell):
 
 ```
 
-> Note: `--output` and `--report` are optional. MindConverter creates an `output` folder under the current working directory, and outputs generated scripts and conversion reports to it.   
+> `--output` and `--report` are optional. MindConverter creates an `output` folder under the current working directory, and outputs generated scripts and conversion reports to it.   
 
 
 ## Caution

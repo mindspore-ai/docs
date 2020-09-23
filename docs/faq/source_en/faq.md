@@ -152,7 +152,7 @@ A: Please visit the [MindSpore official website training](https://www.mindspore.
 
 Q: What types of model is currently supported by MindSpore for training?
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md#) for detailed information.
 
 <br/>
 
@@ -176,7 +176,7 @@ A: Ascend 310 can only be used for inference. MindSpore supports training on Asc
 
 Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/r1.0/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md).
+A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/r1.0/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md#).
 
 <br/>
 
