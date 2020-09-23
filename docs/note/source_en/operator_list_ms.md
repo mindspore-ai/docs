@@ -105,6 +105,8 @@
 | [mindspore.nn.EmbeddingLookup](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.EmbeddingLookup)                                          |Supported |  Supported | Supported |layer/embedding
 | [mindspore.nn.Pad](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Pad)                                        |Supported | Supported | Doing |layer/basic
 | [mindspore.nn.MatMul](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.MatMul)                                        |Supported | Doing | Doing |layer/math
+| [mindspore.nn.LGamma](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.LGamma)                                        |Supported | Doing | Doing |layer/math
+| [mindspore.nn.ReduceLogSumExp](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.nn.html#mindspore.nn.ReduceLogSumExp)                                        |Supported | Supported | Doing |layer/math
 
 ## mindspore.ops
 
@@ -365,6 +367,7 @@
 | [mindspore.ops.TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TensorScatterUpdate)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.DiagPart](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.DiagPart)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.IFMR](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.IFMR)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.DynamicShape](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.DynamicShape)             |    Supported  | Supported  | Supported | array_ops
 
 ## mindspore.ops.functional
 
