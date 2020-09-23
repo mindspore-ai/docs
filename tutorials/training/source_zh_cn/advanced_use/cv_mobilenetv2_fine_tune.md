@@ -52,7 +52,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 2. 配置CPU环境  
     使用CPU时，在代码中，需要在调用CPU开始训练或测试前，按照如下代码设置：
 
-    ```Python
+    ```python
     if config.platform == "CPU":
         context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, \
             save_graphs=False)
@@ -61,7 +61,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 3. 配置GPU环境  
     使用GPU时，在代码中，需要在调用GPU开始训练或测试前，按照如下代码设置：
 
-    ```Python
+    ```python
     elif config.platform == "GPU":
         context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, save_graphs=False)
         if config.run_distribute:
@@ -99,7 +99,7 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
 
     使用Ascend AI处理器时，在代码中，需要在调用Ascend AI处理器开始训练或测试前，按照如下代码设置：
 
-    ```Python
+    ```python
     elif config.platform == "Ascend":
         context.set_context(mode=context.GRAPH_MODE, device_target=config.platform, device_id=config.device_id,
                             save_graphs=False)
@@ -189,7 +189,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 在训练与测试之前，首先按照代码第1行，构建MobileNetV2的backbone网络，head网络，并且构建包含这两个子网络的MobileNetV2网络。代码第3-10行展示了如何定义`backbone_net`与`head_net`，以及将两个子网络置入`mobilenet_v2`中。代码第12-23行，展示了在微调训练模式下，需要将预训练模型加载`入backbone_net`子网络，并且冻结`backbone_net`中的参数，不参与训练。代码第21-23行展示了如何冻结网络参数。
 
-```Python
+```python
  1:  backbone_net, head_net, net = define_net(args_opt, config)
  2:  ...
  3:  def define_net(config, is_training):
