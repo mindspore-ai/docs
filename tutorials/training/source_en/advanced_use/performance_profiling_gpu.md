@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.
@@ -24,7 +24,7 @@ Performance data like operators' execution time is recorded in files and can be 
 
 > The GPU operation process is the same as that in Ascend chip.
 >
-> <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/performance_profiling.html#preparing-the-environment>
+> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-environment>
 
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
 > If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description: 
@@ -37,7 +37,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 > The sample code is the same as that in Ascend chip：
 >
-> <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/performance_profiling.html#preparing-the-training-script>
+> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
 
 Users can get profiling data by user-defined callback:
 
@@ -71,7 +71,7 @@ The code above is just a example. Users should implement callback by themselves.
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
 
 ### Performance Analysis
@@ -123,4 +123,4 @@ The usage is almost same as that in Ascend. The difference is GPU Timeline displ
 
 > The usage is follow as:
 >
-> <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/performance_profiling.html#timeline-analysis>
+> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>

@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -66,7 +66,7 @@ class Net(nn.Cell):
 
 `parameters_dict`方法识别出网络结构中所有的参数，返回一个以key为参数名，value为参数值的`OrderedDict`。
 
-`Cell`类中返回参数的方法还有许多，例如`get_parameters`、`trainable_params`等，具体使用方法可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
+`Cell`类中返回参数的方法还有许多，例如`get_parameters`、`trainable_params`等，具体使用方法可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
 
 代码样例如下：
 
@@ -336,7 +336,7 @@ print(loss(input_data, target_data))
 
 ## 优化算法
 
-`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，详细说明参见[优化算法](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/optim.html)。
+`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，详细说明参见[优化算法](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/optim.html)。
 
 ## 构建自定义网络
 

@@ -1,6 +1,6 @@
 # mindspore::tensor
 
-#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/lite/include/ms_tensor.h)&gt;
+#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
 
 
 ## MSTensor
@@ -30,7 +30,7 @@ virtual TypeId data_type() const
 ```
 Get data type of the MindSpore Lite MSTensor.
 
-> Note: TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.0/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
+> Note: TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types in TypeId enum are suitable for MSTensor.
 
 - Returns
 

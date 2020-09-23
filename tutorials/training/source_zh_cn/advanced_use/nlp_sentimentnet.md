@@ -23,8 +23,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/nlp_sentimentnet.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/nlp_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/nlp_sentimentnet.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/nlp_application.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -89,7 +89,7 @@ $F1分数 = (2 * Precision * Recall) / (Precision + Recall)$
     > LSTM（Long short-term memory，长短期记忆）网络是一种时间循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。具体介绍可参考网上资料，在此不再赘述。
 3. 得到模型之后，使用验证数据集，查看模型精度情况。
 
-> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/nlp/lstm>
+> 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
 > - `src/config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 > - `src/dataset.py`：数据集相关，包括转换成MindRecord文件，数据预处理等。
 > - `src/imdb.py`： 解析IMDb数据集的工具。
@@ -158,7 +158,7 @@ if args.preprocess == "true":
 ```
 > 转换成功后会在`preprocess_path`路径下生成`mindrecord`文件； 通常该操作在数据集不变的情况下，无需每次训练都执行。
 
-> `convert_to_mindrecord`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/nlp/lstm/src/dataset.py>
+> `convert_to_mindrecord`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 > 其中包含两大步骤：
 > 1. 解析文本数据集，包括编码、分词、对齐、处理GloVe原始数据，使之能够适应网络结构。
@@ -178,7 +178,7 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        weight=Tensor(embedding_table),
                        batch_size=cfg.batch_size)
 ```
-> `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/nlp/lstm/src/lstm.py>
+> `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
 
 ### 预训练模型
 
@@ -217,7 +217,7 @@ else:
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
-> `lstm_create_dataset`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/nlp/lstm/src/dataset.py>
+> `lstm_create_dataset`函数的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 ### 模型验证
 

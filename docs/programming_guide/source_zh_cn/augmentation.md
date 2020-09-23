@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -28,7 +28,7 @@ MindSpore提供了`c_transforms`模块和`py_transforms`模块供用户进行数
 | c_transforms                      | 基于C++的OpenCV实现 | 具有较高的性能。 |
 | py_transforms                     | 基于Python的PIL实现 | 该模块提供了多种图像增强功能，并提供了PIL Image和NumPy数组之间的传输方法。|
 
-MindSpore目前支持的常用数据增强算子如下表所示，更多数据增强算子参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.dataset.vision.html)。
+MindSpore目前支持的常用数据增强算子如下表所示，更多数据增强算子参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html)。
 
 | 模块 | 算子 | 说明 |
 | ---- | ---- | ---- |

@@ -11,11 +11,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
-张量（Tensor）是MindSpore网络运算中的基本数据结构。张量中的数据类型可参考[dtype](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dtype.html)。
+张量（Tensor）是MindSpore网络运算中的基本数据结构。张量中的数据类型可参考[dtype](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dtype.html)。
 
 不同维度的张量分别表示不同的数据，0维张量表示标量，1维张量表示向量，2维张量表示矩阵，3维张量可以表示彩色图像的RGB三通道等等。
 

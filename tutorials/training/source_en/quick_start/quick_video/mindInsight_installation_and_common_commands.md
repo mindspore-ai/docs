@@ -8,4 +8,4 @@
 
 **Install now**: <https://www.mindspore.cn/install/en>
 
-**More commands**: <https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/mindinsight_commands.html>
+**More commands**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html>

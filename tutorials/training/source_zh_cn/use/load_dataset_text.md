@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -47,7 +47,7 @@ MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对�
 
 ## 加载数据集
 
-MindSpore目前支持加载文本领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_loading.html)章节。
+MindSpore目前支持加载文本领域常用的经典数据集和多种数据存储格式下的数据集，用户也可以通过构建自定义数据集类实现自定义方式的数据加载。各种数据集的详细加载方法，可参考编程指南中[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)章节。
 
 下面演示使用`mindspore.dataset`中的`TextFileDataset`类加载数据集。
 
@@ -75,7 +75,7 @@ MindSpore目前支持加载文本领域常用的经典数据集和多种数据�
 
 ## 数据处理
 
-MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/pipeline.html)章节。
+MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)章节。
 
 在生成`dataset`对象后可对其进行数据处理操作，比如`SlidingWindow`、`shuffle`等。
 
@@ -154,7 +154,7 @@ MindSpore目前支持的数据处理算子及其详细使用方法，可参考�
 
 ## 数据分词
 
-MindSpore目前支持的数据分词算子及其详细使用方法，可参考编程指南中[分词器](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/tokenizer.html)章节。
+MindSpore目前支持的数据分词算子及其详细使用方法，可参考编程指南中[分词器](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/tokenizer.html)章节。
 
 下面演示使用`WhitespaceTokenizer`分词器来分词，该分词是按照空格来进行分词。
 

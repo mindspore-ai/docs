@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -29,9 +29,9 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id3)编译x86_64版本。
+- 编译：模型转换工具代码在MindSpore源码的`mindspore/lite/tools/converter`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)编译x86_64版本。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html#id4)，获得`converter`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`converter`工具，并配置环境变量。
 
 ### 使用示例
 
@@ -89,9 +89,9 @@ bash build.sh -I x86_64
    ```
    CONVERTER RESULT SUCCESS:0
    ```
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/errorcode_and_metatype.html)。
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)。
 
-> 训练后量化示例请参考<https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/post_training_quantization.html>。
+> 训练后量化示例请参考<https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html>。
 
 ### 参数说明
 
@@ -129,7 +129,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/converter_tool.html#id4)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id4)。
 
 ### 使用示例
 
@@ -180,4 +180,4 @@ set MSLOG=INFO
    ```
    CONVERTER RESULT SUCCESS:0
    ```   
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/errorcode_and_metatype.html)。
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)。

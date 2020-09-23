@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/lite/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -26,7 +26,7 @@ MindSpore Lite训练后量化分为两类：
 1. 权重量化：单独对模型的权值进行量化；
 2. 全量化：对模型的权值、激活值、bias值统一进行量化。
 
-训练后量化在两种情况下所需的数据类型和参数设定不同，但均可通过转换工具设定。有关转换工具`converter_lite`的使用方法可参考[转换为MindSpore Lite模型](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/converter_tool.html)。在此基础之上进行配置，启用训练后量化。
+训练后量化在两种情况下所需的数据类型和参数设定不同，但均可通过转换工具设定。有关转换工具`converter_lite`的使用方法可参考[转换为MindSpore Lite模型](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)。在此基础之上进行配置，启用训练后量化。
 
 ## 权重量化
 
@@ -52,7 +52,7 @@ MindSpore Lite训练后量化分为两类：
 
 ### 使用步骤
 
-1. 正确编译出`converter_lite`可执行文件。该部分可参考构建文档[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html)，获得`converter_lite`工具，并配置环境变量。
+1. 正确编译出`converter_lite`可执行文件。该部分可参考构建文档[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，获得`converter_lite`工具，并配置环境变量。
 2. 以TensorFlow Lite模型为例，执行权重量化模型转换命令:
     ```
     ./converter_lite --fmk=TFLITE --modelFile=Inception_v3.tflite --outputFile=Inception_v3.tflite --quantType=WeightQuant --bitNum=8 --quantSize=0 --convWeightQuantChannelThreshold=0

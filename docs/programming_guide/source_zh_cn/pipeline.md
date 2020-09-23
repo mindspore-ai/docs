@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -22,7 +22,7 @@
 
 MindSpore的各个数据集类都为用户提供了多种数据处理算子，用户可以构建数据处理pipeline定义需要使用的数据处理操作，数据即可在训练过程中像水一样源源不断地经过数据处理pipeline流向训练系统。
 
-MindSpore目前支持的常用数据处理算子如下表所示，更多数据处理操作参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.dataset.html)。
+MindSpore目前支持的常用数据处理算子如下表所示，更多数据处理操作参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
 
 | 数据处理算子  | 算子说明 |
 | ----  | ----           |
@@ -77,7 +77,7 @@ for data in dataset1.create_dict_iterator():
 
 将指定的函数或算子作用于数据集的指定列数据，实现数据映射操作。用户可以自定义映射函数，也可以直接使用c_transforms或py_transforms中的算子针对图像、文本数据进行数据增强。
 
->更多数据增强的使用说明，参见编程指南中[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/augmentation.html)章节。
+>更多数据增强的使用说明，参见编程指南中[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
 
 ![map](./images/map.png)
 

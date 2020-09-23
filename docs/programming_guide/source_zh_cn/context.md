@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 初始化网络之前要配置context参数，用于控制程序执行的策略。比如选择执行模式、选择执行后端、配置分布式相关参数等。按照context参数设置实现的不同功能，可以将其分为执行模式管理、硬件管理、分布式管理和维测管理等。
@@ -92,7 +92,7 @@ from mindspore.context import ParallelMode
 context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
-> 分布式并行训练详细介绍可以查看[分布式并行训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/distributed_training_tutorials.html)。
+> 分布式并行训练详细介绍可以查看[分布式并行训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html)。
 
 ## 维测管理
 为了方便维护和定位问题，context提供了大量维测相关的参数配置，如采集profiling数据、异步数据dump功能和print算子落盘等。
@@ -119,12 +119,12 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> 详细的调试方法可以查看[异步数据Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#dump)。
+> 详细的调试方法可以查看[异步数据Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#dump)。
 
 ### print算子落盘
 默认情况下，MindSpore的自研print算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。
 
-> Print打印功能可以查看[Print算子功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#print)。
+> Print打印功能可以查看[Print算子功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#print)。
 
 - `print_file_path`：可以将print算子数据保存到文件，同时关闭屏幕打印功能。如果保存的文件已经存在，则会给文件添加时间戳后缀。数据保存到文件可以解决数据量较大时屏幕打印数据丢失的问题。
 
@@ -134,4 +134,4 @@ from mindspore import context
 context.set_context(print_file_path="print.pb")
 ```
 
-> context接口详细介绍可以查看[mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.context.html)。
+> context接口详细介绍可以查看[mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html)。

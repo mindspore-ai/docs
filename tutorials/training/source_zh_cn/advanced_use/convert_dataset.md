@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -58,7 +58,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 
 ## 将数据集转换为MindRecord
 
-下面本教程将简单演示如何将图片数据及其标注转换为MindRecord格式。更多MindSpore数据格式转换说明，可参见编程指南中[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_conversion.html)章节。
+下面本教程将简单演示如何将图片数据及其标注转换为MindRecord格式。更多MindSpore数据格式转换说明，可参见编程指南中[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_conversion.html)章节。
 
 1. 导入文件写入工具类`FileWriter`。
 

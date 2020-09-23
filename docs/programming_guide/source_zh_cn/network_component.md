@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/network_component.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/network_component.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -22,7 +22,7 @@ MindSpore封装了一些常用的网络组件，用于网络的训练、推理�
   
 ## GradOperation
 
-GradOperation组件用于生成输入函数的梯度，利用`get_all`、`get_by_list`和`sens_param`参数控制梯度的计算方式，细节内容详见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
+GradOperation组件用于生成输入函数的梯度，利用`get_all`、`get_by_list`和`sens_param`参数控制梯度的计算方式，细节内容详见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
 
 GradOperation的使用实例如下：
 

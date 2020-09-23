@@ -25,12 +25,12 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_en/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/distributed_training_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/r1.0/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
 
 ## Preparations
 
@@ -161,7 +161,7 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/r1.0/tutorials/tutorial_code/resnet/resnet.py>
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
 
 ## Defining the Loss Function and Optimizer
 
@@ -373,7 +373,7 @@ param_dict = load_checkpoint(save_path)
 load_param_into_net(net, param_dict)
 ```
 
-For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/r1.0/use/save_model.html#checkpoint-configuration-policies).
+For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint-configuration-policies).
 
 ### Data Parallel Mode
 
@@ -521,8 +521,8 @@ to:
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
+It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
 
 ### Hybrid Parallel Mode
 
-For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/save_load_model_hybrid_parallel.html).
+For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html).

@@ -1,7 +1,7 @@
 <h2>快速入门</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px;">
-        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
+        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">实现一个图像分类应用</span>
@@ -17,7 +17,7 @@
 <h2>基础使用</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/build.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">编译MindSpore Lite</span>
@@ -29,7 +29,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/converter_tool.html" style="display:block;text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html" style="display:block;text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">转换为MindSpore Lite模型</span>
@@ -41,7 +41,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/post_training_quantization.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">转换为MindSpore Lite量化模型(训练后量化)</span>
@@ -53,7 +53,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/benchmark_tool.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">使用Benchmark进行基准测试</span>
@@ -65,7 +65,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/timeprofiler_tool.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/timeprofiler_tool.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">使用TimeProfiler进行耗时分析</span>
@@ -77,7 +77,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/image_processing.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/image_processing.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">预处理图像数据</span>
@@ -89,7 +89,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/use/runtime.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">使用Runtime执行推理</span>
@@ -105,7 +105,7 @@
 <h2>其它文档</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.0/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">总体架构</span>
@@ -117,7 +117,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite API</span>
@@ -129,7 +129,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.0/operator_list_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite算子支持</span>
@@ -141,7 +141,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.0/image_classification_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">图像分类模型支持（Lite）</span>
@@ -153,7 +153,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.0/object_detection_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">目标检测模型支持（Lite）</span>

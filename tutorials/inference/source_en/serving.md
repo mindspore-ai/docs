@@ -16,7 +16,7 @@
         - [REST API Client Sample](#rest-api-client-sample)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/inference/source_en/serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -49,7 +49,7 @@ The following uses a simple network as an example to describe how to use MindSpo
 ### Exporting Model
  > Before exporting the model, you need to configure MindSpore [base environment](https://www.mindspore.cn/install/en).
 
-Use [add_model.py](https://gitee.com/mindspore/mindspore/blob/r1.0/serving/example/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
+Use [add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
 
 ```python
 python add_model.py
@@ -66,7 +66,7 @@ If the server prints the `MS Serving Listening on 0.0.0.0:5500` log, the Serving
 #### <span name="python-client-sample">Python Client Sample</span>
  > Before running the client sample, add the path `/{your python path}/lib/python3.7/site-packages/mindspore/` to the environment variable `PYTHONPATH`.
 
-Obtain [ms_client.py](https://gitee.com/mindspore/mindspore/blob/r1.0/serving/example/python_client/ms_client.py) and start the Python client.
+Obtain [ms_client.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/python_client/ms_client.py) and start the Python client.
 ```bash
 python ms_client.py
 ```
@@ -153,7 +153,7 @@ The client code consists of the following parts:
     Status status = stub_->Predict(&context, request, &reply);
     ```
 
-For details about the complete code, see [ms_client](https://gitee.com/mindspore/mindspore/blob/r1.0/serving/example/cpp_client/ms_client.cc). 
+For details about the complete code, see [ms_client](https://gitee.com/mindspore/mindspore/blob/master/serving/example/cpp_client/ms_client.cc). 
 
 ### REST API Client Sample
 1. Send data in the form of `data`:

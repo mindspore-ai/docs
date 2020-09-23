@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 MindSpore调试器是为图模式训练提供的调试工具，可以用来查看并分析计算图节点的中间结果。
@@ -53,7 +53,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |`--enable-debugger {ENABLE_DEBUGGER}`|必选|取值为True, 开启MindInsight侧调试器|Boolean|False|True/False|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html)。
+更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
 然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`，将训练指定为调试模式，并设置训练要连接的调试服务和端口: 
 `export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致);

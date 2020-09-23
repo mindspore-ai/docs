@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -50,7 +50,7 @@ MindSpore还支持加载多种数据存储格式下的数据集，用户可以�
 
 MindSpore也同样支持使用`GeneratorDataset`自定义数据集的加载方式，用户可以根据需要实现自己的数据集类。
 
-> 更多详细的数据集加载接口说明，参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.dataset.html)。
+> 更多详细的数据集加载接口说明，参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
 
 ## 常用数据集加载
 
@@ -167,7 +167,7 @@ Panoptic: dict_keys(['bbox', 'image', 'area', 'category_id', 'iscrowd'])
 
 MindRecord是MindSpore定义的一种数据格式，使用MindRecord能够获得更好的性能提升。
 
-> 阅读[数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_conversion.html)章节，了解如何将数据集转化为MindSpore数据格式。
+> 阅读[数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_conversion.html)章节，了解如何将数据集转化为MindSpore数据格式。
 
 下面的样例通过`MindDataset`接口加载MindRecord文件，并展示已加载数据的标签。
 
