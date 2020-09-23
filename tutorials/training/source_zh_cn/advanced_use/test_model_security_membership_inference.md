@@ -288,7 +288,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     执行如下指令,开始成员推理训练和评估：
     
     ```
-    python membership_inference_example.py --data_path ./cifar-100-binary/ --pre_trained ./VGG16-100_781.ckpt
+    python example_vgg_cifar.py --data_path ./cifar-100-binary/ --pre_trained ./VGG16-100_781.ckpt
     ```
 
     成员推理的指标如下所示，各数值均保留至小数点后四位。
