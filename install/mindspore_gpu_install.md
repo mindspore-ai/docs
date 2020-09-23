@@ -19,6 +19,7 @@
 
 <!-- /TOC -->
 
+
 ## 环境要求
 
 ### 硬件要求
@@ -29,7 +30,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) <br> - [CuDNN](https://developer.nvidia.com/rdp/cudnn-archive) >= 7.6 <br> - [OpenMPI](https://www.open-mpi.org/faq/?category=building#easy-build) 3.1.5 （可选，单机多卡/多机多卡训练需要） <br> - [NCCL](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) 2.7.6-1 （可选，单机多卡/多机多卡训练需要） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [Autoconf](https://www.gnu.org/software/autoconf) >= 2.69 <br> - [Libtool](https://www.gnu.org/software/libtool) >= 2.4.6-29.fc30 <br> - [Automake](https://www.gnu.org/software/automake) >= 1.15.1 <br> - [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) <br> - [CuDNN](https://developer.nvidia.com/rdp/cudnn-archive) >= 7.6 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore 1.0.0 | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) <br> - [CuDNN](https://developer.nvidia.com/rdp/cudnn-archive) >= 7.6 <br> - [OpenMPI](https://www.open-mpi.org/faq/?category=building#easy-build) 3.1.5 （可选，单机多卡/多机多卡训练需要） <br> - [NCCL](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) 2.7.6-1 （可选，单机多卡/多机多卡训练需要） <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [Autoconf](https://www.gnu.org/software/autoconf) >= 2.69 <br> - [Libtool](https://www.gnu.org/software/libtool) >= 2.4.6-29.fc30 <br> - [Automake](https://www.gnu.org/software/automake) >= 1.15.1 <br> - [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) <br> - [CuDNN](https://developer.nvidia.com/rdp/cudnn-archive) >= 7.6 <br> - [gmp](https://gmplib.org/download/gmp/) 6.1.2 <br> - [Flex](https://github.com/westes/flex/) >= 2.5.35 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 - 为了方便用户使用，MindSpore降低了对Autoconf、Libtool、Automake版本的依赖，可以使用系统自带版本。
@@ -65,7 +66,7 @@
 1. 从代码仓下载源码。
 
     ```bash
-    git clone https://gitee.com/mindspore/mindspore.git
+    git clone https://gitee.com/mindspore/mindspore.git -b r1.0
     ```
 
 2. 在源码根目录下执行如下命令编译MindSpore。
@@ -125,7 +126,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindInsight master | - Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindInsight 1.0.0 | - Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
@@ -150,7 +151,7 @@
 1. 从代码仓下载源码。
 
     ```bash
-    git clone https://gitee.com/mindspore/mindinsight.git
+    git clone https://gitee.com/mindspore/mindinsight.git -b r1.0
     ```
     > **不能**直接在仓库主页下载zip包获取源码。
 
@@ -190,7 +191,7 @@
 
 | 版本号                 | 操作系统            | 可执行文件安装依赖                                           | 源码编译安装依赖         |
 | ---------------------- | :------------------ | :----------------------------------------------------------- | :----------------------- |
-| MindArmour master | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore master <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/master/setup.py) | 与可执行文件安装依赖相同 |
+| MindArmour 1.0.0 | Ubuntu 18.04 x86_64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py) | 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
@@ -215,7 +216,7 @@
 1. 从代码仓下载源码。
 
    ```bash
-   git clone https://gitee.com/mindspore/mindarmour.git
+   git clone https://gitee.com/mindspore/mindarmour.git -b r1.0
    ```
 
 2. 在源码根目录下，执行如下命令编译并安装MindArmour。
