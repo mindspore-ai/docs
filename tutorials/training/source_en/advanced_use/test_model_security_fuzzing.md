@@ -1,10 +1,10 @@
-﻿﻿# Model Security Test by Fuzz
+﻿# Test Model Security Using Fuzz Testing
 
 `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
-- [Model Security Test by Fuzz](#model-security-test-by-fuzz)
+- [Test Model Security Using Fuzz Testing](#test-model-security-using-fuzz-testing)
     - [Overview](#overview)
     - [Implementation](#implementation)
         - [Importing Library Files](#importing-library-files)
@@ -58,7 +58,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 For details about the API configuration, see the `context.set_context`.
 
-### Fuzz testing Application
+### Fuzz Testing Application
 
 1. Create a LeNet model and load the MNIST dataset. The operation is the same as that for [Model Security](<https://www.mindspore.cn/tutorial/training/en/r1.0/advanced_use/improve_model_security_nad.html>).
 
