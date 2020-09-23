@@ -265,11 +265,9 @@ shuffle性能优化建议如下：
 | c_transforms | C++（基于OpenCV）| 性能高 |
 | py_transforms | Python（基于PIL） | 该模块提供了多种图像增强功能，并提供了PIL Image和Numpy数组之间的传输方法 |
 
-
 ### 性能优化方案
 
 ![title](./images/data_enhancement_performance_scheme.png)
-
 
 数据增强性能优化建议如下：
 - 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/optimize_data_processing.html#id16)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/optimize_data_processing.html#id18)。
@@ -303,7 +301,6 @@ shuffle性能优化建议如下：
     输出：
 
     ![png](./images/cifar10_c_transforms.png)
-
 
 2. 使用自定义Python函数进行数据增强，数据增强时采用多进程优化方案，开启了4个进程并发完成任务。
 
@@ -371,7 +368,11 @@ shuffle性能优化建议如下：
 
         ```shell
         numactl --cpubind=0 python train.py
+        ```
+
         or
+
+        ```shell
         taskset -c 0-15 python train.py
         ```
 
