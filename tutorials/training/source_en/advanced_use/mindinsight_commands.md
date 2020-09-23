@@ -34,6 +34,8 @@ mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
                   [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
                   [--reload-interval <RELOAD_INTERVAL>]
                   [--summary-base-dir <SUMMARY_BASE_DIR>]
+                  [--enable-debugger <ENABLE_DEBUGGER>]
+                  [--debugger-port <DEBUGGER_PORT>]
 ```
 
 Optional parameters as follows:
@@ -47,6 +49,8 @@ Optional parameters as follows:
 |`--url-path-prefix <URL_PATH_PREFIX>`|Optional|Specifies the URL path prefix of the web visualization service.|String|Empty string|-|URL path prefix consists of segments separated by slashes. Each segment supports alphabets / digits / underscores / dashes / dots, but not single dot or double dots.|
 |`--reload-interval <RELOAD_INTERVAL>`|Optional|Specifies the interval (unit: second) for loading data.|Integer|3|-|The value 0 indicates that data is loaded only once.|
 |`--summary-base-dir <SUMMARY_BASE_DIR>`|Optional|Specifies the root directory for loading training log data.|String|./|-|MindInsight traverses the direct subdirectories in this directory and searches for log files. If a direct subdirectory contains log files, it is identified as the log file directory. If a root directory contains log files, it is identified as the log file directory.|
+|`--enable-debugger <ENABLE_DEBUGGER>`|Optional|Whether to launch the MindInsight Debugger.|Boolean|False|True/False|-|
+|`--debugger-port <DEBUGGER_PORT>`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|-|
 
 > When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_CONFIG`, `MINDINSIGHT_WORKSPACE`, and `MINDINSIGHT_PORT`.
 
