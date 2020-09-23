@@ -48,7 +48,7 @@ optional arguments:
                         to do script generation. When `--in_file` and
                         `--model_file` are both provided, use AST schema as
                         default.
-  --shape SHAPE         Optional, excepted input tensor shape of
+  --shape SHAPE         Optional, expected input tensor shape of
                         `--model_file`. It is required when use graph based
                         schema. Usage: --shape 3,244,244
   --output OUTPUT       Optional, specify path for converted script file
