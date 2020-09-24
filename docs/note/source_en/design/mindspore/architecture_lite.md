@@ -1,4 +1,4 @@
-﻿# Overall Architecture
+﻿# Overall Architecture (Lite)
 
 `Linux` `Windows` `On Device` `Inference Application` `Intermediate` `Expert` `Contributor`
  
