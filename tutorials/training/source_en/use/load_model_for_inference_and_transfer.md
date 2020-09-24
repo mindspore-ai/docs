@@ -1,10 +1,10 @@
-# Loading a Model for inference for transfer learning 
+# Loading a Model for Inference and Transfer Learning 
 
 `Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Loading a Model for inference for transfer learning](#loading-a-model-for-inference-for-transfer-learning)
+- [Loading a Model for Inference and Transfer Learning](#loading-a-model-for-inference-and-transfer-learning)
     - [Overview](#overview)
     - [Loading the local Model](#loading-the-local-model)
         - [For Inference Validation](#for-inference-validation)
