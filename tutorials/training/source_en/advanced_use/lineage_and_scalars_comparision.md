@@ -97,8 +97,8 @@ Figure 9: Scalars comparision function area
 
 Figure 9 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 
-- Training: Select or filter the required trainings to view the corresponding scalar information.
-- Tag: Select the required tags to view the corresponding scalar information.
+- Training Selection: Select or filter the required trainings to view the corresponding scalar information.
+- Tag Selection: Select the required tags to view the corresponding scalar information.
 - Horizontal Axis: Select any of Step, Relative Time, and Absolute Time as the horizontal axis of the scalar curve.
 - Smoothness: Adjust the smoothness to smooth the scalar curve.
 
