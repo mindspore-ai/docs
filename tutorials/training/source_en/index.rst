@@ -66,7 +66,7 @@ Train with MindSpore
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Compression Model   
+   :caption: Model Compression   
 
    advanced_use/apply_quantization_aware_training
 
