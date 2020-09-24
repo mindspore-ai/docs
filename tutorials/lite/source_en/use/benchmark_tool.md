@@ -92,4 +92,5 @@ The following describes the parameters in detail.
 | `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value is a positive integer. | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | Optional | Specifies the number of threads for running the model inference program. | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
-| `--fp16Priority=<FP16PIORITY>` | Optional | Specifies whether the float16 operator is preferred. | Bool | false | true, false |
+| `--fp16Priority=<FP16PIORITY>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
+| `--runTimeProfiler=<RUNTIMEPROFILER>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
