@@ -144,7 +144,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 注： 若自动下载失败，请手动下载相关库文件，解压后将其放在对应位置：
 
- mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [下载链接](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
+ mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [下载链接](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ```
 android{

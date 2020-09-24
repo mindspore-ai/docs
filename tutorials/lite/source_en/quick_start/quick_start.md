@@ -133,7 +133,7 @@ In this example, the build process automatically downloads the `mindspore-lite-1
 
 Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
 
-mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [Download link](https://download.mindspore.cn/model_zoo/official/lite/lib/mindspore%20version%201.0/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
+mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [Download link](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
 ```
 android{
