@@ -39,7 +39,7 @@ The process is as follows:
 Here, the [InitFromPixel](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#initfrompixel) function in the `image_process.h` file is used to initialize the image.
 
 ```
-bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m);
+bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
 ### Usage example
@@ -62,7 +62,7 @@ The image processing operators here can be used in any combination according to 
 Here we use the [ResizeBilinear](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#resizebilinear) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is unit8, the supported channels are 3 and 1.
 
 ```
-bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h);
+bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
 #### Usage example
@@ -84,7 +84,7 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 Here we use the [ConvertTo](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#convertto) function in `image_process.h` to convert the image data type. Currently, the supported conversion is to convert uint8 to float.
 
 ```
-bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0);
+bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
 #### Usage example
@@ -106,7 +106,7 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 Here we use the [Crop](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#crop) function in `image_process.h` to crop the image. Currently, channels 3 and 1 are supported.
 
 ```
-bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h);
+bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
 #### Usage example
@@ -128,7 +128,7 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 In order to eliminate the dimensional influence among the data indicators, and solve the comparability problem among the data indicators through standardization processing, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#substractmeannormalize) function in `image_process.h` to normalize the image data.
 
 ```
-bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, float *mean, float *norm);
+bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
 #### Usage example
@@ -140,12 +140,12 @@ InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.co
 
 // The mean value of the image data.
 // The variance of the image data.
-float means[1] = {0.485};
-float norm[1] = {1.0 / 0.229};
+std::vector<float> means = {0.485, 0.456, 0.406};
+std::vector<float> stds = {0.229, 0.224, 0.225};
 
 // Create a normalized image object.
 LiteMat lite_mat_bgr_norm;
 
 // The image data is normalized by the mean value and variance of the image data.
-SubStractMeanNormalize(lite_mat_bgr, lite_mat_bgr_norm, means, norm);
+SubStractMeanNormalize(lite_mat_bgr, lite_mat_bgr_norm, means, stds);
 ```
