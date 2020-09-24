@@ -19,7 +19,7 @@
 
 ## Overview
 
-CheckPoints which saved locally during model training, or download from [MindSpore Hub](https://www.mindspore.cn/resources/hub/) are used for inference and transfer training.
+CheckPoints which are saved locally during model training, or download from [MindSpore Hub](https://www.mindspore.cn/resources/hub/) are used for inference and transfer training.
 
 The following uses examples to describe how to load models from local and MindSpore Hub.
 
