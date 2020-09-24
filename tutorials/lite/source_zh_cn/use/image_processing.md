@@ -39,7 +39,7 @@
 这边使用的是`image_process.h`文件中的[InitFromPixel](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#initfrompixel)函数对图像进行初始化操作。
 
 ```
-bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m);
+bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
 ### 使用示例
@@ -62,7 +62,7 @@ InitFromPixel(pixel_ptr, LPixelType::RGBA2GRAY, LDataType::UINT8, rgba_mat.cols,
 这边利用的是`image_process.h`中的[ResizeBilinear](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#resizebilinear)函数通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
 
 ```
-bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h);
+bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
 #### 使用示例
@@ -84,7 +84,7 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 这边利用的是`image_process.h`中的[ConvertTo](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#convertto)函数对图像数据类型进行转换，目前支持的转换是将uint8转换为float。
 
 ```
-bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0);
+bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
 #### 使用示例
@@ -106,7 +106,7 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 这边利用的是`image_process.h`中的[Crop](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#crop)函数对图像进行裁剪，目前支持通道3和1。
 
 ```
-bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h);
+bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
 #### 使用示例
@@ -128,7 +128,7 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 为了消除数据指标之间的量纲影响，通过标准化处理来解决数据指标之间的可比性问题，这边利用的是`image_process.h`中的[SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#substractmeannormalize)函数对图像数据进行归一化处理。
 
 ```
-bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, float *mean, float *norm);
+bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
 #### 使用示例
@@ -140,12 +140,12 @@ InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.co
 
 // The mean value of the image data.
 // The variance of the image data.
-float means[1] = {0.485};
-float norm[1] = {1.0 / 0.229};
+std::vector<float> means = {0.485, 0.456, 0.406};
+std::vector<float> stds = {0.229, 0.224, 0.225};
 
 // Create a normalized image object.
 LiteMat lite_mat_bgr_norm;
 
 // The image data is normalized by the mean value and variance of the image data.
-SubStractMeanNormalize(lite_mat_bgr, lite_mat_bgr_norm, means, norm);
+SubStractMeanNormalize(lite_mat_bgr, lite_mat_bgr_norm, means, stds);
 ```
