@@ -1,10 +1,10 @@
-# Loading a Model for inference for transfer learning 
+# Loading a Model for Inference and Transfer Learning 
 
 `Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Loading a Model for inference for transfer learning](#loading-a-model-for-inference-for-transfer-learning)
+- [Loading a Model for Inference and Transfer Learning](#loading-a-model-for-inference-and-transfer-learning)
     - [Overview](#overview)
     - [Loading the local Model](#loading-the-local-model)
         - [For Inference Validation](#for-inference-validation)
@@ -19,7 +19,7 @@
 
 ## Overview
 
-CheckPoints which saved locally during model training, or download from [MindSpore Hub](https://www.mindspore.cn/resources/hub/) are used for inference and transfer training.
+CheckPoints which are saved locally during model training, or download from [MindSpore Hub](https://www.mindspore.cn/resources/hub/) are used for inference and transfer training.
 
 The following uses examples to describe how to load models from local and MindSpore Hub.
 
