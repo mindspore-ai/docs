@@ -140,7 +140,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 >
 > os：输出件应部署的操作系统。
 
-本示例中，build过程由`app/download.gradle`文件自动从华为服务器下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
+本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
 注： 若自动下载失败，请手动下载相关库文件，解压后将其放在对应位置：
 
