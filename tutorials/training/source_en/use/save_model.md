@@ -73,8 +73,8 @@ If you use the same prefix and run the training script for multiple times, Check
 
 For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated during the 32th step of the second epoch after the script is executed for the third time.
 
-> - When the saved single model parameter is large (more than 64M), it will fail to save due to the limitation of Protobuf's own data size. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
-> - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent file from being read or written incorrectly.
+> - When the saved single model parameter is large (more than 64M), it will fail to be saved due to the limitation of Protobuf's own data size. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+> - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent files from being read or written incorrectly.
 
 ### CheckPoint Configuration Policies
 
@@ -90,12 +90,12 @@ CheckpointConfig contains the following four parameters:
 `save_checkpoint_seconds` and `keep_checkpoint_per_n_minutes` are time policies, which can be configured during training.
 
 The two types of policies cannot be used together. Iteration policies have a higher priority than time policies. When the two types of policies are configured at the same time, only iteration policies take effect.
-If a parameter is set to None, the related policy is canceled.
+If a parameter is set to None, the related policy is cancelled.
 After the training script is normally executed, the CheckPoint file generated during the last step is saved by default.
 
 ## Export MINDIR Model
 
-When you have a CheckPoint file, if you want to do inference on device, you need to generate MINDIR models based on the network and CheckPoint. MINDIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without control flow semantics.
+When you have a CheckPoint file, if you want to do inference on device, you need to generate MINDIR models based on the network and CheckPoint. MINDIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
 
 If you want to do inference on the device, then you need to generate corresponding MINDIR models based on the network and CheckPoint.
 Currently we support the export of MINDIR models for inference based on graph mode, which don't contain control flow. Taking the export of MINDIR model as an example to illustrate the implementation of model export,
