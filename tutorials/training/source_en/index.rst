@@ -61,8 +61,14 @@ Train with MindSpore
    advanced_use/distributed_training_tutorials
    advanced_use/enable_mixed_precision
    advanced_use/enable_graph_kernel_fusion
-   advanced_use/apply_quantization_aware_training
    advanced_use/apply_gradient_accumulation
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Model Compression
+
+   advanced_use/apply_quantization_aware_training
 
 .. toctree::
    :glob:
