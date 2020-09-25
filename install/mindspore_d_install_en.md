@@ -102,7 +102,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 
 ## Configuring Environment Variables
 
-- In EulerOS, **if Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables.
+- **If Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables.
 
     ```bash
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
@@ -112,32 +112,14 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
     # lib libraries that the run package depends on
-    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/fwkacllib/lib64:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LD_LIBRARY_PATH}
 
     # Environment variables that must be configured
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe  # TBE operator implementation tool path
-    export ASCEND_OPP_PATH=${LOCAL_ASCEND}/opp                             # OPP path
-    export PATH=${LOCAL_ASCEND}/fwkacllib/ccec_compiler/bin/:${PATH}       # TBE operator compilation tool path
-    export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                       # Python library that TBE implementation depends on
-    ```
-
-- In Ubuntu, **if Ascend 910 AI processor software is installed in a non-default path**, after MindSpore is installed, export runtime-related environment variables. Note: you need to replace {version} in the following configuration with the actual version number on the environment.
-
-    ```bash
-    # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
-    export GLOG_v=2
-
-    # Conda environmental options
-    LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
-
-    # lib libraries that the run package depends on
-    export LD_LIBRARY_PATH=${LOCAL_ASCEND}/add-ons/:${LOCAL_ASCEND}/nnae/{version}/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LD_LIBRARY_PATH}
-
-    # Environment variables that must be configured
-    export TBE_IMPL_PATH=${LOCAL_ASCEND}/nnae/{version}/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
-    export ASCEND_OPP_PATH=${LOCAL_ASCEND}/nnae/{version}/opp                                       # OPP path
-    export PATH=${LOCAL_ASCEND}/nnae/{version}/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
+    export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
+    export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
+    export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                # Python library that TBE implementation depends on
+    
     ```
 
 ## Installation Verification
