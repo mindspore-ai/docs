@@ -174,8 +174,8 @@ MindRecord是MindSpore定义的一种数据格式，使用MindRecord能够获得
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "mindrecord_dataset_path"
-mindrecord_dataset = ds.MindDataset(DATA_DIR)
+DATA_FILE = ["mindrecord_file_0", "mindrecord_file_1", "mindrecord_file_2"]
+mindrecord_dataset = ds.MindDataset(DATA_FILE)
 
 for data in mindrecord_dataset.create_dict_iterator(output_numpy=True):
     print(data["label"])
@@ -190,8 +190,8 @@ Manifest是华为ModelArts支持的数据格式文件，详细说明请参见[Ma
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "manifest_dataset_path"
-manifest_dataset = ds.ManifestDataset(DATA_DIR)
+DATA_FILE = "manifest_file"
+manifest_dataset = ds.ManifestDataset(DATA_FILE)
 
 for data in manifest_dataset.create_dict_iterator():
     print(data["label"])
@@ -208,8 +208,8 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
     ```python
     import mindspore.dataset as ds
 
-    DATA_DIR = "tfrecord_dataset_path"
-    dataset = ds.TFRecordDataset(DATA_DIR)
+    DATA_FILE = ["tfrecord_file_0", "tfrecord_file_1", "tfrecord_file_2"]
+    tfrecord_dataset = ds.TFRecordDataset(DATA_FILE)
     ```
 
 2. 用户可以通过编写Schema文件或创建Schema对象，设定数据集格式及特征。
@@ -242,9 +242,8 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
         然后在创建`TFRecordDataset`时将Schema文件路径传入。
 
         ```python
-        DATA_DIR = "tfrecord_dataset_path"
         SCHEMA_DIR = "dataset_schema_path/schema.json"
-        dataset = ds.TFRecordDataset(DATA_DIR, schema=SCHEMA_DIR)
+        tfrecord_dataset = ds.TFRecordDataset(DATA_FILE, schema=SCHEMA_DIR)
         ```
 
     - 创建Schema对象
@@ -256,7 +255,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
         schema = ds.Schema()
         schema.add_column('image', de_type=mstype.uint8)
         schema.add_column('label', de_type=mstype.int32)
-        dataset = ds.TFRecordDataset(DATA_DIR, schema=schema)
+        tfrecord_dataset = ds.TFRecordDataset(DATA_FILE, schema=schema)
         ```
 
 ### NumPy数据格式
@@ -340,8 +339,8 @@ Text格式数据集文件的加载方式与CSV文件类似。
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "csv_file_path"
-csv_dataset = ds.CSVDataset(DATA_DIR)
+DATA_FILE = ["csv_file_0", "csv_file_1", "csv_file_2"]
+csv_dataset = ds.CSVDataset(DATA_FILE)
 
 for data in csv_dataset.create_dict_iterator(output_numpy=True):
     print(data["1"])
