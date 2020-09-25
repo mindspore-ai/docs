@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 

@@ -1,5 +1,6 @@
-# !/bin/bash
+#!/bin/bash
 
+set -e
 make html
 
 if [ $? -ne 0 ]; then
