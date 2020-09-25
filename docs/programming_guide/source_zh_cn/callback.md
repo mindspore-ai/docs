@@ -34,13 +34,11 @@ Callback回调函数在MindSpore中被实现为一个类，Callback机制类似�
 
     监控训练过程中的loss变化情况，当loss为NAN或INF时，提前终止训练。可以在日志中输出loss，方便用户查看。
 
-    详细内容，请参考[LossMonitor官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/cv_resnet50_second_order_optimizer.html#id11)。
+    详细内容，请参考[LossMonitor官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#mindsporecallback)。
 
 - TimeMonitor
  
     监控训练过程中每个epoch，每个step的运行时间。
-
-    详细内容，请参考[TimeMonitor官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/cv_resnet50_second_order_optimizer.html#id11)。
 
 ## MindSpore自定义回调函数
 MindSpore不但有功能强大的内置回调函数，还可以支持用户自定义回调函数。当用户有自己的特殊需求时，可以基于Callback基类，自定义满足用户自身需求的回调函数。Callback可以把训练过程中的重要信息记录下来，通过一个字典类型变量cb_params传递给Callback对象， 用户可以在各个自定义的Callback中获取到相关属性，执行自定义操作。
