@@ -135,7 +135,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 设置日志打印级别为INFO。
 ```bash
-set MSLOG=INFO
+set GLOG_v=1
 ```
 
 下面选取了几个常用示例，说明转换命令的使用方法。
