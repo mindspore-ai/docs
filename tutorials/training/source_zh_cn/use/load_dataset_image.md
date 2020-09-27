@@ -10,6 +10,7 @@
     - [加载数据集](#加载数据集)
     - [数据处理](#数据处理)
     - [数据增强](#数据增强)
+    - [参考文献](#参考文献)
 
 <!-- /TOC -->
 
@@ -19,7 +20,7 @@
 
 在计算机视觉任务中，图像数据往往因为容量限制难以直接全部读入内存。MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对象，分批次地读取图像数据。同时，在各个数据集类中还内置了数据处理和数据增强算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
 
-下面，本教程将以加载MNIST数据集为例，演示如何使用MindSpore加载和处理图像数据。
+下面，本教程将以加载MNIST数据集[1]为例，演示如何使用MindSpore加载和处理图像数据。
 
 ## 准备
 
@@ -189,3 +190,7 @@ MindSpore目前支持的数据增强算子及其详细使用方法，可参考�
     可以看到，原始图片经缩放后被随机裁剪至150x150大小。
 
     ![mnist_5_resize_crop](./images/mnist_5_resize_crop.png)
+
+## 参考文献
+
+[1] Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. [Gradient-based learning applied to document recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf).
