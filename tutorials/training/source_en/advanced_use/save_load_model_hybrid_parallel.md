@@ -1,10 +1,10 @@
-# Save and Load Models in Hybrid Parallel Mode
+# Saving and Loading Models in Hybrid Parallel Mode
 
 `Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Save and Load Models in Hybrid Parallel Mode](#save-and-load-models-in-hybrid-parallel-mode)
+- [Saving and Loading Models in Hybrid Parallel Mode](#saving-and-loading-models-in-hybrid-parallel-mode)
     - [Overview](#overview)
         - [Background](#background)
         - [Application Scenario](#application-scenario)

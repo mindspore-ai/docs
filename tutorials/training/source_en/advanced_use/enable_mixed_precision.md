@@ -1,10 +1,10 @@
-# Enable Mixed Precision
+# Enabling Mixed Precision
 
 `Linux` `Ascend` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Enable Mixed Precision](#enable-mixed-precision)
+- [Enabling Mixed Precision](#enabling-mixed-precision)
     - [Overview](#overview)
     - [Computation Process](#computation-process)
     - [Automatic Mixed Precision](#automatic-mixed-precision)

@@ -1,10 +1,10 @@
-# Performance Profiler(Ascend)
+# Performance Profiling(Ascend)
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Performance Profiler(Ascend)](#performance-profilerascend)
+- [Performance Profiling(Ascend)](#performance-profilingascend)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Environment](#preparing-the-environment)

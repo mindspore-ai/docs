@@ -1,10 +1,10 @@
-# Optimize Data Processing
+# Optimizing the Data Processing
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Optimize Data Processing](#optimize-data-processing)
+- [Optimizing the Data Processing](#optimizing-the-data-processing)
     - [Overview](#overview)
     - [Preparations](#preparations)
     - [Optimizing the Data Loading Performance](#optimizing-the-data-loading-performance)

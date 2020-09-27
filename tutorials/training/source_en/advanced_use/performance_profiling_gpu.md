@@ -1,10 +1,10 @@
-# Performance Profiler（GPU）
+# Performance Profiling（GPU）
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Performance Profiler（GPU）](#performance-profilergpu)
+- [Performance Profiling（GPU）](#performance-profilinggpu)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)

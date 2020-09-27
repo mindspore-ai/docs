@@ -1,4 +1,4 @@
-Migrate Training Scripts of Third Party Frameworks
+Migrating Training Scripts from Third Party Frameworks
 ======================================================
 
 .. toctree::
