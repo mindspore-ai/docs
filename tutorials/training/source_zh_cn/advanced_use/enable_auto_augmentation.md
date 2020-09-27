@@ -240,4 +240,4 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
 ## 参考文献
 
-[1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501)
+[1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501).
