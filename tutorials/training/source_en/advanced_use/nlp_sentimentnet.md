@@ -1,10 +1,10 @@
-# Realize Sentiment Classification With SentimentNet
+# Realizing Sentiment Classification With SentimentNet
 
 `Linux` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Realize Sentiment Classification With SentimentNet](#realize-sentiment-classification-with-sentimentnet)
+- [Realizing Sentiment Classification With SentimentNet](#realizing-sentiment-classification-with-sentimentnet)
     - [Overview](#overview)
     - [Preparation and Design](#preparation-and-design)
         - [Downloading the Dataset](#downloading-the-dataset)

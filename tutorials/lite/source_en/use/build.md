@@ -1,8 +1,8 @@
-# Build MindSpore Lite
+# Building MindSpore Lite
 
 <!-- TOC -->
 
-- [Build MindSpore Lite](#build-mindspore-lite)
+- [Building MindSpore Lite](#building-mindspore-lite)
     - [Linux Environment Compilation](#linux-environment-compilation)
         - [Environment Requirements](#environment-requirements)
         - [Compilation Options](#compilation-options)

@@ -1,8 +1,8 @@
-# Use Runtime for Model Inference
+# Using Runtime for Model Inference
 
 <!-- TOC -->
 
-- [Use Runtime for Model Inference](#use-runtime-for-model-inference)
+- [Using Runtime for Model Inference](#using-runtime-for-model-inference)
   - [Overview](#overview)
   - [Reading Models](#reading-models)
   - [Session Creation](#session-creation)
