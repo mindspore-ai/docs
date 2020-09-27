@@ -1,10 +1,10 @@
-# Image Classification Using Resnet-50 Network
+# Image Classification Using ResNet-50 Network
 
 `Linux` `Ascend` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Image Classification Using Resnet-50 Network](#image-classification-using-resnet-50-network)
+- [Image Classification Using ResNet-50 Network](#image-classification-using-resnet-50-network)
     - [Overview](#overview)
     - [Image Classification](#image-classification)
     - [Task Description and Preparation](#task-description-and-preparation)

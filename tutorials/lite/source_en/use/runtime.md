@@ -1,4 +1,4 @@
-# Use Runtime for Model Inference
+# Using Runtime for Model Inference
 
 <!-- TOC -->
 

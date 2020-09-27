@@ -1,8 +1,8 @@
-# Perform Benchmark Testing
+# Performing Benchmark Testing
 
 <!-- TOC -->
 
-- [Perform Benchmark Testing](#perform-benchmark-testing)
+- [Performing Benchmark Testing](#performing-benchmark-testing)
     - [Overview](#overview)
     - [Environment Preparation](#environment-preparation)
     - [Example](#example)

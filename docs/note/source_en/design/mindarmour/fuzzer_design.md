@@ -1,11 +1,11 @@
-﻿# AI Model Security Test
+﻿# AI Model Security Testing
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 
 <!-- TOC -->
 
-- [AI Model Security Test](#ai-model-security-test)
+- [AI Model Security Testing](#ai-model-security-testing)
     - [Background](#background)
     - [Fuzz Testing Design](#fuzz-testing-design)
     - [Fuzz Testing Process](#fuzz-testing-process)
