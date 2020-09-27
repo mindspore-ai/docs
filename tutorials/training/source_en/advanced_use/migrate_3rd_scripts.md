@@ -1,10 +1,10 @@
-# Migrate Training Scripts of Third Party Frameworks
+# Migrating Training Scripts from Third Party Frameworks
 
 `Linux` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Migrate Training Scripts of Third Party Frameworks](#migrate-training-scripts-of-third-party-frameworks)
+- [Migrating Training Scripts from Third Party Frameworks](#migrating-training-scripts-from-third-party-frameworks)
     - [Overview](#overview)
     - [Preparations](#preparations)
         - [Operator Assessment](#operator-assessment)

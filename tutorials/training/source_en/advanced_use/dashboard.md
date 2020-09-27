@@ -1,10 +1,10 @@
-# View Dashboard
+# Viewing Dashboard
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [View Dashboard](#view-dashboard)
+- [Viewing Dashboard](#viewing-dashboard)
     - [Overview](#overview)
     - [Scalar Visualization](#scalar-visualization)
     - [Parameter Distribution Visualization](#parameter-distribution-visualization)

@@ -1,10 +1,10 @@
-﻿# Evaluate the Model during Training
+﻿# Evaluating the Model during Training
 
 `Linux` `Ascend` `GPU` `CPU` `Beginner` `Intermediate` `Expert` `Model Export` `Model Training`
 
 <!-- TOC -->
 
-- [Evaluate the Model during Training](#evaluate-the-model-during-training)
+- [Evaluating the Model during Training](#evaluating-the-model-during-training)
     - [Overview](#overview)
     - [Defining the Callback Function EvalCallBack](#defining-the-callback-function-evalcallback)
     - [Defining and Executing the Training Network](#defining-and-executing-the-training-network)
