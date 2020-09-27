@@ -12,6 +12,7 @@
     - [py_transforms](#py_transforms)
         - [Compose](#compose)
     - [使用说明](#使用说明)
+    - [参考文献](#参考文献)
 
 <!-- /TOC -->
 
@@ -56,7 +57,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 - `fill_value`：在常量填充模式时使用的填充值。
 - `padding_mode`：填充模式。
 
-下面的样例首先使用顺序采样器加载CIFAR-10数据集，然后对已加载的图片进行长宽均为10的随机裁剪，最后输出裁剪前后的图片形状及对应标签，并对图片进行了展示。
+下面的样例首先使用顺序采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行长宽均为10的随机裁剪，最后输出裁剪前后的图片形状及对应标签，并对图片进行了展示。
 
 ```python
 import matplotlib.pyplot as plt
@@ -120,7 +121,7 @@ Cropped image Shape: (10, 10, 3) , Cropped label: 9
 **参数说明：**
 - `prob`: 单张图片发生翻转的概率。
 
-下面的样例首先使用随机采样器加载CIFAR-10数据集，然后对已加载的图片进行概率为0.8的随机水平翻转，最后输出翻转前后的图片形状及对应标签，并对图片进行了展示。
+下面的样例首先使用随机采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行概率为0.8的随机水平翻转，最后输出翻转前后的图片形状及对应标签，并对图片进行了展示。
 
 ```python
 import matplotlib.pyplot as plt
@@ -190,7 +191,7 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 - `self`：缩放的目标大小。
 - `interpolation`：缩放时采用的插值方式。
 
-下面的样例首先加载MNIST数据集，然后将已加载的图片缩放至(101, 101)大小，最后输出缩放前后的图片形状及对应标签，并对图片进行了展示。
+下面的样例首先加载MNIST数据集[2]，然后将已加载的图片缩放至(101, 101)大小，最后输出缩放前后的图片形状及对应标签，并对图片进行了展示。
 
 ```python
 import matplotlib.pyplot as plt
@@ -253,7 +254,7 @@ Flipped image Shape: (101, 101, 1) , Flipped label: 1
 
 对输入图像进行反相处理。
 
-下面的样例首先加载CIFAR-10数据集，然后同时定义缩放和反相操作并作用于已加载的图片，最后输出缩放与反相前后的图片形状及对应标签，并对图片进行了展示。
+下面的样例首先加载CIFAR-10数据集[1]，然后同时定义缩放和反相操作并作用于已加载的图片，最后输出缩放与反相前后的图片形状及对应标签，并对图片进行了展示。
 
 ```python
 import matplotlib.pyplot as plt
@@ -400,3 +401,9 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 3
 - 在两种transform之间频繁切换
 
     ![tranform_c_py](./images/tranform_bad.png)
+
+## 参考文献
+
+[1] Alex Krizhevsky. [Learning Multiple Layers of Features from Tiny Images](http://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf).
+
+[2] Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. [Gradient-based learning applied to document recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf).

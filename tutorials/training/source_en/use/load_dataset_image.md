@@ -10,6 +10,7 @@
     - [Load Dataset](#load-dataset)
     - [Process Data](#process-data)
     - [Augmentation](#augmentation)
+    - [References](#references)
 
 <!-- /TOC -->
 
@@ -19,7 +20,7 @@
 
 In computer vision training tasks, it is often difficult to read the entire dataset directly into memory due to memory capacity. `mindspore.dataset` module provided by MindSpore enables user to customize their data fetching strategy from disk. At the same time, data processing and data augmentation operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance. In addition, MindSpore supports data loading in distributed scenarios.
 
-This tutorial uses the MNIST dataset as an example to demonstrate how to load and process image data using MindSpore.
+This tutorial uses the MNIST dataset [1] as an example to demonstrate how to load and process image data using MindSpore.
 
 ## Preparation
 
@@ -184,3 +185,7 @@ The following demonstrates how to use the `c_transforms` module to augment data 
     The original image is scaled up then randomly cropped to 150 x 150.
 
     ![mnist_5_resize_crop](./images/mnist_5_resize_crop.png)
+
+## References
+
+[1] Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. [Gradient-based learning applied to document recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf).

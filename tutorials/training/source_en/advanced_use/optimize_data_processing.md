@@ -12,6 +12,7 @@
     - [Optimizing the Data Augmentation Performance](#optimizing-the-data-augmentation-performance)
     - [Optimizing the Operating System Performance](#optimizing-the-operating-system-performance)
     - [Performance Optimization Solution Summary](#performance-optimization-solution-summary)
+    - [References](#references)
 
 <!-- /TOC -->
 
@@ -23,7 +24,7 @@ Data is the most important factor of deep learning. Data quality determines the 
 
 ![title](./images/pipeline.png)
 
-MindSpore provides data processing and data augmentation functions for users. In the pipeline process, if each step can be properly used, the data performance will be greatly improved. This section describes how to optimize performance during data loading, data processing, and data augmentation based on the CIFAR-10 dataset.
+MindSpore provides data processing and data augmentation functions for users. In the pipeline process, if each step can be properly used, the data performance will be greatly improved. This section describes how to optimize performance during data loading, data processing, and data augmentation based on the CIFAR-10 dataset [1].
 
 In addition, the storage, the architecture and the computing resources of the operating system will influence the performance of data processing to a certain extent.
 
@@ -419,3 +420,7 @@ Some fusion operators are provided to aggregate the functions of two or more ope
 - Bind the process to NUMA node.
 - Manually allocate more computing resources.
 - Set higher CPU frequency.
+
+## References
+
+[1] Alex Krizhevsky. [Learning Multiple Layers of Features from Tiny Images](http://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf).

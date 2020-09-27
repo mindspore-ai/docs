@@ -239,4 +239,4 @@ Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
 
 ## References
 
-[1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501)
+[1] [AutoAugment: Learning Augmentation Policies from Data](https://arxiv.org/abs/1805.09501).
