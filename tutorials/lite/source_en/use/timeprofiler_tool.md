@@ -1,8 +1,8 @@
-# Use TimeProfiler to Analyze the Time Consumption
+# Using TimeProfiler to Analyze the Time Consumption
 
 <!-- TOC -->
 
-- [Use TimeProfiler to Analyze the Time Consumption](#use-timeprofiler-to-analyze-the-time-consumption)
+- [Using TimeProfiler to Analyze the Time Consumption](#using-timeprofiler-to-analyze-the-time-consumption)
     - [Overview](#overview)
     - [Environment Preparation](#environment-preparation)
     - [Parameter Description](#parameter-description)

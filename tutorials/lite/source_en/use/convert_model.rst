@@ -1,5 +1,5 @@
-Convert Into The MindSpore Lite Model
-=====================================
+Converting Into The MindSpore Lite Model
+=========================================
 
 .. toctree::
   :maxdepth: 1
