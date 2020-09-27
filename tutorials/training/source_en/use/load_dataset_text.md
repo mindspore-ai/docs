@@ -1,10 +1,10 @@
-# Load Text Dataset
+# Loading Text Dataset
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Load Text Dataset](#load-text-dataset)
+- [Loading Text Dataset](#loading-text-dataset)
     - [Overview](#overview)
     - [Preparation](#preparation)
     - [Load Dataset](#load-dataset)

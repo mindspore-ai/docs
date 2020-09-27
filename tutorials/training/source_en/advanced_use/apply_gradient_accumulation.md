@@ -1,10 +1,10 @@
-# Apply Gradient Accumulation Algorithm
+# Applying Gradient Accumulation Algorithm
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Apply Gradient Accumulation Algorithm](#apply-gradient-accumulation-algorithm)
+- [Applying Gradient Accumulation Algorithm](#applying-gradient-accumulation-algorithm)
     - [Overview](#overview)
     - [Creating a Gradient Accumulation Model](#creating-a-gradient-accumulation-model)
         - [Importing Library Files](#importing-library-files)
