@@ -1,10 +1,10 @@
-# Protect User Privacy with Differential Privacy Mechanism
+# Protecting User Privacy with Differential Privacy Mechanism
 
 `Linux` `Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
-- [Protect User Privacy with Differential Privacy Mechanism](#protect-user-privacy-with-differential-privacy-mechanism)
+- [Protecting User Privacy with Differential Privacy Mechanism](#protecting-user-privacy-with-differential-privacy-mechanism)
     - [Overview](#overview)
     - [Implementation](#implementation)
         - [Importing Library Files](#importing-library-files)

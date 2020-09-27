@@ -1,10 +1,10 @@
-# Improve Model Security with NAD Algorithm
+# Improving Model Security with NAD Algorithm
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
-- [Improve Model Security with NAD Algorithm](#improve-model-security-with-nad-algorithm)
+- [Improving Model Security with NAD Algorithm](#improving-model-security-with-nad-algorithm)
     - [Overview](#overview)
     - [Creating an Target Model](#creating-an-target-model)
         - [Importing Related Packages](#importing-related-packages)

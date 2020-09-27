@@ -1,10 +1,10 @@
-# Apply Quantization Aware Training
+# Applying Quantization Aware Training
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Expert`
 
 <!-- TOC -->
 
-- [Apply Quantization Aware Training](#apply-quantization-aware-training)
+- [Applying Quantization Aware Training](#applying-quantization-aware-training)
     - [Background](#background)
     - [Concept](#concept)
         - [Quantization](#quantization)
