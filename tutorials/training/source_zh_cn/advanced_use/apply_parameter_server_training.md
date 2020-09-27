@@ -48,6 +48,7 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
     - 通过`mindspore.nn.Cell.set_param_ps()`对`nn.Cell`中所有权重递归设置。
     - 通过`mindspore.common.Parameter.set_param_ps()`对此权重进行设置。
+    - 被设置为通过Parameter Server更新的单个权重大小不得超过INT_MAX(2^31 - 1)字节。
 
 3. 在[原训练脚本](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)基础上，设置LeNet模型所有权重通过Parameter Server训练：
     ```python

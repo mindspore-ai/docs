@@ -45,10 +45,11 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
 - Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
 
-2. In this training mode, you can use either of the following methods to control whether the training parameters are updated through the parameter server:
+2. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server:
 
 - Use `mindspore.nn.Cell.set_param_ps()` to set all weight recursions of `nn.Cell`.
 - Use `mindspore.common.Parameter.set_param_ps()` to set the weight.
+- The size of the weight which is updated by Parameter Server should not exceed INT_MAX(2^31 - 1) bytes.
 
 3. On the basis of the [original training script](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py), set all LeNet model weights to be trained on the parameter server:
 ```python
