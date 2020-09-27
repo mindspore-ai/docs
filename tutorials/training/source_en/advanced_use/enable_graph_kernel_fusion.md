@@ -1,10 +1,10 @@
-# Enable Graph Kernel Fusion
+# Enabling Graph Kernel Fusion
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Enable Graph Kernel Fusion](#enable-graph-kernel-fusion)
+- [Enabling Graph Kernel Fusion](#enabling-graph-kernel-fusion)
     - [Overview](#overview)
     - [Enabling Method](#enabling-method)
         - [Sample Scripts](#sample-scripts)

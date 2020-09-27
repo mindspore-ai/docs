@@ -1,10 +1,10 @@
-# Convert Dataset to MindRecord
+# Converting Dataset to MindRecord
 
  `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Convert Dataset to MindRecord](#convert-dataset-to-mindrecord)
+- [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord)
 	- [Overview](#overview)
 	- [Basic Concepts](#basic-concepts)
 	- [Convert Dataset to MindRecord](#convert-dataset-to-mindrecord-1)

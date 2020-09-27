@@ -1,10 +1,10 @@
-# Load Image Dataset
+# Loading Image Dataset
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Load Image Dataset](#load-image-dataset)
+- [Loading Image Dataset](#loading-image-dataset)
     - [Overview](#overview)
     - [Preparation](#preparation)
     - [Load Dataset](#load-dataset)

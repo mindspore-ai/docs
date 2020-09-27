@@ -1,10 +1,10 @@
-# Migrate From Third Party Framework With Tools
+# Migrating From Third Party Frameworks With Tools
 
 `Linux` `Ascend` `Model Development` `Beginner`
 
 <!-- TOC -->
 
-- [Migrate From Third Party Framework With Tools](#migrate-from-third-party-framework-with-tools)
+- [Migrating From Third Party Frameworks With Tools](#migrating-from-third-party-frameworks-with-tools)
     - [Overview](#overview)
     - [Installation](#installation)
     - [Usage](#usage)
