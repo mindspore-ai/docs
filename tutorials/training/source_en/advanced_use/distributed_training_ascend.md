@@ -391,19 +391,19 @@ import mindspore.ops.operations as P
 import numpy as np
 # define network
 class DataParallelNet(Cell):
-	def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
-		super().__init__()
-		weight_np = np.full(test_size, 0.1, dtype=np.float32)
-		self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
-		self.relu = ReLU()
-		self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
-		if strategy is not None:
-			self.fc.shard(strategy)
+    def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
+        super().__init__()
+        weight_np = np.full(test_size, 0.1, dtype=np.float32)
+        self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
+        self.relu = ReLU()
+        self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
+        if strategy is not None:
+            self.fc.shard(strategy)
 
-	def construct(self, inputs, label):
-		x = self.relu(inputs)
-		x = self.fc(x, self.weight)
-		return x
+    def construct(self, inputs, label):
+        x = self.relu(inputs)
+        x = self.fc(x, self.weight)
+        return x
 ```
 
 Assuming that the Data Parallel mode is used to train and save the model on an 8P machine, the data needs to be obtained first, and the parallel strategy and parallel mode need to be set. The code is as follows:
@@ -449,22 +449,22 @@ The whole process of using checkpoint in Semi Auto parallel Mode also starts fro
 
 ```python
 class SemiAutoParallelNet(Cell):
-	def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
-		super().__init__()
-		mul_np = np.full(mul_size, 0.5, dtype=np.float32)
-		equal_np = np.full(test_size, 0.1, dtype=np.float32)
-		self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
-		self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
-		self.mul = P.Mul()
-		self.equal = P.Equal()
-		if strategy is not None:
-			self.mul.shard(strategy)
-			self.equal.shard(strategy2)
+    def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
+        super().__init__()
+        mul_np = np.full(mul_size, 0.5, dtype=np.float32)
+        equal_np = np.full(test_size, 0.1, dtype=np.float32)
+        self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
+        self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
+        self.mul = P.Mul()
+        self.equal = P.Equal()
+        if strategy is not None:
+            self.mul.shard(strategy)
+            self.equal.shard(strategy2)
 
-	def construct(self, inputs, label):
-		x = self.mul(inputs, self.mul_weight)
-		x = self.equal(x, self.equal_weight)
-		return x
+    def construct(self, inputs, label):
+        x = self.mul(inputs, self.mul_weight)
+        x = self.equal(x, self.equal_weight)
+        return x
 ```
 
 It is assumed that Semi Auto Parallel Mode is also trained and saved on an 8p machine. The code for getting data and setting the parallel strategy and parallel mode is as follows:
