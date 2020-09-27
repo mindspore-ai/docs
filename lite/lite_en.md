@@ -20,7 +20,7 @@
         <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/build.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Build MindSpore Lite</span>
+                    <span style="color:#1a1c33;">Step 1: Build MindSpore Lite</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 This tutorial introduces how to quickly compile MindSpore Lite.
@@ -28,11 +28,11 @@
             </div>
         </a>
     </div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:450px; height:120px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/converter_tool.html" style="display:block;text-decoration:none">
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:450px; height:120px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/convert_model.html" style="display:block;text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Convert to MindSpore Lite Model</span>
+                    <span style="color:#1a1c33;">Step 2: Convert Into The MindSpore Lite Model</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference.
@@ -41,25 +41,13 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/benchmark_tool.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/evaluating_the_model.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Perform Benchmark Testing</span>
+                    <span style="color:#1a1c33;">Step 3: Evaluating MindSpore Lite Model (optional)</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model.
-                </div>
-            </div>
-        </a>
-    </div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/timeprofiler_tool.html" style="display:block; text-decoration:none">
-            <div>
-                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Use TimeProfiler to Analyze the Time Consumption</span>
-                </div>
-                <div style="font-size:0.9rem; color:#333">
-                After model conversion and before the inference, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model.
+                After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model.
                 </div>
             </div>
         </a>
@@ -68,7 +56,7 @@
         <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/image_processing.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Preprocess Image Data</span>
+                    <span style="color:#1a1c33;">Step 4: Preprocess Image Data</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 Eliminate irrelevant information in the image, restore useful real information, enhance the detectability of related information and simplify data to the greatest extent, thereby improving the reliability of feature extraction, image segmentation, matching and recognition.
@@ -76,11 +64,11 @@
             </div>
         </a>
     </div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; ">
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
         <a href="https://www.mindspore.cn/tutorial/lite/en/r1.0/use/runtime.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Use Runtime for Model Inference</span>
+                    <span style="color:#1a1c33;">Step 5: Use Runtime for Model Inference</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime.
