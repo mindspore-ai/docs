@@ -18,7 +18,9 @@
 
 ## 概述
 
-在计算机视觉任务中，图像数据往往因为容量限制难以直接全部读入内存。MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对象，分批次地读取图像数据。同时，在各个数据集类中还内置了数据处理和数据增强算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。此外，MindSpore还支持分布式场景数据加载。
+在计算机视觉任务中，图像数据往往因为容量限制难以直接全部读入内存。MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对象，分批次地读取图像数据。同时，在各个数据集类中还内置了数据处理和数据增强算子，使得数据在训练过程中能够像经过pipeline管道的水一样源源不断地流向训练系统，提升数据训练效果。
+
+此外，MindSpore还支持分布式场景数据加载，用户可以在加载数据集时指定分片数目，具体用法参见[数据并行模式加载数据集](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/distributed_training_ascend.html#id6)。
 
 下面，本教程将以加载MNIST数据集[1]为例，演示如何使用MindSpore加载和处理图像数据。
 
@@ -151,7 +153,7 @@ for data in mnist_dataset.create_dict_iterator():
 
     可以看到，数据集被扩充成两份，且第二份数据的顺序与第一份不同。
 
-    > `repeat`将对整个数据处理pipeline中已定义的操作进行重复，而不是单纯将此刻数据集进行复制。
+    > `repeat`将对整个数据处理pipeline中已定义的操作进行重复，而不是单纯将此刻的数据集进行复制，故第二份数据执行`shuffle`后与第一份顺序不同。
 
 ## 数据增强
 

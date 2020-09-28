@@ -264,7 +264,8 @@ Welcome to Beijing!
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
-input_list = ["my", "favorite", "book", "is", "love", "during", "the", "cholera", "era", "what", "我", "最", "喜", "欢", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
+input_list = ["my", "favorite", "book", "is", "love", "during", "the", "cholera", "era", "what",
+    "我", "最", "喜", "欢", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
 print("------------------------before tokenization----------------------------")
