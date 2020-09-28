@@ -138,3 +138,27 @@ Tutorials below briefly demonstrate how to load MindRecord dataset using `MindDa
         count += 1
     print("Got {} samples".format(count))
     ```
+
+    The output is as follows:
+
+    ```
+    sample: {'data': array([175, 175,  85,  60, 184, 124,  54, 189, 125, 193, 153,  91, 234, 106,  43, 143, 132, 211, 204, 160,  44, 105, 187, 185,  45, 205, 122, 236, 112, 123,  84, 177, 219], dtype=uint8),
+        'file_name': array(b'3.jpg', dtype='|S5'),
+        'label': array(99, dtype=int32)}
+    sample: {'data': array([230, 218, 209, 174,   7, 184,  62, 212,   0, 248,  18,  57,  21, 217, 242, 113, 192, 162, 145,  89,  70,  85,  79,  29, 115,  69, 49,  30, 112], dtype=uint8),
+        'file_name': array(b'2.jpg', dtype='|S5'),
+        'label': array(56, dtype=int32)}
+    sample: {'data': array([ 16,  99, 179, 119, 168, 238,  36, 111,  38,  60, 113, 140, 142, 40, 162, 144, 144, 150, 188, 177,  30, 212,  81,  69,  82,  19, 63, 255, 217], dtype=uint8),
+        'file_name': array(b'1.jpg', dtype='|S5'),
+        'label': array(0, dtype=int32)}
+    sample: {'data': array([ 16,  99, 179, 119, 168, 238,  36, 111,  38,  60, 113, 140, 142, 40, 162, 144, 144, 150, 188, 177,  30, 212,  81,  69,  82,  19, 63, 255, 217], dtype=uint8),
+        'file_name': array(b'1.jpg', dtype='|S5'),
+        'label': array(0, dtype=int32)}
+    sample: {'data': array([175, 175,  85,  60, 184, 124,  54, 189, 125, 193, 153,  91, 234, 106,  43, 143, 132, 211, 204, 160,  44, 105, 187, 185,  45, 205, 122, 236, 112, 123,  84, 177, 219], dtype=uint8),
+        'file_name': array(b'3.jpg', dtype='|S5'),
+        'label': array(99, dtype=int32)}
+    sample: {'data': array([230, 218, 209, 174,   7, 184,  62, 212,   0, 248,  18,  57,  21, 217, 242, 113, 192, 162, 145,  89,  70,  85,  79,  29, 115,  69, 49,  30, 112], dtype=uint8),
+        'file_name': array(b'2.jpg', dtype='|S5'),
+        'label': array(56, dtype=int32)}
+    Got 6 samples
+    ```

@@ -17,7 +17,9 @@
 
 ## Overview
 
-`mindspore.dataset` module provided by MindSpore enables user to customize their data fetching strategy from disk. At the same time, data processing and tokenization operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance. In addition, MindSpore supports data loading in distributed scenarios.
+`mindspore.dataset` module provided by MindSpore enables user to customize their data fetching strategy from disk. At the same time, data processing and tokenization operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
+
+In addition, MindSpore supports data loading in distributed scenarios. User can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
 
 Tutorials below briefly demonstrate how to load and process text data using MindSpore.
 
@@ -47,7 +49,7 @@ Tutorials below briefly demonstrate how to load and process text data using Mind
 
 ## Load Dataset
 
-MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class and load customized data. 
+MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class and load customized data.
 
 The following demonstrates loading datasets using the `TextFileDataset` in `mindspore.dataset` module.
 
