@@ -44,7 +44,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 针对ImageNet数据集的数据增强策略包含25条子策略，每条子策略中包含两种变换，针对一个batch中的每张图像随机挑选一个子策略的组合，以预定的概率来决定是否执行子策略中的每种变换。
 
 用户可以使用MindSpore中`c_transforms`模块的`RandomSelectSubpolicy`接口来实现AutoAugment，
-在ImageNet分类训练中标准的数据增强方式分以下几个步骤:
+在ImageNet分类训练中标准的数据增强方式分以下几个步骤：
 
 - `RandomCropDecodeResize`：随机裁剪后进行解码。
 
@@ -232,11 +232,11 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
     plt.show()
     ```
 
-    >为了更好演示效果，从数据集中只读取5张图片并且不进行`shuffle`且不进行`Normalize`和`HWC2CHW`操作。
+    > 为了更好地演示效果，此处只加载5张图片，且读取时不进行`shuffle`操作，自动数据增强时也不进行`Normalize`和`HWC2CHW`操作。
 
     ![augment](./images/auto_augmentation.png)
 
-    运行结果可以看到，batch中每张图像的增强效果，水平方向表示1个batch的5张图像，垂直方向表示5个bacth。
+    运行结果可以看到，batch中每张图像的增强效果，水平方向表示1个batch的5张图像，垂直方向表示5个batch。
 
 ## 参考文献
 

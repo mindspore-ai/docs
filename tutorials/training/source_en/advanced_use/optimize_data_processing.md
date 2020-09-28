@@ -149,7 +149,9 @@ Based on the preceding suggestions of data loading performance optimization, the
     The output is as follows:
 
     ```
-    {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]), 'id': Tensor(shape=[], dtype=Int64, value= 30474), 'label': Tensor(shape=[], dtype=Int64, value= 2)}
+    {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]),
+        'id': Tensor(shape=[], dtype=Int64, value= 30474),
+        'label': Tensor(shape=[], dtype=Int64, value= 2)}
     ```
 
 3. The `GeneratorDataset` class is used to load the user-defined dataset, and the multi-process optimization solution is used. Four processes are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data, and a data record is read through the iterator.
