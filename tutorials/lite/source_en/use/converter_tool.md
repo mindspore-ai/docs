@@ -131,6 +131,7 @@ Set the log printing level to INFO.
 ```bash
 set GLOG_v=1
 ```
+> Log level: 0 is DEBUG, 1 is INFO, 2 is WARNING, 3 is ERROR.
 
 Several common examples are selected below to illustrate the use of conversion commands.
 
