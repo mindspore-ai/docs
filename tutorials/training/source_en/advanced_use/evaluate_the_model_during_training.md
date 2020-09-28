@@ -24,7 +24,7 @@ The procedure is as follows:
 2. Define a training network and execute it.
 3. Draw a line chart based on the model accuracy under different epochs and select the optimal model.
 
-For a complete example, see [notebook](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/evaluate_the_model_during_training.ipynb).
+Source code address of this example: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>.
 
 ## Defining the Callback Function EvalCallBack
 
