@@ -140,7 +140,7 @@ The `input` parameter is used to specify the input shape and the data type of th
 It is recommended to use '.air' as the suffix of AIR format files.
 
 > `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
-> eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`.
+> eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='AIR')`.
 
 ## Export ONNX Model
 
@@ -161,4 +161,4 @@ export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX'
 It is recommended to use '.onnx' as the suffix of ONNX format files.
 
 > `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
-> eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`.
+> eg：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='ONNX')`.
