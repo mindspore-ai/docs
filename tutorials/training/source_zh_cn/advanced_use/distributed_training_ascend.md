@@ -395,19 +395,19 @@ import mindspore.ops.operations as P
 import numpy as np
 # define network
 class DataParallelNet(Cell):
-	def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
-		super().__init__()
-		weight_np = np.full(test_size, 0.1, dtype=np.float32)
-		self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
-		self.relu = ReLU()
-		self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
-		if strategy is not None:
-			self.fc.shard(strategy)
+    def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
+        super().__init__()
+        weight_np = np.full(test_size, 0.1, dtype=np.float32)
+        self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
+        self.relu = ReLU()
+        self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
+        if strategy is not None:
+            self.fc.shard(strategy)
 
-	def construct(self, inputs, label):
-		x = self.relu(inputs)
-		x = self.fc(x, self.weight)
-		return x
+    def construct(self, inputs, label):
+        x = self.relu(inputs)
+        x = self.fc(x, self.weight)
+        return x
 ```
 
 假设在一台8P机器上使用数据并行模式进行训练和保存模型，首先需要获取数据，设置并行策略和并行模式，代码如下：
@@ -453,22 +453,22 @@ context.reset_auto_parallel_context()
 
 ```python
 class SemiAutoParallelNet(Cell):
-	def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
-		super().__init__()
-		mul_np = np.full(mul_size, 0.5, dtype=np.float32)
-		equal_np = np.full(test_size, 0.1, dtype=np.float32)
-		self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
-		self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
-		self.mul = P.Mul()
-		self.equal = P.Equal()
-		if strategy is not None:
-			self.mul.shard(strategy)
-			self.equal.shard(strategy2)
+    def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
+        super().__init__()
+        mul_np = np.full(mul_size, 0.5, dtype=np.float32)
+        equal_np = np.full(test_size, 0.1, dtype=np.float32)
+        self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
+        self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
+        self.mul = P.Mul()
+        self.equal = P.Equal()
+        if strategy is not None:
+            self.mul.shard(strategy)
+            self.equal.shard(strategy2)
 
-	def construct(self, inputs, label):
-		x = self.mul(inputs, self.mul_weight)
-		x = self.equal(x, self.equal_weight)
-		return x
+    def construct(self, inputs, label):
+        x = self.mul(inputs, self.mul_weight)
+        x = self.equal(x, self.equal_weight)
+        return x
 ```
 
 假设半自动并行模式也是在一台8P机器上进行训练和保存模型。获取数据，设置并行策略和并行模式的代码如下：
