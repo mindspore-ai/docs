@@ -134,7 +134,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
 建议使用`.air`作为AIR格式文件的后缀名。
 
 > `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
-> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`
+> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='AIR')`
 
 ## 导出ONNX格式文件
 
@@ -155,4 +155,4 @@ export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX'
 建议使用`.onnx`作为ONNX格式文件的后缀名。
 
 > `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
-> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`
+> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='ONNX')`
