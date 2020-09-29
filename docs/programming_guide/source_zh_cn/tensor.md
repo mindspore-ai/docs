@@ -67,7 +67,7 @@ True
 
 张量的属性包括形状（shape）和数据类型（dtype）。
 - 形状：`Tensor`的shape，是一个tuple。
-- 数据类型：`Tensor`的的dtype，是MindSpore的一个数据类型。
+- 数据类型：`Tensor`的dtype，是MindSpore的一个数据类型。
 
 代码样例如下：
 
