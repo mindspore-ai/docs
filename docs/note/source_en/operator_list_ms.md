@@ -49,8 +49,8 @@
 | [mindspore.nn.Embedding](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Embedding)                                          |Supported |  Supported | Doing |layer/embedding
 | [mindspore.nn.ImageGradients](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Supported |Supported | Doing |layer/image
 | [mindspore.nn.SSIM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Supported | Supported | Doing |layer/image
-| [mindspore.nn.PSNR](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Supported |Doing | Doing |layer/image
-| [mindspore.nn.CentralCrop](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Doing | Doing |layer/image
+| [mindspore.nn.PSNR](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Supported |Supported | Doing |layer/image
+| [mindspore.nn.CentralCrop](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Supported | Doing |layer/image
 | [mindspore.nn.LSTM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    | Doing | Supported | Supported |layer/lstm
 | [mindspore.nn.GlobalBatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.GlobalBatchNorm)                                      |  Supported |Doing | Doing |layer/normalization
 | [mindspore.nn.BatchNorm1d](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm1d)                                      |  Supported |Doing | Doing |layer/normalization
@@ -77,7 +77,7 @@
 | [mindspore.nn.TensorAddQuant](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.TensorAddQuant)                              |  Supported |  Supported | Supported |layer/quant
 | [mindspore.nn.MulQuant](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MulQuant)                              |  Supported |  Supported | Supported |layer/quant
 | [mindspore.nn.L1Loss](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Supported |Supported | Doing |loss/loss
-| [mindspore.nn.MSELoss](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Doing | Doing |loss/loss
+| [mindspore.nn.MSELoss](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Supported | Doing |loss/loss
 | [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    |Supported |Doing | Doing |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyWithLogits)  |  Supported |  Supported |   Supported |loss/loss
 | [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.CosineEmbeddingLoss)                                                |Supported |Supported | Doing |loss/loss
@@ -107,6 +107,7 @@
 | [mindspore.nn.MatMul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MatMul)                                        |Supported | Doing | Doing |layer/math
 | [mindspore.nn.LGamma](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.LGamma)                                        |Supported | Doing | Doing |layer/math
 | [mindspore.nn.ReduceLogSumExp](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.ReduceLogSumExp)                                        |Supported | Supported | Doing |layer/math
+| [mindspore.nn.MSSSIM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MSSSIM)                                | Supported |Doing | Doing |layer/image
 
 ## mindspore.ops
 
@@ -199,8 +200,8 @@
 | [mindspore.ops.Mul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Mul)                                     |    Supported   | Supported  |   Supported | math_ops
 | [mindspore.ops.Square](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Square)                               |    Supported | Supported  | Supported | math_ops   
 | [mindspore.ops.SquareSumAll](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops   
-| [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Rsqrt)                                 |    Supported | Doing  | Doing | math_ops
-| [mindspore.ops.Sqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Sqrt)                                   |    Supported | Doing  | Doing | math_ops
+| [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Rsqrt)                                 |    Supported | Supported  | Doing | math_ops
+| [mindspore.ops.Sqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Sqrt)                                   |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Reciprocal](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Reciprocal)                       |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.Pow](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Pow)                                     |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Exp](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Exp)                                     |    Supported   | Supported  | Doing | math_ops
@@ -349,7 +350,7 @@
 | [mindspore.ops.Poisson](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Poisson)   |  Supported | Doing   | Doing | random_ops
 | [mindspore.ops.UniformInt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.UniformInt)   |  Supported | Supported   | Doing | random_ops
 | [mindspore.ops.UniformReal](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.UniformReal)   |  Supported | Supported   | Doing | random_ops
-| [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.RandomChoiceWithMask)   |  Doing| Supported   | Doing | random_ops
+| [mindspore.ops.RandomChoiceWithMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.RandomChoiceWithMask)   |  Supported| Supported   | Doing | random_ops
 | [mindspore.ops.RandomCategorical](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.RandomCategorical)   |  Supported| Doing   | Doing | random_ops
 | [mindspore.ops.ScalarCast](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScalarCast)                       |    Supported |   Supported  |   Supported | inner_ops
 | [mindspore.ops.ReverseSequence](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReverseSequence)             |    Supported  | Doing  | Doing | array_ops
@@ -359,15 +360,15 @@
 | [mindspore.ops.Xlogy](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Xlogy)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.HistogramFixedWidth](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.HistogramFixedWidth)             |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.Eps](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Eps)                         |  Supported  | Supported  | Doing | math_ops
-| [mindspore.ops.ReLUV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReLUV2)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.ReLUV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReLUV2)       |  Supported | Supported  | Supported | nn_ops
 | [mindspore.ops.BNTrainingReduce](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.BNTrainingReduce)       |  Supported | Doing  | Doing | nn_ops
 | [mindspore.ops.BNTrainingUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.BNTrainingUpdate)       |  Supported | Doing  | Doing | nn_ops
 | [mindspore.ops.AccumulateNV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.AccumulateNV2)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterUpdate)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TensorScatterUpdate)             |    Supported  | Doing  | Doing | array_ops
-| [mindspore.ops.DiagPart](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.DiagPart)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.IFMR](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.IFMR)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.DynamicShape](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.DynamicShape)             |    Supported  | Supported  | Supported | array_ops
+| [mindspore.ops.Unique](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Unique)             |    Doing  | Doing  | Doing | array_ops
 
 ## mindspore.ops.functional
 
