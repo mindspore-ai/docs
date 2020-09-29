@@ -2,7 +2,6 @@
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `中级` `高级`
 
-
 <!-- TOC -->
 
 - [应用自动数据增强](#应用自动数据增强)
@@ -20,22 +19,22 @@
 
 MindSpore算子和AutoAugment中的算子的对应关系如下：
 
-| AutoAugment算子 | MindSpore算子 |描述 |
-|:-------------------:|:------|--------------|
-|shearX|RandomAffine|横向剪切|
-|shearY|RandomAffine|纵向剪切|
-|translateX|RandomAffine|水平平移|
-|translateY|RandomAffine|垂直平移|
-|rotate|RandomRotation|旋转变换|
-|color|RandomColor|颜色变换|
-|posterize|RandomPosterize|减少颜色通道位数|
-|solarize|RandomSolarize|指定的阈值范围内，反转所有的像素点|
-|contrast|RandomColorAdjust|调整对比度|
-|sharpness|RandomSharpness|调整锐度|
-|brightness|RandomColorAdjust|调整亮度|
-|autocontrast|AutoContrast|最大化图像对比度|
-|equalize|Equalize|均衡图像直方图|
-|invert|Invert|反转图像|
+| AutoAugment算子 | MindSpore算子 | 描述 |
+| :------: | :------ | ------ |
+| shearX | RandomAffine | 横向剪切 |
+| shearY | RandomAffine | 纵向剪切 |
+| translateX | RandomAffine | 水平平移 |
+| translateY | RandomAffine | 垂直平移 |
+| rotate | RandomRotation | 旋转变换 |
+| color | RandomColor | 颜色变换 |
+| posterize | RandomPosterize | 减少颜色通道位数 |
+| solarize | RandomSolarize | 指定的阈值范围内，反转所有的像素点 |
+| contrast | RandomColorAdjust | 调整对比度 |
+| sharpness | RandomSharpness | 调整锐度 |
+| brightness | RandomColorAdjust | 调整亮度 |
+| autocontrast | AutoContrast | 最大化图像对比度 |
+| equalize | Equalize | 均衡图像直方图 |
+| invert | Invert | 反转图像 |
 
 ## ImageNet自动数据增强
 
@@ -43,8 +42,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
 针对ImageNet数据集的数据增强策略包含25条子策略，每条子策略中包含两种变换，针对一个batch中的每张图像随机挑选一个子策略的组合，以预定的概率来决定是否执行子策略中的每种变换。
 
-用户可以使用MindSpore中`c_transforms`模块的`RandomSelectSubpolicy`接口来实现AutoAugment，
-在ImageNet分类训练中标准的数据增强方式分以下几个步骤：
+用户可以使用MindSpore中`c_transforms`模块的`RandomSelectSubpolicy`接口来实现AutoAugment，在ImageNet分类训练中标准的数据增强方式分以下几个步骤：
 
 - `RandomCropDecodeResize`：随机裁剪后进行解码。
 
@@ -69,7 +67,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 2. 定义MindSpore算子到AutoAugment算子的映射：
 
     ```python
-    # define AutoAugment operators
+    # define Auto Augmentation operators
     PARAMETER_MAX = 10
 
     def float_parameter(level, maxval):
@@ -131,7 +129,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 3. 定义ImageNet数据集的AutoAugment策略：
 
     ```python
-    # define AutoAugment policy
+    # define the Auto Augmentation policy
     imagenet_policy = [
           [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
           [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
@@ -169,7 +167,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
-      # create a train or eval imagenet2012 dataset for resnet50
+      # create a train or eval imagenet2012 dataset for ResNet-50
       ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
               shuffle=shuffle, num_samples=num_samples)
 
@@ -200,10 +198,9 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
           ds = ds.map(operations=post_trans, input_columns="image")
       type_cast_op = c_transforms.TypeCast(mstype.int32)
       ds = ds.map(operations=type_cast_op, input_columns="label")
-      # apply batch operation
+      # apply the batch operation
       ds = ds.batch(batch_size, drop_remainder=True)
-
-      # apply repeat operation
+      # apply the repeat operation
       ds = ds.repeat(repeat_num)
 
       return ds
@@ -212,7 +209,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 5. 验证自动数据增强效果。
 
     ```python
-    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    # Define the path to image folder directory. This directory needs to contain sub-directories which contain the images
     DATA_DIR = "/path/to/imagefolder_directory"
     ds = create_dataset(dataset_path=DATA_DIR, do_train=True, batch_size=5, shuffle=False, num_samples=5)
 

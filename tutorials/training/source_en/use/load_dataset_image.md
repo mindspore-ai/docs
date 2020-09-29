@@ -6,9 +6,9 @@
 
 - [Loading Image Dataset](#loading-image-dataset)
     - [Overview](#overview)
-    - [Preparation](#preparation)
-    - [Load Dataset](#load-dataset)
-    - [Process Data](#process-data)
+    - [Preparations](#preparations)
+    - [Loading Dataset](#loading-dataset)
+    - [Processing Data](#processing-data)
     - [Augmentation](#augmentation)
     - [References](#references)
 
@@ -18,13 +18,13 @@
 
 ## Overview
 
-In computer vision training tasks, it is often difficult to read the entire dataset directly into memory due to memory capacity. `mindspore.dataset` module provided by MindSpore enables user to customize their data fetching strategy from disk. At the same time, data processing and data augmentation operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
+In computer vision training tasks, it is often difficult to read the entire dataset directly into memory due to memory capacity. The `mindspore.dataset` module provided by MindSpore enables users to customize their data fetching strategy from disk. At the same time, data processing and data augmentation operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
 
-In addition, MindSpore supports data loading in distributed scenarios. User can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
+In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
 
 This tutorial uses the MNIST dataset [1] as an example to demonstrate how to load and process image data using MindSpore.
 
-## Preparation
+## Preparations
 
 1. Download and decompress the training [Image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [Label](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz) of the MNIST dataset to `./MNIST` directory. The directory structure is as follows.
 
@@ -34,17 +34,17 @@ This tutorial uses the MNIST dataset [1] as an example to demonstrate how to loa
         └─train-labels.idx1-ubyte
     ```
 
-2. Import `mindspore.dataset` module.
+2. Import the `mindspore.dataset` module.
 
     ```python
     import mindspore.dataset as ds
     ```
 
-## Load Dataset
+## Loading Dataset
 
-MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. User can also implement custom dataset class to load customized data.
+MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data.
 
-The following shows how to load the MNIST dataset using the `MnistDataset` in the `mindspore.dataset` module.
+The following tutorial shows how to load the MNIST dataset using the `MnistDataset` in the `mindspore.dataset` module.
 
 1. Configure the dataset directory and create the `MnistDataset`.
 
@@ -65,14 +65,15 @@ The following shows how to load the MNIST dataset using the `MnistDataset` in th
     plt.show()
     ```
 
-    Image is shown below.
+    The image is shown below:
 
     ![mnist_5](./images/mnist_5.png)
 
-In addition, user can pass in a sampler to specify the sampling process during dataset loading.
-## Process Data
+In addition, users can pass in a sampler to specify the sampling process during dataset loading.
 
-The following demonstrates how to construct a pipeline and perform operations such as `shuffle`, `batch` and `repeat` on MNIST dataset.
+## Processing Data
+
+The following tutorial demonstrates how to construct a pipeline and perform operations such as `shuffle`, `batch` and `repeat` on the MNIST dataset.
 
 ```python
 for data in mnist_dataset.create_dict_iterator():
@@ -148,13 +149,13 @@ The output is as follows:
     [1 5]
     ```
 
-    Results show the dataset is repeated, and the order of the replica is different from that of the first copy.
+    The results show the dataset is repeated, and the order of the replica is different from that of the first copy.
 
     > Having `repeat` in the pipeline results in the execution of repeated operations defined in the entire pipeline, instead of simply copying the current dataset. So the order of the replica is different from that of the first copy after `shuffle`.
 
 ## Augmentation
 
-The following demonstrates how to use the `c_transforms` module to augment data in the MNIST dataset.
+The following tutorial demonstrates how to use the `c_transforms` module to augment data in the MNIST dataset.
 
 1. Import related modules and load the dataset.
 
@@ -165,7 +166,7 @@ The following demonstrates how to use the `c_transforms` module to augment data 
     mnist_dataset = ds.MnistDataset(DATA_DIR, num_samples=6, shuffle=False)
     ```
 
-2. Define augmentation operators and perform `Resize` and `RandomCrop` operations on images in the dataset.
+2. Define augmentation operators and perform the `Resize` and `RandomCrop` operations on images in the dataset.
 
     ```python
     resize_op = transforms.Resize(size=(200,200), interpolation=Inter.LINEAR)
@@ -174,7 +175,7 @@ The following demonstrates how to use the `c_transforms` module to augment data 
     ds4 = mnist_dataset.map(operations=transforms_list, input_columns="image")
     ```
 
-3. Visualize result of augmentation.
+3. Visualize the result of augmentation.
 
     ```python
     mnist_it = ds4.create_dict_iterator()

@@ -1,6 +1,6 @@
 # MindSpore数据格式转换
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [MindSpore数据格式转换](#mindspore数据格式转换)
     - [概述](#概述)
