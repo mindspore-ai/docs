@@ -109,9 +109,6 @@
     # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
     export GLOG_v=2
 
-    # Set Soc Version, if this environment variable is not set, the program will read the default value from the system.
-    export SOC_VERSION=Ascend910
-
     # Conda environmental options
     LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
