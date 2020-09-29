@@ -1,5 +1,7 @@
 # 实现简单线性函数拟合
 
+作者：[杨奕](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;编辑：[吕明赋](https://gitee.com/lvmingfu)
+
 `Linux` `Windows` `Ascend` `CPU` `GPU` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
