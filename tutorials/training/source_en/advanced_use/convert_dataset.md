@@ -2,13 +2,13 @@
 
  `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord)
 	- [Overview](#overview)
 	- [Basic Concepts](#basic-concepts)
-	- [Convert Dataset to MindRecord](#convert-dataset-to-mindrecord-1)
-	- [Load MindRecord Dataset](#load-mindrecord-dataset)
+	- [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord-1)
+	- [Loading MindRecord Dataset](#loading-mindrecord-dataset)
 
 <!-- /TOC -->
 
@@ -16,15 +16,15 @@
 
 ## Overview
 
-User can convert non-standard datasets and common datasets into the MindSpore data format, MindRecord, so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
+Users can convert non-standard datasets and common datasets into the MindSpore data format, MindRecord, so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
 
 The MindSpore data format has the following features:
 1. Unified storage and access of user data are implemented, simplifying training data loading.
 2. Data is aggregated for storage, which can be efficiently read, managed and moved.
-3. Data encoding and decoding are efficient and transparent to user.
+3. Data encoding and decoding are efficient and transparent to users.
 4. The partition size is flexibly controlled to implement distributed training.
 
-The MindSpore data format aims to normalize datasets of user to MindRecord, which can be further loaded through `MindDataset` and used in the training procedure.
+The MindSpore data format aims to normalize the datasets of users to MindRecord, which can be further loaded through the `MindDataset` and used in the training procedure.
 
 ![data_conversion_concept](./images/data_conversion_concept.png)
 
@@ -34,31 +34,31 @@ A MindRecord file consists of data files and index files. Data files and index f
 
 - Data file
 
-    Contains the file header, scalar data page and block data page for storing normalized training data. It is recommended that the size of a single MindRecord file does not exceed 20 GB. User can break up a large dataset and store the dataset into multiple MindRecord files.
+    A data file contains a file header, scalar data pages and block data pages for storing normalized training data. It is recommended that the size of a single MindRecord file does not exceed 20 GB. Users can break up a large dataset and store the dataset into multiple MindRecord files.
 
 - Index file
 
-    Contains index information generated based on scalar data (such as image labels and image file names), used for convenient data fetching and storing statistical data about the dataset.
+    An index file contains the index information generated based on scalar data (such as image labels and image file names), used for convenient data fetching and storing statistical data about the dataset.
 
 ![mindrecord](./images/mindrecord.png)
 
-Data file consists of the following key parts:
+A data file consists of the following key parts:
 
 - File Header
 
-    File header stores the file header size, scalar data page size, block data page size, schema, index fields, statistics, file partition information, and mapping between scalar data and block data. It is the metadata of the MindRecord file.
+    The file header stores the file header size, scalar data page size, block data page size, schema, index fields, statistics, file partition information, and mapping between scalar data and block data. It is the metadata of the MindRecord file.
 
 - Scalar data page
 
-    Scalar data page is used to store integer, string and floating point data, such as the label of an image, file name of an image, and length, width of an image. Information suitable for scalar data are stored here.
+    The scalar data page is used to store integer, string and floating point data, such as the label of an image, file name of an image, and length, width of an image. The information suitable for storage with scalars is stored here.
 
 - Block data page
 
-    Block data pages are used to store data such as binary strings, NumPy arrays. Additional examples include converted python dictionaries generated from texts and binary image files.
+    The block data page is used to store data such as binary strings and NumPy arrays. Additional examples include converted python dictionaries generated from texts and binary image files.
 
-## Convert Dataset to MindRecord
+## Converting Dataset to MindRecord
 
-The following tutorial demonstrates how to convert image data and its annotations to MindRecord format.
+The following tutorial demonstrates how to convert image data and its annotations to MindRecord.
 
 1. Import the `FileWriter` class for file writing.
 
@@ -104,11 +104,11 @@ The following tutorial demonstrates how to convert image data and its annotation
     writer.commit()
     ```
 
-    This example will generate `test.mindrecord0`, `test.mindrecord0.db`, `test.mindrecord1`, `test.mindrecord1.db`, `test.mindrecord2`, `test.mindrecord2.db`, `test.mindrecord3`, `test.mindrecord3.db`, totally eight files, called MindRecord dataset. `test.mindrecord0` and `test.mindrecord0.db` are called one MindRecord file, in which `test.mindrecord0` is the data file and `test.mindrecord0.db` is the index file.
+    This example will generate `test.mindrecord0`, `test.mindrecord0.db`, `test.mindrecord1`, `test.mindrecord1.db`, `test.mindrecord2`, `test.mindrecord2.db`, `test.mindrecord3`, `test.mindrecord3.db`, totally eight files, called MindRecord datasets. `test.mindrecord0` and `test.mindrecord0.db` are collectively referred to as a MindRecord file, where `test.mindrecord0` is the data file and `test.mindrecord0.db` is the index file.
 
     **Interface Description:**
-    - `write_raw_data`: write data to the memory.
-    - `commit`: write the data in the memory to the disk.
+    - `write_raw_data`: write data to memory.
+    - `commit`: write data in memory to disk.
 
 6. For adding data to the existing data format file, call the `open_for_append` API to open the existing data file, call the `write_raw_data` API to write new data, and then call the `commit` API to generate a local data file.
 
@@ -118,20 +118,20 @@ The following tutorial demonstrates how to convert image data and its annotation
     writer.commit()
     ```
 
-## Load MindRecord Dataset
+## Loading MindRecord Dataset
 
-Tutorials below briefly demonstrate how to load MindRecord dataset using `MindDataset`.
+The following tutorial briefly demonstrates how to load the MindRecord dataset using the `MindDataset`.
 
-1. Import `MindDataset` for dataset loading.
+1. Import the `dataset` for dataset loading.
 
     ```python
     import mindspore.dataset as ds
     ```
 
-2. Use `MindDataset` to load MindRecord dataset.
+2. Use the `MindDataset` to load the MindRecord dataset.
 
     ```python
-    data_set = ds.MindDataset(dataset_file="test.mindrecord0")     # Read full data set
+    data_set = ds.MindDataset(dataset_file="test.mindrecord0")     # read full dataset
     count = 0
     for item in data_set.create_dict_iterator(output_numpy=True):
         print("sample: {}".format(item))

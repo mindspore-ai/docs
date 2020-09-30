@@ -131,7 +131,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 2. 使用`MindDataset`读取MindRecord数据集。
 
     ```python
-    data_set = ds.MindDataset(dataset_file="test.mindrecord0")     # Read full data set
+    data_set = ds.MindDataset(dataset_file="test.mindrecord0")     # read full dataset
     count = 0
     for item in data_set.create_dict_iterator(output_numpy=True):
         print("sample: {}".format(item))
