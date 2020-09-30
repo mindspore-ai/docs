@@ -6,9 +6,9 @@
 
 - [Loading Text Dataset](#loading-text-dataset)
     - [Overview](#overview)
-    - [Preparation](#preparation)
-    - [Load Dataset](#load-dataset)
-    - [Process Data](#process-data)
+    - [Preparations](#preparations)
+    - [Loading Dataset](#loading-dataset)
+    - [Processing Data](#processing-data)
     - [Tokenization](#tokenization)
 
 <!-- /TOC -->
@@ -17,13 +17,13 @@
 
 ## Overview
 
-`mindspore.dataset` module provided by MindSpore enables user to customize their data fetching strategy from disk. At the same time, data processing and tokenization operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
+The `mindspore.dataset` module provided by MindSpore enables users to customize their data fetching strategy from disk. At the same time, data processing and tokenization operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
 
-In addition, MindSpore supports data loading in distributed scenarios. User can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
+In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
 
-Tutorials below briefly demonstrate how to load and process text data using MindSpore.
+This tutorial briefly demonstrates how to load and process text data using MindSpore.
 
-## Preparation
+## Preparations
 
 1. Prepare the following text data.
 
@@ -47,13 +47,13 @@ Tutorials below briefly demonstrate how to load and process text data using Mind
     import mindspore.dataset.text as text
     ```
 
-## Load Dataset
+## Loading Dataset
 
-MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class and load customized data.
+MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data.
 
-The following demonstrates loading datasets using the `TextFileDataset` in `mindspore.dataset` module.
+The following tutorial demonstrates loading datasets using the `TextFileDataset` in the `mindspore.dataset` module.
 
-1. Configure the dataset directory as follow and create a dataset object.
+1. Configure the dataset directory as follows and create a dataset object.
 
     ```python
     DATA_FILE = "./test/tokenizer.txt"
@@ -67,7 +67,7 @@ The following demonstrates loading datasets using the `TextFileDataset` in `mind
         print(text.to_str(data['text']))
     ```
 
-    Output without any tokenization:
+    The output without tokenization:
 
     ```
     Welcome to Beijing!
@@ -75,13 +75,13 @@ The following demonstrates loading datasets using the `TextFileDataset` in `mind
     我喜欢English!
     ```
 
-## Process Data
+## Processing Data
 
-The following demonstrates how to perform data processing after a `dataset` is created, such as `SlidingWindow`, `shuffle` etc.
+The following tutorial demonstrates how to perform data processing such as `SlidingWindow` and `shuffle` after a `dataset` is created.
 
 - **SlidingWindow**
 
-    The following demonstrates how to use `SlidingWindow` to slice text data.
+    The following tutorial demonstrates how to use the `SlidingWindow` to slice text data.
 
     1. Load the text dataset.
 
@@ -90,7 +90,7 @@ The following demonstrates how to perform data processing after a `dataset` is c
         dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=False)
         ```
 
-    2. Print results without any data processing.
+    2. Print the results without any data processing.
 
         ```python
         for data in dataset.create_dict_iterator(output_numpy=True):
@@ -103,13 +103,13 @@ The following demonstrates how to perform data processing after a `dataset` is c
         ['大', '家', '早', '上', '好']
         ```
 
-    3. Perform data processing operation.
+    3. Perform the data processing operation.
 
         ```python
         dataset = dataset.map(operations=text.SlidingWindow(2, 0), input_columns=["text"])
         ```
 
-    4. Print results after data processing.
+    4. Print the results after data processing.
 
         ```python
         for data in dataset.create_dict_iterator(output_numpy=True):
@@ -127,7 +127,7 @@ The following demonstrates how to perform data processing after a `dataset` is c
 
 - **shuffle**
 
-    The following demonstrates how to shuffle text data while loading a dataset.
+    The following tutorial demonstrates how to shuffle text data while loading a dataset.
 
     1. Load and shuffle the text dataset.
 
@@ -136,7 +136,7 @@ The following demonstrates how to perform data processing after a `dataset` is c
         dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=True)
         ```
 
-    2. Print results after performing `shuffle`.
+    2. Print the results after performing `shuffle`.
 
         ```python
         for data in dataset.create_dict_iterator(output_numpy=True):
@@ -154,7 +154,7 @@ The following demonstrates how to perform data processing after a `dataset` is c
 
 ## Tokenization
 
-The following demonstrates how to use the `WhitespaceTokenizer` to tokenize words with space.
+The following tutorial demonstrates how to use the `WhitespaceTokenizer` to tokenize words with space.
 
 1. Create a `tokenizer`.
 
@@ -162,7 +162,7 @@ The following demonstrates how to use the `WhitespaceTokenizer` to tokenize word
     tokenizer = text.WhitespaceTokenizer()
     ```
 
-2. Apply `tokenizer`.
+2. Apply the `tokenizer`.
 
     ```python
     dataset = dataset.map(operations=tokenizer)
@@ -176,7 +176,7 @@ The following demonstrates how to use the `WhitespaceTokenizer` to tokenize word
             print(token)
     ```
 
-    Output after tokenization is as follows:
+    The output after tokenization is as follows:
 
     ```
     ['Welcome', 'to', 'Beijing!']

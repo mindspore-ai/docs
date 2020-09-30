@@ -1,6 +1,6 @@
 # 分词器
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [分词器](#分词器)
     - [概述](#概述)

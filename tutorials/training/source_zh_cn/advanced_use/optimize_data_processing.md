@@ -107,7 +107,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
     ```python
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
-    # create Cifar10Dataset for reading data
+    # create a Cifar10Dataset object for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
@@ -139,10 +139,10 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
     cifar10_mindrecord_path = './transform/cifar10.record'
 
     cifar10_transformer = Cifar10ToMR(cifar10_path, cifar10_mindrecord_path)
-    # executes transformation from Cifar10 to MindRecord
+    # execute transformation from CIFAR-10 to MindRecord
     cifar10_transformer.transform(['label'])
 
-    # create MindDataset for reading data
+    # create a MindDataset object for reading data
     cifar10_mind_dataset = ds.MindDataset(dataset_file=cifar10_mindrecord_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_mind_dataset.create_dict_iterator()))
@@ -163,7 +163,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
         for i in range(num):
             yield (np.array([i]),)
 
-    # create GeneratorDataset for reading data
+    # create a GeneratorDataset object for reading data
     dataset = ds.GeneratorDataset(source=generator_func(5), column_names=["data"], num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(dataset.create_dict_iterator()))
@@ -196,7 +196,7 @@ shuffle性能优化建议如下：
     ```python
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
-    # create Cifar10Dataset for reading data
+    # create a Cifar10Dataset object for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, shuffle=True)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
@@ -290,10 +290,10 @@ shuffle性能优化建议如下：
     import matplotlib.pyplot as plt
     cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
-    # create Cifar10Dataset for reading data
+    # create a Cifar10Dataset object for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     transforms = C.RandomResizedCrop((800,800))
-    # apply the transform to the dataset through dataset.map()
+    # apply the transformation to the dataset through dataset.map()
     cifar10_dataset = cifar10_dataset.map(operations=transforms, input_columns="image", num_parallel_workers=4)
 
     data = next(cifar10_dataset.create_dict_iterator())
@@ -373,7 +373,7 @@ shuffle性能优化建议如下：
         numactl --cpubind=0 python train.py
         ```
 
-        or
+        或
 
         ```shell
         taskset -c 0-15 python train.py

@@ -1,6 +1,6 @@
 # 自动数据增强
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [自动数据增强](#自动数据增强)
     - [概述](#概述)
