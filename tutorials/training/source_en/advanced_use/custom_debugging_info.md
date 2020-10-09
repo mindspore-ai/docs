@@ -275,7 +275,7 @@ The input and output of the operator can be saved for debugging through the data
     {
         "common_dump_settings": {
             "dump_mode": 0,
-            "path": "/tmp/net/",
+            "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": 0,
             "input_output": 0,
@@ -289,15 +289,15 @@ The input and output of the operator can be saved for debugging through the data
     }
     ```
 
-    - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`：The absolute path where dump saves data.
-    - `net_name`：net name eg:ResNet50.
-    - `iteration`：Specify the iterations to dump. All kernels in graph will be dumped.
-    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
-    - `kernels`：full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `ir` file. You can get it from `hwopt_d_end_graph_{graph_id}.ir` when `device_target` is `Ascend` and you can get it from `hwopt_pm_7_getitem_tuple.ir` when `device_target` is `GPU`.
-    - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-    - `enable`：enable synchronous dump.
-    - `trans_flag`：enable trans flag. Transform the device data format into NCHW.
+    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `path`： The absolute path to save dump data.
+    - `net_name`: net name eg:ResNet50.
+    - `iteration`: Specify the iterations to dump. All kernels in graph will be dumped.
+    - `input_output`: 0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
+    - `kernels`: full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `ir` file. You can get it from `hwopt_d_end_graph_{graph_id}.ir` when `device_target` is `Ascend` and you can get it from `hwopt_pm_7_getitem_tuple.ir` when `device_target` is `GPU`.
+    - `support_device`: support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
+    - `enable`: enable synchronous dump.
+    - `trans_flag`: enable trans flag. Transform the device data format into NCHW.
 
 2. Specify the location of the JSON file.
 
@@ -325,7 +325,7 @@ The input and output of the operator can be saved for debugging through the data
     {
         "common_dump_settings": {
             "dump_mode": 0,
-            "path": "/relative_path",
+            "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": 0,
             "input_output": 0,
@@ -339,15 +339,15 @@ The input and output of the operator can be saved for debugging through the data
     }
     ```
 
-    - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_daemon/dump/relative_path`.
-    - `net_name`：net name eg:ResNet50.
-    - `iteration`：Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
-    - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
-    - `kernels`：Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
-    - `support_device`：support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-    - `enable`：enable Asynchronous Dump.
-    - `op_debug_mode`：please set to 0.
+    - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
+    - `path`: The absolute path to save dump data.
+    - `net_name`: net name eg:ResNet50.
+    - `iteration`: Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
+    - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
+    - `kernels`: Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
+    - `support_device`: support devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
+    - `enable`: enable Asynchronous Dump.
+    - `op_debug_mode`: please set to 0.
 
 2. Specify the json configuration file of Dump.
 
@@ -362,7 +362,7 @@ The input and output of the operator can be saved for debugging through the data
 
 4. Parse the Dump file
 
-    Change directory to /var/log/npu/ide_daemon/dump/ after training, execute the following commands to parse Dump data file:
+    Change directory to `/absolute_path` after training, execute the following commands to parse Dump data file:
 
     ```bash
     python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
