@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC -->
 
 - [Auto Augmentation](#auto-augmentation)
     - [Overview](#overview)
@@ -15,34 +15,34 @@
 
 ## Overview
 
-Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. User can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.dataset.vision.html).
+Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. Users can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.dataset.vision.html).
 
 The mapping between MindSpore operators and Auto Augmentation operators is as follows:
 
 | Auto Augmentation Operators | MindSpore Operators | Introduction |
-|:-------------------:|:------|--------------|
-|shearX|RandomAffine|Horizontal Shear|
-|shearY|RandomAffine|Vertical Shear|
-|translateX|RandomAffine|Horizontal Translation|
-|translateY|RandomAffine|Vertival Translation|
-|rotate|RandomRotation|Rotational Transformation|
-|color|RandomColor|Color Transformation|
-|posterize|RandomPosterize|Decrease the number of color channels|
-|solarize|RandomSolarize|Invert all pixels within the specified threshold range|
-|contrast|RandomColorAdjust|Contrast Adjustment|
-|sharpness|RandomSharpness|Sharpness Adjustment|
-|brightness|RandomColorAdjust|Brightness Adjustment|
-|autocontrast|AutoContrast|Maximize image contrast|
-|equalize|Equalize|Equalize image histogram|
-|invert|Invert|Image Inversion|
+| :------: | :------ | ------ |
+| shearX | RandomAffine | Horizontal shear |
+| shearY | RandomAffine | Vertical shear |
+| translateX | RandomAffine | Horizontal translation |
+| translateY | RandomAffine | Vertival translation |
+| rotate | RandomRotation | Rotational transformation |
+| color | RandomColor | Color transformation |
+| posterize | RandomPosterize | Decrease the number of color channels |
+| solarize | RandomSolarize | Invert all pixels within the specified threshold range |
+| contrast | RandomColorAdjust | Contrast adjustment |
+| sharpness | RandomSharpness | Sharpness adjustment |
+| brightness | RandomColorAdjust | Brightness adjustment |
+| autocontrast | AutoContrast | Maximize image contrast |
+| equalize | Equalize | Equalize image histogram |
+| invert | Invert | Image inversion |
 
 ## Auto Augmentation on ImageNet
 
-This tutorial uses the implementation of Auto Augmentation on ImageNet dataset as an example.
+This tutorial uses the implementation of Auto Augmentation on the ImageNet dataset as an example.
 
-The data augmentation policy for ImageNet dataset contains 25 sub-policies, and each sub-policy contains two transforms. A combination of sub-policy is randomly selected for each image in a batch, and each transform in the sub-policy is executed based on a preset probability.
+The data augmentation policy for the ImageNet dataset contains 25 sub-policies, and each sub-policy contains two transformations. A combination of sub-policies is randomly selected for each image in a batch, and each transformation in the sub-policy is executed based on a preset probability.
 
-User can use the `RandomSelectSubpolicy` interface of the `c_transforms` module in MindSpore to implement Auto Augmentation. The standard data augmentation method in ImageNet classification training includes the following steps:
+Users can use the `RandomSelectSubpolicy` interface of the `c_transforms` module in MindSpore to implement Auto Augmentation. The standard data augmentation method in ImageNet classification training includes the following steps:
 
 - `RandomCropDecodeResize`: Randomly crop then decode.
 
@@ -52,9 +52,9 @@ User can use the `RandomSelectSubpolicy` interface of the `c_transforms` module 
 
 - `HWC2CHW`: Change image channel.
 
-Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
+Add Auto Augmentation transformation after the `RandomCropDecodeResize` as follows:
 
-1. Import Mindspore modules.
+1. Import related modules.
 
     ```python
     import mindspore.common.dtype as mstype
@@ -68,7 +68,6 @@ Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
 
     ```python
     # define Auto Augmentation operators
-
     PARAMETER_MAX = 10
 
     def float_parameter(level, maxval):
@@ -127,10 +126,10 @@ Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
         return c_vision.RandomColorAdjust(brightness=(v, v))
     ```
 
-3. Define Auto Augmentation policy for ImageNet dataset.
+3. Define the Auto Augmentation policy for the ImageNet dataset.
 
     ```python
-    # define Auto Augmentation policy
+    # define the Auto Augmentation policy
     imagenet_policy = [
           [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
           [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
@@ -164,11 +163,11 @@ Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
         ]
     ```
 
-4. Add Auto Augmentation transforms after `RandomCropDecodeResize` operation.
+4. Add Auto Augmentation transformations after the `RandomCropDecodeResize` operation.
 
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
-      # create a train or eval imagenet2012 dataset for resnet50
+      # create a train or eval imagenet2012 dataset for ResNet-50
       ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
               shuffle=shuffle, num_samples=num_samples)
 
@@ -199,19 +198,18 @@ Add Auto Augmentation transform after `RandomCropDecodeResize` as follows:
           ds = ds.map(operations=post_trans, input_columns="image")
       type_cast_op = c_transforms.TypeCast(mstype.int32)
       ds = ds.map(operations=type_cast_op, input_columns="label")
-      # apply batch operation
+      # apply the batch operation
       ds = ds.batch(batch_size, drop_remainder=True)
-
-      # apply repeat operation
+      # apply the repeat operation
       ds = ds.repeat(repeat_num)
 
       return ds
     ```
 
-5. Verify effects of Auto Augmentation.
+5. Verify the effects of Auto Augmentation.
 
     ```python
-    # path to imagefolder directory. This directory needs to contain sub-directories which contain the images
+    # Define the path to image folder directory. This directory needs to contain sub-directories which contain the images.
     DATA_DIR = "/path/to/imagefolder_directory"
     ds = create_dataset(dataset_path=DATA_DIR, do_train=True, batch_size=5, shuffle=False, num_samples=5)
 
