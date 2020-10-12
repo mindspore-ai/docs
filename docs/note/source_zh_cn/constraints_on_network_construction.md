@@ -288,4 +288,32 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
             return x + self.y
     ```
     上面所定义的网络里，`construct`里使用了并未定义的类成员`self.y`，此时会将`self.y`作为`None`处理。
-
+   
+4. 当`construct`函数里，使用`if-else`控制流时，`if`和`else`返回的数据类型或者同一变量被更新后的数据类型必须一致，示例如下：
+    ```
+    class NetReturn(Cell):
+        def __init__(self):
+            super(NetReturn, self).__init__()
+    
+        def construct(self, x, y, m, n):
+            if x > y:
+                return m
+            else:
+                return n
+    ```
+    上面所定义的网络`NetReturn`里，`construct`里使用了`if-else`控制流，那么`if`分支返回的`m`和`else`分支返回的`n`数据类型必须一致。
+    
+    ```
+    class NetAssign(Cell):
+        def __init__(self):
+            super(NetAssign, self).__init__()
+    
+        def construct(self, x, y, m, n):
+            out = None
+            if x > y:
+                out = m
+            else:
+                out = n
+            return out
+    ```
+    上面所定义的网络`NetAssign`里，`construct`里使用了`if-else`控制流，那么`if`分支更新后的`out`和`else`分支更新后的`out`的数据类型必须一致。

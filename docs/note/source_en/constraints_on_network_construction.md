@@ -290,3 +290,31 @@ Currently, the following syntax is not supported in network constructors:
              return x + self.y
      ```
      In the network defined above, the undefined class member `self.y` is used in `construct`, and `self.y` will be treated as `None`.
+
+4. When using the control flow of `if-else` in the `construct` function, the data types returned by `if` and `else` or the data types of the same variable after being updated must be the same. Examples are as follows:
+    ```
+    class NetReturn(Cell):
+        def __init__(self):
+            super(NetReturn, self).__init__()
+    
+        def construct(self, x, y, m, n):
+            if x > y:
+                return m
+            else:
+                return n
+    ```
+    In the network `NetReturn` defined above, the `if-else` control flow is used in `construct`, then the data type of `m` returned by the `if` branch and the data type of `n` returned by the `else` branch must be consistent.
+    
+    ```
+    class NetAssign(Cell):
+        def __init__(self):
+            super(NetAssign, self).__init__()
+    
+        def construct(self, x, y, m, n):
+            if x > y:
+                out = m
+            else:
+                out = n
+            return out
+    ```
+    In the network `NetAssign` defined above, the `if-else` control flow is used in the `construct`, then the data types of the `out` after the update of the `if` branch and the update of the `else` branch must be consistent.
