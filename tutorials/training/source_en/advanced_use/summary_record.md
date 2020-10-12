@@ -38,7 +38,7 @@ MindSpore currently supports three ways to record data into summary log file.
 
 The `Callback` mechanism in MindSpore provides a quick and easy way to collect common information, including the calculational graph, loss value, learning rate, parameter weights, etc. It is named 'SummaryCollector'.
 
-When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. `SummaryCollector` detailed usage can reference `API` document `mindspore.train.callback.SummaryCollector`.
+When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document `mindspore.train.callback.SummaryCollector`.
 
 The sample code is as follows:
 ```python
@@ -126,9 +126,9 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
-In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable customized collection of other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
 
-Summary operators currently supported:
+The following summary operators are currently supported:
 - [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
 - [TensorSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
 - [ImageSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
@@ -243,12 +243,12 @@ model.train(epoch=2, train_dataset=train_ds, callbacks=[summary_collector])
 
 ### Method three: Custom callback recording data
 
-MindSpore supports custom callback and support to record data into summary log file
+MindSpore supports customized callback and supports to record data into summary log file
 in custom callback, and display the data by the web page.
 
 The following pseudocode is shown in the CNN network, where developers can use the network output with the original tag and the prediction tag to generate the image of the confusion matrix.
 It is then recorded into the summary log file through the `SummaryRecord` module.
-`SummaryRecord` detailed usage can reference `API` document `mindspore.train.summary.SummaryRecord`.
+The detailed usage of `SummaryRecord` can refer to the `API` document `mindspore.train.summary.SummaryRecord`.
 
 The sample code is as follows:
 
@@ -285,7 +285,7 @@ confusion_martrix = ConfusionMartrixCallback(summary_dir='./summary_dir')
 model.train(cnn_network, callbacks=[confusion_martrix])
 ```
 
-The above three ways, support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
+The above three ways support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
 the `save_graphs` option of `context.set_context` in the training script is set to `True` to record computational graphs of other phases, including the computational graph after operator fusion.
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
@@ -302,7 +302,7 @@ The output directory structure for a training is as follows
     events.out.events.summary.1596869898.hostname_lineage
 ```
 
-Start command:
+Execute command:
 ```Bash
 mindinsight start --summary-base-dir ./summary_dir
 ```
@@ -319,7 +319,7 @@ The output directory structure of multiple training is as follows:
             events.out.events.summary.1596869998.hostname_lineage
 ```
 
-Start command:
+Execute command:
 ```Bash
 mindinsight start --summary-base-dir ./summary
 ```
@@ -339,11 +339,11 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 2. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
 
-    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data fail. 
+    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data failure. 
 
-    If the custom callback use `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
+    If the customized callback uses `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
 
-    Right code:
+    Correct code:
     ```
     ...
     summary_collector = SummaryCollector('./summary_dir')
