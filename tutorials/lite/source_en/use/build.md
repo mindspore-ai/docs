@@ -156,7 +156,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
     │   └── time_profiler # Model network layer time-consuming analysis tool
-    
     ```
   
 - When the compilation option is `-I arm64`:  
@@ -172,7 +171,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
     │   └── time_profiler # Model network layer time-consuming analysis tool
-      
     ```
 
 - When the compilation option is `-I arm32`:  
@@ -186,13 +184,24 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
     │   └── time_profiler # Model network layer time-consuming analysis tool
-      
     ```
 
 > 1. `libmindspore-lite-optimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support dotprod instruction.
 > 2. `libmindspore-lite-fp16.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
 > 3. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
-> 4. Before running the tools in the converter, benchmark or time_profiler directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries. configure converter: `export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}`; configure benchmark and timeprofiler: `export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}`.
+> 4. Before running the tools in the converter, benchmark or time_profiler directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries.
+
+Configure converter:
+
+```bash
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}
+```
+
+Configure benchmark and timeprofiler:
+
+```bash
+export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
+```
 
 #### Description of Imageprocess's Directory Structure
 
