@@ -42,7 +42,7 @@ Buttons from left to right in the upper right corner of the figure are used to d
 - Step-by-step Rollback: Cancel operations step by step after continuously drawing rectangles to select and zooming in the same area.
 - Restore chart: Restore a chart to the original state.
 
-There can set the threshold value to highlight the value or delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold set is less than 1.5, highlighted in red shows what is below the threshold, and it is intuitive to see the expected data value or some unusual value.
+The threshold value can be set to highlight the value. You can also delete the threshold value in the lower right corner of the figure. As shown in the figure, the threshold is set less than 1.5. The loss values that are below the threshold are highlighted in red, and it is clear to check the expected data values or some unusual values.
 
 ![scalar_select.png](./images/scalar_select.png)
 
@@ -52,14 +52,14 @@ Figure 2 shows the scalar visualization function area, which allows you to view 
 
 - Tag selection: Select the required tags to view the corresponding scalar information.
 - Horizontal axis: Select any of Step, Relative Time, and Absolute Time as the horizontal axis of the scalar curve.
-- Smoothness: adjust the smoothness to smooth the scalar curve.
+- Smoothness: Adjust the smoothness to smooth the scalar curve.
 - Scalar synthesis: Synthesize two scalar curves and display them in a chart to facilitate comparison between the two curves or view the synthesized chart.
 
 ![scalar_compound.png](./images/scalar_compound.png)
 
 Figure 3: Scalar synthesis of Accuracy and Loss curves
 
-Figure 3 shows the scalar synthesis of the Accuracy and Loss curves. The function area of scalar synthesis is similar to that of scalar visualization. Different from the scalar visualization function area, the scalar synthesis function allows you to select a maximum of two tags at a time to synthesize and display their curves.
+Figure 3 shows the scalar synthesis of the Accuracy and Loss curves. The function area of scalar synthesis is similar to that of scalar visualization. Differing from the scalar visualization function area, the scalar synthesis function allows you to select the maximum of two tags at a time to synthesize and display their curves.
 
 ## Parameter Distribution Visualization
 
@@ -173,10 +173,10 @@ Figure 13 shows tensors recorded by a user in a form of a histogram. Click the u
 
 1. Currently MindSpore supports recording computational graph after operator fusion for Ascend 910 AI processor only.
 
-2. When using the Summary operator to collect data in training, 'HistogramSummary' operator affects performance, so please use as little as possible.
+2. When using the Summary operator to collect data in training, 'HistogramSummary' operator will affect performance, so please use as few as possible.
 
 3. To limit memory usage, MindInsight limits the number of tags and steps:
-   - There are 300 tags at most in each training dashboard. Total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags can not exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
+   - There are 300 tags at most in each training dashboard. The total number of scalar tags, image tags, computation graph tags, parameter distribution(histogram) tags, tensor tags cannot exceed 300. Specially, there are 10 computation graph tags and 6 tensor tags at most. When tags exceed limit, MindInsight preserves the most recently processed tags.
    - There are 1000 steps at most for each scalar tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
    - There are 10 steps at most for each image tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
    - There are 50 steps at most for each parameter distribution(histogram) tag in each training dashboard. When steps exceed limit, MindInsight will sample steps randomly to meet this limit.
@@ -184,7 +184,7 @@ Figure 13 shows tensors recorded by a user in a form of a histogram. Click the u
 
 4. Since `TensorSummary` will record complete tensor data, the amount of data is usually relatively large. In order to limit memory usage and ensure performance, MindInsight make the following restrictions with the size of tensor and the number of value responsed and displayed on the front end:
    - MindInsight supports loading tensor containing up to 10 million values.
-   - After the tensor is loaded, in the tensor-visible table view, you can view a maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
+   - After the tensor is loaded, in the tensor-visible table view, you can view the maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
 
 5. Since tensor visualizatioin (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
    The storage space occupied by the tensor visualizatioin function can be reduced by the following methods:
