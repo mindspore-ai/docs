@@ -23,7 +23,6 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | converter | Linux | Model Conversion Tool |
 | runtime | Linux、Android | Model Inference Framework |
 | benchmark | Linux、Android | Benchmarking Tool |
-| timeprofiler | Linux、Android | Performance Analysis Tool |
 | imageprocess | Linux、Android | Image Processing Library |
 
 ## Linux Environment Compilation
@@ -32,7 +31,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
-- Compilation dependencies of runtime、benchmark and timeprofiler:
+- Compilation dependencies of runtime、benchmark:
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
@@ -136,8 +135,6 @@ The conversion tool is only available under the `-I x86_64` compilation option, 
 │   └── converter # Model conversion Ttool
 │   └── lib # The dynamic link library that converter depends
 │   └── third_party # Header files and libraries of third party libraries
-│       ├── protobuf # Dynamic library of Protobuf
-│       ├── flatbuffers # Dynamic library of Flatbuffers
 │       ├── glog # Dynamic library of Glog
 ```
 
@@ -155,7 +152,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
-    │   └── time_profiler # Model network layer time-consuming analysis tool
     ```
   
 - When the compilation option is `-I arm64`:  
@@ -170,7 +166,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
-    │   └── time_profiler # Model network layer time-consuming analysis tool
     ```
 
 - When the compilation option is `-I arm32`:  
@@ -183,21 +178,20 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
-    │   └── time_profiler # Model network layer time-consuming analysis tool
     ```
 
 > 1. `libmindspore-lite-optimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support dotprod instruction.
 > 2. `libmindspore-lite-fp16.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
 > 3. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
-> 4. Before running the tools in the converter, benchmark or time_profiler directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries.
+> 4. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
-Configure benchmark and timeprofiler:
+Configure benchmark:
 
 ```bash
 export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
@@ -219,5 +213,4 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │       ├── libminddata-lite.so # Image processing dynamic library
 │   └── third_party # Third-party Iibrary header files and libraries
 │       ├── flatbuffers # Header files of FlatBuffers
-│   └── time_profiler # Model network layer time-consuming analysis tool
 ```

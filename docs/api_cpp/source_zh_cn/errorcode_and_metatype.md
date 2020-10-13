@@ -14,19 +14,18 @@
 | RET_SUCCESS_EXIT | -5 | 无错误退出。 |
 | RET_MEMORY_FAILED | -6 | 创建内存失败。 |
 | RET_NOT_SUPPORT | -7 | 尚未支持。 |
-| RET_OUT_OF_TENSOR_RANGE | -101 | 输出检查越界。 |
-| RET_INPUT_TENSOR_ERROR | -102 | 输入检查越界。 |
-| RET_REENTRANT_ERROR | -103 | 存在运行中的执行器。 |
-| RET_GRAPH_FILE_ERR | -201 | 图文件识别失败。 |
-| RET_NOT_FIND_OP | -301 | 无法找到算子。 |
-| RET_INVALID_OP_NAME | -302 | 无效算子名。 |
-| RET_INVALID_OP_ATTR | -303 | 无效算子属性。 |
-| RET_OP_EXECUTE_FAILURE | -304 | 算子执行失败。 |
-| RET_FORMAT_ERR | -401 | 张量格式检查失败。 |
-| RET_INFER_ERR | -501 | 维度推理失败。 |
-| RET_INFER_INVALID | -502 | 无效的维度推理。 |
-| RET_INPUT_PARAM_INVALID | -601 | 无效的用户输入参数。 |
-| RET_INPUT_PARAM_LACK | -602 | 缺少必要的输入参数。 |
+| RET_OUT_OF_TENSOR_RANGE | -100 | 输出检查越界。 |
+| RET_INPUT_TENSOR_ERROR | -101 | 输入检查越界。 |
+| RET_REENTRANT_ERROR | -102 | 存在运行中的执行器。 |
+| RET_GRAPH_FILE_ERR | -200 | 图文件识别失败。 |
+| RET_NOT_FIND_OP | -300 | 无法找到算子。 |
+| RET_INVALID_OP_NAME | -301 | 无效算子名。 |
+| RET_INVALID_OP_ATTR | -302 | 无效算子属性。 |
+| RET_OP_EXECUTE_FAILURE | -303 | 算子执行失败。 |
+| RET_FORMAT_ERR | -400 | 张量格式检查失败。 |
+| RET_INFER_ERR | -500 | 维度推理失败。 |
+| RET_INFER_INVALID | -501 | 无效的维度推理。 |
+| RET_INPUT_PARAM_INVALID | -600 | 无效的用户输入参数。 |
 
 ## MetaType
 

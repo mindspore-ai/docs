@@ -5,4 +5,3 @@ Evaluating MindSpore Lite Model (optional)
   :maxdepth: 1
 
   benchmark_tool
-  timeprofiler_tool

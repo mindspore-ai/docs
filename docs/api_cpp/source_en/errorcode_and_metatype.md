@@ -6,27 +6,26 @@ Description of error code and meta type supported in MindSpore Lite.
 
 | Definition  | Value | Description |
 | ---  | --- | --- |
-| RET_OK | 0 | No error occurs. | 
-| RET_ERROR | -1 | Common error code. | 
+| RET_OK | 0 | No error occurs. |
+| RET_ERROR | -1 | Common error code. |
 | RET_NULL_PTR | -2 | NULL pointer returned. |
 | RET_PARAM_INVALID | -3 | Invalid parameter. |
-| RET_NO_CHANGE | -4 | No change. | 
-| RET_SUCCESS_EXIT | -5 | No error but exit. | 
-| RET_MEMORY_FAILED | -6 | Fail to create memory. | 
+| RET_NO_CHANGE | -4 | No change. |
+| RET_SUCCESS_EXIT | -5 | No error but exit. |
+| RET_MEMORY_FAILED | -6 | Fail to create memory. |
 | RET_NOT_SUPPORT | -7 | Fail to support. |
-| RET_OUT_OF_TENSOR_RANGE | -101 | Failed to check range. | 
-| RET_INPUT_TENSOR_ERROR | -102 | Failed to check input tensor. | 
-| RET_REENTRANT_ERROR | -103 | Exist executor running. | 
-| RET_GRAPH_FILE_ERR | -201 | Failed to verify graph file. | 
-| RET_NOT_FIND_OP | -301 | Failed to find operator. | 
-| RET_INVALID_OP_NAME | -302 | Invalid operator name. | 
-| RET_INVALID_OP_ATTR | -303 | Invalid operator attr. | 
-| RET_OP_EXECUTE_FAILURE | -304 | Failed to execute the operator. | 
-| RET_FORMAT_ERR | -401 | Failed to check the tensor format. | 
-| RET_INFER_ERR | -501 | Failed to infer shape. | 
-| RET_INFER_INVALID | -502 | Invalid infer shape before runtime. | 
-| RET_INPUT_PARAM_INVALID | -601 | Invalid input param by user. |
-| RET_INPUT_PARAM_LACK | -602 | Lack input param by user. |
+| RET_OUT_OF_TENSOR_RANGE | -100 | Failed to check range. |
+| RET_INPUT_TENSOR_ERROR | -101 | Failed to check input tensor. |
+| RET_REENTRANT_ERROR | -102 | Exist executor running. |
+| RET_GRAPH_FILE_ERR | -200 | Failed to verify graph file. |
+| RET_NOT_FIND_OP | -300 | Failed to find operator. |
+| RET_INVALID_OP_NAME | -301 | Invalid operator name. |
+| RET_INVALID_OP_ATTR | -302 | Invalid operator attr. |
+| RET_OP_EXECUTE_FAILURE | -303 | Failed to execute the operator. |
+| RET_FORMAT_ERR | -400 | Failed to check the tensor format. |
+| RET_INFER_ERR | -500 | Failed to infer shape. |
+| RET_INFER_INVALID | -501 | Invalid infer shape before runtime. |
+| RET_INPUT_PARAM_INVALID | -600 | Invalid input param by user. |
 
 ## MetaType
 An **enum** type.
