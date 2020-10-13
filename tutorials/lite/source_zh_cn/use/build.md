@@ -23,7 +23,6 @@
 | converter | Linux | 模型转换工具 |
 | runtime | Linux、Android | 模型推理框架 |
 | benchmark | Linux、Android | 基准测试工具 |
-| timeprofiler | Linux、Android | 性能分析工具 |
 | imageprocess | Linux、Android | 图像处理库 |
 
 ## Linux环境编译
@@ -32,7 +31,7 @@
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
 
-- runtime、benchmark、timeprofiler编译依赖
+- runtime、benchmark编译依赖
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
   - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
@@ -110,7 +109,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为三部分：
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark和性能分析工具timeprofiler。
+- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark。
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
@@ -137,8 +136,6 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 │   └── converter # 模型转换工具
 │   └── lib # 转换工具依赖的动态库
 │   └── third_party # 第三方库头文件和库
-│       ├── protobuf # Protobuf的动态库
-|       ├── flatbuffers # Flatbuffers的动态库
 |       ├── glog # Glog的动态库
 ```
 
@@ -156,7 +153,6 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
     ```
 
 - 当编译选项为`-I arm64`时：
@@ -171,7 +167,6 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
     ```
 
 - 当编译选项为`-I arm32`时：
@@ -184,21 +179,20 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
     │   └── include # 推理框架头文件  
-    │   └── time_profiler # 模型网络层耗时分析工具
     ```
 
 > 1. `libmindspore-lite-optimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持dotprod指令的CPU上使用的性能优化库。
 > 2. `libmindspore-lite-fp16.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持fp16的CPU上使用的性能优化库。
 > 3. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 4. 运行converter、benchmark或time_profiler目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。
+> 4. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。
 
 配置converter：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/protobuf/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/flatbuffers/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
-配置benchmark和timeprofiler：
+配置benchmark：
 
 ```bash
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
@@ -220,5 +214,4 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │       ├── libminddata-lite.so # 图像处理动态库
 │   └── third_party # 第三方库头文件和库
 │       ├── flatbuffers # Flatbuffers的动态库
-│   └── time_profiler # 模型网络层耗时分析工具
 ```

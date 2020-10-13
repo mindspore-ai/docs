@@ -47,7 +47,7 @@
                     <span style="color:#1a1c33;">Step 3: Evaluating MindSpore Lite Model (optional)</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model, you can use the TimeProfiler tool to analyze the time consumption of forward inference at the network layer of a MindSpore Lite model.
+                After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model.
                 </div>
             </div>
         </a>

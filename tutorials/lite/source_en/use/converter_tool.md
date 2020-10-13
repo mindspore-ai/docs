@@ -105,10 +105,12 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization | - |
-|`--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) |  Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
-|`--stdDev=<STDDEV>`| No(supported by aware quant models only) | Sets the standard deviation of the input data. | （0，+∞） | 128 |
-|`--mean=<MEAN>`| No(supported by aware quant models only) | Sets the mean value of the input data. | [-128, 127] | -0.5 |
+| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization <br>WeightQuant: only do weight quantization after training | - |
+| `--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) |  Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
+| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant,now only support 8 bits. | 8 | 8 |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant.If size is bigger than this value,it will trigger weight quantization | (0, +∞) | 0 |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel num threshold of convolution filter when quantType is set as WeightQuant.If num is bigger than this,it will trigger weight quantization | (0, +∞) | 16 |
+| `--configFile=<CONFIGFILE>` | No | Profile path of calibration dataset when quantType is set as PostTraining. | - | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter

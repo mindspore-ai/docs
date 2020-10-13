@@ -47,7 +47,7 @@
                     <span style="color:#1a1c33;">步骤3：评估MindSpore Lite模型（可选）</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                转换模型后执行推理前，你可以使用Benchmark工具对MindSpore Lite模型进行基准测试，也可以使用TimeProfiler工具对MindSpore Lite模型网络层的前向推理进行耗时分析。
+                转换模型后执行推理前，你可以使用Benchmark工具对MindSpore Lite模型进行基准测试。
                 </div>
             </div>
         </a>

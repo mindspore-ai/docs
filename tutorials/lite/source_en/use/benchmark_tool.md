@@ -32,10 +32,10 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 
 ### Performance Test
 
-The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `calibDataPath`. For example:
+The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But, you can set the parameter `timeProfiling` as true or false to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is false. For example:
 
 ```bash
-./benchmark --modelPath=./models/test_benchmark.ms
+./benchmark --modelFile=./models/test_benchmark.ms
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
@@ -44,12 +44,56 @@ This command uses a random input, and other parameters use default values. After
 Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
+```bash
+./benchmark --modelFile=./models/test_benchmark.ms --timeProfiling=true
+```
+
+This command uses a random input, sets the parameter `timeProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
+
+```
+-----------------------------------------------------------------------------------------
+opName                                                          avg(ms)         percent         calledTimess    opTotalTime
+conv2d_1/convolution                                            2.264800        0.824012        10              22.648003
+conv2d_2/convolution                                            0.223700        0.081390        10              2.237000
+dense_1/BiasAdd                                                 0.007500        0.002729        10              0.075000
+dense_1/MatMul                                                  0.126000        0.045843        10              1.260000
+dense_1/Relu                                                    0.006900        0.002510        10              0.069000
+max_pooling2d_1/MaxPool                                         0.035100        0.012771        10              0.351000
+max_pooling2d_2/MaxPool                                         0.014300        0.005203        10              0.143000
+max_pooling2d_2/MaxPool_nchw2nhwc_reshape_1/Reshape_0           0.006500        0.002365        10              0.065000
+max_pooling2d_2/MaxPool_nchw2nhwc_reshape_1/Shape_0             0.010900        0.003966        10              0.109000
+output/BiasAdd                                                  0.005300        0.001928        10              0.053000
+output/MatMul                                                   0.011400        0.004148        10              0.114000
+output/Softmax                                                  0.013300        0.004839        10              0.133000
+reshape_1/Reshape                                               0.000900        0.000327        10              0.009000
+reshape_1/Reshape/shape                                         0.009900        0.003602        10              0.099000
+reshape_1/Shape                                                 0.002300        0.000837        10              0.023000
+reshape_1/strided_slice                                         0.009700        0.003529        10              0.097000
+-----------------------------------------------------------------------------------------
+opType          avg(ms)         percent         calledTimess    opTotalTime
+Activation      0.006900        0.002510        10              0.069000
+BiasAdd         0.012800        0.004657        20              0.128000
+Conv2D          2.488500        0.905401        20              24.885004
+MatMul          0.137400        0.049991        20              1.374000
+Nchw2Nhwc       0.017400        0.006331        20              0.174000
+Pooling         0.049400        0.017973        20              0.494000
+Reshape         0.000900        0.000327        10              0.009000
+Shape           0.002300        0.000837        10              0.023000
+SoftMax         0.013300        0.004839        10              0.133000
+Stack           0.009900        0.003602        10              0.099000
+StridedSlice    0.009700        0.003529        10              0.097000
+
+total time :     2.90800 ms,    kernel cost : 2.74851 ms
+
+-----------------------------------------------------------------------------------------
+```
+
 ### Accuracy Test
 
-The accuracy test performed by the Benchmark tool is to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelPath` parameter, the `calibDataPath` parameter must be set. For example:
+The accuracy test performed by the Benchmark tool is to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
-./benchmark --modelPath=./models/test_benchmark.ms --inDataPath=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --calibDataPath=./output/test_benchmark.out
+./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
@@ -69,28 +113,28 @@ Mean bias of all nodes: 0%
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
 
 ```bash
-./benchmark [--modelPath=<MODELPATH>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
-			[--calibDataPath=<CALIBDATAPATH>] [--calibDataType=<CALIBDATATYPE>]
+./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+			[--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
 			[--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
-			[--inDataPath=<INDATAPATH>] [--loopCount=<LOOPCOUNT>]
+			[--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
 			[--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
-			[--fp16Priority=<FP16PRIORITY>]
+			[--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
 ```
 
 The following describes the parameters in detail.
 
 | Parameter            | Attribute | Function                                                     | Parameter Type                                                 | Default Value | Value Range |
 | ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
-| `--modelPath=<MODELPATH>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
+| `--modelFile=<MODELFILE>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
-| `--calibDataPath=<CALIBDATAPATH>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
-| `--calibDataType=<CALIBDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | UINT8, FLOAT or INT8 |
+| `--benchmarkDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
+| `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | UINT8, FLOAT or INT8 |
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 1      | −1: medium core<br/>1: large core<br/>0: not bound |
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
-| `--inDataPath=<INDATAPATH>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
+| `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
 | `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value is a positive integer. | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | Optional | Specifies the number of threads for running the model inference program. | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
-| `--fp16Priority=<FP16PIORITY>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
-| `--runTimeProfiler=<RUNTIMEPROFILER>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
+| `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
+| `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
