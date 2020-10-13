@@ -73,7 +73,7 @@ The following are the Debugger UI components.
 
 ![debugger_init_page](./images/debugger_init_page.png)
 
-Figure 1： The initial UI of debugger
+Figure 1: The initial UI of debugger
 
 ### Computational Graph
 
@@ -98,7 +98,7 @@ The search bar on the top can be used to search for nodes in the graph by node n
 
 ![debugger_tensor_info](./images/debugger_tensor_info.png)
 
-Figure 2： The Graph Node Details
+Figure 2: The Graph Node Details
 
 When choosing one node on the graph, the details of this node will be displayed at the bottom.
 The `Tensor Value Overview` area will show the input nodes and the outputs of this node. The `Type`, `Shape` and `Value` of the `Tensor` can also be viewed.
@@ -109,7 +109,7 @@ After left-click `Continue to`, the training script will be executed and paused 
 
 ![debugger_tensor_value](./images/debugger_tensor_value.png)
 
-Figure 3： `Tensor` Value Visualization
+Figure 3: `Tensor` Value Visualization
 
 Some outputs of the node contain too many dimensions. 
 For these `Tensors`, users can click the `View` link and visualize the `Tensor` in the new panel, which is shown in Figure 3.
@@ -125,7 +125,7 @@ Click the `Compare with Previous Step` button to enter the comparison interface,
 
 ![debugger_set_watch_point](./images/debugger_set_watch_point.png)
 
-Figure 5： Set Conditional Breakpoint (Watch Point)
+Figure 5: Set Conditional Breakpoint (Watch Point)
 
 In order to monitor the training and find out the bugs, users can set conditional breakpoints (called `Watch Point List` on UI) to analyze the outputs of the 
 specified nodes automatically. Figure 5 displays how to set a `Watch Point`:
@@ -138,7 +138,7 @@ the triggered `Watch Point List` on the Debugger UI.
 
 ![debugger_watch_point_hit](./images/debugger_watch_point_hit.png)
 
-Figure 6： The Triggered `Watch Point List`
+Figure 6: The Triggered `Watch Point List`
 
 Figure 6 displays the triggered `Watch Point List`, the displayed area is the same as the `Node List`.
 The triggered nodes and corresponding conditions are displayed in the execution order. Click one line in the list, the node will be shown in the computational graph automatically.
@@ -161,7 +161,7 @@ The training will be paused until the `Watch Point List` is triggered, or the nu
 
     ![debugger_waiting](./images/debugger_waiting.png)
     
-    Figure 7： Debugger Start and Waiting for the Training
+    Figure 7: Debugger Start and Waiting for the Training
     
     The Debugger server is launched and waiting for the training to connect.
 

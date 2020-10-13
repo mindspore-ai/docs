@@ -6,4 +6,4 @@
 <source id="mp48" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/910en.mp4" type="video/mp4">
 </video>
 
-**立即安装**：<https://www.mindspore.cn/install/en>
+**Install now**: <https://www.mindspore.cn/install/en>

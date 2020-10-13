@@ -6,7 +6,6 @@
 
 - [在ResNet-50网络上应用二阶优化实践](#在resnet-50网络上应用二阶优化实践)
     - [概述](#概述)
-        - [示例代码目录结构](#示例代码目录结构)
     - [准备环节](#准备环节)
         - [准备数据集](#准备数据集)
         - [配置分布式环境变量](#配置分布式环境变量)
@@ -328,7 +327,7 @@ sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 脚本需要传入变量`RANK_TABLE_FILE`、`DATASET_PATH`和`DEVICE_NUM`，其中：
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DATASET_PATH`：训练数据集路径。
-- `DEVICE_NUM`: 实际的运行卡数。
+- `DEVICE_NUM`：实际的运行卡数。
 其余环境变量请参考安装教程中的配置项。
 
 训练过程中loss打印示例如下：
@@ -368,7 +367,7 @@ sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
 ```
 脚本需要传入变量`DATASET_PATH`和`DEVICE_NUM`，其中：
 - `DATASET_PATH`：训练数据集路径。
-- `DEVICE_NUM`: 实际的运行卡数。
+- `DEVICE_NUM`：实际的运行卡数。
 
 在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init()`来使能NCCL。
 
@@ -452,7 +451,7 @@ sh run_eval.sh [DATASET_PATH] [CHECKPOINT_PATH]
 ```
 脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
 - `DATASET_PATH`：推理数据集路径。
-- `CHECKPOINT_PATH`: 保存的checkpoint路径。
+- `CHECKPOINT_PATH`：保存的checkpoint路径。
 
 目前推理使用的是单卡（默认device 0）进行推理，推理的结果如下：
 ```
@@ -468,7 +467,7 @@ sh run_eval_gpu.sh [DATASET_PATH] [CHECKPOINT_PATH]
 ```
 脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
 - `DATASET_PATH`：推理数据集路径。
-- `CHECKPOINT_PATH`: 保存的checkpoint路径。
+- `CHECKPOINT_PATH`：保存的checkpoint路径。
 
 推理的结果如下：
 ```

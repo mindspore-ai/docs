@@ -32,7 +32,7 @@ MindSpore调试器是为图模式训练提供的调试工具，可以用来查�
 
 ## 操作流程
 
-- 以调试模式启动MindInsight，配置相关环境变量;
+- 以调试模式启动MindInsight，配置相关环境变量；
 - 训练开始，在MindInsight调试器界面设置条件断点；
 - 在MindInsight调试器界面分析训练执行情况。
 
@@ -55,8 +55,8 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
-然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`，将训练指定为调试模式，并设置训练要连接的调试服务和端口: 
-`export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致);
+然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
+`export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
 `export MS_DEBUGGER_PORT=50051`(该端口需与MindInsight debugger-port一致)。
 
 如果用户设备的内存空间有限，可在运行训练前开启内存复用模式，以降低运行内存占用：`export MS_DEBUGGER_PARTIAL_MEM=1`。

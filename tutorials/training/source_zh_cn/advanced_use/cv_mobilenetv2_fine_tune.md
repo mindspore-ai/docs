@@ -201,8 +201,8 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
  9:      net = mobilenet_v2(backbone_net, head_net)
 10:      return backbone_net, head_net, net
 11:  ...
-12：  if args_opt.pretrain_ckpt and args_opt.freeze_layer == "backbone":
-13：     load_ckpt(backbone_net, args_opt.pretrain_ckpt, trainable=False)
+12:  if args_opt.pretrain_ckpt and args_opt.freeze_layer == "backbone":
+13:     load_ckpt(backbone_net, args_opt.pretrain_ckpt, trainable=False)
 14:  ...
 15:  def load_ckpt(network, pretrain_ckpt_path, trainable=True):
 16:      """

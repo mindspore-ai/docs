@@ -111,4 +111,4 @@
 | Where                 |          | Supported        |          |           |          |          |  Where      |               |                    |
 | ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |             
 
-* Clip: 仅支持将clip(0, 6)转换为Relu6.
+* Clip：仅支持将clip(0, 6)转换为Relu6。

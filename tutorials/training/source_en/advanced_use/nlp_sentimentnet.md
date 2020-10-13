@@ -88,13 +88,13 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
-> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
-> - `src/config.py`：some configurations of the network, including the batch size and number of training epochs.
-> - `src/dataset.py`：dataset related definition, including converted MindRecord file and preprocessed data.
-> - `src/imdb.py`： the utility class for parsing IMDb dataset.
-> - `src/lstm.py`： the definition of semantic net.
-> - `train.py`： the training script.
-> - `eval.py`： the evaluation script.
+> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
+> - `src/config.py`: some configurations of the network, including the batch size and number of training epochs.
+> - `src/dataset.py`: dataset related definition, including converted MindRecord file and preprocessed data.
+> - `src/imdb.py`: the utility class for parsing IMDb dataset.
+> - `src/lstm.py`: the definition of semantic net.
+> - `train.py`: the training script.
+> - `eval.py`: the evaluation script.
 
 ## Implementation
 ### Importing Library Files

@@ -42,9 +42,9 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <br/>
 
-Q：What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?
+Q: What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?
 
-A：It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.
+A: It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.
 
 <br/>
 
@@ -81,7 +81,7 @@ A: The third party libraries will be installed in build/mindspore/.mslib, you ca
 
 Q: What should I do if the software version required by MindSpore is not the same with the Ubuntu default software version?
 
-A: At the moment some software might need manual upgrade. (**Note**：MindSpore requires Python3.7.5 and gcc7.3，the default version in Ubuntu 16.04 are Python3.5 and gcc5，whereas the one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
+A: At the moment some software might need manual upgrade. (**Note**: MindSpore requires Python3.7.5 and gcc7.3，the default version in Ubuntu 16.04 are Python3.5 and gcc5，whereas the one in Ubuntu 18.04 are Python3.7.3 and gcc7.4)
 
 <br/>
 
@@ -91,9 +91,9 @@ A: Please install the software manually if there is any suggestion of certain `s
 
 ### Environment Variables
 
-Q：Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?
+Q: Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?
 
-A：You can write the frequently-used environment settings to `~/.bash_profile` or `~/.bashrc` so that the settings can take effect immediately when you start a new terminal window.
+A: You can write the frequently-used environment settings to `~/.bash_profile` or `~/.bashrc` so that the settings can take effect immediately when you start a new terminal window.
 
 ### Verifying the Installation
 
@@ -238,7 +238,7 @@ A: MindSpore supports Python native expression via `import mindspore`。
 
 Q: Does MindSpore plan to support more programming languages other than Python?
 
-A：MindSpore currently supports Python extensions，bindings for languages like C++、Rust、Julia are on the way.
+A: MindSpore currently supports Python extensions，bindings for languages like C++、Rust、Julia are on the way.
 
 ## Supported Features
 

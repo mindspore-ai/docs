@@ -38,7 +38,7 @@ Before using Profiler, make sure the process of ada in background running right.
 
 To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script. At first, the MindSpore `Profiler` object need to be set after set context and before the network and HCCL initialization. Then, at the end of the training, `Profiler.analyse()` should be called to finish profiling and generate the perforamnce analyse results.
 
-> The parameters of Profiler are as follows：
+> The parameters of Profiler are as follows:
 >
 > <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.profiler.html>
 
@@ -84,7 +84,7 @@ Users can access the Performance Profiler by selecting a specific training from 
 
 ![performance_overall.png](./images/performance_overall.png)
 
-Figure 1：Overall Performance
+Figure 1: Overall Performance
 
 Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline. The data shown in these components include:  
 - Step Trace: It will divide the training step into several stages and collect execution time for each stage. The overall performance page will show the step trace graph.
@@ -101,7 +101,7 @@ Step Gap (The time between the end of one step and the computation of next step)
 
 ![step_trace.png](./images/step_trace.png)
 
-Figure 2：Step Trace Analysis
+Figure 2: Step Trace Analysis
 
 Figure 2 displays the Step Trace page. The Step Trace detail will show the start/finish time for each stage. By default, it shows the average time for all the steps. Users can also choose a specific step to see its step trace statistics. The graphs at the bottom of the page show how the execution time of Step Gap, Forward/Backward Propagation and Step Tail (The time between the end of Backward Propagation and the end of Parameter Update) changes according to different steps, it will help to decide whether we can optimize the performance of some stages. 
 
@@ -139,7 +139,7 @@ the data process pipeline, data transfer from host to device and data fetch on d
 
 ![minddata_profile.png](./images/minddata_profile.png)
 
-Figure 5：MindData Performance Analysis
+Figure 5: MindData Performance Analysis
 
 Figure 5 displays the page of MindData performance analysis component. It consists of two tabs: The step gap and the data process.
 
@@ -151,7 +151,7 @@ the queue; If the data queue size is above 0, the training can get data very qui
 
 ![data_op_profile.png](./images/data_op_profile.png)
 
-Figure 6：Data Process Pipeline Analysis
+Figure 6: Data Process Pipeline Analysis
 
 Figure 6 displays the page of data process pipeline analysis. The data queues are used to exchange data between the MindData operators. The data size of the queues reflect the data consume speed of the operators, and can be used to infer the bottleneck operator. The queue usage percentage stands for the average value of data size in queue divide data queue maximum size, the higher the usage percentage, the more data that is accumulated in the queue. The graph at the bottom of the page shows the MindData pipeline operators with the data queues, the user can click one queue to see how the data size changes according to the time, and the operators connected to the queue. The data process pipeline can be analysed as follows:  
 - When the input queue usage percentage of one operator is high, and the output queue usage percentage is low, the operator may be the bottleneck.
@@ -166,7 +166,7 @@ To optimize the perforamnce of MindData operators, there are some suggestions:
 
 #### Timeline Analysis
 
-The Timeline component can display：  
+The Timeline component can display: 
 - The operators (AICore/AICPU operators) are executed on which device.
 - The MindSpore stream split strategy for this neural network.
 - The time of tasks executed on the device.

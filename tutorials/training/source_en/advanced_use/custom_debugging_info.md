@@ -250,7 +250,7 @@ y = Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```
-The output is as follows：
+The output is as follows:
 ```
 print Tensor x and Tensor y:
 Tensor shape:[[const vector][2, 1]]Int32
@@ -290,7 +290,7 @@ The input and output of the operator can be saved for debugging through the data
     ```
 
     - `dump_mode`: 0: dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`： The absolute path to save dump data.
+    - `path`: The absolute path to save dump data.
     - `net_name`: The net name, e.g. ResNet50.
     - `iteration`: Specify the iterations to dump. All kernels in graph will be dumped.
     - `input_output`: 0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
