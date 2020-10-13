@@ -108,9 +108,9 @@ Then, run the following commands in the root directory of the source code to com
 ### Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
-- `mindspore-lite-{version}-converter-{os}.tar.gz`：Contains model conversion tool.
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：Contains model inference framework、benchmarking tool and performance analysis tool.
-- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：Contains image processing library ImageProcess.
+- `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework、benchmarking tool and performance analysis tool.
+- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
 
 > version: version of the output, consistent with that of the MindSpore.
 >

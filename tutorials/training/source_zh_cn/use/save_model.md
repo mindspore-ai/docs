@@ -77,10 +77,10 @@ resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参�
 
 ### CheckPoint配置策略
 
-MindSpore提供了两种保存CheckPoint策略: 迭代策略和时间策略，可以通过创建`CheckpointConfig`对象设置相应策略。
+MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，可以通过创建`CheckpointConfig`对象设置相应策略。
 `CheckpointConfig`中共有四个参数可以设置：
 
-- save_checkpoint_steps: 表示每隔多少个step保存一个CheckPoint文件，默认值为1。
+- save_checkpoint_steps：表示每隔多少个step保存一个CheckPoint文件，默认值为1。
 - save_checkpoint_seconds：表示每隔多少秒保存一个CheckPoint文件，默认值为0。
 - keep_checkpoint_max：表示最多保存多少个CheckPoint文件，默认值为5。
 - keep_checkpoint_per_n_minutes：表示每隔多少分钟保留一个CheckPoint文件，默认值为0。

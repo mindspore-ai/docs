@@ -35,7 +35,7 @@ Performance data like operators' execution time is recorded in files and can be 
 
 To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.Only the output_path in parameters is worked in GPU now. Then, at the end of the training, `Profiler.analyse` should be called to finish profiling and generate the perforamnce analyse results.
 
-> The sample code is the same as that in Ascend chip：
+> The sample code is the same as that in Ascend chip:
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
 
@@ -80,7 +80,7 @@ Users can access the Performance Profiler by selecting a specific training from 
 
 ![performance_overall.png](./images/performance_overall.png)
 
-Figure 1：Overall Performance
+Figure 1: Overall Performance
 
 Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline:  
 - Operator Performance: It will collect the average execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.

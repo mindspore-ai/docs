@@ -4,9 +4,10 @@
 
 <!-- TOC -->
 
-- [性能调试（Ascend）](#性能调试-Ascend)
+- [性能调试（Ascend）](#性能调试ascend)
     - [概述](#概述)
     - [操作流程](#操作流程)
+    - [环境准备](#环境准备)
     - [准备训练脚本](#准备训练脚本)
     - [启动MindInsight](#启动mindinsight)
         - [性能分析](#性能分析)
@@ -182,8 +183,8 @@ Timeline组件可以展示：
 图7：Timeline分析
 
 Timeline主要包含如下几个部分：  
-- Device及其stream list: 包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
-- 算子信息: 选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
+- Device及其stream list：包含Device上的stream列表，每个stream由task执行序列组成，一个task是其中的一个小方块，大小代表执行时间长短。
+- 算子信息：选中某个task后，可以显示该task对应算子的信息，包括名称、type等。
 
 可以使用W/A/S/D来放大、缩小地查看Timeline图信息。
 

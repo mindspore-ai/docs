@@ -346,7 +346,7 @@ The below content introduced how to save and load models under the four distribu
 
 ### Auto Parallel Mode
 
-It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. The code is as follows：
+It is convenient to save and load the model parameters in auto parallel mode. Just add configuration `CheckpointConfig` and `ModelCheckpoint` to `test_train_cifar` method in the training network steps of this tutorial, and the model parameters can be saved. The code is as follows:
 
 ```python
 def test_train_cifar(epoch_size=10):
@@ -422,7 +422,7 @@ context.reset_auto_parallel_context()
 context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, device_num=8)
 ```
 
-Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows：
+Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows:
 
 ```python
 # config checkpoint
@@ -484,7 +484,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
 	                              strategy_ckpt_save_file='./rank_{}_ckpt/strategy.txt'.format(get_rank))
 ```
 
-Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows：
+Then set the checkpoint saving policy, optimizer and loss function as required. The code is as follows:
 
 ```python
 # config checkpoint

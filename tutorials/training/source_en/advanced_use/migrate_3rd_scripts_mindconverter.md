@@ -64,10 +64,10 @@ optional arguments:
 
 ```
 
-**MindConverter provides two modes：**
+**MindConverter provides two modes:**
 
-1. **Abstract Syntax Tree (AST) based conversion**：Use the argument `--in_file` will enable the AST mode.
-2. **Computational Graph basedconversion**：Use `--model_file` and `--shape` arguments will enable the Graph mode.
+1. **Abstract Syntax Tree (AST) based conversion**: Use the argument `--in_file` will enable the AST mode.
+2. **Computational Graph basedconversion**: Use `--model_file` and `--shape` arguments will enable the Graph mode.
 
 > The AST mode will be enabled, if both `--in_file` and `--model_file` are specified.
 

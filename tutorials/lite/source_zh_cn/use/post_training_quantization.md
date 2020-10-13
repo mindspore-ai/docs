@@ -92,7 +92,7 @@ MindSpore Lite训练后量化分为两类：
 | -------- | ------- | -----          | -----    | -----     |  ----- |
 | image_path  | 必选 | 存放校准数据集的目录  |      String                |   -   | 该目录存放可直接用于执行推理的输入数据。由于目前框架还不支持数据预处理，所有数据必须事先完成所需的转换，使得它们满足推理的输入要求。 |
 | batch_count | 可选 | 使用的输入数目       | Integer  |  100  | （0，+∞） |
-| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  KL  | KL，MAX_MIN。 KL: 基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准； MAX_MIN：基于最大值、最小值计算数据的量化参数。 在模型以及数据集比较较简单的情况下，推荐使用MAX_MIN      |
+| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  KL  | KL，MAX_MIN。 <br> KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br> MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br> 在模型以及数据集比较较简单的情况下，推荐使用MAX_MIN。      |
 | thread_num | 可选 | 使用校准数据集执行推理流程时的线程数 | Integer  |  1  |  （0，+∞）   |
 
 ### 使用步骤

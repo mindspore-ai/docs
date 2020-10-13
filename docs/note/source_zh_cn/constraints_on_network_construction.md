@@ -140,10 +140,10 @@
   - tuple元素为slice:
     - 取值：例如`tensor_x[::, :4, 3:0:-1]`。
     - 赋值：例如`tensor_x[::, :4, 3:0:-1]=u`。
-  - tuple元素为Number: 
+  - tuple元素为Number：
     - 取值：例如`tensor_x[2,1]`。
     - 赋值：例如`tensor_x[1,4]=u`。
-  - tuple元素为slice和ellipsis混合情况:
+  - tuple元素为slice和ellipsis混合情况：
     - 取值：例如`tensor_x[..., ::, 1:]`
     - 赋值：例如`tensor_x[..., ::, 1:]=u`
   - 其他情况暂不支持
