@@ -10,9 +10,9 @@ Model定义了MindSpore Lite中的模型，便于计算图管理。
 
 | function                                                     |
 | ------------------------------------------------------------ |
-| [boolean loadModel(Context context, String modelName)](#load_model) |
-| [boolean loadModel(String modelPath)](#load_model)           |
-| [void freeBuffer()](#free_buffer)                            |
+| [boolean loadModel(Context context, String modelName)](#loadmodel) |
+| [boolean loadModel(String modelPath)](#loadmodel)           |
+| [void freeBuffer()](#freebuffer)                            |
 | [void free()](#free)                                         |
 
 ## loadModel

@@ -21,9 +21,9 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux | Model Conversion Tool |
-| runtime(cpp、java) | Linux、Android | Model Inference Framework(cpp、java) |
-| benchmark | Linux、Android | Benchmarking Tool |
-| imageprocess | Linux、Android | Image Processing Library |
+| runtime(cpp, java) | Linux, Android | Model Inference Framework(cpp, java) |
+| benchmark | Linux, Android | Benchmarking Tool |
+| imageprocess | Linux, Android | Image Processing Library |
 
 ## Linux Environment Compilation
 
@@ -31,7 +31,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
-- Compilation dependencies of runtime(cpp)、benchmark:
+- Compilation dependencies of runtime(cpp), benchmark:
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
@@ -61,7 +61,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
   - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
   
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
-> - Android SDK Tools need install Android SDK Build Tools。
+> - Android SDK Tools need install Android SDK Build Tools.
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
 
 ### Compilation Options
@@ -129,7 +129,7 @@ Then, run the following commands in the root directory of the source code to com
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework、benchmarking tool and performance analysis tool.
+- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
 
 > version: version of the output, consistent with that of the MindSpore.

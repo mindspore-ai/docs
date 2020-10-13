@@ -1,4 +1,14 @@
-# 使用Runtime执行推理(JAVA)
+# 使用Runtime执行推理（Java）
+
+<!-- TOC -->
+
+- [使用Runtime执行推理（Java）](#使用runtime执行推理java)
+    - [Android项目引用AAR包](#android项目引用aar包)
+    - [Android项目使用Mindspore Lite推理框架示例](#android项目使用mindspore-lite推理框架示例)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/runtime_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Android项目引用AAR包
 

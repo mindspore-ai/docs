@@ -11,15 +11,15 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | function                                                     |
 | ------------------------------------------------------------ |
 | [boolean init(MSConfig config)](#init)                       |
-| [void bindThread(boolean if_bind)](#bind_thread)             |
-| [boolean compileGraph(Model model)](#compile_graph)          |
-| [boolean runGraph()](#run_graph)                             |
-| [List\<MSTensor\> getInputs()](#get_inputs)                  |
-| [List\<MSTensor\> getInputsByName(String nodeName)](#get_inputs_by_name) |
-| [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#get_outputs_by_node_name) |
-| [Map\<String, MSTensor\> getOutputMapByTensor()](#get_output_map_by_tensor) |
-| [List\<String\> getOutputTensorNames()](#get_output_tensor_names) |
-| [MSTensor getOutputByTensorName(String tensorName)](#get_output_by_tensor_name) |
+| [void bindThread(boolean if_bind)](#bindthread)             |
+| [boolean compileGraph(Model model)](#compilegraph)          |
+| [boolean runGraph()](#rungraph)                             |
+| [List\<MSTensor\> getInputs()](#getinputs)                  |
+| [List\<MSTensor\> getInputsByName(String nodeName)](#getinputsbyname) |
+| [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
+| [Map\<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
+| [List\<String\> getOutputTensorNames()](#getoutputtensornames) |
+| [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname) |
 | [boolean resize(List\<MSTensor\> inputs, int[][] dims](#resize) |
 | [void free()](#free)                                         |
 
