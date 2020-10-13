@@ -21,7 +21,7 @@
 | 模块 | 支持平台 | 说明 |
 | --- | ---- | ---- |
 | converter | Linux | 模型转换工具 |
-| runtime | Linux、Android | 模型推理框架 |
+| runtime(cpp、java) | Linux、Android | 模型推理框架(cpp、java) |
 | benchmark | Linux、Android | 基准测试工具 |
 | imageprocess | Linux、Android | 图像处理库 |
 
@@ -30,13 +30,11 @@
 ### 环境要求
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
-
-- runtime、benchmark编译依赖
+- runtime(cpp)、benchmark编译依赖
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
   - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
   - [Git](https://git-scm.com/downloads) >= 2.28.0
-
 - converter编译依赖
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
@@ -50,8 +48,17 @@
   - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
   - [Python](https://www.python.org/) >= 3.7.5
+- runtime(java)编译依赖
+  - [CMake](https://cmake.org/download/) >= 3.14.1
+  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+  - [Git](https://git-scm.com/downloads) >= 2.28.0
+  - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+  - [Gradle](https://gradle.org/releases/) >= 6.6.1
+  - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
 
 > - 当安装完依赖项Android_NDK后，需配置环境变量:`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
+> - Android SDK组件需要安装Android SDK Build Tools。
 > - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
 
 ### 编译选项
@@ -60,13 +67,17 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 
 | 选项  |  参数说明  | 取值范围 | 是否必选 |
 | -------- | ----- | ---- | ---- |
-| **-I** | **选择适用架构，编译MindSpore Lite此选项必选** | **arm64、arm32、x86_64** | **是** |
+| -I | 选择适用架构，若编译MindSpore Lite c++版本，则此选项必选 | arm64、arm32、x86_64 | 否 |
 | -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 否 |
 | -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 否 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
 | -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | GPU | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
+| -A | 指定编译语言，默认cpp。设置为java时，则编译aar包 | cpp、java | 否 |
+| -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
+| -o | 设置该参数，则编译基准测试工具，默认为on | on、off | 否 |
+| -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 
@@ -105,9 +116,17 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -n lite_cv
     ```
 
+- 增量编译MindSpore Lite AAR。
+  ```bash
+  bash build.sh -A java -i
+  ```
+
+  > 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
+
 ### 编译输出
 
-编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为三部分：
+编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
+
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark。
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
@@ -124,6 +143,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
+unzip mindspore-lite-maven-{version}.zip
 ```
 
 #### 模型转换工具converter目录结构说明
@@ -141,7 +161,7 @@ tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 
 #### 模型推理框架runtime及其他工具目录结构说明
 
-推理框架可在`-I x86_64`、`-I arm64`和`-I arm32`编译选项下获得，内容包括以下几部分：
+推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容包括以下几部分：
 
 - 当编译选项为`-I x86_64`时：
     ```
@@ -197,6 +217,17 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./
 ```bash
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
 ```
+
+- 当编译选项为`-A java`时：
+
+  ```
+  |
+  ├── mindspore-lite-maven-{version}
+  │   └── mindspore
+  │   	└── mindspore-lite
+  |			└── {version}-SNAPSHOT 
+  │       		├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite推理框架aar包
+  ```
 
 #### 图像处理库目录结构说明
 

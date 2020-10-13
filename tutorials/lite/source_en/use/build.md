@@ -21,7 +21,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux | Model Conversion Tool |
-| runtime | Linux、Android | Model Inference Framework |
+| runtime(cpp、java) | Linux、Android | Model Inference Framework(cpp、java) |
 | benchmark | Linux、Android | Benchmarking Tool |
 | imageprocess | Linux、Android | Image Processing Library |
 
@@ -31,7 +31,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
-- Compilation dependencies of runtime、benchmark:
+- Compilation dependencies of runtime(cpp)、benchmark:
   - [CMake](https://cmake.org/download/) >= 3.14.1
   - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
   - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
@@ -51,7 +51,17 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
   - [OpenSSL](https://www.openssl.org/) >= 1.1.1
   - [Python](https://www.python.org/) >= 3.7.5
   
+- Compilation dependencies of runtime(java)
+  - [CMake](https://cmake.org/download/) >= 3.14.1
+  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+  - [Git](https://git-scm.com/downloads) >= 2.28.0
+  - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+  - [Gradle](https://gradle.org/releases/) >= 6.6.1
+  - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
+  
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
+> - Android SDK Tools need install Android SDK Build Tools。
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
 
 ### Compilation Options
@@ -60,13 +70,17 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 
 | Parameter  |  Parameter Description  | Value Range | Mandatory or Not |
 | -------- | ----- | ---- | ---- |
-| **-I** | **Selects an applicable architecture. This option is required when compile MindSpore Lite.** | **arm64, arm32, or x86_64** | **Yes** |
+| -I | Selects an applicable architecture. This option is required when compile MindSpore Lite. | arm64, arm32, or x86_64 | No |
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
 | -e | In the Arm architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
+| -A | Language used by mindspore lite, default cpp. If the parameter is set java，the aar is compiled. | cpp, java | No |
+| -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
+| -o | If this parameter is set, the benchmark is compiled, default on. | on, off | No |
+| -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 
@@ -104,6 +118,12 @@ Then, run the following commands in the root directory of the source code to com
     ```bash
     bash build.sh -I arm64 -n lite_cv
     ```
+- Compile MindSpore Lite AAR in incremental compilation mode:
+  ```bash
+  bash build.sh -A java -i
+  ```
+
+  > Turn on incremental compilation mode. If the arm64 or arm32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
 
 ### Output Description
 
@@ -124,6 +144,7 @@ Execute the decompression command to obtain the compiled output:
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
+unzip mindspore-lite-maven-{version}.zip
 ```
 #### Description of Converter's Directory Structure
 
@@ -196,6 +217,18 @@ Configure benchmark:
 ```bash
 export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
 ```
+
+- When the compilation option is `-A java`:
+
+  ```
+  |
+  ├── mindspore-lite-maven-{version}
+  │   └── mindspore
+  │   	└── mindspore-lite
+  |			└── {version}-SNAPSHOT 
+  │       		├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite runtime aar
+  ```
+
 
 #### Description of Imageprocess's Directory Structure
 
