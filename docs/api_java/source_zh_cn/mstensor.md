@@ -10,16 +10,16 @@ MSTensor定义了MindSpore Lite中的张量。
 
 | function                                   |
 | ------------------------------------------ |
-| [int[] getShape()](#get_shape)             |
-| [int getDataType()](#get_data_type)        |
-| [byte[] getByteData()](#get_byte_data)     |
-| [float[] getFloatData()](#get_float_data)  |
-| [int[] getIntData()](#get_int_data)        |
-| [long[] getLongData()](#get_long_data)     |
-| [void setData(byte[] data)](#set_data)     |
-| [void setData(ByteBuffer data)](#set_data) |
+| [int[] getShape()](#getshape)             |
+| [int getDataType()](#getdatatype)        |
+| [byte[] getByteData()](#getbytedata)     |
+| [float[] getFloatData()](#getfloatdata)  |
+| [int[] getIntData()](#getintdata)        |
+| [long[] getLongData()](#getlongdata)     |
+| [void setData(byte[] data)](#setdata)     |
+| [void setData(ByteBuffer data)](#setdata) |
 | [long size()](#size)                       |
-| [int elementsNum()](#elements_num)         |
+| [int elementsNum()](#elementsnum)         |
 | [void free()](#free)                       |
 
 ## getShape
