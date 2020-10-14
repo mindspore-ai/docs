@@ -155,19 +155,19 @@ class Callback():
             cb_params = run_context.original_args()
             epoch_num = cb_params.cur_epoch_num
 
-            result = self.model.eval(self.dataset)
-            if result['acc'] > self.acc:
-                self.acc = result['acc']
+            result = self.model.eval(self.eval_dataset)
+            if result['accuracy'] > self.acc:
+                self.acc = result['accuracy']
                 file_name = str(self.acc) + ".ckpt"
                 save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
 
 
     network = Lenet()
-    loss = nn.SoftmaxCrossEntryWithLogits()
-    oprimizer = nn.Momentum()
+    loss = nn.SoftmaxCrossEntryWithLogits(sparse=True, reduction='mean')
+    oprimizer = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     model = Model(network, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
-    model.train(epoch_size, train_dataset=ds_train, callback=SaveCallback(model, ds_eval))
+    model.train(epoch_size, train_dataset=ds_train, callbacks=SaveCallback(model, ds_eval))
     ```
 
     具体实现逻辑为：定义一个`Callback`对象，初始化对象接收`model`对象和`ds_eval`(验证数据集)。在`step_end`阶段验证模型的精度，当精度为当前最高时，手动触发保存checkpoint方法，保存当前的参数。
