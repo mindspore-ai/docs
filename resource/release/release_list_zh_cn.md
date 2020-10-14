@@ -81,13 +81,13 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64/CentOS 7.6 aarch64     |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindArmour/aarch64/mindarmour-1.0.0-cp37-cp37m-linux_aarch64.whl>   |   e895ba5a0d207e0cb3e93acdfaaa399a63161443371ef68d626d29542e41d940   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindArmour/x86_64/mindarmour-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   a139ded76899e5901889fc4e578165ef78584a127f9c264830e4e2806c30cc82   |
 |   MindSporeHub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/Hub/any/mindspore_hub-1.0.0-py3-none-any.whl>   |0cb7ea4c8cd81279bc61558e1102da14516d2ea9653269cb0519c7085df8e3c3   |
-|   MindSpore Lite RT   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-runtime-arm32-cpu.tar.gz>   |ce8a7af939ddde3f51961a163af796ea8547584b973a5fa65b307c20879ebead   |
-|      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-cpu.tar.gz>   |b702e53c08e6c2db3ae0df15e81169862d4fd6112674c31b18b5c32d72cad90a   |
-|      |   GPU   |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-gpu.tar.gz>   |85e88836135bf31f41a17c87f2d777ef1a18894e41b9c07a9cb50aa025b649eb   |
+|   MindSpore Lite RT   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-runtime-arm32-cpu.tar.gz>   |abb28cee1b8a439c51d05a7c4521dc3f76d05ae79db4be781c932ee5f0abc774   |
+|      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-cpu.tar.gz>   |9ca80c1fff35008f8114b3524fc2d897dac1db247df873ea6560f3ddc548a7f3   |
+|      |   GPU   |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-runtime-arm64-gpu.tar.gz>   |eae1c9856ae7f647ce52dae79f826412e07bb058e6cf9031d85ab0ca72e42156   |
 |   MindSpore Lite Converter   |   CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/ubuntu_x86/mindspore-lite-1.0.0-converter-ubuntu.tar.gz> |baaf3e1d88416da535432949810c80e76e4189b3567b952b9d99397fcda0cad8   |
 |      |      |   Windows-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/windows_x86/mindspore-lite-1.0.0-converter-win-cpu.zip>   |6eae6f46ebe98697cf0a36268159d74a95ddf743ee27ec6de2088d469c753960   |
-|   MindSpore Lite Minddata   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz>   |d45c7e4de9577eb9392ad47bc96d8f834791ea095429e2d080d7c594e3a98b4a   |
-|      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz>   |290d794a8d940cd8ad5afefa32f895790710d7b6ec38db25c7e9832565d8d51b   |
+|   MindSpore Lite Minddata   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz>   |d998c5eba81b254c057eae61aeacd72cee24ad75eb01be89321133e6e035a330   |
+|      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz>   |9f6bd53663d029b7638274fca94e47efbfa33ff7dab5dbe1cf328379e3cbbc18   |
 
 ### 教程、API、文档
 
