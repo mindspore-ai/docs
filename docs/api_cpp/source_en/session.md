@@ -53,17 +53,17 @@ Get input MindSpore Lite MSTensors of model.
     The vector of MindSpore Lite MSTensor.
 
 ```   
-std::vector <tensor::MSTensor *> GetInputsByName(const std::string &node_name) const
+mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
 ```
-Get input MindSpore Lite MSTensors of model by node name.
+Get input MindSpore Lite MSTensors of model by tensor name.
 
 - Parameters
 
-    - `node_name`: Define node name.
+    - `name`: Define tensor name.
 
 - Returns
 
-    The vector of MindSpore Lite MSTensor.
+    MindSpore Lite MSTensor.
     
 ```
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)

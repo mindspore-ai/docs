@@ -185,15 +185,15 @@ Before graph execution, you need to copy the input data to model input tensors.
 
 MindSpore Lite provides the following methods to obtain model input tensors.
 
-1. Use the `GetInputsByName` method to obtain vectors of the model input tensors that are connected to the model input node based on the node name.
+1. Use the `GetInputsByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
    ```cpp
-   /// \brief  Get input MindSpore Lite MSTensors of model by node name.
+   /// \brief  Get input MindSpore Lite MSTensors of model by tensor name.
    ///
-   /// \param[in] node_name  Define node name.
+   /// \param[in] tensor_name  Define tensor name.
    ///
-   /// \return  The vector of MindSpore Lite MSTensor.
-   virtual std::vector<tensor::MSTensor *> GetInputsByName(const std::string &node_name) const = 0;
+   /// \return  MindSpore Lite MSTensor.
+   virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
    ```
 
 2. Use the `GetInputs` method to directly obtain the vectors of all model input tensors.
@@ -254,7 +254,7 @@ memcpy(in_data, input_buf, data_size);
 Note:  
 - The data layout in the model input tensors of MindSpore Lite must be NHWC.
 - The model input `input_buf` is read from disks. After it is copied to model input tensors, you need to release `input_buf`.
-- Vectors returned by using the `GetInputs` and `GetInputsByName` methods do not need to be released by users.
+- Vectors returned by using the `GetInputs` and `GetInputsByTensorName` methods do not need to be released by users.
 
 ## Graph Execution
 
