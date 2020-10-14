@@ -1,0 +1,82 @@
+# MSConfig
+
+```java
+import com.mindspore.lite.config.MSConfig;
+```
+
+MSConfig is defined for holding environment variables during runtime.
+
+## Public Member Functions
+
+| function                                                     |
+| ------------------------------------------------------------ |
+| [boolean init(int deviceType, int threadNum, int cpuBindMode)](#init) |
+| [boolean init(int deviceType, int threadNum)](#init)         |
+| [boolean init(int deviceType)](#init)                        |
+| [boolean init()](#init)                                      |
+| [void free()](#free)                                         |
+
+## init
+
+```java
+public boolean init(int deviceType, int threadNum, int cpuBindMode)
+```
+
+Initialize MSConfig.
+
+- Parameters
+
+  - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type. 
+  - `threadNum`: Thread number config for thread pool.
+  - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
+
+- Returns
+
+  Whether the initialization is successful.
+
+```java
+public boolean init(int deviceType, int threadNum)
+```
+
+Initialize MSConfig, `cpuBindMode` defaults to `CpuBindMode.MID_CPU`.
+
+- Parameters
+
+  - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type. 
+  - `threadNum`: Thread number config for thread pool.
+
+- Returns
+
+  Whether the initialization is successful.
+
+```java
+public boolean init(int deviceType)
+```
+
+Initialize MSConfig，`cpuBindMode` defaults to `CpuBindMode.MID_CPU`, `threadNum` defaults to `2`.
+
+- Parameters
+
+  - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type. 
+
+- Returns
+
+  Whether the initialization is successful.
+
+```java
+public boolean init()
+```
+
+Initialize MSConfig，`deviceType` defaults to `DeviceType.DT_CPU`，`cpuBindMode` defaults to`CpuBindMode.MID_CPU`，`threadNum` defaults to `2`.
+
+- Returns
+
+  Whether the initialization is successful.
+
+## free
+
+```java
+public void free()
+```
+
+Free all temporary memory in MindSpore Lite MSConfig.
