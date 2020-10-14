@@ -20,7 +20,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/custom_debugging_info.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/customized_debugging_information.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/custom_debugging_info.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -287,7 +287,7 @@ val:[[1 1]
             "support_device": [0,1,2,3,4,5,6,7]
         },
         "e2e_dump_settings": {
-            "enable": false,
+            "enable": true,
             "trans_flag": false
         }
     }
@@ -336,7 +336,7 @@ val:[[1 1]
             "support_device": [0,1,2,3,4,5,6,7]
         },
         "async_dump_settings": {
-            "enable": false,
+            "enable": true,
             "op_debug_mode": 0
         }
     }
