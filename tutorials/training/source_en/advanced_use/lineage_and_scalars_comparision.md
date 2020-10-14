@@ -39,7 +39,7 @@ Figure 2 shows the model lineage function area, which visualizes the model param
 
 Figure 3: Model list
 
-Figure 3 shows all model information in groups. You can sort the model information in ascending or descending order by specified column.
+Figure 3 shows all model information in groups. You can sort the model information in ascending or descending order by the specified column.
 
 The overview page on the left shows information about optimization objective and related parameters.
 
