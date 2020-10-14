@@ -182,15 +182,15 @@ model->Free();
 
 MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
-1. 使用`GetInputsByName`方法，根据模型输入节点的名称来获取模型输入Tensor中连接到该节点的Tensor的vector。
+1. 使用`GetInputsByTensorName`方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor。
 
    ```cpp
-   /// \brief  Get input MindSpore Lite MSTensors of model by node name.
+   /// \brief  Get input MindSpore Lite MSTensors of model by tensor name.
    ///
-   /// \param[in] node_name  Define node name.
+   /// \param[in] tensor_name  Define tensor name.
    ///
-   /// \return  The vector of MindSpore Lite MSTensor.
-   virtual std::vector<tensor::MSTensor *> GetInputsByName(const std::string &node_name) const = 0;
+   /// \return  MindSpore Lite MSTensor.
+   virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
    ```
 
 2. 使用`GetInputs`方法，直接获取所有的模型输入Tensor的vector。
@@ -251,7 +251,7 @@ memcpy(in_data, input_buf, data_size);
 需要注意的是：  
 - MindSpore Lite的模型输入Tensor中的数据排布必须是NHWC。
 - 模型的输入`input_buf`是用户从磁盘读取的，当拷贝给模型输入Tensor以后，用户需要自行释放`input_buf`。
-- `GetInputs`和`GetInputsByName`方法返回的vector不需要用户释放。
+- `GetInputs`和`GetInputsByTensorName`方法返回的vector不需要用户释放。
 
 ## 图执行
 

@@ -53,17 +53,17 @@ virtual std::vector <tensor::MSTensor *> GetInputs() const
     MindSpore Lite MSTensor向量。
 
 ```   
-std::vector <tensor::MSTensor *> GetInputsByName(const std::string &node_name) const
+mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
 ```
-通过节点名获取MindSpore Lite模型的MSTensors输入。
+通过tensor名获取MindSpore Lite模型的MSTensors输入。
 
 - 参数
 
-    - `node_name`: 定义了节点名。
+    - `name`: 定义了tensor名。
 
 - 返回值
 
-    MindSpore Lite MSTensor向量。
+    MindSpore Lite MSTensor。
 
 ```
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
