@@ -10,5 +10,6 @@ MindSpore Programming Guide
    :maxdepth: 1
 
    api_structure
+   data_type
    network_list
    operator_list

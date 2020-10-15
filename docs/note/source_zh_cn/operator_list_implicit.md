@@ -17,7 +17,8 @@
 ## 隐式类型转换
 ### 转换规则
 * 标量与Tensor运算：运算时，将标量自动转为Tensor，数据类型和参与运算的Tensor数据类型保持一致；
-而当Tensor是bool数据类型，标量是int或float时，将标量和Tensor都转为数据类型为int32或float32的Tensor。
+当Tensor是bool数据类型，标量是int或float时，将标量和Tensor都转为数据类型为int32或float32的Tensor；
+当Tensor是int或者uint数据类型，标量是float时，将标量和Tensor都转为数据类型为float32的Tensor。
 * 不同数据类型Tensor运算：数据类型优先级排序为bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 < float64，
 运算时，先确定参与运算的Tensor中优先级相对最高的数据类型，然后将低优先级数据类型Tensor转换为相对最高优先级数据类型；
 而当int8和uint8数据类型的Tensor进行运算时，将其都转为int16的Tensor。
