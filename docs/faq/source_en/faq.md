@@ -204,7 +204,7 @@ A: Currently, the PyNative mode supports only Ascend and GPU and does not suppor
 
 <br/>
 
-Q: For Ascend users, how to get more detailed logs when the `run time error` is reported?
+Q: For Ascend users, how to get more detailed logs when the `run task error` is reported?
 
 A: More detailed logs info can be obtained by modify slog config file. You can get different level by modify `/var/log/npu/conf/slog/slog.conf`. The values are as follows: 0:debug、1:info、2:warning、3:error、4:null(no output log), default 1.
 
