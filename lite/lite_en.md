@@ -120,7 +120,7 @@
         <a href="https://www.mindspore.cn/doc/note/en/master/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Image Classification Model Support (Lite)</span>
+                    <span style="color:#1a1c33;">Pre-trained Models of Image Classification</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 Image classification is to identity what an image represents, to predict the object list and the probabilites. This document lists image classification models that can be inferred using mindspore Lite.
@@ -132,7 +132,7 @@
         <a href="https://www.mindspore.cn/doc/note/en/master/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Object Detection Model Support (Lite)</span>
+                    <span style="color:#1a1c33;">Pre-trained Models of Object Detection</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 Object detection can identify the object in the image and its position in the image.This document lists target detection models that can be inferred using mindspore Lite.

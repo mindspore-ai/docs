@@ -120,10 +120,10 @@
         <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">图像分类模型支持（Lite）</span>
+                    <span style="color:#1a1c33;">图像分类预训练模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                图像分类模型可以预测图片中出现哪些物体，识别出图片中出现物体列表及其概率。本文档列出可以使用MindSpore Lite推理的图像分类模型。
+                图像分类模型可以预测图片中出现哪些物体，识别出图片中出现物体列表及其概率。本文档列出可以使用MindSpore Lite推理的图像分类预训练模型。
                 </div>
             </div>
         </a>
@@ -132,10 +132,10 @@
         <a href="https://www.mindspore.cn/doc/note/zh-CN/master/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">目标检测模型支持（Lite）</span>
+                    <span style="color:#1a1c33;">目标检测预训练模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                目标检测可以识别出图片中的对象和该对象在图片中的位置。本文档列出可以使用MindSpore Lite推理的目标检测模型。
+                目标检测可以识别出图片中的对象和该对象在图片中的位置。本文档列出可以使用MindSpore Lite推理的目标检测预训练模型。
                 </div>
             </div>
         </a>
