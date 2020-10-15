@@ -13,7 +13,7 @@
         - [Sample Program Structure](#sample-program-structure)
         - [Configuring MindSpore Lite Dependencies](#configuring-mindspore-lite-dependencies)
         - [Downloading and Deploying a Model File](#downloading-and-deploying-a-model-file)
-        - [Compiling On-Device Inference Code](#compiling-on-device-inference-code)
+        - [Writing On-Device Inference Code](#writing-on-device-inference-code)
 
 <!-- /TOC -->
 
@@ -189,7 +189,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 mobilenetv2.ms [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
 
-### Compiling On-Device Inference Code
+### Writing On-Device Inference Code
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 

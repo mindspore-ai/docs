@@ -16,3 +16,4 @@ MindSpore C++ API
   tensor
   dataset
   errorcode_and_metatype
+  lite_cpp_example
