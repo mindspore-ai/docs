@@ -153,19 +153,19 @@ Here are two examples to further understand the usage of custom Callback.
             cb_params = run_context.original_args()
             epoch_num = cb_params.cur_epoch_num
 
-            result = self.model.eval(self.dataset)
-            if result['acc'] > self.acc:
-                self.acc = result['acc']
+            result = self.model.eval(self.eval_dataset)
+            if result['accuracy'] > self.acc:
+                self.acc = result['accuracy']
                 file_name = str(self.acc) + ".ckpt"
                 save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
 
 
     network = Lenet()
-    loss = nn.SoftmaxCrossEntryWithLogits()
-    oprimizer = nn.Momentum()
+    loss = nn.SoftmaxCrossEntryWithLogits(sparse=True, reduction='mean')
+    oprimizer = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     model = Model(network, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
-    model.train(epoch_size, train_dataset=ds_train, callback=SaveCallback(model, ds_eval))
+    model.train(epoch_size, train_dataset=ds_train, callbacks=SaveCallback(model, ds_eval))
     ```
 
     The specific implementation logic is: define a callback object, and initialize the object to receive the model object and the ds_eval (verification dataset). Verify the accuracy of the model in the step_end phase. When the accuracy is the current highest, manually trigger the save checkpoint method to save the current parameters.
