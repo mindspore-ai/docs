@@ -107,6 +107,10 @@ Mean bias of all nodes: 0%
 =======================================================
 ```
 
+如果需要指定输入数据的维度（例如输入维度为1，32，32，1），使用如下命令：
+```bash
+./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
 
 ## 参数说明
 
@@ -119,6 +123,7 @@ Mean bias of all nodes: 0%
 			[--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
 			[--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
 			[--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+            [--inputShapes=<INPUTSHAPES>]
 ```
 
 下面提供详细的参数说明。
@@ -138,3 +143,4 @@ Mean bias of all nodes: 0%
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
 | `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘;’隔开 | String | Null | - |
