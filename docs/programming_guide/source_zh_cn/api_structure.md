@@ -10,6 +10,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/api_structure.md" target="_blank"><img src="./_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_api_overview.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 总体架构
 MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景覆盖三大目标，其中易开发表现为API友好、调试难度低，高效执行包括计算效率、数据预处理效率和分布式训练效率，全场景则指框架同时支持云、边缘以及端侧场景。
