@@ -283,7 +283,7 @@ The input and output of the operator can be saved for debugging through the data
             "support_device": [0,1,2,3,4,5,6,7]
         },
         "e2e_dump_settings": {
-            "enable": false,
+            "enable": true,
             "trans_flag": false
         }
     }
@@ -333,7 +333,7 @@ The input and output of the operator can be saved for debugging through the data
             "support_device": [0,1,2,3,4,5,6,7]
         },
         "async_dump_settings": {
-            "enable": false,
+            "enable": true,
             "op_debug_mode": 0
         }
     }
