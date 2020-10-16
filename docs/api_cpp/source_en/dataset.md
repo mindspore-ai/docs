@@ -1,14 +1,14 @@
 # mindspore::dataset
 
-#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
-#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-## Functions of image_process.h 
+## Functions of image_process.h
 
 ### ResizeBilinear
 
-```
+```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
@@ -26,7 +26,7 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
 
 ### InitFromPixel
 
-```
+```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
@@ -46,7 +46,7 @@ Initialize LiteMat from pixel, currently the conversion supports rbgaTorgb and r
 
 ### ConvertTo
 
-```
+```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
@@ -64,7 +64,7 @@ Convert the data type, currently it supports converting the data type from uint8
 
 ### Crop
 
-```
+```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
@@ -84,7 +84,7 @@ Crop image, the channel supports is 3 and 1.
 
 ### SubStractMeanNormalize
 
-```
+```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
@@ -102,7 +102,7 @@ Normalize image, currently the supports data type is float.
 
 ### Pad
 
-```
+```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
 
@@ -126,7 +126,7 @@ Pad image, the channel supports is 3 and 1.
 
 ### Affine
 
-```
+```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
 
@@ -140,7 +140,7 @@ Apply affine transformation for 1 channel image.
     - `dsize`: The size of the output image.
     - `borderValue`: The pixel value is used for filing after the image is captured.
 
-```
+```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C3 borderValue)
 ```
 
@@ -156,7 +156,7 @@ Apply affine transformation for 3 channel image.
 
 ### GetDefaultBoxes
 
-```
+```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
 
@@ -172,7 +172,7 @@ Get default anchor boxes for Faster R-CNN, SSD, YOLO etc.
 
 ### ConvertBoxes
 
-```
+```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
 
@@ -186,7 +186,7 @@ Convert the prediction boxes to the actual boxes with (y, x, h, w).
 
 ### ApplyNms
 
-```
+```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
 
@@ -208,11 +208,11 @@ Real-size box non-maximum suppression.
 
 Class that represents a lite Mat of a Image.
 
-**Constructors & Destructors**
+### Constructors & Destructors
 
-### LiteMat
+#### LiteMat
 
-```
+```cpp
 LiteMat()
 
 LiteMat(int width, LDataType data_type = LDataType::UINT8)
@@ -224,17 +224,17 @@ LiteMat(int width, int height, int channel, LDataType data_type = LDataType::UIN
 
 Constructor of MindSpore dataset LiteMat using default value of parameters.
 
-```
+```cpp
 ~LiteMat();
 ```
 
 Destructor of MindSpore dataset LiteMat.
 
-**Public Member Functions**
+### Public Member Functions
 
-### Init
+#### Init
 
-```
+```cpp
 void Init(int width, LDataType data_type = LDataType::UINT8)
 
 void Init(int width, int height, LDataType data_type = LDataType::UINT8)
@@ -244,9 +244,9 @@ void Init(int width, int height, int channel, LDataType data_type = LDataType::U
 
 The function to initialize the channel, width and height of the image, but the parameters are different.
 
-### IsEmpty
+#### IsEmpty
 
-```
+```cpp
 bool IsEmpty() const
 ```
 
@@ -256,19 +256,19 @@ A function to determine whether the object is empty.
 
     Return True or False.
 
-### Release
+#### Release
 
-```
+```cpp
 void Release()
 ```
 
 A function to release memory.
 
-**Private Member Functions**
+### Private Member Functions
 
-### AlignMalloc
+#### AlignMalloc
 
-```
+```cpp
 void *AlignMalloc(unsigned int size)
 ```
 
@@ -282,15 +282,15 @@ Apply for memory alignment.
 
    Return the size of a pointer.
 
-### AlignFree
+#### AlignFree
 
-```
+```cpp
 void AlignFree(void *ptr)
 ```
 
 A function to release pointer memory.
 
-```
+```cpp
 void InitElemSize(LDataType data_type)
 ```
 
@@ -300,9 +300,9 @@ Initialize the value of elem_size_ by data_type.
 
     - `data_type`: Type of data.
 
-### addRef
+#### addRef
 
-```
+```cpp
  int addRef(int *p, int value)
 ```
 

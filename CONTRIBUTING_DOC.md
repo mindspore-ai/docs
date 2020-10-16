@@ -25,7 +25,7 @@ The procedure for submitting the modification is the same as that for submitting
 
 - The title supports only the ATX style. The title and context must be separated by a blank line.
 
-  ```
+  ```markdown
   # Heading 1
 
   ## Heading 2
@@ -35,7 +35,7 @@ The procedure for submitting the modification is the same as that for submitting
 
 - If the list title and content need to be displayed in different lines, add a blank line between the title and content. Otherwise, the line breaks may not be implemented.
 
-  ```
+  ```markdown
   - Title
 
     Content
@@ -45,13 +45,13 @@ The procedure for submitting the modification is the same as that for submitting
 
 - Precautions are marked with a right angle bracket (>).
 
-  ```
+  ```markdown
   > Precautions
   ```
 
 - References should be listed at the end of the document and marked in the document.
 
-  ```
+  ```markdown
   Add a [number] after the referenced text or image description.
 
   ## References
@@ -63,12 +63,12 @@ The procedure for submitting the modification is the same as that for submitting
 
 - Comments in the sample code must comply with the following requirements:
 
-  - Comments are written in English.
-  - Use ```"""``` to comment out Python functions, methods, and classes.
-  - Use ```#``` to comment out other Python code.
-  - Use ```//``` to comment out C++ code.
+    - Comments are written in English.
+    - Use ```"""``` to comment out Python functions, methods, and classes.
+    - Use ```#``` to comment out other Python code.
+    - Use ```//``` to comment out C++ code.
 
-  ```
+  ```markdown
   """
   Comments on Python functions, methods, and classes
   """
@@ -81,7 +81,7 @@ The procedure for submitting the modification is the same as that for submitting
 
 - A blank line must be added before and after an image and an image title. Otherwise, the typesetting will be abnormal. For example as correctly:
 
-   ```
+   ```markdown
   Example:
 
   ![](./xxx.png)
@@ -93,7 +93,7 @@ The procedure for submitting the modification is the same as that for submitting
 
 - A blank line must be added before and after a table. Otherwise, the typesetting will be abnormal. Tables are not supported in ordered or unordered lists. For example as correctly:
 
-  ```
+  ```markdown
   ## Title
 
   | Header1  | Header2
@@ -103,43 +103,43 @@ The procedure for submitting the modification is the same as that for submitting
 
   The following content.
   ```
-  
+
 - Mark the reference interface, path name, file name in the tutorial and document with "\` \`". If it's a function or method, don't use parentheses at the end. For example:
-  
-  - Reference method 
-  
-    ```
+
+    - Reference method
+
+    ```markdown
     Use the `map` method.
     ```
-    
-  - Reference code
-   
-    ```
+
+    - Reference code
+
+    ```markdown
     `batch_size`: number of data in each group.
     ```
-    
-  - Reference path
-  
-    ```
+
+    - Reference path
+
+    ```markdown
     Decompress the dataset and store it in `./MNIST_Data`.
     ```
 
-  - Reference file name
-    
-    ```
+    - Reference file name
+
+    ```markdown
     Other dependencies is described in `requirements.txt`.
     ```
 
 - In tutorials and documents, the contents that need to be replaced need additional annotation. In the body, a "*" should be added before and after the content. In the code snippet, the content should be annotated with "{}". For example:
-  
-  - In body
 
-    ```
-    Need to replace your local path *your_ path*. 
+    - In body
+
+    ```markdown
+    Need to replace your local path *your_ path*.
     ```
 
-  - In code snippet
+    - In code snippet
 
-    ```
+    ```markdown
     conda activate {your_env_name}
     ```
