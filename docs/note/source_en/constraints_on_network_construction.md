@@ -165,7 +165,7 @@ The index value operation of tuple and list type, we need to focus on the index 
 The grammar has the following constraints:
 * Only the index value operation of tuple or list whose element type is `nn.Cell` is supported.
 * The index is a scalar `Tensor` of type `int32`, with a value range of `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
-* The number, type and shape of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape are also the same.
+* The number, type and shape size of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape size are also the same.
 * Each element in the tuple needs to be defined before the tuple is defined.
 * This syntax does not support running branches as if, while, for and other control flow, except if the control condition of the control flow is constant. for example:
   - Supported example:

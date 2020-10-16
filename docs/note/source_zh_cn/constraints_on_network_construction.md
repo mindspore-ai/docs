@@ -164,7 +164,7 @@ tuple和list类型的索引取值操作，需要重点介绍一下元素类型�
 同时该语法有以下几个约束：
 * 只支持元素类型为`nn.Cell`的tuple或list的索引取值操作。
 * 索引值index的类型为`int32`的Tensor标量，取值范围为`[-n, n)`, 其中`n`为tuple的size，支持的tuple的size的最大值为1000。
-* tuple中的每个Cell元素的Construct函数的输入数据的数目，类型和shape要求相同，且Construct函数运行后输出的数据的数目，类型和shape也要求相同。
+* tuple中的每个Cell元素的Construct函数的输入数据的数目，类型和shape维度要求相同，且Construct函数运行后输出的数据的数目，类型和shape维度也要求相同。
 * tuple中的每个Cell元素，需要在tuple定义之前完成定义。
 * 该语法不支持做为if、while、for等控制流的运行分支，如果控制流的控制条件为常量除外。举例说明：
   - 支持的写法：
