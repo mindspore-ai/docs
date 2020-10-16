@@ -4,9 +4,9 @@
 import com.mindspore.lite.Model;
 ```
 
-Model定义了MindSpore Lite中的模型，便于计算图管理。
+Model defines model in MindSpore Lite for managing graph.
 
-## 公有成员函数
+## Public Member Functions
 
 | function                                                     |
 | ------------------------------------------------------------ |
@@ -21,30 +21,30 @@ Model定义了MindSpore Lite中的模型，便于计算图管理。
 public boolean loadModel(Context context, String modelName)
 ```
 
-导入Assets中的MindSpore Lite模型。
+Load the MindSpore Lite model from Assets.
 
-- 参数
+- Parameters
 
-  - `context`: Android中的Context上下文
-  - `modelName`: 模型文件名称
+  - `context`: Context in Android.
+  - `modelName`: Model file name.
 
-- 返回值
+- Returns
 
-  是否导入成功
+  Whether the load is successful.
 
 ```java
 public boolean loadModel(String modelPath)
 ```
 
-导入modelPath中的ms模型。
+Load the MindSpore Lite model from path.
 
-- 参数
+- Parameters
 
-  - `modelPath`: 模型文件路径
+  - `modelPath`: Model file path.
 
-- 返回值
+- Returns
 
-  是否导入成功
+  Whether the load is successful.
 
 ## freeBuffer
 
@@ -52,7 +52,7 @@ public boolean loadModel(String modelPath)
 public void freeBuffer()
 ```
 
-释放MindSpore Lite Model中的MetaGraph，用于减小运行时的内存。释放后该Model就不能再进行图编译了。
+Free MetaGraph in MindSpore Lite Model to reduce memory usage during inference.
 
 ## free
 
@@ -60,5 +60,5 @@ public void freeBuffer()
 public void free()
 ```
 
-释放Model运行过程中动态分配的内存。
+Free all temporary memory in MindSpore Lite Model.
 

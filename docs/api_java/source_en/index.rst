@@ -11,3 +11,7 @@ MindSpore Java API
   :maxdepth: 1
 
   class_list
+  lite_session
+  model
+  msconfig
+  mstensor
