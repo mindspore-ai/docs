@@ -1,14 +1,13 @@
 # mindspore::dataset
 
-#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
-#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
-
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ## image_process.h文件的函数
 
 ### ResizeBilinear
 
-```
+```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
@@ -26,7 +25,7 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 
 ### InitFromPixel
 
-```
+```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
@@ -46,7 +45,7 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
 
 ### ConvertTo
 
-```
+```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
@@ -64,7 +63,7 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
 ### Crop
 
-```
+```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
@@ -84,7 +83,7 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
 ### SubStractMeanNormalize
 
-```
+```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
@@ -102,7 +101,7 @@ bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<
 
 ### Pad
 
-```
+```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
 
@@ -126,7 +125,7 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
 
 ### Affine
 
-```
+```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
 
@@ -140,7 +139,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
     - `dsize`: 输出图像的大小。
     - `borderValue`: 采图之后用于填充的像素值。
 
-```
+```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C3 borderValue)
 ```
 
@@ -156,7 +155,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 
 ### GetDefaultBoxes
 
-```
+```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
 
@@ -172,7 +171,7 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
 ### ConvertBoxes
 
-```
+```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
 
@@ -186,7 +185,7 @@ void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vecto
 
 ### ApplyNms
 
-```
+```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
 
@@ -208,11 +207,11 @@ std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vecto
 
 LiteMat是一个处理图像的类。
 
-**构造函数和析构函数**
+### 构造函数和析构函数
 
-### LiteMat
+#### LiteMat
 
-```
+```cpp
 LiteMat()
 
 LiteMat(int width, LDataType data_type = LDataType::UINT8)
@@ -224,17 +223,17 @@ LiteMat(int width, int height, int channel, LDataType data_type = LDataType::UIN
 
 MindSpore中dataset模块下LiteMat的构造方法，使用参数的默认值。
 
-```
+```cpp
 ~LiteMat();
 ```
 
 MindSpore dataset LiteMat的析构函数。
 
-**公有成员函数**
+### 公有成员函数
 
-### Init
+#### Init
 
-```
+```cpp
 void Init(int width, LDataType data_type = LDataType::UINT8)
 
 void Init(int width, int height, LDataType data_type = LDataType::UINT8)
@@ -244,9 +243,9 @@ void Init(int width, int height, int channel, LDataType data_type = LDataType::U
 
 该函数用于初始化图像的通道，宽度和高度，参数不同。
 
-### IsEmpty
+#### IsEmpty
 
-```
+```cpp
 bool IsEmpty() const
 ```
 
@@ -256,19 +255,19 @@ bool IsEmpty() const
 
     返回True或者False。
 
-### Release
+#### Release
 
-```
+```cpp
 void Release()
 ```
 
 释放内存的函数。
 
-**私有成员函数**
+### 私有成员函数
 
-### AlignMalloc
+#### AlignMalloc
 
-```
+```cpp
 void *AlignMalloc(unsigned int size)
 ```
 
@@ -282,18 +281,17 @@ void *AlignMalloc(unsigned int size)
 
    返回指针的大小。
 
-### AlignFree
+#### AlignFree
 
-```
+```cpp
 void AlignFree(void *ptr)
 ```
 
 释放指针内存大小的方法。
 
+#### InitElemSize
 
-### InitElemSize
-
-```
+```cpp
 void InitElemSize(LDataType data_type)
 ```
 
@@ -303,7 +301,7 @@ void InitElemSize(LDataType data_type)
 
     - `data_type`: 数据的类型。
 
-```
+```cpp
  int addRef(int *p, int value)
 ```
 
