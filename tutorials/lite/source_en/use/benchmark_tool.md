@@ -107,6 +107,10 @@ Mean bias of all nodes: 0%
 =======================================================
 ```
 
+To set specified input shapes(such as 1,32,32,1), use command as follows:
+```bash
+./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
 
 ## Parameter Description
 
@@ -119,6 +123,7 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
 			[--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
 			[--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
 			[--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+            [--inputShapes=<INPUTSHAPES>]
 ```
 
 The following describes the parameters in detail.
@@ -138,3 +143,4 @@ The following describes the parameters in detail.
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
+| `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ";" to segregate. | String | Null | - |
