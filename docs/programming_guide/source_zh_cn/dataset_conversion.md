@@ -316,7 +316,7 @@ print("Got {} samples".format(count))
 
 ### 转换TFRecord数据集
 
-> 目前只支持TensorFlow 2.1.0及以上版本。
+> 目前支持TensorFlow 1.13.0-rc1及以上版本。
 
 本示例首先通过TensorFlow创建一个TFRecord文件，然后通过`TFRecordToMR`工具类将TFRecord文件转换为MindRecord，最后通过`MindDataset`将其读取出来，并使用`Decode`算子对`image_bytes`字段进行解码。
 
