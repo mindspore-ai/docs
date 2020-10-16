@@ -121,6 +121,19 @@ A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命
 
 ## 算子支持
 
+Q：`nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其余的算子可以实现吗？
+
+A：在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位置的词向量置为0，并且反向传播时不会更新`padding_idx`位置的词向量。在MindSpore中，可以手动将embedding的`padding_idx`位置对应的权重初始化为0，并且在训练时通过`mask`的操作，过滤掉`padding_idx`位置对应的`Loss`。
+
+<br/>
+
+Q：Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？
+
+A：`Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
+相关的资料可以看[相关文档](https://www.mindspore.cn/doc/note/zh-CN/master/constraints_on_network_construction.html)的“其他约束”。
+
+<br/>
+
 Q：官网的LSTM示例在Ascend上跑不通
 
 A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)查看算子支持情况。
@@ -134,6 +147,12 @@ A：这是TBE这个算子的限制，x的width必须大于kernel的width。CPU�
 <br/>
 
 ## 网络模型
+
+Q：如何不将数据处理为MindRecord格式，直接进行训练呢？
+
+A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)文档中的自定义数据集加载。
+
+<br/>
 
 Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？
 
@@ -211,6 +230,29 @@ A：MindSpore CPU版本已经支持在Windows 10系统中安装，具体安装�
 
 ## 后端运行
 
+Q：MindSpore如何实现早停功能？
+
+A：可以自定义`callback`方法实现早停功能。
+例子：当loss降到一定数值后，停止训练。
+```python
+class EarlyStop(Callback):
+    def __init__(self, control_loss=1):
+        super(EarlyStep, self).__init__()
+        self._control_loss = control_loss
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        loss = cb_params.net_outputs
+        if loss.asnumpy() < self._control_loss:
+            # Stop training
+            run_context._stop_requested = True
+
+stop_cb = EarlyStop(control_loss=1)
+model.train(epoch_size, ds_train, callbacks=[stop_cb])
+```
+
+<br/>
+
 Q：请问自己制作的黑底白字`28*28`的数字图片，使用MindSpore训练出来的模型做预测，报错提示`wrong shape of image`是怎么回事？
 
 A：首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时对数据是有要求的，需要设置为`28*28`的灰度图，就是单通道才可以。
@@ -274,6 +316,12 @@ A：MindSpore目前支持Python扩展，针对C++、Rust、Julia等语言的支�
 <br/>
 
 ## 特性支持
+
+Q：MindSpore有量化推理工具么？
+
+A：[MindSpore Lite](https://www.mindspore.cn/lite)支持云侧量化感知训练的量化模型的推理，MindSpore Lite converter工具提供训练后量化以及权重量化功能，且功能在持续加强完善中。
+
+<br/>
 
 Q：MindSpore并行模型训练的优势和特色有哪些？
 
