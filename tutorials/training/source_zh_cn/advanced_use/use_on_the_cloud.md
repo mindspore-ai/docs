@@ -53,7 +53,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 2. 新建一个自己的OBS桶（例如：ms-dataset），在桶中创建数据目录（例如：cifar-10），将CIFAR-10数据按照如下结构上传至数据目录。
 
-    ```
+    ```text
     └─对象存储/ms-dataset/cifar-10
         ├─train
         │      data_batch_1.bin
@@ -73,7 +73,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 为了方便后续创建训练作业，先创建训练输出目录和日志输出目录，本示例创建的目录结构如下：
 
-```
+```text
 └─对象存储/resnet50-train
     ├─resnet50_cifar10_train
     │      dataset.py
@@ -87,7 +87,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 “执行脚本准备”章节提供的脚本可以直接运行在ModelArts，想要快速体验ResNet-50训练CIFAR-10可以跳过本章节。如果需要将自定义MindSpore脚本或更多MindSpore示例代码在ModelArts运行起来，需要参考本章节对MindSpore代码进行简单适配。
 
-###  适配脚本参数
+### 适配脚本参数
 
 1. 在ModelArts运行的脚本必须配置`data_url`和`train_url`，分别对应数据存储路径(OBS路径)和训练输出路径(OBS路径)。
 
@@ -125,13 +125,14 @@ MindSpore暂时没有提供直接访问OBS数据的接口，需要通过MoXing�
     ```
 
 ### 适配8卡训练任务
+
 如果需要将脚本运行在`8*Ascend`规格的环境上，需要对创建数据集的代码和本地数据路径进行适配，并配置分布式策略。通过获取`DEVICE_ID`和`RANK_SIZE`两个环境变量，用户可以构建适用于`1*Ascend`和`8*Ascend`两种不同规格的训练脚本。
 
 1. 本地路径适配。
 
     ```python
     import os
-    
+
     device_num = int(os.getenv('RANK_SIZE'))
     device_id = int(os.getenv('DEVICE_ID'))
     # define local data path
@@ -310,7 +311,6 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
     ![8*Ascend训练执行结果](./images/train_log_8_Ascend_clu.png)
 
     ![8*Ascend训练执行结果](./images/train_log_8_Ascend.png)
-
 
     采用`1*Ascend`规格执行ResNet-50训练任务。epoch总数为92，精度约为95%，每秒训练图片张数约1800，日志如下图所示。
 

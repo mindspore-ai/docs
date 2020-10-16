@@ -54,7 +54,7 @@ import numpy as np
 
 目录结构如下所示：
 
-```
+```text
 dataset/Cifar10Data
 ├── cifar-10-batches-bin
 │   ├── batches.meta.txt
@@ -77,6 +77,7 @@ dataset/Cifar10Data
 ```
 
 其中：
+
 - `cifar-10-batches-bin`目录为CIFAR-10二进制格式数据集目录。
 - `cifar-10-batches-py`目录为CIFAR-10 Python文件格式数据集目录。
 
@@ -94,6 +95,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 ![title](./images/data_loading_performance_scheme.png)
 
 数据加载性能优化建议如下：
+
 - 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)。
 - 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)。
 - 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id17)。
@@ -115,7 +117,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
     输出：
 
-    ```
+    ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
           [[[235, 235, 235],
             [230, 230, 230],
@@ -150,7 +152,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
     输出：
 
-    ```
+    ```text
     {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]),
         'id': Tensor(shape=[], dtype=Int64, value= 30474),
         'label': Tensor(shape=[], dtype=Int64, value= 2)}
@@ -171,7 +173,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
     输出：
 
-    ```
+    ```text
     {'data': Tensor(shape=[1], dtype=Int64, value= [0])}
     ```
 
@@ -184,6 +186,7 @@ shuffle操作主要是对有序的数据集或者进行过repeat的数据集进�
 ![title](./images/shuffle_performance_scheme.png)
 
 shuffle性能优化建议如下：
+
 - 直接使用内置加载算子的`shuffle`参数进行数据的混洗。
 - 如果使用的是`shuffle`函数，当性能仍无法满足需求，可通过调整`buffer_size`参数的值来优化提升性能。
 
@@ -204,7 +207,7 @@ shuffle性能优化建议如下：
 
     输出：
 
-    ```
+    ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
           [[[254, 254, 254],
             [255, 255, 254],
@@ -239,7 +242,7 @@ shuffle性能优化建议如下：
 
     输出：
 
-    ```
+    ```text
     before shuffle:
     [0 1 2 3 4]
     [1 2 3 4 5]
@@ -257,6 +260,7 @@ shuffle性能优化建议如下：
 ## 数据增强性能优化
 
 在图片分类的训练中，尤其是当数据集比较小的时候，用户可以使用数据增强的方式来预处理图片，从而丰富数据集。MindSpore为用户提供了多种数据增强的方式，其中包括：
+
 - 使用内置C算子（`c_transforms`模块）进行数据增强。
 - 使用内置Python算子（`py_transforms`模块）进行数据增强。
 - 用户可根据自己的需求，自定义Python函数进行数据增强。
@@ -273,6 +277,7 @@ shuffle性能优化建议如下：
 ![title](./images/data_enhancement_performance_scheme.png)
 
 数据增强性能优化建议如下：
+
 - 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id18)。
 - 如果使用了`py_transforms`模块进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)、[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id17)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id18)。
 - `c_transforms`模块是在C++内维护buffer管理，`py_transforms`模块是在Python内维护buffer管理。因为Python和C++切换的性能成本，建议不要混用算子。
@@ -326,7 +331,7 @@ shuffle性能优化建议如下：
 
     输出：
 
-    ```
+    ```text
     before map:
     [0 1 2 3 4]
     [1 2 3 4 5]
@@ -394,6 +399,7 @@ shuffle性能优化建议如下：
 ### 多线程优化方案
 
 在数据pipeline过程中，相关算子一般都有线程数设置参数，来提升处理并发度，提升性能，例如：
+
 - 在数据加载的过程中，内置数据加载类有`num_parallel_workers`参数用来设置线程数。
 - 在数据增强的过程中，`map`函数有`num_parallel_workers`参数用来设置线程数。
 - 在Batch的过程中，`batch`函数有`num_parallel_workers`参数用来设置线程数。
@@ -403,6 +409,7 @@ shuffle性能优化建议如下：
 ### 多进程优化方案
 
 数据处理中Python实现的算子均支持多进程的模式，例如：
+
 - `GeneratorDataset`这个类默认是多进程模式，它的`num_parallel_workers`参数表示的是开启的进程数，默认为1，具体内容请参考[GeneratorDataset](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html#mindspore.dataset.GeneratorDataset)。
 - 如果使用Python自定义函数或者`py_transforms`模块进行数据增强的时候，当`map`函数的参数`python_multiprocessing`设置为True时，此时参数`num_parallel_workers`表示的是进程数，参数`python_multiprocessing`默认为False，此时参数`num_parallel_workers`表示的是线程数，具体的内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
 

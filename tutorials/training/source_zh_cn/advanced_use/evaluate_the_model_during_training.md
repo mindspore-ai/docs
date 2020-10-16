@@ -22,6 +22,7 @@
 在面对复杂网络时，往往需要进行几十甚至几百次的epoch训练。在训练之前，很难掌握在训练到第几个epoch时，模型的精度能达到满足要求的程度，所以经常会采用一边训练的同时，在相隔固定epoch的位置对模型进行精度验证，并保存相应的模型，等训练完毕后，通过查看对应模型精度的变化就能迅速地挑选出相对最优的模型，本文将采用这种方法，以LeNet网络为样本，进行示例。
 
 流程如下：
+
 1. 定义回调函数EvalCallBack，实现同步进行训练和验证。
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
@@ -54,7 +55,7 @@ class EvalCallBack(Callback):
         self.eval_dataset = eval_dataset
         self.eval_per_epoch = eval_per_epoch
         self.epoch_per_eval = epoch_per_eval
-        
+
     def epoch_end(self, run_context):
         cb_param = run_context.original_args()
         cur_epoch = cb_param.cur_epoch_num
@@ -92,21 +93,21 @@ if __name__ == "__main__":
     eval_per_epoch = 2
 
     ... ...
-    
+
     # need to calculate how many steps are in each epoch，in this example, 1875 steps per epoch
     config_ck = CheckpointConfig(save_checkpoint_steps=eval_per_epoch*1875, keep_checkpoint_max=15)
     ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",directory=ckpt_save_dir, config=config_ck)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-    
+
     epoch_per_eval = {"epoch": [], "acc": []}
     eval_cb = EvalCallBack(model, eval_data, eval_per_epoch, epoch_per_eval)
-    
+
     model.train(epoch_size, train_data, callbacks=[ckpoint_cb, LossMonitor(375), eval_cb],
                 dataset_sink_mode=True)
 ```
 
 输出结果：
-
+    ```text
     epoch: 1 step: 375, loss is 2.298612
     epoch: 1 step: 750, loss is 2.075152
     epoch: 1 step: 1125, loss is 0.39205977
@@ -118,9 +119,7 @@ if __name__ == "__main__":
     epoch: 2 step: 1500, loss is 0.067035824
     epoch: 2 step: 1875, loss is 0.0050643035
     {'Accuracy': 0.9763621794871795}
-    
     ... ...
-    
     epoch: 9 step: 375, loss is 0.021227183
     epoch: 9 step: 750, loss is 0.005586236
     epoch: 9 step: 1125, loss is 0.029125651
@@ -133,10 +132,9 @@ if __name__ == "__main__":
     epoch: 10 step: 1875, loss is 0.10563098
     {'Accuracy': 0.979667467948718}
 
-
 在同一目录找到`lenet_ckpt`文件夹，文件夹中保存了5个模型，和一个计算图相关数据，其结构如下：
 
-```
+```text
 lenet_ckpt
 ├── checkpoint_lenet-10_1875.ckpt
 ├── checkpoint_lenet-2_1875.ckpt
@@ -149,7 +147,6 @@ lenet_ckpt
 ## 定义函数绘制不同epoch下模型的精度
 
 定义绘图函数`eval_show`，将`epoch_per_eval`载入到`eval_show`中，绘制出不同`epoch`下模型的验证精度折线图。
-
 
 ```python
 import matplotlib.pyplot as plt
@@ -167,7 +164,6 @@ eval_show(epoch_per_eval)
 输出结果：
 
 ![png](./images/evaluate_the_model_during_training.png)
-
 
 从上图可以一目了然地挑选出需要的最优模型。
 

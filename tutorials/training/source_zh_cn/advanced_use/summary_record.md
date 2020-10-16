@@ -43,6 +43,7 @@ MindSpore目前支持三种方式将数据记录到summary日志文件中。
 即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 `mindspore.train.callback.SummaryCollector`。
 
 样例代码如下：
+
 ```python
 import mindspore
 import mindspore.nn as nn
@@ -131,6 +132,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
 
 当前支持的Summary算子:
+
 - [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary)：记录标量数据
 - [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary)：记录张量数据
 - [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary)：记录图片数据
@@ -254,18 +256,18 @@ MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记�
 
 样例代码如下：
 
-```
+```python
 from mindspore.train.callback import Callback
 from mindspore.train.summary import SummaryRecord
 
 class ConfusionMatrixCallback(Callback):
     def __init__(self, summary_dir):
         self._summary_dir = summary_dir
-    
+
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
         self.summary_record = SummaryRecord(summary_dir)
-    
+
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
         # else your training script will not exit from training.
@@ -276,7 +278,7 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_martrix = create_confusion_matrix(cb_params)        
+        confusion_martrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
         self.summary_record.record(cb_params.cur_step)
 
@@ -288,31 +290,34 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
-将训练脚本中 `context.set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。 
+将训练脚本中 `context.set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
 ## 运行MindInsight
+
 按照上面教程完成数据收集后，启动MindInsight，即可可视化收集到的数据。启动MindInsight时，
 需要通过 `--summary-base-dir` 参数指定summary日志文件目录。
 
 其中指定的summary日志文件目录可以是一次训练的输出目录，也可以是多次训练输出目录的父目录。
 
-
 一次训练的输出目录结构如下：
-```
+
+```text
 └─summary_dir
     events.out.events.summary.1596869898.hostname_MS
     events.out.events.summary.1596869898.hostname_lineage
 ```
 
 启动命令：
+
 ```Bash
 mindinsight start --summary-base-dir ./summary_dir
 ```
 
 多次训练的输出目录结构如下：
-```
+
+```text
 └─summary
     ├─summary_dir1
     │      events.out.events.summary.1596869898.hostname_MS
@@ -324,6 +329,7 @@ mindinsight start --summary-base-dir ./summary_dir
 ```
 
 启动命令:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary
 ```
@@ -331,12 +337,12 @@ mindinsight start --summary-base-dir ./summary
 启动成功后，通过浏览器访问 `http://127.0.0.1:8080` 地址，即可查看可视化页面。
 
 停止MindInsight命令：
+
 ```Bash
 mindinsight stop
 ```
 
 更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)页面。
-
 
 ## 注意事项
 
@@ -349,7 +355,8 @@ mindinsight stop
     自定义callback中如果使用 `SummaryRecord`，则其不能和 `SummaryCollector` 同时使用。
 
     正确代码:
-    ```
+
+    ```python
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(2, train_dataset, callbacks=[summary_collector])
@@ -359,7 +366,8 @@ mindinsight stop
     ```
 
     错误代码：
-    ```
+
+    ```python
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -367,7 +375,8 @@ mindinsight stop
     ```
 
     错误代码：
-    ```
+
+    ```python
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')

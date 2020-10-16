@@ -22,13 +22,9 @@
 
 MindConverter是一款将PyTorch模型脚本转换至MindSpore的脚本迁移工具。结合转换报告的提示信息，用户对转换后脚本进行微小改动，即可快速将PyTorch模型脚本迁移至MindSpore。
 
-
-
 ## 安装
 
 此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://www.mindspore.cn/install/)。
-
-
 
 ## 用法
 
@@ -79,15 +75,13 @@ optional arguments:
 
 另外，当使用基于图结构的脚本生成方案时，请确保原PyTorch项目已在Python包搜索路径中，可通过CLI进入Python交互式命令行，通过import的方式判断是否已满足；若未加入，可通过`--project_path`命令手动将项目路径传入，以确保MindConverter可引用到原PyTorch脚本。
 
-
 > 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动项目添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
-
 > 此处MindConverter需要引用原PyTorch脚本，是因为PyTorch模型反向序列化过程中会引用原脚本。
-
 
 ## 使用场景
 
 MindConverter提供两种技术方案，以应对不同脚本迁移场景：
+
 1. 用户希望迁移后脚本保持原有PyTorch脚本结构（包括变量、函数、类命名等与原脚本保持一致）；
 2. 用户希望迁移后脚本保持较高的转换率，尽量少的修改、甚至不需要修改，即可实现迁移后模型脚本的执行。
 
@@ -100,7 +94,6 @@ MindConverter提供两种技术方案，以应对不同脚本迁移场景：
 > 1. 基于图结构的脚本生成方案，目前仅支持单输入、单输出模型，对于多输入模型暂不支持；
 > 2. 基于图结构的脚本生成方案，由于要基于推理模式加载PyTorch模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐；
 > 3. 基于图结构的脚本生成方案持续优化中。
-
 
 ## 使用示例
 
@@ -121,6 +114,7 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 ```
 
 转换报告示例如下所示：
+
 ```text
  [Start Convert]
  [Insert] 'import mindspore.ops.operations as P' is inserted to the converted file.
@@ -132,7 +126,6 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 ```
 
 对于部分未成功转换的算子，报告中会提供修改建议，如`line 157:23`，MindConverter建议将`torch.nn.AdaptiveAvgPool2d`替换为`mindspore.ops.operations.ReduceMean`。
-
 
 ### 基于图结构的脚本生成示例
 
@@ -147,9 +140,7 @@ mindconverter --model_file /home/user/model.pth --shape 3,224,224 \
 
 执行该命令，MindSpore代码文件、转换报告生成至相应目录。
 
-
 基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原PyTorch脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
-
 
 另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），将生成如下代码：
 
@@ -193,7 +184,6 @@ class Classifier(nn.Cell):
         ...
 
 ```
-
 
 > 其中`--output`与`--report`参数可省略，若省略，该命令将在当前工作目录（Working directory）下自动创建`output`目录，将生成的脚本、转换报告输出至该目录。
 

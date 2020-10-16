@@ -36,6 +36,7 @@
 以MNIST作为示范数据集，自定义简单模型实现梯度累积。
 
 ### 导入需要的库文件
+
 下列是我们所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
@@ -65,7 +66,9 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练模型
+
 将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
+
 - `TrainForwardBackward`计算loss和梯度，利用grad_sum实现梯度累加。
 - `TrainOptim`实现参数更新。
 - `TrainClear`实现对梯度累加变量grad_sum清零。
@@ -134,6 +137,7 @@ class TrainClear(Cell):
 ```
 
 ### 定义训练过程
+
 每个Mini-batch通过正反向训练计算loss和梯度，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和
 累加梯度变量清零。
 
@@ -202,6 +206,7 @@ class GradientAccumulation:
 ```
 
 ### 训练并保存模型
+
 调用网络、优化器及损失函数，然后自定义`GradientAccumulation`的`train_process`接口，进行模型训练。
 
 ```python
@@ -226,13 +231,15 @@ if __name__ == "__main__":
 ```
 
 ## 实验结果
+
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
-**执行训练**
+**执行训练**：
+
 1. 运行训练代码，查看运行结果。
 
     ```shell
-    $ python train.py --data_path=./MNIST_Data
+    python train.py --data_path=./MNIST_Data
     ```
 
     输出如下，可以看到loss值随着训练逐步降低：
@@ -247,17 +254,17 @@ if __name__ == "__main__":
     epoch: 10 step: 448 loss is  0.06443884
     epoch: 10 step: 449 loss is  0.0067842817
     ```
-    
+
 2. 查看保存的CheckPoint文件。
 
     训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
-**验证模型**
+**验证模型**：
 
 通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
+python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
 输出如下，可以看到使用验证的数据集，正确率在96.31%左右，与batch_size为32的验证结果一致。

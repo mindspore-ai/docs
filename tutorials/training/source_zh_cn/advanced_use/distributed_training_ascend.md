@@ -81,11 +81,11 @@
 - `device_ip`表示集成网卡的IP地址，可以在当前机器执行指令`cat /etc/hccn.conf`，`address_x`的键值就是网卡IP地址。
 - `rank_id`表示卡逻辑序号，固定从0开始编号。
 
-
 ### 调用集合通信库
 
 MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Collective Communication Library`（以下简称HCCL），可以在Ascend AI处理器配套的软件包中找到。同时`mindspore.communication.management`中封装了HCCL提供的集合通信接口，方便用户配置分布式信息。
 > HCCL实现了基于Ascend AI处理器的多机多卡通信，有一些使用限制，我们列出使用分布式服务常见的，详细的可以查看HCCL对应的使用文档。
+>
 > - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
 > - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时卡必须相连且不支持跨组网创建集群。
 > - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
@@ -100,10 +100,11 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=int(os.environ["DEVICE_ID"]))
     init()
-    ...   
+    ...
 ```
 
 其中，  
+
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init`：使能HCCL通信，并完成分布式训练初始化操作。
@@ -111,7 +112,6 @@ if __name__ == "__main__":
 ## 数据并行模式加载数据集
 
 分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，即`cifar-10-batches-bin`文件夹的路径。
-
 
 ```python
 import mindspore.common.dtype as mstype
@@ -158,7 +158,9 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
     return data_set
 ```
+
 其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：  
+
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
 
@@ -255,7 +257,9 @@ def test_train_cifar(epoch_size=10):
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
+
 其中，  
+
 - `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
 
@@ -322,6 +326,7 @@ cd ../
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
 
 其中必要的环境变量有，  
+
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`：当前卡的逻辑序号。
@@ -331,7 +336,7 @@ cd ../
 
 日志文件保存`device`目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
 
-```
+```text
 epoch: 1 step: 156, loss is 2.0084016
 epoch: 2 step: 156, loss is 1.6407638
 epoch: 3 step: 156, loss is 1.6164391
@@ -485,7 +490,7 @@ context.reset_auto_parallel_context()
 # set parallel mode, data parallel mode is selected for training and model saving. If you want to choose auto parallel
 # mode, you can simply change the value of parallel_mode parameter to ParallelMode.AUTO_PARALLEL.
 context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
-	                              strategy_ckpt_save_file='./rank_{}_ckpt/strategy.txt'.format(get_rank))
+                               strategy_ckpt_save_file='./rank_{}_ckpt/strategy.txt'.format(get_rank))
 ```
 
 然后根据需要设置checkpoint保存策略，以及设置优化器和损失函数等，代码如下：
@@ -514,12 +519,14 @@ context.reset_auto_parallel_context()
 只需要改动设置checkpoint保存策略的代码，将`CheckpointConfig`中的`integrated_save`参数设置为Fasle，便可实现每张卡上只保存本卡的checkpoint文件，具体改动如下：
 
 将checkpoint配置策略由
+
 ```python
 # config checkpoint
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ```
 
 改为
+
 ```python
 # config checkpoint
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
