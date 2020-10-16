@@ -103,7 +103,7 @@ public void setData(byte[] data)
 设定MSTensor的输入数据。
 
 - 参数
-  - `data`: byte[]类型的输入数据。
+    - `data`: byte[]类型的输入数据。
 
 ```java
 public void setData(ByteBuffer data)
@@ -112,7 +112,7 @@ public void setData(ByteBuffer data)
 设定MSTensor的输入数据。
 
 - 参数
-  - `data`: ByteBuffer类型的输入数据。
+    - `data`: ByteBuffer类型的输入数据。
 
 ## size
 
@@ -145,4 +145,3 @@ public void free()
 ```
 
 释放MSTensor运行过程中动态分配的内存。
-

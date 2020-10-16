@@ -25,8 +25,8 @@ public boolean loadModel(Context context, String modelName)
 
 - 参数
 
-  - `context`: Android中的Context上下文
-  - `modelName`: 模型文件名称
+    - `context`: Android中的Context上下文
+    - `modelName`: 模型文件名称
 
 - 返回值
 
@@ -40,7 +40,7 @@ public boolean loadModel(String modelPath)
 
 - 参数
 
-  - `modelPath`: 模型文件路径
+    - `modelPath`: 模型文件路径
 
 - 返回值
 
@@ -61,4 +61,3 @@ public void free()
 ```
 
 释放Model运行过程中动态分配的内存。
-

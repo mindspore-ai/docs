@@ -33,7 +33,7 @@ public boolean init(MSConfig config)
 
 - 参数
 
-  - `MSConfig`: MSConfig类。
+    - `MSConfig`: MSConfig类。
 
 - 返回值
 
@@ -48,7 +48,7 @@ public void bindThread(boolean if_bind)
 尝试将线程池中的线程绑定到指定的CPU内核，或从指定的CPU内核进行解绑。
 
 - 参数
-  - `if_bind`: 是否对线程进行绑定或解绑。
+    - `if_bind`: 是否对线程进行绑定或解绑。
 
 ## compileGraph
 
@@ -156,7 +156,7 @@ public MSTensor getOutputByTensorName(String tensorName)
 
 - 参数
 
-  - `tensorName`: 张量名。
+    - `tensorName`: 张量名。
 
 - 返回值
 
@@ -172,8 +172,8 @@ public boolean resize(List<MSTensor> inputs, int[][] dims)
 
 - 参数
 
-  - `inputs`: 模型对应的所有输入。
-  - `dims`: 输入对应的新的shape，顺序注意要与inputs一致。
+    - `inputs`: 模型对应的所有输入。
+    - `dims`: 输入对应的新的shape，顺序注意要与inputs一致。
 
 - 返回值
 

@@ -28,6 +28,7 @@ Description of error code and meta type supported in MindSpore Lite.
 | RET_INPUT_PARAM_INVALID | -600 | Invalid input param by user. |
 
 ## MetaType
+
 An **enum** type.
 
 | Type Definition | Value | Description |
@@ -49,4 +50,3 @@ An **enum** type.
 |kNumberTypeFloat32| 43 | Indicating a data type of float32. |
 |kNumberTypeFloat64| 44 | Indicating a data type of float64.|
 |kNumberTypeEnd| 45 | The end of number type. |
-
