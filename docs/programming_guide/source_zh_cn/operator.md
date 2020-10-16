@@ -16,7 +16,6 @@
             - [求三角函数](#求三角函数)
         - [向量运算](#向量运算)
             - [Squeeze](#squeeze)
-            - [求Sparse2Dense](#求sparse2dense)
         - [矩阵运算](#矩阵运算)
             - [矩阵乘法](#矩阵乘法)
             - [广播机制](#广播机制)
@@ -187,7 +186,7 @@ scalar 3
 import numpy as np            
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as P
+
 input_x = mindspore.Tensor(np.array([1.0, 2.0, 4.0]), mindspore.float32)
 input_y = 3.0
 print(input_x**input_y)
@@ -277,30 +276,6 @@ print(output)
  [1. 1.]
  [1. 1.]]
 ```
-#### 求Sparse2Dense
-
-以下代码实现了对Sparse2Dense示例：
-```python
-import numpy as np
-import mindspore as ms
-from mindspore import Tensor
-import mindspore.ops.operations as P
-
-indices = Tensor([[0, 1], [1, 2]])
-values = Tensor([1, 2], dtype=ms.float32)
-dense_shape = (3, 4)
-out = P.SparseToDense()(indices, values, dense_shape)
-
-print(out)
-```
-
-输出如下：
-```
-[[0, 1, 0, 0],
- [0, 0, 2, 0],
- [0, 0, 0, 0]]
-```
-
 ### 矩阵运算
 
 矩阵运算包括矩阵乘法、矩阵范数、矩阵行列式、矩阵求特征值、矩阵分解等运算。
@@ -453,8 +428,6 @@ print(res)
 
 #### LossFunction
 
- L1Loss
-
  以下代码实现了L1 loss function：
 ```python
 from mindspore import Tensor
@@ -475,8 +448,6 @@ print(res)
 ```
 
 #### 优化算法
-
- SGD
 
  以下代码实现了SGD梯度下降算法的具体实现，输出是result：
 ```python
