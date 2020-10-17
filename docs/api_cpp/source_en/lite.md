@@ -117,7 +117,7 @@ An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
 ### Attributes
 
 ```cpp
-MID_CPU = -1
+MID_CPU = 2
 ```
 
 Bind middle cpu first.

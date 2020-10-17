@@ -117,7 +117,7 @@ static Model *Import(const char *model_buf, size_t size)
 ### 属性
 
 ```cpp
-MID_CPU = -1
+MID_CPU = 2
 ```
 
 优先中等CPU绑定策略。
