@@ -110,6 +110,8 @@
 | [mindspore.nn.LGamma](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.LGamma)                                        |Supported | Doing | Doing |layer/math
 | [mindspore.nn.ReduceLogSumExp](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.ReduceLogSumExp)                                        |Supported | Supported | Doing |layer/math
 | [mindspore.nn.MSSSIM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.MSSSIM)                                | Supported |Doing | Doing |layer/image
+| [mindspore.nn.AvgPool1d](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.AvgPool1d)                                          |  Supported |  Doing | Doing |layer/pooling
+| [mindspore.nn.Unfold](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Unfold)                                        |Supported | Doing | Doing |layer/basic
 
 ## mindspore.ops
 
@@ -273,7 +275,7 @@
 | [mindspore.ops.GatherV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.GatherV2)                           |    Supported | Supported    | Supported | array_ops
 | [mindspore.ops.Split](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Split)                                 |    Supported | Supported  | Doing | array_ops
 | [mindspore.ops.Rank](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Rank)                                   |    Supported |   Supported  |   Supported | array_ops
-| [mindspore.ops.TruncatedNormal](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TruncatedNormal)             |  Supported | Supported  | Supported | array_ops
+| [mindspore.ops.TruncatedNormal](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TruncatedNormal)             |  Doing | Supported  | Supported | array_ops
 | [mindspore.ops.Size](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Size)                                   |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.Fill](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Fill)                                   |   Supported |  Supported  |  Supported | array_ops
 | [mindspore.ops.OnesLike](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.OnesLike)                           |   Supported | Supported  | Doing | array_ops
@@ -371,6 +373,9 @@
 | [mindspore.ops.IFMR](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.IFMR)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.DynamicShape](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.DynamicShape)             |    Supported  | Supported  | Supported | array_ops
 | [mindspore.ops.Unique](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Unique)             |    Doing  | Doing  | Doing | array_ops
+| [mindspore.ops.ReduceAny](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceAny)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.SparseToDense](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.SparseToDense)                         |  Doing  | Doing  | Doing | sparse_ops
+| [mindspore.ops.CTCGreedyDecoder](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.CTCGreedyDecoder)       |  Doing | Doing  | Doing | nn_ops
 
 ## mindspore.ops.functional
 
