@@ -195,7 +195,7 @@ You can initialize the full connection layers and convolutional layers by `Norma
 
 MindSpore supports multiple parameter initialization methods, such as `TruncatedNormal`, `Normal`, and `Uniform`, default value is `Normal`. For details, see the description of the `mindspore.common.initializer` module in the MindSpore API.
 
-To use MindSpore for neural network definition, inherit `mindspore.nn.cell.Cell`. `Cell` is the base class of all neural networks (such as `Conv2d`).
+To use MindSpore for neural network definition, inherit `mindspore.nn.Cell`. `Cell` is the base class of all neural networks (such as `Conv2d`).
 
 Define each layer of a neural network in the `__init__` method in advance, and then define the `construct` method to complete the forward construction of the neural network. According to the structure of the LeNet network, define the network layers as follows:
 
