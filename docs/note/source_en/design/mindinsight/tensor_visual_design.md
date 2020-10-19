@@ -60,7 +60,8 @@ In tensor visualization, there are file API and RESTful API. The file API is the
 #### File API Design
 
 The `summary.proto` file is the main entry. TensorProto data is stored in the summary value, as shown in the following:
-```
+
+```cpp
 {
     message Summary {
         message Image {
@@ -69,7 +70,7 @@ The `summary.proto` file is the main entry. TensorProto data is stored in the su
             required int32 width = 2;
             ...
         }
-    
+
         message Histogram {
           message bucket{
               // Counting number of values fallen in [left, left + width).
@@ -78,7 +79,7 @@ The `summary.proto` file is the main entry. TensorProto data is stored in the su
               required double width = 2;
               required int64 count = 3;
           }
-    
+
           repeated bucket buckets = 1;
           ...
         }
@@ -86,7 +87,7 @@ The `summary.proto` file is the main entry. TensorProto data is stored in the su
         message Value {
             // Tag name for the data.
             required string tag = 1;
-    
+
             // Value associated with the tag.
             oneof value {
                 float scalar_value = 3;
@@ -100,4 +101,5 @@ The `summary.proto` file is the main entry. TensorProto data is stored in the su
     repeated Value value = 1;
 }
 ```
+
 TensorProto is defined in the [anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/anf_ir.proto) file.

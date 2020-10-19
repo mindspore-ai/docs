@@ -23,4 +23,3 @@ The following table shows the data of some object detection models using MindSpo
 | Model name      | Size | mAP(IoU=0.50:0.95) | CPU 4 thread delay (ms) |
 |-----------------------| :----------: | :----------: | :-----------: |
 | [MobileNetv2-SSD](https://download.mindspore.cn/model_zoo/official/lite/ssd_mobilenetv2_lite/ssd.ms) | 16.7 | 0.22 | 25.4 |
-

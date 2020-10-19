@@ -33,6 +33,7 @@
 To support model development and performance debugging in MindSpore, an easy-to-use profile tool is required to intuitively display the performance information of each dimension of a network model, provide users with easy-to-use and abundant profiling functions, and help users quickly locate network performance faults.
 
 ## Profiler Architecture Design
+
 The Profiler architecture design is introduced from the following three aspects: the overall context interaction relationship of Profiler; the internal structure of Profiler, including the module structure and module layers; the interactive calling relationship between modules.
 
 ### Context
@@ -50,6 +51,7 @@ As shown in the preceding figure, the interaction between the Profiler and other
 2. MindSpore Profiler parses the original data in the user script and generates the intermediate data results in the specified folder.
 
 3. MindInsight Profiler connects to the intermediate data and provides the visualized Profiler function for users.
+
 ### Module Structure
 
 Modules are classified into the following layers:
@@ -58,8 +60,8 @@ Modules are classified into the following layers:
 
 Figure 2 Relationships between modules at different layers
 
-
 Module functions are as follows:
+
 1. ProfilerAPI is a calling entry provided by code, including the performance collection startup API and analysis API.
 2. Controller is a module at a layer lower than that of ProfilerAPI. It is called by the startup API of ProfilerAPI to start or stop the performance collection function. The original data is written to a fixed position by ada.
 3. Parser is a module for parsing original performance data which is collected on the device and cannot be directly understood by users. Parser parses, combines, and converts the data to generate intermediate results that can be understood by users and analyzed by upper layers.
@@ -67,6 +69,7 @@ Module functions are as follows:
 5. RESTful is used to call the common API provided by the backend Analyser to obtain objective data and use RESTful to connect to the frontend.
 
 ### Internal Module Interaction
+
 Users can use API or RESTful to complete internal module interaction process. The following uses the API as an example:
 
 ![time_order_profiler.png](./images/time_order_profiler.png)
@@ -82,19 +85,21 @@ The interaction process of each module is as follows:
 3. Profiler API analysis API uses the Parser module to parse performance data, generates intermediate results, calls the Aalayser module to analyze the results, and returns various information to users.
 
 ## Sub-Module Design
+
 ### ProfilerAPI and Controller
 
 #### Description
+
 ProfilerAPI provides an entry API in the training script for users to start performance collection and analyze performance data.
 ProfilerAPI delivers commands through Controller to control the startup of ada.
 
 #### Design
+
 ProfilerAPI belongs to the API layer of upper-layer application and is integrated by the training script. The function is divided into two parts:
 
 - Before training, call the bottom-layer Controller API to deliver a command to start a profiling task.
 
 - After training, call the bottom-layer Controller API to deliver commands to stop the profiling task, call the Analyser and Parser APIs to parse data files and generate result data such as operator performance statistics and training trace statistics.
-
 
 Controller provides an API for the upper layer, calls API of the lower-layer performance collection module, and delivers commands for starting and stopping performance collection.
 
@@ -106,9 +111,13 @@ The generated original performance data includes:
 - `training_trace.46.dev.profiler_default_tag` file: stores the start and end time of each step and time of step interval, forward and backward propagation, and step tail.
 
 ### Parser
+
 #### Description
+
 Parser is a module for parsing original performance data which is collected on the device and cannot be directly understood by users. Parser parses, combines, and converts the data to generate intermediate results that can be understood by users and analyzed by upper layers.
+
 #### Design
+
 ![parser_module_profiler.png](./images/parser_module_profiler.png)
 
 Figure 4 Parser module
@@ -123,6 +132,7 @@ As shown in the preceding figure, there are HWTS Parser, AI CPU Parser, Framewor
 ### Analyser
 
 #### Description
+
 Analyzer is used to filter, sort, query, and page the intermediate results generated at the parsing stage.
 
 #### Design
@@ -142,9 +152,10 @@ Currently, there are two types of analyzers for operator information:
 
 To hide the internal implementation of Analyser and facilitate calling, the simple factory mode is used to obtain the specified Analyser through AnalyserFactory.
 
-
 ### Proposer
+
 #### Description
+
 Proposer is a Profiler performance optimization suggestion module. Proposer calls the Analyser module to obtain performance data, analyzes the performance data based on optimization rules, and displays optimization suggestions for users through the UI and API.
 
 #### Design

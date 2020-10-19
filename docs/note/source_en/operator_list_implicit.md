@@ -17,24 +17,26 @@
 ## Implicit Type Conversion
 
 ### conversion rules
-* Scalar and Tensor operations: during operation, the scalar is automatically converted to Tensor, and the data type is consistent with the Tensor data type involved in the operation;
+
+- Scalar and Tensor operations: during operation, the scalar is automatically converted to Tensor, and the data type is consistent with the Tensor data type involved in the operation;
 when Tensor is bool data type and the scalar is int or float, both the scalar and Tensor are converted to the Tensor with the data type of int32 or float32;
 when Tensor is int or uint data type and the scalar is float, both the scalar and Tensor are converted to the Tensor with the data type of float32.
-* Tensor operation of different data types: the priority of data type is bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 <float64,
+- Tensor operation of different data types: the priority of data type is bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 <float64,
 during the operation, first determine the data type with the relatively highest priority among the Tensors involved in the operation, and then convert the low priority data type Tensor to the relatively highest priority data type;
 when the Tensor of int8 and uint8 data types are operated, they are converted to int16 Tensor.
-* Data type conversion of Parameter is not supported: If inferred according to the conversion rules, RuntimeError exception will be thrown when the data type conversion of Parameter defined in the network is required.
+- Data type conversion of Parameter is not supported: If inferred according to the conversion rules, RuntimeError exception will be thrown when the data type conversion of Parameter defined in the network is required.
 
 ### data types involved in conversion
-* bool
-* int8
-* uint8
-* int16
-* int32
-* int64
-* float16
-* float32
-* float64
+
+- bool
+- int8
+- uint8
+- int16
+- int32
+- int64
+- float16
+- float32
+- float64
   
 ### support ops
 
@@ -102,4 +104,3 @@ when the Tensor of int8 and uint8 data types are operated, they are converted to
 | [mindspore.ops.ScatterSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterSub)
 | [mindspore.ops.ScatterMul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterMul)
 | [mindspore.ops.ScatterDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterDiv)
-
