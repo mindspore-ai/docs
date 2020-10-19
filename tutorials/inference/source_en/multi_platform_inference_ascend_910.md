@@ -13,7 +13,7 @@
 
 ## Inference Using a Checkpoint File
 
-1. Use the `model.eval` interface for model validation. 
+1. Use the `model.eval` interface for model validation.
 
    1.1 Local Storage
 
@@ -34,12 +34,13 @@
     acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
     print("============== {} ==============".format(acc))
     ```
+
     In the preceding information:  
     `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model.eval>.
     > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>.
 
     1.2 Remote Storage
-    
+
     When the pre-trained models are saved remotely, the steps of performing inference on validation dataset are as follows: firstly determine which model to be used, then loading model and parameters using `mindspore_hub.load`, and finally performing inference on validation dataset once created. The processing method of the validation dataset is the same as that of the training dataset.
 
     ```python
@@ -55,14 +56,17 @@
                              1)
     acc = model.eval(dataset, dataset_sink_mode=args.dataset_sink_mode)
     print("============== {} ==============".format(acc))
-    ``` 
+    ```
+
     In the preceding information:
-        
+
     `mindpsore_hub.load` is an API for loading model parameters. PLease check the details in <https://www.mindspore.cn/doc/api_python/en/master/mindspore_hub/mindspore_hub.html#module-mindspore_hub>.
 
 2. Use the `model.predict` API to perform inference.
+
    ```python
    model.predict(input_data)
    ```
+
    In the preceding information:  
    `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model.predict>.

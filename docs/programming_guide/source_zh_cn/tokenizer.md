@@ -79,7 +79,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 床前明月光
 疑是地上霜
@@ -130,7 +130,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 今天天气太好了我们一起去外面玩吧
 ------------------------after tokenization-----------------------------
@@ -167,7 +167,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 I saw a girl with a telescope.
 ------------------------after tokenization-----------------------------
@@ -203,7 +203,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 Welcome to Beijing!
 北京欢迎您！
@@ -243,7 +243,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 Welcome to Beijing!
 北京欢迎您！
@@ -285,7 +285,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 
 输出结果如下：
 
-```
+```text
 ------------------------before tokenization----------------------------
 my
 favorite

@@ -12,7 +12,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/multi_platform_inference_gpu.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-
 ## Inference Using a Checkpoint File
 
 The inference is the same as that on the Ascend 910 AI processor.

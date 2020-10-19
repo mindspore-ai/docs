@@ -26,19 +26,22 @@
 ## 对抗鲁棒性
 
 ### Attack
+
 `Attack`基类定义了对抗样本生成的使用接口，其子类实现了各种具体的生成算法，支持安全工作人员快速高效地生成对抗样本，用于攻击AI模型，以评估模型的鲁棒性。
 
 ### Defense
+
 `Defense`基类定义了对抗训练的使用接口，其子类实现了各种具体的对抗训练算法，增强模型的对抗鲁棒性。
 
 ### Detector
+
 `Detector`基类定义了对抗样本检测的使用借口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
 
 详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html)。
 
 ## 模型安全测试
 
-### Fuzzer 
+### Fuzzer
 
 `Fuzzer`类基于神经元覆盖率增益控制fuzzing流程，采用自然扰动和对抗样本生成方法作为变异策略，激活更多的神经元，从而探索不同类型的模型输出结果、错误行为，指导用户增强模型鲁棒性。
 

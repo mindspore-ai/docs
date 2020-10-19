@@ -7,15 +7,15 @@
     - [Import image preprocessing function library](#import-image-preprocessing-function-library)
     - [Initialize the image](#initialize-the-image)
         - [Usage example](#usage-example)
-    - [Optional image preprocessing operator](#optional-image-preprocessing-operator) 
+    - [Optional image preprocessing operator](#optional-image-preprocessing-operator)
         - [Resize image](#resize-image)
-            - [Usage example](#usage-example-1) 
+            - [Usage example](#usage-example-1)
         - [Convert the image data type](#convert-the-image-data-type)
-            - [Usage example](#usage-example-2) 
+            - [Usage example](#usage-example-2)
         - [Crop image data](#crop-image-data)
-            - [Usage example](#usage-example-3) 
+            - [Usage example](#usage-example-3)
         - [Normalize image data](#normalize-image-data)
-            - [Usage example](#usage-example-4)        
+            - [Usage example](#usage-example-4)
 
 <!-- /TOC -->
 
@@ -29,7 +29,7 @@ The process is as follows:
 
 ## Import image preprocessing function library
 
-```
+```cpp
 #include "lite_cv/lite_mat.h"
 #include "lite_cv/image_process.h"
 ```
@@ -38,13 +38,13 @@ The process is as follows:
 
 Here, the [InitFromPixel](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#initfrompixel) function in the `image_process.h` file is used to initialize the image.
 
-```
+```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
 ### Usage example
 
-```
+```cpp
 // Create the data object of the LiteMat object.
 LiteMat lite_mat_bgr;
 
@@ -61,13 +61,13 @@ The image processing operators here can be used in any combination according to 
 
 Here we use the [ResizeBilinear](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#resizebilinear) function in `image_process.h` to resize the image through a bilinear algorithm. Currently, the supported data type is unit8, the supported channels are 3 and 1.
 
-```
+```cpp
 bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
 #### Usage example
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -83,13 +83,13 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 
 Here we use the [ConvertTo](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#convertto) function in `image_process.h` to convert the image data type. Currently, the supported conversion is to convert uint8 to float.
 
-```
+```cpp
 bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
 #### Usage example
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -105,13 +105,13 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 
 Here we use the [Crop](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#crop) function in `image_process.h` to crop the image. Currently, channels 3 and 1 are supported.
 
-```
+```cpp
 bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
 #### Usage example
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -127,13 +127,13 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 
 In order to eliminate the dimensional influence among the data indicators, and solve the comparability problem among the data indicators through standardization processing, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#substractmeannormalize) function in `image_process.h` to normalize the image data.
 
-```
+```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
 #### Usage example
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);

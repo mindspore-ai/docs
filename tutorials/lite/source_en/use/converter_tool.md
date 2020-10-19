@@ -36,9 +36,11 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 ### Example
 
 First, in the root directory of the source code, run the following command to perform compilation. For details, see `compile.md`.
+
 ```bash
 bash build.sh -I x86_64
 ```
+
 > Currently, the model conversion tool supports only the x86_64 architecture.
 
 The following describes how to use the conversion command by using several common examples.
@@ -52,42 +54,51 @@ The following describes how to use the conversion command by using several commo
    In this example, the Caffe model is used. Therefore, the model structure and model weight files are required. Two more parameters `fmk` and `outputFile` are also required.
 
    The output is as follows:
-   ```
+
+   ```text
    CONVERTER RESULT SUCCESS:0
    ```
+
    This indicates that the Caffe model is successfully converted into the MindSpore Lite model and the new file `lenet.ms` is generated.
-   
+
 - The following uses the MindSpore, TensorFlow Lite, ONNX and perception quantization models as examples to describe how to run the conversion command.
 
-   - MindSpore model `model.mindir`
+    - MindSpore model `model.mindir`
+
       ```bash
       ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
-   
-   - TensorFlow Lite model `model.tflite`
+
+    - TensorFlow Lite model `model.tflite`
+
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
       ```
-   
-   - ONNX model `model.onnx`
+
+    - ONNX model `model.onnx`
+
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 
-   - TensorFlow Lite aware quantization model `model_quant.tflite`
+    - TensorFlow Lite aware quantization model `model_quant.tflite`
+
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining
       ```
-     
-  - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be float
+
+    - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be float
+
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining  --inferenceType=FLOAT
       ```
 
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
-   ```
+
+   ```text
    CONVERTER RESULT SUCCESS:0
    ```
+
 - If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
 
 ### Parameter Description
@@ -97,7 +108,6 @@ You can enter `./converter_lite --help` to obtain help information in real time.
 
 The following describes the parameters in detail.
 
-
 | Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | No | Prints all help information. | - | - |
@@ -106,7 +116,7 @@ The following describes the parameters in detail.
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
 | `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization <br>WeightQuant: only do weight quantization after training | - |
-| `--inferenceType=<INFERENCETYPE> `| No(supported by aware quant models only) |  Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
+| `--inferenceType=<INFERENCETYPE>`| No(supported by aware quant models only) |  Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
 | `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant,now only support 8 bits. | 8 | 8 |
 | `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant.If size is bigger than this value,it will trigger weight quantization | (0, +∞) | 0 |
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel num threshold of convolution filter when quantType is set as WeightQuant.If num is bigger than this,it will trigger weight quantization | (0, +∞) | 16 |
@@ -130,9 +140,11 @@ Reference description Linux environment model conversion tool [parameter descrip
 ### Example
 
 Set the log printing level to INFO.
+
 ```bash
 set GLOG_v=1
 ```
+
 > Log level: 0 is DEBUG, 1 is INFO, 2 is WARNING, 3 is ERROR.
 
 Several common examples are selected below to illustrate the use of conversion commands.
@@ -146,35 +158,43 @@ Several common examples are selected below to illustrate the use of conversion c
    In this example, because the Caffe model is used, two input files of model structure and model weight are required. Then plus fmk type and output path two parameters which are required, you can successfully execute.
 
    The result is shown as:
-   ```
+
+   ```text
    CONVERTER RESULT SUCCESS:0
    ```
+
    This means that the Caffe model has been successfully converted to the MindSpore Lite model and the new file `lenet.ms` has been obtained.
-   
+
 - Take MindSpore, TensorFlow Lite, ONNX model format and perceptual quantization model as examples to execute conversion commands.
 
-   - MindSpore model `model.mindir`
+    - MindSpore model `model.mindir`
+
       ```bash
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
-   
-   - TensorFlow Lite model`model.tflite`
+
+    - TensorFlow Lite model`model.tflite`
+
       ```bash
       call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
       ```
-   
-   - ONNX model`model.onnx`
+
+    - ONNX model`model.onnx`
+
       ```bash
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 
-   - TensorFlow Lite awaring quant model `model_quant.tflite`
+    - TensorFlow Lite awaring quant model `model_quant.tflite`
+
       ```bash
       call converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
       ```
 
    In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
-   ```
+
+   ```text
    CONVERTER RESULT SUCCESS:0
-   ```   
+   ```
+
 - If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.

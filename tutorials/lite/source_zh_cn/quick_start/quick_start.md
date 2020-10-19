@@ -22,12 +22,13 @@
 ## 概述
 
 我们推荐你从端侧Android图像分类demo入手，了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
-     
+
 本教程基于MindSpore团队提供的Android“端侧图像分类”示例程序，演示了端侧部署的流程。  
+
 1. 选择图像分类模型。
 2. 将模型转换成MindSpore Lite模型格式。
 3. 在端侧使用MindSpore Lite推理模型。详细说明如何在端侧利用MindSpore Lite C++ API（Android JNI）和MindSpore Lite图像分类模型完成端侧推理，实现对设备摄像头捕获的内容进行分类，并在APP图像预览界面中，显示出最可能的分类结果。
-   
+
 > 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification)。
 
 ## 选择模型
@@ -41,6 +42,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)将.mindir模型转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
+
 ```bash
 ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
@@ -59,7 +61,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ### 构建与运行
 
-1. 在Android Studio中加载本示例源码，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。 
+1. 在Android Studio中加载本示例源码，并安装相应的SDK（指定SDK版本后，由Android Studio自动安装）。
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -85,12 +87,9 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
     ![install](../images/lite_quick_start_install.png)
 
-    
-
     识别结果如下图所示。
 
     ![result](../images/lite_quick_start_app_result.png)
-
 
 ## 示例程序详细说明  
 
@@ -100,7 +99,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ### 示例程序结构
 
-```
+```text
 app
 ├── src/main
 │   ├── assets # 资源文件
@@ -119,7 +118,7 @@ app
 │   │       │   └── ...
 │   │       └── widget # 开启摄像头及绘制相关实现
 │   │           └── ...
-│   │   
+│   │
 │   ├── res # 存放Android相关的资源文件
 │   └── AndroidManifest.xml # Android配置文件
 │
@@ -146,7 +145,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
  mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [下载链接](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
-```
+```text
 android{
     defaultConfig{
         externalNativeBuild{
@@ -155,7 +154,7 @@ android{
             }
         }
 
-        ndk{ 
+        ndk{
             abiFilters'armeabi-v7a', 'arm64-v8a'  
         }
     }
@@ -164,7 +163,7 @@ android{
 
 在`app/CMakeLists.txt`文件中建立`.so`库文件链接，如下所示。
 
-```
+```text
 # ============== Set MindSpore Dependencies. =============
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/flatbuffers/include)
@@ -182,7 +181,7 @@ set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libminddata-lite.so)
 # --------------- MindSpore Lite set End. --------------------
 
-# Link target library.       
+# Link target library.
 target_link_libraries(
     ...
      # --- mindspore ---
@@ -202,34 +201,37 @@ target_link_libraries(
 
 在JNI层调用MindSpore Lite C++ API实现端测推理。
 
-推理代码流程如下，完整代码请参见`src/cpp/MindSporeNetnative.cpp`。 
+推理代码流程如下，完整代码请参见`src/cpp/MindSporeNetnative.cpp`。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
     - 加载模型文件：创建并配置用于模型推理的上下文
+
         ```cpp
         // Buffer is the model data passed in by the Java layer
         jlong bufferLen = env->GetDirectBufferCapacity(buffer);
         char *modelBuffer = CreateLocalModelBuffer(env, buffer);  
         ```
-        
+
     - 创建会话
+
         ```cpp
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
-        
+
         // Create context.
         mindspore::lite::Context *context = new mindspore::lite::Context;
         context->thread_num_ = num_thread;
-        
+
         // Create the mindspore session.
         labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
         delete (context);
-        
+
         ```
-        
+
     - 加载模型文件并构建用于推理的计算图
+
         ```cpp
         void MSNetWork::CreateSessionMS(char* modelBuffer, size_t bufferLen, std::string name, mindspore::lite::Context* ctx)
         {
@@ -239,8 +241,8 @@ target_link_libraries(
             int ret = session->CompileGraph(model);
         }
         ```
-    
-2. 将输入图片转换为传入MindSpore模型的Tensor格式。 
+
+2. 将输入图片转换为传入MindSpore模型的Tensor格式。
 
     将待检测图片数据转换为输入MindSpore模型的Tensor。
 
@@ -250,7 +252,7 @@ target_link_libraries(
    // Processing such as zooming the picture size.
     matImgPreprocessed = PreProcessImageData(matImageSrc);  
 
-    ImgDims inputDims; 
+    ImgDims inputDims;
     inputDims.channel = matImgPreprocessed.channels();
     inputDims.width = matImgPreprocessed.cols;
     inputDims.height = matImgPreprocessed.rows;
@@ -270,7 +272,7 @@ target_link_libraries(
         inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
     delete[] (dataHWC);
    ```
-   
+
 3. 对输入数据进行处理。
 
    ```cpp
@@ -302,7 +304,7 @@ target_link_libraries(
    }
    ```
 
-4. 对输入Tensor按照模型进行推理，获取输出Tensor，并进行后处理。    
+4. 对输入Tensor按照模型进行推理，获取输出Tensor，并进行后处理。
 
    - 图执行，端测推理。
 
@@ -312,6 +314,7 @@ target_link_libraries(
         ```
 
    - 获取输出数据。
+
         ```cpp
         auto names = mSession->GetOutputTensorNames();
         std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs;
@@ -321,22 +324,23 @@ target_link_libraries(
           }
         std::string retStr = ProcessRunnetResult(msOutputs, ret);
         ```
-        
+
    - 输出数据的后续处理。
+
         ```cpp
         std::string ProcessRunnetResult(std::unordered_map<std::string,
                 mindspore::tensor::MSTensor *> msOutputs, int runnetRet) {
-        
+
           std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
           iter = msOutputs.begin();
-        
+
           // The mobilenetv2.ms model output just one branch.
           auto outputTensor = iter->second;
           int tensorNum = outputTensor->ElementsNum();
-        
+
           // Get a pointer to the first score.
           float *temp_scores = static_cast<float *>(outputTensor->MutableData());
-        
+
           float scores[RET_CATEGORY_SUM];
           for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
              if (temp_scores[i] > 0.5) {
@@ -344,7 +348,7 @@ target_link_libraries(
              }
             scores[i] = temp_scores[i];
           }
-        
+
           // Score for each category.
           // Converted to text information that needs to be displayed in the APP.
           std::string categoryScore = "";
@@ -356,5 +360,5 @@ target_link_libraries(
             categoryScore += ";";
           }
           return categoryScore;
-        }      
+        }
         ```

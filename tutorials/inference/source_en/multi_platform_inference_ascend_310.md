@@ -11,7 +11,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/multi_platform_inference_ascend_310.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-
 ## Inference Using an ONNX or AIR File
 
 The Ascend 310 AI processor is equipped with the ACL framework and supports the OM format which needs to be converted from the model in ONNX or AIR format. For inference on the Ascend 310 AI processor, perform the following steps:
