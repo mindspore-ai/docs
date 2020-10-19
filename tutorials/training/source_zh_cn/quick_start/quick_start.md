@@ -200,7 +200,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 MindSpore支持`TruncatedNormal`、`Normal`、`Uniform`等多种参数初始化方法，默认采用`Normal`。具体可以参考MindSpore API的`mindspore.common.initializer`模块说明。
 
-使用MindSpore定义神经网络需要继承`mindspore.nn.cell.Cell`。`Cell`是所有神经网络（`Conv2d`等）的基类。
+使用MindSpore定义神经网络需要继承`mindspore.nn.Cell`。`Cell`是所有神经网络（`Conv2d`等）的基类。
 
 神经网络的各层需要预先在`__init__`方法中定义，然后通过定义`construct`方法来完成神经网络的前向构造。按照LeNet的网络结构，定义网络各层如下：
 
