@@ -293,26 +293,26 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 - 开始增量训练
 
-  - 使用样例1：通过Python文件调用1个GPU处理器。
+    - 使用样例1：通过Python文件调用1个GPU处理器。
 
-    ```bash
-    # Windows or Linux with Python
-    python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
-    ```
+        ```bash
+        # Windows or Linux with Python
+        python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
+        ```
 
-  - 使用样例2：通过Shell脚本调用1个GPU处理器，设备ID为`“0”`。
+    - 使用样例2：通过Shell脚本调用1个GPU处理器，设备ID为`“0”`。
 
-    ```bash
-    # Linux with Shell
-    sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
-    ```
+        ```bash
+        # Linux with Shell
+        sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        ```
 
-  - 使用样例3：通过Shell脚本调用8个GPU处理器，设备ID为`“0,1,2,3,4,5,6,7”`。
+    - 使用样例3：通过Shell脚本调用8个GPU处理器，设备ID为`“0,1,2,3,4,5,6,7”`。
 
-    ```bash
-    # Linux with Shell
-    sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
-    ```
+        ```bash
+        # Linux with Shell
+        sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        ```
 
 ### Ascend加载训练  
 
@@ -322,68 +322,68 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 - 开始增量训练
 
-  - 使用样例1：通过Python文件调用1个Ascend处理器。
+    - 使用样例1：通过Python文件调用1个Ascend处理器。
 
-    ```bash
-    # Windows or Linux with Python
-    python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
-    ```
+        ```bash
+        # Windows or Linux with Python
+        python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
+        ```
 
-  - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
+    - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
 
-    ```bash
-    # Linux with Shell
-    sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
-    ```
+        ```bash
+        # Linux with Shell
+        sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        ```
 
-  - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
+    - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
 
-    ```bash
-    # Linux with Shell
-    sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
-    ```
+        ```bash
+        # Linux with Shell
+        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        ```
 
 ### 微调训练结果  
 
 - 查看运行结果。
 
-  - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/rank0/log0.log`中查看打印信息，输出结果如下：
+    - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/rank0/log0.log`中查看打印信息，输出结果如下：
 
-    ```bash
-    train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
-    pretrain_ckpt='./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt', freeze_layer='backbone')
-    cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
-    'epoch_size': 200, 'warmup_epochs': 0, 'lr_max': 0.03, 'lr_end': 0.03, 'momentum': 0.9, \
-    'weight_decay': 4e-05, 'label_smooth': 0.1, 'loss_scale': 1024, 'save_checkpoint': True, \
-    'save_checkpoint_epochs': 1, 'keep_checkpoint_max': 20, 'save_checkpoint_path': './', \
-    'platform': 'CPU'}
-    Processing batch: 16: 100%|███████████████████████████████████████████ █████████████████████| 16/16 [00:00<?, ?it/s]
-    epoch[200], iter[16] cost: 256.030, per step time: 256.030, avg loss: 1.775total cos 7.2574 s
-    ```
+        ```bash
+        train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
+        pretrain_ckpt='./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt', freeze_layer='backbone')
+        cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
+        'epoch_size': 200, 'warmup_epochs': 0, 'lr_max': 0.03, 'lr_end': 0.03, 'momentum': 0.9, \
+        'weight_decay': 4e-05, 'label_smooth': 0.1, 'loss_scale': 1024, 'save_checkpoint': True, \
+        'save_checkpoint_epochs': 1, 'keep_checkpoint_max': 20, 'save_checkpoint_path': './', \
+        'platform': 'CPU'}
+        Processing batch: 16: 100%|███████████████████████████████████████████ █████████████████████| 16/16 [00:00<?, ?it/s]
+        epoch[200], iter[16] cost: 256.030, per step time: 256.030, avg loss: 1.775total cos 7.2574 s
+        ```
 
 - 查看保存的checkpoint文件。
 
-  - Windows上使用`dir checkpoint`查看保存的模型文件：
+    - Windows上使用`dir checkpoint`查看保存的模型文件：
 
-    ```bash
-    dir ckpt_0
-    2020//0814 11:20        267,727 mobilenetv2_1.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_10.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_11.ckpt
-    ...
-    2020//0814 11:21        267,727 mobilenetv2_7.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_8.ckpt
-    2020//0814 11:21        267,727 mobilenetv2_9.ckpt
-    ```
+        ```bash
+        dir ckpt_0
+        2020//0814 11:20        267,727 mobilenetv2_1.ckpt
+        2020//0814 11:21        267,727 mobilenetv2_10.ckpt
+        2020//0814 11:21        267,727 mobilenetv2_11.ckpt
+        ...
+        2020//0814 11:21        267,727 mobilenetv2_7.ckpt
+        2020//0814 11:21        267,727 mobilenetv2_8.ckpt
+        2020//0814 11:21        267,727 mobilenetv2_9.ckpt
+        ```
 
-  - Linux上使用`ls ./checkpoint`查看保存的模型文件：
+    - Linux上使用`ls ./checkpoint`查看保存的模型文件：
 
-    ```bash
-    ls ./ckpt_0/
-    mobilenetv2_1.ckpt  mobilenetv2_2.ckpt
-    mobilenetv2_3.ckpt  mobilenetv2_4.ckpt
-    ...
-    ```
+        ```bash
+        ls ./ckpt_0/
+        mobilenetv2_1.ckpt  mobilenetv2_2.ckpt
+        mobilenetv2_3.ckpt  mobilenetv2_4.ckpt
+        ...
+        ```
 
 ## 验证微调训练模型
 

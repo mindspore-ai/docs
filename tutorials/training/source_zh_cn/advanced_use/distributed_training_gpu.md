@@ -70,7 +70,7 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
     init("nccl")
-    ...   
+    ...
 ```
 
 其中，
@@ -110,7 +110,7 @@ mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 
 脚本需要传入变量`DATA_PATH`，表示数据集的路径。此外，我们需要修改下`resnet50_distributed_training.py`文件，由于在GPU上，我们无需设置`DEVICE_ID`环境变量，因此，在脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将`device_target`设置为`GPU`，并调用`init("nccl")`来使能NCCL。日志文件保存到device目录下，关于Loss部分结果保存在train.log中。将loss值grep出来后，示例如下：
 
-```
+```text
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
@@ -124,6 +124,7 @@ epoch: 1 step: 1, loss is 2.3025854
 ## 运行多机脚本
 
 若训练涉及多机，则需要额外在`mpirun`命令中设置多机配置。你可以直接在`mpirun`命令中用`-H`选项进行设置，比如`mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py`，表示在ip为DEVICE1_IP和DEVICE2_IP的机器上分别起8个进程运行程序；或者也可以构造一个如下这样的hostfile文件，并将其路径传给`mpirun`的`--hostfile`的选项。hostfile文件每一行格式为`[hostname] slots=[slotnum]`，hostname可以是ip或者主机名。
+
 ```bash
 DEVICE1 slots=8
 DEVICE2 slots=8

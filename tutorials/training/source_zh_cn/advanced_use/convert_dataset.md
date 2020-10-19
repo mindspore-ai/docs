@@ -16,9 +16,10 @@
 
 ## 概述
 
-用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式，即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能。   
+用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式，即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能。
 
 MindSpore数据格式具备的特征如下：  
+
 1. 实现多变的用户数据统一存储、访问，训练数据读取更简便；
 2. 数据聚合存储，高效读取，且方便管理、移动；
 3. 高效数据编解码操作，对用户透明、无感知；
@@ -96,7 +97,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 
 5. 创建`FileWriter`对象，传入文件名及分片数量，然后添加Schema文件及索引，调用`write_raw_data`接口写入数据，最后调用`commit`接口生成本地数据文件。
 
-    ```python    
+    ```python
     writer = FileWriter(file_name="test.mindrecord", shard_num=4)
     writer.add_schema(cv_schema_json, "test_schema")
     writer.add_index(indexes)
@@ -141,7 +142,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 
     输出结果如下：
 
-    ```
+    ```text
     sample: {'data': array([175, 175,  85,  60, 184, 124,  54, 189, 125, 193, 153,  91, 234, 106,  43, 143, 132, 211, 204, 160,  44, 105, 187, 185,  45, 205, 122, 236, 112, 123,  84, 177, 219], dtype=uint8),
         'file_name': array(b'3.jpg', dtype='|S5'),
         'label': array(99, dtype=int32)}

@@ -24,9 +24,9 @@
 
 1. 将你的预训练模型托管在可以访问的存储位置。
 
-2. 参照[模板](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py)，在你自己的代码仓中添加模型生成文件`mindspore_hub_conf.py`，文件放置的位置如下： 
+2. 参照[模板](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py)，在你自己的代码仓中添加模型生成文件`mindspore_hub_conf.py`，文件放置的位置如下：
 
-   ```shell
+   ```bash
    googlenet
    ├── src
    │   ├── googlenet.py
@@ -39,7 +39,7 @@
 
 3. 参照[模板](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#)，在`hub/mshub_res/assets/mindspore/ascend/0.7`文件夹下创建`{model_name}_{model_version}_{dataset}.md`文件，其中`ascend`为模型运行的硬件平台，`0.7`为MindSpore的版本号，`hub/mshub_res`的目录结构为：
 
-   ```shell
+   ```bash
    hub
    ├── mshub_res
    │   ├── assets
@@ -47,19 +47,20 @@
    |           ├── gpu
    |               ├── 0.7
    |           ├── ascend
-   |               ├── 0.7 
+   |               ├── 0.7
    |                   ├── googlenet_v1_cifar10.md
    │   ├── tools
    |       ├── md_validator.py
-   |       └── md_validator.py 
+   |       └── md_validator.py
    ```
+
    注意，`{model_name}_{model_version}_{dataset}.md`文件中需要补充如下所示的`file-format`、`asset-link` 和 `asset-sha256`信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值。
 
-   ```shell
+   ```bash
    file-format: ckpt  
    asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt  
    asset-sha256: 114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7
-   ```   
+   ```
 
    其中，MindSpore Hub支持的模型文件格式有：
    - [MindSpore CKPT](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)

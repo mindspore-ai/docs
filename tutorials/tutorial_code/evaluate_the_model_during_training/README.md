@@ -1,7 +1,9 @@
-使用数据集: [MNIST](http://yann.lecun.com/exdb/mnist/) 
+# README
+
+使用数据集: [MNIST](http://yann.lecun.com/exdb/mnist/)
 下载后按照下述结构放置：
 
-```
+```text
 ├─evaluate_the_model_during_training.py
 │
 └─MNIST_Data

@@ -25,6 +25,7 @@
 本教程介绍MindArmour提供的模型安全防护手段，引导您快速使用MindArmour，为您的AI模型提供一定的安全防护能力。
 
 AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判断结果容易被恶意攻击者影响，导致AI系统判断失准。攻击者在原始样本处加入人类不易察觉的微小扰动，导致深度学习模型误判，称为对抗样本攻击。MindArmour模型安全提供对抗样本生成、对抗样本检测、模型防御、攻防效果评估等功能，为AI模型安全研究和AI应用安全提供重要支撑。
+
 - 对抗样本生成模块支持安全工程师快速高效地生成对抗样本，用于攻击AI模型。
 - 对抗样本检测、防御模块支持用户检测过滤对抗样本、增强AI模型对于对抗样本的鲁棒性。
 - 评估模块提供多种指标全面评估对抗样本攻防性能。
@@ -32,6 +33,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
 
 > 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_safety>
+>
 > - `mnist_attack_fgsm.py`：包含攻击代码。
 > - `mnist_defense_nad.py`：包含防御代码。
 
@@ -132,18 +134,18 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
         return nn.Conv2d(in_channels, out_channels,
                          kernel_size=kernel_size, stride=stride, padding=padding,
                          weight_init=weight, has_bias=False, pad_mode="valid")
-    
-    
+
+
     def fc_with_initialize(input_channels, out_channels):
         weight = weight_variable()
         bias = weight_variable()
         return nn.Dense(input_channels, out_channels, weight, bias)
-    
-    
+
+
     def weight_variable():
         return TruncatedNormal(0.02)
-    
-    
+
+
     class LeNet5(nn.Cell):
         """
         Lenet network
@@ -158,7 +160,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
             self.relu = nn.ReLU()
             self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
             self.flatten = nn.Flatten()
-    
+
         def construct(self, x):
             x = self.conv1(x)
             x = self.relu(x)
@@ -190,7 +192,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     model = Model(net, loss, opt, metrics=None)
     model.train(10, ds_train, callbacks=[LossMonitor()],
                 dataset_sink_mode=False)
-    
+
     # 2. get test data
     ds_test = generate_mnist_dataset(os.path.join(mnist_path, "test"),
                                      batch_size=batch_size, repeat_size=1,
@@ -203,7 +205,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     test_inputs = np.concatenate(inputs)
     test_labels = np.concatenate(labels)
     ```
-    
+
 3. 测试模型。
 
     ```python
@@ -217,15 +219,15 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
         logits = net(Tensor(batch_inputs)).asnumpy()
         test_logits.append(logits)
     test_logits = np.concatenate(test_logits)
-    
+
     tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
     accuracy = np.mean(tmp)
     LOGGER.info(TAG, 'prediction accuracy before attacking is : %s', accuracy)
     ```
-    
+
     测试结果中分类精度达到了98%。
-    
-    ```python 
+
+    ```python
     prediction accuracy before attacking is : 0.9895833333333334
     ```
 
@@ -272,7 +274,7 @@ LOGGER.info(TAG, 'The average structural similarity between original '
 
 攻击结果如下：
 
-```
+```text
 prediction accuracy after attacking is : 0.052083
 mis-classification rate of adversaries is : 0.947917
 The average confidence of adversarial class is : 0.803375
@@ -349,7 +351,7 @@ LOGGER.info(TAG, 'The average confidence of true class is : %s',
 
 ### 防御效果
 
-```
+```text
 accuracy of TEST data on defensed model is : 0.974259
 accuracy of adv data on defensed model is : 0.856370
 defense mis-classification rate of adversaries is : 0.143629
@@ -358,4 +360,3 @@ The average confidence of true class is : 0.177374
 ```
 
 使用NAD进行对抗样本防御后，模型对于对抗样本的误分类率从95%降至14%，模型有效地防御了对抗样本。同时，模型对于原来测试数据集的分类精度达97%。
-

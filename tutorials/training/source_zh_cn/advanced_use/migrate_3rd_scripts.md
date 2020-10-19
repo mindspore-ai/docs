@@ -36,10 +36,12 @@
 以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
+
 - 使用其他算子替换：分析算子实现公式，审视是否可以采用MindSpore现有算子叠加达到预期目标。
 - 临时替代方案：比如不支持某个Loss，是否可以替换为同类已支持的Loss算子；又比如当前的网络结构，是否可以替换为其他同类主流网络等。
 
 如果发现支持的算子存在功能不全，建议：
+
 - 非必要功能：可删除。
 - 必要功能：寻找替代方案。
 
@@ -68,7 +70,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 2. 加载数据集和预处理。
 
     使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/data_preparation.html)。
-    
+
     本例中加载了Cifar-10数据集，可同时支持单卡和多卡的场景。
 
     ```python
@@ -78,7 +80,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
         ds = de.Cifar10Dataset(dataset_path, num_parallel_workers=4, shuffle=True,
                                num_shards=device_num, shard_id=rank_id)
     ```
-    
+
     然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/dataset.py>。
 
 3. 构建网络。
@@ -234,13 +236,13 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     ```
 
     如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#mindspore-metrics)属性设置希望使用的评估方法。
-    
+
     ```python
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
     ```
 
     类似于TensorFlow的`estimator.train`，可以通过调用`model.train`接口来进行训练。CheckPoint和中间结果打印等功能，可通过`Callback`的方式定义到`model.train`接口上。
-    
+
     ```python
     time_cb = TimeMonitor(data_size=step_size)
     loss_cb = LossMonitor()
@@ -256,6 +258,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 #### 精度调试
 
 精度调优过程建议如下两点：  
+
 1. 单卡精度验证时，建议先采用小数据集进行训练。验证达标后，多卡精度验证时，再采用全量数据集。这样可以帮助提升调试效率。
 2. 首先删减脚本中的不必要技巧（如优化器中的增强配置、动态Loss Scale等），验证达标后，在此基础上逐个叠加新增功能，待当前新增功能确认正常后，再叠加下一个功能。这样可以帮助快速定位问题。
 

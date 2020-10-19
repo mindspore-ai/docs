@@ -37,7 +37,6 @@
 
 MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵采用近似、切分等优化加速手段，极大的降低了逆矩阵的计算复杂度，开发出了可用的二阶优化器THOR。使用8块Ascend 910 AI处理器，THOR可以在72min内完成ResNet50-v1.5网络和ImageNet数据集的训练，相比于SGD+Momentum速度提升了近一倍。
 
-
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
 > 你可以在这里下载完整的示例代码：
 <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor> 。
@@ -47,12 +46,12 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 ```shell
 ├── resnet_thor
     ├── README.md
-    ├── scripts                     
+    ├── scripts
         ├── run_distribute_train.sh         # launch distributed training for Ascend 910
         └── run_eval.sh                     # launch inference for Ascend 910
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
         └── run_eval_gpu.sh                 # launch inference for GPU
-    ├── src                                  
+    ├── src
         ├── crossentropy.py                 # CrossEntropy loss function
         ├── config.py                       # parameter configuration
         ├── dataset_helper.py               # dataset helper for minddata dataset
@@ -61,19 +60,19 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
         ├── resnet_thor.py                  # resnet50_thor backone
         ├── thor.py                         # thor optimizer
         ├── thor_layer.py                   # thor layer
-        └── dataset.py                      # data preprocessing    
+        └── dataset.py                      # data preprocessing
     ├── eval.py                             # infer script
     └── train.py                            # train script
-    
+
 ```
 
 整体执行流程如下：
+
 1. 准备ImageNet数据集，处理需要的数据集；
 2. 定义ResNet50网络；
 3. 定义损失函数和THOR优化器；
 4. 加载数据集并进行训练，训练完成后，查看结果及保存模型文件；
 5. 加载保存的模型，进行推理。
-
 
 ## 准备环节
 
@@ -85,7 +84,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 目录结构如下：
 
-```
+```text
 └─ImageNet2012
     ├─ilsvrc
     │      n03676483
@@ -99,17 +98,21 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
     │      ......
 
 ```
+
 ### 配置分布式环境变量
+
 #### Ascend 910
+
 Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id4)。
 
 #### GPU
-GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_gpu.html#id4)。
 
+GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_gpu.html#id4)。
 
 ## 加载处理数据集
 
 分布式训练时，通过并行的方式加载数据集，同时通过MindSpore提供的数据增强接口对数据集进行处理。加载处理数据集的脚本在源码的`src/dataset.py`脚本中。
+
 ```python
 import os
 import mindspore.common.dtype as mstype
@@ -165,17 +168,18 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 > MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)和[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
 
-
 ## 定义网络
+
 本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
 和`Dense`算子。定义好的网络模型在在源码`src/resnet_thor.py`脚本中，自定义的算子`Conv2d_thor`和`Dense_thor`在`src/thor_layer.py`脚本中。
 
--  使用`Conv2d_thor`替换原网络模型中的`Conv2d`
--  使用`Dense_thor`替换原网络模型中的`Dense`
+- 使用`Conv2d_thor`替换原网络模型中的`Conv2d`
+- 使用`Dense_thor`替换原网络模型中的`Dense`
 
 > 使用THOR自定义的算子`Conv2d_thor`和`Dense_thor`是为了保存模型训练中的二阶矩阵信息，新定义的网络与原网络模型的backbone一致。
 
 网络构建完成以后，在`__main__`函数中调用定义好的ResNet50：
+
 ```python
 ...
 from src.resnet_thor import resnet50
@@ -188,15 +192,14 @@ if __name__ == "__main__":
     ...
 ```
 
-
 ## 定义损失函数及THOR优化器
-
 
 ### 定义损失函数
 
 MindSpore支持的损失函数有`SoftmaxCrossEntropyWithLogits`、`L1Loss`、`MSELoss`等。THOR优化器需要使用`SoftmaxCrossEntropyWithLogits`损失函数。
 
 损失函数的实现步骤在`src/crossentropy.py`脚本中。这里使用了深度网络模型训练中的一个常用trick：label smoothing，通过对真实标签做平滑处理，提高模型对分类错误标签的容忍度，从而可以增加模型的泛化能力。
+
 ```python
 class CrossEntropy(_Loss):
     """CrossEntropy"""
@@ -214,6 +217,7 @@ class CrossEntropy(_Loss):
         loss = self.mean(loss, 0)
         return loss
 ```
+
 在`__main__`函数中调用定义好的损失函数：
 
 ```python
@@ -236,6 +240,7 @@ THOR优化器的参数更新公式如下：
 $$ \theta^{t+1} = \theta^t + \alpha F^{-1}\nabla E$$
 
 参数更新公式中各参数的含义如下：
+
 - $\theta$：网络中的可训参数；
 - $t$：迭代次数；
 - $\alpha$：学习率值，参数的更新步长；
@@ -296,7 +301,6 @@ if __name__ == "__main__":
 
 通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个Model_Thor类，继承MindSpore提供的Model类。在Model_Thor类中增加二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
 
-
 ```python
 ...
 from mindspore.train.loss_scale_manager import FixedLossScaleManager
@@ -316,15 +320,21 @@ if __name__ == "__main__":
 ```
 
 ### 运行脚本
+
 训练脚本定义完成之后，调`scripts`目录下的shell脚本，启动分布式训练进程。
+
 #### Ascend 910
+
 目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。其中，0卡在前台执行，其他卡放在后台执行。每个进程创建1个目录，目录名称为`train_parallel`+ `device_id`，用来保存日志信息，算子编译信息以及训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
 
 使用以下命令运行脚本：
-```
+
+```bash
 sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 ```
+
 脚本需要传入变量`RANK_TABLE_FILE`、`DATASET_PATH`和`DEVICE_NUM`，其中：
+
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`：实际的运行卡数。
@@ -361,17 +371,22 @@ epoch: 42 step: 5004, loss is 1.6453942
 `*.ckpt`：指保存的模型参数文件。checkpoint文件名称具体含义：*网络名称*-*epoch数*_*step数*.ckpt。
 
 #### GPU
+
 在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
-```
+
+```bash
 sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
 ```
+
 脚本需要传入变量`DATASET_PATH`和`DEVICE_NUM`，其中：
+
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`：实际的运行卡数。
 
 在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init()`来使能NCCL。
 
 训练过程中loss打印示例如下：
+
 ```bash
 ...
 epoch: 1 step: 5004, loss is 4.2546034
@@ -391,7 +406,7 @@ epoch: 36 step: 5004, loss is 1.645802
     ├─ckpt_0
         ├─resnet-1_5004.ckpt
         ├─resnet-2_5004.ckpt
-    	│      ......
+        │      ......
         ├─resnet-36_5004.ckpt
         │      ......
     ......
@@ -436,40 +451,53 @@ if __name__ == "__main__":
 
     # define model
     model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
-	
+
     # eval model
     res = model.eval(dataset)
     print("result:", res, "ckpt=", args_opt.checkpoint_path)
 ```
 
 ### 执行推理
+
 推理网络定义完成之后，调用`scripts`目录下的shell脚本，进行推理。
+
 #### Ascend 910
+
 在Ascend 910硬件平台上，推理的执行命令如下：
-```
+
+```bash
 sh run_eval.sh [DATASET_PATH] [CHECKPOINT_PATH]
 ```
+
 脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
 
 目前推理使用的是单卡（默认device 0）进行推理，推理的结果如下：
-```
+
+```text
 result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.761443661971831} ckpt=train_parallel0/resnet-42_5004.ckpt
 ```
+
 - `top_5_accuracy`：对于一个输入图片，如果预测概率排名前五的标签中包含真实标签，即认为分类正确；
 - `top_1_accuracy`：对于一个输入图片，如果预测概率最大的标签与真实标签相同，即认为分类正确。
+
 #### GPU
 
 在GPU硬件平台上，推理的执行命令如下：
-```
+
+```bash
 sh run_eval_gpu.sh [DATASET_PATH] [CHECKPOINT_PATH]
 ```
+
 脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
 
 推理的结果如下：
-```
+
+```text
 result: {'top_5_accuracy': 0.9287972151088348, 'top_1_accuracy': 0.7597031049935979} ckpt=train_parallel/resnet-36_5004.ckpt
 ```

@@ -36,6 +36,7 @@
 下面我们通过一个实际样例，带领大家体验MindSpore基础的功能，对于一般的用户而言，完成整个样例实践会持续20~30分钟。
 
 本例子会实现一个简单的图片分类的功能，整体流程如下：
+
 1. 处理需要的数据集，这里使用了MNIST数据集。
 2. 定义一个网络，这里我们使用LeNet网络。
 3. 定义损失函数和优化器。
@@ -44,7 +45,6 @@
 6. 验证模型，加载测试数据集和训练后的模型，验证结果精度。
 
 > 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py> 。
-
 
 这是简单、基础的应用流程，其他高级、复杂的应用可以基于这个基本流程进行扩展。
 
@@ -66,7 +66,7 @@
 
 目录结构如下：
 
-```
+```text
 └─MNIST_Data
     ├─test
     │      t10k-images.idx3-ubyte
@@ -76,6 +76,7 @@
             train-images.idx3-ubyte
             train-labels.idx1-ubyte
 ```
+
 > 为了方便样例使用，我们在样例脚本中添加了自动下载数据集的功能。
 
 ### 导入Python库&模块
@@ -83,8 +84,7 @@
 在使用前，需要导入需要的Python库。
 
 目前使用到`os`库，为方便理解，其他需要的库，我们在具体使用到时再说明。
- 
- 
+
 ```python
 import os
 ```
@@ -161,7 +161,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
     rescale_op = CV.Rescale(rescale, shift)  # rescale images
     hwc2chw_op = CV.HWC2CHW()  # change shape from (height, width, channel) to (channel, height, width) to fit network.
     type_cast_op = C.TypeCast(mstype.int32)  # change data type of label to int32 to fit network
-    
+
     # apply map operations on images
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image", num_parallel_workers=num_parallel_workers)
@@ -187,7 +187,6 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 > MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)和与[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
 
-
 ## 定义网络
 
 我们选择相对简单的LeNet网络。LeNet网络不包括输入层的情况下，共有7层：2个卷积层、2个下采样层（池化层）、3个全连接层。每层都包含不同数量的训练参数，如下图所示：
@@ -196,7 +195,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
   
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-我们对全连接层以及卷积层采用`Normal`进行参数初始化。 
+我们对全连接层以及卷积层采用`Normal`进行参数初始化。
 
 MindSpore支持`TruncatedNormal`、`Normal`、`Uniform`等多种参数初始化方法，默认采用`Normal`。具体可以参考MindSpore API的`mindspore.common.initializer`模块说明。
 
@@ -242,7 +241,7 @@ class LeNet5(nn.Cell):
 在进行定义之前，先简单介绍损失函数及优化器的概念。
 
 - 损失函数：又叫目标函数，用于衡量预测值与实际值差异的程度。深度学习通过不停地迭代来缩小损失函数的值。定义一个好的损失函数，可以有效提高模型的性能。
-- 优化器：用于最小化损失函数，从而在训练过程中改进模型。 
+- 优化器：用于最小化损失函数，从而在训练过程中改进模型。
 
 定义了损失函数后，可以得到损失函数关于权重的梯度。梯度用于指示优化器优化权重的方向，以提高模型性能。
 
@@ -296,9 +295,9 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
 if __name__ == "__main__":
     ...
     # set parameters of check point
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10) 
+    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # apply parameters of check point
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck) 
+    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     ...
 ```
 
@@ -306,7 +305,6 @@ if __name__ == "__main__":
 
 通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。`LossMonitor`可以监控训练过程中`loss`值的变化。
 这里把`epoch_size`设置为1，对数据集进行1个迭代的训练。
-
 
 ```python
 from mindspore.nn.metrics import Accuracy
@@ -324,23 +322,26 @@ def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink
 
 if __name__ == "__main__":
     ...
-    
-    epoch_size = 1    
+
+    epoch_size = 1
     mnist_path = "./MNIST_Data"
     repeat_size = 1
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
     train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
     ...
 ```
+
 其中，
 在`train_net`方法中，我们加载了之前下载的训练数据集，`mnist_path`是MNIST数据集路径。
 
 ## 运行并查看结果
 
 使用以下命令运行脚本：
-```
+
+```bash
 python lenet.py --device_target=CPU
 ```
+
 其中，  
 `lenet.py`：为你根据教程编写的脚本文件。  
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
@@ -402,23 +403,24 @@ if __name__ == "__main__":
     test_net(network, model, mnist_path)
 ```
 
-其中，   
+其中，
 `load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。  
 `checkpoint_lenet-1_1875.ckpt`：之前保存的CheckPoint模型文件名称。  
 `load_param_into_net`：通过该接口把参数加载到网络中。
 
-
 使用运行命令，运行你的代码脚本。
+
 ```bash
 python lenet.py --device_target=CPU
 ```
+
 其中，  
 `lenet.py`：为你根据教程编写的脚本文件。  
 `--device_target CPU`：指定运行硬件平台，参数为`CPU`、`GPU`或者`Ascend`，根据你的实际运行硬件平台来指定。
 
 运行结果示例如下：
 
-```
+```text
 ...
 ============== Starting Testing ==============
 ============== Accuracy:{'Accuracy': 0.9663477564102564} ==============

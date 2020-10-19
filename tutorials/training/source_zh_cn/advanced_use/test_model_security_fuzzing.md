@@ -10,7 +10,7 @@
         - [导入需要的库文件](#导入需要的库文件)
         - [参数配置](#参数配置)
         - [运用Fuzz Testing](#运用fuzz-testing)
-        
+
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/test_model_security_fuzzing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
@@ -75,7 +75,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
        images = data[0].asnumpy().astype(np.float32)
        train_images.append(images)
    train_images = np.concatenate(train_images, axis=0)
-   
+
    # get test data
    data_list = "../common/dataset/MNIST/test"
    batch_size = 32
@@ -105,7 +105,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
    中对应的类方法。算法随机选择参数，则`params`设置为`'auto_param': [True]`，参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。
-   
+
    下面时变异方法及其参数配置的一个例子：
 
    ```python
@@ -174,12 +174,12 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
    ```
 
 6. 实验结果。
-   
+
    fuzzing的返回结果中包含了5个数据：fuzz生成的样本fuzz_samples、生成样本的真实标签true_labels、被测模型对于生成样本的预测值fuzz_preds、 生成样本使用的变异方法fuzz_strategies、fuzz testing的评估报告metrics_report。用户可使用这些返回结果进一步的分析模型的鲁棒性。这里只展开metrics_report，查看fuzz testing后的各个评估指标。
 
    ```python
    if metrics:
-   	for key in metrics:
+    for key in metrics:
        LOGGER.info(TAG, key + ': %s', metrics[key])
    ```
 

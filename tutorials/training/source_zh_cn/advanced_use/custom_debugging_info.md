@@ -41,7 +41,7 @@ MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，
 使用方法：在`model.train`方法中传入`Callback`对象，它可以是一个`Callback`列表，例：
 
 ```python
-ckpt_cb = ModelCheckpoint()                                                            
+ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
@@ -60,7 +60,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 ```python
 class Callback():
-    """Callback base class""" 
+    """Callback base class"""
     def begin(self, run_context):
         """Called once before the network executing."""
         pass
@@ -70,11 +70,11 @@ class Callback():
         pass
 
     def epoch_end(self, run_context):
-        """Called after each epoch finished.""" 
+        """Called after each epoch finished."""
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning.""" 
+        """Called before each epoch beginning."""
         pass
 
     def step_end(self, run_context):
@@ -131,7 +131,7 @@ class Callback():
 
     输出：
 
-    ```
+    ```text
     epoch: 20 step: 32 loss: 2.298344373703003
     ```
 
@@ -171,7 +171,6 @@ class Callback():
     ```
 
     具体实现逻辑为：定义一个`Callback`对象，初始化对象接收`model`对象和`ds_eval`(验证数据集)。在`step_end`阶段验证模型的精度，当精度为当前最高时，手动触发保存checkpoint方法，保存当前的参数。
-
 
 ## MindSpore metrics功能介绍
 
@@ -224,13 +223,17 @@ print('Accuracy is ', accuracy)
 ```
 
 输出：
-```
+
+```text
 Accuracy is 0.6667
 ```
+
 ## Print算子功能介绍
+
 MindSpore的自研`Print`算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。
 
 `Print`算子使用方法与其他算子相同，在网络中的`__init__`声明算子并在`construct`进行调用，具体使用实例及输出结果如下：
+
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -254,8 +257,10 @@ y = Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```
+
 输出：
-```
+
+```text
 print Tensor x and Tensor y:
 Tensor shape:[[const vector][2, 1]]Int32
 val:[[1]
@@ -315,7 +320,7 @@ val:[[1 1]
 3. 执行用例Dump数据。
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 4. 解析Dump数据。
-    
+
     通过`numpy.fromfile`读取Dump数据文件即可解析。
 
 ### 异步Dump功能介绍
@@ -372,6 +377,7 @@ val:[[1 1]
     ```
 
 ## 日志相关的环境变量和配置
+
 MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 - `GLOG_v`
@@ -379,13 +385,13 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
     该环境变量控制日志的级别。  
     该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
 
-- `GLOG_logtostderr` 
+- `GLOG_logtostderr`
 
     该环境变量控制日志的输出方式。
     该环境变量的值设置为1时，日志输出到屏幕；值设置为0时，日志输出到文件。默认值为1。
 
-- `GLOG_log_dir` 
-    
+- `GLOG_log_dir`
+
     该环境变量指定日志输出的路径。  
     若`GLOG_logtostderr`的值为0，则必须设置此变量。  
     若指定了`GLOG_log_dir`且`GLOG_logtostderr`的值为1时，则日志输出到屏幕，不输出到文件。  
@@ -428,6 +434,3 @@ MindSpore子模块按照目录划分如下：
 | mindspore/core/ | CORE |
 
 > glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。  
-
-
-

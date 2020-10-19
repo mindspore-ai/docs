@@ -10,7 +10,6 @@
         - [建立模型](#建立模型)
         - [运用MembershipInference进行隐私安全评估](#运用membershipinference进行隐私安全评估)
     - [参考文献](#参考文献)
-      
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
@@ -30,7 +29,9 @@
 ## 实现阶段
 
 ### 导入需要的库文件
+
 #### 引入相关包
+
 下面是我们需要的公共模块、MindSpore相关模块和MembershipInference特性模块，以及配置日志标签和日志等级。
 
 ```python
@@ -57,9 +58,11 @@ LOGGER = LogUtil.get_instance()
 TAG = "MembershipInference_test"
 LOGGER.set_level("INFO")
 ```
+
 ### 加载数据集
 
 这里采用的是CIFAR-100数据集，您也可以采用自己的数据集，但要保证传入的数据仅有两项属性"image"和"label"。
+
 ```python
 # Generate CIFAR-100 data.
 def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_size=1, repeat_num=1,
@@ -111,9 +114,11 @@ def vgg_create_dataset100(data_home, image_size, batch_size, rank_id=0, rank_siz
 
     return data_set
 ```
+
 ### 建立模型
 
 这里以VGG16模型为例，您也可以替换为自己的模型。
+
 ```python
 def _make_layer(base, args, batch_norm):
     """Make stage network of VGG."""
@@ -178,10 +183,11 @@ def vgg16(num_classes=1000, args=None, phase="train"):
 ```
 
 ### 运用MembershipInference进行隐私安全评估
+
 1. 构建VGG16模型并加载参数文件。
-   
+
     这里直接加载预训练完成的VGG16参数配置，您也可以使用如上的网络自行训练。
-    
+
     ```python
     ...
     # load parameter
@@ -195,8 +201,8 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     args.padding = 0
     args.pad_mode = "same"
     args.weight_decay = 5e-4
-    args.loss_scale = 1.0 
-    
+    args.loss_scale = 1.0
+
     # Load the pretrained model.
     net = vgg16(num_classes=100, args=args)
     loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True)
@@ -205,7 +211,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     load_param_into_net(net, load_checkpoint(args.pre_trained))
     model = Model(network=net, loss_fn=loss, optimizer=opt)
     ```
-    
+
 2. 加载CIFAR-100数据集，按8:2分割为成员推理模型的训练集和测试集。
 
     ```python
@@ -221,9 +227,9 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     ```
 
 3. 配置推理参数和评估参数
-   
+
     设置用于成员推理的方法和参数。目前支持的推理方法有：KNN、LR、MLPClassifier和RandomForestClassifier。推理参数数据类型使用list，各个方法使用key为"method"和"params"的字典表示。
-    
+
     ```python
     config = [
             {
@@ -232,7 +238,7 @@ def vgg16(num_classes=1000, args=None, phase="train"):
                     "C": np.logspace(-4, 2, 10)
                 }
             },
-        	{
+         {
                 "method": "knn",
                 "params": {
                     "n_neighbors": [3, 5, 7]
@@ -258,13 +264,13 @@ def vgg16(num_classes=1000, args=None, phase="train"):
             }
         ]
     ```
-    
+
     我们约定标签为数据集的是正类，标签为测试集的是负类。设置评价指标，目前支持3种评价指标。包括：
-    * 准确率：accuracy，正确推理的数量占全体样本中的比例。
-    * 精确率：precision，正确推理的正类样本占所有推理为正类中的比例。
-    * 召回率：recall，正确推理的正类样本占全体正类样本的比例。
+    - 准确率：accuracy，正确推理的数量占全体样本中的比例。
+    - 精确率：precision，正确推理的正类样本占所有推理为正类中的比例。
+    - 召回率：recall，正确推理的正类样本占全体正类样本的比例。
     在样本数量足够大时，如果上述指标均大于0.6，我们认为目标模型就存在隐私泄露的风险。
-    
+
     ```python
         metrics = ["precision", "accuracy", "recall"]
     ```
@@ -273,11 +279,11 @@ def vgg16(num_classes=1000, args=None, phase="train"):
 
     ```python
     inference = MembershipInference(model)                  # Get inference model.
-    
+
     inference.train(train_train, train_test, config)        # Train inference model.
     msg = "Membership inference model training completed."
     LOGGER.info(TAG, msg)
-    
+
     result = inference.eval(eval_train, eval_test, metrics) # Eval metrics.
     count = len(config)
     for i in range(count):
@@ -286,16 +292,16 @@ def vgg16(num_classes=1000, args=None, phase="train"):
 
 5. 实验结果。
     执行如下指令,开始成员推理训练和评估：
-    
-    ```
+
+    ```bash
     python example_vgg_cifar.py --data_path ./cifar-100-binary/ --pre_trained ./VGG16-100_781.ckpt
     ```
 
     成员推理的指标如下所示，各数值均保留至小数点后四位。
 
     以第一行结果为例：在使用lr（逻辑回归分类）进行成员推理时，推理的准确率（accuracy）为0.7132，推理精确率（precision）为0.6596，正类样本召回率为0.8810，说明lr有71.32%的概率能正确分辨一个数据样本是否属于目标模型的训练数据集。在二分类任务下，指标表明成员推理是有效的，即该模型存在隐私泄露的风险。
-    
-    ```
+
+    ```text
     Method: lr, {'recall': 0.8810,'precision': 0.6596,'accuracy': 0.7132}
     Method: knn, {'recall': 0.7082,'precision': 0.5613,'accuracy': 0.5774}
     Method: mlp, {'recall': 0.6729,'precision': 0.6462,'accuracy': 0.6522}
@@ -303,4 +309,5 @@ def vgg16(num_classes=1000, args=None, phase="train"):
     ```
 
 ## 参考文献
+
 [1] [Shokri R , Stronati M , Song C , et al. Membership Inference Attacks against Machine Learning Models[J].](https://arxiv.org/abs/1610.05820v2)

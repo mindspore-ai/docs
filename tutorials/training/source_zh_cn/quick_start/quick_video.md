@@ -108,7 +108,6 @@
 
 </body>
 
-
 ## 体验MindSpore
 
 <body>
@@ -236,7 +235,6 @@
      </div>
 
 </body>
-
 
 ## 使用可视化组件MindInsight
 
