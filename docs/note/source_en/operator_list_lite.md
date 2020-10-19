@@ -109,6 +109,6 @@
 | Unsqueeze             |          | Supported        | Supported        | Supported         |          |          |             |               | Unsqueeze          |
 | Unstack               |          | Supported        |          |           |          |          | Unstack     |               |                    |
 | Where                 |          | Supported        |          |           |          |          |  Where      |               |                    |
-| ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |             
+| ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |
 
 * Clip: only support convert clip(0, 6) to Relu6.

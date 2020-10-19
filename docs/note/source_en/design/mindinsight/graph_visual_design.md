@@ -21,9 +21,9 @@
 
 The computational graph visualization function is mainly used in the following scenarios:
 
- - View a data flow direction of operators and a model structure when programming a deep learning neural network.
- - View the input and output nodes of a specified node and attributes of a queried node.
- - Trace data, including data dimension and type changes when debugging a network.
+- View a data flow direction of operators and a model structure when programming a deep learning neural network.
+- View the input and output nodes of a specified node and attributes of a queried node.
+- Trace data, including data dimension and type changes when debugging a network.
 
 ## Overall Design
 

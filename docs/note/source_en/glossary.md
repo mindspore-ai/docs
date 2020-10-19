@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-|  Acronym and Abbreviation  |  Description  | 
+|  Acronym and Abbreviation  |  Description  |
 | -----    | -----    |
 | ACL | Ascend Computer Language, for users to develop deep neural network applications, which provides the C++ API library including device management, context management, stream management, memory management, model loading and execution, operator loading and execution, media data processing, etc. |
 |  Ascend  |  Name of Huawei Ascend series chips.  |

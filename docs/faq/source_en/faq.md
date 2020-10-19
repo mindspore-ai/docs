@@ -98,6 +98,7 @@ A: You can write the frequently-used environment settings to `~/.bash_profile` o
 ### Verifying the Installation
 
 Q: After MindSpore is installed on a CPU of a PC, an error message `the pointer[session] is null` is displayed during code verification. The specific code is as follows. How do I verify whether MindSpore is successfully installed?
+
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -194,7 +195,7 @@ A: The MindSpore CPU version can be installed on Windows 10. For details about t
 
 Q: What can I do if an error message `wrong shape of image` is displayed when I use a model trained by MindSpore to perform prediction on a `28 x 28` digital image with white text on a black background?
 
-A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28 `gray scale image, that is, a single channel.
+A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28` gray scale image, that is, a single channel.
 
 <br/>
 

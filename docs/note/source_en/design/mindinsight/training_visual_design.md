@@ -5,16 +5,16 @@
 <!-- TOC -->
 
 - [Overall Design of Training Visualization](#overall-design-of-training-visualization)
-  - [Logical Architecture of Training Visualization](#logical-architecture-of-training-visualization)
-    - [Architecture of Training Information Collection](#architecture-of-training-information-collection)
-    - [Architecture of Training Information Analysis and Display](#architecture-of-training-information-analysis-and-display)
-  - [Code Organization](#code-organization)
-  - [Training Visualization Data Model](#training-visualization-data-model)
-    - [Training Information Data Flow](#training-information-data-flow)
-    - [Data Model](#data-model)
-      - [Training Job](#training-job)
-      - [Lineage Data](#lineage-data)
-      - [Training Process Data](#training-process-data)
+    - [Logical Architecture of Training Visualization](#logical-architecture-of-training-visualization)
+        - [Architecture of Training Information Collection](#architecture-of-training-information-collection)
+        - [Architecture of Training Information Analysis and Display](#architecture-of-training-information-analysis-and-display)
+    - [Code Organization](#code-organization)
+    - [Training Visualization Data Model](#training-visualization-data-model)
+        - [Training Information Data Flow](#training-information-data-flow)
+        - [Data Model](#data-model)
+            - [Training Job](#training-job)
+            - [Lineage Data](#lineage-data)
+            - [Training Process Data](#training-process-data)
 
 <!-- /TOC -->
 
@@ -105,7 +105,7 @@ MindInsight uses directories to distinguish different training jobs. To distingu
 
 In MindInsight code, a training job is called a TrainJob. A TrainJob ID is the name of the directory where the training log is located, for example, ./train_my_lenet_1.
 
-During a training process, a lineage data file (whose name ends with _lineage) and a training process data file (whose name ends with _MS) are generated. The lineage data mainly describes an invariant attribute of the training from a global perspective, for example, a dataset path used for training, an optimizer used for training, and user-defined lineage information. The most prominent feature of the lineage data file is that it does not change during the training process. The training process data mainly describes a change status of the training, for example, a loss value, parameter distribution, and image data sent to the model in a step. The most prominent feature of the training process data file is that each step changes.
+During a training process, a lineage data file (whose name ends with _lineage) and a training process data file (whose name ends with_MS) are generated. The lineage data mainly describes an invariant attribute of the training from a global perspective, for example, a dataset path used for training, an optimizer used for training, and user-defined lineage information. The most prominent feature of the lineage data file is that it does not change during the training process. The training process data mainly describes a change status of the training, for example, a loss value, parameter distribution, and image data sent to the model in a step. The most prominent feature of the training process data file is that each step changes.
 
 It should be noted that the classification about whether the training information changes is not absolute. For example, the training process data file contains computational graph data, which is determined when the training starts.
 

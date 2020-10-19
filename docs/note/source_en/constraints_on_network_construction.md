@@ -1,7 +1,7 @@
 # Constraints on Network Construction Using Python
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
- 
+
 <!-- TOC -->
 
 - [Constraints on Network Construction Using Python](#constraints-on-network-construction-using-python)
@@ -28,21 +28,26 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/constraints_on_network_construction.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
+
   MindSpore can compile user source code based on the Python syntax into computational graphs, and can convert common functions or instances inherited from nn.Cell into computational graphs. Currently, MindSpore does not support conversion of any Python source code into computational graphs. Therefore, there are constraints on source code compilation, including syntax constraints and network definition constraints. As MindSpore evolves, the constraints may change.
 
 ## Syntax Constraints
+
 ### Supported Python Data Types
-* Number: supports `int`, `float`, and `bool`. Complex numbers are not supported.
-* String
-* List: supports the append method only. Updating a list will generate a new list.
-* Tuple
-* Dictionary: The type of key should be String.
+
+- Number: supports `int`, `float`, and `bool`. Complex numbers are not supported.
+- String
+- List: supports the append method only. Updating a list will generate a new list.
+- Tuple
+- Dictionary: The type of key should be String.
+
 ### MindSpore Extended Data Type
-* Tensor: Tensor variables must be defined instances.
+
+- Tensor: Tensor variables must be defined instances.
 
 ### Expression Types
 
-| Operation               | Description 
+| Operation               | Description
 | :-----------            |:--------
 | Unary operator          |`+`,`-`, and`not`. The operator `+` supports only scalars.
 | Binary operator         |`+`, `-`, `*`, `/`, `%`, `**` and `//`.
@@ -81,10 +86,11 @@
 | `isinstance` | The usage principle is consistent with Python, but the second input parameter can only be the type defined by mindspore.
 
 ### Function Parameters
-*  Default parameter value: The data types `int`, `float`, `bool`, `None`, `str`, `tuple`, `list`, and `dict` are supported, whereas `Tensor` is not supported.
-*  Variable parameter: Functions with variable arguments is supported for training and inference.
-*  Key-value pair parameter: Functions with key-value pair parameters cannot be used for backward propagation on computational graphs.
-*  Variable key-value pair parameter: Functions with variable key-value pairs cannot be used for backward propagation on computational graphs.
+
+- Default parameter value: The data types `int`, `float`, `bool`, `None`, `str`, `tuple`, `list`, and `dict` are supported, whereas `Tensor` is not supported.
+- Variable parameter: Functions with variable arguments is supported for training and inference.
+- Key-value pair parameter: Functions with key-value pair parameters cannot be used for backward propagation on computational graphs.
+- Variable key-value pair parameter: Functions with variable key-value pairs cannot be used for backward propagation on computational graphs.
 
 ### Operators
 
@@ -101,55 +107,56 @@
 
 ### Index operation
 
-The index operation includes `tuple` and` Tensor`. The following focuses on the index value assignment and assignment operation of `Tensor`. The value takes` tensor_x [index] `as an example, and the assignment takes` tensor_x [index] = u` as an example for detailed description. Among them, tensor_x is a `Tensor`, which is sliced; index means the index, u means the assigned value, which can be` scalar` or `Tensor (size = 1)`. The index types are as follows:
+The index operation includes `tuple` and `Tensor`. The following focuses on the index value assignment and assignment operation of `Tensor`. The value takes` tensor_x [index] `as an example, and the assignment takes`tensor_x [index] = u` as an example for detailed description. Among them, tensor_x is a `Tensor`, which is sliced; index means the index, u means the assigned value, which can be`scalar` or `Tensor (size = 1)`. The index types are as follows:
 
 - Slice index: index is `slice`
-  - Value: `tensor_x[start: stop: step]`, where Slice (start: stop: step) has the same syntax as Python, and will not be repeated here.
-  - Assignment: `tensor_x[start: stop: step] = u`.
+    - Value: `tensor_x[start: stop: step]`, where Slice (start: stop: step) has the same syntax as Python, and will not be repeated here.
+    - Assignment: `tensor_x[start: stop: step] = u`.
 
 - Ellipsis index: index is `ellipsis`
-  - Value: `tensor_x [...]`.
-  - Assignment: `tensor_x [...] = u`.
+    - Value: `tensor_x [...]`.
+    - Assignment: `tensor_x [...] = u`.
 
 - Boolean constant index: index is `True`, index is `False` is not supported temporarily.
-  - Value: `tensor_x[True]`.
-  - Assignment: Not supported yet.
+    - Value: `tensor_x[True]`.
+    - Assignment: Not supported yet.
   
 - Tensor index: index is `Tensor`
-   - Value: `tensor_x [index]`, `index` must be `Tensor` of data type `int32` or `int64`,
+    - Value: `tensor_x [index]`, `index` must be `Tensor` of data type `int32` or `int64`,
      the element value range is `[0, tensor_x.shape[0])`.
-   - Assignment: `tensor_x [index] = U`.
-      - `tensor_x` data type must be one of the following: `float16`, `float32`, `int8`, `uint8`.
-      - `index` must be `Tensor` of data type `int32`, the element value range is `[0, tensor_x.shape [0])`.
-      - `U` can be `Number`, `Tensor`, `Tuple` only containing `Number`, `Tuple` only containing `Tensor`.
-        - Single `Number` or every `Number` in  `Tuple` must be the same type as `tensor_x`, ie
+    - Assignment: `tensor_x [index] = U`.
+        - `tensor_x` data type must be one of the following: `float16`, `float32`, `int8`, `uint8`.
+        - `index` must be `Tensor` of data type `int32`, the element value range is `[0, tensor_x.shape [0])`.
+        - `U` can be `Number`, `Tensor`, `Tuple` only containing `Number`, `Tuple` only containing `Tensor`.
+            - Single `Number` or every `Number` in  `Tuple` must be the same type as `tensor_x`, ie
           When the data type of `tensor_x` is `uint8` or `int8`, the `Number` type should be `int`;
           When the data type of `tensor_x` is `float16` or `float32`, the `Number` type should be `float`.
-        - Single `Tensor` or every `Tensor in Tuple` must be consistent with the data type of `tensor_x`,
+            - Single `Tensor` or every `Tensor in Tuple` must be consistent with the data type of `tensor_x`,
           when single `Tensor`, the `shape` should be equal to or broadcast as `index.shape + tensor_x.shape [1:]`.
-        - `Tuple` containing `Number` must meet requirement:
+            - `Tuple` containing `Number` must meet requirement:
           `len (Tuple) = (index.shape + tensor_x.shape [1:]) [-1]`.
-        - `Tuple` containing `Tensor` must meet requirements:
+            - `Tuple` containing `Tensor` must meet requirements:
           the `shape` of each `Tensor` should be the same,
           `(len (Tuple),) + Tensor.shape` should be equal to or broadcast as `index.shape + tensor_x.shape [1:]`.
 
 - None constant index: index is `None`
-  - Value: `tensor_x[None]`, results are consistent with numpy.
-  - Assignment: Not supported yet.
+    - Value: `tensor_x[None]`, results are consistent with numpy.
+    - Assignment: Not supported yet.
 
 - tuple index: index is `tuple`
-  - The tuple element is a slice:
-    - Value: for example `tensor_x[::,: 4, 3: 0: -1]`.
-    - Assignment: for example `tensor_x[::,: 4, 3: 0: -1] = u`.
-  - The tuple element is Number:
-    - Value: for example `tensor_x[2,1]`.
-    - Assignment: for example `tensor_x[1,4] = u`.
-  - The tuple element is a mixture of slice and ellipsis:
-    - Value: for example `tensor_x[..., ::, 1:]`.
-    - Assignment: for example `tensor_x[..., ::, 1:] = u`.
-  - Not supported in other situations
+    - The tuple element is a slice:
+        - Value: for example `tensor_x[::,: 4, 3: 0: -1]`.
+        - Assignment: for example `tensor_x[::,: 4, 3: 0: -1] = u`.
+    - The tuple element is Number:
+        - Value: for example `tensor_x[2,1]`.
+        - Assignment: for example `tensor_x[1,4] = u`.
+    - The tuple element is a mixture of slice and ellipsis:
+        - Value: for example `tensor_x[..., ::, 1:]`.
+        - Assignment: for example `tensor_x[..., ::, 1:] = u`.
+    - Not supported in other situations
 
 The index value operation of tuple and list type, we need to focus on the index value operation of tuple or list whose element type is `nn.Cell`. This operation is currently only supported by the GPU backend in Graph mode, and its syntax format is like `layers[index](*inputs)`, the example code is as follows:
+
   ```python
   class Net(nn.Cell):
       def __init__(self):
@@ -162,60 +169,68 @@ The index value operation of tuple and list type, we need to focus on the index 
           x = self.layers[index](x)
           return x
   ```
+
 The grammar has the following constraints:
-* Only the index value operation of tuple or list whose element type is `nn.Cell` is supported.
-* The index is a scalar `Tensor` of type `int32`, with a value range of `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
-* The number, type and shape size of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape size are also the same.
-* Each element in the tuple needs to be defined before the tuple is defined.
-* This syntax does not support running branches as if, while, for and other control flow, except if the control condition of the control flow is constant. for example:
-  - Supported example:
-    ```python
-    class Net(nn.Cell):
-      def __init__(self, flag=True):
-          super(Net, self).__init__()
-          self.flag = flag
-          self.relu = nn.ReLU()
-          self.softmax = nn.Softmax()
-          self.layers = (self.relu, self.softmax)
 
-      def construct(self, x, index):
-          if self.flag:
-            x = self.layers[index](x)
-          return x
-    ```
-  - Unsupported example:
-    ```python
-    class Net(nn.Cell):
-      def __init__(self):
-          super(Net, self).__init__()
-          self.relu = nn.ReLU()
-          self.softmax = nn.Softmax()
-          self.layers = (self.relu, self.softmax)
+- Only the index value operation of tuple or list whose element type is `nn.Cell` is supported.
+- The index is a scalar `Tensor` of type `int32`, with a value range of `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
+- The number, type and shape size of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape size are also the same.
+- Each element in the tuple needs to be defined before the tuple is defined.
+- This syntax does not support running branches as if, while, for and other control flow, except if the control condition of the control flow is constant. for example:
+    - Supported example:
 
-      def construct(self, x, index, flag):
-          if flag:
-            x = self.layers[index](x)
-          return x
-    ```
+        ```python
+        class Net(nn.Cell):
+            def __init__(self, flag=True):
+                super(Net, self).__init__()
+                self.flag = flag
+                self.relu = nn.ReLU()
+                self.softmax = nn.Softmax()
+                self.layers = (self.relu, self.softmax)
+
+            def construct(self, x, index):
+                if self.flag:
+                  x = self.layers[index](x)
+                return x
+        ```
+
+    - Unsupported example:
+
+        ```python
+        class Net(nn.Cell):
+            def __init__(self):
+                super(Net, self).__init__()
+                self.relu = nn.ReLU()
+                self.softmax = nn.Softmax()
+                self.layers = (self.relu, self.softmax)
+
+            def construct(self, x, index, flag):
+                if flag:
+                  x = self.layers[index](x)
+                return x
+        ```
 
 Tuple also support slice value operations, but do not support slice type as Tensor, support `tuple_x [start: stop: step]`, which has the same effect as Python, and will not be repeated here.
 
 ### Unsupported Syntax
 
-Currently, the following syntax is not supported in network constructors: 
+Currently, the following syntax is not supported in network constructors:
  `raise`, `yield`, `async for`, `with`, `async with`, `assert`, `import`, and `await`.
 
 ## Network Definition Constraints
 
 ### Instance Types on the Entire Network
-* Common Python function with the [@ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function) decorator.
-* Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Cell).
+
+- Common Python function with the [@ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function) decorator.
+- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Cell).
 
 ### Network Input Type
-* The training data input parameters of the entire network must be of the Tensor type.
-* The generated ANF diagram cannot contain the following constant nodes: string constants, constants with nested tuples, and constants with nested lists.
+
+- The training data input parameters of the entire network must be of the Tensor type.
+- The generated ANF diagram cannot contain the following constant nodes: string constants, constants with nested tuples, and constants with nested lists.
 
 ### Network Graph Optimization
+
  During graph optimization at the ME frontend, the dataclass, dictionary, list, and key-value pair types are converted to tuple types, and the corresponding operations are converted to tuple operations.
 
 ### Network Construction Components
@@ -230,33 +245,36 @@ Currently, the following syntax is not supported in network constructors:
 | Composite operator                    |[mindspore/ops/composite/*](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html).
 | Operator generated by constexpr       |Uses the value generated by [@constexpr](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.constexpr) to calculate operators.
 
-
 ### Other Constraints
+
 1. Input parameters of the `construct` function on the entire network and parameters of functions modified by the `ms_function` decorator are generalized during the graph compilation and cannot be passed to operators as constant input. Therefore, in graph mode, the parameter passed to the entry network can only be `Tensor`. As shown in the following example:
-    
-    * The following is an example of incorrect input:
+
+    - The following is an example of incorrect input:
+
         ```python
         class ExpandDimsTest(Cell):
             def __init__(self):
                 super(ExpandDimsTest, self).__init__()
                 self.expandDims = P.ExpandDims()
-    
+
             def construct(self, input_x, input_axis):
                 return self.expandDims(input_x, input_axis)
         expand_dim = ExpandDimsTest()
         input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
         expand_dim(input_x, 0)
         ```
+
         In the example, `ExpandDimsTest` is a single-operator network with two inputs: `input_x` and `input_axis`. The second input of the `ExpandDims` operator must be a constant. This is because `input_axis` is required when the output dimension of the `ExpandDims` operator is deduced during graph compilation. As the network parameter input, the value of `input_axis` is generalized into a variable and cannot be determined. As a result, the output dimension of the operator cannot be deduced, causing the graph compilation failure. Therefore, the input required by deduction in the graph compilation phase must be a constant. In the API, the parameters of this type of operator that require constant input will be explained, marked `const input is needed`.
-    
-    * Directly enter the needed value or a member variable in a class for the constant input of the operator in the construct function. The following is an example of correct input:
+
+    - Directly enter the needed value or a member variable in a class for the constant input of the operator in the construct function. The following is an example of correct input:
+
         ```python
         class ExpandDimsTest(Cell):
             def __init__(self, axis):
                 super(ExpandDimsTest, self).__init__()
                 self.expandDims = P.ExpandDims()
                 self.axis = axis
-    
+
             def construct(self, input_x):
                 return self.expandDims(input_x, self.axis)
         axis = 0
@@ -264,52 +282,56 @@ Currently, the following syntax is not supported in network constructors:
         input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
         expand_dim(input_x)
         ```
- 
+
 2. It is not allowed to modify `non-Parameter` type data members of the network. Examples are as follows:
 
-    ```
+    ```python
     class Net(Cell):
         def __init__(self):
             super(Net, self).__init__()
             self.num = 2
             self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
-    
+
         def construct(self, x, y):
             return x + y
     ```
+
     In the network defined above, `self.num` is not a `Parameter` and cannot be modified, but `self.par` is a `Parameter` and can be modified.
 
 3. When an undefined class member is used in the `construct` function, it will be treated as `None` instead of throwing `AttributeError` like the Python interpreter. Examples are as follows:
-    
-     ```
+
+     ```python
      class Net(Cell):
          def __init__(self):
              super(Net, self).__init__()
-    
+
          def construct(self, x):
              return x + self.y
      ```
+
      In the network defined above, the undefined class member `self.y` is used in `construct`, and `self.y` will be treated as `None`.
 
 4. When using the control flow of `if-else` in the `construct` function, the data types returned by `if` and `else` or the data types of the same variable after being updated must be the same. Examples are as follows:
-    ```
+
+    ```python
     class NetReturn(Cell):
         def __init__(self):
             super(NetReturn, self).__init__()
-    
+
         def construct(self, x, y, m, n):
             if x > y:
                 return m
             else:
                 return n
     ```
+
     In the network `NetReturn` defined above, the `if-else` control flow is used in `construct`, then the data type of `m` returned by the `if` branch and the data type of `n` returned by the `else` branch must be consistent.
-    
-    ```
+
+    ```python
     class NetAssign(Cell):
         def __init__(self):
             super(NetAssign, self).__init__()
-    
+
         def construct(self, x, y, m, n):
             if x > y:
                 out = m
@@ -317,4 +339,5 @@ Currently, the following syntax is not supported in network constructors:
                 out = n
             return out
     ```
+
     In the network `NetAssign` defined above, the `if-else` control flow is used in the `construct`, then the data types of the `out` after the update of the `if` branch and the update of the `else` branch must be consistent.
