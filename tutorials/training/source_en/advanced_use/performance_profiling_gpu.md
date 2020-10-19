@@ -18,6 +18,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
+
 Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.
 
 ## Operation Process
@@ -25,9 +26,8 @@ Performance data like operators' execution time is recorded in files and can be 
 > The GPU operation process is the same as that in the Ascend chip.
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-environment>
-
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
-> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description: 
+> If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description:
 >
 > <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
 
@@ -48,7 +48,7 @@ class StopAtStep(Callback):
         self.start_step = start_step
         self.stop_step = stop_step
         self.already_analysed = False
-        
+
     def step_begin(self, run_context):
         cb_params = run_context.original_args()
         step_num = cb_params.cur_step_num
@@ -61,7 +61,7 @@ class StopAtStep(Callback):
         if step_num == self.stop_step and not self.already_analysed:
             self.profiler.analyse()
             self.already_analysed = True
-            
+
     def end(self, run_context):
         if not self.already_analysed:
             self.profiler.analyse()
@@ -73,7 +73,6 @@ The code above is just an example. Users should implement callback by themselves
 
 The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
-
 ### Performance Analysis
 
 Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis and Timeline Analysis now, the others modules will be published soon.
@@ -83,6 +82,7 @@ Users can access the Performance Profiler by selecting a specific training from 
 Figure 1: Overall Performance
 
 Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline:  
+
 - Operator Performance: It will collect the average execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
 - Timeline: It will collect execution time for operations and CUDA activity. The tasks will be shown on the time axis. The overall performance page will show the statistics for tasks.  
 
@@ -98,7 +98,7 @@ Figure 2: Statistics for Operator Types
 
 Figure 2 displays the statistics for the operator types, including:  
 
-- Choose a pie or a bar graph to show the proportion time occupied by each operator type. The time of one operator type is calculated by accumulating the execution time of operators belong to this type.   
+- Choose a pie or a bar graph to show the proportion time occupied by each operator type. The time of one operator type is calculated by accumulating the execution time of operators belong to this type.
 - Display top 20 operator types with the longest average execution time, show the proportion of total time and average execution time (ms) of each operator type.
 
 The bottom half of Figure 2 displays the statistics table for the operators' details, including:  

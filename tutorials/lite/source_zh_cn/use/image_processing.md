@@ -7,15 +7,15 @@
     - [导入图像预处理函数的库](#导入图像预处理函数的库)
     - [对图像进行初始化](#对图像进行初始化)
         - [使用示例](#使用示例)
-    - [可选的图像预处理算子](#可选的图像预处理算子) 
+    - [可选的图像预处理算子](#可选的图像预处理算子)
         - [对图像进行缩放操作](#对图像进行缩放操作)
-            - [使用示例](#使用示例-1) 
+            - [使用示例](#使用示例-1)
         - [对图像数据类型进行转换](#对图像数据类型进行转换)
-            - [使用示例](#使用示例-2) 
+            - [使用示例](#使用示例-2)
         - [对图像数据进行裁剪](#对图像数据进行裁剪)
-            - [使用示例](#使用示例-3) 
+            - [使用示例](#使用示例-3)
         - [对图像数据进行归一化处理](#对图像数据进行归一化处理)
-            - [使用示例](#使用示例-4)        
+            - [使用示例](#使用示例-4)
 
 <!-- /TOC -->
 
@@ -29,7 +29,7 @@
 
 ## 导入图像预处理函数的库
 
-```
+```cpp
 #include "lite_cv/lite_mat.h"
 #include "lite_cv/image_process.h"
 ```
@@ -38,13 +38,13 @@
 
 这边使用的是`image_process.h`文件中的[InitFromPixel](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#initfrompixel)函数对图像进行初始化操作。
 
-```
+```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
 ### 使用示例
 
-```
+```cpp
 // Create the data object of the LiteMat object.
 LiteMat lite_mat_bgr;
 
@@ -61,13 +61,13 @@ InitFromPixel(pixel_ptr, LPixelType::RGBA2GRAY, LDataType::UINT8, rgba_mat.cols,
 
 这边利用的是`image_process.h`中的[ResizeBilinear](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#resizebilinear)函数通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
 
-```
+```cpp
 bool ResizeBilinear(const LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
 
 #### 使用示例
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -83,13 +83,13 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 
 这边利用的是`image_process.h`中的[ConvertTo](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#convertto)函数对图像数据类型进行转换，目前支持的转换是将uint8转换为float。
 
-```
+```cpp
 bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
 
 #### 使用示例
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -105,13 +105,13 @@ ConvertTo(lite_mat_bgr, lite_mat_convert_float);
 
 这边利用的是`image_process.h`中的[Crop](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#crop)函数对图像进行裁剪，目前支持通道3和1。
 
-```
+```cpp
 bool Crop(const LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
 
 #### 使用示例
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);
@@ -127,13 +127,13 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 
 为了消除数据指标之间的量纲影响，通过标准化处理来解决数据指标之间的可比性问题，这边利用的是`image_process.h`中的[SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/dataset.html#substractmeannormalize)函数对图像数据进行归一化处理。
 
-```
+```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
 #### 使用示例
 
-```
+```cpp
 // Initialize the image data.
 LiteMat lite_mat_bgr;
 InitFromPixel(rgba_mat.data, LPixelType::RGBA2BGR, LDataType::UINT8, rgba_mat.cols, rgba_mat.rows, lite_mat_bgr);

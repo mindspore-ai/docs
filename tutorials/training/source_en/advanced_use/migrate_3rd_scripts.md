@@ -275,4 +275,3 @@ Models trained on the Ascend 910 AI processor can be used for inference on diffe
 ## Examples
 
 - [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
-

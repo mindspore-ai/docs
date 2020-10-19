@@ -40,14 +40,14 @@ private boolean init(Context context) {
         Log.e("MS_LITE", "Load Model failed");
         return false;
     }
-    
+
     // Create and init config.
     MSConfig msConfig = new MSConfig();
     if (!msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.MID_CPU)) {
         Log.e("MS_LITE", "Init context failed");
         return false;
     }
-    
+
     // Create the mindspore lite session.
     session = new LiteSession();
     if (!session.init(msConfig)) {
@@ -56,14 +56,14 @@ private boolean init(Context context) {
         return false;
     }
     msConfig.free();
-    
+
     // Complile graph.
     if (!session.compileGraph(model)) {
         Log.e("MS_LITE", "Compile graph failed");
         model.freeBuffer();
         return false;
     }
-    
+
     // Note: when use model.freeBuffer(), the model can not be complile graph again.
     model.freeBuffer();
 
@@ -79,7 +79,7 @@ private void DoInference(Context context) {
     }
     byte[] inData = readFileFromAssets(context, "model_inputs.bin");
     inTensor.setData(inData);
-    
+
     // Run graph to infer results.
     if (!session.runGraph()) {
         Log.e("MS_LITE", "Run graph failed");
@@ -97,7 +97,7 @@ private void DoInference(Context context) {
             return;
         }
         float[] results = output.getFloatData();
-        
+
         // Apply infer results.
         ……
     }
@@ -109,4 +109,3 @@ private void free() {
     model.free();
 }
 ```
-

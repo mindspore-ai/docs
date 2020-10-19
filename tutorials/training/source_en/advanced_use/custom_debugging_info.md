@@ -24,7 +24,7 @@
 
 This section describes how to use the customized capabilities provided by MindSpore, such as `callback`, `metrics`, `Print` operators and log printing, to help you quickly debug the training network.
 
-## Introduction to Callback 
+## Introduction to Callback
 
 Here, callback is not a function but a class. You can use callback to observe the internal status and related information of the network during training or perform specific actions in a specific period.
 For example, you can monitor the loss, save model parameters, dynamically adjust parameters, and terminate training tasks in advance.
@@ -39,7 +39,7 @@ MindSpore provides the callback capabilities to allow users to insert customized
 Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
 
 ```python
-ckpt_cb = ModelCheckpoint()                                                            
+ckpt_cb = ModelCheckpoint()
 loss_cb = LossMonitor()
 summary_cb = SummaryCollector(summary_dir='./summary_dir')
 model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
@@ -58,7 +58,7 @@ The callback base class is defined as follows:
 
 ```python
 class Callback():
-    """Callback base class""" 
+    """Callback base class"""
     def begin(self, run_context):
         """Called once before the network executing."""
         pass
@@ -68,11 +68,11 @@ class Callback():
         pass
 
     def epoch_end(self, run_context):
-        """Called after each epoch finished.""" 
+        """Called after each epoch finished."""
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning.""" 
+        """Called before each epoch beginning."""
         pass
 
     def step_end(self, run_context):
@@ -129,7 +129,7 @@ Here are two examples to further explain the usage of custom Callback.
 
     The output is as follows:
 
-    ```
+    ```text
     epoch: 20 step: 32 loss: 2.298344373703003
     ```
 
@@ -221,12 +221,16 @@ print('Accuracy is ', accuracy)
 ```
 
 The output is as follows:
-```
+
+```text
 Accuracy is 0.6667
 ```
+
 ## MindSpore Print Operator
-MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,). 
-The method of using the MindSpore `Print` operator is the same as using other operators. You need to assert MindSpore `Print` operator in `__init__` and invoke it using `construct`. The following is an example. 
+
+MindSpore-developed `Print` operator is used to print the tensors or character strings input by users. Multiple strings, multiple tensors, and a combination of tensors and strings are supported, which are separated by comma (,).
+The method of using the MindSpore `Print` operator is the same as using other operators. You need to assert MindSpore `Print` operator in `__init__` and invoke it using `construct`. The following is an example.
+
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -250,8 +254,10 @@ y = Tensor(np.ones([2, 2]).astype(np.int32))
 net = PrintDemo()
 output = net(x, y)
 ```
+
 The output is as follows:
-```
+
+```text
 print Tensor x and Tensor y:
 Tensor shape:[[const vector][2, 1]]Int32
 val:[[1]
@@ -313,7 +319,7 @@ The input and output of the operator can be saved for debugging through the data
     You can set `context.set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
 4. Parse the Dump file.
-    
+
     Call `numpy.fromfile` to parse dump data file.
 
 ### Asynchronous Dump
@@ -321,6 +327,7 @@ The input and output of the operator can be saved for debugging through the data
 1. Create dump json file:`data_dump.json`.
 
     The name and location of the JSON file can be customized.
+
     ```json
     {
         "common_dump_settings": {
@@ -369,30 +376,31 @@ The input and output of the operator can be saved for debugging through the data
     ```
 
 ## Log-related Environment Variables and Configurations
+
 MindSpore uses glog to output logs. The following environment variables are commonly used:
 
 - `GLOG_v`
-    
-    The environment variable specifies the log level.   
+
+    The environment variable specifies the log level.
     The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
 
-- `GLOG_logtostderr` 
+- `GLOG_logtostderr`
 
     The environment variable specifies the log output mode.  
     When `GLOG_logtostderr` is set to 1, logs are output to the screen. If the value is set to 0, logs are output to a file. The default value is 1.
 
 - `GLOG_log_dir`
-    
-    The environment variable specifies the log output path.    
-    If `GLOG_logtostderr` is set to 0, value of this variable must be specified.    
-    If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.    
+
+    The environment variable specifies the log output path.
+    If `GLOG_logtostderr` is set to 0, value of this variable must be specified.
+    If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.
     Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
 
-- `MS_SUBMODULE_LOG_v` 
+- `MS_SUBMODULE_LOG_v`
 
     The environment variable specifies log levels of C++ sub modules of MindSpore.  
-    The environment variable is assigned as: `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`.    
-    The specified sub module log level will overwrite the global log level. The meaning of sub module log level is the same as `GLOG_v`, the sub modules of MindSpore are categorized by source directory is shown in the below table.   
+    The environment variable is assigned as: `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`.
+    The specified sub module log level will overwrite the global log level. The meaning of sub module log level is the same as `GLOG_v`, the sub modules of MindSpore are categorized by source directory is shown in the below table.
     E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
 
 Sub modules of MindSpore grouped by source directory:

@@ -1,6 +1,6 @@
 # Distributed Parallel Training (GPU)
 
-`Linux` `GPU` `Model Training` `Intermediate` `Expert` 
+`Linux` `GPU` `Model Training` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -70,7 +70,7 @@ from mindspore.communication.management import init
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
     init("nccl")
-    ...   
+    ...
 ```
 
 In the preceding information,
@@ -110,7 +110,7 @@ mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 
 The script requires the variable `DATA_PATH`, which indicates the path of the dataset. In addition, you need to modify the `resnet50_distributed_training.py` file. Since the `DEVICE_ID` environment variable does not need to be set on the GPU, you do not need to call `int(os.getenv('DEVICE_ID'))` in the script to obtain the physical sequence number of the device, and `context` does not require `device_id`. You need to set `device_target` to `GPU` and call `init("nccl")` to enable the NCCL. The log file is saved in the device directory, and the loss result is saved in train.log. The output loss values of the grep command are as follows:
 
-```
+```text
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
 epoch: 1 step: 1, loss is 2.3025854
@@ -124,6 +124,7 @@ epoch: 1 step: 1, loss is 2.3025854
 ## Running the Multi-Host Script
 
 If multiple hosts are involved in the training, you need to set the multi-host configuration in the `mpirun` command. You can use the `-H` option in the `mpirun` command. For example, `mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py` indicates that eight processes are started on the host whose IP addresses are DEVICE1_IP and DEVICE2_IP, respectively. Alternatively, you can create a hostfile similar to the following and transfer its path to the `--hostfile` option of `mpirun`. Each line in the hostfile is in the format of `[hostname] slots=[slotnum]`, where hostname can be an IP address or a host name.
+
 ```bash
 DEVICE1 slots=8
 DEVICE2 slots=8

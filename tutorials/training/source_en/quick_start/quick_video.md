@@ -108,7 +108,6 @@ Provides video tutorials from installation to try-on, helping you quickly use Mi
 
 </body>
 
-
 ## MindSpore Experience
 
 <body>

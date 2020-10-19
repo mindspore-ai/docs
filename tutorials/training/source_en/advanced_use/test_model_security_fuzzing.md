@@ -75,7 +75,7 @@ For details about the API configuration, see the `context.set_context`.
        images = data[0].asnumpy().astype(np.float32)
        train_images.append(images)
    train_images = np.concatenate(train_images, axis=0)
-   
+
    # get test data
    data_list = "../common/dataset/MNIST/test"
    batch_size = 32
@@ -101,7 +101,7 @@ For details about the API configuration, see the `context.set_context`.
 
    The data mutation method must include the method based on the image pixel value changes.
 
-   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py. For  randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
+   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to <https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>. For  randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
 
    For details about how to set parameters based on the attack defense method, see the corresponding attack method class.
 
@@ -144,7 +144,7 @@ For details about the API configuration, see the `context.set_context`.
    # make initial seeds
    initial_seeds = []
    for img, label in zip(test_images, test_labels):
-   	initial_seeds.append([img, label])
+    initial_seeds.append([img, label])
    initial_seeds = initial_seeds[:100]
    ```
 
@@ -174,7 +174,7 @@ For details about the API configuration, see the `context.set_context`.
 
 6. Experiment results.
 
-   The results of fuzz testing contains five aspect data: 
+   The results of fuzz testing contains five aspect data:
 
    - fuzz_samples: mutated samples in fuzz testing.
    - true_labels: the ground truth labels of fuzz_samples.
@@ -188,8 +188,8 @@ For details about the API configuration, see the `context.set_context`.
 
    ```python
    if metrics:
-   	for key in metrics:
-       LOGGER.info(TAG, key + ': %s', metrics[key])
+      for key in metrics:
+         LOGGER.info(TAG, key + ': %s', metrics[key])
    ```
 
    The fuzz testing result is as follows:

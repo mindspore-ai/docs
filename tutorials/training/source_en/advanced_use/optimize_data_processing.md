@@ -53,7 +53,7 @@ import numpy as np
 
 The directory structure is as follows:
 
-```
+```text
 dataset/Cifar10Data
 ├── cifar-10-batches-bin
 │   ├── batches.meta.txt
@@ -76,6 +76,7 @@ dataset/Cifar10Data
 ```
 
 In the preceding information:
+
 - The `cifar-10-batches-bin` directory is the directory for storing the CIFAR-10 dataset in binary format.
 - The `cifar-10-batches-py` directory is the directory for storing the CIFAR-10 dataset in Python file format.
 
@@ -93,6 +94,7 @@ MindSpore provides multiple data loading methods, including common dataset loadi
 ![title](./images/data_loading_performance_scheme.png)
 
 Suggestions on data loading performance optimization are as follows:
+
 - Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
 - For a dataset format that is not supported, convert the format to the MindSpore data format and then use the `MindDataset` class to load the dataset. If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
 - For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification. If the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-process-optimization-solution).
@@ -113,7 +115,8 @@ Based on the preceding suggestions of data loading performance optimization, the
     ```
 
     The output is as follows:
-    ```
+
+    ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
           [[[235, 235, 235],
             [230, 230, 230],
@@ -148,7 +151,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     The output is as follows:
 
-    ```
+    ```text
     {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]),
         'id': Tensor(shape=[], dtype=Int64, value= 30474),
         'label': Tensor(shape=[], dtype=Int64, value= 2)}
@@ -169,7 +172,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     The output is as follows:
 
-    ```
+    ```text
     {'data': Tensor(shape=[1], dtype=Int64, value= [0])}
     ```
 
@@ -182,6 +185,7 @@ The shuffle operation is used to shuffle ordered datasets or repeated datasets. 
 ![title](./images/shuffle_performance_scheme.png)
 
 Suggestions on shuffle performance optimization are as follows:
+
 - Use the `shuffle` parameter of built-in loading operators to shuffle data.
 - If the `shuffle` function is used and the performance still cannot meet the requirements, adjust the value of the `buffer_size` parameter to improve the performance.
 
@@ -202,7 +206,7 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 
     The output is as follows:
 
-    ```
+    ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
           [[[235, 235, 235],
             [230, 230, 230],
@@ -237,7 +241,7 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 
     The output is as follows:
 
-    ```
+    ```text
     before shuffle:
     [0 1 2 3 4]
     [1 2 3 4 5]
@@ -255,6 +259,7 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 ## Optimizing the Data Augmentation Performance
 
 During image classification training, especially when the dataset is small, users can use data augmentation to preprocess images to enrich the dataset. MindSpore provides multiple data augmentation methods, including:
+
 - Use the built-in C operator (`c_transforms` module) to perform data augmentation.
 - Use the built-in Python operator (`py_transforms` module) to perform data augmentation.
 - Users can define Python functions as needed to perform data augmentation.
@@ -271,6 +276,7 @@ The performance varies according to the underlying implementation methods.
 ![title](./images/data_enhancement_performance_scheme.png)
 
 Suggestions on data augmentation performance optimization are as follows:
+
 - The `c_transforms` module is preferentially used to perform data augmentation for its highest performance. If the performance cannot meet the requirements, refer to [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution), [Compose Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#compose-optimization-solution), or [Operator Fusion Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#operator-fusion-optimization-solution).
 - If the `py_transforms` module is used to perform data augmentation and the performance still cannot meet the requirements, refer to [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution), [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-process-optimization-solution), [Compose Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#compose-optimization-solution), or [Operator Fusion Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#operator-fusion-optimization-solution).
 - The `c_transforms` module maintains buffer management in C++, and the `py_transforms` module maintains buffer management in Python. Because of the performance cost of switching between Python and C++, it is advised not to use different operator types together.
@@ -324,7 +330,7 @@ Based on the preceding suggestions of data augmentation performance optimization
 
     The output is as follows:
 
-    ```
+    ```text
     before map:
     [0 1 2 3 4]
     [1 2 3 4 5]
@@ -392,6 +398,7 @@ Data processing is performed on the host. Therefore, configurations of the host 
 ### Multi-thread Optimization Solution
 
 During the data pipeline process, the number of threads for related operators can be set to improve the concurrency and performance. For example:
+
 - During data loading, the `num_parallel_workers` parameter in the built-in data loading class is used to set the number of threads.
 - During data augmentation, the `num_parallel_workers` parameter in the `map` function is used to set the number of threads.
 - During batch processing, the `num_parallel_workers` parameter in the `batch` function is used to set the number of threads.
@@ -401,6 +408,7 @@ For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_p
 ### Multi-process Optimization Solution
 
 During data processing, operators implemented by Python support the multi-process mode. For example:
+
 - By default, the `GeneratorDataset` class is in multi-process mode. The `num_parallel_workers` parameter indicates the number of enabled processes. The default value is 1. For details, see [GeneratorDataset](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html#mindspore.dataset.GeneratorDataset).
 - If the user-defined Python function or the `py_transforms` module is used to perform data augmentation and the `python_multiprocessing` parameter of the `map` function is set to True, the `num_parallel_workers` parameter indicates the number of processes and the default value of the `python_multiprocessing` parameter is False. In this case, the `num_parallel_workers` parameter indicates the number of threads. For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 

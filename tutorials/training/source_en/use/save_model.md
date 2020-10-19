@@ -35,6 +35,7 @@ During model training, use the callback mechanism to transfer the object of the 
 You can use the `CheckpointConfig` object to set the CheckPoint saving policies. The saved parameters are classified into network parameters and optimizer parameters.
 
 `ModelCheckpoint` provides default configuration policies for users to quickly get started. The following describes the usage:
+
 ```python
 from mindspore.train.callback import ModelCheckpoint
 ckpoint_cb = ModelCheckpoint()
@@ -61,7 +62,7 @@ Create a `ModelCheckpoint` object and transfer it to the model.train method. The
 
 Generated CheckPoint files are as follows:
 
-```
+```text
 resnet50-graph.meta # Generate compiled computation graph.
 resnet50-1_32.ckpt  # The file name extension is .ckpt.
 resnet50-2_32.ckpt  # The file name format contains the epoch and step correspond to the saved parameters.
@@ -100,6 +101,7 @@ When you have a CheckPoint file, if you want to do inference on device, you need
 If you want to do inference on the device, then you need to generate corresponding MINDIR models based on the network and CheckPoint.
 Currently we support the export of MINDIR models for inference based on graph mode, which don't contain control flow. Taking the export of MINDIR model as an example to illustrate the implementation of model export,
 the code is as follows:
+
 ```python
 from mindspore.train.serialization import export
 import numpy as np
@@ -133,7 +135,7 @@ input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
 ```
 
-Before using the `export` interface, you need to import` mindspore.train.serialization`.
+Before using the `export` interface, you need to import`mindspore.train.serialization`.
 
 The `input` parameter is used to specify the input shape and the data type of the exported model.
 

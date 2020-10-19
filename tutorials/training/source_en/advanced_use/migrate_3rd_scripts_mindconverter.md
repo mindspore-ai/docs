@@ -22,11 +22,9 @@
 
 MindConverter is a migration tool to transform the model scripts from PyTorch to Mindspore. Users can migrate their PyTorch models to Mindspore rapidly with minor changes according to the conversion report.
 
-
 ## Installation
 
 Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://www.mindspore.cn/install/en) here to install MindInsight.
-
 
 ## Usage
 
@@ -71,7 +69,7 @@ optional arguments:
 
 > The AST mode will be enabled, if both `--in_file` and `--model_file` are specified.
 
-For the Graph mode, `--shape` is mandatory. 
+For the Graph mode, `--shape` is mandatory.
 
 For the AST mode, `--shape` is ignored.
 
@@ -80,10 +78,7 @@ For the AST mode, `--shape` is ignored.
 Please note that your original PyTorch project is included in the module search path (PYTHONPATH). Use the python interpreter and test your module can be successfully loaded by `import` command. Use `--project_path` instead if your project is not in the PYTHONPATH to ensure MindConverter can load it.
 
 > Assume the project is located at `/home/user/project/model_training`, users can use this command to add the project to `PYTHONPATH` : `export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
-
 > MindConverter needs the original PyTorch scripts because of the reverse serialization.
-
-
 
 ## Scenario
 
@@ -96,12 +91,11 @@ The AST mode is recommended for the first demand. It parses and analyzes PyTorch
 
 For the second demand, the Graph mode is recommended. As the computational graph is a standard descriptive language, it is not affected by user's coding style. This mode may have more operators converted as long as these operators are supported by MindConverter.
 
-Some typical image classification networks such as ResNet and VGG have been tested for the Graph mode. Note that: 
+Some typical image classification networks such as ResNet and VGG have been tested for the Graph mode. Note that:
 
 > 1. Currently, the Graph mode does not support models with multiple inputs. Only models with a single input and single output are supported.
 > 2. The Dropout operator will be lost after conversion because the inference mode is used to load the PyTorch model. Manually re-implement is necessary.
 > 3. The Graph-based mode will be continuously developed and optimized with further updates.
-
 
 ## Example
 
@@ -123,8 +117,8 @@ line <row>:<col> [UnConvert] 'operator' didn't convert. ...
 
 For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/master/index.html#operator_api) for more information about operator mapping.
 
-
 Here is an example of the conversion report:
+
 ```text
  [Start Convert]
  [Insert] 'import mindspore.ops.operations as P' is inserted to the converted file.
@@ -136,7 +130,6 @@ Here is an example of the conversion report:
 ```
 
 For non-transformed operators, suggestions are provided in the report. For instance, MindConverter suggests that replace `torch.nn.AdaptiveAvgPool2d` with `mindspore.ops.operations.ReduceMean`.
-
 
 ### Graph-Based Conversion
 
@@ -194,12 +187,9 @@ class Classifier(nn.Cell):
 
 ```
 
-> `--output` and `--report` are optional. MindConverter creates an `output` folder under the current working directory, and outputs generated scripts and conversion reports to it.   
-
+> `--output` and `--report` are optional. MindConverter creates an `output` folder under the current working directory, and outputs generated scripts and conversion reports to it.
 
 ## Caution
 
 1. PyTorch is not an explicitly stated dependency library in MindInsight. The Graph conversion requires the consistent PyTorch version as the model is trained. (MindConverter recommends PyTorch 1.4.0 or 1.6.0)
-2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community. 
-
-
+2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.

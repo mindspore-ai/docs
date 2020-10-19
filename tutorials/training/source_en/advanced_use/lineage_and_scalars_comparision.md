@@ -105,6 +105,7 @@ Figure 9 shows the scalars comparision function area, which allows you to view s
 ## Notices
 
 To ensure performance, MindInsight implements scalars comparision with the cache mechanism and the following restrictions:
-- The scalars comparision supports only for trainings in cache. 
+
+- The scalars comparision supports only for trainings in cache.
 - The maximum of 15 latest trainings (sorted by modification time) can be retained in the cache.
 - The maximum of 5 trainings can be selected for scalars comparision at the same time.
