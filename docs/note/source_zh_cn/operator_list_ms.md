@@ -187,18 +187,18 @@
 | [mindspore.ops.ReduceSum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceSum)                         |    Supported | Supported    | Supported | math_ops
 | [mindspore.ops.ReduceAll](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceAll)                         |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.ReduceMax](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceMax)                         |    Supported   | Supported  | Supported | math_ops
-| [mindspore.ops.ReduceMin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)                         |  Supported | Supported  | Doing | math_ops 
-| [mindspore.ops.ReduceProd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceProd)                       |  Supported | Doing  | Doing | math_ops 
-| [mindspore.ops.CumProd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CumProd)                             |  Supported | Doing  | Doing | math_ops 
+| [mindspore.ops.ReduceMin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceMin)                         |  Supported | Supported  | Doing | math_ops
+| [mindspore.ops.ReduceProd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceProd)                       |  Supported | Doing  | Doing | math_ops
+| [mindspore.ops.CumProd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CumProd)                             |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.MatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.MatMul)                               |    Supported   | Supported  |   Supported | math_ops
 | [mindspore.ops.BatchMatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BatchMatMul)                     |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.CumSum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CumSum)                               |  Supported   | Supported| Doing | math_ops
 | [mindspore.ops.AddN](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.AddN)                                   |    Supported   | Supported  | Supported | math_ops
 | [mindspore.ops.Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Neg)                                     |    Supported   | Supported  | Doing | math_ops
-| [mindspore.ops.Sub](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sub)                                     |    Supported   | Supported | Supported | math_ops   
+| [mindspore.ops.Sub](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sub)                                     |    Supported   | Supported | Supported | math_ops
 | [mindspore.ops.Mul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Mul)                                     |    Supported   | Supported  |   Supported | math_ops
-| [mindspore.ops.Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Square)                               |    Supported | Supported  | Supported | math_ops   
-| [mindspore.ops.SquareSumAll](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops   
+| [mindspore.ops.Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Square)                               |    Supported | Supported  | Supported | math_ops
+| [mindspore.ops.SquareSumAll](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Rsqrt)                                 |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Sqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sqrt)                                   |    Supported | Supported | Doing | math_ops
 | [mindspore.ops.Reciprocal](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Reciprocal)                       |    Supported   | Supported  | Doing | math_ops
@@ -206,7 +206,7 @@
 | [mindspore.ops.Exp](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Exp)                                     |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.Log](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Log)                                     |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.Log1p](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Log1p)                                     |    Supported   | Doing  | Doing | math_ops
-| [mindspore.ops.Minimum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Minimum)                             |    Supported | Supported  | Doing | math_ops 
+| [mindspore.ops.Minimum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Minimum)                             |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Maximum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Maximum)                             |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.RealDiv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.RealDiv)                             |    Supported   | Supported  | Doing | math_ops
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Div)                                     |    Supported | Supported  | Doing | math_ops
@@ -294,7 +294,7 @@
 | [mindspore.ops.StridedSlice](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.StridedSlice)                   |    Supported | Supported    | Supported | array_ops
 | [mindspore.ops.Diag](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Diag)                                   |   Doing |  Doing  |  Doing | array_ops
 | [mindspore.ops.DiagPart](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DiagPart)                                   |   Doing |  Doing  |  Doing | array_ops
-| [mindspore.ops.Eye](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Eye)                                     |   Supported |  Supported  |  Supported | array_ops 
+| [mindspore.ops.Eye](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Eye)                                     |   Supported |  Supported  |  Supported | array_ops
 | [mindspore.ops.ScatterNd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterNd)                         |    Supported | Supported  | Doing | array_ops
 | [mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ResizeNearestNeighbor) |  Supported | Supported  | Doing | array_ops
 | [mindspore.ops.GatherNd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GatherNd)                           |  Supported | Supported  | Doing | array_ops

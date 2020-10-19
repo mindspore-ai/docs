@@ -26,7 +26,7 @@ GradOperation组件用于生成输入函数的梯度，利用`get_all`、`get_by
 
 GradOperation的使用实例如下：
 
-```
+```python
 import numpy as np
 
 import mindspore.nn as nn
@@ -64,7 +64,7 @@ GradNetWrtX(Net())(x, y)
 
 输出如下：
 
-```
+```text
 Tensor(shape=[2, 3], dtype=Float32,
 [[1.4100001 1.5999999 6.6      ]
  [1.4100001 1.5999999 6.6      ]])
@@ -79,7 +79,7 @@ MindSpore涉及梯度计算的其他组件，例如`WithGradCell`和`TrainOneSte
 
 下面通过一个实例来介绍其具体的使用， 首先需要构造一个网络，内容如下：
 
-```
+```python
 import numpy as np
 import pytest
 
@@ -124,7 +124,8 @@ class LeNet(nn.Cell):
 ```
 
 下面是`WithLossCell`的使用实例，分别定义好网络和损失函数，然后创建一个`WithLossCell`，传入输入数据和标签数据，`WithLossCell`内部根据网络和损失函数返回计算结果。
-```
+
+```python
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
 net = LeNet()
@@ -136,7 +137,8 @@ print(loss)
 ```
 
 输出如下：
-```
+
+```text
 +++++++++Loss+++++++++++++
 2.302585
 ```
@@ -147,7 +149,7 @@ print(loss)
 
 下面构造一个使用`TrainOneStepCell`接口进行网络训练的实例，其中`LeNet`和包名的导入代码和上个用例共用。
 
-```
+```python
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
 net = LeNet()
@@ -168,7 +170,8 @@ for i in range(5):
 用例中构造了优化器和一个`WithLossCell`的实例，然后传入`TrainOneStepCell`中初始化一个训练网络，用例循环五次，相当于网络训练了五次，并输出每次的loss结果，由结果可以看出每次训练后loss值在逐渐减小。
 
 输出如下：
-```
+
+```text
 +++++++++result:0++++++++++++
 2.302585
 +++++++++result:1++++++++++++
@@ -180,5 +183,6 @@ for i in range(5):
 +++++++++result:4++++++++++++
 2.2215357
 ```
+
 后续内容会介绍MindSpore使用更加高级封装的接口，即`Model`类中的`train`方法训练模型，在其内部实现中会用到
 `TrainOneStepCell`和`WithLossCell` 等许多网络组件，感兴趣的读者可以查看其内部实现。

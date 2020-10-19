@@ -109,6 +109,6 @@
 | Unsqueeze             |          | Supported        | Supported        | Supported         |          |          |             |               | Unsqueeze          |
 | Unstack               |          | Supported        |          |           |          |          | Unstack     |               |                    |
 | Where                 |          | Supported        |          |           |          |          |  Where      |               |                    |
-| ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |             
+| ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |
 
 * Clip：仅支持将clip(0, 6)转换为Relu6。
