@@ -22,26 +22,27 @@
 ## Overview
 
 It is recommended that you start from the image classification demo on the Android device to understand how to build the MindSpore Lite application project, configure dependencies, and use related APIs.
-     
+
 This tutorial demonstrates the on-device deployment process based on the image classification sample program on the Android device provided by the MindSpore team.  
 
 1. Select an image classification model.
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
-   
+
 > Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
 
 ## Selecting a Model
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
 Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) to download image classification models in MindSpore ModelZoo.
-In addition, you can use the preset model to perform migration learning to implement your image classification tasks. 
+In addition, you can use the preset model to perform migration learning to implement your image classification tasks.
 
 ## Converting a Model
 
 After you retrain a model provided by MindSpore, export the model in the [.mindir format](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model). Use the MindSpore Lite [model conversion tool](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) to convert the .mindir model to a .ms model.
 
 Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
+
 ```bash
 ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
 ```
@@ -60,7 +61,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Building and Running
 
-1. Load the sample source code to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.) 
+1. Load the sample source code to Android Studio and install the corresponding SDK. (After the SDK version is specified, Android Studio automatically installs the SDK.)
 
     ![start_home](../images/lite_quick_start_home.png)
 
@@ -86,7 +87,6 @@ The following section describes how to build and execute an on-device image clas
 
     ![result](../images/lite_quick_start_app_result.png)
 
-
 ## Detailed Description of the Sample Program  
 
 This image classification sample program on the Android device includes a Java layer and a JNI layer. At the Java layer, the Android Camera 2 API is used to enable a camera to obtain image frames and process images. At the JNI layer, the model inference process is completed in [Runtime](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime.html).
@@ -95,7 +95,7 @@ This image classification sample program on the Android device includes a Java l
 
 ### Sample Program Structure
 
-```
+```text
 app
 │
 ├── src/main
@@ -109,12 +109,12 @@ app
 │   |   └── MindSporeNetnative.h # header file
 │   |
 │   ├── java # application code at the Java layer
-│   │   └── com.mindspore.himindsporedemo 
+│   │   └── com.mindspore.himindsporedemo
 │   │       ├── gallery.classify # implementation related to image processing and MindSpore JNI calling
 │   │       │   └── ...
 │   │       └── widget # implementation related to camera enabling and drawing
 │   │           └── ...
-│   │   
+│   │
 │   ├── res # resource files related to Android
 │   └── AndroidManifest.xml # Android configuration file
 │
@@ -135,7 +135,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz [Download link](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz)
 
-```
+```text
 android{
     defaultConfig{
         externalNativeBuild{
@@ -144,7 +144,7 @@ android{
             }
         }
 
-        ndk{ 
+        ndk{
             abiFilters'armeabi-v7a', 'arm64-v8a'  
         }
     }
@@ -153,7 +153,7 @@ android{
 
 Create a link to the `.so` library file in the `app/CMakeLists.txt` file:
 
-```
+```text
 # ============== Set MindSpore Dependencies. =============
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/flatbuffers/include)
@@ -171,7 +171,7 @@ set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libminddata-lite.so)
 # --------------- MindSpore Lite set End. --------------------
 
-# Link target library.       
+# Link target library.
 target_link_libraries(
     ...
      # --- mindspore ---
@@ -193,34 +193,37 @@ mobilenetv2.ms [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/officia
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference code process is as follows. For details about the complete code, see `src/cpp/MindSporeNetnative.cpp`. 
+The inference code process is as follows. For details about the complete code, see `src/cpp/MindSporeNetnative.cpp`.
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
 
     - Load a model file. Create and configure the context for model inference.
+
         ```cpp
         // Buffer is the model data passed in by the Java layer
         jlong bufferLen = env->GetDirectBufferCapacity(buffer);
         char *modelBuffer = CreateLocalModelBuffer(env, buffer);  
         ```
-        
+
     - Create a session.
+
         ```cpp
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
-        
+
         // Create context.
         mindspore::lite::Context *context = new mindspore::lite::Context;
         context->thread_num_ = num_thread;
-        
+
         // Create the mindspore session.
         labelNet->CreateSessionMS(modelBuffer, bufferLen, "device label", context);
         delete(context);
-        
+
         ```
-        
+
     - Load the model file and build a computational graph for inference.
+
         ```cpp
         void MSNetWork::CreateSessionMS(char* modelBuffer, size_t bufferLen, std::string name, mindspore::lite::Context* ctx)
         {
@@ -230,8 +233,8 @@ The inference code process is as follows. For details about the complete code, s
             int ret = session->CompileGraph(model);
         }
         ```
-    
-2. Convert the input image into the Tensor format of the MindSpore model. 
+
+2. Convert the input image into the Tensor format of the MindSpore model.
 
     Convert the image data to be detected into the Tensor format of the MindSpore model.
 
@@ -241,7 +244,7 @@ The inference code process is as follows. For details about the complete code, s
    // Processing such as zooming the picture size.
     matImgPreprocessed = PreProcessImageData(matImageSrc);  
 
-    ImgDims inputDims; 
+    ImgDims inputDims;
     inputDims.channel = matImgPreprocessed.channels();
     inputDims.width = matImgPreprocessed.cols;
     inputDims.height = matImgPreprocessed.rows;
@@ -261,7 +264,7 @@ The inference code process is as follows. For details about the complete code, s
         inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
     delete[] (dataHWC);
    ```
-   
+
 3. Preprocessing the input data.
 
    ```cpp
@@ -293,7 +296,7 @@ The inference code process is as follows. For details about the complete code, s
    }
    ```
 
-4. Perform inference on the input tensor based on the model, obtain the output tensor, and perform post-processing.    
+4. Perform inference on the input tensor based on the model, obtain the output tensor, and perform post-processing.
 
    - Perform graph execution and on-device inference.
 
@@ -303,6 +306,7 @@ The inference code process is as follows. For details about the complete code, s
         ```
 
    - Obtain the output data.
+
         ```cpp
         auto names = mSession->GetOutputTensorNames();
         std::unordered_map<std::string,mindspore::tensor::MSTensor *> msOutputs;
@@ -312,22 +316,23 @@ The inference code process is as follows. For details about the complete code, s
           }
         std::string retStr = ProcessRunnetResult(msOutputs, ret);
         ```
-        
+
    - Perform post-processing of the output data.
+
         ```cpp
         std::string ProcessRunnetResult(std::unordered_map<std::string,
                 mindspore::tensor::MSTensor *> msOutputs, int runnetRet) {
-        
+
           std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
           iter = msOutputs.begin();
-        
+
           // The mobilenetv2.ms model output just one branch.
           auto outputTensor = iter->second;
           int tensorNum = outputTensor->ElementsNum();
-        
+
           // Get a pointer to the first score.
           float *temp_scores = static_cast<float * >(outputTensor->MutableData());
-        
+
           float scores[RET_CATEGORY_SUM];
           for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
             if (temp_scores[i] > 0.5) {
@@ -335,7 +340,7 @@ The inference code process is as follows. For details about the complete code, s
             }
             scores[i] = temp_scores[i];
           }
-        
+
           // Score for each category.
           // Converted to text information that needs to be displayed in the APP.
           std::string categoryScore = "";
@@ -347,5 +352,5 @@ The inference code process is as follows. For details about the complete code, s
             categoryScore += ";";
           }
           return categoryScore;
-        }      
+        }
         ```

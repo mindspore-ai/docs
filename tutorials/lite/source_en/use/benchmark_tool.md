@@ -40,7 +40,7 @@ The main test indicator of the performance test performed by the Benchmark tool 
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
 
-```
+```text
 Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
@@ -50,7 +50,7 @@ Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime
 
 This command uses a random input, sets the parameter `timeProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
 
-```
+```text
 -----------------------------------------------------------------------------------------
 opName                                                          avg(ms)         percent         calledTimess    opTotalTime
 conv2d_1/convolution                                            2.264800        0.824012        10              22.648003
@@ -98,7 +98,7 @@ The accuracy test performed by the Benchmark tool is to verify the accuracy of t
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
 
-```
+```text
 InData0: 139.947 182.373 153.705 138.945 108.032 164.703 111.585 227.402 245.734 97.7776 201.89 134.868 144.851 236.027 18.1142 22.218 5.15569 212.318 198.43 221.853
 ================ Comparing Output data ================
 Data of node age_out : 5.94584e-08 6.3317e-08 1.94726e-07 1.91809e-07 8.39805e-08 7.66035e-08 1.69285e-07 1.46246e-07 6.03796e-07 1.77631e-07 1.54343e-07 2.04623e-07 8.89609e-07 3.63487e-06 4.86876e-06 1.23939e-05 3.09981e-05 3.37098e-05 0.000107102 0.000213932 0.000533579 0.00062465 0.00296401 0.00993984 0.038227 0.0695085 0.162854 0.123199 0.24272 0.135048 0.169159 0.0221256 0.013892 0.00502971 0.00134921 0.00135701 0.000383242 0.000163475 0.000136294 9.77864e-05 8.00793e-05 5.73874e-05 3.53858e-05 2.18535e-05 2.04467e-05 1.85286e-05 1.05075e-05 9.34751e-06 6.12732e-06 4.55476e-06
@@ -108,6 +108,7 @@ Mean bias of all nodes: 0%
 ```
 
 To set specified input shapes(such as 1,32,32,1), use command as follows:
+
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
@@ -118,11 +119,11 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
 
 ```bash
 ./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
-			[--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
-			[--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
-			[--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
-			[--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
-			[--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+   [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
+   [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
+   [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
+   [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+   [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
             [--inputShapes=<INPUTSHAPES>]
 ```
 

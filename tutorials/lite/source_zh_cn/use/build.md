@@ -31,31 +31,31 @@
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
 - runtime(cpp)、benchmark编译依赖
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
 - converter编译依赖
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
-  - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
-  - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
-  - [LibreSSL](http://www.libressl.org/) >= 3.1.3
-  - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
-  - [Libevent](https://libevent.org) >= 2.0
-  - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
-  - [OpenSSL](https://www.openssl.org/) >= 1.1.1 
-  - [Python](https://www.python.org/) >= 3.7.5
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
+    - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
+    - [LibreSSL](http://www.libressl.org/) >= 3.1.3
+    - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
+    - [Libevent](https://libevent.org) >= 2.0
+    - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
+    - [OpenSSL](https://www.openssl.org/) >= 1.1.1
+    - [Python](https://www.python.org/) >= 3.7.5
 - runtime(java)编译依赖
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
-  - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
-  - [Gradle](https://gradle.org/releases/) >= 6.6.1
-  - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+    - [Gradle](https://gradle.org/releases/) >= 6.6.1
+    - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
 
 > - 当安装完依赖项Android_NDK后，需配置环境变量:`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
 > - Android SDK组件需要安装Android SDK Build Tools。
@@ -92,31 +92,37 @@ git clone https://gitee.com/mindspore/mindspore.git
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
 
 - 编译x86_64架构Debug版本。
+
     ```bash
     bash build.sh -I x86_64 -d
     ```
 
 - 编译x86_64架构Release版本，同时设定线程数。
+
     ```bash
     bash build.sh -I x86_64 -j32
     ```
 
 - 增量编译ARM64架构Release版本，同时设定线程数。
+
     ```bash
     bash build.sh -I arm64 -i -j32
     ```
 
 - 编译ARM64架构Release版本，同时编译内置的GPU算子。
+
     ```bash
     bash build.sh -I arm64 -e gpu
     ```
 
 - 编译ARM64带图像预处理模块。
+
     ```bash
     bash build.sh -I arm64 -n lite_cv
     ```
 
 - 增量编译MindSpore Lite AAR。
+
   ```bash
   bash build.sh -A java -i
   ```
@@ -150,9 +156,9 @@ unzip mindspore-lite-maven-{version}.zip
 
 转换工具仅在`-I x86_64`编译选项下获得，内容包括以下几部分：
 
-```
+```text
 |
-├── mindspore-lite-{version}-converter-{os} 
+├── mindspore-lite-{version}-converter-{os}
 │   └── converter # 模型转换工具
 │   └── lib # 转换工具依赖的动态库
 │   └── third_party # 第三方库头文件和库
@@ -164,9 +170,10 @@ unzip mindspore-lite-maven-{version}.zip
 推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容包括以下几部分：
 
 - 当编译选项为`-I x86_64`时：
-    ```
+
+    ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu 
+    ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # 基准测试工具
     │   └── lib # 推理框架动态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
@@ -176,7 +183,8 @@ unzip mindspore-lite-maven-{version}.zip
     ```
 
 - 当编译选项为`-I arm64`时：
-    ```
+
+    ```text
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # 基准测试工具
@@ -190,7 +198,8 @@ unzip mindspore-lite-maven-{version}.zip
     ```
 
 - 当编译选项为`-I arm32`时：
-    ```
+
+    ```text
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # 基准测试工具
@@ -220,23 +229,23 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 
 - 当编译选项为`-A java`时：
 
-  ```
+  ```text
   |
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
-  │   	└── mindspore-lite
-  |			└── {version}-SNAPSHOT 
-  │       		├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite推理框架aar包
+  │     └── mindspore-lite
+  |         └── {version}-SNAPSHOT
+  │         ├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite推理框架aar包
   ```
 
 #### 图像处理库目录结构说明
 
 图像处理库在`-I arm64 -n lite_cv`编译选项下获得，内容包括以下几部分：
 
-```
+```text
 |
 ├── mindspore-lite-{version}-minddata-{os}-{device}
-│   └── benchmark # 基准测试工具 
+│   └── benchmark # 基准测试工具
 │   └── include # 头文件(此处只展示和图像处理相关的文件)
 │       ├── lite_cv # 图像处理库头文件
 │           ├── image_process.h # 图像处理函数头文件

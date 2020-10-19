@@ -31,7 +31,7 @@
 
 代码样例如下：
 
-```
+```python
 import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
@@ -48,7 +48,7 @@ print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p)
 
 输出如下：
 
-```
+```text
 [[1 2]
  [3 4]]
 
@@ -68,12 +68,13 @@ True
 ### 属性
 
 张量的属性包括形状（shape）和数据类型（dtype）。
+
 - 形状：`Tensor`的shape，是一个tuple。
 - 数据类型：`Tensor`的dtype，是MindSpore的一个数据类型。
 
 代码样例如下：
 
-```
+```python
 import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
@@ -87,20 +88,21 @@ print(x_shape, x_dtype)
 
 输出如下：
 
-```
+```text
 (2, 2) Int32
 ```
- 
+
 ### 方法
 
 张量的方法包括`all`、`any`和`asnumpy`，`all`和`any`方法目前只支持Ascend。
+
 - `all(axis, keep_dims)`：在指定维度上通过`and`操作进行归约，`axis`代表归约维度，`keep_dims`表示是否保留归约后的维度。
 - `any(axis, keep_dims)`：在指定维度上通过`or`操作进行归约，参数含义同`all`。
 - `asnumpy()`：将`Tensor`转换为NumPy的array。
 
 代码样例如下：
 
-```
+```python
 import numpy as np
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
@@ -115,7 +117,7 @@ print(x_all, "\n\n", x_any, "\n\n", x_array)
 
 输出如下：
 
-```
+```text
 False
 
 True

@@ -32,33 +32,33 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
 - Compilation dependencies of runtime(cpp), benchmark:
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
 
 - Compilation dependencies of converter:
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
-  - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
-  - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
-  - [LibreSSL](http://www.libressl.org/) >= 3.1.3
-  - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
-  - [Libevent](https://libevent.org) >= 2.0
-  - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
-  - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-  - [Python](https://www.python.org/) >= 3.7.5
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
+    - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
+    - [LibreSSL](http://www.libressl.org/) >= 3.1.3
+    - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
+    - [Libevent](https://libevent.org) >= 2.0
+    - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
+    - [OpenSSL](https://www.openssl.org/) >= 1.1.1
+    - [Python](https://www.python.org/) >= 3.7.5
   
 - Compilation dependencies of runtime(java)
-  - [CMake](https://cmake.org/download/) >= 3.14.1
-  - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-  - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-  - [Git](https://git-scm.com/downloads) >= 2.28.0
-  - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
-  - [Gradle](https://gradle.org/releases/) >= 6.6.1
-  - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
+    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+    - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+    - [Gradle](https://gradle.org/releases/) >= 6.6.1
+    - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
   
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
 > - Android SDK Tools need install Android SDK Build Tools.
@@ -95,30 +95,37 @@ git clone https://gitee.com/mindspore/mindspore.git
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
 
 - Debug version of the x86_64 architecture:
+
     ```bash
     bash build.sh -I x86_64 -d
     ```
 
 - Release version of the x86_64 architecture, with the number of threads set:
+
     ```bash
     bash build.sh -I x86_64 -j32
     ```
 
 - Release version of the Arm 64-bit architecture in incremental compilation mode, with the number of threads set:
+
     ```bash
     bash build.sh -I arm64 -i -j32
     ```
 
 - Release version of the Arm 64-bit architecture in incremental compilation mode, with the built-in GPU operator compiled:
+
     ```bash
     bash build.sh -I arm64 -e gpu
     ```
 
 - Compile ARM64 with image preprocessing module:
+
     ```bash
     bash build.sh -I arm64 -n lite_cv
     ```
+
 - Compile MindSpore Lite AAR in incremental compilation mode:
+
   ```bash
   bash build.sh -A java -i
   ```
@@ -128,6 +135,7 @@ Then, run the following commands in the root directory of the source code to com
 ### Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
+
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
@@ -146,13 +154,14 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
+
 #### Description of Converter's Directory Structure
 
 The conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
 
-```
+```text
 |
-├── mindspore-lite-{version}-converter-{os} 
+├── mindspore-lite-{version}-converter-{os}
 │   └── converter # Model conversion Ttool
 │   └── lib # The dynamic link library that converter depends
 │   └── third_party # Header files and libraries of third party libraries
@@ -164,9 +173,10 @@ The conversion tool is only available under the `-I x86_64` compilation option, 
 The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I arm32` compilation options, and the content includes the following parts:
 
 - When the compilation option is `-I x86_64`:
-    ```
+
+    ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu 
+    ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # Benchmarking Tool
     │   └── lib # Inference framework dynamic library
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
@@ -176,7 +186,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     ```
   
 - When the compilation option is `-I arm64`:  
-    ```
+
+    ```text
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # Benchmarking Tool
@@ -190,7 +201,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     ```
 
 - When the compilation option is `-I arm32`:  
-    ```
+
+    ```text
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # Benchmarking Tool
@@ -220,24 +232,23 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${
 
 - When the compilation option is `-A java`:
 
-  ```
+  ```text
   |
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
-  │   	└── mindspore-lite
-  |			└── {version}-SNAPSHOT 
-  │       		├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite runtime aar
+  │     └── mindspore-lite
+  |         └── {version}-SNAPSHOT
+  │         ├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite runtime aar
   ```
-
 
 #### Description of Imageprocess's Directory Structure
 
 The image processing library is only available under the `-I arm64 -n lite_cv` compilation option, and the content includes the following parts:
 
-```
+```text
 |
 ├── mindspore-lite-{version}-minddata-{os}-{device}
-│   └── benchmark # Benchmarking Tool 
+│   └── benchmark # Benchmarking Tool
 │   └── include # Head file(Only show files related to image processing)
 │       ├── lite_cv # Image processing library header file
 │           ├── image_process.h # Image processing function header file

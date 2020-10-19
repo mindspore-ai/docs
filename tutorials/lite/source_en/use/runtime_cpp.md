@@ -35,7 +35,6 @@
 
 <!-- /TOC -->
 
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
@@ -47,6 +46,7 @@ The procedure for using Runtime is shown in the following figure:
 ![img](../images/side_infer_process.png)
 
 Its components and their functions are described as follows:
+
 - `Model`: model used by MindSpore Lite, which instantiates the list of operator prototypes through image composition or direct network loading.
 - `Lite Session`: provides the graph compilation function and calls the graph executor for inference.
 - `Scheduler`: operator heterogeneous scheduler. It can select a proper kernel for each operator based on the heterogeneous scheduling policy, construct a kernel list, and split a graph into subgraphs.
@@ -252,6 +252,7 @@ memcpy(in_data, input_buf, data_size);
 ```
 
 Note:  
+
 - The data layout in the model input tensors of MindSpore Lite must be NHWC.
 - The model input `input_buf` is read from disks. After it is copied to model input tensors, you need to release `input_buf`.
 - Vectors returned by using the `GetInputs` and `GetInputsByTensorName` methods do not need to be released by users.
@@ -299,6 +300,7 @@ session->BindThread(false);
 ### Callback Running
 
 MindSpore Lite can transfer two `KernelCallBack` function pointers to call back the inference model when calling `RunGraph`. Compared with common graph execution, callback running can obtain extra information during the running process to help developers analyze performance and fix bugs. The extra information includes:
+
 - Name of the running node
 - Input and output tensors before inference of the current node
 - Input and output tensors after inference of the current node
@@ -380,6 +382,7 @@ delete (model);
 After performing inference, MindSpore Lite can obtain the model inference result.
 
 MindSpore Lite provides the following methods to obtain the model output `MSTensor`.
+
 1. Use the `GetOutputsByNodeName` method to obtain vectors of the model output `MSTensor` that is connected to the model output node based on the node name.
 
    ```cpp
@@ -515,11 +518,13 @@ std::string version = mindspore::lite::Version();
 ```
 
 ## Session parallel launch
+
 MindSpore Lite supports multiple `LiteSession` parallel inferences, but does not support multiple threads calling the `RunGraph` interface of a single `LiteSession` at the same time.
 
 ### Single Session parallel launch
 
 MindSpore Lite does not support multi-threaded parallel calling of the inference interface of a single `LiteSession`, otherwise we will get the following error message:
+
 ```cpp
 ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
 ```
@@ -531,6 +536,7 @@ MindSpore Lite supports multiple `LiteSession` in doing inference in parallel. T
 ### Example
 
 The following code shows how to create multiple `LiteSession` and do inference in parallel:
+
 ```cpp
 #include <thread>
 #include "src/common/file_utils.h"
