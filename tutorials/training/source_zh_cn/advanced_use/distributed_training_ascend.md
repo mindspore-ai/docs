@@ -12,6 +12,8 @@
         - [调用集合通信库](#调用集合通信库)
     - [数据并行模式加载数据集](#数据并行模式加载数据集)
     - [定义网络](#定义网络)
+        - [手动混合并行模式](#手动混合并行模式)
+        - [半自动并行模式](#半自动并行模式)
     - [定义损失函数及优化器](#定义损失函数及优化器)
         - [定义损失函数](#定义损失函数)
         - [定义优化器](#定义优化器)
@@ -33,6 +35,8 @@
 > 你可以在这里下载完整的样例代码：
 >
 > <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+
+此外在[定义网络](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
 ## 准备环节
 
@@ -88,6 +92,7 @@ MindSpore分布式并行训练的通信使用了华为集合通信库`Huawei Col
 >
 > - 单机场景下支持1、2、4、8卡设备集群，多机场景下支持8*n卡设备集群。
 > - 每台机器的0-3卡和4-7卡各为1个组网，2卡和4卡训练时卡必须相连且不支持跨组网创建集群。
+> - 组建多机集群时需要保证各台机器使用同一交换机。
 > - 服务器硬件架构及操作系统需要是SMP（Symmetrical Multi-Processing，对称多处理器）处理模式。
 
 下面是调用集合通信库样例代码：
@@ -166,7 +171,68 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 ## 定义网络
 
-数据并行及自动并行模式下，网络定义方式与单机一致。代码请参考： <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py)。
+
+本章节重点介绍手动混合并行和半自动并行模式的网络定义方法。
+
+### 手动混合并行模式
+
+手动混合并行模式在数据并行模式的基础上，对`parameter`增加了模型并行`layerwise_parallel`配置，包含此配置的`parameter`将以切片的形式保存并参与计算，在优化器计算时不会进行梯度累加。在该模式下，框架不会自动插入并行算子前后需要的计算和通信操作，为了保证计算逻辑的正确性，用户需要手动推导并写在网络结构中，适合对并行原理深入了解的用户使用。
+
+以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
+
+```python
+from mindspore import Tensor
+import mindspore.ops as ops
+import mindspore.common.dtype as mstype
+import mindspore.nn as nn
+
+class HybridParallelNet(nn.Cell):
+    def __init__(self):
+        super(HybridParallelNet, self).__init__()
+        # initialize the weight which is sliced at the second dimension
+        weight_init = np.random.rand(512, 128/2).astype(np.float32)
+        self.weight = Parameter(Tensor(weight_init), name="weight", layerwise_parallel=True)
+        self.fc = ops.MatMul()
+        self.reduce = ops.ReduceSum()
+        self.allreduce = ops.AllReduce(op='sum')
+
+    def construct(self, x):
+        x = self.fc(x, self.weight)
+        x = self.reduce(x, -1)
+        x = self.allreduce(x)
+        return x
+```
+
+### 半自动并行模式
+
+半自动并行模式相较于自动并行模式支持用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
+
+用户在使用半自动并行模式时，需要注意，未配置策略的算子默认以数据并行方式执行，如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
+
+以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`{(1, 1),(1, 2)}`，指定`self.weight`在第二维度上被切分两份。
+
+```python
+from mindspore import Tensor
+import mindspore.ops as ops
+import mindspore.common.dtype as mstype
+import mindspore.nn as nn
+
+class SemiAutoParallelNet(nn.Cell):
+    def __init__(self):
+        super(SemiAutoParallelNet, self).__init__()
+        # initialize full tensor weight
+        weight_init = np.random.rand(512, 128).astype(np.float32)
+        self.weight = Parameter(Tensor(weight_init), name="weight")
+        # set shard strategy
+        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.reduce = ops.ReduceSum()
+
+    def construct(self, x):
+        x = self.fc(x, self.weight)
+        x = self.reduce(x, -1)
+        return x
+```
 
 ## 定义损失函数及优化器
 
