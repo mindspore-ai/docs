@@ -35,7 +35,7 @@
 
 本章将详细介绍深度概率编程在MindSpore上的应用。在动手进行实践之前，确保，你已经正确安装了MindSpore 0.7.0-beta及其以上版本。本章的具体内容如下：
 
-1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网（Bayesian Neural Network, BNN）；
+1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网络（Bayesian Neural Network, BNN）；
 2. 介绍如何使用[variational模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/infer/variational)和[dpn模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/dpn)实现变分自编码器（Variational AutoEncoder, VAE）；
 3. 介绍如何使用[transforms模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/transforms)实现DNN（Deep Neural Network, DNN）一键转BNN；
 4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
