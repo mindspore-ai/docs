@@ -62,8 +62,8 @@
     在`src/wide_and_deep.py`文件的`class TrainStepWrap(nn.Cell)`中，检查两个优化器主机端执行的属性。
 
     ```python
-    self.optimizer_w.sparse_opt.add_prim_attr("primitive_target", "CPU")
-    self.optimizer_d.sparse_opt.add_prim_attr("primitive_target", "CPU")
+    self.optimizer_w.target = "CPU"
+    self.optimizer_d.target = "CPU"
     ```
 
 ## 训练模型
