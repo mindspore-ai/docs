@@ -28,7 +28,7 @@ This tutorial uses the MNIST dataset [1] as an example to demonstrate how to loa
 
 1. Download and decompress the training [Image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [Label](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz) of the MNIST dataset to `./MNIST` directory. The directory structure is as follows.
 
-    ```
+    ```text
     └─MNIST
         ├─train-images.idx3-ubyte
         └─train-labels.idx1-ubyte

@@ -47,6 +47,7 @@ Vertical polarity word = General polarity word + Domain-specific polarity word
 According to the text processing granularity, sentiment analysis can be divided into word, phrase, sentence, paragraph, and chapter levels. A sentiment analysis at paragraph level is used as an example. The input is a paragraph, and the output is information about whether the movie review is positive or negative.
 
 ## Preparation and Design
+
 ### Downloading the Dataset
 
 The IMDb movie review dataset is used as experimental data.
@@ -54,15 +55,17 @@ The IMDb movie review dataset is used as experimental data.
 
 The following are cases of negative and positive reviews.
 
-| Review  | Label  | 
+| Review  | Label  |
 |---|---|
 | "Quitting" may be as much about exiting a pre-ordained identity as about drug withdrawal. As a rural guy coming to Beijing, class and success must have struck this young artist face on as an appeal to separate from his roots and far surpass his peasant parents' acting success. Troubles arise, however, when the new man is too new, when it demands too big a departure from family, history, nature, and personal identity. The ensuing splits, and confusion between the imaginary and the real and the dissonance between the ordinary and the heroic are the stuff of a gut check on the one hand or a complete escape from self on the other.  |  Negative |  
 | This movie is amazing because the fact that the real people portray themselves and their real life experience and do such a good job it's like they're almost living the past over again. Jia Hongsheng plays himself an actor who quit everything except music and drugs struggling with depression and searching for the meaning of life while being angry at everyone especially the people who care for him most.  | Positive  |
 
 Download the GloVe file and add the following line at the beginning of the file, which means that a total of 400,000 words are read, and each word is represented by a word vector of 300 latitudes.
-```
+
+```text
 400000 300
 ```
+
 GloVe file download address: <http://nlp.stanford.edu/data/glove.6B.zip>
 
 ### Determining Evaluation Criteria
@@ -79,16 +82,17 @@ F1 score = (2 x Precision x Recall)/(Precision + Recall)
 
 In the IMDb dataset, the number of positive and negative samples does not vary greatly. Accuracy can be used as the evaluation criterion of the classification system.
 
-
 ### Determining the Network and Process
 
 Currently, MindSpore GPU and CPU supports SentimentNet network based on the long short-term memory (LSTM) network for NLP.
+
 1. Load the dataset in use and process data if necessary.
 2. Use the SentimentNet network based on LSTM to train data and generate a model.
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
 > The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
+>
 > - `src/config.py`: some configurations of the network, including the batch size and number of training epochs.
 > - `src/dataset.py`: dataset related definition, including converted MindRecord file and preprocessed data.
 > - `src/imdb.py`: the utility class for parsing IMDb dataset.
@@ -97,8 +101,11 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
 > - `eval.py`: the evaluation script.
 
 ## Implementation
+
 ### Importing Library Files
+
 The following are the required public modules and MindSpore modules and library files.
+
 ```python
 import argparse
 import os
@@ -118,6 +125,7 @@ from mindspore.train.serialization import load_param_into_net, load_checkpoint
 ### Configuring Environment Information
 
 1. The `parser` module is used to transfer necessary information for running, such as storage paths of the dataset and the GloVe file. In this way, the frequently changed configurations can be entered during runtime, which is more flexible.
+
     ```python
     parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
     parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
@@ -138,13 +146,14 @@ from mindspore.train.serialization import load_param_into_net, load_checkpoint
     ```
 
 2. Before implementing code, configure necessary information, including the environment information, execution mode, backend information, and hardware information.
-   
+
     ```python
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
         device_target=args.device_target)
     ```
+
     For details about the API configuration, see the `context.set_context`.
 
 ### Preprocessing the Dataset
@@ -156,14 +165,13 @@ if args.preprocess == "true":
     print("============== Starting Data Pre-processing ==============")
     convert_to_mindrecord(cfg.embed_size, args.aclimdb_path, args.preprocess_path, args.glove_path)
 ```
+
 > After successful conversion, `mindrecord` files are generated under the directory `preprocess_path`. Usually, this operation does not need to be performed every time if the dataset is unchanged.
-
 > For `convert_to_mindrecord`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
-
 > It consists of two steps:
+>
 >1. Process the text dataset, including encoding, word segmentation, alignment, and processing the original GloVe data to adapt to the network structure.
 >2. Convert the dataset format to the MindRecord format.
-
 
 ### Defining the Network
 
@@ -178,11 +186,13 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        weight=Tensor(embedding_table),
                        batch_size=cfg.batch_size)
 ```
+
 > For `SentimentNet`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
 
 ### Pre-Training
 
 The parameter `pre_trained` specifies the preloading CheckPoint file for pre-training, which is empty by default
+
 ```python
 if args.pre_trained:
     load_param_into_net(network, load_checkpoint(args.pre_trained))
@@ -217,6 +227,7 @@ else:
     model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
+
 > For `lstm_create_dataset`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>
 
 ### Validating the Model
@@ -238,12 +249,15 @@ print("============== {} ==============".format(acc))
 ```
 
 ## Experimental Result
+
 After 20 epochs, the accuracy on the test set is about 84.19%.
 
-**Training Execution**
+**Training Execution:**
+
 1. Run the training code and view the running result.
+
     ```shell
-    $ python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
+    python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
     ```
 
     As shown in the following output, the loss value decreases gradually with the training process and reaches about 0.2855.
@@ -263,11 +277,11 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
     ```
 
 2. Check the saved CheckPoint files.
-   
+
    CheckPoint files (model files) are saved during the training. You can view all saved files in the file path.
 
     ```shell
-    $ ls ./*.ckpt
+    ls ./*.ckpt
     ```
 
     The output is as follows:
@@ -276,12 +290,12 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
     lstm-11_390.ckpt  lstm-12_390.ckpt  lstm-13_390.ckpt  lstm-14_390.ckpt  lstm-15_390.ckpt  lstm-16_390.ckpt  lstm-17_390.ckpt  lstm-18_390.ckpt  lstm-19_390.ckpt  lstm-20_390.ckpt
     ```
 
-**Model Validation**
+**Model Validation:**
 
 Use the last saved CheckPoint file to load and validate the dataset.
 
 ```shell
-$ python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
+python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 ```
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 84.19%, which is basically satisfactory.
@@ -290,4 +304,3 @@ As shown in the following output, the sentiment analysis accuracy of the text is
 ============== Starting Testing ==============
 ============== {'acc': 0.8419471153846154} ==============
 ```
-

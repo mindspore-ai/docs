@@ -100,7 +100,6 @@ context.set_context(enable_graph_kernel=True)
 2. `BERT-large` training network
 
     Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
-      
 
 ## Effect Evaluation
 

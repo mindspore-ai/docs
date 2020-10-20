@@ -1,4 +1,4 @@
-# Loading a Model for Inference and Transfer Learning 
+# Loading a Model for Inference and Transfer Learning
 
 `Linux` `Ascend` `GPU` `CPU` `Model Loading` `Beginner` `Intermediate` `Expert`
 
@@ -50,6 +50,7 @@ The `eval` method validates the accuracy of the trained model.
 In the retraining and fine-tuning scenarios for task interruption, you can load network parameters and optimizer parameters to the model.
 
 The sample code is as follows:
+
 ```python
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
@@ -105,11 +106,11 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
 ### For Transfer Training
 
-When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network. 
+When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network.
 
-We use GoogleNet as example to illustrate how to load a model trained on ImageNet dataset and then perform transfer learning (re-training) on specific sub-task dataset. The main steps are listed below: 
+We use GoogleNet as example to illustrate how to load a model trained on ImageNet dataset and then perform transfer learning (re-training) on specific sub-task dataset. The main steps are listed below:
 
-1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`. 
+1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`.
 
 2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer.
 
@@ -142,7 +143,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
             super(ReduceMeanFlatten, self).__init__()
             self.mean = P.ReduceMean(keep_dims=True)
             self.flatten = nn.Flatten()
-         
+
          def construct(self, x):
             x = self.mean(x, (2, 3))
             x = self.flatten(x)
@@ -197,7 +198,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
             data, label = items
             data = mindspore.Tensor(data)
             label = mindspore.Tensor(label)
-            
+
             loss = train_net(data, label)
             print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
          # Save the ckpt file for each epoch.
@@ -218,7 +219,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
    classification_layer = nn.Dense(last_channel, num_classes)
    classification_layer.set_train(False)
    softmax = nn.Softmax()
-   network = nn.SequentialCell([network, reducemean_flatten, 
+   network = nn.SequentialCell([network, reducemean_flatten,
                                  classification_layer, softmax])
 
    # Load a pre-trained ckpt file.

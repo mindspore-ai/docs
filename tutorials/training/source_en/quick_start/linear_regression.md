@@ -29,7 +29,6 @@ Author: [Yi Yang](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;Edit
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
-
 ## Overview
 
 Regression algorithms usually use a series of properties to predict a value, and the predicted values are consecutive. For example, the price of a house is predicted based on some given feature data of the house, such as area and the number of bedrooms; or future temperature conditions are predicted by using the temperature change data and satellite cloud images in the last week. If the actual price of the house is CNY5 million, and the value predicted through regression analysis is CNY4.99 million, the regression analysis is considered accurate. For machine learning problems, common regression analysis includes linear regression, polynomial regression, and logistic regression. This example describes the linear regression algorithms and how to use MindSpore to perform linear regression AI training.
@@ -50,7 +49,6 @@ Complete MindSpore running configuration.
 
 Third-party support package: `matplotlib`. If this package is not installed, run the `pip install matplotlib` command to install it first.
 
-
 ```python
 from mindspore import context
 
@@ -67,7 +65,6 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
 `get_data` is used to generate training and test datasets. Since linear data is fitted, the required training datasets should be randomly distributed around the objective function. Assume that the objective function to be fitted is $f(x)=2x+3$. $f(x)=2x+3+noise$ is used to generate training datasets, and `noise` is a random value that complies with standard normal distribution rules.
 
-
 ```python
 import numpy as np
 
@@ -80,7 +77,6 @@ def get_data(num, w=2.0, b=3.0):
 ```
 
 Use `get_data` to generate 50 groups of test data and visualize them.
-
 
 ```python
 import matplotlib.pyplot as plt
@@ -98,9 +94,7 @@ plt.show()
 
 The output is as follows:
 
-
 ![png](./images/linear_regression_eval_datasets.png)
-
 
 In the preceding figure, the green line indicates the objective function, and the red points indicate the verification data `eval_data`.
 
@@ -111,7 +105,6 @@ Use the MindSpore data conversion function `GeneratorDataset` to convert the dat
 - `ds.GeneratorDataset`: converts the generated data into a MindSpore dataset and saves the x and y values of the generated data to arrays of `data` and `label`.
 - `batch`: combines `batch_size` pieces of data into a batch.
 - `repeat`: multiplies the number of datasets.
-
 
 ```python
 from mindspore import dataset as ds
@@ -125,13 +118,12 @@ def create_dataset(num_data, batch_size=16, repeat_size=1):
 
 Use the dataset argumentation function to generate training data and view the training data format.
 
-
 ```python
 num_data = 1600
 batch_size = 16
 repeat_size = 1
 
-ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size) 
+ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
 print("The dataset size of ds_train:", ds_train.get_dataset_size())
 dict_datasets = ds_train.create_dict_iterator().get_next()
 
@@ -142,11 +134,12 @@ print("The y label value shape:", dict_datasets["label"].shape)
 
 The output is as follows:
 
-    The dataset size of ds_train: 100
-    dict_keys(['data', 'label'])
-    The x label value shape: (16, 1)
-    The y label value shape: (16, 1)
-    
+```text
+The dataset size of ds_train: 100
+dict_keys(['data', 'label'])
+The x label value shape: (16, 1)
+The y label value shape: (16, 1)
+```
 
 Use the defined `create_dataset` to perform argumentation on the generated 1600 data records and set them into 100 datasets with the shape of 16 x 1.
 
@@ -157,7 +150,6 @@ In MindSpore, use `nn.Dense` to generate a linear function model of single data 
 $$f(x)=wx+b\tag{1}$$
 
 Use the Normal operator to randomly initialize the weights $w$ and $b$.
-
 
 ```python
 from mindspore.common.initializer import Normal
@@ -175,7 +167,6 @@ class LinearNet(nn.Cell):
 
 Call the network to view the initialized model parameters.
 
-
 ```python
 net = LinearNet()
 model_params = net.trainable_params()
@@ -184,18 +175,18 @@ print(model_params)
 
 The output is as follows:
 
-    [Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
-    [[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
-    
+```text
+[Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
+[[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
+```
 
 After initializing the network model, visualize the initialized network function and training dataset to understand the model function before fitting.
-
 
 ```python
 from mindspore import Tensor
 
 x_model_label = np.array([-10, 10, 0.1])
-y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] + 
+y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] +
                  Tensor(model_params[1]).asnumpy()[0])
 
 plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
@@ -206,9 +197,7 @@ plt.show()
 
 The output is as follows:
 
-
 ![png](./images/model_net_and_eval_datasets.png)
-
 
 As shown in the preceding figure, the initialized model function in blue differs greatly from the objective function in green.
 
@@ -237,7 +226,6 @@ A forward propagation network consists of two parts:
 
 The following method is used in MindSpore:
 
-
 ```python
 net = LinearNet()
 net_loss = nn.loss.MSELoss()
@@ -258,7 +246,6 @@ Parameters in formula 3 are described as follows:
 
 After all weight values in the function are updated, transfer the values to the model function. This process is the backward propagation. To implement this process, the optimizer function in MindSpore is required.
 
-
 ```python
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 ```
@@ -266,7 +253,6 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 ### Associating the Forward and Backward Propagation Networks
 
 After forward propagation and backward propagation are defined, call the `Model` function in MindSpore to associate the previously defined networks, loss functions, and optimizer function to form a complete computing network.
-
 
 ```python
 from mindspore.train import Model
@@ -280,7 +266,6 @@ model = Model(net, net_loss, opt)
 
 To make the entire training process easier to understand, the test data, objective function, and model network of the training process need to be visualized. The following defines a visualization function which is called after each training step to display a fitting process of the model network.
 
-
 ```python
 import matplotlib.pyplot as plt
 import time
@@ -293,7 +278,7 @@ def plot_model_and_datasets(net, eval_data):
     x1, y1 = zip(*eval_data)
     x_target = x
     y_target = x_target * 2 + 3
-    
+
     plt.axis([-11, 11, -20, 25])
     plt.scatter(x1, y1, color="red", s=5)
     plt.plot(x, y, color="blue")
@@ -306,7 +291,6 @@ def plot_model_and_datasets(net, eval_data):
 
 MindSpore provides tools to customize the model training process. The following calls the visualization function in `step_end` to display the fitting process. For more information, see [Customized Debugging Information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#callback).
 
-
 ```python
 from IPython import display
 from mindspore.train.callback import Callback
@@ -315,7 +299,7 @@ class ImageShowCallback(Callback):
     def __init__(self, net, eval_data):
         self.net = net
         self.eval_data = eval_data
-        
+
     def step_end(self, run_context):
         plot_model_and_datasets(self.net, self.eval_data)
         display.clear_output(wait=True)
@@ -329,7 +313,6 @@ After the preceding process is complete, use the training parameter `ds_train` t
 - `ds_train`: Training dataset.
 - `callbacks`: Required callback function during training.
 - `dataset_sink_model`: Dataset offload mode, which supports the Ascend and GPU computing platforms. In this example, this parameter is set to False for the CPU computing platform.
-
 
 ```python
 
@@ -345,13 +328,12 @@ print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 
 The output is as follows:
 
-
 ![gif](./images/linear_regression.gif)
 
-
-    Parameter (name=fc.weight, value=[[2.0065749]]) 
-    Parameter (name=fc.bias, value=[3.0089042])
-    
+```text
+Parameter (name=fc.weight, value=[[2.0065749]])
+Parameter (name=fc.bias, value=[3.0089042])
+```
 
 After the training is complete, the weight parameters of the final model are printed. The value of weight is close to 2.0 and the value of bias is close to 3.0. As a result, the model training meets the expectation.
 

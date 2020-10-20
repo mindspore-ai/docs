@@ -27,7 +27,7 @@ This tutorial briefly demonstrates how to load and process text data using MindS
 
 1. Prepare the following text data.
 
-    ```
+    ```text
     Welcome to Beijing!
     北京欢迎您！
     我喜欢English!
@@ -35,7 +35,7 @@ This tutorial briefly demonstrates how to load and process text data using MindS
 
 2. Create the `tokenizer.txt` file, copy the text data to the file, and save the file under `./test` directory. The directory structure is as follow.
 
-    ```
+    ```text
     └─test
         └─tokenizer.txt
     ```
@@ -69,7 +69,7 @@ The following tutorial demonstrates loading datasets using the `TextFileDataset`
 
     The output without tokenization:
 
-    ```
+    ```text
     Welcome to Beijing!
     北京欢迎您！
     我喜欢English!
@@ -99,7 +99,7 @@ The following tutorial demonstrates how to perform data processing such as `Slid
 
         The output is as follows:
 
-        ```
+        ```text
         ['大', '家', '早', '上', '好']
         ```
 
@@ -118,7 +118,7 @@ The following tutorial demonstrates how to perform data processing such as `Slid
 
         The output is as follows:
 
-        ```
+        ```text
         [['大', '家'],
          ['家', '早'],
          ['早', '上'],
@@ -145,7 +145,7 @@ The following tutorial demonstrates how to perform data processing such as `Slid
 
         The output is as follows:
 
-        ```
+        ```text
         c
         a
         d
@@ -178,7 +178,7 @@ The following tutorial demonstrates how to use the `WhitespaceTokenizer` to toke
 
     The output after tokenization is as follows:
 
-    ```
+    ```text
     ['Welcome', 'to', 'Beijing!']
     ['北京欢迎您！']
     ['我喜欢English!']

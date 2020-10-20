@@ -46,6 +46,7 @@ Runtime总体使用流程如下图所示：
 ![img](../images/side_infer_process.png)
 
 包含的组件及功能如下所述：
+
 - `Model`：MindSpore Lite使用的模型，通过用户构图或直接加载网络，来实例化算子原型的列表。
 - `Lite Session`：提供图编译的功能，并调用图执行器进行推理。
 - `Scheduler`：算子异构调度器，根据异构调度策略，为每一个算子选择合适的kernel，构造kernel list，并切分子图。
@@ -132,6 +133,7 @@ if (session2 == nullptr) {
 ### 使用示例
 
 下面代码演示如何对MindSpore Lite的输入进行Resize：
+
 ```cpp
 // Assume we have created a LiteSession instance named session.
 auto inputs = session->GetInputs();
@@ -160,6 +162,7 @@ virtual int CompileGraph(lite::Model *model) = 0;
 ### 使用示例
 
 下面代码演示如何进行图编译:
+
 ```cpp
 // Assume we have created a LiteSession instance named session and a Model instance named model before.
 // The methods of creating model and session can refer to "Import Model" and "Create Session" two sections.
@@ -249,6 +252,7 @@ memcpy(in_data, input_buf, data_size);
 ```
 
 需要注意的是：  
+
 - MindSpore Lite的模型输入Tensor中的数据排布必须是NHWC。
 - 模型的输入`input_buf`是用户从磁盘读取的，当拷贝给模型输入Tensor以后，用户需要自行释放`input_buf`。
 - `GetInputs`和`GetInputsByTensorName`方法返回的vector不需要用户释放。
@@ -296,6 +300,7 @@ session->BindThread(false);
 ### 回调运行
 
 Mindspore Lite可以在调用`RunGraph`时，传入两个`KernelCallBack`函数指针来回调推理模型，相比于一般的图执行，回调运行可以在运行过程中获取额外的信息，帮助开发者进行性能分析、Bug调试等。额外的信息包括：
+
 - 当前运行的节点名称
 - 推理当前节点前的输入输出Tensor
 - 推理当前节点后的输入输出Tensor
@@ -377,6 +382,7 @@ delete (model);
 MindSpore Lite在执行完推理后，就可以获取模型的推理结果。
 
 MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
+
 1. 使用`GetOutputsByNodeName`方法，根据模型输出节点的名称来获取模型输出`MSTensor`中连接到该节点的Tensor的vector。
 
    ```cpp
@@ -501,22 +507,26 @@ for (auto tensor_name : tensor_names) {
 ```
 
 ## 获取版本号
+
 MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到版本号字符串。
 
 ### 使用示例
 
 下面代码演示如何获取MindSpore Lite的版本号：
+
 ```cpp
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
 
 ## Session并行
+
 MindSpore Lite支持多个`LiteSession`并行推理，但不支持多个线程同时调用单个`LiteSession`的`RunGraph`接口。
 
 ### 单Session并行
 
 MindSpore Lite不支持多线程并行执行单个`LiteSession`的推理，否则会得到以下错误信息：
+
 ```cpp
 ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
 ```
@@ -528,6 +538,7 @@ MindSpore Lite支持多个`LiteSession`同时进行推理的场景，每个`Lite
 ### 使用示例
 
 下面代码演示了如何创建多个`LiteSession`，并且并行执行推理的过程：
+
 ```cpp
 #include <thread>
 #include "src/common/file_utils.h"

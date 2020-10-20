@@ -5,10 +5,10 @@
 <!-- TOC -->
 
 - [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord)
-	- [Overview](#overview)
-	- [Basic Concepts](#basic-concepts)
-	- [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord-1)
-	- [Loading MindRecord Dataset](#loading-mindrecord-dataset)
+    - [Overview](#overview)
+    - [Basic Concepts](#basic-concepts)
+    - [Converting Dataset to MindRecord](#converting-dataset-to-mindrecord-1)
+    - [Loading MindRecord Dataset](#loading-mindrecord-dataset)
 
 <!-- /TOC -->
 
@@ -19,6 +19,7 @@
 Users can convert non-standard datasets and common datasets into the MindSpore data format, MindRecord, so that they can be easily loaded to MindSpore for training. In addition, the performance of MindSpore in some scenarios is optimized, which delivers better user experience when you use datasets in the MindSpore data format.
 
 The MindSpore data format has the following features:
+
 1. Unified storage and access of user data are implemented, simplifying training data loading.
 2. Data is aggregated for storage, which can be efficiently read, managed and moved.
 3. Data encoding and decoding are efficient and transparent to users.
@@ -96,7 +97,7 @@ The following tutorial demonstrates how to convert image data and its annotation
 
 5. Create a `FileWriter` object, transfer the file name and number of slices, add the schema and index, call the `write_raw_data` API to write data, and call the `commit` API to generate a local data file.
 
-    ```python    
+    ```python
     writer = FileWriter(file_name="test.mindrecord", shard_num=4)
     writer.add_schema(cv_schema_json, "test_schema")
     writer.add_index(indexes)
@@ -141,7 +142,7 @@ The following tutorial briefly demonstrates how to load the MindRecord dataset u
 
     The output is as follows:
 
-    ```
+    ```text
     sample: {'data': array([175, 175,  85,  60, 184, 124,  54, 189, 125, 193, 153,  91, 234, 106,  43, 143, 132, 211, 204, 160,  44, 105, 187, 185,  45, 205, 122, 236, 112, 123,  84, 177, 219], dtype=uint8),
         'file_name': array(b'3.jpg', dtype='|S5'),
         'label': array(99, dtype=int32)}

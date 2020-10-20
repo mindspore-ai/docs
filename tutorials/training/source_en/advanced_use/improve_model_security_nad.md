@@ -33,6 +33,7 @@ This section describes how to use MindArmour in adversarial attack and defense b
 
 > The current sample is for CPU, GPU and Ascend 910 AI processor. You can find the complete executable sample code at
 > <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_safety>
+>
 > - `mnist_attack_fgsm.py`: contains attack code.
 > - `mnist_defense_nad.py`: contains defense code.
 
@@ -133,18 +134,18 @@ The LeNet model is used as an example. You can also create and train your own mo
         return nn.Conv2d(in_channels, out_channels,
                          kernel_size=kernel_size, stride=stride, padding=padding,
                          weight_init=weight, has_bias=False, pad_mode="valid")
-    
-    
+
+
     def fc_with_initialize(input_channels, out_channels):
         weight = weight_variable()
         bias = weight_variable()
         return nn.Dense(input_channels, out_channels, weight, bias)
-    
-    
+
+
     def weight_variable():
         return TruncatedNormal(0.02)
-    
-    
+
+
     class LeNet5(nn.Cell):
         """
         Lenet network
@@ -159,7 +160,7 @@ The LeNet model is used as an example. You can also create and train your own mo
             self.relu = nn.ReLU()
             self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
             self.flatten = nn.Flatten()
-    
+
         def construct(self, x):
             x = self.conv1(x)
             x = self.relu(x)
@@ -191,7 +192,7 @@ The LeNet model is used as an example. You can also create and train your own mo
     model = Model(net, loss, opt, metrics=None)
     model.train(10, ds_train, callbacks=[LossMonitor()],
                 dataset_sink_mode=False)
-    
+
     # get test data
     ds_test = generate_mnist_dataset(os.path.join(mnist_path, "test"),
                                      batch_size=batch_size, repeat_size=1,
@@ -218,16 +219,16 @@ The LeNet model is used as an example. You can also create and train your own mo
         logits = net(Tensor(batch_inputs)).asnumpy()
         test_logits.append(logits)
     test_logits = np.concatenate(test_logits)
-    
+
     tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
     accuracy = np.mean(tmp)
     LOGGER.info(TAG, 'prediction accuracy before attacking is : %s', accuracy)
-    
+
     ```
 
     The classification accuracy reaches 98%.
-    
-    ```python 
+
+    ```python
     prediction accuracy before attacking is : 0.9895833333333334
     ```
 
@@ -274,7 +275,7 @@ LOGGER.info(TAG, 'The average structural similarity between original '
 
 The attack results are as follows:
 
-```
+```text
 prediction accuracy after attacking is : 0.052083
 mis-classification rate of adversaries is : 0.947917
 The average confidence of adversarial class is : 0.803375
@@ -351,7 +352,7 @@ LOGGER.info(TAG, 'The average confidence of true class is : %s',
 
 ### Defense Effect
 
-```
+```text
 accuracy of TEST data on defensed model is : 0.974259
 accuracy of adv data on defensed model is :  0.856370
 defense mis-classification rate of adversaries is : 0.143629
@@ -359,5 +360,4 @@ The average confidence of adversarial class is : 0.616670
 The average confidence of true class is : 0.177374
 ```
 
-After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 14%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%. 
-
+After NAD is used to defend against adversarial examples, the model's misclassification ratio of adversarial examples decreases from 95% to 14%, effectively defending against adversarial examples. In addition, the classification accuracy of the model for the original test dataset reaches 97%.

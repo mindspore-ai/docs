@@ -26,7 +26,7 @@ By default, MindSpore is in PyNative mode. You can switch it to the graph mode b
 
 In PyNative mode, single operators, common functions, network inference, and separated gradient calculation can be executed. The following describes the usage and precautions.
 
-> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator excution, the error information may be displayed after the program is executed. 
+> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator excution, the error information may be displayed after the program is executed.
 
 ## Executing a Single Operator
 
@@ -73,12 +73,12 @@ Output:
 [ 0.05016355 0.03958241 0.03958241 0.03958241 0.03443141]]]]
 ```
 
-
 ## Executing a Common Function
 
 Combine multiple operators into a function, call the function to execute the operators, and output the result, as shown in the following example:
 
-**Example Code**
+**Example Code:**
+
 ```python
 import numpy as np
 from mindspore import context, Tensor
@@ -97,16 +97,15 @@ output = tensor_add_func(x, y)
 print(output.asnumpy())
 ```
 
-**Output**
+**Output:**
 
-```python
+```text
 [[3. 3. 3.]
  [3. 3. 3.]
  [3. 3. 3.]]
 ```
 
 > Parallel execution and summary are not supported in PyNative mode, so parallel and summary related operators cannot be used.
-
 
 ### Improving PyNative Performance
 
@@ -140,9 +139,10 @@ tensor_add = P.TensorAdd()
 res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
-**Output**
 
-```python
+**Output:**
+
+```text
 [[3. 3. 3. 3.]
  [3. 3. 3. 3.]
  [3. 3. 3. 3.]
@@ -153,7 +153,7 @@ In the preceding code, the `ms_function` decorator is added before `construct` o
 
 It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `tensor_add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
 
-**Example Code**
+**Example Code:**
 
 ```python
 import numpy as np
@@ -176,9 +176,10 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
-**Output**
 
-```shell
+**Output:**
+
+```text
 [[2. 2. 2. 2.]
  [2. 2. 2. 2.]
  [2. 2. 2. 2.]
@@ -187,7 +188,7 @@ print(z.asnumpy())
 
 If the decorated function contains operators (such as `Convolution` and `BatchNorm`) that require parameter training, these operators must be instantiated before the decorated function is called, as shown in the following example:
 
-**Example Code**
+**Example Code:**
 
 ```python
 import numpy as np
@@ -209,9 +210,9 @@ z = conv_fn(Tensor(input_data))
 print(z.asnumpy())
 ```
 
-**Output**
+**Output:**
 
-```shell
+```text
 [[[[ 0.10377571 -0.0182163 -0.05221086]
 [ 0.1428334 -0.01216263 0.03171652]
 [-0.00673915 -0.01216291 0.02872104]]
@@ -245,12 +246,11 @@ print(z.asnumpy())
 [ 0.0377498 -0.06117418 0.00546303]]]]
 ```
 
-
 ## Debugging Network Train Model
 
 In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network. Note that the inputs have to be Tensor.
 
-**Example Code**
+**Example Code:**
 
 ```python
 from mindspore.ops import composite as C
@@ -267,15 +267,15 @@ def mainf(x, y):
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
-**Output**
+**Output:**
 
-```python
+```text
 (2, 1)
 ```
 
 During network training, obtain the gradient, call the optimizer to optimize parameters (the breakpoint cannot be set during the reverse gradient calculation), and calculate the loss values. Then, network training is implemented in PyNative mode.
 
-**Complete LeNet Sample Code**
+**Complete LeNet Sample Code:**
 
 ```python
 import numpy as np
@@ -312,7 +312,7 @@ class LeNet5(nn.Cell):
     Lenet network
     Args:
         num_class (int): Num classes. Default: 10.
-        
+
     Returns:
         Tensor, output tensor
 
@@ -346,8 +346,8 @@ class LeNet5(nn.Cell):
         x = self.relu(x)
         x = self.fc3(x)
         return x
- 
-    
+
+
 class GradWrap(nn.Cell):
     """ GradWrap definition """
     def __init__(self, network):
@@ -376,9 +376,9 @@ loss = loss_output.asnumpy()
 print(loss)
 ```
 
-**Output**
+**Output:**
 
-```python
+```text
 2.3050091
 ```
 

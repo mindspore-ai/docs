@@ -36,6 +36,7 @@ The ultimate objective is to achieve the same effect as training with N x mini-b
 The MNIST dataset is used as an example to describe how to customize a simple model to implement gradient accumulation.
 
 ### Importing Library Files
+
 The following are the required public modules and MindSpore modules and library files.
 
 ```python
@@ -65,7 +66,9 @@ Use the `MnistDataset` API provided by the dataset of MindSpore to load the MNIS
 The following uses the LeNet network as an example. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>) in the lenet directory of model_zoo.
 
 ### Defining the Training Model
+
 The training process is divided into three parts: forward and backward training, parameter update, and accumulated gradient clearance.
+
 - `TrainForwardBackward` calculates the loss and gradient, and uses grad_sum to implement gradient accumulation.
 - `TrainOptim` updates parameters.
 - `TrainClear` clears the gradient accumulation variable grad_sum.
@@ -134,8 +137,8 @@ class TrainClear(Cell):
 ```
 
 ### Defining the Training Process
-Each mini-batch calculates the loss and gradient through forward and backward training, and uses mini_steps to control the accumulated times before each parameter update. After the number of accumulation times is reached, the parameter is updated and the accumulated gradient variable is cleared.
 
+Each mini-batch calculates the loss and gradient through forward and backward training, and uses mini_steps to control the accumulated times before each parameter update. After the number of accumulation times is reached, the parameter is updated and the accumulated gradient variable is cleared.
 
 ```python
 class GradientAccumulation:
@@ -202,6 +205,7 @@ class GradientAccumulation:
 ```
 
 ### Training and Saving the Model
+
 Call the network, optimizer, and loss function, and then customize the `train_process` API of `GradientAccumulation` to train the model.
 
 ```python
@@ -226,18 +230,20 @@ if __name__ == "__main__":
 ```
 
 ## Experiment Result
+
 After 10 epochs, the accuracy on the test set is about 96.31%.
 
-**Training Execution**
+**Training Execution:**
+
 1. Run the training code and view the running result.
 
-    ```shell
-    $ python train.py --data_path=./MNIST_Data
+    ```bash
+    python train.py --data_path=./MNIST_Data
     ```
 
     The output is as follows. The loss value decreases during training.
 
-    ```shell
+    ```text
     epoch: 1 step: 27 loss is  0.3660637
     epoch: 1 step: 28 loss is  0.25238192
     ...
@@ -252,17 +258,17 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
     The model file `gradient_accumulation.ckpt` is saved during training.
 
-**Model Validation**
+**Model Validation:**
 
 Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
 
-```shell
-$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
+```bash
+python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
 The output is as follows. The accuracy of the validation dataset is about 96.31%, which is the same as the result when the value of batch_size is 32.
 
-```shell
+```text
 ============== Starting Testing ==============
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```

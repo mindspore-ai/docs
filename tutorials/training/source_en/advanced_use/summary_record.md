@@ -41,6 +41,7 @@ The `Callback` mechanism in MindSpore provides a quick and easy way to collect c
 When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. The detailed usage of `SummaryCollector` can refer to the `API` document `mindspore.train.callback.SummaryCollector`.
 
 The sample code is as follows:
+
 ```python
 import mindspore
 import mindspore.nn as nn
@@ -126,9 +127,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
-In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable customized collection of other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable customized collection of other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc.
 
 The following summary operators are currently supported:
+
 - [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
 - [TensorSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
 - [ImageSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
@@ -193,7 +195,7 @@ class MyOptimizer(Optimizer):
         self.histogram_summary(self.weight_names[0], self.paramters[0])
         # Record gradient
         self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
-        
+
         ......
 
 
@@ -252,18 +254,18 @@ The detailed usage of `SummaryRecord` can refer to the `API` document `mindspore
 
 The sample code is as follows:
 
-```
+```python
 from mindspore.train.callback import Callback
 from mindspore.train.summary import SummaryRecord
 
 class ConfusionMatrixCallback(Callback):
     def __init__(self, summary_dir):
         self._summary_dir = summary_dir
-    
+
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
         self.summary_record = SummaryRecord(summary_dir)
-    
+
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
         # else your training script will not exit from training.
@@ -274,7 +276,7 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_martrix = create_confusion_matrix(cb_params)        
+        confusion_martrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
         self.summary_record.record(cb_params.cur_step)
 
@@ -291,24 +293,28 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
 ## Run MindInsight
+
 After completing the data collection in the tutorial above, you can start MindInsight to visualize the collected data. When start MindInsight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
 
 The specified summary log file directory can be the output directory of a training or the parent directory of the output directory of multiple training.
 
 The output directory structure for a training is as follows
-```
+
+```text
 └─summary_dir
     events.out.events.summary.1596869898.hostname_MS
     events.out.events.summary.1596869898.hostname_lineage
 ```
 
 Execute command:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary_dir
 ```
 
 The output directory structure of multiple training is as follows:
-```
+
+```text
 └─summary
     ├─summary_dir1
     │      events.out.events.summary.1596869898.hostname_MS
@@ -320,6 +326,7 @@ The output directory structure of multiple training is as follows:
 ```
 
 Execute command:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary
 ```
@@ -327,6 +334,7 @@ mindinsight start --summary-base-dir ./summary
 After successful startup, the visual page can be viewed by visiting the `http://127.0.0.1:8080` address through the browser.
 
 Stop MindInsight command:
+
 ```Bash
 mindinsight stop
 ```
@@ -339,12 +347,13 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 2. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
 
-    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data failure. 
+    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data failure.
 
     If the customized callback uses `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
 
     Correct code:
-    ```
+
+    ```python
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(2, train_dataset, callbacks=[summary_collector])
@@ -353,7 +362,8 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```
+
+    ```python
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -361,7 +371,8 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```
+
+    ```python
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')

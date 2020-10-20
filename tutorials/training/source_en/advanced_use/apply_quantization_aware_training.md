@@ -39,6 +39,7 @@ Currently, there are two types of quantization solutions in the industry: quanti
 ### Fake Quantization Node
 
 A fake quantization node is a node inserted during quantization aware training, and is used to search for network data distribution and feed back a lost accuracy. The specific functions are as follows:
+
 - Find the distribution of network data, that is, find the maximum and minimum values of the parameters to be quantized.
 - Simulate the accuracy loss of low-bit quantization, apply the loss to the network model, and transfer the loss to the loss function, so that the optimizer optimizes the loss value during training.
 
@@ -99,7 +100,7 @@ class LeNet5(nn.Cell):
         Tensor, output tensor
     Examples:
         >>> LeNet(num_class=10, num_channel=1)
-    
+
     """
     def __init__(self, num_class=10, num_channel=1):
         super(LeNet5, self).__init__()
@@ -129,10 +130,10 @@ class LeNet5(nn.Cell):
     def __init__(self, num_class=10):
         super(LeNet5, self).__init__()
         self.num_class = num_class
-        
+
         self.conv1 = nn.Conv2dBnAct(1, 6, kernel_size=5,  activation='relu')
         self.conv2 = nn.Conv2dBnAct(6, 16, kernel_size=5, activation='relu')
-        
+
         self.fc1 = nn.DenseBnAct(16 * 5 * 5, 120, activation='relu')
         self.fc2 = nn.DenseBnAct(120, 84, activation='relu')
         self.fc3 = nn.DenseBnAct(84, self.num_class)
@@ -164,17 +165,17 @@ net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_c
 
 The preceding describes the quantization aware training from scratch. A more common case is that an existing model file needs to be converted to a quantization model. The model file and training script obtained through common network model training are available for quantization aware training. To use a checkpoint file for retraining, perform the following steps:
 
-    1. Process data and load datasets.
-    2. Define an original unquantative network.
-    3. Train the original network to generate a unquantative model.
-    4. Define a fusion network.
-    5. Define an optimizer and loss function.
-    6. Generate a quantative network based on the fusion network.
-    7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/master/use/load_model_for_inference_and_transfer.html>.
+ 1. Process data and load datasets.
+ 2. Define an original unquantative network.
+ 3. Train the original network to generate a unquantative model.
+ 4. Define a fusion network.
+ 5. Define an optimizer and loss function.
+ 6. Generate a quantative network based on the fusion network.
+ 7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/master/use/load_model_for_inference_and_transfer.html>.
 
 ### Inference
 
-The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as AIR or MINDIR). 
+The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as AIR or MINDIR).
 
 For details, see <https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference.html>.
 
@@ -183,7 +184,7 @@ For details, see <https://www.mindspore.cn/tutorial/inference/en/master/multi_pl
   1. Load the quantization model.
   2. Perform the inference.
 
-- Convert the checkpoint file into a common model format such as ONNX for inference. (This function is coming soon.) 
+- Convert the checkpoint file into a common model format such as ONNX for inference. (This function is coming soon.)
 
 ## References
 
