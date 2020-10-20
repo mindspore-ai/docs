@@ -215,9 +215,11 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
     ```
 
     切分后的数据情况：
-        ```text
-        slice_list[0]  --- [1, 2, 3, 4]    对应device0
-        slice_list[1]  --- [5, 6, 7, 8]    对应device1
+
+    ```text
+    slice_list[0]  --- [1, 2, 3, 4]    对应device0
+    slice_list[1]  --- [5, 6, 7, 8]    对应device1
+    ```
 
     与`slice_list`类似，`slice_moments_list` 也被切分为两个shape为[1, 4]的Tensor。
 
