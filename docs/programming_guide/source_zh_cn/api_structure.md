@@ -14,6 +14,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_api_overview.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 总体架构
+
 MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景覆盖三大目标，其中易开发表现为API友好、调试难度低，高效执行包括计算效率、数据预处理效率和分布式训练效率，全场景则指框架同时支持云、边缘以及端侧场景。
 
 MindSpore总体架构分为前端表示层（Mind Expression，ME）、计算图引擎（Graph Engine，GE）和后端运行时三个部分。ME提供了用户级应用软件编程接口（Application Programming Interface，API），用于科学计算以及构建和训练神经网络，并将用户的Python代码转换为数据流图。GE是算子和硬件资源的管理器，负责控制从ME接收的数据流图的执行。后端运行时包含云、边、端上不同环境中的高效运行环境，例如CPU、GPU、Ascend AI处理器、 Android/iOS等。更多总体架构的相关内容请参见[总体架构](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture.html)。

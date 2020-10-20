@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/glossary.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-|  术语/缩略语  |  说明  | 
+|  术语/缩略语  |  说明  |
 | -----    | -----    |
 | ACL | Ascend Computer Language，提供Device管理、Context管理、Stream管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理等C++ API库，供用户开发深度神经网络应用。|
 |  Ascend  |  华为昇腾系列芯片的系列名称。  |

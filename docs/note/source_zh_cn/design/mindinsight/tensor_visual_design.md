@@ -60,7 +60,8 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
 #### 文件接口设计
 
 `summary.proto`文件为总入口，其中张量的数据（TensorProto）存放在Summary的Value中，如下所示：
-```
+
+```protobuf
 {
     message Summary {
         message Image {
@@ -69,7 +70,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
             required int32 width = 2;
             ...
         }
-    
+
         message Histogram {
           message bucket{
               // Counting number of values fallen in [left, left + width).
@@ -78,7 +79,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
               required double width = 2;
               required int64 count = 3;
           }
-    
+
           repeated bucket buckets = 1;
           ...
         }
@@ -86,7 +87,7 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
         message Value {
             // Tag name for the data.
             required string tag = 1;
-    
+
             // Value associated with the tag.
             oneof value {
                 float scalar_value = 3;
@@ -100,4 +101,5 @@ Tensor可视支持1-N维的Tensor以表格或直方图的形式展示，对于0�
     repeated Value value = 1;
 }
 ```
+
 而TensorProto的定义在[anf_ir.proto](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/utils/anf_ir.proto)文件中。

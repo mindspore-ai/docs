@@ -65,7 +65,7 @@ for data in dataset1.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[3, 4, 5])}
@@ -109,7 +109,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
@@ -156,7 +156,7 @@ for data in dataset2.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data': Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [1, 2, 3]])}
 {'data': Tensor(shape=[2, 3], dtype=Int64, value=[[2, 3, 4], [3, 4, 5]])}
 {'data': Tensor(shape=[1, 3], dtype=Int64, value=[[4, 5, 6]])}
@@ -192,7 +192,7 @@ for data in dataset1.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
 {'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
@@ -239,7 +239,7 @@ for data in dataset3.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data1': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
 {'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
 {'data1': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4]), 'data2': Tensor(shape=[2], dtype=Int64, value= [1, 2])}
@@ -279,7 +279,7 @@ for data in dataset3.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data1': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0])}
 {'data1': Tensor(shape=[3], dtype=Int64, value= [0, 0, 0])}
 {'data1': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}

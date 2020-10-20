@@ -19,7 +19,8 @@ In the computation process of MindSpore, the `int` data type in Python is conver
 For details about the supported types, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.dtype>.
 
 In the following code, the data type of MindSpore is int32.
-```
+
+```python
 from mindspore import dtype as mstype
 
 data_type = mstype.int32
@@ -28,10 +29,9 @@ print(data_type)
 
 The following information is displayed:
 
-```
+```text
 Int32
 ```
-
 
 ## Data Type Conversion API
 
@@ -43,7 +43,7 @@ MindSpore provides the following APIs for conversion between NumPy data types an
 
 The following code implements the conversion between different data types and prints the converted type.
 
-```
+```python
 from mindspore import dtype as mstype
 
 np_type = mstype.dtype_to_nptype(mstype.int32)
@@ -57,7 +57,7 @@ print(py_type)
 
 The following information is displayed:
 
-```
+```text
 <class 'numpy.int32'>
 Int64
 <class 'float'>

@@ -42,10 +42,13 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/operator.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
+
 MindSpore的算子组件，可从算子使用方式和算子功能两种维度进行划分。
 
 ## 算子使用方式
+
 算子相关接口主要包括operations、functional和composite，可通过ops直接获取到这三类算子。
+
 - operations提供单个的Primtive算子。一个算子对应一个原语，是最小的执行对象，需要实例化之后使用。
 - composite提供一些预定义的组合算子，以及复杂的涉及图变换的算子，如`GradOperation`。
 - functional提供operations和composite实例化后的对象，简化算子的调用流程。
@@ -59,6 +62,7 @@ Primitive算子也称为算子原语，它直接封装了底层的Ascend、GPU�
 Primitive算子接口是构建高阶接口、自动微分、网络模型等能力的基础。
 
 代码样例如下：
+
 ```python
 import numpy as np
 import mindspore
@@ -73,7 +77,8 @@ print("output =", output)
 ```
 
 输出如下：
-```
+
+```text
 output = [ 1.  8. 64.]
 ```
 
@@ -98,7 +103,8 @@ print("output =", output)
 ```
 
 输出如下：
-```
+
+```text
 output = [ 1.  8. 64.]
 ```
 
@@ -107,6 +113,7 @@ output = [ 1.  8. 64.]
 composite提供了一些算子的组合，包括clip_by_value和random相关的一些算子，以及涉及图变换的函数（`GradOperation`、`HyperMap`和`Map`等）。
 
 算子的组合可以直接像一般函数一样使用，例如使用`normal`生成一个随机分布：
+
 ```python
 from mindspore.common import dtype as mstype
 from mindspore.ops import composite as C
@@ -117,8 +124,10 @@ stddev = Tensor(1.0, mstype.float32)
 output = C.normal((2, 3), mean, stddev, seed=5)
 print("ouput =", output)
 ```
+
 输出如下：
-```
+
+```text
 output = [[2.4911082  0.7941146  1.3117087]
  [0.30582333  1.772938  1.525996]]
 ```
@@ -128,6 +137,7 @@ output = [[2.4911082  0.7941146  1.3117087]
 针对涉及图变换的函数，用户可以使用`MultitypeFuncGraph`定义一组重载的函数，根据不同类型，采用不同实现。
 
 代码样例如下：
+
 ```python
 import numpy as np
 from mindspore.ops.composite import MultitypeFuncGraph
@@ -148,8 +158,10 @@ tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 print('tensor', add(tensor1, tensor2))
 print('scalar', add(1, 2))
 ```
+
 输出如下：
-```
+
+```text
 tensor [[2.4, 4.2]
  [4.4, 6.4]]
 scalar 3
@@ -182,8 +194,9 @@ scalar 3
 有些标量运算符对常用的数学运算符进行了重载。并且支持类似NumPy的广播特性。
 
  以下代码实现了对input_x作乘方数为input_y的乘方操作：
+
 ```python
-import numpy as np            
+import numpy as np
 import mindspore
 from mindspore import Tensor
 
@@ -193,25 +206,29 @@ print(input_x**input_y)
 ```
 
  输出如下：
-```
+
+```text
 [ 1.  8. 64.]
 ```
 
 #### 加法
 
 上述代码中`input_x`和`input_y`的相加实现方式如下：
+
 ```python
 print(input_x + input_y)
 ```
 
  输出如下：
-```
+
+```text
 [4.0 5.0 7.0]
 ```
 
 #### Element-wise乘法
 
 以下代码实现了Element-wise乘法示例：
+
 ```python
 import numpy as np
 import mindspore
@@ -227,13 +244,15 @@ print(res)
 ```
 
  输出如下：
-```
+
+```text
 [4. 10. 18]
 ```
 
 #### 求三角函数
 
 以下代码实现了Acos：
+
 ```python
 import numpy as np
 import mindspore
@@ -247,9 +266,11 @@ print(output)
 ```
 
  输出如下：
-```
+
+```text
 [0.7377037, 1.5307858, 1.2661037，0.97641146]
 ```
+
 ### 向量运算
 
 向量运算符只在一个特定轴上运算，将一个向量映射到一个标量或者另外一个向量。
@@ -257,6 +278,7 @@ print(output)
 #### Squeeze
 
 以下代码实现了压缩第3个通道维度为1的通道：
+
 ```python
 import numpy as np
 import mindspore
@@ -271,11 +293,13 @@ print(output)
 ```
 
  输出如下：
-```
+
+```text
 [[1. 1.]
  [1. 1.]
  [1. 1.]]
 ```
+
 ### 矩阵运算
 
 矩阵运算包括矩阵乘法、矩阵范数、矩阵行列式、矩阵求特征值、矩阵分解等运算。
@@ -283,6 +307,7 @@ print(output)
 #### 矩阵乘法
 
  以下代码实现了input_x 和 input_y的矩阵乘法：
+
 ```python
 import numpy as np
 import mindspore
@@ -298,7 +323,8 @@ print(output)
 ```
 
 输出如下：
-```
+
+```text
 [[3. 3. 3. 3.]]
 ```
 
@@ -307,6 +333,7 @@ print(output)
 广播表示输入各变量channel数目不一致时，改变他们的channel数以得到结果。
 
 - 以下代码实现了广播机制的示例：
+
 ```python
 from mindspore import Tensor
 from mindspore.communication import init
@@ -338,6 +365,7 @@ output = net(input_)
 卷积操作
 
 以下代码实现了常见卷积操作之一的2D convolution 操作：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -351,8 +379,10 @@ res = conv2d(input, weight)
 
 print(res)
 ```
+
 输出如下：
-```
+
+```text
 [[[[288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
@@ -386,8 +416,10 @@ res = conv2d_backprop_input(dout, weight, F.shape(x))
 
 print(res)
 ```
+
 输出如下：
-```
+
+```text
 [[[[ 32. 64. 96. ... 96. 64. 32.]
    [ 64. 128. 192. ... 192. 128. 64.]
    [ 96. 192. 288. ... 288. 192. 96.]
@@ -408,6 +440,7 @@ print(res)
 #### 激活函数
 
 以下代码实现Softmax激活函数计算：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -422,13 +455,15 @@ print(res)
 ```
 
 输出如下：
-```
+
+```text
 [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086]
 ```
 
 #### LossFunction
 
  以下代码实现了L1 loss function：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -443,13 +478,15 @@ print(res)
 ```
 
  输出如下：
-```
+
+```text
 [0.  0.  0.5]
 ```
 
 #### 优化算法
 
  以下代码实现了SGD梯度下降算法的具体实现，输出是result：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -469,7 +506,8 @@ print(result)
 ```
 
  输出如下：
-```
+
+```text
 [0.  0.  0.  0.]
 ```
 
@@ -496,7 +534,8 @@ print(typea)
 ```
 
  输出如下：
-```
+
+```text
 Float32
 ```
 
@@ -521,7 +560,8 @@ print(type(result))
 ```
 
  输出结果:
-```
+
+```text
 <class 'mindspore.common.tensor.Tensor'>
 ```
 
@@ -530,6 +570,7 @@ print(type(result))
 返回输入数据的形状。
 
  以下代码实现了返回输入数据input_tensor的操作：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -543,7 +584,8 @@ print(output)
 ```
 
  输出如下：
-```
+
+```text
 [3, 2, 1]
 ```
 
@@ -552,6 +594,7 @@ print(output)
 图像操作包括图像预处理操作，如图像剪切（Crop，便于得到大量训练样本）和大小变化（Reise，用于构建图像金子塔等）。
 
  以下代码实现了Crop和Resize操作：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -584,7 +627,8 @@ print(output.asnumpy())
 ```
 
 输出如下:
-```
+
+```text
 [[[[ 6.51672244e-01 -1.85958534e-01 5.19907832e-01]
 [ 1.53466597e-01 4.10562098e-01 6.26138210e-01]
 [ 6.62892580e-01 3.81776541e-01 4.69261825e-01]
@@ -616,6 +660,7 @@ print(output.asnumpy())
 对物体所在区域方框进行编码，得到类似PCA的更精简信息，以便做后续类似特征提取，物体检测，图像恢复等任务。
 
  以下代码实现了对anchor_box和groundtruth_box的boundingbox encode：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -630,7 +675,8 @@ print(res)
 ```
 
  输出如下:
-```
+
+```text
 [[5.0000000e-01  5.0000000e-01  -6.5504000e+04  6.9335938e-01]
  [-1.0000000e+00  2.5000000e-01  0.0000000e+00  4.0551758e-01]]
 ```
@@ -640,6 +686,7 @@ print(res)
 编码器对区域位置信息解码之后，用此算子进行解码。
 
  以下代码实现了：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -654,7 +701,8 @@ print(res)
 ```
 
  输出如下：
-```
+
+```text
 [[4.1953125  0.  0.  5.1953125]
  [2.140625  0.  3.859375  60.59375]]
 ```
@@ -664,6 +712,7 @@ print(res)
 计算预测的物体所在方框和真实物体所在方框的交集区域与并集区域的占比大小，常作为一种损失函数，用以优化模型。
 
  以下代码实现了计算两个变量anchor_boxes和gt_boxes之间的IOU，以out输出：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -678,7 +727,8 @@ print(out)
 ```
 
  输出如下：
-```
+
+```text
 [[0.  -0.  0.]
  [0.  -0.  0.]
  [0.   0.  0.]]
@@ -693,6 +743,7 @@ print(out)
 输出Tensor变量的数值，方便用户随时随地打印想了解或者debug必需的某变量数值。
 
  以下代码实现了输出x这一变量的值：
+
 ```python
 from mindspore import nn
 
@@ -712,6 +763,7 @@ class DebugNN(nn.Cell):
 打印中间变量的梯度，是比较常用的算子，目前仅支持Pynative模式。
 
  以下代码实现了打印中间变量(例中x,y)的梯度：
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -736,7 +788,9 @@ def backward(x, y):
 
 backward(1, 2)
 ```
+
 输出如下：
-```
+
+```text
 (Tensor(shape=[], dtype=Float32, value=2),)
 ```

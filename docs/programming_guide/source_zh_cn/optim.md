@@ -24,6 +24,7 @@
 > 本文档中的所有示例，支持CPU，GPU，Ascend环境。
 
 ## 学习率
+
 ### dynamic_lr
 
 `mindspore.nn.dynamic_lr`模块有以下几个类：
@@ -40,7 +41,7 @@
 
 例如`piecewise_constant_lr`类代码样例如下：
 
-```
+```python
 from mindspore.nn.dynamic_lr import piecewise_constant_lr
 
 def test_dynamic_lr():
@@ -55,7 +56,8 @@ if __name__ == '__main__':
 ```
 
 返回结果如下：
-```
+
+```text
 [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
 ```
 
@@ -73,7 +75,8 @@ if __name__ == '__main__':
 它们是属于`learning_rate_schedule`的不同实现方式。
 
 例如ExponentialDecayLR类代码样例如下：
-```
+
+```python
 from mindspore.common import dtype as mstype
 from mindspore import Tensor
 from mindspore.nn.learning_rate_schedule import ExponentialDecayLR
@@ -93,13 +96,15 @@ if __name__ == '__main__':
 ```
 
 返回结果如下：
-```
+
+```text
 0.094868325
 ```
 
-
 ## Optimzer
+
 ### 如何使用
+
 为了使用`mindspore.nn.optim`，我们需要构建一个`Optimizer`对象。这个对象能够保持当前参数状态并基于计算得到的梯度进行参数更新。
 
 - 构建
@@ -108,7 +113,7 @@ if __name__ == '__main__':
 
 代码样例如下：
 
-```
+```python
 from mindspore import nn
 
 optim = nn.SGD(group_params, learning_rate=0.1, weight_decay=0.0)
@@ -125,7 +130,7 @@ optim = nn.Adam(group_params, learning_rate=0.1, weight_decay=0.0)
 我们仍然能够传递选项作为关键字参数，在未重写这些选项的组中，它们会被用作默认值。当你只想改动一个参数组的选项，但其他参数组的选项不变时，这是非常有用的。
 例如，当我们想制定每一层的学习率时，以`SGD`为例：
 
-```
+```python
 from mindspore import nn
 
 optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
@@ -134,6 +139,7 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
                learning_rate=0.1, weight_decay=0.0)
 
 ```
+
 这段示例意味着当参数是conv_params时候，权重衰减使用的是0.01，学习率使用的是0.1；而参数是no_conv_params时候，权重衰减使用的是0.0，学习率使用的是0.01。这个学习率learning_rate=0.1会被用于所有分组里没有设置学习率的参数，权重衰减weight_deca也是如此。
 
 ### 内置优化器
@@ -149,7 +155,7 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 
 例如`SGD`的代码样例如下：
 
-```
+```python
 from mindspore import nn
 from mindspore.train import Model
 from .optimizer import Optimizer
