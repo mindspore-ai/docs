@@ -64,7 +64,9 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
         ├── thor_layer.py                   # thor layer
         └── dataset.py                      # data preprocessing    
     ├── eval.py                             # infer script
-    └── train.py                            # train script
+    ├── train.py                            # train script
+    ├── export.py                           # export checkpoint file into air file
+    └── mindspore_hub_conf.py               # config file for mindspore hub repository
     
 ```
 
@@ -326,7 +328,7 @@ if __name__ == "__main__":
 sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 ```
 脚本需要传入变量`RANK_TABLE_FILE`、`DATASET_PATH`和`DEVICE_NUM`，其中：
-- `RANK_TABLE_FILE`：组网信息文件的路径。
+- `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`: 实际的运行卡数。
 其余环境变量请参考安装教程中的配置项。

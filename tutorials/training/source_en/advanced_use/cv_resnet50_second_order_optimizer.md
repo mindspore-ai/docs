@@ -63,7 +63,9 @@ Directory Structure of Code Examples
         ├── thor_layer.py                   # thor layer
         └── dataset.py                      # data preprocessing    
     ├── eval.py                             # infer script
-    └── train.py                            # train script
+    ├── train.py                            # train script
+    ├── export.py                           # export checkpoint file into air file
+    └── mindspore_hub_conf.py               # config file for mindspore hub repository
     
 ```
 
@@ -325,7 +327,7 @@ Run the script.
 sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 ```
 Variables `RANK_TABLE_FILE`, `DATASET_PATH`, and `DEVICE_NUM` need to be transferred to the script. The meanings of variables are as follows:
-- `RANK_TABLE_FILE`: path for storing the networking information file
+- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
 - `DEVICE_NUM`: the actual number of running devices.
 For details about other environment variables, see configuration items in the installation guide.
