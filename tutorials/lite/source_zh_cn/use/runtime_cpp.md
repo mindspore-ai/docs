@@ -92,18 +92,24 @@ if (context == nullptr) {
     MS_LOG(ERROR) << "New context failed while running %s", modelName.c_str();
     return RET_ERROR;
 }
-// The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
-context->device_type_ = lite::DT_GPU;
-// The medium core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
-context->cpu_bind_mode_ = MID_CPU;
+
+// CPU device context has default values.
+auto &cpu_decice_info = context->device_list_[0].device_info_.cpu_device_info_;
+// The large core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
+cpu_decice_info->cpu_bind_mode_ = HIGHER_CPU;
+// If GPU device context is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
+DeviceContext gpu_device_ctx{DT_GPU, {false}};
+// The GPU device context needs to be push_back into device_list to work.
+context->device_list_.push_back(gpu_device_ctx);
 // Configure the number of worker threads in the thread pool to 2, including the main thread.
 context->thread_num_ = 2;
 // Allocators can be shared across multiple Contexts.
 auto *context2 = new Context();
 context2->thread_num_ = context->thread_num_;
 context2->allocator = context->allocator;
-context2->device_type_ = context->device_type_;
-context2->cpu_bind_mode_ = context->cpu_bind_mode_;
+auto &cpu_decice_info2 = context2->device_list_[0].device_info_.cpu_device_info_;
+cpu_decice_info2->cpu_bind_mode_ = cpu_decice_info->cpu_bind_mode_;
+
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
 // After the LiteSession is created, the Context can be released.
