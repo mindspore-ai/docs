@@ -371,6 +371,9 @@
 | [mindspore.ops.ReduceAny](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceAny)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.SparseToDense](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SparseToDense)                         |  Doing  | Doing  | Doing | sparse_ops
 | [mindspore.ops.CTCGreedyDecoder](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CTCGreedyDecoder)       |  Doing | Doing  | Doing | nn_ops
+| [mindspore.ops.ScatterAdd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterAdd)             |    Supported  | Doing  | Doing | array_ops
+| [mindspore.ops.BroadcastTo](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BroadcastTo)             |    Supported  | Supported  | Doing | array_ops
+| [mindspore.ops.Assert](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Assert)                                 |    Doing | Doing  | Doing | debug_ops
 
 ## mindspore.ops.functional
 
