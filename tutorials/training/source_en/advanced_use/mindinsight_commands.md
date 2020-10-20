@@ -38,7 +38,7 @@ mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
                   [--debugger-port <DEBUGGER_PORT>]
 ```
 
-Optional parameters as follows:
+Optional parameters are as follows:
 
 |Name|Argument|Description|Type|Default|Scope|Specifications|
 |---|---|---|---|---|---|---|
@@ -68,7 +68,7 @@ Run the following command to access the working directory `WORKSPACE` correspond
 lsof -p <PID> | grep access
 ```
 
-Output with the working directory `WORKSPACE` as follows:
+Output the working directory `WORKSPACE` as follows:
 
 ```shell
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
@@ -80,7 +80,7 @@ gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>
 mindinsight stop [-h] [--port PORT]
 ```
 
-Optional parameters as follows:
+Optional parameters are as follows:
 
 |Name|Argument|Description|Type|Default|Scope|Specifications|
 |---|---|---|---|---|---|---|
