@@ -312,7 +312,7 @@ After the preceding process is complete, use the training parameter `ds_train` t
 - `epoch`: Number of times that the entire dataset is trained.
 - `ds_train`: Training dataset.
 - `callbacks`: Required callback function during training.
-- `dataset_sink_model`: Dataset offload mode, which supports the Ascend and GPU computing platforms. In this example, this parameter is set to False for the CPU computing platform.
+- `dataset_sink_mode`: Dataset offload mode, which supports the Ascend and GPU computing platforms. In this example, this parameter is set to False for the CPU computing platform.
 
 ```python
 
