@@ -12,6 +12,7 @@
         - [性能分析](#性能分析)
             - [算子性能分析](#算子性能分析)
             - [Timeline分析](#timeline分析)
+            - [MindData性能分析](#minddata性能分析)
 
 <!-- /TOC -->
 
@@ -77,7 +78,7 @@ class StopAtStep(Callback):
 
 ### 性能分析
 
-用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景只支持算子耗时排名统计和Timeline功能，其他功能敬请期待）。
+用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景支持算子耗时排名统计、Timeline功能以及MindData功能，其他功能敬请期待）。
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -123,6 +124,14 @@ class StopAtStep(Callback):
 
 GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息和CUDA activity的信息。使用方法参考：
 
-> 样例代码与Ascend使用方式一致可以参考：
+> 样例代码与Ascend使用方式一致，可以参考：
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
+
+#### MindData性能分析
+
+GPU场景下，MindData性能分析的使用方法和Ascend场景相同，使用方法参考：
+
+> 样例代码与Ascend使用方式一致，可以参考：
+>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#minddata>
