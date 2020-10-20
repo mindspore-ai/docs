@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
-**执行训练**：
+**执行训练：**
 
 1. 运行训练代码，查看运行结果。
 
@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
     训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
-**验证模型**：
+**验证模型：**
 
 通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
