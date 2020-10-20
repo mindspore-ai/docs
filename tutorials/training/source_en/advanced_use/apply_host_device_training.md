@@ -66,8 +66,8 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
    In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, check two optimizer are also at host:
 
     ```python
-    self.optimizer_w.sparse_opt.add_prim_attr("primitive_target", "CPU")
-    self.optimizer_d.sparse_opt.add_prim_attr("primitive_target", "CPU")
+    self.optimizer_w.target = "CPU"
+    self.optimizer_d.target = "CPU"
     ```
 
 ## Training the Model
