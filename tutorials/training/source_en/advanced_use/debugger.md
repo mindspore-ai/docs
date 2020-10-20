@@ -25,7 +25,7 @@
 
 MindSpore Debugger is a debugging tool for training in `Graph Mode`. It can be applied to visualize and analyze the intermediate computation results of the computational graph.
 
-In `Graph Mode` training, the computation results of intermediate nodes in the computational graph can not be acquired from python layer, which makes it difficult for users to do the debugging. By applying MindSpore Debugger, users can:
+In `Graph Mode` training, the computation results of intermediate nodes in the computational graph can not be acquired from the python layer, which makes it difficult for users to do the debugging. By applying MindSpore Debugger, users can:
 
 - Visualize the computational graph on the UI and analyze the output of the graph node;
 - Set a conditional breakpoint to monitor training exceptions (such as INF), if the condition is met, users can track the cause of the bug when an exception occurs;
@@ -69,7 +69,7 @@ Besides, do not use dataset sink mode (Set the parameter `dataset_sink_mode` in 
 
 After the Debugger environment preparation, users can run the training script.
 Before the execution of the computational graph, the MindInsight Debugger UI will show the information of the optimized computational graph.
-The following are the Debugger UI components.
+The Debugger UI components are shown as follows.
 
 ![debugger_init_page](./images/debugger_init_page.png)
 
@@ -92,7 +92,7 @@ As shown in Figure 1，the Computational Graph `Node List` will be displayed on 
 The `Node List` can be expanded according to the `scope` of the nodes.
 When clicking one node in the list, the computational graph on the right will also be expanded and choose the corresponding node automatically.
 
-The search bar on the top can be used to search for nodes in the graph by node name.
+The search bar on the top can be used to search for nodes in the graph by node names.
 
 ### Graph Node Details
 
@@ -151,7 +151,7 @@ At the bottom of the watchpoint setting panel is the training control panel, whi
 with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
 - `OK` stands for executing the training for several steps, the number of the `step` can be specified in the above bar.
-The training will be paused until the `Watch Point List` is triggered, or the number of `step` is executed.
+The training will be paused until the `Watch Point List` is triggered, or the number of `step` is reached.
 - `CONTINUE` stands for executing the training until the `Watch Point List` is triggered, or the training is finished.
 - `PAUSE` stands for pausing the training.
 - `TERMINATE` stands for terminating the training.
