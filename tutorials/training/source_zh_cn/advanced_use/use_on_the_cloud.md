@@ -41,7 +41,7 @@ ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成
 
 ### 拥有云上昇腾AI处理器资源
 
-确保你的账号已经拥有ModelArts昇腾AI处理器资源，可在[这里](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dashboard)查看。
+确保你的账号已拥有ModelArts华为云昇腾集群服务公测资格，可在[这里](https://console.huaweicloud.com/modelarts/?region=cn-north-4#/dashboard/applyModelArtsAscend910Beta)提交申请。
 
 ### 数据准备
 
