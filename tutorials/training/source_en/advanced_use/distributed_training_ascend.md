@@ -46,7 +46,7 @@ Download the dataset and decompress it to a local path. The folder generated aft
 
 When distributed training is performed in the bare-metal environment (compared with the cloud environment where the Ascend 910 AI processor is deployed on the local host), you need to configure the networking information file for the current multi-device environment. If the HUAWEI CLOUD environment is used, skip this section because the cloud service has been configured.
 
-The following uses the Ascend 910 AI processor as an example. The JSON configuration file for an environment with eight devices is as follows. In this example, the configuration file is named `rank_table_8pcs.json`. For details about how to configure the 2-device environment, see the `rank_table_2pcs.json` file in the sample code.
+The following uses the Ascend 910 AI processor as an example. The JSON configuration file for an environment with eight devices is as follows. In this example, the configuration file is named as `rank_table_8pcs.json`. For details about how to configure the 2-device environment, see the `rank_table_2pcs.json` file in the sample code.
 
 ```json
 {
@@ -88,7 +88,7 @@ The Huawei Collective Communication Library (HCCL) is used for the communication
 > - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
 > - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
 
-The sample code for calling the HCCL as follows:
+The sample code for calling the HCCL is as follows:
 
 ```python
 import os
@@ -172,7 +172,7 @@ In data parallel and automatic parallel modes, the network definition method is 
 
 Automatic parallelism splits models using the operator granularity and obtains the optimal parallel strategy through algorithm search. Therefore, to achieve a better parallel training effect, you are advised to use small operators to implement the loss function.
 
-In the Loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multiple small operators for implementation according to a mathematical formula. The sample code is as follows:
+In the loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multiple small operators for implementation according to a mathematical formula. The sample code is as follows:
 
 ```python
 from mindspore.ops import operations as P
@@ -325,7 +325,7 @@ The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, 
 
 The necessary environment variables are as follows:  
 
-- `RANK_TABLE_FILE`: path for storing the networking information file.
+- `RANK_TABLE_FILE`: path for storing the network information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
 - `RANK_ID`: logical sequence number of the current device.
 For details about other environment variables, see configuration items in the installation guide.
@@ -510,11 +510,11 @@ model.train(train_dataset=parallel_dataset, callbacks=[ckpt_callback, loss])
 context.reset_auto_parallel_context()
 ```
 
-After saving the checkpoint file, users can also use `load_checkpoint`, `load_param_into_Net` to load the model parameters。
+After saving the checkpoint file, users can also use `load_checkpoint`, `load_param_into_Net` to load the model parameters.
 
 For the three parallel training modes described above, the checkpoint file is saved in a complete way on each card. Users also can save only the checkpoint file of this card on each card, take Semi Auto parallel Mode as an example for explanation.
 
-Only by changing the code that sets the checkpoint saving policy, the checkpoint file of each card can be saved on itself. The specific changes are as follows:
+Only by changing the code that sets the checkpoint saving policy, the checkpoint file of each card can be saved by itself. The specific changes are as follows:
 
 Change the checkpoint configuration policy from:
 
@@ -530,7 +530,7 @@ to:
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-It should be noted that if users chooses this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
+It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
 
 ### Hybrid Parallel Mode
 
