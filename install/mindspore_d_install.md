@@ -21,6 +21,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_d_install.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ## 环境要求
 
 ### 硬件要求
@@ -59,7 +61,7 @@
 
 ### 配套软件包依赖配置
 
- - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+- 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -92,6 +94,7 @@
     ```bash
     bash build.sh -e ascend
     ```
+    >
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -j4`。
@@ -128,7 +131,7 @@
 
 - 安装并配置好环境变量后，执行如下python脚本：
 
-    ```bash
+    ```python
     import numpy as np
     from mindspore import Tensor
     from mindspore.ops import functional as F
@@ -142,7 +145,7 @@
 
 - 若出现如下结果，即安装验证通过。
 
-    ```
+    ```text
     [[[ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.]],
@@ -193,6 +196,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git
     ```
+
     > **不能**直接在仓库主页下载zip包获取源码。
 
 2. 可选择以下任意一种安装方式：
@@ -265,7 +269,6 @@
    cd mindarmour
    python setup.py install
    ```
-
 
 3. 执行如下命令，如果没有提示`No module named 'mindarmour'`等加载错误的信息，则说明安装成功。
 

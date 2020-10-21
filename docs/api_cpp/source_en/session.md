@@ -1,5 +1,7 @@
 # mindspore::session
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
 
 ## LiteSession

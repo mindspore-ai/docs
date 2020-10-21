@@ -52,6 +52,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## 1.0.0
 
 ### Releasenotes

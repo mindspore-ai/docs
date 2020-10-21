@@ -1,5 +1,7 @@
 # MSTensor
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_en/mstensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ```java
 import com.mindspore.lite.MSTensor;
 ```
@@ -103,7 +105,7 @@ public void setData(byte[] data)
 Set the input data of MSTensor.
 
 - Parameters
-  - `data`: Input data of byte[] type.
+    - `data`: Input data of byte[] type.
 
 ```java
 public void setData(ByteBuffer data)
@@ -112,7 +114,7 @@ public void setData(ByteBuffer data)
 Set the input data of MSTensor.
 
 - Parameters
-  - `data`: Input data of ByteBuffer type.
+    - `data`: Input data of ByteBuffer type.
 
 ## size
 
@@ -145,4 +147,3 @@ public void free()
 ```
 
 Free all temporary memory in MindSpore Lite MSTensor.
-

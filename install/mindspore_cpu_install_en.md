@@ -16,6 +16,8 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_en.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ## Environment Requirements
 
 ### System Requirements and Software Dependencies
@@ -73,6 +75,7 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
     ```bash
     bash build.sh -e cpu -j4
     ```
+    >
     > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
@@ -134,7 +137,6 @@ If you need to conduct AI model security research or enhance the security of the
    cd mindarmour
    python setup.py install
    ```
-
 
 3. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
 

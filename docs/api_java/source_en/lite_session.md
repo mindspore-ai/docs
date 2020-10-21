@@ -1,5 +1,7 @@
 # LiteSession
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_en/lite_session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ```java
 import com.mindspore.lite.LiteSession;
 ```
@@ -33,7 +35,7 @@ Initialize LiteSession.
 
 - Parameters
 
-  - `MSConfig`: MSConfig class.
+    - `MSConfig`: MSConfig class.
 
 - Returns
 
@@ -48,7 +50,7 @@ public void bindThread(boolean if_bind)
 Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
 
 - Parameters
-  - `if_bind`: Define whether to bind or unbind threads.
+    - `if_bind`: Define whether to bind or unbind threads.
 
 ## compileGraph
 
@@ -56,11 +58,11 @@ Attempt to bind or unbind threads in the thread pool to or from the specified cp
 public boolean compileGraph(Model model)
 ```
 
-Compile MindSpore Lite model. 
+Compile MindSpore Lite model.
 
 - Parameters
 
-  - `Model`: Define the model to be compiled.
+    - `Model`: Define the model to be compiled.
 
 - Returns
 
@@ -100,7 +102,7 @@ Get the MSTensors input of MindSpore Lite model by the node name.
 
 - Parameters
 
-  - `nodeName`: Define the node name.
+    - `nodeName`: Define the node name.
 
 - Returns
 
@@ -116,7 +118,7 @@ Get the MSTensors output of MindSpore Lite model by the node name.
 
 - Parameters
 
-  - `nodeName`: Define the node name.
+    - `nodeName`: Define the node name.
 
 - Returns
 
@@ -156,7 +158,7 @@ Get the MSTensors output of MindSpore Lite model by the tensor name.
 
 - Parameters
 
-  - `tensorName`: Define the tensor name.
+    - `tensorName`: Define the tensor name.
 
 - Returns
 
@@ -172,8 +174,8 @@ Resize inputs shape.
 
 - Parameters
 
-  - `inputs`: Model inputs.
-  - `dims`: Define the new inputs shape.
+    - `inputs`: Model inputs.
+    - `dims`: Define the new inputs shape.
 
 - Returns
 

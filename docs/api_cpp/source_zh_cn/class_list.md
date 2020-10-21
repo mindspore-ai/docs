@@ -1,5 +1,7 @@
 # 类列表
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/class_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 MindSpore Lite中的类定义及其所属命名空间和描述：
 
 | 命名空间 | 类 | 描述 |

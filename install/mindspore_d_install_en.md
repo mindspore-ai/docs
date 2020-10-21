@@ -20,6 +20,9 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 - [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_d_install_en.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ## Environment Requirements
 
 ### Hardware Requirements
@@ -34,7 +37,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 | ---- | :--- | :--- | :--- |
 | MindSpore 1.0.0 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
-- Confirm that the current user has the right to access the installation path `/usr/local/Ascend `of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
+- Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - GCC 7.3.0 can be installed by using apt command.
 - If Python has already installed, using `python --version` to check whether the version match, make sure your Python was added in environment variable `PATH`.
 - Add pip to the environment variable to ensure that Python related toolkits can be installed directly through pip. You can get pip installer here `https://pypi.org/project/pip/` if pip is not install.
@@ -58,7 +61,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 ### Configuring software package Dependencies
 
- - Install the .whl package provided in Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)). The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
+- Install the .whl package provided in Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)). The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -91,6 +94,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     bash build.sh -e ascend
     ```
+    >
     > - Before running the preceding command, ensure that the paths where the executable files `cmake` and `patch` store have been added to the environment variable PATH.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
@@ -121,14 +125,14 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
     export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
     export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                # Python library that TBE implementation depends on
-    
+
     ```
 
 ## Installation Verification
 
 - After configuring the environment variables, execute the following Python script：
 
-    ```bash
+    ```python
     import numpy as np
     from mindspore import Tensor
     from mindspore.ops import functional as F
@@ -142,7 +146,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 
 - The outputs should be the same as:
 
-    ```
+    ```text
     [[[ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.]],
@@ -193,6 +197,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git
     ```
+
     > You are **not** supposed to obtain the source code from the zip package downloaded from the repository homepage.
 
 2. Install MindInsight by using either of the following installation methods:
@@ -267,7 +272,6 @@ If you need to conduct AI model security research or enhance the security of the
    cd mindarmour
    python setup.py install
    ```
-
 
 3. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
 

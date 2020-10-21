@@ -1,5 +1,7 @@
 # Model
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_en/model.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ```java
 import com.mindspore.lite.Model;
 ```
@@ -25,8 +27,8 @@ Load the MindSpore Lite model from Assets.
 
 - Parameters
 
-  - `context`: Context in Android.
-  - `modelName`: Model file name.
+    - `context`: Context in Android.
+    - `modelName`: Model file name.
 
 - Returns
 
@@ -40,7 +42,7 @@ Load the MindSpore Lite model from path.
 
 - Parameters
 
-  - `modelPath`: Model file path.
+    - `modelPath`: Model file path.
 
 - Returns
 
@@ -61,4 +63,3 @@ public void free()
 ```
 
 Free all temporary memory in MindSpore Lite Model.
-

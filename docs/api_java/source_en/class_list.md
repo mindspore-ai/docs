@@ -1,5 +1,7 @@
 # Class List
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_en/class_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 | Package                   | Class Name | Description                                              |
 | ------------------------- | -------------- | ------------------------------------------------------------ |
 | com.mindspore.lite.config | MSConfig       | MSConfig defines for holding environment variables during runtime. |
@@ -10,4 +12,3 @@
 | com.mindspore.lite        | MSTensor       | MSTensor defines the tensor in MindSpore Lite.                   |
 | com.mindspore.lite        | DataType       | DataType defines the supported data types.                   |
 | com.mindspore.lite        | Version        | Version is used to obtain the version information of MindSpore Lite. |
-

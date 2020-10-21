@@ -1,5 +1,7 @@
 # ErrorCode and MetaType
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/errorcode_and_metatype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 Description of error code and meta type supported in MindSpore Lite.
 
 ## ErrorCode

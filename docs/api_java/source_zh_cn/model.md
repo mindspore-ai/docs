@@ -1,5 +1,7 @@
 # Model
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_zh_cn/model.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ```java
 import com.mindspore.lite.Model;
 ```

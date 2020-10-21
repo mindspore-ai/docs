@@ -1,5 +1,7 @@
 # 错误码及元类型
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/errorcode_and_metatype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 以下表格描述了MindSpore Lite中支持的错误码和元类型。
 
 ## ErrorCode
@@ -50,4 +52,3 @@
 |kNumberTypeFloat32| 43 | 表示Float32数据类型。 |
 |kNumberTypeFloat64| 44 | 表示Float64数据类型。|
 |kNumberTypeEnd| 45 | 表示Number类型的结尾。 |
-

@@ -19,6 +19,7 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 环境要求
 
@@ -72,9 +73,11 @@
     ```
 
 2. 在源码根目录下执行如下命令编译MindSpore。
+
     ```bash
-	bash build.sh -e gpu
+    bash build.sh -e gpu
     ```
+    >
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e gpu -j4`。
@@ -155,6 +158,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git
     ```
+
     > **不能**直接在仓库主页下载zip包获取源码。
 
 2. 可选择以下任意一种安装方式：
