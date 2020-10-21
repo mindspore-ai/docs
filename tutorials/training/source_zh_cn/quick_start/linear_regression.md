@@ -202,7 +202,7 @@ plt.show()
 
 ## 定义前向传播网络与反向传播网络并关联
 
-接下来需要定义模型的损失函数，这里采用均方差的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失损失函数公式为：
+接下来需要定义模型的损失函数，这里采用均方差的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失函数公式为：
 
 $$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
@@ -311,7 +311,7 @@ class ImageShowCallback(Callback):
 - `epoch`：训练迭代的整个数据集的次数。
 - `ds_train`：训练数据集。
 - `callbacks`：训练过程中需要调用的回调函数。
-- `dataset_sink_model`：数据集下沉模式，支持Ascend、GPU计算平台，本例为CPU计算平台设置为False。
+- `dataset_sink_mode`：数据集下沉模式，支持Ascend、GPU计算平台，本例为CPU计算平台设置为False。
 
 ```python
 
