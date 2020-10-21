@@ -1,5 +1,7 @@
 # Hands-on Installation and Experience
 
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/quick_video.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 [comment]: <> (This document contains Hands-on Tutorial Series. Gitee does not support display. Please check tutorials on the official website)
 
 Provides video tutorials from installation to try-on, helping you quickly use MindSpore.

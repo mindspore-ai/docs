@@ -14,6 +14,8 @@ This document describes how to quickly install MindSpore in a Windows system wit
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_win_install_en.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 ## Environment Requirements
 
 ### System Requirements and Software Dependencies
@@ -72,6 +74,7 @@ This document describes how to quickly install MindSpore in a Windows system wit
     ```bash
     call build.bat
     ```
+    >
     > - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.).
     > - Before running the preceding command, ensure that the paths of `mingw64\bin\` and the executable files `cmake` have been added to the environment variable PATH.
     > - If git was not installed in `ProgramFiles`, you will need to set environment variable to where `patch.exe` is allocated. For example, when git was install in `D:\git`, `set MS_PATCH_PATH=D:\git\usr\bin`.

@@ -1,5 +1,7 @@
 # 手把手安装和体验
 
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/quick_start/quick_video.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 [comment]: <> (本文档中包含手把手系列视频，码云Gitee不支持展示，请于官方网站对应教程中查看)
 
 涵盖安装到体验的视频教程，手把手帮助您快速、更好地使用MindSpore。

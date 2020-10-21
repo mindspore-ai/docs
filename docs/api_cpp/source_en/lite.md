@@ -1,5 +1,7 @@
 # mindspore::lite
 
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
