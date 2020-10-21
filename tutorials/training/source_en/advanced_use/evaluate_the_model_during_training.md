@@ -17,7 +17,7 @@
 
 ## Overview
 
-For a complex network, epoch training usually needs to be performed for dozens or even hundreds of times. Before training, it is difficult to know when a model can achieve required accuracy in epoch training. Therefore, the accuracy of the model is usually validated at a fixed epoch interval in training and the corresponding model is saved. After the training is completed, you can quickly select the optimal model by viewing the change of the corresponding model accuracy. This section uses this method and takes the LeNet network as an example.
+For a complex network, epoch training usually needs to be performed for dozens or even hundreds of times. Before training, it is difficult to know when a model can achieve required accuracy in epoch training. Therefore, the accuracy of the model is usually validated at a fixed epoch interval during training and the corresponding model is saved. After the training is completed, you can quickly select the optimal model by viewing the change of the corresponding model accuracy. This section uses this method and takes the LeNet network as an example.
 
 The procedure is as follows:
 
@@ -71,7 +71,7 @@ In the `CheckpointConfig` parameter for saving the model, you need to calculate 
 
 The parameters are described as follows:
 
-- `config_ck`: defines and saves model information.
+- `config_ck`: defines and saves the model information.
     - `save_checkpoint_steps`: indicates the number of steps for saving a model.
     - `keep_checkpoint_max`: indicates the maximum number of models that can be saved.
 - `ckpoint_cb`: defines the name and path for saving the model.
@@ -171,4 +171,4 @@ You can easily select the optimal model based on the preceding figure.
 
 ## Summary
 
-The MNIST dataset is used for training through the convolutional neural network LeNet5. This section describes how to validate a model during model training, save the model corresponding to `epoch`, and select the optimal model.
+The MNIST dataset is used for training through the convolutional neural network LeNet5. This section describes how to validate a model during training, save the model corresponding to `epoch`, and select the optimal model.
