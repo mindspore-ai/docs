@@ -128,15 +128,13 @@ def _make_layer(base, args, batch_norm):
         if v == 'M':
             layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
         else:
-            weight_shape = (v, in_channels, 3, 3)
-            weight = initializer('XavierUniform', shape=weight_shape, dtype=mstype.float32).to_tensor()
             conv2d = nn.Conv2d(in_channels=in_channels,
                                out_channels=v,
                                kernel_size=3,
                                padding=args.padding,
                                pad_mode=args.pad_mode,
                                has_bias=args.has_bias,
-                               weight_init=weight)
+                               weight_init='XavierUniform')
             if batch_norm:
                 layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU()]
             else:

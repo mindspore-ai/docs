@@ -25,7 +25,7 @@ mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=
 
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
 
-`Initializer`是初始化器，保存了shape和dtype信息，提供`to_tensor`方法生成存有数据的`Tensor`，可调用`initializer`接口生成`Initializer`对象。
+`Initializer`是初始化器，可调用`initializer`接口生成`Initializer`对象。
 
 当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。
 
