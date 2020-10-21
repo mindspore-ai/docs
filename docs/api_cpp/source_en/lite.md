@@ -141,7 +141,7 @@ An **enum** type. DeviceType defined for holding user's preferred backend.
 ### Attributes
 
 ```cpp
-DT_CPU = -1
+DT_CPU = 0
 ```
 
 CPU device type.
@@ -153,7 +153,7 @@ DT_GPU = 1
 GPU device type.
 
 ```cpp
-DT_NPU = 0
+DT_NPU = 2
 ```
 
 NPU device type, not supported yet.

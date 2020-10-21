@@ -141,7 +141,7 @@ NO_BIND = 0
 ### 属性
 
 ```cpp
-DT_CPU = -1
+DT_CPU = 0
 ```
 
 设备为CPU。
@@ -153,7 +153,7 @@ DT_GPU = 1
 设备为GPU。
 
 ```cpp
-DT_NPU = 0
+DT_NPU = 2
 ```
 
 设备为NPU，暂不支持。
