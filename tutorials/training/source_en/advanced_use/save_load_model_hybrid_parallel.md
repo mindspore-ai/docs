@@ -90,11 +90,11 @@ Finally, save the updated parameter list to a file through the API provided by M
 
 Define the network, call the `load_checkpoint` and `load_param_into_net` APIs to import the checkpoint files to the network in rank id order, and then call `parameters_and_names` API to obtain all parameters in this network.
 
-```
-net = Net() 
+```python
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
 net = TrainOneStepCell(net, opt)
-param_dicts = []   
+param_dicts = []
 for i in range(rank_size):
     file_name = os.path.join("./node"+str(i), "CKP_1-4_32.ckpt")  # checkpoint file name of current node
     param_dict = load_checkpoint(file_name)  
@@ -115,7 +115,7 @@ In the preceding information:
 
 Call the `build_searched_strategy` API to obtain the slice strategy of model.
 
-```
+```python
 strategy = build_searched_strategy("./strategy_train.ckpt")
 ```
 
@@ -131,7 +131,7 @@ The parameter name is model\_parallel\_weight and the dividing strategy is to pe
 
 1. Obtain the data value on all nodes for model parallel parameters.
 
-   ```
+   ```python
     sliced_parameters = []
     for i in range(4):
         parameter = param_dicts[i].get("model_parallel_weight")
@@ -142,32 +142,32 @@ The parameter name is model\_parallel\_weight and the dividing strategy is to pe
 
 2. Call the `merge_sliced_parameter` API to merge the sliced parameters.
 
+   ```python
+   merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
    ```
-   merged_parameter = merge_sliced_parameter(sliced_parameters, strategy) 
-   ```
-   
+
 > If there are multiple model parallel parameters, repeat steps 1 to 2 to process them one by one.
 
 ### Saving the Data and Generating a New Checkpoint File
 
 1. Convert `param_dict` to `param_list`.
 
-   ```
+   ```python
    param_list = []
    for (key, value) in param_dict.items():
        each_param = {}
        each_param["name"] = key
        if isinstance(value.data, Tensor):
-           param_data = value.data                                         
+           param_data = value.data
        else:
-           param_data = Tensor(value.data)                                                       
+           param_data = Tensor(value.data)
        each_param["data"] = param_data
-       param_list.append(each_param）
+       param_list.append(each_param)
    ```
 
 2. Call the `save_checkpoint` API to write the parameter data to a file and generate a new checkpoint file.
 
-   ```
+   ```python
    save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
    ```
 
@@ -186,7 +186,7 @@ If you need to load the integrated and saved checkpoint file to multi-device tra
 
 Call the `load_checkpoint` API to load model parameter data from the checkpoint file.
 
-```
+```python
 param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 ```
 
@@ -205,7 +205,7 @@ The following uses a specific model parameter as an example. The parameter name 
 
    In the following code example, data is divided into two slices in dimension 0.
 
-   ```
+   ```python
    new_param = parameter_dict[“model_parallel_weight”]
    slice_list = np.split(new_param.data.asnumpy(), 2, axis=0)
    new_param_moments = parameter_dict[“moments.model_parallel_weight”]
@@ -214,8 +214,10 @@ The following uses a specific model parameter as an example. The parameter name 
 
    Data after dividing:
 
-        slice_list[0]  --- [1, 2, 3, 4]    Corresponding to device0   
-        slice_list[1]  --- [5, 6, 7, 8]    Corresponding to device1     
+    ```text
+    slice_list[0]  --- [1, 2, 3, 4]    Corresponding to device0
+    slice_list[1]  --- [5, 6, 7, 8]    Corresponding to device1
+    ```
 
    Similar to slice\_list, slice\_moments\_list is divided into two tensors with the shape of \[1, 4].
 
@@ -223,7 +225,7 @@ The following uses a specific model parameter as an example. The parameter name 
 
    Obtain rank\_id of the current node and load data based on rank\_id.
 
-   ```
+   ```python
    rank = get_rank()
    tensor_slice = Tensor(slice_list[rank])
    tensor_slice_moments = Tensor(slice_moments_list[rank])
@@ -233,7 +235,7 @@ The following uses a specific model parameter as an example. The parameter name 
 
 3. Modify values of model parameters.
 
-   ```
+   ```python
    new_param.set_data(tensor_slice, True)
    new_param_moments.set_data(tensor_slice_moments, True)
    ```
@@ -244,8 +246,8 @@ The following uses a specific model parameter as an example. The parameter name 
 
 Call the `load_param_into_net` API to load the model parameter data to the network.
 
-```
-net = Net() 
+```python
+net = Net()
 opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
 load_param_into_net(net, param_dict)
 load_param_into_net(opt, param_dict)
@@ -273,40 +275,38 @@ User process:
 
 1. Run the following script to integrate the checkpoint files:
 
-    
-
-   ```
+   ```bash
    python  ./integrate_checkpoint.py "Name of the checkpoint file to be integrated" "Path and name of the checkpoint file generated after integration" "Path and name of the strategy file" "Number of nodes"
    ```
 
    integrate\_checkpoint.py:
 
-   ```
+   ```python
     import numpy as np
     import os
     import mindspore.nn as nn
     from mindspore import Tensor, Parameter
-    from mindspore.ops import operations as P
+    import mindspore.ops as ops
     from mindspore.train.serialization import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
-    
+
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
             self.weight = Parameter(Tensor(weight_init),  "model_parallel_weight", layerwise_parallel=True)
-            self.fc = P.MatMul(transpose_b=True)
-    
+            self.fc = ops.MatMul(transpose_b=True)
+
         def construct(self, x):
             x = self.fc(x, self.weight1)
             return x
-    
+
     def integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size):
         weight = np.ones([2, 8]).astype(np.float32)
         net = Net(weight)
         opt = Momentum(learning_rate=0.01, momentum=0.9, params=net.get_parameters())
         net = TrainOneStepCell(net, opt)
-     
+
         # load CheckPoint into net in rank id order
-        param_dicts = []   
+        param_dicts = []
         for i in range(rank_size):
             file_name = os.path.join("./node"+str(i), old_ckpt_file)
             param_dict = load_checkpoint(file_name)  
@@ -315,21 +315,21 @@ User process:
             for _, param in net.parameters_and_names():
                 param_dict[param.name] = param
                 param_dicts.append(param_dict)
-        
+
         strategy = build_searched_strategy(strategy_file)
         param_dict = {}
-   
+
         for paramname in ["model_parallel_weight", "moments.model_parallel_weight"]:
             # get layer wise model parallel parameter
             sliced_parameters = []
             for i in range(rank_size):
                 parameter = param_dicts[i].get(paramname)
                 sliced_parameters.append(parameter)
- 
+
             # merge the parallel parameters of the model
-            merged_parameter = merge_sliced_parameter(sliced_parameters, strategy) 
+            merged_parameter = merge_sliced_parameter(sliced_parameters, strategy)
             param_dict[paramname] = merged_parameter
-    
+
         # convert param_dict to list type data
         param_list = []
         for (key, value) in param_dict.items():
@@ -339,14 +339,14 @@ User process:
                 param_data = value.data
             else:
                 param_data = Tensor(value.data)
-            each_param["data"] = param_data 
-            param_list.append(each_param) 
-    
+            each_param["data"] = param_data
+            param_list.append(each_param)
+
         # call the API to generate a new CheckPoint file
         save_checkpoint(param_list, new_ckpt_file)
-    
+
         return
-    
+
     if __name__ == "__main__":
         try:
             old_ckpt_file = sys.argv[1]
@@ -363,10 +363,10 @@ User process:
 
    Before the script is executed, the parameter values in the checkpoint files are as follows:
 
-   ```
+   ```text
    device0：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
     [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]]
    name is learning_rate
@@ -380,7 +380,7 @@ User process:
 
    device1：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.9210751 0.9050457 0.9827775 0.920396 0.9240526 0.9750359 1.0275179 1.0819869]
     [0.73605865 0.84631145 0.9746683 0.9386582 0.82902765 0.83565056 0.9702136 1.0514659]]
    name is learning_rate
@@ -390,11 +390,11 @@ User process:
    name is moments.model_weight
    value is
    [[0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
-    [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]] 
+    [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]]
 
    device2：
    name is model_parallel_weight
-   value is 
+   value is
    [[1.0108461 0.8689414  0.91719437 0.8805056 0.7994629 0.8999671 0.7585804 1.0287056 ]
     [0.90653455 0.60146594 0.7206475 0.8306303 0.8364681 0.89625114 0.7354735 0.8447268]]
    name is learning_rate
@@ -402,7 +402,7 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_weight
-   value is 
+   value is
    [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
     [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738 0.24933104]]
 
@@ -416,16 +416,16 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_parallel_weight
-   value is 
+   value is
    [[0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619 0.40430856]
    [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
    ```
 
    After the script is executed, the parameter values in the checkpoint files are as follows:
 
-   ```
+   ```text
    name is model_parallel_weight
-   value is 
+   value is
    [[1.1138763 1.0962057 1.3516843 1.0812817 1.1579804 1.1078343 1.0906502 1.3207073]
     [0.916671 1.0781671 1.0368758 0.9680898 1.1735439 1.0628364 0.9960786 1.0135143]
     [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -439,7 +439,7 @@ User process:
    name is momentum
    value is [0.9]
    name is moments.model_parallel_weight
-   value is 
+   value is
    [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
     [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194 ]
     [0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
@@ -453,14 +453,14 @@ User process:
 
 2. Execute stage 2 training and load the checkpoint file before training. The training code needs to be supplemented based on the site requirements.
 
-   ```
+   ```python
    import numpy as np
    import os
    import mindspore.nn as nn
    from mindspore import context
    from mindspore.communication.management import init
    from mindspore import Tensor, Parameter
-   from mindspore.ops import operations as P
+   import mindspore.ops as ops
    from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
    from mindspore.communication.management import init
@@ -472,7 +472,7 @@ User process:
        def __init__(self,weight_init):
            super(Net, self).__init__()
            self.weight = Parameter(Tensor(weight_init), "model_parallel_weight", layerwise_parallel=True)
-           self.fc = P.MatMul(transpose_b=True)
+           self.fc = ops.MatMul(transpose_b=True)
 
        def construct(self, x):
            x = self.fc(x, self.weight1)
@@ -497,7 +497,7 @@ User process:
            load_param_into_net(net, param_dict)
            opt = Momentum(learning_rate=0.01, momentum=0.9, params=parallel_net.get_parameters())
            load_param_into_net(opt, param_dict)
-           # train code 
+           # train code
            ...
 
        if __name__ == "__main__":
@@ -506,7 +506,7 @@ User process:
            label = np.random.random((4, 4)).astype(np.float32)
            train_mindspore_impl_fc(input, label, weight1)
    ```
-   
+
    In the preceding information:
 
    - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
@@ -515,10 +515,10 @@ User process:
 
    Parameter values after loading:
 
-   ```
+   ```text
    device0：
    name is model_parallel_weight
-   value is 
+   value is
    [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
    [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]
    [0.8828271 0.7963984 0.90675324 0.9830291 0.89010954 0.897052 0.7890109 0.89784735]
@@ -536,7 +536,7 @@ User process:
 
    device1：
    name is model_parallel_weight
-   value is 
+   value is
    [[1.0053468 0.98402303 0.99762845 0.97587246 1.0259694 1.0055295 0.99420834 0.9496847]
    [1.0851002 1.0295962 1.0999886 1.0958165 0.9765328 1.146529 1.0970603 1.1388365]
    [0.7147005 0.9168278 0.80178416 0.6258351 0.8413766 0.5909515 0.696347 0.71359116]
@@ -550,5 +550,5 @@ User process:
    [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
    [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738  0.24933104]
    [0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619  0.40430856]
-   [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]] 
+   [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
    ```

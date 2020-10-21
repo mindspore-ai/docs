@@ -108,7 +108,6 @@
 
 </body>
 
-
 ## 体验MindSpore
 
 <body>
@@ -237,8 +236,6 @@
 
 </body>
 
-
-
 ## 使用可视化组件MindInsight
 
 <body>
@@ -342,10 +339,6 @@
      </div>
 
 </body>
-
-
-
-
 
 ## 算子开发
 

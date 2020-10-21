@@ -28,7 +28,6 @@
 &nbsp;&nbsp;
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
-
 ## 概述
 
 回归问题算法通常是利用一系列属性来预测一个值，预测的值是连续的。例如给出一套房子的一些特征数据，如面积、卧室数等等来预测房价，利用最近一周的气温变化和卫星云图来预测未来的气温情况等。如果一套房子实际价格为500万元，通过回归分析的预测值为499万元，则认为这是一个比较好的回归分析。在机器学习问题中，常见的回归分析有线性回归、多项式回归、逻辑回归等。本例子介绍线性回归算法，并通过MindSpore进行线性回归AI训练体验。
@@ -46,7 +45,6 @@
 ## 环境准备
 
 设置MindSpore运行配置
-
 
 ```python
 from mindspore import context
@@ -66,7 +64,6 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
 `get_data`用于生成训练数据集和测试数据集。由于拟合的是线性数据，假定要拟合的目标函数为：$f(x)=2x+3$，那么我们需要的训练数据集应随机分布于函数周边，这里采用了$f(x)=2x+3+noise$的方式生成，其中`noise`为遵循标准正态分布规律的随机数值。
 
-
 ```python
 import numpy as np
 
@@ -79,7 +76,6 @@ def get_data(num, w=2.0, b=3.0):
 ```
 
 使用`get_data`生成50组测试数据，可视化展示。
-
 
 ```python
 import matplotlib.pyplot as plt
@@ -97,9 +93,7 @@ plt.show()
 
 输出结果：
 
-
 ![png](./images/linear_regression_eval_datasets.png)
-
 
 上图中绿色线条部分为目标函数，红点部分为验证数据`eval_data`。
 
@@ -110,7 +104,6 @@ plt.show()
 - `ds.GeneratorDataset`：将生成的数据转换为MindSpore的数据集，并且将生成的数据的x，y值存入到`data`和`label`的数组中。
 - `batch`：将`batch_size`个数据组合成一个batch。
 - `repeat`：将数据集数量倍增。
-
 
 ```python
 from mindspore import dataset as ds
@@ -124,13 +117,12 @@ def create_dataset(num_data, batch_size=16, repeat_size=1):
 
 使用数据集增强函数生成训练数据，并查看训练数据的格式。
 
-
 ```python
 num_data = 1600
 batch_size = 16
 repeat_size = 1
 
-ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size) 
+ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
 print("The dataset size of ds_train:", ds_train.get_dataset_size())
 dict_datasets = ds_train.create_dict_iterator().get_next()
 
@@ -141,11 +133,12 @@ print("The y label value shape:", dict_datasets["label"].shape)
 
 输出结果：
 
-    The dataset size of ds_train: 100
-    dict_keys(['data', 'label'])
-    The x label value shape: (16, 1)
-    The y label value shape: (16, 1)
-    
+```text
+The dataset size of ds_train: 100
+dict_keys(['data', 'label'])
+The x label value shape: (16, 1)
+The y label value shape: (16, 1)
+```
 
 通过定义的`create_dataset`将生成的1600个数据增强为了100组shape为16x1的数据集。
 
@@ -156,7 +149,6 @@ print("The y label value shape:", dict_datasets["label"].shape)
 $$f(x)=wx+b\tag{1}$$
 
 并使用Normal算子随机初始化权重$w$和$b$。
-
 
 ```python
 from mindspore.common.initializer import Normal
@@ -174,7 +166,6 @@ class LinearNet(nn.Cell):
 
 调用网络查看初始化的模型参数。
 
-
 ```python
 net = LinearNet()
 model_params = net.trainable_params()
@@ -183,18 +174,18 @@ print(model_params)
 
 输出结果：
 
-    [Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
-    [[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
-    
+```text
+[Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
+[[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
+```
 
 初始化网络模型后，接下来将初始化的网络函数和训练数据集进行可视化，了解拟合前的模型函数情况。
-
 
 ```python
 from mindspore import Tensor
 
 x_model_label = np.array([-10, 10, 0.1])
-y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] + 
+y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] +
                  Tensor(model_params[1]).asnumpy()[0])
 
 plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
@@ -205,9 +196,7 @@ plt.show()
 
 输出结果：
 
-
 ![png](./images/model_net_and_eval_datasets.png)
-
 
 从上图中可以看出，蓝色线条的初始化模型函数与绿色线条的目标函数还是有较大的差别的。
 
@@ -236,7 +225,6 @@ $$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
 在MindSpore中使用如下方式实现。
 
-
 ```python
 net = LinearNet()
 net_loss = nn.loss.MSELoss()
@@ -257,7 +245,6 @@ $$w_{t}=w_{t-1}-\alpha\frac{\partial{J(w_{t-1})}}{\partial{w}}\tag{3}$$
 
 函数中所有的权重值更新完成后，将值传入到模型函数中，这个过程就是反向传播过程，实现此过程需要使用MindSpore中的优化器函数，如下：
 
-
 ```python
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 ```
@@ -265,7 +252,6 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 ### 关联前向和反向传播网络
 
 定义完成前向传播和反向传播后，在MindSpore中需要调用`Model`函数，将前面定义的网络，损失函数，优化器函数关联起来，使之变成完整的计算网络。
-
 
 ```python
 from mindspore.train import Model
@@ -279,7 +265,6 @@ model = Model(net, net_loss, opt)
 
 为了使得整个训练过程更容易理解，需要将训练过程的测试数据、目标函数和模型网络进行可视化，这里定义了可视化函数，将在每个step训练结束后调用，展示模型网络的拟合过程。
 
-
 ```python
 import matplotlib.pyplot as plt
 import time
@@ -292,7 +277,7 @@ def plot_model_and_datasets(net, eval_data):
     x1, y1 = zip(*eval_data)
     x_target = x
     y_target = x_target * 2 + 3
-    
+
     plt.axis([-11, 11, -20, 25])
     plt.scatter(x1, y1, color="red", s=5)
     plt.plot(x, y, color="blue")
@@ -305,7 +290,6 @@ def plot_model_and_datasets(net, eval_data):
 
 MindSpore提供的工具，可对模型训练过程进行自定义控制，这里在`step_end`中调用可视化函数，展示拟合过程。更多的使用可参考[官网说明](<https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#callback>)。
 
-
 ```python
 from IPython import display
 from mindspore.train.callback import Callback
@@ -314,7 +298,7 @@ class ImageShowCallback(Callback):
     def __init__(self, net, eval_data):
         self.net = net
         self.eval_data = eval_data
-        
+
     def step_end(self, run_context):
         plot_model_and_datasets(self.net, self.eval_data)
         display.clear_output(wait=True)
@@ -328,7 +312,6 @@ class ImageShowCallback(Callback):
 - `ds_train`：训练数据集。
 - `callbacks`：训练过程中需要调用的回调函数。
 - `dataset_sink_model`：数据集下沉模式，支持Ascend、GPU计算平台，本例为CPU计算平台设置为False。
-
 
 ```python
 
@@ -344,13 +327,12 @@ print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 
 输出结果：
 
-
 ![gif](./images/linear_regression.gif)
 
-
-    Parameter (name=fc.weight, value=[[2.0065749]]) 
-    Parameter (name=fc.bias, value=[3.0089042])
-    
+```text
+Parameter (name=fc.weight, value=[[2.0065749]])
+Parameter (name=fc.bias, value=[3.0089042])
+```
 
 训练完成后打印出最终模型的权重参数，其中weight接近于2.0，bias接近于3.0，模型训练完成，符合预期。
 

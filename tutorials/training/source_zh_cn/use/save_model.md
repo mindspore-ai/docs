@@ -34,6 +34,7 @@
 通过`CheckpointConfig`对象可以设置CheckPoint的保存策略。保存的参数分为网络参数和优化器参数。
 
 `ModelCheckpoint`提供默认配置策略，方便用户快速上手。具体用法如下：
+
 ```python
 from mindspore.train.callback import ModelCheckpoint
 ckpoint_cb = ModelCheckpoint()
@@ -60,7 +61,7 @@ model.train(epoch_num, dataset, callbacks=ckpoint_cb)
 
 生成的CheckPoint文件如下：
 
-```
+```text
 resnet50-graph.meta # 编译后的计算图
 resnet50-1_32.ckpt  # CheckPoint文件后缀名为'.ckpt'
 resnet50-2_32.ckpt  # 文件的命名方式表示保存参数所在的epoch和step数

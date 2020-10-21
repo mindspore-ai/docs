@@ -16,7 +16,7 @@
 
 ## Overview
 
-The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time. 
+The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time.
 Mixed precision training can accelerate the computation process, reduce memory usage, and enable a larger model or batch size to be trained on specific hardware.
 
 For FP16 operators, if the input data type is FP32, the backend of MindSpore will automatically handle it with reduced precision. Users could check the reduced-precision operators by enabling INFO log and then searching 'reduce precision'.
@@ -42,6 +42,7 @@ This document describes the computation process by using examples of automatic a
 To use the automatic mixed precision, you need to invoke the corresponding API, which takes the network to be trained and the optimizer as the input. This API converts the operators of the entire network into FP16 operators (except the `BatchNorm` and Loss operators). You can use automatic mixed precision through API `amp` or API `Model`.
 
 The procedure of using automatic mixed precision by API `amp` is as follows:
+
 1. Introduce the MindSpore mixed precision API `amp`.
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
@@ -55,7 +56,7 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import Momentum
 # The interface of Auto_mixed precision
 from mindspore import amp
@@ -68,7 +69,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)
@@ -93,6 +94,7 @@ output = train_network(predict, label)
 ```
 
 The procedure of using automatic mixed precision by API `Model` is as follows:
+
 1. Introduce the MindSpore model API `Model`.
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
@@ -169,7 +171,8 @@ model.train(epoch=10, train_dataset=ds_train)
 MindSpore also supports manual mixed precision. It is assumed that only one dense layer in the network needs to be calculated by using FP32, and other layers are calculated by using FP16. The mixed precision is configured in the granularity of cell. The default format of a cell is FP32.
 
 The following is the procedure for implementing manual mixed precision:
-1. Define the network. This step is similar to step 2 in the automatic mixed precision. 
+
+1. Define the network. This step is similar to step 2 in the automatic mixed precision.
 
 2. Configure the mixed precision. Use `net.to_float(mstype.float16)` to set all operators of the cell and its sub-cells to FP16. Then, configure the dense to FP32.
 
@@ -183,7 +186,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
 
@@ -195,7 +198,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)

@@ -41,6 +41,7 @@ The `Callback` mechanism in MindSpore provides a quick and easy way to collect c
 When you write a training script, you just instantiate the `SummaryCollector` and apply it to either `model.train` or `model.eval`. You can automatically collect some common summary data. `SummaryCollector` detailed usage can reference `API` document `mindspore.train.callback.SummaryCollector`.
 
 The sample code is as follows:
+
 ```python
 import mindspore
 import mindspore.nn as nn
@@ -48,7 +49,7 @@ from mindspore import context
 from mindspore import Tensor
 from mindspore.train import Model
 from mindspore.common.initializer import TruncatedNormal
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.callback import SummaryCollector
 from mindspore.nn.metrics import Accuracy
 
@@ -77,7 +78,7 @@ class AlexNet(nn.Cell):
         self.conv4 = conv(384, 384, 3, pad_mode="same")
         self.conv5 = conv(384, 256, 3, pad_mode="same")
         self.relu = nn.ReLU()
-        self.max_pool2d = P.MaxPool(ksize=3, strides=2)
+        self.max_pool2d = ops.MaxPool(ksize=3, strides=2)
         self.flatten = nn.Flatten()
         self.fc1 = fc_with_initialize(6*6*256, 4096)
         self.fc2 = fc_with_initialize(4096, 4096)
@@ -126,9 +127,10 @@ model.eval(ds_eval, callbacks=[summary_collector])
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
-In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc. 
+In addition to providing the `SummaryCollector` that automatically collects some summary data, MindSpore provides summary operators that enable custom collection other data on the network, such as the input of each convolutional layer, or the loss value in the loss function, etc.
 
 Summary operators currently supported:
+
 - [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): Record a scalar data.
 - [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): Record a tensor data.
 - [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): Record a image data.
@@ -147,8 +149,7 @@ The sample code is as follows:
 ```python
 from mindspore import context, Tensor, nn
 from mindspore.common import dtype as mstype
-from mindspore.ops import operations as P
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 from mindspore.nn import Optimizer
 
 
@@ -156,17 +157,17 @@ class CrossEntropyLoss(nn.Cell):
     """Loss function definition."""
     def __init__(self):
         super(CrossEntropyLoss, self).__init__()
-        self.cross_entropy = P.SoftmaxCrossEntropyWithLogits()
-        self.mean = P.ReduceMean()
-        self.one_hot = P.OneHot()
+        self.cross_entropy = ops.SoftmaxCrossEntropyWithLogits()
+        self.mean = ops.ReduceMean()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
 
         # Init ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
+        self.scalar_summary = ops.ScalarSummary()
 
     def construct(self, logits, label):
-        label = self.one_hot(label, F.shape(logits)[1], self.on_value, self.off_value)
+        label = self.one_hot(label, ops.shape(logits)[1], self.on_value, self.off_value)
         loss = self.cross_entropy(logits, label)[0]
         loss = self.mean(loss, (-1,))
 
@@ -180,8 +181,8 @@ class MyOptimizer(Optimizer):
     def __init__(self, learning_rate, params, ......):
         ......
         # Initialize ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
-        self.histogram_summary = P.HistogramSummary()
+        self.scalar_summary = ops.ScalarSummary()
+        self.histogram_summary = ops.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
@@ -193,7 +194,7 @@ class MyOptimizer(Optimizer):
         self.histogram_summary(self.weight_names[0], self.paramters[0])
         # Record gradient
         self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
-        
+
         ......
 
 
@@ -204,9 +205,9 @@ class Net(nn.Cell):
         ......
 
         # Init ImageSummary
-        self.image_summary = P.ImageSummary()
+        self.image_summary = ops.ImageSummary()
         # Init TensorSummary
-        self.tensor_summary = P.TensorSummary()
+        self.tensor_summary = ops.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
@@ -252,18 +253,18 @@ It is then recorded into the summary log file through the `SummaryRecord` module
 
 The sample code is as follows:
 
-```
+```python
 from mindspore.train.callback import Callback
 from mindspore.train.summary import SummaryRecord
 
 class ConfusionMatrixCallback(Callback):
     def __init__(self, summary_dir):
         self._summary_dir = summary_dir
-    
+
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
         self.summary_record = SummaryRecord(summary_dir)
-    
+
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
         # else your training script will not exit from training.
@@ -274,7 +275,7 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_martrix = create_confusion_matrix(cb_params)        
+        confusion_martrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
         self.summary_record.record(cb_params.cur_step)
 
@@ -291,24 +292,28 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
 ## Run MindInsight
+
 After completing the data collection in the tutorial above, you can start MindInsight to visualize the collected data. When start MindInsight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
 
 The specified summary log file directory can be the output directory of a training or the parent directory of the output directory of multiple training.
 
 The output directory structure for a training is as follows
-```
+
+```text
 └─summary_dir
     events.out.events.summary.1596869898.hostname_MS
     events.out.events.summary.1596869898.hostname_lineage
 ```
 
 Start command:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary_dir
 ```
 
 The output directory structure of multiple training is as follows:
-```
+
+```text
 └─summary
     ├─summary_dir1
     │      events.out.events.summary.1596869898.hostname_MS
@@ -320,6 +325,7 @@ The output directory structure of multiple training is as follows:
 ```
 
 Start command:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary
 ```
@@ -327,6 +333,7 @@ mindinsight start --summary-base-dir ./summary
 After successful startup, the visual page can be viewed by visiting the `http://127.0.0.1:8080` address through the browser.
 
 Stop MindInsight command:
+
 ```Bash
 mindinsight stop
 ```
@@ -339,12 +346,13 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 2. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
 
-    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data fail. 
+    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data fail.
 
     If the custom callback use `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
 
     Right code:
-    ```
+
+    ```python
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(2, train_dataset, callbacks=[summary_collector])
@@ -353,7 +361,8 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```
+
+    ```python
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -361,7 +370,8 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
     ```
 
     Wrong code:
-    ```
+
+    ```python
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')

@@ -6,7 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95.mp4" type="video/mp4">
 </video>
 
-
 **查看更多内容**：
 
 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/performance_profiling.html>

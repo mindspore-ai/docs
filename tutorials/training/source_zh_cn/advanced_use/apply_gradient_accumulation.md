@@ -36,6 +36,7 @@
 以MNIST作为示范数据集，自定义简单模型实现梯度累积。
 
 ### 导入需要的库文件
+
 下列是我们所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
@@ -47,9 +48,7 @@ import mindspore.nn as nn
 from mindspore import ParameterTuple
 from mindspore import context
 from mindspore.nn import Cell
-from mindspore.ops import composite as C
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.dataset_helper import DatasetHelper
 from mindspore.train.serialization import save_checkpoint
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
@@ -65,20 +64,22 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练模型
+
 将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分：
+
 - `TrainForwardBackward`计算loss和梯度，利用grad_sum实现梯度累加。
 - `TrainOptim`实现参数更新。
 - `TrainClear`实现对梯度累加变量grad_sum清零。
 
 ```python
-_sum_op = C.MultitypeFuncGraph("grad_sum_op")
-_clear_op = C.MultitypeFuncGraph("clear_op")
+_sum_op = ops.MultitypeFuncGraph("grad_sum_op")
+_clear_op = ops.MultitypeFuncGraph("clear_op")
 
 
 @_sum_op.register("Tensor", "Tensor")
 def _cumulative_gard(grad_sum, grad):
     """Apply gard sum to cumulative gradient."""
-    add = P.AssignAdd()
+    add = ops.AssignAdd()
     return add(grad_sum, grad)
 
 
@@ -86,7 +87,7 @@ def _cumulative_gard(grad_sum, grad):
 def _clear_grad_sum(grad_sum, zero):
     """Apply zero to clear grad_sum."""
     success = True
-    success = F.depend(success, F.assign(grad_sum, zero))
+    success = ops.depend(success, ops.assign(grad_sum, zero))
     return success
 
 
@@ -99,16 +100,16 @@ class TrainForwardBackward(Cell):
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
-        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
         weights = self.weights
         loss = self.network(*inputs)
-        sens = P.Fill()(P.DType()(loss), P.Shape()(loss), self.sens)
+        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(*inputs, sens)
-        return F.depend(loss, self.hyper_map(F.partial(_sum_op), self.grad_sum, grads))
+        return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
 
 class TrainOptim(Cell):
@@ -126,14 +127,15 @@ class TrainClear(Cell):
         super(TrainClear, self).__init__(auto_prefix=False)
         self.grad_sum = grad_sum
         self.zeros = zeros
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self):
-        success = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
+        success = self.hyper_map(ops.partial(_clear_op), self.grad_sum, self.zeros)
         return success
 ```
 
 ### 定义训练过程
+
 每个Mini-batch通过正反向训练计算loss和梯度，通过mini_steps控制每次更新参数前的累加次数。达到累加次数后进行参数更新和
 累加梯度变量清零。
 
@@ -202,6 +204,7 @@ class GradientAccumulation:
 ```
 
 ### 训练并保存模型
+
 调用网络、优化器及损失函数，然后自定义`GradientAccumulation`的`train_process`接口，进行模型训练。
 
 ```python
@@ -226,13 +229,15 @@ if __name__ == "__main__":
 ```
 
 ## 实验结果
+
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
-**执行训练**
+### 执行训练
+
 1. 运行训练代码，查看运行结果。
 
     ```shell
-    $ python train.py --data_path=./MNIST_Data
+    python train.py --data_path=./MNIST_Data
     ```
 
     输出如下，可以看到loss值随着训练逐步降低：
@@ -247,17 +252,17 @@ if __name__ == "__main__":
     epoch: 10 step: 448 loss is  0.06443884
     epoch: 10 step: 449 loss is  0.0067842817
     ```
-    
+
 2. 查看保存的CheckPoint文件。
 
     训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
-**验证模型**
+### 验证模型
 
 通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
-$ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
+python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 
 输出如下，可以看到使用验证的数据集，正确率在96.31%左右，与batch_size为32的验证结果一致。
