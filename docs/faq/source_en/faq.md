@@ -8,6 +8,7 @@
     - [Installation](#installation)
         - [Installing Using pip](#installing-using-pip)
         - [Source Code Compilation Installation](#source-code-compilation-installation)
+        - [Uninstall](#uninstall)
         - [Environment Variables](#environment-variables)
         - [Verifying the Installation](#verifying-the-installation)
     - [Supported Operators](#supported-operators)
@@ -88,6 +89,12 @@ A: At the moment some software might need manual upgrade. (**Note**: MindSpore r
 Q: What should I do if there is a prompt `tclsh not found` when I compile MindSpore from source code?
 
 A: Please install the software manually if there is any suggestion of certain `software not found`.
+
+### Uninstall
+
+Q: How to uninstall MindSpore?
+
+A: Using `pip uninstall mindspore` to uninstall MindSpore.
 
 ### Environment Variables
 
