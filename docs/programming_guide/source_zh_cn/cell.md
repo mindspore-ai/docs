@@ -41,17 +41,17 @@ MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单�
 
 在`construct`方法中，`x`为输入数据，`output`是经过网络结构计算后得到的计算结果。
 
-```
+```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.parameter import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(
             initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
             name='conv.weight')
@@ -70,7 +70,7 @@ class Net(nn.Cell):
 
 代码样例如下：
 
-```
+```python
 net = Net()
 result = net.parameters_dict()
 print(result.keys())
@@ -80,7 +80,8 @@ print(result['conv.weight'])
 样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`conv.weight`参数的结果。
 
 输出如下：
-```
+
+```text
 odict_keys(['conv.weight'])
 Parameter (name=conv.weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
    [ 8.66129529e-03  7.36288540e-03 -4.32638079e-03]
@@ -98,7 +99,8 @@ Parameter (name=conv.weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.517861
 其中`nn.Conv2d`是MindSpore以`Cell`为基类封装好的一个卷积层，其具体内容将在“模型层”中进行介绍。
 
 代码样例如下：
-```
+
+```python
 import mindspore.nn as nn
 
 class Net1(nn.Cell):
@@ -120,7 +122,8 @@ print(names)
 ```
 
 输出如下：
-```
+
+```text
 ('', Net1<
   (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>
   >)
@@ -136,7 +139,8 @@ print(names)
 以`TrainOneStepCell`为例，其接口功能是使网络进行单步训练，需要计算网络反向，因此初始化方法里需要使用`set_grad`。
 
 `TrainOneStepCell`部分代码如下：
-```
+
+```python
 class TrainOneStepCell(Cell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainOneStepCell, self).__init__(auto_prefix=False)
@@ -155,18 +159,19 @@ MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，
 
 同时nn也提供了部分与`Primitive`算子同名的接口，主要作用是对`Primitive`算子进行进一步封装，为用户提供更友好的API。
 
-重新分析上文介绍`construct`方法的用例，此用例是MindSpore的`nn.Conv2d`源码简化内容，内部会调用`P.Conv2D`。`nn.Conv2d`卷积API增加输入参数校验功能并判断是否`bias`等，是一个高级封装的模型层。
-```
+重新分析上文介绍`construct`方法的用例，此用例是MindSpore的`nn.Conv2d`源码简化内容，内部会调用`ops.Conv2D`。`nn.Conv2d`卷积API增加输入参数校验功能并判断是否`bias`等，是一个高级封装的模型层。
+
+```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.parameter import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(
             initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
             name='conv.weight')
@@ -259,7 +264,7 @@ MindSpore框架在`mindspore.nn`的layer层内置了丰富的接口，主要内�
 
 MindSpore的模型层在`mindspore.nn`下，使用方法如下所示：
 
-```
+```python
 import mindspore.nn as nn
 
 class Net(nn.Cell):
@@ -307,7 +312,7 @@ MindSpore的损失函数全部是`Cell`的子类实现，所以也支持用户�
 - SoftmaxCrossEntropyWithLogits
 
   交叉熵损失函数，用于分类模型。当标签数据不是one-hot编码形式时，需要输入参数`sparse`为True。`reduction`参数默认值为none，其参数含义同`L1Loss`。
-   
+
 - CosineEmbeddingLoss
 
   `CosineEmbeddingLoss`用于衡量两个输入相似程度，用于分类模型。`margin`默认为0.0，`reduction`参数同`L1Loss`。
@@ -316,7 +321,7 @@ MindSpore的损失函数全部是`Cell`的子类实现，所以也支持用户�
 
 MindSpore的损失函数全部在mindspore.nn下，使用方法如下所示：
 
-```
+```python
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -328,7 +333,8 @@ print(loss(input_data, target_data))
 ```
 
 输出结果：
-```
+
+```python
 1.5
 ```
 
@@ -347,7 +353,8 @@ print(loss(input_data, target_data))
 以LeNet网络为例，在`__init__`方法中定义了卷积层，池化层和全连接层等结构单元，然后在`construct`方法将定义的内容连接在一起，形成一个完整LeNet的网络结构。
 
 LeNet网络实现方式如下所示：
-```
+
+```python
 import mindspore.nn as nn
 
 class LeNet5(nn.Cell):

@@ -15,14 +15,15 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
-执行主要有三种方式：单算子、普通函数和网络训练模型。
 
+执行主要有三种方式：单算子、普通函数和网络训练模型。
 
 ## 执行单算子
 
 执行单个算子，并打印相关结果。
 
 代码样例如下：
+
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -37,6 +38,7 @@ print(output.asnumpy())
 ```
 
 输出如下：
+
 ```python
 [[[[ 0.06022915  0.06149777  0.06149777  0.06149777  0.01145121]
    [ 0.06402162  0.05889071  0.05889071  0.05889071 -0.00933781]
@@ -63,22 +65,22 @@ print(output.asnumpy())
    [ 0.01015155  0.00781826  0.00781826  0.00781826 -0.02884173]]]]
 ```
 
-
 ## 执行普通函数
 
 将若干算子组合成一个函数，然后直接通过函数调用的方式执行这些算子，并打印相关结果，如下例所示。
 
 代码样例如下：
+
 ```python
 import numpy as np
 from mindspore import context, Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
 
 def tensor_add_func(x, y):
-    z = F.tensor_add(x, y)
-    z = F.tensor_add(z, x)
+    z = ops.tensor_add(x, y)
+    z = ops.tensor_add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
@@ -88,6 +90,7 @@ print(output.asnumpy())
 ```
 
 输出如下：
+
 ```python
 [[3. 3. 3.]
  [3. 3. 3.]
@@ -95,14 +98,17 @@ print(output.asnumpy())
 ```
 
 ## 执行网络模型
+
 MindSpore的Model接口是用于训练和验证的高级接口。可以将有训练或推理功能的layers组合成一个对象，通过调用train、eval、predict接口可以分别实现训练、推理和预测功能。
 
 用户可以根据实际需要传入网络、损失函数和优化器等初始化Model接口，还可以通过配置amp_level实现混合精度，配置metrics实现模型评估。
 
 ### 执行训练模型
+
 通过调用Model的train接口可以实现训练。
 
 代码样例如下：
+
 ```python
 import os
 
@@ -180,7 +186,7 @@ def weight_variable():
 
 
 class LeNet5(nn.Cell):
-    """ 
+    """
     Lenet network
 
     Args:
@@ -231,6 +237,7 @@ if __name__ == "__main__":
 > 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)的下载数据集部分，下同。
 
 输出如下：
+
 ```python
 epoch: 1 step: 1, loss is 2.300784
 epoch: 1 step: 2, loss is 2.3076947
@@ -244,23 +251,26 @@ epoch: 1 step: 1875, loss is 0.017264696
 > 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
 
 ### 执行推理模型
+
 通过调用Model的train接口可以实现推理。为了方便评估模型的好坏，可以在Model接口初始化的时候设置评估指标Metric。
 
 Metric是用于评估模型好坏的指标。常见的主要有Accuracy、Fbeta、Precision、Recall和TopKCategoricalAccuracy等，通常情况下，一种模型指标无法全面的评估模型的好坏，一般会结合多个指标共同作用对模型进行评估。
 
 常用的内置评估指标：
+
 - `Accuracy`（准确率）：是一个用于评估分类模型的指标。通俗来说，准确率是指我们的模型预测正确的结果所占的比例。 公式：$$Accuracy = （TP+TN）/（TP+TN+FP+FN）$$
 
 - `Precision`（精确率）：在被识别为正类别的样本中，确实为正类别的比例。公式：$$Precision = TP/(TP+FP)$$
 
 - `Recall`（召回率）：在所有正类别样本中，被正确识别为正类别的比例。 公式：$$Recall = TP/(TP+FN)$$
 
-- `Fbeta`（调和均值）：综合考虑precision和recall的调和均值。 
+- `Fbeta`（调和均值）：综合考虑precision和recall的调和均值。
 公式：$$F_\beta = (1 + \beta^2) \cdot \frac{precisiont \cdot recall}{(\beta^2 \cdot precision) + recall}$$
 
 - `TopKCategoricalAccuracy`（多分类TopK准确率）：计算TopK分类准确率。
 
 代码样例如下：
+
 ```python
 import os
 
@@ -278,7 +288,7 @@ from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
 
 class LeNet5(nn.Cell):
-    """ 
+    """
     Lenet network
 
     Args:
@@ -375,6 +385,7 @@ if __name__ == "__main__":
 > `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/quick_start/quick_start.html)的训练网络部分。
 
 输出如下：
+
 ```python
 ============== {'Accuracy': 0.96875, 'Precision': array([0.97782258, 0.99451052, 0.98031496, 0.92723881, 0.98352214,
        0.97165533, 0.98726115, 0.9472196 , 0.9394551 , 0.98236515])} ==============
