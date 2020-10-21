@@ -12,6 +12,7 @@
         - [Performance Analysis](#performance-analysis)
             - [Operator Performance Analysis](#operator-performance-analysis)
             - [Timeline Analysis](#timeline-analysis)
+            - [MindData Performance Analysis](#minddata-performance-analysis)
 
 <!-- /TOC -->
 
@@ -75,7 +76,7 @@ The MindInsight launch command can refer to [MindInsight Commands](https://www.m
 
 ### Performance Analysis
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis and Timeline Analysis now, the others modules will be published soon.
+Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis and Timeline Analysis and MindData Analysis now, the others modules will be published soon.
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -124,3 +125,11 @@ The usage is almost the same as that in Ascend. The difference is GPU Timeline d
 > The usage is described as follows:
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
+
+#### MindData Analysis
+
+The usage is almost the same as that in Ascend.
+
+> The usage is described as follows:
+>
+> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#minddata-performance-analysis>
