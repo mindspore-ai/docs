@@ -74,7 +74,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | GPU | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
-| -A | 指定编译语言，默认cpp。设置为java时，则编译aar包 | cpp、java | 否 |
+| -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包 | cpp、java | 否 |
 | -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
 | -o | 设置该参数，则编译基准测试工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
@@ -233,9 +233,9 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
   |
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
-  │     └── mindspore-lite
-  |         └── {version}-SNAPSHOT
-  │         ├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite推理框架aar包
+  │       └── mindspore-lite
+  |           └── {version} 
+  │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
 #### 图像处理库目录结构说明

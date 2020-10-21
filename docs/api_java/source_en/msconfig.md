@@ -10,6 +10,7 @@ MSConfig is defined for holding environment variables during runtime.
 
 | function                                                     |
 | ------------------------------------------------------------ |
+| [public boolean init(int deviceType, int threadNum, int cpuBindMode)](#init) |
 | [boolean init(int deviceType, int threadNum, int cpuBindMode)](#init) |
 | [boolean init(int deviceType, int threadNum)](#init)         |
 | [boolean init(int deviceType)](#init)                        |
@@ -17,6 +18,23 @@ MSConfig is defined for holding environment variables during runtime.
 | [void free()](#free)                                         |
 
 ## init
+
+```java
+public boolean init(int deviceType, int threadNum, int cpuBindMode, boolean enable_float16)
+```
+
+Initialize MSConfig.
+
+- Parameters
+
+  - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type. 
+  - `threadNum`: Thread number config for thread pool.
+  - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
+  - `enable_float16`：Whether to use float16 operator for priority.
+
+- Returns
+
+  Whether the initialization is successful.
 
 ```java
 public boolean init(int deviceType, int threadNum, int cpuBindMode)
