@@ -82,6 +82,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 伯努利分布，继承自 `Distribution` 类。
 
 属性:
+
 - `Bernoulli.probs`：伯努利试验成功的概率。
 
 `Distribution` 基类调用 `Bernoulli` 中私有接口以实现基类中的公有接口。`Bernoulli` 支持的公有接口为：
@@ -97,6 +98,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 指数分布，继承自 `Distribution` 类。
 
 属性:
+
 - `Exponential.rate`：率参数。
 
 `Distribution` 基类调用 `Exponential` 私有接口以实现基类中的公有接口。`Exponential` 支持的公有接口为：
@@ -112,6 +114,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 几何分布，继承自 `Distribution` 类。
 
 属性:
+
 - `Geometric.probs`：伯努利试验成功的概率。
 
 `Distribution` 基类调用 `Geometric` 中私有接口以实现基类中的公有接口。`Geometric` 支持的公有接口为：
@@ -127,6 +130,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 正态（高斯）分布，继承自 `Distribution` 类。
 
 `Distribution` 基类调用 `Normal` 中私有接口以实现基类中的公有接口。`Normal` 支持的公有接口为：
+
 - `mean`，`mode`，`var`：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
 - `entropy`：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*mean_b* 和 *sd_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Normal’* 。*mean_b* 和 *sd_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *mean_a* 和标准差 *sd_a* 。
@@ -138,6 +142,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 均匀分布，继承自 `Distribution` 类。
 
 属性:
+
 - `Uniform.low`：最小值。
 - `Uniform.high`：最大值。
 
@@ -162,64 +167,90 @@ import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.PYNATIVE_MODE)
 ```
+
 以 `Normal` 为例， 创建一个均值为0.0、标准差为1.0的正态分布：
+
 ```python
 my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
 ```
+
 计算均值：
+
 ```python
 mean = my_normal.mean()
 print(mean)
 ```
+
 输出为：
+
 ```python
 0.0
 ```
+
 计算方差：
+
 ```python
 var = my_normal.var()
 print(var)
 ```
+
 输出为：
+
 ```python
 1.0
 ```
+
 计算熵：
+
 ```python
 entropy = my_normal.entropy()
 print(entropy)
 ```
+
 输出为：
+
 ```python
 1.4189385
 ```
+
 计算概率密度函数：
+
 ```python
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 prob = my_normal.prob(value)
 print(prob)
 ```
+
 输出为：
+
 ```python
 [0.35206532, 0.3989423, 0.35206532]
 ```
+
 计算累积分布函数：
+
 ```python
 cdf = my_normal.cdf(value)
 print(cdf)
 ```
+
 输出为：
+
 ```python
 [0.30852754, 0.5, 0.69146246]
 ```
+
 计算 Kullback-Leibler 散度：
+
 ```python
 mean_b = Tensor(1.0, dtype=mstype.float32)
 sd_b = Tensor(2.0, dtype=mstype.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
 print(kl)
 ```
+
 输出为：
+
 ```python
 0.44314718
 ```
@@ -229,6 +260,7 @@ print(kl)
 在图模式下，`Distribution` 子类可用在网络中。
 
 导入相关模块：
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -237,20 +269,24 @@ import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.GRAPH_MODE)
 ```
+
 创建网络：
+
 ```python
 # 网络继承nn.Cell
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
- 
+
     def construct(self, value, mean, sd):
         pdf = self.normal.prob(value)
         kl = self.normal.kl_loss("Normal", mean, sd)
         return pdf, kl
 ```
+
 调用网络：
+
 ```python
 net = Net()
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
@@ -260,7 +296,9 @@ pdf, kl = net(value, mean, sd)
 print("pdf: ", pdf)
 print("kl: ", kl)
 ```
+
 输出为：
+
 ```python
 pdf: [0.3520653, 0.39894226, 0.3520653]
 kl: 0.5
@@ -293,6 +331,7 @@ kl: 0.5
 在执行之前，我们需要导入需要的库文件包。
 
 导入相关模块：
+
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -305,6 +344,7 @@ context.set_context(mode=context.PYNATIVE_MODE)
 ```
 
 构造一个 `TransformedDistribution` 实例，使用 `Normal` 分布作为需要变换的分布类，使用 `Exp` 作为映射变换，可以生成 `LogNormal` 分布。
+
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 exp = msb.Exp()
@@ -313,6 +353,7 @@ print(LogNormal)
 ```
 
 输出为：
+
 ```python
 TransformedDistribution<
   (_bijector): Exp<power = 0>
@@ -323,6 +364,7 @@ TransformedDistribution<
 可以对 `LogNormal` 进行概率分布计算。例如：
 
 计算累积分布函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -331,11 +373,13 @@ print(cdf)
 ```
 
 输出为：
+
 ```python
 [7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
 ```
 
 计算对数累积分布函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -344,11 +388,13 @@ print(log_cdf)
 ```
 
 输出为：
+
 ```python
 [-2.79857576e-01, -5.52593507e-02, -1.07082408e-02]
 ```
 
 计算生存函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -357,11 +403,13 @@ print(survival_function)
 ```
 
 输出为：
+
 ```python
 [2.44108617e-01, 5.37602901e-02, 1.06511116e-02]
 ```
 
 计算对数生存函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -370,11 +418,13 @@ print(log_survival)
 ```
 
 输出为：
+
 ```python
 [-1.41014194e+00, -2.92322016e+00, -4.54209089e+00]
 ```
 
 计算概率密度函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -383,11 +433,13 @@ print(prob)
 ```
 
 输出为：
+
 ```python
 [1.56874031e-01, 2.18507163e-02, 2.81590177e-03]
 ```
 
 计算对数概率密度函数：
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -396,11 +448,13 @@ print(log_prob)
 ```
 
 输出为：
+
 ```python
 [-1.85231221e+00, -3.82352161e+00, -5.87247276e+00]
 ```
 
 调用取样函数 `sample` 抽样：
+
 ```python
 shape = ((3, 2))
 sample = LogNormal.sample(shape)
@@ -408,6 +462,7 @@ print(sample)
 ```
 
 输出为：
+
 ```python
 [[7.64315844e-01, 3.01435232e-01],
  [1.17166102e+00, 2.60277224e+00],
@@ -415,6 +470,7 @@ print(sample)
 ```
 
 当构造 `TransformedDistribution` 映射变换的 `is_constant_jacobian = true` 时（如 `ScalarAffine`)，构造的 `TransformedDistribution` 实例可以使用直接使用 `mean` 接口计算均值，例如：
+
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 scalaraffine = msb.ScalarAffine(1.0, 2.0)
@@ -422,15 +478,19 @@ trans_dist = msd.TransformedDistribution(scalaraffine, normal, dtype=dtype.float
 mean = trans_dist.mean()
 print(mean)
 ```
+
 输出为：
+
 ```python
 2.0
 ```
+
 ### 图模式下调用TransformedDistribution实例
 
 在图模式下，`TransformedDistribution` 类可用在网络中。
 
 导入相关模块：
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -442,6 +502,7 @@ context.set_context(mode=self.GRAPH_MODE)
 ```
 
 创建网络：
+
 ```python
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
@@ -451,7 +512,7 @@ class Net(nn.Cell):
         self.normal = msd.Normal(0.0, 1.0, dtype=dtype)
         self.lognormal = msd.TransformedDistribution(self.exp, self.normal, dtype=dtype, seed=seed, name=name)
         self.shape = shape
-    
+
     def construct(self, value):
         cdf = self.lognormal.cdf(value)
         sample = self.lognormal.sample(self.shape)
@@ -459,6 +520,7 @@ class Net(nn.Cell):
 ```
 
 调用网络：
+
 ```python
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
@@ -468,7 +530,9 @@ cdf, sample = net(tx)
 print("cdf: ", cdf)
 print("sample: ", sample)
 ```
+
 输出为：
+
 ```python
 cdf:  [0.7558914 0.8640314 0.9171715 0.9462397]
 sample:  [[0.21036398 0.44932044 0.5669641 ]
@@ -499,10 +563,11 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
    - `forward_log_jacobian`：正向映射的导数的对数，创建派生类后由派生类的 `_forward_log_jacobian` 决定参数。
    - `inverse_log_jacobian`：反向映射的导数的对数，创建派生类后由派生类的 `_inverse_log_jacobian` 决定参数。
 
-* `Bijector` 作为函数调用：
+`Bijector` 作为函数调用：
 输入是一个 `Distribution` 类：生成一个 `TransformedDistribution` **（不可在图内调用）**。
 
 #### 幂函数变换映射(PowerTransform)
+
 `PowerTransform` 做如下变量替换：$Y = g(X) = {(1 + X * c)}^{1 / c}$。其接口包括：
 
 1. 类特征函数
@@ -515,15 +580,18 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
    - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### 指数变换映射(Exp)
+
 `Exp` 做如下变量替换：$Y = g(X)= exp(X)$。其接口包括：
 
 映射函数
+
 - `forward`：正向映射，输入为 `Tensor` 。
 - `inverse`：反向映射，输入为 `Tensor` 。
 - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
 - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### 标量仿射变换映射(ScalarAffine)
+
 `ScalarAffine` 做如下变量替换：Y = g(X) = a * X + b。其接口包括：
 
 1. 类特征函数
@@ -537,6 +605,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
    - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
 
 #### Softplus变换映射(Softplus)
+
 `Softplus` 做如下变量替换：$Y = g(X) = log(1 + e ^ {kX}) / k $。其接口包括：
 
 1. 类特征函数
@@ -553,6 +622,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 在执行之前，我们需要导入需要的库文件包。双射类最主要的库是 `mindspore.nn.probability.bijector`，导入后我们使用 `msb` 作为库的缩写并进行调用。
 
 导入相关模块：
+
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -566,12 +636,14 @@ context.set_context(mode=context.PYNATIVE_MODE)
 下面我们以 `PowerTransform` 为例。创建一个指数为2的 `PowerTransform` 对象。
 
 构造 `PowerTransform`：
+
 ```python
 powertransform = msb.PowerTransform(power=2)
 print(powertransform)
 ```
 
 输出：
+
 ```python
 PowerTransform<power = 2>
 ```
@@ -579,6 +651,7 @@ PowerTransform<power = 2>
 接下来可以使用映射函数进行运算。
 
 调用 `forward` 方法，计算正向映射：
+
 ```python
 x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -587,39 +660,46 @@ print(forward)
 ```
 
 输出为：
+
 ```python
 [2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
 ```
 
 输入 `inverse` 方法，计算反向映射：
+
 ```python
 inverse = powertransform.inverse(tx)
 print(inverse)
 ```
 
 输出为：
+
 ```python
 [1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
 ```
 
 输入 `forward_log_jacobian` 方法，计算正向映射导数的对数：
+
 ```python
 forward_log_jaco = powertransform.forward_log_jacobian(tx)
 print(forward_log_jaco)
 ```
 
 输出：
+
 ```python
 [-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
 ```
 
 输入 `inverse_log_jacobian` 方法，计算反向映射导数的对数：
+
 ```python
 inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
 print(inverse_log_jaco)
 ```
 
 输出为：
+
 ```python
 [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
 ```
@@ -629,6 +709,7 @@ print(inverse_log_jaco)
 在图模式下，`Bijector` 子类可用在网络中。
 
 导入相关模块：
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -639,6 +720,7 @@ context.set_context(mode=context.GRAPH_MODE)
 ```
 
 创建网络：
+
 ```python
 class Net(nn.Cell):
     def __init__(self):
@@ -653,7 +735,9 @@ class Net(nn.Cell):
         inverse_log_jaco = self.s1.inverse_log_jacobian(value)
         return forward, inverse, forward_log_jaco, inverse_log_jaco
 ```
+
 调用网络：
+
 ```python
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
@@ -664,7 +748,9 @@ print("inverse: ", inverse)
 print("forward_log_jaco: ", forward_log_jaco)
 print("inverse_log_jaco: ", inverse_log_jaco)
 ```
+
 输出为：
+
 ```python
 forward:  [2.236068  2.6457512 3.        3.3166249]
 inverse:  [ 1.5        4.0000005  7.5       12.000001 ]
@@ -682,7 +768,7 @@ inverse_log_jaco:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn.probability.dpn import VAE
 
 IMAGE_SHAPE = (-1, 1, 32, 32)
@@ -710,7 +796,7 @@ class Decoder(nn.Cell):
         super(Decoder, self).__init__()
         self.fc1 = nn.Dense(400, 1024)
         self.sigmoid = nn.Sigmoid()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, z):
         z = self.fc1(z)
@@ -723,6 +809,7 @@ encoder = Encoder()
 decoder = Decoder()
 vae = VAE(encoder, decoder, hidden_size=400, latent_size=20)
 ```
+
 ### ConditionalVAE
 
 类似地，ConditionalVAE与VAE的使用方法比较相近，不同的是，ConditionalVAE利用了数据集的标签信息，属于有监督学习算法，其生成效果一般会比VAE好。
@@ -731,7 +818,7 @@ vae = VAE(encoder, decoder, hidden_size=400, latent_size=20)
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn.probability.dpn import ConditionalVAE
 
 IMAGE_SHAPE = (-1, 1, 32, 32)
@@ -743,7 +830,7 @@ class Encoder(nn.Cell):
         self.fc1 = nn.Dense(1024 + num_classes, 400)
         self.relu = nn.ReLU()
         self.flatten = nn.Flatten()
-        self.concat = P.Concat(axis=1)
+        self.concat = ops.Concat(axis=1)
         self.one_hot = nn.OneHot(depth=num_classes)
 
     def construct(self, x, y):
@@ -760,7 +847,7 @@ class Decoder(nn.Cell):
         super(Decoder, self).__init__()
         self.fc1 = nn.Dense(400, 1024)
         self.sigmoid = nn.Sigmoid()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, z):
         z = self.fc1(z)
@@ -779,6 +866,7 @@ cvae = ConditionalVAE(encoder, decoder, hidden_size=400, latent_size=20, num_cla
 ```python
 ds_train = create_dataset(image_path, 128, 1)
 ```
+
 接下来，需要用到infer接口进行VAE网络的变分推断。
 
 ## 概率推断算法
@@ -796,7 +884,9 @@ vi = SVI(net_with_loss=net_with_loss, optimizer=optimizer)
 vae = vi.run(train_dataset=ds_train, epochs=10)
 trained_loss = vi.get_train_loss()
 ```
+
 最后，得到训练好的VAE网络后，我们可以使用`vae.generate_sample`生成新样本，需要传入待生成样本的个数，及生成样本的shape，shape需要保持和原数据集中的样本shape一样；当然，我们也可以使用`vae.reconstruct_sample`重构原来数据集中的样本，来测试VAE网络的重建能力。
+
 ```python
 generated_sample = vae.generate_sample(64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
@@ -804,10 +894,13 @@ for sample in ds_train.create_dict_iterator():
     reconstructed_sample = vae.reconstruct_sample(sample_x)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
+
 我们可以看一下新生成样本的shape：
+
 ```python
 The shape of the generated sample is  (64, 1, 32, 32)
 ```
+
 ConditionalVAE训练过程和VAE的过程类似，但需要注意的是使用训练好的ConditionalVAE网络生成新样本和重建新样本时，需要输入标签信息，例如下面生成的新样本就是64个0-7的数字。
 
 ```python
@@ -819,7 +912,9 @@ for sample in ds_train.create_dict_iterator():
     reconstructed_sample = cvae.reconstruct_sample(sample_x, sample_y)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
+
 查看一下新生成的样本的shape：
+
 ```python
 The shape of the generated sample is  (64, 1, 32, 32)
 ```
@@ -849,8 +944,10 @@ class TransformToBNN:
         self.bnn_factor = bnn_factor
         self.bnn_loss_file = None
 ```
+
 参数`trainable_bnn`是经过`TrainOneStepCell`包装的可训练DNN模型，`dnn_factor`和`bnn_factor`分别为由损失函数计算得到的网络整体损失的系数和每个贝叶斯层的KL散度的系数。
 API`TransformToBNN`主要实现了两个功能：
+
 - 功能一：转换整个模型
 
   `transform_to_bnn_model`方法可以将整个DNN模型转换为BNN模型。其定义如下：
@@ -881,8 +978,9 @@ API`TransformToBNN`主要实现了两个功能：
         Returns:
             Cell, a trainable BNN model wrapped by TrainOneStepCell.
        """
-       
+
   ```
+
   参数`get_dense_args`指定从DNN模型的全连接层中获取哪些参数，默认值是DNN模型的全连接层和BNN的全连接层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Dense)；`get_conv_args`指定从DNN模型的卷积层中获取哪些参数，默认值是DNN模型的卷积层和BNN的卷积层所共有的参数，参数具体的含义可以参考[API说明文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)；参数`add_dense_args`和`add_conv_args`分别指定了要为BNN层指定哪些新的参数值。需要注意的是，`add_dense_args`中的参数不能与`get_dense_args`重复，`add_conv_args`和`get_conv_args`也是如此。
 
 - 功能二：转换指定类型的层
@@ -904,8 +1002,9 @@ API`TransformToBNN`主要实现了两个功能：
 
         Returns:
             Cell, a trainable model wrapped by TrainOneStepCell, whose sprcific type of layer is transformed to the corresponding bayesian layer.
-        """        
+        """
   ```
+
   参数`dnn_layer`指定将哪个类型的DNN层转换成BNN层，`bnn_layer`指定DNN层将转换成哪个类型的BNN层，`get_args`和`add_args`分别指定从DNN层中获取哪些参数和要为BNN层的哪些参数重新赋值。
 
 如何在MindSpore中使用API`TransformToBNN`可以参考教程[DNN一键转换成BNN](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/apply_deep_probability_programming.html#dnnbnn)
@@ -918,6 +1017,7 @@ API`TransformToBNN`主要实现了两个功能：
 - 认知不确定性（Epistemic Uncertainty）：模型自身对输入数据的估计可能因为训练不佳、训练数据不够等原因而不准确，可以通过增加训练数据等方式来缓解。
 
 不确定性评估工具箱的接口如下：
+
 - `model`：待评估不确定性的已训练好的模型。
 - `train_dataset`：用于训练的数据集，迭代器类型。
 - `task_type`：模型的类型，字符串，输入“regression”或者“classification”。
@@ -928,6 +1028,7 @@ API`TransformToBNN`主要实现了两个功能：
 - `save_model`：布尔类型，是否需要存储模型。
 
 在使用前，需要先训练好模型，以LeNet5为例，使用方式如下：
+
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
@@ -955,6 +1056,7 @@ if __name__ == '__main__':
     print('The shape of epistemic uncertainty is ', epistemic_uncertainty.shape)
     print('The shape of epistemic uncertainty is ', aleatoric_uncertainty.shape)
 ```
+
 `eval_epistemic_uncertainty`计算的是认知不确定性，也叫模型不确定性，对于每一个样本的每个预测标签都会有一个不确定值；`eval_aleatoric_uncertainty`计算的是偶然不确定性，也叫数据不确定性，对于每一个样本都会有一个不确定值。
 所以输出为：
 
@@ -962,4 +1064,5 @@ if __name__ == '__main__':
 The shape of epistemic uncertainty is (32, 10)
 The shape of epistemic uncertainty is (32,)
 ```
+
 uncertainty的值位于[0,1]之间，越大表示不确定性越高。

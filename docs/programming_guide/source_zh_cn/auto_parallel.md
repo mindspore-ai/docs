@@ -61,7 +61,7 @@ MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(device_num=8)
 context.get_auto_parallel_context("device_num")
@@ -74,7 +74,7 @@ context.get_auto_parallel_context("device_num")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(global_rank=0)
 context.get_auto_parallel_context("global_rank")
@@ -87,7 +87,7 @@ context.get_auto_parallel_context("global_rank")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(gradients_mean=False)
 context.get_auto_parallel_context("gradients_mean")
@@ -98,10 +98,10 @@ context.get_auto_parallel_context("gradients_mean")
 `parallel_mode`表示并行模式，其值为字符串类型。用户可选择的模式有：
 
 - `stand_alone`：单机模式。
--  `data_parallel`：数据并行模式。
--  `hybrid_parallel`：混合并行模式。
--  `semi_auto_parallel`：半自动并行模式，即用户可通过`shard`方法给算子配置切分策略，若不配置策略，则默认是数据并行策略。
--  `auto_parallel`：自动并行模式，即框架会自动建立代价模型，为用户选择最优的切分策略。
+- `data_parallel`：数据并行模式。
+- `hybrid_parallel`：混合并行模式。
+- `semi_auto_parallel`：半自动并行模式，即用户可通过`shard`方法给算子配置切分策略，若不配置策略，则默认是数据并行策略。
+- `auto_parallel`：自动并行模式，即框架会自动建立代价模型，为用户选择最优的切分策略。
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
@@ -111,10 +111,10 @@ context.get_auto_parallel_context("gradients_mean")
 
 ```python
 from mindspore import context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 context.set_auto_parallel_context(parallel_mode="semi_auto_parallel")
-mul = P.Mul().shard(((2, 1), (2, 1)))
+mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
@@ -125,14 +125,13 @@ context.get_auto_parallel_context("parallel_mode")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(all_reduce_fusion_config=[20, 35])
 context.get_auto_parallel_context("all_reduce_fusion_config")
 ```
 
 样例中，`all_reduce_fusion_config`的值为[20, 35]，将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。
-
 
 ### 自动并行配置
 
@@ -143,7 +142,7 @@ context.get_auto_parallel_context("all_reduce_fusion_config")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(gradient_fp32_sync=False)
 context.get_auto_parallel_context("gradient_fp32_sync")
@@ -156,7 +155,7 @@ MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
 context.get_auto_parallel_context("auto_parallel_search_mode")
@@ -169,7 +168,7 @@ context.get_auto_parallel_context("auto_parallel_search_mode")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(strategy_ckpt_load_file="./")
 context.get_auto_parallel_context("strategy_ckpt_load_file")
@@ -182,7 +181,7 @@ context.get_auto_parallel_context("strategy_ckpt_load_file")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(strategy_ckpt_save_file="./")
 context.get_auto_parallel_context("strategy_ckpt_save_file")
@@ -195,7 +194,7 @@ context.get_auto_parallel_context("strategy_ckpt_save_file")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(full_batch=False)
 context.get_auto_parallel_context("full_batch")
@@ -210,7 +209,7 @@ context.get_auto_parallel_context("full_batch")
 代码样例如下：
 
 ```python
-from mindspore import context	
+from mindspore import context
 
 context.set_auto_parallel_context(enable_parallel_optimizer=True)
 context.get_auto_parallel_context("enable_parallel_optimizer")
@@ -290,9 +289,9 @@ rank_id = get_rank()
 代码样例如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-mul = P.Mul().add_prim_attr("cross_batch", True)
+mul = ops.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
@@ -302,10 +301,10 @@ mul = P.Mul().add_prim_attr("cross_batch", True)
 代码样例如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-allreduce1 = P.AllReduce().add_prim_attr("fusion", 1)
-allreduce2 = P.AllReduce().add_prim_attr("fusion", 1)
+allreduce1 = ops.AllReduce().add_prim_attr("fusion", 1)
+allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 ```
 
 ## 数据并行
@@ -323,4 +322,3 @@ allreduce2 = P.AllReduce().add_prim_attr("fusion", 1)
 具体用例请参考MindSpore分布式并行训练教程：
 
 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/distributed_training_tutorials.html>。
-
