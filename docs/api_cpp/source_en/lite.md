@@ -31,18 +31,10 @@ Destructor of MindSpore Lite Context.
 ### Public Attributes
 
 ```cpp
-float16_priority
+vendor_name_
 ```
 
-A **bool** value. Defaults to **false**. Prior enable float16 inference.
-
-> Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
-
-```cpp
-device_type
-```
-
-A [**DeviceType**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicetype) **enum** type. Defaults to **DT_CPU**. Using to specify the device.
+A **string** value. Describes the vendor information.
 
 ```cpp
 thread_num_
@@ -57,10 +49,12 @@ allocator
 A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator).
 
 ```cpp
-cpu_bind_mode_
+device_list_
 ```
 
-A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.
+A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontextvector) contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variables. 
+
+> Only CPU and GPU are supported now. If GPU device context is set, use GPU device first, otherwise use CPU device first.
 
 ## PrimitiveC
 
@@ -169,3 +163,78 @@ Global method to get a version string.
 - Returns
 
     The version string of MindSpore Lite.
+    
+## DeviceContextVector
+
+A **vector** contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variable. 
+
+## DeviceContext
+
+DeviceContext defines different device contexts.
+
+### Public Attributes
+
+```cpp
+device_type_
+```
+
+Defaults to **DT_CPU**. **enum** type. DeviceType is defined for holding user's cpu backend.
+
+```cpp
+device_info_
+```
+
+ An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) and [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo)
+
+## DeviceInfo
+
+An **union** value. DeviceInfo is defined for backend's configuration information.
+
+### Public Attributes
+
+```cpp
+cpu_device_info_
+```
+
+[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) defined for CPU's configuration information.
+
+```cpp
+gpu_device_info_
+```
+
+[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) defined for GPU's configuration information.
+
+## CpuDeviceInfo
+
+CpuDeviceInfo is defined for CPU's configuration information.
+
+### Public Attributes
+
+```cpp
+enable_float16_
+```
+
+A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
+
+> Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
+
+```cpp
+cpu_bind_mode_
+```
+
+A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.
+
+## GpuDeviceInfo
+
+GpuDeviceInfo is defined for GPU's configuration information.
+
+### Public Attributes
+
+```cpp
+enable_float16_
+```
+
+A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
+
+> Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
+
