@@ -77,7 +77,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -e | In the Arm architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
-| -A | Language used by mindspore lite, default cpp. If the parameter is set java，the aar is compiled. | cpp, java | No |
+| -A | Language used by mindspore lite, default cpp. If the parameter is set java，the AAR is compiled. | cpp, java | No |
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
 | -o | If this parameter is set, the benchmark is compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
@@ -236,9 +236,9 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${
   |
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
-  │     └── mindspore-lite
-  |         └── {version}-SNAPSHOT
-  │         ├── mindspore-lite-{version}-{timestamp}-{versionCode}.aar # MindSpore Lite runtime aar
+  │       └── mindspore-lite
+  |           └── {version} 
+  │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
 #### Description of Imageprocess's Directory Structure
