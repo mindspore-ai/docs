@@ -1,34 +1,37 @@
 # ErrorCode and MetaType
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/errorcode_and_metatype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 Description of error code and meta type supported in MindSpore Lite.
 
 ## ErrorCode
 
 | Definition  | Value | Description |
 | ---  | --- | --- |
-| RET_OK | 0 | No error occurs. | 
-| RET_ERROR | -1 | Common error code. | 
+| RET_OK | 0 | No error occurs. |
+| RET_ERROR | -1 | Common error code. |
 | RET_NULL_PTR | -2 | NULL pointer returned. |
 | RET_PARAM_INVALID | -3 | Invalid parameter. |
-| RET_NO_CHANGE | -4 | No change. | 
-| RET_SUCCESS_EXIT | -5 | No error but exit. | 
-| RET_MEMORY_FAILED | -6 | Fail to create memory. | 
+| RET_NO_CHANGE | -4 | No change. |
+| RET_SUCCESS_EXIT | -5 | No error but exit. |
+| RET_MEMORY_FAILED | -6 | Fail to create memory. |
 | RET_NOT_SUPPORT | -7 | Fail to support. |
-| RET_OUT_OF_TENSOR_RANGE | -101 | Failed to check range. | 
-| RET_INPUT_TENSOR_ERROR | -102 | Failed to check input tensor. | 
-| RET_REENTRANT_ERROR | -103 | Exist executor running. | 
-| RET_GRAPH_FILE_ERR | -201 | Failed to verify graph file. | 
-| RET_NOT_FIND_OP | -301 | Failed to find operator. | 
-| RET_INVALID_OP_NAME | -302 | Invalid operator name. | 
-| RET_INVALID_OP_ATTR | -303 | Invalid operator attr. | 
-| RET_OP_EXECUTE_FAILURE | -304 | Failed to execute the operator. | 
-| RET_FORMAT_ERR | -401 | Failed to check the tensor format. | 
-| RET_INFER_ERR | -501 | Failed to infer shape. | 
-| RET_INFER_INVALID | -502 | Invalid infer shape before runtime. | 
+| RET_OUT_OF_TENSOR_RANGE | -101 | Failed to check range. |
+| RET_INPUT_TENSOR_ERROR | -102 | Failed to check input tensor. |
+| RET_REENTRANT_ERROR | -103 | Exist executor running. |
+| RET_GRAPH_FILE_ERR | -201 | Failed to verify graph file. |
+| RET_NOT_FIND_OP | -301 | Failed to find operator. |
+| RET_INVALID_OP_NAME | -302 | Invalid operator name. |
+| RET_INVALID_OP_ATTR | -303 | Invalid operator attr. |
+| RET_OP_EXECUTE_FAILURE | -304 | Failed to execute the operator. |
+| RET_FORMAT_ERR | -401 | Failed to check the tensor format. |
+| RET_INFER_ERR | -501 | Failed to infer shape. |
+| RET_INFER_INVALID | -502 | Invalid infer shape before runtime. |
 | RET_INPUT_PARAM_INVALID | -601 | Invalid input param by user. |
 | RET_INPUT_PARAM_LACK | -602 | Lack input param by user. |
 
 ## MetaType
+
 An **enum** type.
 
 | Type Definition | Value | Description |
@@ -50,4 +53,3 @@ An **enum** type.
 |kNumberTypeFloat32| 43 | Indicating a data type of float32. |
 |kNumberTypeFloat64| 44 | Indicating a data type of float64.|
 |kNumberTypeEnd| 45 | The end of number type. |
-

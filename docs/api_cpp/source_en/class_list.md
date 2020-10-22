@@ -1,5 +1,7 @@
 # Class List
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/api_cpp/source_en/class_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
 Here is a list of all classes with links to the namespace documentation for each member:
 
 | Namespace | Class Name | Description |
@@ -13,4 +15,3 @@ Here is a list of all classes with links to the namespace documentation for each
 | mindspore::session | [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/r1.0/session.html#litesession) | LiteSession defines session in MindSpore Lite for compiling Model and forwarding model. |
 | mindspore::tensor | [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.0/tensor.html#mstensor) | MSTensor defines tensor in MindSpore Lite. |
 | mindspore::dataset | [LiteMat](https://www.mindspore.cn/doc/api_cpp/en/r1.0/dataset.html#litemat) |Class that represents a LiteMat of a Image. |
-
