@@ -10,6 +10,7 @@
     - [Start the Service](#start-the-service)
     - [View the Service Process Information](#view-the-service-process-information)
     - [Stop the Service](#stop-the-service)
+    - [Parse summary](#parse-summary)
 
 <!-- /TOC -->
 
@@ -86,3 +87,42 @@ Optional parameters are as follows:
 |---|---|---|---|---|---|---|
 |`-h, --help`|Optional|Displays the help information about the stop command.|-|-|-|-|
 |`--port <PORT>`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|-|
+
+## Parse summary
+
+MindInsight provides tools for parsing summary log files. Users can save the scalars in the summary log file into a csv file and the images into a png file through the commands, which is convenient for viewing and further processing.
+
+```shell
+mindinsight parse_summary [--summary-dir] [--output]
+```
+
+Optional parameters are as follows:
+
+|Name|Argument|Description|Type|Default|Scope|Specifications|
+|---|---|---|---|---|---|---|
+|`--summary-dir`|Optional|Specifies the root directory of summary files. If the directory contains multiple summary files, only the latest summary file is parsed.|String|./|-|The summary file directory needs to be readable and executable, and the summary file needs to be readable.|
+|`--output`|Optional|Specifies the root directory for saving output files.|String|./|-|-|
+
+Execute command:
+
+```shell
+mindinsight parse_summary --summary-dir ./ --output ./
+```
+
+The output directory structure is as follows:
+
+```text
+└─output_{datetime}
+    ├─image
+    │   └─{tag}_{step}.png
+    │
+    └─scalar.csv
+```
+
+In which, 
+
+- output_{datetime} is the output directory. The rule is 'output_yyyyMMdd_HHmmss_SSSSSS' including year, month, day, hour, minute, second and microseconds.
+
+- {tag}_{step}.png is the image in training process. 'tag' and 'step' are the tag and step in the training (special characters in tag are deleted and '/' is replaced by '_').
+
+- scalar.csv is the file which save scalars.
