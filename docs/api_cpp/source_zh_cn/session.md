@@ -83,9 +83,9 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 - 参数
 
-    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
 
-    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 
@@ -157,7 +157,7 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
 ### 静态公有成员函数
 
 ```cpp
-static LiteSession *CreateSession(lite::Context *context)
+static LiteSession *CreateSession(const lite::Context *context)
 ```
 
 用于创建一个LiteSession指针的静态方法。
@@ -170,27 +170,20 @@ static LiteSession *CreateSession(lite::Context *context)
 
     指向MindSpore Lite LiteSession的指针。
 
-## KernelCallBack
-
 ```cpp
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
+static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
 ```
 
-一个函数包装器。KernelCallBack 定义了指向回调函数的指针。
+用于创建一个LiteSession指针的静态方法。返回的Lite Session指针已经完成了model_buf的读入和图编译。
 
-## CallBackParam
+- 参数
 
-一个结构体。CallBackParam定义了回调函数的输入参数。
-**属性**
+    - `model_buf`: 定义了读取模型文件的缓存区。
 
-```cpp
-name_callback_param
-```
+    - `size`: 定义了模型缓存区的字节数。
 
-**string** 类型变量。节点名参数。
+    - `context`: 定义了所要创建的session的上下文。
 
-```cpp
-type_callback_param
-```
+- 返回值
 
-**string** 类型变量。节点类型参数。
+    指向MindSpore Lite LiteSession的指针。    

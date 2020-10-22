@@ -110,7 +110,7 @@ static Model *Import(const char *model_buf, size_t size)
 
 枚举类型，设置cpu绑定策略。
 
-### 属性
+### 公有属性
 
 ```cpp
 MID_CPU = 2
@@ -134,7 +134,7 @@ NO_BIND = 0
 
 枚举类型，设置设备类型。
 
-### 属性
+### 公有属性
 
 ```cpp
 DT_CPU = 0
@@ -175,7 +175,7 @@ std::string Version()
 
 DeviceContext类定义不同硬件设备的环境信息。
 
-### Public Attributes
+### 公有属性
 
 ```cpp
 device_type
@@ -193,7 +193,7 @@ device_info_
 
 **union**类型，设置不同硬件的环境变量。
 
-### Public Attributes
+### 公有属性
 
 ```cpp
 cpu_device_info_
@@ -231,7 +231,7 @@ cpu_bind_mode_
 
 GpuDeviceInfo类，用来配置GPU的环境变量。
 
-### Public Attributes
+### 公有属性
 
 ```cpp
 enable_float16_

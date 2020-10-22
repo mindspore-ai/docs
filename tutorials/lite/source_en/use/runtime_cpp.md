@@ -81,7 +81,12 @@ If users create the `Context` by using `new`,  it should be released by using `d
 
 ### Creating Sessions
 
-Use the `Context` created in the previous step to call the static `CreateSession` method of LiteSession to create `LiteSession`. The `LiteSession` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
+There are two methods to create a session:
+
+- Use the `Context` created in the previous step to call the static `LiteSession *CreateSession(const lite::Context *context)` method of LiteSession to create `LiteSession`. The `LiteSession` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
+- Use the `Context` created in the previous step, model_buffer and model_buffer_size read from this model file in the previous step to call the static `LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)` method of LiteSession to create `LiteSession`. The `LiteSession` instance returned by the function is a pointer, which is created by using `new`. If the pointer is not required, you need to release it by using `delete`.
+
+> The `CreateSession` interface used in the second method is an interface for simplifying the calling process. The function of this interface implements the functions of three interfaces: [CreateSession interface with input parameter](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#static-public-member-functions), [Import](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#static-public-member-functions) and [CompileGraph](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#public-member-functions).
 
 ### Example
 
@@ -119,7 +124,10 @@ if (session1 == nullptr) {
     return RET_ERROR;
 }
 // session1 and session2 can share one memory pool.
-auto session2 = session::LiteSession::CreateSession(context2);
+// Assume we have read a buffer from a model file named model_buf, and the size of buffer named model_buf_size
+// Use Context, model_buf and model_buf_size to create Session.
+auto session2 = session::LiteSession::CreateSession(model_buf, model_buf_size, context2);
+// After the LiteSession is created, the Context can be released.
 delete (context2);
 if (session2 == nullptr) {
     MS_LOG(ERROR) << "CreateSession failed while running %s", modelName.c_str();

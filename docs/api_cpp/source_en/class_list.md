@@ -6,6 +6,7 @@ Here is a list of all classes with links to the namespace documentation for each
 
 | Namespace | Class Name | Description |
 | --- | --- | --- |
+| mindspore | [KernelCallBack](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#kernelcallback) | KernelCallBack defines the function pointer for callback. |
 | mindspore::lite | [Allocator](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator) | Allocator defines a memory pool for dynamic memory malloc and memory free. |
 | mindspore::lite | [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#context) | Context defines for holding environment variables during runtime. |
 | mindspore::lite | [ModelImpl](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#modelimpl) | ModelImpl defines the implement class of Model in MindSpore Lite. |
