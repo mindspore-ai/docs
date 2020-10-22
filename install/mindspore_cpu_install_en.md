@@ -144,6 +144,23 @@ If you need to conduct AI model security research or enhance the security of the
    python -c 'import mindarmour'
    ```
 
+### Version Update
+
+Using the following command if you need update MindSpore version.
+
+- Update Online
+
+    ```
+    pip install --upgrade mindspore
+    ```
+
+- Update after source code compilation
+
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    ```
+    pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
+
 # Installing MindSpore Hub
 
 If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.

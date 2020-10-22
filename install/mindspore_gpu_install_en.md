@@ -121,6 +121,24 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
       [ 2.  2.  2.  2.]]]
     ```
 
+## Version Update
+
+Using the following command if you need update MindSpore version.
+
+- Update Online
+
+    ```
+    pip install --upgrade mindspore_gpu
+    ```
+
+- Update after source code compilation
+
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    ```
+    pip install --upgrade build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
+    ```
+
+
 # Installing MindInsight
 
 If you need to analyze information such as model scalars, graphs, and model traceback, you can install MindInsight.
