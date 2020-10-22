@@ -15,25 +15,28 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/note/source_zh_cn/operator_list_implicit.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 隐式类型转换
+
 ### 转换规则
-* 标量与Tensor运算：运算时，将标量自动转为Tensor，数据类型和参与运算的Tensor数据类型保持一致；
+
+- 标量与Tensor运算：运算时，将标量自动转为Tensor，数据类型和参与运算的Tensor数据类型保持一致；
 而当Tensor是bool数据类型，标量是int或float时，将标量和Tensor都转为数据类型为int32或float32的Tensor。
-* 不同数据类型Tensor运算：数据类型优先级排序为bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 < float64，
+- 不同数据类型Tensor运算：数据类型优先级排序为bool < uint8 < int8 < int16 < int32 < int64 < float16 < float32 < float64，
 运算时，先确定参与运算的Tensor中优先级相对最高的数据类型，然后将低优先级数据类型Tensor转换为相对最高优先级数据类型；
 而当int8和uint8数据类型的Tensor进行运算时，将其都转为int16的Tensor。
-* 不支持对Parameter进行数据类型转换：如果按照转换规则推导，需要对网络中定义的Parameter进行数据类型转换时，会抛出RuntimeError异常。
+- 不支持对Parameter进行数据类型转换：如果按照转换规则推导，需要对网络中定义的Parameter进行数据类型转换时，会抛出RuntimeError异常。
 
 ### 参与转换的数据类型
-* bool
-* int8
-* uint8
-* int16
-* int32
-* int64
-* float16
-* float32
-* float64
-  
+
+- bool
+- int8
+- uint8
+- int16
+- int32
+- int64
+- float16
+- float32
+- float64
+
 ### 支持算子
 
 | 算子名
@@ -100,4 +103,3 @@
 | [mindspore.ops.ScatterSub](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScatterSub)
 | [mindspore.ops.ScatterMul](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScatterMul)
 | [mindspore.ops.ScatterDiv](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScatterDiv)
-

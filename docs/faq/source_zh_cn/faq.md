@@ -103,6 +103,7 @@ A: 常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，�
 ### 安装验证
 
 Q:个人电脑CPU环境安装MindSpore后验证代码时报错：`the pointer[session] is null`，具体代码如下，该如何验证是否安装成功呢？
+
 ```python
 import numpy as np
 from mindspore import Tensor
@@ -234,6 +235,7 @@ Q：MindSpore如何实现早停功能？
 
 A：可以自定义`callback`方法实现早停功能。
 例子：当loss降到一定数值后，停止训练。
+
 ```python
 class EarlyStop(Callback):
     def __init__(self, control_loss=1):

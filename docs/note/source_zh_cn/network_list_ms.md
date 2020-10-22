@@ -1,7 +1,7 @@
 # MindSpore网络支持
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
- 
+
 <!-- TOC -->
 
 - [MindSpore网络支持](#mindspore网络支持)
@@ -13,7 +13,7 @@
 
 ## Model Zoo
 
-|  领域 | 子领域  | 网络   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNaitve) | CPU(Graph) 
+|  领域 | 子领域  | 网络   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNaitve) | CPU(Graph)
 |:----  |:-------  |:----   |:----    |:----    |:---- |:---- |:----
 |计算机视觉（CV） | 图像分类（Image Classification）  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/alexnet/src/alexnet.py)   |  Supported |  Supported |  Supported |  Supported | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/r1.0/model_zoo/official/cv/googlenet/src/googlenet.py)                             |  Supported     |  Supported | Supported |  Supported | Doing

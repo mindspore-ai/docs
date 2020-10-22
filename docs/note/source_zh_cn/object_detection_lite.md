@@ -23,4 +23,3 @@
 | 模型名称               | 大小 | mAP(IoU=0.50:0.95) | CPU 4线程时延(ms) |
 |-----------------------| :----------: | :----------: | :-----------: |
 | [MobileNetv2-SSD](https://download.mindspore.cn/model_zoo/official/lite/ssd_mobilenetv2_lite/ssd.ms) | 16.7 | 0.22 | 25.4 |
-
