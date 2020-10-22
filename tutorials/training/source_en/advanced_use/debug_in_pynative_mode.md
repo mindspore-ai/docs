@@ -26,7 +26,7 @@ By default, MindSpore is in PyNative mode. You can switch it to the graph mode b
 
 In PyNative mode, single operators, common functions, network inference, and separated gradient calculation can be executed. The following describes the usage and precautions.
 
-> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator excution, the error information may be displayed after the program is executed. 
+> In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator excution, the error information may be displayed after the program is executed.
 
 ## Executing a Single Operator
 
@@ -73,22 +73,22 @@ Output:
 [ 0.05016355 0.03958241 0.03958241 0.03958241 0.03443141]]]]
 ```
 
-
 ## Executing a Common Function
 
 Combine multiple operators into a function, call the function to execute the operators, and output the result, as shown in the following example:
 
-**Example Code**
+**Example Code:**
+
 ```python
 import numpy as np
 from mindspore import context, Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
 def tensor_add_func(x, y):
-    z = F.tensor_add(x, y)
-    z = F.tensor_add(z, x)
+    z = ops.tensor_add(x, y)
+    z = ops.tensor_add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
@@ -97,7 +97,7 @@ output = tensor_add_func(x, y)
 print(output.asnumpy())
 ```
 
-**Output**
+**Output:**
 
 ```python
 [[3. 3. 3.]
@@ -107,7 +107,6 @@ print(output.asnumpy())
 
 > Parallel execution and summary are not supported in PyNative mode, so parallel and summary related operators cannot be used.
 
-
 ### Improving PyNative Performance
 
 MindSpore provides the Staging function to improve the execution speed of inference tasks in PyNative mode. This function compiles Python functions or Python class methods into computational graphs in PyNative mode and improves the execution speed by using graph optimization technologies, as shown in the following example:
@@ -116,7 +115,7 @@ MindSpore provides the Staging function to improve the execution speed of infere
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 from mindspore.common.api import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
@@ -124,7 +123,7 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 class TensorAddNet(nn.Cell):
     def __init__(self):
         super(TensorAddNet, self).__init__()
-        self.add = P.TensorAdd()
+        self.add = ops.TensorAdd()
 
     @ms_function
     def construct(self, x, y):
@@ -136,11 +135,12 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 net = TensorAddNet()
 
 z = net(x, y) # Staging mode
-tensor_add = P.TensorAdd()
+tensor_add = ops.TensorAdd()
 res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
-**Output**
+
+**Output:**
 
 ```python
 [[3. 3. 3. 3.]
@@ -153,18 +153,18 @@ In the preceding code, the `ms_function` decorator is added before `construct` o
 
 It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `tensor_add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
 
-**Example Code**
+**Example Code:**
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 from mindspore.common.api import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-tensor_add = P.TensorAdd()
+tensor_add = ops.TensorAdd()
 
 @ms_function
 def tensor_add_fn(x, y):
@@ -176,7 +176,8 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
-**Output**
+
+**Output:**
 
 ```shell
 [[2. 2. 2. 2.]
@@ -187,7 +188,7 @@ print(z.asnumpy())
 
 If the decorated function contains operators (such as `Convolution` and `BatchNorm`) that require parameter training, these operators must be instantiated before the decorated function is called, as shown in the following example:
 
-**Example Code**
+**Example Code:**
 
 ```python
 import numpy as np
@@ -209,7 +210,7 @@ z = conv_fn(Tensor(input_data))
 print(z.asnumpy())
 ```
 
-**Output**
+**Output:**
 
 ```shell
 [[[[ 0.10377571 -0.0182163 -0.05221086]
@@ -245,15 +246,14 @@ print(z.asnumpy())
 [ 0.0377498 -0.06117418 0.00546303]]]]
 ```
 
-
 ## Debugging Network Train Model
 
 In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network. Note that the inputs have to be Tensor.
 
-**Example Code**
+**Example Code:**
 
 ```python
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
@@ -262,12 +262,12 @@ def mul(x, y):
     return x * y
 
 def mainf(x, y):
-    return C.GradOperation(get_all=True)(mul)(x, y)
+    return ops.GradOperation(get_all=True)(mul)(x, y)
 
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
-**Output**
+**Output:**
 
 ```python
 (2, 1)
@@ -275,13 +275,12 @@ print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 
 During network training, obtain the gradient, call the optimizer to optimize parameters (the breakpoint cannot be set during the reverse gradient calculation), and calculate the loss values. Then, network training is implemented in PyNative mode.
 
-**Complete LeNet Sample Code**
+**Complete LeNet Sample Code:**
 
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.ops.operations as P
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 from mindspore.common import dtype as mstype
 from mindspore import context, Tensor, ParameterTuple
 from mindspore.common.initializer import TruncatedNormal
@@ -312,7 +311,7 @@ class LeNet5(nn.Cell):
     Lenet network
     Args:
         num_class (int): Num classes. Default: 10.
-        
+
     Returns:
         Tensor, output tensor
 
@@ -330,7 +329,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -346,8 +345,8 @@ class LeNet5(nn.Cell):
         x = self.relu(x)
         x = self.fc3(x)
         return x
- 
-    
+
+
 class GradWrap(nn.Cell):
     """ GradWrap definition """
     def __init__(self, network):
@@ -357,7 +356,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, x, label):
         weights = self.weights
-        return C.GradOperation(get_by_list=True)(self.network, weights)(x, label)
+        return ops.GradOperation(get_by_list=True)(self.network, weights)(x, label)
 
 net = LeNet5()
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)
@@ -376,7 +375,7 @@ loss = loss_output.asnumpy()
 print(loss)
 ```
 
-**Output**
+**Output:**
 
 ```python
 2.3050091

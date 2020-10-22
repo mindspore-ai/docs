@@ -18,7 +18,7 @@ The sample can be run on Ascend 910 AI processor.
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.initializer import initializer
 from mindspore.common import dtype as mstype
 def weight_variable(shape):
@@ -121,8 +121,8 @@ class ResidualBlock(nn.Cell):
         self.conv3 = conv1x1(out_chls, out_channels, stride=1, padding=0)
         self.bn3 = bn_with_initialize_last(out_channels)
 
-        self.relu = P.ReLU()
-        self.add = P.TensorAdd()
+        self.relu = ops.ReLU()
+        self.add = ops.TensorAdd()
 
     def construct(self, x):
         """construct"""
@@ -167,12 +167,12 @@ class ResidualBlockWithDown(nn.Cell):
         self.conv3 = conv1x1(out_chls, out_channels, stride=1, padding=0)
         self.bn3 = bn_with_initialize_last(out_channels)
 
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.down_sample = down_sample
 
         self.conv_down_sample = conv1x1(in_channels, out_channels, stride=stride, padding=0)
         self.bn_down_sample = bn_with_initialize(out_channels)
-        self.add = P.TensorAdd()
+        self.add = ops.TensorAdd()
 
     def construct(self, x):
         """construct"""
@@ -294,7 +294,7 @@ class ResNet(nn.Cell):
         self.conv1 = conv7x7(3, 64, stride=2, padding=0)
 
         self.bn1 = bn_with_initialize(64)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
 
         self.layer1 = MakeLayer0(block, in_channels=64, out_channels=256, stride=1)
@@ -302,8 +302,8 @@ class ResNet(nn.Cell):
         self.layer3 = MakeLayer2(block, in_channels=512, out_channels=1024, stride=2)
         self.layer4 = MakeLayer3(block, in_channels=1024, out_channels=2048, stride=2)
 
-        self.pool = P.ReduceMean(keep_dims=True)
-        self.squeeze = P.Squeeze(axis=(2, 3))
+        self.pool = ops.ReduceMean(keep_dims=True)
+        self.squeeze = ops.Squeeze(axis=(2, 3))
         self.fc = fc_with_initialize(512 * block.expansion, num_classes)
 
     def construct(self, x):

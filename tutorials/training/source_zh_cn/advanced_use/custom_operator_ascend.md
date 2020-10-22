@@ -25,6 +25,7 @@
 添加一个自定义算子，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
 其中：  
+
 - 算子原语：定义了算子在网络中的前端接口原型，也是组成网络模型的基础单元，主要包括算子的名称、属性（可选）、输入输出名称、输出shape推理方法、输出dtype推理方法等信息。
 - 算子实现：通过TBE（Tensor Boost Engine）提供的特性语言接口，描述算子内部计算逻辑的实现。TBE提供了开发昇腾AI芯片自定义算子的能力。你可以在<https://www.huaweicloud.com/ascend/tbe>页面申请公测。
 - 算子信息：描述TBE算子的基本信息，如算子名称、支持的输入输出类型等。它是后端做算子选择和映射时的依据。
@@ -38,6 +39,7 @@
 每个算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
 自定义算子原语与内置算子原语的接口定义完全一致：  
+
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有属性，因此`__init__`没有额外的入参。带属性的用例可参考MindSpore源码中的[custom add3](https://gitee.com/mindspore/mindspore/blob/r1.0/tests/st/ops/custom_ops_tbe/cus_add3.py)用例。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
 - 输出Tensor的shape推理方法在`infer_shape`函数中定义，输出Tensor的dtype推理方法在`infer_dtype`函数中定义。
@@ -48,7 +50,7 @@
 
 ```python
 from mindspore.ops import prim_attr_register, PrimitiveWithInfer
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 # y = x^2
 class CusSquare(PrimitiveWithInfer):
     """
@@ -75,10 +77,12 @@ class CusSquare(PrimitiveWithInfer):
 算子的计算函数主要用来封装算子的计算逻辑供主函数调用，其内部通过调用TBE的API接口组合实现算子的计算逻辑。
 
 算子的入口函数描述了编译算子的内部过程，一般分为如下几步：  
+
 1. 准备输入的placeholder，placeholder是一个占位符，返回一个Tensor对象，表示一组输入数据。
 2. 调用计算函数，计算函数使用TBE提供的API接口描述了算子内部的计算逻辑。
 3. 调用Schedule调度模块，调度模块对算子中的数据按照调度模块的调度描述进行切分，同时指定好数据的搬运流程，确保在硬件上的执行达到最优。默认可以采用自动调度模块（`auto_schedule`）。
 4. 调用`cce_build_code`编译生成算子二进制。
+
 > 入口函数的输入参数有特殊要求，需要依次为：算子每个输入的信息、算子每个输出的信息、算子属性（可选）和`kernel_name`（生成算子二进制的名称）。输入和输出的信息用字典封装传入，其中包含该算子在网络中被调用时传入的实际输入和输出的shape和dtype。
 
 更多关于使用TBE开发算子的内容请参考[TBE文档](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_10_0063.html)，关于TBE算子的调试和性能优化请参考[MindStudio文档](https://support.huaweicloud.com/usermanual-mindstudioc73/atlasmindstudio_02_0043.html)。
@@ -92,7 +96,7 @@ class CusSquare(PrimitiveWithInfer):
 
 ### 示例
 
-下面以`Square`算子的TBE实现`square_impl.py`为例进行介绍。`square_compute`是算子实现的计算函数，通过调用`te.lang.cce`提供的API描述了`x * x`的计算逻辑。`cus_square_op_info `是算子信息，通过`TBERegOp`来定义。
+下面以`Square`算子的TBE实现`square_impl.py`为例进行介绍。`square_compute`是算子实现的计算函数，通过调用`te.lang.cce`提供的API描述了`x * x`的计算逻辑。`cus_square_op_info`是算子信息，通过`TBERegOp`来定义。
 
 `TBERegOp`的设置需要注意以下几点：
 
@@ -128,7 +132,7 @@ cus_square_op_info = TBERegOp("CusSquare") \
     .output(0, "y", False, "required", "all") \
     .dtype_format(DataType.F32_Default, DataType.F32_Default) \
     .dtype_format(DataType.F16_Default, DataType.F16_Default) \
-    .get_op_info() 
+    .get_op_info()
 
 # Binding kernel info with the kernel implementation.
 @op_info_register(cus_square_op_info)
@@ -185,17 +189,20 @@ def test_net():
 ```
 
 执行用例:
-```
+
+```bash
 pytest -s tests/st/ops/custom_ops_tbe/test_square.py::test_net
 ```
 
 执行结果:
-```
+
+```text
 x: [1. 4. 9.]
 output: [1. 16. 81.]
 ```
 
 ## 定义算子反向传播函数
+
 如果算子要支持自动微分，需要在其原语中定义其反向传播函数（bprop）。你需要在bprop中描述利用正向输入、正向输出和输出梯度得到输入梯度的反向计算逻辑。反向计算逻辑可以使用内置算子或自定义反向算子构成。
 
 定义算子反向传播函数时需注意以下几点：
@@ -204,6 +211,7 @@ output: [1. 16. 81.]
 - bprop函数的返回值形式约定为输入梯度组成的元组，元组中元素的顺序与正向输入参数顺序一致。即使只有一个输入梯度，返回值也要求是元组的形式。
 
 例如，增加bprop后的`CusSquare`原语为：
+
 ```python
 class CusSquare(PrimitiveWithInfer):
     @prim_attr_register
@@ -220,33 +228,36 @@ class CusSquare(PrimitiveWithInfer):
 
     def get_bprop(self):
         def bprop(data, out, dout):
-            twos_like = P.OnesLike()(data) * 2.0
-            gradient = P.Mul()(data, twos_like)
-            dx = P.Mul()(gradient, dout)
+            twos_like = ops.OnesLike()(data) * 2.0
+            gradient = ops.Mul()(data, twos_like)
+            dx = ops.Mul()(gradient, dout)
             return (dx,)
         return bprop
 ```
 
 在`test_square.py`文件中定义反向用例。
+
 ```python
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 def test_grad_net():
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
     square = Net()
-    grad = C.GradOperation(sens_param=True)
+    grad = ops.GradOperation(sens_param=True)
     dx = grad(square)(Tensor(x), Tensor(sens))
     print("x: ", x)
     print("dx: ", dx)
 ```
 
 执行用例:
-```
+
+```bash
 pytest -s tests/st/ops/custom_ops_tbe/test_square.py::test_grad_net
 ```
 
 执行结果:
-```
+
+```text
 x: [1. 4. 9.]
 dx: [2. 8. 18.]
 ```

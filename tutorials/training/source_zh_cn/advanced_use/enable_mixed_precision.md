@@ -42,6 +42,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 使用自动混合精度，需要调用相应的接口，将待训练网络和优化器作为输入传进去；该接口会将整张网络的算子转换成FP16算子(除`BatchNorm`算子和Loss涉及到的算子外)。可以使用`amp`接口和`Model`接口两种方式实现混合精度。
 
 使用`amp`接口具体的实现步骤为：
+
 1. 引入MindSpore的混合精度的接口`amp`；
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
@@ -55,7 +56,7 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import Momentum
 # The interface of Auto_mixed precision
 from mindspore import amp
@@ -68,7 +69,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)
@@ -93,6 +94,7 @@ output = train_network(predict, label)
 ```
 
 使用`Model`接口具体的实现步骤为：
+
 1. 引入MindSpore的模型训练接口`Model`；
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
@@ -169,6 +171,7 @@ model.train(epoch=10, train_dataset=ds_train)
 MindSpore还支持手动混合精度。假定在网络中只有一个Dense Layer要用FP32计算，其他Layer都用FP16计算。混合精度配置以Cell为粒度，Cell默认是FP32类型。
 
 以下是一个手动混合精度的实现步骤：
+
 1. 定义网络: 该步骤与自动混合精度中的步骤2类似；
 
 2. 配置混合精度: 通过`net.to_float(mstype.float16)`，把该Cell及其子Cell中所有的算子都配置成FP16；然后，将模型中的dense算子手动配置成FP32；
@@ -183,7 +186,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
 
@@ -195,7 +198,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)

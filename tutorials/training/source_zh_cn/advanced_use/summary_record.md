@@ -43,6 +43,7 @@ MindSpore目前支持三种方式将数据记录到summary日志文件中。
 即可自动收集一些常见信息。`SummaryCollector` 详细的用法可以参考 `API` 文档中 `mindspore.train.callback.SummaryCollector`。
 
 样例代码如下：
+
 ```python
 import mindspore
 import mindspore.nn as nn
@@ -50,7 +51,7 @@ from mindspore import context
 from mindspore import Tensor
 from mindspore.train import Model
 from mindspore.common.initializer import TruncatedNormal
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.callback import SummaryCollector
 from mindspore.nn.metrics import Accuracy
 
@@ -79,7 +80,7 @@ class AlexNet(nn.Cell):
         self.conv4 = conv(384, 384, 3, pad_mode="same")
         self.conv5 = conv(384, 256, 3, pad_mode="same")
         self.relu = nn.ReLU()
-        self.max_pool2d = P.MaxPool(ksize=3, strides=2)
+        self.max_pool2d = ops.MaxPool(ksize=3, strides=2)
         self.flatten = nn.Flatten()
         self.fc1 = fc_with_initialize(6*6*256, 4096)
         self.fc2 = fc_with_initialize(4096, 4096)
@@ -131,6 +132,7 @@ model.eval(ds_eval, callbacks=[summary_collector])
 MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，还提供了Summary算子，支持在网络中自定义收集其他的数据，比如每一个卷积层的输入，或在损失函数中的损失值等。
 
 当前支持的Summary算子:
+
 - [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ScalarSummary): 记录标量数据
 - [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TensorSummary): 记录张量数据
 - [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.ImageSummary): 记录图片数据
@@ -149,8 +151,7 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 ```python
 from mindspore import context, Tensor, nn
 from mindspore.common import dtype as mstype
-from mindspore.ops import operations as P
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 from mindspore.nn import Optimizer
 
 
@@ -158,17 +159,17 @@ class CrossEntropyLoss(nn.Cell):
     """Loss function definition."""
     def __init__(self):
         super(CrossEntropyLoss, self).__init__()
-        self.cross_entropy = P.SoftmaxCrossEntropyWithLogits()
-        self.mean = P.ReduceMean()
-        self.one_hot = P.OneHot()
+        self.cross_entropy = ops.SoftmaxCrossEntropyWithLogits()
+        self.mean = ops.ReduceMean()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
 
         # Init ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
+        self.scalar_summary = ops.ScalarSummary()
 
     def construct(self, logits, label):
-        label = self.one_hot(label, F.shape(logits)[1], self.on_value, self.off_value)
+        label = self.one_hot(label, ops.shape(logits)[1], self.on_value, self.off_value)
         loss = self.cross_entropy(logits, label)[0]
         loss = self.mean(loss, (-1,))
 
@@ -182,8 +183,8 @@ class MyOptimizer(Optimizer):
     def __init__(self, learning_rate, params, ......):
         ......
         # Initialize ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
-        self.histogram_summary = P.HistogramSummary()
+        self.scalar_summary = ops.ScalarSummary()
+        self.histogram_summary = ops.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
@@ -205,9 +206,9 @@ class Net(nn.Cell):
         ......
 
         # Init ImageSummary
-        self.image_summary = P.ImageSummary()
+        self.image_summary = ops.ImageSummary()
         # Init TensorSummary
-        self.tensor_summary = P.TensorSummary()
+        self.tensor_summary = ops.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator
@@ -254,18 +255,18 @@ MindSpore支持自定义Callback, 并允许在自定义Callback中将数据记�
 
 样例代码如下：
 
-```
+```python
 from mindspore.train.callback import Callback
 from mindspore.train.summary import SummaryRecord
 
 class ConfusionMatrixCallback(Callback):
     def __init__(self, summary_dir):
         self._summary_dir = summary_dir
-    
+
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
         self.summary_record = SummaryRecord(summary_dir)
-    
+
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
         # else your training script will not exit from training.
@@ -276,7 +277,7 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_martrix = create_confusion_matrix(cb_params)        
+        confusion_martrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
         self.summary_record.record(cb_params.cur_step)
 
@@ -288,31 +289,34 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
-将训练脚本中 `context.set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。 
+将训练脚本中 `context.set_context` 的 `save_graphs` 选项设置为 `True`, 可以记录其他阶段的计算图，其中包括算子融合后的计算图。
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
 ## 运行MindInsight
+
 按照上面教程完成数据收集后，启动MindInsight，即可可视化收集到的数据。启动MindInsight时，
 需要通过 `--summary-base-dir` 参数指定summary日志文件目录。
 
 其中指定的summary日志文件目录可以是一次训练的输出目录，也可以是多次训练输出目录的父目录。
 
-
 一次训练的输出目录结构如下：
-```
+
+```text
 └─summary_dir
     events.out.events.summary.1596869898.hostname_MS
     events.out.events.summary.1596869898.hostname_lineage
 ```
 
 启动命令：
+
 ```Bash
 mindinsight start --summary-base-dir ./summary_dir
 ```
 
 多次训练的输出目录结构如下：
-```
+
+```text
 └─summary
     ├─summary_dir1
     │      events.out.events.summary.1596869898.hostname_MS
@@ -324,6 +328,7 @@ mindinsight start --summary-base-dir ./summary_dir
 ```
 
 启动命令:
+
 ```Bash
 mindinsight start --summary-base-dir ./summary
 ```
@@ -331,12 +336,12 @@ mindinsight start --summary-base-dir ./summary
 启动成功后，通过浏览器访问 `http://127.0.0.1:8080` 地址，即可查看可视化页面。
 
 停止MindInsight命令：
+
 ```Bash
 mindinsight stop
 ```
 
 更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/mindinsight_commands.html)页面。
-
 
 ## 注意事项
 
@@ -349,7 +354,8 @@ mindinsight stop
     自定义callback中如果使用 `SummaryRecord`，则其不能和 `SummaryCollector` 同时使用。
 
     正确代码:
-    ```
+
+    ```python
     ...
     summary_collector = SummaryCollector('./summary_dir')
     model.train(2, train_dataset, callbacks=[summary_collector])
@@ -359,7 +365,8 @@ mindinsight stop
     ```
 
     错误代码：
-    ```
+
+    ```python
     ...
     summary_collector1 = SummaryCollector('./summary_dir1')
     summary_collector2 = SummaryCollector('./summary_dir2')
@@ -367,7 +374,8 @@ mindinsight stop
     ```
 
     错误代码：
-    ```
+
+    ```python
     ...
     # Note: the 'ConfusionMatrixCallback' is user-defined, and it uses SummaryRecord to record data.
     confusion_callback = ConfusionMatrixCallback('./summary_dir1')

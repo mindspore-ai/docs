@@ -48,6 +48,7 @@ acc = model.eval(dataset_eval)
 针对任务中断再训练及微调（Fine Tune）场景，可以加载网络参数和优化器参数到模型中。
 
 示例代码如下：
+
 ```python
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
@@ -103,7 +104,7 @@ model.train(epoch, dataset)
 
 ### 用于迁移学习
 
-通过`mindspore_hub.load`完成模型加载后，可以增加一个额外的参数项只加载神经网络的特征提取部分，这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 `include_top`）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top`取值为True或者False，表示是否保留顶层的全连接网络。* 
+通过`mindspore_hub.load`完成模型加载后，可以增加一个额外的参数项只加载神经网络的特征提取部分，这样我们就能很容易地在之后增加一些新的层进行迁移学习。*当模型开发者将额外的参数（例如 `include_top`）添加到模型构造中时，可以在模型的详情页中找到这个功能。`include_top`取值为True或者False，表示是否保留顶层的全连接网络。*
 
 下面我们以GoogleNet为例，说明如何加载一个基于ImageNet的预训练模型，并在特定的子任务数据集上进行迁移学习（重训练）。主要的步骤如下：
 
@@ -116,7 +117,7 @@ model.train(epoch, dataset)
    from mindspore import nn, context, Tensor
    from mindpsore.train.serialization import save_checkpoint
    from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-   from mindspore.ops import operations as P
+   import mindspore.ops as ops
    from mindspore.nn import Momentum
 
    import math
@@ -138,9 +139,9 @@ model.train(epoch, dataset)
    class ReduceMeanFlatten(nn.Cell):
          def __init__(self):
             super(ReduceMeanFlatten, self).__init__()
-            self.mean = P.ReduceMean(keep_dims=True)
+            self.mean = ops.ReduceMean(keep_dims=True)
             self.flatten = nn.Flatten()
-         
+
          def construct(self, x):
             x = self.mean(x, (2, 3))
             x = self.flatten(x)
@@ -180,10 +181,10 @@ model.train(epoch, dataset)
    optim = Momentum(filter(lambda x: x.requires_grad, loss_net.get_parameters()), Tensor(lr), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
    ```
-   
+
 5. 构建数据集，开始重训练。
 
-   如下所示，进行微调任务的数据集为垃圾分类数据集，存储位置为`/ssd/data/garbage/train`。 
+   如下所示，进行微调任务的数据集为垃圾分类数据集，存储位置为`/ssd/data/garbage/train`。
 
    ```python
    dataset = create_dataset("/ssd/data/garbage/train",
@@ -197,7 +198,7 @@ model.train(epoch, dataset)
             data, label = items
             data = mindspore.Tensor(data)
             label = mindspore.Tensor(label)
-            
+
             loss = train_net(data, label)
             print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
          # Save the ckpt file for each epoch.
@@ -218,7 +219,7 @@ model.train(epoch, dataset)
    classification_layer = nn.Dense(last_channel, num_classes)
    classification_layer.set_train(False)
    softmax = nn.Softmax()
-   network = nn.SequentialCell([network, reducemean_flatten, 
+   network = nn.SequentialCell([network, reducemean_flatten,
                                  classification_layer, softmax])
 
    # Load a pre-trained ckpt file.

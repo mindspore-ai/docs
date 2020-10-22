@@ -105,16 +105,17 @@ A：You can write the frequently-used environment settings to `~/.bash_profile` 
 ### Verifying the Installation
 
 Q: After MindSpore is installed on a CPU of a PC, an error message `the pointer[session] is null` is displayed during code verification. The specific code is as follows. How do I verify whether MindSpore is successfully installed?
+
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(device_target="Ascend")
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-print(F.tensor_add(x,y))
+print(ops.tensor_add(x,y))
 ```
 
 A: After MindSpore is installed on a CPU hardware platform, run the `python -c'import mindspore'` command to check whether MindSpore is successfully installed. If no error message such as `No module named'mindspore'` is displayed, MindSpore is successfully installed. The verification code is used only to verify whether a Ascend platform is successfully installed.
@@ -201,7 +202,7 @@ A: The MindSpore CPU version can be installed on Windows 10. For details about t
 
 Q: What can I do if an error message `wrong shape of image` is displayed when I use a model trained by MindSpore to perform prediction on a `28 x 28` digital image with white text on a black background?
 
-A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28 `gray scale image, that is, a single channel.
+A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28` gray scale image, that is, a single channel.
 
 <br/>
 
@@ -224,7 +225,7 @@ context.set_context(
 mode=cintext.GRAPH_MODE,
 device_target='ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
-expand_dims=P.ExpandDims()
+expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)
 ```
 

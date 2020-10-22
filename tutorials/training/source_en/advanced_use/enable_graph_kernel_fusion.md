@@ -41,7 +41,7 @@ context.set_context(enable_graph_kernel=True)
     import mindspore.context as context
     from mindspore import Tensor
     from mindspore.nn import Cell
-    from mindspore.ops import operations as P
+    import mindspore.ops as ops
 
     context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
     # save graph ir files.
@@ -53,8 +53,8 @@ context.set_context(enable_graph_kernel=True)
     class NetBasicFuse(Cell):
         def __init__(self):
             super(NetBasicFuse, self).__init__()
-            self.add = P.TensorAdd()
-            self.mul = P.Mul()
+            self.add = ops.TensorAdd()
+            self.mul = ops.Mul()
 
         def construct(self, x):
             mul_res = self.mul(x, 2.0)
@@ -66,9 +66,9 @@ context.set_context(enable_graph_kernel=True)
     class NetCompositeFuse(Cell):
         def __init__(self):
             super(NetCompositeFuse, self).__init__()
-            self.add = P.TensorAdd()
-            self.mul = P.Mul()
-            self.pow = P.Pow()
+            self.add = ops.TensorAdd()
+            self.mul = ops.Mul()
+            self.pow = ops.Pow()
 
         def construct(self, x):
             mul_res = self.mul(x, 2.0)
@@ -100,7 +100,6 @@ context.set_context(enable_graph_kernel=True)
 2. `BERT-large` training network
 
     Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
-      
 
 ## Effect Evaluation
 
