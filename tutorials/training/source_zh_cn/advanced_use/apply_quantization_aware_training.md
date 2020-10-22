@@ -70,7 +70,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 在上面流程中，第3、5、6步是感知量化训练区别普通训练需要额外进行的步骤。
 
 > - 融合网络：使用指定算子（`nn.Conv2dBnAct`、`nn.DenseBnAct`）替换后的网络。
-> - 量化网络：融合模型使用转换接口（`convert_quant_network`）插入伪量化节点后得到的网络。
+> - 量化网络：融合模型使用转换接口（`QuantizationAwareTraining.quantize`）插入伪量化节点后得到的网络。
 > - 量化模型：量化网络训练后得到的checkpoint格式的模型。
 
 接下来，以LeNet网络为例，展开叙述2、3两个步骤。
@@ -151,12 +151,16 @@ class LeNet5(nn.Cell):
 
 ### 转化为量化网络
 
-使用`convert_quant_network`接口自动在融合模型中插入伪量化节点，将融合模型转化为量化网络。
+使用`QuantizationAwareTraining.quantize`接口自动在融合模型中插入伪量化节点，将融合模型转化为量化网络。
 
 ```python
-from mindspore.train.quant import quant
+from mindspore.compression.quant import QuantizationAwareTraining
 
-net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_channel=[True, False], symmetric=[False, False])
+quantizer = QuantizationAwareTraining(quant_delay=900,
+                                      bn_fold=False,
+                                      per_channel=[True, False],
+                                      symmetric=[True, False])
+net = quantizer.quantize(network)
 ```
 
 ## 重训和推理
