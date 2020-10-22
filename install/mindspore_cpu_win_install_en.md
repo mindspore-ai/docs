@@ -91,3 +91,20 @@ This document describes how to quickly install MindSpore in a Windows system wit
     python
     import mindspore
     ```
+
+### Version Update
+
+Using the following command if you need update MindSpore version.
+
+- Update Online
+
+    ```
+    pip install --upgrade mindspore
+    ```
+
+- Update after source code compilation
+
+    After successfully executing the compile script `build.bat` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    ```
+    pip install --upgrade mindspore-{version}-cp37-cp37m-win_{arch}.whl
+    ```
