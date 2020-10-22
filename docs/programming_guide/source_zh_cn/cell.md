@@ -35,9 +35,9 @@ MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单�
 
 ### construct方法
 
-`Cell`类重写了`__call__`方法，在`Cell`类的实例被调用时，会执行`contruct`方法。网络结构在`contruct`方法里面定义。
+`Cell`类重写了`__call__`方法，在`Cell`类的实例被调用时，会执行`construct`方法。网络结构在`construct`方法里面定义。
 
-下面的样例中，我们构建了一个简单的网络实现卷积计算功能。构成网络的算子在`__init__`中定义，在`contruct`方法里面使用，用例的网络结构为`Conv2d`->`BiasAdd`。
+下面的样例中，我们构建了一个简单的网络实现卷积计算功能。构成网络的算子在`__init__`中定义，在`construct`方法里面使用，用例的网络结构为`Conv2d`->`BiasAdd`。
 
 在`construct`方法中，`x`为输入数据，`output`是经过网络结构计算后得到的计算结果。
 
@@ -244,7 +244,7 @@ MindSpore框架在`mindspore.nn`的layer层内置了丰富的接口，主要内�
 
 - 数学计算层
 
-  数据计算层提供一些算子拼接而成的计算功能，例如数据生成和一些数学计算等。
+  数学计算层提供一些算子拼接而成的计算功能，例如数据生成和一些数学计算等。
   
   主要接口有`ReduceLogSumExp`、`Range`、`LinSpace`、`LGamma`等。
 
