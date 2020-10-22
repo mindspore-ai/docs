@@ -12,6 +12,8 @@
         - [Calling the Collective Communication Library](#calling-the-collective-communication-library)
     - [Loading the Dataset in Data Parallel Mode](#loading-the-dataset-in-data-parallel-mode)
     - [Defining the Network](#defining-the-network)
+        - [Hybrid Parallel Mode](#hybrid-parallel-mode)
+        - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
     - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
         - [Defining the Loss Function](#defining-the-loss-function)
         - [Defining the Optimizer](#defining-the-optimizer)
@@ -31,6 +33,8 @@
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
 > Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+
+Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
 ## Preparations
 
@@ -86,6 +90,7 @@ The Huawei Collective Communication Library (HCCL) is used for the communication
 >
 > - In a single-node system, a cluster of 1, 2, 4, or 8 devices is supported. In a multi-node system, a cluster of 8 x N devices is supported.
 > - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
+> - When we create a multi-node system, all nodes should use one same switch. 
 > - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
 
 The sample code for calling the HCCL is as follows:
@@ -164,7 +169,68 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
+
+In this section we focus on how to define a network in hybrid parallel or semi-auto parallel mode.
+
+### Hybrid Parallel Mode
+
+Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based on the data parallel mode. The `parameter` with the settig would be saved and computed in slice tensor and would not apply gradients aggregation. In this mode, MindSpore would not infer computation and communication for parallel operators automatically. To ensure the consistency of calculation logic, users are required to manually infer extra operations and insert them to networks. Therefore, this parallel mode is suitable for the users with deep understanding of parallel theory.
+
+In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html).
+
+```python
+from mindspore import Tensor
+import mindspore.ops as ops
+import mindspore.common.dtype as mstype
+import mindspore.nn as nn
+
+class HybridParallelNet(nn.Cell):
+    def __init__(self):
+        super(HybridParallelNet, self).__init__()
+        # initialize the weight which is sliced at the second dimension
+        weight_init = np.random.rand(512, 128/2).astype(np.float32)
+        self.weight = Parameter(Tensor(weight_init), name="weight", layerwise_parallel=True)
+        self.fc = ops.MatMul()
+        self.reduce = ops.ReduceSum()
+        self.allreduce = ops.AllReduce(op='sum')
+
+    def construct(self, x):
+        x = self.fc(x, self.weight)
+        x = self.reduce(x, -1)
+        x = self.allreduce(x)
+        return x
+```
+
+### Semi Auto Parallel Mode
+
+Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html). 
+
+It should be noticed that the operators without shard strategies would be regraded as data parallel. If a parameter is used by multiple operators, each operator's shard strategy for this parameter needs to be consistent, otherwise an error will be reported.
+
+In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
+
+```python
+from mindspore import Tensor
+import mindspore.ops as ops
+import mindspore.common.dtype as mstype
+import mindspore.nn as nn
+
+class SemiAutoParallelNet(nn.Cell):
+    def __init__(self):
+        super(SemiAutoParallelNet, self).__init__()
+        # initialize full tensor weight
+        weight_init = np.random.rand(512, 128).astype(np.float32)
+        self.weight = Parameter(Tensor(weight_init), name="weight")
+        # set shard strategy
+        self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
+        self.reduce = ops.ReduceSum()
+
+    def construct(self, x):
+        x = self.fc(x, self.weight)
+        x = self.reduce(x, -1)
+        return x
+```
 
 ## Defining the Loss Function and Optimizer
 
