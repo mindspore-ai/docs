@@ -5,23 +5,23 @@
 <!-- TOC -->
 
 - [Profiler设计文档](#profiler设计文档)
-  - [背景](#背景)
-  - [Profiler框架设计](#profiler架构设计)
-    - [上下文](#上下文)
-    - [模块层级结构](#模块层级结构)
-    - [内部模块交互](#内部模块交互)
-  - [子模块设计](#准备训练脚本)
-    - [ProfilerAPI和Controller](#profiler-api-controller)
-      - [ProfilerAPI和Controller模块介绍](#profiler-api-controller模块介绍)
-    - [Analyser](#analyser)
-      - [Analyser模块介绍](#analyser模块介绍)
-      - [Analyser模块设计](#analyser模块设计)
-    - [Parser](#parser)
-      - [Parser模块介绍](#parser模块介绍)
-      - [Parser模块设计](#parser模块设计)
-    - [Proposer](#proposer)
-      - [Proposer模块介绍](#proposer模块介绍)
-      - [Proposer模块设计](#proposer模块设计)
+    - [背景](#背景)
+    - [Profiler框架设计](#profiler架构设计)
+        - [上下文](#上下文)
+        - [模块层级结构](#模块层级结构)
+        - [内部模块交互](#内部模块交互)
+    - [子模块设计](#准备训练脚本)
+        - [ProfilerAPI和Controller](#profiler-api-controller)
+            - [ProfilerAPI和Controller模块介绍](#profiler-api-controller模块介绍)
+        - [Analyser](#analyser)
+            - [Analyser模块介绍](#analyser模块介绍)
+            - [Analyser模块设计](#analyser模块设计)
+        - [Parser](#parser)
+            - [Parser模块介绍](#parser模块介绍)
+            - [Parser模块设计](#parser模块设计)
+        - [Proposer](#proposer)
+            - [Proposer模块介绍](#proposer模块介绍)
+            - [Proposer模块设计](#proposer模块设计)
 
 <!-- /TOC -->
 
@@ -32,6 +32,7 @@
 为了支持用户在MindSpore进行模型开发性能调试，需要提供易用的Profile工具，直观地展现网络模型各维度的性能信息，为用户提供易用、丰富的性能分析功能，帮助用户快速定位网络中性能问题。
 
 ## Profiler架构设计
+
 这一章将介绍Profiler的架构设计，第一节从整体Profiler的角度出发介绍其上下文交互关系，第二节将打开Profiler内部，介绍模块层架结构以及模块划分，第三节将介绍模块间的交互调用关系。
 
 ### 上下文
@@ -49,6 +50,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 2. MindSpore侧Profiler将在用户脚本中对原始数据进行解析，并在用户指定的文件夹下面生成中间数据结果；
 
 3. Mindinsight侧Profiler对接中间数据，提供可视化Profiler功能供用户使用。
+
 ### 模块层级结构
 
 模块层级划分如下：
@@ -57,8 +59,8 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 
 图2：层级模块关系图
 
-
 如上图所示，各个模块功能介绍如下：
+
 1. ProfilerAPI是代码侧对用户提供的调用入口，为用户提供了性能收集启动接口以及分析接口；
 2. Controller是ProfilerAPI下层的模块，被ProfilerAPI中的启动接口调用，负责控制下方性能收集功能的启动停止，原始数据会被ada写入固定位置；
 3. Parser是性能原始数据解析模块，由于性能原始数据是在设备侧收集的信息，所以信息不能直接被用户所理解，该模块负责将信息进行解析、组合、转换，最终形成用户可理解、上层可分析的中间结果；
@@ -66,6 +68,7 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 5. 通过RESTful调用后端Analyser提供的common API，获取目标数据，以RESTful接口对接前端。
 
 ### 内部模块交互
+
 从用户角度，有两种使用形式API、RESTful，我们以API为例，阐述一个完整的内部模块交互流程：
 
 ![time_order_profiler.png](./images/time_order_profiler.png)
@@ -81,19 +84,21 @@ Profiler是MindSpore调试调优工具的一部分，在整个使用过程中的
 3. Profiler API分析接口首先使用Parser模块对性能数据进行解析，产生中间结果，再调用Aalayser进行中间结果分析，最终将各类信息返回至用户侧。
 
 ## 子模块设计
+
 ### ProfilerAPI和Controller
 
 #### ProfilerAPI和Controller模块说明
+
 ProfilerAPI为用户在训练脚本侧提供入口API，用户通过ProfilerAPI启动性能收集以及对性能数据进行分析。
 ProfilerAPI通过Controller下发命令，完成对ada启动的控制。
 
 #### ProfilerAPI和Controller模块设计
+
 ProfilerAPI模块，属于上层应用接口层，由训练脚本集成。功能分为两部分：
 
 - 训练前调用底层Controller接口，下发命令，启动profiling统计任务。
 
 - 训练完成后，调用底层Controller接口，下发命令，停止性能统计任务，再调用Analyser、Parser模块接口解析数据文件，生成算子性能统计、training trace统计等结果数据。
-
 
 Controller模块提供对上层接口，并调用底层性能收集模块接口，下发启动和停止性能收集的命令。
 
@@ -105,9 +110,13 @@ Controller模块提供对上层接口，并调用底层性能收集模块接口�
 - `training_trace.46.dev.profiler_default_tag`文件：存储每个step的开始结束时刻，迭代间隙、迭代前向反向、迭代拖尾的时刻信息。
 
 ### Parser
+
 #### Parser模块介绍
+
 Parser是原始性能数据解析模块，由于原始性能数据是在设备侧收集的信息，所以信息不能直接被用户所理解，该模块负责将信息进行解析、组合、转换，最终形成用户可理解、上层可分析的中间结果。
+
 #### Parser模块设计
+
 ![parser_module_profiler.png](./images/parser_module_profiler.png)
 
 图4：Parser模块图
@@ -122,6 +131,7 @@ Parser是原始性能数据解析模块，由于原始性能数据是在设备�
 ### Analyser
 
 #### Analyser模块介绍
+
 分析器的作用是对解析阶段生成的中间结果，进行筛选、排序、查询、分页等相关操作。
 
 #### Analyser模块设计
@@ -141,9 +151,10 @@ Parser是原始性能数据解析模块，由于原始性能数据是在设备�
 
 为了隐藏Analyser内部实现，方便调用，使用简单工厂模式，通过AnalyserFactory获取指定的Analyser。
 
-
 ### Proposer
+
 #### Proposer模块介绍
+
 Proposer是Profiler性能优化建议模块，Proposer调用Analyser模块获取性能数据，通过调优规则对性能数据进行分析，输出调优建议由UI、API接口展示给用户。
 
 #### Proposer模块设计
