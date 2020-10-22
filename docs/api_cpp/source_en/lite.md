@@ -110,7 +110,7 @@ Static method to create a Model pointer.
 
 An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
 
-### Attributes
+### Public Attributes
 
 ```cpp
 MID_CPU = 2
@@ -134,7 +134,7 @@ No bind.
 
 An **enum** type. DeviceType defined for holding user's preferred backend.
 
-### Attributes
+### Public Attributes
 
 ```cpp
 DT_CPU = 0

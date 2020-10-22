@@ -6,6 +6,7 @@ MindSpore Lite中的类定义及其所属命名空间和描述：
 
 | 命名空间 | 类 | 描述 |
 | --- | --- | --- |
+| mindspore | [KernelCallBack](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) | KernelCallBack定义了指向回调函数的指针。 |
 | mindspore::lite | [Allocator](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator) | Allocator定义了一个内存池，用于动态地分配和释放内存。 |
 | mindspore::lite | [Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#context) | Context用于保存执行期间的环境变量。 |
 | mindspore::lite | [ModelImpl](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#modelimpl) | ModelImpl定义了MindSpore Lite中的Model的实现类。 |

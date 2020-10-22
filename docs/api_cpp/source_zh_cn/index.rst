@@ -11,6 +11,7 @@ MindSpore C++ API
   :maxdepth: 1
 
   class_list
+  mindspore
   lite
   session
   tensor

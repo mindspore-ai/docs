@@ -83,9 +83,9 @@ Run session with callback.
 
 - Parameters
 
-    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#kernelcallback) function. Define a callback function to be called before running each node.
+    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#kernelcallback) function. Define a callback function to be called before running each node.
 
-    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#kernelcallback) function. Define a callback function to be called after running each node.
+    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#kernelcallback) function. Define a callback function to be called after running each node.
 
 - Returns
 
@@ -172,7 +172,7 @@ Resize inputs shape.
 ### Static Public Member Functions
 
 ```cpp
-static LiteSession *CreateSession(lite::Context *context)
+static LiteSession *CreateSession(const lite::Context *context)
 ```
 
 Static method to create a LiteSession pointer.
@@ -185,28 +185,20 @@ Static method to create a LiteSession pointer.
 
     Pointer of MindSpore Lite LiteSession.
 
-## KernelCallBack
-
 ```cpp
-using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
+static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
 ```
 
-A function wrapper. KernelCallBack defined the function pointer for callback.
+Static method to create a LiteSession pointer which has already compiled a model.
 
-## CallBackParam
+- Parameters
 
-A **struct**. CallBackParam defines input arguments for callback function.
+    - `model_buf`: Define the buffer read from a model file.
 
-### Attributes
+    - `size`: variable. Define bytes number of model buffer.
 
-```cpp
-name_callback_param
-```
+    - `context`: Define the context of session to be created.    
 
-A **string** variable. Node name argument.
+- Returns
 
-```cpp
-type_callback_param
-```
-
-A **string** variable. Node type argument.
+    Pointer of MindSpore Lite LiteSession.    
