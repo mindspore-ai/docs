@@ -56,14 +56,14 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
     self.host_device_mix = 1
     ```
 
-2. Check placement of necessary operators and optimizers. In class `WideDeepModel` of file `src/wide_and_deep.py`, check the placement of `EmbeddingLookup` is at host:
+2. Check the deployment of necessary operators and optimizers. In class `WideDeepModel` of file `src/wide_and_deep.py`, check the execution of `EmbeddingLookup` is at host:
 
     ```python
     self.deep_embeddinglookup = nn.EmbeddingLookup()
     self.wide_embeddinglookup = nn.EmbeddingLookup()
     ```
 
-   In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, check two optimizer are also at host:
+   In `class TrainStepWrap(nn.Cell)` of file `src/wide_and_deep.py`, check two optimizers are also executed at host:
 
     ```python
     self.optimizer_w.target = "CPU"
@@ -100,7 +100,7 @@ Search `EmbeddingLookup` in `test_deep0.log`, the following can be found:
 [INFO] DEVICE(109904,python3.7):2020-06-27-12:42:34.943.896 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/network-VirtualDatasetCellTriple/_backbone-NetWithLossClass/network-WideDeepModel/EmbeddingLookup-op298 costs 15521 us.
 ```
 
-showing the running time of `EmbeddingLookup` on the host.
+The above shows the running time of `EmbeddingLookup` on the host.
 
 Search `FusedSparseFtrl` and `FusedSparseLazyAdam` in `test_deep0.log`, the following can be found:
 
@@ -109,4 +109,4 @@ Search `FusedSparseFtrl` and `FusedSparseLazyAdam` in `test_deep0.log`, the foll
 [INFO] DEVICE(109904,python3.7):2020-06-27-12:42:35.565.953 [mindspore/ccsrc/device/cpu/cpu_kernel_runtime.cc:324] Run] cpu kernel: Default/optimizer_d-LazyAdam/FusedSparseLazyAdam-op300 costs 142865 us.
 ```
 
-showing the running time of two optimizers on the host.
+The above shows the running time of two optimizers on the host.
