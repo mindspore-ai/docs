@@ -20,7 +20,7 @@
 
 ## Overview
 
-This tutorial describes how to train the ResNet-50 network using MindSpore data parallelism and automatic parallelism on GPU hardware platform.
+This tutorial describes how to train the ResNet-50 network using MindSpore data parallelism and automatic parallelism on the GPU hardware platform.
 
 ## Preparation
 
@@ -123,7 +123,7 @@ epoch: 1 step: 1, loss is 2.3025854
 
 ## Running the Multi-Host Script
 
-If multiple hosts are involved in the training, you need to set the multi-host configuration in the `mpirun` command. You can use the `-H` option in the `mpirun` command. For example, `mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py` indicates that eight processes are started on the host whose IP addresses are DEVICE1_IP and DEVICE2_IP, respectively. Alternatively, you can create a hostfile similar to the following and transfer its path to the `--hostfile` option of `mpirun`. Each line in the hostfile is in the format of `[hostname] slots=[slotnum]`, where hostname can be an IP address or a host name.
+If multiple hosts are involved in the training, you need to set the multi-host configuration in the `mpirun` command. You can use the `-H` option in the `mpirun` command. For example, `mpirun -n 16 -H DEVICE1_IP:8,DEVICE2_IP:8 python hello.py` indicates that eight processes are started on the hosts whose IP addresses are DEVICE1_IP and DEVICE2_IP, respectively. Alternatively, you can create a hostfile similar to the following and transfer its path to the `--hostfile` option of `mpirun`. Each line in the hostfile is in the format of `[hostname] slots=[slotnum]`, where hostname can be an IP address or a host name.
 
 ```bash
 DEVICE1 slots=8
@@ -146,4 +146,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-Run running on GPU, the model parameters can be saved and loaded for reference[Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading)
+Run running on GPU, the model parameters can be saved and loaded by referring to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
