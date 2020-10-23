@@ -34,7 +34,7 @@
 | [mindspore.ops.BesselI1e](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.BesselI1e)    |  None
 | [mindspore.ops.BiasAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.BiasAdd)    |  None
 | [mindspore.ops.BroadcastTo](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.BroadcastTo)    |  None
-| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)    |  None
+| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)    |  The shard strategy is ignored in the Auto Parallel and Semi Auto Parallel mode. 
 | [mindspore.ops.Ceil](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Ceil)    |  None
 | [mindspore.ops.Concat](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Concat)    |  The input_x can't be split into the dimension of axis, otherwise it's inconsistent with the single machine in the mathematical logic.
 | [mindspore.ops.Cos](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Cos)    |  None
