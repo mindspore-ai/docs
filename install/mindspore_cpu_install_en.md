@@ -16,13 +16,15 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_cpu_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+
 ## Environment Requirements
 
 ### System Requirements and Software Dependencies
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore 1.0.0 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
+| MindSpore 1.0.1 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> same as the executable file installation dependencies. |
 
 - GCC 7.3.0 can be installed by using apt command.
 - If Python has already installed, using `python --version` to check whether the version match, make sure your Python was added in environment variable `PATH`.
@@ -73,6 +75,7 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
     ```bash
     bash build.sh -e cpu -j4
     ```
+    >
     > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
@@ -100,7 +103,7 @@ If you need to conduct AI model security research or enhance the security of the
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindArmour 1.0.0 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py). | Same as the executable file installation dependencies. |
+| MindArmour 1.0.1 | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py). | Same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -135,7 +138,6 @@ If you need to conduct AI model security research or enhance the security of the
    python setup.py install
    ```
 
-
 3. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
 
    ```bash
@@ -148,14 +150,15 @@ Using the following command if you need update MindSpore version.
 
 - Update Online
 
-    ```
+    ```bash
     pip install --upgrade mindspore
     ```
 
 - Update after source code compilation
 
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
-    ```
+
+    ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 

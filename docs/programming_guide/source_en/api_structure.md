@@ -12,6 +12,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_en/api_structure.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overall Architecture
+
 MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features include API friendliness and low debugging difficulty. Efficient execution includes computing efficiency, data preprocessing efficiency, and distributed training efficiency. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
 The overall architecture of MindSpore consists of the Mind Expression (ME), Graph Engine (GE), and backend runtime. ME provides user-level APIs for scientific computing, building and training neural networks, and converting Python code of users into graphs. GE is a manager of operators and hardware resources, and is responsible for controlling execution of graphs received from ME. Backend runtime includes efficient running environments, such as the CPU, GPU, Ascend AI processors, and Android/iOS, on the cloud, edge, and device. For more information about the overall architecture, see [Overall Architecture](https://www.mindspore.cn/doc/note/en/r1.0/design/mindspore/architecture.html).

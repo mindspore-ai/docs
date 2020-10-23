@@ -76,7 +76,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 2
@@ -110,7 +110,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 [Segmentation]:
 image shape: (281, 500, 3)
 target shape: (281, 500, 3)
@@ -152,7 +152,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Detection: dict_keys(['bbox', 'image', 'iscrowd', 'category_id'])
 Stuff: dict_keys(['segmentation', 'iscrowd', 'image'])
 Keypoint: dict_keys(['keypoints', 'num_keypoints', 'image'])
@@ -218,7 +218,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
 
         将数据集格式和特征按JSON格式写入Schema文件，示例如下：
 
-        ```
+        ```json
         {
          "columns": {
              "image": {
@@ -281,7 +281,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
 
     输出结果如下：
 
-    ```
+    ```text
     [0.49893939 0.36348882]   [0.15234002]
     [0.83845534 0.19721032]   [0.94602561]
     [0.2361873  0.79506755]   [0.88118559]
@@ -305,7 +305,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
 
     输出结果如下：
 
-    ```
+    ```text
     [1 2]
     [3 4]
     ```
@@ -325,7 +325,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
 
     输出结果如下：
 
-    ```
+    ```text
     {'col1': Tensor(shape=[], dtype=Int64, value= 1), 'col2': Tensor(shape=[], dtype=Int64, value= 3)}
     {'col1': Tensor(shape=[], dtype=Int64, value= 2), 'col2': Tensor(shape=[], dtype=Int64, value= 4)}
     ```
@@ -374,7 +374,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 [0.36510558 0.45120592] [0.78888122]
 [0.49606035 0.07562207] [0.38068183]
 [0.57176158 0.28963401] [0.16271622]
@@ -420,7 +420,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 [0.36510558 0.45120592] [0.78888122]
 [0.49606035 0.07562207] [0.38068183]
 [0.57176158 0.28963401] [0.16271622]
@@ -457,7 +457,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 [0.36510558 0.45120592] [0.78888122]
 [0.49606035 0.07562207] [0.38068183]
 [0.57176158 0.28963401] [0.16271622]
@@ -497,7 +497,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 [0.36510558 0.45120592] [0.78888122]
 [0.57176158 0.28963401] [0.16271622]
 [0.81585667 0.96883469] [0.77994068]

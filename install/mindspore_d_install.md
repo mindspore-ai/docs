@@ -21,6 +21,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_d_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+
 ## 环境要求
 
 ### 硬件要求
@@ -33,7 +35,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore 1.0.0 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI处理器 <br> &nbsp;&nbsp;配套软件包（对应版本 <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)） <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI处理器 <br> &nbsp;&nbsp;配套软件包（对应版本 <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI处理器 <br> &nbsp;&nbsp;配套软件包（对应版本 <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)） <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI处理器 <br> &nbsp;&nbsp;配套软件包（对应版本 <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)） <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)）的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
 - GCC 7.3.0可以直接通过apt命令安装。
@@ -59,7 +61,7 @@
 
 ### 配套软件包依赖配置
 
- - 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
+- 安装Ascend 910 AI处理器配套软件包（对应版本Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)）提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
     ```bash
     pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
@@ -92,6 +94,7 @@
     ```bash
     bash build.sh -e ascend
     ```
+    >
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e ascend -j4`。
@@ -142,7 +145,7 @@
 
 - 若出现如下结果，即安装验证通过。
 
-    ```
+    ```text
     [[[ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.],
       [ 2.  2.  2.  2.]],
@@ -162,14 +165,15 @@
 
 - 直接在线升级
 
-    ```
+    ```bash
     pip install --upgrade mindspore_ascend
     ```
 
 - 本地源码编译升级
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
-    ```
+
+    ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
@@ -183,7 +187,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindInsight 1.0.0 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindInsight 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`requirements.txt`中的依赖项，其余情况需自行安装。
 
@@ -210,6 +214,7 @@
     ```bash
     git clone https://gitee.com/mindspore/mindinsight.git -b r1.0
     ```
+
     > **不能**直接在仓库主页下载zip包获取源码。
 
 2. 可选择以下任意一种安装方式：
@@ -248,7 +253,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindArmour 1.0.0 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.0 <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py) | 与可执行文件安装依赖相同 |
+| MindArmour 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - 其他依赖项参见[setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py) | 与可执行文件安装依赖相同 |
 
 - 在联网状态下，安装whl包时会自动下载`setup.py`中的依赖项，其余情况需自行安装。
 
@@ -282,7 +287,6 @@
    cd mindarmour
    python setup.py install
    ```
-
 
 3. 执行如下命令，如果没有提示`No module named 'mindarmour'`等加载错误的信息，则说明安装成功。
 

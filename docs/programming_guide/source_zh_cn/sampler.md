@@ -65,7 +65,7 @@ for data in dataset2.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 2
 Image shape: (32, 32, 3) , Label: 6
@@ -102,7 +102,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 0
@@ -134,7 +134,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 5
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 3
@@ -162,7 +162,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 1
@@ -206,7 +206,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 {'data': Tensor(shape=[], dtype=Int64, value= 0)}
 {'data': Tensor(shape=[], dtype=Int64, value= 3)}
 {'data': Tensor(shape=[], dtype=Int64, value= 6)}
@@ -236,7 +236,7 @@ for data in dataset.create_dict_iterator():
 
 输出结果如下：
 
-```
+```text
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 2
 Image shape: (32, 32, 3) , Label: 4

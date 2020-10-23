@@ -59,25 +59,25 @@ for i in range(100):
 
     sample = {}
     white_io = BytesIO()
-    Image.new('RGB', (i*10, i*10), (255, 255, 255)).save(white_io, 'JPEG')  
+    Image.new('RGB', (i*10, i*10), (255, 255, 255)).save(white_io, 'JPEG')
     image_bytes = white_io.getvalue()
-    sample['file_name'] = str(i) + ".jpg"   
-    sample['label'] = i                      
-    sample['data'] = white_io.getvalue()  
+    sample['file_name'] = str(i) + ".jpg"
+    sample['label'] = i
+    sample['data'] = white_io.getvalue()
 
     data.append(sample)
-    if i % 10 == 0:     
+    if i % 10 == 0:
         writer.write_raw_data(data)
         data = []
 
-if data:                
+if data:
     writer.write_raw_data(data)
 
-writer.commit()         
+writer.commit()
 
-data_set = ds.MindDataset(dataset_file=mindrecord_filename)  
+data_set = ds.MindDataset(dataset_file=mindrecord_filename)
 decode_op = vision.Decode()
-data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)  
+data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
 count = 0
 for item in data_set.create_dict_iterator(output_numpy=True):
     print("sample: {}".format(item))
@@ -116,7 +116,7 @@ nlp_schema = {"source_sos_ids": {"type": "int64", "shape": [-1]},
 writer.add_schema(nlp_schema, "it is a preprocessed nlp dataset")
 
 data = []
-for i in range(100):  
+for i in range(100):
     i += 1
 
     sample = {"source_sos_ids": np.array([i, i+1, i+2, i+3, i+4], dtype=np.int64),
@@ -129,18 +129,18 @@ for i in range(100):
             "target_eos_mask": np.array([48, 49, 50, 51], dtype=np.int64)}
 
     data.append(sample)
-    if i % 10 == 0:   
+    if i % 10 == 0:
       writer.write_raw_data(data)
       data = []
 
-if data:        
+if data:
     writer.write_raw_data(data)
 
-writer.commit()  
+writer.commit()
 
-data_set = ds.MindDataset(dataset_file=mindrecord_filename)  
+data_set = ds.MindDataset(dataset_file=mindrecord_filename)
 count = 0
-for item in data_set.create_dict_iterator():      
+for item in data_set.create_dict_iterator():
     print("sample: {}".format(item))
     count += 1
 print("Got {} samples".format(count))
@@ -167,7 +167,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 1. 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz)并解压，其目录结构如下所示。
 
-    ```
+    ```text
     └─cifar-10-batches-py
         ├─batches.meta
         ├─data_batch_1
@@ -195,7 +195,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     ```
 
     **参数说明：**
-    - `CIFAR10_DIR`：CIFAR-10数据集的文件夹路径。  
+    - `CIFAR10_DIR`：CIFAR-10数据集的文件夹路径。
     - `MINDRECORD_FILE`：输出的MindRecord文件路径。
 
 4. 通过`MindDataset`读取MindRecord。
@@ -220,7 +220,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 1. 下载[ImageNet数据集](http://image-net.org/download)，将所有图片存放在同一文件夹，用一个映射文件记录图片和标签的对应关系。映射文件包含2列，分别为各类别图片目录和标签ID，用空格隔开，映射文件示例如下：
 
-    ```
+    ```text
     n01440760 0
     n01443537 1
     n01484850 2
@@ -246,9 +246,9 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     imagenet_transformer.transform()
     ```
 
-    **参数说明：**    
-    - `IMAGENET_MAP_FILE`：ImageNet数据集标签映射文件的路径。  
-    - `IMAGENET_IMAGE_DIR`：包含ImageNet所有图片的文件夹路径。  
+    **参数说明：**
+    - `IMAGENET_MAP_FILE`：ImageNet数据集标签映射文件的路径。
+    - `IMAGENET_IMAGE_DIR`：包含ImageNet所有图片的文件夹路径。
     - `MINDRECORD_FILE`：输出的MindRecord文件路径。
 
 4. 通过`MindDataset`读取MindRecord。
@@ -277,8 +277,8 @@ import os
 import mindspore.dataset as ds
 from mindspore.mindrecord import CsvToMR
 
-CSV_FILE_NAME = "test.csv"                  
-MINDRECORD_FILE_NAME = "test.mindrecord"      
+CSV_FILE_NAME = "test.csv"
+MINDRECORD_FILE_NAME = "test.mindrecord"
 PARTITION_NUM = 1
 
 def generate_csv():
@@ -306,7 +306,7 @@ csv_transformer.transform()
 assert os.path.exists(MINDRECORD_FILE_NAME)
 assert os.path.exists(MINDRECORD_FILE_NAME + ".db")
 
-data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  
+data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)
 count = 0
 for item in data_set.create_dict_iterator(output_numpy=True):
     print("sample: {}".format(item))
@@ -328,23 +328,23 @@ import mindspore.dataset as ds
 from mindspore.mindrecord import TFRecordToMR
 import mindspore.dataset.vision.c_transforms as vision
 from PIL import Image
-import tensorflow as tf  
+import tensorflow as tf
 
-TFRECORD_FILE_NAME = "test.tfrecord"             
-MINDRECORD_FILE_NAME = "test.mindrecord"      
+TFRECORD_FILE_NAME = "test.tfrecord"
+MINDRECORD_FILE_NAME = "test.mindrecord"
 PARTITION_NUM = 1
 
 def generate_tfrecord():
     def create_int_feature(values):
         if isinstance(values, list):
-            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))  
+            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))
         else:
-            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=[values]))     
+            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=[values]))
         return feature
 
     def create_float_feature(values):
         if isinstance(values, list):
-            feature = tf.train.Feature(float_list=tf.train.FloatList(value=list(values)))  
+            feature = tf.train.Feature(float_list=tf.train.FloatList(value=list(values)))
         else:
             feature = tf.train.Feature(float_list=tf.train.FloatList(value=[values]))
         return feature
@@ -352,9 +352,9 @@ def generate_tfrecord():
     def create_bytes_feature(values):
         if isinstance(values, bytes):
             white_io = BytesIO()
-            Image.new('RGB', (10, 10), (255, 255, 255)).save(white_io, 'JPEG')                  
+            Image.new('RGB', (10, 10), (255, 255, 255)).save(white_io, 'JPEG')
             image_bytes = white_io.getvalue()
-            feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_bytes]))      
+            feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_bytes]))
         else:
             feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[bytes(values, encoding='utf-8')]))
         return feature
@@ -405,9 +405,9 @@ tfrecord_transformer.transform()
 assert os.path.exists(MINDRECORD_FILE_NAME)
 assert os.path.exists(MINDRECORD_FILE_NAME + ".db")
 
-data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  
+data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)
 decode_op = vision.Decode()
-data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)  
+data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)
 count = 0
 for item in data_set.create_dict_iterator(output_numpy=True):
     print("sample: {}".format(item))

@@ -52,12 +52,16 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+
 ## 1.0.0
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/MindSpore/ascend/ubuntu_x86/mindspore_ascend-1.0.0-cp37-cp37m-linux_x86_64.whl>   |   4682be18cffdf86346bdb286ccd9e05f33be4138415dbc7db1650d029510ee44    |
@@ -97,11 +101,13 @@
 | 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
 
 ## 0.7.0-beta
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindSpore/ascend/ubuntu_x86/mindspore_ascend-0.7.0-cp37-cp37m-linux_x86_64.whl>   |   522b80e84de1b414d3800a27d01e40f75332000e5246b24cc1aea7d9e5566ce5    |
@@ -130,11 +136,13 @@
 | 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html> |
 
 ## 0.6.0-beta
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindSpore/ascend/ubuntu_x86/mindspore_ascend-0.6.0-cp37-cp37m-linux_x86_64.whl>   |   afea66c19beff797b99bf06bc0ed897a83fdb510d62e03663cef55a68e0f278f    |
@@ -154,21 +162,25 @@
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/x86_64/mindarmour-0.6.0-cp37-cp37m-linux_x86_64.whl>   |   18f245bdff972414010c9f53de402d790cdef9a74f94ac41e5b6341e778e93b3   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/r0.6/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/r0.6/index.html>
 
-
 ## 0.5.2-beta
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.2-beta/MindSpore/ascend/ubuntu_x86/mindspore_ascend-0.5.2-cp37-cp37m-linux_x86_64.whl>   |   ec4bdb6c96d9ffd2d1e465bd07ac4a8a9c0633512b4fffe9217590ad1a576ea6   |
@@ -188,20 +200,25 @@
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/r0.5/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/r0.5/index.html>
 
 ## 0.5.0-beta
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindSpore/ascend/ubuntu_x86/mindspore_ascend-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   f20adcdb696316361e13fcd624d7188598b7248f77c7efc535cf193afc26f1c2   |
@@ -221,20 +238,25 @@
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/r0.5/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/r0.5/index.html>
 
 ## 0.3.0-alpha
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindSpore/ascend/ubuntu_x86/mindspore_ascend-0.3.0-cp37-cp37m-linux_x86_64.whl>   |   7756a50ca3af82d06eaf456db4d062fa647a8352724ef85da6569426a6393918   |
@@ -255,20 +277,25 @@
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/x86_64/mindarmour-0.3.0-cp37-cp37m-linux_x86_64.whl>   |   7a2bd6174be9e5a47e8ae6bcdd592ecdafc6e53e6f1cd5f0261fcb8337b5b337   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html>
 
 ## 0.2.0-alpha
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindSpore/ascend/x86_ubuntu/mindspore_ascend-0.2.0-cp37-cp37m-linux_x86_64.whl>   |   aa1225665d05263b17bb7ec1d51dd4f933254c818bee126b6c5dac4513532a14   |
@@ -288,20 +315,25 @@
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/x86_64/mindarmour-0.2.0-cp37-cp37m-linux_x86_64.whl>   |   4146790bc73a5846e92b943dfd3febb6c62052b217eeb45b6c48aa82b51e7cc3   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html>
 
 ## 0.1.0-alpha
+
 ### 版本说明
 
 <https://gitee.com/mindspore/mindspore/blob/r0.1/RELEASE.md>
 
 ### 下载地址
+
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
 |   MindSpore   |   Ascend910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindSpore/ascend/ubuntu-x86/mindspore-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   a76df4e96c4cb69b10580fcde2d4ef46b5d426be6d47a3d8fd379c97c3e66638   |
@@ -319,12 +351,15 @@
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
 
 ### 教程
+
 <https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html>
 
 ### API
+
 <https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/index.html>
 
 ### 文档
+
 <https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html>
 
 ## master(unstable)
