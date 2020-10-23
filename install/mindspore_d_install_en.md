@@ -21,7 +21,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_d_install_en.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_d_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Environment Requirements
 
@@ -173,6 +173,7 @@ Using the following command if you need update MindSpore version.
 - Update after source code compilation
 
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+
     ```
     pip install --upgrade build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
