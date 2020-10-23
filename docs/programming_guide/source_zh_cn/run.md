@@ -74,13 +74,13 @@ print(output.asnumpy())
 ```python
 import numpy as np
 from mindspore import context, Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
 
 def tensor_add_func(x, y):
-    z = F.tensor_add(x, y)
-    z = F.tensor_add(z, x)
+    z = ops.tensor_add(x, y)
+    z = ops.tensor_add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))

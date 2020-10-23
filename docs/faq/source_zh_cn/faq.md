@@ -117,13 +117,13 @@ Q:个人电脑CPU环境安装MindSpore后验证代码时报错：`the pointer[se
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.ops import functional as F
+imort mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(device_target="Ascend")
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-print(F.tensor_add(x,y))
+print(ops.tensor_add(x,y))
 ```
 
 A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命令：`python -c 'import mindspore'`，如果没有显示`No module named 'mindspore'`等错误即安装成功。问题中的验证代码仅用于验证Ascend平台安装是否成功。
@@ -290,7 +290,7 @@ context.set_context(
 mode=cintext.GRAPH_MODE,
 device_target='ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
-expand_dims=P.ExpandDims()
+expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)
 ```
 

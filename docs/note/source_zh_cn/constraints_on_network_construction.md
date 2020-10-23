@@ -254,7 +254,7 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
         class ExpandDimsTest(Cell):
             def __init__(self):
                 super(ExpandDimsTest, self).__init__()
-                self.expandDims = P.ExpandDims()
+                self.expandDims = ops.ExpandDims()
 
             def construct(self, input_x, input_axis):
                 return self.expandDims(input_x, input_axis)
@@ -271,7 +271,7 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
         class ExpandDimsTest(Cell):
             def __init__(self, axis):
                 super(ExpandDimsTest, self).__init__()
-                self.expandDims = P.ExpandDims()
+                self.expandDims = ops.ExpandDims()
                 self.axis = axis
 
             def construct(self, input_x):
