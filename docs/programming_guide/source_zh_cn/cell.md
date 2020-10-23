@@ -197,31 +197,31 @@ MindSpore框架在`mindspore.nn`的layer层内置了丰富的接口，主要内�
 - 激活层
 
   激活层内置了大量的激活函数，在定义网络结构中经常使用。激活函数为网络加入了非线性运算，使得网络能够拟合效果更好。
-  
+
   主要接口有`Softmax`、`Relu`、`Elu`、`Tanh`、`Sigmoid`等。
 
 - 基础层
-  
+
   基础层实现了网络中一些常用的基础结构，例如全连接层、Onehot编码、Dropout、平铺层等都在此部分实现。
-  
+
   主要接口有`Dense`、`Flatten`、`Dropout`、`Norm`、`OneHot`等。
-  
+
 - 容器层
 
   容器层主要功能是实现一些存储多个Cell的数据结构。
-  
+
   主要接口有`SequentialCell`、`CellList`等。
 
 - 卷积层
 
   卷积层提供了一些卷积计算的功能，如普通卷积、深度卷积和卷积转置等。
-  
+
   主要接口有`Conv2d`、`Conv1d`、`Conv2dTranspose`、`Conv1dTranspose`等。
 
 - 池化层
-  
+
   池化层提供了平均池化和最大池化等计算的功能。
-  
+
   主要接口有`AvgPool2d`、`MaxPool2d`和`AvgPool1d`。
 
 - 嵌入层
@@ -231,27 +231,27 @@ MindSpore框架在`mindspore.nn`的layer层内置了丰富的接口，主要内�
   主要接口有`Embedding`、`EmbeddingLookup`、`EmbeddingLookUpSplitMode`等。
 
 - 长短记忆循环层
-  
+
   长短记忆循环层提供LSTM计算功能。其中`LSTM`内部会调用`LSTMCell`接口，`LSTMCell`是一个LSTM单元，对一个LSTM层做运算，当涉及多LSTM网络层运算时，使用`LSTM`接口。
-  
+
   主要接口有`LSTM`和`LSTMCell`。
 
 - 标准化层
 
   标准化层提供了一些标准化的方法，即通过线性变换等方式将数据转换成均值和标准差。
-  
+
   主要接口有`BatchNorm1d`、`BatchNorm2d`、`LayerNorm`、`GroupNorm`、`GlobalBatchNorm`等。
 
 - 数学计算层
 
   数学计算层提供一些算子拼接而成的计算功能，例如数据生成和一些数学计算等。
-  
+
   主要接口有`ReduceLogSumExp`、`Range`、`LinSpace`、`LGamma`等。
 
 - 图片层
 
   图片计算层提供了一些矩阵计算相关的功能，将图片数据进行一些变换与计算。
-  
+
   主要接口有`ImageGradients`、`SSIM`、`MSSSIM`、`PSNR`、`CentralCrop`等。
 
 - 量化层
@@ -259,7 +259,7 @@ MindSpore框架在`mindspore.nn`的layer层内置了丰富的接口，主要内�
   量化是指将数据从float的形式转换成一段数据范围的int类型，所以量化层提供了一些数据量化的方法和模型层结构封装。
 
   主要接口有`Conv2dBnAct`、`DenseBnAct`、`Conv2dBnFoldQuant`、`LeakyReLUQuant`等。
-  
+
 ### 应用实例
 
 MindSpore的模型层在`mindspore.nn`下，使用方法如下所示：
@@ -316,7 +316,7 @@ MindSpore的损失函数全部是`Cell`的子类实现，所以也支持用户�
 - CosineEmbeddingLoss
 
   `CosineEmbeddingLoss`用于衡量两个输入相似程度，用于分类模型。`margin`默认为0.0，`reduction`参数同`L1Loss`。
-  
+
 ### 应用实例
 
 MindSpore的损失函数全部在mindspore.nn下，使用方法如下所示：

@@ -18,9 +18,11 @@
 `Parameter`是变量张量，代表在训练网络时，需要被更新的参数。本章主要介绍了`Parameter`的初始化以及属性和方法的使用，同时介绍了`ParameterTuple`。
 
 ## 初始化
-```
+
+```python
 mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
+
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
 
 `Initializer`是初始化器，保存了shape和dtype信息，提供`to_tensor`方法生成存有数据的`Tensor`，可调用`initializer`接口生成`Initializer`对象。
@@ -38,7 +40,8 @@ mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=
 有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/auto_parallel.html>。
 
 下例通过三种不同的数据类型构造了`Parameter`，三个`Parameter`都需要更新，都不采用layerwise并行。如下：
-```
+
+```python
 import numpy as np
 from mindspore import Tensor, Parameter
 from mindspore.common import dtype as mstype
@@ -53,12 +56,12 @@ print(x, "\n\n", y, "\n\n", z)
 
 输出如下：
 
-```
+```text
 Parameter (name=x, value=[[0 1 2]
-                          [3 4 5]]) 
+                          [3 4 5]])
 
 Parameter (name=y, value=[[[1. 1. 1.]
-                           [1. 1. 1.]]]) 
+                           [1. 1. 1.]]])
 
 Parameter (name=z, value=2.0)
 ```
@@ -84,7 +87,7 @@ Parameter (name=z, value=2.0)
 
 下例通过`Tensor`初始化一个`Parameter`，获取了`Parameter`的相关属性。如下：
 
-```
+```python
 import numpy as np
 
 from mindspore import Tensor, Parameter
@@ -102,7 +105,7 @@ print("name: ", x.name, "\n",
 
 输出如下：
 
-```
+```text
 name:  x
 sliced:  False
 is_init:  False
@@ -111,10 +114,11 @@ requires_grad:  True
 layerwise_parallel:  False
 
 data:  Parameter (name=x, value=[[0 1 2]
-                                 [3 4 5]]) 
+                                 [3 4 5]])
 ```
 
 ## 方法
+
 - `init_data`：在网络采用半自动或者全自动并行策略的场景下，
   当初始化`Parameter`传入的数据是`Initializer`时，可调用该接口将`Parameter`保存的数据转换为`Tensor`。
 
@@ -127,7 +131,7 @@ data:  Parameter (name=x, value=[[0 1 2]
 
 下例通过`Initializer`来初始化`Tensor`，调用了`Parameter`的相关方法。如下：
 
-```
+```python
 import numpy as np
 
 from mindspore import Tensor, Parameter
@@ -145,7 +149,7 @@ print(x.set_data(default_input=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 
 输出如下：
 
-```
+```text
 Parameter (name=x, value=[[[1. 1. 1.]
                            [1. 1. 1.]]])
 Parameter (name=x_c.x, value=[[[1. 1. 1.]
@@ -158,11 +162,12 @@ Parameter (name=x, value=[[[0. 1. 2.]
 ```
 
 ## ParameterTuple
+
 继承于`tuple`，用于保存多个`Parameter`，通过`__new__(cls, iterable)`传入一个存放`Parameter`的迭代器进行构造，提供`clone`接口进行克隆。
 
 下例构造了一个`ParameterTuple`对象，并进行了克隆。如下：
 
-```
+```python
 import numpy as np
 from mindspore import Tensor, Parameter, ParameterTuple
 from mindspore.common import dtype as mstype
@@ -179,12 +184,12 @@ print(params_copy)
 
 输出如下：
 
-```
+```text
 (Parameter (name=x, value=Tensor(shape=[2, 3], dtype=Int64,
 [[ 0,  1,  2],
  [ 3,  4,  5]])), Parameter (name=y, value=Tensor(shape=[1, 2, 3], dtype=Float32,
 [[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
-  [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]])), Parameter (name=z, value=Tensor(shape=[], dtype=Float32, 2))) 
+  [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]])), Parameter (name=z, value=Tensor(shape=[], dtype=Float32, 2)))
 
 (Parameter (name=params_copy.x, value=Tensor(shape=[2, 3], dtype=Int64,
 [[ 0,  1,  2],

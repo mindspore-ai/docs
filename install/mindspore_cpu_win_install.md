@@ -14,13 +14,15 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_cpu_win_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+
 ## 环境要求
 
 ### 系统要求和软件依赖
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore 1.0.0 | Windows 10 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5 <br> - [MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) x86_64-posix-seh <br> - [ActivePerl](http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-MSWin32-x64-404865.exe) 5.24.3.2404 <br> - [CMake](https://cmake.org/download/) 3.14.1 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore 1.0.1 | Windows 10 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5 <br> - [MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) x86_64-posix-seh <br> - [ActivePerl](http://downloads.activestate.com/ActivePerl/releases/5.24.3.2404/ActivePerl-5.24.3.2404-MSWin32-x64-404865.exe) 5.24.3.2404 <br> - [CMake](https://cmake.org/download/) 3.14.1 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - 若环境中已经安装了Python，确保将Python添加到环境变量中，还可以通过命令`python --version`查看Python的版本是否符合要求。
 - 请将pip添加到环境变量中，以保证可以通过pip直接安装Python相关的工具包。如果pip没有在当前环境中安装，可以在 `https://pypi.org/project/pip/` 中进行下载安装。
@@ -72,6 +74,7 @@
     ```bash
     call build.bat
     ```
+    >
     > - 需确保源码路径中不含中文、日文等字符。
     > - 在执行上述命令前，需保证`mingw64\bin\`路径和可执行文件`cmake`所在路径已加入环境变量PATH中。
     > - 如git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。
@@ -98,13 +101,14 @@
 
 - 直接在线升级
 
-    ```
+    ```bash
     pip install --upgrade mindspore
     ```
 
 - 本地源码编译升级
 
     在源码根目录下执行编译脚本`build.bat`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
-    ```
+
+    ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-win_{arch}.whl
     ```

@@ -12,6 +12,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/docs/programming_guide/source_zh_cn/callback.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
+
 Callback回调函数在MindSpore中被实现为一个类，Callback机制类似于一种监控模式，可以帮助用户观察网络训练过程中各种参数的变化情况和网络内部的状态，还可以根据用户的指定，在达到特定条件后执行相应的操作，在训练过程中，Callback列表会按照定义的顺序执行Callback函数。Callback机制让用户可以及时有效地掌握网络模型的训练状态，并根据需要随时作出调整，可以极大地提升用户的开发效率。
 
 在MindSpore中，Callback机制一般用在网络训练过程`model.train`中，用户可以通过配置不同的内置回调函数传入不同的参数，从而实现各种功能。例如，可以通过`LossMonitor`监控每一个epoch的loss变化情况，通过`ModelCheckpoint`保存网络参数和模型进行再训练或推理，通过`TimeMonitor`监控每一个epoch，每一个step的训练时间，以及提前终止训练，动态调整参数等。
@@ -37,10 +38,11 @@ Callback回调函数在MindSpore中被实现为一个类，Callback机制类似�
     详细内容，请参考[LossMonitor官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/advanced_use/custom_debugging_info.html#mindsporecallback)。
 
 - TimeMonitor
- 
+
     监控训练过程中每个epoch，每个step的运行时间。
 
 ## MindSpore自定义回调函数
+
 MindSpore不但有功能强大的内置回调函数，还可以支持用户自定义回调函数。当用户有自己的特殊需求时，可以基于Callback基类，自定义满足用户自身需求的回调函数。Callback可以把训练过程中的重要信息记录下来，通过一个字典类型变量cb_params传递给Callback对象， 用户可以在各个自定义的Callback中获取到相关属性，执行自定义操作。
 
 以下面两个场景为例，介绍自定义Callback回调函数的功能：
