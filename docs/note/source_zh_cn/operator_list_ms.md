@@ -107,6 +107,8 @@
 | [mindspore.nn.MSSSIM](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.MSSSIM)                                | Supported |Doing | Doing |layer/image
 | [mindspore.nn.AvgPool1d](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.AvgPool1d)                                          |  Supported |  Doing | Doing |layer/pooling
 | [mindspore.nn.Unfold](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Unfold)                                        |Supported | Doing | Doing |layer/basic
+| [mindspore.nn.MaxPool1d](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.MaxPool1d)                                          |  Supported |  Doing | Doing |layer/pooling
+| [mindspore.nn.Moments](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Moments)                                        |Supported | Doing | Doing |layer/math
 
 ## mindspore.ops.operations
 
@@ -374,6 +376,9 @@
 | [mindspore.ops.ScatterAdd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterAdd)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.BroadcastTo](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BroadcastTo)             |    Supported  | Supported  | Doing | array_ops
 | [mindspore.ops.Assert](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Assert)                                 |    Doing | Doing  | Doing | debug_ops
+| [mindspore.ops.EditDistance](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.EditDistance)             |    Doing  | Doing  | Doing | array_ops
+| [mindspore.ops.Multinomial](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Multinomial)   |  Doing| Supported   | Doing | random_ops
+| [mindspore.ops.StandardLaplace](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.StandardLaplace)   |  Supported| Doing   | Doing | random_ops
 
 ## mindspore.ops.functional
 
