@@ -115,15 +115,12 @@ model.freeBuffer();
 
 ### 输入数据
 
-Java目前支持`byte[]`或者`ByteBuffer`两种类型的数据，设置输入Tensor的数据。目前Java只支持推理整图输入为`1`的模型。
+Java目前支持`byte[]`或者`ByteBuffer`两种类型的数据，设置输入Tensor的数据。
 
 ```java
 // Set input tensor values.
 List<MSTensor> inputs = session.getInputs();
-if (inputs.size() != 1) {
-    Log.e("MS_LITE", "Graph should have one input, but got " + inputs.size() + " inputs");
-    return;
-}
+MSTensor inTensor = inputs.get(0);
 byte[] inData = readFileFromAssets(context, "model_inputs.bin");
 inTensor.setData(inData);
 ```
