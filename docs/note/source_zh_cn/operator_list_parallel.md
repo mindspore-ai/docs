@@ -34,7 +34,7 @@
 | [mindspore.ops.BesselI1e](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BesselI1e)    |  无
 | [mindspore.ops.BiasAdd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BiasAdd)    |  无
 | [mindspore.ops.BroadcastTo](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BroadcastTo)    |  无
-| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)    |  无
+| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)    |  Auto Parallel和Semi Auto Parallel模式下，配置策略不生效
 | [mindspore.ops.Ceil](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Ceil)    |  无
 | [mindspore.ops.Concat](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Concat)    |  输入（input_x）在轴（axis）所对应的维度不能切分，切分后，在数学逻辑上和单机不等价
 | [mindspore.ops.Cos](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Cos)    |  无
