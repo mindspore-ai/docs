@@ -381,7 +381,7 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 - `GLOG_v`
 
-    The environment variable specifies the log level.
+    The environment variable specifies the log level.  
     The default value is 2, indicating the WARNING level. The values are as follows: 0: DEBUG; 1: INFO; 2: WARNING; 3: ERROR.
 
 - `GLOG_logtostderr`
@@ -391,16 +391,16 @@ MindSpore uses glog to output logs. The following environment variables are comm
 
 - `GLOG_log_dir`
 
-    The environment variable specifies the log output path.
-    If `GLOG_logtostderr` is set to 0, value of this variable must be specified.
-    If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.
+    The environment variable specifies the log output path.  
+    If `GLOG_logtostderr` is set to 0, value of this variable must be specified.  
+    If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.  
     Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
 
 - `MS_SUBMODULE_LOG_v`
 
     The environment variable specifies log levels of C++ sub modules of MindSpore.  
-    The environment variable is assigned as: `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`.
-    The specified sub module log level will overwrite the global log level. The meaning of sub module log level is the same as `GLOG_v`, the sub modules of MindSpore are categorized by source directory is shown in the below table.
+    The environment variable is assigned as: `MS_SUBMODULE_LOG_v="{SubModule1:LogLevel1,SubModule2:LogLevel2,...}"`.  
+    The specified sub module log level will overwrite the global log level. The meaning of sub module log level is the same as `GLOG_v`, the sub modules of MindSpore are categorized by source directory is shown in the below table.  
     E.g. when set `GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"` then log levels of `PARSER` and `ANALYZER` are WARNING, other modules' log levels are INFO.
 
 Sub modules of MindSpore grouped by source directory:
