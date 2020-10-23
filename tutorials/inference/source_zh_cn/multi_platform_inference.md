@@ -14,8 +14,8 @@
 
 按照原理不同，推理可以有两种方式：
 
-- 直接使用checkpiont文件进行推理，即在MindSpore训练环境下，使用推理接口加载数据及checkpoint文件进行推理。
-- 将checkpiont文件转化为通用的模型格式，如ONNX、AIR格式模型文件进行推理，推理环境不需要依赖MindSpore。这样的好处是可以跨硬件平台，只要支持ONNX/AIR推理的硬件平台即可进行推理。譬如在Ascend 910 AI处理器上训练的模型，可以在GPU/CPU上进行推理。
+- 直接使用checkpoint文件进行推理，即在MindSpore训练环境下，使用推理接口加载数据及checkpoint文件进行推理。
+- 将checkpoint文件转化为通用的模型格式，如ONNX、AIR格式模型文件进行推理，推理环境不需要依赖MindSpore。这样的好处是可以跨硬件平台，只要支持ONNX/AIR推理的硬件平台即可进行推理。譬如在Ascend 910 AI处理器上训练的模型，可以在GPU/CPU上进行推理。
 
 MindSpore支持的推理场景，按照硬件平台维度可以分为下面几种：
 
