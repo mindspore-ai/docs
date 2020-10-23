@@ -255,7 +255,7 @@ Currently, the following syntax is not supported in network constructors:
         class ExpandDimsTest(Cell):
             def __init__(self):
                 super(ExpandDimsTest, self).__init__()
-                self.expandDims = P.ExpandDims()
+                self.expandDims = ops.ExpandDims()
 
             def construct(self, input_x, input_axis):
                 return self.expandDims(input_x, input_axis)
@@ -272,7 +272,7 @@ Currently, the following syntax is not supported in network constructors:
         class ExpandDimsTest(Cell):
             def __init__(self, axis):
                 super(ExpandDimsTest, self).__init__()
-                self.expandDims = P.ExpandDims()
+                self.expandDims = ops.ExpandDims()
                 self.axis = axis
 
             def construct(self, input_x):

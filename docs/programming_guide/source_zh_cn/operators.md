@@ -8,6 +8,7 @@
         - [mindspore.ops.operations](#mindsporeopsoperations)
         - [mindspore.ops.functional](#mindsporeopsfunctional)
         - [mindspore.ops.composite](#mindsporeopscomposite)
+        - [operations/functional/composite三类算子合并用法](#operationsfunctionalcomposite三类算子合并用法)
     - [算子功能](#算子功能)
         - [张量操作](#张量操作)
         - [标量运算](#标量运算)
@@ -142,16 +143,16 @@ output = [[2.4911082  0.7941146  1.3117087]
 import numpy as np
 from mindspore.ops.composite import MultitypeFuncGraph
 from mindspore import Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 add = MultitypeFuncGraph('add')
 @add.register("Number", "Number")
 def add_scalar(x, y):
-    return F.scalar_add(x, y)
+    return ops.scalar_add(x, y)
 
 @add.register("Tensor", "Tensor")
 def add_tensor(x, y):
-    return F.tensor_add(x, y)
+    return ops.tensor_add(x, y)
 
 tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
@@ -168,6 +169,24 @@ scalar 3
 ```
 
 此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
+
+### operations/functional/composite三类算子合并用法
+
+为了在使用过程中更加简便，除了以上介绍的几种用法外，我们还将operations/functional/composite三种算子封装到了mindspore.ops中，推荐直接调用mindspore.ops下的接口。
+
+代码样例如下：
+
+```python
+import mindspore.ops.operations as P
+pow = P.Pow()
+```
+
+```python
+import mindspore.ops as ops
+pow = ops.Pow()
+```
+
+> 以上两种写法效果相同。
 
 ## 算子功能
 
@@ -233,11 +252,11 @@ print(input_x + input_y)
 import numpy as np
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 input_x = Tensor(np.array([1.0, 2.0, 3.0]), mindspore.float32)
 input_y = Tensor(np.array([4.0, 5.0, 6.0]), mindspore.float32)
-mul = P.Mul()
+mul = ops.Mul()
 res = mul(input_x, input_y)
 
 print(res)
@@ -257,9 +276,9 @@ print(res)
 import numpy as np
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
-acos = P.ACos()
+acos = ops.ACos()
 input_x = Tensor(np.array([0.74, 0.04, 0.30, 0.56]), mindspore.float32)
 output = acos(input_x)
 print(output)
@@ -283,10 +302,10 @@ print(output)
 import numpy as np
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
-squeeze = P.Squeeze(2)
+squeeze = ops.Squeeze(2)
 output = squeeze(input_tensor)
 
 print(output)
@@ -312,11 +331,11 @@ print(output)
 import numpy as np
 import mindspore
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 input_x = Tensor(np.ones(shape=[1, 3]), mindspore.float32)
 input_y = Tensor(np.ones(shape=[3, 4]), mindspore.float32)
-matmul = P.MatMul()
+matmul = ops.MatMul()
 output = matmul(input_x, input_y)
 
 print(output)
@@ -338,13 +357,13 @@ print(output)
 from mindspore import Tensor
 from mindspore.communication import init
 from mindspore import nn
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.broadcast = P.Broadcast(1)
+        self.broadcast = ops.Broadcast(1)
 
     def construct(self, x):
         return self.broadcast((x,))
@@ -368,13 +387,13 @@ output = net(input_)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 input = Tensor(np.ones([10, 32, 32, 32]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
-conv2d = P.Conv2D(out_channel=32, kernel_size=3)
+conv2d = ops.Conv2D(out_channel=32, kernel_size=3)
 res = conv2d(input, weight)
 
 print(res)
@@ -403,16 +422,15 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
-import mindspore.ops.functional as F
 
 dout = Tensor(np.ones([10, 32, 30, 30]), mindspore.float32)
 weight = Tensor(np.ones([32, 32, 3, 3]), mindspore.float32)
 x = Tensor(np.ones([10, 32, 32, 32]))
-conv2d_backprop_input = P.Conv2DBackpropInput(out_channel=32, kernel_size=3)
-res = conv2d_backprop_input(dout, weight, F.shape(x))
+conv2d_backprop_input = ops.Conv2DBackpropInput(out_channel=32, kernel_size=3)
+res = conv2d_backprop_input(dout, weight, ops.shape(x))
 
 print(res)
 ```
@@ -443,12 +461,12 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 input_x = Tensor(np.array([1, 2, 3, 4, 5]), mindspore.float32)
-softmax = P.Softmax()
+softmax = ops.Softmax()
 res = softmax(input_x)
 
 print(res)
@@ -466,11 +484,11 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
-loss = P.SmoothL1Loss()
+loss = ops.SmoothL1Loss()
 input_data = Tensor(np.array([1, 2, 3]), mindspore.float32)
 target_data = Tensor(np.array([1, 2, 2]), mindspore.float32)
 res = loss(input_data, target_data)
@@ -489,11 +507,11 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
-sgd = P.SGD()
+sgd = ops.SGD()
 parameters = Tensor(np.array([2, -0.5, 1.7, 4]), mindspore.float32)
 gradient = Tensor(np.array([1, -1, 0.5, 2]), mindspore.float32)
 learning_rate = Tensor(0.01, mindspore.float32)
@@ -523,12 +541,12 @@ print(result)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 input_tensor = Tensor(np.array([[2, 2], [2, 2]]), mindspore.float32)
-typea = P.DType()(input_tensor)
+typea = ops.DType()(input_tensor)
 
 print(typea)
 ```
@@ -547,14 +565,14 @@ Float32
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 input_np = np.random.randn(2, 3, 4, 5).astype(np.float32)
 input_x = Tensor(input_np)
 type_dst = mindspore.float16
-cast = P.Cast()
+cast = ops.Cast()
 result = cast(input_x, type_dst)
 print(type(result))
 ```
@@ -573,12 +591,12 @@ print(type(result))
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 input_tensor = Tensor(np.ones(shape=[3, 2, 1]), mindspore.float32)
-shape = P.Shape()
+shape = ops.Shape()
 output = shape(input_tensor)
 print(output)
 ```
@@ -597,16 +615,15 @@ print(output)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore.common.dtype as mstype
-from mindspore.ops import composite as C
 from mindspore import nn
 
 class CropAndResizeNet(nn.Cell):
     def __init__(self, crop_size):
         super(CropAndResizeNet, self).__init__()
-        self.crop_and_resize = P.CropAndResize()
+        self.crop_and_resize = ops.CropAndResize()
         self.crop_size = crop_size
 
     def construct(self, x, boxes, box_index):
@@ -663,13 +680,13 @@ print(output.asnumpy())
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 groundtruth_box = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
-boundingbox_encode = P.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
+boundingbox_encode = ops.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
 res = boundingbox_encode(anchor_box, groundtruth_box)
 print(res)
 ```
@@ -689,13 +706,13 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
 deltas = Tensor([[3,1,2,2],[1,2,1,4]],mindspore.float32)
-boundingbox_decode = P.BoundingBoxDecode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0), max_shape=(768, 1280), wh_ratio_clip=0.016)
+boundingbox_decode = ops.BoundingBoxDecode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0), max_shape=(768, 1280), wh_ratio_clip=0.016)
 res = boundingbox_decode(anchor_box, deltas)
 print(res)
 ```
@@ -715,11 +732,11 @@ print(res)
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore
 
-iou = P.IOU()
+iou = ops.IOU()
 anchor_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
 gt_boxes = Tensor(np.random.randint(1.0, 5.0, [3, 4]), mindspore.float16)
 out = iou(anchor_boxes, gt_boxes)
@@ -766,16 +783,15 @@ class DebugNN(nn.Cell):
 
 ```python
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore.common.dtype as mstype
-from mindspore.ops import composite as C
 
 def hook_fn(grad_out):
     print(grad_out)
 
-grad_all = C.GradOperation(get_all=True)
-hook = P.HookBackward(hook_fn)
+grad_all = ops.GradOperation(get_all=True)
+hook = ops.HookBackward(hook_fn)
 
 def hook_test(x, y):
     z = x * y

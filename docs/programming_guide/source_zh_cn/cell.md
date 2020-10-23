@@ -43,15 +43,15 @@ MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单�
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.parameter import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(
             initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
             name='conv.weight')
@@ -159,19 +159,19 @@ MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，
 
 同时nn也提供了部分与`Primitive`算子同名的接口，主要作用是对`Primitive`算子进行进一步封装，为用户提供更友好的API。
 
-重新分析上文介绍`construct`方法的用例，此用例是MindSpore的`nn.Conv2d`源码简化内容，内部会调用`P.Conv2D`。`nn.Conv2d`卷积API增加输入参数校验功能并判断是否`bias`等，是一个高级封装的模型层。
+重新分析上文介绍`construct`方法的用例，此用例是MindSpore的`nn.Conv2d`源码简化内容，内部会调用`ops.Conv2D`。`nn.Conv2d`卷积API增加输入参数校验功能并判断是否`bias`等，是一个高级封装的模型层。
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.parameter import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(
             initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
             name='conv.weight')

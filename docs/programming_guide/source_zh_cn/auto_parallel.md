@@ -111,10 +111,10 @@ context.get_auto_parallel_context("gradients_mean")
 
 ```python
 from mindspore import context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 context.set_auto_parallel_context(parallel_mode="semi_auto_parallel")
-mul = P.Mul().shard(((2, 1), (2, 1)))
+mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
@@ -289,9 +289,9 @@ rank_id = get_rank()
 代码样例如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-mul = P.Mul().add_prim_attr("cross_batch", True)
+mul = ops.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
@@ -301,10 +301,10 @@ mul = P.Mul().add_prim_attr("cross_batch", True)
 代码样例如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-allreduce1 = P.AllReduce().add_prim_attr("fusion", 1)
-allreduce2 = P.AllReduce().add_prim_attr("fusion", 1)
+allreduce1 = ops.AllReduce().add_prim_attr("fusion", 1)
+allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 ```
 
 ## 数据并行

@@ -768,7 +768,7 @@ inverse_log_jaco:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn.probability.dpn import VAE
 
 IMAGE_SHAPE = (-1, 1, 32, 32)
@@ -796,7 +796,7 @@ class Decoder(nn.Cell):
         super(Decoder, self).__init__()
         self.fc1 = nn.Dense(400, 1024)
         self.sigmoid = nn.Sigmoid()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, z):
         z = self.fc1(z)
@@ -818,7 +818,7 @@ vae = VAE(encoder, decoder, hidden_size=400, latent_size=20)
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn.probability.dpn import ConditionalVAE
 
 IMAGE_SHAPE = (-1, 1, 32, 32)
@@ -830,7 +830,7 @@ class Encoder(nn.Cell):
         self.fc1 = nn.Dense(1024 + num_classes, 400)
         self.relu = nn.ReLU()
         self.flatten = nn.Flatten()
-        self.concat = P.Concat(axis=1)
+        self.concat = ops.Concat(axis=1)
         self.one_hot = nn.OneHot(depth=num_classes)
 
     def construct(self, x, y):
@@ -847,7 +847,7 @@ class Decoder(nn.Cell):
         super(Decoder, self).__init__()
         self.fc1 = nn.Dense(400, 1024)
         self.sigmoid = nn.Sigmoid()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, z):
         z = self.fc1(z)

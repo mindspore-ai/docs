@@ -160,16 +160,15 @@ from mindspore import nn
 from mindspore.train import Model
 from .optimizer import Optimizer
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 import mindspore.common.dtype as mstype
-from mindpore.ops import composite as C
 from mindspore.common.parameter import Parameter
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.matmul = P.MatMul()
+        self.matmul = ops.MatMul()
         self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
     def construct(self, x, y):
         x = x * self.z

@@ -38,14 +38,14 @@ import numpy as np
 
 from mindspore.common.tensor import Tensor
 from mindspore.nn import Cell, Dense, SoftmaxCrossEntropyWithLogits, Momentum, TrainOneStepCell, WithLossCell
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 
 class ReLUReduceMeanDense(Cell):
     def __init__(self, kernel, bias, in_channel, num_class):
         super().__init__()
-        self.relu = P.ReLU()
-        self.mean = P.ReduceMean(keep_dims=False)
+        self.relu = ops.ReLU()
+        self.mean = ops.ReduceMean(keep_dims=False)
         self.dense = Dense(in_channel, num_class, kernel, bias)
 
     def construct(self, x):
@@ -102,9 +102,7 @@ from mindspore.common.initializer import TruncatedNormal
 from mindspore.common.parameter import ParameterTuple
 from mindspore.dataset.vision import Inter
 from mindspore.nn.wrap.cell_wrapper import WithLossCell
-from mindspore.ops import composite as C
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.dataset_helper import DatasetHelper, connect_network_with_dataset
 
 
@@ -189,7 +187,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -213,7 +211,7 @@ class TrainOneStepCell(nn.Cell):
         self.network = network
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
-        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
 
     def set_sens(self, value):
@@ -222,9 +220,9 @@ class TrainOneStepCell(nn.Cell):
     def construct(self, data, label):
         weights = self.weights
         loss = self.network(data, label)
-        sens = P.Fill()(P.DType()(loss), P.Shape()(loss), self.sens)
+        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(data, label, sens)
-        return F.depend(loss, self.optimizer(grads))
+        return ops.depend(loss, self.optimizer(grads))
 
 
 if __name__ == "__main__":
@@ -321,7 +319,7 @@ from mindspore.common import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
 from mindspore.nn.metrics import Accuracy
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train import Model
 from mindspore.train.callback import LossMonitor
 
@@ -407,7 +405,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)

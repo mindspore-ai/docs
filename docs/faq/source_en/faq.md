@@ -110,13 +110,13 @@ Q: After MindSpore is installed on a CPU of a PC, an error message `the pointer[
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(device_target="Ascend")
 x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-print(F.tensor_add(x,y))
+print(ops.tensor_add(x,y))
 ```
 
 A: After MindSpore is installed on a CPU hardware platform, run the `python -c'import mindspore'` command to check whether MindSpore is successfully installed. If no error message such as `No module named'mindspore'` is displayed, MindSpore is successfully installed. The verification code is used only to verify whether a Ascend platform is successfully installed.
@@ -226,7 +226,7 @@ context.set_context(
 mode=cintext.GRAPH_MODE,
 device_target='ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
-expand_dims=P.ExpandDims()
+expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)
 ```
 

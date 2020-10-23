@@ -32,14 +32,13 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore.common import dtype as mstype
-from mindspore.ops import composite as C
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.matmul = P.MatMul()
+        self.matmul = ops.MatMul()
         self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
     def construct(self, x, y):
         x = x * self.z
@@ -50,7 +49,7 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = C.GradOperation()
+        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, y)
@@ -88,7 +87,7 @@ import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore.nn import TrainOneStepCell, WithLossCell
 from mindspore.nn.optim import Momentum
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
@@ -96,13 +95,13 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 class LeNet(nn.Cell):
     def __init__(self):
         super(LeNet, self).__init__()
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.batch_size = 32
 
         self.conv1 = nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
