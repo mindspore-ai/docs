@@ -4,7 +4,7 @@
 .. toctree::
   :maxdepth: 1
 
-  operator
+  operators
   parameter
   cell
   network_component

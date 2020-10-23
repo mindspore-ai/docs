@@ -1,8 +1,8 @@
-﻿# Operator
+﻿# Operators
 
 <!-- TOC -->
 
-- [Operator](#operator)
+- [Operators](#operators)
     - [Overview](#overview)
     - [Operator Usage](#operator-usage)
         - [mindspore.ops.operations](#mindsporeopsoperations)
@@ -39,13 +39,16 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/operator.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
+
 Operators of MindSpore can be classified based on the operator usage and operator functions.
 
 ## Operator Usage
+
 APIs related to operators include operations, functional, and composite. Operators related to these three APIs can be directly obtained using ops.
+
 - The operations API provides a single primitive operator. An operator corresponds to a primitive and is the smallest execution object. An operator can be used only after being instantiated.
 - The composite API provides some predefined composite operators and complex operators involving graph transformation, such as `GradOperation`.
 - The functional API provides objects instantiated by the operations and composite to simplify the operator calling process.
@@ -59,6 +62,7 @@ Primitive operators directly encapsulate the implementation of operators at bott
 Primitive operator APIs are the basis for building high-order APIs, automatic differentiation, and network models.
 
 A code example is as follows:
+
 ```python
 import numpy as np
 import mindspore
@@ -73,7 +77,8 @@ print("output =", output)
 ```
 
 The following information is displayed:
-```
+
+```text
 output = [ 1.  8. 64.]
 ```
 
@@ -98,7 +103,8 @@ print("output =", output)
 ```
 
 The following information is displayed:
-```
+
+```text
 output = [ 1.  8. 64.]
 ```
 
@@ -107,6 +113,7 @@ output = [ 1.  8. 64.]
 The composite API provides some operator combinations, including some operators related to clip_by_value and random, and functions (such as `GradOperation`, `HyperMap`, and `Map`) related to graph transformation.
 
 The operator combination can be directly used as a common function. For example, use `normal` to generate a random distribution:
+
 ```python
 from mindspore.common import dtype as mstype
 from mindspore.ops import composite as C
@@ -117,8 +124,10 @@ stddev = Tensor(1.0, mstype.float32)
 output = C.normal((2, 3), mean, stddev, seed=5)
 print("ouput =", output)
 ```
+
 The following information is displayed:
-```
+
+```text
 output = [[2.4911082  0.7941146  1.3117087]
  [0.30582333  1.772938  1.525996]]
 ```
@@ -128,6 +137,7 @@ output = [[2.4911082  0.7941146  1.3117087]
 For functions involving graph transformation, users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
 
 A code example is as follows:
+
 ```python
 import numpy as np
 from mindspore.ops.composite import MultitypeFuncGraph
@@ -148,8 +158,10 @@ tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 print('tensor', add(tensor1, tensor2))
 print('scalar', add(1, 2))
 ```
+
 The following information is displayed:
-```
+
+```text
 tensor [[2.4, 4.2]
  [4.4, 6.4]]
 scalar 3
@@ -182,8 +194,9 @@ Scalar operators are characterized by performing element-by-element operations o
 Some scalar operators overload commonly used mathematical operators. In addition, the broadcast feature similar to NumPy is supported.
 
  The following code implements the exponentiation, where the base is input_x and the exponent is input_y:
+
 ```python
-import numpy as np            
+import numpy as np
 import mindspore
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -193,25 +206,29 @@ print(input_x**input_y)
 ```
 
  The following information is displayed:
-```
+
+```text
 [ 1.  8. 64.]
 ```
 
 #### Addition
 
 The following code implements the addition of `input_x` and `input_y`:
+
 ```python
 print(input_x + input_y)
 ```
 
  The following information is displayed:
-```
+
+```text
 [4.0 5.0 7.0]
 ```
 
 #### Element-wise Multiplication
 
 The following code implements the element-wise multiplication:
+
 ```python
 import numpy as np
 import mindspore
@@ -227,13 +244,15 @@ print(res)
 ```
 
  The following information is displayed:
-```
+
+```text
 [4. 10. 18]
 ```
 
 #### Trigonometric Function
 
 The following code implements Acos:
+
 ```python
 import numpy as np
 import mindspore
@@ -247,9 +266,11 @@ print(output)
 ```
 
  The following information is displayed:
-```
+
+```text
 [0.7377037, 1.5307858, 1.2661037, 0.97641146]
 ```
+
 ### Vector Operations
 
 Vector operators perform operations on only one particular axis, mapping a vector to a scalar or another vector.
@@ -257,6 +278,7 @@ Vector operators perform operations on only one particular axis, mapping a vecto
 #### Squeeze
 
 The following code implements the compression of a channel whose the third channel dimension is 1:
+
 ```python
 import numpy as np
 import mindspore
@@ -271,7 +293,8 @@ print(output)
 ```
 
  The following information is displayed:
-```
+
+```text
 [[1. 1.]
  [1. 1.]
  [1. 1.]]
@@ -284,6 +307,7 @@ Matrix operations include matrix multiplication, matrix norm, matrix determinant
 #### Matrix Multiplication
 
  The following code implements the matrix multiplication of input_x and input_y:
+
 ```python
 import numpy as np
 import mindspore
@@ -299,7 +323,8 @@ print(output)
 ```
 
 The following information is displayed:
-```
+
+```text
 [[3. 3. 3. 3.]]
 ```
 
@@ -308,6 +333,7 @@ The following information is displayed:
 Broadcast indicates that when the number of channels of each input variable is inconsistent, change the number of channels to obtain the result.
 
 - The following code implements the broadcast mechanism:
+
 ```python
 from mindspore import Tensor
 from mindspore.communication import init
@@ -339,6 +365,7 @@ Feature extraction is a common operation in machine learning. The core of featur
 Convolution Operation
 
 The following code implements the 2D convolution operation which is one of the common convolution operations:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -352,8 +379,10 @@ res = conv2d(input, weight)
 
 print(res)
 ```
+
 The following information is displayed:
-```
+
+```text
 [[[[288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
@@ -387,8 +416,10 @@ res = conv2d_backprop_input(dout, weight, F.shape(x))
 
 print(res)
 ```
+
 The following information is displayed:
-```
+
+```text
 [[[[ 32. 64. 96. ... 96. 64. 32.]
    [ 64. 128. 192. ... 192. 128. 64.]
    [ 96. 192. 288. ... 288. 192. 96.]
@@ -409,6 +440,7 @@ The following information is displayed:
 #### Activation Function
 
 The following code implements the computation of the Softmax activation function:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -423,7 +455,8 @@ print(res)
 ```
 
 The following information is displayed:
-```
+
+```text
 [0.01165623 0.03168492 0.08612854 0.23412167 0.6364086]
 ```
 
@@ -432,6 +465,7 @@ The following information is displayed:
  L1Loss
 
  The following code implements the L1 loss function:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -446,7 +480,8 @@ print(res)
 ```
 
  The following information is displayed:
-```
+
+```text
 [0.  0.  0.5]
 ```
 
@@ -455,6 +490,7 @@ print(res)
  SGD
 
  The following code implements the stochastic gradient descent (SGD) algorithm. The output is stored in result.
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -474,7 +510,8 @@ print(result)
 ```
 
  The following information is displayed:
-```
+
+```text
 [0.  0.  0.  0.]
 ```
 
@@ -501,7 +538,8 @@ print(typea)
 ```
 
  The following information is displayed:
-```
+
+```text
 Float32
 ```
 
@@ -526,7 +564,8 @@ print(type(result))
 ```
 
  The following information is displayed:
-```
+
+```text
 <class 'mindspore.common.tensor.Tensor'>
 ```
 
@@ -535,6 +574,7 @@ print(type(result))
 Returns the shape of the input data.
 
  The following code implements the operation of returning the input data input_tensor:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -548,7 +588,8 @@ print(output)
 ```
 
  The following information is displayed:
-```
+
+```text
 [3, 2, 1]
 ```
 
@@ -557,6 +598,7 @@ print(output)
 The image operations include image preprocessing operations, for example, image cropping (for obtaining a large quantity of training samples) and resizing (for constructing an image golden tower).
 
  The following code implements the cropping and resizing operations:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -589,7 +631,8 @@ print(output.asnumpy())
 ```
 
 The following information is displayed:
-```
+
+```text
 [[[[ 6.51672244e-01 -1.85958534e-01 5.19907832e-01]
 [ 1.53466597e-01 4.10562098e-01 6.26138210e-01]
 [ 6.62892580e-01 3.81776541e-01 4.69261825e-01]
@@ -621,6 +664,7 @@ The encoding operations include BoundingBox Encoding, BoundingBox Decoding, and 
 The box of the area where the object is located is encoded to obtain more concise information similar to PCA, facilitating subsequent tasks such as feature extraction, object detection, and image restoration.
 
 The following code implements BoundingBox Encoding for anchor_box and groundtruth_box:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -635,7 +679,8 @@ print(res)
 ```
 
  The following information is displayed:
-```
+
+```text
 [[5.0000000e-01  5.0000000e-01  -6.5504000e+04  6.9335938e-01]
  [-1.0000000e+00  2.5000000e-01  0.0000000e+00  4.0551758e-01]]
 ```
@@ -645,6 +690,7 @@ print(res)
 After decoding the area location information, the encoder uses this operator to decode the information.
 
  Code implementation:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -659,7 +705,8 @@ print(res)
 ```
 
  The following information is displayed:
-```
+
+```text
 [[4.1953125  0.  0.  5.1953125]
  [2.140625  0.  3.859375  60.59375]]
 ```
@@ -669,6 +716,7 @@ print(res)
 Computes the proportion of the intersection area and union area of the box where the predicted object is located and the box where the real object is located. It is often used as a loss function to optimize the model.
 
  The following code implements the IOU computing between anchor_boxes and gt_boxes. The output is stored in out:
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -683,7 +731,8 @@ print(out)
 ```
 
  The following information is displayed:
-```
+
+```text
 [[0.  -0.  0.]
  [0.  -0.  0.]
  [0.   0.  0.]]
@@ -698,6 +747,7 @@ The debugging operations refer to some common operators and operations used to d
 Outputs the value of a tensor variable so that users can print the value of a variable required for understanding or debugging anytime and anywhere.
 
  The following code implements the function of outputting the value of variable x:
+
 ```python
 from mindspore import nn
 
@@ -717,6 +767,7 @@ class DebugNN(nn.Cell):
 Displays the gradient of intermediate variables. It is a common operator. Currently, only the PyNative mode is supported.
 
  The following code implements the function of printing the gradient of the intermediate variable (x,y in this example):
+
 ```python
 from mindspore import Tensor
 import mindspore.ops.operations as P
@@ -741,7 +792,9 @@ def backward(x, y):
 
 backward(1, 2)
 ```
+
 The following information is displayed:
-```
+
+```text
 (Tensor(shape=[], dtype=Float32, value=2),)
 ```
