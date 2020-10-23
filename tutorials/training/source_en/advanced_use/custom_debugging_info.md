@@ -72,7 +72,7 @@ class Callback():
         pass
 
     def step_begin(self, run_context):
-        """Called before each epoch beginning."""
+        """Called before step epoch beginning."""
         pass
 
     def step_end(self, run_context):
