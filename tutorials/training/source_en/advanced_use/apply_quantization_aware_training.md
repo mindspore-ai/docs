@@ -70,7 +70,7 @@ The procedure for the quantization aware training model is the same as that for 
 Compared with common training, the quantization aware training requires additional steps which are steps 3, 5, and 6 in the preceding process.
 
 > - Fusion network: network after the specified operators (`nn.Conv2dBnAct` and `nn.DenseBnAct`) are used for replacement.
-> - Quantization network: network obtained after the fusion model uses a conversion API (`convert_quant_network`) to insert a fake quantization node.
+> - Quantization network: network obtained after the fusion model uses a conversion API (`QuantizationAwareTraining.quantize`) to insert a fake quantization node.
 > - Quantization model: model in the checkpoint format obtained after the quantization network training.
 
 Next, the LeNet network is used as an example to describe steps 2 and 3.
@@ -151,12 +151,16 @@ class LeNet5(nn.Cell):
 
 ### Converting the Fusion Model into a Quantization Network
 
-Use the `convert_quant_network` API to automatically insert a fake quantization node into the fusion model to convert the fusion model into a quantization network.
+Use the `QuantizationAwareTraining.quantize` API to automatically insert a fake quantization node into the fusion model to convert the fusion model into a quantization network.
 
 ```python
-from mindspore.train.quant import quant
+from mindspore.compression.quant import QuantizationAwareTraining
 
-net = quant.convert_quant_network(network, quant_delay=900, bn_fold=False, per_channel=[True, False], symmetric=[False, False])
+quantizer = QuantizationAwareTraining(quant_delay=900,
+                                      bn_fold=False,
+                                      per_channel=[True, False],
+                                      symmetric=[True, False])
+net = quantizer.quantize(network)
 ```
 
 ## Retraining and Inference
