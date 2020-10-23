@@ -18,7 +18,7 @@
    :maxdepth: 1
    :caption: 基础使用
 
-   use/build
+   use/preparation
    use/convert_model
    use/evaluating_the_model
    use/data_preprocessing
