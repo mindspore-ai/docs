@@ -40,7 +40,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
 
-Users can get profiling data by user-defined callback:
+Users can get profiling data by user-defined callback (In the current version, minddata does not support this mode. There is no minddata performance data generation in this mode.) :
 
 ```python
 class StopAtStep(Callback):
