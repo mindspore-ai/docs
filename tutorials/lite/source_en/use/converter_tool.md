@@ -80,19 +80,6 @@ The following describes how to use the conversion command by using several commo
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
-
-    - TensorFlow Lite aware quantization model `model_quant.tflite`
-
-      ```bash
-      ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining
-      ```
-
-    - TensorFlow Lite aware quantization model `model_quant.tflite` set the input and output data type to be float
-
-      ```bash
-      ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model --quantType=AwareTraining  --inferenceType=FLOAT
-      ```
-
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
 
    ```text
@@ -115,8 +102,7 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>AwareTraining: perceptual quantization <br>WeightQuant: only do weight quantization after training | - |
-| `--inferenceType=<INFERENCETYPE>`| No(supported by aware quant models only) |  Sets the input and output data type of the converted model. If the types are different from the origin model, the convert tool will insert data type convert op in the inputs and outputs of the model to make sure the data types are same as origin model. | UINT8, FLOAT or INT8 | FLOAT |
+| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
 | `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant,now only support 8 bits. | 8 | 8 |
 | `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant.If size is bigger than this value,it will trigger weight quantization | (0, +∞) | 0 |
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel num threshold of convolution filter when quantType is set as WeightQuant.If num is bigger than this,it will trigger weight quantization | (0, +∞) | 16 |
@@ -183,12 +169,6 @@ Several common examples are selected below to illustrate the use of conversion c
 
       ```bash
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
-      ```
-
-    - TensorFlow Lite awaring quant model `model_quant.tflite`
-
-      ```bash
-      call converter_lite --fmk=TFLITE --modelFile=model_quant.tflite --outputFile=model --quantType=AwareTraining
       ```
 
    In the above cases, the following conversion success prompt is displayed, and the `model.ms` target file is obtained at the same time.
