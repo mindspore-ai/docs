@@ -144,4 +144,4 @@ Mean bias of all nodes: 0%
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
 | `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘;’隔开 | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
