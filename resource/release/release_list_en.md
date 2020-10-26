@@ -3,56 +3,75 @@
 <!-- TOC -->
 
 - [Release List](#release-list)
-    - [1.0.0](#100)
+    - [1.0.1](#101)
         - [Releasenotes](#releasenotes)
         - [Downloads](#downloads)
         - [Tutorials, API and Docs](#tutorials-api-and-docs)
-    - [0.7.0-beta](#070-beta)
+    - [1.0.0](#100)
         - [Releasenotes](#releasenotes-1)
         - [Downloads](#downloads-1)
         - [Tutorials, API and Docs](#tutorials-api-and-docs-1)
-    - [0.6.0-beta](#060-beta)
+    - [0.7.0-beta](#070-beta)
         - [Releasenotes](#releasenotes-2)
         - [Downloads](#downloads-2)
+        - [Tutorials, API and Docs](#tutorials-api-and-docs-2)
+    - [0.6.0-beta](#060-beta)
+        - [Releasenotes](#releasenotes-3)
+        - [Downloads](#downloads-3)
         - [Tutorials](#tutorials)
         - [API](#api)
         - [Docs](#docs)
     - [0.5.2-beta](#052-beta)
-        - [Releasenotes](#releasenotes-3)
-        - [Downloads](#downloads-3)
+        - [Releasenotes](#releasenotes-4)
+        - [Downloads](#downloads-4)
         - [Tutorials](#tutorials-1)
         - [API](#api-1)
         - [Docs](#docs-1)
     - [0.5.0-beta](#050-beta)
-        - [Releasenotes](#releasenotes-4)
-        - [Downloads](#downloads-4)
+        - [Releasenotes](#releasenotes-5)
+        - [Downloads](#downloads-5)
         - [Tutorials](#tutorials-2)
         - [API](#api-2)
         - [Docs](#docs-2)
     - [0.3.0-alpha](#030-alpha)
-        - [Releasenotes](#releasenotes-5)
-        - [Downloads](#downloads-5)
+        - [Releasenotes](#releasenotes-6)
+        - [Downloads](#downloads-6)
         - [Tutorials](#tutorials-3)
         - [API](#api-3)
         - [Docs](#docs-3)
     - [0.2.0-alpha](#020-alpha)
-        - [Releasenotes](#releasenotes-6)
-        - [Downloads](#downloads-6)
+        - [Releasenotes](#releasenotes-7)
+        - [Downloads](#downloads-7)
         - [Tutorials](#tutorials-4)
         - [API](#api-4)
         - [Docs](#docs-4)
     - [0.1.0-alpha](#010-alpha)
-        - [Releasenotes](#releasenotes-7)
-        - [Downloads](#downloads-7)
+        - [Releasenotes](#releasenotes-8)
+        - [Downloads](#downloads-8)
         - [Tutorials](#tutorials-5)
         - [API](#api-5)
         - [Docs](#docs-5)
     - [master(unstable)](#masterunstable)
-        - [Tutorials, API and Docs](#tutorials-api-and-docs-2)
+        - [Tutorials, API and Docs](#tutorials-api-and-docs-3)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
+
+## 1.0.1
+
+### Releasenotes
+
+<https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
+
+### Downloads
+
+### Tutorials, API and Docs
+
+| Category | URL |
+| --- | --- |
+| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.0/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
 
 ## 1.0.0
 
