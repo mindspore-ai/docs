@@ -210,15 +210,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
     ```python
     # prediction accuracy before attack
-    net.set_train(False)
-    test_logits = []
-    batches = test_inputs.shape[0] // batch_size
-    for i in range(batches):
-        batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
-        batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
-        logits = net(Tensor(batch_inputs)).asnumpy()
-        test_logits.append(logits)
-    test_logits = np.concatenate(test_logits)
+    test_logits = net(Tensor(test_inputs)).asnumpy()
 
     tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
     accuracy = np.mean(tmp)
@@ -243,13 +235,7 @@ attack = FastGradientSignMethod(net, eps=0.3, loss_fn=loss)
 adv_data = attack.batch_generate(test_inputs, test_labels)
 
 # get accuracy of adv data on original model
-adv_logits = []
-for i in range(batches):
-    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
-    logits = net(Tensor(batch_inputs)).asnumpy()
-    adv_logits.append(logits)
-
-adv_logits = np.concatenate(adv_logits)
+adv_logits = net(Tensor(adv_data)).asnumpy()
 adv_proba = softmax(adv_logits, axis=1)
 tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
 accuracy_adv = np.mean(tmp)
@@ -310,27 +296,14 @@ nad.batch_defense(test_inputs, test_labels, batch_size=32, epochs=10)
 
 # get accuracy of test data on defensed model
 net.set_train(False)
-test_logits = []
-for i in range(batches):
-    batch_inputs = test_inputs[i*batch_size : (i + 1)*batch_size]
-    batch_labels = test_labels[i*batch_size : (i + 1)*batch_size]
-    logits = net(Tensor(batch_inputs)).asnumpy()
-    test_logits.append(logits)
-
-test_logits = np.concatenate(test_logits)
+test_logits = net(Tensor(test_inputs)).asnumpy()
 
 tmp = np.argmax(test_logits, axis=1) == np.argmax(test_labels, axis=1)
 accuracy = np.mean(tmp)
 LOGGER.info(TAG, 'accuracy of TEST data on defensed model is : %s', accuracy)
 
 # get accuracy of adv data on defensed model
-adv_logits = []
-for i in range(batches):
-    batch_inputs = adv_data[i*batch_size : (i + 1)*batch_size]
-    logits = net(Tensor(batch_inputs)).asnumpy()
-    adv_logits.append(logits)
-
-adv_logits = np.concatenate(adv_logits)
+adv_logits = net(Tensor(adv_data)).asnumpy()
 adv_proba = softmax(adv_logits, axis=1)
 tmp = np.argmax(adv_proba, axis=1) == np.argmax(test_labels, axis=1)
 accuracy_adv = np.mean(tmp)
