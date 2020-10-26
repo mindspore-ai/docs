@@ -3,56 +3,75 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
-    - [1.0.0](#100)
+    - [1.0.1](#101)
         - [版本说明](#版本说明)
         - [下载地址](#下载地址)
         - [教程、API、文档](#教程api文档)
-    - [0.7.0-beta](#070-beta)
+    - [1.0.0](#100)
         - [版本说明](#版本说明-1)
         - [下载地址](#下载地址-1)
         - [教程、API、文档](#教程api文档-1)
-    - [0.6.0-beta](#060-beta)
+    - [0.7.0-beta](#070-beta)
         - [版本说明](#版本说明-2)
         - [下载地址](#下载地址-2)
+        - [教程、API、文档](#教程api文档-2)
+    - [0.6.0-beta](#060-beta)
+        - [版本说明](#版本说明-3)
+        - [下载地址](#下载地址-3)
         - [教程](#教程)
         - [API](#api)
         - [文档](#文档)
     - [0.5.2-beta](#052-beta)
-        - [版本说明](#版本说明-3)
-        - [下载地址](#下载地址-3)
+        - [版本说明](#版本说明-4)
+        - [下载地址](#下载地址-4)
         - [教程](#教程-1)
         - [API](#api-1)
         - [文档](#文档-1)
     - [0.5.0-beta](#050-beta)
-        - [版本说明](#版本说明-4)
-        - [下载地址](#下载地址-4)
+        - [版本说明](#版本说明-5)
+        - [下载地址](#下载地址-5)
         - [教程](#教程-2)
         - [API](#api-2)
         - [文档](#文档-2)
     - [0.3.0-alpha](#030-alpha)
-        - [版本说明](#版本说明-5)
-        - [下载地址](#下载地址-5)
+        - [版本说明](#版本说明-6)
+        - [下载地址](#下载地址-6)
         - [教程](#教程-3)
         - [API](#api-3)
         - [文档](#文档-3)
     - [0.2.0-alpha](#020-alpha)
-        - [版本说明](#版本说明-6)
-        - [下载地址](#下载地址-6)
+        - [版本说明](#版本说明-7)
+        - [下载地址](#下载地址-7)
         - [教程](#教程-4)
         - [API](#api-4)
         - [文档](#文档-4)
     - [0.1.0-alpha](#010-alpha)
-        - [版本说明](#版本说明-7)
-        - [下载地址](#下载地址-7)
+        - [版本说明](#版本说明-8)
+        - [下载地址](#下载地址-8)
         - [教程](#教程-5)
         - [API](#api-5)
         - [文档](#文档-5)
     - [master(unstable)](#masterunstable)
-        - [教程、API、文档](#教程api文档-2)
+        - [教程、API、文档](#教程api文档-3)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## 1.0.1
+
+### 版本说明
+
+<https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
+
+### 下载地址
+
+### 教程、API、文档
+
+| 类别 | 网址 |
+| --- | --- |
+| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
 
 ## 1.0.0
 
