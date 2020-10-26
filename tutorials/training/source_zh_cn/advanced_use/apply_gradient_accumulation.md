@@ -48,9 +48,7 @@ import mindspore.nn as nn
 from mindspore import ParameterTuple
 from mindspore import context
 from mindspore.nn import Cell
-from mindspore.ops import composite as C
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.dataset_helper import DatasetHelper
 from mindspore.train.serialization import save_checkpoint
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
@@ -74,14 +72,14 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 - `TrainClear`实现对梯度累加变量grad_sum清零。
 
 ```python
-_sum_op = C.MultitypeFuncGraph("grad_sum_op")
-_clear_op = C.MultitypeFuncGraph("clear_op")
+_sum_op = ops.MultitypeFuncGraph("grad_sum_op")
+_clear_op = ops.MultitypeFuncGraph("clear_op")
 
 
 @_sum_op.register("Tensor", "Tensor")
 def _cumulative_gard(grad_sum, grad):
     """Apply gard sum to cumulative gradient."""
-    add = P.AssignAdd()
+    add = ops.AssignAdd()
     return add(grad_sum, grad)
 
 
@@ -89,7 +87,7 @@ def _cumulative_gard(grad_sum, grad):
 def _clear_grad_sum(grad_sum, zero):
     """Apply zero to clear grad_sum."""
     success = True
-    success = F.depend(success, F.assign(grad_sum, zero))
+    success = ops.depend(success, ops.assign(grad_sum, zero))
     return success
 
 
@@ -102,16 +100,16 @@ class TrainForwardBackward(Cell):
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
-        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
         weights = self.weights
         loss = self.network(*inputs)
-        sens = P.Fill()(P.DType()(loss), P.Shape()(loss), self.sens)
+        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(*inputs, sens)
-        return F.depend(loss, self.hyper_map(F.partial(_sum_op), self.grad_sum, grads))
+        return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
 
 class TrainOptim(Cell):
@@ -129,10 +127,10 @@ class TrainClear(Cell):
         super(TrainClear, self).__init__(auto_prefix=False)
         self.grad_sum = grad_sum
         self.zeros = zeros
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self):
-        success = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
+        success = self.hyper_map(ops.partial(_clear_op), self.grad_sum, self.zeros)
         return success
 ```
 

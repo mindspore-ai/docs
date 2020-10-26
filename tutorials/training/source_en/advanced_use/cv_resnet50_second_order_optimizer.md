@@ -205,14 +205,14 @@ class CrossEntropy(_Loss):
     """CrossEntropy"""
     def __init__(self, smooth_factor=0., num_classes=1000):
         super(CrossEntropy, self).__init__()
-        self.onehot = P.OneHot()
+        self.onehot = ops.OneHot()
         self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
         self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
         self.ce = nn.SoftmaxCrossEntropyWithLogits()
-        self.mean = P.ReduceMean(False)
+        self.mean = ops.ReduceMean(False)
 
     def construct(self, logit, label):
-        one_hot_label = self.onehot(label, F.shape(logit)[1], self.on_value, self.off_value)
+        one_hot_label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
         loss = self.ce(logit, one_hot_label)
         loss = self.mean(loss, 0)
         return loss

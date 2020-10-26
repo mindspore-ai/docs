@@ -155,7 +155,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
            if self.down_sample:
                self.down_sample_layer = nn.SequentialCell([_conv1x1(in_channel, out_channel, stride),
                                                            _bn(out_channel)])
-           self.add = P.TensorAdd()
+           self.add = ops.TensorAdd()
 
        def construct(self, x):
            identity = x

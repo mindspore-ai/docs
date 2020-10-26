@@ -165,7 +165,7 @@ class Classifier(nn.Cell):
 通过`input_shape`、`output_shape`参数，用户可以十分便捷地完成算子替换，替换结果如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 ...
 
 class Classifier(nn.Cell):
@@ -173,7 +173,7 @@ class Classifier(nn.Cell):
     def __init__(self):
         super(Classifier, self).__init__()
         ...
-        self.reshape = P.Reshape(input_shape=(1, 1280, 1, 1),
+        self.reshape = ops.Reshape(input_shape=(1, 1280, 1, 1),
                                  output_shape=(1, 1280))
         ...
 

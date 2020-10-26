@@ -243,29 +243,28 @@ class SemiAutoParallelNet(nn.Cell):
 在Loss部分，我们采用`SoftmaxCrossEntropyWithLogits`的展开形式，即按照数学公式，将其展开为多个小算子进行实现，样例代码如下：
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore import Tensor
-import mindspore.ops.functional as F
 import mindspore.common.dtype as mstype
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):
     def __init__(self, sparse=False):
         super(SoftmaxCrossEntropyExpand, self).__init__()
-        self.exp = P.Exp()
-        self.sum = P.ReduceSum(keep_dims=True)
-        self.onehot = P.OneHot()
+        self.exp = ops.Exp()
+        self.sum = ops.ReduceSum(keep_dims=True)
+        self.onehot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.div = P.RealDiv()
-        self.log = P.Log()
-        self.sum_cross_entropy = P.ReduceSum(keep_dims=False)
-        self.mul = P.Mul()
-        self.mul2 = P.Mul()
-        self.mean = P.ReduceMean(keep_dims=False)
+        self.div = ops.RealDiv()
+        self.log = ops.Log()
+        self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
+        self.mul = ops.Mul()
+        self.mul2 = ops.Mul()
+        self.mean = ops.ReduceMean(keep_dims=False)
         self.sparse = sparse
-        self.max = P.ReduceMax(keep_dims=True)
-        self.sub = P.Sub()
+        self.max = ops.ReduceMax(keep_dims=True)
+        self.sub = ops.Sub()
 
     def construct(self, logit, label):
         logit_max = self.max(logit, -1)
@@ -273,10 +272,10 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
         exp_sum = self.sum(exp, -1)
         softmax_result = self.div(exp, exp_sum)
         if self.sparse:
-            label = self.onehot(label, F.shape(logit)[1], self.on_value, self.off_value)
+            label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
         softmax_result_log = self.log(softmax_result)
         loss = self.sum_cross_entropy((self.mul(softmax_result_log, label)), -1)
-        loss = self.mul2(F.scalar_to_array(-1.0), loss)
+        loss = self.mul2(ops.scalar_to_array(-1.0), loss)
         loss = self.mean(loss, -1)
 
         return loss
@@ -462,7 +461,7 @@ from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, LossMoni
 from mindspore.communication.management import get_rank
 from mindspore.common.parameter import Parameter
 from mindspore import Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 import numpy as np
 # define network
 class DataParallelNet(Cell):
@@ -471,7 +470,7 @@ class DataParallelNet(Cell):
         weight_np = np.full(test_size, 0.1, dtype=np.float32)
         self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
         self.relu = ReLU()
-        self.fc = P.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
+        self.fc = ops.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
         if strategy is not None:
             self.fc.shard(strategy)
 
@@ -530,8 +529,8 @@ class SemiAutoParallelNet(Cell):
         equal_np = np.full(test_size, 0.1, dtype=np.float32)
         self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
         self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
-        self.mul = P.Mul()
-        self.equal = P.Equal()
+        self.mul = ops.Mul()
+        self.equal = ops.Equal()
         if strategy is not None:
             self.mul.shard(strategy)
             self.equal.shard(strategy2)

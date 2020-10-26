@@ -286,14 +286,14 @@ User process:
     import os
     import mindspore.nn as nn
     from mindspore import Tensor, Parameter
-    from mindspore.ops import operations as P
+    import mindspore.ops as ops
     from mindspore.train.serialization import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
 
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
             self.weight = Parameter(Tensor(weight_init),  "model_parallel_weight", layerwise_parallel=True)
-            self.fc = P.MatMul(transpose_b=True)
+            self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
             x = self.fc(x, self.weight1)
@@ -460,7 +460,7 @@ User process:
    from mindspore import context
    from mindspore.communication.management import init
    from mindspore import Tensor, Parameter
-   from mindspore.ops import operations as P
+   import mindspore.ops as ops
    from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
    from mindspore.communication.management import init
@@ -472,7 +472,7 @@ User process:
        def __init__(self,weight_init):
            super(Net, self).__init__()
            self.weight = Parameter(Tensor(weight_init), "model_parallel_weight", layerwise_parallel=True)
-           self.fc = P.MatMul(transpose_b=True)
+           self.fc = ops.MatMul(transpose_b=True)
 
        def construct(self, x):
            x = self.fc(x, self.weight1)

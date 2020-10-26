@@ -117,7 +117,7 @@ model.train(epoch, dataset)
    from mindspore import nn, context, Tensor
    from mindpsore.train.serialization import save_checkpoint
    from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-   from mindspore.ops import operations as P
+   import mindspore.ops as ops
    from mindspore.nn import Momentum
 
    import math
@@ -139,7 +139,7 @@ model.train(epoch, dataset)
    class ReduceMeanFlatten(nn.Cell):
          def __init__(self):
             super(ReduceMeanFlatten, self).__init__()
-            self.mean = P.ReduceMean(keep_dims=True)
+            self.mean = ops.ReduceMean(keep_dims=True)
             self.flatten = nn.Flatten()
 
          def construct(self, x):

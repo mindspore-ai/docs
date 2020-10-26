@@ -84,13 +84,13 @@ print(output.asnumpy())
 ```python
 import numpy as np
 from mindspore import context, Tensor
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
 def tensor_add_func(x, y):
-    z = F.tensor_add(x, y)
-    z = F.tensor_add(z, x)
+    z = ops.tensor_add(x, y)
+    z = ops.tensor_add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
@@ -117,7 +117,7 @@ print(output.asnumpy())
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 from mindspore.common.api import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
@@ -125,7 +125,7 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 class TensorAddNet(nn.Cell):
     def __init__(self):
         super(TensorAddNet, self).__init__()
-        self.add = P.TensorAdd()
+        self.add = ops.TensorAdd()
 
     @ms_function
     def construct(self, x, y):
@@ -137,7 +137,7 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 net = TensorAddNet()
 
 z = net(x, y) # Staging mode
-tensor_add = P.TensorAdd()
+tensor_add = ops.TensorAdd()
 res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
@@ -161,12 +161,12 @@ print(res.asnumpy())
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 from mindspore.common.api import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-tensor_add = P.TensorAdd()
+tensor_add = ops.TensorAdd()
 
 @ms_function
 def tensor_add_fn(x, y):
@@ -255,7 +255,7 @@ PyNative模式下，还可以支持单独求梯度的操作。如下例所示，
 **示例代码：**
 
 ```python
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
@@ -264,7 +264,7 @@ def mul(x, y):
     return x * y
 
 def mainf(x, y):
-    return C.GradOperation(get_all=True)(mul)(x, y)
+    return ops.GradOperation(get_all=True)(mul)(x, y)
 
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
@@ -282,8 +282,7 @@ print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```python
 import numpy as np
 import mindspore.nn as nn
-import mindspore.ops.operations as P
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 from mindspore.common import dtype as mstype
 from mindspore import context, Tensor, ParameterTuple
 from mindspore.common.initializer import TruncatedNormal
@@ -332,7 +331,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -359,7 +358,7 @@ class GradWrap(nn.Cell):
 
     def construct(self, x, label):
         weights = self.weights
-        return C.GradOperation(get_by_list=True)(self.network, weights)(x, label)
+        return ops.GradOperation(get_by_list=True)(self.network, weights)(x, label)
 
 net = LeNet5()
 optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.1, 0.9)

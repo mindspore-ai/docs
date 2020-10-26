@@ -49,7 +49,7 @@ from mindspore import context
 from mindspore import Tensor
 from mindspore.train import Model
 from mindspore.common.initializer import TruncatedNormal
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.callback import SummaryCollector
 from mindspore.nn.metrics import Accuracy
 
@@ -78,7 +78,7 @@ class AlexNet(nn.Cell):
         self.conv4 = conv(384, 384, 3, pad_mode="same")
         self.conv5 = conv(384, 256, 3, pad_mode="same")
         self.relu = nn.ReLU()
-        self.max_pool2d = P.MaxPool(ksize=3, strides=2)
+        self.max_pool2d = ops.MaxPool(ksize=3, strides=2)
         self.flatten = nn.Flatten()
         self.fc1 = fc_with_initialize(6*6*256, 4096)
         self.fc2 = fc_with_initialize(4096, 4096)
@@ -149,8 +149,7 @@ The sample code is as follows:
 ```python
 from mindspore import context, Tensor, nn
 from mindspore.common import dtype as mstype
-from mindspore.ops import operations as P
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 from mindspore.nn import Optimizer
 
 
@@ -158,17 +157,17 @@ class CrossEntropyLoss(nn.Cell):
     """Loss function definition."""
     def __init__(self):
         super(CrossEntropyLoss, self).__init__()
-        self.cross_entropy = P.SoftmaxCrossEntropyWithLogits()
-        self.mean = P.ReduceMean()
-        self.one_hot = P.OneHot()
+        self.cross_entropy = ops.SoftmaxCrossEntropyWithLogits()
+        self.mean = ops.ReduceMean()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
 
         # Init ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
+        self.scalar_summary = ops.ScalarSummary()
 
     def construct(self, logits, label):
-        label = self.one_hot(label, F.shape(logits)[1], self.on_value, self.off_value)
+        label = self.one_hot(label, ops.shape(logits)[1], self.on_value, self.off_value)
         loss = self.cross_entropy(logits, label)[0]
         loss = self.mean(loss, (-1,))
 
@@ -182,8 +181,8 @@ class MyOptimizer(Optimizer):
     def __init__(self, learning_rate, params, ......):
         ......
         # Initialize ScalarSummary
-        self.scalar_summary = P.ScalarSummary()
-        self.histogram_summary = P.HistogramSummary()
+        self.scalar_summary = ops.ScalarSummary()
+        self.histogram_summary = ops.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
@@ -206,9 +205,9 @@ class Net(nn.Cell):
         ......
 
         # Init ImageSummary
-        self.image_summary = P.ImageSummary()
+        self.image_summary = ops.ImageSummary()
         # Init TensorSummary
-        self.tensor_summary = P.TensorSummary()
+        self.tensor_summary = ops.TensorSummary()
 
     def construct(self, data):
         # Record image by Summary operator

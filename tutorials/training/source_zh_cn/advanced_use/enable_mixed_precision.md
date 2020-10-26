@@ -56,7 +56,7 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import Momentum
 # The interface of Auto_mixed precision
 from mindspore import amp
@@ -69,7 +69,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)
@@ -186,7 +186,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.common.dtype as mstype
 from mindspore import Tensor, context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell
 from mindspore.nn import Momentum
 
@@ -198,7 +198,7 @@ class Net(nn.Cell):
     def __init__(self, input_channel, out_channel):
         super(Net, self).__init__()
         self.dense = nn.Dense(input_channel, out_channel)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
 
     def construct(self, x):
         x = self.dense(x)

@@ -16,17 +16,14 @@
 The sample can be run on Ascend 910 AI processor.
 """
 import os
-import random
-import argparse
 import mindspore.nn as nn
 import mindspore.common.dtype as mstype
-import mindspore.ops.functional as F
+import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore import Tensor
-from mindspore.ops import operations as P
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.train.model import Model
 from mindspore.context import ParallelMode
@@ -39,11 +36,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 init()
 
-rank_id = get_rank()
-rank_size = get_group_size()
-
-
-def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):     # pylint: disable=missing-docstring
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -82,42 +75,42 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     return data_set
 
 
-class SoftmaxCrossEntropyExpand(nn.Cell):
+class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstring
     def __init__(self, sparse=False):
         super(SoftmaxCrossEntropyExpand, self).__init__()
-        self.exp = P.Exp()
-        self.sum = P.ReduceSum(keep_dims=True)
-        self.onehot = P.OneHot()
+        self.exp = ops.Exp()
+        self.sum = ops.ReduceSum(keep_dims=True)
+        self.onehot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.div = P.RealDiv()
-        self.log = P.Log()
-        self.sum_cross_entropy = P.ReduceSum(keep_dims=False)
-        self.mul = P.Mul()
-        self.mul2 = P.Mul()
-        self.mean = P.ReduceMean(keep_dims=False)
+        self.div = ops.RealDiv()
+        self.log = ops.Log()
+        self.sum_cross_entropy = ops.ReduceSum(keep_dims=False)
+        self.mul = ops.Mul()
+        self.mul2 = ops.Mul()
+        self.mean = ops.ReduceMean(keep_dims=False)
         self.sparse = sparse
-        self.max = P.ReduceMax(keep_dims=True)
-        self.sub = P.Sub()
+        self.max = ops.ReduceMax(keep_dims=True)
+        self.sub = ops.Sub()
         self.eps = Tensor(1e-24, mstype.float32)
 
-    def construct(self, logit, label):
+    def construct(self, logit, label):      # pylint: disable=missing-docstring
         logit_max = self.max(logit, -1)
         exp = self.exp(self.sub(logit, logit_max))
         exp_sum = self.sum(exp, -1)
         softmax_result = self.div(exp, exp_sum)
         if self.sparse:
-            label = self.onehot(label, F.shape(logit)[1], self.on_value, self.off_value)
+            label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
 
         softmax_result_log = self.log(softmax_result + self.eps)
         loss = self.sum_cross_entropy((self.mul(softmax_result_log, label)), -1)
-        loss = self.mul2(F.scalar_to_array(-1.0), loss)
+        loss = self.mul2(ops.scalar_to_array(-1.0), loss)
         loss = self.mean(loss, -1)
 
         return loss
 
 
-def test_train_cifar(epoch_size=10):
+def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')

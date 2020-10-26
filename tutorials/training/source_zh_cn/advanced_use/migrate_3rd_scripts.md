@@ -153,7 +153,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
             if self.down_sample:
                 self.down_sample_layer = nn.SequentialCell([_conv1x1(in_channel, out_channel, stride),
                                                             _bn(out_channel)])
-            self.add = P.TensorAdd()
+            self.add = ops.TensorAdd()
 
         def construct(self, x):
             identity = x

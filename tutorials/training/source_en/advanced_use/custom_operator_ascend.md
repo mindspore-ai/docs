@@ -50,7 +50,7 @@ The following code takes the Square operator primitive `cus_square.py` as an exa
 
 ```python
 from mindspore.ops import prim_attr_register, PrimitiveWithInfer
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 # y = x^2
 class CusSquare(PrimitiveWithInfer):
     """
@@ -228,9 +228,9 @@ class CusSquare(PrimitiveWithInfer):
 
     def get_bprop(self):
         def bprop(data, out, dout):
-            twos_like = P.OnesLike()(data) * 2.0
-            gradient = P.Mul()(data, twos_like)
-            dx = P.Mul()(gradient, dout)
+            twos_like = ops.OnesLike()(data) * 2.0
+            gradient = ops.Mul()(data, twos_like)
+            dx = ops.Mul()(gradient, dout)
             return (dx,)
         return bprop
 ```
@@ -238,12 +238,12 @@ class CusSquare(PrimitiveWithInfer):
 Define backward cases in the `test_square.py` file.
 
 ```python
-from mindspore.ops import composite as C
+import mindspore.ops as ops
 def test_grad_net():
     x = np.array([1.0, 4.0, 9.0]).astype(np.float32)
     sens = np.array([1.0, 1.0, 1.0]).astype(np.float32)
     square = Net()
-    grad = C.GradOperation(sens_param=True)
+    grad = ops.GradOperation(sens_param=True)
     dx = grad(square)(Tensor(x), Tensor(sens))
     print("x: ", x)
     print("dx: ", dx)
