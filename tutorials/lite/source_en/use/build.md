@@ -50,7 +50,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
     - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
     - [Python](https://www.python.org/) >= 3.7.5
-  
+
 - Compilation dependencies of runtime(java)
     - [CMake](https://cmake.org/download/) >= 3.14.1
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
@@ -59,7 +59,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
     - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
     - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
-  
+
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
 > - Android SDK Tools need install Android SDK Build Tools.
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
@@ -106,6 +106,12 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -j32
     ```
 
+- Release version of the x86_64 architecture, with the testcase compiled:
+
+    ```bash
+    bash build.sh -I x86_64 -t on
+    ```
+
 - Release version of the Arm 64-bit architecture in incremental compilation mode, with the number of threads set:
 
     ```bash
@@ -129,8 +135,21 @@ Then, run the following commands in the root directory of the source code to com
   ```bash
   bash build.sh -A java -i
   ```
-
+  
   > Turn on incremental compilation mode. If the arm64 or arm32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
+
+- Release version of the x86_64 architecture, with the converter compiled:
+
+    ```bash
+    bash build.sh -I x86_64 -C on
+    ```
+
+- Release version of the x86_64 architecture, with the benchmark compiled:
+
+    ```bash
+    bash build.sh -I x86_64 -o on
+    ```
+
 
 ### Output Description
 
@@ -184,7 +203,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │       ├── flatbuffers # Header files of FlatBuffers
     │   └── include # Header files of inference framework
     ```
-  
+
 - When the compilation option is `-I arm64`:  
 
     ```text
@@ -237,7 +256,7 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
   │       └── mindspore-lite
-  |           └── {version} 
+  |           └── {version}
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
