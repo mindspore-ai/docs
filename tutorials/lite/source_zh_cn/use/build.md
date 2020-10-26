@@ -103,6 +103,12 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I x86_64 -j32
     ```
 
+- 编译x86_64架构Release版本，同时编译测试用例。
+
+    ```bash
+    bash build.sh -I x86_64 -t on
+    ```
+
 - 增量编译ARM64架构Release版本，同时设定线程数。
 
     ```bash
@@ -128,6 +134,18 @@ git clone https://gitee.com/mindspore/mindspore.git
   ```
 
   > 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
+
+- 编译x86_64架构Release版本，同时编译模型转换工具。
+
+  ```bash
+  bash build.sh -I x86_64 -C on
+  ```
+
+- 编译x86_64架构Release版本，同时编译基准测试工具。
+
+  ```bash
+  bash build.sh -I x86_64 -o on
+  ```
 
 ### 编译输出
 
@@ -234,7 +252,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
   │       └── mindspore-lite
-  |           └── {version} 
+  |           └── {version}
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
