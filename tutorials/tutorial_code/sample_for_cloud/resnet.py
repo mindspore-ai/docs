@@ -15,7 +15,7 @@
 """ResNet."""
 import numpy as np
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.common.tensor import Tensor
 
 
@@ -105,9 +105,9 @@ class ResidualBlock(nn.Cell):
         if self.down_sample:
             self.down_sample_layer = nn.SequentialCell([_conv1x1(in_channel, out_channel, stride),
                                                         _bn(out_channel)])
-        self.add = P.TensorAdd()
+        self.add = ops.TensorAdd()
 
-    def construct(self, x):
+    def construct(self, x):     # pylint: disable=missing-docstring
         identity = x
 
         out = self.conv1(x)
@@ -167,7 +167,7 @@ class ResNet(nn.Cell):
 
         self.conv1 = _conv7x7(3, 64, stride=2)
         self.bn1 = _bn(64)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
 
         self.layer1 = self._make_layer(block,
@@ -191,7 +191,7 @@ class ResNet(nn.Cell):
                                        out_channel=out_channels[3],
                                        stride=strides[3])
 
-        self.mean = P.ReduceMean(keep_dims=True)
+        self.mean = ops.ReduceMean(keep_dims=True)
         self.flatten = nn.Flatten()
         self.end_point = _fc(out_channels[3], num_classes)
 
@@ -223,7 +223,7 @@ class ResNet(nn.Cell):
 
         return nn.SequentialCell(layers)
 
-    def construct(self, x):
+    def construct(self, x):     # pylint: disable=missing-docstring
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)

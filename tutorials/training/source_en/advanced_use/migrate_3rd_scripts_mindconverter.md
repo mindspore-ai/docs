@@ -167,7 +167,7 @@ class Classifier(nn.Cell):
 It is convenient to replace the operators according to the `input_shape` and `output_shape` parameters. The replacement is like this:
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 ...
 
 class Classifier(nn.Cell):
@@ -175,7 +175,7 @@ class Classifier(nn.Cell):
     def __init__(self):
         super(Classifier, self).__init__()
         ...
-        self.reshape = P.Reshape(input_shape=(1, 1280, 1, 1),
+        self.reshape = ops.Reshape(input_shape=(1, 1280, 1, 1),
                                  output_shape=(1, 1280))
         ...
 

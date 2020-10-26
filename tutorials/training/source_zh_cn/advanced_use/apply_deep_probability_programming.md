@@ -62,7 +62,7 @@
 ```python
 import mindspore.nn as nn
 from mindspore.nn.probability import bnn_layers
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 class BNNLeNet5(nn.Cell):
     """
@@ -88,7 +88,7 @@ class BNNLeNet5(nn.Cell):
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -158,7 +158,7 @@ def train_model(train_net, net, dataset):
         label = Tensor(data['label'].asnumpy().astype(np.int32))
         loss = train_net(train_x, label)
         output = net(train_x)
-        log_output = P.LogSoftmax(axis=1)(output)
+        log_output = ops.LogSoftmax(axis=1)(output)
         acc = np.mean(log_output.asnumpy().argmax(axis=1) == label.asnumpy())
         accs.append(acc)
         loss_sum += loss.asnumpy()
@@ -174,7 +174,7 @@ def validate_model(net, dataset):
         train_x = Tensor(data['image'].asnumpy().astype(np.float32))
         label = Tensor(data['label'].asnumpy().astype(np.int32))
         output = net(train_x)
-        log_output = P.LogSoftmax(axis=1)(output)
+        log_output = ops.LogSoftmax(axis=1)(output)
         acc = np.mean(log_output.asnumpy().argmax(axis=1) == label.asnumpy())
         accs.append(acc)
 
@@ -221,7 +221,7 @@ class Decoder(nn.Cell):
         super(Decoder, self).__init__()
         self.fc1 = nn.Dense(400, 1024)
         self.sigmoid = nn.Sigmoid()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, z):
         z = self.fc1(z)
@@ -298,7 +298,7 @@ for sample in ds_train.create_dict_iterator():
 ```python
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.nn as nn
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 def conv(in_channels, out_channels, kernel_size, stride=1, padding=0):
     """weight initial for conv layer"""
@@ -344,7 +344,7 @@ class LeNet5(nn.Cell):
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)

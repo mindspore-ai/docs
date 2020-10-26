@@ -234,7 +234,7 @@ The method of using the MindSpore `Print` operator is the same as using other op
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 import mindspore.nn as nn
 import mindspore.context as context
 
@@ -243,7 +243,7 @@ context.set_context(mode=context.GRAPH_MODE)
 class PrintDemo(nn.Cell):
     def __init__(self):
         super(PrintDemo, self).__init__()
-        self.print = P.Print()
+        self.print = ops.Print()
 
     def construct(self, x, y):
         self.print('print Tensor x and Tensor y:', x, y)

@@ -1,3 +1,20 @@
+# Copyright 2020 Huawei Technologies Co., Ltd
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============================================================================
+"""train
+Training sample code for applying gradient accumulation algorithm.
+"""
 import argparse
 import os
 
@@ -5,22 +22,20 @@ import mindspore.nn as nn
 from mindspore import ParameterTuple
 from mindspore import context
 from mindspore.nn import Cell
-from mindspore.ops import composite as C
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.dataset_helper import DatasetHelper
 from mindspore.train.serialization import save_checkpoint
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
-_sum_op = C.MultitypeFuncGraph("grad_sum_op")
-_clear_op = C.MultitypeFuncGraph("clear_op")
+_sum_op = ops.MultitypeFuncGraph("grad_sum_op")
+_clear_op = ops.MultitypeFuncGraph("clear_op")
 
 
 @_sum_op.register("Tensor", "Tensor")
 def _cumulative_gard(grad_sum, grad):
     """Apply gard sum to cumulative gradient."""
-    add = P.AssignAdd()
+    add = ops.AssignAdd()
     return add(grad_sum, grad)
 
 
@@ -28,11 +43,11 @@ def _cumulative_gard(grad_sum, grad):
 def _clear_grad_sum(grad_sum, zero):
     """Apply zero to clear grad_sum."""
     success = True
-    success = F.depend(success, F.assign(grad_sum, zero))
+    success = ops.depend(success, ops.assign(grad_sum, zero))
     return success
 
 
-class TrainForwardBackward(Cell):
+class TrainForwardBackward(Cell):           # pylint: disable=missing-docstring
     def __init__(self, network, optimizer, grad_sum, sens=1.0):
         super(TrainForwardBackward, self).__init__(auto_prefix=False)
         self.network = network
@@ -41,16 +56,16 @@ class TrainForwardBackward(Cell):
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
         self.grad_sum = grad_sum
-        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
         weights = self.weights
         loss = self.network(*inputs)
-        sens = P.Fill()(P.DType()(loss), P.Shape()(loss), self.sens)
+        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(*inputs, sens)
-        return F.depend(loss, self.hyper_map(F.partial(_sum_op), self.grad_sum, grads))
+        return ops.depend(loss, self.hyper_map(ops.partial(_sum_op), self.grad_sum, grads))
 
 
 class TrainOptim(Cell):
@@ -68,14 +83,14 @@ class TrainClear(Cell):
         super(TrainClear, self).__init__(auto_prefix=False)
         self.grad_sum = grad_sum
         self.zeros = zeros
-        self.hyper_map = C.HyperMap()
+        self.hyper_map = ops.HyperMap()
 
     def construct(self):
-        seccess = self.hyper_map(F.partial(_clear_op), self.grad_sum, self.zeros)
+        seccess = self.hyper_map(ops.partial(_clear_op), self.grad_sum, self.zeros)
         return seccess
 
 
-class GradientAccumulation:
+class GradientAccumulation:         # pylint: disable=missing-docstring
     def __init__(self, network, loss_fn, optimizer):
         self._network = network
         self._loss_fn = loss_fn
@@ -124,7 +139,7 @@ class GradientAccumulation:
 
             train_dataset.reset()
 
-        save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt", )
+        save_checkpoint(self._train_forward_backward, "gradient_accumulation.ckpt")
 
 
 if __name__ == "__main__":

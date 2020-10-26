@@ -96,13 +96,13 @@
     ```bash
     import numpy as np
     from mindspore import Tensor
-    from mindspore.ops import functional as F
+    import mindspore.ops as ops
     import mindspore.context as context
 
     context.set_context(device_target="GPU")
     x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
     y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    print(F.tensor_add(x, y))
+    print(ops.tensor_add(x, y))
     ```
 
 - 若出现如下结果，即安装验证通过。
