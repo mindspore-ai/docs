@@ -10,4 +10,10 @@ MindSpore FAQ
   :glob:
   :maxdepth: 1
 
-  faq
+  installation
+  supported_operators
+  network_models
+  platform_and_system
+  backend_running
+  programming_language_extensions
+  supported_features
