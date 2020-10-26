@@ -5,3 +5,4 @@ Compute Component
   :maxdepth: 1
 
   operators
+  parameter
