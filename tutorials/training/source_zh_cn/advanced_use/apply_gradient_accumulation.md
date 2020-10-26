@@ -219,10 +219,10 @@ if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
     ds_train = create_dataset(os.path.join(args.data_path, "train"), 32)
 
-    network = LeNet5(10)
+    net = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = GradientAccumulation(network, net_loss, net_opt)
+    net_opt = nn.Momentum(net.trainable_params(), 0.01, 0.9)
+    model = GradientAccumulation(net, net_loss, net_opt)
 
     print("============== Starting Training ==============")
     model.train_process(10, ds_train, mini_steps=4)
