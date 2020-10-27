@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+Q: How do I perform training without processing data in MindRecord format?
+
+A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/tutorial/en/r0.7/use/data_preparation/loading_the_datasets.html#id5).
+
+<br/>
+
 Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?
 
 A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
