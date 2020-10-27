@@ -71,6 +71,7 @@
 | `is`         | Only support `True`, `False`, and `None`.
 | `is not`     | Only support `True`, `False`, and `None`.
 | Assignment statement     | Accessed multiple subscripts of lists and dictionaries cannot be used as l-value.
+| Augment assignment statement| `+=``-=`, `*=`, `/=`, `%=`, `//=`.
 
 ### System Functions/Classes
 
@@ -112,10 +113,12 @@ The index operation includes `tuple` and `Tensor`. The following focuses on the 
 - Slice index: index is `slice`
     - Value: `tensor_x[start: stop: step]`, where Slice (start: stop: step) has the same syntax as Python, and will not be repeated here.
     - Assignment: `tensor_x[start: stop: step] = u`.
+    - Augment assignment: `tensor_x[start: stop: step] += u`.
 
 - Ellipsis index: index is `ellipsis`
     - Value: `tensor_x [...]`.
     - Assignment: `tensor_x [...] = u`.
+    - Augment assignment: `tensor_x [...] += u`.
 
 - Boolean constant index: index is `True`, index is `False` is not supported temporarily.
     - Value: `tensor_x[True]`.
@@ -147,12 +150,14 @@ The index operation includes `tuple` and `Tensor`. The following focuses on the 
     - The tuple element is a slice:
         - Value: for example `tensor_x[::,: 4, 3: 0: -1]`.
         - Assignment: for example `tensor_x[::,: 4, 3: 0: -1] = u`.
+        - Augment assignment: for example `tensor_x[::,: 4, 3: 0: -1] += u`.
     - The tuple element is Number:
         - Value: for example `tensor_x[2,1]`.
         - Assignment: for example `tensor_x[1,4] = u`.
     - The tuple element is a mixture of slice and ellipsis:
         - Value: for example `tensor_x[..., ::, 1:]`.
         - Assignment: for example `tensor_x[..., ::, 1:] = u`.
+        - Augment assignment: for example `tensor_x[..., ::, 1:] += u`.
     - Not supported in other situations
 
 The index value operation of tuple and list type, we need to focus on the index value operation of tuple or list whose element type is `nn.Cell`. This operation is currently only supported by the GPU backend in Graph mode, and its syntax format is like `layers[index](*inputs)`, the example code is as follows:
