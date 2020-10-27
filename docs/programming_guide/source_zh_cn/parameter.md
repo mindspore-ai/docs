@@ -143,8 +143,7 @@ x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name
 print(x)
 print(x.clone(prefix="x_c"))
 print(x.init_data())
-print(x.set_param_ps())
-print(x.set_data(default_input=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
+print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
 
 输出如下：
@@ -156,7 +155,6 @@ Parameter (name=x_c.x, value=[[[1. 1. 1.]
                                [1. 1. 1.]]])
 Parameter (name=x, value=[[[1. 1. 1.]
                            [1. 1. 1.]]])
-None
 Parameter (name=x, value=[[[0. 1. 2.]
                            [3. 4. 5.]]])
 ```
