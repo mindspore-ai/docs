@@ -10,6 +10,7 @@
     - [启动服务](#启动服务)
     - [查看服务进程信息](#查看服务进程信息)
     - [停止服务](#停止服务)
+    - [summary导出](#summary导出)
 
 <!-- /TOC -->
 
@@ -86,3 +87,41 @@ mindinsight stop [-h] [--port PORT]
 |---|---|---|---|---|---|---|
 |`-h, --help`|可选|显示停止命令的帮助信息。|-|-|-|-|
 |`--port <PORT>`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|-|
+
+## summary导出
+
+MindInsight中提供解析Summary日志文件的工具，用户可以通过命令行将summary日志文件中的标量存入csv文件，图像存入png文件，从而便于查看和对数据进一步处理。
+
+```shell
+mindinsight parse_summary [--summary-dir] [--output]
+```
+
+参数含义如下:
+
+|参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
+|---|---|---|---|---|---|---|
+|`--summary-dir <SUMMARY_DIR>`|可选|指定要解析的文件的目录。如果该目录中存在多个summary日志文件，则仅根据文件名解析最新的文件。|String|./|-|summary文件夹需要可读可执行权限，summary文件需要可读权限，检查权限失败会报错退出|
+|`--output <OUTPUT>`|可选|指定输出的目录，将数据输出到该目录中。|String|./|-|-|
+
+执行命令：
+
+```shell
+mindinsight parse_summary --summary-dir ./ --output ./
+```
+
+输出目录结构如下：
+```text
+└─output_{datetime}
+    ├─image
+    │   └─{tag}_{step}.png
+    │
+    └─scalar.csv
+```
+
+其中，
+
+- output_{datetime}为输出目录下的新建目录，命名规则为'output_年月日_时分秒_毫秒微秒'。
+
+- {tag}_{step}.png为训练过程中的图像，tag代表标签（tag中的特殊字符将被删除, '_'将被替换成代'/'）step代表训练步骤。
+
+- scalar.csv为标量数据。
