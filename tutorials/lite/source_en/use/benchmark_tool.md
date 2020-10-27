@@ -144,4 +144,4 @@ The following describes the parameters in detail.
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ";" to segregate. | String | Null | - |
+| `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
