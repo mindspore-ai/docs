@@ -52,3 +52,12 @@ An **enum** type.
 |kNumberTypeFloat32| 43 | Indicating a data type of float32. |
 |kNumberTypeFloat64| 44 | Indicating a data type of float64.|
 |kNumberTypeEnd| 45 | The end of number type. |
+
+## Function
+```cpp
+void PrintErrorInfo(STATUS error_code)
+```
+Function to print description of errorcode.
+- Parameters 
+
+    - `error_code`: Define which errorcode to print info.

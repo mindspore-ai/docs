@@ -52,3 +52,12 @@
 |kNumberTypeFloat32| 43 | 表示Float32数据类型。 |
 |kNumberTypeFloat64| 44 | 表示Float64数据类型。|
 |kNumberTypeEnd| 45 | 表示Number类型的结尾。 |
+
+## 函数接口
+```cpp
+void PrintErrorInfo(STATUS error_code)
+```
+打印错误码描述信息。
+- 参数
+
+    - `error_code`: 需打印的错误码。
