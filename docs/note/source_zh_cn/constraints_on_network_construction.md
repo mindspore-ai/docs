@@ -71,6 +71,7 @@
 | `is`         | 仅支持`True`、`False`、`None`。
 | `is not`     | 仅支持`True`、`False`、`None`。
 | 赋值语句       | List和Dictionary的多重下标访问不支持作为左值。
+| 增强赋值语句   | `+=`、`-=`、`*=`、`/=`、`%=`、`//=`。
 
 ### 系统函数/系统类
 
@@ -112,10 +113,12 @@
 - 切片索引：index为`slice`
     - 取值：`tensor_x[start:stop:step]`，其中Slice(start:stop:step)与Python的语法相同，这里不再赘述。
     - 赋值：`tensor_x[start:stop:step]=u`。
+    - 增强赋值：`tensor_x[start:stop:step]+=u`。
 
 - Ellipsis索引：index为`ellipsis`
     - 取值：`tensor_x[...]`。
     - 赋值：`tensor_x[...]=u`。
+    - 增强赋值：`tensor_x[...]+=u`。
 
 - 布尔常量索引：index为`True`，index为`False`暂不支持。
     - 取值：`tensor_x[True]`。
@@ -146,12 +149,14 @@
     - tuple元素为slice:
         - 取值：例如`tensor_x[::, :4, 3:0:-1]`。
         - 赋值：例如`tensor_x[::, :4, 3:0:-1]=u`。
+        - 增强赋值：例如`tensor_x[::, :4, 3:0:-1]+=u`。
     - tuple元素为Number：
         - 取值：例如`tensor_x[2,1]`。
         - 赋值：例如`tensor_x[1,4]=u`。
     - tuple元素为slice和ellipsis混合情况：
         - 取值：例如`tensor_x[..., ::, 1:]`
         - 赋值：例如`tensor_x[..., ::, 1:]=u`
+        - 增强赋值：例如`tensor_x[..., ::, 1:]+=u`
     - 其他情况暂不支持
 
 tuple和list类型的索引取值操作，需要重点介绍一下元素类型为`nn.Cell`的tuple或list的索引取值操作，该操作目前在Graph模式下仅GPU后端支持运行，其语法格式形如`layers[index](*inputs)`，具体示例代码如下：
