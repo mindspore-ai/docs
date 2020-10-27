@@ -18,7 +18,7 @@
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the `Parameter` initialization, attributes, methods, and `ParameterTuple`.
 
 ## Initialization
-```
+```python
 mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
 Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types.
@@ -38,7 +38,7 @@ When `layerwise_parallel` is set to True, this parameter will be filtered out du
 For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html>.
 
 In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
-```
+```python
 import numpy as np
 from mindspore import Tensor, Parameter
 from mindspore.common import dtype as mstype
@@ -53,7 +53,7 @@ print(x, "\n\n", y, "\n\n", z)
 
 The following information is displayed:
 
-```
+```text
 Parameter (name=x, value=[[0 1 2]
                           [3 4 5]]) 
 
@@ -84,7 +84,7 @@ If yes, do not shard the data. If no, determine whether to shard the data based 
 
 In the following example, `Parameter` is initialized through `Tensor` to obtain its attributes.  
 
-```
+```python
 import numpy as np
 
 from mindspore import Tensor, Parameter
@@ -102,7 +102,7 @@ print("name: ", x.name, "\n",
 
 The following information is displayed:
 
-```
+```text
 name:  x
 sliced:  False
 is_init:  False
@@ -127,7 +127,7 @@ data:  Parameter (name=x, value=[[0 1 2]
 
 In the following example, `Initializer` is used to initialize `Tensor`, and methods related to `Parameter` are called.  
 
-```
+```python
 import numpy as np
 
 from mindspore import Tensor, Parameter
@@ -139,20 +139,18 @@ x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name
 print(x)
 print(x.clone(prefix="x_c"))
 print(x.init_data())
-print(x.set_param_ps())
-print(x.set_data(default_input=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
+print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
 
 The following information is displayed:
 
-```
+```text
 Parameter (name=x, value=[[[1. 1. 1.]
                            [1. 1. 1.]]])
 Parameter (name=x_c.x, value=[[[1. 1. 1.]
                                [1. 1. 1.]]])
 Parameter (name=x, value=[[[1. 1. 1.]
                            [1. 1. 1.]]])
-None
 Parameter (name=x, value=[[[0. 1. 2.]
                            [3. 4. 5.]]])
 ```
@@ -162,7 +160,7 @@ Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` o
 
 The following example builds a `ParameterTuple` object and clones it.  
 
-```
+```python
 import numpy as np
 from mindspore import Tensor, Parameter, ParameterTuple
 from mindspore.common import dtype as mstype
@@ -179,7 +177,7 @@ print(params_copy)
 
 The following information is displayed:
 
-```
+```text
 (Parameter (name=x, value=Tensor(shape=[2, 3], dtype=Int64,
 [[ 0,  1,  2],
  [ 3,  4,  5]])), Parameter (name=y, value=Tensor(shape=[1, 2, 3], dtype=Float32,
