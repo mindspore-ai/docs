@@ -4,6 +4,29 @@
 
 <a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+Q: How does MindSpore implement the early stopping function?
+
+A: You can customize the `callback` method to implement the early stopping function.
+Example: When the loss value decreases to a certain value, the training stops.
+```python
+class EarlyStop(Callback):
+    def __init__(self, control_loss=1):
+        super(EarlyStep, self).__init__()
+        self._control_loss = control_loss
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        loss = cb_params.net_outputs
+        if loss.asnumpy() < self._control_loss:
+            # Stop training.
+            run_context._stop_requested = True
+
+stop_cb = EarlyStop(control_loss=1)
+model.train(epoch_size, ds_train, callbacks=[stop_cb])
+```
+
+<br/>
+
 Q: What can I do if an error message `wrong shape of image` is displayed when I use a model trained by MindSpore to perform prediction on a `28 x 28` digital image with white text on a black background?
 
 A: The MNIST gray scale image dataset is used for MindSpore training. Therefore, when the model is used, the data must be set to a `28 x 28` gray scale image, that is, a single channel.
