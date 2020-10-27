@@ -57,13 +57,11 @@ print(x, "\n\n", y, "\n\n", z)
 输出如下：
 
 ```text
-Parameter (name=x, value=[[0 1 2]
-                          [3 4 5]])
+Parameter (name=x)
 
-Parameter (name=y, value=[[[1. 1. 1.]
-                           [1. 1. 1.]]])
+Parameter (name=y)
 
-Parameter (name=z, value=2.0)
+Parameter (name=z)
 ```
 
 ## 属性
@@ -113,8 +111,7 @@ inited_param:  None
 requires_grad:  True
 layerwise_parallel:  False
 
-data:  Parameter (name=x, value=[[0 1 2]
-                                 [3 4 5]])
+data:  Parameter (name=x)
 ```
 
 ## 方法
@@ -149,14 +146,10 @@ print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 输出如下：
 
 ```text
-Parameter (name=x, value=[[[1. 1. 1.]
-                           [1. 1. 1.]]])
-Parameter (name=x_c.x, value=[[[1. 1. 1.]
-                               [1. 1. 1.]]])
-Parameter (name=x, value=[[[1. 1. 1.]
-                           [1. 1. 1.]]])
-Parameter (name=x, value=[[[0. 1. 2.]
-                           [3. 4. 5.]]])
+Parameter (name=x)
+Parameter (name=x_c.x)
+Parameter (name=x)
+Parameter (name=x)
 ```
 
 ## ParameterTuple
@@ -183,15 +176,7 @@ print(params_copy)
 输出如下：
 
 ```text
-(Parameter (name=x, value=Tensor(shape=[2, 3], dtype=Int64,
-[[ 0,  1,  2],
- [ 3,  4,  5]])), Parameter (name=y, value=Tensor(shape=[1, 2, 3], dtype=Float32,
-[[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
-  [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]])), Parameter (name=z, value=Tensor(shape=[], dtype=Float32, 2)))
+(Parameter (name=x), Parameter (name=y), Parameter (name=z))
 
-(Parameter (name=params_copy.x, value=Tensor(shape=[2, 3], dtype=Int64,
-[[ 0,  1,  2],
- [ 3,  4,  5]])), Parameter (name=params_copy.y, value=Tensor(shape=[1, 2, 3], dtype=Float32,
-[[[ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00],
-  [ 1.00000000e+00,  1.00000000e+00,  1.00000000e+00]]])), Parameter (name=params_copy.z, value=Tensor(shape=[], dtype=Float32, 2)))
+(Parameter (name=params_copy.x), Parameter (name=params_copy.y), Parameter (name=params_copy.z))
 ```
