@@ -1,7 +1,5 @@
 # MindSpore Installation Guide
 
-This document describes how to quickly install MindSpore in an Ascend AI processor environment.
-
 <!-- TOC -->
 
 - [MindSpore Installation Guide](#mindspore-installation-guide)
@@ -22,6 +20,8 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_d_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+This document describes how to quickly install MindSpore in an Ascend AI processor environment.
 
 ## Environment Requirements
 
@@ -76,7 +76,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 - Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
-    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ### Installing Using the Source Code
@@ -103,7 +103,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 
     ```bash
     chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ## Configuring Environment Variables
@@ -199,7 +199,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindInsight:
 
     ```bash
-    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
@@ -224,7 +224,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
       ```bash
       cd mindinsight
-      pip install -r requirements.txt
+      pip install -r requirements.txt -i https://mirrors.huaweicloud.com/repository/pypi/simple
       python setup.py install
       ```
 
@@ -237,7 +237,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
       ```bash
       cd mindinsight
       bash build/build.sh
-      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
       ```
 
 3. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
@@ -267,7 +267,7 @@ If you need to conduct AI model security research or enhance the security of the
 1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindArmour:
 
    ```bash
-   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
    ```
 
 2. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.

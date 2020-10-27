@@ -1,7 +1,5 @@
 # 安装MindSpore
 
-本文档介绍如何在Nvidia GPU的环境上快速安装MindSpore。
-
 <!-- TOC -->
 
 - [安装MindSpore](#安装mindspore)
@@ -20,6 +18,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+本文档介绍如何在Nvidia GPU的环境上快速安装MindSpore。
 
 ## 环境要求
 
@@ -61,7 +61,7 @@
 - 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
-    pip install mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ### 从源码编译安装
@@ -86,7 +86,7 @@
 
     ```bash
     chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ## 安装验证
@@ -127,7 +127,7 @@
 
 - 直接在线升级
 
-    ```
+    ```bash
     pip install --upgrade mindspore_gpu
     ```
 
@@ -135,7 +135,7 @@
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
-    ```
+    ```bash
     pip install --upgrade mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
@@ -160,7 +160,7 @@
 1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindInsight。
 
     ```bash
-    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. 执行如下命令，如果提示`web address: http://127.0.0.1:8080`，则说明安装成功。
@@ -185,7 +185,7 @@
 
       ```bash
       cd mindinsight
-      pip install -r requirements.txt
+      pip install -r requirements.txt -i https://mirrors.huaweicloud.com/repository/pypi/simple
       python setup.py install
       ```
 
@@ -196,7 +196,7 @@
       ```bash
       cd mindinsight
       bash build/build.sh
-      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
       ```
 
 3. 执行如下命令，如果提示`web address: http://127.0.0.1:8080`，则说明安装成功。
@@ -226,7 +226,7 @@
 1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindArmour。
 
    ```bash
-   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
    ```
 
 2. 执行如下命令，如果没有提示`No module named 'mindarmour'`等加载错误的信息，则说明安装成功。
