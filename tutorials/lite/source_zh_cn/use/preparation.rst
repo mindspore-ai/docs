@@ -8,5 +8,5 @@
 .. toctree::
   :maxdepth: 1
 
-  download
+  downloads
   build
