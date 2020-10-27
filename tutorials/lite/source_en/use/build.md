@@ -49,20 +49,21 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
     - [Libevent](https://libevent.org) >= 2.0
     - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-    - [Python](https://www.python.org/) >= 3.7.5
-
+    
 - Compilation dependencies of runtime(java)
     - [CMake](https://cmake.org/download/) >= 3.14.1
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
-    - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
+    - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
-> - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`.
-> - Android SDK Tools need install Android SDK Build Tools.
+> - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`.
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
+> - After Gradle is installed, you need to add its installation path to the PATH: `export PATH=${GRADLE_PATH}/bin:$PATH`.
+> - To install the Android SDK via `Android command line tools`, you need to create a new directory first and configure its path to the environment variable in `${ANDROID_SDK_ROOT}`, then create SDK via `sdkmanager`: `./sdkmanager --sdk_root=$ {ANDROID_SDK_ROOT} "cmdline-tools;latest"`, and finally accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
+> - Compiling AAR needs to rely on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
 
 ### Compilation Options
 
@@ -83,6 +84,8 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
+>
+> When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter.
 
 ### Compilation Example
 
@@ -158,6 +161,7 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
+- `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
 > version: version of the output, consistent with that of the MindSpore.
 >
@@ -232,6 +236,17 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── include # Header files of inference framework
     ```
 
+- When the compilation option is `-A java`:
+
+  ```text
+  |
+  ├── mindspore-lite-maven-{version}
+  │   └── mindspore
+  │       └── mindspore-lite
+  |           └── {version}
+  │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
+  ```
+
 > 1. `libmindspore-lite-optimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support dotprod instruction.
 > 2. `libmindspore-lite-fp16.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
 > 3. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
@@ -248,17 +263,6 @@ Configure benchmark:
 ```bash
 export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
 ```
-
-- When the compilation option is `-A java`:
-
-  ```text
-  |
-  ├── mindspore-lite-maven-{version}
-  │   └── mindspore
-  │       └── mindspore-lite
-  |           └── {version}
-  │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
-  ```
 
 #### Description of Imageprocess's Directory Structure
 

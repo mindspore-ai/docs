@@ -13,11 +13,11 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | function                                                     |
 | ------------------------------------------------------------ |
 | [boolean init(MSConfig config)](#init)                       |
-| [void bindThread(boolean if_bind)](#bindthread)             |
-| [boolean compileGraph(Model model)](#compilegraph)          |
-| [boolean runGraph()](#rungraph)                             |
-| [List\<MSTensor\> getInputs()](#getinputs)                  |
-| [List\<MSTensor\> getInputsByName(String nodeName)](#getinputsbyname) |
+| [void bindThread(boolean if_bind)](#bindthread)              |
+| [boolean compileGraph(Model model)](#compilegraph)           |
+| [boolean runGraph()](#rungraph)                              |
+| [List\<MSTensor\> getInputs()](#getinputs)                   |
+| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname) |
 | [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
 | [Map\<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
 | [List\<String\> getOutputTensorNames()](#getoutputtensornames) |
@@ -92,21 +92,21 @@ public List<MSTensor> getInputs()
 
   所有输入MSTensor组成的List。
 
-## getInputsByName
+## getInputsByTensorName
 
 ```java
-public List<MSTensor> getInputsByName(String nodeName)
+public MSTensor getInputByTensorName(String tensorName)
 ```
 
 通过节点名获取MindSpore Lite模型的MSTensors输入。
 
 - 参数
 
-- `nodeName`: 节点名。
+- `tensorName`: 张量名。
 
 - 返回值
 
-  所有输入MSTensor组成的List。
+  tensorName所对应的输入MSTensor。
 
 ## getOutputsByNodeName
 

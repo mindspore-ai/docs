@@ -1,14 +1,14 @@
-﻿# 使用Benchmark进行基准测试
+# 使用Benchmark进行基准测试
 
 <!-- TOC -->
 
 - [使用Benchmark进行基准测试](#使用benchmark进行基准测试)
     - [概述](#概述)
     - [环境准备](#环境准备)
+    - [参数说明](#参数说明)
     - [使用示例](#使用示例)
         - [性能测试](#性能测试)
         - [精度测试](#精度测试)
-    - [参数说明](#参数说明)
 
 <!-- /TOC -->
 
@@ -25,6 +25,39 @@
 - 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)执行编译。
 
 - 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`benchmark`工具，并配置环境变量。
+
+## 参数说明
+
+使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
+
+```bash
+./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
+   [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
+   [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
+   [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+   [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+            [--inputShapes=<INPUTSHAPES>]
+```
+
+下面提供详细的参数说明。
+
+| 参数名            | 属性 | 功能描述                                                     | 参数类型                                                 | 默认值 | 取值范围 |
+| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
+| `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
+| `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
+| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
+| `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT8、UINT8 |
+| `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | -1：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
+| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU |
+| `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
+| `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
+| `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |
+| `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 | - |
+| `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
+| `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
+| `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
+| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
 
 ## 使用示例
 
@@ -112,36 +145,3 @@ Mean bias of all nodes: 0%
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
-
-## 参数说明
-
-使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
-
-```bash
-./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
-   [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
-   [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
-   [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
-   [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
-   [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
-            [--inputShapes=<INPUTSHAPES>]
-```
-
-下面提供详细的参数说明。
-
-| 参数名            | 属性 | 功能描述                                                     | 参数类型                                                 | 默认值 | 取值范围 |
-| ----------------- | ---- | ------------------------------------------------------------ | ------ | -------- | ---------------------------------- |
-| `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
-| `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
-| `--benchmarkDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
-| `--benchmarkDataType=<CALIBDATATYPE>` | 可选 | 指定标杆数据类型。 | String | FLOAT | FLOAT、INT8、UINT8 |
-| `--cpuBindMode=<CPUBINDMODE>` | 可选 | 指定模型推理程序运行时绑定的CPU核类型。 | Integer | 1      | -1：表示中核<br/>1：表示大核<br/>0：表示不绑定 |
-| `--device=<DEVICE>` | 可选 | 指定模型推理程序运行的设备类型。 | String | CPU | CPU、GPU |
-| `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
-| `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
-| `--loopCount=<LOOPCOUNT>` | 可选 | 指定Benchmark工具进行基准测试时，测试模型的前向推理运行次数，其值为正整数。 | Integer | 10 | - |
-| `--numThreads=<NUMTHREADS>` | 可选 | 指定模型推理程序运行的线程数。 | Integer | 2 | - |
-| `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
-| `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
-| `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
-| `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |

@@ -47,19 +47,20 @@
     - [Libevent](https://libevent.org) >= 2.0
     - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-    - [Python](https://www.python.org/) >= 3.7.5
 - runtime(java)编译依赖
     - [CMake](https://cmake.org/download/) >= 3.14.1
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Android_SDK](https://developer.android.com/studio/releases/platform-tools?hl=zh-cn#downloads) >= 30
+    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
-    - [JDK](https://www.oracle.com/cn/java/technologies/javase/javase-jdk8-downloads.html) >= 1.8
+    - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
-> - 当安装完依赖项Android_NDK后，需配置环境变量:`export ANDROID_NDK={$NDK_PATH}/android-ndk-r20b`。
-> - Android SDK组件需要安装Android SDK Build Tools。
+> - 当安装完依赖项Android_NDK后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
 > - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+> - 当安装完依赖项Gradle后，需将其安装路径增加到PATH当中：`export PATH=${GRADLE_PATH}/bin:$PATH`。
+> - 通过`Android command line tools`安装Android SDK，首先需要创建一个新目录，并将其路径配置到环境变量`${ANDROID_SDK_ROOT}`中，然后通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`，最后通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`。
+> - 编译AAR需要依赖Android SDK Build-Tools、Android SDK Platform-Tools等Android SDK相关组件，如果环境中的Android SDK不存在相关组件，编译时会自动下载所需依赖。
 
 ### 编译选项
 
@@ -80,6 +81,8 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
+>
+> 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
 
 ### 编译示例
 
@@ -154,6 +157,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark。
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
+- `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -228,6 +232,17 @@ unzip mindspore-lite-maven-{version}.zip
     │   └── include # 推理框架头文件  
     ```
 
+- 当编译选项为`-A java`时：
+
+  ```text
+  |
+  ├── mindspore-lite-maven-{version}
+  │   └── mindspore
+  │       └── mindspore-lite
+  |           └── {version}
+  │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
+  ```
+
 > 1. `libmindspore-lite-optimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持dotprod指令的CPU上使用的性能优化库。
 > 2. `libmindspore-lite-fp16.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持fp16的CPU上使用的性能优化库。
 > 3. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
@@ -244,17 +259,6 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./
 ```bash
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
 ```
-
-- 当编译选项为`-A java`时：
-
-  ```text
-  |
-  ├── mindspore-lite-maven-{version}
-  │   └── mindspore
-  │       └── mindspore-lite
-  |           └── {version}
-  │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
-  ```
 
 #### 图像处理库目录结构说明
 
