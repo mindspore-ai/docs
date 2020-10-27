@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/tree/r1.0/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+Q: Does MindSpore have a quantized inference tool?
+
+A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of the quantization aware training model on the cloud. The MindSpore Lite converter tool provides the quantization after training and weight quantization functions which are being continuously improved.
+
+<br/>
+
 Q: What are the advantages and features of MindSpore parallel model training?
 
 A: In addition to data parallelism, MindSpore distributed training also supports operator-level model parallelism. The operator input tensor can be tiled and parallelized. On this basis, automatic parallelism is supported. You only need to write a single-device script to automatically tile the script to multiple nodes for parallel execution.
