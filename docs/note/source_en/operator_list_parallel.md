@@ -90,7 +90,7 @@
 | [mindspore.ops.ReLU](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReLU)    |  None
 | [mindspore.ops.ReLU6](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReLU6)    |  None
 | [mindspore.ops.ReLUV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ReLUV2)    |  None
-| [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Reshape)    |  Configuring shard strategy is not supported.
+| [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Reshape)    |  Configuring shard strategy is not supported. In auto parallel mode, if multiple operators are followed by the reshape operator, different shard strategys are not allowed to be configured for these operators.
 | [mindspore.ops.Round](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Round)    |  None
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Rsqrt)    |  None
 | [mindspore.ops.Sigmoid](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Sigmoid)    |  None
