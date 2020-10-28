@@ -13,11 +13,11 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 | function                                                     |
 | ------------------------------------------------------------ |
 | [boolean init(MSConfig config)](#init)                       |
-| [void bindThread(boolean if_bind)](#bindthread)             |
-| [boolean compileGraph(Model model)](#compilegraph)          |
-| [boolean runGraph()](#rungraph)                             |
-| [List\<MSTensor\> getInputs()](#getinputs)                  |
-| [List\<MSTensor\> getInputsByName(String nodeName)](#getinputsbyname) |
+| [void bindThread(boolean if_bind)](#bindthread)              |
+| [boolean compileGraph(Model model)](#compilegraph)           |
+| [boolean runGraph()](#rungraph)                              |
+| [List\<MSTensor\> getInputs()](#getinputs)                   |
+| [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname) |
 | [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
 | [Map\<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
 | [List\<String\> getOutputTensorNames()](#getoutputtensornames) |
@@ -92,21 +92,21 @@ Get the MSTensors input of MindSpore Lite model.
 
   The vector of MindSpore Lite MSTensor.
 
-## getInputsByName
+## getInputsByTensorName
 
 ```java
-public List<MSTensor> getInputsByName(String nodeName)
+public MSTensor getInputsByTensorName(String tensorName)
 ```
 
 Get the MSTensors input of MindSpore Lite model by the node name.
 
 - Parameters
 
-    - `nodeName`: Define the node name.
+    - `tensorName`: Define the tensor name.
 
 - Returns
 
-  The vector of MindSpore Lite MSTensor.
+  MindSpore Lite MSTensor.
 
 ## getOutputsByNodeName
 

@@ -109,7 +109,7 @@ if (!session.compileGraph(model)) {
     return false;
 }
 
-// Note: when use model.freeBuffer(), the model can not be complile graph again.
+// Note: when use model.freeBuffer(), the model can not be compliled.
 model.freeBuffer();
 ```
 
@@ -211,7 +211,7 @@ private boolean init(Context context) {
         return false;
     }
 
-    // Note: when use model.freeBuffer(), the model can not be complile graph again.
+    // Note: when use model.freeBuffer(), the model can not be compliled.
     model.freeBuffer();
 
     return true;
