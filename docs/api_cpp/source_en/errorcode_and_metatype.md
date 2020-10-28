@@ -55,9 +55,13 @@ An **enum** type.
 
 ## Function
 ```cpp
-void PrintErrorInfo(STATUS error_code)
+std::string GetErrorInfo(STATUS error_code)
 ```
-Function to print description of errorcode.
+Function to obtain description of errorcode.
 - Parameters 
 
-    - `error_code`: Define which errorcode to print info.
+    - `error_code`: Define which errorcode info to obtain.
+
+- Returns
+
+    String of errorcode info.

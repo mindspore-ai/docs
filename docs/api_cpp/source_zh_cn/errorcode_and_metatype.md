@@ -55,9 +55,13 @@
 
 ## 函数接口
 ```cpp
-void PrintErrorInfo(STATUS error_code)
+std::string GetErrorInfo(STATUS error_code)
 ```
-打印错误码描述信息。
+获取错误码描述信息。
 - 参数
 
-    - `error_code`: 需打印的错误码。
+    - `error_code`: 需获取描述信息的错误码。
+
+- 返回值
+
+    - 错误码描述信息字符串。
