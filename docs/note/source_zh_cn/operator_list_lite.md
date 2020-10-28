@@ -6,7 +6,7 @@
 
 | 操作名                   | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | 支持的Tensorflow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |
 |-----------------------|----------|----------|----------|-----------|----------|-------------------|----------|----------|---------|
-| Abs                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Abs        |               | Abs                |
+| Abs                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Abs        |               | Abs                |
 | Add                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Add        |               | Add, Int8Add                |
 | AddN                  |          | Supported        |          |           |          |          | AddN       |               |                    |
 | Argmax                |          | Supported        | Supported        | Supported         |          |          | Argmax     | ArgMax        | ArgMax             |
@@ -17,13 +17,16 @@
 | BiasAdd               |          | Supported        | Supported        | Supported         | Supported        | Supported         |           |                | BiasAdd            |
 | Broadcast             |          | Supported        |          |           |          |          | BroadcastTo |               | Expand             |
 | Cast                  | Supported        | Supported        | Supported| Supported         | Supported        | Supported        | Cast, QUANTIZE, DEQUANTIZE  |        | Cast               |
-| Ceil                  |          | Supported        | Supported        | Supported         | Supported        | Supported        | Ceil        |               | Ceil               |
+| Ceil                  | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Ceil        |               | Ceil               |
 | Concat                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Concat      | Concat        | Concat             |
 | ConstantOfShape                |         | Supported        |         |          |         |         |       |         | ConstantOfShape             |
 | Conv2d                | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Conv2D      | Convolution   | Conv, Int8Conv, ConvRelu, Int8ConvRelu               |
 | Conv2dTranspose       | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DeConv2D    | Deconvolution | ConvTranspose      |
-| Cos                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Cos         |               | Cos                |
-| Crop                  |          | Supported        | Supported        | Supported         |          |          |             |  Crop         |                    |
+| Cos                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Cos         |               | Cos                |
+| Crop                  | Supported | Supported        | Supported        | Supported         |          |          |             |  Crop         |                    |
+| CustomExtractFeatures |  | Supported |  |  |  |  | ExtractFeatures |  |  |
+| CustomNormalize       |  | Supported |  |  |  |  | Normalize       |  |  |
+| CustomPredict         |  | Supported |  |  |  |  | Predict         |  |  |
 | DeDepthwiseConv2D     |          | Supported        | Supported        | Supported         |          |          |             |  Deconvolution| ConvTranspose      |
 | DepthToSpace          |          | Supported        | Supported        | Supported         | Supported         | Supported         | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   |     |
@@ -36,7 +39,7 @@
 | ExpandDims            |          | Supported        |          |           |          |          |ExpandDims             |               |                    |
 | Fill                  |          | Supported        |          |           |          |          | Fill        |               |                    |
 | Flatten               |          | Supported        |          |           |          |          |             | Flatten       |                    |
-| Floor                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | flOOR       |               | Floor              |
+| Floor                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | flOOR       |               | Floor              |
 | FloorDiv              | Supported        | Supported        |          |           | Supported         | Supported         | FloorDiv    |               |                    |
 | FloorMod              | Supported        | Supported        |          |           | Supported         | Supported         | FloorMod    |               |                    |
 | FullConnection        | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | FullyConnected  | InnerProduct  |                |
@@ -44,7 +47,7 @@
 | GatherV2              |          | Supported        | Supported        | Supported         | Supported         | Supported         | Gather      |               | Gather             |
 | Greater               | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Greater     |               | Greater            |
 | GreaterEqual          | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | GreaterEqual|               |                    |
-| HashtableLookup                |         | Supported        |         |          |          |          | HashtableLookup   |               |                    |
+| HashtableLookup       |         | Supported        |         |          |          |          | HashtableLookup   |               |                    |
 | Hswish                | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | HardSwish   |               |                    |
 | InstanceNorm                |         | Supported        |          |           |         |         | InstanceNorm   |               |           |
 | L2Norm                |         | Supported        |          |           |         |         | L2_NORMALIZATION   |               |           |
@@ -52,18 +55,18 @@
 | Less                  | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Less        |               | Less               |
 | LessEqual             | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | LessEqual   |               |                    |
 | LRN     |          | Supported        |          |           |          |          | LocalResponseNorm  |        | Lrn, LRN                |
-| Log                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Log         |               | Log                |
+| Log                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Log         |               | Log                |
 | LogicalAnd            | Supported        | Supported        |          |           | Supported         | Supported         | LogicalAnd  |               | And                   |
-| LogicalNot            |          | Supported        | Supported        | Supported         | Supported        | Supported        | LogicalNot  |               | Not                   |
+| LogicalNot            | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | LogicalNot  |               | Not                   |
 | LogicalOr             | Supported        | Supported        |          |           | Supported         | Supported         | LogicalOr   |               | Or                   |
-| LshProjection                  |          | Supported        |          |           |          |          | LshProjection            |               |                    |
+| LshProjection         |          | Supported        |          |           |          |          | LshProjection            |               |                    |
 | LSTM                  |          | Supported        |          |           |          |          |             |               | LSTM                   |
-| MatMul                |          | Supported        | Supported        | Supported         | Supported        | Supported        |             |               | MatMul             |
+| MatMul                | Supported | Supported        | Supported        | Supported         | Supported        | Supported        |             |               | MatMul             |
 | Maximum               | Supported        | Supported        |          |           | Supported         | Supported         | Maximum     |               |                |
 | MaxPool               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | MaxPooling  | Pooling       | MaxPool, GlobalMaxPool            |
 | Minimum               | Supported        | Supported        |          |           | Supported         | Supported         | Minimum     |               | Min                |
 | Mul                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Mul         |               | Mul                |
-| Neg                   |          | Supported        |          |           | Supported         | Supported         |   Neg       |               | Neg                   |
+| Neg                   | Supported | Supported        |          |           | Supported         | Supported         |   Neg       |               | Neg                   |
 | NotEqual              | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | NotEqual    |               |                    |
 | OneHot                |          | Supported        |          |           |          |          | OneHot      |               | OneHot                   |
 | Pad                   | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Pad, MirrorPad         |               | Pad                |
@@ -84,27 +87,27 @@
 | Resize                |          | Supported        | Supported        | Supported         | Supported         | Supported         | ResizeBilinear, NearestNeighbor | Interp        | Resize                   |
 | Reverse               |          | Supported        |          |           |          |          | reverse     |               |                    |
 | ReverseSequence       |          | Supported        |          |           |          |          | ReverseSequence  |          |                    |
-| Round                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Round       |               | Round                   |
-| Rsqrt                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Rsqrt       |               |                    |
-| Scale                 |          | Supported        |          |           | Supported        | Supported        |             |  Scale        |                    |
+| Round                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Round       |               | Round                   |
+| Rsqrt                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Rsqrt       |               |                    |
+| Scale                 | Supported | Supported        |          |           | Supported        | Supported        |             |  Scale        |                    |
 | ScatterNd             |          | Supported        |          |           |          |          | ScatterNd   |               |                    |
 | Shape                 |          | Supported        |          |          |          |          | Shape       |               | Shape              |
 | Sigmoid               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Logistic    | Sigmoid       | Sigmoid            |
-| Sin                   |          | Supported        | Supported        | Supported         | Supported        | Supported        | Sin         |               | Sin                |
-| Slice                 |          | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       | Slice              | Slice              |
-| SkipGram                 |          | Supported        |         |          |         |         | SKipGram       |               |               |
+| Sin                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Sin         |               | Sin                |
+| Slice                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       | Slice              | Slice              |
+| SkipGram              |          | Supported        |         |          |         |         | SKipGram       |               |               |
 | Softmax               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Softmax     | Softmax       | Softmax            |
 | SpaceToBatch          |          | Supported        | Supported        |           | Supported         | Supported         |             |               |                    |
 | SpaceToBatchND        |          | Supported        | Supported         |           | Supported         | Supported         | SpaceToBatchND |            |                    |
 | SpaceToDepth          |          | Supported        |          |           |          |          | SpaceToDepth   |            | SpaceToDepth       |
 | SparseToDense         |          | Supported        |          |           |          |          |  SpareToDense  |            |                    |
 | Split                 | Supported        | Supported        | Supported        | Supported         |          |          | Split, SplitV  |            | Split                   |
-| Sqrt                  |          | Supported        | Supported        | Supported         | Supported        | Supported        | Sqrt        |               | Sqrt               |
-| Square                |          | Supported        | Supported        | Supported         | Supported        | Supported        | Square      |               |                    |
-| SquaredDifference     |          | Supported        |          |           | Supported         | Supported         |  SquaredDifference |         |                    |
+| Sqrt                  | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Sqrt        |               | Sqrt               |
+| Square                | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Square      |               |                    |
+| SquaredDifference     | Supported | Supported        |          |           | Supported         | Supported         |  SquaredDifference |         |                    |
 | Squeeze               |          | Supported        | Supported        | Supported         | Supported         | Supported         | Squeeze     |               | Squeeze            |
 | StridedSlice          |          | Supported        | Supported        | Supported         |          |          | StridedSlice|               |                    |
-| Stack                 |          | Supported        |          |           | Supported         | Supported         | Stack       |               |                    |
+| Stack                 | Supported | Supported        |          |           | Supported         | Supported         | Stack       |               |                    |
 | Sub                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Sub         |               |  Sub               |
 | Tanh                  | Supported        | Supported        |          |           | Supported        | Supported        | Tanh        | TanH          | Tanh, Sign                    |
 | Tile                  |          | Supported        |          |           |          |          | Tile        | Tile              | Tile               |

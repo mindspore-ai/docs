@@ -166,7 +166,30 @@ std::string Version()
 
     MindSpore Lite版本的字符串。
 
-   
+## StringsToMSTensor
+
+```cpp
+int StringsToMSTensor(const std::vector<std::string> &inputs, tensor::MSTensor *tensor)
+```
+
+全局方法，用于将字符串存入MSTensor。
+
+- 返回值
+
+    STATUS，STATUS在errorcode.h中定义。
+
+## MSTensorToStrings
+
+```cpp
+std::vector<std::string> MSTensorToStrings(const tensor::MSTensor *tensor)
+```
+
+全局方法，用于从MSTensor获取字符串。
+
+- 返回值
+
+    字符串的vector。
+
 ## DeviceContextVector
 
 元素为[**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**。

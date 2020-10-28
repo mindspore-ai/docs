@@ -165,7 +165,31 @@ Global method to get a version string.
 - Returns
 
     The version string of MindSpore Lite.
-    
+
+## StringsToMSTensor
+
+```cpp
+int StringsToMSTensor(const std::vector<std::string> &inputs, tensor::MSTensor *tensor)
+```
+
+Global method to store strings into MSTensor.
+
+- Returns
+
+    STATUS, STATUS is defined in errorcode.h.
+
+## MSTensorToStrings
+
+```cpp
+std::vector<std::string> MSTensorToStrings(const tensor::MSTensor *tensor)
+```
+
+Global method to get strings from MSTensor.
+
+- Returns
+
+    The vector of strings.
+
 ## DeviceContextVector
 
 A **vector** contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variable. 
