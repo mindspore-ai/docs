@@ -206,8 +206,6 @@ class HybridParallelNet(nn.Cell):
 
 Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html). 
 
-It should be noticed that the operators without shard strategies would be regraded as data parallel. If a parameter is used by multiple operators, each operator's shard strategy for this parameter needs to be consistent, otherwise an error will be reported.
-
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
 
 ```python
@@ -231,6 +229,10 @@ class SemiAutoParallelNet(nn.Cell):
         x = self.reduce(x, -1)
         return x
 ```
+
+> - In the semi auto parallel mode, the operators that are not assigned with any shard strategies would be executed in data parallel.
+> - The auto parallel mode not only supports the parallel strategy that can automatically acquire efficient operators by strategy searching algorithms, this mode also enables users to manually assign specific parallel strategies.
+> - If a parameter is used by multiple operators, each operator's shard strategy for this parameter needs to be consistent, otherwise an error will be reported.
 
 ## Defining the Loss Function and Optimizer
 

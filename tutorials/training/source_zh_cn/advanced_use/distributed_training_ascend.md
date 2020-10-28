@@ -206,9 +206,7 @@ class HybridParallelNet(nn.Cell):
 
 ### 半自动并行模式
 
-半自动并行模式相较于自动并行模式支持用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
-
-用户在使用半自动并行模式时，需要注意，未配置策略的算子默认以数据并行方式执行，如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
+半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
 
 以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`{(1, 1),(1, 2)}`，指定`self.weight`在第二维度上被切分两份。
 
@@ -233,6 +231,10 @@ class SemiAutoParallelNet(nn.Cell):
         x = self.reduce(x, -1)
         return x
 ```
+
+> - 半自动并行模式时，未配置策略的算子默认以数据并行方式执行。
+> - 自动并行模式支持通过策略搜索算法自动获取高效的算子并行策略，同时也支持用户对算子手动配置特定的并行策略。
+> - 如果某个`parameter`被多个算子使用，则每个算子对这个`parameter`的切分策略需要保持一致，否则将报错。
 
 ## 定义损失函数及优化器
 
