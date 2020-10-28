@@ -51,7 +51,7 @@
 1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl
+    pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. 执行如下命令，如果没有提示`No module named 'mindspore'`等加载错误的信息，则说明安装成功。
@@ -85,7 +85,7 @@
 3. 执行如下命令安装MindSpore。
 
     ```bash
-    pip install build/package/mindspore-{version}-cp37-cp37m-win_{arch}.whl
+    pip install build/package/mindspore-{version}-cp37-cp37m-win_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 4. 执行如下命令，如果没有提示`No module named 'mindspore'`等加载错误的信息，则说明安装成功。

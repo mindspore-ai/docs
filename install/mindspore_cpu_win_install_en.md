@@ -51,7 +51,7 @@ This document describes how to quickly install MindSpore in a Windows system wit
 1. Download the .whl package the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl
+    pip install mindspore-{version}-cp37-cp37m-win_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. Run the following command. If no loading error message such as `No module named 'mindspore'` is displayed, the installation is successful.
@@ -85,7 +85,7 @@ This document describes how to quickly install MindSpore in a Windows system wit
 3. Run the following command to install MindSpore:
 
     ```bash
-    pip install build/package/mindspore-{version}-cp37-cp37m-win_{arch}.whl
+    pip install build/package/mindspore-{version}-cp37-cp37m-win_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 4. Run the following command. If no loading error message such as `No module named 'mindspore'` is displayed, the installation is successful.

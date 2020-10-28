@@ -35,7 +35,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindSpore 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+| MindSpore 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64  | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - Ascend 910 AI processor <br> &nbsp;&nbsp;software package(Version: <br> &nbsp;&nbsp;Atlas Data Center Solution <br> &nbsp;&nbsp;V100R020C10T500: <br> &nbsp;&nbsp;[A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), <br> &nbsp;&nbsp;[CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package(Version:Atlas Data Center Solution V100R020C10T500: [A800-9000 1.0T112](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/251993852?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [CANN V100R020C10T100](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252060654?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)). If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
 - GCC 7.3.0 can be installed by using apt command.
@@ -76,7 +76,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 - Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first and run the following command to install MindSpore:
 
     ```bash
-    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ### Installing Using the Source Code
@@ -103,7 +103,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
 
     ```bash
     chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 ## Configuring Environment Variables
@@ -188,7 +188,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindInsight 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
+| MindInsight 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64  <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindinsight/blob/r1.0/requirements.txt). | **Compilation dependencies:**<br> - [Python](https://www.python.org/downloads/) 3.7.5 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [GCC](https://gcc.gnu.org/releases.html) 7.3.0 <br> - [node.js](https://nodejs.org/en/download/) >= 10.19.0 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [pybind11](https://pypi.org/project/pybind11/) >= 2.4.3 <br> **Installation dependencies:**<br> same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `requirements.txt` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -199,7 +199,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindInsight:
 
     ```bash
-    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
@@ -224,7 +224,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
 
       ```bash
       cd mindinsight
-      pip install -r requirements.txt
+      pip install -r requirements.txt -i https://mirrors.huaweicloud.com/repository/pypi/simple
       python setup.py install
       ```
 
@@ -237,7 +237,7 @@ If you need to analyze information such as model scalars, graphs, and model trac
       ```bash
       cd mindinsight
       bash build/build.sh
-      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl
+      pip install output/mindinsight-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
       ```
 
 3. Run the following command. If `web address: http://127.0.0.1:8080` is displayed, the installation is successful.
@@ -256,7 +256,7 @@ If you need to conduct AI model security research or enhance the security of the
 
 | Version | Operating System | Executable File Installation Dependencies | Source Code Compilation and Installation Dependencies |
 | ---- | :--- | :--- | :--- |
-| MindArmour 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64 <br> - EulerOS 2.5 x86_64 <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py). | Same as the executable file installation dependencies. |
+| MindArmour 1.0.1 | - Ubuntu 18.04 aarch64 <br> - Ubuntu 18.04 x86_64 <br> - CentOS 7.6 aarch64 <br> - CentOS 7.6 x86_64 <br> - EulerOS 2.8 aarch64  <br> | - [Python](https://www.python.org/downloads/) 3.7.5 <br> - MindSpore 1.0.1 <br> - For details about other dependency items, see [setup.py](https://gitee.com/mindspore/mindarmour/blob/r1.0/setup.py). | Same as the executable file installation dependencies. |
 
 - When the network is connected, dependency items in the `setup.py` file are automatically downloaded during .whl package installation. In other cases, you need to manually install dependency items.
 
@@ -267,7 +267,7 @@ If you need to conduct AI model security research or enhance the security of the
 1. Download the .whl package from the [MindSpore website](https://www.mindspore.cn/versions/en). It is recommended to perform SHA-256 integrity verification first  and run the following command to install MindArmour:
 
    ```bash
-   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
    ```
 
 2. Run the following command. If no loading error message such as `No module named 'mindarmour'` is displayed, the installation is successful.
