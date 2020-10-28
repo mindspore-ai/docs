@@ -8,10 +8,14 @@
     - [概述](#概述)
     - [安装](#安装)
     - [用法](#用法)
+        - [PyTorch模型脚本迁移](#pytorch模型脚本迁移)
+        - [TensorFlow模型脚本迁移](#tensorflow模型脚本迁移)
     - [使用场景](#使用场景)
     - [使用示例](#使用示例)
         - [基于AST的脚本转换示例](#基于ast的脚本转换示例)
         - [基于图结构的脚本生成示例](#基于图结构的脚本生成示例)
+            - [PyTorch模型脚本生成示例](#pytorch模型脚本生成示例)
+            - [TensorFlow模型脚本生成示例](#tensorflow模型脚本生成示例)
     - [注意事项](#注意事项)
 
 <!-- /TOC -->
@@ -20,7 +24,7 @@
 
 ## 概述
 
-MindConverter是一款将PyTorch模型脚本转换至MindSpore的脚本迁移工具。结合转换报告的提示信息，用户对转换后脚本进行微小改动，即可快速将PyTorch模型脚本迁移至MindSpore。
+MindConverter是一款用于将PyTorch、TensorFlow脚本转换到MindSpore脚本的工具。结合转换报告的信息，用户只需对转换后的脚本进行微小的改动，即可快速将PyTorch、TensorFlow框架的模型脚本迁移到MindSpore。
 
 ## 安装
 
@@ -33,6 +37,7 @@ MindConverter提供命令行（Command-line interface, CLI）的使用方式，�
 ```bash
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
                      [--model_file MODEL_FILE] [--shape SHAPE]
+                     [--input_node INPUT_NODE] [--output_node OUTPUT_NODE]
                      [--output OUTPUT] [--report REPORT]
                      [--project_path PROJECT_PATH]
 
@@ -42,13 +47,21 @@ optional arguments:
   --in_file IN_FILE     Specify path for script file to use AST schema to do
                         script conversation.
   --model_file MODEL_FILE
-                        PyTorch .pth model file path to use graph based schema
-                        to do script generation. When `--in_file` and
-                        `--model_file` are both provided, use AST schema as
-                        default.
+                        PyTorch .pth or TensorFlow .pb model file path to use
+                        graph based schema to do script generation. When
+                        `--in_file` and `--model_file` are both provided, use
+                        AST schema as default.
   --shape SHAPE         Optional, expected input tensor shape of
                         `--model_file`. It is required when use graph based
-                        schema. Usage: --shape 3,244,244
+                        schema. Usage: --shape 1,3,244,244
+  --input_nodes INPUT_NODE
+                        Optional, input node(s) name of `--model_file`. It is
+                        required when use Tensorflow model. Usage:
+                        --input_node input_1:0,input_2:0
+  --output_nodes OUTPUT_NODE
+                        Optional, output node(s) name of `--model_file`. It is
+                        required when use Tensorflow model. Usage:
+                        --output_node output_1:0,output_2:0
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -62,7 +75,9 @@ optional arguments:
 
 ```
 
-**MindConverter提供两种模型脚本迁移方案：**
+### PyTorch模型脚本迁移
+
+**MindConverter提供两种PyTorch模型脚本迁移方案：**
 
 1. **基于抽象语法树(Abstract syntax tree, AST)的脚本转换**：指定`--in_file`的值，将使用基于AST的脚本转换方案；
 2. **基于图结构的脚本生成**：指定`--model_file`与`--shape`将使用基于图结构的脚本生成方案。
@@ -78,21 +93,28 @@ optional arguments:
 > 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动项目添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
 > 此处MindConverter需要引用原PyTorch脚本，是因为PyTorch模型反向序列化过程中会引用原脚本。
 
+### TensorFlow模型脚本迁移
+
+**MindConverter提供基于图结构的脚本生成方案**：指定`--model_file`、`--shape`、`--input_node`、`--output_node`进行脚本迁移。
+
+> AST方案不支持TensorFlow模型脚本迁移，TensorFlow脚本迁移仅支持基于图结构的方案。
+
+
 ## 使用场景
 
 MindConverter提供两种技术方案，以应对不同脚本迁移场景：
 
-1. 用户希望迁移后脚本保持原有PyTorch脚本结构（包括变量、函数、类命名等与原脚本保持一致）；
+1. 用户希望迁移后脚本保持原脚本结构（包括变量、函数、类命名等与原脚本保持一致）；
 2. 用户希望迁移后脚本保持较高的转换率，尽量少的修改、甚至不需要修改，即可实现迁移后模型脚本的执行。
 
-对于上述第一种场景，推荐用户使用基于AST的方案进行转换，AST方案通过对原PyTorch脚本的抽象语法树进行解析、编辑，将其替换为MindSpore的抽象语法树，再利用抽象语法树生成代码。理论上，AST方案支持任意模型脚本迁移，但语法树解析操作受原脚本用户编码风格影响，可能导致同一模型的不同脚本最终的转换率存在一定差异。
+对于上述第一种场景，推荐用户使用基于AST的方案进行转换（AST方案仅支持PyTorch脚本转换），AST方案通过对原PyTorch脚本的抽象语法树进行解析、编辑，将其替换为MindSpore的抽象语法树，再利用抽象语法树生成代码。理论上，AST方案支持任意模型脚本迁移，但语法树解析操作受原脚本用户编码风格影响，可能导致同一模型的不同脚本最终的转换率存在一定差异。
 
 对于上述第二种场景，推荐用户使用基于图结构的脚本生成方案，计算图作为一种标准的模型描述语言，可以消除用户代码风格多样导致的脚本转换率不稳定的问题。在已支持算子的情况下，该方案可提供优于AST方案的转换率。
 
 目前已基于典型图像分类网络(Resnet, VGG)对图结构的脚本转换方案进行测试。
 
 > 1. 基于图结构的脚本生成方案，目前仅支持单输入、单输出模型，对于多输入模型暂不支持；
-> 2. 基于图结构的脚本生成方案，由于要基于推理模式加载PyTorch模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐；
+> 2. 基于图结构的脚本生成方案，由于要加载PyTorch、TensorFlow模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐；
 > 3. 基于图结构的脚本生成方案持续优化中。
 
 ## 使用示例
@@ -129,10 +151,12 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 
 ### 基于图结构的脚本生成示例
 
-若用户已将PyTorch模型保存为.pth格式，假设模型绝对路径为`/home/user/model.pth`，该模型期望的输入样本shape为(3, 224, 224)，原PyTorch脚本位于`/home/user/project/model_training`，希望将脚本输出至`/home/user/output`，转换报告输出至`/home/user/output/report`，则脚本生成命令为：
+#### PyTorch模型脚本生成示例
+
+若用户已将PyTorch模型保存为.pth格式，假设模型绝对路径为`/home/user/model.pth`，该模型期望的输入shape为(1, 3, 224, 224)，原PyTorch脚本位于`/home/user/project/model_training`，希望将脚本输出至`/home/user/output`，转换报告输出至`/home/user/output/report`，则脚本生成命令为：
 
 ```bash
-mindconverter --model_file /home/user/model.pth --shape 3,224,224 \
+mindconverter --model_file /home/user/model.pth --shape 1,3,224,224 \
               --output /home/user/output \
               --report /home/user/output/report \
               --project_path /home/user/project/model_training
@@ -142,7 +166,7 @@ mindconverter --model_file /home/user/model.pth --shape 3,224,224 \
 
 基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原PyTorch脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
 
-另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），将生成如下代码：
+另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），<a name="manual_modify">将生成如下代码</a>：
 
 ```python
 class Classifier(nn.Cell):
@@ -187,7 +211,55 @@ class Classifier(nn.Cell):
 
 > 其中`--output`与`--report`参数可省略，若省略，该命令将在当前工作目录（Working directory）下自动创建`output`目录，将生成的脚本、转换报告输出至该目录。
 
+#### TensorFlow模型脚本生成示例
+
+使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称，可参考如下方法进行导出、获取节点名称：
+```python
+import tensorflow as tf
+from tensorflow.python.framework import graph_io
+from tensorflow.keras.applications.inception_v3 import InceptionV3
+
+
+def freeze_graph(graph, session, output):
+    saved_path = "/home/user/xxx"
+    with graph.as_default():
+        graphdef_inf = tf.graph_util.remove_training_nodes(graph.as_graph_def())
+        graphdef_frozen = tf.graph_util.convert_variables_to_constants(session, graphdef_inf, output)
+        graph_io.write_graph(graphdef_frozen, saved_path, "frozen_model.pb", as_text=False)
+
+tf.keras.backend.set_learning_phase(0)
+
+base_model = InceptionV3()
+session = tf.keras.backend.get_session()
+
+INPUT_NODE = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
+OUTPUT_NODE = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
+freeze_graph(session.graph, session, [out.op.name for out in base_model.outputs])
+print(f"Input node name: {INPUT_NODE}, output node name: {OUTPUT_NODE}")
+
+```
+
+上述代码执行完毕，模型将会保存至`/home/user/xxx/frozen_model.pb`。其中，`INPUT_NODE`为输入节点名称，`OUTPUT_NODE`为输出节点名称。
+
+假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
+```shell script
+mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
+              --input_node input_1:0 \
+              --output_node predictions/Softmax:0 \
+              --output /home/user/output \
+              --report /home/user/output/report
+```
+
+执行该命令，MindSpore代码文件、转换报告生成至相应目录。
+
+
+基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原TensorFlow脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
+
+
+另外，对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`、`output_shape`标识），便于用户手动修改，示例见[PyTorch模型脚本生成示例](#manual_modify)。
+
+
 ## 注意事项
 
-1. PyTorch不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成）；
+1. PyTorch、TensorFlow、TF2ONNX(1.7.1)不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow；
 2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
