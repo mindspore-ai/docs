@@ -270,23 +270,24 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
     import numpy as np
     import mindspore.dataset as ds
 
+    np.random.seed(58)
     features, labels = np.random.sample((5, 2)), np.random.sample((5, 1))
 
     data = (features, labels)
     dataset = ds.NumpySlicesDataset(data, column_names=["col1", "col2"], shuffle=False)
 
     for data in dataset:
-        print(data[0], " ", data[1])
+        print(data[0], data[1])
     ```
 
     输出结果如下：
 
     ```text
-    [0.49893939 0.36348882]   [0.15234002]
-    [0.83845534 0.19721032]   [0.94602561]
-    [0.2361873  0.79506755]   [0.88118559]
-    [0.71856343 0.16168491]   [0.55517421]
-    [0.21266013 0.33411312]   [0.74858382]
+    [0.36510558 0.45120592] [0.78888122]
+    [0.49606035 0.07562207] [0.38068183]
+    [0.57176158 0.28963401] [0.16271622]
+    [0.30880446 0.37487617] [0.54738768]
+    [0.81585667 0.96883469] [0.77994068]
     ```
 
 - 加载Python list数据
@@ -368,8 +369,8 @@ def GeneratorFunc():
 
 dataset = ds.GeneratorDataset(GeneratorFunc, ["data", "label"])
 
-for data in dataset.create_dict_iterator():
-    print(data["data"], data["label"])
+for sample in dataset.create_dict_iterator():
+    print(sample["data"], sample["label"])
 ```
 
 输出结果如下：
