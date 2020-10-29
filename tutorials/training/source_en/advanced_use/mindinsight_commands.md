@@ -123,6 +123,6 @@ In which,
 
 - output_{datetime} is the output directory. The rule is 'output_yyyyMMdd_HHmmss_SSSSSS' including year, month, day, hour, minute, second and microseconds.
 
-- {tag}_{step}.png is the image in training process. 'tag' and 'step' are the tag and step in the training (special characters in tag are deleted and '/' is replaced by '_').
+- {tag}\_{step}.png is the image in training process. 'tag' and 'step' are the tag and step in the training (special characters in tag are deleted and '/' is replaced by '_').
 
-- scalar.csv is the file which save scalars.
+- scalar.csv is the file which save scalars (encoding: 'utf-8').
