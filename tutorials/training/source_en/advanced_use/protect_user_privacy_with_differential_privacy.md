@@ -51,7 +51,7 @@ The LeNet model and MNIST dataset are used as an example to describe how to use 
 
 ### Importing Library Files
 
-The following are the required public modules, MindSpore modules, and differential privacy feature modules.
+The followings are the required public modules, MindSpore modules, and differential privacy feature modules.
 
 ```python
 import os
@@ -83,7 +83,7 @@ TAG = 'Lenet5_train'
 
 ### Configuring Parameters
 
-1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with you data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
+1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with your data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
 
    ```python
    cfg = edict({
@@ -113,7 +113,7 @@ TAG = 'Lenet5_train'
    })
    ```
 
-2. Configure necessary information, including the environment information and execution mode.
+2. Configure the necessary information, including the environment information and the execution mode.
 
    ```python
    context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
@@ -291,7 +291,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
                                               noise_decay_mode=None)
    ```
 
-2. Package the LeNet model as a differential privacy model by transferring the network to `DPModel`.
+2. Pack the LeNet model as a differential privacy model by transferring the network to `DPModel`.
 
    ```python
    # Create the DP model for training.
@@ -323,9 +323,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
    ```
 
-4. Run the following command.
-
-   Execute the script:
+4. Run the following command to execute the script:
 
    ```bash
    python lenet5_dp.py
