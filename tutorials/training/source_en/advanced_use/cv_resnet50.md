@@ -152,7 +152,7 @@ For more information about ResNet, see [ResNet Paper](https://arxiv.org/abs/1512
 
 ### Defining the Loss Function and Optimizer
 
-A loss function and an optimizer need to be defined. The loss function is a training objective of the deep learning, and is also referred to as an objective function. The loss function indicates the distance between a logit of a neural network and a label, and is scalar data.
+A loss function and an optimizer need to be defined. The loss function is a training objective of the deep learning, and is also referred to an objective function. The loss function indicates the distance between a logit of a neural network and a label, and is scalar data.
 
 Common loss functions include mean square error, L2 loss, Hinge loss, and cross entropy. Cross entropy is usually used for image classification.
 

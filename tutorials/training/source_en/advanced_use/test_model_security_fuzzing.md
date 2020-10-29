@@ -18,7 +18,7 @@
 
 The decision logic of traditional software is determined by the code logic. Traditional software determines whether the test is adequate based on the code line coverage rate. Ideally, the higher the coverage rate is, the more adequate the code test is. However, for deep neural network, the decision logic of the program is determined by the training data, network structure, and parameters through a black box mechanism. The code line coverage fails to evaluate the test adequacy. A more suitable test evaluation criterion needs to be selected according to the deep network features to guide the neural network to perform a more adequate test and find more corner error cases, thereby ensuring universality and robustness of a model.
 
-The fuzz testing module of MindArmour uses the neuron coverage rate as the test evaluation criterion. Neuron coverage is the range of the number of neurons observed and activated  and the range of the neuron output value through a set of inputs. The neuron coverage is used to guide input mutation so that input can activate more neurons and neuron values can be distributed in a wider range. In this way, we can explore different types of model output results and incorrect behaviors.
+The fuzz testing module of MindArmour uses the neuron coverage rate as the test evaluation criterion. Neuron coverage is the range of the number of neurons observed and activated and the range of the neuron output value through a set of inputs. The neuron coverage is used to guide input mutation so that the input can activate more neurons and neuron values can be distributed in a wider range. In this way, we can explore different types of model output results and incorrect behaviors.
 
 The LeNet model and MNIST dataset are used as an example to describe how to use Fuzz testing.
 
@@ -28,7 +28,7 @@ The LeNet model and MNIST dataset are used as an example to describe how to use 
 
 ### Importing Library Files
 
-The following lists the required common modules, MindSpore-related modules, Fuzz testing  feature modules, and configuration log labels and log levels.
+The following lists the required common modules, MindSpore-related modules, Fuzz testing feature modules, and configuration log labels and log levels.
 
 ```python
 import numpy as np
@@ -101,11 +101,11 @@ For details about the API configuration, see the `context.set_context`.
 
    The data mutation method must include the method based on the image pixel value changes.
 
-   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to <https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>. For  randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
+   The first two image transform methods support user-defined configuration parameters and randomly generated parameters by algorithms. For user-defined configuration parameters see the class methods corresponding to <https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>. For randomly generated parameters by algorithms you can set method's params to `'auto_param': [True]`. The mutation parameters are randomly generated within the recommended range.
 
    For details about how to set parameters based on the attack defense method, see the corresponding attack method class.
 
-   Following is an example for configure Fuzzer parameters.
+   The following is an example for configure Fuzzer parameters.
 
    ```python
    mutate_config = [{'method': 'Blur',
@@ -129,8 +129,8 @@ For details about the API configuration, see the `context.set_context`.
    ```
 
    Set evaluation metrics. Currently, the following evaluation metrics are supported:
-   - General evaluation metric: accuracy
-   - Neuron coverage rate metrics: kmnc, nbc, and snac
+   - General evaluation metric: accuracy.
+   - Neuron coverage rate metrics: kmnc, nbc, and snac.
    - Adversarial attack evaluation metric: attack_success_rate.
    You can set this parameter to `auto`. By default, all evaluation metrics are used.
 
