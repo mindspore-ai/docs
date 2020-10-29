@@ -31,6 +31,10 @@
 
 > 你可以在这里找到[Android图像分类模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite)和[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification)。
 
+我们提供了本示例对应的APK文件，你可扫描下方的二维码或直接[下载](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk)，并部署到Android设备后使用。
+
+![apk](../images/classification_apk.png)
+
 ## 选择模型
 
 MindSpore团队提供了一系列预置终端模型，你可以在应用程序中使用这些预置的终端模型。  

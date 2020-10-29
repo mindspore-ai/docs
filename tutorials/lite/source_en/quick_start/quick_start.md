@@ -31,6 +31,10 @@ This tutorial demonstrates the on-device deployment process based on the image c
 
 > Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
 
+We provide the APK file corresponding to this example. You can scan the QR code below or [download](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) it directly, and deploy it to Android devices for use.
+
+![apk](../images/classification_apk.png)
+
 ## Selecting a Model
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
