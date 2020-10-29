@@ -6,3 +6,5 @@ Compute Component
 
   operators
   parameter
+  cell
+  network_component
