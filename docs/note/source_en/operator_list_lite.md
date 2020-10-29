@@ -27,19 +27,20 @@
 | DeDepthwiseConv2D     |          | Supported        | Supported        | Supported         |          |          |             |  Deconvolution| ConvTranspose      |
 | DepthToSpace          |          | Supported        | Supported        | Supported         | Supported         | Supported         | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   |     |
-| DetectionPostProcess  |          | Supported        |       |          |                   |          | Custom |           |                 |
+| DetectionPostProcess  |          | Supported        | Supported | Supported |                   |          | Custom |           |                 |
 | Div                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Div, RealDiv         |               | Div                |
-| Eltwise               | Supported        | Supported        |          |           | Supported         | Supported         |             |  Eltwise      | Sum, Max                    |
+| Eltwise               | Supported        | Supported        | Supported | Supported | Supported         | Supported         |             |  Eltwise      | Sum, Max                    |
 | Elu                   |          | Supported        |          |           |          |          |        |  Elu               | Elu, NonMaxSuppression                |
 | Equal                 | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Equal       |               | Equal              |
 | Exp                   |          | Supported        |          |           | Supported        | Supported        | Exp         |  Exp             | Exp                |
-| ExpandDims            |          | Supported        |          |           |          |          |ExpandDims             |               |                    |
+| ExpandDims            |          | Supported        | Supported | Supported |          |          |ExpandDims             |               |                    |
 | Fill                  |          | Supported        |          |           |          |          | Fill        |               |                    |
 | Flatten               |          | Supported        |          |           |          |          |             | Flatten       |                    |
 | Floor                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | flOOR       |               | Floor              |
 | FloorDiv              | Supported        | Supported        |          |           | Supported         | Supported         | FloorDiv    |               |                    |
 | FloorMod              | Supported        | Supported        |          |           | Supported         | Supported         | FloorMod    |               |                    |
 | FullConnection        | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | FullyConnected  | InnerProduct  |                |
+| FusedBatchNorm        |          | Supported        | Supported        | Supported         |         |         | FusedBatchNorm |  |  |
 | GatherNd              |          | Supported        | Supported        | Supported         |          |          | GatherND    |               |                    |
 | GatherV2              |          | Supported        | Supported        | Supported         | Supported         | Supported         | Gather      |               | Gather             |
 | Greater               | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Greater     |               | Greater            |
@@ -49,7 +50,7 @@
 | InstanceNorm                |         | Supported        |          |           |         |         | InstanceNorm   |               |           |
 | L2Norm                |         | Supported        |          |           |         |         | L2_NORMALIZATION   |               |           |
 | LayerNorm |  | Supported |  |  |  |  | LayerNorm |  |  |
-| LeakyReLU             | Supported        | Supported        |          |           | Supported        | Supported        | LeakyRelu   |               | LeakyRelu          |
+| LeakyReLU             | Supported        | Supported        | Supported | Supported | Supported        | Supported        | LeakyRelu   |               | LeakyRelu          |
 | Less                  | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Less        |               | Less               |
 | LessEqual             | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | LessEqual   |               |                    |
 | LRN     |          | Supported        |          |           |          |          | LocalResponseNorm  |        | Lrn, LRN                |
@@ -87,16 +88,16 @@
 | ReverseSequence       |          | Supported        |          |           |          |          | ReverseSequence  |          |                    |
 | Round                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Round       |               | Round                   |
 | Rsqrt                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Rsqrt       |               |                    |
-| Scale                 | Supported | Supported        |          |           | Supported        | Supported        |             |  Scale        |                    |
+| Scale                 | Supported | Supported        | Supported | Supported | Supported        | Supported        |             |  Scale        |                    |
 | ScatterNd             |          | Supported        |          |           |          |          | ScatterNd   |               |                    |
-| Shape                 |          | Supported        |          |          |          |          | Shape       |               | Shape              |
+| Shape                 |          | Supported        | Supported | Supported |          |          | Shape       |               | Shape              |
 | Sigmoid               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Logistic    | Sigmoid       | Sigmoid            |
 | Sin                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Sin         |               | Sin                |
 | Slice                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Slice       | Slice              | Slice              |
 | SkipGram              |          | Supported        |         |          |         |         | SKipGram       |               |               |
 | Softmax               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Softmax     | Softmax       | Softmax            |
-| SpaceToBatch          |          | Supported        | Supported        |           | Supported         | Supported         |             |               |                    |
-| SpaceToBatchND        |          | Supported        | Supported         |           | Supported         | Supported         | SpaceToBatchND |            |                    |
+| SpaceToBatch          |          | Supported        | Supported        | Supported | Supported         | Supported         | SpaceToBatch |              |                    |
+| SpaceToBatchND        |          | Supported        | Supported        | Supported | Supported         | Supported         | SpaceToBatchND |            |                    |
 | SpaceToDepth          |          | Supported        |          |           |          |          | SpaceToDepth   |            | SpaceToDepth       |
 | SparseToDense         |          | Supported        |          |           |          |          |  SpareToDense  |            |                    |
 | Split                 | Supported        | Supported        | Supported        | Supported         |          |          | Split, SplitV  |            | Split                   |
