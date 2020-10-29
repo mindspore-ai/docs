@@ -37,6 +37,8 @@ output = conv(input_data)
 print(output.asnumpy())
 ```
 
+> 由于weight初始化存在随机因素，实际输出结果可能不同，仅供参考。
+
 输出如下：
 
 ```python
