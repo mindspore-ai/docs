@@ -22,9 +22,10 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
     - `dst`: Output image data.
     - `dst_w`: The width of the output image data.
     - `dst_h`: The height of the output image data.
+
 - Returns
 
-    Return True or False.
+    Return True if the execution is successful, otherwise return False if the condition is not met.
 
 ### InitFromPixel
 
@@ -42,9 +43,10 @@ Initialize LiteMat from pixel, currently the conversion supports rbgaTorgb and r
     - `w`: The width of the output data.
     - `h`: The height of the output data.
     - `mat`: Used to store image data.
+
 - Returns
 
-    Return True or False.
+    Return True if the initialization is successful, otherwise return False.
 
 ### ConvertTo
 
@@ -62,7 +64,7 @@ Convert the data type, currently it supports converting the data type from uint8
 
 - Returns
 
-    Return True or False.
+    Return True if the data type is converted successfully, otherwise return False.
 
 ### Crop
 
@@ -80,9 +82,10 @@ Crop image, the channel supports is 3 and 1.
     - `y`: The y coordinate value of the starting point of the screenshot.
     - `w`: The width of the screenshot.
     - `h`: The height of the screenshot.
+
 - Returns
 
-    Return True or False.
+    Return True if the image is cropped successfully, otherwise return False.
 
 ### SubStractMeanNormalize
 
@@ -98,9 +101,10 @@ Normalize image, currently the supports data type is float.
     - `dst`: Output image data.
     - `mean`: Mean of the data set.
     - `std`: Norm of the data set.
+
 - Returns
 
-    Return True or False.
+    Return True if the normalization is successful, otherwise return False.
 
 ### Pad
 
@@ -122,9 +126,61 @@ Pad image, the channel supports is 3 and 1.
     - `fill_b_or_gray`: B or GRAY.
     - `fill_g`: G.
     - `fill_r`: R.
+
 - Returns
 
-    Return True or False.
+    Return True if the image is filled successfully, otherwise return False.
+
+### ExtractChannel
+
+```cpp
+bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
+```
+
+Extract image channel by index.
+
+- Parameters
+
+    - `src`: Input image data.
+    - `col`: The serial number of the channel.
+
+- Returns
+
+    Return True if the image channel is extracted successfully, otherwise return False.
+
+### Split
+
+```cpp
+bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
+```
+
+Split image channels to single channel.
+
+- Parameters
+
+    - `src`: Input image data.
+    - `mv`: Single channel data.
+
+- Returns
+
+    Return True if the image channel is split successfully, otherwise return False.
+
+### Merge
+
+```cpp
+bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
+```
+
+Create a multi-channel image out of several single-channel arrays.
+
+- Parameters
+
+    - `mv`: Single channel data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the multi-channel image is created successfully, otherwise returns False.
 
 ### Affine
 
@@ -200,9 +256,46 @@ Real-size box non-maximum suppression.
     - `all_scores`: Score after all boxes are executed through the network.
     - `thres`: Pre-value of IOU.
     - `max_boxes`: Maximum value of output box.
+
 - Returns
 
     Return the id of the boxes.
+
+### Subtract
+
+```cpp
+bool Subtract(const LiteMat &src1, const LiteMat &src2, LiteMat &dst)
+```
+
+Calculates the difference between the two images for each element.
+
+- Parameters
+
+    - `src1`: Input image1 data.
+    - `src2`: Input image2 data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the calculation satisfies the conditions, otherwise return False.
+
+### Divide
+
+```cpp
+bool Divide(const LiteMat &src1, const LiteMat &src2, LiteMat &dst);
+```
+
+Calculates the division between the two images for each element.
+
+- Parameters
+
+    - `src1`: Input image1 data.
+    - `src2`: Input image2 data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the calculation satisfies the conditions, otherwise return False.
 
 &emsp;
 
