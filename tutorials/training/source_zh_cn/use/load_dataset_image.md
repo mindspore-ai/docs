@@ -15,6 +15,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/loading_image_dataset.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -28,7 +30,7 @@
 
 1. 下载MNIST数据集的训练[图像](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz)和[标签](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz)并解压，存放在`./MNIST`路径中，目录结构如下。
 
-    ```
+    ```text
     └─MNIST
         ├─train-images.idx3-ubyte
         └─train-labels.idx1-ubyte
