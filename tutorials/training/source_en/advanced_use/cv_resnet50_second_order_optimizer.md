@@ -166,12 +166,12 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return ds
 ```
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually combined. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html).
+> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html).
 
 ## Defining the Network
 
 Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
- The defined network model stores in the `src/resnet_thor.py` script in the source code, and the customized operators `Conv2d_thor` and `Dense_thor` store in the `src/thor_layer.py` script.
+ The defined network model is stored in the `src/resnet_thor.py` script in the source code, and the customized operators `Conv2d_thor` and `Dense_thor` are stored in the `src/thor_layer.py` script.
 
 - Use `Conv2d_thor` to replace `Conv2d` in the original network model.
 - Use `Dense_thor` to replace `Dense` in the original network model.
@@ -241,11 +241,11 @@ $$ \theta^{t+1} = \theta^t + \alpha F^{-1}\nabla E$$
 
 The meanings of parameters in the formula are as follows:
 
-- $\theta$: trainable parameters on the network
-- $t$: number of training steps
-- $\alpha$: learning rate, which is the parameter update value per step
-- $F^{-1}$: FIM obtained from the network computation
-- $\nabla E$: the first-order gradient value
+- $\theta$: trainable parameters on the network.
+- $t$: number of training steps.
+- $\alpha$: learning rate, which is the parameter update value per step.
+- $F^{-1}$: FIM obtained from the network computation.
+- $\nabla E$: the first-order gradient value.
 
 As shown in the parameter update formula, THOR needs to additionally compute an FIM of each layer, and the FIM of each layer is obtained through computation in the customized network model. The FIM can adaptively adjust the parameter update step and direction of each layer, accelerating convergence and reducing parameter optimization complexity.
 
@@ -325,7 +325,7 @@ After the training script is defined, call the shell script in the `scripts` dir
 
 #### Ascend 910
 
-Currently, MindSpore distributed execution on Ascend uses the single-device single-process running mode. That is, one process runs on a device, and the number of total processes is the same as the number of devices that are being used. For device 0, the corresponding process is executed in the foreground. For other devices, the corresponding processes are executed in the background. Create a directory named `train_parallel`+`device_id` for each process to store log information, operator compilation information, and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script:
+Currently, MindSpore distributed execution on Ascend uses the single-device single-process running mode. That is, one process runs on one device, and the number of total processes is the same as the number of devices that are being used. For device 0, the corresponding process is executed in the foreground. For other devices, the corresponding processes are executed in the background. Create a directory named `train_parallel`+`device_id` for each process to store log information, operator compilation information, and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script:
 
 Run the script.
 
@@ -479,7 +479,7 @@ Currently, a single device (device 0 by default) is used for inference. The infe
 result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.761443661971831} ckpt=train_parallel0/resnet-42_5004.ckpt
 ```
 
-- `top_5_accuracy`: For an input image, if the labels whose prediction probability ranks top 5 contain actual labels, the classification is correct.
+- `top_5_accuracy`: For an input image, if the labels whose prediction probability ranks top 5 match actual labels, the classification is correct.
 - `top_1_accuracy`: For an input image, if the label with the highest prediction probability is the same as the actual label, the
 classification is correct.
 
