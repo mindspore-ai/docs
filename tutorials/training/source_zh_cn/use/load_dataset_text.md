@@ -14,6 +14,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/loading_text_dataset.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -27,7 +29,7 @@ MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对�
 
 1. 准备文本数据如下。
 
-    ```
+    ```text
     Welcome to Beijing!
     北京欢迎您！
     我喜欢English!
@@ -35,7 +37,7 @@ MindSpore提供的`mindspore.dataset`模块可以帮助用户构建数据集对�
 
 2. 创建`tokenizer.txt`文件并复制文本数据到该文件中，将该文件存放在`./test`路径中，目录结构如下。
 
-    ```
+    ```text
     └─test
         └─tokenizer.txt
     ```
@@ -69,7 +71,7 @@ MindSpore目前支持加载文本领域常用的经典数据集和多种数据�
 
     获取到分词前的数据：
 
-    ```
+    ```text
     Welcome to Beijing!
     北京欢迎您！
     我喜欢English!
@@ -101,7 +103,7 @@ MindSpore目前支持的数据处理算子及其详细使用方法，可参考�
 
         输出结果如下：
 
-        ```
+        ```text
         ['大', '家', '早', '上', '好']
         ```
 
@@ -120,7 +122,7 @@ MindSpore目前支持的数据处理算子及其详细使用方法，可参考�
 
         输出结果如下：
 
-        ```
+        ```text
         [['大', '家'],
          ['家', '早'],
          ['早', '上'],
@@ -147,7 +149,7 @@ MindSpore目前支持的数据处理算子及其详细使用方法，可参考�
 
         输出结果如下：
 
-        ```
+        ```text
         c
         a
         d
@@ -182,7 +184,7 @@ MindSpore目前支持的数据分词算子及其详细使用方法，可参考�
 
     获取到分词后的数据：
 
-    ```
+    ```text
     ['Welcome', 'to', 'Beijing!']
     ['北京欢迎您！']
     ['我喜欢English!']
