@@ -16,13 +16,13 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 | [void bindThread(boolean if_bind)](#bindthread)              |
 | [boolean compileGraph(Model model)](#compilegraph)           |
 | [boolean runGraph()](#rungraph)                              |
-| [List\<MSTensor\> getInputs()](#getinputs)                   |
+| [List<MSTensor\> getInputs()](#getinputs)                    |
 | [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname) |
-| [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
-| [Map\<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
-| [List\<String\> getOutputTensorNames()](#getoutputtensornames) |
+| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
+| [Map<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
+| [List<String\> getOutputTensorNames()](#getoutputtensornames) |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname) |
-| [boolean resize(List\<MSTensor\> inputs, int[][] dims](#resize) |
+| [boolean resize(List<MSTensor\> inputs, int[][] dims](#resize) |
 | [void free()](#free)                                         |
 
 ## init
