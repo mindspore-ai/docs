@@ -115,6 +115,8 @@
 | [mindspore.ops.Tile](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Tile)    |  Only support configuring shard strategy for multiples.
 | [mindspore.ops.TopK](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.TopK)    |  The input_x can't be split into the last dimension, otherwise it's inconsistent with the single machine in the mathematical logic.
 | [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Transpose)    |  None
+| [mindspore.ops.UnsortedSegmentSum](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentSum)    |  The shard of input_x and segment_ids must be the same as the dimension of segment_ids.
+| [mindspore.ops.UnsortedSegmentMin](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentMin)    |  The shard of input_x and segment_ids must be the same as the dimension of segment_ids.
 | [mindspore.ops.ZerosLike](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ZerosLike)    |  None
 
 > Repeated calculation means that the device is not fully used. For example, the cluster has 8 devices to run distributed training, the splitting strategy only cuts the input into 4 copies. In this case, double counting will occur.
