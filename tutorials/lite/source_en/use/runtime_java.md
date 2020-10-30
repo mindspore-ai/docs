@@ -220,11 +220,8 @@ private boolean init(Context context) {
 private void DoInference(Context context) {
     // Set input tensor values.
     List<MSTensor> inputs = session.getInputs();
-    if (inputs.size() != 1) {
-        Log.e("MS_LITE", "Graph should have one input, but got " + inputs.size() + " inputs");
-        return;
-    }
     byte[] inData = readFileFromAssets(context, "model_inputs.bin");
+    MSTensor inTensor = inputs.get(0);
     inTensor.setData(inData);
 
     // Run graph to infer results.

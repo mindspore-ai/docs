@@ -16,13 +16,13 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | [void bindThread(boolean if_bind)](#bindthread)              |
 | [boolean compileGraph(Model model)](#compilegraph)           |
 | [boolean runGraph()](#rungraph)                              |
-| [List\<MSTensor\> getInputs()](#getinputs)                   |
+| [List<MSTensor\> getInputs()](#getinputs)                    |
 | [MSTensor getInputsByTensorName(String tensorName)](#getinputsbytensorname) |
-| [List\<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
-| [Map\<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
-| [List\<String\> getOutputTensorNames()](#getoutputtensornames) |
+| [List<MSTensor\> getOutputsByNodeName(String nodeName)](#getoutputsbynodename) |
+| [Map<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
+| [List<String\> getOutputTensorNames()](#getoutputtensornames) |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname) |
-| [boolean resize(List\<MSTensor\> inputs, int[][] dims](#resize) |
+| [boolean resize(List<MSTensor\> inputs, int[][] dims](#resize) |
 | [void free()](#free)                                         |
 
 ## init
@@ -62,7 +62,7 @@ public boolean compileGraph(Model model)
 
 - 参数
 
-- `Model`: 需要被编译的模型。
+  - `Model`: 需要被编译的模型。
 
 - 返回值
 
@@ -102,7 +102,7 @@ public MSTensor getInputByTensorName(String tensorName)
 
 - 参数
 
-- `tensorName`: 张量名。
+  - `tensorName`: 张量名。
 
 - 返回值
 
@@ -118,7 +118,7 @@ public List<MSTensor> getOutputsByNodeName(String nodeName)
 
 - 参数
 
-- `nodeName`: 节点名。
+  - `nodeName`: 节点名。
 
 - 返回值
 
