@@ -13,6 +13,7 @@ This document describes how to quickly install MindSpore in a NVIDIA GPU environ
         - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
     - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
 - [Installing MindInsight](#installing-mindinsight)
 - [Installing MindArmour](#installing-mindarmour)
 - [Installing MindSpore Hub](#installing-mindspore-hub)

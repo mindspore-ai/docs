@@ -13,6 +13,7 @@
         - [通过可执行文件安装](#通过可执行文件安装)
         - [从源码编译安装](#从源码编译安装)
     - [安装验证](#安装验证)
+    - [版本升级](#版本升级)
 - [安装MindInsight](#安装mindinsight)
 - [安装MindArmour](#安装mindarmour)
 - [安装MindSpore Hub](#安装mindspore-hub)
