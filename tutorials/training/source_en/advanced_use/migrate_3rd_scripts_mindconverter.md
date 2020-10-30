@@ -37,7 +37,7 @@ MindConverter currently only provides command-line interface. Here is the manual
 ```bash
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
                      [--model_file MODEL_FILE] [--shape SHAPE]
-                     [--input_node INPUT_NODE] [--output_node OUTPUT_NODE]
+                     [--input_nodes INPUT_NODES] [--output_nodes OUTPUT_NODES]
                      [--output OUTPUT] [--report REPORT]
                      [--project_path PROJECT_PATH]
 
@@ -47,21 +47,21 @@ optional arguments:
   --in_file IN_FILE     Specify path for script file to use AST schema to do
                         script conversation.
   --model_file MODEL_FILE
-                        PyTorch .pth or Tensorflow .pb model file path to use
+                        PyTorch .pth or TensorFlow .pb model file path to use
                         graph based schema to do script generation. When
                         `--in_file` and `--model_file` are both provided, use
                         AST schema as default.
   --shape SHAPE         Optional, expected input tensor shape of
                         `--model_file`. It is required when use graph based
                         schema. Usage: --shape 1,3,244,244
-  --input_nodes INPUT_NODE
+  --input_nodes INPUT_NODES
                         Optional, input node(s) name of `--model_file`. It is
-                        required when use Tensorflow model. Usage:
-                        --input_node input_1:0,input_2:0
-  --output_nodes OUTPUT_NODE
+                        required when use TensorFlow model. Usage:
+                        --input_nodes input_1:0,input_2:0
+  --output_nodes OUTPUT_NODES
                         Optional, output node(s) name of `--model_file`. It is
-                        required when use Tensorflow model. Usage:
-                        --output_node output_1:0,output_2:0
+                        required when use TensorFlow model. Usage:
+                        --output_nodes output_1:0,output_2:0
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -98,7 +98,7 @@ Please note that your original PyTorch project is included in the module search 
 
 ### TensorFlow Model Scripts Migration
 
-**MindConverter provides computational graph based conversion for TensorFlow**: Transformation will be done given `--model_file`, `--shape`, `--input_node` and `--output_node`.
+**MindConverter provides computational graph based conversion for TensorFlow**: Transformation will be done given `--model_file`, `--shape`, `--input_nodes` and `--output_nodes`.
 
 > AST mode is not supported for TensorFlow, only computational graph based mode is available.
 
@@ -249,8 +249,8 @@ After the above code is executed, the model will be saved to `/home/user/xxx/fro
 Suppose the input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`, the following command can be used to generate the script:
 ```shell script
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
-              --input_node input_1:0 \
-              --output_node predictions/Softmax:0 \
+              --input_nodes input_1:0 \
+              --output_nodes predictions/Softmax:0 \
               --output /home/user/output \
               --report /home/user/output/report
 ```
@@ -266,6 +266,6 @@ In addition, for operators that are not converted successfully, the input and ou
 
 ## Caution
 
-1. PyTorch, TensorFlow, TF2ONNX(1.7.1) are not an explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (MindConverter recommends PyTorch 1.4.0 or 1.6.0)
+1. PyTorch, TensorFlow, TF2ONNX(1.7.1) are not an explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (MindConverter recommends PyTorch 1.4.0 or 1.6.0 and TensorFlow 1.15.x)
 2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
 3. MindConverter can only guarantee that the converted model scripts require a minor revision or no revision when the inputs' shape fed to the generated model script are equal to the value of `--shape` (The batch size dimension is not limited).

@@ -37,7 +37,7 @@ MindConverter提供命令行（Command-line interface, CLI）的使用方式，�
 ```bash
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
                      [--model_file MODEL_FILE] [--shape SHAPE]
-                     [--input_node INPUT_NODE] [--output_node OUTPUT_NODE]
+                     [--input_nodes INPUT_NODES] [--output_nodes OUTPUT_NODES]
                      [--output OUTPUT] [--report REPORT]
                      [--project_path PROJECT_PATH]
 
@@ -54,14 +54,14 @@ optional arguments:
   --shape SHAPE         Optional, expected input tensor shape of
                         `--model_file`. It is required when use graph based
                         schema. Usage: --shape 1,3,244,244
-  --input_nodes INPUT_NODE
+  --input_nodes INPUT_NODES
                         Optional, input node(s) name of `--model_file`. It is
-                        required when use Tensorflow model. Usage:
-                        --input_node input_1:0,input_2:0
-  --output_nodes OUTPUT_NODE
+                        required when use TensorFlow model. Usage:
+                        --input_nodes input_1:0,input_2:0
+  --output_nodes OUTPUT_NODES
                         Optional, output node(s) name of `--model_file`. It is
-                        required when use Tensorflow model. Usage:
-                        --output_node output_1:0,output_2:0
+                        required when use TensorFlow model. Usage:
+                        --output_nodes output_1:0,output_2:0
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -90,12 +90,12 @@ optional arguments:
 
 另外，当使用基于图结构的脚本生成方案时，请确保原PyTorch项目已在Python包搜索路径中，可通过CLI进入Python交互式命令行，通过import的方式判断是否已满足；若未加入，可通过`--project_path`命令手动将项目路径传入，以确保MindConverter可引用到原PyTorch脚本。
 
-> 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动项目添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
+> 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动将项目目录添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
 > 此处MindConverter需要引用原PyTorch脚本，是因为PyTorch模型反向序列化过程中会引用原脚本。
 
 ### TensorFlow模型脚本迁移
 
-**MindConverter提供基于图结构的脚本生成方案**：指定`--model_file`、`--shape`、`--input_node`、`--output_node`进行脚本迁移。
+**MindConverter提供基于图结构的脚本生成方案**：指定`--model_file`、`--shape`、`--input_nodes`、`--output_nodes`进行脚本迁移。
 
 > AST方案不支持TensorFlow模型脚本迁移，TensorFlow脚本迁移仅支持基于图结构的方案。
 
@@ -244,8 +244,8 @@ print(f"Input node name: {INPUT_NODE}, output node name: {OUTPUT_NODE}")
 假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
 ```shell script
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
-              --input_node input_1:0 \
-              --output_node predictions/Softmax:0 \
+              --input_nodes input_1:0 \
+              --output_nodes predictions/Softmax:0 \
               --output /home/user/output \
               --report /home/user/output/report
 ```
@@ -261,6 +261,6 @@ mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
 
 ## 注意事项
 
-1. PyTorch、TensorFlow、TF2ONNX(1.7.1)不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow；
+1. PyTorch、TensorFlow、TF2ONNX(1.7.1)不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
 2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献；
 3. MindConverter仅保证转换后模型脚本在输入数据尺寸与`--shape`一致的情况下，可达到无需人工修改或少量修改（`--shape`中batch size维度不受限）。
