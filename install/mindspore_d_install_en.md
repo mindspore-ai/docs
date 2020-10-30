@@ -15,6 +15,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
         - [Installing Using the Source Code](#installing-using-the-source-code)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
+    - [Version Update](#version-update)
 - [Installing MindInsight](#installing-mindinsight)
 - [Installing MindArmour](#installing-mindarmour)
 - [Installing MindSpore Hub](#installing-mindspore-hub)

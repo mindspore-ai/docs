@@ -11,6 +11,7 @@ This document describes how to quickly install MindSpore in a Windows system wit
     - [Installation Guide](#installation-guide)
         - [Installing Using Executable Files](#installing-using-executable-files)
         - [Installing Using the Source Code](#installing-using-the-source-code)
+        - [Version Update](#version-update)
 
 <!-- /TOC -->
 
