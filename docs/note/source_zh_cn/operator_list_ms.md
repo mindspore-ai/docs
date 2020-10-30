@@ -67,9 +67,6 @@
 | [mindspore.nn.Conv2dQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Conv2dQuant)                              |  Supported |  Supported | Doing |layer/quant
 | [mindspore.nn.DenseQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.DenseQuant)                              |  Supported |  Supported | Doing |layer/quant
 | [mindspore.nn.ActQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.ActQuant)                              |  Supported |  Supported | Doing |layer/quant
-| [mindspore.nn.LeakyReLUQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.LeakyReLUQuant)                              |  Supported |  Supported | Doing |layer/quant
-| [mindspore.nn.HSwishQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.HSwishQuant)                              |  Doing |  Supported | Doing |layer/quant
-| [mindspore.nn.HSigmoidQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.HSigmoidQuant)                              |  Doing |  Supported | Doing |layer/quant
 | [mindspore.nn.TensorAddQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.TensorAddQuant)                              |  Supported |  Supported | Doing |layer/quant
 | [mindspore.nn.MulQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.MulQuant)                              |  Supported |  Supported | Doing |layer/quant
 | [mindspore.nn.L1Loss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Supported |Supported | Doing |loss/loss
