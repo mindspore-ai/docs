@@ -10,4 +10,5 @@
   performance_profiling
   performance_profiling_gpu
   debugger
+  model_explaination
   mindinsight_commands
