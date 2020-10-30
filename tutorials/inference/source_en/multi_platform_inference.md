@@ -14,7 +14,7 @@ Models trained by MindSpore support the inference on different hardware platform
 
 The inference can be performed in either of the following methods based on different principles:
 
-- Use a checkpoint file for inference. That is, use the inference API to load data and the checkpoint file for inference in the MindSpore training environment.
+- Use a checkpoint file for inference, that is, use the inference API to load data and the checkpoint file for inference in the MindSpore training environment.
 - Convert the checkpoint file into a common model format, such as ONNX or AIR, for inference. The inference environment does not depend on MindSpore. In this way, inference can be performed across hardware platforms as long as the platform supports ONNX or AIR inference. For example, models trained on the Ascend 910 AI processor can be inferred on the GPU or CPU.
 
 MindSpore supports the following inference scenarios based on the hardware platform:
