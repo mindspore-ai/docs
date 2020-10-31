@@ -237,14 +237,14 @@ tf.keras.backend.set_learning_phase(0) # this line most important
 base_model = InceptionV3()
 session = tf.keras.backend.get_session()
 
-INPUT_NODE = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
-OUTPUT_NODE = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
+INPUT_NODES = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
+OUTPUT_NODES = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
 freeze_graph(session.graph, session, [out.op.name for out in base_model.outputs])
-print(f"Input node name: {INPUT_NODE}, output node name: {OUTPUT_NODE}")
+print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
 
 ```
 
-After the above code is executed, the model will be saved to `/home/user/xxx/frozen_model.pb`. `INPUT_NODE` can be passed into `--input_nodes`, and `OUTPUT_NODE` is the corresponding `--output_nodes`.
+After the above code is executed, the model will be saved to `/home/user/xxx/frozen_model.pb`. `INPUT_NODES` can be passed into `--input_nodes`, and `OUTPUT_NODES` is the corresponding `--output_nodes`.
 
 Suppose the input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`, the following command can be used to generate the script:
 ```shell script
