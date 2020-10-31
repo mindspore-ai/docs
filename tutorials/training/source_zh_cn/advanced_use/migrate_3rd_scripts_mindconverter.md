@@ -232,14 +232,14 @@ tf.keras.backend.set_learning_phase(0)
 base_model = InceptionV3()
 session = tf.keras.backend.get_session()
 
-INPUT_NODE = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
-OUTPUT_NODE = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
+INPUT_NODES = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
+OUTPUT_NODES = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
 freeze_graph(session.graph, session, [out.op.name for out in base_model.outputs])
-print(f"Input node name: {INPUT_NODE}, output node name: {OUTPUT_NODE}")
+print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
 
 ```
 
-上述代码执行完毕，模型将会保存至`/home/user/xxx/frozen_model.pb`。其中，`INPUT_NODE`为输入节点名称，`OUTPUT_NODE`为输出节点名称。
+上述代码执行完毕，模型将会保存至`/home/user/xxx/frozen_model.pb`。其中，`INPUT_NODES`为输入节点名称，`OUTPUT_NODES`为输出节点名称。
 
 假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
 ```shell script
