@@ -21,9 +21,10 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
     - `dst`: 输出的图片数据。
     - `dst_w`: 输出图片数据的宽度。
     - `dst_h`: 输出图片数据的高度。
+
 - 返回值
 
-    返回True或者False。
+    执行成功返回True，否则不满足条件返回False。
 
 ### InitFromPixel
 
@@ -41,9 +42,10 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
     - `w`: 输出数据的宽度。
     - `h`: 输出数据的高度。
     - `mat`: 用于存储图像数据。
+
 - 返回值
 
-    返回True或者False。
+    初始化成功返回True，否则返回False。
 
 ### ConvertTo
 
@@ -61,7 +63,7 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
 - 返回值
 
-    返回True或者False。
+    转换数据类型成功返回True，否则返回False。
 
 ### Crop
 
@@ -79,9 +81,10 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
     - `y`: 屏幕截图起点的y坐标值。
     - `w`: 截图的宽度。
     - `h`: 截图的高度。
+
 - 返回值
 
-    返回True或者False。
+    裁剪图像成功返回True，否则返回False。
 
 ### SubStractMeanNormalize
 
@@ -89,7 +92,7 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
 
-规一化图像，当前支持的数据类型为float。
+归一化图像，当前支持的数据类型为float。
 
 - 参数
 
@@ -97,9 +100,10 @@ bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<
     - `dst`: 输出图像数据。
     - `mean`: 数据集的均值。
     - `std`: 数据集的方差。
+
 - 返回值
 
-    返回True或者False。
+    归一化成功返回True，否则返回False。
 
 ### Pad
 
@@ -121,9 +125,61 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
     - `fill_b_or_gray`: R或者GRAY。
     - `fill_g`: G.
     - `fill_r`: R.
+
 - 返回值
 
-    返回True或者False。
+    填充图像成功返回True，否则返回False。
+
+### ExtractChannel
+
+```cpp
+bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
+```
+
+按索引提取图像通道。
+
+- 参数
+
+    - `src`: 输入的图片数据。
+    - `col`: 通道的序号。
+
+- 返回值
+
+    提取图像通道成功返回True，否则返回False。
+
+### Split
+
+```cpp
+bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
+```
+
+将图像通道拆分为单通道。
+
+- 参数
+
+    - `src`: 输入的图片数据。
+    - `mv`: 单个通道数据。
+
+- 返回值
+
+    图像通道拆分成功返回True，否则返回False。
+
+### Merge
+
+```cpp
+bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
+```
+
+用几个单通道阵列创建一个多通道图像。
+
+- 参数
+
+    - `mv`: 单个通道数据。
+    - `dst`: 输出图像数据。
+
+- 返回值
+
+    创建多通道图像成功返回True，否则返回False。
 
 ### Affine
 
@@ -199,9 +255,46 @@ std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vecto
     - `all_scores`: 通过网络执行后所有框的得分。
     - `thres`: IOU的预值。
     - `max_boxes`: 输出框的最大值。
+
 - 返回值
 
     返回框的id。
+
+### Subtract
+
+```cpp
+bool Subtract(const LiteMat &src1, const LiteMat &src2, LiteMat &dst)
+```
+
+计算每个元素的两个图像之间的差异。
+
+- 参数
+
+    - `src1`: 输入的图像1的数据。
+    - `src2`: 输入的图像2的数据。
+    - `dst`: 输出图像的数据。
+
+- 返回值
+
+    满足条件的计算返回True，否则返回False。
+
+### Divide
+
+```cpp
+bool Divide(const LiteMat &src1, const LiteMat &src2, LiteMat &dst);
+```
+
+计算每个元素在两个图像之间的划分。
+
+- 参数
+
+    - `src1`: 输入的图像1的数据。
+    - `src2`: 输入的图像2的数据。
+    - `dst`: 输出图像的数据。
+
+- 返回值
+
+    满足条件的计算返回True，否则返回False。
 
 &emsp;
 
