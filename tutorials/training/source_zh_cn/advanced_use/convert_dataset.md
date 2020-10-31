@@ -12,13 +12,14 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/convert_dataset_to_mindrecord/convert_dataset_to_mindrecord.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
 用户可以将非标准的数据集和常用的数据集转换为MindSpore数据格式，即MindRecord，从而方便地加载到MindSpore中进行训练。同时，MindSpore在部分场景做了性能优化，使用MindSpore数据格式可以获得更好的性能。
 
-MindSpore数据格式具备的特征如下：  
+MindSpore数据格式具备的特征如下：
 
 1. 实现多变的用户数据统一存储、访问，训练数据读取更简便；
 2. 数据聚合存储，高效读取，且方便管理、移动；
@@ -74,12 +75,12 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
     ```
 
     Schema文件主要包含字段名`name`、字段数据类型`type`和字段各维度维数`shape`：
-    - 字段名：字段的引用名称，可以包含字母、数字和下划线。  
+    - 字段名：字段的引用名称，可以包含字母、数字和下划线。
     - 字段数据类型：包含int32、int64、float32、float64、string、bytes。
     - 字段维数：一维数组用[-1]表示，更高维度可表示为[m, n, ...]，其中m、n为各维度维数。
 
-    > - 如果字段有属性`shape`，则对应数据类型必须为int32、int64、float32、float64。  
-    > - 如果字段有属性`shape`，则用户传入`write_raw_data`接口的数据必须为`numpy.ndarray`类型。  
+    > - 如果字段有属性`shape`，则对应数据类型必须为int32、int64、float32、float64。
+    > - 如果字段有属性`shape`，则用户传入`write_raw_data`接口的数据必须为`numpy.ndarray`类型。
 
 3. 按照用户定义的Schema格式，准备需要写入的数据列表，此处传入的是图片数据的二进制流。
 
@@ -108,7 +109,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
     该示例会生成`test.mindrecord0`、`test.mindrecord0.db`、`test.mindrecord1`、`test.mindrecord1.db`、`test.mindrecord2`、`test.mindrecord2.db`、`test.mindrecord3`、`test.mindrecord3.db`共8个文件，称为MindRecord数据集。`test.mindrecord0`和`test.mindrecord0.db`称为1个MindRecord文件，其中`test.mindrecord0`为数据文件，`test.mindrecord0.db`为索引文件。
 
     **接口说明：**
-    - `write_raw_data`：将数据写入到内存之中。  
+    - `write_raw_data`：将数据写入到内存之中。
     - `commit`：将最终内存中的数据写入到磁盘。
 
 6. 如果需要在现有数据格式文件中增加新数据，可以调用`open_for_append`接口打开已存在的数据文件，继续调用`write_raw_data`接口写入新数据，最后调用`commit`接口生成本地数据文件。
