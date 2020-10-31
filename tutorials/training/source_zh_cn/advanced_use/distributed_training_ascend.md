@@ -422,9 +422,11 @@ epoch: 10 step: 156, loss is 1.1533381
 
 ### 自动并行模式
 
-自动并行模式（Auto Parallel）下模型参数的保存和加载非常方便，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存，具体代码如下：
+自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存，具体代码如下：
 
 ```python
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
+
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
     loss_cb = LossMonitor()
@@ -434,18 +436,20 @@ def test_train_cifar(epoch_size=10):
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
-    save_path = '...'
     ckpt_config = CheckpointConfig()
-    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', directory=save_path, config=ckpt_config)
+    ckpt_callback = ModelCheckpoint(prefix='auto_parallel', config=ckpt_config)
     model = Model(net, loss_fn=loss, optimizer=opt)
     model.train(epoch_size, dataset, callbacks=[loss_cb, ckpt_callback], dataset_sink_mode=True)
 ```
 
-保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码：
+保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码加载模型：
 
 ```python
-net = Net()
-param_dict = load_checkpoint(save_path)
+from mindspore.train.serialization import load_checkpoint, load_param_into_net
+
+net = resnet50(batch_size=32, num_classes=10)
+# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
+param_dict = load_checkpoint('...')
 load_param_into_net(net, param_dict)
 ```
 
@@ -453,146 +457,51 @@ checkpoint配置策略和保存方法可以参考[模型参数的保存和加载
 
 ### 数据并行模式
 
-数据并行模式（Data Parallel）下checkpoint的使用方法如下，首先定义一个网络模型：
+数据并行模式（Data Parallel）下checkpoint的使用方法和自动并行模式（Auto Parallel）一样，只需要将`test_train_cifar`中
 
 ```python
-from mindspore.train import Model
-from context import set_auto_parallel_context, reset_auto_parallel_context
-from mindspore.nn import Momentum, Cell, Flatten, ReLU
-from mindspore.train.callback import CheckpointConfig, ModelCheckpoint, LossMonitor
-from mindspore.communication.management import get_rank
-from mindspore.common.parameter import Parameter
-from mindspore import Tensor
-import mindspore.ops as ops
-import numpy as np
-# define network
-class DataParallelNet(Cell):
-    def __init__(self, test_size, transpose_a=False, transpose_b=False, strategy=None, layerwise_parallel=True):
-        super().__init__()
-        weight_np = np.full(test_size, 0.1, dtype=np.float32)
-        self.weight = Parameter(Tensor(weight_np), name="fc_weight", layerwise_parallel=layerwise_parallel)
-        self.relu = ReLU()
-        self.fc = ops.MatMul(transpose_a=transpose_a, transpose_b=transpose_b)
-        if strategy is not None:
-            self.fc.shard(strategy)
-
-    def construct(self, inputs, label):
-        x = self.relu(inputs)
-        x = self.fc(x, self.weight)
-        return x
+context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
-假设在一台8P机器上使用数据并行模式进行训练和保存模型，首先需要获取数据，设置并行策略和并行模式，代码如下：
+修改为:
 
 ```python
-# create data sets
-parallel_dataset = CreateData()
-# set parallel strategy
-strategy = ((1, 1), (1, 8))
-# create network model
-net = DataParallelNet(strategy=strategy)
-# reset parallel mode
-context.reset_auto_parallel_context()
-# set parallel mode, data parallel mode is selected for training and model saving. If you want to choose auto parallel
-# mode, you can simply change the value of parallel_mode parameter to ParallelMode.AUTO_PARALLEL.
-context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, device_num=8)
+context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
-
-然后根据需要设置checkpoint保存策略，以及设置优化器和损失函数等，代码如下：
-
-```python
-# config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
-# define checkpoint save path
-ckpt_path = './rank_{}_ckpt'.format(get_rank)
-# create a ModelCheckpoint object
-ckpt_callback = ModelCheckpoint(prefix='data_parallel', directory=ckpt_path, config=ckpt_config)
-# set optimizer and loss function
-opt = Momentum()
-loss = SoftmaxCrossEntropyExpand()
-model = Model(net, loss_fb=loss, optimizer=opt)
-# After training, the system will automatically save the checkpoint file.
-model.train(train_dataset=parallel_dataset, callbacks=[ckpt_callback, loss])
-# After training, reset the parallel mode to avoid unnecessary trouble when retraining.
-context.reset_auto_parallel_context()
-```
-
-保存好checkpoint文件后，用户同样可以使用`load_checkpoint`，`load_param_into_net`来加载模型参数。
 
 ### 半自动并行模式
 
-半自动并行模式（Semi Auto Parallel）下checkpoint使用方法的完整流程，同样从定义一个网络模型开始：
+半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id9)。
 
+保存模型时，可以使用如下代码来实现：
 ```python
-class SemiAutoParallelNet(Cell):
-    def __init__(self, mul_size, test_size, strategy=None, strategy2=None):
-        super().__init__()
-        mul_np = np.full(mul_size, 0.5, dtype=np.float32)
-        equal_np = np.full(test_size, 0.1, dtype=np.float32)
-        self.mul_weight = Parameter(Tensor(mul_np), name="mul_weight")
-        self.equal_weight = Parameter(Tensor(equal_np), name="equal_weight")
-        self.mul = ops.Mul()
-        self.equal = ops.Equal()
-        if strategy is not None:
-            self.mul.shard(strategy)
-            self.equal.shard(strategy2)
-
-    def construct(self, inputs, label):
-        x = self.mul(inputs, self.mul_weight)
-        x = self.equal(x, self.equal_weight)
-        return x
+...
+net = SemiAutoParallelNet()
+...
+ckpt_config = CheckpointConfig()
+ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
 ```
 
-假设半自动并行模式也是在一台8P机器上进行训练和保存模型。获取数据，设置并行策略和并行模式的代码如下：
-
+加载模型时，可以使用如下代码来实现：
 ```python
-# create data sets
-parallel_dataset = CreateData()
-# set parallel strategy
-strategy = ((1, 1), (1, 8))
-# create network model
-net = SemiAutoParallelNet(strategy=strategy, strategy2=strategy)
-# reset parallel mode
-context.reset_auto_parallel_context()
-# set parallel mode, data parallel mode is selected for training and model saving. If you want to choose auto parallel
-# mode, you can simply change the value of parallel_mode parameter to ParallelMode.AUTO_PARALLEL.
-context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL,
-                               strategy_ckpt_save_file='./rank_{}_ckpt/strategy.txt'.format(get_rank))
+net = SemiAutoParallelNet()
+# The parameter for load_checkpoint is a .ckpt file which has been successfully saved
+param_dict = load_checkpoint('...')
+load_param_into_net(net, param_dict)
 ```
-
-然后根据需要设置checkpoint保存策略，以及设置优化器和损失函数等，代码如下：
-
-```python
-# config checkpoint
-ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
-# define checkpoint save path
-ckpt_path = './rank_{}_ckpt'.format(get_rank)
-# create a ModelCheckpoint object
-ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', directory=ckpt_path, config=ckpt_config)
-# set optimizer and loss function
-opt = Momentum()
-loss = SoftmaxCrossEntropyExpand()
-model = Model(net, loss_fb=loss, optimizer=opt)
-# After you've trained your network, the system will automatically save the checkpoint file.
-model.train(train_dataset=parallel_dataset, callbacks=[ckpt_callback, loss])
-# After training, reset the parallel mode to avoid unnecessary trouble when retraining.
-context.reset_auto_parallel_context()
-```
-
-保存好checkpoint文件后，用户同样可以使用`load_checkpoint`，`load_param_into_net`来加载模型参数。
 
 以上介绍的三种并行训练模式，checkpoint文件的保存方式都是每张卡上均保存完整的checkpoint文件，在以上三种并行训练模式上，用户还可以选择每张卡上只保存本卡的checkpoint文件，以半自动并行模式（Semi Auto Parallel）为例，进行说明。
 
 只需要改动设置checkpoint保存策略的代码，将`CheckpointConfig`中的`integrated_save`参数设置为Fasle，便可实现每张卡上只保存本卡的checkpoint文件，具体改动如下：
 
-将checkpoint配置策略由
+将checkpoint配置策略由：
 
 ```python
 # config checkpoint
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ```
 
-改为
+改为：
 
 ```python
 # config checkpoint
