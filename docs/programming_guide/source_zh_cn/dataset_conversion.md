@@ -209,7 +209,6 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
     count = 0
     for item in data_set.create_dict_iterator(output_numpy=True):
-        print("sample: {}".format(item))
         count += 1
     print("Got {} samples".format(count))
     ```
@@ -218,7 +217,7 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 
 用户可以通过`ImageNetToMR`类，将ImageNet原始数据（图片、标注）转换为MindRecord，并使用`MindDataset`读取。
 
-1. 下载[ImageNet数据集](http://image-net.org/download)，将所有图片存放在同一文件夹，用一个映射文件记录图片和标签的对应关系。映射文件包含2列，分别为各类别图片目录和标签ID，用空格隔开，映射文件示例如下：
+1. 下载[ImageNet数据集](http://image-net.org/download)，将所有图片存放在`images/`文件夹，用一个映射文件`labels_map.txt`记录图片和标签的对应关系。映射文件包含2列，分别为各类别图片目录和标签ID，用空格隔开，映射文件示例如下：
 
     ```text
     n01440760 0
@@ -227,6 +226,14 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
     n01491361 3
     n01494475 4
     n01496331 5
+    ```
+
+    文件目录结构如下所示：
+
+    ```text
+    ├─ labels_map.txt
+    └─ images
+        └─ ......
     ```
 
 2. 导入数据集转换工具类`ImageNetToMR`。
@@ -238,9 +245,9 @@ MindSpore提供转换常用数据集的工具类，能够将常用的数据集�
 3. 创建`ImageNetToMR`对象，调用`transform`接口，将数据集转换为MindRecord。
 
     ```python
-    IMAGENET_MAP_FILE = "./testImageNetDataWhole/labels_map.txt"
-    IMAGENET_IMAGE_DIR = "./testImageNetDataWhole/images"
-    MINDRECORD_FILE = "./testImageNetDataWhole/imagenet.mindrecord"
+    IMAGENET_MAP_FILE = "./labels_map.txt"
+    IMAGENET_IMAGE_DIR = "./images/"
+    MINDRECORD_FILE = "./imagenet.mindrecord"
     PARTITION_NUMBER = 8
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
     imagenet_transformer.transform()
