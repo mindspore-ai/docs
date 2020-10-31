@@ -11,6 +11,7 @@
     - [查看服务进程信息](#查看服务进程信息)
     - [停止服务](#停止服务)
     - [Summary导出](#summary导出)
+    - [使用mindoptimizer进行超参调优](#使用mindoptimizer进行超参调优)
 
 <!-- /TOC -->
 
@@ -125,3 +126,19 @@ mindinsight parse_summary --summary-dir ./ --output ./
 - {tag}\_{step}.png为训练过程中的图像，tag代表标签（tag中的特殊字符将被删除，'_'将被替换成代'/'）step代表训练步骤。
 
 - scalar.csv为标量数据（编码方式：'utf-8'）。
+
+## 使用mindoptimizer进行超参调优
+
+MindInsight中提供调参命令，命令行（Command-line interface, CLI）的使用方式，命令如下。
+```shell
+usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
+                     [--iter <ITER>]
+
+```
+参数含义如下:
+
+|参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
+|---|---|---|---|---|---|---|
+|`-h, --help`|可选|显示启动命令的帮助信息|-|-|-|-|
+|`--config <CONFIG>`|必选|指定配置文件|String|-|-|物理文件路径（file:/path/to/config.yaml），文件格式为yaml|
+|`--iter <ITER>`|可选|指定调参次数|Integer|1|正整数|-|

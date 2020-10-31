@@ -10,7 +10,8 @@
     - [Start the Service](#start-the-service)
     - [View the Service Process Information](#view-the-service-process-information)
     - [Stop the Service](#stop-the-service)
-    - [Parse summary](#parse-summary)
+    - [Parse Summary](#parse-summary)
+    - [Use Mindoptimizer to Tune Hyperparameters](#use-mindoptimizer-to-tune-hyperparameters)
 
 <!-- /TOC -->
 
@@ -126,3 +127,20 @@ In which,
 - {tag}\_{step}.png is the image in training process. 'tag' and 'step' are the tag and step in the training (special characters in tag are deleted and '/' is replaced by '_').
 
 - scalar.csv is the file which save scalars (encoding: 'utf-8').
+
+## Use Mindoptimizer to Tune Hyperparameters
+
+MindInsight provides parameters tuning command. The command-line interface (CLI) provides the following commands:
+```shell
+usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
+                     [--iter <ITER>]
+
+```
+
+Optional parameters are as follows:
+
+|Name|Argument|Description|Type|Default|Scope|Specifications|
+|---|---|---|---|---|---|---|
+|`-h, --help`|Optional|Displays the help information about the start command.|-|-|-|-|
+|`--config <CONFIG>`|Required|Specifies the configuration file.|String|-|-|Physical file path (file:/path/to/config.yaml), and the file format is yaml.|
+|`--iter <ITER>`|Optional|Specifies the run times for tuning parameters|Integer|1|Positive integer|-|
