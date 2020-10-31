@@ -115,6 +115,7 @@
 | [mindspore.ops.Tile](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Tile)    |  仅支持对multiples配置切分策略
 | [mindspore.ops.TopK](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.TopK)    |  最后一维不支持切分，切分后，在数学逻辑上和单机不等价
 | [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Transpose)    |  无
+| [mindspore.ops.Unique](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Unique)    |  只支持重复计算的策略(1,)
 | [mindspore.ops.UnsortedSegmentSum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentSum)    | 输入input_x和segment_ids的切分配置必须在segment_ids的维度上保持一致
 | [mindspore.ops.UnsortedSegmentMin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentMin)    | 输入input_x和segment_ids的切分配置必须在segment_ids的维度上保持一致
 | [mindspore.ops.ZerosLike](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ZerosLike)    |  无
