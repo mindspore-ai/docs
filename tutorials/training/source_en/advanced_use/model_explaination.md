@@ -47,7 +47,7 @@ The following uses ResNet-50 and 20 types of multi-tag data as an example. Add t
 import mindspore.nn as nn
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
-from mindspore.explainer.explaination.explaination import GradCAM, GuidedBackprop
+from mindspore.explainer.explanation import GradCAM, GuidedBackprop
 from mindspore.explainer.benchmark import Faithfulness, Localization
 from mindspore.explainer import ExplainRunner
 
@@ -90,8 +90,7 @@ explainers = [gradcam, guidedbackprop]
 benchmarkers = [faithfulness, localization]
 
 # initialize runner with specified summary_dir
-summary_dir = "./"
-runner = ExplainRunner(summary_dir)
+runner = ExplainRunner(summary_dir='./summary_dir')
 
 # execute runner.run to generate explanation and evaluation results to save it to summary_dir 
 runner.run(dataset_with_classes, explainers, benchmarkers)

@@ -20,6 +20,7 @@ MindSpore Python API
    mindspore/mindspore.dataset.text
    mindspore/mindspore.dataset.transforms
    mindspore/mindspore.dataset.vision
+   mindspore/mindspore.explainer
    mindspore/mindspore.mindrecord
    mindspore/mindspore.nn
    mindspore/mindspore.nn.dynamic_lr
