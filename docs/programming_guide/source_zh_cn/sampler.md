@@ -33,7 +33,19 @@ MindSpore目前提供的采样器类别如下表所示。此外，用户也可�
 
 ## MindSpore采样器
 
-下面以[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)为例，介绍几种常用MindSpore采样器的使用方法。
+下面以CIFAR-10数据集为例，介绍几种常用MindSpore采样器的使用方法。下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
+
+```
+└─cifar-10-batches-bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    ├── data_batch_5.bin
+    ├── readme.html
+    └── test_batch.bin
+```
 
 ### RandomSampler
 
@@ -46,7 +58,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(0)
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 sampler = ds.RandomSampler(num_samples=5)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -66,17 +78,17 @@ for data in dataset2.create_dict_iterator():
 输出结果如下：
 
 ```text
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 2
+Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 7
+Image shape: (32, 32, 3) , Label: 0
+Image shape: (32, 32, 3) , Label: 4
+------------
 Image shape: (32, 32, 3) , Label: 4
 Image shape: (32, 32, 3) , Label: 6
-------------
-Image shape: (32, 32, 3) , Label: 8
-Image shape: (32, 32, 3) , Label: 8
+Image shape: (32, 32, 3) , Label: 9
 Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 2
-Image shape: (32, 32, 3) , Label: 7
+Image shape: (32, 32, 3) , Label: 5
 ```
 
 ### WeightedRandomSampler
@@ -90,7 +102,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(1)
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 weights = [1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 sampler = ds.WeightedRandomSampler(weights, num_samples=6)
@@ -103,12 +115,12 @@ for data in dataset.create_dict_iterator():
 输出结果如下：
 
 ```text
-Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 0
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 6
 ```
 
 ### SubsetRandomSampler
@@ -122,7 +134,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(2)
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 indices = [0, 1, 2, 3, 4, 5]
 sampler = ds.SubsetRandomSampler(indices, num_samples=3)
@@ -135,9 +147,9 @@ for data in dataset.create_dict_iterator():
 输出结果如下：
 
 ```text
-Image shape: (32, 32, 3) , Label: 5
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 3
+Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 4
 ```
 
 ### PKSampler
@@ -151,7 +163,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(3)
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 sampler = ds.PKSampler(num_val=2, class_column='label', num_samples=20)
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -226,7 +238,7 @@ class MySampler(ds.Sampler):
         for i in range(0, 10, 2):
             yield i
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=MySampler())
 
@@ -237,9 +249,9 @@ for data in dataset.create_dict_iterator():
 输出结果如下：
 
 ```text
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 2
-Image shape: (32, 32, 3) , Label: 4
 Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 2
 Image shape: (32, 32, 3) , Label: 8
 ```

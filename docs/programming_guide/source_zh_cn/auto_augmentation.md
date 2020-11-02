@@ -129,3 +129,23 @@ MindSpore的`sync_wait`接口支持按batch或epoch粒度在训练过程中动�
             step_num += 1
             dataset.sync_update(condition_name="policy", data={'ep_num': ep_num, 'step_num': step_num})
     ```
+
+    输出结果如下：
+
+    ```text
+    epcoh: 0, step:0, data :[Tensor(shape=[], dtype=Int64, value= 1)]
+    epcoh: 0, step:1, data :[Tensor(shape=[], dtype=Int64, value= 2)]
+    epcoh: 0, step:2, data :[Tensor(shape=[], dtype=Int64, value= 3)]
+    epcoh: 1, step:3, data :[Tensor(shape=[], dtype=Int64, value= 1)]
+    epcoh: 1, step:4, data :[Tensor(shape=[], dtype=Int64, value= 5)]
+    epcoh: 1, step:5, data :[Tensor(shape=[], dtype=Int64, value= 7)]
+    epcoh: 2, step:6, data :[Tensor(shape=[], dtype=Int64, value= 6)]
+    epcoh: 2, step:7, data :[Tensor(shape=[], dtype=Int64, value= 50)]
+    epcoh: 2, step:8, data :[Tensor(shape=[], dtype=Int64, value= 66)]
+    epcoh: 3, step:9, data :[Tensor(shape=[], dtype=Int64, value= 81)]
+    epcoh: 3, step:10, data :[Tensor(shape=[], dtype=Int64, value= 1001)]
+    epcoh: 3, step:11, data :[Tensor(shape=[], dtype=Int64, value= 1333)]
+    epcoh: 4, step:12, data :[Tensor(shape=[], dtype=Int64, value= 1728)]
+    epcoh: 4, step:13, data :[Tensor(shape=[], dtype=Int64, value= 28562)]
+    epcoh: 4, step:14, data :[Tensor(shape=[], dtype=Int64, value= 38418)]
+    ```
