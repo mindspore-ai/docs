@@ -11,7 +11,7 @@
     - [分布式管理](#分布式管理)
     - [维测管理](#维测管理)
         - [采集profiling数据](#采集profiling数据)
-        - [异步数据dump功能](#异步数据dump功能)
+        - [保存MindIR](#保存mindir)
         - [print算子落盘](#print算子落盘)
 
 <!-- /TOC -->
@@ -92,6 +92,10 @@ context中有专门用于配置并行训练参数的接口：context.set_auto_pa
 
 - `enable_parallel_optimizer`：开发中特性。打开优化器模型并行开关，通过拆分权重到各卡分别进行更新再同步的方式以提升性能。该参数目前只在数据并行模式和参数量大于机器数时有效，支持`Lamb`和`Adam`优化器。
 
+- `device_num`：表示可用的机器数，其值为int型，且必须在1~4096范围内。
+
+- `global_rank`：表示当前卡的逻辑序号，其值为int型，且必须在0~4095范围内。
+
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
 代码样例如下：
@@ -114,7 +118,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, grad
 
 - `enable_profiling`：是否开启profiling功能。设置为True，表示开启profiling功能，从enable_options读取profiling的采集选项；设置为False，表示关闭profiling功能，仅采集training_trace。
 
-- `enable_options`：profiling采集选项，取值如下，支持采集多项数据。training_trace：采集迭代轨迹数据，即训练任务及AI软件栈的软件信息，实现对训练任务的性能分析，重点关注数据增强、前后向计算、梯度聚合更新等相关数据；task_trace：采集任务轨迹数据，即昇腾910处理器HWTS/AICore的硬件信息，分析任务开始、结束等信息；op_trace：采集单算子性能数据。格式：['op_trace','task_trace','training_trace']
+- `profiling_options`：profiling采集选项，取值如下，支持采集多项数据。training_trace：采集迭代轨迹数据，即训练任务及AI软件栈的软件信息，实现对训练任务的性能分析，重点关注数据增强、前后向计算、梯度聚合更新等相关数据；task_trace：采集任务轨迹数据，即昇腾910处理器HWTS/AICore的硬件信息，分析任务开始、结束等信息；op_trace：采集单算子性能数据。
 
 代码样例如下：
 
@@ -123,9 +127,14 @@ from mindspore import context
 context.set_context(enable_profiling=True, profiling_options="training_trace")
 ```
 
-### 异步数据dump功能
 
-在Ascend环境上执行训练，当训练结果和预期有偏差时，可以通过异步数据dump功能保存算子的输入输出进行调试。
+### 保存MindIR
+
+通过context.set_context(save_graphs=True)来保存各个编译阶段的中间代码。
+
+被保存的中间代码有两种格式：一个是后缀名为`.ir`的文本格式，一个是后缀名为`.dot`的图形化格式。
+
+当网络规模较大时建议使用更高效的文本格式来查看，当网络规模不大时，建议使用更直观的图形化格式来查看。
 
 代码样例如下：
 
@@ -134,7 +143,7 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> 详细的调试方法可以查看[异步数据Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#dump)。
+> MindIR详细介绍可以查看[MindSpore IR（MindIR）](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html)。
 
 ### print算子落盘
 
