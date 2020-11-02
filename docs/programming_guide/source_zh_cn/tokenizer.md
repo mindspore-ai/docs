@@ -93,7 +93,8 @@ I am making small mistakes during working hours
 ['疑' '是' '地' '上' '霜']
 ['举' '头' '望' '明' '月']
 ['低' '头' '思' '故' '乡']
-['i' 'am' 'mak' '##ing' 'small' 'mistake' '##s' 'during' 'work' '##ing' 'hour' '##s']
+['I' 'am' 'mak' '##ing' 'small' 'mistake' '##s' 'during' 'work' '##ing'
+ 'hour' '##s']
 ['😀' '嘿' '嘿' '😃' '哈' '哈' '😄' '大' '笑' '😁' '嘻' '嘻']
 ['繁' '體' '字']
 ```
@@ -108,8 +109,7 @@ I am making small mistakes during working hours
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
-input_list = ["床前明月光", "疑是地上霜", "举头望明月", "低头思故乡", "I am making small mistakes during working hours",
-                "😀嘿嘿😃哈哈😄大笑😁嘻嘻", "繁體字"]
+input_list = ["今天天气太好了我们一起去外面玩吧"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
 print("------------------------before tokenization----------------------------")
@@ -117,6 +117,7 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
+# files from open source repository https://github.com/yanyiwu/cppjieba/tree/master/dict
 HMM_FILE = "hmm_model.utf8"
 MP_FILE = "jieba.dict.utf8"
 jieba_op = text.JiebaTokenizer(HMM_FILE, MP_FILE)
@@ -146,6 +147,7 @@ for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
 ```python
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
+from mindspore.dataset.text import SentencePieceModel, SPieceTokenizerOutType
 
 input_list = ["I saw a girl with a telescope."]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
@@ -155,7 +157,9 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-vocab = text.SentencePieceVocab.from_dataset(dataset, 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
+# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/r1.0/tests/ut/data/dataset/test_sentencepiece/botchan.txt
+vocab_file = "botchan.txt"
+vocab = text.SentencePieceVocab.from_file([vocab_file], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
 dataset = dataset.map(operations=tokenizer_op)
 
@@ -256,7 +260,7 @@ Welcome to Beijing!
 
 ### WordpieceTokenizer
 
-`WordpieceTokenizer`是基于单词集来划分的，单词集里没有的，但是有组合的也会划分出来。
+`WordpieceTokenizer`是基于单词集来进行划分的，划分依据可以是单词集中的单个单词，或者多个单词的组合形式。
 
 下面的样例首先构建了一个文本数据集，然后从单词列表中构建`vocab`对象，通过`WordpieceTokenizer`对数据集进行分词，并展示了分词前后的文本结果。
 
@@ -265,7 +269,10 @@ import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
 input_list = ["my", "favorite", "book", "is", "love", "during", "the", "cholera", "era", "what",
-    "我", "最", "喜", "欢", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
+    "我", "最", "喜", "欢", "的", "书", "是", "霍", "乱", "时", "期", "的", "爱", "情", "您"]
+vocab_english = ["book", "cholera", "era", "favor", "##ite", "my", "is", "love", "dur", "##ing", "the"]
+vocab_chinese = ["我", '最', '喜', '欢', '的', '书', '是', '霍', '乱', '时', '期', '爱', '情']
+
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
 print("------------------------before tokenization----------------------------")
@@ -273,7 +280,7 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-vocab = text.Vocab.from_list(input_list)
+vocab = text.Vocab.from_list(vocab_english+vocab_chinese)
 tokenizer_op = text.WordpieceTokenizer(vocab=vocab)
 dataset = dataset.map(operations=tokenizer_op)
 
