@@ -55,6 +55,7 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 | 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
 | 算法支持 | 在MindSpore的伪量化训练中，支持非对称和对称的量化算法。 |
 | 方案支持 | 支持4、7和8比特的量化方案。 |
+| 数据类型支持 | Ascend平台支持精度为FP32和FP16的网络进行量化训练，GPU平台支持FP32。 |
 
 ## 感知量化训练示例
 

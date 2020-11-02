@@ -55,6 +55,7 @@ Aware quantization training specifications
 | Network       | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo>. |
 | Algorithm     | Supports symmetric and asymmetric quantization algorithms in MindSpore fake quantization training. |
 | Solution      | Supports 4-, 7-, and 8-bit quantization solutions. |
+| Datatype      | Ascend platform supports network with FP32 and FP16 precision to do quantization training, GPU platform supports FP32. |
 
 ## Quantization Aware Training Example
 
