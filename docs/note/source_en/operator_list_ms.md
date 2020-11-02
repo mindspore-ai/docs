@@ -50,7 +50,7 @@
 | [mindspore.nn.ImageGradients](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.ImageGradients)                                | Supported |Supported | Doing |layer/image
 | [mindspore.nn.SSIM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.SSIM)                                                    | Supported | Supported | Doing |layer/image
 | [mindspore.nn.PSNR](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.PSNR)                                                    | Supported |Supported | Doing |layer/image
-| [mindspore.nn.CentralCrop](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Supported | Doing |layer/image
+| [mindspore.nn.CentralCrop](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.CentralCrop)                                                    | Supported |Supported | Supported |layer/image
 | [mindspore.nn.LSTM](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.LSTM)                                                    | Doing | Supported | Doing |layer/lstm
 | [mindspore.nn.LSTMCell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.LSTMCell)                                                    | Doing | Supported | Supported |layer/lstm
 | [mindspore.nn.GlobalBatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.GlobalBatchNorm)                                      |  Supported |Doing | Doing |layer/normalization
@@ -382,6 +382,16 @@
 | [mindspore.ops.Multinomial](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Multinomial)   |  Doing| Supported   | Doing | random_ops
 | [mindspore.ops.StandardLaplace](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.StandardLaplace)   |  Supported| Doing   | Doing | random_ops
 | [mindspore.ops.Sort](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Sort)       |    Supported | Doing  | Doing | array_ops
+| [mindspore.ops.ApplyAdadelta](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ApplyAdadelta)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.ApplyAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ApplyAdagrad)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.ApplyAdagradV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ApplyAdagradV2)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.ApplyAdaMax](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ApplyAdaMax)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.ApplyAddSign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ApplyAddSign)       |  Supported | Doing  | Doing | nn_ops
+| [mindspore.ops.Atanh](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Atanh)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.Atan](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Atan)                         |  Supported  | Doing  | Doing | math_ops
+| [mindspore.ops.FusedBatchNormEx](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.FusedBatchNormEx)                                   |  Doing  | Supported    | Doing | nn_ops
+| [mindspore.ops.FusedBatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.FusedBatchNorm)                                   |  Doing  | Doing    | Supported | nn_ops
+| [mindspore.ops.Ceil](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.Ceil)                         |  Supported  | Doing  | Doing | math_ops
 
 ## mindspore.ops.functional
 

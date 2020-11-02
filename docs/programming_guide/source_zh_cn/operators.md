@@ -371,6 +371,15 @@ class Net(nn.Cell):
 input_ = Tensor(np.ones([2, 8]).astype(np.float32))
 net = Net()
 output = net(input_)
+
+print(output)
+```
+
+输出如下：
+
+```text
+[[1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0],
+ [1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0]]
 ```
 
 ### 网络操作
@@ -753,27 +762,7 @@ print(out)
 
 ### 调试操作
 
-调试操作指的是用于调试网络的一些常用算子及其操作，例如Debug等, 此操作非常方便，对入门深度学习重要，极大提高学习者的学习体验。
-
-#### Debug
-
-输出Tensor变量的数值，方便用户随时随地打印想了解或者debug必需的某变量数值。
-
- 以下代码实现了输出x这一变量的值：
-
-```python
-from mindspore import nn
-
-class DebugNN(nn.Cell):
-    def __init__(self,):
-        self.debug = nn.Debug()
-
-    def construct(self, x, y):
-        self.debug()
-        x = self.add(x, y)
-        self.debug(x)
-        return x
-```
+调试操作指的是用于调试网络的一些常用算子及其操作，例如HookBackward等, 此操作非常方便，对入门深度学习重要，极大提高学习者的学习体验。
 
 #### HookBackward
 

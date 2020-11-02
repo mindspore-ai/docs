@@ -371,6 +371,15 @@ class Net(nn.Cell):
 input_ = Tensor(np.ones([2, 8]).astype(np.float32))
 net = Net()
 output = net(input_)
+
+print(output)
+```
+
+The following information is displayed:
+
+```text
+[[1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0],
+ [1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0]]
 ```
 
 ### Network Operations
@@ -757,27 +766,7 @@ print(out)
 
 ### Debugging Operations
 
-The debugging operations refer to some common operators and operations used to debug a network, for example, Debug. These operations are very convenient and important for entry-level deep learning, greatly improving learning experience.
-
-#### Debug
-
-Outputs the value of a tensor variable so that users can print the value of a variable required for understanding or debugging anytime and anywhere.
-
- The following code implements the function of outputting the value of variable x:
-
-```python
-from mindspore import nn
-
-class DebugNN(nn.Cell):
-    def __init__(self,):
-        self.debug = nn.Debug()
-
-    def construct(self, x, y):
-        self.debug()
-        x = self.add(x, y)
-        self.debug(x)
-        return x
-```
+The debugging operations refer to some common operators and operations used to debug a network, for example, HookBackward. These operations are very convenient and important for entry-level deep learning, greatly improving learning experience.
 
 #### HookBackward
 
