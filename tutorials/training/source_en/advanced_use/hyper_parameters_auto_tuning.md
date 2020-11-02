@@ -72,9 +72,8 @@ The file format of the configuration file is yaml, which requires configurations
     You can select loss or self-defined metrics as the target. 
 
     Configuration description:
-
-        - group: This parameter is optional. The value can be `system_defined` or `metric`. The default value is `system_defined`. Use `group` to configure the group in which the optimization target is located, such as the system custom collection field, which is the `system_defined` group. However, other evaluation metrics used in `Model()`, such as `model = Model(net, loss_fn=loss, optimizer=None, metrics={'Accuracy'})`. `Accuracy` belongs to the metrics, so the group is `metric`.
-        - goal: This parameter is optional. The value can be `minimize` or `maximize`. The default value is `minimize`. Use `goal` to indicate the optimization direction of the target. For example, if `Accuracy` is higher, the performance of model is better, so the `goal` needs to be configured as 'maximize'.
+    - group: This parameter is optional. The value can be `system_defined` or `metric`. The default value is `system_defined`. Use `group` to configure the group in which the optimization target is located, such as the system custom collection field, which is the `system_defined` group. However, other evaluation metrics used in `Model()`, such as `model = Model(net, loss_fn=loss, optimizer=None, metrics={'Accuracy'})`. `Accuracy` belongs to the metrics, so the group is `metric`.
+    - goal: This parameter is optional. The value can be `minimize` or `maximize`. The default value is `minimize`. Use `goal` to indicate the optimization direction of the target. For example, if `Accuracy` is higher, the performance of model is better, so the `goal` needs to be configured as 'maximize'.
 
     Config `loss`:
     ```yaml
@@ -102,7 +101,7 @@ The file format of the configuration file is yaml, which requires configurations
     > You need to choose either bounds or choice.
 
 ## Usage Examples
-If you want to optimize the `learning_rate`, `batch_size`, and `momentum` and the optimization objective is `Accuracy`, configure the YAML file as follows:
+If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and the optimization objective is `Accuracy`, configure the YAML file as follows:
 1. Configure config.yaml
 
     ```yaml
@@ -182,7 +181,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum` and th
 
 4. Visualization
 
-    Enable MindInsight based on summary_base_dir configured in config.yaml. For details about the visualization method, see the [MindInsight Start tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html#start-the-service).
+    Enable MindInsight based on summary_base_dir configured in config.yaml. For details about the visualization method, see the [MindInsight start tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html#start-the-service).
 
 ## Notices
 1. The training script is written and maintained by users. This tool does not automatically modify the training script. If the training script is incorrect, an error occurs when this tool is used to support the training script.
