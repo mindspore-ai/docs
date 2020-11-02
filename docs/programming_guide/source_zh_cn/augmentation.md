@@ -60,12 +60,29 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 
 下面的样例首先使用顺序采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行长宽均为10的随机裁剪，最后输出裁剪前后的图片形状及对应标签，并对图片进行了展示。
 
+下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
+
+```
+└─cifar-10-batches-bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    ├── data_batch_5.bin
+    ├── readme.html
+    └── test_batch.bin
+```
+
 ```python
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as c_trans
 
-DATA_DIR = "../data/dataset/testCifar10Data2"
+ds.config.set_seed(5)
+ds.config.set_num_parallel_workers(1)
+
+DATA_DIR = "cifar-10-batches-bin/"
 
 sampler = ds.SequentialSampler(num_samples=3)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -125,14 +142,17 @@ Cropped image Shape: (10, 10, 3) , Cropped label: 9
 
 下面的样例首先使用随机采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行概率为0.8的随机水平翻转，最后输出翻转前后的图片形状及对应标签，并对图片进行了展示。
 
+依照上文步骤下载CIFAR-10数据集并按要求存放。
+
 ```python
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as c_trans
 
 ds.config.set_seed(6)
+ds.config.set_num_parallel_workers(1)
 
-DATA_DIR = "../data/dataset/testCifar10Data2"
+DATA_DIR = "cifar-10-batches-bin/"
 
 sampler = ds.RandomSampler(num_samples=4)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -196,12 +216,20 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 
 下面的样例首先加载MNIST数据集[2]，然后将已加载的图片缩放至(101, 101)大小，最后输出缩放前后的图片形状及对应标签，并对图片进行了展示。
 
+下载MNIST数据集的训练[图像](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz)和[标签](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz)并解压，存放在`./MNIST`路径中，目录结构如下。
+
+```
+└─MNIST
+    ├─train-images.idx3-ubyte
+    └─train-labels.idx1-ubyte
+```
+
 ```python
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as c_trans
 
-DATA_DIR = "../data/dataset/testMnistData2"
+DATA_DIR = "MNIST/"
 
 dataset1 = ds.MnistDataset(DATA_DIR, num_samples=4, shuffle=False)
 
@@ -259,6 +287,8 @@ Flipped image Shape: (101, 101, 1) , Flipped label: 1
 
 下面的样例首先加载CIFAR-10数据集[1]，然后同时定义缩放和反相操作并作用于已加载的图片，最后输出缩放与反相前后的图片形状及对应标签，并对图片进行了展示。
 
+依照上文步骤下载CIFAR-10数据集并按要求存放。
+
 ```python
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
@@ -266,7 +296,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 
 ds.config.set_seed(8)
 
-DATA_DIR = "../data/dataset/testCifar10Data2"
+DATA_DIR = "cifar-10-batches-bin/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=4, shuffle=True)
 
@@ -327,22 +357,28 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 5
 
 接收一个`transforms`列表，将列表中的数据增强操作依次作用于数据集图片。
 
-下面的样例首先加载一个图片数据集，然后同时定义解码、缩放和数据类型转换操作，并作用于已加载的图片，最后输出处理后的图片形状及对应标签，并对图片进行了展示。
+下面的样例首先加载CIFAR-10数据集[1]，然后同时定义解码、缩放和数据类型转换操作，并作用于已加载的图片，最后输出处理后的图片形状及对应标签，并对图片进行了展示。
+
+依照上文步骤下载CIFAR-10数据集并按要求存放。
 
 ```python
 import matplotlib.pyplot as plt
 import mindspore.dataset as ds
 import mindspore.dataset.vision.py_transforms as py_trans
 from mindspore.dataset.transforms.py_transforms import Compose
+from PIL import Image
 
 ds.config.set_seed(8)
 
-DATA_DIR = "../data/dataset/testPK/data"
+DATA_DIR = "cifar-10-batches-bin/"
 
-dataset1 = ds.ImageFolderDataset(DATA_DIR, num_samples=5, shuffle=True)
+dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=5, shuffle=True)
+
+def decode(image):
+    return Image.fromarray(image)
 
 transforms_list = [
-  py_trans.Decode(),
+  decode,
   py_trans.Resize(size=(200,200)),
   py_trans.ToTensor()
 ]
@@ -366,11 +402,11 @@ plt.show()
 输出结果如下：
 
 ```text
-Transformed image Shape: (3, 200, 200) , Transformed label: 3
-Transformed image Shape: (3, 200, 200) , Transformed label: 0
-Transformed image Shape: (3, 200, 200) , Transformed label: 3
-Transformed image Shape: (3, 200, 200) , Transformed label: 0
-Transformed image Shape: (3, 200, 200) , Transformed label: 3
+Transformed image Shape: (3, 200, 200) , Transformed label: 4
+Transformed image Shape: (3, 200, 200) , Transformed label: 9
+Transformed image Shape: (3, 200, 200) , Transformed label: 6
+Transformed image Shape: (3, 200, 200) , Transformed label: 5
+Transformed image Shape: (3, 200, 200) , Transformed label: 7
 ```
 
 图片展示如下：

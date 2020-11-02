@@ -58,6 +58,20 @@ MindSpore也同样支持使用`GeneratorDataset`自定义数据集的加载方�
 
 ### CIFAR10/100数据集
 
+下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
+
+```
+└─cifar-10-batches-bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    ├── data_batch_5.bin
+    ├── readme.html
+    └── test_batch.bin
+```
+
 下面的样例通过`Cifar10Dataset`接口加载CIFAR-10数据集，使用顺序采样器获取其中5个样本，然后展示了对应图片的形状和标签。
 
 CIFAR-100数据集和MNIST数据集的加载方式也与之类似。
@@ -65,7 +79,7 @@ CIFAR-100数据集和MNIST数据集的加载方式也与之类似。
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "Cifar10Data/"
+DATA_DIR = "cifar-10-batches-bin/"
 
 sampler = ds.SequentialSampler(num_samples=5)
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -77,21 +91,34 @@ for data in dataset.create_dict_iterator():
 输出结果如下：
 
 ```text
-Image shape: (32, 32, 3) , Label: 0
-Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 2
-Image shape: (32, 32, 3) , Label: 3
+Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 9
 Image shape: (32, 32, 3) , Label: 4
+Image shape: (32, 32, 3) , Label: 1
 ```
 
 ### VOC数据集
+
+VOC数据集有多个版本，此处以VOC2012为例。下载[VOC2012数据集](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar)并解压，目录结构如下。
+
+```
+└─ VOCtrainval_11-May-2012
+    └── VOCdevkit
+        └── VOC2012
+            ├── Annotations
+            ├── ImageSets
+            ├── JPEGImages
+            ├── SegmentationClass
+            └── SegmentationObject
+```
 
 下面的样例通过`VOCDataset`接口加载VOC2012数据集，分别演示了将任务指定为分割（Segmentation）和检测（Detection）时的原始图像形状和目标形状。
 
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "VOC2012/"
+DATA_DIR = "VOCtrainval_11-May-2012/VOCdevkit/VOC2012/"
 
 dataset = ds.VOCDataset(DATA_DIR, task="Segmentation", usage="train", num_samples=2, decode=True, shuffle=False)
 
@@ -123,15 +150,26 @@ bbox shape: (2, 4)
 
 ### COCO数据集
 
-下面的样例通过`CocoDataset`接口加载COCO数据集，分别演示了将任务指定为目标检测（Detection）、背景分割（Stuff）、关键点检测（Keypoint）和全景分割（Panoptic）时获取到的不同数据。
+COCO数据集有多个版本，此处以COCO2017的验证数据集为例。下载COCO2017的[验证集](http://images.cocodataset.org/zips/val2017.zip)、[检测任务标注](http://images.cocodataset.org/annotations/annotations_trainval2017.zip)和[全景分割任务标注](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip)并解压，只取其中的验证集部分，按以下目录结构存放。
+
+```
+└─ COCO
+    ├── val2017
+    └── annotations
+        ├── instances_val2017.json
+        ├── panoptic_val2017.json
+        └── person_keypoints_val2017.json
+```
+
+下面的样例通过`CocoDataset`接口加载COCO2017数据集，分别演示了将任务指定为目标检测（Detection）、背景分割（Stuff）、关键点检测（Keypoint）和全景分割（Panoptic）时获取到的不同数据。
 
 ```python
 import mindspore.dataset as ds
 
-DATA_DIR = "COCO/train/"
-ANNOTATION_FILE = "COCO/annotations/train.json"
-KEYPOINT_FILE = "COCO/annotations/key_point.json"
-PANOPTIC_FILE = "COCO/annotations/panoptic.json"
+DATA_DIR = "COCO/val2017/"
+ANNOTATION_FILE = "COCO/annotations/instances_val2017.json"
+KEYPOINT_FILE = "COCO/annotations/person_keypoints_val2017.json"
+PANOPTIC_FILE = "COCO/annotations/panoptic_val2017.json"
 
 dataset = ds.CocoDataset(DATA_DIR, annotation_file=ANNOTATION_FILE, task="Detection", num_samples=1)
 for data in dataset.create_dict_iterator():
@@ -153,10 +191,10 @@ for data in dataset.create_dict_iterator():
 输出结果如下：
 
 ```text
-Detection: dict_keys(['bbox', 'image', 'iscrowd', 'category_id'])
-Stuff: dict_keys(['segmentation', 'iscrowd', 'image'])
-Keypoint: dict_keys(['keypoints', 'num_keypoints', 'image'])
-Panoptic: dict_keys(['bbox', 'image', 'area', 'category_id', 'iscrowd'])
+Detection: dict_keys(['image', 'bbox', 'category_id', 'iscrowd'])
+Stuff: dict_keys(['image', 'segmentation', 'iscrowd'])
+Keypoint: dict_keys(['image', 'keypoints', 'num_keypoints'])
+Panoptic: dict_keys(['image', 'bbox', 'category_id', 'iscrowd', 'area'])
 ```
 
 ## 特定格式数据集加载
