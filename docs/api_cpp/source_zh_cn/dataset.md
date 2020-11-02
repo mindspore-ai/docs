@@ -32,7 +32,7 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
-从像素初始化LiteMat，当前支持的转换是rbgaTorgb和rgbaTobgr。
+从像素初始化LiteMat，当前支持的转换是RGBA_To_RGB、RGBA_To_BGR、NV21_To_BGR和NV12_To_BGR。
 
 - 参数
 
