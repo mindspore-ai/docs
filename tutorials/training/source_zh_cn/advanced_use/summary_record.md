@@ -115,6 +115,9 @@ loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 lr = Tensor(0.5, mindspore.float32)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
 model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
+
+# How to create a valid dataset instance, 
+# for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
 ds_train = create_dataset('./dataset_path')
 
 # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -361,7 +364,7 @@ mindinsight stop
     model.train(2, train_dataset, callbacks=[summary_collector])
 
     ...
-    model.eval(dataset， callbacks=[summary_collector])
+    model.eval(dataset, callbacks=[summary_collector])
     ```
 
     错误代码：
