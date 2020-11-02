@@ -40,11 +40,11 @@ Parameters are described as follows:
 |`--model_path=<MODEL_PATH>`|Mandatory|Path for storing the model to be loaded. |String|Null|-|
 |`--model_name=<MODEL_NAME>`|Mandatory|Name of the model file to be loaded. |String|Null|-|
 |`--port=<PORT>`|Optional|Specifies the external Serving gRPC port number. |Integer|5500|1–65535|
-|`--rest_api_port=<PORT2>`|Specifies the external Serving REST API port number. |Integer|5500|1–65535|
+|`--rest_api_port=<PORT2>`|Optional|Specifies the external Serving REST API port number. |Integer|5500|1–65535|
 |`--device_id=<DEVICE_ID>`|Optional|Specifies device ID to be used.|Integer|0|0 to 7|
 
  > Before running the startup command, add the path `/{your python path}/lib:/{your python path}/lib/python3.7/site-packages/mindspore/lib` to the environment variable `LD_LIBRARY_PATH`.
- > port and rest_api_port cannot be the same.
+ > `port` and `rest_api_port` cannot be the same.
 
 ## Application Example
 
@@ -52,7 +52,7 @@ The following uses a simple network as an example to describe how to use MindSpo
 
 ### Exporting Model
 
- > Before exporting the model, you need to configure MindSpore [base environment](https://www.mindspore.cn/install/en).
+ > Before exporting the model, you need to configure the MindSpore [base environment](https://www.mindspore.cn/install/en).
 
 Use [add_model.py](https://gitee.com/mindspore/mindspore/blob/master/serving/example/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
 
@@ -68,7 +68,7 @@ Execute the script to generate the `tensor_add.mindir` file. The input of the mo
 ms_serving --model_path={model directory} --model_name=tensor_add.mindir
 ```
 
-If the server prints the `MS Serving Listening on 0.0.0.0:5500` log, the Serving has loaded the inference model.
+If the server prints the `MS Serving Listening on 0.0.0.0:5500` log, the Serving has loaded the inference model successfully.
 
 ### Client Samples
 
@@ -182,7 +182,7 @@ For details about the complete code, see [ms_client](https://gitee.com/mindspore
 
 1. Send data in the form of `data`:
     `data` field: flatten each input data of network model into one-dimensional data. Suppose the network model has n inputs, and the final data structure is a two-dimensional list of 1 * n.
-    As in this example, flatten the model input data `[[1.0, 2.0], [3.0, 4.0]]` and `[[1.0, 2.0], [3.0, 4.0]]` to form `[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`.
+    As in this example, flatten the model input data from `[[1.0, 2.0], [3.0, 4.0]]` and `[[1.0, 2.0], [3.0, 4.0]]` to `[[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]`.
 
     ```shell
     curl -X POST -d '{"data": [[1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0]]}' http://127.0.0.1:5501
@@ -208,4 +208,4 @@ For details about the complete code, see [ms_client](https://gitee.com/mindspore
     {"tensor":[[2.0,4.0], [6.0,8.0]]}
     ```
 
-  > REST APICurrently only int32 and fp32 are supported as inputs.
+  > For REST API, currently only int32 and fp32 are supported as inputs.
