@@ -40,7 +40,7 @@ class SampleProcess {
     */
     Result Process(char *om_path, char *input_folder);
 
-    void GetAllFiles(std::string path, std::vector<string> *files);
+    void GetAllFiles(std::string path, std::vector<std::string> *files);
 
  private:
     void DestroyResource();

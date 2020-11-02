@@ -168,7 +168,7 @@ Result ModelProcess::CreateOutput() {
 }
 
 void ModelProcess::DumpModelOutputResult(char *output_name) {
-    stringstream ss;
+    std::stringstream ss;
     size_t outputNum = aclmdlGetDatasetNumBuffers(output_);
     static int executeNum = 0;
 
@@ -245,7 +245,7 @@ void ModelProcess::OutputModelResult() {
         } else {
             outData = reinterpret_cast<float*>(data);
         }
-        std::map<float, unsigned int, greater<float> > resultMap;
+        std::map<float, unsigned int, std::greater<float> > resultMap;
         for (unsigned int j = 0; j < len / sizeof(float); ++j) {
             resultMap[*outData] = j;
             outData++;

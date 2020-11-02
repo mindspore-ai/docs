@@ -17,6 +17,8 @@
 #include "acl/acl.h"
 #include "inc/utils.h"
 extern bool g_isDevice;
+using std::string;
+using std::vector;
 
 SampleProcess::SampleProcess() :deviceId_(0), context_(nullptr), stream_(nullptr) {
 }
@@ -145,7 +147,7 @@ Result SampleProcess::Process(char *om_path, char *input_folder) {
         // print the top 5 confidence values
         processModel.OutputModelResult();
         // dump output result to file in the current directory
-        processModel.DumpModelOutputResult(reinterpret_cast<char *>(outputname.c_str()));
+        processModel.DumpModelOutputResult(const_cast<char *>(outputname.c_str()));
 
         // release model input buffer
         aclrtFree(picDevBuffer);
