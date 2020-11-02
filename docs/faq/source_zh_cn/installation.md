@@ -53,6 +53,26 @@ A：您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)
 
 <br/>
 
+Q：MindSpore是否支持Nvidia GPU独立显卡+Windows操作系统的个人电脑？
+
+A：目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Windows+GPU的支持还在开发中。
+如果希望在GPU+Windows的环境上运行，可以尝试使用WSL+docker的方式，操作思路：
+
+1. 以WSL方式安装起Ubuntu18.04，参考<https://docs.microsoft.com/en-us/windows/wsl/install-win10>。
+2. 安装支持WSL的Nvidia驱动以及在WSL运行容器的环境部署，参考<https://docs.nvidia.com/cuda/wsl-user-guide/index.html>。
+
+   > 由于CUDA on WSL还是预览特性，注意参考链接里对Windows版本要求的说明，版本不够的需要做升级。
+3. 参考<https://gitee.com/mindspore/mindspore#docker%E9%95%9C%E5%83%8F>，取MindSpore-GPU镜像。如取MindSpore1.0.0版本容器，在WSL Ubuntu18.04中执行`docker pull mindspore/mindspore-gpu:1.0.0`运行容器：
+
+    ```docker
+    docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
+    ```
+
+详细步骤可以参考社区提供的实践[张小白GPU安装MindSpore给你看（Ubuntu 18.04.5）](https://bbs.huaweicloud.com/blogs/198357)。
+在此感谢社区成员[张辉](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345)的分享。
+
+<br />
+
 ## 源码编译安装
 
 Q：MindSpore安装：版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。
