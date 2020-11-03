@@ -1,9 +1,9 @@
-# 数据增强
+﻿# Data Augmentation
 
 <!-- TOC -->
 
-- [数据增强](#数据增强)
-    - [概述](#概述)
+- [Data Augmentation](#data-augmentation)
+    - [Overview](#overview)
     - [c_transforms](#c_transforms)
         - [RandomCrop](#randomcrop)
         - [RandomHorizontalFlip](#randomhorizontalflip)
@@ -11,58 +11,58 @@
         - [Invert](#invert)
     - [py_transforms](#py_transforms)
         - [Compose](#compose)
-    - [使用说明](#使用说明)
-    - [参考文献](#参考文献)
+    - [Usage Instructions](#usage-instructions)
+    - [References](#references)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-## 概述
+## Overview
 
-在计算机视觉任务中，数据量过小或是样本场景单一等问题都会影响模型的训练效果，用户可以通过数据增强操作对图像进行预处理，从而提升模型的泛化性。
+In a computer vision task, if the data volume is small or the sample scenario of the model is simple, the training effect will be affected. In this case, you may preprocess images by performing data augmentation, so as to improve generalization of the model.
 
-MindSpore提供了`c_transforms`模块和`py_transforms`模块供用户进行数据增强操作，用户也可以自定义函数或者算子进行数据增强。
+MindSpore provides the `c_transforms` and `py_transforms` modules for data augmentation. You can also customize functions or operators for data augmentation.
 
-|  模块   | 实现  | 说明  |
+|  Module  |  Implementation  |  Description  |
 |  ----                             | ----  | ----           |
-| c_transforms                      | 基于C++的OpenCV实现 | 具有较高的性能。 |
-| py_transforms                     | 基于Python的PIL实现 | 该模块提供了多种图像增强功能，并提供了PIL Image和NumPy数组之间的传输方法。|
+| c_transforms | Implemented based on C++. | This module provides high performance. |
+| py_transforms | Implemented based on Python PIL | This module provides multiple image augmentation techniques and a method for converting PIL images to NumPy arrays. |
 
-MindSpore目前支持的常用数据增强算子如下表所示，更多数据增强算子参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html)。
+The following table lists the common data augmentation operators supported by MindSpore. For details about more data augmentation operators, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html).
 
-| 模块 | 算子 | 说明 |
+| Module | Operator | Description |
 | ---- | ---- | ---- |
-| c_transforms | RandomCrop | 在图像随机位置裁剪指定大小子图像。 |
-|  | RandomHorizontalFlip | 按照指定概率对图像进行水平翻转。 |
-|  | Resize | 将图像缩放到指定大小。 |
-|  | Invert | 将图像进行反相。 |
-| py_transforms | RandomCrop | 在图像随机位置裁剪指定大小子图像。 |
-|  | Resize | 将图像缩放到指定大小。 |
-|  | Invert | 将图像进行反相。 |
-|  |Compose | 将列表中的数据增强操作依次执行。 |
+| c_transforms | RandomCrop | Crops an image of a specified size at a random position. |
+| | RandomHorizontalFlip | Flips the image horizontally based on the specified probability. |
+| | Resize | Resizes the image to the specified size. |
+| | Invert | Inverts the image. |
+| py_transforms | RandomCrop | Crops an image of a specified size at a random position. |
+| | Resize | Resizes the image to the specified size. |
+| | Invert | Inverts the image. |
+| |Compose | Performs the data augmentation operations in the list in sequence. |
 
 ## c_transforms
 
-下面将简要介绍几种常用的`c_transforms`模块数据增强算子的使用方法。
+The following describes how to use common data augmentation operators of the `c_transforms` module.
 
 ### RandomCrop
 
-对输入图像进行在随机位置的裁剪。
+Crops the input image at a random position.
 
-**参数说明：**
+**Parameter description:**
 
-- `size`：裁剪图像的尺寸。
-- `padding`：填充的像素数量。
-- `pad_if_needed`：原图小于裁剪尺寸时，是否需要填充。
-- `fill_value`：在常量填充模式时使用的填充值。
-- `padding_mode`：填充模式。
+- `size`: size of the cropped image.
+- `padding`: number of padded pixels.
+- `pad_if_needed`: specifies whether the original image needs to be padded when it is smaller than the image to be cropped.
+- `fill_value`: fill value used in the constant fill mode.
+- `padding_mode`: padding mode.
 
-下面的样例首先使用顺序采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行长宽均为10的随机裁剪，最后输出裁剪前后的图片形状及对应标签，并对图片进行了展示。
+The following example uses a sequential sampler to load the CIFAR-10 dataset [1], randomly crops the loaded image whose length and width are both 10, outputs the image shapes and labels before and after cropping, and displays the cropped image.
 
-下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and unzip it, the directory structure is as follows:
 
-```
+```text
 └─cifar-10-batches-bin
     ├── batches.meta.txt
     ├── data_batch_1.bin
@@ -114,7 +114,7 @@ for i in range(num_samples):
 plt.show()
 ```
 
-输出结果如下：
+The output is as follows:
 
 ```text
 Source image Shape : (32, 32, 3) , Source label : 6
@@ -128,21 +128,21 @@ Cropped image Shape: (10, 10, 3) , Cropped label: 9
 ------
 ```
 
-图片展示如下：
+The following shows the cropped image.
 
 ![randomcrop](./images/randomcrop.png)
 
 ### RandomHorizontalFlip
 
-对输入图像进行随机水平翻转。
+Randomly flips the input image horizontally.
 
-**参数说明：**
+**Parameter description:**
 
-- `prob`: 单张图片发生翻转的概率。
+- `prob`: probability of flipping a single image.
 
-下面的样例首先使用随机采样器加载CIFAR-10数据集[1]，然后对已加载的图片进行概率为0.8的随机水平翻转，最后输出翻转前后的图片形状及对应标签，并对图片进行了展示。
+The following example uses a random sampler to load the CIFAR-10 dataset [1], randomly flips the loaded image in the horizontal direction with a probability of 0.8, outputs the image shapes and labels before and after the flipping, and displays the flipped image.
 
-依照上文步骤下载CIFAR-10数据集并按要求存放。
+Follow the steps above to download the CIFAR-10 dataset and store it as required.
 
 ```python
 import matplotlib.pyplot as plt
@@ -184,7 +184,7 @@ for i in range(num_samples):
 plt.show()
 ```
 
-输出结果如下：
+The output is as follows:
 
 ```text
 Source image Shape : (32, 32, 3) , Source label : 3
@@ -201,24 +201,24 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 ------
 ```
 
-图片展示如下：
+The following shows the flipped image.
 
 ![randomhorizontalflip](./images/randomhorizontalflip.png)
 
 ### Resize
 
-对输入图像进行缩放。
+Resizes the input image.
 
-**参数说明：**
+**Parameter description:**
 
-- `self`：缩放的目标大小。
-- `interpolation`：缩放时采用的插值方式。
+- `self`: target size of the image.
+- `interpolation`: interpolation mode used during resizing.
 
-下面的样例首先加载MNIST数据集[2]，然后将已加载的图片缩放至(101, 101)大小，最后输出缩放前后的图片形状及对应标签，并对图片进行了展示。
+The following example loads the MNIST dataset [2], resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
 
-下载MNIST数据集的训练[图像](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz)和[标签](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz)并解压，存放在`./MNIST`路径中，目录结构如下。
+Download the MNIST dataset training [image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [labels](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz), unzip them and store them in the `./MNIST` path. The directory structure is as follows:
 
-```
+```text
 └─MNIST
     ├─train-images.idx3-ubyte
     └─train-labels.idx1-ubyte
@@ -260,7 +260,7 @@ for i in range(num_samples):
 plt.show()
 ```
 
-输出结果如下：
+The output is as follows:
 
 ```text
 Source image Shape : (28, 28, 1) , Source label : 5
@@ -277,17 +277,17 @@ Flipped image Shape: (101, 101, 1) , Flipped label: 1
 ------
 ```
 
-图片展示如下：
+The following shows the resized image.
 
 ![ctrans_resize](./images/ctrans_resize.png)
 
 ### Invert
 
-对输入图像进行反相处理。
+Inverts the input image.
 
-下面的样例首先加载CIFAR-10数据集[1]，然后同时定义缩放和反相操作并作用于已加载的图片，最后输出缩放与反相前后的图片形状及对应标签，并对图片进行了展示。
+The following example loads the CIFAR-10 dataset [1], defines and performs the resizing and inverting operations on the loaded image, outputs the image shapes and labels before and after the resizing and inverting operations, and displays the inverted image.
 
-依照上文步骤下载CIFAR-10数据集并按要求存放。
+Follow the steps above to download the CIFAR-10 data set and store it as required.
 
 ```python
 import matplotlib.pyplot as plt
@@ -328,7 +328,7 @@ for i in range(num_samples):
 plt.show()
 ```
 
-输出结果如下：
+The output is as follows:
 
 ```text
 Source image Shape : (32, 32, 3) , Source label : 4
@@ -345,21 +345,21 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 5
 ------
 ```
 
-图片展示如下：
+The following shows the inverted image.
 
 ![ctrans_invert](./images/ctrans_invert.png)
 
 ## py_transforms
 
-下面将简要介绍几种常用的`py_transforms`模块数据增强算子的使用方法。
+The following describes how to use common data augmentation operators of the `py_transforms` module.
 
 ### Compose
 
-接收一个`transforms`列表，将列表中的数据增强操作依次作用于数据集图片。
+Receives a `transforms` list and applies the data augmentation operations in the list to dataset images in sequence.
 
-下面的样例首先加载CIFAR-10数据集[1]，然后同时定义解码、缩放和数据类型转换操作，并作用于已加载的图片，最后输出处理后的图片形状及对应标签，并对图片进行了展示。
+The following example loads the CIFAR-10 dataset [1], defines the decoding, resizing, and data type conversion operations, applies the operations to the loaded image, outputs the image shapes and labels before and after the processing, and displays the processed image.
 
-依照上文步骤下载CIFAR-10数据集并按要求存放。
+Follow the steps above to download the CIFAR-10 dataset and store it as required.
 
 ```python
 import matplotlib.pyplot as plt
@@ -373,7 +373,6 @@ ds.config.set_seed(8)
 DATA_DIR = "cifar-10-batches-bin/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=5, shuffle=True)
-
 def decode(image):
     return Image.fromarray(image)
 
@@ -399,7 +398,7 @@ for i in range(num_samples):
 plt.show()
 ```
 
-输出结果如下：
+The output is as follows:
 
 ```text
 Transformed image Shape: (3, 200, 200) , Transformed label: 4
@@ -409,39 +408,39 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 5
 Transformed image Shape: (3, 200, 200) , Transformed label: 7
 ```
 
-图片展示如下：
+The following shows the processed image.
 
 ![pytrans_compose](./images/pytrans_compose.png)
 
-## 使用说明
+## Usage Instructions
 
-请勿混用`c_transforms`与`py_transforms`，因为两者作用于图片的格式不同，混用会降低处理性能。
+Do not use `c_transforms` and `py_transforms` together because they apply to different image formats and using them together will reduce the processing performance.
 
 ![map](./images/map.png)
 
-混用会引发C++与Python切换的成本，建议不要过度混用两个模块的算子，但是适量混用是可以接受的。
+Using both C++ and Python will cause the cost of switching between them. You are advised not to use operators of the two modules together. However, it is acceptable to use a proper number of operators together.
 
-**推荐的使用方式：**
+**Recommended usage:**
 
-- 单独使用`py_transform`或`c_transform`
+- Use `py_transform` or `c_transform` separately.
 
     ![tranform_c_py](./images/tranform_good_1.png)
 
-- 先使用`py_transform`，再使用`c_transform`
+- Use `py_transform` and then `c_transform`.
 
     ![tranform_c_py](./images/tranform_good_2.png)
 
-- 先使用`c_transform`，再使用`py_transform`
+- Use `c_transform` and then `py_transform`.
 
     ![tranform_c_py](./images/tranform_good_3.png)
 
-**不推荐的使用方式：**
+**Not recommended:**
 
-- 在两种transform之间频繁切换
+- Frequent switching between `c_transforms` and `py_transforms`.
 
     ![tranform_c_py](./images/tranform_bad.png)
 
-## 参考文献
+## References
 
 [1] Alex Krizhevsky. [Learning Multiple Layers of Features from Tiny Images](http://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf).
 

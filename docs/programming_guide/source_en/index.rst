@@ -12,5 +12,6 @@ MindSpore Programming Guide
    api_structure
    data_type
    compute_component
+   data_pipeline
    network_list
    operator_list
