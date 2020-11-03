@@ -24,9 +24,9 @@
 | [mindspore.nn.HSwish](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.HSwish)                                                    |  Doing |  Supported |   Doing |layer/activation
 | [mindspore.nn.HSigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.HSigmoid)                                                    |  Doing |  Supported |   Doing |layer/activation
 | [mindspore.nn.LeakyReLU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.LeakyReLU)                                          |  Supported |Supported | Doing |layer/activation
-| [mindspore.nn.Tanh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Tanh)                                                    |  Supported | Supported | Doing |layer/activation
+| [mindspore.nn.Tanh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Tanh)                                                    |  Supported | Supported | Supported |layer/activation
 | [mindspore.nn.GELU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.GELU)                                                    |  Supported | Supported | Doing |layer/activation
-| [mindspore.nn.Sigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Sigmoid)                                              |  Supported |Supported | Doing |layer/activation
+| [mindspore.nn.Sigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Sigmoid)                                              |  Supported |Supported | Supported |layer/activation
 | [mindspore.nn.PReLU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.PReLU)                                                  | Supported |Doing | Doing |layer/activation
 | [mindspore.nn.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Supported | Supported | Supported |layer/basic
 | [mindspore.nn.Flatten](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Supported |  Supported | Supported |layer/basic
@@ -71,7 +71,7 @@
 | [mindspore.nn.MulQuant](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.MulQuant)                              |  Supported |  Supported | Doing |layer/quant
 | [mindspore.nn.L1Loss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.L1Loss)                                                |Supported |Supported | Doing |loss/loss
 | [mindspore.nn.MSELoss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.MSELoss)                                              |  Supported |Supported | Doing |loss/loss
-| [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    | Supported |Doing | Doing |loss/loss
+| [mindspore.nn.SmoothL1Loss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.SmoothL1Loss)                                    | Supported |Doing | Supported |loss/loss
 | [mindspore.nn.SoftmaxCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.SoftmaxCrossEntropyWithLogits)  |  Supported |  Supported |   Supported |loss/loss
 | [mindspore.nn.BCELoss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.BCELoss)  |  Supported |  Supported |   Doing |loss/loss
 | [mindspore.nn.CosineEmbeddingLoss](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.CosineEmbeddingLoss)                                                |Supported |Supported | Doing |loss/loss
@@ -171,7 +171,7 @@
 | [mindspore.ops.PReLU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.PReLU)                                 |  Supported  | Doing  | Doing | nn_ops
 | [mindspore.ops.LSTM](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.LSTM)                                   |  Doing  | Supported | Supported | nn_ops
 | [mindspore.ops.BasicLSTMCell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BasicLSTMCell)                                   |  Supported  | Doing | Doing | nn_ops
-| [mindspore.ops.SigmoidCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SigmoidCrossEntropyWithLogits) |  Supported | Supported  | Doing | nn_ops
+| [mindspore.ops.SigmoidCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SigmoidCrossEntropyWithLogits) |  Supported | Supported  | Supported | nn_ops
 | [mindspore.ops.Pad](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Pad)                                     |    Supported | Supported  | Doing | nn_ops
 | [mindspore.ops.ROIAlign](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ROIAlign)                           |  Supported  | Supported  | Doing | nn_ops
 | [mindspore.ops.Adam](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Adam)                                   |    Supported | Supported  | Doing | nn_ops
@@ -193,21 +193,21 @@
 | [mindspore.ops.BatchMatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.BatchMatMul)                     |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.CumSum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CumSum)                               |  Supported   | Supported| Doing | math_ops
 | [mindspore.ops.AddN](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.AddN)                                   |    Supported   | Supported  | Supported | math_ops
-| [mindspore.ops.Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Neg)                                     |    Supported   | Supported  | Doing | math_ops
+| [mindspore.ops.Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Neg)                                     |    Supported   | Supported  | Supported | math_ops
 | [mindspore.ops.Sub](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sub)                                     |    Supported   | Supported | Supported | math_ops
 | [mindspore.ops.Mul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Mul)                                     |    Supported   | Supported  |   Supported | math_ops
 | [mindspore.ops.Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Square)                               |    Supported | Supported  | Supported | math_ops
 | [mindspore.ops.SquareSumAll](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SquareSumAll)                               |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Rsqrt)                                 |    Supported | Supported  | Doing | math_ops
-| [mindspore.ops.Sqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sqrt)                                   |    Supported | Supported | Doing | math_ops
+| [mindspore.ops.Sqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sqrt)                                   |    Supported | Supported | Supported | math_ops
 | [mindspore.ops.Reciprocal](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Reciprocal)                       |    Supported   | Supported  | Doing | math_ops
-| [mindspore.ops.Pow](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Pow)                                     |    Supported | Supported  | Doing | math_ops
+| [mindspore.ops.Pow](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Pow)                                     |    Supported | Supported  | Supported | math_ops
 | [mindspore.ops.Exp](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Exp)                                     |    Supported   | Supported  | Doing | math_ops
-| [mindspore.ops.Log](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Log)                                     |    Supported   | Supported  | Doing | math_ops
+| [mindspore.ops.Log](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Log)                                     |    Supported   | Supported  | Supported | math_ops
 | [mindspore.ops.Log1p](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Log1p)                                     |    Supported   | Doing  | Doing | math_ops
 | [mindspore.ops.Minimum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Minimum)                             |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Maximum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Maximum)                             |    Supported | Supported  | Doing | math_ops
-| [mindspore.ops.RealDiv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.RealDiv)                             |    Supported   | Supported  | Doing | math_ops
+| [mindspore.ops.RealDiv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.RealDiv)                             |    Supported   | Supported  | Supported | math_ops
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Div)                                     |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DivNoNan)                                     |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.FloorDiv)                           |    Supported | Supported  | Doing | math_ops
@@ -217,7 +217,7 @@
 | [mindspore.ops.NotEqual](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.NotEqual)                           |  Supported | Supported  | Doing | math_ops
 | [mindspore.ops.Greater](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Greater)                             |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.GreaterEqual](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GreaterEqual)                   |  Supported | Supported  | Doing | math_ops
-| [mindspore.ops.Less](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Less)                                   |    Supported | Supported  | Doing | math_ops
+| [mindspore.ops.Less](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Less)                                   |    Supported | Supported  | Supported | math_ops
 | [mindspore.ops.Atan2](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Atan2)                                   |    Supported | Doing  | Doing | math_ops
 | [mindspore.ops.LessEqual](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.LessEqual)                         |    Supported | Supported  | Doing | math_ops
 | [mindspore.ops.LogicalNot](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.LogicalNot)                       |  Supported | Supported  | Doing | math_ops
@@ -249,7 +249,7 @@
 | [mindspore.ops.Sinh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sinh)                                     |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.Expm1](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Expm1)                                     |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.NMSWithMask](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.NMSWithMask)                     |  Supported | Supported  | Doing | math_ops
-| [mindspore.ops.Abs](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Abs)                                     |  Supported | Supported  | Doing | math_ops
+| [mindspore.ops.Abs](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Abs)                                     |  Supported | Supported  | Supported | math_ops
 | [mindspore.ops.Sign](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Sign)                                   |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.Round](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Round)                                 |  Supported | Doing  | Doing | math_ops
 | [mindspore.ops.ApproximateEqual](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ApproximateEqual)                                 |  Supported | Doing  | Doing | math_ops
@@ -259,7 +259,7 @@
 | [mindspore.ops.ExpandDims](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ExpandDims)                       |    Supported |   Supported  | Supported | array_ops
 | [mindspore.ops.DType](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DType)                                 |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.SameTypeShape](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SameTypeShape)                 |    Supported |   Supported  |   Supported | array_ops
-| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)                                   |    Supported |   Supported  | Doing | array_ops
+| [mindspore.ops.Cast](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Cast)                                   |    Supported |   Supported  | Supported | array_ops
 | [mindspore.ops.IsSubClass](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.IsSubClass)                       |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.IsInstance](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.IsInstance)                       |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Reshape)                             |    Supported | Supported    |   Supported | array_ops
@@ -282,7 +282,7 @@
 | [mindspore.ops.Argmin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Argmin)                               |  Supported | Doing  | Doing | array_ops
 | [mindspore.ops.ArgMaxWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ArgMaxWithValue)             |  Supported | Supported  | Doing | array_ops
 | [mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ArgMinWithValue)             |   Supported | Doing  | Doing | array_ops
-| [mindspore.ops.Tile](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Tile)                                   |  Supported | Supported  | Doing | array_ops
+| [mindspore.ops.Tile](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Tile)                                   |  Supported | Supported  | Supported | array_ops
 | [mindspore.ops.UnsortedSegmentSum](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentSum)       |    Supported | Supported  | Doing | array_ops
 | [mindspore.ops.UnsortedSegmentMin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentMin)       |    Supported | Doing  | Doing | array_ops
 | [mindspore.ops.UnsortedSegmentProd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UnsortedSegmentProd)       |    Supported | Doing  | Doing | array_ops
