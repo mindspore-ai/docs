@@ -92,8 +92,8 @@
 
 | Category | URL |
 | --- | --- |
-| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.0/index.html> |
-| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
+| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
 
 ## 1.0.0
 

@@ -92,8 +92,8 @@
 
 | 类别 | 网址 |
 | --- | --- |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
+| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
 
 ## 1.0.0
 
