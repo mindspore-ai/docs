@@ -1,7 +1,5 @@
 # 安装MindSpore
 
-本文档介绍如何在CPU环境的Ubuntu系统上快速安装MindSpore。
-
 <!-- TOC -->
 
 - [安装MindSpore](#安装mindspore)
@@ -17,6 +15,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+本文档介绍如何在CPU环境的Ubuntu系统上快速安装MindSpore。
 
 ## 环境要求
 
@@ -53,7 +53,7 @@
 1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindSpore。
 
     ```bash
-    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 2. 执行如下命令，如果没有提示`No module named 'mindspore'`等加载错误的信息，则说明安装成功。
@@ -84,7 +84,7 @@
 
     ```bash
     chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
+    pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
     ```
 
 4. 执行如下命令，如果没有提示`No module named 'mindspore'`等加载错误的信息，则说明安装成功。
@@ -99,7 +99,7 @@
 
 - 直接在线升级
 
-    ```
+    ```bash
     pip install --upgrade mindspore
     ```
 
@@ -107,7 +107,7 @@
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
-    ```
+    ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
@@ -132,7 +132,7 @@
 1. 从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，建议先进行SHA-256完整性校验，执行如下命令安装MindArmour。
 
    ```bash
-   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl
+   pip install mindarmour-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
    ```
 
 2. 执行如下命令，如果没有提示`No module named 'mindarmour'`等加载错误的信息，则说明安装成功。
