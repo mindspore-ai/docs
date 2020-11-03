@@ -13,6 +13,7 @@
         - [连接Atlas 200 DK开发板与Ubuntu服务器](#连接atlas-200-dk开发板与ubuntu服务器)
         - [配置Python环境](#配置python环境)
         - [安装开发套件包](#安装开发套件包)
+    - [推理目录结构介绍](#推理目录结构介绍)
     - [导出AIR模型文件](#导出air模型文件)
     - [将AIR模型文件转成OM模型](#将air模型文件转成om模型)
     - [编译推理代码](#编译推理代码)
@@ -88,39 +89,9 @@ Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进�
 
 安装开发套件包`Ascend-Toolkit-*{version}*-arm64-linux_gcc7.3.0.run`，具体操作参见[安装开发套件包](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0017.html)。
 
-## 导出AIR模型文件
+## 推理目录结构介绍
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#air)。
-
-> 这里提供使用ResNet-50模型导出的示例AIR文件[resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air)。
-
-## 将AIR模型文件转成OM模型
-
-登录Atlas 200 DK开发者板环境，创建目录放置AIR文件`resnet50_export.air`，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample/model`，并进入该路径下，设置如下环境变量。其中，`install_path`需指定为实际安装路径。
-
-```bash
-export install_path=/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1
-export PATH=/usr/local/python3.7.5/bin:${install_path}/atc/ccec_compiler/bin:${install_path}/atc/bin:$PATH
-export PYTHONPATH=${install_path}/atc/python/site-packages/te:${install_path}/atc/python/site-packages/topi:$PYTHONPATH
-export LD_LIBRARY_PATH=${install_path}/atc/lib64:$LD_LIBRARY_PATH
-export ASCEND_OPP_PATH=${install_path}/opp
-```
-
-以`resnet50_export.air`为例，执行如下命令进行模型转换，在当前目录生成`resnet50_export.om`文件。
-
-```bash
-/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/atc/bin/atc --framework=1 --model=./resnet50_export.air --output=./resnet50_export --input_format=NCHW --soc_version=Ascend310
-```
-
-其中：
-
-- `--model`：原始模型文件的路径。
-- `--output`：转换得到的OM模型文件的路径。
-- `--input_format`：输入数据格式。
-
-## 编译推理代码
-
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，相关代码可以从[这里](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/acl_resnet50_sample)获取，推理代码工程目录结构如下：
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，其中`inc`、`src`、`test_data`目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/acl_resnet50_sample)获取，`model`目录用于存放接下来导出的`AIR`模型文件和转换后的`OM`模型文件，`out`目录用于存放执行编译生成的可执行文件和输出结果目录，推理代码工程目录结构如下:
 
 ```text
 └─acl_resnet50_sample
@@ -147,6 +118,38 @@ export ASCEND_OPP_PATH=${install_path}/opp
 ```
 
 > 输出结果目录`acl_resnet50_sample/out/result`需先创建好再执行推理操作。
+
+## 导出AIR模型文件
+
+在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#air)。
+
+> 这里提供使用ResNet-50模型导出的示例AIR文件[resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air)。
+
+## 将AIR模型文件转成OM模型
+
+登录Atlas 200 DK开发者板环境，创建`model`目录放置AIR文件`resnet50_export.air`，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample/model`，并进入该路径下，设置如下环境变量。其中，`install_path`需指定为实际安装路径。
+
+```bash
+export install_path=/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1
+export PATH=/usr/local/python3.7.5/bin:${install_path}/atc/ccec_compiler/bin:${install_path}/atc/bin:$PATH
+export PYTHONPATH=${install_path}/atc/python/site-packages/te:${install_path}/atc/python/site-packages/topi:$PYTHONPATH
+export LD_LIBRARY_PATH=${install_path}/atc/lib64:$LD_LIBRARY_PATH
+export ASCEND_OPP_PATH=${install_path}/opp
+```
+
+以`resnet50_export.air`为例，执行如下命令进行模型转换，在当前目录生成`resnet50_export.om`文件。
+
+```bash
+/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/atc/bin/atc --framework=1 --model=./resnet50_export.air --output=./resnet50_export --input_format=NCHW --soc_version=Ascend310
+```
+
+其中：
+
+- `--model`：原始模型文件的路径。
+- `--output`：转换得到的OM模型文件的路径。
+- `--input_format`：输入数据格式。
+
+## 编译推理代码
 
 进入工程目录`acl_resnet50_sample`，设置如下环境变量：
 
@@ -207,7 +210,7 @@ make
 export LD_LIBRARY_PATH=/home/HwHiAiUser/Ascend/acllib/lib64/
 ```
 
-进入到`acl_resnet50_sample/out`目录下，执行如下命令进行推理。
+进入到`acl_resnet50_sample/out`目录下，如果当前目录下`result`目录不存在，需要执行`mkdir result`命令创建该目录，然后执行如下命令进行推理。
 
 ```bash
 ./main  ./resnet50_export.om  ../test_data
