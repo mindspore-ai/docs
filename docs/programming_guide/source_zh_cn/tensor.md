@@ -25,9 +25,11 @@
   
 ## 张量构造
 
-构造张量时，支持传入`Tensor`、`float`、`int`、`bool`、`tuple`、`list`和`NumPy.array`类型。
+构造张量时，支持传入`Tensor`、`float`、`int`、`bool`、`tuple`、`list`和`NumPy.array`类型，其中`tuple`和`list`里只能存放`float`、`int`、`bool`类型数据。
 
-`Tensor`作为初始值时，可指定dtype，如果没有指定dtype，`int`、`float`、`bool`分别对应`int32`、`float32`、`bool_`，`tuple`和`list`生成的1维`Tensor`数据类型与`tuple`和`list`里存放数据的类型相对应。
+`Tensor`初始化时，可指定dtype。如果没有指定dtype，初始值`int`、`float`、`bool`分别生成数据类型为`mindspore.int32`、`mindspore.float32`、`mindspore.bool_`的0维Tensor，
+初始值`tuple`和`list`生成的1维`Tensor`数据类型与`tuple`和`list`里存放的数据类型相对应，如果包含多种不同类型的数据，则按照优先级：`bool` < `int` < `float`，选择相对优先级最高类型所对应的mindspore数据类型。
+如果初始值是`Tensor`，则生成的`Tensor`数据类型与其一致；如果初始值是`NumPy.array`，则生成的`Tensor`数据类型与之对应。
 
 代码样例如下：
 
@@ -42,8 +44,9 @@ z = Tensor(2, mstype.int32)
 m = Tensor(True, mstype.bool_)
 n = Tensor((1, 2, 3), mstype.int16)
 p = Tensor([4.0, 5.0, 6.0], mstype.float64)
+q = Tensor(p, mstype.float64)
 
-print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p)
+print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p, "\n\n", q)
 ```
 
 输出如下：
@@ -59,6 +62,8 @@ print(x, "\n\n", y, "\n\n", z, "\n\n", m, "\n\n", n, "\n\n", p)
 True
 
 [1 2 3]
+
+[4. 5. 6.]
 
 [4. 5. 6.]
 ```
@@ -94,7 +99,7 @@ print(x_shape, x_dtype)
 
 ### 方法
 
-张量的方法包括`all`、`any`和`asnumpy`，`all`和`any`方法目前只支持Ascend。
+张量的方法包括`all`、`any`和`asnumpy`，`all`和`any`方法目前只支持Ascend，并且要求`Tensor`的数据类型是`mindspore.bool_`。
 
 - `all(axis, keep_dims)`：在指定维度上通过`and`操作进行归约，`axis`代表归约维度，`keep_dims`表示是否保留归约后的维度。
 - `any(axis, keep_dims)`：在指定维度上通过`or`操作进行归约，参数含义同`all`。
