@@ -33,8 +33,8 @@ For example, you can monitor the loss, save model parameters, dynamically adjust
 
 MindSpore provides the callback capabilities to allow users to insert customized operations in a specific phase of training or inference, including:
 
-- Callback functions such as `ModelCheckpoint`, `LossMonitor`, and `SummaryCollector` provided by the MindSpore framework.
-- Custom callback functions.
+- Callback classes such as `ModelCheckpoint`, `LossMonitor`, and `SummaryCollector` provided by the MindSpore framework.
+- Custom callback classes.
 
 Usage: Transfer the callback object in the `model.train` method. The callback object can be a list, for example:
 
@@ -94,7 +94,7 @@ The main attributes of `cb_params` are as follows:
 - train_dataset: Training dataset
 - cur_epoch_num: Number of current epochs
 - cur_step_num: Number of current steps
-- batch_num: Number of steps in an epoch
+- batch_num: Number of batches in an epoch
 - ...
 
 You can inherit the callback base class to customize a callback object.
@@ -200,15 +200,17 @@ The callback function can also be used in the eval process, and the user can cal
 
 You can also define your own metrics class by inheriting the `Metric` base class and rewriting the `clear`, `update`, and `eval` methods.
 
-The `accuracy` operator is used as an example to describe the internal implementation principle.
+The `Accuracy` operator is used as an example to describe the internal implementation principle.
 
-The `accuracy` inherits the `EvaluationBase` base class and rewrites the preceding three methods.
-The `clear` method initializes related calculation parameters in the class.
-The `update` method accepts the predicted value and tag value and updates the internal variables of accuracy.
-The `eval` method calculates related indicators and returns the calculation result.
-By invoking the `eval` method of `accuracy`, you will obtain the calculation result.
+The `Accuracy` inherits the `EvaluationBase` base class and rewrites the preceding three methods.
 
-You can understand how `accuracy` runs by using the following code:
+- The `clear` method initializes related calculation parameters in the class.
+- The `update` method accepts the predicted value and tag value and updates the internal variables of Accuracy.
+- The `eval` method calculates related indicators and returns the calculation result.
+
+By invoking the `eval` method of `Accuracy`, you will obtain the calculation result.
+
+You can understand how `Accuracy` runs by using the following code:
 
 ```python
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
@@ -367,12 +369,14 @@ The input and output of the operator can be saved for debugging through the data
 
 3. Execute the training script to dump data.
 
+    You can set `context.set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
+
 4. Parse the Dump file.
 
     Change directory to `/absolute_path` after training, execute the following commands to parse Dump data file:
 
     ```bash
-    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
+    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
     ```
 
 ## Log-related Environment Variables and Configurations
