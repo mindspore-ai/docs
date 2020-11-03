@@ -35,7 +35,7 @@
 
 MindSpore提供`Callback`能力，支持用户在训练/推理的特定阶段，插入自定义的操作。包括：
 
-- MindSpore框架提供的`ModelCheckpoint`、`LossMonitor`、`SummaryCollector`等`Callback`函数。
+- MindSpore框架提供的`ModelCheckpoint`、`LossMonitor`、`SummaryCollector`等`Callback`类。
 - MindSpore支持用户自定义`Callback`。
 
 使用方法：在`model.train`方法中传入`Callback`对象，它可以是一个`Callback`列表，例：
@@ -49,7 +49,7 @@ model.train(epoch, dataset, callbacks=[ckpt_cb, loss_cb, summary_cb])
 
 `ModelCheckpoint`可以保存模型参数，以便进行再训练或推理。  
 `LossMonitor`可以在日志中输出loss，方便用户查看，同时它还会监控训练过程中的loss值变化情况，当loss值为`Nan`或`Inf`时终止训练。  
-`SummaryCollector` 可以把训练过程中的信息存储到文件中，以便后续进行查看或可视化展示。  
+`SummaryCollector` 可以把训练过程中的信息存储到文件中，以便后续可视化展示。  
 在训练过程中，`Callback`列表会按照定义的顺序执行`Callback`函数。因此在定义过程中，需考虑`Callback`之间的依赖关系。
 
 ### 自定义Callback
@@ -96,7 +96,7 @@ class Callback():
 - `train_dataset`：训练的数据集
 - `cur_epoch_num`：当前的epoch数
 - `cur_step_num`：当前的step数
-- `batch_num`：一个epoch中step的数量
+- `batch_num`：一个epoch中batch的数量
 - ...
 
 用户可以继承`Callback`基类自定义`Callback`对象。
@@ -202,15 +202,17 @@ output = model.eval(ds_eval)
 
 用户也可以定义自己的`metrics`类，通过继承`Metric`基类，并重写`clear`、`update`、`eval`三个方法即可实现。
 
-以`accuracy`算子举例说明其内部实现原理：
+以`Accuracy`算子举例说明其内部实现原理：
 
-`accuracy`继承了`EvaluationBase`基类，重写了上述三个方法。  
-`clear`方法会把类中相关计算参数初始化。  
-`update`方法接受预测值和标签值，更新`accuracy`内部变量。  
-`eval`方法会计算相关指标，返回计算结果。  
-调用`accuracy`的`eval`方法，即可得到计算结果。  
+`Accuracy`继承了`EvaluationBase`基类，重写了上述三个方法。  
 
-通过如下代码可以更清楚了解到`accuracy`是如何运行的：
+- `clear`方法会把类中相关计算参数初始化。  
+- `update`方法接受预测值和标签值，更新`Accuracy`内部变量。  
+- `eval`方法会计算相关指标，返回计算结果。  
+
+调用`Accuracy`的`eval`方法，即可得到计算结果。  
+
+通过如下代码可以更清楚了解到`Accuracy`是如何运行的：
 
 ```python
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
@@ -318,7 +320,9 @@ val:[[1 1]
     - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
 
 3. 执行用例Dump数据。
+
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
+    
 4. 解析Dump数据。
 
     通过`numpy.fromfile`读取Dump数据文件即可解析。
@@ -368,12 +372,14 @@ val:[[1 1]
 
 3. 执行用例Dump数据。
 
+    可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
+    
 4. 解析文件。
 
     执行完用例后去`/var/log/npu/ide_daemon/dump/`目录下，运行如下命令解析Dump数据：
 
     ```bash
-    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析的文件路径}
+    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析的文件路径}
     ```
 
 ## 日志相关的环境变量和配置
