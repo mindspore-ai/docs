@@ -57,7 +57,7 @@ optional arguments:
 
     通过`name`配置调参方法的名字，通过`args`字段来配置这个调参方法的参数。
 
-    当前采用的算法是高斯过程回归器（Gaussian process regressor, GP），这个算法可配置采集方法(Acquisition Function)，可选，范围是['ucb', 'pi','ei']，默认值为'ucb'。
+    当前采用的算法是高斯过程回归器（Gaussian process regressor, GP），这个算法可配置采集方法(Acquisition Function)，可选，范围是[`ucb`, `pi`,`ei`]，默认值为`ucb`。
     - Upper confidence bound (UCB)
     - Probability of improvement (PI)
     - Expected improvement (EI)
@@ -93,7 +93,7 @@ optional arguments:
 
 5. 配置超参信息
 
-    超参的配置字段：bounds/choice、typ和source。这里配置的超参字段，会用于训练记录的提取和超参推荐。其中，bounds、choice和type会影响超参推荐，`bounds`配置了参数的上下界，`choice`表示推荐值从中选取，`type`则是配置了该参数的类型。
+    超参的配置字段：`bounds`、`choice`、`type`和`source`。这里配置的超参字段，会用于训练记录的提取和超参推荐。其中，`bounds`、`choice`和`type`会影响超参推荐，`bounds`配置了参数的上下界，`choice`表示推荐值从中选取，`type`则是配置了该参数的类型。
 
     目前系统自定义收集的可调字段包括`learning_rate`、`batch_size`和`epoch`。其余参数都为用户自定义参数，可配置为`user_defined`，将在训练时被自动收集在训练日志中。
     - bounds: 列表，元素个数为2，第一个数为下界值min，第二个数为上界值max。范围是[min, max)，生成随机数方法是`numpy.random.uniform()`。
@@ -131,7 +131,7 @@ optional arguments:
 
     > `momentum`和系统定义的变量不存在重名问题，可不设置source这个字段。
 
-    **yaml配置同名字段会选取其中一个，请避免以下使用方式。**
+    **yaml配置同名字段会选取最后一个，请避免以下使用方式。**
     ```
     parameters:
         learning_rate: 
@@ -143,9 +143,9 @@ optional arguments:
             type: float
     ```
 
-2. 在训练脚本实例化HyperConfig对象
+2. 在训练脚本实例化`HyperConfig`对象
 
-    (1) 用户需要实例化HyperConfig，并使用HyperConfig实例的参数变量作为训练脚本中对应参数的取值。  
+    (1) 用户需要实例化`HyperConfig`，并使用`HyperConfig`实例的参数变量作为训练脚本中对应参数的取值。  
     (2) 加上`SummaryCollector`来收集训练信息，包括超参和评估指标值等。
 
     如[Model Zoo](https://www.mindspore.cn/doc/note/zh-CN/master/network_list_ms.html)中的训练脚本：
