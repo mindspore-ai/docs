@@ -127,7 +127,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
     ```
     > The name of `momentum` is not the same as that of the variable defined by the system. Therefore, you do not need to set the source field.
 
-    **One of the fields with the same name in the YAML file is selected. Do not use the following method.**
+    **If the fields with the same name exist in the YAML file, the last one will be selected. Do not use the following method.**
     ```yaml
     parameters:
         learning_rate: 
@@ -139,9 +139,9 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
             type: float
     ```
 
-2. Instantiate the HyperConfig object in the training script
+2. Instantiate the `HyperConfig` object in the training script
 
-    (1) After instantiating HyperConfig, use the parameter variables of the HyperConfig instance as the values of the corresponding parameters in the training script.  
+    (1) After instantiating `HyperConfig`, use the parameter variables of the `HyperConfig` instance as the values of the corresponding parameters in the training script.  
     (2) Please add `SummaryCollector` to collect lineage information, including hyperparameters and evaluation metrics. 
 
     For example, the training script in [Model Zoo](https://www.mindspore.cn/doc/note/en/master/network_list_ms.html) is as follows:
