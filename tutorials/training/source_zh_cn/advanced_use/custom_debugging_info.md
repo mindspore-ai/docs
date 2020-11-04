@@ -264,12 +264,12 @@ output = net(x, y)
 
 ```text
 print Tensor x and Tensor y:
-Tensor shape:[[const vector][2, 1]]Int32
-val:[[1]
-[1]]
-Tensor shape:[[const vector][2, 2]]Int32
-val:[[1 1]
-[1 1]]
+Tensor(shape=[2, 1], dtype=Int32, value=
+[[1]
+ [1]])
+Tensor(shape=[2, 2], dtype=Int32, value=
+[[1 1]
+ [1 1]])
 ```
 
 ## 数据Dump功能介绍
