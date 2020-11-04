@@ -35,6 +35,7 @@ MindSpore设计和规格
 
    glossary
    roadmap
+   paper_list
    help_seeking_path
    community
  
