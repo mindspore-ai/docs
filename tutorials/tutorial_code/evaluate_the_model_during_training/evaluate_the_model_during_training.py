@@ -118,8 +118,8 @@ class EvalCallBack(Callback):
 if __name__ == "__main__":
     # set args, train it
     context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
-    train_data_path = "./MNIST_Data/train"
-    eval_data_path = "./MNIST_Data/test"
+    train_data_path = "./datasets/MNIST_Data/train"
+    eval_data_path = "./datasets/MNIST_Data/test"
     ckpt_save_dir = "./lenet_ckpt"
     epoch_size = 10
     eval_per_epoch = 2
