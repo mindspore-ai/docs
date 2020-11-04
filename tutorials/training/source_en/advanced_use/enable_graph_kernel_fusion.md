@@ -36,7 +36,7 @@ context.set_context(enable_graph_kernel=True)
 
 ### Sample Scripts
 
-To illustrate the fusion scenario, we construct a simple network `NetBasicFuse`, including multiplication and addition operators. The two operators will be fused together with enabled graph kernel:
+To illustrate the fusion scenario, we construct a simple network `MyNet`, including multiplication and addition operators. The two operators will be fused together with enabled graph kernel:
 
 ```python
 import numpy as np

@@ -36,7 +36,7 @@ context.set_context(enable_graph_kernel=True)
 
 ### 样例脚本
 
-为了说明图算融合优化场景，我们构造了一个简单网络`NetBasicFuse`, 包含一个乘法和加法计算。在打开图算融合进行优化之后，这两个计算便会自动合成一个融合算子:
+为了说明图算融合优化场景，我们构造了一个简单网络`MyNet`, 包含一个乘法和加法计算。在打开图算融合进行优化之后，这两个计算便会自动合成一个融合算子:
 
 ```python
 import numpy as np
