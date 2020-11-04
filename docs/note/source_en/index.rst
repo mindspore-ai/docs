@@ -36,6 +36,7 @@ MindSpore Design And Specification
 
    glossary
    roadmap
+   paper_list
    help_seeking_path
    community
 
