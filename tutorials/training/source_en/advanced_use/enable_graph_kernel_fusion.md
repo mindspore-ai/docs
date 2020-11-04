@@ -1,148 +1,153 @@
 # Enabling Graph Kernel Fusion
 
-`Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
 - [Enabling Graph Kernel Fusion](#enabling-graph-kernel-fusion)
-    - [Overview](#overview)
-    - [Enabling Method](#enabling-method)
-        - [Sample Scripts](#sample-scripts)
-    - [Effect Evaluation](#effect-evaluation)
-        - [Computational Graph](#computational-graph)
+  - [Introduction](#introduction)
+  - [Enabling Method](#enabling-method)
+    - [Sample Scripts](#sample-scripts)
+  - [Custom Combination Operators](#custom-combination-operators)
+    - [Sample Scripts](#sample-scripts-1)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/enable_graph_kernel_fusion.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-## Overview
+## Introduction
 
-The graph kernel fusion is used to analyze and optimize the computational graph logic of the existing network, as well as split, reconstruct, and fuse the original computing logic to reduce the overhead of operator execution gaps and improve the computing resource utilization of devices, thereby optimizing the overall execution time of the network.
+The graph kernel fusion is used to optimize network performance by cooperating with JIT operator compilation. With analyzing and evaluating the compute graph, it will apply optimization such as computing workload reduction, operator splitting, fusion and special operator compiling, to reduce network execution time. Also, the whole optimization process is completed automatically only if the graph kernel setting is enabled. This will help the user focus on the network development.
 
-> The example in this tutorial applies to hardware platforms based on the Ascend 910 AI processor, whereas does not support CPU and GPU scenarios.
+The graph kernel fusion is available for:
++ Network with high performance requirement;
++ Custom combination operators with high performance requirement.
 
 ## Enabling Method
 
-The optimization of graph kernel fusion in MindSpore is distributed in multiple compilation and execution steps at the network layer. By default, the function is disabled. You can specify the `enable_graph_kernel=True` parameter for `context` in the training script to enable the graph kernel fusion.
+The graph kernel is disabled by default. We can just specify the `enable_graph_kernel=True` parameter for `context` in the training script to enable it.
 
 ```python
 from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
+> Only Graph Mode is supported by graph kernel.
+
 ### Sample Scripts
 
-1. Simple example  
+To illustrate the fusion scenario, we construct a simple network `NetBasicFuse`, including multiplication and addition operators. The two operators will be fused together with enabled graph kernel:
 
-    To illustrate the fusion scenario, two simple networks are constructed. The `NetBasicFuse` network includes multiplication and addition, and the `NetCompositeFuse` network includes multiplication, addition, and exponentiation. The following code example is saved as the `test_graph_kernel_fusion.py` file.  
+```python
+import numpy as np
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.nn import Cell
+import mindspore.ops as ops
 
-    ```python
-    import numpy as np
-    import mindspore.context as context
-    from mindspore import Tensor
-    from mindspore.nn import Cell
-    import mindspore.ops as ops
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+# save graph ir to view fusion detail.
+context.set_context(save_graphs=True)
+# enable graph kernel optimization.
+context.set_context(enable_graph_kernel=True)
 
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-    # save graph ir files.
-    context.set_context(save_graphs=True)
-    # enable graph kernel fusion.
-    context.set_context(enable_graph_kernel=True)
+class MyNet(Cell):
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.add = ops.TensorAdd()
+        self.mul = ops.Mul()
 
-    # example for basic fusion.
-    class NetBasicFuse(Cell):
-        def __init__(self):
-            super(NetBasicFuse, self).__init__()
-            self.add = ops.TensorAdd()
-            self.mul = ops.Mul()
+    def construct(self, x):
+        a = self.mul(x, 2.0)
+        res = self.add(a, 1.0)
+        return res
 
-        def construct(self, x):
-            mul_res = self.mul(x, 2.0)
-            add_res = self.add(mul_res, 1.0)
-            return add_res
+x = np.ones((4, 4)).astype(np.float32) * 0.5
+net = MyNet()
+result = net(Tensor(x))
+print("result: {}".format(result))
+```
 
+The output is:
 
-    # example for composite fusion.
-    class NetCompositeFuse(Cell):
-        def __init__(self):
-            super(NetCompositeFuse, self).__init__()
-            self.add = ops.TensorAdd()
-            self.mul = ops.Mul()
-            self.pow = ops.Pow()
+```
+result: [[2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]]
+```
 
-        def construct(self, x):
-            mul_res = self.mul(x, 2.0)
-            add_res = self.add(mul_res, 1.0)
-            pow_res = self.pow(add_res, 3.0)
-            return pow_res
+The fusion of this graph is shown in Figure 1, the left graph is without graph kernel fusion being enabled and the right one is with graph kernel fusion being enabled, which can be checked by dumped graph IR or device profiling.
 
+![fuse basic example](images/graph_kernel_example_fuse_basic.png)
 
-    def test_basic_fuse():
-        x = np.random.randn(4, 4).astype(np.float32)
-        net = NetBasicFuse()
-        result = net(Tensor(x))
-        print("================result=======================")
-        print("x: {}".format(x))
-        print("result: {}".format(result))
-        print("=======================================")
+Figure 1 Graph kernel fusion on computational graph
 
+## Custom Combination Operators
 
-    def test_composite_fuse():
-        x = np.random.randn(4, 4).astype(np.float32)
-        net = NetCompositeFuse()
-        result = net(Tensor(x))
-        print("================result=======================")
-        print("x: {}".format(x))
-        print("result: {}".format(result))
-        print("=======================================")
-    ```
+We can easily implement high-performance custom combination operators based on graph kernel. The steps are as follows:
 
-2. `BERT-large` training network
+1. Define custom operator by combining basic operators;
+2. Enable Graph Kernel;
+3. Graph kernel automatically fuses the basic operators and generates high-performance fusion operators.
 
-    Take the training model of the `BERT-large` network as an example. For details about the dataset and training script, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>. You only need to modify the `context` parameter.
+### Sample Scripts
 
-## Effect Evaluation
+We construct a simple network `MyNet` and define the custom operator `MyOp`:
 
-To verify whether the graph kernel fusion takes effect, you can compare the changes of the computational graph before and after the fusion is enabled as well as the change of the network training time for one step.
+```python
+import numpy as np
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.nn import Cell
+import mindspore.ops.operations as P
 
-### Computational Graph
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+# enable graph kernel optimization.
+context.set_context(enable_graph_kernel=True)
 
-1. Basic operator fusion: Analyze associated basic operators on the network. Fuse multiple basic operators into a composite operator on the condition that performance benefits can be obtained. The following uses `NetBasicFuse` as an example.  
+class MyOp(Cell):
+    """ my first custom OP composited by basic OPs """
+    def __init__(self):
+        super(MyOp, self).__init__()
+        self.sub = P.Sub()
+        self.mul = P.Mul()
 
-    ```bash
-    pytest -s test_graph_kernel_fusion::test_basic_fuse
-    ```
+    def construct(self, x, y):
+        a = self.sub(x, y)
+        return self.mul(a, x)
 
-    After the script execution is complete, you will find some `.dot` files in the script running directory. Use the `dot` tool to convert the `.dot` files into `.png` files for viewing. `6_validate.dot` and `hwopt_d_fuse_basic_opt_end_graph_0.dot` are used to generate the initial computational graph and the computational graph after basic operator fusion.
+class MyNet(Cell):
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.mul = P.Mul()
+        self.pow = P.Pow()
+        self.my_op = MyOp()
 
-    As shown in Figure 1, there are two basic operators in the initial computing of the constructed network. After the graph kernel fusion function is enabled, the two basic operators (`Mul` and `TensorAdd`) automatically compose one operator (composite operator). In Figure 2, the upper right part is the composite operator after fusion. Currently, the network only needs to execute one composite operator to complete the `Mul` and `TensorAdd` computing.  
+    def construct(self, x, y):
+        a = self.mul(x, 2.0)
+        b = self.pow(a, 3.0)
+        res = self.my_op(b, y)
+        return res
 
-    ![Initial computational graph](./images/graph_kernel_fusion_example_fuse_basic_before.png)
+x = np.ones((4, 4)).astype(np.float32) * 0.2
+y = np.ones((4, 4)).astype(np.float32) * 0.3
+net = MyNet()
+result = net(Tensor(x), Tensor(y))
+print("result: {}".format(result))
+```
 
-    Figure 1 Initial computational graph
+The output is:
 
-    ![Basic operator fusion](./images/graph_kernel_fusion_example_fuse_basic_after.png)
+```
+result: [[-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]]
+```
 
-    Figure 2 Computational graph after basic operator fusion
+The fusion of this graph is shown in Figure 2, the left graph is without graph kernel fusion being enabled and the right one is with graph kernel fusion being enabled, which can be checked by dumped graph IR or device profiling.
 
-2. Composite operator fusion: Analyze the original composite operator and its related basic operators. The original composite operator and a basic operator compose a larger composite operator on the condition that performance benefits can be obtained. The following uses `NetCompositeFuse` as an example.  
+![cusom op example](images/graph_kernel_example_custom_op.png)
 
-    ```bash
-    pytest -s test_graph_kernel_fusion::test_composite_fuse
-    ```
-
-    Similarly, `6_validate.dot`, `hwopt_d_fuse_basic_opt_end_graph_0.dot`, and `hwopt_d_composite_opt_end_graph_0.dot` are used to generate the initial computational graph, the computational graph after basic operator fusion, and the computational graph after composite operator fusion.
-
-    As shown in Figure 3, there are three basic operators in the initial computing of the constructed network. After the graph kernel fusion function is enabled, the first two basic operators (`Mul` and `TensorAdd`) automatically compose one operator (composite operator) at the basic operator fusion stage. As shown in Figure 4, the upper right part shows the composite operator after fusion, and the lower left part shows a basic operator `Pow`. At the subsequent composite operator fusion stage, the remaining basic operator (`Pow`) and an existing composite operator are further fused to form a new composite operator. In Figure 5, the upper right part is the composite operator after the three basic operators are fused. Currently, the network only needs to execute one composite operator to complete the `Mul`, `TensorAdd`, and `Pow` computing.  
-
-    ![Initial computational graph](./images/graph_kernel_fusion_example_fuse_composite_before.png)
-
-    Figure 3 Initial computational graph
-
-    ![Basic operator fusion](./images/graph_kernel_fusion_example_fuse_composite_middle.png)
-
-    Figure 4 Computational graph after basic operator fusion
-
-    ![Composite operator fusion](./images/graph_kernel_fusion_example_fuse_composite_after.png)
-
-    Figure 5 Computational graph after composite operator fusion
+Figure 2 Custom combination operator on computational graph

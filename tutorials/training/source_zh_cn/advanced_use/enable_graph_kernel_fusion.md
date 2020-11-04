@@ -1,15 +1,15 @@
 # 使能图算融合
 
-`Linux` `Ascend` `模型调优` `中级` `高级`
+`Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
 - [使能图算融合](#使能图算融合)
-    - [概述](#概述)
-    - [启用方法](#启用方法)
-        - [样例脚本](#样例脚本)
-    - [效果评估](#效果评估)
-        - [计算图](#计算图)
+  - [概述](#概述)
+  - [使用方法](#使用方法)
+    - [样例脚本](#样例脚本)
+  - [自定义组合算子](#自定义组合算子)
+    - [样例脚本](#样例脚本-1)
 
 <!-- /TOC -->
 
@@ -17,133 +17,138 @@
 
 ## 概述
 
-图算融合是通过分析和优化现有网络计算图逻辑，对原有计算逻辑进行拆分、重组、融合等操作，以减少算子执行间隙的开销并且提升设备计算资源利用率，从而实现网络整体执行时间的优化。
+图算融合是MindSpore特有的网络性能优化技术。它可以通过自动分析和优化现有网络计算图逻辑，并结合目标硬件能力，对计算图进行计算化简和替代、算子拆分和融合、算子特例化编译等优化，以提升设备计算资源利用率，实现对网络性能的整体优化。相比传统优化技术，图算融合具有多算子跨边界联合优化、与算子编译跨层协同、基于Polyhedral的算子即时编译等独特优势。另外，图算融合只需要用户打开对应配置后，整个优化过程即可自动完成，不需要网络开发人员进行其它额外感知，使得用户可以聚焦网络算法实现。
 
-> 本例面向Ascend 910 AI处理器硬件平台，暂不支持CPU和GPU场景。
+图算融合的适用场景包括：
++ 对网络执行时间具有较高性能要求的场景；
++ 通过拼接基本算子实现自定义组合算子，并希望对这些基本算子进行自动融合，以提升自定义组合算子性能的场景。
 
-## 启用方法
+## 使用方法
 
-MindSpore中的图算融合优化分布于网络图层编译和执行的多个步骤中，默认关闭状态，我们可以在训练脚本中为`context`指定参数`enable_graph_kernel=True`从而启用图算融合：
+当前图算融合优化默认关闭状态，我们只需在训练脚本中为`context`指定参数`enable_graph_kernel=True`即可启用图算融合：
 
 ```python
 from mindspore import context
 context.set_context(enable_graph_kernel=True)
 ```
 
+> 图算融合优化只支持Graph模式。
+
 ### 样例脚本
 
-1. 简单样例  
+为了说明图算融合优化场景，我们构造了一个简单网络`NetBasicFuse`, 包含一个乘法和加法计算。在打开图算融合进行优化之后，这两个计算便会自动合成一个融合算子:
 
-    为了说明融合场景，我们构造两个简单网络，`NetBasicFuse`包含一个乘法和加法计算，`NetCompositeFuse`包含一个乘法、一个加法和一个指数计算。以下为代码样例，保存为`test_graph_kernel_fusion.py`文件。  
+```python
+import numpy as np
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.nn import Cell
+import mindspore.ops as ops
 
-    ```python
-    import numpy as np
-    import mindspore.context as context
-    from mindspore import Tensor
-    from mindspore.nn import Cell
-    import mindspore.ops as ops
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+# save graph ir to view fusion detail.
+context.set_context(save_graphs=True)
+# enable graph kernel optimization.
+context.set_context(enable_graph_kernel=True)
 
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
-    # save graph ir files.
-    context.set_context(save_graphs=True)
-    # enable graph kernel fusion.
-    context.set_context(enable_graph_kernel=True)
+class MyNet(Cell):
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.add = ops.TensorAdd()
+        self.mul = ops.Mul()
 
-    # example for basic fusion.
-    class NetBasicFuse(Cell):
-        def __init__(self):
-            super(NetBasicFuse, self).__init__()
-            self.add = ops.TensorAdd()
-            self.mul = ops.Mul()
+    def construct(self, x):
+        a = self.mul(x, 2.0)
+        res = self.add(a, 1.0)
+        return res
 
-        def construct(self, x):
-            mul_res = self.mul(x, 2.0)
-            add_res = self.add(mul_res, 1.0)
-            return add_res
+x = np.ones((4, 4)).astype(np.float32) * 0.5
+net = MyNet()
+result = net(Tensor(x))
+print("result: {}".format(result))
+```
 
+输出结果：
 
-    # example for composite fusion.
-    class NetCompositeFuse(Cell):
-        def __init__(self):
-            super(NetCompositeFuse, self).__init__()
-            self.add = ops.TensorAdd()
-            self.mul = ops.Mul()
-            self.pow = ops.Pow()
+```
+result: [[2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]
+ [2. 2. 2. 2.]]
+```
 
-        def construct(self, x):
-            mul_res = self.mul(x, 2.0)
-            add_res = self.add(mul_res, 1.0)
-            pow_res = self.pow(add_res, 3.0)
-            return pow_res
+该计算图的融合结果如图1所示，其中左图为未使能图算融合时的对应计算图，右图为使能图算融合后的对应计算图。可以看到该网络中的加法和乘法被融合成一个算子。该融合过程可以通过查看中间IR，或者通过Profiling等工具跟踪算子执行过程进行验证。
 
+![基本算子融合示例](images/graph_kernel_example_fuse_basic.png)
 
-    def test_basic_fuse():
-        x = np.random.randn(4, 4).astype(np.float32)
-        net = NetBasicFuse()
-        result = net(Tensor(x))
-        print("================result=======================")
-        print("x: {}".format(x))
-        print("result: {}".format(result))
-        print("=======================================")
+图1：图算融合优化计算图
 
+## 自定义组合算子
 
-    def test_composite_fuse():
-        x = np.random.randn(4, 4).astype(np.float32)
-        net = NetCompositeFuse()
-        result = net(Tensor(x))
-        print("================result=======================")
-        print("x: {}".format(x))
-        print("result: {}".format(result))
-        print("=======================================")
-    ```
+基于图算融合技术，用户可以很方便地实现高性能的自定义组合算子。其主要流程为：  
+1. 在脚本中用基本算子组合的方式实现自定义算子定义和使用；
+2. 打开图算融合配置；
+3. 图算融合对自定义组合算子中的基本算子自动进行算子融合，并生成高性能融合算子。 
 
-2. `BERT-large`训练网络
+相比其它自定义算子方式，这种方式具有对框架无侵入、简单易用等优点。
 
-    以`BERT-large`网络的训练模型为例，数据集和训练脚本可参照
-    <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/bert>，同样我们只需修改`context`参数即可。  
+### 样例脚本
 
-## 效果评估
+我们构造一个简单网络`MyNet`，并在其中使用了自定义算子`MyOp`。代码样例如下:
 
-为了验证图算融合是否生效及其具体效果，我们可以通过对比启用前后计算图的改变和网络训练单step时间的变化进行评估。
+```python
+import numpy as np
+import mindspore.context as context
+from mindspore import Tensor
+from mindspore.nn import Cell
+import mindspore.ops.operations as P
 
-### 计算图
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+# enable graph kernel optimization.
+context.set_context(enable_graph_kernel=True)
 
-1. 基础算子融合场景：基础算子融合是指对网络中相关联的基础算子进行分析，在可以得到性能收益的条件下，将多个基础算子融合成为组合算子，以简单样例`NetBasicFuse`说明。  
+class MyOp(Cell):
+    """ my first custom OP composited by basic OPs """
+    def __init__(self):
+        super(MyOp, self).__init__()
+        self.sub = P.Sub()
+        self.mul = P.Mul()
 
-    ```bash
-    pytest -s test_graph_kernel_fusion::test_basic_fuse
-    ```
+    def construct(self, x, y):
+        a = self.sub(x, y)
+        return self.mul(a, x)
 
-    脚本执行结束后，我们在脚本运行目录可以得到一些`.dot`文件，使用`dot`工具可以将`.dot`文件转换为`.png`文件进行查看。我们以`6_validate.dot`和`hwopt_d_fuse_basic_opt_end_graph_0.dot`生成初始计算图和基础算子融合后计算图。
+class MyNet(Cell):
+    def __init__(self):
+        super(MyNet, self).__init__()
+        self.mul = P.Mul()
+        self.pow = P.Pow()
+        self.my_op = MyOp()
 
-    如图1所示，我们构造的网络的初始计算中有两个基础算子计算，打开图算融合的开关之后会自动将两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)。图2中，右上角部分即为融合之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`两次计算。  
+    def construct(self, x, y):
+        a = self.mul(x, 2.0)
+        b = self.pow(a, 3.0)
+        res = self.my_op(b, y)
+        return res
 
-    ![初始计算图](./images/graph_kernel_fusion_example_fuse_basic_before.png)
+x = np.ones((4, 4)).astype(np.float32) * 0.2
+y = np.ones((4, 4)).astype(np.float32) * 0.3
+net = MyNet()
+result = net(Tensor(x), Tensor(y))
+print("result: {}".format(result))
+```
 
-    图1：初始计算图
+输出结果：
 
-    ![基础算子融合](./images/graph_kernel_fusion_example_fuse_basic_after.png)
+```
+result: [[-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]
+ [-0.015104 -0.015104 -0.015104 -0.015104]]
+```
 
-    图2：基础算子融合后计算图
+该计算图的融合结果如图2所示，其中左图为未使能图算融合时的对应计算图，右图为使能图算融合后的对应计算图。可以看到不仅自定义算子`MyOp`中的基本算子进行了融合，并且与主图中的其他算子也进行了更大范围融合。该融合过程可以通过查看中间IR，或者通过Profiling等工具跟踪算子执行过程进行验证。
 
-2. 组合算子融合场景：组合算子融合是指将原有的组合算子和与其相关的基础算子进行分析，在可以得到性能收益的条件下，将原有的组合算子和基础算子融合成为一个更大的组合算子，以简单样例`NetCompositeFuse`说明。  
+![自定义组合算子融合示例](images/graph_kernel_example_custom_op.png)
 
-    ```bash
-    pytest -s test_graph_kernel_fusion::test_composite_fuse
-    ```
-
-    同样，我们以`6_validate.dot`、`hwopt_d_fuse_basic_opt_end_graph_0.dot`和`hwopt_d_composite_opt_end_graph_0.dot`生成初始计算图、基础算子融合后计算图和组合算子融合后计算图。
-
-    如图3所示，我们构造的网络的初始计算中有三个基础算子计算，打开图算融合的开关之后，在基础算子融合阶段，会自动将前两个基础算子(`Mul`、`TensorAdd`)融合为一个算子(组合算子)。从图4中可以看到，右上角部分即为融合之后的组合算子，左下角的主图中还有一个基础算子`Pow`。在接下来的组合算子融合阶段分析后，会进一步将剩余的基础算子(`Pow`)和已有的一个组合算子进行融合，形成一个新的组合算子。图5中，右上角部分即为融合三个基础算子之后的组合算子，现在网络只需要执行一个组合算子就可以完成原有的`Mul`、`TensorAdd`、`Pow`三次计算。  
-
-    ![初始计算图](./images/graph_kernel_fusion_example_fuse_composite_before.png)
-
-    图3：初始计算图
-
-    ![基础算子融合](./images/graph_kernel_fusion_example_fuse_composite_middle.png)
-
-    图4：基础算子融合后计算图
-
-    ![组合算子融合](./images/graph_kernel_fusion_example_fuse_composite_after.png)
-
-    图5：组合算子融合后计算图
+图2：自定义组合算子优化计算图
