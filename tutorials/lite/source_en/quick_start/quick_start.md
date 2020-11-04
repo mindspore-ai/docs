@@ -39,7 +39,7 @@ We provide the APK file corresponding to this example. You can scan the QR code 
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
 Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) to download image classification models in MindSpore ModelZoo.
-In addition, you can use the preset model to perform migration learning to implement your image classification tasks.
+In addition, you can use the preset model to perform transfer learning to implement your image classification tasks.
 
 ## Converting a Model
 
@@ -57,7 +57,7 @@ The following section describes how to build and execute an on-device image clas
 
 ### Running Dependencies
 
-- Android Studio 3.2 or later (Android 4.0 or later is recommended.)
+- Android Studio 3.2 or later and Android 4.0 or later is recommended.
 - Native development kit (NDK) 21.3
 - [CMake](https://cmake.org/download) 3.10.2  
 - Android software development kit (SDK) 26 or later
@@ -202,7 +202,7 @@ mobilenetv2.ms [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/officia
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference code process is as follows. For details about the complete code, see `src/cpp/MindSporeNetnative.cpp`.
+The inference process code is as follows. For details about the complete code, see `src/cpp/MindSporeNetnative.cpp`.
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
 
@@ -220,11 +220,11 @@ The inference code process is as follows. For details about the complete code, s
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
-        
+
         // Create context.
         mindspore::lite::Context *context = new mindspore::lite::Context;
         context->thread_num_ = num_thread;
-        
+
         // Create the mindspore session.
         labelNet->CreateSessionMS(modelBuffer, bufferLen, "device label", context);
         delete(context);
@@ -243,7 +243,7 @@ The inference code process is as follows. For details about the complete code, s
             int ret = session->CompileGraph(model);
         }
         ```
-    
+
 2. Convert the input image into the Tensor format of the MindSpore model.
 
     Convert the image data to be detected into the Tensor format of the MindSpore model.
@@ -275,7 +275,7 @@ The inference code process is as follows. For details about the complete code, s
     delete[] (dataHWC);
    ```
 
-3. Preprocessing the input data.
+3. Preprocess the input data.
 
    ```cpp
    bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
@@ -346,7 +346,7 @@ The inference code process is as follows. For details about the complete code, s
             for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                 scores[i] = temp_scores[i];
             }
-            
+
             float unifiedThre = 0.5;
             float probMax = 1.0;
             for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
@@ -377,6 +377,5 @@ The inference code process is as follows. For details about the complete code, s
             return categoryScore;
         }
        ```
-   
-   
-   ​       
+
+   ​

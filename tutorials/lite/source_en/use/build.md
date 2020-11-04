@@ -49,7 +49,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
     - [Libevent](https://libevent.org) >= 2.0
     - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-    
+
 - Compilation dependencies of runtime(java)
     - [CMake](https://cmake.org/download/) >= 3.14.1
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
@@ -63,22 +63,22 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 > - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
 > - After Gradle is installed, you need to add its installation path to the PATH: `export PATH=${GRADLE_PATH}/bin:$PATH`.
 > - To install the Android SDK via `Android command line tools`, you need to create a new directory first and configure its path to the environment variable in `${ANDROID_SDK_ROOT}`, then create SDK via `sdkmanager`: `./sdkmanager --sdk_root=$ {ANDROID_SDK_ROOT} "cmdline-tools;latest"`, and finally accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
-> - Compiling AAR needs to rely on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
+> - Compiling AAR relies on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
 
 ### Compilation Options
 
 MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference. The following describes the compilation options of MindSpore Lite.
 
-| Parameter  |  Parameter Description  | Value Range | Mandatory or Not |
+| Parameter  |  Parameter Description  | Value Range | Mandatory or No |
 | -------- | ----- | ---- | ---- |
 | -I | Selects an applicable architecture. This option is required when compile MindSpore Lite. | arm64, arm32, or x86_64 | No |
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
-| -e | In the Arm architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
+| -e | In the ARM architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
-| -A | Language used by mindspore lite, default cpp. If the parameter is set java，the AAR is compiled. | cpp, java | No |
+| -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
 | -o | If this parameter is set, the benchmark is compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
@@ -115,13 +115,13 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -t on
     ```
 
-- Release version of the Arm 64-bit architecture in incremental compilation mode, with the number of threads set:
+- Release version of the ARM 64-bit architecture in the incremental compilation mode, with the number of threads set:
 
     ```bash
     bash build.sh -I arm64 -i -j32
     ```
 
-- Release version of the Arm 64-bit architecture in incremental compilation mode, with the built-in GPU operator compiled:
+- Release version of the ARM 64-bit architecture in the incremental compilation mode, with the built-in GPU operator compiled:
 
     ```bash
     bash build.sh -I arm64 -e gpu
@@ -133,13 +133,13 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Compile MindSpore Lite AAR in incremental compilation mode:
+- Compile MindSpore Lite AAR in the incremental compilation mode:
 
   ```bash
   bash build.sh -A java -i
   ```
   
-  > Turn on incremental compilation mode. If the arm64 or arm32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
+  > Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
 
 - Release version of the x86_64 architecture, with the converter compiled:
 
@@ -153,7 +153,6 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -o on
     ```
 
-
 ### Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
@@ -163,7 +162,7 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
-> version: version of the output, consistent with that of the MindSpore.
+> version: Version of the output, consistent with that of the MindSpore.
 >
 > device: Currently divided into cpu (built-in CPU operator) and gpu (built-in CPU and GPU operator).
 >
