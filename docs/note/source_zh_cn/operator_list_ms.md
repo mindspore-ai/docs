@@ -28,7 +28,7 @@
 | [mindspore.nn.GELU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.GELU)                                                    |  Supported | Supported | Doing |layer/activation
 | [mindspore.nn.Sigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Sigmoid)                                              |  Supported |Supported | Supported |layer/activation
 | [mindspore.nn.PReLU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.PReLU)                                                  | Supported |Doing | Doing |layer/activation
-| [mindspore.nn.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Supported | Supported | Supported |layer/basic
+| [mindspore.nn.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Dropout)                                              |Supported | Supported | Doing |layer/basic
 | [mindspore.nn.Flatten](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Flatten)                                              |Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.Dense](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Dense)                                                  |Supported |  Supported | Supported |layer/basic
 | [mindspore.nn.ClipByNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.ClipByNorm)                                        |Supported | Supported | Doing |layer/basic
@@ -266,7 +266,7 @@
 | [mindspore.ops.Shape](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Shape)                                 |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.Squeeze](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Squeeze)                             |  Supported | Supported    | Doing | array_ops
 | [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Transpose)                         |    Supported | Supported    | Supported | array_ops
-| [mindspore.ops.GatherV2](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GatherV2)                           |    Supported | Supported    | Supported | array_ops
+| [mindspore.ops.GatherV2](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GatherV2)                           |    Supported | Supported    | Doing | array_ops
 | [mindspore.ops.Split](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Split)                                 |    Supported | Supported  | Doing | array_ops
 | [mindspore.ops.Rank](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Rank)                                   |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.TruncatedNormal](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.TruncatedNormal)             |  Doing | Supported  | Supported | array_ops
