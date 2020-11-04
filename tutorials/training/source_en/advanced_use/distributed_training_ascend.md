@@ -289,14 +289,15 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 `context.set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of networks. The related parameters are as follows:
 
-- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
+- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`. The option mode ` AUTO_PARALLEL` can use the parameter `auto_parallel_search_mode` to select a search algorithm for its strategy generation.
+- `auto_parallel_search_mode`: strategy search algorithm. The default value is `dynamic_programming`. The other option is `recursive_programming` for much faster strategy generation.
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
 
 > You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
 If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
-In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL`.
+In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_model`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel. To switch to the dynamic programming strategy search algorithm, you only need to change `auto_parallel_search_model` to `dynamic_programming`.
 
 ```python
 from mindspore import context
@@ -311,7 +312,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_model="recursive_programming")
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32

@@ -48,7 +48,7 @@ MindSpore提供了分布式并行训练的功能，它支持了包括数据并�
 MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管理，用户可根据自身需求和实际情况来进行个性化的配置。这些配置可分为四大类：
 
 - 通用配置：对数据并行和自动并行均起作用的配置，如：`device_num`、`global_rank`。
-- 自动并行配置：仅在自动并行模式下起作用的配置，如：`gradient_fp32_sync`。
+- 自动并行配置：仅在自动并行模式下起作用的配置，如：`auto_parallel_search_mode`、`gradient_fp32_sync`。
 - 数据并行配置：仅在数据并行模式下起作用的配置，如：`enable_parallel_optimizer`。
 - 混合并行配置：仅在混合并行模式下起作用的配置，如：`layerwise_parallel`。
 
@@ -152,14 +152,14 @@ context.get_auto_parallel_context("gradient_fp32_sync")
 
 #### auto_parallel_search_mode
 
-MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策略的算法。`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能较快搜索出并行策略，但搜索出来的策略可能不是运行性能最优的。为此，MindSpore提供了参数，让用户自由选择搜索算法，默认是`dynamic_programming`。
+MindSpore提供了`dynamic_programming`和`recursive_programming`两种搜索策略的算法，默认是`dynamic_programming`。`dynamic_programming`能够搜索出代价模型刻画的最优策略，但在搜索巨大网络模型的并行策略时耗时较长；而`recursive_programming`能瞬间搜索出并行策略，同时在已验证的常用网络中搜索出来的策略是最优策略，但在未经验证的某些特殊网络中可能找到次优策略。为此，MindSpore提供了参数，让用户自由选择搜索算法。
 
 代码样例如下：
 
 ```python
 from mindspore import context
 
-context.set_auto_parallel_context(auto_parallel_search_mode="dynamic_programming")
+context.set_auto_parallel_context(auto_parallel_search_mode="recursive_programming")
 context.get_auto_parallel_context("auto_parallel_search_mode")
 ```
 

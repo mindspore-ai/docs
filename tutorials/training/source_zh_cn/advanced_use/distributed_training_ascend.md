@@ -291,14 +291,15 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 `context.set_auto_parallel_context`是配置并行训练参数的接口，必须在初始化网络之前调用。常用参数包括：
 
-- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。
+- `parallel_mode`：分布式并行模式，默认为单机模式`ParallelMode.STAND_ALONE`。可选数据并行`ParallelMode.DATA_PARALLEL`及自动并行`ParallelMode.AUTO_PARALLEL`。其中自动并行可以通过`auto_parallel_search_mode`选择策略搜索算法。
+- `auto_parallel_search_mode`：策略搜索算法。默认为动态规划算法`dynamic_programming`。可选寻优速度更快的双递归算法`recursive_programming`。
 - `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 
 > `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
 
-在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式，只需将`parallel_mode`改为`DATA_PARALLEL`。
+在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`，且无需配置策略搜索算法`auto_parallel_search_model`；样例中指定自动并行策略搜索算法为双递归，用户如需切换为动态规划搜索算法只需将`auto_parallel_search_model`改为`dynamic_programming`。
 
 ```python
 from mindspore import context
@@ -313,7 +314,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_model="recursive_programming")
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
