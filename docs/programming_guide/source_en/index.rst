@@ -13,5 +13,6 @@ MindSpore Programming Guide
    data_type
    compute_component
    data_pipeline
+   execution_management
    network_list
    operator_list
