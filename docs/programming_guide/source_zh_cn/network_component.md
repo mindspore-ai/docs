@@ -21,7 +21,7 @@ MindSpore封装了一些常用的网络组件，用于网络的训练、推理�
 这些网络组件可以直接被用户使用，同样也会在`model.train`和`model.eval`等更高级的封装接口内部进行使用。
 
 本节内容将会介绍三个网络组件，分别是`GradOperation`、`WithLossCell`和`TrainOneStepCell`，将会从功能、用户使用和内部使用三个方面来进行介绍。
-  
+
 ## GradOperation
 
 GradOperation组件用于生成输入函数的梯度，利用`get_all`、`get_by_list`和`sens_param`参数控制梯度的计算方式，细节内容详见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)。
@@ -82,7 +82,6 @@ MindSpore涉及梯度计算的其他组件，例如`WithGradCell`和`TrainOneSte
 
 ```python
 import numpy as np
-import pytest
 
 import mindspore.context as context
 import mindspore.nn as nn
