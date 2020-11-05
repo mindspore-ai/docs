@@ -9,6 +9,7 @@
     - [准备工作](#准备工作)
     - [配置混合执行](#配置混合执行)
     - [训练模型](#训练模型)
+    - [参考文献](#参考文献)
 
 <!-- /TOC -->
 
@@ -24,7 +25,7 @@
 
 1. 准备模型代码。Wide&Deep的代码可参见：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>，其中，`train_and_eval_auto_parallel.py`为训练的主函数所在，`src/`目录中包含Wide&Deep模型的定义、数据处理和配置信息等，`script/`目录中包含不同配置下的训练脚本。
 
-2. 准备数据集。数据集下载链接：<https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>。利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
+2. 准备数据集。请参考[1]中的链接下载数据集，并利用脚本`src/preprocess_data.py`将数据集转换为MindRecord格式。
 
 3. 配置处理器信息。在裸机环境（即本地有Ascend 910 AI 处理器）进行分布式训练时，需要配置加速器信息文件。此样例只使用一个加速器，故只需配置包含0号卡的`rank_table_1p_0.json`文件（每台机器的具体的IP信息不同，需要查看网络配置来设定，此为示例），如下所示：
 
@@ -102,3 +103,8 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 ```
 
 表示两个优化器在主机端的执行时间。
+
+
+## 参考文献
+
+[1] Huifeng Guo, Ruiming Tang, Yunming Ye, Zhenguo Li, Xiuqiang He. [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction.](https://doi.org/10.24963/ijcai.2017/239) IJCAI 2017.
