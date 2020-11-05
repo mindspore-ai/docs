@@ -1,6 +1,6 @@
 # Using Debugger
 
-`Linux` `Ascend` `GPU` `Graph Mode` `Debug Training` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -143,7 +143,7 @@ Figure 6: The Triggered `Watch Point List`
 
 Figure 6 displays the triggered `Watch Point List`, the displayed area is the same as the `Node List`.
 The triggered nodes and corresponding conditions are displayed in the execution order. Click one line in the list, the node will be shown in the computational graph automatically.
-Users can further trace the reason of the bug by analyzing the node details.  
+Users can further trace the reason of the bug by analyzing the node details.
 
 ### Training Control
 

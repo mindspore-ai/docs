@@ -1,6 +1,6 @@
 # 解释模型
 
-`Ascend` `GPU` `Linux` `初级` `中级` `高级` `可解释性` 
+`Linux` `Ascend` `GPU` `模型调优` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -17,11 +17,7 @@
 
 <!--/ TOC -->
 
-
-
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/model_explaination.md" target="_blank"><img src="../_static/logo_source.png"></a>
-
-
 
 ## 概述
 
@@ -43,7 +39,7 @@ MindSpore还提供```mindspore.explainer.ExplainRunner```运行模块，支持�
 
 下面以ResNet50及带有20类多标签数据为例，在原有脚本流程的基础上增加解释方法的初始化及调用代码，使用解释方法GradCAM对模型进行解释，并使用度量方法对解释方法进行评估。其样例代码如下：
 
-```
+```python
 import mindspore.nn as nn
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
@@ -52,18 +48,18 @@ from mindspore.explainer.benchmark import Faithfulness, Localization
 from mindspore.explainer import ExplainRunner
 
 num_classes = 20
-# please refer to model_zoo for the model architecture of resnet50 
-model = resnet50(num_classes) 
+# please refer to model_zoo for the model architecture of resnet50
+model = resnet50(num_classes)
 param_dict = load_checkpoint("resnet50.ckpt")
 load_param_into_net(model, param_dict)
 
 
-# combine the model architecture with its final activation layer, eg.Sigmoid() for multi-label models or Softmax() for single-label models 
+# combine the model architecture with its final activation layer, eg.Sigmoid() for multi-label models or Softmax() for single-label models
 model = nn.SequentialCell([model, nn.Sigmoid()])
 model.set_grad(False)
 model.set_train(False)
 
-# initialize explainers with the loaded black-box model 
+# initialize explainers with the loaded black-box model
 gradcam = GradCAM(model, layer='0.layer4')
 guidedbackprop = GuidedBackprop(model)
 
@@ -72,17 +68,17 @@ guidedbackprop = GuidedBackprop(model)
 faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC')
 localization = Localization(num_labels=num_classes, metric='PointingGame')
 
-# returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box						
+# returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box
 # the columns of the dataset should be in [image], [image, labels], or [image, labels, bbox] (order matters).
 # You may refer to 'mindspore.dataset.project' for columns managements.
 dataset_path = "/dataset_dir"
 dataset = get_dataset(dataset_path)
 
-# specify the class names of the dataset  
+# specify the class names of the dataset
 classes = [
-	'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
-	'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
-	'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
+ 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
+ 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
+ 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
 ]
 
 dataset_with_classes = (dataset, classes)
@@ -92,12 +88,11 @@ benchmarkers = [faithfulness, localization]
 # initialize runner with specified summary_dir
 runner = ExplainRunner(summary_dir='./summary_dir')
 
-# execute runner.run to generate explanation and evaluation results to save it to summary_dir 
+# execute runner.run to generate explanation and evaluation results to save it to summary_dir
 runner.run(dataset_with_classes, explainers, benchmarkers)
 ```
 
 >- 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
-
 >- 仅支持PyNative运行模式。
 
 ### **启动MindInsight**
@@ -115,13 +110,15 @@ runner.run(dataset_with_classes, explainers, benchmarkers)
 ![xai_saliency_map](./images/xai_saliency_map.png)
 
 进入显著图可视化界面，会展示：
--   用户通过Dataset的Python API接口设置的目标数据集。
--   真实标签、预测标签，以及模型对对应标签的预测概率。根据具体情况，系统会在对应标签的左上角增加TP，TN，FP，FN（含义见界面提示信息）的旗标。
--   选中的解释方法给出的显著图。
+
+- 用户通过Dataset的Python API接口设置的目标数据集。
+- 真实标签、预测标签，以及模型对对应标签的预测概率。根据具体情况，系统会在对应标签的左上角增加TP，TN，FP，FN（含义见界面提示信息）的旗标。
+- 选中的解释方法给出的显著图。
 
 界面操作：
-1.  通过界面上方的解释方法勾选需要的解释方法。
-2.  通过切换界面右上方的“叠加于原图”按钮可以选择让显著图叠加于原图上显示。
+
+1. 通过界面上方的解释方法勾选需要的解释方法。
+2. 通过切换界面右上方的“叠加于原图”按钮可以选择让显著图叠加于原图上显示。
 3. 点击不同标签，显示模型对不同标签的显著图分析结果。对于不同的分类结果，通常模型的关注点也是不同的。
 4. 通过界面上方的标签筛选功能，筛选出指定标签图片。
 5. 通过界面右上角的图片排序改变图片显示的顺序。

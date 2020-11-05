@@ -2,7 +2,7 @@
 
 Author: [Yi Yang](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;Editor: [Mingfu Lv](https://gitee.com/lvmingfu)
 
-`Linux` `Windows` `Ascend` `CPU` `GPU` `Whole Process` `Beginner` `Intermediate` `Expert`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

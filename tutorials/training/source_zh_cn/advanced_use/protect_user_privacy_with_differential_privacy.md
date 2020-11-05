@@ -1,6 +1,6 @@
 # 应用差分隐私机制保护用户隐私
 
-`Linux` `Ascend` `模型开发` `模型调优` `企业` `高级`
+`Linux` `Ascend` `模型训练` `模型调优` `企业` `高级`
 
 <!-- TOC -->
 
@@ -307,7 +307,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 
 3. 模型训练与测试。
 
-   ```python  
+   ```python
     LOGGER.info(TAG, "============== Starting Training ==============")
     model.train(cfg['epoch_size'], ds_train,
                 callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
