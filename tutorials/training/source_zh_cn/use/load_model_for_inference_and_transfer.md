@@ -58,7 +58,7 @@ resnet = ResNet50()
 opt = Momentum()
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
-# load the parameter into operator
+# load the parameter into optimizer
 load_param_into_net(opt, param_dict)
 loss = SoftmaxCrossEntropyWithLogits()
 model = Model(resnet, loss, opt)
@@ -117,7 +117,7 @@ model.train(epoch, dataset)
    ```python
    import mindspore
    from mindspore import nn, context, Tensor
-   from mindpsore.train.serialization import save_checkpoint
+   from mindspore.train.serialization import save_checkpoint
    from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
    import mindspore.ops as ops
    from mindspore.nn import Momentum
