@@ -9,6 +9,7 @@
     - [Preliminaries](#preliminaries)
     - [Configuring for Hybrid Training](#configuring-for-hybrid-training)
     - [Training the Model](#training-the-model)
+    - [Reference](#reference)
 
 <!-- /TOC -->
 
@@ -28,7 +29,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training,
 `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
 
-2. Prepare the dataset. The dataset can be found at: <https://s3-eu-west-1.amazonaws.com/kaggle-display-advertising-challenge-dataset/dac.tar.gz>. Use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
+2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
 3. Configure the device information. When performing training in the bare-metal environment, the network information file needs to be configured. This example only employs one accelerator, thus `rank_table_1p_0.json` containing #0 accelerator is configured as follows (you need to check the server's IP first):
 
@@ -110,3 +111,8 @@ Search `FusedSparseFtrl` and `FusedSparseLazyAdam` in `test_deep0.log`, the foll
 ```
 
 The above shows the running time of two optimizers on the host.
+
+
+## Reference
+
+[1] Huifeng Guo, Ruiming Tang, Yunming Ye, Zhenguo Li, Xiuqiang He. [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction.](https://doi.org/10.24963/ijcai.2017/239) IJCAI 2017.
