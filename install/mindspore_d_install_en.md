@@ -29,7 +29,7 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 - Ascend 910 AI processor
 
-  > - Reserve at least 32 GB memory for each card.
+    > - Reserve at least 32 GB memory for each card.
 
 ### System Requirements and Software Dependencies
 
@@ -47,8 +47,8 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 1. Download the Conda installation package from the following path:
 
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
+    - [X86 Anaconda](https://www.anaconda.com/distribution/) or [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+    - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
 
 2. Create and activate the Python environment.
 
@@ -94,7 +94,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```bash
     bash build.sh -e ascend
     ```
-    >
+
     > - Before running the preceding command, ensure that the paths where the executable files `cmake` and `patch` store have been added to the environment variable PATH.
     > - Before running the preceding command, ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="path/to/openssl/install/directory"`.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
@@ -167,7 +167,7 @@ Using the following command if you need update MindSpore version.
 
 - Update Online
 
-    ```
+    ```bash
     pip install --upgrade mindspore_ascend
     ```
 
@@ -175,7 +175,7 @@ Using the following command if you need update MindSpore version.
 
     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
 
-    ```
+    ```bash
     pip install --upgrade build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 

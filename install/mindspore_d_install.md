@@ -29,7 +29,7 @@
 
 - Ascend 910 AI处理器
 
-  > - 需为每张卡预留至少32G内存。
+    > - 需为每张卡预留至少32G内存。
 
 ### 系统要求和软件依赖
 
@@ -47,8 +47,8 @@
 
 1. 针对不同的CPU架构，Conda安装包下载路径如下。
 
-   - [X86 Anaconda](https://www.anaconda.com/distribution/) 或 [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-   - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
+    - [X86 Anaconda](https://www.anaconda.com/distribution/) 或 [X86 Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+    - [ARM Anaconda](https://github.com/Archiconda/build-tools/releases/download/0.2.3/Archiconda3-0.2.3-Linux-aarch64.sh)
 
 2. 创建并激活Python环境。
 
@@ -94,7 +94,7 @@
     ```bash
     bash build.sh -e ascend
     ```
-    >
+
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
     > - 在执行上述命令前，需保证已经安装了[OpenSSL](https://github.com/openssl/openssl.git)，并设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
@@ -166,7 +166,7 @@
 
 - 直接在线升级
 
-    ```
+    ```bash
     pip install --upgrade mindspore_ascend
     ```
 
@@ -174,7 +174,7 @@
 
     在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
-    ```
+    ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
 
