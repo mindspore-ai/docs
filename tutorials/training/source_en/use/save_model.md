@@ -103,7 +103,8 @@ Currently we support the export of MINDIR models for inference based on graph mo
 the code is as follows:
 
 ```python
-from mindspore.train.serialization import export
+from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()
 # return a parameter dict for model
@@ -124,7 +125,8 @@ It is recommended to use '.mindir' as the suffix of MINDIR format files.
 When you have a CheckPoint file, if you want to do inference on Ascend AI processor, you need to generate AIR models based on the network and CheckPoint. AIR format file only supports Ascend AI processor. The code example of exporting this format file is as follows:
 
 ```python
-from mindspore.train.serialization import export
+from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()
 # return a parameter dict for model
@@ -149,7 +151,8 @@ It is recommended to use '.air' as the suffix of AIR format files.
 When you have a CheckPoint file, if you want to do inference on Ascend AI processor, GPU, or CPU, you need to generate ONNX models based on the network and CheckPoint. ONNX format file is a general model file, which can be applied to many kinds of hardware, such as Ascend AI processor, GPU, CPU, etc. The code example of exporting this format file is as follows:
 
 ```python
-from mindspore.train.serialization import export
+from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()
 # return a parameter dict for model
