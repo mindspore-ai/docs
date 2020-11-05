@@ -80,36 +80,37 @@ The following describes how to use the conversion command by using several commo
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
+
    In the preceding scenarios, the following information is displayed, indicating that the conversion is successful. In addition, the target file `model.ms` is obtained.
 
    ```text
    CONVERTER RESULT SUCCESS:0
    ```
 
-- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
 
 ### Parameter Description
 
 MindSpore Lite model conversion tool provides multiple parameters.
-You can enter `./converter_lite --help` to obtain help information in real time.
+You can enter `./converter_lite --help` to obtain the help information in real time.
 
 The following describes the parameters in detail.
 
 | Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
-| `--help` | No | Prints all help information. | - | - |
+| `--help` | No | Prints all the help information. | - | - |
 | `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, or ONNX | - |
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. (If the path does not exist, a directory will be automatically created.) The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quant type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
-| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant,now only support 8 bits. | 8 | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant.If size is bigger than this value,it will trigger weight quantization | (0, +∞) | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel num threshold of convolution filter when quantType is set as WeightQuant.If num is bigger than this,it will trigger weight quantization | (0, +∞) | 16 |
+| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
+| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now bitNum only supports 8 bits. | 8 | 8 |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | (0, +∞) | 0 |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the channel number is bigger than this, it will trigger weight quantization | (0, +∞) | 16 |
 | `--configFile=<CONFIGFILE>` | No | Profile path of calibration dataset when quantType is set as PostTraining. | - | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
-> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter
+> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter, and model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 
 ## Windows Environment Instructions
 
@@ -121,7 +122,7 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
 
 ### Parameter Description
 
-Reference description Linux environment model conversion tool [parameter description](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html#parameter-description).
+Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html#parameter-description).
 
 ### Example
 
@@ -135,13 +136,13 @@ set GLOG_v=1
 
 Several common examples are selected below to illustrate the use of conversion commands.
 
-- Take Caffe model LeNet as an example to execute the conversion command.
+- Take the Caffe model LeNet as an example to execute the conversion command.
 
    ```bash
    call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
    ```
 
-   In this example, because the Caffe model is used, two input files of model structure and model weight are required. Then plus fmk type and output path two parameters which are required, you can successfully execute.
+   In this example, because the Caffe model is used, two input files of model structure and model weight are required. Then with the fmk type and output path two parameters which are required, you can successfully execute.
 
    The result is shown as:
 
@@ -177,4 +178,4 @@ Several common examples are selected below to illustrate the use of conversion c
    CONVERTER RESULT SUCCESS:0
    ```
 
-- If fail to run the conversion command, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.

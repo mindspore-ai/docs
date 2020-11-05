@@ -52,7 +52,7 @@ The following describes the parameters in detail.
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
 | `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
-| `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value is a positive integer. | Integer | 10 | - |
+| `--loopCount=<LOOPCOUNT>` | Optional | Specifies the number of forward inference times of the tested model when the Benchmark tool is used for the benchmark testing. The value should be a positive integer. | Integer | 10 | - |
 | `--numThreads=<NUMTHREADS>` | Optional | Specifies the number of threads for running the model inference program. | Integer | 2 | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
@@ -65,7 +65,7 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 
 ### Performance Test
 
-The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But, you can set the parameter `timeProfiling` as true or false to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is false. For example:
+The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms
@@ -123,7 +123,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 
 ### Accuracy Test
 
-The accuracy test performed by the Benchmark tool is to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
+The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
@@ -140,7 +140,7 @@ Mean bias of all nodes: 0%
 =======================================================
 ```
 
-To set specified input shapes(such as 1,32,32,1), use command as follows:
+To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
