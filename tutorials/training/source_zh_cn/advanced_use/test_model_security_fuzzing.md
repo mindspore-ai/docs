@@ -1,6 +1,6 @@
 # 使用fuzz testing模块测试模型安全性
 
-`Linux` `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型评测` `企业` `高级`
 
 <!-- TOC -->
 

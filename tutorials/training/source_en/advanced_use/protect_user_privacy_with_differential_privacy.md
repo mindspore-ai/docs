@@ -1,6 +1,6 @@
 # Protecting User Privacy with Differential Privacy Mechanism
 
-`Linux` `Ascend` `Model Development` `Model Optimization` `Enterprise` `Expert`
+`Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
@@ -307,7 +307,7 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 
 3. Train and test the model.
 
-   ```python  
+   ```python
     LOGGER.info(TAG, "============== Starting Training ==============")
     model.train(cfg['epoch_size'], ds_train,
                 callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],

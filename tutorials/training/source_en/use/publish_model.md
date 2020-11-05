@@ -1,6 +1,6 @@
 # Publishing Models using MindSpore Hub
 
-`Linux` `Ascend` `GPU` `Model Publishing` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Model Publishing` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -57,8 +57,8 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
 
    ```shell
-   file-format: ckpt  
-   asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt  
+   file-format: ckpt
+   asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt
    asset-sha256: 114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7
    ```
 

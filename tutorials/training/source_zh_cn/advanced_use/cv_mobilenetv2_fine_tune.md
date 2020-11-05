@@ -1,6 +1,6 @@
 # 使用MobileNetV2网络实现微调（Fine Tune）
 
-`Windows` `Linux` `CPU` `Ascend` `GPU` `模型开发` `中级` `高级`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `模型开发` `中级` `高级`
 
 <!-- TOC -->
 
@@ -30,7 +30,7 @@
 
 ## 概述
 
-计算机视觉任务中，从头开始训练一个网络耗时巨大，需要大量计算能力。预训练模型选择的常见的OpenImage、ImageNet、VOC、COCO等公开大型数据集，规模达到几十万甚至超过上百万张。大部分任务数据规模较大，训练网络模型时，如果不使用预训练模型，从头开始训练网络，需要消耗大量的时间与计算能力，模型容易陷入局部极小值和过拟合。因此大部分任务都会选择预训练模型，在其上做微调（也称为Fine Tune）。  
+计算机视觉任务中，从头开始训练一个网络耗时巨大，需要大量计算能力。预训练模型选择的常见的OpenImage、ImageNet、VOC、COCO等公开大型数据集，规模达到几十万甚至超过上百万张。大部分任务数据规模较大，训练网络模型时，如果不使用预训练模型，从头开始训练网络，需要消耗大量的时间与计算能力，模型容易陷入局部极小值和过拟合。因此大部分任务都会选择预训练模型，在其上做微调（也称为Fine Tune）。
 
 MindSpore是一个多元化的机器学习框架。既可以在手机等端侧和PC等设备上运行，也可以在云上的服务器集群上运行。目前MobileNetV2支持在Windows、EulerOS和Ubuntu系统中使用单个CPU做微调，也可以使用单个或者多个Ascend AI处理器或GPU做微调，本教程将会介绍如何在不同系统与处理器下的MindSpore框架中做微调的训练与验证。
 
@@ -112,9 +112,9 @@ Windows操作系统中使用`\`，Linux操作系统中使用`/`分割路径地�
     ...
     ```
 
-### 下载代码  
+### 下载代码
 
-在Gitee中克隆[MindSpore开源项目仓库](https://gitee.com/mindspore/mindspore.git)，进入`./model_zoo/official/cv/mobilenetv2/`。  
+在Gitee中克隆[MindSpore开源项目仓库](https://gitee.com/mindspore/mindspore.git)，进入`./model_zoo/official/cv/mobilenetv2/`。
 
 ```bash
 git clone https://gitee.com/mindspore/mindspore.git
@@ -146,10 +146,10 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 使用脚本文件`run_train.sh`时，该文件会将运行`launch.py`并且将参数传入`launch.py`，`launch.py`根据分配的CPU、GPU或Ascend AI处理器数量，启动单个/多个进程运行`train.py`，每一个进程分配对应的一个处理器。
 
-### 准备预训练模型  
+### 准备预训练模型
 
 用户需要根据不同处理器种类[下载CPU/GPU预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt)或[下载Ascend预训练模型](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt)到以下目录：  
-`./pretrain_checkpoint/`  
+`./pretrain_checkpoint/`
 
 - CPU/GPU 处理器
 
@@ -173,7 +173,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ```bash
 └─ImageFolder
-    ├─train  
+    ├─train
     │   class1Folder
     │   class2Folder
     │   ......
@@ -238,7 +238,7 @@ python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ck
 
 ### 运行Shell脚本
 
-在Linux系统上时，可以选择运行Shell脚本文件`./scripts/run_train.sh`与`./scripts/run_eval.sh`。运行时需要在交互界面中同时传入参数。  
+在Linux系统上时，可以选择运行Shell脚本文件`./scripts/run_train.sh`与`./scripts/run_eval.sh`。运行时需要在交互界面中同时传入参数。
 
 ```bash
 # Windows doesn't support Shell
@@ -257,13 +257,13 @@ sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 - `[CKPT_PATH]`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重
 - `[FREEZE_LAYER]`：针对微调的模型做验证时，需要选择不冻结网络或者冻结backbone。
 
-## 加载微调训练  
+## 加载微调训练
 
 Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_mobilenetv2_fine_tune.html#id8)。
 
 Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
-### CPU加载训练  
+### CPU加载训练
 
 - 设置节点数量
 
@@ -285,7 +285,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
     sh run_train.sh CPU [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetV2_cpu_gpu.ckpt backbone
     ```
 
-### GPU加载训练  
+### GPU加载训练
 
 - 设置节点数量
 
@@ -314,7 +314,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
         sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
         ```
 
-### Ascend加载训练  
+### Ascend加载训练
 
 - 设置节点数量
 
@@ -343,7 +343,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
         sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
         ```
 
-### 微调训练结果  
+### 微调训练结果
 
 - 查看运行结果。
 

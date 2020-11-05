@@ -1,6 +1,6 @@
 # Improving Model Security with NAD Algorithm
 
-`Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 

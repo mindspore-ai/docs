@@ -1,6 +1,6 @@
 ﻿# Testing Model Security Using Fuzz Testing
 
-`Ascend` `GPU` `CPU` `Data Preparation` `Model Development` `Model Training` `Model Optimization` `Enterprise` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Evaluation` `Enterprise` `Expert`
 
 <!-- TOC -->
 
