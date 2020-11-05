@@ -38,7 +38,7 @@ MindSpore Lite训练后量化分为两类：
 权重量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --bitNum=BitNumValue --quantSize=QuantizationSizeThresholdValue --convWeightQuantChannelThreshold=ConvWeightQuantChannelThresholdValue
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=WeightQuant --bitNum=BitNumValue --quantWeightSize=ConvWeightQuantSizeThresholdValue --quantWeightChannel=ConvWeightQuantChannelThresholdValue
 ```
 
 下面对此命令的量化相关参数进行说明：
@@ -47,8 +47,8 @@ MindSpore Lite训练后量化分为两类：
 | -------- | ------- | -----       | -----    |----- | -----     |
 | `--quantType=<QUANTTYPE>`   | 必选 | 设置为WeightQuant，启用权重量化 | String | - | 必须设置为WeightQuant |
 | `--bitNum=<BITNUM>` | 可选 | 设定权重量化的比特数，目前仅支持8bit量化 | Integer | 8 | 8 |
-| `--quantSize=<QUANTSIZE>` | 可选 | 设定参与权重量化的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化；建议设置为500 | Integer | 0 | （0，+∞） |
-| `--convWeightQuantChannelThreshold=<CONVWEIGHTQUANTCHANNELTHRESHOLD>` | 可选 | 设定参与权重量化的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化；建议设置为16 | Integer | 16 | （0，+∞） |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 可选 | 设定参与权重量化的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化；建议设置为500 | Integer | 0 | （0，+∞） |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 可选 | 设定参与权重量化的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化；建议设置为16 | Integer | 16 | （0，+∞） |
 
 用户可根据模型及自身需要对权重量化的参数作出调整。
 
@@ -58,7 +58,7 @@ MindSpore Lite训练后量化分为两类：
 2. 以TensorFlow Lite模型为例，执行权重量化模型转换命令:
 
     ```bash
-    ./converter_lite --fmk=TFLITE --modelFile=Inception_v3.tflite --outputFile=Inception_v3.tflite --quantType=WeightQuant --bitNum=8 --quantSize=0 --convWeightQuantChannelThreshold=0
+    ./converter_lite --fmk=TFLITE --modelFile=Inception_v3.tflite --outputFile=Inception_v3.tflite --quantType=WeightQuant --bitNum=8 --quantWeightSize=0 --quantWeightChannel=0
     ```
 
 3. 上述命令执行成功后，便可得到量化后的模型`Inception_v3.tflite.ms`，量化后的模型大小通常会下降到FP32模型的1/4。
@@ -98,7 +98,7 @@ MindSpore Lite训练后量化分为两类：
 | -------- | ------- | -----          | -----    | -----     |  ----- |
 | image_path  | 必选 | 存放校准数据集的目录；如果模型有多个输入，请依次填写对应的数据所在目录，目录路径间请用`,`隔开 |      String                |   -   | 该目录存放可直接用于执行推理的输入数据。由于目前框架还不支持数据预处理，所有数据必须事先完成所需的转换，使得它们满足推理的输入要求。 |
 | batch_count | 可选 | 使用的输入数目       | Integer  |  100  | （0，+∞） |
-| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  KL  | KL，MAX_MIN。 <br> KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br> MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br> 在模型以及数据集比较较简单的情况下，推荐使用MAX_MIN。      |
+| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  MAX_MIN  | KL，MAX_MIN。 <br> KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br> MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br> 在模型以及数据集比较较简单的情况下，推荐使用MAX_MIN。      |
 | thread_num | 可选 | 使用校准数据集执行推理流程时的线程数 | Integer  |  1  |  （0，+∞）   |
 
 > 对于多输入模型，要求不同输入数据分别存放在各自不同的目录，同时各自目录中的所有文件的文件名按照字典序递增排序后，能够一一对应。例如：模型有两个输入input0、input1，校准数据集共2组（batch_count=2）；input0的对应数据存放在/dir/input0/目录，输入数据文件名为：data_1.bin、data_2.bin；input1的对应数据存放在/dir/input1/目录，输入数据文件名为：data_a.bin、data_b.bin，则认为(data_1.bin, data_a.bin)构成一组输入，（data_2.bin, data_b.bin）构成另一组输入。
