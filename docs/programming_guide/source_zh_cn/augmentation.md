@@ -17,6 +17,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/augmentation.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -50,7 +52,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 
 对输入图像进行在随机位置的裁剪。
 
-**参数说明：**
+**参数说明:**
 
 - `size`：裁剪图像的尺寸。
 - `padding`：填充的像素数量。
@@ -62,7 +64,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 
 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
 
-```
+```text
 └─cifar-10-batches-bin
     ├── batches.meta.txt
     ├── data_batch_1.bin
@@ -136,7 +138,7 @@ Cropped image Shape: (10, 10, 3) , Cropped label: 9
 
 对输入图像进行随机水平翻转。
 
-**参数说明：**
+**参数说明:**
 
 - `prob`: 单张图片发生翻转的概率。
 
@@ -209,7 +211,7 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 
 对输入图像进行缩放。
 
-**参数说明：**
+**参数说明:**
 
 - `self`：缩放的目标大小。
 - `interpolation`：缩放时采用的插值方式。
@@ -218,7 +220,7 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 
 下载MNIST数据集的训练[图像](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz)和[标签](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz)并解压，存放在`./MNIST`路径中，目录结构如下。
 
-```
+```text
 └─MNIST
     ├─train-images.idx3-ubyte
     └─train-labels.idx1-ubyte
@@ -421,7 +423,7 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 7
 
 混用会引发C++与Python切换的成本，建议不要过度混用两个模块的算子，但是适量混用是可以接受的。
 
-**推荐的使用方式：**
+**推荐的使用方式:**
 
 - 单独使用`py_transform`或`c_transform`
 
@@ -435,7 +437,7 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 7
 
     ![tranform_c_py](./images/tranform_good_3.png)
 
-**不推荐的使用方式：**
+**不推荐的使用方式:**
 
 - 在两种transform之间频繁切换
 

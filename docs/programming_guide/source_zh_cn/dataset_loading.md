@@ -60,7 +60,7 @@ MindSpore也同样支持使用`GeneratorDataset`自定义数据集的加载方�
 
 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
 
-```
+```text
 └─cifar-10-batches-bin
     ├── batches.meta.txt
     ├── data_batch_1.bin
@@ -102,7 +102,7 @@ Image shape: (32, 32, 3) , Label: 1
 
 VOC数据集有多个版本，此处以VOC2012为例。下载[VOC2012数据集](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar)并解压，目录结构如下。
 
-```
+```text
 └─ VOCtrainval_11-May-2012
     └── VOCdevkit
         └── VOC2012
@@ -152,7 +152,7 @@ bbox shape: (2, 4)
 
 COCO数据集有多个版本，此处以COCO2017的验证数据集为例。下载COCO2017的[验证集](http://images.cocodataset.org/zips/val2017.zip)、[检测任务标注](http://images.cocodataset.org/annotations/annotations_trainval2017.zip)和[全景分割任务标注](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip)并解压，只取其中的验证集部分，按以下目录结构存放。
 
-```
+```text
 └─ COCO
     ├── val2017
     └── annotations

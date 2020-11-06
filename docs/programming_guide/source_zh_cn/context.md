@@ -17,6 +17,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/context.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -126,7 +128,6 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, grad
 from mindspore import context
 context.set_context(enable_profiling=True, profiling_options="training_trace")
 ```
-
 
 ### 保存MindIR
 

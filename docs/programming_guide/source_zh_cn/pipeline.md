@@ -15,6 +15,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/pipeline.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -209,10 +211,9 @@ for data in dataset1.create_dict_iterator():
 
 将两个数据集进行列拼接，合并为一个数据集。
 
->如果两个数据集的列名相同，则不会合并，请注意列的命名。<br>
-  如果两个数据集的行数不同，合并后的行数将和较小行数保持一致。
+> 如果两个数据集的列名相同，则不会合并，请注意列的命名。<br>如果两个数据集的行数不同，合并后的行数将和较小行数保持一致。
 
-  ![zip](./images/zip.png)
+![zip](./images/zip.png)
 
 下面的样例先构建了两个不同样本数的随机数据集，然后将其进行列拼接，最后展示了拼接后的数据结果。
 

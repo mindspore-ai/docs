@@ -16,7 +16,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/sampler.ipynb" target="_blank"><img src="./_static/sampler.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/sampler.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -37,7 +37,7 @@ MindSpore目前提供的采样器类别如下表所示。此外，用户也可�
 
 下面以CIFAR-10数据集为例，介绍几种常用MindSpore采样器的使用方法。下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
 
-```
+```text
 └─cifar-10-batches-bin
     ├── batches.meta.txt
     ├── data_batch_1.bin
