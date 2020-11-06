@@ -1,23 +1,23 @@
-﻿# Dataset Loading
+# Loading Dataset
 
 <!-- TOC -->
 
-- [Dataset Loading](#dataset-loading)
+- [Loading Dataset](#loading-dataset)
     - [Overview](#overview)
-    - [Common Dataset Loading](#common-dataset-loading)
-        - [CIFAR-10 and CIFAR-100 Datasets](#cifar-10-and-cifar-100-datasets)
+    - [Loading Common Dataset](#loading-common-dataset)
+        - [CIFAR-10/100 Dataset](#cifar-10100-dataset)
         - [VOC Dataset](#voc-dataset)
         - [COCO Dataset](#coco-dataset)
-    - [Loading Datasets in Specific Formats](#loading-datasets-in-specific-formats)
+    - [Loading Dataset in Specific Format](#loading-dataset-in-specific-format)
         - [MindRecord](#mindrecord)
         - [Manifest](#manifest)
         - [TFRecord](#tfrecord)
         - [NumPy](#numpy)
         - [CSV](#csv)
-    - [Loading a User-defined Dataset](#loading-a-user-defined-dataset)
-        - [Constructing a Dataset Generator Function](#constructing-a-dataset-generator-function)
-        - [Constructing an Iterable Dataset Class](#constructing-an-iterable-dataset-class)
-        - [Constructing a Dataset Class that Can Be Randomly Accessed](#constructing-a-dataset-class-that-can-be-randomly-accessed)
+    - [Loading User-defined Dataset](#loading-user-defined-dataset)
+        - [Constructing Dataset Generator Function](#constructing-dataset-generator-function)
+        - [Constructing Iterable Dataset Class](#constructing-iterable-dataset-class)
+        - [Constructing Random Accessible Dataset Class](#constructing-random-accessible-dataset-class)
 
 <!-- /TOC -->
 
@@ -25,7 +25,7 @@
 
 ## Overview
 
-MindSpore can load common image datasets. You can directly use the corresponding class in `mindspore.dataset` to load datasets. The following table lists the supported common dataset classes and datasets.
+MindSpore can load common image datasets. You can directly use the classes in `mindspore.dataset` to load datasets. The following table lists the supported common datasets and corresponding classes.
 
 | Image Dataset | Dataset Class | Description |
 |  ----                    | ----  | ----           |
@@ -37,7 +37,7 @@ MindSpore can load common image datasets. You can directly use the corresponding
 | COCO | CocoDataset | COCO is a large dataset for object detection, image segmentation, and pose estimation. |
 | CLUE | CLUEDataset | CLUE is a large Chinese semantic comprehension dataset. |
 
-MindSpore also can load datasets in different data storage formats. You can directly use the corresponding class in `mindspore.dataset` to load data files in the disk. The following table lists the supported data formats and loading modes.
+MindSpore can also load datasets in different data storage formats. You can directly use the corresponding classes in `mindspore.dataset` to load data files in the disk. The following table lists the supported data formats and corresponding classes.
 
 | Data Format | Dataset Class | Description |
 |  ----                    | ----  | ----           |
@@ -48,28 +48,28 @@ The | NumPy | NumpySlicesDataset | NumPy data source refers to the NumPy array d
 | Text File | TextFileDataset | Text File refers to common data in text format. |
 | CSV File | CSVDataset | CSV refers to comma-separated values. Files in this format store tabular data in plain text. |
 
-MindSpore also can load datasets constructed using `GeneratorDataset`. You can implement your own dataset classes as required.
+MindSpore also supports user-defined dataset loading using `GeneratorDataset`. You can implement your own dataset classes as required.
 
-For details about the dataset loading API, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+> For details about the dataset loading API, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
-## Common Dataset Loading
+## Loading Common Dataset
 
 The following describes how to load common datasets.
 
-### CIFAR-10 and CIFAR-100 Datasets
+### CIFAR-10/100 Dataset
 
-Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and unzip it, the directory structure is as follows:
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it, the directory structure is as follows:
 
 ```text
 └─cifar-10-batches-bin
-    ├── batches.meta.txt
-    ├── data_batch_1.bin
-    ├── data_batch_2.bin
-    ├── data_batch_3.bin
-    ├── data_batch_4.bin
-    ├── data_batch_5.bin
-    ├── readme.html
-    └── test_batch.bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    ├── data_batch_5.bin
+    ├── readme.html
+    └── test_batch.bin
 ```
 
 The following example uses the `Cifar10Dataset` API to load the CIFAR-10 dataset, uses the sequential sampler to obtain five samples, and displays the shape and label of the corresponding image.
@@ -100,7 +100,7 @@ Image shape: (32, 32, 3) , Label: 1
 
 ### VOC Dataset
 
-There are multiple versions of the VOC dataset, here is VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and unzip it, The directory structure is as follows:
+There are multiple versions of the VOC dataset, here uses VOC2012 as an example. Download [VOC2012 dataset](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar) and decompress it. The directory structure is as follows:
 
 ```text
 └─ VOCtrainval_11-May-2012
@@ -113,7 +113,7 @@ There are multiple versions of the VOC dataset, here is VOC2012 as an example. D
             └── SegmentationObject
 ```
 
-The following example uses the `VOCDataset` API to load the VOC2012 dataset to display the original image shape and target image shape when segmentation and detection tasks are specified.
+The following example uses the `VOCDataset` API to load the VOC2012 dataset, displays the original image shape and target image shape when segmentation and detection tasks are specified.
 
 ```python
 import mindspore.dataset as ds
@@ -150,7 +150,7 @@ bbox shape: (2, 4)
 
 ### COCO Dataset
 
-There are multiple versions of the COCO dataset. Here, the verification dataset of COCO2017 is taken as an example.Download COCO2017 [verification dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panorama segmentation task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and unzip them, take only the part of the verification dataset and store it in the following directory structure:
+There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them, take only the part of the validation dataset and store it as the following directory structure:
 
 ```text
 └─ COCO
@@ -197,7 +197,7 @@ Keypoint: dict_keys(['image', 'keypoints', 'num_keypoints'])
 Panoptic: dict_keys(['image', 'bbox', 'category_id', 'iscrowd', 'area'])
 ```
 
-## Loading Datasets in Specific Formats
+## Loading Dataset in Specific Format
 
 The following describes how to load dataset files in specific formats.
 
@@ -207,7 +207,7 @@ MindRecord is a data format defined by MindSpore. Using MindRecord can improve p
 
 > For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html).
 
-The following example uses the `MindDataset` API to load a MindRecord file, and displays labels of the loaded data.
+The following example uses the `MindDataset` API to load MindRecord files, and displays labels of the loaded data.
 
 ```python
 import mindspore.dataset as ds
@@ -239,7 +239,7 @@ for data in manifest_dataset.create_dict_iterator():
 
 TFRecord is a binary data file format defined by TensorFlow.
 
-The following example uses the `TFRecordDataset` API to load a TFRecord file and introduces two methods for setting the format of datasets.
+The following example uses the `TFRecordDataset` API to load TFRecord files and introduces two methods for setting the format of datasets.
 
 1. Specify the dataset path or TFRecord file list to create a `TFRecordDataset` object.
 
@@ -256,7 +256,7 @@ The following example uses the `TFRecordDataset` API to load a TFRecord file and
 
         Write the dataset format and features to the schema file in JSON format. The following is an example:
 
-        ```text
+        ```json
         {
          "columns": {
              "image": {
@@ -286,7 +286,7 @@ The following example uses the `TFRecordDataset` API to load a TFRecord file and
 
     - Create a schema object.
 
-        Create a schema object, add user-defined fields to the schema object, and import the fields when creating a dataset object.
+        Create a schema object, add user-defined fields to the schema object, and pass the schema object when creating a dataset object.
 
         ```python
         import mindspore.common.dtype as mstype
@@ -371,7 +371,7 @@ The following examples describe how to use `NumpySlicesDataset` to load array, l
 
 ### CSV
 
-The following example uses `CSVDataset` to load the CSV dataset file, and displays labels of the loaded data.
+The following example uses `CSVDataset` to load CSV dataset files, and displays labels of the loaded data.
 
 The method of loading a text dataset file is similar to that of loading a CSV file.
 
@@ -385,13 +385,13 @@ for data in csv_dataset.create_dict_iterator(output_numpy=True):
     print(data["1"])
 ```
 
-## Loading a User-defined Dataset
+## Loading User-defined Dataset
 
-For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in customized mode or convert them into the MindRecord data format. Currently, user-defined datasets can be loaded in the following modes:
+For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in customized method or convert them into the MindRecord data format. Currently, user-defined datasets can be loaded in the following methods:
 
-### Constructing a Dataset Generator Function
+### Constructing Dataset Generator Function
 
-Construct a generator function that defines the data return mode, and then use this function to construct the user-defined dataset object.
+Construct a generator function that defines the data return method, and then use this function to construct the user-defined dataset object.
 
 ```python
 import numpy as np
@@ -421,9 +421,9 @@ The output is as follows:
 [0.81585667 0.96883469] [0.77994068]
 ```
 
-### Constructing an Iterable Dataset Class
+### Constructing Iterable Dataset Class
 
-Construct a dataset class to implement the `__iter__` and `__next__` methods, and then use the objects of this class to construct the user-defined dataset object.
+Construct a dataset class to implement the `__iter__` and `__next__` methods, and then use the object of this class to construct the user-defined dataset object.
 
 ```python
 import numpy as np
@@ -467,9 +467,9 @@ The output is as follows:
 [0.81585667 0.96883469] [0.77994068]
 ```
 
-### Constructing a Dataset Class that Can Be Randomly Accessed
+### Constructing Random Accessible Dataset Class
 
-Construct a dataset class to implement the `__getitem__` method, and then use the objects of this class to construct a user-defined dataset object.
+Construct a dataset class to implement the `__getitem__` method, and then use the object of this class to construct a user-defined dataset object.
 
 ```python
 import numpy as np
@@ -504,7 +504,7 @@ The output is as follows:
 [0.81585667 0.96883469] [0.77994068]
 ```
 
-If you want to use distributed training, you need to implement the `__iter__` method in the sampler class based on this mode. The index of the sampled data is returned each time.
+If you want to use distributed training, you need to implement the `__iter__` method in the sampler class additionally. The index of the sampled data is returned each time.
 
 ```python
 import math

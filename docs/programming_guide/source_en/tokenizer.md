@@ -20,7 +20,7 @@
 
 Tokenization is a process of re-combining continuous character sequences into word sequences according to certain specifications. Reasonable tokenization is helpful for semantic comprehension.
 
-MindSpore provides a tokenizer for multiple purposes to help you process text with high performance. You can build their own dictionaries, use appropriate tokenizers to split sentences into different tokens, and search for indexes of the tokens in the dictionaries.
+MindSpore provides a tokenizer for multiple purposes to help you process text with high performance. You can build your own dictionaries, use appropriate tokenizers to split sentences into different tokens, and search for indexes of the tokens in the dictionaries.
 
 MindSpore provides the following tokenizers. In addition, you can customize tokenizers as required.
 
@@ -142,7 +142,7 @@ The output is as follows:
 
 `SentencePieceTokenizer` performs tokenization based on an open-source natural language processing tool package [SentencePiece](https://github.com/google/sentencepiece).
 
-The following example builds a text dataset, creates a `vocab` object from the `VOCAB_FILE` file, uses `SentencePieceTokenizer` to perform tokenization on the dataset, and displays the text results before and after tokenization.
+The following example builds a text dataset, creates a `vocab` object from the `vocab_file` file, uses `SentencePieceTokenizer` to perform tokenization on the dataset, and displays the text results before and after tokenization.
 
 ```python
 import mindspore.dataset as ds

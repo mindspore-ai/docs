@@ -1,8 +1,8 @@
-﻿# Data Processing
+# Processing Data
 
 <!-- TOC -->
 
-- [Data Processing](#data-processing)
+- [Processing Data](#processing-data)
     - [Overview](#overview)
     - [Data Processing Operators](#data-processing-operators)
         - [shuffle](#shuffle)
@@ -30,8 +30,8 @@ The following table lists the common data processing operators supported by Mind
 | map | Provides customized functions or operators for specified column data in a dataset. |
 | batch | Divides datasets into batches to reduce the number of training steps and accelerate the training process. |
 | repeat | Repeats a dataset to expand the data volume. |
-| zip | Zips two datasets into one. |
-| concat | Concatenates two datasets into one. |
+| zip | Zips two datasets into one vertically. |
+| concat | Concatenates two datasets into one horizontally. |
 | project | Maps the columns of a dataset. Reserves the specified columns in sequence and discards other columns. |
 
 ## Data Processing Operators
@@ -207,11 +207,9 @@ The output is as follows:
 
 ### zip
 
-Zips two datasets into one.
+Zips two datasets into one vertically.
 
-> If the column names in the two datasets are the same, the two datasets will not be zipped. Therefore, ensure that the column name is unique.
-
-If the number of rows in the two datasets is different, the number of rows after zipping is the same as the smaller number of rows.
+> If the column names in the two datasets are the same, the two datasets will not be zipped. Therefore, ensure that the column name is unique.<br>If the number of rows in the two datasets is different, the number of rows after zipping is the same as the smaller number of rows.
 
   ![zip](./images/zip.png)
 
@@ -249,7 +247,7 @@ The output is as follows:
 
 ### concat
 
-Concatenates two datasets into one.
+Concatenates two datasets into one horizontally.
 
 > Enter the column name in the dataset. The column data type and column data sequence must be the same.
 
