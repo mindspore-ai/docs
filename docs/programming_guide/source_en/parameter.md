@@ -18,9 +18,11 @@
 `Parameter` is a variable tensor, indicating the parameters that need to be updated during network training. The following describes the `Parameter` initialization, attributes, methods, and `ParameterTuple`.
 
 ## Initialization
+
 ```python
 mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
 ```
+
 Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types.
 
 The `initializer` API can be called to generate the `Initializer` object.
@@ -38,6 +40,7 @@ When `layerwise_parallel` is set to True, this parameter will be filtered out du
 For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html>.
 
 In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
+
 ```python
 import numpy as np
 from mindspore import Tensor, Parameter
@@ -54,9 +57,9 @@ print(x, "\n\n", y, "\n\n", z)
 The following information is displayed:
 
 ```text
-Parameter (name=x) 
+Parameter (name=x)
 
-Parameter (name=y) 
+Parameter (name=y)
 
 Parameter (name=z)
 ```
@@ -108,7 +111,7 @@ inited_param:  None
 requires_grad:  True
 layerwise_parallel:  False
 
-data:  Parameter (name=x) 
+data:  Parameter (name=x)
 ```
 
 ## Methods
@@ -149,6 +152,7 @@ Parameter (name=x)
 ```
 
 ## ParameterTuple
+
 Inherited from `tuple`, `ParameterTuple` is used to store multiple `Parameter` objects. `__new__(cls, iterable)` is used to transfer an iterator for storing `Parameter` for building, and the `clone` API is provided for cloning.
 
 The following example builds a `ParameterTuple` object and clones it.  
@@ -171,7 +175,7 @@ print(params_copy)
 The following information is displayed:
 
 ```text
-(Parameter (name=x), Parameter (name=y), Parameter (name=z)) 
+(Parameter (name=x), Parameter (name=y), Parameter (name=z))
 
 (Parameter (name=params_copy.x), Parameter (name=params_copy.y), Parameter (name=params_copy.z))
 ```

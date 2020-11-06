@@ -24,6 +24,7 @@
 > All the following examples support the CPU, GPU, and Ascend environments.
 
 ## Learning Rates
+
 ### dynamic_lr
 
 The `mindspore.nn.dynamic_lr` module contains the following classes:
@@ -40,7 +41,7 @@ They are different implementations of `dynamic_lr`.
 
 For example, the code example of the `piecewise_constant_lr` class is as follows:
 
-```
+```python
 from mindspore.nn.dynamic_lr import piecewise_constant_lr
 
 def test_dynamic_lr():
@@ -55,7 +56,8 @@ if __name__ == '__main__':
 ```
 
 The following information is displayed:
-```
+
+```text
 [0.1, 0.1, 0.05, 0.05, 0.05, 0.01, 0.01, 0.01, 0.01, 0.01]
 ```
 
@@ -73,7 +75,8 @@ The `mindspore.nn.learning_rate_schedule` module has the following classes: `Exp
 They are different implementations of `learning_rate_schedule`.
 
 For example, the code example of the ExponentialDecayLR class is as follows:
-```
+
+```python
 from mindspore.common import dtype as mstype
 from mindspore import Tensor
 from mindspore.nn.learning_rate_schedule import ExponentialDecayLR
@@ -93,13 +96,15 @@ if __name__ == '__main__':
 ```
 
 The following information is displayed:
-```
+
+```text
 0.094868325
 ```
 
-
 ## Optimzers
+
 ### Usage
+
 To use `mindspore.nn.optim`, you need to build an `Optimizer` object. This object can maintain the current parameter status and update parameters based on the computed gradient.
 
 - Building
@@ -108,7 +113,7 @@ To build an `Optimizer`, you need to give it an iterable that contains the param
 
 A code example is as follows:
 
-```
+```python
 from mindspore import nn
 
 optim = nn.SGD(group_params, learning_rate=0.1, weight_decay=0.0)
@@ -125,7 +130,7 @@ The optimizer also allows you to set options for each parameter separately. Do n
 You can pass options as keyword parameters, which are used as default values in groups where these options are not overridden. This is useful when you want to change the options of only one parameter group without changing the options of other parameter groups.
 Take `SGD` as an example. When you want to determine the learning rate of each layer, run the following command:
 
-```
+```python
 from mindspore import nn
 
 optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
@@ -134,6 +139,7 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
                learning_rate=0.1, weight_decay=0.0)
 
 ```
+
 This example indicates that when the parameter is conv_params, the weight attenuation is 0.01 and the learning rate is 0.1. When the parameter is no_conv_params, the weight attenuation is 0.0 and the learning rate is 0.01. The learning_rate=0.1 is used for all groups where the learning rate is not set. The same rule applies to weight_deca.
 
 ### Built-in Optimizers
@@ -149,7 +155,7 @@ In the `mindspore.nn.optim` module, they have corresponding class implementation
 
 For example, the code example of `SGD` is as follows:
 
-```
+```python
 from mindspore import nn
 from mindspore.train import Model
 from .optimizer import Optimizer

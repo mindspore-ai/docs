@@ -13,6 +13,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/auto_augmentation.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
