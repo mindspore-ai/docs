@@ -62,8 +62,8 @@
 | Statement    | Compared with Python
 | :----------- |:--------
 | `def`        | Same as that in Python.
-| `for`        | Nested for loops are partially supported. Iteration sequences must be tuples or lists.
-| `while`      | Nested while loops are partially supported. Grad of net with while is not supported.
+| `for`        | Iteration sequences must be tuples or lists.
+| `while`      | Grad of net with while is not supported.
 | `break`      | Same as that in Python.
 | `if`         | Same as that in Python. The input of the `if` condition must be a constant.
 | `in`         | Only supports judging whether constants exist in Tuple/List/Dictionary whose elements are all constants.
@@ -108,7 +108,7 @@
 
 ### Index operation
 
-The index operation includes `tuple` and `Tensor`. The following focuses on the index value assignment and assignment operation of `Tensor`. The value takes` tensor_x [index] `as an example, and the assignment takes`tensor_x [index] = u` as an example for detailed description. Among them, tensor_x is a `Tensor`, which is sliced; index means the index, u means the assigned value, which can be`scalar` or `Tensor (size = 1)`. The index types are as follows:
+The index operation includes `tuple` and `Tensor`. The following focuses on the index value assignment and assignment operation of `Tensor`. The value takes `tensor_x [index]` as an example, and the assignment takes `tensor_x [index] = u` as an example for detailed description. Among them, tensor_x is a `Tensor`, which is sliced; index means the index, u means the assigned value, which can be`scalar` or `Tensor (size = 1)`. The index types are as follows:
 
 - Slice index: index is `slice`
     - Value: `tensor_x[start: stop: step]`, where Slice (start: stop: step) has the same syntax as Python, and will not be repeated here.
@@ -120,10 +120,10 @@ The index operation includes `tuple` and `Tensor`. The following focuses on the 
     - Assignment: `tensor_x [...] = u`.
     - Augment assignment: `tensor_x [...] += u`.
 
-- Boolean constant index: index is `True`, index is `False` is not supported temporarily.
+- Boolean constant index: index is `True` is supported, index is `False` is not supported temporarily.
     - Value: `tensor_x[True]`.
     - Assignment: Not supported yet.
-  
+
 - Tensor index: index is `Tensor`
     - Value: `tensor_x [index]`, `index` must be `Tensor` of data type `int32` or `int64`,
      the element value range is `[0, tensor_x.shape[0])`.

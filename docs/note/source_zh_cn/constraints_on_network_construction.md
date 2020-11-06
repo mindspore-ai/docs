@@ -62,8 +62,8 @@
 | 语句          | 与Python对比
 | :----------- |:--------
 | `def`        | 相同。
-| `for`        | 迭代序列必须是Tuple/List，部分嵌套场景支持。
-| `while`      | 部分嵌套场景支持，对带有while循环的网络求反向不支持。
+| `for`        | 迭代序列必须是Tuple/List。
+| `while`      | 对带有while循环的网络求反向不支持。
 | `break`      | 相同。
 | `if`         | 与Python使用原则一致，但if条件的输入只支持常量。
 | `in`         | 仅支持判断常量是否存在于元素都是常量的Tuple/List/Dictionary里。
@@ -120,7 +120,7 @@
     - 赋值：`tensor_x[...]=u`。
     - 增强赋值：`tensor_x[...]+=u`。
 
-- 布尔常量索引：index为`True`，index为`False`暂不支持。
+- 布尔常量索引：支持index为`True`，index为`False`暂不支持。
     - 取值：`tensor_x[True]`。
     - 赋值：暂不支持。
 
