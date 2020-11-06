@@ -46,11 +46,12 @@ MindSpore Lite训练后量化分为两类：
 |     参数  |  属性   |   功能描述   | 参数类型 | 默认值 | 取值范围  |
 | -------- | ------- | -----       | -----    |----- | -----     |
 | `--quantType=<QUANTTYPE>`   | 必选 | 设置为WeightQuant，启用权重量化 | String | - | 必须设置为WeightQuant |
-| `--bitNum=<BITNUM>` | 可选 | 设定权重量化的比特数，目前仅支持8bit量化 | Integer | 8 | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 可选 | 设定参与权重量化的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化；建议设置为500 | Integer | 0 | （0，+∞） |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 可选 | 设定参与权重量化的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化；建议设置为16 | Integer | 16 | （0，+∞） |
+| `--bitNum=<BITNUM>` | 可选 | 设定权重量化的比特数，目前支持1bit～16bit量化 | Integer | 8 | \[1，16] |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 可选 | 设定参与权重量化的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化；建议设置为500 | Integer | 0 | \[0，+∞） |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 可选 | 设定参与权重量化的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化；建议设置为16 | Integer | 16 | \[0，+∞） |
 
 用户可根据模型及自身需要对权重量化的参数作出调整。
+> 为保证权重量化的精度，建议`--bitNum`参数设定范围为8bit～16bit。
 
 ### 使用步骤
 
@@ -102,6 +103,7 @@ MindSpore Lite训练后量化分为两类：
 | thread_num | 可选 | 使用校准数据集执行推理流程时的线程数 | Integer  |  1  |  （0，+∞）   |
 
 > 对于多输入模型，要求不同输入数据分别存放在各自不同的目录，同时各自目录中的所有文件的文件名按照字典序递增排序后，能够一一对应。例如：模型有两个输入input0、input1，校准数据集共2组（batch_count=2）；input0的对应数据存放在/dir/input0/目录，输入数据文件名为：data_1.bin、data_2.bin；input1的对应数据存放在/dir/input1/目录，输入数据文件名为：data_a.bin、data_b.bin，则认为(data_1.bin, data_a.bin)构成一组输入，（data_2.bin, data_b.bin）构成另一组输入。
+> 全量化目前仅支持激活值8bit、权重8bit的量化方式。
 
 ### 使用步骤
 
