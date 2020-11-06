@@ -41,7 +41,7 @@ In the following example, a simple network is built to implement the convolution
 
 In the `construct` method, `x` is the input data, and `output` is the result obtained after the network structure computation.
 
-```
+```python
 import mindspore.nn as nn
 from mindspore.ops import operations as P
 from mindspore.common.parameter import Parameter
@@ -70,7 +70,7 @@ There are many other methods for returning parameters in the `Cell` class, such 
 
 A code example is as follows:
 
-```
+```python
 net = Net()
 result = net.parameters_dict()
 print(result.keys())
@@ -80,7 +80,8 @@ print(result['conv.weight'])
 In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `conv.weight` parameter.
 
 The following information is displayed:
-```
+
+```text
 odict_keys(['conv.weight'])
 Parameter (name=conv.weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
    [ 8.66129529e-03  7.36288540e-03 -4.32638079e-03]
@@ -98,7 +99,8 @@ The case simply implements the function of obtaining and printing the name of ea
 `nn.Conv2d` is a convolutional layer encapsulated by MindSpore using `Cell` as the base class. For details, see "Model Layers".
 
 A code example is as follows:
-```
+
+```python
 import mindspore.nn as nn
 
 class Net1(nn.Cell):
@@ -120,7 +122,8 @@ print(names)
 ```
 
 The following information is displayed:
-```
+
+```text
 ('', Net1<
   (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>
   >)
@@ -136,7 +139,8 @@ The `set_grad` API is used to construct a backward network. If no parameter is t
 Take `TrainOneStepCell` as an example. Its API function is to perform single-step training on the network. The backward network needs to be computed. Therefore, `set_grad` needs to be used in the initialization method.
 
 A part of the `TrainOneStepCell` code is as follows:
-```
+
+```python
 class TrainOneStepCell(Cell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainOneStepCell, self).__init__(auto_prefix=False)
@@ -156,7 +160,8 @@ The nn module of MindSpore is a model component implemented by Python. It encaps
 In addition, nn provides some APIs with the same name as the `Primitive` operator to further encapsulate the `Primitive` operator and provide more friendly APIs.
 
 Reanalyze the case of the `construct` method described above. This case is the simplified content of the `nn.Conv2d` source code of MindSpore, and `P.Conv2D` is internally called. The `nn.Conv2d` convolution API adds the input parameter validation function and determines whether `bias` is used. It is an advanced encapsulated model layer.
-```
+
+```python
 import mindspore.nn as nn
 from mindspore.ops import operations as P
 from mindspore.common.parameter import Parameter
@@ -192,31 +197,31 @@ The MindSpore framework provides abundant APIs at the layer of `mindspore.nn`. T
 - Activation layer
 
   The activation layer has a large number of built-in activation functions, which are often used in defining the network structure. The activation function adds a nonlinear operation to the network, so that the network can have a better fitting effect.
-  
+
   Main APIs include `Softmax`, `Relu`, `Elu`, `Tanh` and `Sigmoid`.
 
 - Basic layer
-  
+
   The basic layer implements some common basic structures on the network, such as the full connection layer, Onehot encoding, Dropout, and flat layer.
-  
+
   Main APIs include `Dense`, `Flatten`, `Dropout`, `Norm` and `OneHot`.
-  
+
 - Container layer
 
   The main function of the container layer is to implement the data structures for storing multiple cells.
-  
+
   Main APIs include `SequentialCell` and `CellList`.
 
 - Convolutional layer
 
   Convolutional layer provides some convolution computation functions, such as common convolution, deep convolution, and convolution transposition.
-  
+
   Main APIs include `Conv2d`, `Conv1d`, `Conv2dTranspose` and `Conv1dTranspose`.
 
 - Pooling layer
-  
+
   The pooling layer provides computation functions such as average pooling and maximum pooling.
-  
+
   The main APIs are `AvgPool2d`, `MaxPool2d`, and `AvgPool1d`.
 
 - Embedding layer
@@ -226,27 +231,27 @@ The MindSpore framework provides abundant APIs at the layer of `mindspore.nn`. T
   The main APIs include `Embedding`, `EmbeddingLookup` and `EmbeddingLookUpSplitMode`.
 
 - Long short-term memory recurrent layer
-  
+
   The long short-term memory recurrent layer provides the LSTM computation function. `LSTM` internally calls the `LSTMCell` API. The `LSTMCell` is an LSTM unit that performs operations on an LSTM layer. When operations at multiple LSTM network layers are involved, the `LSTM` API is used.
-  
+
   The main APIs include `LSTM` and `LSTMCell`.
 
 - Normalization layer
 
   The normalization layer provides some normalization methods, that is, converting data into a mean value and a standard deviation by means of linear transformation or the like.
-  
+
   Main APIs include `BatchNorm1d`, `BatchNorm2d`, `LayerNorm`, `GroupNorm` and `GlobalBatchNorm`.
 
 - Mathematical computation layer
 
 The mathematical computation layer provides some computation functions formed by operators, for example, data generation and some other mathematical computations.
-  
+
   Main APIs include `ReduceLogSumExp`, `Range`, `LinSpace` and `LGamma`.
 
 - Image layer
 
   The image computation layer provides some functions related to matrix computing to transform and compute image data.
-  
+
   Main APIs include `ImageGradients`, `SSIM`, `MSSSIM`, `PSNR` and `CentralCrop`.
 
 - Quantization layer
@@ -254,12 +259,12 @@ The mathematical computation layer provides some computation functions formed by
   Quantization is to convert data from the float type to the int type within a data range. Therefore, the quantization layer provides some data quantization methods and model layer structure encapsulation.
 
   Main APIs include `Conv2dBnAct`, `DenseBnAct`, `Conv2dBnFoldQuant` and `LeakyReLUQuant`.
-  
+
 ### Application Cases
 
 Model layers of MindSpore are under `mindspore.nn`. The usage method is as follows:
 
-```
+```python
 import mindspore.nn as nn
 
 class Net(nn.Cell):
@@ -286,7 +291,7 @@ It is defined in the `Net` initialization method and runs in the `construct` met
 
 ## Loss Functions
 
-Currently, MindSpore supports the following loss functions: `L1Loss`, `MSELoss`, `SmoothL1Loss`, `SoftmaxCrossEntropyWithLogits`, and `CosineEmbeddingLoss`.
+Currently, MindSpore supports the following loss functions: `L1Loss`, `MSELoss`, `SmoothL1Loss`, `SoftmaxCrossEntropyWithLogits`, `SampledSoftmaxLoss`, `BCELoss`, and `CosineEmbeddingLoss`.
 
 All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefore, customized loss functions are also supported. For details about how to build a loss function, see "Building a Customized Network."
 
@@ -302,21 +307,21 @@ All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefo
 
 - SmoothL1Loss
 
-  `SmoothL1Loss` is the smooth L1 loss function, which is used for the regression model. The default value of the `sigma` threshold is 1.
-`
+  `SmoothL1Loss` is the smooth L1 loss function, which is used for the regression model. The default value of the `beta` threshold is 1.
+
 - SoftmaxCrossEntropyWithLogits
 
   Cross entropy loss function, which is used to classify models. If the tag data is not encoded in one-hot mode, set `sparse` to True. The default value of `reduction` is none. The meaning of this parameter is the same as that of `L1Loss`.
-   
+
 - CosineEmbeddingLoss
 
   `CosineEmbeddingLoss` is used to measure the similarity between two inputs and is used for classification models. The default value of `margin` is 0.0. The `reduction` parameter is the same as the `L1Loss` parameter.
-  
+
 ### Application Cases
 
 All loss functions of MindSpore are stored in mindspore.nn. The usage method is as follows:
 
-```
+```python
 import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -328,7 +333,8 @@ print(loss(input_data, target_data))
 ```
 
 The output is as follows:
-```
+
+```text
 1.5
 ```
 
@@ -337,6 +343,7 @@ In this case, two pieces of tensor data are built. The `nn.L1Loss` API is used t
 ## Optimization Algorithms
 
 `mindspore.nn.optim` is a module that implements various optimization algorithms in the MindSpore framework. For details, see [Optimization Algorithms](https://www.mindspore.cn/doc/programming_guide/en/master/optim.html)
+
 ## Building a Customized Network
 
 Both the network structure and the model layers, loss functions, and optimizers mentioned above are essentially a `Cell`. Therefore, they can be customized.
@@ -346,7 +353,8 @@ Construct a subclass inherited from `Cell`, define the operator and model layer 
 Take the LeNet network as an example. Structure units such as the convolutional layer, pooling layer, and full connection layer are defined in the `__init__` method, and the defined content is connected together in the `construct` method to form a complete LeNet network structure.
 
 The LeNet network is implemented as follows:
-```
+
+```python
 import mindspore.nn as nn
 
 class LeNet5(nn.Cell):

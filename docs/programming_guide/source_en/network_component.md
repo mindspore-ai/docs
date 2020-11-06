@@ -19,13 +19,13 @@ MindSpore encapsulates some common network components for network training, infe
 These network components can be directly used by users and are also used in more advanced encapsulation APIs such as `model.train` and `model.eval`.
 
 The following describes three network components, `GradOperation`, `WithLossCell`, and `TrainOneStepCell`, in terms of functions, usage, and internal use.
-  
+
 ## GradOperation
 
 GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.GradOperation)
 The following is an example of using GradOperation:
 
-```
+```python
 import numpy as np
 
 import mindspore.nn as nn
@@ -63,7 +63,7 @@ The preceding example is used to calculate the gradient value of `Net` to x. You
 
 The following information is displayed:
 
-```
+```text
 Tensor(shape=[2, 3], dtype=Float32,
 [[1.4100001 1.5999999 6.6      ]
  [1.4100001 1.5999999 6.6      ]])
@@ -78,9 +78,8 @@ You can view the internal implementation of these APIs.
 
 The following uses an example to describe how to use this function. First, you need to build a network. The content is as follows:
 
-```
+```python
 import numpy as np
-import pytest
 
 import mindspore.context as context
 import mindspore.nn as nn
@@ -123,7 +122,8 @@ class LeNet(nn.Cell):
 ```
 
 The following is an example of using `WithLossCell`. Define the network and loss functions, create a `WithLossCell`, and input the input data and label data. `WithLossCell` returns the calculation result based on the network and loss functions.
-```
+
+```python
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
 net = LeNet()
@@ -135,7 +135,8 @@ print(loss)
 ```
 
 The following information is displayed:
-```
+
+```text
 +++++++++Loss+++++++++++++
 2.302585
 ```
@@ -146,7 +147,7 @@ The following information is displayed:
 
 The following describes how to build an instance for using the `TrainOneStepCell` API to perform network training. The import code of the `LeNet` and package name is the same as that in the previous case.
 
-```
+```python
 data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
 label = Tensor(np.ones([32]).astype(np.int32))
 net = LeNet()
@@ -167,7 +168,8 @@ for i in range(5):
 In the case, an optimizer and a `WithLossCell` instance are built, and then a training network is initialized in `TrainOneStepCell`. The case is repeated for five times, that is, the network is trained for five times, and the loss result of each time is output, the result shows that the loss value gradually decreases after each training.
 
 The following information is displayed:
-```
+
+```text
 +++++++++result:0++++++++++++
 2.302585
 +++++++++result:1++++++++++++
@@ -179,5 +181,6 @@ The following information is displayed:
 +++++++++result:4++++++++++++
 2.2215357
 ```
+
 The following content will describe how MindSpore uses more advanced encapsulation APIs, that is, the `train` method in the `Model` class to train a model. Many network components, such as `TrainOneStepCell` and `WithLossCell`, will be used in the internal implementation.
 You can view the internal implementation of these components.
