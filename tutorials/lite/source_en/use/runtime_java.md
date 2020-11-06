@@ -3,17 +3,17 @@
 <!-- TOC -->
 
 - [Using Runtime for Model Inference (Java)](#using-runtime-for-model-inference-java)
-  - [Android project references AAR package](#android-project-references-aar-package)
-  - [Running MindSpore Lite inference framework](#running-mindspore-lite-inference-framework)
-    - [Loading Model](#loading-model)
-    - [Creating Configuration Context](#creating-configuration-context)
-    - [Creating Session](#creating-session)
-    - [Compiling Graphs](#compiling-graphs)
-    - [Setting Data](#setting-data)
-    - [Graph Execution](#graph-execution)
-    - [Getting Output](#getting-output)
-    - [Releasing Memory](#releasing-memory)
-  - [Example of Android project using MindSpore Lite inference framework](#example-of-android-project-using-mindspore-lite-inference-framework)
+    - [Android project references AAR package](#android-project-references-aar-package)
+    - [Running MindSpore Lite inference framework](#running-mindspore-lite-inference-framework)
+        - [Loading Model](#loading-model)
+        - [Creating Configuration Context](#creating-configuration-context)
+        - [Creating Session](#creating-session)
+        - [Compiling Graphs](#compiling-graphs)
+        - [Setting Data](#setting-data)
+        - [Graph Execution](#graph-execution)
+        - [Getting Output](#getting-output)
+        - [Releasing Memory](#releasing-memory)
+    - [Example of Android project using MindSpore Lite inference framework](#example-of-android-project-using-mindspore-lite-inference-framework)
 
 <!-- /TOC -->
 
@@ -21,7 +21,7 @@
 
 ## Android project references AAR package
 
-First copy the `mindspore-lite-{version}.aar` file to the **libs** directory of the target module, then add the local reference directory to the `repositories` of the target module's `build.gradle`, and finally in the `dependencies ` add aar. The details are as follows.
+First copy the `mindspore-lite-{version}.aar` file to the **libs** directory of the target module, then add the local reference directory to the `repositories` of the target module's `build.gradle`, and finally, add the AAR package in the `dependencies`. The details are as follows.
 
 ```groovy
 repositories {
@@ -35,20 +35,20 @@ dependencies {
 }
 ```
 
-> mindspore-lite-{version} is the file name of aar, you need to replace {version} with the corresponding version information.
+> mindspore-lite-{version} is the name of the AAR file, you need to replace {version} with the corresponding version information.
 
 ## Running MindSpore Lite inference framework
 
-Using MindSpore Lite in the Android project, you can choose to use C++ APIs or Java APIs to run the inference framework. Comparing Java APIs with C++ APIs, Java APIs can be called directly in Java Class without the need to implement the relevant code of the JNI layer, which is more convenient. Running Mindspore Lite inference framework mainly includes the following steps:
+Using MindSpore Lite in the Android project, you can choose to use C++ APIs or Java APIs to run the inference framework. Compared with C++ APIs, Java APIs can be called directly in Java Class without the need to implement the relevant code of the JNI layer, which is more convenient. Running the MindSpore Lite inference framework mainly includes the following steps:
 
-1. Loading model: Read the MindSpore Lite model from the file system and parsed.
-2. Creating configuration context:  `MSConfig` saves some basic configuration parameters required by the session, which is used to guide graph compilation and graph execution. Mainly include `deviceType`: [device type](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java), `threadNum`: number of threads, `cpuBindMode`: [CPU binding mode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java), `enable_float16`: Whether to use float16 operator for priority.
+1. Loading model: Read the MindSpore Lite model from the file system and parse the model.
+2. Creating configuration context:  `MSConfig` saves some basic configuration parameters required by the session, which is used to guide graph compilation and graph execution. `MSConfig` mainly include `deviceType`: [device type](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java), `threadNum`: number of threads, `cpuBindMode`: [CPU binding mode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java), and `enable_float16`: whether to use float16 operator as priority.
 3. Creating session: Create the `LiteSession` and call the `init` method to configure the `MSConfig` obtained in the previous step into the session.
 4. Compiling graphs: Before graph execution, call the `compileGraph` API of the `LiteSession` to compile graphs, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieves multiple executions with one creation and one compilation.
 5. Setting data: Before the graph is executed, data needs to be set in the input Tensor.
 6. Graph execution: Run model inference using `runGraph` of `LiteSession`.
 7. Getting output: After the execution of the graph is finished, the inference result can be obtained by output Tensor.
-8. Releasing memory: When you don't need to use MindSpore Lite inference framework, you need to release the created `session` and `model`.
+8. Releasing memory: When you finishing using the MindSpore Lite inference framework, you need to release the created `session` and `model`.
 
 ### Loading Model
 
@@ -71,7 +71,7 @@ MindSpore Lite supports heterogeneous inference. The preferred backend for infer
 
 MindSpore Lite has a built-in thread pool shared by processes. During inference, `threadNum` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number does not exceed 4. Otherwise, the performance may be affected.
 
-MindSpore Lite supports the float16 operator mode for reasoning. If `enable float16` is set  `true`, the float16 operator will be used first.
+MindSpore Lite supports the float16 operator mode for reasoning. If `enable float16` is set as `true`, the float16 operator will be used first.
 
 ```java
 // Create and init config.
@@ -99,7 +99,7 @@ msConfig.free();
 
 ### Compiling Graphs
 
-Before graph execution, call the `compileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieve multiple executions with one creation and one compilation. After the graph is compiled, you can call the `freeBuffer()` function of the `Model` to release the MetaGraph in the MindSpore Lite Model, which is used to reduce the runtime memory, but the model cannot be compiled again after release.
+Before graph execution, call the `compileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieves multiple executions with one creation and one compilation. After the graph is compiled, you can call the `freeBuffer()` function of the `Model` to release the MetaGraph in the MindSpore Lite Model, which is used to reduce the runtime memory, but the model cannot be compiled again after being released.
 
 ```java
 // Complile graph.
@@ -142,9 +142,9 @@ if (!session.runGraph()) {
 After the inference is finished, the inference result can be obtained by output Tensor. The data types currently supported by the output tensor include `float`, `int`, `long`, and `byte`.
 
 - There are three ways to obtain the output Tensor:
-  - Use the `getOutputMapByTensor` method to directly obtain the mapping between the names of all model output tensors and the model output `MSTensor`.
-  - Use the `getOutputsByNodeName` method to obtain vectors of the model output `MSTensor` that is connected to the model output node based on the node name.
-  - Use the `getOutputByTensorName` method to obtain the model output `MSTensor` based on the tensor name.
+    - Use the `getOutputMapByTensor` method to directly obtain the mapping between the names of all model output tensors and the model output `MSTensor`.
+    - Use the `getOutputsByNodeName` method to obtain vectors of the model output `MSTensor` that is connected to the model output node based on the node name.
+    - Use the `getOutputByTensorName` method to obtain the model output `MSTensor` based on the tensor name.
 
 ```java
 // Get output tensor values.
@@ -158,7 +158,7 @@ for (String tensorName : tensorNames) {
         return;
     }
     float[] results = output.getFloatData();
-    
+
     // Apply infer results.
     ……
 }
@@ -166,7 +166,7 @@ for (String tensorName : tensorNames) {
 
 ### Releasing Memory
 
-When you don't need to use MindSpore Lite inference framework, you need to release the created `session` and `model`.
+When you finish using the MindSpore Lite inference framework, you need to release the created `session` and `model`.
 
 ```java
 private void free() {
@@ -177,7 +177,7 @@ private void free() {
 
 ## Example of Android project using MindSpore Lite inference framework
 
-Reasoning using MindSpore Lite Java API mainly includes the steps of `Loading Model`, `Create configuration context`,`Creating sessions`, `Compiling Graphs`, `Setting Data`, `Graph Execution`, `Getting Output`, `Releasing Memory`.
+Reasoning using the MindSpore Lite Java API mainly includes the steps of `Loading Model`, `Create configuration context`, `Creating sessions`, `Compiling Graphs`, `Setting Data`, `Graph Execution`, `Getting Output`, and `Releasing Memory`.
 
 ```java
 private boolean init(Context context) {

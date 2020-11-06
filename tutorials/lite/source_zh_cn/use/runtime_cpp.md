@@ -313,7 +313,7 @@ session->BindThread(false);
 
 ### 回调运行
 
-Mindspore Lite可以在调用`RunGraph`时，传入两个`KernelCallBack`函数指针来回调推理模型，相比于一般的图执行，回调运行可以在运行过程中获取额外的信息，帮助开发者进行性能分析、Bug调试等。额外的信息包括：
+MindSpore Lite可以在调用`RunGraph`时，传入两个`KernelCallBack`函数指针来回调推理模型，相比于一般的图执行，回调运行可以在运行过程中获取额外的信息，帮助开发者进行性能分析、Bug调试等。额外的信息包括：
 
 - 当前运行的节点名称
 - 推理当前节点前的输入输出Tensor

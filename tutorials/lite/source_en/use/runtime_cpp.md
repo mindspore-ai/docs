@@ -69,15 +69,15 @@ When MindSpore Lite is used for inference, sessions are the main entrance of inf
 
 ### Creating Contexts
 
-Contexts save some basic configuration parameters required by sessions to guide graph compilation and execution. The definition of context is as follows:
+Contexts save some basic configuration parameters required by sessions to guide graph compilation and execution. The definition of `Context` is as follows:
 
 MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `device_ctx_` in `Context` and is CPU by default. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
 
-MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number be no more than 4. Otherwise, the performance may be affected.
+MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number should be no more than 4. Otherwise, the performance may be affected.
 
 MindSpore Lite supports dynamic memory allocation and release. If `allocator` is not specified, a default `allocator` is generated during inference. You can also use the `Context` method to allow multiple `Context` to share the memory allocator.
 
-If users create the `Context` by using `new`,  it should be released by using `delete` once it's not required. Usually the `Context` is released after finishing the session creation.
+If users create the `Context` by using `new`,  it should be released by using `delete` once it's not required. Usually the `Context` is released after finishing the session creation is finished.
 
 ### Creating Sessions
 
@@ -159,7 +159,7 @@ session->Resize(inputs, new_shapes);
 
 ### Compiling Graphs
 
-Before graph execution, call the `CompileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieve multiple executions with one creation and one compilation.
+Before graph execution, call the `CompileGraph` API of the `LiteSession` to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that `LiteSession` achieves multiple executions with one creation and one compilation.
 
 ```cpp
 /// \brief  Compile MindSpore Lite model.
