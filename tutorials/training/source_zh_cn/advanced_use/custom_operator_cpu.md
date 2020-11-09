@@ -4,14 +4,13 @@
 
 <!-- TOC -->
 
-- [自定义算子](#自定义算子)
+- [自定义算子（CPU）](#自定义算子cpu)
     - [概述](#概述)
     - [注册算子原语](#注册算子原语)
     - [实现CPU算子和注册算子信息](#实现cpu算子和注册算子信息)
         - [实现CPU算子](#实现cpu算子)
         - [注册算子信息](#注册算子信息)
-        - [示例](#示例)
-    - [使用自定义算子](#使用自定义算子)
+    - [使用自定义CPU算子](#使用自定义cpu算子)
     - [定义算子反向传播函数](#定义算子反向传播函数)
 
 <!-- /TOC -->
@@ -48,7 +47,7 @@ CPU算子原语的接口定义如下：
 ```python
 from mindspore.ops import PrimitiveWithInfer
 from mindspore._checkparam import Validator as validator
-# y = x^2
+
 class Transpose(PrimitiveWithInfer):
     """
     The definition of the Transpose primitive.
@@ -133,6 +132,7 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 - `Transpose`算子原语中参数“perm”作为输入传入，但是在解析时元组类型的“perm”实际被认为是算子的属性。
 
 > `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h)下的声明。
+
 ### 注册算子信息
 
 算子信息是指导后端选择算子实现的关键信息，`MS_REG_CPU_KERNEL`中第一个参数是注册算子的名称，和原语中算子名称一致，第二个参数依次指明每个输入输出的类型，最后一个参数是算子实现的类名。`Transpose`算子注册代码如下：
@@ -143,6 +143,7 @@ MS_REG_CPU_KERNEL(Transpose, KernelAttr().AddInputAttr(kNumberTypeFloat32).AddOu
 ```
 
 > 算子信息中定义输入输出信息的个数和顺序、算子实现中的输入输出信息的个数和顺序、算子原语中输入输出名称列表的个数和顺序，三者要完全一致。
+
 ## 使用自定义CPU算子
 
 自定义CPU算子通过导入原语直接使用。下面以`Transpose`的单算子网络测试为例进行说明。
