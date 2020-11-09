@@ -62,7 +62,7 @@ MindSpore目前支持的常用数据增强算子如下表所示，更多数据�
 
 下载[CIFAR-10数据集](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz)并解压，目录结构如下。
 
-```
+```text
 └─cifar-10-batches-bin
     ├── batches.meta.txt
     ├── data_batch_1.bin
@@ -218,7 +218,7 @@ Flipped image Shape: (32, 32, 3) , Flipped label: 9
 
 下载MNIST数据集的训练[图像](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz)和[标签](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz)并解压，存放在`./MNIST`路径中，目录结构如下。
 
-```
+```text
 └─MNIST
     ├─train-images.idx3-ubyte
     └─train-labels.idx1-ubyte
@@ -417,7 +417,7 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 7
 
 请勿混用`c_transforms`与`py_transforms`，因为两者作用于图片的格式不同，混用会降低处理性能。
 
-![tranform_pipeline](./images/tranform_pipeline.png)
+![map](./images/map.png)
 
 混用会引发C++与Python切换的成本，建议不要过度混用两个模块的算子，但是适量混用是可以接受的。
 
@@ -425,21 +425,21 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 7
 
 - 单独使用`py_transform`或`c_transform`
 
-    ![tranform_c_py](./images/tranform_good_1.png)
+    ![transform_c_py](./images/transform_recommended_1.png)
 
 - 先使用`py_transform`，再使用`c_transform`
 
-    ![tranform_c_py](./images/tranform_good_2.png)
+    ![transform_c_py](./images/transform_recommended_2.png)
 
 - 先使用`c_transform`，再使用`py_transform`
 
-    ![tranform_c_py](./images/tranform_good_3.png)
+    ![transform_c_py](./images/transform_recommended_3.png)
 
 **不推荐的使用方式：**
 
 - 在两种transform之间频繁切换
 
-    ![tranform_c_py](./images/tranform_bad.png)
+    ![transform_c_py](./images/transform_not_recommended.png)
 
 ## 参考文献
 
