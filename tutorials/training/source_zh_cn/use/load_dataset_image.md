@@ -86,7 +86,7 @@ for data in mnist_dataset.create_dict_iterator():
 
 输出结果如下：
 
-```python
+```text
 5
 0
 4
@@ -107,7 +107,7 @@ for data in mnist_dataset.create_dict_iterator():
 
     输出结果如下：
 
-    ```python
+    ```text
     4
     2
     1
@@ -127,7 +127,7 @@ for data in mnist_dataset.create_dict_iterator():
 
     输出结果如下：
 
-    ```python
+    ```text
     [4 2]
     [1 0]
     [5 9]
@@ -144,7 +144,7 @@ for data in mnist_dataset.create_dict_iterator():
 
     输出结果如下：
 
-    ```python
+    ```text
     [4 2]
     [1 0]
     [5 9]
