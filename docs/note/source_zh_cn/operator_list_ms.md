@@ -366,7 +366,8 @@
 | [mindspore.ops.TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.TensorScatterUpdate)             |    Supported  | Doing  | Doing | array_ops
 | [mindspore.ops.IFMR](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.IFMR)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.DynamicShape](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DynamicShape)             |    Supported  | Supported  | Supported | array_ops
-| [mindspore.ops.Unique](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Unique)             |    Doing  | Doing  | Doing | array_ops
+| [mindspore.ops.Unique](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.Unique)             |    Supported  | Doing  | Supported | array_ops
+| [mindspore.ops.UniqueWithPad](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.UniqueWithPad)             |    Supported  | Doing  | Supported | array_ops
 | [mindspore.ops.ReduceAny](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.ReduceAny)                         |  Supported  | Doing  | Doing | math_ops
 | [mindspore.ops.SparseToDense](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.SparseToDense)                         |  Doing  | Doing  | Doing | sparse_ops
 | [mindspore.ops.CTCGreedyDecoder](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.CTCGreedyDecoder)       |  Doing | Doing  | Doing | nn_ops
