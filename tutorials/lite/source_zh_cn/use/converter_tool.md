@@ -80,6 +80,7 @@ bash build.sh -I x86_64
       ```bash
       ./converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
+
    以上几种情况下，均显示如下转换成功提示，且同时获得`model.ms`目标文件。
 
    ```text
@@ -104,13 +105,15 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--outputFile=<OUTPUTFILE>` | 是 | 输出模型的路径（不存在时将自动创建目录），不需加后缀，可自动生成`.ms`后缀。 | - | - |
 | `--weightFile=<WEIGHTFILE>` | 转换Caffe模型时必选 | 输入模型weight文件的路径。 | - | - |
 | `--quantType=<QUANTTYPE>` | 否 | 设置模型的量化类型。 | WeightQuant：训练后量化（权重量化）<br>PostTraining：训练后量化（全量化） | - |
-| `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前仅支持8bit量化 | 8 | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  （0，+∞） | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | （0，+∞） | 16 |
+| `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前支持1bit～16bit量化 | \[1，16] | 8 |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  \[0，+∞） | 0 |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | \[0，+∞） | 16 |
 | `--configFile=<CONFIGFILE>` | 否 | 训练后量化（全量化）校准数据集配置文件路径  |  - | -  |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
+> - 为保证权重量化的精度，建议`--bitum`参数设定范围为8bit～16bit。
+> - 全量化目前仅支持激活值8bit、权重8bit的量化方式。
 
 ## Windows环境使用说明
 
