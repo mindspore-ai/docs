@@ -158,7 +158,6 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 ```python
 from mindspore import nn
 from mindspore.train import Model
-from .optimizer import Optimizer
 from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
@@ -169,7 +168,9 @@ class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.matmul = ops.MatMul()
+        self.conv = nn.Conv2d(1, 6, 5, pad_mode='valid')
         self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+
     def construct(self, x, y):
         x = x * self.z
         out = self.matmul(x, y)
