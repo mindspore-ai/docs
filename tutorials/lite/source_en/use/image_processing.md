@@ -81,7 +81,7 @@ ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
 
 ### Convert the image data type
 
-Here we use the [ConvertTo](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#convertto) function in `image_process.h` to convert the image data type. Currently, the supported conversion is to convert uint8 to float.
+Here we use the [ConvertTo](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#convertto) function in `image_process.h` to convert the image data type. Currently, the conversion from uint8 to float is supported.
 
 ```cpp
 bool ConvertTo(const LiteMat &src, LiteMat &dst, double scale = 1.0)
@@ -125,7 +125,7 @@ Crop(lite_mat_bgr, lite_mat_cut, 16, 16, 224, 224);
 
 ### Normalize image data
 
-In order to eliminate the dimensional influence among the data indicators, and solve the comparability problem among the data indicators through standardization processing, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#substractmeannormalize) function in `image_process.h` to normalize the image data.
+In order to eliminate the dimensional influence among the data indicators and solve the comparability problem among the data indicators through standardization processing is adopted, here is the use of the [SubStractMeanNormalize](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#substractmeannormalize) function in `image_process.h` to normalize the image data.
 
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)

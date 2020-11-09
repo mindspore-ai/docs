@@ -111,7 +111,7 @@
                     <span style="color:#1a1c33;">MindSpore Lite Operator List</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                This document introduces the operators supported by Mindspore Lite.
+                This document introduces the operators supported by MindSpore Lite.
                 </div>
             </div>
         </a>
