@@ -20,13 +20,12 @@
 
 MindSpore provides multiple samplers to help you sample datasets for various purposes to meet training requirements and solve problems such as oversized datasets and uneven distribution of sample categories. You only need to import the sampler object when loading the dataset for sampling the data.
 
-MindSpore provides the following samplers. In addition, you can define your own sampler class as required.
+The following table lists part of the common samplers supported by MindSpore. In addition, you can define your own sampler class as required. For more samplers, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
 | Sampler | Description |
 | ----  | ----           |
-| SequentialSampler | Sequential sampler, which samples a specified amount of data in the original data sequence.  |
 | RandomSampler | Random sampler, which randomly samples a specified amount of data from a dataset.  |
-| WeightedRandomSampler | Weighted random sampler, which randomly samples a specified amount of data from each category based on the specified probability.  |
+| WeightedRandomSampler | Weighted random sampler, which randomly samples a specified amount of data from the first N samples based on the specified probability list with the length of N.  |
 | SubsetRandomSampler | Subset random sampler, which randomly samples a specified amount of data within a specified index range.  |
 | PKSampler | PK sampler, which samples K pieces of data from the specified P categories.  |
 | DistributedSampler | Distributed sampler, which samples dataset shards in distributed training.  |
@@ -93,9 +92,9 @@ Image shape: (32, 32, 3) , Label: 5
 
 ### WeightedRandomSampler
 
-Specifies the sampling probability of each category and randomly samples a specified amount of data from each category based on the probability.
+Specifies a sampling probability list with the length of N and randomly samples a specified amount of data from the first N samples based on the probability.
 
-The following example uses a weighted random sampler to obtain 6 samples by probability from 10 categories in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
+The following example uses a weighted random sampler to obtain 6 samples by probability from the first 10 samples in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
 
 ```python
 import mindspore.dataset as ds

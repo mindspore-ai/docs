@@ -310,8 +310,8 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
     import numpy as np
     import mindspore.dataset as ds
 
-    np.random.seed(58)
-    features, labels = np.random.sample((5, 2)), np.random.sample((5, 1))
+    np.random.seed(6)
+    features, labels = np.random.sample((4, 2)), np.random.sample((4, 1))
 
     data = (features, labels)
     dataset = ds.NumpySlicesDataset(data, column_names=["col1", "col2"], shuffle=False)
@@ -323,11 +323,10 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
     输出结果如下：
 
     ```text
-    [0.36510558 0.45120592] [0.78888122]
-    [0.49606035 0.07562207] [0.38068183]
-    [0.57176158 0.28963401] [0.16271622]
-    [0.30880446 0.37487617] [0.54738768]
-    [0.81585667 0.96883469] [0.77994068]
+    [0.89286015 0.33197981] [0.33540785]
+    [0.82122912 0.04169663] [0.62251943]
+    [0.10765668 0.59505206] [0.43814143]
+    [0.52981736 0.41880743] [0.73588211]
     ```
 
 - 加载Python list数据
@@ -389,11 +388,11 @@ for data in csv_dataset.create_dict_iterator(output_numpy=True):
 
 ## 自定义数据集加载
 
-对于目前MindSpore不支持直接加载的数据集，可以通过构造`GeneratorDataset`对象实现自定义方式的加载，或者将其转换成MindRecord数据格式。目前自定义数据集加载有以下几种方式。
+对于目前MindSpore不支持直接加载的数据集，可以通过构造`GeneratorDataset`对象实现自定义方式的加载，或者将其转换成MindRecord数据格式。下面分别展示几种不同的自定义数据集加载方法，为了便于对比，生成的随机数据保持相同。
 
 ### 构造数据集生成函数
 
-构造生成函数定义数据返回方式，再使用此函数构建自定义数据集对象。
+构造生成函数定义数据返回方式，再使用此函数构建自定义数据集对象。此方法适用于简单场景。
 
 ```python
 import numpy as np
@@ -425,7 +424,7 @@ for sample in dataset.create_dict_iterator():
 
 ### 构造可迭代的数据集类
 
-构造数据集类实现`__iter__`和`__next__`方法，再使用此类的对象构建自定义数据集对象。
+构造数据集类实现`__iter__`和`__next__`方法，再使用此类的对象构建自定义数据集对象。相比于直接定义生成函数，使用数据集类能够实现更多的自定义功能。
 
 ```python
 import numpy as np
@@ -471,7 +470,7 @@ for data in dataset.create_dict_iterator():
 
 ### 构造可随机访问的数据集类
 
-构造数据集类实现`__getitem__`方法，再使用此类的对象构建自定义数据集对象。
+构造数据集类实现`__getitem__`方法，再使用此类的对象构建自定义数据集对象。此方法可以用于实现分布式训练。
 
 ```python
 import numpy as np
@@ -506,7 +505,7 @@ for data in dataset.create_dict_iterator():
 [0.81585667 0.96883469] [0.77994068]
 ```
 
-如果用户希望使用分布式训练，则需要在此方式的基础上，改为在采样器类中实现`__iter__`方法，每次返回采样数据的索引。
+如果用户希望实现分布式训练，则需要在此方式的基础上，在采样器类中实现`__iter__`方法，每次返回采样数据的索引。需要补充的代码如下：
 
 ```python
 import math
