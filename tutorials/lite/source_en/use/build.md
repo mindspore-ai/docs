@@ -135,10 +135,10 @@ Then, run the following commands in the root directory of the source code to com
 
 - Compile MindSpore Lite AAR in the incremental compilation mode:
 
-  ```bash
-  bash build.sh -A java -i
-  ```
-  
+    ```bash
+    bash build.sh -A java -i
+    ```
+
   > Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
 
 - Release version of the x86_64 architecture, with the converter compiled:
@@ -269,14 +269,20 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 
 ```text
 |
-├── mindspore-lite-{version}-minddata-{os}-{device}
+├── mindspore-lite-{version}-runtime-{os}-cpu
 │   └── benchmark # Benchmarking Tool
-│   └── include # Head file(Only show files related to image processing)
-│       ├── lite_cv # Image processing library header file
-│           ├── image_process.h # Image processing function header file
-│           ├── lite_mat.h # Image data class structure header file
-│   └── lib # Dynamic library(Only show files related to image processing)
-│       ├── libminddata-lite.so # Image processing dynamic library
+│   └── include # Header files (Image processing files are not involved here, and will not be displayed)
+│   └── lib # Inference framework dynamic library
+│       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
+│       ├── libmindspore-lite-fp16.so # Operator performance optimization library supports float16 in MindSpore Lite
+│       ├── libmindspore-lite-optimize.so # Operator performance optimization library supports dotprod instruction in MindSpore Lite  
+│   └── minddata # Image processing dynamic library
+│       └── include # Header files
+│           └── lite_cv # The Header files of image processing dynamic library
+│               ├── image_process.h # The Header files of image processing function
+│               ├── lite_mat.h # The Header files of image data class structure
+│       └── lib # Image processing dynamic library
+│           ├── libminddata-lite.so # The files of image processing dynamic library
 │   └── third_party # Third-party Iibrary header files and libraries
-│       ├── flatbuffers # Header files of FlatBuffers
+│       ├── flatbuffers # The Header files of FlatBuffers
 ```
