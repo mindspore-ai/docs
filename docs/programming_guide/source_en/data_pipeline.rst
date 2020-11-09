@@ -10,3 +10,4 @@ Data Pipeline
   augmentation
   tokenizer
   dataset_conversion
+  auto_augmentation

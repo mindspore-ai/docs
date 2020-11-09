@@ -1,17 +1,17 @@
-﻿# MindSpore Data Format Conversion
+# MindSpore Data Format Conversion
 
 <!-- TOC -->
 
 - [MindSpore Data Format Conversion](#mindspore-data-format-conversion)
     - [Overview](#overview)
-    - [Converting Non-Standard Datasets to MindRecord](#converting-non-standard-datasets-to-mindrecord)
-        - [Converting the CV Dataset](#converting-the-cv-dataset)
-        - [Converting the NLP Dataset](#converting-the-nlp-dataset)
-    - [Converting Common Datasets to MindRecord](#converting-common-datasets-to-mindrecord)
+    - [Converting Non-Standard Dataset to MindRecord](#converting-non-standard-dataset-to-mindrecord)
+        - [Converting CV Dataset](#converting-cv-dataset)
+        - [Converting NLP Dataset](#converting-nlp-dataset)
+    - [Converting Common Dataset to MindRecord](#converting-common-dataset-to-mindrecord)
         - [Converting the CIFAR-10 Dataset](#converting-the-cifar-10-dataset)
         - [Converting the ImageNet Dataset](#converting-the-imagenet-dataset)
-        - [Converting the CSV Dataset](#converting-the-csv-dataset)
-        - [Converting the TFRecord Dataset](#converting-the-tfrecord-dataset)
+        - [Converting CSV Dataset](#converting-csv-dataset)
+        - [Converting TFRecord Dataset](#converting-tfrecord-dataset)
 
 <!-- /TOC -->
 
@@ -21,13 +21,13 @@
 
 You can convert non-standard datasets and common datasets into the MindSpore data format (that is, MindRecord) to easily load the datasets to MindSpore for training. In addition, the performance of MindSpore is optimized in some scenarios. You can use MindRecord to obtain better performance.
 
-## Converting Non-Standard Datasets to MindRecord
+## Converting Non-Standard Dataset to MindRecord
 
 The following describes how to convert CV and NLP data into MindRecord and read the MindRecord file through `MindDataset`.
 
-### Converting the CV Dataset
+### Converting CV Dataset
 
-This example describes how to convert a CV dataset into MindRecord and use `MindDataset` to read the dataset.
+This example describes how to convert a CV dataset into MindRecord and use `MindDataset` to load the dataset.
 
 Create a MindRecord file containing 100 records, whose sample includes the `file_name` (string), `label` (integer), and `data` (binary) fields. Use `MindDataset` to read the MindRecord file.
 
@@ -84,9 +84,9 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 print("Got {} samples".format(count))
 ```
 
-### Converting the NLP Dataset
+### Converting NLP Dataset
 
-This example describes how to convert an NLP dataset into MindRecord and use `MindDataset` to read the dataset. The process of converting the text into the lexicographic order is omitted in this example.
+This example describes how to convert an NLP dataset into MindRecord and use `MindDataset` to load the dataset. The process of converting the text into the lexicographic order is omitted in this example.
 
 Create a MindRecord file containing 100 records, whose sample includes eight fields of the integer type. Use `MindDataset` to read the MindRecord file.
 
@@ -145,7 +145,7 @@ for item in data_set.create_dict_iterator():
 print("Got {} samples".format(count))
 ```
 
-## Converting Common Datasets to MindRecord
+## Converting Common Dataset to MindRecord
 
 MindSpore provides tool classes for converting common datasets to MindRecord. The following table lists common datasets and their corresponding tool classes.
 
@@ -162,7 +162,7 @@ For details about dataset conversion, see [MindSpore API](https://www.mindspore.
 
 ### Converting the CIFAR-10 Dataset
 
-You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to MindRecord and use `MindDataset` to read the data.
+You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to MindRecord and use `MindDataset` to load the data.
 
 1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). The directory structure is as follows:
 
@@ -214,7 +214,7 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
 
 ### Converting the ImageNet Dataset
 
-You can use the `ImageNetToMR` class to convert the original ImageNet data (images and annotations) to MindRecord and use `MindDataset` to read the data.
+You can use the `ImageNetToMR` class to convert the original ImageNet data (images and annotations) to MindRecord and use `MindDataset` to load the data.
 
 1. Download the [ImageNet dataset](http://image-net.org/download), save all images in the `images/` folder, and use a mapping file `labels_map.txt` to record the mapping between images and labels. The mapping file contains two columns, which are the directory and label ID of each type of images. The two columns are separated by spaces. The following is an example of the mapping file:
 
@@ -273,9 +273,9 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
     print("Got {} samples".format(count))
     ```
 
-### Converting the CSV Dataset
+### Converting CSV Dataset
 
-Create a CSV file containing five records, convert the CSV file to MindRecord using the `CsvToMR` tool class, and then read the MindRecord file using `MindDataset`.
+Create a CSV file containing 5 records, convert the CSV file to MindRecord using the `CsvToMR` tool class, and then read the MindRecord file using `MindDataset`.
 
 ```python
 import csv
@@ -320,7 +320,7 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 print("Got {} samples".format(count))
 ```
 
-### Converting the TFRecord Dataset
+### Converting TFRecord Dataset
 
 > Currently, only TensorFlow 1.13.0-rc1 and later versions are supported.
 

@@ -427,21 +427,21 @@ Transformed image Shape: (3, 200, 200) , Transformed label: 7
 
 - 单独使用`py_transform`或`c_transform`
 
-    ![tranform_c_py](./images/tranform_good_1.png)
+    ![transform_c_py](./images/transform_recommended_1.png)
 
 - 先使用`py_transform`，再使用`c_transform`
 
-    ![tranform_c_py](./images/tranform_good_2.png)
+    ![transform_c_py](./images/transform_recommended_2.png)
 
 - 先使用`c_transform`，再使用`py_transform`
 
-    ![tranform_c_py](./images/tranform_good_3.png)
+    ![transform_c_py](./images/transform_recommended_3.png)
 
 **不推荐的使用方式:**
 
 - 在两种transform之间频繁切换
 
-    ![tranform_c_py](./images/tranform_bad.png)
+    ![transform_c_py](./images/transform_not_recommended.png)
 
 ## 参考文献
 

@@ -1,4 +1,4 @@
-﻿# Data Augmentation
+# Data Augmentation
 
 <!-- TOC -->
 
@@ -20,14 +20,14 @@
 
 ## Overview
 
-In a computer vision task, if the data volume is small or the sample scenario of the model is simple, the training effect will be affected. In this case, you may preprocess images by performing data augmentation, so as to improve generalization of the model.
+In a computer vision task, if the data volume is small or the scenario of the samples are simple, the training effect will be affected. In this case, you may preprocess images by performing data augmentation, so as to improve generalization of the model.
 
-MindSpore provides the `c_transforms` and `py_transforms` modules for data augmentation. You can also customize functions or operators for data augmentation.
+MindSpore provides the `c_transforms` and `py_transforms` modules for data augmentation. You can also customize functions or operators to augment data.
 
 |  Module  |  Implementation  |  Description  |
 |  ----                             | ----  | ----           |
 | c_transforms | Implemented based on C++. | This module provides high performance. |
-| py_transforms | Implemented based on Python PIL | This module provides multiple image augmentation techniques and a method for converting PIL images to NumPy arrays. |
+| py_transforms | Implemented based on Python PIL | This module provides multiple image augmentation methods and can convert PIL images to NumPy arrays. |
 
 The following table lists the common data augmentation operators supported by MindSpore. For details about more data augmentation operators, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html).
 
@@ -54,13 +54,13 @@ Crops the input image at a random position.
 
 - `size`: size of the cropped image.
 - `padding`: number of padded pixels.
-- `pad_if_needed`: specifies whether the original image needs to be padded when it is smaller than the image to be cropped.
+- `pad_if_needed`: specifies whether the original image needs to be padded when it is smaller than the cropped size.
 - `fill_value`: fill value used in the constant fill mode.
 - `padding_mode`: padding mode.
 
-The following example uses a sequential sampler to load the CIFAR-10 dataset [1], randomly crops the loaded image whose length and width are both 10, outputs the image shapes and labels before and after cropping, and displays the cropped image.
+The following example uses a sequential sampler to load the CIFAR-10 dataset [1], randomly crops the loaded image to 10 in both length and width, outputs the image shapes and labels before and after cropping, and displays the cropped image.
 
-Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and unzip it, the directory structure is as follows:
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it. The directory structure is as follows:
 
 ```text
 └─cifar-10-batches-bin
@@ -216,7 +216,7 @@ Resizes the input image.
 
 The following example loads the MNIST dataset [2], resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
 
-Download the MNIST dataset training [image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [labels](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz), unzip them and store them in the `./MNIST` path. The directory structure is as follows:
+Download the MNIST dataset training [image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [labels](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz), decompress them and store them in the `./MNIST` path. The directory structure is as follows:
 
 ```text
 └─MNIST
@@ -414,7 +414,7 @@ The following shows the processed image.
 
 ## Usage Instructions
 
-Do not use `c_transforms` and `py_transforms` together because they apply to different image formats and using them together will reduce the processing performance.
+Do not use `c_transforms` and `py_transforms` together because they apply to images in different ways and using them together will reduce the processing performance.
 
 ![map](./images/map.png)
 
@@ -424,21 +424,21 @@ Using both C++ and Python will cause the cost of switching between them. You are
 
 - Use `py_transform` or `c_transform` separately.
 
-    ![tranform_c_py](./images/tranform_good_1.png)
+    ![transform_c_py](./images/transform_recommended_1.png)
 
 - Use `py_transform` and then `c_transform`.
 
-    ![tranform_c_py](./images/tranform_good_2.png)
+    ![transform_c_py](./images/transform_recommended_2.png)
 
 - Use `c_transform` and then `py_transform`.
 
-    ![tranform_c_py](./images/tranform_good_3.png)
+    ![transform_c_py](./images/transform_recommended_3.png)
 
 **Not recommended:**
 
 - Frequent switching between `c_transforms` and `py_transforms`.
 
-    ![tranform_c_py](./images/tranform_bad.png)
+    ![transform_c_py](./images/transform_not_recommended.png)
 
 ## References
 

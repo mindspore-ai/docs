@@ -18,9 +18,9 @@
 
 ## Overview
 
-MindSpore provides multiple samplers to help you sample datasets for various purposes to meet training requirements and solve problems such as oversized datasets and uneven distribution of sample categories. You only need to import the sampler object when loading the dataset to implement data sampling.
+MindSpore provides multiple samplers to help you sample datasets for various purposes to meet training requirements and solve problems such as oversized datasets and uneven distribution of sample categories. You only need to import the sampler object when loading the dataset for sampling the data.
 
-MindSpore provides the following samplers. In addition, you can define samplers as required.
+MindSpore provides the following samplers. In addition, you can define your own sampler class as required.
 
 | Sampler | Description |
 | ----  | ----           |
@@ -28,12 +28,12 @@ MindSpore provides the following samplers. In addition, you can define samplers 
 | RandomSampler | Random sampler, which randomly samples a specified amount of data from a dataset.  |
 | WeightedRandomSampler | Weighted random sampler, which randomly samples a specified amount of data from each category based on the specified probability.  |
 | SubsetRandomSampler | Subset random sampler, which randomly samples a specified amount of data within a specified index range.  |
-| PKSampler | PK sampler, which samples K pieces of data from each category in the specified dataset P.  |
+| PKSampler | PK sampler, which samples K pieces of data from the specified P categories.  |
 | DistributedSampler | Distributed sampler, which samples dataset shards in distributed training.  |
 
 ## MindSpore Samplers
 
-The following uses the CIFAR-10 as an example to introduce several common MindSpore samplers. Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and unzip it, the directory structure is as follows:
+The following uses the CIFAR-10 as an example to introduce several common MindSpore samplers. Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it. The directory structure is as follows:
 
 ```text
 └─cifar-10-batches-bin
@@ -95,7 +95,7 @@ Image shape: (32, 32, 3) , Label: 5
 
 Specifies the sampling probability of each category and randomly samples a specified amount of data from each category based on the probability.
 
-The following example uses a weighted random sampler to obtain six samples by probability from 10 categories in the CIFAR-10 dataset, and displays shapes and labels of the read data.
+The following example uses a weighted random sampler to obtain 6 samples by probability from 10 categories in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
 
 ```python
 import mindspore.dataset as ds
@@ -127,7 +127,7 @@ Image shape: (32, 32, 3) , Label: 6
 
 Randomly samples a specified amount of data from the specified index subset.
 
-The following example uses a subset random sampler to obtain three samples from the specified subset in the CIFAR-10 dataset, and displays shapes and labels of the read data.
+The following example uses a subset random sampler to obtain 3 samples from the specified subset in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
 
 ```python
 import mindspore.dataset as ds
@@ -154,9 +154,9 @@ Image shape: (32, 32, 3) , Label: 4
 
 ### PKSampler
 
-Samples K pieces of data from each category in the specified dataset P.
+Samples K pieces of data from the specified P categories.
 
-The following example uses the PK sampler to obtain 2 samples (up to 20 samples) from each category in the CIFAR-10 dataset, and displays shapes and labels of the read data.
+The following example uses the PK sampler to obtain 2 samples from each category in the CIFAR-10 dataset, not more than 20 samples in total, and displays shapes and labels of the read data.
 
 ```python
 import mindspore.dataset as ds
@@ -201,7 +201,7 @@ Image shape: (32, 32, 3) , Label: 9
 
 Samples dataset shards in distributed training.
 
-The following example uses a distributed sampler to divide a built dataset into three shards, obtains three data samples in each shard, and displays the read data.
+The following example uses a distributed sampler to divide a generated dataset into three shards, obtains three data samples in each shard, and displays the loaded data.
 
 ```python
 import numpy as np
@@ -226,7 +226,7 @@ The output is as follows:
 
 ## User-defined Sampler
 
-You can inherit the `Sampler` base class and define the sampling mode of the sampler by implementing the `__iter__` method.
+You can inherit the `Sampler` base class and define the sampling method of the sampler by implementing the `__iter__` method.
 
 The following example defines a sampler with an interval of 2 samples from subscript 0 to subscript 9, applies the sampler to the CIFAR-10 dataset, and displays shapes and labels of the read data.
 
