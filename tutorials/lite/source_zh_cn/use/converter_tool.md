@@ -121,7 +121,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- 获取工具包：下载Windows转换工具的[Zip包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/download.html)并解压至本地目录，获得`converter`工具。
+- 获取工具包：下载Windows转换工具的[Zip包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)并解压至本地目录，获得`converter`工具。
 
 ### 参数说明
 
