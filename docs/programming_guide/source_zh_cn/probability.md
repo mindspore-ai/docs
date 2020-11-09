@@ -158,7 +158,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 子类可在 **PyNative** 模式下使用。
 
-导入相关模块：
+以 `Normal` 为例， 创建一个均值为0.0、标准差为1.0的正态分布，然后计算相关函数。
 
 ```python
 from mindspore import Tensor
@@ -166,100 +166,43 @@ from mindspore import dtype as mstype
 import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-以 `Normal` 为例， 创建一个均值为0.0、标准差为1.0的正态分布：
-
-```python
 my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
-```
 
-计算均值：
-
-```python
 mean = my_normal.mean()
-print(mean)
-```
-
-输出为：
-
-```text
-0.0
-```
-
-计算方差：
-
-```python
 var = my_normal.var()
-print(var)
-```
-
-输出为：
-
-```text
-1.0
-```
-
-计算熵：
-
-```python
 entropy = my_normal.entropy()
-print(entropy)
-```
 
-输出为：
-
-```text
-1.4189385
-```
-
-计算概率密度函数：
-
-```python
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 prob = my_normal.prob(value)
-print(prob)
-```
-
-输出为：
-
-```text
-[0.35206532, 0.3989423, 0.35206532]
-```
-
-计算累积分布函数：
-
-```python
 cdf = my_normal.cdf(value)
-print(cdf)
-```
 
-输出为：
-
-```text
-[0.30852754, 0.5, 0.69146246]
-```
-
-计算 Kullback-Leibler 散度：
-
-```python
 mean_b = Tensor(1.0, dtype=mstype.float32)
 sd_b = Tensor(2.0, dtype=mstype.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
-print(kl)
+
+print("mean: ", mean)
+print("var: ", var)
+print("entropy: ", entropy)
+print("prob: ", prob)
+print("cdf: ", cdf)
+print("kl: ", kl)
 ```
 
 输出为：
 
 ```text
-0.44314718
+mean: 0.0
+var: 1.0
+entropy: 1.4189385
+prob: [0.35206532, 0.3989423, 0.35206532]
+cdf: [0.3085482, 0.5, 0.6914518]
+kl: 0.44314718
 ```
 
 ### 概率分布类在图模式下的应用
 
 在图模式下，`Distribution` 子类可用在网络中。
-
-导入相关模块：
 
 ```python
 import mindspore.nn as nn
@@ -268,12 +211,7 @@ from mindspore import dtype as mstype
 import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.GRAPH_MODE)
-```
 
-创建网络：
-
-```python
-# 网络继承nn.Cell
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -283,11 +221,7 @@ class Net(nn.Cell):
         pdf = self.normal.prob(value)
         kl = self.normal.kl_loss("Normal", mean, sd)
         return pdf, kl
-```
 
-调用网络：
-
-```python
 net = Net()
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 mean = Tensor(1.0, dtype=mstype.float32)
@@ -328,9 +262,8 @@ kl: 0.5
 ### PyNative模式下调用TransformedDistribution实例
 
 `TransformedDistribution` 子类可在 **PyNative** 模式下使用。
-在执行之前，我们需要导入需要的库文件包。
 
-导入相关模块：
+这里构造一个 `TransformedDistribution` 实例，使用 `Normal` 分布作为需要变换的分布类，使用 `Exp` 作为映射变换，可以生成 `LogNormal` 分布。
 
 ```python
 import numpy as np
@@ -341,15 +274,23 @@ import mindspore.context as context
 from mindspore import Tensor
 from mindspore import dtype
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-构造一个 `TransformedDistribution` 实例，使用 `Normal` 分布作为需要变换的分布类，使用 `Exp` 作为映射变换，可以生成 `LogNormal` 分布。
-
-```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 exp = msb.Exp()
-LogNormal = msd.TransformedDistribution(exp, normal, dtype=dtype.float32, seed=0, name="LogNormal")
+LogNormal = msd.TransformedDistribution(exp, normal, seed=0, name="LogNormal")
+
+# compute cumulative distribution function
+x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
+tx = Tensor(x, dtype=dtype.float32)
+cdf = LogNormal.cdf(tx)
+
+# generate samples from the distribution
+shape = ((3, 2))
+sample = LogNormal.sample(shape)
+
 print(LogNormal)
+print("cdf:\n", cdf)
+print("sample:\n", sample)
 ```
 
 输出为：
@@ -359,114 +300,12 @@ TransformedDistribution<
   (_bijector): Exp<power = 0>
   (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
   >
-```
-
-可以对 `LogNormal` 进行概率分布计算。例如：
-
-计算累积分布函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-cdf = LogNormal.cdf(tx)
-print(cdf)
-```
-
-输出为：
-
-```text
+cdf:
 [7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
-```
-
-计算对数累积分布函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_cdf = LogNormal.log_cdf(tx)
-print(log_cdf)
-```
-
-输出为：
-
-```text
-[-2.79857576e-01, -5.52593507e-02, -1.07082408e-02]
-```
-
-计算生存函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-survival_function = LogNormal.survival_function(tx)
-print(survival_function)
-```
-
-输出为：
-
-```text
-[2.44108617e-01, 5.37602901e-02, 1.06511116e-02]
-```
-
-计算对数生存函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_survival = LogNormal.log_survival(tx)
-print(log_survival)
-```
-
-输出为：
-
-```text
-[-1.41014194e+00, -2.92322016e+00, -4.54209089e+00]
-```
-
-计算概率密度函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-prob = LogNormal.prob(tx)
-print(prob)
-```
-
-输出为：
-
-```text
-[1.56874031e-01, 2.18507163e-02, 2.81590177e-03]
-```
-
-计算对数概率密度函数：
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_prob = LogNormal.log_prob(tx)
-print(log_prob)
-```
-
-输出为：
-
-```text
-[-1.85231221e+00, -3.82352161e+00, -5.87247276e+00]
-```
-
-调用取样函数 `sample` 抽样：
-
-```python
-shape = ((3, 2))
-sample = LogNormal.sample(shape)
-print(sample)
-```
-
-输出为：
-
-```text
+sample:
 [[7.64315844e-01, 3.01435232e-01],
  [1.17166102e+00, 2.60277224e+00],
- [7.02699006e-01, 3.91564220e-01]])
+ [7.02699006e-01, 3.91564220e-01]]
 ```
 
 当构造 `TransformedDistribution` 映射变换的 `is_constant_jacobian = true` 时（如 `ScalarAffine`)，构造的 `TransformedDistribution` 实例可以使用直接使用 `mean` 接口计算均值，例如：
@@ -474,7 +313,7 @@ print(sample)
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 scalaraffine = msb.ScalarAffine(1.0, 2.0)
-trans_dist = msd.TransformedDistribution(scalaraffine, normal, dtype=dtype.float32, seed=0)
+trans_dist = msd.TransformedDistribution(scalaraffine, normal, seed=0)
 mean = trans_dist.mean()
 print(mean)
 ```
@@ -489,9 +328,8 @@ print(mean)
 
 在图模式下，`TransformedDistribution` 类可用在网络中。
 
-导入相关模块：
-
 ```python
+import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import dtype
@@ -499,29 +337,21 @@ import mindspore.context as context
 import mindspore.nn.probability.Bijector as msb
 import mindspore.nn.probability.Distribution as msd
 context.set_context(mode=self.GRAPH_MODE)
-```
 
-创建网络：
-
-```python
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
         super(Net, self).__init__()
-        # 创建TransformedDistribution实例
+        # create TransformedDistribution distribution
         self.exp = msb.Exp()
         self.normal = msd.Normal(0.0, 1.0, dtype=dtype)
-        self.lognormal = msd.TransformedDistribution(self.exp, self.normal, dtype=dtype, seed=seed, name=name)
+        self.lognormal = msd.TransformedDistribution(self.exp, self.normal, seed=seed, name=name)
         self.shape = shape
 
     def construct(self, value):
         cdf = self.lognormal.cdf(value)
         sample = self.lognormal.sample(self.shape)
         return cdf, sample
-```
 
-调用网络：
-
-```python
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
@@ -620,7 +450,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 在执行之前，我们需要导入需要的库文件包。双射类最主要的库是 `mindspore.nn.probability.bijector`，导入后我们使用 `msb` 作为库的缩写并进行调用。
 
-导入相关模块：
+下面我们以 `PowerTransform` 为例。创建一个指数为2的 `PowerTransform` 对象。
 
 ```python
 import numpy as np
@@ -630,77 +460,31 @@ import mindspore.context as context
 from mindspore import Tensor
 from mindspore import dtype
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-下面我们以 `PowerTransform` 为例。创建一个指数为2的 `PowerTransform` 对象。
-
-构造 `PowerTransform`：
-
-```python
 powertransform = msb.PowerTransform(power=2)
+
+x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
+tx = Tensor(x, dtype=dtype.float32)
+forward = powertransform.forward(tx)
+inverse = powertransform.inverse(tx)
+forward_log_jaco = powertransform.forward_log_jacobian(tx)
+inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
+
 print(powertransform)
+print("forward: ", forward)
+print("inverse: ", inverse)
+print("forward_log_jacobian: ", forward_log_jaco)
+print("inverse_log_jacobian: ", inverse_log_jaco)
 ```
 
 输出：
 
 ```text
 PowerTransform<power = 2>
-```
-
-接下来可以使用映射函数进行运算。
-
-调用 `forward` 方法，计算正向映射：
-
-```python
-x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-forward = powertransform.forward(tx)
-print(forward)
-```
-
-输出为：
-
-```text
-[2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
-```
-
-输入 `inverse` 方法，计算反向映射：
-
-```python
-inverse = powertransform.inverse(tx)
-print(inverse)
-```
-
-输出为：
-
-```text
-[1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
-```
-
-输入 `forward_log_jacobian` 方法，计算正向映射导数的对数：
-
-```python
-forward_log_jaco = powertransform.forward_log_jacobian(tx)
-print(forward_log_jaco)
-```
-
-输出：
-
-```text
-[-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
-```
-
-输入 `inverse_log_jacobian` 方法，计算反向映射导数的对数：
-
-```python
-inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
-print(inverse_log_jaco)
-```
-
-输出为：
-
-```text
-[6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
+forward: [2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
+inverse: [1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
+forward_log_jacobian: [-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
+inverse_log_jacobian: [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
 ```
 
 ### 图模式下调用Bijector实例
@@ -710,21 +494,18 @@ print(inverse_log_jaco)
 导入相关模块：
 
 ```python
+import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import dtype as mstype
 import mindspore.context as context
-import mindspore.nn.probability.Bijector as msb
+import mindspore.nn.probability.bijector as msb
 context.set_context(mode=context.GRAPH_MODE)
-```
 
-创建网络：
-
-```python
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        # 创建PowerTransform实例
+        # create a PowerTransform bijector
         self.powertransform = msb.PowerTransform(power=2)
 
     def construct(self, value):
@@ -733,11 +514,7 @@ class Net(nn.Cell):
         forward_log_jaco = self.s1.forward_log_jacobian(value)
         inverse_log_jaco = self.s1.inverse_log_jacobian(value)
         return forward, inverse, forward_log_jaco, inverse_log_jaco
-```
 
-调用网络：
-
-```python
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -751,10 +528,10 @@ print("inverse_log_jaco: ", inverse_log_jaco)
 输出为：
 
 ```text
-forward:  [2.236068  2.6457512 3.        3.3166249]
-inverse:  [ 1.5        4.0000005  7.5       12.000001 ]
-forward_log_jaco:  [-0.804719   -0.97295505 -1.0986123  -1.1989477 ]
-inverse_log_jaco:  [0.6931472 1.0986123 1.3862944 1.609438 ]
+forward:  [2.236068,  2.6457512, 3.,        3.3166249]
+inverse:  [ 1.5,        4.0000005,  7.5,       12.000001]
+forward_log_jaco:  [-0.804719,   -0.97295505, -1.0986123,  -1.1989477]
+inverse_log_jaco:  [0.6931472, 1.0986123, 1.3862944, 1.609438]
 ```
 
 ## 深度概率网络
@@ -1053,7 +830,7 @@ if __name__ == '__main__':
         epistemic_uncertainty = evaluation.eval_epistemic_uncertainty(eval_data)
         aleatoric_uncertainty = evaluation.eval_aleatoric_uncertainty(eval_data)
     print('The shape of epistemic uncertainty is ', epistemic_uncertainty.shape)
-    print('The shape of epistemic uncertainty is ', aleatoric_uncertainty.shape)
+    print('The shape of aleatoric uncertainty is ', aleatoric_uncertainty.shape)
 ```
 
 `eval_epistemic_uncertainty`计算的是认知不确定性，也叫模型不确定性，对于每一个样本的每个预测标签都会有一个不确定值；`eval_aleatoric_uncertainty`计算的是偶然不确定性，也叫数据不确定性，对于每一个样本都会有一个不确定值。
@@ -1061,7 +838,7 @@ if __name__ == '__main__':
 
 ```text
 The shape of epistemic uncertainty is (32, 10)
-The shape of epistemic uncertainty is (32,)
+The shape of aleatoric uncertainty is (32,)
 ```
 
 uncertainty的值位于[0,1]之间，越大表示不确定性越高。
