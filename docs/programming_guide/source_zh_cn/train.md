@@ -278,13 +278,6 @@ epoch: 10/10, losses: 1.4282708168029785
 
 Host侧CPU负责将图或算子下发到昇腾芯片。昇腾芯片由于具备了运算、逻辑控制和任务分发的功能，所以不需要与Host侧的CPU进行频繁的交互，只需要将计算完的最终结果返回给Host侧，实现整图下沉到Device执行，避免Host-Device频繁交互，减小了开销。
 
-以下是Device的主要组成结构：
-
-- 片上32G内存：5G(parameter) + 26G(feature map) + 1G(HCCL)
-- 多流水线并行：6条流水线
-- AICORE&带宽：32Cores、读写带宽128GBps
-- 通信协议：HCCS、PCIe4.0、RoCEv2
-
 ### 计算图下沉
 
 计算图整图下沉到Device上执行，减少Host-Device交互开销。可以结合循环下沉实现多个Step下沉，进一步减少Host和Device的交互次数。
@@ -306,6 +299,8 @@ dataset_sink_mode参数可以配合`sink_size`控制每个`epoch`下沉的数据
 如果`sink_size`>0，此时原始数据集可以被无限次遍历，每个`epoch`下沉`sink_size`大小的数据量，下一个`epoch`继续从上次遍历的结束位置继续遍历。
 
 下沉的总数据量由`epoch`和`sink_size`两个变量共同控制，即总数据量=`epoch`*`sink_size`。
+
+> 当前CPU和PyNative模式不支持数据下沉。
 
 代码样例如下：
 
