@@ -197,7 +197,8 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # 基准测试工具
-    │   └── lib # 推理框架动态库
+    │   └── lib # 推理框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
@@ -210,7 +211,8 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # 基准测试工具
-    │   └── lib # 推理框架动态库
+    │   └── lib # 推理框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库
     │       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库
@@ -225,7 +227,8 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # 基准测试工具
-    │   └── lib # 推理框架动态库
+    │   └── lib # 推理框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
