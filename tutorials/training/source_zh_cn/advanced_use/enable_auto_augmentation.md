@@ -131,79 +131,79 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
     ```python
     # define the Auto Augmentation policy
     imagenet_policy = [
-          [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
-          [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-          [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
-          [(posterize_impl(7), 0.6), (posterize_impl(6), 0.6)],
-          [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+        [(posterize_impl(8), 0.4), (rotate_impl(9), 0.6)],
+        [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
+        [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+        [(posterize_impl(7), 0.6), (posterize_impl(6), 0.6)],
+        [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
 
-          [(c_vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
-          [(solarize_impl(3), 0.6), (c_vision.Equalize(), 0.6)],
-          [(posterize_impl(5), 0.8), (c_vision.Equalize(), 1.0)],
-          [(rotate_impl(3), 0.2), (solarize_impl(8), 0.6)],
-          [(c_vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
+        [(c_vision.Equalize(), 0.4), (rotate_impl(8), 0.8)],
+        [(solarize_impl(3), 0.6), (c_vision.Equalize(), 0.6)],
+        [(posterize_impl(5), 0.8), (c_vision.Equalize(), 1.0)],
+        [(rotate_impl(3), 0.2), (solarize_impl(8), 0.6)],
+        [(c_vision.Equalize(), 0.6), (posterize_impl(6), 0.4)],
 
-          [(rotate_impl(8), 0.8), (color_impl(0), 0.4)],
-          [(rotate_impl(9), 0.4), (c_vision.Equalize(), 0.6)],
-          [(c_vision.Equalize(), 0.0), (c_vision.Equalize(), 0.8)],
-          [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
-          [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
+        [(rotate_impl(8), 0.8), (color_impl(0), 0.4)],
+        [(rotate_impl(9), 0.4), (c_vision.Equalize(), 0.6)],
+        [(c_vision.Equalize(), 0.0), (c_vision.Equalize(), 0.8)],
+        [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+        [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
 
-          [(rotate_impl(8), 0.8), (color_impl(2), 1.0)],
-          [(color_impl(8), 0.8), (solarize_impl(7), 0.8)],
-          [(sharpness_impl(7), 0.4), (c_vision.Invert(), 0.6)],
-          [(shear_x(5), 0.6), (c_vision.Equalize(), 1.0)],
-          [(color_impl(0), 0.4), (c_vision.Equalize(), 0.6)],
+        [(rotate_impl(8), 0.8), (color_impl(2), 1.0)],
+        [(color_impl(8), 0.8), (solarize_impl(7), 0.8)],
+        [(sharpness_impl(7), 0.4), (c_vision.Invert(), 0.6)],
+        [(shear_x(5), 0.6), (c_vision.Equalize(), 1.0)],
+        [(color_impl(0), 0.4), (c_vision.Equalize(), 0.6)],
 
-          [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
-          [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
-          [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
-          [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
-          [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
-        ]
+        [(c_vision.Equalize(), 0.4), (solarize_impl(4), 0.2)],
+        [(solarize_impl(5), 0.6), (autocontrast_impl(5), 0.6)],
+        [(c_vision.Invert(), 0.6), (c_vision.Equalize(), 1.0)],
+        [(color_impl(4), 0.6), (contrast_impl(8), 1.0)],
+        [(c_vision.Equalize(), 0.8), (c_vision.Equalize(), 0.6)],
+    ]
     ```
 
 4. 在`RandomCropDecodeResize`操作后插入AutoAugment变换。
 
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
-      # create a train or eval imagenet2012 dataset for ResNet-50
-      ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
-              shuffle=shuffle, num_samples=num_samples)
+        # create a train or eval imagenet2012 dataset for ResNet-50
+        ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
+                                   shuffle=shuffle, num_samples=num_samples)
 
-      image_size = 224
-      mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
-      std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+        image_size = 224
+        mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
+        std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
 
-      # define map operations
-      if do_train:
-          trans = [
-                  c_vision.RandomCropDecodeResize(image_size, scale=(0.08, 1.0), ratio=(0.75, 1.333)),
-                  ]
+        # define map operations
+        if do_train:
+            trans = [
+                c_vision.RandomCropDecodeResize(image_size, scale=(0.08, 1.0), ratio=(0.75, 1.333)),
+            ]
 
-          post_trans = [
-                  c_vision.RandomHorizontalFlip(prob=0.5),
-                  ]
-      else:
-          trans = [
-                  c_vision.Decode(),
-                  c_vision.Resize(256),
-                  c_vision.CenterCrop(image_size),
-                  c_vision.Normalize(mean=mean, std=std),
-                  c_vision.HWC2CHW()
-                  ]
-      ds = ds.map(operations=trans, input_columns="image")
-      if do_train:
-          ds = ds.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
-          ds = ds.map(operations=post_trans, input_columns="image")
-      type_cast_op = c_transforms.TypeCast(mstype.int32)
-      ds = ds.map(operations=type_cast_op, input_columns="label")
-      # apply the batch operation
-      ds = ds.batch(batch_size, drop_remainder=True)
-      # apply the repeat operation
-      ds = ds.repeat(repeat_num)
+            post_trans = [
+                c_vision.RandomHorizontalFlip(prob=0.5),
+            ]
+        else:
+            trans = [
+                c_vision.Decode(),
+                c_vision.Resize(256),
+                c_vision.CenterCrop(image_size),
+                c_vision.Normalize(mean=mean, std=std),
+                c_vision.HWC2CHW()
+            ]
+        ds = ds.map(operations=trans, input_columns="image")
+        if do_train:
+            ds = ds.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
+            ds = ds.map(operations=post_trans, input_columns="image")
+        type_cast_op = c_transforms.TypeCast(mstype.int32)
+        ds = ds.map(operations=type_cast_op, input_columns="label")
+        # apply the batch operation
+        ds = ds.batch(batch_size, drop_remainder=True)
+        # apply the repeat operation
+        ds = ds.repeat(repeat_num)
 
-      return ds
+        return ds
     ```
 
 5. 验证自动数据增强效果。

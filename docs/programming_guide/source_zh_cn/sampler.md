@@ -22,13 +22,12 @@
 
 MindSpore提供了多种用途的采样器（Sampler），帮助用户对数据集进行不同形式的采样，以满足训练需求，能够解决诸如数据集过大或样本类别分布不均等问题。只需在加载数据集时传入采样器对象，即可实现数据的采样。
 
-MindSpore目前提供的采样器类别如下表所示。此外，用户也可以根据需要实现自定义的采样器类。
+MindSpore目前提供的部分采样器类别如下表所示。此外，用户也可以根据需要实现自定义的采样器类。更多采样器的使用方法参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
 
 | 采样器名称  | 采样器说明 |
 | ----  | ----           |
-| SequentialSampler | 顺序采样器，按照数据的原始顺序采样指定数目的数据。 |
 | RandomSampler | 随机采样器，在数据集中随机地采样指定数目的数据。 |
-| WeightedRandomSampler | 带权随机采样器，在每种类别的数据中按照指定概率随机采样指定数目的数据。 |
+| WeightedRandomSampler | 带权随机采样器，依照长度为N的概率列表，在前N个样本中随机采样指定数目的数据。 |
 | SubsetRandomSampler | 子集随机采样器，在指定的索引范围内随机采样指定数目的数据。 |
 | PKSampler | PK采样器，在指定的数据集类别P中，每种类别各采样K条数据。 |
 | DistributedSampler | 分布式采样器，在分布式训练中对数据集分片进行采样。 |
@@ -95,9 +94,9 @@ Image shape: (32, 32, 3) , Label: 5
 
 ### WeightedRandomSampler
 
-指定每种类别的采样概率，按照概率在各类别中随机采样指定数目的数据。
+指定长度为N的采样概率列表，按照概率在前N个样本中随机采样指定数目的数据。
 
-下面的样例使用带权随机采样器从CIFAR-10数据集的10个类别中按概率获取6个样本，并展示已读取数据的形状和标签。
+下面的样例使用带权随机采样器从CIFAR-10数据集的前10个样本中按概率获取6个样本，并展示已读取数据的形状和标签。
 
 ```python
 import mindspore.dataset as ds

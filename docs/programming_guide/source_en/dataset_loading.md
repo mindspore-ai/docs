@@ -308,8 +308,8 @@ The following examples describe how to use `NumpySlicesDataset` to load array, l
     import numpy as np
     import mindspore.dataset as ds
 
-    np.random.seed(58)
-    features, labels = np.random.sample((5, 2)), np.random.sample((5, 1))
+    np.random.seed(6)
+    features, labels = np.random.sample((4, 2)), np.random.sample((4, 1))
 
     data = (features, labels)
     dataset = ds.NumpySlicesDataset(data, column_names=["col1", "col2"], shuffle=False)
@@ -321,11 +321,10 @@ The following examples describe how to use `NumpySlicesDataset` to load array, l
     The output is as follows:
 
     ```text
-    [0.36510558 0.45120592] [0.78888122]
-    [0.49606035 0.07562207] [0.38068183]
-    [0.57176158 0.28963401] [0.16271622]
-    [0.30880446 0.37487617] [0.54738768]
-    [0.81585667 0.96883469] [0.77994068]
+    [0.89286015 0.33197981] [0.33540785]
+    [0.82122912 0.04169663] [0.62251943]
+    [0.10765668 0.59505206] [0.43814143]
+    [0.52981736 0.41880743] [0.73588211]
     ```
 
 - Load Python list data.
@@ -387,11 +386,11 @@ for data in csv_dataset.create_dict_iterator(output_numpy=True):
 
 ## Loading User-defined Dataset
 
-For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in customized method or convert them into the MindRecord data format. Currently, user-defined datasets can be loaded in the following methods:
+For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format. The following demonstrates some different methods to load user-defined datasets. To facilitate comparison, keep the generated random data the same.
 
 ### Constructing Dataset Generator Function
 
-Construct a generator function that defines the data return method, and then use this function to construct the user-defined dataset object.
+Construct a generator function that defines the data return method, and then use this function to construct the user-defined dataset object. This method is appliable for simple scenarios.
 
 ```python
 import numpy as np
@@ -423,7 +422,7 @@ The output is as follows:
 
 ### Constructing Iterable Dataset Class
 
-Construct a dataset class to implement the `__iter__` and `__next__` methods, and then use the object of this class to construct the user-defined dataset object.
+Construct a dataset class to implement the `__iter__` and `__next__` methods, and then use the object of this class to construct the user-defined dataset object. Compared with directly defining the generating function, using the dataset class can achieve more customized functions.
 
 ```python
 import numpy as np
@@ -469,7 +468,7 @@ The output is as follows:
 
 ### Constructing Random Accessible Dataset Class
 
-Construct a dataset class to implement the `__getitem__` method, and then use the object of this class to construct a user-defined dataset object.
+Construct a dataset class to implement the `__getitem__` method, and then use the object of this class to construct a user-defined dataset object. This method is appliable for achieving distributed training.
 
 ```python
 import numpy as np
@@ -504,7 +503,7 @@ The output is as follows:
 [0.81585667 0.96883469] [0.77994068]
 ```
 
-If you want to use distributed training, you need to implement the `__iter__` method in the sampler class additionally. The index of the sampled data is returned each time.
+If you want to perform distributed training, you need to implement the `__iter__` method in the sampler class additionally. The index of the sampled data is returned each time. The code that needs to be added is as follows:
 
 ```python
 import math
