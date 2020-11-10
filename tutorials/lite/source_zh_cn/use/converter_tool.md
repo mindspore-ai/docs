@@ -61,7 +61,7 @@ bash build.sh -I x86_64
 
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
 
-- 以MindSpore、TensorFlow Lite、ONNX模型格式和感知量化模型为例，执行转换命令。
+- 以MindSpore、TensorFlow Lite、ONNX模型为例，执行转换命令。
 
     - MindSpore模型`model.mindir`
 

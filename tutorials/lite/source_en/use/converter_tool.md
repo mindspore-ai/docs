@@ -61,7 +61,7 @@ The following describes how to use the conversion command by using several commo
 
    This indicates that the Caffe model is successfully converted into the MindSpore Lite model and the new file `lenet.ms` is generated.
 
-- The following uses the MindSpore, TensorFlow Lite, ONNX and perception quantization models as examples to describe how to run the conversion command.
+- The following uses the MindSpore, TensorFlow Lite, ONNX models as examples to describe how to run the conversion command.
 
     - MindSpore model `model.mindir`
 
