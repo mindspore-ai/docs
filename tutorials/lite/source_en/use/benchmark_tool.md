@@ -47,7 +47,7 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
 | `--benchmarkDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
-| `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | UINT8, FLOAT or INT8 |
+| `--benchmarkDataType=<BENCHMARKDATATYPE>` | Optional | Specifies the calibration data type. | String | FLOAT | FLOAT, INT32, INT8 or UINT8|
 | `--cpuBindMode=<CPUBINDMODE>` | Optional | Specifies the type of the CPU core bound to the model inference program. | Integer | 2      | 2: medium core<br/>1: large core<br/>0: not bound |
 | `--device=<DEVICE>` | Optional | Specifies the type of the device on which the model inference program runs. | String | CPU | CPU or GPU |
 | `--help` | Optional | Displays the help information about the `benchmark` command. | - | - | - |
