@@ -200,7 +200,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # Benchmarking Tool
-    │   └── lib # Inference framework dynamic library
+    │   └── lib # Inference framework library
+    │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
@@ -213,7 +214,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # Benchmarking Tool
-    │   └── lib # Inference framework dynamic library
+    │   └── lib # Inference framework library
+    │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite-fp16.so # Operator performance optimization library support float16 in MindSpore Lite
     │       ├── libmindspore-lite-optimize.so # Operator performance optimization library support dotprod instruction in MindSpore Lite  
@@ -228,7 +230,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # Benchmarking Tool
-    │   └── lib # Inference framework dynamic library
+    │   └── lib # Inference framework library
+    │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
