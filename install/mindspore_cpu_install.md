@@ -24,7 +24,7 @@
 
 | 版本号 | 操作系统 | 可执行文件安装依赖 | 源码编译安装依赖 |
 | ---- | :--- | :--- | :--- |
-| MindSpore master | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.14.1 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [OpenSSL](https://github.com/openssl/openssl.git) >= 1.1.1 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
+| MindSpore master | - Ubuntu 18.04 x86_64 <br> - Ubuntu 18.04 aarch64 | - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - 其他依赖项参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt) | **编译依赖：**<br> - [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 <br> - [wheel](https://pypi.org/project/wheel/) >= 0.32.0 <br> - [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 <br> - [CMake](https://cmake.org/download/) >= 3.18.3 <br> - [patch](http://ftp.gnu.org/gnu/patch/) >= 2.5 <br> - [OpenSSL](https://github.com/openssl/openssl.git) >= 1.1.1 <br> **安装依赖：**<br> 与可执行文件安装依赖相同 |
 
 - GCC 7.3.0可以直接通过apt命令安装。
 - 若环境中已经安装了Python，确保将Python添加到环境变量中，还可以通过命令`python --version`查看Python的版本是否符合要求。

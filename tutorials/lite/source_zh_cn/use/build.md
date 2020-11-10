@@ -31,12 +31,12 @@
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
 - runtime(cpp)、benchmark编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 - converter编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
@@ -48,7 +48,7 @@
     - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
 - runtime(java)编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0

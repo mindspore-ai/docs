@@ -32,13 +32,13 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
 - Compilation dependencies of runtime(cpp), benchmark:
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
     - [Git](https://git-scm.com/downloads) >= 2.28.0
 
 - Compilation dependencies of converter:
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
     - [Git](https://git-scm.com/downloads) >= 2.28.0
@@ -51,7 +51,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
 
 - Compilation dependencies of runtime(java)
-    - [CMake](https://cmake.org/download/) >= 3.14.1
+    - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
