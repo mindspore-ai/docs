@@ -32,7 +32,23 @@
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training>
+
+The directory structure is as follow:
+
+```text
+└─tutorial_code
+    ├─distributed_training
+    │      rank_table_8pcs.json
+    │      rank_table_2pcs.json
+    │      resnet.py
+    │      resnet50_distributed_training.py
+    │      resnet50_distributed_training_gpu.py
+    │      run.sh
+    │      run_gpu.sh
+```
+
+`rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` and `resnet50_distributed_training_gpu.py` are the network structure files. `run.sh` and `run_gpu.sh` are the execute scripts。
 
 Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
@@ -289,7 +305,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 `context.set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of networks. The related parameters are as follows:
 
-- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`. The option mode ` AUTO_PARALLEL` can use the parameter `auto_parallel_search_mode` to select a search algorithm for its strategy generation.
+- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`. The option mode `AUTO_PARALLEL` can use the parameter `auto_parallel_search_mode` to select a search algorithm for its strategy generation.
 - `auto_parallel_search_mode`: strategy search algorithm. The default value is `dynamic_programming`. The other option is `recursive_programming` for much faster strategy generation.
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
 
@@ -338,6 +354,12 @@ Currently, MindSpore distributed execution uses the single-device single-process
 ```bash
 #!/bin/bash
 
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run.sh DATA_PATH RANK_SIZE"
+echo "For example: bash run.sh /path/dataset 8"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 RANK_SIZE=$2
@@ -389,9 +411,9 @@ fi
 cd ../
 ```
 
-The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the path of the dataset and the number of devices, respectively.
+The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the absolute path of the dataset and the number of devices, respectively.
 
-The necessary environment variables are as follows:  
+The distributed related environment variables are as follows:  
 
 - `RANK_TABLE_FILE`: path for storing the network information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
@@ -400,7 +422,7 @@ For details about other environment variables, see configuration items in the in
 
 The running time is about 5 minutes, which is mainly occupied by operator compilation. The actual training time is within 20 seconds. You can use `ps -ef | grep pytest` to monitor task processes.
 
-Log files are saved in the `device` directory. The `env.log` file records environment variable information. The `train.log` file records the loss function information. The following is an example:
+Log files are saved in the `device0`,`device1`... directory. The `env.log` file records environment variable information. The `train.log` file records the loss function information. The following is an example:
 
 ```text
 epoch: 1 step: 156, loss is 2.0084016

@@ -97,6 +97,12 @@ if __name__ == "__main__":
 ```bash
 #!/bin/bash
 
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run_gpu.sh DATA_PATH"
+echo "For example: bash run_gpu.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 
@@ -108,7 +114,7 @@ echo "start training"
 mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-脚本需要传入变量`DATA_PATH`，表示数据集的路径。此外，我们需要修改下`resnet50_distributed_training.py`文件，由于在GPU上，我们无需设置`DEVICE_ID`环境变量，因此，在脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将`device_target`设置为`GPU`，并调用`init("nccl")`来使能NCCL。日志文件保存到device目录下，关于Loss部分结果保存在train.log中。将loss值grep出来后，示例如下：
+脚本会在后台运行，日志文件会保存到device目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在train.log中。将loss值grep出来后，示例如下：
 
 ```text
 epoch: 1 step: 1, loss is 2.3025854
