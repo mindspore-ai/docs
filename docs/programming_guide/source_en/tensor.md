@@ -19,13 +19,13 @@ Tensor is a basic data structure in the MindSpore network computing. For details
 
 Tensors of different dimensions represent different data. For example, a 0-dimensional tensor represents a scalar, a 1-dimensional tensor represents a vector, a 2-dimensional tensor represents a matrix, and a 3-dimensional tensor may represent the three channels of RGB images.
 
-> All examples in this document can run in PyNative mode and do not support CPUs.
-  
+> All examples in this document can be run in the PyNative mode and do not support CPUs.
+
 ## Tensor Structure
 
 During tensor creation, the `Tensor`, `float`, `int`, `bool`, `tuple`, `list`, and `NumPy.array` types can be transferred, while `tuple` and `list` can only store `float`, `int`, and `bool` data.
 
-`dtype` can be specified when `Tensor` is initialized. When the `dtype` is not specified, if the initial value is `int`, `float` or `bool`, then a 0-dimensional `Tensor` with data types `mindspore.int32`, `mindspore.float32` or `mindspore.bool_` will be generated respectively. If the initial values are `tuple` and `list`, the generated 1-dimensional `Tensor` data type corresponds to the type stored in `tuple` and `list`.If it contains multiple different types of data, follow the below priority: `bool` < `int` < `float`, to select the mindspore data type corresponding to the highest relative priority type. If the initial value is `Tensor`,  the consistent data type `Tensor` is generated. If the initial value is `NumPy.array`, the corresponding data type `Tensor` is generated.
+`dtype` can be specified when `Tensor` is initialized. When the `dtype` is not specified, if the initial value is `int`, `float` or `bool`, then a 0-dimensional `Tensor` with data types `mindspore.int32`, `mindspore.float32` or `mindspore.bool_` will be generated respectively. If the initial values are `tuple` and `list`, the generated 1-dimensional `Tensor` data type corresponds to the type stored in `tuple` and `list`. If it contains multiple different types of data, follow the below priority: `bool` < `int` < `float`, to select the mindspore data type corresponding to the highest relative priority type. If the initial value is `Tensor`,  the consistent data type `Tensor` is generated. If the initial value is `NumPy.array`, the corresponding data type `Tensor` is generated.
 
 A code example is as follows:
 
@@ -63,7 +63,7 @@ True
 
 [4. 5. 6.]
 ```
-  
+
 ## Tensor Attributes and Methods
 
 ### Attributes
