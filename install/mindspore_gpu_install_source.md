@@ -21,7 +21,7 @@
 - 确认安装[GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0版本。
 - 确认安装[gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2及以上版本。
 - 确认安装[Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5版本。
-- 确认安装[CMake](https://cmake.org/download/) 3.14.1及以上版本。
+- 确认安装[CMake](https://cmake.org/download/) 3.18.3及以上版本。
     - 安装完成后将CMake添加到系统环境变量。
 - 确认安装[patch](http://ftp.gnu.org/gnu/patch/) 2.5及以上版本。
     - 安装完成后将patch添加到系统环境变量中。
