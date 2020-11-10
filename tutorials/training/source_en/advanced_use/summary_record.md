@@ -114,7 +114,7 @@ lr = Tensor(0.5, mindspore.float32)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
 model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
-# How to create a valid dataset instance, 
+# How to create a valid dataset instance,
 # for detail, see the https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html document.
 ds_train = create_dataset('./dataset_path')
 
@@ -349,7 +349,7 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 2. Multiple `SummaryRecord` instances can not be used at the same time. (`SummaryRecord` is used in `SummaryCollector`)
 
-    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it will cause recoding data failure.
+    If you use two or more instances of `SummaryCollector` in the callback list of 'model.train' or 'model.eval', it is seen as using multiple `SummaryRecord` instances at the same time, and it may cause recoding data failure.
 
     If the customized callback uses `SummaryRecord`, it can not be used with `SummaryCollector` at the same time.
 

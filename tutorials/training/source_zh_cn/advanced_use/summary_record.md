@@ -116,7 +116,7 @@ lr = Tensor(0.5, mindspore.float32)
 opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
 model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
-# How to create a valid dataset instance, 
+# How to create a valid dataset instance,
 # for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
 ds_train = create_dataset('./dataset_path')
 
@@ -352,7 +352,7 @@ mindinsight stop
 
 2. 不能同时使用多个 `SummaryRecord` 实例 （`SummaryCollector` 中使用了 `SummaryRecord`）。
 
-    如果在 `model.train` 或者 `model.eval` 的callback列表中使用两个及以上的 `SummaryCollector` 实例，则视为同时使用 `SummaryRecord`，导致记录数据失败。
+    如果在 `model.train` 或者 `model.eval` 的callback列表中使用两个及以上的 `SummaryCollector` 实例，则视为同时使用 `SummaryRecord`，可能导致记录数据失败。
 
     自定义callback中如果使用 `SummaryRecord`，则其不能和 `SummaryCollector` 同时使用。
 
