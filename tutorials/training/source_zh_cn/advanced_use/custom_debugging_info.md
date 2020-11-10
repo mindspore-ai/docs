@@ -142,7 +142,7 @@ class Callback():
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
-    from mindspore.train.serialization import save_checkpoint
+    from mindspore import save_checkpoint
 
     class SaveCallback(Callback):
         def __init__(self, model, eval_dataset):

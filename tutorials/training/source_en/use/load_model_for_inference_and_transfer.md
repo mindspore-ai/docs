@@ -117,7 +117,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
    ```python
    import mindspore
    from mindspore import nn, context, Tensor
-   from mindspore.train.serialization import save_checkpoint
+   from mindspore import save_checkpoint
    from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
    import mindspore.ops as ops
    from mindspore.nn import Momentum
@@ -209,7 +209,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
 6. Eval on test set.
 
    ```python
-   from mindspore.train.serialization import load_checkpoint, load_param_into_net
+   from mindspore import load_checkpoint, load_param_into_net
 
    network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', pretrained=False,
                         include_top=False, num_classes=1000)

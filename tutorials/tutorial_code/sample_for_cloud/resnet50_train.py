@@ -27,7 +27,7 @@ from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from mindspore.train.callback import Callback, LossMonitor
-from mindspore.train.loss_scale_manager import FixedLossScaleManager
+from mindspore import FixedLossScaleManager
 from mindspore.communication.management import init
 import mindspore.dataset.engine as de
 

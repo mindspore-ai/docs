@@ -807,7 +807,7 @@ API`TransformToBNN`主要实现了两个功能：
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 if __name__ == '__main__':
     # get trained model

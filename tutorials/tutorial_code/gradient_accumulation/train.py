@@ -24,7 +24,7 @@ from mindspore import context
 from mindspore.nn import Cell
 import mindspore.ops as ops
 from mindspore.train.dataset_helper import DatasetHelper
-from mindspore.train.serialization import save_checkpoint
+from mindspore import save_checkpoint
 from model_zoo.official.cv.lenet.src.dataset import create_dataset
 from model_zoo.official.cv.lenet.src.lenet import LeNet5
 

@@ -29,7 +29,7 @@ from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from mindspore import context
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 from mindspore.parallel._auto_parallel_context import auto_parallel_context
 from resnet import resnet50
 

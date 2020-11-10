@@ -287,7 +287,7 @@ User process:
     import mindspore.nn as nn
     from mindspore import Tensor, Parameter
     import mindspore.ops as ops
-    from mindspore.train.serialization import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
+    from mindspore import save_checkpoint, load_checkpoint, build_searched_strategy, merge_sliced_parameter
 
     class Net(nn.Cell):
         def __init__(self,weight_init):
@@ -461,7 +461,7 @@ User process:
    from mindspore.communication.management import init
    from mindspore import Tensor, Parameter
    import mindspore.ops as ops
-   from mindspore.train.serialization import load_checkpoint, load_param_into_net
+   from mindspore import load_checkpoint, load_param_into_net
 
    from mindspore.communication.management import init
    devid = int(os.getenv('DEVICE_ID'))

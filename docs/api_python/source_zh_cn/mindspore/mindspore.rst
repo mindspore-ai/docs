@@ -106,4 +106,3 @@ mindspore
   
 .. automodule:: mindspore
     :members:
-    :exclude-members: Model, DatasetHelper, connect_network_with_dataset, amp 

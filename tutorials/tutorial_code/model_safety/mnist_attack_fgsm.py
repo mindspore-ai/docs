@@ -18,7 +18,7 @@ from scipy.special import softmax
 from mindspore import Model
 from mindspore import Tensor
 from mindspore import context
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod

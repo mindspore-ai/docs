@@ -446,7 +446,7 @@ def test_train_cifar(epoch_size=10):
 保存好checkpoint文件后，用户可以很容易加载模型参数进行推理或再训练场景，如用于再训练场景可使用如下代码加载模型：
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved
