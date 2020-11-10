@@ -86,7 +86,7 @@ MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`�
 - 第一种方法是使用上一步创建得到的`Context`，调用LiteSession的静态`static LiteSession *CreateSession(const lite::Context *context)`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
 - 第二种方法是使用上一步创建得到的`Context`，以及已经从文件读入的模型buffer和buffer的size，通过调用LiteSession的静态`static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
 
-> 第二种方法中使用的`CreateSession`接口是一个简化流程的接口，使用这个接口可以简化调用流程。该接口的功能实现了三个接口的功能：[一个入参的CreateSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id3) 接口，[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id5) 接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id2) 接口。
+> 第二种方法中使用的`CreateSession`接口是一个简化流程的接口，使用这个接口可以简化调用流程。该接口的功能实现了三个接口的功能：[单入参的CreateSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id3) 接口，[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id5) 接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id2) 接口。
 
 ### 使用示例
 
