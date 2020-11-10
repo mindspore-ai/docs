@@ -136,6 +136,7 @@
 | [mindspore.ops.DepthwiseConv2dNative](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DepthwiseConv2dNative) |  Supported | Doing  |Doing | nn_ops
 | [mindspore.ops.DepthwiseConv2dNativeBackpropInput](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DepthwiseConv2dNativeBackpropInput) |  Supported | Doing  |Doing | nn_ops
 | [mindspore.ops.DepthwiseConv2dNativeiBackpropFilter](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DepthwiseConv2dNativeBackpropFilter) |  Supported | Doing  |Doing | nn_ops
+| [mindspore.ops.DataFormatDimMap](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.DataFormatDimMap)         |    Supported | Doing  |Doing | nn_ops
 | [mindspore.ops.MaxPoolWithArgmax](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.MaxPoolWithArgmax)         |    Supported | Doing  |Doing | nn_ops
 | [mindspore.ops.MaxPool](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.MaxPool)                             |    Supported | Supported    |  Supported | nn_ops
 | [mindspore.ops.AvgPool](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.AvgPool)                             |  Supported | Supported    |Doing | nn_ops
