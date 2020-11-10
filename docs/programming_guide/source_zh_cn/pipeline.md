@@ -24,7 +24,7 @@
 
 MindSpore的各个数据集类都为用户提供了多种数据处理算子，用户可以构建数据处理pipeline定义需要使用的数据处理操作，数据即可在训练过程中像水一样源源不断地经过数据处理pipeline流向训练系统。
 
-MindSpore目前支持的常用数据处理算子如下表所示，更多数据处理操作参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
+MindSpore目前支持的部分常用数据处理算子如下表所示，更多数据处理操作参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
 
 | 数据处理算子  | 算子说明 |
 | ----  | ----           |
@@ -34,7 +34,6 @@ MindSpore目前支持的常用数据处理算子如下表所示，更多数据�
 | repeat | 对数据集进行重复，达到扩充数据量的目的。 |
 | zip | 将两个数据集进行列拼接，合并为一个数据集。 |
 | concat | 将两个数据集进行行拼接，合并为一个数据集。 |
-| project | 对数据集列进行映射，将指定列按顺序保留，其余列丢弃。 |
 
 ## 数据处理算子
 

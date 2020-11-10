@@ -77,80 +77,44 @@ The following tutorial demonstrates loading datasets using the `TextFileDataset`
 
 ## Processing Data
 
-The following tutorial demonstrates how to perform data processing such as `SlidingWindow` and `shuffle` after a `dataset` is created.
+The following tutorial demonstrates how to construct a pipeline and perform operations such as `shuffle` and `RegexReplace` on the text dataset.
 
-- **SlidingWindow**
+1. Shuffle the dataset.
 
-    The following tutorial demonstrates how to use the `SlidingWindow` to slice text data.
+    ```python
+    ds.config.set_seed(58)
+    dataset = dataset.shuffle(buffer_size=3)
 
-    1. Load the text dataset.
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']))
+    ```
 
-        ```python
-        inputs = [["大", "家", "早", "上", "好"]]
-        dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=False)
-        ```
+    The output is as follows:
 
-    2. Print the results without any data processing.
+    ```text
+    我喜欢English!
+    Welcome to Beijing!
+    北京欢迎您！
+    ```
 
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
+2. Perform `RegexReplace` on the dataset.
 
-        The output is as follows:
+    ```python
+    replace_op1 = text.RegexReplace("Beijing", "Shanghai")
+    replace_op2 = text.RegexReplace("北京", "上海")
+    dataset = dataset.map(operations=[replace_op1, replace_op2])
 
-        ```text
-        ['大', '家', '早', '上', '好']
-        ```
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']))
+    ```
 
-    3. Perform the data processing operation.
+    The output is as follows:
 
-        ```python
-        dataset = dataset.map(operations=text.SlidingWindow(2, 0), input_columns=["text"])
-        ```
-
-    4. Print the results after data processing.
-
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
-
-        The output is as follows:
-
-        ```text
-        [['大', '家'],
-         ['家', '早'],
-         ['早', '上'],
-         ['上', '好']]
-        ```
-
-- **shuffle**
-
-    The following tutorial demonstrates how to shuffle text data while loading a dataset.
-
-    1. Load and shuffle the text dataset.
-
-        ```python
-        inputs = ["a", "b", "c", "d"]
-        dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=True)
-        ```
-
-    2. Print the results after performing `shuffle`.
-
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
-
-        The output is as follows:
-
-        ```text
-        c
-        a
-        d
-        b
-        ```
+    ```text
+    我喜欢English!
+    Welcome to Shanghai!
+    上海欢迎您！
+    ```
 
 ## Tokenization
 
@@ -171,15 +135,14 @@ The following tutorial demonstrates how to use the `WhitespaceTokenizer` to toke
 3. Create an iterator and obtain data through the iterator.
 
     ```python
-    for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-            token = text.to_str(i['text']).tolist()
-            print(token)
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']).tolist())
     ```
 
     The output after tokenization is as follows:
 
     ```text
-    ['Welcome', 'to', 'Beijing!']
-    ['北京欢迎您！']
     ['我喜欢English!']
+    ['Welcome', 'to', 'Shanghai!']
+    ['上海欢迎您！']
     ```

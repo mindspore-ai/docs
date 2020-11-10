@@ -22,7 +22,7 @@ Data is the basis of deep learning. Good data input can play an active role in t
 
 Each dataset class of MindSpore provides multiple data processing operators. You can build a data processing pipeline to define the data processing operations to be used. In this way, data can continuously flow to the training system through the data processing pipeline during the training process.
 
-The following table lists the common data processing operators supported by MindSpore. For more data processing operations, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+The following table lists part of the common data processing operators supported by MindSpore. For more data processing operations, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
 | Data Processing Operator | Description |
 | ----  | ----           |
@@ -32,7 +32,6 @@ The following table lists the common data processing operators supported by Mind
 | repeat | Repeats a dataset to expand the data volume. |
 | zip | Zips two datasets into one vertically. |
 | concat | Concatenates two datasets into one horizontally. |
-| project | Maps the columns of a dataset. Reserves the specified columns in sequence and discards other columns. |
 
 ## Data Processing Operators
 

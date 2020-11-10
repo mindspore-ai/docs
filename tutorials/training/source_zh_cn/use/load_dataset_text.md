@@ -81,80 +81,44 @@ MindSpore目前支持加载文本领域常用的经典数据集和多种数据�
 
 MindSpore目前支持的数据处理算子及其详细使用方法，可参考编程指南中[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)章节。
 
-在生成`dataset`对象后可对其进行数据处理操作，比如`SlidingWindow`、`shuffle`等。
+下面演示构建pipeline，对文本数据集进行混洗和文本替换操作。
 
-- **SlidingWindow**
+1. 对数据集进行混洗。
 
-    下面演示使用`SlidingWindow`对文本数据进行切片操作。
+    ```python
+    ds.config.set_seed(58)
+    dataset = dataset.shuffle(buffer_size=3)
 
-    1. 加载数据集。
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']))
+    ```
 
-        ```python
-        inputs = [["大", "家", "早", "上", "好"]]
-        dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=False)
-        ```
+    输出结果如下：
 
-    2. 原始数据输出效果。
+    ```text
+    我喜欢English!
+    Welcome to Beijing!
+    北京欢迎您！
+    ```
 
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
+2. 对数据集进行文本替换。
 
-        输出结果如下：
+    ```python
+    replace_op1 = text.RegexReplace("Beijing", "Shanghai")
+    replace_op2 = text.RegexReplace("北京", "上海")
+    dataset = dataset.map(operations=[replace_op1, replace_op2])
 
-        ```text
-        ['大', '家', '早', '上', '好']
-        ```
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']))
+    ```
 
-    3. 执行操作。
+    输出结果如下：
 
-        ```python
-        dataset = dataset.map(operations=text.SlidingWindow(2, 0), input_columns=["text"])
-        ```
-
-    4. 执行之后输出效果。
-
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
-
-        输出结果如下：
-
-        ```text
-        [['大', '家'],
-         ['家', '早'],
-         ['早', '上'],
-         ['上', '好']]
-        ```
-
-- **shuffle**
-
-    下面演示在加载数据集时使用`shuffle`对文本数据进行混洗操作。
-
-    1. 加载数据集。
-
-        ```python
-        inputs = ["a", "b", "c", "d"]
-        dataset = ds.NumpySlicesDataset(inputs, column_names=["text"], shuffle=True)
-        ```
-
-    2. 数据输出效果。
-
-        ```python
-        for data in dataset.create_dict_iterator(output_numpy=True):
-                print(text.to_str(data['text']).tolist())
-        ```
-
-        输出结果如下：
-
-        ```text
-        c
-        a
-        d
-        b
-        ```
+    ```text
+    我喜欢English!
+    Welcome to Shanghai!
+    上海欢迎您！
+    ```
 
 ## 数据分词
 
@@ -177,15 +141,14 @@ MindSpore目前支持的数据分词算子及其详细使用方法，可参考�
 3. 创建迭代器，通过迭代器获取数据。
 
     ```python
-    for i in dataset.create_dict_iterator(num_epochs=1, output_numpy=True):
-            token = text.to_str(i['text']).tolist()
-            print(token)
+    for data in dataset.create_dict_iterator(output_numpy=True):
+        print(text.to_str(data['text']).tolist())
     ```
 
     获取到分词后的数据：
 
     ```text
-    ['Welcome', 'to', 'Beijing!']
-    ['北京欢迎您！']
     ['我喜欢English!']
+    ['Welcome', 'to', 'Shanghai!']
+    ['上海欢迎您！']
     ```

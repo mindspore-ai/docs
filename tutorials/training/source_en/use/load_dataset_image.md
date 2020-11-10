@@ -82,7 +82,7 @@ for data in mnist_dataset.create_dict_iterator():
 
 The output is as follows:
 
-```python
+```text
 5
 0
 4
@@ -103,7 +103,7 @@ The output is as follows:
 
     The output is as follows:
 
-    ```python
+    ```text
     4
     2
     1
@@ -123,7 +123,7 @@ The output is as follows:
 
     The output is as follows:
 
-    ```python
+    ```text
     [4 2]
     [1 0]
     [5 9]
@@ -140,7 +140,7 @@ The output is as follows:
 
     The output is as follows:
 
-    ```python
+    ```text
     [4 2]
     [1 0]
     [5 9]

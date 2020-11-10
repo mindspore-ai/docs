@@ -31,58 +31,70 @@ This example describes how to convert a CV dataset into MindRecord and use `Mind
 
 Create a MindRecord file containing 100 records, whose sample includes the `file_name` (string), `label` (integer), and `data` (binary) fields. Use `MindDataset` to read the MindRecord file.
 
-```python
-from io import BytesIO
-import os
-import mindspore.dataset as ds
-from mindspore.mindrecord import FileWriter
-import mindspore.dataset.vision.c_transforms as vision
-from PIL import Image
+1. Import related modules.
 
-mindrecord_filename = "test.mindrecord"
+    ```python
+    from io import BytesIO
+    import os
+    import mindspore.dataset as ds
+    from mindspore.mindrecord import FileWriter
+    import mindspore.dataset.vision.c_transforms as vision
+    from PIL import Image
+    ```
 
-if os.path.exists(mindrecord_filename):
-    os.remove(mindrecord_filename)
-    os.remove(mindrecord_filename + ".db")
+2. Generate 100 images and convert them to MindRecord.
 
-writer = FileWriter(file_name=mindrecord_filename, shard_num=1)
+    ```python
+    MINDRECORD_FILE = "test.mindrecord"
 
-cv_schema = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
-writer.add_schema(cv_schema, "it is a cv dataset")
+    if os.path.exists(MINDRECORD_FILE):
+        os.remove(MINDRECORD_FILE)
+        os.remove(MINDRECORD_FILE + ".db")
 
-writer.add_index(["file_name", "label"])
+    writer = FileWriter(file_name=MINDRECORD_FILE, shard_num=1)
 
-data = []
-for i in range(100):
-    i += 1
+    cv_schema = {"file_name": {"type": "string"}, "label": {"type": "int32"}, "data": {"type": "bytes"}}
+    writer.add_schema(cv_schema, "it is a cv dataset")
 
-    sample = {}
-    white_io = BytesIO()
-    Image.new('RGB', (i*10, i*10), (255, 255, 255)).save(white_io, 'JPEG')  
-    image_bytes = white_io.getvalue()
-    sample['file_name'] = str(i) + ".jpg"
-    sample['label'] = i
-    sample['data'] = white_io.getvalue()  
+    writer.add_index(["file_name", "label"])
 
-    data.append(sample)
-    if i % 10 == 0:
+    data = []
+    for i in range(100):
+        i += 1
+
+        sample = {}
+        white_io = BytesIO()
+        Image.new('RGB', (i*10, i*10), (255, 255, 255)).save(white_io, 'JPEG')
+        image_bytes = white_io.getvalue()
+        sample['file_name'] = str(i) + ".jpg"
+        sample['label'] = i
+        sample['data'] = white_io.getvalue()
+
+        data.append(sample)
+        if i % 10 == 0:
+            writer.write_raw_data(data)
+            data = []
+
+    if data:
         writer.write_raw_data(data)
-        data = []
 
-if data:
-    writer.write_raw_data(data)
+    writer.commit()
+    ```
 
-writer.commit()
+    **Parameter description:**
+    - `MINDRECORD_FILE`: path of the output MindRecord file.
 
-data_set = ds.MindDataset(dataset_file=mindrecord_filename)  
-decode_op = vision.Decode()
-data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)  
-count = 0
-for item in data_set.create_dict_iterator(output_numpy=True):
-    print("sample: {}".format(item))
-    count += 1
-print("Got {} samples".format(count))
-```
+3. Read MindRecord using `MindDataset`.
+
+    ```python
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
+    decode_op = vision.Decode()
+    data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        count += 1
+    print("Got {} samples".format(count))
+    ```
 
 ### Converting NLP Dataset
 
@@ -90,71 +102,81 @@ This example describes how to convert an NLP dataset into MindRecord and use `Mi
 
 Create a MindRecord file containing 100 records, whose sample includes eight fields of the integer type. Use `MindDataset` to read the MindRecord file.
 
-```python
-import os
-import numpy as np
-import mindspore.dataset as ds
-from mindspore.mindrecord import FileWriter
+1. Import related modules.
 
-mindrecord_filename = "test.mindrecord"
+    ```python
+    import os
+    import numpy as np
+    import mindspore.dataset as ds
+    from mindspore.mindrecord import FileWriter
+    ```
 
-if os.path.exists(mindrecord_filename):
-    os.remove(mindrecord_filename)
-    os.remove(mindrecord_filename + ".db")
+2. Generate 100 text samples and convert them to MindRecord.
 
-writer = FileWriter(file_name=mindrecord_filename, shard_num=1)
+    ```python
+    MINDRECORD_FILE = "test.mindrecord"
 
-nlp_schema = {"source_sos_ids": {"type": "int64", "shape": [-1]},
-            "source_sos_mask": {"type": "int64", "shape": [-1]},
-            "source_eos_ids": {"type": "int64", "shape": [-1]},
-            "source_eos_mask": {"type": "int64", "shape": [-1]},
-            "target_sos_ids": {"type": "int64", "shape": [-1]},
-            "target_sos_mask": {"type": "int64", "shape": [-1]},
-            "target_eos_ids": {"type": "int64", "shape": [-1]},
-            "target_eos_mask": {"type": "int64", "shape": [-1]}}
-writer.add_schema(nlp_schema, "it is a preprocessed nlp dataset")
+    if os.path.exists(MINDRECORD_FILE):
+        os.remove(MINDRECORD_FILE)
+        os.remove(MINDRECORD_FILE + ".db")
 
-data = []
-for i in range(100):  
-    i += 1
+    writer = FileWriter(file_name=MINDRECORD_FILE, shard_num=1)
 
-    sample = {"source_sos_ids": np.array([i, i+1, i+2, i+3, i+4], dtype=np.int64),
-            "source_sos_mask": np.array([i*1, i*2, i*3, i*4, i*5, i*6, i*7], dtype=np.int64),
-            "source_eos_ids": np.array([i+5, i+6, i+7, i+8, i+9, i+10], dtype=np.int64),
-            "source_eos_mask": np.array([19, 20, 21, 22, 23, 24, 25, 26, 27], dtype=np.int64),
-            "target_sos_ids": np.array([28, 29, 30, 31, 32], dtype=np.int64),
-            "target_sos_mask": np.array([33, 34, 35, 36, 37, 38], dtype=np.int64),
-            "target_eos_ids": np.array([39, 40, 41, 42, 43, 44, 45, 46, 47], dtype=np.int64),
-            "target_eos_mask": np.array([48, 49, 50, 51], dtype=np.int64)}
+    nlp_schema = {"source_sos_ids": {"type": "int64", "shape": [-1]},
+                  "source_sos_mask": {"type": "int64", "shape": [-1]},
+                  "source_eos_ids": {"type": "int64", "shape": [-1]},
+                  "source_eos_mask": {"type": "int64", "shape": [-1]},
+                  "target_sos_ids": {"type": "int64", "shape": [-1]},
+                  "target_sos_mask": {"type": "int64", "shape": [-1]},
+                  "target_eos_ids": {"type": "int64", "shape": [-1]},
+                  "target_eos_mask": {"type": "int64", "shape": [-1]}}
+    writer.add_schema(nlp_schema, "it is a preprocessed nlp dataset")
 
-    data.append(sample)
-    if i % 10 == 0:
-      writer.write_raw_data(data)
-      data = []
+    data = []
+    for i in range(100):
+        i += 1
 
-if data:
-    writer.write_raw_data(data)
+        sample = {"source_sos_ids": np.array([i, i + 1, i + 2, i + 3, i + 4], dtype=np.int64),
+                  "source_sos_mask": np.array([i * 1, i * 2, i * 3, i * 4, i * 5, i * 6, i * 7], dtype=np.int64),
+                  "source_eos_ids": np.array([i + 5, i + 6, i + 7, i + 8, i + 9, i + 10], dtype=np.int64),
+                  "source_eos_mask": np.array([19, 20, 21, 22, 23, 24, 25, 26, 27], dtype=np.int64),
+                  "target_sos_ids": np.array([28, 29, 30, 31, 32], dtype=np.int64),
+                  "target_sos_mask": np.array([33, 34, 35, 36, 37, 38], dtype=np.int64),
+                  "target_eos_ids": np.array([39, 40, 41, 42, 43, 44, 45, 46, 47], dtype=np.int64),
+                  "target_eos_mask": np.array([48, 49, 50, 51], dtype=np.int64)}
 
-writer.commit()  
+        data.append(sample)
+        if i % 10 == 0:
+            writer.write_raw_data(data)
+            data = []
 
-data_set = ds.MindDataset(dataset_file=mindrecord_filename)  
-count = 0
-for item in data_set.create_dict_iterator():
-    print("sample: {}".format(item))
-    count += 1
-print("Got {} samples".format(count))
-```
+    if data:
+        writer.write_raw_data(data)
+
+    writer.commit()
+    ```
+
+    **Parameter description:**
+    - `MINDRECORD_FILE`: path of the output MindRecord file.
+
+3. Read MindRecord using `MindDataset`.
+
+    ```python
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
+    count = 0
+    for item in data_set.create_dict_iterator():
+        count += 1
+    print("Got {} samples".format(count))
+    ```
 
 ## Converting Common Dataset to MindRecord
 
-MindSpore provides tool classes for converting common datasets to MindRecord. The following table lists common datasets and their corresponding tool classes.
+MindSpore provides tool classes for converting common datasets to MindRecord. The following table lists part of common datasets and their corresponding tool classes.
 
 | Dataset | Tool Class |
 | -------- | ------------ |
 | CIFAR-10 | Cifar10ToMR |
-| CIFAR-100 | Cifar100ToMR |
 | ImageNet | ImageNetToMR |
-| MNIST | MnistToMR |
 | TFRecord | TFRecordToMR |
 | CSV File | CsvToMR |
 
@@ -178,9 +200,11 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
         └─test_batch
     ```
 
-2. Import the dataset conversion tool class `Cifar10ToMR`.
+2. Import related modules.
 
     ```python
+    import mindspore.dataset as ds
+    import mindspore.dataset.vision.c_transforms as vision
     from mindspore.mindrecord import Cifar10ToMR
     ```
 
@@ -200,9 +224,6 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
 4. Read MindRecord using `MindDataset`.
 
     ```python
-    import mindspore.dataset as ds
-    import mindspore.dataset.vision.c_transforms as vision
-
     data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
     data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
@@ -238,6 +259,8 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
 2. Import the dataset conversion tool class `ImageNetToMR`.
 
     ```python
+    import mindspore.dataset as ds
+    import mindspore.dataset.vision.c_transforms as vision
     from mindspore.mindrecord import ImageNetToMR
     ```
 
@@ -247,8 +270,7 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
     IMAGENET_MAP_FILE = "./labels_map.txt"
     IMAGENET_IMAGE_DIR = "./images/"
     MINDRECORD_FILE = "./imagenet.mindrecord"
-    PARTITION_NUMBER = 8
-    imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, PARTITION_NUMBER)
+    imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, partition_number=1)
     imagenet_transformer.transform()
     ```
 
@@ -260,15 +282,11 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
 4. Read MindRecord using `MindDataset`.
 
     ```python
-    import mindspore.dataset as ds
-    import mindspore.dataset.vision.c_transforms as vision
-
-    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE + "0")
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
     decode_op = vision.Decode()
-    data_set = data_set.map(operations=decode_op, input_columns=["data"], num_parallel_workers=2)
+    data_set = data_set.map(operations=decode_op, input_columns=["image"], num_parallel_workers=2)
     count = 0
     for item in data_set.create_dict_iterator(output_numpy=True):
-        print("sample: {}".format(item))
         count += 1
     print("Got {} samples".format(count))
     ```
@@ -277,48 +295,60 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
 
 Create a CSV file containing 5 records, convert the CSV file to MindRecord using the `CsvToMR` tool class, and then read the MindRecord file using `MindDataset`.
 
-```python
-import csv
-import os
-import mindspore.dataset as ds
-from mindspore.mindrecord import CsvToMR
+1. Import related modules.
 
-CSV_FILE_NAME = "test.csv"
-MINDRECORD_FILE_NAME = "test.mindrecord"
-PARTITION_NUM = 1
+    ```python
+    import csv
+    import os
+    import mindspore.dataset as ds
+    from mindspore.mindrecord import CsvToMR
+    ```
 
-def generate_csv():
-    headers = ["id", "name", "math", "english"]
-    rows = [(1, "Lily", 78.5, 90),
-          (2, "Lucy", 99, 85.2),
-          (3, "Mike", 65, 71),
-          (4, "Tom", 95, 99),
-          (5, "Jeff", 85, 78.5)]
-    with open(CSV_FILE_NAME, 'w', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(headers)
-        writer.writerows(rows)
+2. Generate a CSV file and convert it to MindRecord.
 
-generate_csv()
+    ```python
+    CSV_FILE = "test.csv"
+    MINDRECORD_FILE = "test.mindrecord"
 
-if os.path.exists(MINDRECORD_FILE_NAME):
-    os.remove(MINDRECORD_FILE_NAME)
-    os.remove(MINDRECORD_FILE_NAME + ".db")
+    def generate_csv():
+        headers = ["id", "name", "math", "english"]
+        rows = [(1, "Lily", 78.5, 90),
+                (2, "Lucy", 99, 85.2),
+                (3, "Mike", 65, 71),
+                (4, "Tom", 95, 99),
+                (5, "Jeff", 85, 78.5)]
+        with open(CSV_FILE, 'w', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(headers)
+            writer.writerows(rows)
 
-csv_transformer = CsvToMR(CSV_FILE_NAME, MINDRECORD_FILE_NAME, partition_number=PARTITION_NUM)
+    generate_csv()
 
-csv_transformer.transform()
+    if os.path.exists(MINDRECORD_FILE):
+        os.remove(MINDRECORD_FILE)
+        os.remove(MINDRECORD_FILE + ".db")
 
-assert os.path.exists(MINDRECORD_FILE_NAME)
-assert os.path.exists(MINDRECORD_FILE_NAME + ".db")
+    csv_transformer = CsvToMR(CSV_FILE, MINDRECORD_FILE, partition_number=1)
 
-data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  
-count = 0
-for item in data_set.create_dict_iterator(output_numpy=True):
-    print("sample: {}".format(item))
-    count += 1
-print("Got {} samples".format(count))
-```
+    csv_transformer.transform()
+
+    assert os.path.exists(MINDRECORD_FILE)
+    assert os.path.exists(MINDRECORD_FILE + ".db")
+    ```
+
+    **Parameter description:**
+   - `CSV_FILE`: path of the CSV file.
+   - `MINDRECORD_FILE`: path of the output MindRecord file.
+
+3. Read MindRecord using `MindDataset`.
+
+    ```python
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        count += 1
+    print("Got {} samples".format(count))
+    ```
 
 ### Converting TFRecord Dataset
 
@@ -326,97 +356,113 @@ print("Got {} samples".format(count))
 
 Use TensorFlow to create a TFRecord file and convert the file to MindRecord using the `TFRecordToMR` tool class. Read the file using `MindDataset` and decode the `image_bytes` field using the `Decode` operator.
 
-```python
-import collections
-from io import BytesIO
-import os
-import mindspore.dataset as ds
-from mindspore.mindrecord import TFRecordToMR
-import mindspore.dataset.vision.c_transforms as vision
-from PIL import Image
-import tensorflow as tf  
+1. Import related modules.
 
-TFRECORD_FILE_NAME = "test.tfrecord"
-MINDRECORD_FILE_NAME = "test.mindrecord"
-PARTITION_NUM = 1
+    ```python
+    import collections
+    from io import BytesIO
+    import os
+    import mindspore.dataset as ds
+    from mindspore.mindrecord import TFRecordToMR
+    import mindspore.dataset.vision.c_transforms as vision
+    from PIL import Image
+    import tensorflow as tf
+    ```
 
-def generate_tfrecord():
-    def create_int_feature(values):
-        if isinstance(values, list):
-            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))  
-        else:
-            feature = tf.train.Feature(int64_list=tf.train.Int64List(value=[values]))
-        return feature
+2. Generate a TFRecord file.
 
-    def create_float_feature(values):
-        if isinstance(values, list):
-            feature = tf.train.Feature(float_list=tf.train.FloatList(value=list(values)))  
-        else:
-            feature = tf.train.Feature(float_list=tf.train.FloatList(value=[values]))
-        return feature
+    ```python
+    TFRECORD_FILE = "test.tfrecord"
+    MINDRECORD_FILE = "test.mindrecord"
 
-    def create_bytes_feature(values):
-        if isinstance(values, bytes):
-            white_io = BytesIO()
-            Image.new('RGB', (10, 10), (255, 255, 255)).save(white_io, 'JPEG')
-            image_bytes = white_io.getvalue()
-            feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_bytes]))
-        else:
-            feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[bytes(values, encoding='utf-8')]))
-        return feature
+    def generate_tfrecord():
+        def create_int_feature(values):
+            if isinstance(values, list):
+                feature = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))
+            else:
+                feature = tf.train.Feature(int64_list=tf.train.Int64List(value=[values]))
+            return feature
 
-    writer = tf.io.TFRecordWriter(TFRECORD_FILE_NAME)
+        def create_float_feature(values):
+            if isinstance(values, list):
+                feature = tf.train.Feature(float_list=tf.train.FloatList(value=list(values)))
+            else:
+                feature = tf.train.Feature(float_list=tf.train.FloatList(value=[values]))
+            return feature
 
-    example_count = 0
-    for i in range(10):
-        file_name = "000" + str(i) + ".jpg"
-        image_bytes = bytes(str("aaaabbbbcccc" + str(i)), encoding="utf-8")
-        int64_scalar = i
-        float_scalar = float(i)
-        int64_list = [i, i+1, i+2, i+3, i+4, i+1234567890]
-        float_list = [float(i), float(i+1), float(i+2.8), float(i+3.2),
-                    float(i+4.4), float(i+123456.9), float(i+98765432.1)]
+        def create_bytes_feature(values):
+            if isinstance(values, bytes):
+                white_io = BytesIO()
+                Image.new('RGB', (10, 10), (255, 255, 255)).save(white_io, 'JPEG')
+                image_bytes = white_io.getvalue()
+                feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_bytes]))
+            else:
+                feature = tf.train.Feature(bytes_list=tf.train.BytesList(value=[bytes(values, encoding='utf-8')]))
+            return feature
 
-        features = collections.OrderedDict()
-        features["file_name"] = create_bytes_feature(file_name)
-        features["image_bytes"] = create_bytes_feature(image_bytes)
-        features["int64_scalar"] = create_int_feature(int64_scalar)
-        features["float_scalar"] = create_float_feature(float_scalar)
-        features["int64_list"] = create_int_feature(int64_list)
-        features["float_list"] = create_float_feature(float_list)
+        writer = tf.io.TFRecordWriter(TFRECORD_FILE)
 
-        tf_example = tf.train.Example(features=tf.train.Features(feature=features))
-        writer.write(tf_example.SerializeToString())
-        example_count += 1
-    writer.close()
-    print("Write {} rows in tfrecord.".format(example_count))
+        example_count = 0
+        for i in range(10):
+            file_name = "000" + str(i) + ".jpg"
+            image_bytes = bytes(str("aaaabbbbcccc" + str(i)), encoding="utf-8")
+            int64_scalar = i
+            float_scalar = float(i)
+            int64_list = [i, i+1, i+2, i+3, i+4, i+1234567890]
+            float_list = [float(i), float(i+1), float(i+2.8), float(i+3.2),
+                        float(i+4.4), float(i+123456.9), float(i+98765432.1)]
 
-generate_tfrecord()
+            features = collections.OrderedDict()
+            features["file_name"] = create_bytes_feature(file_name)
+            features["image_bytes"] = create_bytes_feature(image_bytes)
+            features["int64_scalar"] = create_int_feature(int64_scalar)
+            features["float_scalar"] = create_float_feature(float_scalar)
+            features["int64_list"] = create_int_feature(int64_list)
+            features["float_list"] = create_float_feature(float_list)
 
-feature_dict = {"file_name": tf.io.FixedLenFeature([], tf.string),
-              "image_bytes": tf.io.FixedLenFeature([], tf.string),
-              "int64_scalar": tf.io.FixedLenFeature([], tf.int64),
-              "float_scalar": tf.io.FixedLenFeature([], tf.float32),
-              "int64_list": tf.io.FixedLenFeature([6], tf.int64),
-              "float_list": tf.io.FixedLenFeature([7], tf.float32),
-              }
+            tf_example = tf.train.Example(features=tf.train.Features(feature=features))
+            writer.write(tf_example.SerializeToString())
+            example_count += 1
+        writer.close()
+        print("Write {} rows in tfrecord.".format(example_count))
 
-if os.path.exists(MINDRECORD_FILE_NAME):
-    os.remove(MINDRECORD_FILE_NAME)
-    os.remove(MINDRECORD_FILE_NAME + ".db")
+    generate_tfrecord()
+    ```
 
-tfrecord_transformer = TFRecordToMR(TFRECORD_FILE_NAME, MINDRECORD_FILE_NAME, feature_dict, ["image_bytes"])
-tfrecord_transformer.transform()
+    **Parameter description:**
+   - `TFRECORD_FILE`: path of the TFRecord file.
+   - `MINDRECORD_FILE`: path of the output MindRecord file.
 
-assert os.path.exists(MINDRECORD_FILE_NAME)
-assert os.path.exists(MINDRECORD_FILE_NAME + ".db")
+3. Convert the TFRecord to MindRecord.
 
-data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE_NAME)  
-decode_op = vision.Decode()
-data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)  
-count = 0
-for item in data_set.create_dict_iterator(output_numpy=True):
-    print("sample: {}".format(item))
-    count += 1
-print("Got {} samples".format(count))
-```
+    ```python
+    feature_dict = {"file_name": tf.io.FixedLenFeature([], tf.string),
+                    "image_bytes": tf.io.FixedLenFeature([], tf.string),
+                    "int64_scalar": tf.io.FixedLenFeature([], tf.int64),
+                    "float_scalar": tf.io.FixedLenFeature([], tf.float32),
+                    "int64_list": tf.io.FixedLenFeature([6], tf.int64),
+                    "float_list": tf.io.FixedLenFeature([7], tf.float32),
+                    }
+
+    if os.path.exists(MINDRECORD_FILE):
+        os.remove(MINDRECORD_FILE)
+        os.remove(MINDRECORD_FILE + ".db")
+
+    tfrecord_transformer = TFRecordToMR(TFRECORD_FILE, MINDRECORD_FILE, feature_dict, ["image_bytes"])
+    tfrecord_transformer.transform()
+
+    assert os.path.exists(MINDRECORD_FILE)
+    assert os.path.exists(MINDRECORD_FILE + ".db")
+    ```
+
+4. Read MindRecord using `MindDataset`.
+
+    ```python
+    data_set = ds.MindDataset(dataset_file=MINDRECORD_FILE)
+    decode_op = vision.Decode()
+    data_set = data_set.map(operations=decode_op, input_columns=["image_bytes"], num_parallel_workers=2)
+    count = 0
+    for item in data_set.create_dict_iterator(output_numpy=True):
+        count += 1
+    print("Got {} samples".format(count))
+    ```
