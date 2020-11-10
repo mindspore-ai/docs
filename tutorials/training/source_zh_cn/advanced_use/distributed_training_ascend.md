@@ -299,7 +299,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
 
-在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`，且无需配置策略搜索算法`auto_parallel_search_model`；样例中指定自动并行策略搜索算法为双递归，用户如需切换为动态规划搜索算法只需将`auto_parallel_search_model`改为`dynamic_programming`。
+在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`，且无需配置策略搜索算法`auto_parallel_search_mode`；样例中指定自动并行策略搜索算法为双递归，用户如需切换为动态规划搜索算法只需将`auto_parallel_search_mode`改为`dynamic_programming`。
 
 ```python
 from mindspore import context
@@ -314,7 +314,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_model="recursive_programming")
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_mode="recursive_programming")
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32

@@ -297,7 +297,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
-In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_model`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel. To switch to the dynamic programming strategy search algorithm, you only need to change `auto_parallel_search_model` to `dynamic_programming`.
+In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_mode`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel. To switch to the dynamic programming strategy search algorithm, you only need to change `auto_parallel_search_mode` to `dynamic_programming`.
 
 ```python
 from mindspore import context
@@ -312,7 +312,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 
 def test_train_cifar(epoch_size=10):
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_model="recursive_programming")
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, auto_parallel_search_mode="recursive_programming")
     loss_cb = LossMonitor()
     dataset = create_dataset(data_path)
     batch_size = 32
