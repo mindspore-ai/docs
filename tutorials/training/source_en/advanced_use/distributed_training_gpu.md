@@ -97,6 +97,12 @@ On the GPU hardware platform, MindSpore uses OpenMPI `mpirun` for distributed tr
 ```bash
 #!/bin/bash
 
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run_gpu.sh DATA_PATH"
+echo "For example: bash run_gpu.sh /path/dataset"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 
@@ -108,7 +114,7 @@ echo "start training"
 mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-The script requires the variable `DATA_PATH`, which indicates the path of the dataset. In addition, you need to modify the `resnet50_distributed_training.py` file. Since the `DEVICE_ID` environment variable does not need to be set on the GPU, you do not need to call `int(os.getenv('DEVICE_ID'))` in the script to obtain the physical sequence number of the device, and `context` does not require `device_id`. You need to set `device_target` to `GPU` and call `init("nccl")` to enable the NCCL. The log file is saved in the device directory, and the loss result is saved in train.log. The output loss values of the grep command are as follows:
+The script will run in the bachground. The log file is saved in the device directory, we will run 10 epochs and each epochs contain 234 steps, and the loss result is saved in train.log. The output loss values of the grep command are as follows:
 
 ```text
 epoch: 1 step: 1, loss is 2.3025854

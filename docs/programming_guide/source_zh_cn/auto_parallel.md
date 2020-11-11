@@ -17,10 +17,9 @@
             - [strategy_ckpt_load_file](#strategy_ckpt_load_file)
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
+            - [pipeline_stages](#pipeline_stages)
         - [数据并行配置](#数据并行配置)
             - [enable_parallel_optimizer](#enable_parallel_optimizer)
-        - [混合并行配置](#混合并行配置)
-            - [layerwise_parallel](#layerwise_parallel)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -28,6 +27,7 @@
     - [分布式属性配置](#分布式属性配置)
         - [cross_batch](#cross_batch)
         - [fusion](#fusion)
+        - [layerwise_parallel](#layerwise_parallel)
     - [数据并行](#数据并行)
     - [自动并行](#自动并行)
 
@@ -45,12 +45,11 @@ MindSpore提供了分布式并行训练的功能，它支持了包括数据并�
 
 ## 分布式并行配置
 
-MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管理，用户可根据自身需求和实际情况来进行个性化的配置。这些配置可分为四大类：
+MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管理，用户可根据自身需求和实际情况来进行个性化的配置。这些配置可分为三大类：
 
-- 通用配置：对数据并行和自动并行均起作用的配置，如：`device_num`、`global_rank`。
-- 自动并行配置：仅在自动并行模式下起作用的配置，如：`auto_parallel_search_mode`、`gradient_fp32_sync`。
-- 数据并行配置：仅在数据并行模式下起作用的配置，如：`enable_parallel_optimizer`。
-- 混合并行配置：仅在混合并行模式下起作用的配置，如：`layerwise_parallel`。
+- 通用配置：对数据并行、自动并行以及混合并行均起作用的配置，如：`device_num`、`global_rank`等。
+- 自动并行配置：仅在自动并行模式下起作用的配置，如：`auto_parallel_search_mode`、`gradient_fp32_sync`等。
+- 数据并行配置：仅在数据并行模式下起作用的配置，如：`enable_parallel_optimizer`等。
 
 用户可利用`context.set_auto_parallel_context`配置上述参数，同时可通过`context.get_auto_parallel_context`来获取上述参数。
 
@@ -58,7 +57,7 @@ MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管
 
 #### device_num
 
-`device_num`表示可用的机器数，其值为int型，且必须在1~4096范围内。若用户不配置，`Model`接口内部则会通过`get_group_size`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`device_num`。
+`device_num`表示可用的机器数，其值为int型，默认值是0，且必须在1~4096范围内。若用户不配置，`Model`接口内部则会通过`get_group_size`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`device_num`。
 
 代码样例如下：
 
@@ -71,7 +70,7 @@ context.get_auto_parallel_context("device_num")
 
 #### global_rank
 
-`global_rank`表示当前卡的逻辑序号，其值为int型，且必须在0~4095范围内。若用户不配置，`Model`接口内部则会通过`get_rank`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`global_rank`。
+`global_rank`表示当前卡的逻辑序号，其值为int型，默认值是0，且必须在0~4095范围内。若用户不配置，`Model`接口内部则会通过`get_rank`方法获取，若用户进行了配置，则遵循用户的配置。这个配置可以在用户不使用`Model`接口的情况下，手动传递`global_rank`。
 
 代码样例如下：
 
@@ -202,11 +201,23 @@ context.set_auto_parallel_context(full_batch=False)
 context.get_auto_parallel_context("full_batch")
 ```
 
+#### pipeline_stages
+
+`pipeline_stages`是用来设置`pipeline`并行的`stage`信息。用来表明机器在`pipeline`并行下是如何分布的。目前`pipeline`并行仍在开发中。
+
+代码样例如下：
+
+```python
+from mindspore import context
+context.set_auto_parallel_context(pipeline_stage=4)
+context.get_auto_parallel_context("pipeline_stage")
+```
+
 ### 数据并行配置
 
 #### enable_parallel_optimizer
 
-`enable_parallel_optimizer`是一个开发中特性，期望通过优化器并行的方式提升网络性能。使能后框架将拆分权重到各卡上分别进行参数更新，由集合通信的方式在每卡间同步权重信息，再进入下一轮迭代计算。该功能目前只在数据并行模式和参数量大于机器数时有效，支持`Lamb`和`AdamWeightDecay`优化器。
+`enable_parallel_optimizer`是一个开发中特性，期望通过优化器并行的方式提升网络性能。默认是False。使能后框架将拆分权重到各卡上分别进行参数更新，由集合通信的方式在每卡间同步权重信息，再进入下一轮迭代计算。该功能目前只在数据并行模式和参数量大于机器数时有效，支持`Lamb`和`AdamWeightDecay`优化器。
 
 代码样例如下：
 
@@ -215,21 +226,6 @@ from mindspore import context
 
 context.set_auto_parallel_context(enable_parallel_optimizer=True)
 context.get_auto_parallel_context("enable_parallel_optimizer")
-```
-
-### 混合并行配置
-
-#### layerwise_parallel
-
-在`HYBRID_PARALLEL`模式下用户需要手动切分模型，其中对于模型并行的参数用户需要手动打上标记`layerwise_parallel`，框架会根据此标记为模型并行参数过滤掉梯度聚合操作。
-
-代码样例如下：
-
-```python
-imoprt numpy as np
-from mindspore.common import Parameter, Tensor
-
-x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
 ```
 
 ## 分布式通信接口
@@ -248,6 +244,7 @@ x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
 代码样例如下：
 
 ```python
+from mindspore import context
 from mindspore.communication.management import init
 
 context.set_context(device_target='GPU')
@@ -261,6 +258,7 @@ init()
 代码样例如下：
 
 ```python
+from mindspore import context
 from mindspore.communication.management import init, get_group_size
 
 context.set_context(device_target='GPU')
@@ -275,6 +273,7 @@ group_size = get_group_size()
 代码样例如下：
 
 ```python
+from mindspore import context
 from mindspore.communication.management import init, get_rank
 
 context.set_context(device_target='GPU')
@@ -309,6 +308,19 @@ allreduce1 = ops.AllReduce().add_prim_attr("fusion", 1)
 allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 ```
 
+### layerwise_parallel
+
+在`HYBRID_PARALLEL`模式下用户需要手动切分模型，其中对于模型并行的参数用户需要手动打上标记`layerwise_parallel`，框架会根据此标记为模型并行参数过滤掉梯度聚合操作。
+
+代码样例如下：
+
+```python
+imoprt numpy as np
+from mindspore.common import Parameter, Tensor
+
+x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
+```
+
 ## 数据并行
 
 数据并行是对数据进行切分的并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。在数据并行模式下，数据集要以数据并行的方式导入，并且`parallel_mode`要设置为`data_parallel`。
@@ -319,7 +331,7 @@ allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 
 ## 自动并行
 
-自动并行是融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。其中，代价模型指基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。在自动并行模式下，数据集也要以数据并行的方式导入，并且`parallel_mode`要设置为`auto_parallel`。
+自动并行是融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。其中，代价模型指基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。在自动并行模式下，`parallel_mode`要设置为`auto_parallel`。
 
 具体用例请参考MindSpore分布式并行训练教程：
 

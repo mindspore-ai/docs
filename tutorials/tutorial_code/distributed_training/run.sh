@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run.sh DATA_PATH RANK_SIZE"
+echo "For example: bash run.sh /path/dataset 8"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
 set -e
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}

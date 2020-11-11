@@ -34,7 +34,23 @@
 本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/resnet50_distributed_training.py>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training>
+
+目录结构如下：
+
+```text
+└─tutorial_code
+    ├─distributed_training
+    │      rank_table_8pcs.json
+    │      rank_table_2pcs.json
+    │      resnet.py
+    │      resnet50_distributed_training.py
+    │      resnet50_distributed_training_gpu.py
+    │      run.sh
+    │      run_gpu.sh
+```
+
+其中，`rank_table_8pcs.json`和`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`和`resnet50_distributed_training_gpu.py`三个文件是定义网络结构的脚本。`run.sh`和`run_gpu.sh`是执行脚本。
 
 此外在[定义网络](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
@@ -340,6 +356,12 @@ def test_train_cifar(epoch_size=10):
 ```bash
 #!/bin/bash
 
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run.sh DATA_PATH RANK_SIZE"
+echo "For example: bash run.sh /path/dataset 8"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
 DATA_PATH=$1
 export DATA_PATH=${DATA_PATH}
 RANK_SIZE=$2
@@ -391,9 +413,9 @@ fi
 cd ../
 ```
 
-脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的路径和卡的数量。
+脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的绝对路径和卡的数量。
 
-其中必要的环境变量有，  
+分布式相关的环境变量有，  
 
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
@@ -403,7 +425,7 @@ cd ../
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
 
-日志文件保存`device`目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
+日志文件保存到`rank`所对应的`device0`、 `device1`......目录下，`env.log`中记录了环境变量的相关信息，关于Loss部分结果保存在`train.log`中，示例如下：
 
 ```text
 epoch: 1 step: 156, loss is 2.0084016
