@@ -79,7 +79,7 @@ $精准度（Precision）= 真阳性样本数目 / 所有预测类别为阳性�
 
 $召回率（Recall）= 真阳性样本数目 / 所有真实类别为阳性的样本数目$
 
-$F1分数 = (2 \* Precision \* Recall) / (Precision + Recall)$
+$F1分数 = (2 \times Precision \times Recall) / (Precision + Recall)$
 
 在IMDb这个数据集中，正负样本数差别不大，可以简单地用精度（accuracy）作为分类器的衡量标准。
 
