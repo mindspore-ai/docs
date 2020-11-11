@@ -29,7 +29,7 @@ The `initializer` API can be called to generate the `Initializer` object.
 
 When the network uses the semi-automatic or automatic parallel strategy and `Initializer` is used to initialize `Parameter`, `Parameter` does not store `Tensor` but `MetaTensor`.
 
-Different from `Tensor`, `MetaTensor` stores only the shape and type of the tensor but does not store the actual data. Therefore, `MetaTensor` does not occupy any memory, you can call the `init_data` API to convert `MetaTensor` saved in `Parameter` to `Tensor`.
+Different from `Tensor`, `MetaTensor` only stores the shape and type of the tensor, not the actual data. Therefore, `MetaTensor` does not occupy any memory, you can call the `init_data` API to convert `MetaTensor` saved in `Parameter` to `Tensor`.
 
 You can specify a name for each `Parameter` to facilitate subsequent operations and updates.
 
@@ -72,9 +72,9 @@ Parameter (name=z)
 
 - `sliced`: specifies whether the data stored in `Parameter` is sharded data in the automatic parallel scenario.
 
-If yes, do not shard the data. If no, determine whether to shard the data based on the network parallel strategy.
+If yes, do not shard the data. Otherwise, determine whether to shard the data based on the network parallel strategy.
 
-- `is_init`: initialization status of `Parameter`. At the GE backend, a `init graph` is required to synchronize data from the host to the device. This parameter specifies whether the data has been synchronized to the device.
+- `is_init`: initialization status of `Parameter`. At the GE backend, an `init graph` is required to synchronize data from the host to the device. This parameter specifies whether the data has been synchronized to the device.
   This parameter takes effect only at the GE backend. This parameter is set to False at other backends.
 
 - `layerwise_parallel`: specifies whether `Parameter` supports layerwise parallelism. If yes, parameters are not broadcasted and gradient aggregation is not performed. Otherwise, parameters need to be broadcasted and gradient aggregation is performed.
