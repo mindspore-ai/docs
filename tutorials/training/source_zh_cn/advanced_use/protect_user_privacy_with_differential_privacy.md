@@ -247,49 +247,49 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 
 1. 配置差分隐私优化器的参数。
 
-   - 判断`micro_batches`和`batch_size`参数是否符合要求，`batch_size`必须要整除`micro_batches`。
-   - 实例化差分隐私工厂类。
-   - 设置差分隐私的噪声机制，目前mechanisms支持固定标准差的高斯噪声机制：`Gaussian`和自适应调整标准差的高斯噪声机制：`AdaGaussian`。
-   - 设置优化器类型，目前支持`SGD`、`Momentum`和`Adam`。
-   - 设置差分隐私预算监测器RDP，用于观测每个step中的差分隐私预算$\epsilon$的变化。
+    - 判断`micro_batches`和`batch_size`参数是否符合要求，`batch_size`必须要整除`micro_batches`。
+    - 实例化差分隐私工厂类。
+    - 设置差分隐私的噪声机制，目前mechanisms支持固定标准差的高斯噪声机制：`Gaussian`和自适应调整标准差的高斯噪声机制：`AdaGaussian`。
+    - 设置优化器类型，目前支持`SGD`、`Momentum`和`Adam`。
+    - 设置差分隐私预算监测器RDP，用于观测每个step中的差分隐私预算$\epsilon$的变化。
 
-   ```python
-   if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
-       raise ValueError(
-           "Number of micro_batches should divide evenly batch_size")
-   # Create a factory class of DP noise mechanisms, this method is adding noise
-   # in gradients while training. Initial_noise_multiplier is suggested to be
-   # greater than 1.0, otherwise the privacy budget would be huge, which means
-   # that the privacy protection effect is weak. Mechanisms can be 'Gaussian'
-   # or 'AdaGaussian', in which noise would be decayed with 'AdaGaussian'
-   # mechanism while be constant with 'Gaussian' mechanism.
-   noise_mech = NoiseMechanismsFactory().create(cfg.noise_mechanisms,
+    ```python
+    if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
+        raise ValueError(
+            "Number of micro_batches should divide evenly batch_size")
+    # Create a factory class of DP noise mechanisms, this method is adding noise
+    # in gradients while training. Initial_noise_multiplier is suggested to be
+    # greater than 1.0, otherwise the privacy budget would be huge, which means
+    # that the privacy protection effect is weak. Mechanisms can be 'Gaussian'
+    # or 'AdaGaussian', in which noise would be decayed with 'AdaGaussian'
+    # mechanism while be constant with 'Gaussian' mechanism.
+    noise_mech = NoiseMechanismsFactory().create(cfg.noise_mechanisms,
                                                 norm_bound=cfg.norm_bound,
                                                 initial_noise_multiplier=cfg.initial_noise_multiplier,
                                                 decay_policy=None)
-   # Create a factory class of clip mechanisms, this method is to adaptive clip
-   # gradients while training, decay_policy support 'Linear' and 'Geometric',
-   # learning_rate is the learning rate to update clip_norm,
-   # target_unclipped_quantile is the target quantile of norm clip,
-   # fraction_stddev is the stddev of Gaussian normal which used in
-   # empirical_fraction, the formula is
-   # $empirical_fraction + N(0, fraction_stddev)$.
-   clip_mech = ClipMechanismsFactory().create(cfg.clip_mechanisms,
-                                              decay_policy=cfg.clip_decay_policy,
-                                              learning_rate=cfg.clip_learning_rate,
-                                              target_unclipped_quantile=cfg.target_unclipped_quantile,
-                                              fraction_stddev=cfg.fraction_stddev)
-   net_opt = nn.Momentum(params=network.trainable_params(),
-                         learning_rate=cfg.lr, momentum=cfg.momentum)
-   # Create a monitor for DP training. The function of the monitor is to
-   # compute and print the privacy budget(eps and delta) while training.
-   rdp_monitor = PrivacyMonitorFactory.create('rdp',
-                                              num_samples=60000,
-                                              batch_size=cfg.batch_size,
-                                              initial_noise_multiplier=cfg.initial_noise_multiplier,
-                                              per_print_times=234,
-                                              noise_decay_mode=None)
-   ```
+    # Create a factory class of clip mechanisms, this method is to adaptive clip
+    # gradients while training, decay_policy support 'Linear' and 'Geometric',
+    # learning_rate is the learning rate to update clip_norm,
+    # target_unclipped_quantile is the target quantile of norm clip,
+    # fraction_stddev is the stddev of Gaussian normal which used in
+    # empirical_fraction, the formula is
+    # $empirical_fraction + N(0, fraction_stddev)$.
+    clip_mech = ClipMechanismsFactory().create(cfg.clip_mechanisms,
+                                                decay_policy=cfg.clip_decay_policy,
+                                                learning_rate=cfg.clip_learning_rate,
+                                                target_unclipped_quantile=cfg.target_unclipped_quantile,
+                                                fraction_stddev=cfg.fraction_stddev)
+    net_opt = nn.Momentum(params=network.trainable_params(),
+                            learning_rate=cfg.lr, momentum=cfg.momentum)
+    # Create a monitor for DP training. The function of the monitor is to
+    # compute and print the privacy budget(eps and delta) while training.
+    rdp_monitor = PrivacyMonitorFactory.create('rdp',
+                                                num_samples=60000,
+                                                batch_size=cfg.batch_size,
+                                                initial_noise_multiplier=cfg.initial_noise_multiplier,
+                                                per_print_times=234,
+                                                noise_decay_mode=None)
+    ```
 
 2. 将LeNet模型包装成差分隐私模型，只需要将网络传入`DPModel`即可。
 

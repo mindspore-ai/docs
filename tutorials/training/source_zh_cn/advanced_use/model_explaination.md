@@ -92,8 +92,8 @@ runner = ExplainRunner(summary_dir='./summary_dir')
 runner.run(dataset_with_classes, explainers, benchmarkers)
 ```
 
->- 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
->- 仅支持PyNative运行模式。
+> - 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
+> - 仅支持PyNative运行模式。
 
 ### **启动MindInsight**
 

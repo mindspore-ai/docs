@@ -22,11 +22,11 @@
 ## Overview
 
 This tutorial describes the gradient accumulation training method to solve the problem that some large-scale networks cannot train large batch_size due to insufficient memory.
-  
+
 In a traditional training method, after a loss and a gradient are calculated, a parameter is directly updated by using the obtained gradient.
-  
+
 Different from the traditional training method, the concept of mini-batch is introduced to the gradient accumulation. The loss and gradient are computed for each mini-batch data, but the model parameters are not updated immediately. Instead, the obtained gradients are accumulated first, and then after the number (N) of mini-batches is specified, the accumulated gradient is used to update the network parameters. Before the next training, the accumulated gradients are cleared and re-accumulated.
-  
+
 The ultimate objective is to achieve the same effect as training with N x mini-batch data.
 
 > This tutorial is applicable to GPUs. You can download the main training sample code from <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>.

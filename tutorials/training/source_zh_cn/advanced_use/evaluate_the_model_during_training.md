@@ -105,7 +105,7 @@ if __name__ == "__main__":
     eval_cb = EvalCallBack(model, eval_data, eval_per_epoch, epoch_per_eval)
 
     model.train(epoch_size, train_data, callbacks=[ckpoint_cb, LossMonitor(375), eval_cb],
-                dataset_sink_mode=True)
+                dataset_sink_mode=False)
 ```
 
 输出结果：

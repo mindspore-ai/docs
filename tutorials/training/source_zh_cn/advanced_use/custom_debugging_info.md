@@ -205,7 +205,7 @@ output = model.eval(ds_eval)
 以`Accuracy`算子举例说明其内部实现原理：
 
 `Accuracy`继承了`EvaluationBase`基类，重写了上述三个方法。
- 
+
 - `clear`方法会把类中相关计算参数初始化。  
 - `update`方法接受预测值和标签值，更新`Accuracy`内部变量。  
 - `eval`方法会计算相关指标，返回计算结果。  
@@ -322,7 +322,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 3. 执行用例Dump数据。
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-    
+
 4. 解析Dump数据。
 
     通过`numpy.fromfile`读取Dump数据文件即可解析。
@@ -373,7 +373,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 3. 执行用例Dump数据。
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-    
+
 4. 解析文件。
 
     执行完用例后去`/absolute_path`目录下，运行如下命令解析Dump数据：

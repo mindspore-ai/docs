@@ -188,7 +188,7 @@ Perform the shuffle and batch operations, and then perform the repeat operation 
 The LeNet network is relatively simple. In addition to the input layer, the LeNet network has seven layers, including two convolutional layers, two down-sample layers (pooling layers), and three full connection layers. Each layer contains different numbers of training parameters, as shown in the following figure:
 
 ![LeNet-5](./images/LeNet_5.jpg)
-  
+
 > For details about the LeNet network, visit <http://yann.lecun.com/exdb/lenet/>.
 
 You can initialize the full connection layers and convolutional layers by `Normal`.
