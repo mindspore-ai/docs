@@ -44,7 +44,7 @@
 
 ## Overview
 
-Operators of MindSpore can be classified based on the operator usage and operator functions.
+Operators of MindSpore can be classified based on the operator usage and operator functions. The following example code runs in PyNative mode.
 
 ## Operator Usage
 
@@ -355,22 +355,12 @@ Broadcast indicates that when the number of channels of each input variable is i
 
 ```python
 from mindspore import Tensor
-from mindspore.communication import init
-from mindspore import nn
 import mindspore.ops as ops
 import numpy as np
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.broadcast = ops.Broadcast(1)
-
-    def construct(self, x):
-        return self.broadcast((x,))
-
 input_ = Tensor(np.ones([2, 8]).astype(np.float32))
-net = Net()
-output = net(input_)
+broadcast = ops.Broadcast(1)
+output = broadcast((input_,))
 
 print(output)
 ```
@@ -587,7 +577,7 @@ input_x = Tensor(input_np)
 type_dst = mindspore.float16
 cast = ops.Cast()
 result = cast(input_x, type_dst)
-print(type(result))
+print(result.dtype)
 ```
 
  The following information is displayed:
@@ -630,17 +620,6 @@ The image operations include image preprocessing operations, for example, image 
 from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
-from mindspore import nn
-
-class CropAndResizeNet(nn.Cell):
-    def __init__(self, crop_size):
-        super(CropAndResizeNet, self).__init__()
-        self.crop_and_resize = ops.CropAndResize()
-        self.crop_size = crop_size
-
-    def construct(self, x, boxes, box_index):
-        return self.crop_and_resize(x, boxes, box_index, self.crop_size)
 
 BATCH_SIZE = 1
 NUM_BOXES = 5
@@ -651,8 +630,8 @@ image = np.random.normal(size=[BATCH_SIZE, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS])
 boxes = np.random.uniform(size=[NUM_BOXES, 4]).astype(np.float32)
 box_index = np.random.uniform(size=[NUM_BOXES], low=0, high=BATCH_SIZE).astype(np.int32)
 crop_size = (24, 24)
-crop_and_resize = CropAndResizeNet(crop_size=crop_size)
-output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index))
+crop_and_resize = ops.CropAndResize()
+output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index), crop_size)
 print(output.asnumpy())
 ```
 
@@ -681,6 +660,8 @@ The following information is displayed:
 [-7.04941899e-02 -1.09924078e+00 6.89047515e-01]]]]
 ```
 
+> The preceding code runs on MindSpore of the Ascend version.
+
 ### Encoding Operations
 
 The encoding operations include BoundingBox Encoding, BoundingBox Decoding, and IOU computing.
@@ -694,7 +675,6 @@ The following code implements BoundingBox Encoding for anchor_box and groundtrut
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
@@ -720,7 +700,6 @@ After decoding the area location information, the encoder uses this operator to 
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
