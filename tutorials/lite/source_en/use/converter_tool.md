@@ -35,7 +35,7 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
 ### Example
 
-First, in the root directory of the source code, run the following command to perform compilation. For details, see `compile.md`.
+First, in the root directory of the source code, run the following command to perform compilation.
 
 ```bash
 bash build.sh -I x86_64
