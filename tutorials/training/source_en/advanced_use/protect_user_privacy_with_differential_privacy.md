@@ -85,8 +85,8 @@ TAG = 'Lenet5_train'
 
 1. Set the running environment, dataset path, model training parameters, checkpoint storage parameters, and differential privacy parameters. Replace 'data_path' with your data path. For more configurations, see <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/diff_privacy/lenet5_config.py>.
 
-   ```python
-   cfg = edict({
+    ```python
+    cfg = edict({
         'num_classes': 10,  # the number of classes of model's output
         'lr': 0.01,  # the learning rate of model's optimizer
         'momentum': 0.9,  # the momentum value of model's optimizer
@@ -110,16 +110,16 @@ TAG = 'Lenet5_train'
         'target_unclipped_quantile': 0.9, # Target quantile of norm clip.
         'fraction_stddev': 0.01, # The stddev of Gaussian normal which used in empirical_fraction.
         'optimizer': 'Momentum'  # the base optimizer used for Differential privacy training
-   })
-   ```
+    })
+    ```
 
 2. Configure the necessary information, including the environment information and the execution mode.
 
-   ```python
-   context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
-   ```
+    ```python
+    context.set_context(mode=context.GRAPH_MODE, device_target=cfg.device_target)
+    ```
 
-   For details about the API configuration, see the `context.set_context`.
+    For details about the API configuration, see the `context.set_context`.
 
 ### Preprocessing the Dataset
 
@@ -247,67 +247,67 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
 
 1. Set parameters of a differential privacy optimizer.
 
-   - Determine whether values of the `micro_batches` and `batch_size` parameters meet the requirements. The value of `batch_size` must be an integer multiple of `micro_batches`.
-   - Instantiate a differential privacy factory class.
-   - Set a noise mechanism for the differential privacy. Currently, the Gaussian noise mechanism with a fixed standard deviation (`Gaussian`) and the Gaussian noise mechanism with an adaptive standard deviation (`AdaGaussian`) are supported.
-   - Set an optimizer type. Currently, `SGD`, `Momentum`, and `Adam` are supported.
-   - Set up a differential privacy budget monitor RDP to observe changes in the differential privacy budget $\epsilon$ in each step.
+    - Determine whether values of the `micro_batches` and `batch_size` parameters meet the requirements. The value of `batch_size` must be an integer multiple of `micro_batches`.
+    - Instantiate a differential privacy factory class.
+    - Set a noise mechanism for the differential privacy. Currently, the Gaussian noise mechanism with a fixed standard deviation (`Gaussian`) and the Gaussian noise mechanism with an adaptive standard deviation (`AdaGaussian`) are supported.
+    - Set an optimizer type. Currently, `SGD`, `Momentum`, and `Adam` are supported.
+    - Set up a differential privacy budget monitor RDP to observe changes in the differential privacy budget $\epsilon$ in each step.
 
-   ```python
-   if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
-       raise ValueError(
-           "Number of micro_batches should divide evenly batch_size")
-   # Create a factory class of DP noise mechanisms, this method is adding noise
-   # in gradients while training. Initial_noise_multiplier is suggested to be
-   # greater than 1.0, otherwise the privacy budget would be huge, which means
-   # that the privacy protection effect is weak. Mechanisms can be 'Gaussian'
-   # or 'AdaGaussian', in which noise would be decayed with 'AdaGaussian'
-   # mechanism while be constant with 'Gaussian' mechanism.
-   noise_mech = NoiseMechanismsFactory().create(cfg.noise_mechanisms,
+    ```python
+    if cfg.micro_batches and cfg.batch_size % cfg.micro_batches != 0:
+        raise ValueError(
+            "Number of micro_batches should divide evenly batch_size")
+    # Create a factory class of DP noise mechanisms, this method is adding noise
+    # in gradients while training. Initial_noise_multiplier is suggested to be
+    # greater than 1.0, otherwise the privacy budget would be huge, which means
+    # that the privacy protection effect is weak. Mechanisms can be 'Gaussian'
+    # or 'AdaGaussian', in which noise would be decayed with 'AdaGaussian'
+    # mechanism while be constant with 'Gaussian' mechanism.
+    noise_mech = NoiseMechanismsFactory().create(cfg.noise_mechanisms,
                                                 norm_bound=cfg.norm_bound,
                                                 initial_noise_multiplier=cfg.initial_noise_multiplier,
                                                 decay_policy=None)
-   # Create a factory class of clip mechanisms, this method is to adaptive clip
-   # gradients while training, decay_policy support 'Linear' and 'Geometric',
-   # learning_rate is the learning rate to update clip_norm,
-   # target_unclipped_quantile is the target quantile of norm clip,
-   # fraction_stddev is the stddev of Gaussian normal which used in
-   # empirical_fraction, the formula is
-   # $empirical_fraction + N(0, fraction_stddev)$.
-   clip_mech = ClipMechanismsFactory().create(cfg.clip_mechanisms,
-                                              decay_policy=cfg.clip_decay_policy,
-                                              learning_rate=cfg.clip_learning_rate,
-                                              target_unclipped_quantile=cfg.target_unclipped_quantile,
-                                              fraction_stddev=cfg.fraction_stddev)
-   net_opt = nn.Momentum(params=network.trainable_params(),
-                         learning_rate=cfg.lr, momentum=cfg.momentum)
-   # Create a monitor for DP training. The function of the monitor is to
-   # compute and print the privacy budget(eps and delta) while training.
-   rdp_monitor = PrivacyMonitorFactory.create('rdp',
-                                              num_samples=60000,
-                                              batch_size=cfg.batch_size,
-                                              initial_noise_multiplier=cfg.initial_noise_multiplier,
-                                              per_print_times=234,
-                                              noise_decay_mode=None)
-   ```
+    # Create a factory class of clip mechanisms, this method is to adaptive clip
+    # gradients while training, decay_policy support 'Linear' and 'Geometric',
+    # learning_rate is the learning rate to update clip_norm,
+    # target_unclipped_quantile is the target quantile of norm clip,
+    # fraction_stddev is the stddev of Gaussian normal which used in
+    # empirical_fraction, the formula is
+    # $empirical_fraction + N(0, fraction_stddev)$.
+    clip_mech = ClipMechanismsFactory().create(cfg.clip_mechanisms,
+                                                decay_policy=cfg.clip_decay_policy,
+                                                learning_rate=cfg.clip_learning_rate,
+                                                target_unclipped_quantile=cfg.target_unclipped_quantile,
+                                                fraction_stddev=cfg.fraction_stddev)
+    net_opt = nn.Momentum(params=network.trainable_params(),
+                            learning_rate=cfg.lr, momentum=cfg.momentum)
+    # Create a monitor for DP training. The function of the monitor is to
+    # compute and print the privacy budget(eps and delta) while training.
+    rdp_monitor = PrivacyMonitorFactory.create('rdp',
+                                                num_samples=60000,
+                                                batch_size=cfg.batch_size,
+                                                initial_noise_multiplier=cfg.initial_noise_multiplier,
+                                                per_print_times=234,
+                                                noise_decay_mode=None)
+    ```
 
 2. Pack the LeNet model as a differential privacy model by transferring the network to `DPModel`.
 
-   ```python
-   # Create the DP model for training.
-   model = DPModel(micro_batches=cfg.micro_batches,
-                   norm_bound=cfg.norm_bound,
-                   noise_mech=noise_mech,
-                   clip_mech=clip_mech,
-                   network=network,
-                   loss_fn=net_loss,
-                   optimizer=net_opt,
-                   metrics={"Accuracy": Accuracy()})
-   ```
+    ```python
+    # Create the DP model for training.
+    model = DPModel(micro_batches=cfg.micro_batches,
+                    norm_bound=cfg.norm_bound,
+                    noise_mech=noise_mech,
+                    clip_mech=clip_mech,
+                    network=network,
+                    loss_fn=net_loss,
+                    optimizer=net_opt,
+                    metrics={"Accuracy": Accuracy()})
+    ```
 
 3. Train and test the model.
 
-   ```python
+    ```python
     LOGGER.info(TAG, "============== Starting Training ==============")
     model.train(cfg['epoch_size'], ds_train,
                 callbacks=[ckpoint_cb, LossMonitor(), rdp_monitor],
@@ -318,30 +318,30 @@ ds_train = generate_mnist_dataset(os.path.join(cfg.data_path, "train"),
     param_dict = load_checkpoint(ckpt_file_name)
     load_param_into_net(network, param_dict)
     ds_eval = generate_mnist_dataset(os.path.join(cfg.data_path, 'test'),
-                                     batch_size=cfg.batch_size)
+                                        batch_size=cfg.batch_size)
     acc = model.eval(ds_eval, dataset_sink_mode=False)
     LOGGER.info(TAG, "============== Accuracy: %s  ==============", acc)
-   ```
+    ```
 
 4. Run the following command to execute the script:
 
-   ```bash
-   python lenet5_dp.py
-   ```
+    ```bash
+    python lenet5_dp.py
+    ```
 
    In the preceding command, replace `lenet5_dp.py` with the name of your script.
 
 5. Display the result.
 
-   The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with Gaussian noise and adaptive clip differential privacy is mostly more than 95%.
+    The accuracy of the LeNet model without differential privacy is 99%, and the accuracy of the LeNet model with Gaussian noise and adaptive clip differential privacy is mostly more than 95%.
 
-   ```text
-   ============== Starting Training ==============
-   ...
-   ============== Starting Testing ==============
-   ...
-   ============== Accuracy: 0.9698  ==============
-   ```
+    ```text
+    ============== Starting Training ==============
+    ...
+    ============== Starting Testing ==============
+    ...
+    ============== Accuracy: 0.9698  ==============
+    ```
 
 ### References
 

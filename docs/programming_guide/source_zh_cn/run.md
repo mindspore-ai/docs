@@ -269,7 +269,8 @@ Metric是用于评估模型好坏的指标。常见的主要有Accuracy、Fbeta�
 - `Recall`（召回率）：在所有正类别样本中，被正确识别为正类别的比例。 公式：$$Recall = TP/(TP+FN)$$
 
 - `Fbeta`（调和均值）：综合考虑precision和recall的调和均值。
-公式：$$F_\beta = (1 + \beta^2) \cdot \frac{precisiont \cdot recall}{(\beta^2 \cdot precision) + recall}$$
+
+    公式：$$F_\beta = (1 + \beta^2) \cdot \frac{precisiont \cdot recall}{(\beta^2 \cdot precision) + recall}$$
 
 - `TopKCategoricalAccuracy`（多分类TopK准确率）：计算TopK分类准确率。
 

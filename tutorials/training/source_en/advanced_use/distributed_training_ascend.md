@@ -90,7 +90,7 @@ The Huawei Collective Communication Library (HCCL) is used for the communication
 >
 > - In a single-node system, a cluster of 1, 2, 4, or 8 devices is supported. In a multi-node system, a cluster of 8 x N devices is supported.
 > - Each host has four devices numbered 0 to 3 and four devices numbered 4 to 7 deployed on two different networks. During training of 2 or 4 devices, the devices must be connected and clusters cannot be created across networks.
-> - When we create a multi-node system, all nodes should use one same switch. 
+> - When we create a multi-node system, all nodes should use one same switch.
 > - The server hardware architecture and operating system require the symmetrical multi-processing (SMP) mode.
 
 The sample code for calling the HCCL is as follows:
@@ -204,7 +204,7 @@ class HybridParallelNet(nn.Cell):
 
 ### Semi Auto Parallel Mode
 
-Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html). 
+Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html).
 
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
 
@@ -289,7 +289,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 
 `context.set_auto_parallel_context` is an API for users to set parallel training parameters and must be called before the initialization of networks. The related parameters are as follows:
 
-- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`. The option mode ` AUTO_PARALLEL` can use the parameter `auto_parallel_search_mode` to select a search algorithm for its strategy generation.
+- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The other options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`. The option mode `AUTO_PARALLEL` can use the parameter `auto_parallel_search_mode` to select a search algorithm for its strategy generation.
 - `auto_parallel_search_mode`: strategy search algorithm. The default value is `dynamic_programming`. The other option is `recursive_programming` for much faster strategy generation.
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
 
@@ -396,6 +396,7 @@ The necessary environment variables are as follows:
 - `RANK_TABLE_FILE`: path for storing the network information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.
 - `RANK_ID`: logical sequence number of the current device.
+
 For details about other environment variables, see configuration items in the installation guide.
 
 The running time is about 5 minutes, which is mainly occupied by operator compilation. The actual training time is within 20 seconds. You can use `ps -ef | grep pytest` to monitor task processes.
@@ -473,6 +474,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 In semi auto parallel mode, checkpoint is used in the same way as in auto parallel mode and data parallel mode. The difference is in the definition of a network and the definition of network model, you can refer to defining the network [Semi Auto Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#semi-auto-parallel-mode) in this tutorial.
 
 To save the model, you can use the following code:
+
 ```python
 ...
 net = SemiAutoParallelNet()
@@ -482,6 +484,7 @@ ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
 ```
 
 To load the model, you can use the following code:
+
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved

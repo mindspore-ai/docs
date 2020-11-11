@@ -22,11 +22,11 @@
 ## 概述
 
 本教程介绍梯度累积的训练方式，目的是为了解决由于内存不足导致某些大型网络无法训练大Batch_size的问题。
-  
+
 传统的训练方式是每次计算得到loss和梯度后，直接用所得梯度对参数进行更新。
-  
+
 与传统的训练方式不同，梯度累积引入Mini-batch的概念，首先对每个Mini-batch的数据计算loss和梯度，但不立即更新模型参数，而是先对所得梯度进行累加，然后在指定数量（N）个Mini-batch之后，用累积后的梯度更新网络参数。下次训练前清空过往累积梯度后重新累加，如此往复。
-  
+
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
 > 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
@@ -232,7 +232,7 @@ if __name__ == "__main__":
 
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
-**执行训练：**
+**执行训练:**
 
 1. 运行训练代码，查看运行结果。
 
@@ -257,7 +257,7 @@ if __name__ == "__main__":
 
     训练过程中保存了CheckPoint文件`gradient_accumulation.ckpt`，即模型文件。
 
-**验证模型：**
+**验证模型:**
 
 通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 

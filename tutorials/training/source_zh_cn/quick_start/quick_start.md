@@ -192,7 +192,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 我们选择相对简单的LeNet网络。LeNet网络不包括输入层的情况下，共有7层：2个卷积层、2个下采样层（池化层）、3个全连接层。每层都包含不同数量的训练参数，如下图所示：
 
 ![LeNet-5](./images/LeNet_5.jpg)
-  
+
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
 我们对全连接层以及卷积层采用`Normal`进行参数初始化。

@@ -167,14 +167,14 @@ The parameter name is model\_parallel\_weight and the dividing strategy is to pe
 
 2. Call the `save_checkpoint` API to write the parameter data to a file and generate a new checkpoint file.
 
-   ```python
-   save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
-   ```
+    ```python
+    save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
+    ```
 
-   In the preceding information:
+    In the preceding information:
 
-   - `save_checkpoint`: saves network model parameters to a file.
-   - `CKP-Integrated_1-4_32.ckpt`: name of the generated checkpoint model parameter file.
+    - `save_checkpoint`: saves network model parameters to a file.
+    - `CKP-Integrated_1-4_32.ckpt`: name of the generated checkpoint model parameter file.
 
 ## Loading the Integrated and Saved Checkpoint File
 
@@ -223,15 +223,15 @@ The following uses a specific model parameter as an example. The parameter name 
 
 2. Load the corresponding data slice on each node.
 
-   Obtain rank\_id of the current node and load data based on rank\_id.
+    Obtain rank\_id of the current node and load data based on rank\_id.
 
-   ```python
-   rank = get_rank()
-   tensor_slice = Tensor(slice_list[rank])
-   tensor_slice_moments = Tensor(slice_moments_list[rank])
-   ```
+    ```python
+    rank = get_rank()
+    tensor_slice = Tensor(slice_list[rank])
+    tensor_slice_moments = Tensor(slice_moments_list[rank])
+    ```
 
-   - `get_rank`: obtains the ID of the current device in the cluster.
+    - `get_rank`: obtains the ID of the current device in the cluster.
 
 3. Modify values of model parameters.
 

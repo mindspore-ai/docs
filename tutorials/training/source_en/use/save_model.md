@@ -21,8 +21,7 @@
 During model training, you can add CheckPoints to save model parameters for inference and retraining after interruption. If you want to do inference on different hardware platforms, you need to generate corresponding models based on the network and CheckPoint, such as MINDIR, AIR, ONNX.
 
 - MINDIR: MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. It can be used on device inference now.
-- CheckPoint: A CheckPoint file of MindSpore is a binary file that stores the values of all training parameters. The Google Protocol Buffers mechanism with good scalability is adopted, which is independent of the development language and platform.
-The protocol format of CheckPoints is defined in `mindspore/ccsrc/utils/checkpoint.proto`.
+- CheckPoint: A CheckPoint file of MindSpore is a binary file that stores the values of all training parameters. The Google Protocol Buffers mechanism with good scalability is adopted, which is independent of the development language and platform. The protocol format of CheckPoints is defined in `mindspore/ccsrc/utils/checkpoint.proto`.
 - AIR: Ascend Intermediate Representation (AIR) is an open file format defined by Huawei for machine learning and can better adapt to the Ascend AI processor. It is similar to ONNX.
 - ONNX: Open Neural Network Exchange (ONNX) is an open file format designed for machine learning. It is used to store trained models.
 

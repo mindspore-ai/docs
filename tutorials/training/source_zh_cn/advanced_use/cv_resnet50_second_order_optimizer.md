@@ -340,6 +340,7 @@ sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 - `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`：实际的运行卡数。
+
 其余环境变量请参考安装教程中的配置项。
 
 训练过程中loss打印示例如下：

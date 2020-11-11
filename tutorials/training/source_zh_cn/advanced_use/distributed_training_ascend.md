@@ -398,6 +398,7 @@ cd ../
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
 - `RANK_ID`：当前卡的逻辑序号。
+
 其余环境变量请参考安装教程中的配置项。
 
 运行时间大约在5分钟内，主要时间是用于算子的编译，实际训练时间在20秒内。用户可以通过`ps -ef | grep pytest`来监控任务进程。
@@ -475,6 +476,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id9)。
 
 保存模型时，可以使用如下代码来实现：
+
 ```python
 ...
 net = SemiAutoParallelNet()
@@ -484,6 +486,7 @@ ckpt_callback = ModelCheckpoint(prefix='semi_auto_parallel', config=ckpt_config)
 ```
 
 加载模型时，可以使用如下代码来实现：
+
 ```python
 net = SemiAutoParallelNet()
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved

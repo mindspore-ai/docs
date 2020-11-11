@@ -338,6 +338,7 @@ Variables `RANK_TABLE_FILE`, `DATASET_PATH`, and `DEVICE_NUM` need to be transfe
 - `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
 - `DEVICE_NUM`: the actual number of running devices.
+
 For details about other environment variables, see configuration items in the installation guide.
 
 The following is an example of loss values output during training:
@@ -480,8 +481,7 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
 ```
 
 - `top_5_accuracy`: For an input image, if the labels whose prediction probability ranks top 5 match actual labels, the classification is correct.
-- `top_1_accuracy`: For an input image, if the label with the highest prediction probability is the same as the actual label, the
-classification is correct.
+- `top_1_accuracy`: For an input image, if the label with the highest prediction probability is the same as the actual label, the classification is correct.
 
 #### GPU
 
