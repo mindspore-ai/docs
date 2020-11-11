@@ -71,13 +71,13 @@ Runtime总体使用流程如下图所示：
 
 上下文会保存会话所需的一些基本配置参数，用于指导图编译和图执行，其定义如下：
 
-MindSpore Lite支持异构推理，推理时的主选后端由`Context`中的`device_ctx_`指定，默认为CPU。在进行图编译时，会根据主选后端进行算子选型调度。
+MindSpore Lite支持异构推理，推理时的后端配置信息由`Context`中的`device_list_`指定，默认存放CPU的`DeviceContext`。在进行图编译时，会根据`device_list_`中不同的后端配置信息进行算子选型调度。目前仅支持CPU和GPU, 当配置GPU的`DeviceContext`时，优先使用GPU推理。
 
 MindSpore Lite内置一个进程共享的线程池，推理时通过`thread_num_`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
 
 MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`，推理时会生成一个默认的`allocator`，也可以通过`Context`方法在多个`Context`中共享内存分配器。
 
-如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在创建完Session后，Context即可释放。
+如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在创建完`Session`后，`Context`即可释放。
 
 ### 创建会话
 
@@ -102,7 +102,7 @@ if (context == nullptr) {
 // CPU device context has default values.
 auto &cpu_decice_info = context->device_list_[0].device_info_.cpu_device_info_;
 // The large core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
-cpu_decice_info->cpu_bind_mode_ = HIGHER_CPU;
+cpu_decice_info.cpu_bind_mode_ = HIGHER_CPU;
 // If GPU device context is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
 DeviceContext gpu_device_ctx{DT_GPU, {false}};
 // The GPU device context needs to be push_back into device_list to work.
@@ -114,7 +114,7 @@ auto *context2 = new Context();
 context2->thread_num_ = context->thread_num_;
 context2->allocator = context->allocator;
 auto &cpu_decice_info2 = context2->device_list_[0].device_info_.cpu_device_info_;
-cpu_decice_info2->cpu_bind_mode_ = cpu_decice_info->cpu_bind_mode_;
+cpu_decice_info2.cpu_bind_mode_ = cpu_decice_info->cpu_bind_mode_;
 
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);

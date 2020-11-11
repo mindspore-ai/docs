@@ -43,7 +43,7 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 
 ## 转换模型
 
-如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)将.mindir模型转换成.ms格式。
+如果预置模型已经满足你要求，请跳过本章节。 如果你需要对MindSpore提供的模型进行重训，重训完成后，需要将模型导出为[.mindir格式](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。然后使用MindSpore Lite[模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)将.mindir格式转换成.ms格式。
 
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 
@@ -107,7 +107,8 @@ MindSpore Model Zoo中图像分类模型可[在此下载](https://download.minds
 app
 ├── src/main
 │   ├── assets # 资源文件
-|   |   └── mobilenetv2.ms # 存放模型文件
+|   |   └── model # 模型文件
+|   |       └── mobilenetv2.ms # 存放的模型文件
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
 |   |   ├── ..
@@ -202,7 +203,7 @@ target_link_libraries(
 
 ### 下载及部署模型文件
 
-从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`app/download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets`工程目录下。
+从MindSpore Model Hub中下载模型文件，本示例程序中使用的终端图像分类模型文件为`mobilenetv2.ms`，同样通过`app/download.gradle`脚本在APP构建时自动下载，并放置在`app/src/main/assets/model`工程目录下。
 
 注：若下载失败请手工下载模型文件，mobilenetv2.ms [下载链接](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
 
@@ -228,11 +229,11 @@ target_link_libraries(
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
-        
+
         // Create context.
         mindspore::lite::Context *context = new mindspore::lite::Context;
         context->thread_num_ = num_thread;
-        
+
         // Create the mindspore session.
         labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
         delete (context);
@@ -355,7 +356,7 @@ target_link_libraries(
            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
                scores[i] = temp_scores[i];
            }
-            
+
            float unifiedThre = 0.5;
            float probMax = 1.0;
            for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
@@ -373,7 +374,7 @@ target_link_libraries(
                    MS_PRINT("MindSpore scores[%d] : [%f]", i, scores[i]);
                }
            }
-            
+
            // Score for each category.
            // Converted to text information that needs to be displayed in the APP.
            std::string categoryScore = "";
