@@ -133,7 +133,7 @@ output = [[2.4911082  0.7941146  1.3117087]
  [0.30582333  1.772938  1.525996]]
 ```
 
-> The preceding code runs on MindSpore of the GPU version.
+> The preceding code runs on the GPU version of MindSpore.
 
 For functions involving graph transformation, users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
 
@@ -296,7 +296,7 @@ Vector operators perform operations on only one particular axis, mapping a vecto
 
 #### Squeeze
 
-The following code implements the compression of a channel whose the third channel dimension is 1:
+The following code implements the compression of a channel whose dimension of the third channel is 1:
 
 ```python
 import numpy as np
@@ -622,7 +622,7 @@ print(output)
 
 ### Image Operations
 
-The image operations include image preprocessing operations, for example, image cropping (for obtaining a large quantity of training samples) and resizing (for constructing an image golden tower).
+The image operations include image preprocessing operations, for example, image cropping (for obtaining a large quantity of training samples) and resizing (for constructing an image pyramid).
 
  The following code implements the cropping and resizing operations:
 
