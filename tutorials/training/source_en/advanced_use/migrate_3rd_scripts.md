@@ -33,7 +33,7 @@ Before you start working on your scripts, prepare your operator assessment and h
 
 Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
 
-Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Conv2d) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d) exist in the MindSpore Operator List.
+Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.BatchNorm2d.html) exist in the MindSpore Operator List.
 
 If any operator does not exist, you are advised to perform the following operations:
 
@@ -89,22 +89,22 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
    The following uses the first convolutional layer on the ResNet-50 network whose batch\_size is set to 32 as an example:
 
-   - In TensorFlow, the format of the input feature is \[32, 224, 224, 3], and the size of the convolution kernel is \[7, 7, 3, 64].
+    - In TensorFlow, the format of the input feature is \[32, 224, 224, 3], and the size of the convolution kernel is \[7, 7, 3, 64].
 
-   - In MindSpore, the format of the input feature is \[32, 3, 224, 224], and the size of the convolution kernel is \[64, 3, 7, 7].
+    - In MindSpore, the format of the input feature is \[32, 3, 224, 224], and the size of the convolution kernel is \[64, 3, 7, 7].
 
-     ```python
-     def _conv7x7(in_channel, out_channel, stride=1):
-         weight_shape = (out_channel, in_channel, 7, 7)
-         weight = _weight_variable(weight_shape)
-         return nn.Conv2d(in_channel, out_channel,
-                         kernel_size=7, stride=stride, padding=0, pad_mode='same', weight_init=weight)
+      ```python
+      def _conv7x7(in_channel, out_channel, stride=1):
+          weight_shape = (out_channel, in_channel, 7, 7)
+          weight = _weight_variable(weight_shape)
+          return nn.Conv2d(in_channel, out_channel,
+                          kernel_size=7, stride=stride, padding=0, pad_mode='same', weight_init=weight)
 
 
-     def _bn(channel):
-         return nn.BatchNorm2d(channel, eps=1e-4, momentum=0.9,
-                             gamma_init=1, beta_init=0, moving_mean_init=0, moving_var_init=1)
-     ```
+       def _bn(channel):
+           return nn.BatchNorm2d(channel, eps=1e-4, momentum=0.9,
+                               gamma_init=1, beta_init=0, moving_mean_init=0, moving_var_init=1)
+       ```
 
 4. Build a subnet.
 
