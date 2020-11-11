@@ -46,7 +46,7 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore.train import Model
-from mindspore.train.serialization import load_param_into_net, load_checkpoint
+from mindspore import load_param_into_net, load_checkpoint
 import mindspore.common.dtype as mstype
 from mindspore.common import initializer as init
 from mindspore.common.initializer import initializer

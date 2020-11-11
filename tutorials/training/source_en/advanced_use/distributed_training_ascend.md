@@ -467,7 +467,7 @@ def test_train_cifar(epoch_size=10):
 After saving the checkpoint file, users can easily load model parameters for reasoning or retraining. For example, the following code can be used for retraining:
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 net = resnet50(batch_size=32, num_classes=10)
 # The parameter for load_checkpoint is a .ckpt file which has been successfully saved

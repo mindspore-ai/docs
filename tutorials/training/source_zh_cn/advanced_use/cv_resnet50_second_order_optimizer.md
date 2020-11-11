@@ -305,7 +305,7 @@ if __name__ == "__main__":
 
 ```python
 ...
-from mindspore.train.loss_scale_manager import FixedLossScaleManager
+from mindspore import FixedLossScaleManager
 from src.model_thor import Model_Thor as Model
 ...
 
@@ -434,7 +434,7 @@ epoch: 36 step: 5004, loss is 1.645802
 
 ```python
 ...
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 ...
 
 if __name__ == "__main__":

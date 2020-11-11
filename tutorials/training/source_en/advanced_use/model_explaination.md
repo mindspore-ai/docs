@@ -41,7 +41,7 @@ The following uses ResNet-50 and 20 types of multi-tag data as an example. Add t
 
 ```python
 import mindspore.nn as nn
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore.explainer.explanation import GradCAM, GuidedBackprop
 from mindspore.explainer.benchmark import Faithfulness, Localization

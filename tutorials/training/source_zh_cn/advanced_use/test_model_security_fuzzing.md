@@ -34,7 +34,7 @@ MindArmour的fuzz_testing模块以神经元覆盖率作为测试评价准则。�
 import numpy as np
 from mindspore import Model
 from mindspore import context
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import ModelCoverageMetrics

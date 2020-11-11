@@ -303,7 +303,7 @@ Use the `model.train` API provided by MindSpore to easily train the network. THO
 
 ```python
 ...
-from mindspore.train.loss_scale_manager import FixedLossScaleManager
+from mindspore import FixedLossScaleManager
 from src.model_thor import Model_Thor as Model
 ...
 
@@ -431,7 +431,7 @@ Use the checkpoint files saved during training to perform inference and validate
 
 ```python
 ...
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 ...
 
 if __name__ == "__main__":

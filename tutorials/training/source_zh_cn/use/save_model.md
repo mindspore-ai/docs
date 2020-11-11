@@ -98,7 +98,7 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 当有了CheckPoint文件后，如果想继续在MindSpore Lite端侧做推理，需要通过网络和CheckPoint生成对应的MINDIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import export, load_checkpoint, load_param_into_net
 from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()
@@ -120,7 +120,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32.mindir', file_format='MIN
 当有了CheckPoint文件后，如果想继续在昇腾AI处理器上做推理，需要通过网络和CheckPoint生成对应的AIR格式模型文件。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import export, load_checkpoint, load_param_into_net
 from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()
@@ -146,7 +146,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
 当有了CheckPoint文件后，如果想继续在昇腾AI处理器、GPU、CPU等多种硬件上做推理，需要通过网络和CheckPoint生成对应的ONNX格式模型文件。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore.train.serialization import export, load_checkpoint, load_param_into_net
+from mindspore import export, load_checkpoint, load_param_into_net
 from mindspore import Tensor
 import numpy as np
 resnet = ResNet50()

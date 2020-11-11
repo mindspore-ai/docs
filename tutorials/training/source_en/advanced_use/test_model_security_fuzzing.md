@@ -34,7 +34,7 @@ The following lists the required common modules, MindSpore-related modules, Fuzz
 import numpy as np
 from mindspore import Model
 from mindspore import context
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 from mindarmour.fuzz_testing import Fuzzer
 from mindarmour.fuzz_testing import ModelCoverageMetrics

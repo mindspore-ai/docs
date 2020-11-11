@@ -379,7 +379,7 @@ In the preceding information:
 After obtaining the model file, we verify the generalization ability of the model.
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 def test_net(network,model,mnist_path):
     """define the evaluation method"""

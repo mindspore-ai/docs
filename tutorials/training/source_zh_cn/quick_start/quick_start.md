@@ -383,7 +383,7 @@ checkpoint_lenet-1_1875.ckpt
 2. 使用保存后的模型参数进行推理。
 
 ```python
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
+from mindspore import load_checkpoint, load_param_into_net
 
 ...
 def test_net(network,model,mnist_path):
