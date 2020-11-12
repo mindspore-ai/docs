@@ -112,7 +112,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
 
 1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`.
 
-2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer.
+2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer, and `src.dataset` shown below is located in [GoogleNet directory](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/googlenet/src/dataset.py).
 
    ```python
    import mindspore
