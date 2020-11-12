@@ -46,7 +46,7 @@
 
 ## 概述
 
-MindSpore的算子组件，可从算子使用方式和算子功能两种维度进行划分。
+MindSpore的算子组件，可从算子使用方式和算子功能两种维度进行划分。以下示例代码需在PyNative模式运行。
 
 ## 算子使用方式
 
@@ -357,22 +357,12 @@ print(output)
 
 ```python
 from mindspore import Tensor
-from mindspore.communication import init
-from mindspore import nn
 import mindspore.ops as ops
 import numpy as np
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.broadcast = ops.Broadcast(1)
-
-    def construct(self, x):
-        return self.broadcast((x,))
-
 input_ = Tensor(np.ones([2, 8]).astype(np.float32))
-net = Net()
-output = net(input_)
+broadcast = ops.Broadcast(1)
+output = broadcast((input_,))
 
 print(output)
 ```
@@ -585,7 +575,7 @@ input_x = Tensor(input_np)
 type_dst = mindspore.float16
 cast = ops.Cast()
 result = cast(input_x, type_dst)
-print(type(result))
+print(result.dtype)
 ```
 
  输出结果:
@@ -628,17 +618,6 @@ print(output)
 from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
-from mindspore import nn
-
-class CropAndResizeNet(nn.Cell):
-    def __init__(self, crop_size):
-        super(CropAndResizeNet, self).__init__()
-        self.crop_and_resize = ops.CropAndResize()
-        self.crop_size = crop_size
-
-    def construct(self, x, boxes, box_index):
-        return self.crop_and_resize(x, boxes, box_index, self.crop_size)
 
 BATCH_SIZE = 1
 NUM_BOXES = 5
@@ -649,8 +628,8 @@ image = np.random.normal(size=[BATCH_SIZE, IMAGE_HEIGHT, IMAGE_WIDTH, CHANNELS])
 boxes = np.random.uniform(size=[NUM_BOXES, 4]).astype(np.float32)
 box_index = np.random.uniform(size=[NUM_BOXES], low=0, high=BATCH_SIZE).astype(np.int32)
 crop_size = (24, 24)
-crop_and_resize = CropAndResizeNet(crop_size=crop_size)
-output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index))
+crop_and_resize = ops.CropAndResize()
+output = crop_and_resize(Tensor(image), Tensor(boxes), Tensor(box_index), crop_size)
 print(output.asnumpy())
 ```
 
@@ -679,6 +658,8 @@ print(output.asnumpy())
 [-7.04941899e-02 -1.09924078e+00 6.89047515e-01]]]]
 ```
 
+> 以上代码运行于MindSpore的Ascend版本。
+
 ### 编码运算
 
 编码运算包括BoundingBox Encoding、BoundingBox Decoding、IOU计算等。
@@ -692,7 +673,6 @@ print(output.asnumpy())
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
@@ -718,7 +698,6 @@ print(res)
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import numpy as np
 import mindspore
 
 anchor_box = Tensor([[4,1,2,1],[2,2,2,3]],mindspore.float32)
