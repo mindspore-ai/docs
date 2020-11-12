@@ -112,7 +112,7 @@ model.train(epoch, dataset)
 
 1. 在[MindSpore Hub官网](https://www.mindspore.cn/resources/hub/)上搜索感兴趣的模型，并从网站上获取特定的`url`。
 
-2. 使用`url`进行MindSpore Hub模型的加载，*注意：`include_top`参数需要模型开发者提供*。
+2. 使用`url`进行MindSpore Hub模型的加载，注意：`include_top`参数需要模型开发者提供，以下代码中的`src.dataset`位于[GoogleNet目录](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/googlenet/src/dataset.py)。
 
    ```python
    import mindspore
