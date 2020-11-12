@@ -2,7 +2,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;  
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ## image_process.h文件的函数
@@ -32,7 +33,7 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
-从像素初始化LiteMat，当前支持的转换是RGBA_To_RGB、RGBA_To_BGR、NV21_To_BGR和NV12_To_BGR。
+从像素初始化LiteMat，提供数据为RGB或者BGR格式，不用进行格式转换，当前支持的转换是RGB_TO_BGR、RGBA_To_RGB、RGBA_To_BGR、NV21_To_BGR和NV12_To_BGR。
 
 - 参数
 
