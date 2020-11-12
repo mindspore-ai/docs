@@ -197,12 +197,19 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # 基准测试工具
+    │   └── include # 推理框架头文件
     │   └── lib # 推理框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
-    │   └── include # 推理框架头文件  
     ```
 
 - 当编译选项为`-I arm64`时：
@@ -211,14 +218,21 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # 基准测试工具
+    │   └── include # 推理框架头文件  
     │   └── lib # 推理框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库
     │       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
-    │   └── include # 推理框架头文件  
     ```
 
 - 当编译选项为`-I arm32`时：
@@ -227,12 +241,19 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # 基准测试工具
+    │   └── include # 推理框架头文件  
     │   └── lib # 推理框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
     │   └── third_party # 第三方库头文件和库
     │       ├── flatbuffers # FlatBuffers头文件
-    │   └── include # 推理框架头文件  
     ```
 
 - 当编译选项为`-A java`时：
@@ -273,6 +294,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │   └── benchmark # 基准测试工具
 │   └── include # 头文件(此处不涉及图像处理文件，不做展示)
 │   └── lib # 推理框架态库
+│       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
 │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
 │       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库
 │       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库

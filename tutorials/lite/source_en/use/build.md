@@ -200,12 +200,19 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # Benchmarking Tool
+    │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
     │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
-    │   └── include # Header files of inference framework
     ```
 
 - When the compilation option is `-I arm64`:  
@@ -214,14 +221,21 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-arm64-cpu
     │   └── benchmark # Benchmarking Tool
+    │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
     │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │       ├── libmindspore-lite-fp16.so # Operator performance optimization library support float16 in MindSpore Lite
-    │       ├── libmindspore-lite-optimize.so # Operator performance optimization library support dotprod instruction in MindSpore Lite  
+    │       ├── libmindspore-lite-fp16.so # Operator performance optimization library supports float16 in MindSpore Lite
+    │       ├── libmindspore-lite-optimize.so # Operator performance optimization library supports dotprod instruction in MindSpore Lite  
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
-    │   └── include # Header files of inference framework
     ```
 
 - When the compilation option is `-I arm32`:  
@@ -230,12 +244,19 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-arm32-cpu
     │   └── benchmark # Benchmarking Tool
+    │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
     │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
     │   └── third_party # Header files and libraries of third party libraries
     │       ├── flatbuffers # Header files of FlatBuffers
-    │   └── include # Header files of inference framework
     ```
 
 - When the compilation option is `-A java`:
@@ -276,6 +297,7 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │   └── benchmark # Benchmarking Tool
 │   └── include # Header files (Image processing files are not involved here, and will not be displayed)
 │   └── lib # Inference framework dynamic library
+│       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite-fp16.so # Operator performance optimization library supports float16 in MindSpore Lite
 │       ├── libmindspore-lite-optimize.so # Operator performance optimization library supports dotprod instruction in MindSpore Lite  

@@ -33,7 +33,7 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
 
-Initialize LiteMat from pixel, currently the conversion supports RGBA_To_RGB, RGBA_To_BGR, NV21_To_BGR and NV12_To_BGR.
+Initialize LiteMat from pixel, providing data in RGB or BGR format does not need to be converted. Currently the conversion supports RGB_TO_BGR, RGBA_To_RGB, RGBA_To_BGR, NV21_To_BGR and NV12_To_BGR.
 
 - Parameters
 
