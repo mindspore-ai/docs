@@ -82,7 +82,7 @@ MindSpore Lite训练后量化分为两类：
 全量化转换命令的一般形式为：
 
 ```bash
-./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=PostTraining --config_file=config.cfg
+./converter_lite --fmk=ModelType --modelFile=ModelFilePath --outputFile=ConvertedModelPath --quantType=PostTraining --configFile=config.cfg
 ```
 
 下面对此命令的量化相关参数进行说明：
@@ -90,7 +90,7 @@ MindSpore Lite训练后量化分为两类：
 |     参数  |  属性   |   功能描述   | 参数类型 | 默认值 | 取值范围  |
 | -------- | ------- | -----       | -----    |----- | -----     |
 | `--quantType=<QUANTTYPE>`   | 必选 | 设置为PostTraining，启用全量化 | String | - | 必须设置为PostTraining |
-| `--config_file=<CONFIGFILE>` | 必选 | 校准数据集配置文件路径  | String | - | -  |
+| `--configFile=<CONFIGFILE>` | 必选 | 校准数据集配置文件路径  | String | - | -  |
 
 为了计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。
 校准数据集配置文件采用`key=value`的方式定义相关参数，需要配置的`key`如下:
@@ -121,7 +121,7 @@ MindSpore Lite训练后量化分为两类：
 3. 以MindSpore模型为例，执行全量化的模型转换命令:
 
     ```bash
-    ./converter_lite --fmk=MINDIR --modelFile=lenet.mindir --outputFile=lenet_quant --quantType=PostTraining --config_file=config.cfg
+    ./converter_lite --fmk=MINDIR --modelFile=lenet.mindir --outputFile=lenet_quant --quantType=PostTraining --configFile=config.cfg
     ```
 
 4. 上述命令执行成功后，便可得到量化后的模型`lenet_quant.ms`，通常量化后的模型大小会下降到FP32模型的1/4。
