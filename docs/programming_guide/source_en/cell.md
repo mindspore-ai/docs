@@ -27,9 +27,9 @@
 
 The `Cell` class of MindSpore is the base class for building all networks and the basic unit of a network. When you need to customize a network, you need to inherit the `Cell` class and override the `__init__` and `construct` methods.
 
-Loss functions, optimizers, and model layers are parts of the network structure and can implement functions by only inheriting the `Cell` class. You can also customize them based on service requirements.
+Loss functions, optimizers, and model layers are parts of the network structure and can be implemented only by inheriting the `Cell` class. You can also customize them based on service requirements.
 
-This following describes the key member functions of the `Cell` class, the built-in loss functions, optimizers, and model layers of MindSpore implemented based on the `Cell` class, and how to use them, and uses examples to describe how to use the `Cell` class to build a customized network.
+The following describes the key member functions of the `Cell` class, the built-in loss functions, optimizers, and model layers of MindSpore implemented based on the `Cell` class, and how to use them, as well as describes how to use the `Cell` class to build a customized network.
 
 ## Key Member Functions
 
@@ -37,7 +37,7 @@ This following describes the key member functions of the `Cell` class, the built
 
 The `Cell` class overrides the `__call__` method. When the `Cell` class instance is called, the `construct` method is executed. The network structure is defined in the `construct` method.
 
-In the following example, a simple network is built to implement the convolution computing function. The operators that constitute the network are defined in `__init__` and used in the `construct` method. The network structure of the case is as follows: `Conv2d` -> `BiasAdd`.
+In the following example, a simple network is built to implement the convolution computing function. The operators in the network are defined in `__init__` and used in the `construct` method. The network structure of the case is as follows: `Conv2d` -> `BiasAdd`.
 
 In the `construct` method, `x` is the input data, and `output` is the result obtained after the network structure computation.
 
@@ -311,7 +311,7 @@ All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefo
 
 - SoftmaxCrossEntropyWithLogits
 
-  Cross entropy loss function, which is used to classify models. If the tag data is not encoded in one-hot mode, set `sparse` to True. The default value of `reduction` is none. The meaning of this parameter is the same as that of `L1Loss`.
+  Cross entropy loss function, which is used to classify models. If the tag data is not encoded in the one-hot mode, set `sparse` to True. The default value of `reduction` is none. The meaning of this parameter is the same as that of `L1Loss`.
 
 - CosineEmbeddingLoss
 
@@ -346,7 +346,7 @@ In this case, two pieces of tensor data are built. The `nn.L1Loss` API is used t
 
 ## Building a Customized Network
 
-Both the network structure and the model layers, loss functions, and optimizers mentioned above are essentially a `Cell`. Therefore, they can be customized.
+Both the network structure and the model layers (e.g. loss functions and optimizers mentioned above) are essentially a `Cell`. Therefore, they can be customized.
 
 Construct a subclass inherited from `Cell`, define the operator and model layer in the `__init__` method, and build the network structure in the `construct` method.
 
