@@ -99,15 +99,15 @@ class LeNet5(nn.Cell):
         return x
 
 
-def train_net(model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(network_model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
     """Define the training method."""
     print("============== Starting Training ==============")
     # load training dataset
-    ds_train = create_dataset(os.path.join(mnist_path, "train"), 32, repeat_size)
-    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
+    ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
+    network_model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
 
 
-def test_net(network, model, mnist_path):
+def test_net(network, network_model, data_path):
     """Define the evaluation method."""
     print("============== Starting Testing ==============")
     # load the saved model for evaluation
@@ -115,8 +115,8 @@ def test_net(network, model, mnist_path):
     # load parameter to the network
     load_param_into_net(network, param_dict)
     # load testing dataset
-    ds_eval = create_dataset(os.path.join(mnist_path, "test"))
-    acc = model.eval(ds_eval, dataset_sink_mode=False)
+    ds_eval = create_dataset(os.path.join(data_path, "test"))
+    acc = network_model.eval(ds_eval, dataset_sink_mode=False)
     print("============== Accuracy:{} ==============".format(acc))
 
 
@@ -132,20 +132,20 @@ if __name__ == "__main__":
     # learning rate setting
     lr = 0.01
     momentum = 0.9
-    epoch_size = 1
+    dataset_size = 1
     mnist_path = "./MNIST_Data"
     # define the loss function
     net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    repeat_size = 1
+    train_epoch = 1
     # create the network
-    network = LeNet5()
+    net = LeNet5()
     # define the optimizer
-    net_opt = nn.Momentum(network.trainable_params(), lr, momentum)
+    net_opt = nn.Momentum(net.trainable_params(), lr, momentum)
     config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # save the network model and parameters for subsequence fine-tuning
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     # group layers into an object with training and evaluation features
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
 
-    train_net(model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
-    test_net(network, model, mnist_path)
+    train_net(model, train_epoch, mnist_path, dataset_size, ckpoint, dataset_sink_mode)
+    test_net(net, model, mnist_path)
