@@ -100,5 +100,6 @@
 | [mindspore.ops.ScatterSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterSub)
 | [mindspore.ops.ScatterMul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterMul)
 | [mindspore.ops.ScatterDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.ScatterDiv)
+| [mindspore.ops.AssignAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html#mindspore.ops.AssignAdd)
 
 >

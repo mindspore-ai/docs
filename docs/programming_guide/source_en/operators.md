@@ -583,7 +583,7 @@ print(result.dtype)
  The following information is displayed:
 
 ```text
-<class 'mindspore.common.tensor.Tensor'>
+Float16
 ```
 
 #### Shape
