@@ -71,7 +71,7 @@ When MindSpore Lite is used for inference, sessions are the main entrance of inf
 
 Contexts save some basic configuration parameters required by sessions to guide graph compilation and execution. The definition of `Context` is as follows:
 
-MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `device_ctx_` in `Context` and is CPU by default. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
+MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `device_list_` in `Context` and is CPU by default. During graph compilation, operator selection and scheduling are performed based on backend configuration information in `device_list_`. At present, only CPU and GPU are supported. When configuring the 'Devicecontext' for GPU, GPU backend is preferred.
 
 MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number should be no more than 4. Otherwise, the performance may be affected.
 
@@ -102,7 +102,7 @@ if (context == nullptr) {
 // CPU device context has default values.
 auto &cpu_decice_info = context->device_list_[0].device_info_.cpu_device_info_;
 // The large core takes priority in thread and core binding methods. This parameter will work in the BindThread interface. For specific binding effect, see the "Run Graph" section.
-cpu_decice_info->cpu_bind_mode_ = HIGHER_CPU;
+cpu_decice_info.cpu_bind_mode_ = HIGHER_CPU;
 // If GPU device context is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on the GPU first, otherwise it will run on the CPU.
 DeviceContext gpu_device_ctx{DT_GPU, {false}};
 // The GPU device context needs to be push_back into device_list to work.
@@ -114,7 +114,7 @@ auto *context2 = new Context();
 context2->thread_num_ = context->thread_num_;
 context2->allocator = context->allocator;
 auto &cpu_decice_info2 = context2->device_list_[0].device_info_.cpu_device_info_;
-cpu_decice_info2->cpu_bind_mode_ = cpu_decice_info->cpu_bind_mode_;
+cpu_decice_info2.cpu_bind_mode_ = cpu_decice_info->cpu_bind_mode_;
 // Use Context to create Session.
 auto session1 = session::LiteSession::CreateSession(context);
 // After the LiteSession is created, the Context can be released.
