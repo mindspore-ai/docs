@@ -581,7 +581,7 @@ print(result.dtype)
  输出结果:
 
 ```text
-<class 'mindspore.common.tensor.Tensor'>
+Float16
 ```
 
 #### Shape
