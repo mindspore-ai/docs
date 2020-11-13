@@ -67,6 +67,8 @@ pygments_style = 'sphinx'
 
 autodoc_inherit_docstrings = False
 
+autosummary_generate = True
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

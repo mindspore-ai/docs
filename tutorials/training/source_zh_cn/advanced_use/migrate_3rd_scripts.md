@@ -33,7 +33,7 @@
 
 分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)，梳理出MindSpore对这些算子的支持程度。
 
-以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Conv2d)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.BatchNorm2d)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
+以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
 
@@ -88,6 +88,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     与TensorFlow相比，MindSpore对于卷积的最大差异在于数据格式。MindSpore整网默认使用`NCHW`的格式，与常见的TensorFlow所使用的`NHWC`不同。
 
     以batch_size=32的ResNet-50网络中第一层卷积为例:
+
     - 在TensorFlow中，输入feature的格式为[32, 224, 224, 3]，卷积核大小为[7, 7, 3, 64]。
     - 在MindSpore中，输入feature的格式为[32, 3, 224, 224]，卷积核大小为[64, 3, 7, 7]。
 

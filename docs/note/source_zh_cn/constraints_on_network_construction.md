@@ -226,7 +226,7 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
 ### 整网实例类型
 
 - 带[@ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
-- 继承自[nn.Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Cell)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络输入类型
 
@@ -241,13 +241,13 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
 
 | 类别                   | 内容
 | :-----------          |:--------
-| `Cell`实例             |[mindspore/nn/*](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#mindspore.nn.Cell)。
+| `Cell`实例             |[mindspore/nn/*](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Cell.html)。
 | `Cell`实例的成员函数     | Cell的construct中可以调用其他类成员函数。
 | 函数                   | 自定义Python函数、前文中列举的系统函数。
 | dataclass实例          | 使用@dataclass装饰的类。
 | Primitive算子          |[mindspore/ops/operations/*](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html)
 | Composite算子          |[mindspore/ops/composite/*](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html)
-| constexpr生成算子       |使用[@constexpr](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html#mindspore.ops.constexpr)生成的值计算算子。
+| constexpr生成算子       |使用[@constexpr](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.constexpr.html)生成的值计算算子。
 
 ### 其他约束
 
