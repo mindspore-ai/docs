@@ -52,7 +52,6 @@ $(function() {
 				
 			}
 			
-			console.log(list);
 			if(list.length > 0){
 				var os_list = [];
 				var hardware_list = [];
@@ -75,13 +74,7 @@ $(function() {
 						all_list.push(list[i]);
 					}
 				}
-				console.log(os_list,hardware_list,user_list,stage_list,all_list);
-				// $('.doc-article-item').each(function() {
-				// 	if ($(this).attr('class').replace('hidden ','').indexOf(str) > -1) {
-				// 		$(this).removeClass('hidden');
-				// 	}
 
-				// });	
 				$('.doc-article-item').each(function(){
 					var os_count = 0;
 					var hardware_count = 0;
@@ -138,7 +131,6 @@ $(function() {
 						all_count = 'empty';
 					}
 					
-					console.log(os_count,hardware_count,user_count,stage_count,all_count);
 					
 					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty')){
 						$(this).removeClass('hidden').addClass(str);
