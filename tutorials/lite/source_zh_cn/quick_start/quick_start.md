@@ -180,14 +180,11 @@ include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/mi
 
 add_library(mindspore-lite SHARED IMPORTED )
 add_library(minddata-lite SHARED IMPORTED )
-add_library(libmindspore-lite-fp16 SHARED IMPORTED )
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
         ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/lib/libminddata-lite.so)
-set_target_properties(libmindspore-lite-fp16 PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libmindspore-lite-fp16.so)
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.
@@ -196,7 +193,6 @@ target_link_libraries(
      # --- mindspore ---
         minddata-lite
         mindspore-lite
-        libmindspore-lite-fp16
     ...
 )
 ```

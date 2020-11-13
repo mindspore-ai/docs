@@ -225,8 +225,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   └── lib # Inference framework library
     │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │       ├── libmindspore-lite-fp16.so # Operator performance optimization library supports float16 in MindSpore Lite
-    │       ├── libmindspore-lite-optimize.so # Operator performance optimization library supports dotprod instruction in MindSpore Lite  
     │   └── minddata # Image processing dynamic library
     │       └── include # Header files
     │           └── lite_cv # The Header files of image processing dynamic library
@@ -270,10 +268,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
-> 1. `libmindspore-lite-optimize.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support dotprod instruction.
-> 2. `libmindspore-lite-fp16.so` only exists in the output package of runtime-arm64 and is only used on ARMv8.2 and CPUs that support fp16.
-> 3. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
-> 4. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite and Protobuf are located to the path where the system searches for dynamic libraries.
+> 1. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
+> 2. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
@@ -299,8 +295,6 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │   └── lib # Inference framework dynamic library
 │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-│       ├── libmindspore-lite-fp16.so # Operator performance optimization library supports float16 in MindSpore Lite
-│       ├── libmindspore-lite-optimize.so # Operator performance optimization library supports dotprod instruction in MindSpore Lite  
 │   └── minddata # Image processing dynamic library
 │       └── include # Header files
 │           └── lite_cv # The Header files of image processing dynamic library
