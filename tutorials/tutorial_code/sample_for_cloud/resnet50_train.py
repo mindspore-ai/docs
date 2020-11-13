@@ -96,7 +96,7 @@ def get_lr(global_step,
         if i < warmup_steps:
             lr = float(lr_init) + inc_each_step * float(i)
         else:
-            base = ( 1.0 - (float(i) - float(warmup_steps)) / (float(total_steps) - float(warmup_steps)) )
+            base = (1.0 - (float(i) - float(warmup_steps)) / (float(total_steps) - float(warmup_steps)))
             lr = float(lr_max) * base * base
             if lr < 0.0:
                 lr = 0.0
@@ -109,8 +109,9 @@ def get_lr(global_step,
     return learning_rate
 
 
-def resnet50_train(args_opt):
-    epoch_size = args_opt.epoch_size
+def resnet50_train(args):
+    """Training the ResNet-50."""
+    epoch_size = args.epoch_size
     batch_size = 32
     class_num = 10
     loss_scale_num = 1024
@@ -128,19 +129,19 @@ def resnet50_train(args_opt):
 
     # data download
     print('Download data.')
-    mox.file.copy_parallel(src_url=args_opt.data_url, dst_url=local_data_path)
+    mox.file.copy_parallel(src_url=args.data_url, dst_url=local_data_path)
 
     # create dataset
     print('Create train and evaluate dataset.')
     train_dataset = create_dataset(dataset_path=local_data_path, do_train=True,
                                    repeat_num=1, batch_size=batch_size)
     eval_dataset = create_dataset(dataset_path=local_data_path, do_train=False,
-                                   repeat_num=1, batch_size=batch_size)
+                                  repeat_num=1, batch_size=batch_size)
     train_step_size = train_dataset.get_dataset_size()
     print('Create dataset success.')
 
     # create model
-    net = resnet50(class_num = class_num)
+    net = resnet50(class_num=class_num)
     # reduction='mean' means that apply reduction of mean to loss
     loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
     lr = Tensor(get_lr(global_step=0, total_epochs=epoch_size, steps_per_epoch=train_step_size))
@@ -150,7 +151,8 @@ def resnet50_train(args_opt):
     # amp_level="O2" means that the hybrid precision of O2 mode is used for training
     # the whole network except that batchnoram will be cast into float16 format and dynamic loss scale will be used
     # 'keep_batchnorm_fp32 = False' means that use the float16 format
-    model = Model(net, amp_level="O2", keep_batchnorm_fp32=False, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
+    model = Model(net, loss_fn=loss, optimizer=opt, metrics={'acc'}, amp_level="O2", keep_batchnorm_fp32=False,
+                  loss_scale_manager=loss_scale)
 
     # define performance callback to show ips and loss callback to show loss for every epoch
     performance_cb = PerformanceCallback(batch_size)

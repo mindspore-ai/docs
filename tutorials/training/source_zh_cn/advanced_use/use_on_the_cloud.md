@@ -198,7 +198,7 @@ def create_dataset(dataset_path):
                                num_shards=device_num, shard_id=device_id)
     return ds
 
-def resnet50_train(args_opt):
+def resnet50_train(args):
     if device_num > 1:
         context.set_auto_parallel_context(device_num=device_num,
                                           parallel_mode=ParallelMode.DATA_PARALLEL,
@@ -238,7 +238,7 @@ def create_dataset(dataset_path):
                                num_shards=device_num, shard_id=device_id)
     return ds
 
-def resnet50_train(args_opt):
+def resnet50_train(args):
     # adapt to cloud: define local data path
     local_data_path = '/cache/data'
 
@@ -251,7 +251,7 @@ def resnet50_train(args_opt):
 
     # adapt to cloud: download data from obs to local location
     print('Download data.')
-    mox.file.copy_parallel(src_url=args_opt.data_url, dst_url=local_data_path)
+    mox.file.copy_parallel(src_url=args.data_url, dst_url=local_data_path)
 
     train_dataset = create_dataset(local_data_path)
 
