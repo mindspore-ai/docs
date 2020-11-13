@@ -8,7 +8,7 @@
         - [CIFAR-10/100 Dataset](#cifar-10100-dataset)
         - [VOC Dataset](#voc-dataset)
         - [COCO Dataset](#coco-dataset)
-    - [Loading Dataset in Specific Format](#loading-dataset-in-specific-format)
+    - [Loading Datasets in Specific Format](#loading-datasets-in-specific-format)
         - [MindRecord](#mindrecord)
         - [Manifest](#manifest)
         - [TFRecord](#tfrecord)
@@ -33,7 +33,7 @@ MindSpore can load common image datasets. You can directly use the classes in `m
 | CIFAR-10 | Cifar10Dataset | CIFAR-10 is a small image dataset that contains 60,000 32 x 32 color images of 10 categories. On average, each category contains 6,000 images, of which 5,000 images are training images and 1,000 images are test images. |
 | CIFAR-100 | Cifar100Dataset | CIFAR-100 is similar to CIFAR-10, but it has 100 categories. On average, there are 600 images in each category, among which 500 images are training images and 100 images are test images. |
 | CelebA | CelebADataset | CelebA is a large face image dataset that contains more than 200,000 face images of celebrities. Each image has 40 feature labels. |
-| PASCAL-VOC | VOCDataset | PASCAL-VOC is a commonly used image dataset, which is widely used in computer vision fields such as object detection and image segmentation. |
+| PASCAL-VOC | VOCDataset | PASCAL-VOC is a common image dataset, which is widely used in computer vision fields such as object detection and image segmentation. |
 | COCO | CocoDataset | COCO is a large dataset for object detection, image segmentation, and pose estimation. |
 | CLUE | CLUEDataset | CLUE is a large Chinese semantic comprehension dataset. |
 
@@ -44,13 +44,13 @@ MindSpore can also load datasets in different data storage formats. You can dire
 | MindRecord | MindDataset | MindRecord is a self-developed data format of MindSpore. It features efficient read/write and easy distributed processing. |
 | Manifest | ManifestDataset | Manifest is a data format supported by Huawei ModelArts. It describes the original files and labeling information and can be used for labeling, training, and inference. |
 | TFRecord | TFRecordDataset | TFRecord is a binary data file format defined by TensorFlow. |
-The | NumPy | NumpySlicesDataset | NumPy data source refers to the NumPy array dataset that has been read into the memory. |
+| NumPy | NumpySlicesDataset | NumPy data source refers to the NumPy array dataset that has been read into the memory. |
 | Text File | TextFileDataset | Text File refers to common data in text format. |
 | CSV File | CSVDataset | CSV refers to comma-separated values. Files in this format store tabular data in plain text. |
 
 MindSpore also supports user-defined dataset loading using `GeneratorDataset`. You can implement your own dataset classes as required.
 
-> For details about the dataset loading API, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+> For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
 ## Loading Common Dataset
 
@@ -150,7 +150,7 @@ bbox shape: (2, 4)
 
 ### COCO Dataset
 
-There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them, take only the part of the validation dataset and store it as the following directory structure:
+There are multiple versions of the COCO dataset. Here, the validation dataset of COCO2017 is taken as an example. Download COCO2017 [validation dataset](http://images.cocodataset.org/zips/val2017.zip), [detection task annotation](http://images.cocodataset.org/annotations/annotations_trainval2017.zip) and [panoptic task annotation](http://images.cocodataset.org/annotations/panoptic_annotations_trainval2017.zip) and decompress them, take only a part of the validation dataset and store it as the following directory structure:
 
 ```text
 └─ COCO
@@ -197,7 +197,7 @@ Keypoint: dict_keys(['image', 'keypoints', 'num_keypoints'])
 Panoptic: dict_keys(['image', 'bbox', 'category_id', 'iscrowd', 'area'])
 ```
 
-## Loading Dataset in Specific Format
+## Loading Datasets in Specific Format
 
 The following describes how to load dataset files in specific formats.
 
@@ -386,7 +386,7 @@ for data in csv_dataset.create_dict_iterator(output_numpy=True):
 
 ## Loading User-defined Dataset
 
-For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format. The following demonstrates some different methods to load user-defined datasets. To facilitate comparison, keep the generated random data the same.
+For the datasets that cannot be directly loaded by MindSpore, you can construct the `GeneratorDataset` object to load them in a customized method or convert them into the MindRecord data format. The following demonstrates some different methods to load user-defined datasets. For comparison, keep the generated random data the same.
 
 ### Constructing Dataset Generator Function
 

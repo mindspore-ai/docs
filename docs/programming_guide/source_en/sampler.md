@@ -94,7 +94,7 @@ Image shape: (32, 32, 3) , Label: 5
 
 Specifies a sampling probability list with the length of N and randomly samples a specified amount of data from the first N samples based on the probability.
 
-The following example uses a weighted random sampler to obtain 6 samples by probability from the first 10 samples in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
+The following example uses a weighted random sampler to obtain 6 samples based on probability from the first 10 samples in the CIFAR-10 dataset, and displays shapes and labels of the loaded data.
 
 ```python
 import mindspore.dataset as ds
