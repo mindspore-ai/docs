@@ -222,8 +222,6 @@ unzip mindspore-lite-maven-{version}.zip
     │   └── lib # 推理框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-    │       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库
-    │       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库
     │   └── minddata # 图像处理动态库
     │       └── include # 头文件
     │           └── lite_cv # 图像处理库头文件
@@ -267,10 +265,8 @@ unzip mindspore-lite-maven-{version}.zip
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
-> 1. `libmindspore-lite-optimize.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持dotprod指令的CPU上使用的性能优化库。
-> 2. `libmindspore-lite-fp16.so`仅在runtime-arm64的输出包中存在，仅在ARMv8.2及以上版本且支持fp16的CPU上使用的性能优化库。
-> 3. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
-> 4. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite和Protobuf的动态库所在的路径配置到系统搜索动态库的路径中。
+> 1. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
+> 2. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
 
 配置converter：
 
@@ -296,8 +292,6 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │   └── lib # 推理框架态库
 │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
 │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-│       ├── libmindspore-lite-fp16.so # MindSpore Lite Float16算子性能优化库
-│       ├── libmindspore-lite-optimize.so # MindSpore Lite量化算子性能优化库
 │   └── minddata # 图像处理动态库
 │       └── include # 头文件
 │           └── lite_cv # 图像处理库头文件
