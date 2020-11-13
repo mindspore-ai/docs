@@ -272,9 +272,9 @@ if __name__ == "__main__":
     lr = 0.01
     momentum = 0.9
     #create the network
-    network = LeNet5()
+    net = LeNet5()
     #define the optimizer
-    net_opt = nn.Momentum(network.trainable_params(), lr, momentum)
+    net_opt = nn.Momentum(net.trainable_params(), lr, momentum)
     ...
 ```
 
@@ -293,14 +293,14 @@ if __name__ == "__main__":
     # set parameters of check point
     config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # apply parameters of check point
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     ...
 ```
 
 ### Configuring the Network Training
 
 Use the `model.train` API provided by MindSpore to easily train the network. `LossMonitor` can monitor the changes of the `loss` value during training.
-In this example, set `epoch_size` to 1 to train the dataset for five iterations.
+In this example, set `train_epoch` to 1 to train the dataset for five iterations.
 
 ```python
 from mindspore.nn.metrics import Accuracy
@@ -308,27 +308,27 @@ from mindspore.train.callback import LossMonitor
 from mindspore.train import Model
 
 ...
-def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
     """define the training method"""
     print("============== Starting Training ==============")
     #load training dataset
-    ds_train = create_dataset(os.path.join(mnist_path, "train"), 32, repeat_size)
+    ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
     model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode) # train
 ...
 
 if __name__ == "__main__":
     ...
 
-    epoch_size = 1
+    train_epoch = 1
     mnist_path = "./MNIST_Data"
-    repeat_size = 1
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-    train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
+    dataset_size = 1
+    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, dataset_sink_mode)
     ...
 ```
 
 In the preceding information:
-In the `train_net` method, we loaded the training dataset, `MNIST path` is MNIST dataset path.
+In the `train_net` method, we loaded the training dataset, `mnist_path` is MNIST dataset path.
 
 ## Running and Viewing the Result
 
@@ -381,7 +381,7 @@ After obtaining the model file, we verify the generalization ability of the mode
 ```python
 from mindspore import load_checkpoint, load_param_into_net
 
-def test_net(network,model,mnist_path):
+def test_net(network,model,data_path):
     """define the evaluation method"""
     print("============== Starting Testing ==============")
     #load the saved model for evaluation
@@ -389,13 +389,13 @@ def test_net(network,model,mnist_path):
     #load parameter to the network
     load_param_into_net(network, param_dict)
     #load testing dataset
-    ds_eval = create_dataset(os.path.join(mnist_path, "test")) # test
+    ds_eval = create_dataset(os.path.join(data_path, "test")) # test
     acc = model.eval(ds_eval, dataset_sink_mode=False)
     print("============== Accuracy:{} ==============".format(acc))
 
 if __name__ == "__main__":
     ...
-    test_net(network, model, mnist_path)
+    test_net(net, model, mnist_path)
 ```
 
 In the preceding information:
@@ -420,4 +420,4 @@ After executing the command, the result is displayed as follows:
 ============== Accuracy:{'Accuracy': 0.9663477564102564} ==============
 ```
 
-The model accuracy is displayed in the output content. In the example, the accuracy reaches 96.6%, indicating a good model quality. The model accuracy will be improved with more iterations `epoch_size`.
+The model accuracy is displayed in the output content. In the example, the accuracy reaches 96.6%, indicating a good model quality. The model accuracy will be improved with more iterations `train_epoch`.

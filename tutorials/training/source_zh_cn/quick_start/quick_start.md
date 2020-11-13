@@ -276,9 +276,9 @@ if __name__ == "__main__":
     lr = 0.01
     momentum = 0.9
     #create the network
-    network = LeNet5()
+    net = LeNet5()
     #define the optimizer
-    net_opt = nn.Momentum(network.trainable_params(), lr, momentum)
+    net_opt = nn.Momentum(net.trainable_params(), lr, momentum)
     ...
 ```
 
@@ -297,14 +297,14 @@ if __name__ == "__main__":
     # set parameters of check point
     config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
     # apply parameters of check point
-    ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
+    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
     ...
 ```
 
 ### 配置训练网络
 
 通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。`LossMonitor`可以监控训练过程中`loss`值的变化。
-这里把`epoch_size`设置为1，对数据集进行1个迭代的训练。
+这里把`train_epoch`设置为1，对数据集进行1个迭代的训练。
 
 ```python
 from mindspore.nn.metrics import Accuracy
@@ -312,22 +312,22 @@ from mindspore.train.callback import LossMonitor
 from mindspore.train import Model
 
 ...
-def train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, sink_mode):
+def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
     """define the training method"""
     print("============== Starting Training ==============")
     #load training dataset
-    ds_train = create_dataset(os.path.join(mnist_path, "train"), 32, repeat_size)
+    ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
     model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode)
 ...
 
 if __name__ == "__main__":
     ...
 
-    epoch_size = 1
+    train_epoch = 1
     mnist_path = "./MNIST_Data"
-    repeat_size = 1
-    model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-    train_net(args, model, epoch_size, mnist_path, repeat_size, ckpoint_cb, dataset_sink_mode)
+    dataset_size = 1
+    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
+    train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, dataset_sink_mode)
     ...
 ```
 
@@ -386,7 +386,7 @@ checkpoint_lenet-1_1875.ckpt
 from mindspore import load_checkpoint, load_param_into_net
 
 ...
-def test_net(network,model,mnist_path):
+def test_net(network,model,data_path):
     """define the evaluation method"""
     print("============== Starting Testing ==============")
     #load the saved model for evaluation
@@ -394,13 +394,13 @@ def test_net(network,model,mnist_path):
     #load parameter to the network
     load_param_into_net(network, param_dict)
     #load testing dataset
-    ds_eval = create_dataset(os.path.join(mnist_path, "test"))
+    ds_eval = create_dataset(os.path.join(data_path, "test"))
     acc = model.eval(ds_eval, dataset_sink_mode=False)
     print("============== Accuracy:{} ==============".format(acc))
 
 if __name__ == "__main__":
     ...
-    test_net(network, model, mnist_path)
+    test_net(net, model, mnist_path)
 ```
 
 其中，
@@ -426,4 +426,4 @@ python lenet.py --device_target=CPU
 ============== Accuracy:{'Accuracy': 0.9663477564102564} ==============
 ```
 
-可以在打印信息中看出模型精度数据，示例中精度数据达到96.6%，模型质量良好。随着网络迭代次数`epoch_size`增加，模型精度会进一步提高。
+可以在打印信息中看出模型精度数据，示例中精度数据达到96.6%，模型质量良好。随着网络迭代次数`train_epoch`增加，模型精度会进一步提高。
