@@ -11,6 +11,11 @@
             - [几何分布(Geometric)](#几何分布geometric)
             - [正态分布(Normal)](#正态分布normal)
             - [均匀分布(Uniform)](#均匀分布uniform)
+            - [多类别分布(Categorical)](#多类别分布categorical)
+            - [柯西分布(Cauchy)](#柯西分布cauchy)
+            - [对数正态分布分布(LogNormal)](#对数正态分布lognormal)
+            - [耿贝尔极值分布(Gumbel)](#耿贝尔极值分布gumbel)
+            - [逻辑斯谛分布(Logistic)](#逻辑斯谛分布logistic)
         - [概率分布类在PyNative模式下的应用](#概率分布类在pynative模式下的应用)
         - [概率分布类在图模式下的应用](#概率分布类在图模式下的应用)
         - [TransformedDistribution类接口设计](#transformeddistribution类接口设计)
@@ -23,6 +28,8 @@
             - [指数变换映射(Exp)](#指数变换映射exp)
             - [标量仿射变换映射(ScalarAffine)](#标量仿射变换映射scalaraffine)
             - [Softplus变换映射(Softplus)](#softplus变换映射softplus)
+            - [耿贝尔累计密度函数映射(GumbelCDF)](#耿贝尔累计密度函数映射gumbelcdf)
+            - [逆映射(Invert)](#逆映射Invert)
         - [PyNative模式下调用Bijector实例](#pynative模式下调用bijector实例)
         - [图模式下调用Bijector实例](#图模式下调用bijector实例)
     - [深度概率网络](#深度概率网络)
@@ -57,6 +64,16 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 - `Uniform`：均匀分布。参数为数轴上的最小值和最大值。
 
+- `Categorical`：类别分布。每种类别出现的概率。
+
+- `LogNormal`：对数正态分布。参数为位置参数和规模参数。
+
+- `Gumbel`: 耿贝尔极值分布。参数为位置参数和规模参数。
+
+- `Logistic`：逻辑斯谛分布。参数为位置参数和规模参数。
+
+- `Cauchy`：柯西分布。参数为位置参数和规模参数。
+
 #### Distribution基类
 
 `Distribution` 是所有概率分布的基类。
@@ -76,6 +93,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `kl_loss` ：Kullback-Leibler 散度。
 - `cross_entropy` ：两个概率分布的交叉熵。
 - `sample` ：概率分布的随机抽样。
+- `get_dist_args` ：概率分布在网络中使用的参数。
+- `get_dist_type` ：概率分布的类型。
 
 #### 伯努利分布(Bernoulli)
 
@@ -92,6 +111,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型，目前只支持此处为 *‘Bernoulli’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs* 。
 - `sample`：可选择传入样本形状 *shape* 和试验成功的概率 *probs1* 。
+- `get_dist_args` ：可选择传入试验成功的概率 *probs*。
+- `get_dist_type` ：返回 *‘Bernoulli’* 。
 
 #### 指数分布(Exponential)
 
@@ -108,6 +129,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *rate_b* 。 *dist* 为另一分布的类型的名称， 目前只支持此处为 *‘Exponential’* 。*rate_b* 为分布 *b* 的率参数。可选择传入分布 *a* 的参数 *rate_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入率参数 *rate* 。
 - `sample`：可选择传入样本形状 *shape* 和率参数 *rate* 。
+- `get_dist_args` ：可选择传入率参数 *rate* 。
+- `get_dist_type` ：返回 *‘Exponential’* 。
 
 #### 几何分布(Geometric)
 
@@ -119,11 +142,13 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Geometric` 中私有接口以实现基类中的公有接口。`Geometric` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入 试验成功的概率 *probs1* 。
+- `mean`，`mode`，`var`：可选择传入试验成功的概率 *probs1* 。
 - `entropy`：可选择传入 试验成功的概率 *probs1* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Geometric’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs1* 。
 - `sample`：可选择传入样本形状 *shape* 和试验成功的概率 *probs1* 。
+- `get_dist_args` ：可选择传入试验成功的概率 *probs1* 。
+- `get_dist_type` ：返回 *‘Geometric’* 。
 
 #### 正态分布(Normal)
 
@@ -136,6 +161,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*mean_b* 和 *sd_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Normal’* 。*mean_b* 和 *sd_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *mean_a* 和标准差 *sd_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *mean_a* 和标准差 *sd_a* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括均值 *mean_a* 和标准差 *sd_a* 。
+- `get_dist_args` ：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
+- `get_dist_type` ：返回 *‘Normal’* 。
 
 #### 均匀分布(Uniform)
 
@@ -153,6 +180,100 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*high_b* 和 *low_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Uniform’* 。 *high_b* 和 *low_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即最大值 *high_a* 和最小值 *low_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数最大值 *high* 和最小值 *low* 。
 - `sample`：可选择传入 *shape* 和分布的参数即最大值 *high* 和最小值 *low* 。
+- `get_dist_args` ：可选择传入分布的参数最大值 *high* 和最小值 *low* 。
+- `get_dist_type` ：返回 *‘Uniform’* 。
+
+#### 多类别分布（Categorical）
+
+多类别分布，继承自 `Distribution` 类。
+
+属性:
+
+- `Categorical.probs`：各种类别的概率。
+
+`Distribution` 基类调用 `Categorical` 以实现基类中的公有接口。`Categorical` 支持的公有接口为：
+
+- `mean`，`mode`，`var`：可选择传入分布的参数类别概率 *probs*。
+- `entropy`：可选择传入分布的参数类别概率 *probs* 。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*probs_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Categorical’* 。 *probs_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *probs_a* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数类别概率 *probs* 。
+- `sample`：可选择传入 *shape* 和类别概率 *probs* 。
+- `get_dist_args` ：可选择传入分布的参数类别概率 *probs* 。
+- `get_dist_type` ：返回 *‘Categorical’* 。
+
+#### 对数正态分布(LogNormal)
+
+对数正态分布，继承自 `TransformedDistribution` 类，由 `Exp` Bijector 和 `Normal` Distribution 构成。
+
+属性：
+
+- `LogNormal.loc`：分布的位置参数。
+- `LogNormal.scale`：分布的规模参数。
+
+`Distribution` 基类调用 `LogNormal`及 `TransformedDistribution` 中私有接口以实现基类中的公有接口。`LogNormal` 支持的公有接口为：
+
+- `mean`，`mode`，`var`：可选择传入分布的位置参数*loc*和规模参数*scale* 。
+- `entropy`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘LogNormal’* 。*loc_b* 和 *scale_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *loc_a* 和标准差 *sclae_a* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *loc_a* 和标准差 *scale_a* 。`Distribution` 基类调用 `TransformedDistribution`私有接口。
+- `sample`：可选择传入样本形状 *shape* 和分布的参数包括均值 *loc_a* 和标准差 *scale_a* 。`Distribution` 基类调用 `TransformedDistribution`私有接口。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数*scale* 。
+- `get_dist_type` ：返回 *‘LogNormal’* 。
+
+#### 柯西分布(Cauchy)
+
+柯西分布，继承自 `Distribution` 类。
+
+属性：
+
+- `Cauchy.loc`：分布的位置参数。
+- `Cauchy.scale`：分布的规模参数。
+
+`Distribution` 基类调用 `Cauchy` 中私有接口以实现基类中的公有接口。`Cauchy` 支持的公有接口为：
+
+- `entropy`：可选择传入分布的位置参数*loc*和规模参数*scale*。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Cauchy’* 。*loc_b* 和 *scale_b* 为分布 *b* 的位置参数和规模参数。可选择传入分布的参数 *a* 位置 *loc_a* 和规模 *scale_a* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_type` ：返回 *‘Cauchy’* 。
+
+#### 耿贝尔极值分布(Gumbel)
+
+耿贝尔极值分布，继承自 `TransformedDistribution` 类，由 `GumbelCDF` Bijector和 `Uniform` Distribution 构成。
+
+属性：
+
+- `Gumbel.loc`：分布的位置参数。
+- `Gumbel.scale`：分布的规模参数。
+
+`Distribution` 基类调用 `Gumbel` 中私有接口以实现基类中的公有接口。`Gumbel` 支持的公有接口为：
+
+- `mean`，`mode`，`sd`：无参数 。
+- `entropy`：无参数 。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Gumbel’* 。*loc_b* 和 *scale_b* 为分布 *b* 的位置参数和规模参数。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。
+- `sample`：可选择传入样本形状 *shape* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_type` ：返回 *‘Gumbel’* 。
+
+#### 逻辑斯谛分布(Logistic)
+
+逻辑斯谛分布，继承自 `Distribution` 类。
+
+属性：
+
+- `Logistic.loc`：分布的位置参数。
+- `Logistic.scale`：分布的规模参数。
+
+`Distribution` 基类调用 `logistic` 中私有接口以实现基类中的公有接口。`Logistic` 支持的公有接口为：
+
+- `mean`，`mode`，`sd`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `entropy`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_type` ：返回 *‘Logistic’* 。
 
 ### 概率分布类在PyNative模式下的应用
 
@@ -447,6 +568,33 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 1. 类特征函数
     - `sharpness`：无参函数，返回 `sharpness` 的值。
+
+2. 映射函数
+    - `forward`：正向映射，输入为 `Tensor` 。
+    - `inverse`：反向映射，输入为 `Tensor` 。
+    - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+    - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+
+#### 耿贝尔累计密度函数映射(GumbelCDF)
+
+`GumbelCDF` 做如下变量替换：$Y = g(X) = \exp(-\exp(-\frac{X - loc}{scale}))$。其接口包括：
+
+1. 类特征函数
+    - `loc`：无参函数，返回经过广播后的`loc`的值，类型为`Tensor`。
+    - `scale`：无参函数，返回经过广播后的`scale`的值，类型为`Tensor`。
+
+2. 映射函数
+    - `forward`：正向映射，输入为 `Tensor` 。
+    - `inverse`：反向映射，输入为 `Tensor` 。
+    - `forward_log_jacobian`：正向映射的导数的对数，输入为 `Tensor` 。
+    - `inverse_log_jacobian`：反向映射的导数的对数，输入为 `Tensor` 。
+
+#### 逆映射(Invert)
+
+`Invert` 对一个映射做逆变换，其接口包括：
+
+1. 类特征函数
+    - `bijector`：无参函数，返回初始化时使用的*Bijector*，类型为`Bijector`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
