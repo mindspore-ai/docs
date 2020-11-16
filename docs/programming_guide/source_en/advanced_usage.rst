@@ -1,9 +1,7 @@
-Execution Management
+Advanced Usage
 ====================
 
 .. toctree::
   :maxdepth: 1
 
-  context
-  run
-  callback
+  train
