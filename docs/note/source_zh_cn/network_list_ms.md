@@ -27,7 +27,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [DenseNet121](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/densenet121/src/network/densenet.py) |  Supported |  Doing |  Doing |  Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/mobilenetv2/src/mobilenetV2.py)        |  Supported |  Supported |  Supported |  Supported | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [MobileNetV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/mobilenetv3/src/mobilenetV3.py)        |  Doing |  Doing |  Supported |  Supported | Doing
-|计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/ssd.py)      |  Supported |  Supported |Doing |Doing | Doing
+|计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/ssd.py)      |  Supported |  Supported |Doing |Doing | Supported
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)   |  Supported |  Doing |  Doing |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)   |  Supported |  Doing |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [FasterRCNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/faster_rcnn/src/FasterRcnn/faster_rcnn_r50.py)  |  Supported |  Doing |  Doing |  Doing | Doing
