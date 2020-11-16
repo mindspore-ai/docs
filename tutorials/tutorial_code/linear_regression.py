@@ -1,3 +1,6 @@
+"""Linear Regression Tutorial
+The sample can be run on CPU, GPU and Ascend 910 AI processor.
+"""
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
@@ -8,7 +11,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 
 
 def get_data(num, w=2.0, b=3.0):
-    for i in range(num):
+    for _ in range(num):
         x = np.random.uniform(-10.0, 10.0)
         noise = np.random.normal(0, 1)
         y = x * w + b + noise
@@ -34,15 +37,15 @@ class LinearNet(nn.Cell):
 
 if __name__ == "__main__":
 
-    num_data = 1600
-    batch_size = 16
-    repeat_size = 1
+    data_number = 1600
+    batch_number = 16
+    repeat_number = 1
     lr = 0.005
     momentum = 0.9
     net = LinearNet()
     net_loss = nn.loss.MSELoss()
     opt = nn.Momentum(net.trainable_params(), lr, momentum)
     model = Model(net, net_loss, opt)
-    ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
+    ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
     model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])

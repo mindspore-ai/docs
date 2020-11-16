@@ -68,7 +68,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 import numpy as np
 
 def get_data(num, w=2.0, b=3.0):
-    for i in range(num):
+    for _ in range(num):
         x = np.random.uniform(-10.0, 10.0)
         noise = np.random.normal(0, 1)
         y = x * w + b + noise
@@ -118,11 +118,11 @@ def create_dataset(num_data, batch_size=16, repeat_size=1):
 使用数据集增强函数生成训练数据，并查看训练数据的格式。
 
 ```python
-num_data = 1600
-batch_size = 16
-repeat_size = 1
+data_number = 1600
+batch_number = 16
+repeat_number = 1
 
-ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
+ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
 print("The dataset size of ds_train:", ds_train.get_dataset_size())
 dict_datasets = ds_train.create_dict_iterator().get_next()
 
@@ -210,7 +210,7 @@ $$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
 - $J(w)$为损失值。
 
-- $m$为样本数据的数量，本例中$m$的值为`batch_size`。
+- $m$为样本数据的数量，本例中$m$的值为`batch_number`。
 
 - $h(x_i)$为第$i$个数据的$x_i$值代入模型网络（公式1）后的预测值。
 

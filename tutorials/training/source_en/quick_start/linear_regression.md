@@ -69,7 +69,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 import numpy as np
 
 def get_data(num, w=2.0, b=3.0):
-    for i in range(num):
+    for _ in range(num):
         x = np.random.uniform(-10.0, 10.0)
         noise = np.random.normal(0, 1)
         y = x * w + b + noise
@@ -119,11 +119,11 @@ def create_dataset(num_data, batch_size=16, repeat_size=1):
 Use the dataset argumentation function to generate training data and view the training data format.
 
 ```python
-num_data = 1600
-batch_size = 16
-repeat_size = 1
+data_number = 1600
+batch_number = 16
+repeat_number = 1
 
-ds_train = create_dataset(num_data, batch_size=batch_size, repeat_size=repeat_size)
+ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
 print("The dataset size of ds_train:", ds_train.get_dataset_size())
 dict_datasets = ds_train.create_dict_iterator().get_next()
 
@@ -211,7 +211,7 @@ Assuming that the $i$th data record in the training data is $(x_i,y^{(i)})$, par
 
 - $J(w)$ specifies the loss value.
 
-- $m$ specifies the amount of sample data. In this example, the value of $m$ is `batch_size`.
+- $m$ specifies the amount of sample data. In this example, the value of $m$ is `batch_number`.
 
 - $h(x_i)$ is a predicted value obtained after the $x_i$ value of the $i$th data record is substituted into the model network (formula 1).
 
