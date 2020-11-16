@@ -316,10 +316,9 @@ If multiple network cases exist in the script, call `context.reset_auto_parallel
 In the following sample code, the automatic parallel mode is specified. To switch to the data parallel mode, you only need to change `parallel_mode` to `DATA_PARALLEL` and do not need to specify the strategy search algorithm `auto_parallel_search_mode`. In the sample code, the recursive programming strategy search algorithm is specified for automatic parallel. To switch to the dynamic programming strategy search algorithm, you only need to change `auto_parallel_search_mode` to `dynamic_programming`.
 
 ```python
-from mindspore import context
+from mindspore import context, Model
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.train.callback import LossMonitor
-from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from resnet import resnet50
 

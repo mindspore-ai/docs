@@ -23,9 +23,8 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication.management import init, get_rank, get_group_size
-from mindspore import Tensor
+from mindspore import Tensor, Model
 from mindspore.nn.optim.momentum import Momentum
-from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from mindspore import context
 from mindspore.train.callback import LossMonitor

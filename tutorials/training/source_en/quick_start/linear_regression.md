@@ -255,7 +255,7 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 After forward propagation and backward propagation are defined, call the `Model` function in MindSpore to associate the previously defined networks, loss functions, and optimizer function to form a complete computing network.
 
 ```python
-from mindspore.train import Model
+from mindspore import Model
 
 model = Model(net, net_loss, opt)
 ```

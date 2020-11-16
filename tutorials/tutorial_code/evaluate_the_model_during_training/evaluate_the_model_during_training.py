@@ -20,11 +20,9 @@ import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 from mindspore.common import dtype as mstype
-from mindspore import nn
+from mindspore import nn, Model, context
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
-from mindspore.train import Model
-from mindspore import context
 from mindspore.nn.metrics import Accuracy
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 

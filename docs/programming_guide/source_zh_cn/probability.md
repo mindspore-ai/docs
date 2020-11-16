@@ -271,8 +271,8 @@ import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
 import mindspore.context as context
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
+
 context.set_context(mode=context.PYNATIVE_MODE)
 
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
@@ -340,8 +340,7 @@ print(mean)
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
 import mindspore.context as context
 import mindspore.nn.probability.Bijector as msb
 import mindspore.nn.probability.Distribution as msd
@@ -466,8 +465,8 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.context as context
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
+
 context.set_context(mode=context.PYNATIVE_MODE)
 
 powertransform = msb.PowerTransform(power=2)

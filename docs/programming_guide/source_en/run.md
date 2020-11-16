@@ -119,12 +119,11 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import context, Model
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import Normal
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
-from mindspore.train import Model
 from mindspore.train.callback import LossMonitor
 
 
@@ -279,13 +278,11 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import context, Model, load_checkpoint, load_param_into_net
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import Normal
 from mindspore.dataset.vision import Inter
 from mindspore.nn.metrics import Accuracy, Precision
-from mindspore.train import Model
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
 
 class LeNet5(nn.Cell):

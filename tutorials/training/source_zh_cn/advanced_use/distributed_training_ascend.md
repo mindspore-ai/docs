@@ -318,10 +318,9 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 在下面的样例中我们指定并行模式为自动并行，用户如需切换为数据并行模式只需将`parallel_mode`改为`DATA_PARALLEL`，且无需配置策略搜索算法`auto_parallel_search_mode`；样例中指定自动并行策略搜索算法为双递归，用户如需切换为动态规划搜索算法只需将`auto_parallel_search_mode`改为`dynamic_programming`。
 
 ```python
-from mindspore import context
+from mindspore import context, Model
 from mindspore.nn.optim.momentum import Momentum
 from mindspore.train.callback import LossMonitor
-from mindspore.train.model import Model
 from mindspore.context import ParallelMode
 from resnet import resnet50
 

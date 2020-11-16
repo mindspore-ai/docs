@@ -45,9 +45,7 @@ The sample code is as follows:
 ```python
 import mindspore
 import mindspore.nn as nn
-from mindspore import context
-from mindspore import Tensor
-from mindspore.train import Model
+from mindspore import context, Tensor, Model
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 from mindspore.train.callback import SummaryCollector

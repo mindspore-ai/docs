@@ -47,9 +47,7 @@ MindSpore目前支持三种方式将数据记录到summary日志文件中。
 ```python
 import mindspore
 import mindspore.nn as nn
-from mindspore import context
-from mindspore import Tensor
-from mindspore.train import Model
+from mindspore import context, Tensor, Model
 from mindspore.common.initializer import TruncatedNormal
 import mindspore.ops as ops
 from mindspore.train.callback import SummaryCollector

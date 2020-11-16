@@ -85,8 +85,7 @@ class EvalCallBack(Callback):
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
-from mindspore.train import Model
-from mindspore import context
+from mindspore import context, Model
 from mindspore.nn.metrics import Accuracy
 
 if __name__ == "__main__":

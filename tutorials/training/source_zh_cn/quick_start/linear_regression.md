@@ -254,7 +254,7 @@ opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 定义完成前向传播和反向传播后，在MindSpore中需要调用`Model`函数，将前面定义的网络，损失函数，优化器函数关联起来，使之变成完整的计算网络。
 
 ```python
-from mindspore.train import Model
+from mindspore import Model
 
 model = Model(net, net_loss, opt)
 ```

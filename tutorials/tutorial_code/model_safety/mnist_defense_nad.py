@@ -15,11 +15,8 @@
 import os
 
 import numpy as np
-from mindspore import Tensor
-from mindspore import context
-from mindspore import nn
+from mindspore import Tensor, context, nn, Model
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
-from mindspore.train import Model
 from mindspore.train.callback import LossMonitor
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod

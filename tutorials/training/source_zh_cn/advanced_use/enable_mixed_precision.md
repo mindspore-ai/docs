@@ -108,9 +108,8 @@ output = train_network(predict, label)
 ```python
 import numpy as np
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import context, Model
 from mindspore.common.initializer import Normal
-from mindspore.train import Model
 from src.dataset import create_dataset
 
 context.set_context(mode=context.GRAPH_MODE)
