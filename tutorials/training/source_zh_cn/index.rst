@@ -135,6 +135,7 @@
 									<button class="doc-filter-btn" id="hardware-Ascend">Ascend</button>
 									<button class="doc-filter-btn" id="hardware-GPU">GPU</button>
 									<button class="doc-filter-btn" id="hardware-CPU">CPU</button>
+                                    <button class="doc-filter-btn" id="hardware-On-Device">On-Device</button>
 								</div>
 							</div>
 							</div>
