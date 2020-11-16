@@ -288,7 +288,12 @@ cdf = LogNormal.cdf(tx)
 shape = ((3, 2))
 sample = LogNormal.sample(shape)
 
+# get information of the distribution
 print(LogNormal)
+# get information of the underyling distribution and the bijector separately
+print("underlying distribution:\n", LogNormal.distribution)
+print("bijector:\n", LogNormal.bijector)
+# get the computation results
 print("cdf:\n", cdf)
 print("sample:\n", sample)
 ```
@@ -300,6 +305,10 @@ TransformedDistribution<
   (_bijector): Exp<power = 0>
   (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
   >
+underlying distribution:
+Normal<mean = 0.0, standard deviation = 1.0>
+bijector
+Exp<power = 0>
 cdf:
 [7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
 sample:
@@ -397,7 +406,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 #### 幂函数变换映射(PowerTransform)
 
-`PowerTransform` 做如下变量替换：$Y = g(X) = {(1 + X * c)}^{1 / c}$。其接口包括：
+`PowerTransform` 做如下变量替换：`Y = g(X) = {(1 + X * power)}^{1 / power}`。其接口包括：
 
 1. 类特征函数
     - `power`：无参函数，返回 `power` 的值。
@@ -410,7 +419,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 #### 指数变换映射(Exp)
 
-`Exp` 做如下变量替换：$Y = g(X)= exp(X)$。其接口包括：
+`Exp` 做如下变量替换：`Y = g(X)= exp(X)`。其接口包括：
 
 映射函数
 
@@ -421,11 +430,11 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 #### 标量仿射变换映射(ScalarAffine)
 
-`ScalarAffine` 做如下变量替换：Y = g(X) = a * X + b。其接口包括：
+`ScalarAffine` 做如下变量替换：`Y = g(X) = scale * X + shift`。其接口包括：
 
 1. 类特征函数
-    - `scale`：无参函数，返回scale的值。
-    - `shift`：无参函数，返回shift的值。
+    - `scale`：无参函数，返回经过广播后的`scale`的值，类型为`Tensor`。
+    - `shift`：无参函数，返回经过广播后的`shift`的值，类型为`Tensor`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
@@ -435,7 +444,7 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 #### Softplus变换映射(Softplus)
 
-`Softplus` 做如下变量替换：$Y = g(X) = log(1 + e ^ {kX}) / k $。其接口包括：
+`Softplus` 做如下变量替换：`Y = g(X) = log(1 + e ^ {sharpness * X}) / sharpness`。其接口包括：
 
 1. 类特征函数
     - `sharpness`：无参函数，返回 `sharpness` 的值。
