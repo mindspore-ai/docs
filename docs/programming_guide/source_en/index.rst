@@ -14,6 +14,7 @@ MindSpore Programming Guide
    compute_component
    data_pipeline
    execution_management
+   auto_parallel
    network_list
    operator_list
    advanced_usage
