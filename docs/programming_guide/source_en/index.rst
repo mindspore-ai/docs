@@ -16,3 +16,4 @@ MindSpore Programming Guide
    execution_management
    network_list
    operator_list
+   advanced_usage
