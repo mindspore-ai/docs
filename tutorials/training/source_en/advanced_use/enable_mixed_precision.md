@@ -19,13 +19,13 @@
 The mixed precision training method accelerates the deep learning neural network training process by using both the single-precision and half-precision data formats, and maintains the network precision achieved by the single-precision training at the same time.
 Mixed precision training can accelerate the computation process, reduce memory usage, and enable a larger model or batch size to be trained on specific hardware.
 
-For FP16 operators, if the input data type is FP32, the backend of MindSpore will automatically handle it with reduced precision. Users could check the reduced-precision operators by enabling INFO log and then searching 'reduce precision'.
+For FP16 operators, if the input data type is FP32, the backend of MindSpore will automatically handle it with reduced precision. Users could check the reduced-precision operators by enabling INFO log and then searching 'Reduce precision'.
 
 ## Computation Process
 
 The following figure shows the typical computation process of mixed precision in MindSpore.
 
-![mix precision](./images/mix_precision.jpg)
+![mix precision](./images/mix_precision.PNG)
 
 1. Parameters are stored in FP32 format.
 2. During the forward computation, if an FP16 operator is involved, the operator input and parameters need to be cast from FP32 to FP16.
@@ -99,7 +99,7 @@ The procedure of using automatic mixed precision by API `Model` is as follows:
 
 2. Define the network. This step is the same as the common network definition. (You do not need to manually configure the precision of any specific operator.)
 
-3. Create dataset.You can learn detail step at <https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html>.
+3. Create dataset.You can learn detail step at <https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html>.
 
 4. Use the `Model` API to encapsulate the network model and optimizer. You can learn how to set parameter `amp_level` through <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html#mindspore.train.model.Model>. In this step, MindSpore automatically converts the operators to the required format.
 
@@ -108,6 +108,7 @@ A code example is as follows:
 ```python
 import numpy as np
 import mindspore.nn as nn
+from mindspore.nn.metrics import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
 from src.dataset import create_dataset
@@ -151,7 +152,7 @@ class LeNet5(nn.Cell):
         return x
 
 # create dataset
-ds_train = create_dataset("/dataset/train", 32)
+ds_train = create_dataset("/dataset/MNIST/train", 32)
 
 # Initialize network
 network = LeNet5(10)
@@ -204,8 +205,9 @@ class Net(nn.Cell):
         x = self.relu(x)
         return x
 
-# Initialize network and set mixing precision
+# Initialize network
 net = Net(512, 128)
+# Set mixing precision
 net.to_float(mstype.float16)
 net.dense.to_float(mstype.float32)
 
