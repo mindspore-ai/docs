@@ -21,7 +21,7 @@
 
 MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:
 
-- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
+- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型(暂不支持CPU)。
 - Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
 
 默认情况下，MindSpore处于PyNative模式，可以通过`context.set_context(mode=context.GRAPH_MODE)`切换为Graph模式；同样地，MindSpore处于Graph模式时，可以通过 `context.set_context(mode=context.PYNATIVE_MODE)`切换为PyNative模式。
@@ -79,7 +79,7 @@ print(output.asnumpy())
 
 将若干算子组合成一个函数，然后直接通过函数调用的方式执行这些算子，并打印相关结果，如下例所示。
 
-**示例代码：**
+示例代码：
 
 ```python
 import numpy as np
@@ -99,7 +99,7 @@ output = tensor_add_func(x, y)
 print(output.asnumpy())
 ```
 
-**输出：**
+输出：
 
 ```python
 [[3. 3. 3.]
@@ -142,7 +142,7 @@ res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
 
-**输出：**
+输出：
 
 ```python
 [[3. 3. 3. 3.]
@@ -155,7 +155,7 @@ print(res.asnumpy())
 
 需要说明的是，加装了`ms_function`装饰器的函数中，如果包含不需要进行参数训练的算子（如`pooling`、`tensor_add`等算子），则这些算子可以在被装饰的函数中直接调用，如下例所示。
 
-**示例代码：**
+示例代码：
 
 ```python
 import numpy as np
@@ -179,7 +179,7 @@ z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
 
-**输出：**
+输出：
 
 ```shell
 [[2. 2. 2. 2.]
@@ -190,7 +190,7 @@ print(z.asnumpy())
 
 如果被装饰的函数中包含了需要进行参数训练的算子（如`Convolution`、`BatchNorm`等算子），则这些算子必须在被装饰等函数之外完成实例化操作，如下例所示。
 
-**示例代码：**
+示例代码：
 
 ```python
 import numpy as np
@@ -212,7 +212,7 @@ z = conv_fn(Tensor(input_data))
 print(z.asnumpy())
 ```
 
-**输出：**
+输出：
 
 ```shell
 [[[[ 0.10377571 -0.0182163 -0.05221086]
@@ -252,11 +252,13 @@ print(z.asnumpy())
 
 PyNative模式下，还可以支持单独求梯度的操作。如下例所示，可通过`GradOperation`求该函数或者网络所有的输入梯度。需要注意，输入类型仅支持Tensor。
 
-**示例代码：**
+示例代码：
 
 ```python
 import mindspore.ops as ops
 import mindspore.context as context
+import mindspore.common.dtype as mstype
+from mindspore import Tensor
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -269,15 +271,15 @@ def mainf(x, y):
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
-**输出：**
+输出：
 
 ```python
-(2, 1)
+(Tensor(shape=[], dtype=Int32, value=2), Tensor(shape=[], dtype=Int32, value=1))
 ```
 
 在进行网络训练时，求得梯度然后调用优化器对参数进行优化（暂不支持在反向计算梯度的过程中设置断点），然后再利用前向计算loss，从而实现在PyNative模式下进行网络训练。
 
-**完整LeNet示例代码：**
+完整LeNet示例代码：
 
 ```python
 import numpy as np
@@ -377,7 +379,7 @@ loss = loss_output.asnumpy()
 print(loss)
 ```
 
-**输出：**
+输出：
 
 ```python
 2.3050091

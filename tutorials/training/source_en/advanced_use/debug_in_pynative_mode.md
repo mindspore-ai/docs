@@ -19,7 +19,7 @@
 
 MindSpore supports the following running modes which are optimized for debugging or running:
 
-- PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
+- PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model(CPU is not supported).
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
 By default, MindSpore is in PyNative mode. You can switch it to the graph mode by calling `context.set_context(mode=context.GRAPH_MODE)`. Similarly, MindSpore in graph mode can be switched to the PyNative mode through `context.set_context(mode=context.PYNATIVE_MODE)`.
@@ -77,7 +77,7 @@ Output:
 
 Combine multiple operators into a function, call the function to execute the operators, and output the result, as shown in the following example:
 
-**Example Code:**
+Example Code:
 
 ```python
 import numpy as np
@@ -97,7 +97,7 @@ output = tensor_add_func(x, y)
 print(output.asnumpy())
 ```
 
-**Output:**
+Output:
 
 ```text
 [[3. 3. 3.]
@@ -140,7 +140,7 @@ res = tensor_add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
 
-**Output:**
+Output:
 
 ```text
 [[3. 3. 3. 3.]
@@ -153,7 +153,7 @@ In the preceding code, the `ms_function` decorator is added before `construct` o
 
 It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `tensor_add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
 
-**Example Code:**
+Example Code:
 
 ```python
 import numpy as np
@@ -177,7 +177,7 @@ z = tensor_add_fn(x, y)
 print(z.asnumpy())
 ```
 
-**Output:**
+Output:
 
 ```text
 [[2. 2. 2. 2.]
@@ -188,7 +188,7 @@ print(z.asnumpy())
 
 If the decorated function contains operators (such as `Convolution` and `BatchNorm`) that require parameter training, these operators must be instantiated before the decorated function is called, as shown in the following example:
 
-**Example Code:**
+Example Code:
 
 ```python
 import numpy as np
@@ -210,7 +210,7 @@ z = conv_fn(Tensor(input_data))
 print(z.asnumpy())
 ```
 
-**Output:**
+Output:
 
 ```text
 [[[[ 0.10377571 -0.0182163 -0.05221086]
@@ -250,11 +250,13 @@ print(z.asnumpy())
 
 In PyNative mode, the gradient can be calculated separately. As shown in the following example, `GradOperation` is used to calculate all input gradients of the function or the network. Note that the inputs have to be Tensor.
 
-**Example Code:**
+Example Code:
 
 ```python
 import mindspore.ops as ops
 import mindspore.context as context
+import mindspore.common.dtype as mstype
+from mindspore import Tensor
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -267,15 +269,15 @@ def mainf(x, y):
 print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 ```
 
-**Output:**
+Output:
 
 ```text
-(2, 1)
+(Tensor(shape=[], dtype=Int32, value=2), Tensor(shape=[], dtype=Int32, value=1))
 ```
 
 During network training, obtain the gradient, call the optimizer to optimize parameters (the breakpoint cannot be set during the reverse gradient calculation), and calculate the loss values. Then, network training is implemented in PyNative mode.
 
-**Complete LeNet Sample Code:**
+Complete LeNet Sample Code:
 
 ```python
 import numpy as np
@@ -375,7 +377,7 @@ loss = loss_output.asnumpy()
 print(loss)
 ```
 
-**Output:**
+Output:
 
 ```text
 2.3050091
