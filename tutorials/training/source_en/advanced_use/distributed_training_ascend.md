@@ -32,7 +32,7 @@
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
 
 The directory structure is as follow:
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     ...
 ```
 
-In the preceding code:  
+In the preceding code:
 
 - `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
@@ -178,7 +178,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     return data_set
 ```
 
-Different from the single-node system, the multi-node system needs to transfer the `num_shards` and `shard_id` parameters to the dataset API. The two parameters correspond to the number of devices and logical sequence numbers of devices, respectively. You are advised to obtain the parameters through the HCCL API.  
+Different from the single-node system, the multi-node system needs to transfer the `num_shards` and `shard_id` parameters to the dataset API. The two parameters correspond to the number of devices and logical sequence numbers of devices, respectively. You are advised to obtain the parameters through the HCCL API.
 
 - `get_rank`: obtains the ID of the current device in the cluster.
 - `get_group_size`: obtains the number of devices.
@@ -339,7 +339,7 @@ def test_train_cifar(epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-In the preceding code:  
+In the preceding code:
 
 - `dataset_sink_mode=True`: uses the dataset sink mode. That is, the training computing is sunk to the hardware platform for execution.
 - `LossMonitor`: returns the loss value through the callback function to monitor the loss function.
@@ -412,7 +412,7 @@ cd ../
 
 The variables `DATA_PATH` and `RANK_SIZE` need to be transferred to the script, which indicate the absolute path of the dataset and the number of devices, respectively.
 
-The distributed related environment variables are as follows:  
+The distributed related environment variables are as follows:
 
 - `RANK_TABLE_FILE`: path for storing the network information file.
 - `DEVICE_ID`: actual sequence number of the current device on the corresponding host.

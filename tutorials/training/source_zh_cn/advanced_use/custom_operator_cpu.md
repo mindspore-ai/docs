@@ -23,7 +23,7 @@
 
 添加一个自定义算子，需要完成算子原语注册、算子实现、算子信息注册三部分工作。
 
-其中：  
+其中：
 
 - 算子原语：定义了算子在网络中的前端接口原型，也是组成网络模型的基础单元，主要包括算子的名称、属性（可选）、输入输出名称、输出shape推理方法、输出dtype推理方法等信息。
 - 算子实现：利用框架提供的C++ API，结合算子具体特性实现算子内部计算逻辑。
@@ -35,7 +35,7 @@
 
 每个算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
-CPU算子原语的接口定义如下：  
+CPU算子原语的接口定义如下：
 
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有init属性，因此`__init__`没有额外的入参。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
@@ -131,7 +131,7 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 - `AnfRuntimeAlgorithm`类中的函数实现了各种对算子节点的操作，`shape_`表示算子第1个输入的shape，`perm_`表示算子的属性perm。
 - `Transpose`算子原语中参数“perm”作为输入传入，但是在解析时元组类型的“perm”实际被认为是算子的属性。
 
-> `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h)下的声明。
+> `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h)下的声明。
 
 ### 注册算子信息
 

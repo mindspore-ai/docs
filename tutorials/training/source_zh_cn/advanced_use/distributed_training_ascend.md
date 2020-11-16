@@ -34,7 +34,7 @@
 本篇教程我们主要讲解，如何在Ascend 910 AI处理器硬件平台上，利用MindSpore通过数据并行及自动并行模式训练ResNet-50网络。
 > 你可以在这里下载完整的样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training>
+> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
 
 目录结构如下：
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     ...
 ```
 
-其中，  
+其中，
 
 - `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
@@ -180,7 +180,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
     return data_set
 ```
 
-其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：  
+其中，与单机不同的是，在数据集接口需要传入`num_shards`和`shard_id`参数，分别对应卡的数量和逻辑序号，建议通过HCCL接口获取：
 
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
@@ -341,7 +341,7 @@ def test_train_cifar(epoch_size=10):
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 ```
 
-其中，  
+其中，
 
 - `dataset_sink_mode=True`：表示采用数据集的下沉模式，即训练的计算下沉到硬件平台中执行。
 - `LossMonitor`：能够通过回调函数返回Loss值，用于监控损失函数。
@@ -414,7 +414,7 @@ cd ../
 
 脚本需要传入变量`DATA_PATH`和`RANK_SIZE`，分别表示数据集的绝对路径和卡的数量。
 
-分布式相关的环境变量有，  
+分布式相关的环境变量有，
 
 - `RANK_TABLE_FILE`：组网信息文件的路径。
 - `DEVICE_ID`：当前卡在机器上的实际序号。
