@@ -17,3 +17,4 @@ MindSpore FAQ
   backend_running
   programming_language_extensions
   supported_features
+  mindinsight_use
