@@ -10,8 +10,8 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
+# import os
+# import sys
 
 
 # -- Project information -----------------------------------------------------
@@ -57,3 +57,8 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['_static']
+
+def setup(app):
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
