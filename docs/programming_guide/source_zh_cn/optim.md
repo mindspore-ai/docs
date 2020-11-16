@@ -158,9 +158,7 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 例如`SGD`的代码样例如下：
 
 ```python
-from mindspore import nn
-from mindspore.train import Model
-from mindspore import Tensor
+from mindspore import nn, Tensor, Model
 import mindspore.ops as ops
 import numpy as np
 import mindspore.common.dtype as mstype

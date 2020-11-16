@@ -61,10 +61,8 @@ A：以下拟合案例是基于MindSpore线性拟合官方案例改编而成。
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
-from mindspore import nn
-from mindspore.train import Model
+from mindspore import nn, Model, context
 from mindspore.train.callback import LossMonitor
-from mindspore import context
 
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 

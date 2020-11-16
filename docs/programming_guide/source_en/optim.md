@@ -156,9 +156,7 @@ In the `mindspore.nn.optim` module, they have corresponding class implementation
 For example, the code example of `SGD` is as follows:
 
 ```python
-from mindspore import nn
-from mindspore.train import Model
-from mindspore import Tensor
+from mindspore import nn, Model, Tensor
 import mindspore.ops as ops
 import numpy as np
 import mindspore.common.dtype as mstype

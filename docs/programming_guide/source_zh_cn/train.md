@@ -98,14 +98,13 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import context, DatasetHelper, connect_network_with_dataset
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.common.parameter import ParameterTuple
 from mindspore.dataset.vision import Inter
 from mindspore.nn.wrap.cell_wrapper import WithLossCell
 import mindspore.ops as ops
-from mindspore.train.dataset_helper import DatasetHelper, connect_network_with_dataset
 
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -311,13 +310,12 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
-from mindspore import context
+from mindspore import context, Model
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
 from mindspore.nn.metrics import Accuracy
 import mindspore.ops as ops
-from mindspore.train import Model
 from mindspore.train.callback import LossMonitor
 
 

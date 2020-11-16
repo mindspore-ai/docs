@@ -309,7 +309,7 @@ if __name__ == "__main__":
 ```python
 from mindspore.nn.metrics import Accuracy
 from mindspore.train.callback import LossMonitor
-from mindspore.train import Model
+from mindspore import Model
 
 ...
 def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):

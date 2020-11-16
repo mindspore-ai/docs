@@ -56,9 +56,7 @@ from mindspore.dataset.vision import Inter
 import mindspore.nn as nn
 from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.common.initializer import TruncatedNormal
-from mindspore import Model
-from mindspore import Tensor
-from mindspore import context
+from mindspore import Model, Tensor, context
 from mindspore.train.callback import LossMonitor
 
 from mindarmour.adv_robustness.attacks import FastGradientSignMethod

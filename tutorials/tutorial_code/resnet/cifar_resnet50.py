@@ -25,9 +25,8 @@ import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.communication.management import init
 from mindspore.nn.optim.momentum import Momentum
-from mindspore.train.model import Model
+from mindspore import Model, context
 from mindspore.context import ParallelMode
-from mindspore import context
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 from mindspore import load_checkpoint, load_param_into_net
 from mindspore.parallel._auto_parallel_context import auto_parallel_context

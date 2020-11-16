@@ -83,8 +83,7 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
    import mindspore_hub as mshub
    import mindspore
-   from mindspore import context, Tensor, nn
-   from mindspore.train.model import Model
+   from mindspore import context, Tensor, nn, Model
    from mindspore.common import dtype as mstype
    import mindspore.dataset.vision.py_transforms as py_transforms
 
