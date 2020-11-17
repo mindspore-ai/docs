@@ -150,8 +150,7 @@ Users can further trace the reason of the bug by analyzing the node details.
 At the bottom of the watchpoint setting panel is the training control panel, which shows the training control functions of the debugger,
 with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 
-- `OK` stands for executing the training for several steps, the number of the `step` can be specified in the above bar.
-The training will be paused until the `Watch Point List` is triggered, or the number of `step` is reached.
+- `OK` stands for executing the training for several steps, the number of the `step` can be specified in the above bar. The training will be paused until the `Watch Point List` is triggered, or the number of `step` is reached.
 - `CONTINUE` stands for executing the training until the `Watch Point List` is triggered, or the training is finished.
 - `PAUSE` stands for pausing the training.
 - `TERMINATE` stands for terminating the training.
@@ -183,6 +182,7 @@ The training will be paused until the `Watch Point List` is triggered, or the nu
 - A single Debugger Server can only be connected to one training process.
 - The debugger does not support distributed training scenarios.
 - The debugger does not support multi-graph training scenarios.
+- The debugger does not support inference scenarios.
 - When too many `Watch Points` are set, the system may run out of memory.
 - Debugger cannot get the initialization parameters of the neural network based on Davinci device.
 - For GPU environment, only the parameter nodes that meet the conditions can be compared with the results of themselves in the previous step: the node executed with the `Next Node` and `Continue to`, and the parameter nodes as the input of the `Watch Points`. Otherwise, `Compare with Previous Step` cannot be used.
