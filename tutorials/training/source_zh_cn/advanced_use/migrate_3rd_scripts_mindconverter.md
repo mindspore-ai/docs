@@ -77,7 +77,7 @@ optional arguments:
 
 ### PyTorch模型脚本迁移
 
-**MindConverter提供两种PyTorch模型脚本迁移方案：**
+MindConverter提供两种PyTorch模型脚本迁移方案：
 
 1. **基于抽象语法树(Abstract syntax tree, AST)的脚本转换**：指定`--in_file`的值，将使用基于AST的脚本转换方案；
 2. **基于图结构的脚本生成**：指定`--model_file`与`--shape`将使用基于图结构的脚本生成方案。
@@ -98,7 +98,6 @@ optional arguments:
 **MindConverter提供基于图结构的脚本生成方案**：指定`--model_file`、`--shape`、`--input_nodes`、`--output_nodes`进行脚本迁移。
 
 > AST方案不支持TensorFlow模型脚本迁移，TensorFlow脚本迁移仅支持基于图结构的方案。
-
 
 ## 使用场景
 
@@ -166,7 +165,7 @@ mindconverter --model_file /home/user/model.pth --shape 1,3,224,224 \
 
 基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原PyTorch脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
 
-另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），<a name="manual_modify">将生成如下代码</a>：
+另外对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`, `output_shape`标识），便于用户手动修改。以Reshape算子为例（暂不支持Reshape），将生成如下代码：
 
 ```python
 class Classifier(nn.Cell):
@@ -214,11 +213,11 @@ class Classifier(nn.Cell):
 #### TensorFlow模型脚本生成示例
 
 使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称，可参考如下方法进行导出、获取节点名称：
+
 ```python
 import tensorflow as tf
 from tensorflow.python.framework import graph_io
 from tensorflow.keras.applications.inception_v3 import InceptionV3
-
 
 def freeze_graph(graph, session, output):
     saved_path = "/home/user/xxx"
@@ -232,9 +231,9 @@ tf.keras.backend.set_learning_phase(0)
 base_model = InceptionV3()
 session = tf.keras.backend.get_session()
 
-INPUT_NODES = base_model.inputs[0].op.name  # Get input node name of TensorFlow.
-OUTPUT_NODES = base_model.outputs[0].op.name  # Get output node name of TensorFlow.
-freeze_graph(session.graph, session, [out.op.name for out in base_model.outputs])
+INPUT_NODES = [ipt.op.name for ipt in base_model.inputs]
+OUTPUT_NODES = [opt.op.name for opt in base_model.outputs]
+freeze_graph(session.graph, session, OUTPUT_NODES)
 print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
 
 ```
@@ -242,7 +241,8 @@ print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
 上述代码执行完毕，模型将会保存至`/home/user/xxx/frozen_model.pb`。其中，`INPUT_NODES`为输入节点名称，`OUTPUT_NODES`为输出节点名称。
 
 假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
-```shell script
+
+```bash
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
               --input_nodes input_1:0 \
               --output_nodes predictions/Softmax:0 \
@@ -252,12 +252,9 @@ mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
 
 执行该命令，MindSpore代码文件、转换报告生成至相应目录。
 
-
 基于图结构的脚本生成方案产生的转换报告格式与AST方案相同。然而，由于基于图结构方案属于生成式方法，转换过程中未参考原TensorFlow脚本，因此生成的转换报告中涉及的代码行、列号均指生成后脚本。
 
-
-另外，对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`、`output_shape`标识），便于用户手动修改，示例见[PyTorch模型脚本生成示例](#manual_modify)。
-
+另外，对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`、`output_shape`标识），便于用户手动修改，示例见**PyTorch模型脚本生成示例**章节中手动修改代码示例。
 
 ## 注意事项
 
