@@ -157,13 +157,13 @@ Train with MindSpore
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
 										<button class="doc-filter-btn" id="stage-Whole-Process">Whole Process</button>
 										<button class="doc-filter-btn" id="stage-Data-Preparation">Data preparation</button>
-										<button class="doc-filter-btn" id="stage-Model-Development">Model Developmen</button>
+										<button class="doc-filter-btn" id="stage-Model-Development">Model Development</button>
 										<button class="doc-filter-btn" id="stage-Model-Training">Model Training</button>
 										<button class="doc-filter-btn" id="stage-Model-Optimization">Model Optimization</button>
 										<button class="doc-filter-btn" id="stage-Model-Export">Model Export</button>
 										<button class="doc-filter-btn" id="stage-Model-Loading">Model Loading</button>
 										<button class="doc-filter-btn" id="stage-Inference">Inference Application</button>
-										<button class="doc-filter-btn" id="stage-Model-Publishing ">Model Publishing</button>
+										<button class="doc-filter-btn" id="stage-Model-Publishing">Model Publishing</button>
 										<button class="doc-filter-btn" id="stage-Model-Evaluation">Model Evaluation</button>
 									</div>
 									

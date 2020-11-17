@@ -168,7 +168,7 @@
 										<button class="doc-filter-btn" id="stage-Model-Export">模型导出</button>
 										<button class="doc-filter-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn" id="stage-Inference">推理应用</button>
-										<button class="doc-filter-btn" id="stage-Model-Publishing ">模型发布</button>
+										<button class="doc-filter-btn" id="stage-Model-Publishing">模型发布</button>
 										<button class="doc-filter-btn" id="stage-Model-Evaluation">模型评测</button>
 									</div>
 									
