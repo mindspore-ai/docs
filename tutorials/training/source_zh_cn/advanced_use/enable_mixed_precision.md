@@ -19,13 +19,13 @@
 
 混合精度训练方法是通过混合使用单精度和半精度数据格式来加速深度神经网络训练的过程，同时保持了单精度训练所能达到的网络精度。混合精度训练能够加速计算过程，同时减少内存使用和存取，并使得在特定的硬件上可以训练更大的模型或`batch size`。
 
-对于FP16的算子，若给定的数据类型是FP32，MindSpore框架的后端会进行降精度处理。用户可以开启INFO日志，并通过搜索关键字“reduce precision”查看降精度处理的算子。
+对于FP16的算子，若给定的数据类型是FP32，MindSpore框架的后端会进行降精度处理。用户可以开启INFO日志，并通过搜索关键字“Reduce precision”查看降精度处理的算子。
 
 ## 计算流程
 
 MindSpore混合精度典型的计算流程如下图所示：
 
-![mix precision](./images/mix_precision.jpg)
+![mix precision](./images/mix_precision.PNG)
 
 1. 参数以FP32存储；
 2. 正向计算过程中，遇到FP16算子，需要把算子输入和参数从FP32 cast成FP16进行计算；
@@ -99,7 +99,7 @@ output = train_network(predict, label)
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html>；
+3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/master/use/data_preparation.html>；
 
 4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.model.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 
@@ -108,6 +108,7 @@ output = train_network(predict, label)
 ```python
 import numpy as np
 import mindspore.nn as nn
+from mindspore.nn.metrics import Accuracy
 from mindspore import context, Model
 from mindspore.common.initializer import Normal
 from src.dataset import create_dataset
@@ -151,7 +152,7 @@ class LeNet5(nn.Cell):
         return x
 
 # create dataset
-ds_train = create_dataset("/dataset/train", 32)
+ds_train = create_dataset("/dataset/MNIST/train", 32)
 
 # Initialize network
 network = LeNet5(10)
@@ -204,8 +205,9 @@ class Net(nn.Cell):
         x = self.relu(x)
         return x
 
-# Initialize network and set mixing precision
+# Initialize network
 net = Net(512, 128)
+# Set mixing precision
 net.to_float(mstype.float16)
 net.dense.to_float(mstype.float32)
 
