@@ -18,7 +18,7 @@
 
 ## 确认系统环境信息
 
-- 确认安装Windows 7/8/10是64位操作系统。
+- 确认安装Windows 10是x86架构64位操作系统。
 - 确认安装[Visual C++ Redistributable for Visual Studio 2015](https://www.microsoft.com/zh-CN/download/details.aspx?id=48145)。
 - 确认安装了[git](https://github.com/git-for-windows/git/releases/download/v2.29.2.windows.2/Git-2.29.2.2-64-bit.exe)工具。
     - 如果git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，例如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。

@@ -16,7 +16,7 @@
 
 ## 确认系统环境信息
 
-- 确认安装Windows 7/8/10是64位操作系统。
+- 确认安装Windows 10是x86架构64位操作系统。
 - 确认安装Python 3.7.5版本。  
     - 如果未安装或者已安装其他版本的Python，则需从华为云下载[Python 3.7.5版本 64位](https://mirrors.huaweicloud.com/python/3.7.5/python-3.7.5-amd64.exe)进行安装。
 - 安装Python完毕后，将Python和pip添加到系统环境变量。
