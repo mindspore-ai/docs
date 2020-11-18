@@ -186,6 +186,7 @@ Optimizer Functions
     :template: classtemplate.rst
 
     mindspore.nn.Adam
+    mindspore.nn.AdamOffload
     mindspore.nn.AdamWeightDecay
     mindspore.nn.FTRL
     mindspore.nn.Lamb

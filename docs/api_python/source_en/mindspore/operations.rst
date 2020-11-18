@@ -11,6 +11,7 @@ Neural Network Operators
 
     mindspore.ops.Acosh
     mindspore.ops.Adam
+    mindspore.ops.AdamNoUpdateParam
     mindspore.ops.ApplyAdadelta
     mindspore.ops.ApplyAdagrad
     mindspore.ops.ApplyAdagradV2
