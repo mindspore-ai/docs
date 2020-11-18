@@ -103,7 +103,7 @@ print(output.asnumpy())
 
 ## 执行网络模型
 
-MindSpore的Model接口是用于训练和验证的高级接口。可以将有训练或推理功能的layers组合成一个对象，通过调用train、eval、predict接口可以分别实现训练、推理和预测功能。
+MindSpore的[Model接口](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model)是用于训练和验证的高级接口。可以将有训练或推理功能的layers组合成一个对象，通过调用train、eval、predict接口可以分别实现训练、推理和预测功能。
 
 用户可以根据实际需要传入网络、损失函数和优化器等初始化Model接口，还可以通过配置amp_level实现混合精度，配置metrics实现模型评估。
 
@@ -379,10 +379,11 @@ if __name__ == "__main__":
     print("============== {} ==============".format(acc))
 ```
 
-其中，
-`load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
-`checkpoint_lenet-1_1875.ckpt`：保存的CheckPoint模型文件名称。
-`load_param_into_net`：通过该接口把参数加载到网络中。
+其中：
+
+- `load_checkpoint`：通过该接口加载CheckPoint模型参数文件，返回一个参数字典。
+- `checkpoint_lenet-1_1875.ckpt`：保存的CheckPoint模型文件名称。
+- `load_param_into_net`：通过该接口把参数加载到网络中。
 
 > `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的训练网络部分。
 

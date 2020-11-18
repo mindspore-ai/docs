@@ -99,7 +99,7 @@ The output is as follows:
 
 ## Executing a Network Model
 
-The Model API of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
+The [Model API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model) of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
 
 You can transfer the initialized Model APIs such as the network, loss function, and optimizer as required. You can also configure amp_level to implement mixed precision and configure metrics to implement model evaluation.
 
@@ -377,11 +377,9 @@ if __name__ == "__main__":
 
 In the preceding information:
 
-`load_checkpoint`: loads the checkpoint model parameter file and returns a parameter dictionary.
-
-`checkpoint_lenet-1_1875.ckpt`: name of the saved checkpoint model file.
-
-`load_param_into_net`: loads parameters to the network.
+- `load_checkpoint`: loads the checkpoint model parameter file and returns a parameter dictionary.
+- `checkpoint_lenet-1_1875.ckpt`: name of the saved checkpoint model file.
+- `load_param_into_net`: loads parameters to the network.
 
 > For details about how to save the `checkpoint_lenet-1_1875.ckpt` file, see [Training the Network](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#training-the-network).
 
