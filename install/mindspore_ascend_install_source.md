@@ -10,6 +10,9 @@
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
+    - [安装MindInsight](#安装mindinsight)
+    - [安装MindArmour](#安装mindarmour)
+    - [安装MindSpore Hub](#安装mindspore-hub)
 
 <!-- /TOC -->
 
@@ -145,3 +148,21 @@ print(ops.tensor_add(x, y))
     ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
+
+## 安装MindInsight
+
+当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
+
+具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md)。
+
+## 安装MindArmour
+
+当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
+
+具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
+
+## 安装MindSpore Hub
+
+当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
+
+具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。

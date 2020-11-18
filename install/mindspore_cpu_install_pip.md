@@ -7,6 +7,8 @@
     - [下载安装MindSpore](#下载安装mindspore)
     - [查询安装是否成功](#查询安装是否成功)
     - [升级MindSpore版本](#升级mindspore版本)
+    - [安装MindArmour](#安装mindarmour)
+    - [安装MindSpore Hub](#安装mindspore-hub)
 
 <!-- /TOC -->
 
@@ -47,3 +49,15 @@ python -c "import mindspore;print(mindspore.__version__)"
 ```bash
 pip install --upgrade mindspore
 ```
+
+## 安装MindArmour
+
+当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
+
+具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
+
+## 安装MindSpore Hub
+
+当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
+
+具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
