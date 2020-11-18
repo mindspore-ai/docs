@@ -72,6 +72,7 @@ Non-linear Activations
     mindspore.nn.HSigmoid
     mindspore.nn.HSwish
     mindspore.nn.LeakyReLU
+    mindspore.nn.LogSigmoid
     mindspore.nn.LogSoftmax
     mindspore.nn.PReLU
     mindspore.nn.ReLU
@@ -186,6 +187,7 @@ Optimizer Functions
 
     mindspore.nn.Adam
     mindspore.nn.AdamWeightDecay
+    mindspore.nn.FTRL
     mindspore.nn.Lamb
     mindspore.nn.LARS
     mindspore.nn.LazyAdam

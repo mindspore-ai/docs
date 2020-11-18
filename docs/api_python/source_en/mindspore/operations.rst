@@ -245,7 +245,6 @@ Array Operators
     mindspore.ops.ScatterNonAliasingAdd
     mindspore.ops.ScatterSub
     mindspore.ops.ScatterUpdate
-    mindspore.ops.ScatterUpdate
     mindspore.ops.Select
     mindspore.ops.Shape
     mindspore.ops.Size
@@ -267,6 +266,7 @@ Array Operators
     mindspore.ops.Unique
     mindspore.ops.UniqueWithPad
     mindspore.ops.UnsortedSegmentMin
+    mindspore.ops.UnsortedSegmentMax
     mindspore.ops.UnsortedSegmentProd
     mindspore.ops.UnsortedSegmentSum
     mindspore.ops.ZerosLike
