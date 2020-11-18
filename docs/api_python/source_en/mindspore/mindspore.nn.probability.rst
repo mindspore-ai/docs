@@ -19,10 +19,7 @@ mindspore.nn.probability.bnn_layers
     
     .. autoclass:: DenseReparam(in_channels, out_channels, activation=None, has_bias=True, weight_prior_fn=NormalPrior, weight_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>, bias_prior_fn=NormalPrior, bias_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>)
         :members:
-            
-    .. autoclass:: WithBNNLossCell
-        :members:
-    
+
 mindspore.nn.probability.distribution
 -------------------------------------
 
