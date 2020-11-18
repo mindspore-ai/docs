@@ -8,6 +8,10 @@
     - [编译MindSpore](#编译mindspore)
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
+    - [升级MindSpore版本](#升级mindspore版本)
+    - [安装MindInsight](#安装mindinsight)
+    - [安装MindArmour](#安装mindarmour)
+    - [安装MindSpore Hub](#安装mindspore-hub)
 
 <!-- /TOC -->
 
@@ -28,7 +32,7 @@
 - 确认安装[Autoconf](https://www.gnu.org/software/autoconf) 2.69及以上版本（可使用系统自带版本）。
 - 确认安装[Libtool](https://www.gnu.org/software/libtool) 2.4.6-29.fc30及以上版本（可使用系统自带版本）。
 - 确认安装[Automake](https://www.gnu.org/software/automake) 1.15.1及以上版本（可使用系统自带版本）。
-- 确认安装[CuDNN](https://developer.nvidia.com/rdp/cudnn-archive) 7.6及以上版本。
+- 确认安装[cuDNN](https://developer.nvidia.com/rdp/cudnn-archive) 7.6及以上版本。
 - 确认安装[Flex](https://github.com/westes/flex/) 2.5.35及以上版本。
 - 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
 - 确认安装[OpenSSL](https://github.com/openssl/openssl.git) 1.1.1及以上版本。
@@ -45,7 +49,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.0
 ```
 
 ## 编译MindSpore
@@ -118,3 +122,21 @@ print(ops.tensor_add(x, y))
     ```bash
     pip install --upgrade mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
     ```
+
+## 安装MindInsight
+
+当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
+
+具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md)。
+
+## 安装MindArmour
+
+当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
+
+具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
+
+## 安装MindSpore Hub
+
+当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
+
+具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
