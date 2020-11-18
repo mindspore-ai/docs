@@ -21,7 +21,7 @@
 ## 初始化
 
 ```python
-mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
+mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False)
 ```
 
 初始化一个`Parameter`对象，传入的数据支持`Tensor`、`Initializer`、`int`和`float`四种类型。
@@ -32,7 +32,7 @@ mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=
 
 `MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
 
-可为每个`Parameter`指定一个名称，便于后续操作和更新。
+可为每个`Parameter`指定一个名称，便于后续操作和更新。如果在Cell里初始化一个Parameter作为Cell的属性时，建议使用默认值None，否则可能会出现Parameter的name与预期的不一致的情况。
 
 当参数需要被更新时，需要将`requires_grad`设置为`True`。
 
@@ -48,7 +48,7 @@ from mindspore import Tensor, Parameter
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
 y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 
@@ -91,7 +91,7 @@ import numpy as np
 
 from mindspore import Tensor, Parameter
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))))
 
 print("name: ", x.name, "\n",
       "sliced: ", x.sliced, "\n",
@@ -105,7 +105,7 @@ print("name: ", x.name, "\n",
 输出如下：
 
 ```text
-name:  x
+name:  Parameter
 sliced:  False
 is_init:  False
 inited_param:  None
@@ -125,7 +125,7 @@ data:  Parameter (name=x)
 
 - `set_param_ps`：控制训练参数是否通过[Parameter Server](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_parameter_server_training.html)进行训练。
 
-- `clone`：克隆`Parameter`，需要指定克隆之后的参数名称。
+- `clone`：克隆`Parameter`，克隆完成后可以给新Parameter指定新的名字。
 
 下例通过`Initializer`来初始化`Tensor`，调用了`Parameter`的相关方法。如下：
 
@@ -136,10 +136,14 @@ from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='x')
+x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32))
 
 print(x)
-print(x.clone(prefix="x_c"))
+
+x_clone = x.clone()
+x_clone.name = "x_clone"
+print(x_clone)
+
 print(x.init_data())
 print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
@@ -147,10 +151,10 @@ print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 输出如下：
 
 ```text
-Parameter (name=x)
-Parameter (name=x_c.x)
-Parameter (name=x)
-Parameter (name=x)
+Parameter (name=Parameter)
+Parameter (name=x_clone)
+Parameter (name=Parameter)
+Parameter (name=Parameter)
 ```
 
 ## ParameterTuple
@@ -165,7 +169,7 @@ from mindspore import Tensor, Parameter, ParameterTuple
 from mindspore.common import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
 y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 params = ParameterTuple((x, y, z))

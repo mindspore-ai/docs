@@ -127,14 +127,14 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
 
 下面以一个具体的模型参数为例，说明下参数合并处理的具体流程。
 
-参数名称为"model_parallel_weight"，切分逻辑为4卡场景。
+参数名称为"weight"，切分逻辑为4卡场景。
 
 1. 针对涉及模型并行的参数，获取所有节点上的参数数据。
 
     ```python
     sliced_parameters = []
     for i in range(4):
-        parameter = param_dicts[i].get("model_parallel_weight")
+        parameter = param_dicts[i].get("weight")
         sliced_parameters.append(parameter)
     ```
 
@@ -208,9 +208,9 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
     如下代码示例，在维度0上，将数据切分为两个切片。
 
     ```python
-    new_param = parameter_dict[“model_parallel_weight”]
+    new_param = parameter_dict["weight"]
     slice_list = np.split(new_param.data.asnumpy(), 2, axis=0)
-    new_param_moments = parameter_dict[“moments.model_parallel_weight”]
+    new_param_moments = parameter_dict["moments.weight"]
     slice_moments_list = np.split(new_param_moments.data.asnumpy(), 2, axis=0)
     ```
 
@@ -297,7 +297,7 @@ load_param_into_net(opt, param_dict)
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
-            self.weight = Parameter(Tensor(weight_init),  "model_parallel_weight", layerwise_parallel=True)
+            self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
@@ -324,7 +324,7 @@ load_param_into_net(opt, param_dict)
         strategy = build_searched_strategy(strategy_file)
         param_dict = {}
 
-        for paramname in ["model_parallel_weight", "moments.model_parallel_weight"]:
+        for paramname in ["weight", "moments.weight"]:
             # get layer wise model parallel parameter
             sliced_parameters = []
             for i in range(rank_size):
@@ -370,7 +370,7 @@ load_param_into_net(opt, param_dict)
 
     ```text
     device0：
-    name is model_parallel_weight
+    name is weight
     value is
     [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
      [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]]
@@ -378,13 +378,13 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_weight
+    name is moments.weight
     value is
     [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
      [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194]]
 
     device1：
-    name is model_parallel_weight
+    name is weight
     value is
     [[0.9210751 0.9050457 0.9827775 0.920396 0.9240526 0.9750359 1.0275179 1.0819869]
      [0.73605865 0.84631145 0.9746683 0.9386582 0.82902765 0.83565056 0.9702136 1.0514659]]
@@ -392,13 +392,13 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_weight
+    name is moments.weight
     value is
     [[0.2417504 0.28193963 0.06713893 0.21510397 0.23380603 0.11424308 0.0218009 -0.11969765]
      [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102 -0.15327111]]
 
     device2：
-    name is model_parallel_weight
+    name is weight
     value is
     [[1.0108461 0.8689414  0.91719437 0.8805056 0.7994629 0.8999671 0.7585804 1.0287056 ]
      [0.90653455 0.60146594 0.7206475 0.8306303 0.8364681 0.89625114 0.7354735 0.8447268]]
@@ -406,13 +406,13 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_weight
+    name is moments.weight
     value is
     [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
      [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738 0.24933104]]
 
     device3：
-    name is model_parallel_weight
+    name is weight
     value is
     [[0.7147005 0.9168278 0.80178416 0.6258351 0.8413766 0.5909515 0.696347 0.71359116]
      [0.20506378 0.03691584 0.2454556 0.12978578 0.19065076 0.23904312 0.27509746 0.34614682]]
@@ -420,7 +420,7 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_parallel_weight
+    name is moments.weight
     value is
     [[0.14152306 0.5040985 0.24455397 0.10907605 0.11319532 0.19538902 0.01208619 0.40430856]
     [-0.7773164 -0.47611716 -0.6041424 -0.6144473 -0.2651842 -0.31909415 -0.4510405 -0.12860501]]
@@ -429,7 +429,7 @@ load_param_into_net(opt, param_dict)
     脚本执行后，CheckPoint文件中参数值：
 
     ```text
-    name is model_parallel_weight
+    name is weight
     value is
     [[1.1138763 1.0962057 1.3516843 1.0812817 1.1579804 1.1078343 1.0906502 1.3207073]
      [0.916671 1.0781671 1.0368758 0.9680898 1.1735439 1.0628364 0.9960786 1.0135143]
@@ -443,7 +443,7 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_parallel_weight
+    name is moments.weight
     value is
     [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
      [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194 ]
@@ -476,16 +476,16 @@ load_param_into_net(opt, param_dict)
     class Net(nn.Cell):
         def __init__(self,weight_init):
             super(Net, self).__init__()
-            self.weight = Parameter(Tensor(weight_init), "model_parallel_weight", layerwise_parallel=True)
+            self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
-            x = self.fc(x, self.weight1)
+            x = self.fc(x, self.weight)
             return x
     def train_mindspore_impl_fc(input, label, ckpt_file):
         param_dict = load_checkpoint(ckpt_file)
 
-        for paramname in ["model_parallel_weight", "moments.model_parallel_weight"]:
+        for paramname in ["weight", "moments.weight"]:
             # get layer wise model parallel parameter
             new_param = parameter_dict[paramname]
             # split the model parameter data
@@ -522,7 +522,7 @@ load_param_into_net(opt, param_dict)
 
     ```text
     device0：
-    name is model_parallel_weight
+    name is weight
     value is
     [[0.87537426 1.0448935 0.86736983 0.8836905 0.77354026 0.69588304 0.9183654 0.7792076]
     [0.87224025 0.8726848 0.771446 0.81967723 0.88974726 0.7988162 0.72919345 0.7677011]
@@ -532,7 +532,7 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_weight
+    name is moments.weight
     value is
     [[0.2567724 -0.07485991 0.282002 0.2456022 0.454939 0.619168 0.18964815 0.45714882]
     [0.25946522 0.24344791 0.45677605 0.3611395 0.23378398 0.41439137 0.5312468 0.4696194]
@@ -540,7 +540,7 @@ load_param_into_net(opt, param_dict)
     [0.45955992 0.22664294 0.01990281 0.0731914 0.27125207 0.27298513 -0.01716102  -0.15327111]]
 
     device1：
-    name is model_parallel_weight
+    name is weight
     value is
     [[1.0053468 0.98402303 0.99762845 0.97587246 1.0259694 1.0055295 0.99420834 0.9496847]
     [1.0851002 1.0295962 1.0999886 1.0958165 0.9765328 1.146529 1.0970603 1.1388365]
@@ -550,7 +550,7 @@ load_param_into_net(opt, param_dict)
     value is [0.01]
     name is momentum
     value is [0.9]
-    name is moments.model_weight
+    name is moments.weight
     value is
     [[0.03440702 0.41419312 0.24817684 0.30765256 0.48516113 0.24904746 0.57791173 0.00955463]
     [0.13458519 0.6690533 0.49259356 0.28319967 0.25951773 0.16777472 0.45696738  0.24933104]

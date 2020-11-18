@@ -206,7 +206,7 @@ class HybridParallelNet(nn.Cell):
         super(HybridParallelNet, self).__init__()
         # initialize the weight which is sliced at the second dimension
         weight_init = np.random.rand(512, 128/2).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init), name="weight", layerwise_parallel=True)
+        self.weight = Parameter(Tensor(weight_init), layerwise_parallel=True)
         self.fc = ops.MatMul()
         self.reduce = ops.ReduceSum()
         self.allreduce = ops.AllReduce(op='sum')
@@ -235,7 +235,7 @@ class SemiAutoParallelNet(nn.Cell):
         super(SemiAutoParallelNet, self).__init__()
         # initialize full tensor weight
         weight_init = np.random.rand(512, 128).astype(np.float32)
-        self.weight = Parameter(Tensor(weight_init), name="weight")
+        self.weight = Parameter(Tensor(weight_init))
         # set shard strategy
         self.fc = ops.MatMul().shard({(1, 1),(1, 2)})
         self.reduce = ops.ReduceSum()
