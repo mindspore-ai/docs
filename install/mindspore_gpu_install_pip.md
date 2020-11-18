@@ -7,6 +7,9 @@
     - [安装MindSpore](#安装mindspore)
     - [验证是否成功安装](#验证是否成功安装)
     - [升级MindSpore版本](#升级mindspore版本)
+    - [安装MindInsight](#安装mindinsight)
+    - [安装MindArmour](#安装mindarmour)
+    - [安装MindSpore Hub](#安装mindspore-hub)
 
 <!-- /TOC -->
 
@@ -20,7 +23,7 @@
 - 确认安装[GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0版本。
 - 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)。
     - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
-- 确认安装[CuDNN](https://developer.nvidia.com/cuda-10.1-download-archive-base) 7.6.X版本。
+- 确认安装[cuDNN](https://developer.nvidia.com/cuda-10.1-download-archive-base) 7.6.X版本。
 - 确认安装[OpenMPI](https://www.open-mpi.org/faq/?category=building#easy-build) 3.1.5版本（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[NCCL](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) 2.7.6-1版本（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2及以上版本。
@@ -76,3 +79,21 @@ print(ops.tensor_add(x, y))
 ```bash
 pip install --upgrade mindspore_gpu
 ```
+
+## 安装MindInsight
+
+当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
+
+具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md)。
+
+## 安装MindArmour
+
+当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
+
+具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
+
+## 安装MindSpore Hub
+
+当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
+
+具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
