@@ -80,6 +80,8 @@ Non-linear Activations
     mindspore.nn.Sigmoid
     mindspore.nn.Softmax
     mindspore.nn.Tanh
+    mindspore.nn.Tril
+    mindspore.nn.Triu
 
 Utilities
 ---------
