@@ -40,7 +40,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.floor                                          | mindspore.ops.Floor                                                    |
 | torch.fmod                                           | mindspore.ops.Mod                                                      |
 | torch.linspace                                       | mindspore.nn.LinSpace                                                  |
-| torch.load                                           | mindspore.train.serialization.load_checkpoint                          |
+| torch.load                                           | mindspore.load_checkpoint                                              |
 | torch.log                                            | mindspore.ops.Log                                                      |
 | torch.log1p                                          | mindspore.ops.Log1p                                                    |
 | torch.matmul                                         | mindspore.nn.MatMul                                                    |
@@ -87,7 +87,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.LSTMCell                                    | mindspore.nn.LSTMCell                                                  |
 | torch.nn.MaxPool2d                                   | mindspore.nn.MaxPool2d                                                 |
 | torch.nn.Module                                      | mindspore.nn.Cell                                                      |
-| torch.nn.Module.load_state_dict                      | mindspore.train.serialization.load_param_into_net                      |
+| torch.nn.Module.load_state_dict                      | mindspore.load_param_into_net                                          |
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                                  |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                                   |
 | torch.nn.Parameter                                   | mindspore.Parameter                                                    |
@@ -122,7 +122,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.randn                                          | mindspore.ops.TruncatedNormal                                          |
 | torch.range                                          | mindspore.nn.Range                                                     |
 | torch.round                                          | mindspore.ops.Rint                                                     |
-| torch.save                                           | mindspore.train.serialization.save_checkpoint                          |
+| torch.save                                           | mindspore.save_checkpoint                                              |
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                                  |
 | torch.sin                                            | mindspore.ops.Sin                                                      |
 | torch.sinh                                           | mindspore.ops.Sinh                                                     |
