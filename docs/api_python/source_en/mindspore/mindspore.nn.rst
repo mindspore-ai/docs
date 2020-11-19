@@ -6,7 +6,7 @@ mindspore.nn
 Cell
 ----
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -17,7 +17,7 @@ Cell
 Containers
 ----------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -28,7 +28,7 @@ Containers
 Convolution Layers
 ------------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -41,7 +41,7 @@ Convolution Layers
 Recurrent Layers
 ----------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -52,7 +52,7 @@ Recurrent Layers
 Sparse Layers
 -------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -63,7 +63,7 @@ Sparse Layers
 Non-linear Activations
 ----------------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -86,7 +86,7 @@ Non-linear Activations
 Utilities
 ---------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -104,7 +104,7 @@ Utilities
 Images Functions
 ----------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -118,7 +118,7 @@ Images Functions
 Normalization Layers
 --------------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -136,7 +136,7 @@ Normalization Layers
 Pooling layers
 --------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -149,7 +149,7 @@ Pooling layers
 Quantized Functions
 -------------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -167,7 +167,7 @@ Quantized Functions
 Loss Functions
 --------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -182,7 +182,7 @@ Loss Functions
 Optimizer Functions
 -------------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -203,7 +203,7 @@ Optimizer Functions
 Wrapper Functions
 -----------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst
@@ -222,7 +222,7 @@ Wrapper Functions
 Math Functions
 --------------
 
-.. autosummary::
+.. msautosummary::
     :toctree: nn
     :nosignatures:
     :template: classtemplate.rst

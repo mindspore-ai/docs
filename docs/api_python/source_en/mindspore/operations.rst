@@ -4,7 +4,7 @@ operations
 Neural Network Operators
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -91,7 +91,7 @@ Neural Network Operators
 Math Operators
 ^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -188,7 +188,7 @@ Math Operators
 Array Operators
 ^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -275,7 +275,7 @@ Array Operators
 Common Operators
 ^^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -289,7 +289,7 @@ Common Operators
 Control Flows
 ^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -299,7 +299,7 @@ Control Flows
 Debug Operators
 ^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -315,7 +315,7 @@ Debug Operators
 Random Operators
 ^^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -333,7 +333,7 @@ Random Operators
 Inner Operators
 ^^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -343,7 +343,7 @@ Inner Operators
 Image Operators
 ^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -353,7 +353,7 @@ Image Operators
 Sparse Operators
 ^^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -363,7 +363,7 @@ Sparse Operators
 Other Operators
 ^^^^^^^^^^^^^^^
 
-.. autosummary::
+.. msautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
