@@ -8,6 +8,9 @@
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#insallation-verification)
     - [Version Update](#version-update)
+    - [Installing MindInsight](#installing-mindinsight)
+    - [Installing MindArmour](#installing-mindarmour)
+    - [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
 
@@ -41,7 +44,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.  
 > - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.  
 > - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.  
-> - `{system}` denotes the system version. For example, if you are using EulerOS ARM architecture, `{system}` should be `euleros_aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`centos_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`.
+> - `{system}` denotes the system version. For example, if you are using EulerOS ARM architecture, `{system}` should be `euleros_aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`euleros_x86`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`.
 
 ## Configuring Environment Variables
 
@@ -106,3 +109,21 @@ Using the following command if you need update MindSpore version:
 ```bash
 pip install --upgrade mindspore_ascend
 ```
+
+## Installing MindInsight
+
+If you need to analyze information such as model scalars, graphs, computation graphs and model traceback, you can install MindInsight.
+
+For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README.md).
+
+## Installing MindArmour
+
+If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
+
+For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README.md).
+
+## Installing MindSpore Hub
+
+If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
+
+For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README.md).
