@@ -271,6 +271,7 @@ Array Operators
     mindspore.ops.UnsortedSegmentProd
     mindspore.ops.UnsortedSegmentSum
     mindspore.ops.ZerosLike
+    mindspore.ops.GatherD
 
 Common Operators
 ^^^^^^^^^^^^^^^^
