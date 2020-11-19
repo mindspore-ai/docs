@@ -66,8 +66,8 @@
 | `while`      | 对带有while循环的网络求反向不支持。
 | `break`      | 相同。
 | `if`         | 与Python使用原则一致，但if条件的输入只支持常量。
-| `in`         | 支持判断`String`、`Number`、`Tensor`是否存在于List/Tuple里；支持判断`String`是否存在于Dictionary里。
-| `not in`     | 支持判断`String`、`Number`、`Tensor`是否不存在于List/Tuple里；支持判断`String`是否不存在于Dictionary里。
+| `in`         | 支持判断`String`、`Number`、`Tensor`(或用Tensor构造的Parameter)是否存在于List/Tuple里；支持判断`String`是否存在于Dictionary里。
+| `not in`     | 支持判断`String`、`Number`、`Tensor`(或用Tensor构造的Parameter)是否不存在于List/Tuple里；支持判断`String`是否不存在于Dictionary里。
 | `is`         | 仅支持`True`、`False`、`None`。
 | `is not`     | 仅支持`True`、`False`、`None`。
 | 赋值语句       | List和Dictionary的多重下标访问不支持作为左值。
