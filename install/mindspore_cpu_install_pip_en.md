@@ -1,12 +1,14 @@
-# Installing MindSpore in Ascend by pip
+# Installing MindSpore in CPU by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend by pip](#installing-mindspore-in-ascend-by-pip)
+- [Installing MindSpore in CPU by pip](#installing-mindspore-in-cpu-by-pip)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
+    - [Installing MindArmour](#installing-mindarmour)
+    - [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
 
@@ -30,7 +32,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 > - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt)). In other cases, you need to manually install dependency items.  
 > - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.  
 > - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.  
-> - `{system}` denotes the system version. For example, if you are using EulerOS ARM architecture, `{system}` should be `euleros_aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`centos_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`.
+> - `{system}` denotes the system version. For example, if you are using Ubuntu x86 architecture, `{system}` should be `ubuntu_x86`. Currently, the following systems are supported by CPU: `ubuntu_aarch64`/`ubuntu_x86`.
 
 ## Installation Verification
 
@@ -47,3 +49,15 @@ Using the following command if you need update MindSpore version:
 ```bash
 pip install --upgrade mindspore
 ```
+
+## Installing MindArmour
+
+If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
+
+For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.0/README.md).
+
+## Installing MindSpore Hub
+
+If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
+
+For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/r1.0/README.md).

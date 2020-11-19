@@ -1,8 +1,8 @@
-﻿# Installing MindSpore in Ascend by Source
+﻿# Installing MindSpore in Ascend by Source Code
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend by Source](#installing-mindspore-in-ascend-by-source)
+- [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
@@ -10,12 +10,15 @@
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
+    - [Installing MindInsight](#installing-mindinsight)
+    - [Installing MindArmour](#installing-mindarmour)
+    - [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_ascend_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
 
-This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source.
+This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by source code.
 
 ## System Environment Information Confirmation
 
@@ -24,7 +27,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 - Confirm that [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 or later is installed.
 - Confirm that [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 is installed.
 - Confirm that [OpenSSL](https://github.com/openssl/openssl.git) 1.1.1 or later is installed.
-    - Set system variable `export OPENSSL_ROOT_DIR="installation directory"` after installation.
+    - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
 - Confirm that [CMake](https://cmake.org/download/) 3.18.3 or later is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
 - Confirm that [patch](http://ftp.gnu.org/gnu/patch/) 2.5 or later is installed.
@@ -50,7 +53,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 ## Downloading Source Code from Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.0
 ```
 
 ## Compiling MindSpore
@@ -146,3 +149,21 @@ Using the following command if you need update MindSpore version.
     ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
+
+## Installing MindInsight
+
+If you need to analyze information such as model scalars, graphs, computation graphs and model traceback, you can install MindInsight.
+
+For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/r1.0/README.md).
+
+## Installing MindArmour
+
+If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
+
+For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.0/README.md).
+
+## Installing MindSpore Hub
+
+If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
+
+For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/r1.0/README.md).
