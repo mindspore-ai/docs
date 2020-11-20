@@ -95,6 +95,7 @@ Utilities
     mindspore.nn.Dense
     mindspore.nn.Dropout
     mindspore.nn.Flatten
+    mindspore.nn.Interpolate
     mindspore.nn.Norm
     mindspore.nn.OneHot
     mindspore.nn.Pad

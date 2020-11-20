@@ -108,6 +108,8 @@ functional
      - :class:`mindspore.ops.NotEqual`
    * - mindspore.ops.not_in_dict
      - :class:`mindspore.ops.Primitive` ('not_in_dict')               
+   * - mindspore.ops.ones
+     - :class:`mindspore.ops.Ones`
    * - mindspore.ops.ones_like
      - :class:`mindspore.ops.OnesLike`
    * - mindspore.ops.pack
@@ -228,6 +230,8 @@ functional
      - :class:`mindspore.ops.TupleToArray`
    * - mindspore.ops.typeof
      - :class:`mindspore.ops.Primitive` ('typeof')               
+   * - mindspore.ops.zeros
+     - :class:`mindspore.ops.Zeros`
    * - mindspore.ops.zeros_like
      - :class:`mindspore.ops.ZerosLike`
 
