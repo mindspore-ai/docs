@@ -21,20 +21,20 @@ This document describes how to quickly install MindSpore by source code in a Lin
 ## System Environment Information Confirmation
 
 - Confirm that Ubuntu 18.04 is installed with 64-bit operating system.
-- Confirm that [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 is installed.
-- Confirm that [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 or later is installed.
-- Confirm that [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 is installed.
-- Confirm that [CMake](https://cmake.org/download/) 3.18.3 or later is installed.
+- Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
+- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - After installing, add the path of `cmake` to the environment variable PATH.
-- Confirm that [patch](http://ftp.gnu.org/gnu/patch/) 2.5 or later is installed.
+- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installing, add the path of `patch` to the environment variable PATH.
-- Confirm that [Autoconf](https://www.gnu.org/software/autoconf) 2.69 or later is installed. (Default versions of these tools built in their systems are supported.)
-- Confirm that [Libtool](https://www.gnu.org/software/libtool) 2.4.6-29.fc30 or later is installed. (Default versions of these tools built in their systems are supported.)
-- Confirm that [Automake](https://www.gnu.org/software/automake) 1.15.1 or later is installed.(Default versions of these tools built in their systems are supported.)
-- Confirm that [cuDNN](https://developer.nvidia.com/rdp/cudnn-archive) 7.6 or later is installed.
-- Confirm that [Flex](https://github.com/westes/flex/) 2.5.35 or later is installed.
-- Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
-- Confirm that [OpenSSL](https://github.com/openssl/openssl.git) 1.1.1 or later is installed.
+- Confirm that [Autoconf 2.69 or later](https://www.gnu.org/software/autoconf) is installed. (Default versions of these tools built in their systems are supported.)
+- Confirm that [Libtool 2.4.6-29.fc30 or later](https://www.gnu.org/software/libtool) is installed. (Default versions of these tools built in their systems are supported.)
+- Confirm that [Automake 1.15.1 or later](https://www.gnu.org/software/automake) is installed.(Default versions of these tools built in their systems are supported.)
+- Confirm that [cuDNN 7.6 or later](https://developer.nvidia.com/rdp/cudnn-archive) is installed.
+- Confirm that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
+- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
+- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
 - Confirm that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) is installed as default configuration.
     - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
@@ -59,18 +59,22 @@ Run the following command in the root directory of the source code to compile Mi
 bash build.sh -e gpu
 ```
 
-> In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
+Of which,
+
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
 
 ## Installing MindSpore
 
 ```bash
 chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
-pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://mirrors.huaweicloud.com/repository/pypi/simple
+pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
-> - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
+Of which,
+
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
+- `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
+- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
 
 ## Installation Verification
 
