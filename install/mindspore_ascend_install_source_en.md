@@ -23,16 +23,16 @@ This document describes how to quickly install MindSpore in a Linux system with 
 ## System Environment Information Confirmation
 
 - Confirm that Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 is installed with 64-bit operating system.
-- Confirm that [GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0 is installed.
-- Confirm that [gmp](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) 6.1.2 or later is installed.
-- Confirm that [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5 is installed.
-- Confirm that [OpenSSL](https://github.com/openssl/openssl.git) 1.1.1 or later is installed.
+- Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
+- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
+- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
     - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
-- Confirm that [CMake](https://cmake.org/download/) 3.18.3 or later is installed.
+- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
-- Confirm that [patch](http://ftp.gnu.org/gnu/patch/) 2.5 or later is installed.
+- Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
-- Confirm that [wheel](https://pypi.org/project/wheel/) 0.32.0 or later is installed.
+- Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 - Confirm that the Ascend 910 AI processor software package (Atlas Data Center Solution V100R020C10：[A800-9000 1.0.8 (aarch64)](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/252069004?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818), [A800-9010 1.0.8 (x86_64)](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9010-pid-250702809/software/252062130?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702809), [CANN V100R020C10](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/251174283?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)) are installed.
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - Install the .whl package provided in Ascend 910 AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
@@ -64,7 +64,9 @@ Run the following command in the root directory of the source code to compile Mi
 bash build.sh -e ascend
 ```
 
-> In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
+Of which,
+
+- In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
 
 ## Installing MindSpore
 
@@ -73,9 +75,11 @@ chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
 pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
-> - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
+Of which,
+
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.0/requirements.txt)). In other cases, you need to manually install dependency items.
+- `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
+- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
 
 ## Configuring Environment Variables
 
