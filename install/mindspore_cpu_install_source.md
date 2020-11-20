@@ -21,14 +21,14 @@
 ## 确认系统环境信息
 
 - 确认安装Ubuntu 18.04是64位操作系统。
-- 确认安装[GCC](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) 7.3.0版本。
-- 确认安装[Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) 3.7.5版本。
-- 确认安装[OpenSSL](https://github.com/openssl/openssl.git) 1.1.1及以上版本。
+- 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+- 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)。
+- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
     - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
-- 确认安装[CMake](https://cmake.org/download/) 3.18.3及以上版本。
+- 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
     - 安装完成后需将CMake所在路径添加到系统环境变量。
-- 确认安装[wheel](https://pypi.org/project/wheel/) 0.32.0及以上版本。
-- 确认安装[patch](http://ftp.gnu.org/gnu/patch/) 2.5及以上版本。
+- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
+- 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后需将patch所在路径添加到系统环境变量中。
 - 确认安装git工具。  
     如果未安装，使用如下命令下载安装：
@@ -51,7 +51,8 @@ git clone https://gitee.com/mindspore/mindspore.git
 bash build.sh -e cpu -j4
 ```
 
-> 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
+其中：  
+如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
 
 ## 安装MindSpore
 
@@ -60,9 +61,11 @@ chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
 pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。  
-> - `{version}`表示MindSpore版本号，例如下载1.0.1版本MindSpore时，`{version}`应写为1.0.1。  
-> - `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARMv8架构64位，则写为`aarch64`。
+其中：
+
+- 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。  
+- `{version}`表示MindSpore版本号，例如下载1.0.1版本MindSpore时，`{version}`应写为1.0.1。  
+- `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARMv8架构64位，则写为`aarch64`。
 
 ## 验证安装是否成功
 

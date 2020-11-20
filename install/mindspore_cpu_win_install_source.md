@@ -24,11 +24,12 @@
     - 如果git没有安装在`ProgramFiles`，在执行上述命令前，需设置环境变量指定`patch.exe`的位置，例如git安装在`D:\git`时，需设置`set MS_PATCH_PATH=D:\git\usr\bin`。
 - 确认安装[MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z)。
     - 安装路径中不能出现中文和日文，安装完成后将安装路径下的`MinGW\bin`添加到系统环境变量。例如安装在`D:\gcc`，则需要将`D:\gcc\MinGW\bin`添加到系统环境变量Path中。
-- 确认安装[CMake](https://cmake.org/download/) 3.18.3及以上版本。
+- 确认安装[CMake 3.18.3版本](https://cmake.org/download/)。
     - 安装路径中不能出现中文和日文，安装完成后将`cmake.exe`的路径添加到系统环境变量Path中。
-- 确认安装[ActivePerl](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe) 5.28.1.2801及以上版本。
-- 确认安装[Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5版本。
+- 确认安装[ActivePerl 5.28.1.2801版本](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe)。
+- 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe)。
     - 安装路径中不能出现中文和日文，安装完成后需要将`python.exe`的路径添加到系统环境变量Path中，Python自带的pip文件在`python.exe`同级目录的`Scripts`文件夹中，也需要将pip文件的路径添加到系统环境变量Path中。
+- 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 
 ## 从代码仓下载源码
 
@@ -47,11 +48,13 @@ call build.bat
 ## 安装MindSpore
 
 ```bash
-pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl
+pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
 ```
 
-> - 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。  
-> - `{version}`表示MindSpore版本号，例如下载1.0.1版本MindSpore时，`{version}`应写为1.0.1。
+其中：
+
+- 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。  
+- `{version}`表示MindSpore版本号，例如下载1.0.1版本MindSpore时，`{version}`应写为1.0.1。
 
 ## 验证是否安装成功
 
@@ -67,9 +70,9 @@ python -c "import mindspore;print(mindspore.__version__)"
 
 - 直接在线升级
 
-```bash
-pip install --upgrade mindspore
-```
+    ```bash
+    pip install --upgrade mindspore
+    ```
 
 - 本地源码编译升级
 
