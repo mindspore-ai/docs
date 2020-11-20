@@ -135,7 +135,6 @@
 									<button class="doc-filter-btn doc-btn" id="hardware-Ascend">Ascend</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
 									<button class="doc-filter-btn doc-btn" id="hardware-CPU">CPU</button>
-                                    <button class="doc-filter-btn doc-btn" id="hardware-On-Device">On-Device</button>
 								</div>
 							</div>
 							</div>
@@ -723,7 +722,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Inference hardware-On-Device  user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Inference user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/nlp_bert_poetry.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
