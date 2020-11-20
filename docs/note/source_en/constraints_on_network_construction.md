@@ -66,8 +66,8 @@
 | `while`      | Grad of net with while is not supported.
 | `break`      | Same as that in Python.
 | `if`         | Same as that in Python. The input of the `if` condition must be a constant.
-| `in`         | Support judging whether `String`,`Number`,`Tensor` exist in Tuple/List and `String` exists in Dictionary.
-| `not in`     | Support judging whether `String`,`Number`,`Tensor` not exist in Tuple/List and `String` not exists in Dictionary.
+| `in`         | Support judging whether `String`,`Number`,`Tensor`(or Parameter init with a Tensor) exist in Tuple/List and `String` exists in Dictionary.
+| `not in`     | Support judging whether `String`,`Number`,`Tensor`(or Parameter init with a Tensor) doesn't exist in Tuple/List and `String` doesn't exist in Dictionary.
 | `is`         | Only support `True`, `False`, and `None`.
 | `is not`     | Only support `True`, `False`, and `None`.
 | Assignment statement     | Accessed multiple subscripts of lists and dictionaries cannot be used as l-value.
