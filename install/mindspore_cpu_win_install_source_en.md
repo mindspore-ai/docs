@@ -24,10 +24,10 @@ This document describes how to quickly install MindSpore by source code in a Win
     - If git was not installed in `ProgramFiles`, you will need to set environment variable to where `patch.exe` is allocated. For example, when git was install in `D:\git`, `set MS_PATCH_PATH=D:\git\usr\bin`.
 - Confirm that [MinGW-W64 GCC-7.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z) is installed.
     - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path `MinGW\bin`to the environment variable PATH.For example, the installation directory is in `D:\gcc`, then you will need to add `D:\gcc\MinGW\bin` to the system environment variable PATH.
-- Confirm that [CMake](https://cmake.org/download/) 3.18.3 or later is installed.
+- Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path of `cmake.exe` to the environment variable PATH.
-- Confirm that [ActivePerl](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe) 5.28.1.2801 or later is installed.
-- Confirm that [Python](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) 3.7.5 is installed.
+- Confirm that [ActivePerl 5.28.1.2801 or later](https://downloads.activestate.com/ActivePerl/releases/5.28.1.2801/ActivePerl-5.28.1.2801-MSWin32-x64-24563874.exe) is installed.
+- Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/python-3.7.5-amd64.exe) is installed.
     - Ensure that path of source code does not include special characters (Chinese, Janpanese characters etc.). After installing, add the path of `python.exe` to the environment variable PATH. The `Scripts` folder in the same directory of `python.exe` is the pip file that comes with Python, you also need to add the path of the pip file to the environment variable PATH.
 
 ## Downloading Source Code from Code Repository
@@ -50,8 +50,10 @@ call build.bat
 pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl
 ```
 
-> - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
-> - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
+Of which,
+
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
+- `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.
 
 ## Installation Verification
 
@@ -67,9 +69,9 @@ Using the following command if you need update MindSpore version:
 
 - Update online
 
-```bash
-pip install --upgrade mindspore
-```
+    ```bash
+    pip install --upgrade mindspore
+    ```
 
 - Update after source code compilation
 
