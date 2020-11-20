@@ -106,7 +106,7 @@ Train with MindSpore
 						
 						<div class="doc-condition">
 							<span class="doc-filter">Filter condition</span>
-							<button class="doc-delete" id="all">Clear all conditions</button>
+							<button class="doc-delete doc-btn" id="all">Clear all conditions</button>
 						</div>
 					
 						<div class="doc-label-content">
@@ -116,8 +116,8 @@ Train with MindSpore
 										<div class="doc-os">Operating System</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
-										<button class="doc-filter-btn "  id="os-Windows">Windows</button>
-										<button class="doc-filter-btn " id="os-Linux" >Linux</button>
+										<button class="doc-filter-btn doc-btn"  id="os-Windows">Windows</button>
+										<button class="doc-filter-btn doc-btn" id="os-Linux" >Linux</button>
 									</div>
 								</div>
 			
@@ -128,9 +128,9 @@ Train with MindSpore
 									<div class="doc-hardware">Hardware</div>
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
-									<button class="doc-filter-btn" id="hardware-Ascend">Ascend</button>
-									<button class="doc-filter-btn" id="hardware-GPU">GPU</button>
-									<button class="doc-filter-btn" id="hardware-CPU">CPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-Ascend">Ascend</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-CPU">CPU</button>
 								</div>
 							</div>
 							</div>
@@ -141,10 +141,10 @@ Train with MindSpore
 										<div class="doc-user">User</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
-										<button class="doc-filter-btn" id="user-Beginner">Beginner</button>
-										<button class="doc-filter-btn" id="user-Intermediate">Intermediate</button>
-										<button class="doc-filter-btn" id="user-Expert">Expert</button>
-										<button class="doc-filter-btn" id="user-Enterprise">Enterprise</button>
+										<button class="doc-filter-btn doc-btn" id="user-Beginner">Beginner</button>
+										<button class="doc-filter-btn doc-btn" id="user-Intermediate">Intermediate</button>
+										<button class="doc-filter-btn doc-btn" id="user-Expert">Expert</button>
+										<button class="doc-filter-btn doc-btn" id="user-Enterprise">Enterprise</button>
 									</div>
 								</div>
 							</div>
@@ -155,16 +155,16 @@ Train with MindSpore
 										<div class="doc-stage">Stage</div>
 									</div>							
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
-										<button class="doc-filter-btn" id="stage-Whole-Process">Whole Process</button>
-										<button class="doc-filter-btn" id="stage-Data-Preparation">Data preparation</button>
-										<button class="doc-filter-btn" id="stage-Model-Development">Model Development</button>
-										<button class="doc-filter-btn" id="stage-Model-Training">Model Training</button>
-										<button class="doc-filter-btn" id="stage-Model-Optimization">Model Optimization</button>
-										<button class="doc-filter-btn" id="stage-Model-Export">Model Export</button>
-										<button class="doc-filter-btn" id="stage-Model-Loading">Model Loading</button>
-										<button class="doc-filter-btn" id="stage-Inference">Inference Application</button>
-										<button class="doc-filter-btn" id="stage-Model-Publishing">Model Publishing</button>
-										<button class="doc-filter-btn" id="stage-Model-Evaluation">Model Evaluation</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Whole-Process">Whole Process</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">Data preparation</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Development">Model Development</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">Model Training</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">Model Optimization</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">Model Export</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">Model Loading</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Inference">Inference Application</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Publishing">Model Publishing</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">Model Evaluation</button>
 									</div>
 									
 								</div>

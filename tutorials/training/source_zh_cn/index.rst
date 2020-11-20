@@ -110,7 +110,7 @@
 						
 						<div class="doc-condition">
 							<span class="doc-filter">筛选条件</span>
-							<button class="doc-delete" id="all">清除所有条件</button>
+							<button class="doc-delete doc-btn" id="all">清除所有条件</button>
 						</div>
 					
 						<div class="doc-label-content">
@@ -120,8 +120,8 @@
 										<div class="doc-os">操作系统</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
-										<button class="doc-filter-btn "  id="os-Windows">Windows</button>
-										<button class="doc-filter-btn " id="os-Linux" >Linux</button>
+										<button class="doc-filter-btn doc-btn"  id="os-Windows">Windows</button>
+										<button class="doc-filter-btn doc-btn" id="os-Linux" >Linux</button>
 									</div>
 								</div>
 			
@@ -132,10 +132,10 @@
 									<div class="doc-hardware">硬件</div>
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
-									<button class="doc-filter-btn" id="hardware-Ascend">Ascend</button>
-									<button class="doc-filter-btn" id="hardware-GPU">GPU</button>
-									<button class="doc-filter-btn" id="hardware-CPU">CPU</button>
-                                    <button class="doc-filter-btn" id="hardware-On-Device">On-Device</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-Ascend">Ascend</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-CPU">CPU</button>
+                                    <button class="doc-filter-btn doc-btn" id="hardware-On-Device">On-Device</button>
 								</div>
 							</div>
 							</div>
@@ -146,10 +146,10 @@
 										<div class="doc-user">用户</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
-										<button class="doc-filter-btn" id="user-Beginner">初级</button>
-										<button class="doc-filter-btn" id="user-Intermediate">中级</button>
-										<button class="doc-filter-btn" id="user-Expert">高级</button>
-										<button class="doc-filter-btn" id="user-Enterprise">企业</button>
+										<button class="doc-filter-btn doc-btn" id="user-Beginner">初级</button>
+										<button class="doc-filter-btn doc-btn" id="user-Intermediate">中级</button>
+										<button class="doc-filter-btn doc-btn" id="user-Expert">高级</button>
+										<button class="doc-filter-btn doc-btn" id="user-Enterprise">企业</button>
 									</div>
 								</div>
 							</div>
@@ -160,16 +160,16 @@
 										<div class="doc-stage">阶段</div>
 									</div>							
 									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
-										<button class="doc-filter-btn" id="stage-Whole-Process">全流程</button>
-										<button class="doc-filter-btn" id="stage-Data-Preparation">数据准备</button>
-										<button class="doc-filter-btn" id="stage-Model-Development">模型开发</button>
-										<button class="doc-filter-btn" id="stage-Model-Training">模型训练</button>
-										<button class="doc-filter-btn" id="stage-Model-Optimization">模型调优</button>
-										<button class="doc-filter-btn" id="stage-Model-Export">模型导出</button>
-										<button class="doc-filter-btn" id="stage-Model-Loading">模型加载</button>
-										<button class="doc-filter-btn" id="stage-Inference">推理应用</button>
-										<button class="doc-filter-btn" id="stage-Model-Publishing">模型发布</button>
-										<button class="doc-filter-btn" id="stage-Model-Evaluation">模型评测</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Whole-Process">全流程</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">数据准备</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Development">模型开发</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">模型训练</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">模型导出</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Publishing">模型发布</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Evaluation">模型评测</button>
 									</div>
 									
 								</div>

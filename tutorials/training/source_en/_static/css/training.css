@@ -13,7 +13,7 @@
 .doc-stage-detail button{
     margin-bottom: 0.5rem;
 }
-button{
+button.doc-btn{
     background-color: transparent;
     outline: none;
 }
