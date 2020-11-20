@@ -1,5 +1,5 @@
 $(function() {
-		$("button").hover(function(){
+		$("button.doc-btn").hover(function(){
 			
 			//移入事件
 			$(this).addClass('doc-btn-hover')
@@ -16,7 +16,7 @@ $(function() {
 		
 		
 		
-		$('button').click(function() {
+		$('button.doc-btn').click(function() {
 			$('.doc-article-item').removeClass('OUO');
 			var id_val = $(this).attr('id')
 			if (id_val !== 'all') {
