@@ -84,7 +84,7 @@ Using the following command if you need update MindSpore version:
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the `whl` package in path `build/package`, use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
@@ -94,10 +94,10 @@ Using the following command if you need update MindSpore version:
 
 If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
 
-For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.0/README.md).
+For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README.md).
 
 ## Installing MindSpore Hub
 
 If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
 
-For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/r1.0/README.md).
+For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README.md).
