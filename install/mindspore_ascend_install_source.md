@@ -80,7 +80,7 @@ pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
 
 ## 配置环境变量
 
-**如果Ascend 910 AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量。
+**如果Ascend 910 AI处理器配套软件包没有安装在默认路径**，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中`LOCAL_ASCEND=/usr/local/Ascend`的`/usr/local/Ascend`表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 
 ```bash
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, default level is WARNING.
