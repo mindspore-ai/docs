@@ -8,7 +8,7 @@ $(function() {
 			$(this).removeClass('doc-btn-hover');
 		})
 		// 每页显示数
-		var curNum = 5
+		var curNum = 8
 		// 计算总数
 		var all = $('.doc-article-list').children('div.doc-article-item').length;
 
