@@ -129,7 +129,7 @@ The index operation includes `tuple` and `Tensor`. The following focuses on the 
      the element value range is `[0, tensor_x.shape[0])`.
     - Assignment: `tensor_x [index] = U`.
         - `tensor_x` data type must be one of the following: `float16`, `float32`, `int8`, `uint8`.
-        - `index` must be `Tensor` of data type `int32`, the element value range is `[0, tensor_x.shape [0])`.
+        - `index` must be `Tensor` of data type `int32` or `int64`, the element value range is `[0, tensor_x.shape [0])`.
         - `U` can be `Number`, `Tensor`, `Tuple` only containing `Number`, `Tuple` only containing `Tensor`.
             - Single `Number` or every `Number` in  `Tuple` must be the same type as `tensor_x`, ie
           When the data type of `tensor_x` is `uint8` or `int8`, the `Number` type should be `int`;
@@ -178,7 +178,7 @@ The index value operation of tuple and list type, we need to focus on the index 
 The grammar has the following constraints:
 
 - Only the index value operation of tuple or list whose element type is `nn.Cell` is supported.
-- The index is a scalar `Tensor` of type `int32`, with a value range of `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
+- The index is a scalar `Tensor` of type `int32` or `int64`, with a value range of `[-n, n)`, where `n` is the size of the tuple, and the maximum supported tuple size is 1000.
 - The number, type and shape size of the input data of the `Construct` function of each Cell element in the tuple are the same, and the number of data output after the `Construct` function runs, the type and shape size are also the same.
 - Each element in the tuple needs to be defined before the tuple is defined.
 - This syntax does not support running branches as if, while, for and other control flow, except if the control condition of the control flow is constant. for example:
