@@ -181,7 +181,6 @@ with four buttons: `CONTINUE`, `PAUSE`, `TERMINATE` and `OK`:
 - Debugger will slow down the training performance.
 - A single Debugger Server can only be connected to one training process.
 - The debugger does not support distributed training scenarios.
-- The debugger does not support multi-graph training scenarios.
 - The debugger does not support inference scenarios.
 - When too many `Watch Points` are set, the system may run out of memory.
 - Debugger cannot get the initialization parameters of the neural network based on Davinci device.
