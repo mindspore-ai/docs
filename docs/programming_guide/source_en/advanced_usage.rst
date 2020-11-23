@@ -5,4 +5,4 @@ Advanced Usage
   :maxdepth: 1
 
   train
-  probability
+  extension
