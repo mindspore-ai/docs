@@ -8,6 +8,8 @@ mindspore.ops
 composite
 ---------
 
+The composite operators are the pre-defined combination of operators.
+
 .. autosummary::
     :toctree: ops
     :nosignatures:
@@ -31,6 +33,8 @@ composite
 
 functional
 ----------
+
+The functional operators are the pre-instantiated Primitive operators, which can be used directly as a function.
 
 .. list-table::
    :widths: 50 50

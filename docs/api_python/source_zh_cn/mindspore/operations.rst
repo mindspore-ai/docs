@@ -1,6 +1,8 @@
 operations
 ----------
 
+The Primitive operators in operations need to be instantiated before being used.
+
 Neural Network Operators
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -214,6 +216,7 @@ Array Operators
     mindspore.ops.Eye
     mindspore.ops.Fill
     mindspore.ops.FusedSparseFtrl
+    mindspore.ops.GatherD
     mindspore.ops.GatherNd
     mindspore.ops.GatherV2
     mindspore.ops.Identity
@@ -266,12 +269,11 @@ Array Operators
     mindspore.ops.TupleToArray
     mindspore.ops.Unique
     mindspore.ops.UniqueWithPad
-    mindspore.ops.UnsortedSegmentMin
     mindspore.ops.UnsortedSegmentMax
+    mindspore.ops.UnsortedSegmentMin
     mindspore.ops.UnsortedSegmentProd
     mindspore.ops.UnsortedSegmentSum
     mindspore.ops.ZerosLike
-    mindspore.ops.GatherD
 
 Common Operators
 ^^^^^^^^^^^^^^^^
