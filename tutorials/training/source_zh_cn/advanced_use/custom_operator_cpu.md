@@ -33,22 +33,22 @@
 
 ## 注册算子原语
 
-每个算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
+每个算子的原语是一个继承于`PrimitiveWithCheck`的子类，其类型名称即是算子名称。
 
 CPU算子原语的接口定义如下：
 
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有init属性，因此`__init__`没有额外的入参。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
-- 输出Tensor的shape推理方法在`infer_shape`函数中定义，输出Tensor的dtype推理方法在`infer_dtype`函数中定义。
+- 输出Tensor的shape检验在`check_shape`函数中定义，输出Tensor的dtype检验在`check_dtype`函数中定义。
 - `_checkparam`文件中定义了一系列合法性检查的操作，比如值检查，类型检查等。
 
 以`Transpose`算子原语为例，给出如下示例代码。
 
 ```python
-from mindspore.ops import PrimitiveWithInfer
+from mindspore.ops import PrimitiveWithCheck
 from mindspore._checkparam import Validator as validator
 
-class Transpose(PrimitiveWithInfer):
+class Transpose(PrimitiveWithCheck):
     """
     The definition of the Transpose primitive.
     """
@@ -57,31 +57,13 @@ class Transpose(PrimitiveWithInfer):
         """Initialize Transpose"""
         self.init_prim_io_names(inputs=['x', 'perm'], outputs=['output'])
 
-    def __infer__(self, x, perm):
-        x_shape = x['shape']
-        p_value = perm['value']
-        x_type = x['dtype']
-        validator.check_value_type("p_value", p_value, [tuple], self.name)
-        validator.check_subclass("x_type", x_type, mstype.tensor, self.name)
-
-        if len(x_shape) != len(p_value):
+    def check_shape(self, x, perm):
+        validator.check_value_type("perm", perm, [tuple], self.name)
+        if len(x) != len(perm):
             raise ValueError('The dimension of x and perm must be equal.')
 
-        tmp = list(p_value)
-        for i, dim in enumerate(p_value):
-            validator.check_int(dim, 0, Rel.GE, f'perm[{i}]', self.name)
-            validator.check_int(dim, len(p_value), Rel.LT, f'perm[{i}]', self.name)
-            tmp.remove(dim)
-            if dim in tmp:
-                raise ValueError('The value of perm is wrong.')
-
-        out_shapes = []
-        for i in p_value:
-            out_shapes.append(x_shape[i])
-        out = {'shape': tuple(out_shapes),
-               'dtype': x['dtype'],
-               'value': None}
-        return out
+    def check_dtype(self, x, perm):
+        validator.check_subclass("x", x, mstype.tensor, self.name)
 ```
 
 ## 实现CPU算子和注册算子信息
@@ -107,13 +89,13 @@ class TransposeCPUFwdKernel : public CPUKernel {
 
  private:
   std::vector<size_t> shape_;
-  std::vector<int> perm_;
+  std::vector<int> axis_;
 };
 ```
 
 - `InitKernel`函数的入参包含一个节点指针的常量引用，通过`AnfRuntimeAlgorithm`类的成员函数可以获取该算子节点输入输出的shape和算子的属性信息等。
 - `Launch`函数的入参是三个向量，分别包含所有的输入地址，workspace地址，所有的输出地址。函数体中描述算子的具体实现逻辑。
-- `shape_`和`perm_`是定义的两个成员变量。
+- `shape_`和`axis_`是定义的两个成员变量。
 
 源文件中`InitKernel`函数的定义如下：
 
@@ -128,10 +110,48 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 }
 ```
 
-- `AnfRuntimeAlgorithm`类中的函数实现了各种对算子节点的操作，`shape_`表示算子第1个输入的shape，`perm_`表示算子的属性perm。
+- `AnfRuntimeAlgorithm`类中的函数实现了各种对算子节点的操作，`shape_`表示算子第1个输入的shape，`axis_`表示算子的属性perm。
 - `Transpose`算子原语中参数“perm”作为输入传入，但是在解析时元组类型的“perm”实际被认为是算子的属性。
 
 > `AnfRuntimeAlgorithm`类的详细内容可参考MindSpore源码中[mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h)下的声明。
+
+源文件中`Launch`函数的定义如下：首先依次获取每个输入输出的地址，然后根据`axis_`变换维度，把值赋给输出地址指向的空间。
+
+```cpp
+bool TransposeCPUFwdKernel::Launch(const std::vector<kernel::AddressPtr> &inputs,
+                                   const std::vector<kernel::AddressPtr> & /*workspace*/,
+                                   const std::vector<kernel::AddressPtr> &outputs) {
+  auto input = reinterpret_cast<float *>(inputs[0]->addr);
+  auto output = reinterpret_cast<float *>(outputs[0]->addr);
+  size_t size = IntToSize(inputs[0]->size / sizeof(float));
+  size_t shape_size = IntToSize(shape_.size());
+  if (shape_size > kMaxDim) {
+    MS_LOG(EXCEPTION) << "Input is " << shape_size << "-D, but transpose supports max " << kMaxDim << "-D inputs.";
+  }
+  size_t pos_array[kMaxDim];
+  size_t size_offset[kMaxDim];
+  size_offset[0] = size / shape_[0];
+  for (size_t i = 1; i < shape_size; i++) {
+    size_offset[i] = size_offset[SizeToInt(i) - 1] / shape_[i];
+  }
+  for (size_t position = 0; position < size; position += 1) {
+    size_t temp_position = position;
+    pos_array[0] = temp_position / size_offset[0];
+    for (size_t i = 1; i < shape_size; i++) {
+      temp_position -= pos_array[SizeToInt(i) - 1] * size_offset[i - 1];
+      pos_array[i] = temp_position / size_offset[i];
+    }
+    size_t new_position = pos_array[axis_[SizeToInt(shape_size) - 1]];
+    size_t new_position_size = 1;
+    for (int j = shape_size - 2; j >= 0; j--) {
+      new_position_size *= shape_[axis_[j + 1]];
+      new_position += pos_array[axis_[j]] * new_position_size;
+    }
+    output[new_position] = input[position];
+  }
+  return true;
+}
+```
 
 ### 注册算子信息
 
@@ -165,12 +185,12 @@ class Net(nn.Cell):
         self.transpose = ops.Transpose()
 
     def construct(self, data):
-        return self.transpose(data)
+        return self.transpose(data, (1, 0))
 
 def test_net():
-    x = np.arange(5 * 6).reshape(5, 6).astype(np.float32)
+    x = np.arange(2 * 3).reshape(2, 3).astype(np.float32)
     transpose = Net()
-    output = transpose(Tensor(x), (1, 0))
+    output = transpose(Tensor(x))
     print("output: ", output)
 ```
 
@@ -183,12 +203,9 @@ pytest -s test_transpose.py::test_net
 执行结果:
 
 ```text
-output: [[0, 6, 12, 18, 24],
-        [1, 7, 13, 19, 25],
-        [2, 8, 14, 20, 26],
-        [3, 9, 15, 21, 27],
-        [4, 10, 16, 22, 28],
-        [5, 11, 17, 23, 29]]
+output: [[0, 3]
+        [1, 4]
+        [2, 5]]
 ```
 
 ## 定义算子反向传播函数
