@@ -313,7 +313,18 @@
 									</div>
 								</a>
 							</div>
-							
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_gpu.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">自定义算子（GPU）</span>
+										</div>
+										<div class="doc-article-desc">
+											当开发网络遇到内置算子不足以满足需求时，你可以利用MindSpore的Python API、C++ API和CUDA方便快捷地扩展GPU端的自定义算子。
+										</div>
+									</div>
+								</a>
+							</div>							
 							<div class="doc-article-item all os-Linux hardware-CPU stage-Model-Development user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_cpu.html" class="article-link">
 									<div>
