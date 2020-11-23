@@ -1,8 +1,7 @@
-Advanced Usage
+Function Extension
 ====================
 
 .. toctree::
   :maxdepth: 1
 
-  train
   probability

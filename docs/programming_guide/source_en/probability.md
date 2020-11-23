@@ -82,14 +82,15 @@ The `Distribution` class supports the following functions: `prob`, `log_prob`, `
 Bernoulli distribution, inherited from the `Distribution` class.
 
 Attributes are described as follows:
+
 - `Bernoulli.probs`: probability of success in the Bernoulli experiment.
 
 The `Distribution` base class invokes the private API in the `Bernoulli` to implement the public APIs in the base class. `Bernoulli` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: The input parameter *probs1* that indicates the probability of experiment success is optional. 
-- `entropy`: The input parameter *probs1* that indicates the probability of experiment success is optional. 
+- `mean`, `mode`, and `var`: The input parameter *probs1* that indicates the probability of experiment success is optional.
+- `entropy`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates another distribution type. Currently, only *'Bernoulli'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* can be input optionally.
-- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of experiment success is optional. 
+- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of experiment success is optional.
 - `sample`: Optional input parameters include sample shape *shape* and experiment success probability *probs1*.
 
 #### Exponential Distribution
@@ -97,6 +98,7 @@ The `Distribution` base class invokes the private API in the `Bernoulli` to impl
 Exponential distribution, inherited from the `Distribution` class.
 
 Attributes are described as follows:
+
 - `Exponential.rate`: rate parameter.
 
 The `Distribution` base class invokes the `Exponential` private API to implement the public APIs in the base class. `Exponential` supports the following public APIs:
@@ -112,6 +114,7 @@ The `Distribution` base class invokes the `Exponential` private API to implement
 Geometric distribution, inherited from the `Distribution` class.
 
 Attributes are described as follows:
+
 - `Geometric.probs`: probability of success in the Bernoulli experiment.
 
 The `Distribution` base class invokes the private API in the `Geometric` to implement the public APIs in the base class. `Geometric` supports the following public APIs:
@@ -127,6 +130,7 @@ The `Distribution` base class invokes the private API in the `Geometric` to impl
 Normal distribution (also known as Gaussian distribution), inherited from the `Distribution` class.
 
 The `Distribution` base class invokes the private API in the `Normal` to implement the public APIs in the base class. `Normal` supports the following public APIs:
+
 - `mean`, `mode`, and `var`: Input parameters *mean* (for average value) and *sd* (for standard deviation) are optional.
 - `entropy`: Input parameters *mean* (for average value) and *sd* (for standard deviation) are optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *mean_b*, and *sd_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Normal'* is supported. *mean_b* and *sd_b* indicate the mean value and standard deviation of distribution *b*, respectively. Input parameters mean value *mean_a* and standard deviation *sd_a* of distribution *a* are optional.
@@ -138,6 +142,7 @@ The `Distribution` base class invokes the private API in the `Normal` to impleme
 Uniform distribution, inherited from the `Distribution` class.
 
 Attributes are described as follows:
+
 - `Uniform.low`: minimum value.
 - `Uniform.high`: maximum value.
 
@@ -145,8 +150,8 @@ The `Distribution` base class invokes `Uniform` to implement public APIs in the 
 
 - `mean`, `mode`, and `var`: Input parameters maximum value *high* and minimum value *low* are optional.
 - `entropy`: Input parameters maximum value *high* and minimum value *low* are optional.
-- `cross_entropy` and `kl_loss`: The input parameters *dist*, *high_b*, and *low_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Uniform'* is supported. *high_b* and *low_b* are parameters of distribution *b*. Input parameters maximum value *high* and minimum value *low* of distribution *a* are optional. 
-- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters maximum value *high* and minimum value *low* are optional. 
+- `cross_entropy` and `kl_loss`: The input parameters *dist*, *high_b*, and *low_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Uniform'* is supported. *high_b* and *low_b* are parameters of distribution *b*. Input parameters maximum value *high* and minimum value *low* of distribution *a* are optional.
+- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters maximum value *high* and minimum value *low* are optional.
 - `sample`: Input parameters *shape*, maximum value *high*, and minimum value *low* are optional.
 
 ### Probability Distribution Class Application in PyNative Mode
@@ -162,64 +167,90 @@ import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.PYNATIVE_MODE)
 ```
+
 Use `Normal` as an example. Create a normal distribution whose average value is 0.0 and standard deviation is 1.0.
+
 ```python
 my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
 ```
+
 Calculate the average value:
+
 ```python
 mean = my_normal.mean()
 print(mean)
 ```
+
 The output is as follows:
+
 ```python
 0.0
 ```
+
 Calculate the variance:
+
 ```python
 var = my_normal.var()
 print(var)
 ```
+
 The output is as follows:
+
 ```python
 1.0
 ```
+
 Calculate the entropy:
+
 ```python
 entropy = my_normal.entropy()
 print(entropy)
 ```
+
 The output is as follows:
+
 ```python
 1.4189385
 ```
+
 Calculate the probability density function:
+
 ```python
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 prob = my_normal.prob(value)
 print(prob)
 ```
+
 The output is as follows:
+
 ```python
 [0.35206532, 0.3989423, 0.35206532]
 ```
+
 Calculate the cumulative distribution function:
+
 ```python
 cdf = my_normal.cdf(value)
 print(cdf)
 ```
+
 The output is as follows:
+
 ```python
 [0.30852754, 0.5, 0.69146246]
 ```
+
 Calculate the Kullback-Leibler divergence:
+
 ```python
 mean_b = Tensor(1.0, dtype=mstype.float32)
 sd_b = Tensor(2.0, dtype=mstype.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
 print(kl)
 ```
+
 The output is as follows:
+
 ```python
 0.44314718
 ```
@@ -229,6 +260,7 @@ The output is as follows:
 In graph mode, `Distribution` subclasses can be used on the network.
 
 Import related modules:
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -237,20 +269,24 @@ import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.GRAPH_MODE)
 ```
+
 Create a network:
+
 ```python
 # The network inherits the nn.Cell.
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
- 
+
     def construct(self, value, mean, sd):
         pdf = self.normal.prob(value)
         kl = self.normal.kl_loss("Normal", mean, sd)
         return pdf, kl
 ```
+
 Invoked the network:
+
 ```python
 net = Net()
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
@@ -260,7 +296,9 @@ pdf, kl = net(value, mean, sd)
 print("pdf: ", pdf)
 print("kl: ", kl)
 ```
+
 The output is as follows:
+
 ```python
 pdf: [0.3520653, 0.39894226, 0.3520653]
 kl: 0.5
@@ -272,20 +310,20 @@ kl: 0.5
 
 1. Class feature functions
 
-   - `bijector`: a non-parametric function that returns the distribution transformation method.
-   - `distribution`: a non-parametric function that returns the original distribution.
-   - `is_linear_transformation`: a non-parametric function that returns the linear transformation flag.
+    - `bijector`: a non-parametric function that returns the distribution transformation method.
+    - `distribution`: a non-parametric function that returns the original distribution.
+    - `is_linear_transformation`: a non-parametric function that returns the linear transformation flag.
 
 2. API functions (The parameters of the following APIs are the same as those of the corresponding APIs of `distribution` in the constructor function.)
 
-   - `cdf`: cumulative distribution function (CDF)
-   - `log_cdf`: log-cumulative distribution function
-   - `survival_function`: survival function
-   - `log_survival`: logarithmic survival function
-   - `prob`: probability density function (PDF) or probability quality function (PMF)
-   - `log_prob`: log-like function
-   - `sample`: random sampling
-   - `mean`: a non-parametric function, which can be invoked only when `Bijector.is_constant_jacobian=true` is invoked.
+    - `cdf`: cumulative distribution function (CDF)
+    - `log_cdf`: log-cumulative distribution function
+    - `survival_function`: survival function
+    - `log_survival`: logarithmic survival function
+    - `prob`: probability density function (PDF) or probability quality function (PMF)
+    - `log_prob`: log-like function
+    - `sample`: random sampling
+    - `mean`: a non-parametric function, which can be invoked only when `Bijector.is_constant_jacobian=true` is invoked.
 
 ### Invoking a TransformedDistribution Instance in PyNative Mode
 
@@ -293,6 +331,7 @@ The `TransformedDistribution` subclass can be used in **PyNative** mode.
 Before the execution, import the required library file package.
 
 Import related modules:
+
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -305,6 +344,7 @@ context.set_context(mode=context.PYNATIVE_MODE)
 ```
 
 Construct a `TransformedDistribution` instance, use the `Normal` distribution as the distribution class to be transformed, and use the `Exp` as the mapping transformation to generate the `LogNormal` distribution.
+
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 exp = msb.Exp()
@@ -313,6 +353,7 @@ print(LogNormal)
 ```
 
 The output is as follows:
+
 ```python
 TransformedDistribution<
   (_bijector): Exp<power = 0>
@@ -321,6 +362,7 @@ TransformedDistribution<
 ```
 
 You can calculate the probability distribution of `LogNormal`. For example, calculate the cumulative distribution function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -329,11 +371,13 @@ print(cdf)
 ```
 
 The output is as follows:
+
 ```python
 [7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
 ```
 
 Calculate the log-cumulative distribution function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -342,11 +386,13 @@ print(log_cdf)
 ```
 
 The output is as follows:
+
 ```python
 [-2.79857576e-01, -5.52593507e-02, -1.07082408e-02]
 ```
 
 Calculate the survival function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -355,11 +401,13 @@ print(survival_function)
 ```
 
 The output is as follows:
+
 ```python
 [2.44108617e-01, 5.37602901e-02, 1.06511116e-02]
 ```
 
 Calculate the logarithmic survival function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -368,11 +416,13 @@ print(log_survival)
 ```
 
 The output is as follows:
+
 ```python
 [-1.41014194e+00, -2.92322016e+00, -4.54209089e+00]
 ```
 
 Calculate the probability density function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -381,11 +431,13 @@ print(prob)
 ```
 
 The output is as follows:
+
 ```python
 [1.56874031e-01, 2.18507163e-02, 2.81590177e-03]
 ```
 
 Calculate a logarithmic probability density function:
+
 ```python
 x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -394,11 +446,13 @@ print(log_prob)
 ```
 
 The output is as follows:
+
 ```python
 [-1.85231221e+00, -3.82352161e+00, -5.87247276e+00]
 ```
 
 Invoke the sampling function `sample` to sample data:
+
 ```python
 shape = ((3, 2))
 sample = LogNormal.sample(shape)
@@ -406,6 +460,7 @@ print(sample)
 ```
 
 The output is as follows:
+
 ```python
 [[7.64315844e-01, 3.01435232e-01],
  [1.17166102e+00, 2.60277224e+00],
@@ -413,6 +468,7 @@ The output is as follows:
 ```
 
 When the `TransformedDistribution` is constructed to map the transformed `is_constant_jacobian = true` (for example, `ScalarAffine`), the constructed `TransformedDistribution` instance can use the `mean` API to calculate the average value. For example:
+
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 scalaraffine = msb.ScalarAffine(1.0, 2.0)
@@ -420,15 +476,19 @@ trans_dist = msd.TransformedDistribution(scalaraffine, normal, dtype=dtype.float
 mean = trans_dist.mean()
 print(mean)
 ```
+
 The output is as follows:
+
 ```python
 2.0
 ```
+
 ### Invoking a TransformedDistribution Instance in Graph Mode
 
 In graph mode, the `TransformedDistribution` class can be used on the network.
 
 Import related modules:
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -440,6 +500,7 @@ context.set_context(mode=self.GRAPH_MODE)
 ```
 
 Create a network:
+
 ```python
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
@@ -449,7 +510,7 @@ class Net(nn.Cell):
         self.normal = msd.Normal(0.0, 1.0, dtype=dtype)
         self.lognormal = msd.TransformedDistribution(self.exp, self.normal, dtype=dtype, seed=seed, name=name)
         self.shape = shape
-    
+
     def construct(self, value):
         cdf = self.lognormal.cdf(value)
         sample = self.lognormal.sample(self.shape)
@@ -457,6 +518,7 @@ class Net(nn.Cell):
 ```
 
 Invoke the network:
+
 ```python
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
@@ -466,7 +528,9 @@ cdf, sample = net(tx)
 print("cdf: ", cdf)
 print("sample: ", sample)
 ```
+
 The output is as follows:
+
 ```python
 cdf:  [0.7558914 0.8640314 0.9171715 0.9462397]
 sample:  [[0.21036398 0.44932044 0.5669641 ]
@@ -497,10 +561,11 @@ The `Bijector` class is the base class for all probability distribution mappings
    - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, whose parameter is determined by `_forward_log_jacobian` of the derived class.
    - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, whose parameter is determined by `_inverse_log_jacobian` of the derived class.
 
-* When `Bijector` is invoked as a function:
+When `Bijector` is invoked as a function:
 The input is a `Distribution` class and a `TransformedDistribution` is generated **(cannot be invoked in a graph)**.
 
 #### PowerTransform
+
 `PowerTransform` implements variable transformation with $Y = g(X) = {(1 + X * c)}^{1 / c}$. The APIs are as follows:
 
 1. Class feature functions
@@ -513,44 +578,49 @@ The input is a `Distribution` class and a `TransformedDistribution` is generated
    - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
 
 #### Exp
+
 `Exp` implements variable transformation with $Y = g(X)= exp(X)$. The APIs are as follows:
 
 Mapping functions
+
 - `forward`: forward mapping, with an input parameter `Tensor`.
 - `inverse`: backward mapping, with an input parameter `Tensor`.
 - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, with an input parameter `Tensor`.
 - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
 
 #### ScalarAffine
+
 `ScalarAffine` implements variable transformation with Y = g(X) = a * X + b. The APIs are as follows:
 
 1. Class feature functions
-   - `scale`: a non-parametric function that returns the value of scale.
-   - `shift`: a non-parametric function that returns the value of shift.
+    - `scale`: a non-parametric function that returns the value of scale.
+    - `shift`: a non-parametric function that returns the value of shift.
 
 2. Mapping functions
-   - `forward`: forward mapping, with an input parameter `Tensor`.
-   - `inverse`: backward mapping, with an input parameter `Tensor`.
-   - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, with an input parameter `Tensor`.
-   - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
+    - `forward`: forward mapping, with an input parameter `Tensor`.
+    - `inverse`: backward mapping, with an input parameter `Tensor`.
+    - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, with an input parameter `Tensor`.
+    - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
 
 #### Softplus
+
 `Softplus` implements variable transformation with $Y = g(X) = log(1 + e ^ {kX}) / k $. The APIs are as follows:
 
 1. Class feature functions
-   - `sharpness`: a non-parametric function that returns the value of `sharpness`.
+    - `sharpness`: a non-parametric function that returns the value of `sharpness`.
 
 2. Mapping functions
-   - `forward`: forward mapping, with an input parameter `Tensor`.
-   - `inverse`: backward mapping, with an input parameter `Tensor`.
-   - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, with an input parameter `Tensor`.
-   - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
+    - `forward`: forward mapping, with an input parameter `Tensor`.
+    - `inverse`: backward mapping, with an input parameter `Tensor`.
+    - `forward_log_jacobian`: logarithm of the derivative of the forward mapping, with an input parameter `Tensor`.
+    - `inverse_log_jacobian`: logarithm of the derivative of the backward mapping, with an input parameter `Tensor`.
 
 ### Invoking the Bijector Instance in PyNative Mode
 
 Before the execution, import the required library file package. The main library of the Bijector class is `mindspore.nn.probability.bijector`. After the library is imported, `msb` is used as the abbreviation of the library for invoking.
 
 Import related modules:
+
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -564,12 +634,14 @@ context.set_context(mode=context.PYNATIVE_MODE)
 The following uses `PowerTransform` as an example. Create a `PowerTransform` object whose power is 2.
 
 Construct `PowerTransform`.
+
 ```python
 powertransform = msb.PowerTransform(power=2)
 print(powertransform)
 ```
 
 The output is as follows:
+
 ```python
 PowerTransform<power = 2>
 ```
@@ -577,6 +649,7 @@ PowerTransform<power = 2>
 Use the mapping function to perform the operation.
 
 Invoke the `forward` method to calculate the forward mapping:
+
 ```python
 x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -585,39 +658,46 @@ print(forward)
 ```
 
 The output is as follows:
+
 ```python
 [2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
 ```
 
 Input the `inverse` method to calculate the backward mapping:
+
 ```python
 inverse = powertransform.inverse(tx)
 print(inverse)
 ```
 
 The output is as follows:
+
 ```python
 [1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
 ```
 
 Input the `forward_log_jacobian` method to calculate the logarithm of the forward mapping derivative:
+
 ```python
 forward_log_jaco = powertransform.forward_log_jacobian(tx)
 print(forward_log_jaco)
 ```
 
 The output is as follows:
+
 ```python
 [-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
 ```
 
 Input the `inverse_log_jacobian` method to calculate the logarithm of the backward mapping derivative:
+
 ```python
 inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
 print(inverse_log_jaco)
 ```
 
 The output is as follows:
+
 ```python
 [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
 ```
@@ -627,6 +707,7 @@ The output is as follows:
 In graph mode, the `Bijector` subclass can be used on the network.
 
 Import related modules:
+
 ```python
 import mindspore.nn as nn
 from mindspore import Tensor
@@ -637,6 +718,7 @@ context.set_context(mode=context.GRAPH_MODE)
 ```
 
 Create a network:
+
 ```python
 class Net(nn.Cell):
     def __init__(self):
@@ -651,7 +733,9 @@ class Net(nn.Cell):
         inverse_log_jaco = self.s1.inverse_log_jacobian(value)
         return forward, inverse, forward_log_jaco, inverse_log_jaco
 ```
+
 Invoke the network:
+
 ```python
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
@@ -662,7 +746,9 @@ print("inverse: ", inverse)
 print("forward_log_jaco: ", forward_log_jaco)
 print("inverse_log_jaco: ", inverse_log_jaco)
 ```
+
 The output is as follows:
+
 ```python
 forward:  [2.236068  2.6457512 3.        3.3166249]
 inverse:  [ 1.5        4.0000005  7.5       12.000001 ]
@@ -721,6 +807,7 @@ encoder = Encoder()
 decoder = Decoder()
 vae = VAE(encoder, decoder, hidden_size=400, latent_size=20)
 ```
+
 ### ConditionalVAE
 
 Similarly, the usage of CVAE is similar to that of VAE. The difference is that CVAE uses the label information of datasets. It is a supervised learning algorithm, and has a better generation effect than VAE.
@@ -777,6 +864,7 @@ Load a dataset, for example, Mnist. For details about the data loading and prepr
 ```python
 ds_train = create_dataset(image_path, 128, 1)
 ```
+
 Next, use the infer API to perform variational inference on the VAE network.
 
 ## Probability Inference Algorithm
@@ -794,7 +882,9 @@ vi = SVI(net_with_loss=net_with_loss, optimizer=optimizer)
 vae = vi.run(train_dataset=ds_train, epochs=10)
 trained_loss = vi.get_train_loss()
 ```
+
 After obtaining the trained VAE network, use `vae.generate_sample` to generate a new sample. You need to specify the number of samples to be generated and the shape of the generated samples. The shape must be the same as that of the samples in the original dataset. You can also use `vae.reconstruct_sample` to reconstruct samples in the original dataset to test the reconstruction capability of the VAE network.
+
 ```python
 generated_sample = vae.generate_sample(64, IMAGE_SHAPE)
 for sample in ds_train.create_dict_iterator():
@@ -802,10 +892,13 @@ for sample in ds_train.create_dict_iterator():
     reconstructed_sample = vae.reconstruct_sample(sample_x)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
+
 The shape of the newly generated sample is as follows:
+
 ```python
 The shape of the generated sample is (64, 1, 32, 32)
 ```
+
 The CVAE training process is similar to the VAE training process. However, when a trained CVAE network is used to generate a new sample and rebuild a new sample, label information needs to be input. For example, the generated new sample is 64 digits ranging from 0 to 7.
 
 ```python
@@ -817,7 +910,9 @@ for sample in ds_train.create_dict_iterator():
     reconstructed_sample = cvae.reconstruct_sample(sample_x, sample_y)
 print('The shape of the generated sample is ', generated_sample.shape)
 ```
+
 Check the shape of the newly generated sample:
+
 ```python
 The shape of the generated sample is  (64, 1, 32, 32)
 ```
@@ -847,8 +942,10 @@ class TransformToBNN:
         self.bnn_factor = bnn_factor
         self.bnn_loss_file = None
 ```
+
 The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStepCell`, `dnn_factor` and `bnn_factor` are the coefficient of the overall network loss calculated by the loss function and the coefficient of the KL divergence of each Bayesian layer, respectively.
 `TransformToBNN` implements the following functions:
+
 - Function 1: Convert the entire model.
 
   The `transform_to_bnn_model` method can convert the entire DNN model into a BNN model. The definition is as follows:
@@ -879,8 +976,9 @@ The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStep
         Returns:
             Cell, a trainable BNN model wrapped by TrainOneStepCell.
        """
-       
+
   ```
+
   `get_dense_args` specifies the parameters to be obtained from the fully connected layer of the DNN model. The default value is the common parameters of the fully connected layers of the DNN and BNN models. For details about the parameters, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Dense). `get_conv_args` specifies the parameters to be obtained from the convolutional layer of the DNN model. The default value is the common parameters of the convolutional layers of the DNN and BNN models. For details about the parameters, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#mindspore.nn.Conv2d). `add_dense_args` and `add_conv_args` specify the new parameter values to be specified for the BNN layer. Note that the parameters in `add_dense_args` cannot be the same as those in `get_dense_args`. The same rule applies to `add_conv_args` and `get_conv_args`.
 
 - Function 2: Convert a specific layer.
@@ -902,8 +1000,9 @@ The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStep
 
         Returns:
             Cell, a trainable model wrapped by TrainOneStepCell, whose sprcific type of layer is transformed to the corresponding bayesian layer.
-        """        
+        """
   ```
+
   `Dnn_layer` specifies a DNN layer to be converted into a BNN layer, and `bnn_layer` specifies a BNN layer to be converted into a DNN layer, and `get_args` and `add_args` specify the parameters obtained from the DNN layer and the parameters to be re-assigned to the BNN layer, respectively.
 
 For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conversion with One Click](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_deep_probability_programming.html#dnnbnn).
@@ -916,6 +1015,7 @@ One of the advantages of the BNN is that uncertainty can be obtained. MDP provid
 - Epistemic uncertainty: describes the estimation inaccuracy of input data incurred due to reasons such as poor training or insufficient training data. This may be alleviated by adding training data.
 
 The APIs of the uncertainty estimation toolbox are as follows:
+
 - `model`: trained model whose uncertainty is to be estimated.
 - `train_dataset`: dataset used for training, which is of the iterator type.
 - `task_type`: model type. The value is a character string. Enter regression or classification.
@@ -926,6 +1026,7 @@ The APIs of the uncertainty estimation toolbox are as follows:
 - `save_model`: whether to store the model, which is of the Boolean type.
 
 Before using the model, you need to train the model. The following uses LeNet5 as an example:
+
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
@@ -953,6 +1054,7 @@ if __name__ == '__main__':
     print('The shape of epistemic uncertainty is ', epistemic_uncertainty.shape)
     print('The shape of epistemic uncertainty is ', aleatoric_uncertainty.shape)
 ```
+
 `eval_epistemic_uncertainty` calculates epistemic uncertainty, which is also called model uncertainty. Each estimation label of every sample has an uncertain value. `eval_aleatoric_uncertainty` calculates aleatoric uncertainty, which is also called data uncertainty. Each sample has an uncertain value.
 The output is as follows:
 
@@ -960,4 +1062,5 @@ The output is as follows:
 The shape of epistemic uncertainty is (32, 10)
 The shape of epistemic uncertainty is (32,)
 ```
+
 The value of uncertainty is greater than or equal to zero. A larger value indicates higher uncertainty.
