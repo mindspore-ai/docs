@@ -4,11 +4,18 @@
 
 - [Performing Benchmark Testing](#performing-benchmark-testing)
     - [Overview](#overview)
-    - [Environment Preparation](#environment-preparation)
-    - [Parameter Description](#parameter-description)
-    - [Example](#example)
-        - [Performance Test](#performance-test)
-        - [Accuracy Test](#accuracy-test)
+    - [Linux Environment Usage](#linux-environment-usage)
+        - [Environment Preparation](#environment-preparation)
+        - [Parameter Description](#parameter-description)
+        - [Example](#example)
+            - [Performance Test](#performance-test)
+            - [Accuracy Test](#accuracy-test)
+    - [Windows Environment Usage](#windows-environment-usage)
+        - [Environment Preparation](#environment-preparation-1)
+        - [Parameter Description](#parameter-description-1)
+        - [Example](#example-1)
+            - [Performance Test](#performance-test-1)
+            - [Accuracy Test](#accuracy-test-1)
 
 <!-- /TOC -->
 
@@ -18,7 +25,9 @@
 
 After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
-## Environment Preparation
+## Linux Environment Usage
+
+### Environment Preparation
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
@@ -26,7 +35,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
 
-## Parameter Description
+### Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
 
@@ -59,11 +68,11 @@ The following describes the parameters in detail.
 | `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
 | `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
 
-## Example
+### Example
 
 When using the Benchmark tool to perform benchmark testing on different MindSpore Lite models, you can set different parameters to implement different test functions. The testing is classified into performance test and accuracy test.
 
-### Performance Test
+#### Performance Test
 
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
@@ -121,7 +130,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 -----------------------------------------------------------------------------------------
 ```
 
-### Accuracy Test
+#### Accuracy Test
 
 The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
@@ -144,4 +153,68 @@ To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
+
+## Windows Environment Usage
+
+### Environment Preparation
+
+To use the Benchmark tool, you need to prepare the environment as follows:
+
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id1) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id3) in the build document.
+
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id4) in the build document.
+
+### Parameter Description
+
+The command used for benchmark testing based on the compiled Benchmark tool is as follows. The parameters are the same as those used in the Linux environment, and will not be repeated here.
+
+```bat
+call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
+   [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
+   [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
+   [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+   [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+            [--inputShapes=<INPUTSHAPES>]
+```
+
+### Example
+
+When using the Benchmark tool to perform benchmark testing on different MindSpore Lite models, you can set different parameters to implement different test functions. The testing is classified into performance test and accuracy test. The output statistics are the same as those in the Linux environment, and will not be repeated here.
+
+#### Performance Test
+
+- Use a random input and default values for other parameters.
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms
+```
+
+- set `timeProfiling=true`, use a random input and default values for other parameters.
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --timeProfiling=true
+```
+
+#### Accuracy Test
+
+ The input data is set by the `inDataFile` parameter, and the calibration data is set by the `benchmarkDataFile` parameter.
+
+- Set the accuracy threshold to 3%.
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=.test_benchmark.bin --benchmarkDataFile=test_benchmark.out --accuracyThreshold=3
+```
+
+- Run on the CPU.
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --device=CPU
+```
+
+- Set specified input shapes.
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --inputShapes=1,32,32,1
 ```

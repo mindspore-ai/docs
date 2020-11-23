@@ -4,11 +4,18 @@
 
 - [使用Benchmark进行基准测试](#使用benchmark进行基准测试)
     - [概述](#概述)
-    - [环境准备](#环境准备)
-    - [参数说明](#参数说明)
-    - [使用示例](#使用示例)
-        - [性能测试](#性能测试)
-        - [精度测试](#精度测试)
+    - [Linux环境使用说明](#Linux环境使用说明)
+        - [环境准备](#环境准备)
+        - [参数说明](#参数说明)
+        - [使用示例](#使用示例)
+            - [性能测试](#性能测试)
+            - [精度测试](#精度测试)
+    - [Windows环境使用说明](#Windows环境使用说明)
+        - [环境准备](#环境准备-1)
+        - [参数说明](#参数说明-1)
+        - [使用示例](#使用示例-1)
+            - [性能测试](#性能测试-1)
+            - [精度测试](#精度测试-1)
 
 <!-- /TOC -->
 
@@ -18,7 +25,9 @@
 
 转换模型后执行推理前，你可以使用Benchmark工具对MindSpore Lite模型进行基准测试。它不仅可以对MindSpore Lite模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
 
-## 环境准备
+## Linux环境使用说明
+
+### 环境准备
 
 使用Benchmark工具，需要进行如下环境准备工作。
 
@@ -26,7 +35,7 @@
 
 - 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`benchmark`工具，并配置环境变量。
 
-## 参数说明
+### 参数说明
 
 使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
 
@@ -59,11 +68,11 @@
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
 | `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
 
-## 使用示例
+### 使用示例
 
 对于不同的MindSpore Lite模型，在使用Benchmark工具对其进行基准测试时，可通过设置不同的参数，实现对其不同的测试功能。主要分为性能测试和精度测试。
 
-### 性能测试
+#### 性能测试
 
 Benchmark工具进行的性能测试主要的测试指标为模型单次前向推理的耗时。在性能测试任务中，不需要设置`benchmarkDataFile`等标杆数据参数。但是，可以设置`timeProfiling`选项参数，控制是否输出在某设备上模型网络层的耗时，`timeProfiling`默认为false，例如：
 
@@ -121,7 +130,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 -----------------------------------------------------------------------------------------
 ```
 
-### 精度测试
+#### 精度测试
 
 Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
 
@@ -144,4 +153,68 @@ Mean bias of all nodes: 0%
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
+
+## Windows环境使用说明
+
+### 环境准备
+
+使用Benchmark工具，需要进行如下环境准备工作。
+
+- 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id6)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id8)执行编译。
+
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id9)，获得`benchmark`工具，并配置环境变量。
+
+### 参数说明
+
+使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。参数与Linux环境下使用一致，此处不再赘述。
+
+```bash
+call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+   [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
+   [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
+   [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
+   [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
+   [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
+            [--inputShapes=<INPUTSHAPES>]
+```
+
+### 使用示例
+
+对于不同的MindSpore Lite模型，在使用Benchmark工具对其进行基准测试时，可通过设置不同的参数，实现对其不同的测试功能。主要分为性能测试和精度测试，输出信息与Linux环境下一致，此处不再赘述。
+
+#### 性能测试
+
+- 使用随机输入，其他参数使用默认值。
+
+  ```bat
+  call benchmark.exe  --modelFile=test_benchmark.ms
+  ```
+
+- 使用随机输入，`timeProfiling`设为true，其他参数使用默认值。
+
+  ```bat
+  call benchmark.exe --modelFile=test_benchmark.ms --timeProfiling=true
+  ```
+
+#### 精度测试
+
+输入数据通过`inDataFile`参数设定，标杆数据通过`benchmarkDataFile`参数设定。
+
+- 指定了准确度阈值为3%。
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=.test_benchmark.bin --benchmarkDataFile=test_benchmark.out --accuracyThreshold=3
+```
+
+- 指定模型推理程序在CPU上运行。
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --device=CPU
+```
+
+- 指定输入数据的维度。
+
+```bat
+call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --inputShapes=1,32,32,1
 ```
