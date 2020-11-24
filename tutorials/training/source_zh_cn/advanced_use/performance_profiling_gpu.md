@@ -35,14 +35,14 @@
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
 
-- `set_context`之后，需要初始化MindSpore `Profiler`对象，GPU场景下初始化Profiler对象时只有output_path参数有效。
+- `set_context`之后，需要初始化MindSpore `Profiler`对象，GPU多卡场景需要在初始化NCCL和`set_auto_parallel_context`之后初始化`Profiler`对象, GPU场景下初始化Profiler对象时只有output_path参数有效。
 - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
 > 样例代码与Ascend使用方式一致可以参考：
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
 
-GPU场景下还可以用自定义callback的方式收集性能数据（当前版本，MindData不支持该种方式，此方式下无MindData性能数据生成。），示例如下：
+GPU场景下还可以用自定义callback的方式收集性能数据（当前版本，MindData不支持该种方式，此方式下无MindData性能数据生成。），当前版本数据下沉模式不支持callback的方式收集性能数据，示例如下：
 
 ```python
 class StopAtStep(Callback):
