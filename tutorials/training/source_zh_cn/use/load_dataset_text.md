@@ -15,7 +15,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/use/load_dataset_text.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/loading_text_dataset.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_loading_text_dataset.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 

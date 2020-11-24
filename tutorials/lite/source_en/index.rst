@@ -18,7 +18,7 @@ Using MindSpore on Mobile and IoT
    :maxdepth: 1
    :caption: Basic Use
 
-   use/build
+   use/preparation
    use/convert_model
    use/evaluating_the_model
    use/data_preprocessing
