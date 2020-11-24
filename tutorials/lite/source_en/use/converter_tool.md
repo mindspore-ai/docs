@@ -6,8 +6,8 @@
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
-        - [Example](#example)
         - [Parameter Description](#parameter-description)
+        - [Example](#example)
     - [Windows Environment Instructions](#windows-environment-instructions)
         - [Environment Preparation](#environment-preparation-1)
         - [Parameter Description](#parameter-description-1)
@@ -32,6 +32,31 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 - Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document.
 
 - Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
+
+### Parameter Description
+
+MindSpore Lite model conversion tool provides multiple parameters.
+You can enter `./converter_lite --help` to obtain the help information in real time.
+
+The following describes the parameters in detail.
+
+| Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
+| -------- | ------- | ----- | --- | ---- |
+| `--help` | No | Prints all the help information. | - | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, or ONNX | - |
+| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
+| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
+| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
+| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
+| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than this, it will trigger weight quantization. | \[0, +∞) | 16 |
+| `--configFile=<CONFIGFILE>` | No | Profile path of calibration dataset when quantType is set as PostTraining. | - | - |
+
+> - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
+> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
+> - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
+> - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
 
 ### Example
 
@@ -88,31 +113,6 @@ The following describes how to use the conversion command by using several commo
    ```
 
 - If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
-
-### Parameter Description
-
-MindSpore Lite model conversion tool provides multiple parameters.
-You can enter `./converter_lite --help` to obtain the help information in real time.
-
-The following describes the parameters in detail.
-
-| Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
-| -------- | ------- | ----- | --- | ---- |
-| `--help` | No | Prints all the help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, or ONNX | - |
-| `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
-| `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
-| `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
-| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | PostTraining: quantization after training <br>WeightQuant: only do weight quantization after training | - |
-| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
-| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
-| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than this, it will trigger weight quantization. | \[0, +∞) | 16 |
-| `--configFile=<CONFIGFILE>` | No | Profile path of calibration dataset when quantType is set as PostTraining. | - | - |
-
-> - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
-> - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
-> - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
-> - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
 
 ## Windows Environment Instructions
 

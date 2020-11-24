@@ -23,6 +23,7 @@
 | converter | Linux | 模型转换工具 |
 | runtime(cpp、java) | Linux、Android | 模型推理框架(cpp、java) |
 | benchmark | Linux、Android | 基准测试工具 |
+| lib_cropper        | Linux          | libmindspore-lite.a静态库裁剪工具 |
 | imageprocess | Linux、Android | 图像处理库 |
 
 ## Linux环境编译
@@ -144,7 +145,7 @@ git clone https://gitee.com/mindspore/mindspore.git
   bash build.sh -I x86_64 -C on
   ```
 
-- 编译x86_64架构Release版本，同时编译基准测试工具。
+- 编译x86_64架构Release版本，同时编译基准测试工具、库裁剪工具。
 
   ```bash
   bash build.sh -I x86_64 -o on
@@ -155,7 +156,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
 
 - `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark。
+- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
@@ -197,6 +198,9 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # 基准测试工具
+    |   └── lib_cropper # 库裁剪工具
+    │       ├── lib_cropper  # 库裁剪工具可执行文件
+    │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     │   └── include # 推理框架头文件
     │   └── lib # 推理框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
