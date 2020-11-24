@@ -997,4 +997,4 @@ The shape of epistemic uncertainty is (32, 10)
 The shape of aleatoric uncertainty is (32,)
 ```
 
-uncertainty的值位于[0,1]之间，越大表示不确定性越高。
+uncertainty的值大于等于0，越大表示不确定性越高。
