@@ -23,6 +23,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | converter | Linux | Model Conversion Tool |
 | runtime(cpp, java) | Linux, Android | Model Inference Framework(cpp, java) |
 | benchmark | Linux, Android | Benchmarking Tool |
+| lib_cropper | Linux | libmindspore-lite.a static library crop tool |
 | imageprocess | Linux, Android | Image Processing Library |
 
 ## Linux Environment Compilation
@@ -158,7 +159,7 @@ Then, run the following commands in the root directory of the source code to com
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
 
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
+- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
@@ -200,6 +201,9 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-runtime-x86-cpu
     │   └── benchmark # Benchmarking Tool
+    |   └── lib_cropper # Static library crop tool
+    │       ├── lib_cropper  # Executable file of static library crop tool
+    │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
     │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
