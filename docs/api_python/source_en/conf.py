@@ -255,8 +255,8 @@ class MsAutoSummary(Autosummary):
         group = nodes.tgroup('', cols=3)
         real_table.append(group)
         group.append(nodes.colspec('', colwidth=10))
-        group.append(nodes.colspec('', colwidth=50))
-        group.append(nodes.colspec('', colwidth=50))
+        group.append(nodes.colspec('', colwidth=70))
+        group.append(nodes.colspec('', colwidth=30))
         body = nodes.tbody('')
         group.append(body)
 
