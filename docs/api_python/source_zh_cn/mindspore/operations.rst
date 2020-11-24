@@ -225,6 +225,7 @@ Array Operators
     mindspore.ops.IsFinite
     mindspore.ops.IsInstance
     mindspore.ops.IsSubClass
+    mindspore.ops.Ones
     mindspore.ops.OnesLike
     mindspore.ops.Padding
     mindspore.ops.ParallelConcat
@@ -273,6 +274,7 @@ Array Operators
     mindspore.ops.UnsortedSegmentMin
     mindspore.ops.UnsortedSegmentProd
     mindspore.ops.UnsortedSegmentSum
+    mindspore.ops.Zeros
     mindspore.ops.ZerosLike
 
 Common Operators

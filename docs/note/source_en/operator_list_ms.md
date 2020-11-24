@@ -87,7 +87,6 @@
 | [mindspore.nn.MaxPool1d](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.MaxPool1d.html)                                         | Supported | Doing     | Doing     | Pooling layers         |
 | [mindspore.nn.DenseBnAct](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.DenseBnAct.html)                                       | Supported | Doing     | Doing     | Quantized Functions    |
 | [mindspore.nn.Conv2dBnAct](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2dBnAct.html)                                     | Supported | Supported | Doing     | Quantized Functions    |
-| [mindspore.nn.FakeQuantWithMinMax](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.FakeQuantWithMinMax.html)                     | Supported | Supported | Doing     | Quantized Functions    |
 | [mindspore.nn.Conv2dBnFoldQuant](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2dBnFoldQuant.html)                         | Supported | Supported | Doing     | Quantized Functions    |
 | [mindspore.nn.Conv2dBnWithoutFoldQuant](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2dBnWithoutFoldQuant.html)           | Supported | Supported | Doing     | Quantized Functions    |
 | [mindspore.nn.Conv2dQuant](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2dQuant.html)                                     | Supported | Supported | Doing     | Quantized Functions    |
