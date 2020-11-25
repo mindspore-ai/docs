@@ -11,6 +11,13 @@
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
             - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)
             - [图像处理库目录结构说明](#图像处理库目录结构说明)
+    - [Windows环境编译](#windows环境编译)  
+        - [环境要求](#环境要求-1)
+        - [编译选项](#编译选项-1)
+        - [编译示例](#编译示例-1)
+        - [编译输出](#编译输出-1)  
+            - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明-1)
+            - [基准测试工具benchmark目录结构说明](#基准测试工具benchmark目录结构说明-1)
 
 <!-- /TOC -->
 
@@ -20,9 +27,9 @@
 
 | 模块 | 支持平台 | 说明 |
 | --- | ---- | ---- |
-| converter | Linux | 模型转换工具 |
+| converter | Linux、Windows | 模型转换工具 |
 | runtime(cpp、java) | Linux、Android | 模型推理框架(cpp、java) |
-| benchmark | Linux、Android | 基准测试工具 |
+| benchmark | Linux、Windows、Android | 基准测试工具 |
 | lib_cropper        | Linux          | libmindspore-lite.a静态库裁剪工具 |
 | imageprocess | Linux、Android | 图像处理库 |
 
@@ -183,7 +190,9 @@ unzip mindspore-lite-maven-{version}.zip
 |
 ├── mindspore-lite-{version}-converter-{os}
 │   └── converter # 模型转换工具
+|       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
+|       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
 │   └── third_party # 第三方库头文件和库
 |       ├── glog # Glog的动态库
 ```
@@ -292,7 +301,6 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 |
 ├── mindspore-lite-{version}-runtime-{os}-cpu
 │   └── benchmark # 基准测试工具
-│   └── include # 头文件(此处不涉及图像处理文件，不做展示)
 │   └── lib # 推理框架态库
 │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
 │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
@@ -305,4 +313,101 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │           ├── libminddata-lite.so # 图像处理动态库文件
 │   └── third_party # 第三方库头文件和库
 │       ├── flatbuffers # Flatbuffers的动态库
+```
+
+## Windows环境编译
+
+### 环境要求
+
+- 系统环境：Windows 7，Windows 10；64位。
+
+- 编译依赖
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) >= 7.3.0
+
+> 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+
+### 编译选项
+
+MindSpore Lite提供编译脚本build.bat用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。下面对MindSpore Lite的编译选项进行说明。
+
+| 参数  |  参数说明  | 是否必选 |
+| -------- | ----- | ---- |
+| lite | 设置该参数，则对MindSpore Lite工程进行编译 | 是 |
+| [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
+
+### 编译示例
+
+首先，使用git工具，从MindSpore代码仓下载源码。
+
+```bat
+git clone https://gitee.com/mindspore/mindspore.git
+```
+
+然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。
+
+- 以默认线程数（6线程）编译Windows版本。
+
+```bat
+call build.bat lite
+```
+
+- 以指定线程数8编译Windows版本。
+
+```bat
+call build.bat lite 8
+```
+
+### 编译输出
+
+编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
+
+- `mindspore-lite-{version}-converter-win-cpu.zip`：包含模型转换工具converter。
+- `mindspore-lite-{version}-win-runtime-x86-cpu.zip`：包含基准测试工具benchmark。
+
+> version：输出件版本号，与所编译的分支代码对应的版本一致。
+
+执行解压缩命令，获取编译后的输出件：
+
+```bat
+unzip mindspore-lite-{version}-converter-win-cpu.zip
+unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
+```
+
+#### 模型转换工具converter目录结构说明
+
+转换工具的内容包括以下几部分：
+
+```text
+|
+├── mindspore-lite-{version}-converter-win-cpu
+│   └── converter # 模型转换工具
+|       ├── converter_lite.exe # 可执行程序
+|       ├── libglog.dll # Glog的动态库
+|       ├── libmindspore_gvar.dll # 存储某些全局变量的动态库
+|       ├── libgcc_s_seh-1.dll # MinGW动态库
+|       ├── libssp-0.dll # MinGW动态库
+|       ├── libstdc++-6.dll # MinGW动态库
+|       ├── libwinpthread-1.dll # MinGW动态库
+```
+
+#### 基准测试工具benchmark目录结构说明
+
+基准测试工具的内容包括以下几部分：
+
+```text
+|
+├── mindspore-lite-{version}-win-runtime-x86-cpu
+│   └── benchmark # 基准测试工具
+│       ├── benchmark.exe # 可执行程序
+│       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
+│       ├── libmindspore-lite.dll # MindSpore Lite推理框架的动态库
+│       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
+│       ├── libgcc_s_seh-1.dll # MinGW动态库
+|       ├── libssp-0.dll # MinGW动态库
+|       ├── libstdc++-6.dll # MinGW动态库
+|       ├── libwinpthread-1.dll # MinGW动态库
+│   └── include # 推理框架头文件  
+│   └── third_party # 第三方库头文件和库
+│       ├── flatbuffers # FlatBuffers头文件
 ```

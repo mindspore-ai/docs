@@ -125,13 +125,13 @@ bash build.sh -I x86_64
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id4)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id3)。
 
 ### 使用示例
 
 设置日志打印级别为INFO。
 
-```bash
+```bat
 set GLOG_v=1
 ```
 
@@ -141,7 +141,7 @@ set GLOG_v=1
 
 - 以Caffe模型LeNet为例，执行转换命令。
 
-   ```bash
+   ```bat
    call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
    ```
 
@@ -159,19 +159,19 @@ set GLOG_v=1
 
     - MindSpore模型`model.mindir`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
 
     - TensorFlow Lite模型`model.tflite`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
       ```
 
     - ONNX模型`model.onnx`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 

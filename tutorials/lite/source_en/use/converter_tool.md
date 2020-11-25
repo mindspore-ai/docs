@@ -130,7 +130,7 @@ Refer to the Linux environment model conversion tool [parameter description](htt
 
 Set the log printing level to INFO.
 
-```bash
+```bat
 set GLOG_v=1
 ```
 
@@ -140,7 +140,7 @@ Several common examples are selected below to illustrate the use of conversion c
 
 - Take the Caffe model LeNet as an example to execute the conversion command.
 
-   ```bash
+   ```bat
    call converter_lite --fmk=CAFFE --modelFile=lenet.prototxt --weightFile=lenet.caffemodel --outputFile=lenet
    ```
 
@@ -158,19 +158,19 @@ Several common examples are selected below to illustrate the use of conversion c
 
     - MindSpore model `model.mindir`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
 
     - TensorFlow Lite model`model.tflite`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
       ```
 
     - ONNX model`model.onnx`
 
-      ```bash
+      ```bat
       call converter_lite --fmk=ONNX --modelFile=model.onnx --outputFile=model
       ```
 

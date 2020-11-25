@@ -11,6 +11,13 @@
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
             - [Description of Imageprocess's Directory Structure](#description-of-imageprocesss-directory-structure)
+    - [Windows Environment Compilation](#windows-environment-compilation)
+        - [Environment Requirements](#environment-requirements-1)
+        - [Compilation Options](#compilation-options-1)
+        - [Compilation Example](#compilation-example-1)
+        - [Output Description](#output-description-1)
+            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure-1)
+            - [Description of Benchmark Directory Structure](#description-of-benchmark-directory-structure-1)
 
 <!-- /TOC -->
 
@@ -20,9 +27,9 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
-| converter | Linux | Model Conversion Tool |
+| converter | Linux, Windows | Model Conversion Tool |
 | runtime(cpp, java) | Linux, Android | Model Inference Framework(cpp, java) |
-| benchmark | Linux, Android | Benchmarking Tool |
+| benchmark | Linux, Windows, Android | Benchmarking Tool |
 | lib_cropper | Linux | libmindspore-lite.a static library crop tool |
 | imageprocess | Linux, Android | Image Processing Library |
 
@@ -156,7 +163,7 @@ Then, run the following commands in the root directory of the source code to com
 
 ### Output Description
 
-After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into three parts.
+After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
@@ -186,7 +193,9 @@ The conversion tool is only available under the `-I x86_64` compilation option, 
 |
 ├── mindspore-lite-{version}-converter-{os}
 │   └── converter # Model conversion Ttool
+|       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
+|       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
 │   └── third_party # Header files and libraries of third party libraries
 │       ├── glog # Dynamic library of Glog
 ```
@@ -308,4 +317,101 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │           ├── libminddata-lite.so # The files of image processing dynamic library
 │   └── third_party # Third-party Iibrary header files and libraries
 │       ├── flatbuffers # The Header files of FlatBuffers
+```
+
+## Windows Environment Compilation
+
+### Environment Requirements
+
+- System environment: Windows 7, Windows 10; 64-bit.
+
+- Compilation dependencies are:
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
+
+> The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries. Please make sure that the git network settings are correct and available in advance.
+
+### Compilation Options
+
+The compilation options of MindSpore Lite are as follows:
+
+| Parameter  |  Parameter Description   | Mandatory or Not |
+| -------- | ----- | ---- |
+| lite | Set this parameter to compile the MindSpore Lite project. | Yes |
+| [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |  
+
+### Compilation Example
+
+First, use the git tool to download the source code from the MindSpore code repository.
+
+```bat
+git clone https://gitee.com/mindspore/mindspore.git
+```
+
+Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
+
+- Compile the Windows version with the default number of threads (6 threads).
+
+```bat
+call build.bat lite
+```
+
+- Compile the Windows version with the specified number of 8 threads.
+
+```bat
+call build.bat lite 8
+```
+
+### Output Description
+
+After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+
+- `mindspore-lite-{version}-converter-win-cpu.zip`: Contains model conversion tool.
+- `mindspore-lite-{version}-win-runtime-x86-cpu.zip`: Contains benchmarking tool.
+
+> version: Version of the output, consistent with that of the MindSpore.
+
+Execute the decompression command to obtain the compiled output:
+
+```bat
+unzip mindspore-lite-{version}-converter-win-cpu.zip
+unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
+```
+
+#### Description of Converter's Directory Structure
+
+The content includes the following parts:
+
+```text
+|
+├── mindspore-lite-{version}-converter-win-cpu
+│   └── converter # Model conversion Ttool
+|       ├── converter_lite # Executable program
+|       ├── libglog.dll # Dynamic library of Glog
+|       ├── libmindspore_gvar.dll # A dynamic library that stores some global variables
+|       ├── libgcc_s_seh-1.dll # Dynamic library of MinGW
+|       ├── libssp-0.dll # Dynamic library of MinGW
+|       ├── libstdc++-6.dll # Dynamic library of MinGW
+|       ├── libwinpthread-1.dll # Dynamic library of MinGW
+```
+
+#### Description of Benchmark's Directory Structure
+
+The content includes the following parts:
+
+```text
+|
+├── mindspore-lite-{version}-win-runtime-x86-cpu
+│   └── benchmark # Benchmarking Tool
+│       ├── benchmark.exe # Executable program
+│       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
+│       ├── libmindspore-lite.dll # Dynamic library of infernece framework in MindSpore Lite
+│       ├── libmindspore-lite.dll.a # Link file of dynamic library of infernece framework in MindSpore Lite
+│       ├── libgcc_s_seh-1.dll # Dynamic library of MinGW
+|       ├── libssp-0.dll # Dynamic library of MinGW
+|       ├── libstdc++-6.dll # Dynamic library of MinGW
+|       ├── libwinpthread-1.dll # Dynamic library of MinGW
+│   └── include # Header files of inference framework
+│   └── third_party # Header files and libraries of third party libraries
+│       ├── flatbuffers # Header files of FlatBuffers
 ```
