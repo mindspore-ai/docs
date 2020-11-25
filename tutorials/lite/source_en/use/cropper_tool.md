@@ -47,7 +47,7 @@ The following describes the parameters in detail.
 | `--outputFile=<OUTPUTFILE>`           | Optional       | The saved path of the cut library `libmindspore-lite.a`, it overwrites the source file by default. | String   | -      | -        |
 | `--help`                              | Optional       | Displays the help information about the `lib_cropper` command. | -        | -      | -        |
 
-> The configuration file `cropper_mapping_cpu.cfg` exists in the `lib_cropper` directory in the `mindspore-lite-{version}-runtime-arm64-cpu` package.
+> The configuration file `cropper_mapping_cpu.cfg` exists in the `lib_cropper` directory in the `mindspore-lite-{version}-runtime-x86-cpu` package.
 
 ## Example
 
