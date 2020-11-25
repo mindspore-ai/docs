@@ -28,6 +28,7 @@ The composite operators are the pre-defined combination of operators.
     mindspore.ops.MultitypeFuncGraph
     mindspore.ops.normal
     mindspore.ops.poisson
+    mindspore.ops.repeat_elements
     mindspore.ops.TensorDot
     mindspore.ops.uniform
 

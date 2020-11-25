@@ -69,6 +69,7 @@ Non-linear Activations
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.nn.FastGelu
     mindspore.nn.GELU
     mindspore.nn.HSigmoid
     mindspore.nn.HSwish
@@ -178,6 +179,7 @@ Loss Functions
     mindspore.nn.CosineEmbeddingLoss
     mindspore.nn.L1Loss
     mindspore.nn.MSELoss
+    mindspore.nn.SampledSoftmaxLoss
     mindspore.nn.SmoothL1Loss
     mindspore.nn.SoftmaxCrossEntropyWithLogits
 
