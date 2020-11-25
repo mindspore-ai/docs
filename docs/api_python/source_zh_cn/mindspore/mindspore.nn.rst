@@ -233,3 +233,41 @@ Math Functions
     mindspore.nn.MatMul
     mindspore.nn.Moments
     mindspore.nn.ReduceLogSumExp
+
+Metrics
+--------
+
+.. autosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.Accuracy
+    mindspore.nn.F1
+    mindspore.nn.Fbeta
+    mindspore.nn.get_metric_fn
+    mindspore.nn.Loss
+    mindspore.nn.MAE 
+    mindspore.nn.Metric
+    mindspore.nn.MSE
+    mindspore.nn.names
+    mindspore.nn.Precision
+    mindspore.nn.Recall
+    mindspore.nn.Top1CategoricalAccuracy
+    mindspore.nn.Top5CategoricalAccuracy
+    mindspore.nn.TopKCategoricalAccuracy
+
+Learning Rate Schedule
+-----------------------
+
+.. autosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.CosineDecayLR
+    mindspore.nn.ExponentialDecayLR
+    mindspore.nn.InverseDecayLR
+    mindspore.nn.NaturalExpDecayLR
+    mindspore.nn.PolynomialDecayLR
+    mindspore.nn.WarmUpLR
