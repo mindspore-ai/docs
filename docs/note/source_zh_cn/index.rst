@@ -24,7 +24,6 @@ MindSpore设计和规格
    benchmark
    network_list
    operator_list
-   constraints_on_network_construction
    model_lite
 
 .. toctree::
