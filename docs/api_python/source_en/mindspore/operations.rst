@@ -6,7 +6,7 @@ The Primitive operators in operations need to be instantiated before being used.
 Neural Network Operators
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -93,7 +93,7 @@ Neural Network Operators
 Math Operators
 ^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -190,7 +190,7 @@ Math Operators
 Array Operators
 ^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -280,7 +280,7 @@ Array Operators
 Common Operators
 ^^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -294,7 +294,7 @@ Common Operators
 Control Flows
 ^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -304,7 +304,7 @@ Control Flows
 Debug Operators
 ^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -320,7 +320,7 @@ Debug Operators
 Random Operators
 ^^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -338,7 +338,7 @@ Random Operators
 Inner Operators
 ^^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -348,7 +348,7 @@ Inner Operators
 Image Operators
 ^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -358,7 +358,7 @@ Image Operators
 Sparse Operators
 ^^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
@@ -368,7 +368,7 @@ Sparse Operators
 Other Operators
 ^^^^^^^^^^^^^^^
 
-.. msautosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
