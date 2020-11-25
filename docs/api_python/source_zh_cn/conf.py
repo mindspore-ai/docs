@@ -92,7 +92,6 @@ intersphinx_mapping = {
 }
 
 from typing import List, Tuple
-from docutils.parsers.rst import directives
 from docutils.nodes import Node
 
 from sphinx.locale import __
@@ -101,27 +100,24 @@ from sphinx.ext.autosummary import mock, StringList, ModuleType, get_documenter,
 from sphinx.ext.autosummary import import_by_name, extract_summary, autosummary_table, nodes, switch_source_input, rst
 from sphinx.ext.autodoc.directive import DocumenterBridge, Options
 
-
-class MsAutoSummary(Autosummary):
+class MsAutosummary(Autosummary):
     """
     Inherited from sphinx's autosummary, added titles and a column for the generated table.
     """
-    required_arguments = 0
-    optional_arguments = 0
-    final_argument_whitespace = False
-    has_content = True
-    option_spec = {
-        'toctree': directives.unchanged,
-        'nosignatures': directives.flag,
-        'template': directives.unchanged,
-    }
 
-    @staticmethod
-    def extract_env_summary(doc: List[str]) -> str:
+    def init(self):
+        """
+        init method
+        """
+        self.find_doc_name = ""
+        self.third_title = ""
+        self.default_doc = ""
+
+    def extract_env_summary(self, doc: List[str]) -> str:
         """Extract env summary from docstring."""
-        env_sum = "To Be Developed"
+        env_sum = self.default_doc
         for i, piece in enumerate(doc):
-            if piece.startswith("Supported Platforms:"):
+            if piece.startswith(self.find_doc_name):
                 env_sum = doc[i+1][4:]
         return env_sum
 
@@ -129,6 +125,7 @@ class MsAutoSummary(Autosummary):
         """
         run method
         """
+        self.init()
         self.bridge = DocumenterBridge(self.env, self.state.document.reporter,
                                        Options(), self.lineno, self.state)
 
@@ -240,7 +237,6 @@ class MsAutoSummary(Autosummary):
             documenter.add_content(None)
             summary = extract_summary(self.bridge.result.data[:], self.state.document)
             env_sum = self.extract_env_summary(self.bridge.result.data[:])
-
             items.append((display_name, sig, summary, real_name, env_sum))
 
         return items
@@ -282,7 +278,7 @@ class MsAutoSummary(Autosummary):
             body.append(row)
 
         # add table's title
-        append_row("**Operator Name**", "**Description**", "**Supported Platforms**")
+        append_row("**API Name**", "**Description**", self.third_title)
         for name, sig, summary, real_name, env_sum in items:
             qualifier = 'obj'
             if 'nosignatures' not in self.options:
@@ -295,5 +291,42 @@ class MsAutoSummary(Autosummary):
 
         return [table_spec, table]
 
+
+class MsNoteAutoSummary(MsAutosummary):
+    """
+    Inherited from MsAutosummary. Add a third column abort `Note` to the table.
+    """
+
+    def init(self):
+        """
+        init method
+        """
+        self.find_doc_name = ".. note::"
+        self.third_title = "**Note**"
+        self.default_doc = "None"
+
+    def extract_env_summary(self, doc: List[str]) -> str:
+        """Extract env summary from docstring."""
+        env_sum = self.default_doc
+        for piece in doc:
+            if piece.startswith(self.find_doc_name):
+                env_sum = piece[10:]
+        return env_sum
+
+
+class MsPlatformAutoSummary(MsAutosummary):
+    """
+    Inherited from MsAutosummary. Add a third column abort `Supported Platforms` to the table.
+    """
+    def init(self):
+        """
+        init method
+        """
+        self.find_doc_name = "Supported Platforms:"
+        self.third_title = "**{}**".format(self.find_doc_name[:-1])
+        self.default_doc = "To Be Developed"
+
+
 def setup(app):
-    app.add_directive('msautosummary', MsAutoSummary)
+    app.add_directive('msplatformautosummary', MsPlatformAutoSummary)
+    app.add_directive('msnoteautosummary', MsNoteAutoSummary)
