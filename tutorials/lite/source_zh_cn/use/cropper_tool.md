@@ -47,7 +47,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 | `--outputFile=<OUTPUTFILE>`           | 否       | 裁剪完成的`libmindspore-lite.a`库的保存路径，默认覆盖源文件。 | String   | -      | -        |
 | `--help`                              | 否       | 打印全部帮助信息。                                           | -        | -      | -        |
 
-> 配置文件`cropper_mapping_cpu.cfg`存在于`mindspore-lite-{version}-runtime-arm64-cpu`包中的`lib_cropper`目录。
+> 配置文件`cropper_mapping_cpu.cfg`存在于`mindspore-lite-{version}-runtime-x86-cpu`包中的`lib_cropper`目录。
 
 ## 使用示例
 
