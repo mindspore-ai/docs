@@ -251,6 +251,7 @@ Array Operators
     mindspore.ops.ScatterSub
     mindspore.ops.ScatterUpdate
     mindspore.ops.Select
+    mindspore.ops.SequenceMask
     mindspore.ops.Shape
     mindspore.ops.Size
     mindspore.ops.Slice
