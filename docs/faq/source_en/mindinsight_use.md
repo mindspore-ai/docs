@@ -18,3 +18,9 @@ In this case, you can perform either of the following operations:
 
 - Reinstall MindInsight and run the `mindinsight stop --port <PORT>` command to stop the started MindInsight background service.
 - Run the `kill -9 <PID>` command to kill the processes designed by MindInsight.
+
+<br />
+
+Q: What can I do if the Google's Chrome browser prompts the error message `ERR_UNSAFE_PORT after` MindInsight is successfully started?
+
+A: Chrome browser's kernel prohibits certain ports from being used as HTTP services. You can add `--explicitly-allowed-ports=port` in Chrome browser's configuration. Otherwise you can change the port or browser like IE browser.
