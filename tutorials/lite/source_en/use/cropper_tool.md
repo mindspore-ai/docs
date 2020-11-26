@@ -56,7 +56,7 @@ The Cropper tool obtains the operator list by parsing the `ms` model, and crop t
 - Pass in the `ms` model through the folder, and pass the folder path where the model file is located to the `modelFolderPath` parameter to crop the `libmindspore-lite.a` static library of arm64-cpu.
 
 ```bash
-./lib_cropper --packageFile=/mindspore-lite-{version}-runtime-arm64-cpu/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFolderPath=/model -- --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+./lib_cropper --packageFile=/mindspore-lite-{version}-runtime-arm64-cpu/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFolderPath=/model --outputFile=/mindspore-lite/lib/libmindspore-lite.a
 ```
 
 This example will read all the `ms` models contained in the `/model` folder, crop the `libmindspore-lite.a` static library of arm64-cpu, and the cropped `libmindspore-lite.a` static library will be saved to `/mindspore-lite/lib/` directory.
