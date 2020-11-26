@@ -17,14 +17,14 @@ The sample can be run on Ascend 910 AI processor.
 """
 import os
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.ops as ops
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as vision
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.communication.management import init, get_rank, get_group_size
 from mindspore import Tensor, Model
-from mindspore.nn.optim.momentum import Momentum
+from mindspore.nn import Momentum
 from mindspore.context import ParallelMode
 from mindspore import context
 from mindspore.train.callback import LossMonitor

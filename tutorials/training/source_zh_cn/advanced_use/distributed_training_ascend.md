@@ -135,7 +135,7 @@ if __name__ == "__main__":
 分布式训练时，数据是以数据并行的方式导入的。下面我们以CIFAR-10数据集为例，介绍以数据并行方式导入CIFAR-10数据集的方法，`data_path`是指数据集的路径，即`cifar-10-batches-bin`文件夹的路径。
 
 ```python
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as vision
@@ -200,7 +200,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class HybridParallelNet(nn.Cell):
@@ -229,7 +229,7 @@ class HybridParallelNet(nn.Cell):
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SemiAutoParallelNet(nn.Cell):
@@ -263,7 +263,7 @@ class SemiAutoParallelNet(nn.Cell):
 ```python
 import mindspore.ops as ops
 from mindspore import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):

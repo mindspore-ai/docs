@@ -316,7 +316,7 @@ allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 
 ```python
 imoprt numpy as np
-from mindspore.common import Parameter, Tensor
+from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
 ```

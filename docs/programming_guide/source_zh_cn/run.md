@@ -124,7 +124,7 @@ import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
 from mindspore import context, Model
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import Normal
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
@@ -283,7 +283,7 @@ import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
 from mindspore import context, Model, load_checkpoint, load_param_into_net
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import Normal
 from mindspore.dataset.vision import Inter
 from mindspore.nn.metrics import Accuracy, Precision

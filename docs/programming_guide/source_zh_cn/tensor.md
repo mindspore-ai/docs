@@ -22,7 +22,7 @@
 不同维度的张量分别表示不同的数据，0维张量表示标量，1维张量表示向量，2维张量表示矩阵，3维张量可以表示彩色图像的RGB三通道等等。
 
 > 本文中的所有示例，支持在PyNative模式下运行，暂不支持CPU。
-  
+
 ## 张量构造
 
 构造张量时，支持传入`Tensor`、`float`、`int`、`bool`、`tuple`、`list`和`NumPy.array`类型，其中`tuple`和`list`里只能存放`float`、`int`、`bool`类型数据。
@@ -36,7 +36,7 @@
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 y = Tensor(1.0, mstype.int32)
@@ -67,7 +67,7 @@ True
 
 [4. 5. 6.]
 ```
-  
+
 ## 张量的属性和方法
 
 ### 属性
@@ -82,7 +82,7 @@ True
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 x_shape = x.shape
@@ -110,7 +110,7 @@ print(x_shape, x_dtype)
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[True, True], [False, False]]), mstype.bool_)
 x_all = x.all()

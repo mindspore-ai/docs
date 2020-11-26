@@ -32,7 +32,7 @@ A code example is as follows:
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 y = Tensor(1.0, mstype.int32)
@@ -78,7 +78,7 @@ A code example is as follows:
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 x_shape = x.shape
@@ -107,7 +107,7 @@ A code example is as follows:
 ```python
 import numpy as np
 from mindspore import Tensor
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 
 x = Tensor(np.array([[True, True], [False, False]]), mstype.bool_)
 x_all = x.all()

@@ -45,7 +45,7 @@ MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单�
 ```python
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.common.parameter import Parameter
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
@@ -165,7 +165,7 @@ MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，
 ```python
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.common.parameter import Parameter
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):

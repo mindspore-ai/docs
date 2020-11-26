@@ -49,7 +49,7 @@ import numpy as np
 from scipy.special import softmax
 
 from mindspore import dataset as ds
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter

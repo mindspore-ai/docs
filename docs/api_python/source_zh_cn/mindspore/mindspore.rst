@@ -7,13 +7,7 @@ mindspore
   
   The actual path of ``dtype`` is ``/mindspore/common/dtype.py``.
   Run the following command to import the package:
-  
-  .. code-block::
-  
-      import mindspore.common.dtype as mstype
-      
-  or
-  
+
   .. code-block::
   
       from mindspore import dtype as mstype

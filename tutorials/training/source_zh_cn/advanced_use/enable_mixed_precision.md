@@ -185,7 +185,7 @@ MindSpore还支持手动混合精度。假定在网络中只有一个Dense Layer
 import numpy as np
 
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import Tensor, context
 import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell

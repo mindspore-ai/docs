@@ -38,7 +38,7 @@ MindSpore在Model_zoo也已经提供了大量的目标检测、自然语言处�
 ```python
 import numpy as np
 
-from mindspore.common.tensor import Tensor
+from mindspore import Tensor
 from mindspore.nn import Cell, Dense, SoftmaxCrossEntropyWithLogits, Momentum, TrainOneStepCell, WithLossCell
 import mindspore.ops as ops
 
@@ -99,11 +99,11 @@ import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
 from mindspore import context, DatasetHelper, connect_network_with_dataset
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
-from mindspore.common.parameter import ParameterTuple
+from mindspore import ParameterTuple
 from mindspore.dataset.vision import Inter
-from mindspore.nn.wrap.cell_wrapper import WithLossCell
+from mindspore.nn import WithLossCell
 import mindspore.ops as ops
 
 
@@ -311,10 +311,10 @@ import mindspore.dataset.transforms.c_transforms as CT
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.nn as nn
 from mindspore import context, Model
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 import mindspore.ops as ops
 from mindspore.train.callback import LossMonitor
 

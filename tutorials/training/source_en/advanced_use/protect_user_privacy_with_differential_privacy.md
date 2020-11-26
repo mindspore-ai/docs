@@ -67,7 +67,7 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 
 from mindarmour.privacy.diff_privacy import DPModel
 from mindarmour.privacy.diff_privacy import PrivacyMonitorFactory

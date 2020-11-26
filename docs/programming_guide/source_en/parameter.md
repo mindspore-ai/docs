@@ -44,7 +44,7 @@ In the following example, `Parameter` objects are built using three different da
 ```python
 import numpy as np
 from mindspore import Tensor, Parameter
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
 x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
@@ -160,7 +160,7 @@ The following example builds a `ParameterTuple` object and clones it.
 ```python
 import numpy as np
 from mindspore import Tensor, Parameter, ParameterTuple
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
 x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")

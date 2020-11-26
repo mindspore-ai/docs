@@ -118,7 +118,7 @@ composite提供了一些算子的组合，包括clip_by_value和random相关的�
 算子的组合可以直接像一般函数一样使用，例如使用`normal`生成一个随机分布：
 
 ```python
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.ops import composite as C
 from mindspore import Tensor
 
@@ -755,7 +755,7 @@ print(out)
 from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 
 def hook_fn(grad_out):
     print(grad_out)

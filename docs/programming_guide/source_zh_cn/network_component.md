@@ -33,7 +33,7 @@ import numpy as np
 
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.ops as ops
 
 

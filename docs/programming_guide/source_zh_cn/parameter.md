@@ -45,7 +45,7 @@ mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=
 ```python
 import numpy as np
 from mindspore import Tensor, Parameter
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
 x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
@@ -162,7 +162,7 @@ Parameter (name=x)
 ```python
 import numpy as np
 from mindspore import Tensor, Parameter, ParameterTuple
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
 x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")

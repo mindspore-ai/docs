@@ -62,12 +62,12 @@ from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.train.callback import ModelCheckpoint
 from mindspore.train.callback import CheckpointConfig
 from mindspore.train.callback import LossMonitor
-from mindspore.nn.metrics import Accuracy
+from mindspore.nn import Accuracy
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 
 from mindarmour.privacy.diff_privacy import DPModel
 from mindarmour.privacy.diff_privacy import NoiseMechanismsFactory

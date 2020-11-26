@@ -16,7 +16,7 @@
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.common.tensor import Tensor
+from mindspore import Tensor
 
 
 def _weight_variable(shape, factor=0.01):

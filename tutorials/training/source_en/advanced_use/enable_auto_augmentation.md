@@ -57,7 +57,7 @@ Add Auto Augmentation transformation after the `RandomCropDecodeResize` as follo
 1. Import related modules.
 
     ```python
-    import mindspore.common.dtype as mstype
+    from mindspore import dtype as mstype
     import mindspore.dataset.engine as de
     import mindspore.dataset.vision.c_transforms as c_vision
     import mindspore.dataset.transforms.c_transforms as c_transforms

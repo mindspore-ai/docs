@@ -77,9 +77,9 @@ They are different implementations of `learning_rate_schedule`.
 For example, the code example of the ExponentialDecayLR class is as follows:
 
 ```python
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import Tensor
-from mindspore.nn.learning_rate_schedule import ExponentialDecayLR
+from mindspore.nn import ExponentialDecayLR
 
 def test_learning_rate_schedule():
     learning_rate = 0.1    # learning_rate(float) - The initial value of learning rate.
@@ -159,8 +159,8 @@ For example, the code example of `SGD` is as follows:
 from mindspore import nn, Model, Tensor
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
-from mindspore.common.parameter import Parameter
+from mindspore import dtype as mstype
+from mindspore import Parameter
 
 class Net(nn.Cell):
     def __init__(self):

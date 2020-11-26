@@ -19,12 +19,12 @@ import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV
 import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import nn, Model, context
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, Callback
-from mindspore.nn.metrics import Accuracy
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+from mindspore.nn import Accuracy
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
 
 def create_dataset(data_path, batch_size=32, repeat_size=1, num_parallel_workers=1):

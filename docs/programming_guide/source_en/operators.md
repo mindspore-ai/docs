@@ -116,7 +116,7 @@ The composite API provides some operator combinations, including some operators 
 The operator combination can be directly used as a common function. For example, use `normal` to generate a random distribution:
 
 ```python
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore.ops import composite as C
 from mindspore import Tensor
 
@@ -757,7 +757,7 @@ Displays the gradient of intermediate variables. It is a common operator. Curren
 from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 
 def hook_fn(grad_out):
     print(grad_out)

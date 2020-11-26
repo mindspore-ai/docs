@@ -44,7 +44,7 @@ In the `construct` method, `x` is the input data, and `output` is the result obt
 ```python
 import mindspore.nn as nn
 from mindspore.ops import operations as P
-from mindspore.common.parameter import Parameter
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
@@ -164,7 +164,7 @@ Reanalyze the case of the `construct` method described above. This case is the s
 ```python
 import mindspore.nn as nn
 from mindspore.ops import operations as P
-from mindspore.common.parameter import Parameter
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
