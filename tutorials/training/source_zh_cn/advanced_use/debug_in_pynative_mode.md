@@ -118,7 +118,7 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
 import mindspore.ops as ops
-from mindspore.common.api import ms_function
+from mindspore import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -162,7 +162,7 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
 import mindspore.ops as ops
-from mindspore.common.api import ms_function
+from mindspore import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -196,7 +196,7 @@ print(z.asnumpy())
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor
-from mindspore.common.api import ms_function
+from mindspore import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
@@ -257,7 +257,7 @@ PyNative模式下，还可以支持单独求梯度的操作。如下例所示，
 ```python
 import mindspore.ops as ops
 import mindspore.context as context
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import Tensor
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
@@ -285,7 +285,7 @@ print(mainf(Tensor(1, mstype.int32), Tensor(2, mstype.int32)))
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import context, Tensor, ParameterTuple
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.nn import Dense, WithLossCell, SoftmaxCrossEntropyWithLogits, Momentum

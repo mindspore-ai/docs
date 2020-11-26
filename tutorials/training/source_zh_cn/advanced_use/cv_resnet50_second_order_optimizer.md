@@ -117,7 +117,7 @@ GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.minds
 
 ```python
 import os
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset.engine as de
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2

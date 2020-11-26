@@ -18,7 +18,7 @@ The sample can be run on Ascend 910 AI processor.
 import os
 import random
 import argparse
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2

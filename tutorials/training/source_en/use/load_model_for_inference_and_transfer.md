@@ -84,7 +84,7 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
    import mindspore_hub as mshub
    import mindspore
    from mindspore import context, Tensor, nn, Model
-   from mindspore.common import dtype as mstype
+   from mindspore import dtype as mstype
    import mindspore.dataset.vision.py_transforms as py_transforms
 
    context.set_context(mode=context.GRAPH_MODE,
@@ -117,7 +117,7 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
    import mindspore
    from mindspore import nn, context, Tensor
    from mindspore import save_checkpoint
-   from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
+   from mindspore.nn import SoftmaxCrossEntropyWithLogits
    import mindspore.ops as ops
    from mindspore.nn import Momentum
 

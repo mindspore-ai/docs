@@ -151,7 +151,7 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 
 ```python
 from mindspore import context, Tensor, nn
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.ops as ops
 from mindspore.nn import Optimizer
 

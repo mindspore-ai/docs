@@ -184,7 +184,7 @@ A code example is as follows:
 import numpy as np
 
 import mindspore.nn as nn
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import Tensor, context
 import mindspore.ops as ops
 from mindspore.nn import WithLossCell, TrainOneStepCell

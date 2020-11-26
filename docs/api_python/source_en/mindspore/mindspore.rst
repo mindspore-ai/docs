@@ -10,12 +10,6 @@ mindspore
   
   .. code-block::
   
-      import mindspore.common.dtype as mstype
-      
-  or
-  
-  .. code-block::
-  
       from mindspore import dtype as mstype
   
   * **Numeric Type**

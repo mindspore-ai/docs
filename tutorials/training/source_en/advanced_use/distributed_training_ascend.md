@@ -133,7 +133,7 @@ In the preceding code:
 During distributed training, data is imported in data parallel mode. The following takes the CIFAR-10 dataset as an example to describe how to import the CIFAR-10 dataset in data parallel mode. `data_path` indicates the dataset path, which is also the path of the `cifar-10-batches-bin` folder.
 
 ```python
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as vision
@@ -198,7 +198,7 @@ In the following example, specify the `self.weight` as the `layerwise_parallel`,
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class HybridParallelNet(nn.Cell):
@@ -227,7 +227,7 @@ In the above example `HybridParallelNet`, the script in semi auto parallel mode 
 ```python
 from mindspore import Tensor
 import mindspore.ops as ops
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SemiAutoParallelNet(nn.Cell):
@@ -261,7 +261,7 @@ In the loss function, the `SoftmaxCrossEntropyWithLogits` is expanded into multi
 ```python
 import mindspore.ops as ops
 from mindspore import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
 
 class SoftmaxCrossEntropyExpand(nn.Cell):

@@ -313,7 +313,7 @@ The following is a code example:
 
 ```python
 imoprt numpy as np
-from mindspore.common import Parameter, Tensor
+from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
 ```

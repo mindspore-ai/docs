@@ -149,7 +149,7 @@ The sample code is as follows:
 
 ```python
 from mindspore import context, Tensor, nn
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.ops as ops
 from mindspore.nn import Optimizer
 

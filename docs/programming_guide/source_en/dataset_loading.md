@@ -289,7 +289,7 @@ The following example uses the `TFRecordDataset` API to load TFRecord files and 
         Create a schema object, add user-defined fields to the schema object, and pass the schema object when creating a dataset object.
 
         ```python
-        import mindspore.common.dtype as mstype
+        from mindspore import dtype as mstype
         schema = ds.Schema()
         schema.add_column('image', de_type=mstype.uint8)
         schema.add_column('label', de_type=mstype.int32)

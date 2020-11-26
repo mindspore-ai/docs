@@ -291,7 +291,7 @@ TFRecord是TensorFlow定义的一种二进制数据文件格式。
         创建Schema对象，为其添加自定义字段，然后在创建数据集对象时传入。
 
         ```python
-        import mindspore.common.dtype as mstype
+        from mindspore import dtype as mstype
         schema = ds.Schema()
         schema.add_column('image', de_type=mstype.uint8)
         schema.add_column('label', de_type=mstype.int32)

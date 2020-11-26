@@ -84,7 +84,7 @@ model.train(epoch, dataset)
    import mindspore_hub as mshub
    import mindspore
    from mindspore import context, Tensor, nn, Model
-   from mindspore.common import dtype as mstype
+   from mindspore import dtype as mstype
    import mindspore.dataset.vision.py_transforms as py_transforms
 
    context.set_context(mode=context.GRAPH_MODE,

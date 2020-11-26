@@ -79,7 +79,7 @@ if __name__ == '__main__':
 例如ExponentialDecayLR类代码样例如下：
 
 ```python
-from mindspore.common import dtype as mstype
+from mindspore import dtype as mstype
 from mindspore import Tensor
 from mindspore.nn.learning_rate_schedule import ExponentialDecayLR
 
@@ -161,8 +161,8 @@ optim = nn.SGD([{'params': conv_params, 'weight_decay': 0.01},
 from mindspore import nn, Tensor, Model
 import mindspore.ops as ops
 import numpy as np
-import mindspore.common.dtype as mstype
-from mindspore.common.parameter import Parameter
+from mindspore import dtype as mstype
+from mindspore import Parameter
 
 class Net(nn.Cell):
     def __init__(self):

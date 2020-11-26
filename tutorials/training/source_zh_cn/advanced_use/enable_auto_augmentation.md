@@ -57,7 +57,7 @@ MindSpore算子和AutoAugment中的算子的对应关系如下：
 1. 引入MindSpore数据增强模块。
 
     ```python
-    import mindspore.common.dtype as mstype
+    from mindspore import dtype as mstype
     import mindspore.dataset.engine as de
     import mindspore.dataset.vision.c_transforms as c_vision
     import mindspore.dataset.transforms.c_transforms as c_transforms
