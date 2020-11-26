@@ -56,7 +56,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 - `Bernoulli`：伯努利分布。参数为试验成功的概率。
 
-- `Exponential`： 指数型分布。参数为率参数。
+- `Exponential`：指数型分布。参数为率参数。
 
 - `Geometric`：几何分布。参数为一次伯努利试验成功的概率。
 
@@ -102,7 +102,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性:
 
-- `Bernoulli.probs`：伯努利试验成功的概率。
+- `Bernoulli.probs`：返回伯努利试验成功的概率，类型为`Tensor`。
 
 `Distribution` 基类调用 `Bernoulli` 中私有接口以实现基类中的公有接口。`Bernoulli` 支持的公有接口为：
 
@@ -120,7 +120,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性:
 
-- `Exponential.rate`：率参数。
+- `Exponential.rate`：返回分布的率参数，类型为`Tensor`。
 
 `Distribution` 基类调用 `Exponential` 私有接口以实现基类中的公有接口。`Exponential` 支持的公有接口为：
 
@@ -138,7 +138,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性:
 
-- `Geometric.probs`：伯努利试验成功的概率。
+- `Geometric.probs`：返回伯努利试验成功的概率，类型为`Tensor`。
 
 `Distribution` 基类调用 `Geometric` 中私有接口以实现基类中的公有接口。`Geometric` 支持的公有接口为：
 
@@ -170,8 +170,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性:
 
-- `Uniform.low`：最小值。
-- `Uniform.high`：最大值。
+- `Uniform.low`：返回分布的最小值，类型为`Tensor`。
+- `Uniform.high`：返回分布的最大值，类型为`Tensor`。
 
 `Distribution` 基类调用 `Uniform` 以实现基类中的公有接口。`Uniform` 支持的公有接口为：
 
@@ -189,7 +189,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性:
 
-- `Categorical.probs`：各种类别的概率。
+- `Categorical.probs`：返回各种类别的概率，类型为`Tensor`。
 
 `Distribution` 基类调用 `Categorical` 以实现基类中的公有接口。`Categorical` 支持的公有接口为：
 
@@ -207,8 +207,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性：
 
-- `LogNormal.loc`：分布的位置参数。
-- `LogNormal.scale`：分布的规模参数。
+- `LogNormal.loc`：返回分布的位置参数，类型为`Tensor`。
+- `LogNormal.scale`：返回分布的规模参数，类型为`Tensor`。
 
 `Distribution` 基类调用 `LogNormal`及 `TransformedDistribution` 中私有接口以实现基类中的公有接口。`LogNormal` 支持的公有接口为：
 
@@ -226,8 +226,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性：
 
-- `Cauchy.loc`：分布的位置参数。
-- `Cauchy.scale`：分布的规模参数。
+- `Cauchy.loc`：返回分布的位置参数，类型为`Tensor`。
+- `Cauchy.scale`：返回分布的规模参数，类型为`Tensor`。
 
 `Distribution` 基类调用 `Cauchy` 中私有接口以实现基类中的公有接口。`Cauchy` 支持的公有接口为：
 
@@ -244,8 +244,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性：
 
-- `Gumbel.loc`：分布的位置参数。
-- `Gumbel.scale`：分布的规模参数。
+- `Gumbel.loc`：返回分布的位置参数，类型为`Tensor`。
+- `Gumbel.scale`：返回分布的规模参数，类型为`Tensor`。
 
 `Distribution` 基类调用 `Gumbel` 中私有接口以实现基类中的公有接口。`Gumbel` 支持的公有接口为：
 
@@ -263,8 +263,8 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 属性：
 
-- `Logistic.loc`：分布的位置参数。
-- `Logistic.scale`：分布的规模参数。
+- `Logistic.loc`：返回分布的位置参数，类型为`Tensor`。
+- `Logistic.scale`：返回分布的规模参数，类型为`Tensor`。
 
 `Distribution` 基类调用 `logistic` 中私有接口以实现基类中的公有接口。`Logistic` 支持的公有接口为：
 
@@ -363,11 +363,11 @@ kl: 0.5
 
 `TransformedDistribution` 继承自 `Distribution` ，是可通过映射f(x)变化得到的数学分布的基类。其接口包括：
 
-1. 类特征函数
+1. 属性
 
-    - `bijector`：无参函数，返回分布的变换方法。
-    - `distribution`：无参函数，返回原始分布。
-    - `is_linear_transformation`：无参函数，返回线性变换标志。
+    - `bijector`：返回分布的变换方法。
+    - `distribution`：返回原始分布。
+    - `is_linear_transformation`：返回线性变换标志。
 
 2. 接口函数（以下接口函数的参数与构造函数中 `distribution` 的对应接口的参数相同）。
 
@@ -509,12 +509,12 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `Bijector` 类是所有概率分布映射的基类。其接口包括：
 
-1. 类特征函数
-    - `name`：无参函数，返回 `name` 的值。
-    - `is_dtype`：无参函数，返回 `dtype` 的值。
-    - `parameter`：无参函数，返回 `parameter` 的值。
-    - `is_constant_jacobian`：无参函数，返回 `is_constant_jacobian` 的值。
-    - `is_injective`：无参函数，返回 `is_injective` 的值。
+1. 属性
+    - `name`：返回 `name` 的值。
+    - `is_dtype`：返回 `dtype` 的值。
+    - `parameter`：返回 `parameter` 的值。
+    - `is_constant_jacobian`：返回 `is_constant_jacobian` 的值。
+    - `is_injective`：返回 `is_injective` 的值。
 
 2. 映射函数
     - `forward`：正向映射，创建派生类后由派生类的 `_forward` 决定参数。
@@ -528,8 +528,8 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `PowerTransform` 做如下变量替换：`Y = g(X) = {(1 + X * power)}^{1 / power}`。其接口包括：
 
-1. 类特征函数
-    - `power`：无参函数，返回 `power` 的值。
+1. 属性
+    - `power`：返回 `power` 的值，类型为`Tensor`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
@@ -552,9 +552,9 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `ScalarAffine` 做如下变量替换：`Y = g(X) = scale * X + shift`。其接口包括：
 
-1. 类特征函数
-    - `scale`：无参函数，返回经过广播后的`scale`的值，类型为`Tensor`。
-    - `shift`：无参函数，返回经过广播后的`shift`的值，类型为`Tensor`。
+1. 属性
+    - `scale`：返回`scale`的值，类型为`Tensor`。
+    - `shift`：返回`shift`的值，类型为`Tensor`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
@@ -566,8 +566,8 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `Softplus` 做如下变量替换：`Y = g(X) = log(1 + e ^ {sharpness * X}) / sharpness`。其接口包括：
 
-1. 类特征函数
-    - `sharpness`：无参函数，返回 `sharpness` 的值。
+1. 属性
+    - `sharpness`：返回 `sharpness` 的值，类型为`Tensor`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
@@ -579,9 +579,9 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `GumbelCDF` 做如下变量替换：$Y = g(X) = \exp(-\exp(-\frac{X - loc}{scale}))$。其接口包括：
 
-1. 类特征函数
-    - `loc`：无参函数，返回经过广播后的`loc`的值，类型为`Tensor`。
-    - `scale`：无参函数，返回经过广播后的`scale`的值，类型为`Tensor`。
+1. 属性
+    - `loc`：返回`loc`的值，类型为`Tensor`。
+    - `scale`：返回`scale`的值，类型为`Tensor`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
@@ -593,8 +593,8 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 `Invert` 对一个映射做逆变换，其接口包括：
 
-1. 类特征函数
-    - `bijector`：无参函数，返回初始化时使用的*Bijector*，类型为`Bijector`。
+1. 属性
+    - `bijector`：返回初始化时使用的*Bijector*，类型为`Bijector`。
 
 2. 映射函数
     - `forward`：正向映射，输入为 `Tensor` 。
