@@ -19,3 +19,9 @@ A：MindInsight启动后，会变成一个后台服务。卸载MindInsight后，
 
 - 重新安装MindInsight，并使用`mindinsight stop --port <PORT>`命令停止已启动的MindInsight后台服务。
 - 通过`kill -9 <PID>`命令，将MindInsight涉及的相关进程杀死。
+
+<br />
+
+Q：MindInsight成功启动后，在谷歌浏览器中访问时，提示：`ERR_UNSAFE_PORT` 如何处理？
+
+A：谷歌浏览器内核禁止将某些端口作为`HTTP`服务，你需要在谷歌浏览器的属性中新增配置`--explicitly-allowed-ports=port`。或者，你可以更换端口或者更换为IE浏览器。
