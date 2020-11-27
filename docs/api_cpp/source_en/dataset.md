@@ -6,6 +6,8 @@
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
 ## Functions of image_process.h
 
 ### ResizeBilinear
@@ -411,3 +413,38 @@ A function to count the number of times the function is referenced.
 
     - `p`: Point to the referenced object.
     - `value`: Value added when quoted.
+
+## Operators related to device-side training
+
+### Resize
+
+```cpp
+std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear)
+```
+
+Resize the input image to the given size.
+
+- Parameters
+
+    - `size`: Representing the output size of the resized image. If size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
+    - `interpolation`: An enumeration for the mode of interpolation.
+
+- Returns
+
+    Return a Resize operator.
+
+### CenterCrop
+
+```cpp
+std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
+```
+
+Crops the input image at the center to the given size.
+
+- Parameters
+
+    - `size`: Representing the output size of the resized image. If size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
+
+- Returns
+
+    Return a CenterCrop operator.
