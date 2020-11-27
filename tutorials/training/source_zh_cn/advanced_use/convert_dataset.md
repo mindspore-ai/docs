@@ -13,7 +13,7 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/convert_dataset_to_mindrecord/mindspore_convert_dataset_to_mindrecord.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/convert_dataset_to_mindrecord/mindspore_convert_dataset_to_mindrecord.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
