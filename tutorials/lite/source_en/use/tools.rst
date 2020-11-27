@@ -1,7 +1,8 @@
-转换模型
+Other Tools
 ========================
 
 .. toctree::
   :maxdepth: 1
 
-  converter_tool
+  benchmark_tool
+  cropper_tool

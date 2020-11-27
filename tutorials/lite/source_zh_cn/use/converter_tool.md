@@ -1,8 +1,8 @@
-# 转换为MindSpore Lite模型
+# 推理模型转换
 
 <!-- TOC -->
 
-- [转换为MindSpore Lite模型](#转换为mindspore-lite模型)
+- [推理模型转换](#推理模型转换)
     - [概述](#概述)
     - [Linux环境使用说明](#linux环境使用说明)
         - [环境准备](#环境准备)

@@ -20,6 +20,6 @@ Using MindSpore on Mobile and IoT
 
    use/preparation
    use/convert_model
-   use/evaluating_the_model
    use/data_preprocessing
    use/runtime
+   use/tools

@@ -10,11 +10,15 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 
 ### 构造函数和析构函数
 
+#### LiteSession
+
 ```cpp
 LiteSession()
 ```
 
 MindSpore Lite LiteSession的构造函数，使用默认参数。
+
+#### ~LiteSession
 
 ```cpp
 ~LiteSession()
@@ -23,6 +27,8 @@ MindSpore Lite LiteSession的构造函数，使用默认参数。
 MindSpore Lite LiteSession的析构函数。
 
 ### 公有成员函数
+
+#### BindThread
 
 ```cpp
 virtual void BindThread(bool if_bind)
@@ -33,6 +39,8 @@ virtual void BindThread(bool if_bind)
 - 参数
 
     - `if_bind`: 定义了对线程进行绑定或解绑。
+
+#### CompileGraph
 
 ```cpp
 virtual int CompileGraph(lite::Model *model)
@@ -50,6 +58,8 @@ virtual int CompileGraph(lite::Model *model)
 
     STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
+#### GetInputs
+
 ```cpp
 virtual std::vector <tensor::MSTensor *> GetInputs() const
 ```
@@ -59,6 +69,8 @@ virtual std::vector <tensor::MSTensor *> GetInputs() const
 - 返回值
 
     MindSpore Lite MSTensor向量。
+
+#### GetInputsByName
 
 ```cpp
 mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
@@ -73,6 +85,8 @@ mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
 - 返回值
 
     MindSpore Lite MSTensor。
+
+#### RunGraph
 
 ```cpp
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
@@ -91,6 +105,8 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
     STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
+#### GetOutputsByNodeName
+
 ```cpp
 virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const
 ```
@@ -105,6 +121,8 @@ virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string 
 
     MindSpore Lite MSTensor向量。
 
+#### GetOutputs
+
 ```cpp
 virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputs() const
 ```
@@ -115,6 +133,8 @@ virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutpu
 
     包含输出张量名和MindSpore Lite MSTensor的容器类型变量。
 
+#### GetOutputTensorNames
+
 ```cpp
 virtual std::vector <std::string> GetOutputTensorNames() const
 ```
@@ -124,6 +144,8 @@ virtual std::vector <std::string> GetOutputTensorNames() const
 - 返回值
 
     字符串向量，其中包含了按顺序排列的输出张量名。
+
+#### GetOutputByTensorName
 
 ```cpp
 virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const
@@ -138,6 +160,8 @@ virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &te
 - 返回值
 
     指向MindSpore Lite MSTensor的指针。
+
+#### Resize
 
 ```cpp
 virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims)
@@ -155,6 +179,8 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
     STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 ### 静态公有成员函数
+
+#### CreateSession
 
 ```cpp
 static LiteSession *CreateSession(const lite::Context *context)
@@ -186,4 +212,4 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 - 返回值
 
-    指向MindSpore Lite LiteSession的指针。    
+    指向MindSpore Lite LiteSession的指针。

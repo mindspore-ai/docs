@@ -1,8 +1,7 @@
-Converting Into The MindSpore Lite Model
+Converting Models
 =========================================
 
 .. toctree::
   :maxdepth: 1
 
   converter_tool
-  post_training_quantization

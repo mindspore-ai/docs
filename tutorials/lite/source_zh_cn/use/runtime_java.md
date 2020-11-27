@@ -50,6 +50,8 @@ Android项目中使用MindSpore Lite，可以选择采用C++ APIs或者Java APIs
 7. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
 8. 释放内存：无需使用MindSpore Lite推理框架的时候，需要将创建的`session`和`model`进行释放。
 
+> 更多Java API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)。
+
 ### 加载模型
 
 MindSpore Lite进行模型推理时，需要先从文件系统中加载模型转换工具转换后的`.ms`模型，并进行模型解析。Java的`Model`类提供了loadModel，使其可以从`Assets`或其他文件路径中加载模型。
@@ -142,9 +144,9 @@ if (!session.runGraph()) {
 推理结束之后，可以通过输出Tensor得到推理结果。目前输出tensor支持的数据类型包括`float`、`int`、`long`、`byte`。
 
 - 获得输出Tensor的方法有三种：
-  - 使用`getOutputMapByTensor`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
-  - 使用`GetOutputsByNodeName`方法，根据模型输出节点的名称来获取模型输出`MSTensor`中连接到该节点的Tensor的vector。
-  - 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
+    - 使用`getOutputMapByTensor`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
+    - 使用`GetOutputsByNodeName`方法，根据模型输出节点的名称来获取模型输出`MSTensor`中连接到该节点的Tensor的vector。
+    - 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
 
 ```java
 // Get output tensor values.
@@ -158,7 +160,7 @@ for (String tensorName : tensorNames) {
         return;
     }
     float[] results = output.getFloatData();
-    
+
     // Apply infer results.
     ……
 }

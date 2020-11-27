@@ -20,6 +20,7 @@
 
    use/preparation
    use/convert_model
-   use/evaluating_the_model
+   use/post_training_quantization
    use/data_preprocessing
    use/runtime
+   use/tools

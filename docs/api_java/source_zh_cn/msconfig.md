@@ -29,10 +29,10 @@ public boolean init(int deviceType, int threadNum, int cpuBindMode, boolean enab
 
 - 参数
 
-  - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
-  - `threadNum`: 线程数。
-  - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
-  - `enable_float16`：是否优先使用float16算子。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
+    - `threadNum`: 线程数。
+    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
+    - `enable_float16`：是否优先使用float16算子。
 
 - 返回值
 

@@ -1,8 +1,8 @@
-# Converting into the MindSpore Lite Model
+# Converting Models
 
 <!-- TOC -->
 
-- [Converting into the MindSpore Lite Model](#converting-into-the-mindspore-lite-model)
+- [Converting Models](#converting-models)
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)

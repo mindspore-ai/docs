@@ -18,14 +18,18 @@ A **struct**. CallBackParam defines input arguments for callback function.
 
 ### Public Attributes
 
+#### node_name
+
 ```cpp
 node_name
 ```
 
 A **string** variable. Node name argument.
 
+#### node_type
+
 ```cpp
 node_type
 ```
 
-A **string** variable. Node type argument. 
+A **string** variable. Node type argument.
