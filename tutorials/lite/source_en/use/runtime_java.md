@@ -50,6 +50,8 @@ Using MindSpore Lite in the Android project, you can choose to use C++ APIs or J
 7. Getting output: After the execution of the graph is finished, the inference result can be obtained by output Tensor.
 8. Releasing memory: When you finishing using the MindSpore Lite inference framework, you need to release the created `session` and `model`.
 
+> For more details for Java API, please refer to [API Docs](https://www.mindspore.cn/doc/api_java/en/master/index.html).
+
 ### Loading Model
 
 When MindSpore Lite runs model inference, it is necessary to load the `.ms` model converted by the model conversion tool from the file system and perform model analysis.  `Model` class provides loadModel so that it can load models from `Assets` or other file paths.

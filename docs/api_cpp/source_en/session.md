@@ -10,11 +10,15 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 
 ### Constructors & Destructors
 
+#### LiteSession
+
 ```cpp
 LiteSession()
 ```
 
 Constructor of MindSpore Lite LiteSession using default value for parameters.
+
+#### ~LiteSession
 
 ```cpp
 ~LiteSession()
@@ -23,6 +27,8 @@ Constructor of MindSpore Lite LiteSession using default value for parameters.
 Destructor of MindSpore Lite LiteSession.
 
 ### Public Member Functions
+
+#### BindThread
 
 ```cpp
 virtual void BindThread(bool if_bind)
@@ -33,6 +39,8 @@ Attempt to bind or unbind threads in the thread pool to or from the specified cp
 - Parameters
 
     - `if_bind`: Define whether to bind or unbind threads.
+
+#### CompileGraph
 
 ```cpp
 virtual int CompileGraph(lite::Model *model)
@@ -50,6 +58,8 @@ Compile MindSpore Lite model.
 
     STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
+#### GetInputs
+
 ```cpp
 virtual std::vector <tensor::MSTensor *> GetInputs() const
 ```
@@ -59,6 +69,8 @@ Get input MindSpore Lite MSTensors of model.
 - Returns
 
     The vector of MindSpore Lite MSTensor.
+
+#### GetInputsByName
 
 ```cpp
 mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
@@ -73,6 +85,8 @@ Get input MindSpore Lite MSTensors of model by tensor name.
 - Returns
 
     MindSpore Lite MSTensor.
+
+#### RunGraph
 
 ```cpp
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr)
@@ -91,6 +105,8 @@ Run session with callback.
 
     STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
+#### GetOutputsByNodeName
+
 ```cpp
 virtual std::vector <tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const
 ```
@@ -105,6 +121,8 @@ Get output MindSpore Lite MSTensors of model by node name.
 
     The vector of MindSpore Lite MSTensor.
 
+#### GetOutputs
+
 ```cpp
 virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputs() const
 ```
@@ -115,6 +133,8 @@ Get output MindSpore Lite MSTensors of model mapped by tensor name.
 
     The map of output tensor name and MindSpore Lite MSTensor.
 
+#### GetOutputTensorNames
+
 ```cpp
 virtual std::vector <std::string> GetOutputTensorNames() const
 ```
@@ -124,6 +144,8 @@ Get name of output tensors of model compiled by this session.
 - Returns
 
     The vector of string as output tensor names in order.
+
+#### GetOutputByTensorName
 
 ```cpp
 virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const
@@ -139,6 +161,8 @@ Get output MindSpore Lite MSTensors of model by tensor name.
 
     Pointer of MindSpore Lite MSTensor.
 
+#### GetOutputByTensorName
+
 ```cpp
 virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const
 ```
@@ -152,6 +176,8 @@ Get output MindSpore Lite MSTensors of model by tensor name.
 - Returns
 
   Pointer of MindSpore Lite MSTensor.
+
+#### Resize
 
 ```cpp
 virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::vector<std::vector<int>> &dims)
@@ -170,6 +196,8 @@ Resize inputs shape.
     STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
 ### Static Public Member Functions
+
+#### CreateSession
 
 ```cpp
 static LiteSession *CreateSession(const lite::Context *context)
@@ -197,8 +225,8 @@ Static method to create a LiteSession pointer which has already compiled a model
 
     - `size`: variable. Define bytes number of model buffer.
 
-    - `context`: Define the context of session to be created.    
+    - `context`: Define the context of session to be created.
 
 - Returns
 
-    Pointer of MindSpore Lite LiteSession.    
+    Pointer of MindSpore Lite LiteSession.

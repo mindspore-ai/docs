@@ -17,13 +17,13 @@
 <h2>Basic Use</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/build.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/preparation.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Step 1: Building MindSpore Lite</span>
+                    <span style="color:#1a1c33;">Obtaining MindSpore Lite</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                This tutorial introduces how to quickly compile MindSpore Lite.
+                This tutorial introduces how to quickly download or compile MindSpore Lite.
                 </div>
             </div>
         </a>
@@ -32,7 +32,7 @@
         <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/convert_model.html" style="display:block;text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Step 2: Converting Into The MindSpore Lite Model</span>
+                    <span style="color:#1a1c33;">Converting Models</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 MindSpore Lite provides a tool for offline model conversion. It supports conversion of multiple types of models. The converted models can be used for inference.
@@ -41,22 +41,10 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/evaluating_the_model.html" style="display:block; text-decoration:none">
-            <div>
-                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Step 3: Evaluating MindSpore Lite Model (optional)</span>
-                </div>
-                <div style="font-size:0.9rem; color:#333">
-                After model conversion and before the inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model.
-                </div>
-            </div>
-        </a>
-    </div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
         <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/image_processing.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Step 4: Preprocessing Image Data</span>
+                    <span style="color:#1a1c33;">Preprocessing Image Data</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 Eliminate irrelevant information in the image, restore useful real information, enhance the detectability of related information and simplify data to the greatest extent, thereby improving the reliability of feature extraction, image segmentation, matching and recognition.
@@ -68,10 +56,23 @@
         <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">Step 5: Using Runtime for Model Inference</span>
+                    <span style="color:#1a1c33;">Executing Model Inference</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime.
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/tools.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">Other Tools</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                MindSpore Lite provides Benchmark tool for benchmarking, and cropping tool to reduce library file size.
                 </div>
             </div>
         </a>
@@ -96,10 +97,22 @@
         <a href="https://www.mindspore.cn/doc/api_cpp/en/master/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">MindSpore Lite API</span>
+                    <span style="color:#1a1c33;">MindSpore Lite C++ API</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                This document introduces the API provided by MindSpore Lite.
+                This document introduces the C++ API provided by MindSpore Lite.
+                </div>
+            </div>
+        </a>
+    </div>
+        <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
+        <a href="https://www.mindspore.cn/doc/api_java/en/master/index.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">MindSpore Lite Java API</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                This document introduces the Java API provided by MindSpore Lite.
                 </div>
             </div>
         </a>

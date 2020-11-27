@@ -10,6 +10,8 @@ MSTensor定义了MindSpore Lite中的张量。
 
 ### 构造函数和析构函数
 
+#### MSTensor
+
 ```cpp
 MSTensor()
 ```
@@ -20,6 +22,8 @@ MindSpore Lite MSTensor的构造函数。
 
     MindSpore Lite MSTensor的实例。
 
+#### ~MSTensor
+
 ```cpp
 virtual ~MSTensor()
 ```
@@ -27,6 +31,8 @@ virtual ~MSTensor()
 MindSpore Lite Model的析构函数。
 
 ### 公有成员函数
+
+#### data_type
 
 ```cpp
 virtual TypeId data_type() const
@@ -40,6 +46,8 @@ virtual TypeId data_type() const
 
     MindSpore Lite MSTensor类的MindSpore Lite TypeId。
 
+#### shape
+
 ```cpp
 virtual std::vector<int> shape() const
 ```
@@ -49,6 +57,8 @@ virtual std::vector<int> shape() const
 - 返回值
 
     一个包含MindSpore Lite MSTensor形状数值的整型向量。
+
+#### DimensionSize
 
 ```cpp
 virtual int DimensionSize(size_t index) const
@@ -64,6 +74,8 @@ virtual int DimensionSize(size_t index) const
 
     MindSpore Lite MSTensor的维度的大小。
 
+#### ElementsNum
+
 ```cpp
 virtual int ElementsNum() const
 ```
@@ -74,6 +86,8 @@ virtual int ElementsNum() const
 
     MSTensor中的元素个数
 
+#### Size
+
 ```cpp
 virtual size_t Size() const
 ```
@@ -83,6 +97,8 @@ virtual size_t Size() const
 - 返回值
 
     MSTensor中的数据的字节数大小。
+
+#### MutableData
 
 ```cpp
 virtual void *MutableData() const

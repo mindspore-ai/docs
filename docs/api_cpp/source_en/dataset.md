@@ -319,6 +319,8 @@ LiteMat(int width, int height, int channel, LDataType data_type = LDataType::UIN
 
 Constructor of MindSpore dataset LiteMat using default value of parameters.
 
+#### ~LiteMat
+
 ```cpp
 ~LiteMat();
 ```
@@ -384,6 +386,8 @@ void AlignFree(void *ptr)
 ```
 
 A function to release pointer memory.
+
+#### InitElemSize
 
 ```cpp
 void InitElemSize(LDataType data_type)

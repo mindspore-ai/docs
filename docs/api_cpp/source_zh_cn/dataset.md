@@ -397,6 +397,8 @@ void InitElemSize(LDataType data_type)
 
     - `data_type`: 数据的类型。
 
+#### addRef
+
 ```cpp
  int addRef(int *p, int value)
 ```

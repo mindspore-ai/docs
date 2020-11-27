@@ -55,6 +55,8 @@ Its components and their functions are described as follows:
 - `Kernel`: operator, which provides specific operator implementation and the operator forwarding function.
 - `Tensor`: tensor used by MindSpore Lite, which provides functions and APIs for tensor memory operations.
 
+> For more details for C++ API, please refer to [API Docs](https://www.mindspore.cn/doc/api_cpp/en/master/index.html).
+
 ## Reading Models
 
 In MindSpore Lite, a model file is an `.ms` file converted using the model conversion tool. During model inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the Model component. The Model component holds model data such as weight data and operator attributes.

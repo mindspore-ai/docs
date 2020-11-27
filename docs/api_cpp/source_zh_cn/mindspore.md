@@ -18,11 +18,15 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 
 ### 公有属性
 
+#### node_name
+
 ```cpp
 node_name
 ```
 
 **string** 类型变量。节点名参数。
+
+#### node_type
 
 ```cpp
 node_type

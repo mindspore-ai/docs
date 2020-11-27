@@ -55,6 +55,8 @@ Runtime总体使用流程如下图所示：
 - `Kernel`：算子库提供算子的具体实现，提供算子forward的能力。
 - `Tensor`：MindSpore Lite使用的Tensor，提供了Tensor内存操作的功能和接口。
 
+> 更多C++ API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+
 ## 读取模型
 
 在MindSpore Lite中，模型文件是从模型转换工具转换得到的`.ms`文件。进行模型推理时，需要从文件系统加载模型，并进行模型解析，这部分操作主要在Model中实现。Model持有权重数据、算子属性等模型数据。
