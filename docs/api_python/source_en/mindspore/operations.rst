@@ -42,6 +42,7 @@ Neural Network Operators
     mindspore.ops.DropoutDoMask
     mindspore.ops.DropoutGenMask
     mindspore.ops.Elu
+    mindspore.ops.FastGelu
     mindspore.ops.Flatten
     mindspore.ops.FloorMod
     mindspore.ops.FusedBatchNorm
@@ -261,6 +262,7 @@ Array Operators
     mindspore.ops.SpaceToDepth
     mindspore.ops.SparseApplyFtrl
     mindspore.ops.SparseApplyFtrlV2
+    mindspore.ops.SparseGatherV2
     mindspore.ops.Split
     mindspore.ops.Squeeze
     mindspore.ops.StridedSlice
@@ -333,6 +335,7 @@ Random Operators
     mindspore.ops.RandomChoiceWithMask
     mindspore.ops.StandardLaplace
     mindspore.ops.StandardNormal
+    mindspore.ops.UniformCandidateSampler
     mindspore.ops.UniformInt
     mindspore.ops.UniformReal
 
