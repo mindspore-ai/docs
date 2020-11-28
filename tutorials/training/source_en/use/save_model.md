@@ -111,13 +111,11 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.mindir', file_format='MINDIR')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
-It is recommended to use '.mindir' as the suffix of MINDIR format files.
-
-> `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
-> eg: `export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`.
+> - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`.
+> - The suffix ".mindir" is automatically added to the exported file name.
 
 ## Export AIR Model
 
@@ -133,17 +131,15 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 Before using the `export` interface, you need to import`mindspore.train.serialization`.
 
 The `input` parameter is used to specify the input shape and the data type of the exported model.
 
-It is recommended to use '.air' as the suffix of AIR format files.
-
-> `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
-> eg: `export(network, Tensor(input1), Tensor(input2), file_name='network.air', file_format='AIR')`.
+> - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`.
+> - The suffix ".air" is automatically added to the exported file name.
 
 ## Export ONNX Model
 
@@ -159,10 +155,8 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
-It is recommended to use '.onnx' as the suffix of ONNX format files.
-
-> `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together.
-> eg: `export(network, Tensor(input1), Tensor(input2), file_name='network.onnx', file_format='ONNX')`.
+> - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`.
+> - The suffix ".onnx" is automatically added to the exported file name.
