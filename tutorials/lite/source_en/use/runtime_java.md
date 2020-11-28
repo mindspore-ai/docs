@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [Using Runtime for Model Inference (Java)](#using-runtime-for-model-inference-java)
+    - [Overview](#overview)
     - [Android project references AAR package](#android-project-references-aar-package)
     - [Running MindSpore Lite inference framework](#running-mindspore-lite-inference-framework)
         - [Loading Model](#loading-model)
@@ -18,6 +19,12 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_java.md" target="_blank"><img src="../../source_zh_cn/_static/logo_source.png"></a>
+
+## Overview
+
+After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java API to write inference code.
+
+> For more details for Java API, please refer to [API Docs](https://www.mindspore.cn/doc/api_java/en/master/index.html).
 
 ## Android project references AAR package
 
@@ -49,8 +56,6 @@ Using MindSpore Lite in the Android project, you can choose to use C++ APIs or J
 6. Graph execution: Run model inference using `runGraph` of `LiteSession`.
 7. Getting output: After the execution of the graph is finished, the inference result can be obtained by output Tensor.
 8. Releasing memory: When you finishing using the MindSpore Lite inference framework, you need to release the created `session` and `model`.
-
-> For more details for Java API, please refer to [API Docs](https://www.mindspore.cn/doc/api_java/en/master/index.html).
 
 ### Loading Model
 

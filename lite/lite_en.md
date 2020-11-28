@@ -64,8 +64,7 @@
             </div>
         </a>
     </div>
-</div>
-<div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
         <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/tools.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
