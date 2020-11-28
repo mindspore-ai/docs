@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_java.md" target="_blank"><img src="../../source_zh_cn/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
