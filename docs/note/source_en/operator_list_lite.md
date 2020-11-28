@@ -24,7 +24,7 @@
 | Conv2dTranspose       | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DeConv2D    | Deconvolution | ConvTranspose      |
 | Cos                   | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Cos         |               | Cos                |
 | Crop                  | Supported | Supported        | Supported        | Supported         |          |          |             |  Crop         |                    |
-| DeDepthwiseConv2D     |          | Supported        | Supported        | Supported         |          |          |             |  Deconvolution| ConvTranspose      |
+| DeDepthwiseConv2D     |          | Supported        | Supported        | Supported         |          |          |             |  Deconvolution|       |
 | DepthToSpace          |          | Supported        | Supported        | Supported         | Supported         | Supported         | DepthToSpace|               | DepthToSpace       |
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   |     |
 | DetectionPostProcess  |          | Supported        | Supported | Supported |                   |          | Custom |           |                 |
@@ -69,7 +69,7 @@
 | NotEqual              | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | NotEqual    |               |                    |
 | OneHot                |          | Supported        |          |           |          |          | OneHot      |               | OneHot                   |
 | Pad                   | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Pad, MirrorPad         |               | Pad                |
-| Pow                   |          | Supported        | Supported        | Supported         |          |         | Pow          | Power         | Pow              |
+| Pow                   |          | Supported        | Supported        | Supported         |          |         | Pow          | Power         | Pow<sup>[2]</sup>              |
 | PReLU                 |          | Supported        |          |           | Supported        | Supported        | PRELU       | PReLU         | PRelu             |
 | Range                 |          | Supported        |          |           |          |          | Range       |               |                    |
 | Rank                  |          | Supported        |          |           |          |          | Rank        |               |                    |
@@ -81,9 +81,9 @@
 | ReduceSum             | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Sum         | Reduction              | ReduceSum          |
 | ReduceSumSquare       | Supported        | Supported        | Supported        | Supported         |          |          |             |  Reduction             | ReduceSumSquare                   |
 | ReLU                  | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Relu        | ReLU          | Relu               |
-| ReLU6                 | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Relu6       | ReLU6         | Clip*              |
+| ReLU6                 | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Relu6       | ReLU6         | Clip<sup>[1]</sup>              |
 | Reshape               | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Reshape     | Reshape       | Reshape,Flatten    |
-| Resize                |          | Supported        | Supported        | Supported         | Supported         | Supported         | ResizeBilinear, NearestNeighbor | Interp        | Resize                   |
+| Resize                |          | Supported        | Supported        | Supported         | Supported         | Supported         | ResizeBilinear, NearestNeighbor | Interp        |                    |
 | Reverse               |          | Supported        |          |           |          |          | reverse     |               |                    |
 | ReverseSequence       |          | Supported        |          |           |          |          | ReverseSequence  |          |                    |
 | Round                 | Supported | Supported        | Supported        | Supported         | Supported        | Supported        | Round       |               | Round                   |
@@ -119,4 +119,6 @@
 | Where                 |          | Supported        |          |           |          |          |  Where      |               |                    |
 | ZerosLike             |          | Supported        |          |           |          |          | ZerosLike   |               |               |
 
-* Clip: only support convert clip(0, 6) to Relu6.
+[1] Clip: Only support converting clip(0, 6) to Relu6.
+
+[2] Pow: Only support the form where the exponent is a single constant.
