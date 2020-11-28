@@ -90,3 +90,58 @@ A：此问题为MindSpore动态加载集合通信库失败，可能原因如下�
 
 - 执行环境未安装分布式训练依赖的OpenMPI以及NCCL。
 - NCCL版本未更新至`v2.7.6`：MindSpore `v1.1.0`新增GPU P2P通信算子，该特性依赖于NCCL `v2.7.6`，若环境使用的NCCL未升级为此版本，则会引起加载失败错误。
+
+<br/>
+
+Q：启动缓存服务器时，若提示找不到`libpython3.7m.so.1.0`文件，应如何处理？
+
+A：尝试在虚拟环境下查找其路径并设置LD_LIBRARY_PATH变量：
+
+```shell
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
+```
+
+<br/>
+
+Q：缓存服务器异常关闭如何处理？
+
+A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等系统资源的分配。若允许溢出，在磁盘空间还会存在溢出的数据文件。一般情况下，如果通过`cache_admin --stop`命令正常关闭服务器，这些资源将会被自动清理。
+
+但如果缓存服务器被异常关闭，例如缓存服务进程被杀等，用户需要首先尝试重新启动服务器，若启动失败，则应该依照以下步骤手动清理系统资源：
+
+- 删除IPC资源。
+
+    1. 检查是否有IPC共享内存残留。
+
+        一般情况下，系统会为缓存服务分配4GB的共享内存。通过以下命令可以查看系统中的共享内存块使用情况。
+
+        ```shell
+        $ ipcs -m
+        ------ Shared Memory Segments --------
+        key        shmid      owner      perms      bytes      nattch     status
+        0x61020024 15532037   root       666        4294967296 1
+        ```
+
+        其中，`shmid`为共享内存块id，`bytes`为共享内存块的大小，`nattch`为链接到该共享内存块的进程数量。`nattch`不为0表示仍有进程使用该共享内存块。在删除共享内存前，需要停止使用该内存块的所有进程。
+
+    2. 删除IPC共享内存。
+
+        找到对应的共享内存id，并通过以下命令删除。
+
+        ```shell
+        ipcrm -m {shmid}
+        ```
+
+- 删除socket文件。
+
+    一般情况下，socket文件位于`/tmp/mindspore/cache`。进入文件夹，执行以下命令删除socket文件。
+
+    ```shell
+    rm cache_server_p{port_number}
+    ```
+
+    其中`port_number`为用户创建缓存服务器时指定的端口号，默认为50052。
+
+- 删除溢出到磁盘空间的数据文件。
+
+    进入启用缓存服务器时指定的溢出数据路径。通常，默认溢出路径为`/tmp/mindspore/cache`。找到路径下对应的数据文件夹并逐一删除。

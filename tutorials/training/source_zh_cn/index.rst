@@ -70,6 +70,7 @@
    advanced_use/enable_mixed_precision
    advanced_use/enable_graph_kernel_fusion
    advanced_use/apply_gradient_accumulation
+   advanced_use/enable_cache
 
 .. toctree::
    :glob:
