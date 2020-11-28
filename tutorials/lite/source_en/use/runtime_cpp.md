@@ -39,7 +39,7 @@
 
 ## Overview
 
-After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime.
+After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write inference code.
 
 The procedure for using Runtime is shown in the following figure:
 

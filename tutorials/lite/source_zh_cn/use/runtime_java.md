@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [使用Runtime执行推理（Java）](#使用runtime执行推理java)
+    - [概述](#概述)
     - [Android项目引用AAR包](#android项目引用aar包)
     - [运行MindSpore Lite推理框架](#运行mindspore-lite推理框架)
         - [加载模型](#加载模型)
@@ -18,6 +19,12 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/runtime_java.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
+## 概述
+
+通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用Java接口编写推理代码。
+
+> 更多Java API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)。
 
 ## Android项目引用AAR包
 
@@ -49,8 +56,6 @@ Android项目中使用MindSpore Lite，可以选择采用C++ APIs或者Java APIs
 6. 图执行：使用`LiteSession`的`runGraph`进行模型推理。
 7. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
 8. 释放内存：无需使用MindSpore Lite推理框架的时候，需要将创建的`session`和`model`进行释放。
-
-> 更多Java API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)。
 
 ### 加载模型
 

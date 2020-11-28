@@ -1,8 +1,8 @@
-# Converting Models
+# Converting Training Models
 
 <!-- TOC -->
 
-- [Converting Models](#converting-models)
+- [Converting Training Models](#converting-training-models)
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)

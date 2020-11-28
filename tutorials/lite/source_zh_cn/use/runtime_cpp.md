@@ -39,7 +39,7 @@
 
 ## 概述
 
-通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。
+通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
 
 Runtime总体使用流程如下图所示：
 
