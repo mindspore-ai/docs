@@ -35,6 +35,12 @@ A：MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通
 
 <br/>
 
+Q：MindSpore对protobuf版本是否有特别要求？
+
+A：MindSpore默认安装protobuf的3.8.0版本，如果您本地已安装protobuf的3.12.0或更高版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.8.0`重新安装3.8.0版本。
+
+<br/>
+
 Q：使用pip安装时报错`ProxyError(Cannot connect to proxy)`，应该怎么办？
 
 A：此问题一般是代理配置问题，Ubuntu环境下可通过`export http_proxy={your_proxy}`设置代理；Windows环境可以在cmd中通过`set http_proxy={your_proxy}`进行代理设置。
