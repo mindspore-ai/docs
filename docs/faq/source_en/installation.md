@@ -35,6 +35,12 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <br/>
 
+Q: Any specific requirements for protobuf version when use MindSpore?
+
+A: MindSpore installs version 3.8.0 of protobuf by default. If you have installed 3.12.0 or later version of protobuf locally, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.8.0' to reinstall version 3.8.0.
+
+<br/>
+
 Q: What should I do when error `ProxyError(Cannot connect to proxy)` prompts during pip install?
 
 A: It is generally a proxy configuration problem, you can using `export http_proxy={your_proxy}` on Ubuntu environment, and using `set http_proxy={your_proxy}` in cmd on Windows environment to config your proxy.
