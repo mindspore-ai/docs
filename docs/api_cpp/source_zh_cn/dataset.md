@@ -6,6 +6,8 @@
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
 ## image_process.h文件的函数
 
 ### ResizeBilinear
@@ -409,3 +411,38 @@ void InitElemSize(LDataType data_type)
 
     - `p`: 指向引用的对象。
     - `value`: 引用时所加的值。
+
+## 端侧训练相关算子
+
+### Resize
+
+```cpp
+std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear);
+```
+
+通过给定的大小对输入的PIL图像进行调整。
+
+- 参数
+
+    - `size`: 表示调整大小后的图像的输出大小。如果size为单个值，则将以相同的图像纵横比将图像调整为该值，如果size具有2个值，则应为（高度，宽度）。
+    - `interpolation`: 插值模式的枚举。
+
+- 返回值
+
+    返回一个Resize的算子。
+
+### CenterCrop
+
+```cpp
+std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size);
+```
+
+将输入的PIL图像的中心区域裁剪到给定的大小。
+
+- 参数
+
+    - `size`: 表示调整大小后的图像的输出大小。如果size为单个值，则将以相同的图像纵横比将图像调整为该值， 如果size具有2个值，则应为（高度，宽度）。
+
+- 返回值
+
+    返回一个CenterCrop的算子。
