@@ -132,7 +132,7 @@ print(ops.tensor_add(x, y))
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore_ascend
+pip install --upgrade mindspore-ascend
 ```
 
 ## 安装MindInsight
