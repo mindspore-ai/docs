@@ -19,7 +19,7 @@
 
 ## Overview
 
-You can convert non-standard datasets and common datasets into the MindSpore data format (that is, MindRecord) to easily load the datasets to MindSpore for training. In addition, the performance of MindSpore is optimized in some scenarios. You can use MindRecord to obtain better performance.
+You can convert non-standard datasets and common datasets into the MindSpore data format (that is, MindRecord) to easily load the datasets to MindSpore for training. In addition, the performance of MindSpore is optimized in some scenarios. You can use MindRecord to achieve better performance.
 
 ## Converting Non-Standard Dataset to MindRecord
 
@@ -29,7 +29,7 @@ The following describes how to convert CV and NLP data into MindRecord and read 
 
 This example describes how to convert a CV dataset into MindRecord and use `MindDataset` to load the dataset.
 
-Create a MindRecord file containing 100 records, whose sample includes the `file_name` (string), `label` (integer), and `data` (binary) fields. Use `MindDataset` to read the MindRecord file.
+Create a MindRecord file containing 100 records, whose samples include the `file_name` (string), `label` (integer), and `data` (binary) fields. Use `MindDataset` to read the MindRecord file.
 
 1. Import related modules.
 
@@ -100,7 +100,7 @@ Create a MindRecord file containing 100 records, whose sample includes the `file
 
 This example describes how to convert an NLP dataset into MindRecord and use `MindDataset` to load the dataset. The process of converting the text into the lexicographic order is omitted in this example.
 
-Create a MindRecord file containing 100 records, whose sample includes eight fields of the integer type. Use `MindDataset` to read the MindRecord file.
+Create a MindRecord file containing 100 records, whose samples include eight fields of the integer type. Use `MindDataset` to read the MindRecord file.
 
 1. Import related modules.
 
