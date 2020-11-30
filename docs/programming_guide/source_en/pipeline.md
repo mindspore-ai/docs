@@ -18,9 +18,9 @@
 
 ## Overview
 
-Data is the basis of deep learning. Good data input can play an active role in the entire deep neural network training. Before training, data processing is performed on a loaded dataset, so as to resolve problems such as an excessively large data volume and uneven sample distribution, thereby obtaining a more optimized data input.
+Data is the basis of deep learning. Good data input can play a positive role in the entire deep neural network training. Before training, data processing is performed on a loaded dataset for resolving problems such as an excessively large data volume and uneven sample distribution, thereby obtaining a more optimized data input.
 
-Each dataset class of MindSpore provides multiple data processing operators. You can build a data processing pipeline to define the data processing operations to be used. In this way, data can continuously flow to the training system through the data processing pipeline during the training process.
+Each dataset class of MindSpore provides multiple data processing operators. You can build a data processing pipeline to define the data processing operations to be used. In this way, data can be continuously transferred to the training system through the data processing pipeline during the training process.
 
 The following table lists part of the common data processing operators supported by MindSpore. For more data processing operations, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
