@@ -23,7 +23,7 @@
 - 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
 - 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)。
     - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
-- 确认安装[cuDNN 7.6.X版本](https://developer.nvidia.com/cuda-10.1-download-archive-base)。
+- 确认安装[cuDNN 7.6.X版本](https://developer.nvidia.com/rdp/cudnn-archive)。
 - 确认安装[OpenMPI 3.1.5版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[NCCL 2.7.6-1版本](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian)（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
