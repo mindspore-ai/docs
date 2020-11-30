@@ -109,7 +109,7 @@ It means MindSpore has been installed successfully.
 Using the following command if you need update MindSpore version:
 
 ```bash
-pip install --upgrade mindspore_ascend
+pip install --upgrade mindspore-ascend
 ```
 
 ## Installing MindInsight

@@ -129,7 +129,7 @@ Using the following command if you need update MindSpore version.
 - Update Online
 
     ```bash
-    pip install --upgrade mindspore_gpu
+    pip install --upgrade mindspore-gpu
     ```
 
 - Update after source code compilation

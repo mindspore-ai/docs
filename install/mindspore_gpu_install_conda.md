@@ -104,7 +104,7 @@ print(ops.tensor_add(x, y))
 当需要升级MindSpore版本时，可执行如下命令：
 
 ```bash
-pip install --upgrade mindspore_gpu
+pip install --upgrade mindspore-gpu
 ```
 
 ## 安装MindInsight

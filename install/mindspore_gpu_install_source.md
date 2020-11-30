@@ -118,7 +118,7 @@ print(ops.tensor_add(x, y))
 - 直接在线升级
 
     ```bash
-    pip install --upgrade mindspore_gpu
+    pip install --upgrade mindspore-gpu
     ```
 
 - 本地源码编译升级
