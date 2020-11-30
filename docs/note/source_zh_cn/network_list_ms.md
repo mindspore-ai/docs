@@ -33,6 +33,10 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [NASNET](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/nasnet/src/nasnet_a_mobile.py) |  Doing |  Doing |  Supported |  Supported | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ShuffleNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/shufflenetv2/src/shufflenetv2.py) |  Doing |  Doing |  Supported |  Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [EfficientNet-B0](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/efficientnet/src/efficientnet.py) |  Doing |  Doing |  Supported |  Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ghostnet/src/ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet50-0.65x](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/resnet50_adv_pruning/src/resnet_imgnet.py) |  Supported |  Doing |  Doing |  Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ssd_ghostnet/src/ssd_ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [TinyNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/tinynet.py) |  Supported |  Doing |  Doing |  Doing | Doing
 |计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/ssd.py)      |  Supported |  Supported |Supported |Doing | Supported
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)   |  Supported |  Doing |  Doing |  Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)   |  Supported |  Doing |  Supported |  Doing | Doing
@@ -51,9 +55,12 @@
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [MASS](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)                     |  Supported |  Supported |  Supported |  Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TinyBert](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/tinybert/src/tinybert_model.py)                     |  Supported |  Doing |  Supported | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [GNMT v2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/gnmt_v2/src/gnmt_model/gnmt.py)                     |  Supported |  Doing |  Doing | Doing | Doing
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [DS-CNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/nlp/dscnn/src/ds_cnn.py)                     |  Supported |  Doing |  Doing | Doing | Doing
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction）  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/deepfm/src/deepfm.py)    |  Supported |  Supported |  Supported | Doing| Doing
 | 推荐（Recommender） | 推荐系统、搜索、排序（Recommender System, Search, Ranking）  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/wide_and_deep/src/wide_and_deep.py)      |  Supported |  Supported |  Supported | Supported | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)  |  Supported |  Doing |  Doing |  Doing | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py) |  Supported |  Doing |  Doing |  Doing | Doing
+| 图神经网络（GNN） | 推荐系统（Recommender System） | [BGCF](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/bgcf/src/bgcf.py) |  Supported |  Doing |  Doing |  Doing | Doing
+|语音（Audio） | 音频标注（Audio Tagging）  | [FCN-4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/audio/fcn-4/src/musictagger.py)   |  Supported |  Doing |  Doing |  Doing | Doing
 
 > 你也可以使用 [MindWizard工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/) 快速生成经典网络脚本。
