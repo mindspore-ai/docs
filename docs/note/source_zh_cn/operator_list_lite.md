@@ -32,7 +32,7 @@
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   |     |
 | DetectionPostProcess  |          | Supported        | Supported | Supported |                   |          | Custom |           |                 |
 | Div                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Div, RealDiv         |               | Div                |
-| Eltwise               | Supported        | Supported        | Supported | Supported | Supported         | Supported         |             |  Eltwise      | Sum, Max                    |
+| Eltwise               | Supported        | Supported        | Supported | Supported | Supported         | Supported         |             |  Eltwise      | Sum, Max<sup>[3]</sup>                    |
 | Elu                   |          | Supported        |          |           |          |          |        |  Elu               | Elu, NonMaxSuppression                |
 | Equal                 | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Equal       |               | Equal              |
 | Exp                   |          | Supported        |          |           | Supported        | Supported        | Exp         |  Exp             | Exp                |
@@ -123,3 +123,5 @@
 [1] Clip：仅支持将clip(0, 6)转换为Relu6。
 
 [2] Pow：仅支持指数为单个常数。
+
+[3] Sum与Max：仅支持输入个数为2。

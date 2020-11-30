@@ -29,7 +29,7 @@
 | DepthwiseConv2dNative | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | DepthwiseConv2D | Convolution   |     |
 | DetectionPostProcess  |          | Supported        | Supported | Supported |                   |          | Custom |           |                 |
 | Div                   | Supported        | Supported        | Supported        | Supported         | Supported        | Supported        | Div, RealDiv         |               | Div                |
-| Eltwise               | Supported        | Supported        | Supported | Supported | Supported         | Supported         |             |  Eltwise      | Sum, Max                    |
+| Eltwise               | Supported        | Supported        | Supported | Supported | Supported         | Supported         |             |  Eltwise      | Sum, Max<sup>[3]</sup>                    |
 | Elu                   |          | Supported        |          |           |          |          |        |  Elu               | Elu, NonMaxSuppression                |
 | Equal                 | Supported        | Supported        | Supported        | Supported         | Supported         | Supported         | Equal       |               | Equal              |
 | Exp                   |          | Supported        |          |           | Supported        | Supported        | Exp         |  Exp             | Exp                |
@@ -122,3 +122,5 @@
 [1] Clip: Only support converting clip(0, 6) to Relu6.
 
 [2] Pow: Only support the form where the exponent is a single constant.
+
+[3] Sum and Max: Only support 2 inputs.
