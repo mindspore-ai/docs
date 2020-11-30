@@ -47,52 +47,52 @@ Runtime总体使用流程如下图所示：
 
 包含的组件及功能如下所述：
 
-- `Model`：MindSpore Lite使用的模型，通过用户构图或直接加载网络，来实例化算子原型的列表。
-- `Lite Session`：提供图编译的功能，并调用图执行器进行推理。
+- [Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)：MindSpore Lite使用的模型，通过用户构图或直接加载网络，来实例化算子原型的列表。
+- [Lite Session](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)：提供图编译的功能，并调用图执行器进行推理。
 - `Scheduler`：算子异构调度器，根据异构调度策略，为每一个算子选择合适的kernel，构造kernel list，并切分子图。
 - `Executor`：图执行器，执行kernel list，动态分配和释放Tensor。
 - `Operator`：算子原型，包含算子的属性，以及shape、data type和format的推导方法。
 - `Kernel`：算子库提供算子的具体实现，提供算子forward的能力。
-- `Tensor`：MindSpore Lite使用的Tensor，提供了Tensor内存操作的功能和接口。
+- [Tensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mindspore-tensor)：MindSpore Lite使用的Tensor，提供了Tensor内存操作的功能和接口。
 
 > 更多C++ API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
 
 ## 读取模型
 
-在MindSpore Lite中，模型文件是从模型转换工具转换得到的`.ms`文件。进行模型推理时，需要从文件系统加载模型，并进行模型解析，这部分操作主要在Model中实现。Model持有权重数据、算子属性等模型数据。
+在MindSpore Lite中，模型文件是从模型转换工具转换得到的`.ms`文件。进行模型推理时，需要从文件系统加载模型，并进行模型解析，这部分操作主要在[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)中实现。Model持有权重数据、算子属性等模型数据。
 
-模型通过Model类的静态`Import`方法从内存数据中创建。函数返回的`Model`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
+模型通过[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)类的静态[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#import)方法从内存数据中创建。函数返回的[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
 
-如果对运行时内存有较大的限制，可以在`Model`被图编译以后，使用`Free`接口来降低内存占用。但一旦调用了某个`Model`的`Free`接口，该`Model`就不能再进行图编译了。
+如果对运行时内存有较大的限制，可以在[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)被图编译以后，使用[Free](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#free)接口来降低内存占用。但一旦调用了某个[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)的[Free](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#free)接口，该[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)就不能再进行图编译了。
 
 ## 创建会话
 
-使用MindSpore Lite执行推理时，Session是推理的主入口，通过Session我们可以进行图编译、图执行。
+使用MindSpore Lite执行推理时，[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)是推理的主入口，通过[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)我们可以进行图编译、图执行。
 
 ### 创建上下文
 
 上下文会保存会话所需的一些基本配置参数，用于指导图编译和图执行，其定义如下：
 
-MindSpore Lite支持异构推理，推理时的后端配置信息由`Context`中的`device_list_`指定，默认存放CPU的`DeviceContext`。在进行图编译时，会根据`device_list_`中不同的后端配置信息进行算子选型调度。目前仅支持CPU和GPU, 当配置GPU的`DeviceContext`时，优先使用GPU推理。
+MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)中的[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)。在进行图编译时，会根据[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)中不同的后端配置信息进行算子选型调度。目前仅支持CPU和GPU, 当配置GPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用GPU推理。
 
-MindSpore Lite内置一个进程共享的线程池，推理时通过`thread_num_`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
+MindSpore Lite内置一个进程共享的线程池，推理时通过[thread_num_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#thread-num)指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
 
-MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`，推理时会生成一个默认的`allocator`，也可以通过`Context`方法在多个`Context`中共享内存分配器。
+MindSpore Lite支持动态内存分配和释放，如果没有指定[allocator](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator)，推理时会生成一个默认的[allocator](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator)，也可以通过[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#context)方法在多个[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)中共享内存分配器。
 
-如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在创建完`Session`后，`Context`即可释放。
+如果用户通过`new`创建[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)，不再需要时，需要用户通过`delete`释放。一般在创建完[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)后，[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)即可释放。
 
 ### 创建会话
 
 有两种方式可以创建会话：
 
-- 第一种方法是使用上一步创建得到的`Context`，调用LiteSession的静态`static LiteSession *CreateSession(const lite::Context *context)`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
-- 第二种方法是使用上一步创建得到的`Context`，以及已经从文件读入的模型buffer和buffer的size，通过调用LiteSession的静态`static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)`方法来创建`LiteSession`。函数返回的`LiteSession`实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
+- 第一种方法是使用上一步创建得到的[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)，调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的静态[static LiteSession *CreateSession(const lite::Context *context)](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)方法来创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)。函数返回的[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
+- 第二种方法是使用上一步创建得到的[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)，以及已经从文件读入的模型buffer和buffer的size，通过调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的静态[static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)方法来创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)。函数返回的[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)实例是一个指针，通过`new`创建，不再需要时，需要用户通过`delete`释放。
 
-> 第二种方法中使用的`CreateSession`接口是一个简化流程的接口，使用这个接口可以简化调用流程。该接口的功能实现了三个接口的功能：[单入参的CreateSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id3) 接口，[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id5) 接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id2) 接口。
+> 第二种方法中使用的[CreateSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)接口是一个简化流程的接口，使用这个接口可以简化调用流程。该接口的功能实现了三个接口的功能：[单入参的CreateSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id3)接口，[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id5)接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#id2)接口。
 
 ### 使用示例
 
-下面示例代码演示了`Context`的创建，以及在两个`LiteSession`间共享内存池的功能：
+下面示例代码演示了[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)的创建，以及在两个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)间共享内存池的功能：
 
 ```cpp
 auto context = new (std::nothrow) lite::Context;
@@ -142,13 +142,13 @@ if (session2 == nullptr) {
 
 ### 可变维度
 
-使用MindSpore Lite进行推理时，在已完成会话创建与图编译之后，如果需要对输入的shape进行Resize，则可以通过对输入的tensor重新设置shape，然后调用session的Resize()接口。
+使用MindSpore Lite进行推理时，在已完成会话创建与图编译之后，如果需要对输入的shape进行Resize，则可以通过对输入的tensor重新设置shape，然后调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的[Resize](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#resize)接口。
 
 > 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
 
 ### 使用示例
 
-下面代码演示如何对MindSpore Lite的输入进行Resize：
+下面代码演示如何对MindSpore Lite的输入进行[Resize](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#resize)：
 
 ```cpp
 // Assume we have created a LiteSession instance named session.
@@ -162,7 +162,7 @@ session->Resize(inputs, new_shapes);
 
 ### 图编译
 
-在图执行前，需要调用`LiteSession`的`CompileGraph`接口进行图编译，进一步解析从文件中加载的Model实例，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议`LiteSession`创建一次，编译一次，多次执行。
+在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#compilegraph)接口进行图编译，进一步解析从文件中加载的[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)实例，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)创建一次，编译一次，多次执行。
 
 ```cpp
 /// \brief  Compile MindSpore Lite model.
@@ -201,7 +201,7 @@ model->Free();
 
 MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
-1. 使用`GetInputsByTensorName`方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor。
+1. 使用[GetInputsByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbytensorname)方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor。
 
    ```cpp
    /// \brief  Get input MindSpore Lite MSTensors of model by tensor name.
@@ -212,7 +212,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
    ```
 
-2. 使用`GetInputs`方法，直接获取所有的模型输入Tensor的vector。
+2. 使用[GetInputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputs)方法，直接获取所有的模型输入Tensor的vector。
 
    ```cpp
    /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -223,7 +223,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
 
 ### 数据拷贝
 
-当获取到模型的输入，就需要向Tensor中填入数据。通过`MSTensor`的`Size`方法来获取Tensor应该填入的数据大小，通过`data_type`方法来获取Tensor的数据类型，通过`MSTensor`的`MutableData`方法来获取可写的指针。
+当获取到模型的输入，就需要向Tensor中填入数据。通过[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的[Size](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#size)方法来获取Tensor应该填入的数据大小，通过[data_type](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#data-type)方法来获取Tensor的数据类型，通过[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的[MutableData](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mutabledata)方法来获取可写的指针。
 
 ```cpp
 /// \brief  Get byte size of data in MSTensor.
@@ -241,7 +241,7 @@ virtual void *MutableData() const = 0;
 
 ### 使用示例
 
-下面示例代码演示了从`LiteSession`中获取整图输入`MSTensor`，并且向其中灌入模型输入数据的过程：
+下面示例代码演示了从[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)中获取整图输入[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)，并且向其中灌入模型输入数据的过程：
 
 ```cpp
 // Assume we have created a LiteSession instance named session.
@@ -271,13 +271,13 @@ memcpy(in_data, input_buf, data_size);
 
 - MindSpore Lite的模型输入Tensor中的数据排布必须是NHWC。
 - 模型的输入`input_buf`是用户从磁盘读取的，当拷贝给模型输入Tensor以后，用户需要自行释放`input_buf`。
-- `GetInputs`和`GetInputsByTensorName`方法返回的vector不需要用户释放。
+- [GetInputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputs)和[GetInputsByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbyname)方法返回的vector不需要用户释放。
 
 ## 图执行
 
 ### 执行会话
 
-MindSpore Lite会话在进行图编译以后，即可使用`LiteSession`的`RunGraph`进行模型推理。
+MindSpore Lite会话在进行图编译以后，即可使用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的[RunGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#rungraph)进行模型推理。
 
 ```cpp
 virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBack &after = nullptr) = 0;
@@ -285,7 +285,7 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 ### 绑核
 
-MindSpore Lite内置线程池支持绑核、解绑操作，通过调用`BindThread`接口，可以将线程池中的工作线程绑定到指定CPU核，用于性能分析。绑核操作与创建`LiteSession`时用户指定的上下文有关，绑核操作会根据上下文中的绑核策略进行线程与CPU的亲和性设置。
+MindSpore Lite内置线程池支持绑核、解绑操作，通过调用[BindThread](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#bindthread)接口，可以将线程池中的工作线程绑定到指定CPU核，用于性能分析。绑核操作与创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)时用户指定的上下文有关，绑核操作会根据上下文中的绑核策略进行线程与CPU的亲和性设置。
 
 ```cpp
 /// \brief  Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
@@ -315,7 +315,7 @@ session->BindThread(false);
 
 ### 回调运行
 
-MindSpore Lite可以在调用`RunGraph`时，传入两个`KernelCallBack`函数指针来回调推理模型，相比于一般的图执行，回调运行可以在运行过程中获取额外的信息，帮助开发者进行性能分析、Bug调试等。额外的信息包括：
+MindSpore Lite可以在调用[RunGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#rungraph)时，传入两个[KernelCallBack](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback)函数指针来回调推理模型，相比于一般的图执行，回调运行可以在运行过程中获取额外的信息，帮助开发者进行性能分析、Bug调试等。额外的信息包括：
 
 - 当前运行的节点名称
 - 推理当前节点前的输入输出Tensor
@@ -334,7 +334,7 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 
 ### 使用示例
 
-下面示例代码演示了使用`LiteSession`进行图编译，并定义了两个回调函数作为前置回调指针和后置回调指针，传入到`RunGraph`接口进行回调推理，并演示了一次图编译，多次图执行的使用场景：
+下面示例代码演示了使用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)进行图编译，并定义了两个回调函数作为前置回调指针和后置回调指针，传入到[RunGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#rungraph)接口进行回调推理，并演示了一次图编译，多次图执行的使用场景：
 
 ```cpp
 // Assume we have created a LiteSession instance named session and a Model instance named model before.
@@ -397,9 +397,9 @@ delete (model);
 
 MindSpore Lite在执行完推理后，就可以获取模型的推理结果。
 
-MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
+MindSpore Lite提供四种方法来获取模型的输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)。
 
-1. 使用`GetOutputsByNodeName`方法，根据模型输出节点的名称来获取模型输出`MSTensor`中连接到该节点的Tensor的vector。
+1. 使用[GetOutputsByNodeName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)中连接到该节点的Tensor的vector。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
@@ -410,7 +410,7 @@ MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
    ```
 
-2. 使用`GetOutputByTensorName`方法，根据模型输出Tensor的名称来获取对应的模型输出`MSTensor`。
+2. 使用[GetOutputByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputbytensorname)方法，根据模型输出Tensor的名称来获取对应的模型输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
@@ -421,7 +421,7 @@ MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
    ```
 
-3. 使用`GetOutputs`方法，直接获取所有的模型输出`MSTensor`的名称和`MSTensor`指针的一个map。
+3. 使用[GetOutputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)方法，直接获取所有的模型输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的名称和[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)指针的一个map。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
@@ -430,7 +430,7 @@ MindSpore Lite提供四种方法来获取模型的输出`MSTensor`。
    virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
    ```
 
-当获取到模型的输出Tensor，就需要向Tensor中填入数据。通过`MSTensor`的`Size`方法来获取Tensor应该填入的数据大小，通过`data_type`方法来获取`MSTensor`的数据类型，通过`MSTensor`的`MutableData`方法来获取可读写的内存指针。
+当获取到模型的输出Tensor，就需要向Tensor中填入数据。通过[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的[Size](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#size)方法来获取Tensor应该填入的数据大小，通过[data_type](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#data-type)方法来获取Tensor的数据类型，通过[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的[MutableData](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mutabledata)方法来获取可读写的内存指针。
 
 ```c++
 /// \brief  Get byte size of data in MSTensor.
@@ -456,7 +456,7 @@ virtual void *MutableData() const = 0;
 
 ### 使用示例
 
-下面示例代码演示了使用`GetOutputs`接口获取输出`MSTensor`，并打印了每个输出`MSTensor`的前十个数据或所有数据：
+下面示例代码演示了使用[GetOutputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)接口获取输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)，并打印了每个输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的前十个数据或所有数据：
 
 ```cpp
 // Assume we have created a LiteSession instance named session before.
@@ -489,9 +489,9 @@ std::cout << std::endl;
 // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
 ```
 
-需要注意的是，`GetOutputsByNodeName`、`GetOutputByTensorName`和`GetOutputs`方法返回的vector或map不需要用户释放。
+需要注意的是，[GetOutputsByNodeName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputsbynodename)、[GetOutputByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputbytensorname)和[GetOutputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)方法返回的vector或map不需要用户释放。
 
-下面示例代码演示了使用`GetOutputsByNodeName`接口获取输出`MSTensor`的方法：
+下面示例代码演示了使用[GetOutputsByNodeName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputsbynodename)接口获取输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的方法：
 
 ```cpp
 // Assume we have created a LiteSession instance named session before.
@@ -505,7 +505,7 @@ if (out_tensor == nullptr) {
 }
 ```
 
-下面示例代码演示了使用`GetOutputByTensorName`接口获取输出`MSTensor`的方法：
+下面示例代码演示了使用[GetOutputByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputbytensorname)接口获取输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的方法：
 
 ```cpp
 // Assume we have created a LiteSession instance named session.
@@ -524,7 +524,7 @@ for (auto tensor_name : tensor_names) {
 
 ## 获取版本号
 
-MindSpore Lite提供了`Version`方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到版本号字符串。
+MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#version)方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到版本号字符串。
 
 ### 使用示例
 
@@ -537,11 +537,11 @@ std::string version = mindspore::lite::Version();
 
 ## Session并行
 
-MindSpore Lite支持多个`LiteSession`并行推理，但不支持多个线程同时调用单个`LiteSession`的`RunGraph`接口。
+MindSpore Lite支持多个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)并行推理，但不支持多个线程同时调用单个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的[RunGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#rungraph)接口。
 
 ### 单Session并行
 
-MindSpore Lite不支持多线程并行执行单个`LiteSession`的推理，否则会得到以下错误信息：
+MindSpore Lite不支持多线程并行执行单个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的推理，否则会得到以下错误信息：
 
 ```cpp
 ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
@@ -549,11 +549,11 @@ ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-th
 
 ### 多Session并行
 
-MindSpore Lite支持多个`LiteSession`同时进行推理的场景，每个`LiteSession`的线程池和内存池都是独立的。
+MindSpore Lite支持多个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)同时进行推理的场景，每个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的线程池和内存池都是独立的。
 
 ### 使用示例
 
-下面代码演示了如何创建多个`LiteSession`，并且并行执行推理的过程：
+下面代码演示了如何创建多个[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)，并且并行执行推理的过程：
 
 ```cpp
 #include <thread>

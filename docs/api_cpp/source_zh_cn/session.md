@@ -70,10 +70,10 @@ virtual std::vector <tensor::MSTensor *> GetInputs() const
 
     MindSpore Lite MSTensor向量。
 
-#### GetInputsByName
+#### GetInputsByTensorName
 
 ```cpp
-mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
+mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &name) const
 ```
 
 通过tensor名获取MindSpore Lite模型的MSTensors输入。

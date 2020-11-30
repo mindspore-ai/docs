@@ -70,10 +70,10 @@ Get input MindSpore Lite MSTensors of model.
 
     The vector of MindSpore Lite MSTensor.
 
-#### GetInputsByName
+#### GetInputsByTensorName
 
 ```cpp
-mindspore::tensor::MSTensor *GetInputsByName(const std::string &name) const
+mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &name) const
 ```
 
 Get input MindSpore Lite MSTensors of model by tensor name.
