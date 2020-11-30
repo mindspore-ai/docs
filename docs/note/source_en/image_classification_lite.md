@@ -30,3 +30,5 @@ The following table shows the data of some image classification models using Min
 | [Shufflenetv2](https://download.mindspore.cn/model_zoo/official/lite/shufflenetv2_lite/shufflenetv2.ms) | 8.8 | 67.74% | 87.62% | - | 8.303 |
 | [GoogleNet](https://download.mindspore.cn/model_zoo/official/lite/googlenet_lite/googlenet.ms) | 25.3 | 72.2% | 90.06% | - | 23.257 |
 | [ResNext50](https://download.mindspore.cn/model_zoo/official/lite/resnext50_lite/resnext50.ms) | 95.8 | 73.1% | 91.21% | - | 138.164 |
+| [GhostNet](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet.ms) | 15.0 | 73.9% | 91.40% | - | 9.959 |
+| [GhostNet600](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet_600.ms) | 40.4 | 80.2% | 94.90% | - | 52.243 |
