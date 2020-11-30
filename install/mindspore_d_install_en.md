@@ -168,7 +168,7 @@ Using the following command if you need update MindSpore version.
 - Update Online
 
     ```bash
-    pip install --upgrade mindspore_ascend
+    pip install --upgrade mindspore-ascend
     ```
 
 - Update after source code compilation

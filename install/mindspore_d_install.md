@@ -167,7 +167,7 @@
 - 直接在线升级
 
     ```bash
-    pip install --upgrade mindspore_ascend
+    pip install --upgrade mindspore-ascend
     ```
 
 - 本地源码编译升级

@@ -79,7 +79,7 @@ It means MindSpore has been installed successfully.
 Using the following command if you need update MindSpore version:
 
 ```bash
-pip install --upgrade mindspore_gpu
+pip install --upgrade mindspore-gpu
 ```
 
 ## Installing MindInsight
