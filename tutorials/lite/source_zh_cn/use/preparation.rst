@@ -5,7 +5,7 @@
 
 你可以下载适用于本地环境的版本包直接使用，也可以自行通过源码编译后使用。
 
-MindSpore Lite还提供对Runtime的libmindspore-lite.a`静态库裁剪工具 <https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html#>`_，对静态库文件进行裁剪，有效降低库文件大小。
+MindSpore Lite还提供对Runtime的libmindspore-lite.a `静态库裁剪工具 <https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html#>`_ ，对静态库文件进行裁剪，有效降低库文件大小。
 
 .. toctree::
   :maxdepth: 1
