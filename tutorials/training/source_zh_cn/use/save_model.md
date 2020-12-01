@@ -109,13 +109,11 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.mindir', file_format='MINDIR')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
-建议使用`.mindir`作为MINDIR格式文件的后缀名。
-
-> `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
-> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.mindir', file_format='MINDIR')`
+> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
+> - 导出的文件名称会自动添加".mindir"后缀。
 
 ## 导出AIR格式文件
 
@@ -131,17 +129,15 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.air', file_format='AIR')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
 使用`export`接口之前，需要先导入`mindspore.train.serialization`。
 
 `input`用来指定导出模型的输入shape以及数据类型。
 
-建议使用`.air`作为AIR格式文件的后缀名。
-
-> `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
-> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.air', file_format='AIR')`
+> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
+> - 导出的文件名称会自动添加".air"后缀。
 
 ## 导出ONNX格式文件
 
@@ -157,10 +153,8 @@ param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
-export(resnet, Tensor(input), file_name='resnet50-2_32.onnx', file_format='ONNX')
+export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
-建议使用`.onnx`作为ONNX格式文件的后缀名。
-
-> `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。
-> 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network.onnx', file_format='ONNX')`
+> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
+> - 导出的文件名称会自动添加".onnx"后缀。
