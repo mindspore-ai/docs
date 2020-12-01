@@ -28,7 +28,7 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux, Windows | Model Conversion Tool |
-| runtime(cpp, java) | Linux, Android | Model Inference Framework(cpp, java) |
+| runtime(cpp, java) | Linux, Android | Model Inference/Train Framework(cpp, java) |
 | benchmark | Linux, Windows, Android | Benchmarking Tool |
 | lib_cropper | Linux | libmindspore-lite.a static library crop tool |
 | imageprocess | Linux, Android | Image Processing Library |
@@ -90,6 +90,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
 | -o | If this parameter is set, the benchmark is compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
+| -T | If this parameter is set, ToD(Train on Device) is compiled, i.e., this option is required when compiling MindSpore ToD, default off. | on, off | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 >
@@ -161,7 +162,15 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -o on
     ```
 
+- Release version of the x86_64 architecture, with the converter compiled and train on device enabled:
+
+    ```bash
+    bash build.sh -I x86_64 -C on -T on
+    ```
+
 ### Output Description
+
+#### Inference on Device
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
@@ -184,6 +193,19 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
+
+#### Train on Device
+
+If ToD is enabled which means `-T on`, the file in `mindspore/output` directory is divided into two parts.
+
+- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
+- `mindspore-lite-{version}-runtime-{os}-{architecture}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
+
+> `version` is the version of the output, consistent with MindSpore release version.
+>
+> `device` is the processor that runs ToD Currently only built-in cpu is available.
+>
+> `os` is the operating system on which the output will be deployed.
 
 #### Description of Converter's Directory Structure
 
