@@ -279,7 +279,7 @@ The `Distribution` base class invokes the private API in the `Logistic` and `Tra
 
 `Distribution` subclasses can be used in **PyNative** mode.
 
-Import related modules:
+Use `Normal` as an example. Create a normal distribution whose average value is 0.0 and standard deviation is 1.0.
 
 ```python
 from mindspore import Tensor
@@ -287,100 +287,43 @@ from mindspore import dtype as mstype
 import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-Use `Normal` as an example. Create a normal distribution whose average value is 0.0 and standard deviation is 1.0.
-
-```python
 my_normal = msd.Normal(0.0, 1.0, dtype=mstype.float32)
-```
 
-Calculate the average value:
-
-```python
 mean = my_normal.mean()
-print(mean)
-```
-
-The output is as follows:
-
-```python
-0.0
-```
-
-Calculate the variance:
-
-```python
 var = my_normal.var()
-print(var)
-```
-
-The output is as follows:
-
-```python
-1.0
-```
-
-Calculate the entropy:
-
-```python
 entropy = my_normal.entropy()
-print(entropy)
-```
 
-The output is as follows:
-
-```python
-1.4189385
-```
-
-Calculate the probability density function:
-
-```python
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 prob = my_normal.prob(value)
-print(prob)
-```
-
-The output is as follows:
-
-```python
-[0.35206532, 0.3989423, 0.35206532]
-```
-
-Calculate the cumulative distribution function:
-
-```python
 cdf = my_normal.cdf(value)
-print(cdf)
-```
 
-The output is as follows:
-
-```python
-[0.30852754, 0.5, 0.69146246]
-```
-
-Calculate the Kullback-Leibler divergence:
-
-```python
 mean_b = Tensor(1.0, dtype=mstype.float32)
 sd_b = Tensor(2.0, dtype=mstype.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
-print(kl)
+
+print("mean: ", mean)
+print("var: ", var)
+print("entropy: ", entropy)
+print("prob: ", prob)
+print("cdf: ", cdf)
+print("kl: ", kl)
 ```
 
 The output is as follows:
 
 ```python
-0.44314718
+mean: 0.0
+var: 1.0
+entropy: 1.4189385
+prob: [0.35206532, 0.3989423, 0.35206532]
+cdf: [0.3085482, 0.5, 0.6914518]
+kl: 0.44314718
 ```
 
 ### Probability Distribution Class Application in Graph Mode
 
 In graph mode, `Distribution` subclasses can be used on the network.
-
-Import related modules:
 
 ```python
 import mindspore.nn as nn
@@ -389,12 +332,7 @@ from mindspore import dtype as mstype
 import mindspore.context as context
 import mindspore.nn.probability.distribution as msd
 context.set_context(mode=context.GRAPH_MODE)
-```
 
-Create a network:
-
-```python
-# The network inherits the nn.Cell.
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
@@ -404,11 +342,7 @@ class Net(nn.Cell):
         pdf = self.normal.prob(value)
         kl = self.normal.kl_loss("Normal", mean, sd)
         return pdf, kl
-```
 
-Invoked the network:
-
-```python
 net = Net()
 value = Tensor([-0.5, 0.0, 0.5], dtype=mstype.float32)
 mean = Tensor(1.0, dtype=mstype.float32)
@@ -421,8 +355,8 @@ print("kl: ", kl)
 The output is as follows:
 
 ```python
-pdf: [0.3520653, 0.39894226, 0.3520653]
-kl: 0.5
+pdf:  [0.35206532 0.3989423  0.35206532]
+kl:  0.5
 ```
 
 ### TransformedDistribution Class API Design
@@ -449,9 +383,6 @@ kl: 0.5
 ### Invoking a TransformedDistribution Instance in PyNative Mode
 
 The `TransformedDistribution` subclass can be used in **PyNative** mode.
-Before the execution, import the required library file package.
-
-Import related modules:
 
 ```python
 import numpy as np
@@ -459,133 +390,50 @@ import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.nn.probability.distribution as msd
 import mindspore.context as context
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
+
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-Construct a `TransformedDistribution` instance, use the `Normal` distribution as the distribution class to be transformed, and use the `Exp` as the mapping transformation to generate the `LogNormal` distribution.
-
-```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 exp = msb.Exp()
-LogNormal = msd.TransformedDistribution(exp, normal, dtype=dtype.float32, seed=0, name="LogNormal")
+LogNormal = msd.TransformedDistribution(exp, normal, seed=0, name="LogNormal")
+
+# compute cumulative distribution function
+x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
+tx = Tensor(x, dtype=dtype.float32)
+cdf = LogNormal.cdf(tx)
+
+# generate samples from the distribution
+shape = ((3, 2))
+sample = LogNormal.sample(shape)
+
+# get information of the distribution
 print(LogNormal)
+# get information of the underyling distribution and the bijector separately
+print("underlying distribution:\n", LogNormal.distribution)
+print("bijector:\n", LogNormal.bijector)
+# get the computation results
+print("cdf:\n", cdf)
+print("sample:\n", sample)
 ```
 
 The output is as follows:
 
 ```python
 TransformedDistribution<
-  (_bijector): Exp<power = 0>
+  (_bijector): Exp<power = 0.0>
   (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
   >
-```
-
-You can calculate the probability distribution of `LogNormal`. For example, calculate the cumulative distribution function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-cdf = LogNormal.cdf(tx)
-print(cdf)
-```
-
-The output is as follows:
-
-```python
-[7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
-```
-
-Calculate the log-cumulative distribution function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_cdf = LogNormal.log_cdf(tx)
-print(log_cdf)
-```
-
-The output is as follows:
-
-```python
-[-2.79857576e-01, -5.52593507e-02, -1.07082408e-02]
-```
-
-Calculate the survival function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-survival_function = LogNormal.survival_function(tx)
-print(survival_function)
-```
-
-The output is as follows:
-
-```python
-[2.44108617e-01, 5.37602901e-02, 1.06511116e-02]
-```
-
-Calculate the logarithmic survival function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_survival = LogNormal.log_survival(tx)
-print(log_survival)
-```
-
-The output is as follows:
-
-```python
-[-1.41014194e+00, -2.92322016e+00, -4.54209089e+00]
-```
-
-Calculate the probability density function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-prob = LogNormal.prob(tx)
-print(prob)
-```
-
-The output is as follows:
-
-```python
-[1.56874031e-01, 2.18507163e-02, 2.81590177e-03]
-```
-
-Calculate a logarithmic probability density function:
-
-```python
-x = np.array([2.0, 5.0, 10.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-log_prob = LogNormal.log_prob(tx)
-print(log_prob)
-```
-
-The output is as follows:
-
-```python
-[-1.85231221e+00, -3.82352161e+00, -5.87247276e+00]
-```
-
-Invoke the sampling function `sample` to sample data:
-
-```python
-shape = ((3, 2))
-sample = LogNormal.sample(shape)
-print(sample)
-```
-
-The output is as follows:
-
-```python
-[[7.64315844e-01, 3.01435232e-01],
- [1.17166102e+00, 2.60277224e+00],
- [7.02699006e-01, 3.91564220e-01]])
+underlying distribution:
+ Normal<mean = 0.0, standard deviation = 1.0>
+bijector:
+ Exp<power = 0.0>
+cdf:
+ [0.7558914 0.9462397 0.9893489]
+sample:
+ [[ 3.451917    0.645654  ]
+ [ 0.86533326  1.2023963 ]
+ [ 2.3343778  11.053896  ]]
 ```
 
 When the `TransformedDistribution` is constructed to map the transformed `is_constant_jacobian = true` (for example, `ScalarAffine`), the constructed `TransformedDistribution` instance can use the `mean` API to calculate the average value. For example:
@@ -608,39 +456,29 @@ The output is as follows:
 
 In graph mode, the `TransformedDistribution` class can be used on the network.
 
-Import related modules:
-
 ```python
+import numpy as np
 import mindspore.nn as nn
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
 import mindspore.context as context
-import mindspore.nn.probability.Bijector as msb
-import mindspore.nn.probability.Distribution as msd
-context.set_context(mode=self.GRAPH_MODE)
-```
+import mindspore.nn.probability.bijector as msb
+import mindspore.nn.probability.distribution as msd
+context.set_context(mode=context.GRAPH_MODE)
 
-Create a network:
-
-```python
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
         super(Net, self).__init__()
-        # Create a TransformedDistribution instance.
+        # create TransformedDistribution distribution
         self.exp = msb.Exp()
         self.normal = msd.Normal(0.0, 1.0, dtype=dtype)
-        self.lognormal = msd.TransformedDistribution(self.exp, self.normal, dtype=dtype, seed=seed, name=name)
+        self.lognormal = msd.TransformedDistribution(self.exp, self.normal, seed=seed, name=name)
         self.shape = shape
 
     def construct(self, value):
         cdf = self.lognormal.cdf(value)
         sample = self.lognormal.sample(self.shape)
         return cdf, sample
-```
 
-Invoke the network:
-
-```python
 shape = (2, 3)
 net = Net(shape=shape, name="LogNormal")
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
@@ -653,9 +491,9 @@ print("sample: ", sample)
 The output is as follows:
 
 ```python
-cdf:  [0.7558914 0.8640314 0.9171715 0.9462397]
-sample:  [[0.21036398 0.44932044 0.5669641 ]
- [1.4103683  6.724116   0.97894996]]
+cdf:  [0.7558914  0.86403143 0.9171715  0.9462397 ]
+sample:  [[0.5361498  0.26627186 2.766659  ]
+ [1.5831033  0.4096472  2.008679  ]]
 ```
 
 ## Probability Distribution Mapping
@@ -767,127 +605,72 @@ Mapping functions
 
 Before the execution, import the required library file package. The main library of the Bijector class is `mindspore.nn.probability.bijector`. After the library is imported, `msb` is used as the abbreviation of the library for invoking.
 
-Import related modules:
+The following uses `PowerTransform` as an example. Create a `PowerTransform` object whose power is 2.
 
 ```python
 import numpy as np
 import mindspore.nn as nn
 import mindspore.nn.probability.bijector as msb
 import mindspore.context as context
-from mindspore import Tensor
-from mindspore import dtype
+from mindspore import Tensor, dtype
+
 context.set_context(mode=context.PYNATIVE_MODE)
-```
 
-The following uses `PowerTransform` as an example. Create a `PowerTransform` object whose power is 2.
+powertransform = msb.PowerTransform(power=2.)
 
-Construct `PowerTransform`.
+x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
+tx = Tensor(x, dtype=dtype.float32)
+forward = powertransform.forward(tx)
+inverse = powertransform.inverse(tx)
+forward_log_jaco = powertransform.forward_log_jacobian(tx)
+inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
 
-```python
-powertransform = msb.PowerTransform(power=2)
 print(powertransform)
+print("forward: ", forward)
+print("inverse: ", inverse)
+print("forward_log_jacobian: ", forward_log_jaco)
+print("inverse_log_jacobian: ", inverse_log_jaco)
 ```
 
 The output is as follows:
 
 ```python
 PowerTransform<power = 2>
-```
-
-Use the mapping function to perform the operation.
-
-Invoke the `forward` method to calculate the forward mapping:
-
-```python
-x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
-tx = Tensor(x, dtype=dtype.float32)
-forward = powertransform.forward(tx)
-print(forward)
-```
-
-The output is as follows:
-
-```python
-[2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
-```
-
-Input the `inverse` method to calculate the backward mapping:
-
-```python
-inverse = powertransform.inverse(tx)
-print(inverse)
-```
-
-The output is as follows:
-
-```python
-[1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
-```
-
-Input the `forward_log_jacobian` method to calculate the logarithm of the forward mapping derivative:
-
-```python
-forward_log_jaco = powertransform.forward_log_jacobian(tx)
-print(forward_log_jaco)
-```
-
-The output is as follows:
-
-```python
-[-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
-```
-
-Input the `inverse_log_jacobian` method to calculate the logarithm of the backward mapping derivative:
-
-```python
-inverse_log_jaco = powertransform.inverse_log_jacobian(tx)
-print(inverse_log_jaco)
-```
-
-The output is as follows:
-
-```python
-[6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
+forward: [2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
+inverse: [1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
+forward_log_jacobian: [-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
+inverse_log_jacobian: [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
 ```
 
 ### Invoking a Bijector Instance in Graph Mode
 
 In graph mode, the `Bijector` subclass can be used on the network.
 
-Import related modules:
-
 ```python
+import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore import dtype as mstype
 import mindspore.context as context
-import mindspore.nn.probability.Bijector as msb
+import mindspore.nn.probability.bijector as msb
 context.set_context(mode=context.GRAPH_MODE)
-```
 
-Create a network:
-
-```python
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        # Create a PowerTransform instance.
-        self.powertransform = msb.PowerTransform(power=2)
+        # create a PowerTransform bijector
+        self.powertransform = msb.PowerTransform(power=2.)
 
     def construct(self, value):
-        forward = self.s1.forward(value)
-        inverse = self.s1.inverse(value)
-        forward_log_jaco = self.s1.forward_log_jacobian(value)
-        inverse_log_jaco = self.s1.inverse_log_jacobian(value)
+        forward = self.powertransform.forward(value)
+        inverse = self.powertransform.inverse(value)
+        forward_log_jaco = self.powertransform.forward_log_jacobian(value)
+        inverse_log_jaco = self.powertransform.inverse_log_jacobian(value)
         return forward, inverse, forward_log_jaco, inverse_log_jaco
-```
 
-Invoke the network:
-
-```python
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
-tx = Tensor(x, dtype=dtype.float32)
+tx = Tensor(x, dtype=mstype.float32)
 forward, inverse, forward_log_jaco, inverse_log_jaco = net(tx)
 print("forward: ", forward)
 print("inverse: ", inverse)
