@@ -1,8 +1,8 @@
-# Converting Training Models
+# Converting Models for Inference
 
 <!-- TOC -->
 
-- [Converting Training Models](#converting-training-models)
+- [Converting Models for Inference](#converting-models-for-inference)
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
