@@ -20,7 +20,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/custom_debugging_info.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/custom_debugging_info.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_custom_debugging_info.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
