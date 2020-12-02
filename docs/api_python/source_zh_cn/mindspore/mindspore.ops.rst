@@ -29,7 +29,7 @@ The composite operators are the pre-defined combination of operators.
     mindspore.ops.normal
     mindspore.ops.poisson
     mindspore.ops.repeat_elements
-    mindspore.ops.TensorDot
+    mindspore.ops.tensor_dot
     mindspore.ops.uniform
 
 functional
