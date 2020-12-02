@@ -355,8 +355,8 @@ print("kl: ", kl)
 输出为：
 
 ```text
-pdf: [0.3520653, 0.39894226, 0.3520653]
-kl: 0.5
+pdf:  [0.35206532 0.3989423  0.35206532]
+kl:  0.5
 ```
 
 ### TransformedDistribution类接口设计
@@ -463,9 +463,9 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor, dtype
 import mindspore.context as context
-import mindspore.nn.probability.Bijector as msb
-import mindspore.nn.probability.Distribution as msd
-context.set_context(mode=self.GRAPH_MODE)
+import mindspore.nn.probability.bijector as msb
+import mindspore.nn.probability.distribution as msd
+context.set_context(mode=context.GRAPH_MODE)
 
 class Net(nn.Cell):
     def __init__(self, shape, dtype=dtype.float32, seed=0, name='transformed_distribution'):
@@ -493,9 +493,9 @@ print("sample: ", sample)
 输出为：
 
 ```text
-cdf:  [0.7558914 0.8640314 0.9171715 0.9462397]
-sample:  [[0.21036398 0.44932044 0.5669641 ]
- [1.4103683  6.724116   0.97894996]]
+cdf:  [0.7558914  0.86403143 0.9171715  0.9462397 ]
+sample:  [[0.5361498  0.26627186 2.766659  ]
+ [1.5831033  0.4096472  2.008679  ]]
 ```
 
 ## 概率分布映射
@@ -617,7 +617,7 @@ from mindspore import Tensor, dtype
 
 context.set_context(mode=context.PYNATIVE_MODE)
 
-powertransform = msb.PowerTransform(power=2)
+powertransform = msb.PowerTransform(power=2.)
 
 x = np.array([2.0, 3.0, 4.0, 5.0], dtype=np.float32)
 tx = Tensor(x, dtype=dtype.float32)
@@ -647,8 +647,6 @@ inverse_log_jacobian: [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.6094379
 
 在图模式下，`Bijector` 子类可用在网络中。
 
-导入相关模块：
-
 ```python
 import numpy as np
 import mindspore.nn as nn
@@ -662,32 +660,32 @@ class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         # create a PowerTransform bijector
-        self.powertransform = msb.PowerTransform(power=2)
+        self.powertransform = msb.PowerTransform(power=2.)
 
     def construct(self, value):
-        forward = self.s1.forward(value)
-        inverse = self.s1.inverse(value)
-        forward_log_jaco = self.s1.forward_log_jacobian(value)
-        inverse_log_jaco = self.s1.inverse_log_jacobian(value)
+        forward = self.powertransform.forward(value)
+        inverse = self.powertransform.inverse(value)
+        forward_log_jaco = self.powertransform.forward_log_jacobian(value)
+        inverse_log_jaco = self.powertransform.inverse_log_jacobian(value)
         return forward, inverse, forward_log_jaco, inverse_log_jaco
 
 net = Net()
 x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
-tx = Tensor(x, dtype=dtype.float32)
+tx = Tensor(x, dtype=mstype.float32)
 forward, inverse, forward_log_jaco, inverse_log_jaco = net(tx)
 print("forward: ", forward)
 print("inverse: ", inverse)
-print("forward_log_jaco: ", forward_log_jaco)
-print("inverse_log_jaco: ", inverse_log_jaco)
+print("forward_log_jacobian: ", forward_log_jaco)
+print("inverse_log_jacobian: ", inverse_log_jaco)
 ```
 
 输出为：
 
 ```text
-forward:  [2.236068,  2.6457512, 3.,        3.3166249]
-inverse:  [ 1.5,        4.0000005,  7.5,       12.000001]
-forward_log_jaco:  [-0.804719,   -0.97295505, -1.0986123,  -1.1989477]
-inverse_log_jaco:  [0.6931472, 1.0986123, 1.3862944, 1.609438]
+forward:  [2.236068  2.6457515 3.        3.3166249]
+inverse:  [ 1.5       4.        7.5      12.000001]
+forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
+inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```
 
 ## 深度概率网络
