@@ -17,7 +17,7 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/optimize_the_performance_of_data_preparation/optimize_the_performance_of_data_preparation.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
