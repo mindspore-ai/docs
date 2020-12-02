@@ -86,6 +86,7 @@ Train with MindSpore
    advanced_use/improve_model_security_nad
    advanced_use/protect_user_privacy_with_differential_privacy
    advanced_use/test_model_security_fuzzing
+   advanced_use/test_model_security_membership_inference
 
 .. toctree::
    :glob:
