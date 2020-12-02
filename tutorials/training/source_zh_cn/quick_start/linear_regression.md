@@ -29,6 +29,8 @@
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_linear_regression.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9saW5lYXJfcmVncmVzc2lvbi5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
+&nbsp;&nbsp;
+<a href="https://www.huaweicloud.com/ascend/codeLab_MindSpore/Linear_Regression" target="_blank"><img src="../_static/logo_online_experience.png"></a>
 
 ## 概述
 
