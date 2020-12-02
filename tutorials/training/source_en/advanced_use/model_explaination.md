@@ -1,4 +1,4 @@
-# Explain models
+# Explain Models
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Beginner` `Intermediate` `Expert`
 
@@ -8,7 +8,7 @@
     - [Overview](#overview)
     - [Operation Process](#operation-process)
         - [Preparing the Script](#preparing-the-script)
-        - [Enabling MindInsight](#enabling-mindInsight)
+        - [Enabling MindInsight](#enabling-mindinsight)
     - [Pages and Functions](#pages-and-functions)
         - [Saliency Map Visualization](#saliency-map-visualization)
         - [Explanation Method Assessment](#explanation-method-assessment)
@@ -35,9 +35,9 @@ Besides a variety of explanation methods, we also provide a set of evaluation me
 
 Currently, MindSpore provides the explanation methods and explanation evaluation Python API. You can use the provided explanation methods by  `mindspore.explainer.explanation` and the provided explanation evaluation by `mindspore.explainer.benchmark`. You need to prepare the black-box model and data to be explained, instantiate explanation methods or explanation evaluation according to your need and call the explanation API in your script to collect the explanation result and explanation evaluation result.
 
-MindSpore also provides `mindspore.explainer.ExplainRunner` to run all explanation methods and explanation evaluation methods automatically. You just need to put the instantiated object into `run` of `ExplainRunner` and then all explanation methods and explanation evaluation methods will be executed. Explanation logs containing explanation results and explanation evaluation results will be automatically generated and stored.
+MindSpore also provides `mindspore.explainer.ImageClassificationRunner` to run all explanation methods and explanation evaluation methods automatically. You just need to register the instantiated object and then all explanation methods and explanation evaluation methods will be executed. Explanation logs containing explanation results and explanation evaluation results will be automatically generated and stored.
 
-The following uses ResNet-50 and multi-label dataset with 20 classes as an example. Initializing the explanation methods in `explanation` and the evaluation methods in `benchmark`, the users can then use `ExplainRunner` to execute and explanation and evaluation for the black-box model. The sample code is as follows:
+The following uses ResNet-50 and multi-label dataset with 20 classes as an example. Initializing the explanation methods in `explanation` and the evaluation methods in `benchmark`, the users can then use `ImageClassificationRunner` to execute and explanation and evaluation for the black-box model. The sample code is as follows:
 
 ```python
 import mindspore.nn as nn
@@ -45,7 +45,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore.explainer.explanation import GradCAM, GuidedBackprop
 from mindspore.explainer.benchmark import Faithfulness, Localization
-from mindspore.explainer import ExplainRunner
+from mindspore.explainer import ImageClassificationRunner
 
 num_classes = 20
 # please refer to model_zoo for the model architecture of resnet50
@@ -77,15 +77,16 @@ classes = [
  'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
 ]
 
-dataset_with_classes = (dataset, classes)
+data = (dataset, classes)
 explainers = [gradcam, guidedbackprop]
 benchmarkers = [faithfulness, localization]
 
 # initialize runner with specified summary_dir
-runner = ExplainRunner(summary_dir='./summary_dir')
+runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(explainers, benchmarkers)
 
 # execute runner.run to generate explanation and evaluation results to save it to summary_dir
-runner.run(dataset_with_classes, explainers, benchmarkers, activation_fn=activation_fn)
+runner.run()
 ```
 
 > - Only support CNN of image classification models, such as Lenet, Resnet, Alexnet.
@@ -109,7 +110,6 @@ The following information is displayed on the **Saliency Map Visualization** pag
 
 - Objective dataset set by a user through the Python API of the dataset.
 - Ground truth tags, prediction tags, and the prediction probabilities of the model for the corresponding tags. The system adds the TP, TN, FP and FN flags(meanings are provided in the page's information) in the upper left corner of the corresponding tag based on the actual requirements.
-- If the user setup uncertainty calculation, the system will also display the uncertainty value of the model prediction on the right side of the corresponding label.
 - A saliency map given by the selected explanation method.
 
 Operations:

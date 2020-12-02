@@ -8,7 +8,7 @@
     - [概述](#概述)
     - [操作流程](#操作流程)
         - [准备脚本](#准备脚本)
-        - [启动MindInsight](#启动MindInsight)
+        - [启动MindInsight](#启动mindinsight)
     - [页面及功能介绍](#页面及功能介绍)
         - [显著图可视化](#显著图可视化)
         - [解释方法评估](#解释方法评估)
@@ -35,9 +35,9 @@
 
 当前MindSpore提供解释方法及给解释方法进行评估的度量Python API，已提供的解释方法可以通过`mindspore.explainer.explanation`包获取，度量方法可以通过`mindspore.explainer.benchmark`包获取。用户准备好待解释的黑盒模型和数据，在脚本中根据需要实例化解释方法及度量方法，调用API用于收集解释结果和解释度量结果。
 
-MindSpore还提供`mindspore.explainer.ExplainRunner`运行模块，支持自动化运行所有解释方法和度量方法。用户将实例化的解释方法及度量方法传入到`ExplainRunner`的`run`方法中，即可自动运行解释方法及度量方法，并生成及保存包含解释结果及解释度量结果的解释日志。
+MindSpore还提供`mindspore.explainer.ImageClassificationRunner`运行模块，支持自动化运行所有解释方法和度量方法。用户将实例化的解释方法及度量方法进行注册，即可自动运行解释方法及度量方法，并生成及保存包含解释结果及解释度量结果的解释日志。
 
-下面以ResNet50及带有20类多标签数据为例，用户初始化`explanation`中解释方法及`benchmark`中度量方法，调用`ExplainRunner`进行解释和度量。其样例代码如下：
+下面以ResNet50及带有20类多标签数据为例，用户初始化`explanation`中解释方法及`benchmark`中度量方法，调用`ImageClassificationRunner`进行解释和度量。其样例代码如下：
 
 ```python
 import mindspore.nn as nn
@@ -45,7 +45,7 @@ from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore.explainer.explanation import GradCAM, GuidedBackprop
 from mindspore.explainer.benchmark import Faithfulness, Localization
-from mindspore.explainer import ExplainRunner
+from mindspore.explainer import ImageClassificationRunner
 
 num_classes = 20
 # please refer to model_zoo for the model architecture of resnet50
@@ -77,21 +77,22 @@ classes = [
  'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
 ]
 
-dataset_with_classes = (dataset, classes)
+data = (dataset, classes)
 explainers = [gradcam, guidedbackprop]
 benchmarkers = [faithfulness, localization]
 
 # initialize runner with specified summary_dir
-runner = ExplainRunner(summary_dir='./summary_dir')
+runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(explainers, benchmarkers)
 
 # execute runner.run to generate explanation and evaluation results to save it to summary_dir
-runner.run(dataset_with_classes, explainers, benchmarkers, activation_fn=activation_fn)
+runner.run()
 ```
 
 > - 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
 > - 仅支持PyNative运行模式。
 
-### **启动MindInsight**
+### 启动MindInsight
 
 启动MindInsight系统，在顶部选择进入“模型解释”模块。可以看到所有的解释日志路径，当日志满足条件时，操作列会有“显著图可视化”的功能入口。
 
@@ -109,7 +110,6 @@ runner.run(dataset_with_classes, explainers, benchmarkers, activation_fn=activat
 
 - 用户通过Dataset的Python API接口设置的目标数据集。
 - 真实标签、预测标签，以及模型对对应标签的预测概率。根据具体情况，系统会在对应标签的左上角增加TP，TN，FP，FN（含义见界面提示信息）的旗标。
-- 若用户设置了不确定性的计算，则系统会在相应标签右侧显示其不确定性计数值。
 - 选中的解释方法给出的显著图。
 
 界面操作：
