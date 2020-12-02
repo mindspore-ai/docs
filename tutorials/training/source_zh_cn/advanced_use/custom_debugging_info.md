@@ -337,7 +337,7 @@ val:[[1 1]
     {
         "common_dump_settings": {
             "dump_mode": 0,
-            "path": "/relative_path",
+            "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": 0,
             "input_output": 0,
@@ -352,7 +352,7 @@ val:[[1 1]
     ```
 
     - `dump_mode`：设置成0，表示Dump出改网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
-    - `path`：Dump保存数据的相对路径，异步Dump生成的数据都会保存在`/var/log/npu/ide_daemon/dump/relative_path`目录下。
+    - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
@@ -379,7 +379,7 @@ val:[[1 1]
     执行完用例后去`/var/log/npu/ide_daemon/dump/`目录下，运行如下命令解析Dump数据：
 
     ```bash
-    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析的文件路径}
+    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析的文件路径}
     ```
 
 ## 日志相关的环境变量和配置

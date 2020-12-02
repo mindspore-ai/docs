@@ -334,7 +334,7 @@ The input and output of the operator can be saved for debugging through the data
     {
         "common_dump_settings": {
             "dump_mode": 0,
-            "path": "/relative_path",
+            "path": "/absolute_path",
             "net_name": "ResNet50",
             "iteration": 0,
             "input_output": 0,
@@ -349,7 +349,7 @@ The input and output of the operator can be saved for debugging through the data
     ```
 
     - `dump_mode`：0:dump all kernels in graph, 1: dump kernels in kernels list.
-    - `path`：Relative path where dump data saves. eg:data will be saved in `/var/log/npu/ide_daemon/dump/relative_path`.
+    - `path`：Absolute path where dump data saves.
     - `net_name`：net name eg:ResNet50.
     - `iteration`：Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
     - `input_output`：0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
@@ -376,7 +376,7 @@ The input and output of the operator can be saved for debugging through the data
     Change directory to /var/log/npu/ide_daemon/dump/ after training, execute the following commands to parse Dump data file:
 
     ```bash
-    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
+    python /usr/local/Ascend/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
     ```
 
 ## Log-related Environment Variables and Configurations
