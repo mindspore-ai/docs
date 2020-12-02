@@ -53,9 +53,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv2d = ops.Conv2D(out_channels, kernel_size)
         self.bias_add = ops.BiasAdd()
-        self.weight = Parameter(
-            initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
-            name='conv.weight')
+        self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]))
 
     def construct(self, x):
         output = self.conv2d(x, self.weight)
@@ -75,7 +73,7 @@ class Net(nn.Cell):
 net = Net()
 result = net.parameters_dict()
 print(result.keys())
-print(result['conv.weight'])
+print(result['weight'])
 ```
 
 样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`conv.weight`参数的结果。
@@ -83,8 +81,8 @@ print(result['conv.weight'])
 输出如下：
 
 ```text
-odict_keys(['conv.weight'])
-Parameter (name=conv.weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
+odict_keys(['weight'])
+Parameter (name=weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
    [ 8.66129529e-03  7.36288540e-03 -4.32638079e-03]
    [-1.47628486e-02  8.24100431e-03 -2.71035335e-03]]
    ......
@@ -173,9 +171,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.conv2d = ops.Conv2D(out_channels, kernel_size)
         self.bias_add = ops.BiasAdd()
-        self.weight = Parameter(
-            initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]),
-            name='conv.weight')
+        self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]))
 
     def construct(self, x):
         output = self.conv2d(x, self.weight)

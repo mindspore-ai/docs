@@ -169,7 +169,7 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.matmul = ops.MatMul()
         self.conv = nn.Conv2d(1, 6, 5, pad_mode='valid')
-        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+        self.z = Parameter(Tensor(np.array([1.0], np.float32)))
 
     def construct(self, x, y):
         x = x * self.z

@@ -39,7 +39,7 @@ class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
         self.matmul = P.MatMul()
-        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+        self.z = Parameter(Tensor(np.array([1.0], np.float32)))
     def construct(self, x, y):
         x = x * self.z
         out = self.matmul(x, y)

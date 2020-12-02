@@ -294,7 +294,7 @@ tuple也支持切片取值操作, 但不支持切片类型为Tensor类型，支�
         def __init__(self):
             super(Net, self).__init__()
             self.num = 2
-            self.par = Parameter(Tensor(np.ones((2, 3, 4))), name="par")
+            self.par = Parameter(Tensor(np.ones((2, 3, 4))))
 
         def construct(self, x, y):
             return x + y

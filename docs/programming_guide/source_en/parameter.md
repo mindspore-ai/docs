@@ -20,7 +20,7 @@
 ## Initialization
 
 ```python
-mindspore.Parameter(default_input, name, requires_grad=True, layerwise_parallel=False)
+mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_parallel=False)
 ```
 
 Initialize a `Parameter` object. The input data supports the `Tensor`, `Initializer`, `int`, and `float` types.
@@ -31,7 +31,7 @@ When the network uses the semi-automatic or automatic parallel strategy and `Ini
 
 Different from `Tensor`, `MetaTensor` only stores the shape and type of the tensor, not the actual data. Therefore, `MetaTensor` does not occupy any memory, you can call the `init_data` API to convert `MetaTensor` saved in `Parameter` to `Tensor`.
 
-You can specify a name for each `Parameter` to facilitate subsequent operations and updates.
+You can specify a name for each `Parameter` to facilitate subsequent operations and updates. It is recommended to use the default value of `name` when initialize a parameter as one attribute of a cell, otherwise, the parameter name may be different than expected.
 
 To update a parameter, set `requires_grad` to `True`.
 
@@ -47,7 +47,7 @@ from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
 y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 
@@ -90,7 +90,7 @@ import numpy as np
 
 from mindspore import Tensor, Parameter
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))))
 
 print("name: ", x.name, "\n",
       "sliced: ", x.sliced, "\n",
@@ -104,7 +104,7 @@ print("name: ", x.name, "\n",
 The following information is displayed:
 
 ```text
-name:  x
+name:  Parameter
 sliced:  False
 is_init:  False
 inited_param:  None
@@ -123,7 +123,7 @@ data:  Parameter (name=x)
 
 - `set_param_ps`: controls whether training parameters are trained by using the [Parameter Server](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html).
 
-- `clone`: clones `Parameter`. You need to specify the parameter name after cloning.
+- `clone`: clones `Parameter`. You can specify the parameter name after cloning.
 
 In the following example, `Initializer` is used to initialize `Tensor`, and methods related to `Parameter` are called.  
 
@@ -134,10 +134,14 @@ from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='x')
+x = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32))
 
 print(x)
-print(x.clone(prefix="x_c"))
+
+x_clone = x.clone()
+x_clone.name = "x_clone"
+print(x_clone)
+
 print(x.init_data())
 print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 ```
@@ -145,10 +149,10 @@ print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 The following information is displayed:
 
 ```text
-Parameter (name=x)
-Parameter (name=x_c.x)
-Parameter (name=x)
-Parameter (name=x)
+Parameter (name=Parameter)
+Parameter (name=x_clone)
+Parameter (name=Parameter)
+Parameter (name=Parameter)
 ```
 
 ## ParameterTuple
@@ -163,7 +167,7 @@ from mindspore import Tensor, Parameter, ParameterTuple
 from mindspore import dtype as mstype
 from mindspore.common.initializer import initializer
 
-x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name="x")
+x = Parameter(default_input=Tensor(np.arange(2*3).reshape((2, 3))), name='x')
 y = Parameter(default_input=initializer('ones', [1, 2, 3], mstype.float32), name='y')
 z = Parameter(default_input=2.0, name='z')
 params = ParameterTuple((x, y, z))

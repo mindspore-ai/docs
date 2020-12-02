@@ -318,7 +318,7 @@ allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 imoprt numpy as np
 from mindspore import Parameter, Tensor
 
-x = Parameter(Tensor(np.ones([2, 2])), name="x", layerwise_parallel=True)
+x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 ```
 
 ## 数据并行
