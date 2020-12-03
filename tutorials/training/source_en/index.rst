@@ -640,7 +640,19 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Evaluation user-Enterprise user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/test_model_security_membership_inference.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using Membership Inference to Test Model Security</span>
+										</div>
+										<div class="doc-article-desc">
+											In machine learning and deep learning, if an attacker has some access permissions (black box, gray box, or white box) of a model to obtain some or all information about the model output, structure, or parameters, they can determine whether a sample belongs to a training set of a model. In this case, we can use membership inference to evaluate the privacy data security of machine learning and deep learning models.
+											If more than 60% samples can be correctly inferred using membership inference, the model has privacy data leakage risks.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_resnet50.html" class="article-link">
 									<div>

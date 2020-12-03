@@ -15,6 +15,6 @@ MindSpore Programming Guide
    data_pipeline
    execution_management
    auto_parallel
+   advanced_usage
    network_list
    operator_list
-   advanced_usage
