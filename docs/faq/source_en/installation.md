@@ -117,3 +117,12 @@ print(ops.tensor_add(x,y))
 ```
 
 A: After MindSpore is installed on a CPU hardware platform, run the `python -c'import mindspore'` command to check whether MindSpore is successfully installed. If no error message such as `No module named'mindspore'` is displayed, MindSpore is successfully installed. The verification code is used only to verify whether a Ascend platform is successfully installed.
+
+<br/>
+
+Q: What should I do do when the errors prompts, such as `sh:1:python:not found`, `No module named mindspore._extends.remote` that the Python was linked to Python2.7?
+
+A: Use the following command to check whether the current Python environment meets the requirements of MindSpore.
+
+- Text `python` in terminal window, check whether the version of Python interactive environment is `3.7.x`
+- If not, execute the `sudo ln -sf /usr/bin/python3.7.x /usr/bin/python` command to create Python's soft connection.

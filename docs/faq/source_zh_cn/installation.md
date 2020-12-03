@@ -129,7 +129,7 @@ A：常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，�
 
 ## 安装验证
 
-Q:个人电脑CPU环境安装MindSpore后验证代码时报错：`the pointer[session] is null`，具体代码如下，该如何验证是否安装成功呢？
+Q：个人电脑CPU环境安装MindSpore后验证代码时报错：`the pointer[session] is null`，具体代码如下，该如何验证是否安装成功呢？
 
 ```python
 import numpy as np
@@ -144,3 +144,12 @@ print(ops.tensor_add(x,y))
 ```
 
 A：CPU硬件平台安装MindSpore后测试是否安装成功,只需要执行命令：`python -c 'import mindspore'`，如果没有显示`No module named 'mindspore'`等错误即安装成功。问题中的验证代码仅用于验证Ascend平台安装是否成功。
+
+<br/>
+
+Q：`Linux`平台下执行用例的时候会报错`sh:1:python:not found`或者由于链接到了Python2.7的版本中而报错`No module named mindspore._extends.remote`，该怎么处理？
+
+A：遇到类似的问题，大多是由于Python的环境问题，可以通过如下方式检查Python环境是否是MindSpore运行时所需要的环境。
+
+- 在终端窗口中输入`python`，检查以下进入Python交互环境中的版本信息，如果直接报错则是没有Python的软连接；如果进入的是非Python3.7版本的环境，则当前Python环境不是MindSpore运行所需要的。
+- 执行`sudo ln -sf /usr/bin/python3.7.x /usr/bin/python`创建Python的软连接，然后再检查执行。
