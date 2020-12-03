@@ -235,6 +235,8 @@ Math Functions
     mindspore.nn.IGamma
     mindspore.nn.LBeta
     mindspore.nn.LGamma
+    mindspore.nn.MatDet
+    mindspore.nn.MatInverse
     mindspore.nn.MatMul
     mindspore.nn.Moments
     mindspore.nn.ReduceLogSumExp
