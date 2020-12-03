@@ -22,4 +22,5 @@ Using MindSpore on Mobile and IoT
    use/convert_model
    use/data_preprocessing
    use/runtime
+   use/runtime_train
    use/tools
