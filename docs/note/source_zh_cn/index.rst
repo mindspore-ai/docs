@@ -27,6 +27,7 @@ MindSpore设计和规格
    constraints_on_network_construction
    image_classification_lite
    object_detection_lite
+   posenet_lite
 
 .. toctree::
    :glob:
