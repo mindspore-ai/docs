@@ -63,3 +63,19 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
 You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
+
+<br/>
+
+Q: How to fix the error below when running MindSpore distributed training with GPU:
+
+```text
+Loading libgpu_collective.so failed. Many reasons could cause this:
+1.libgpu_collective.so is not installed.
+2.nccl is not installed or found.
+3.mpi is not installed or found
+```
+
+A: This message means that MindSpore failed to load library `libgpu_collective.so`. The Possible causes are:
+
+- OpenMPI or NCCL is not installed in this environment.
+- NCCL version is not updated to `v2.7.6`: MindSpore `v1.1.0` supports GPU P2P communication operator which relies on NCCL `v2.7.6`. `libgpu_collective.so` can't be loaded successfully if NCCL is not updated to this version.

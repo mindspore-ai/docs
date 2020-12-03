@@ -74,3 +74,19 @@ A：此问题属于内存占用过多导致的内存不够问题，可能原因�
 - `batch_size`的值设置过大。解决办法：将`batch_size`的值设置减小。
 - 引入了异常大的`Parameter`，例如单个数据shape为[640,1024,80,81]，数据类型为float32，单个数据大小超过15G，这样差不多大小的两个数据相加时，占用内存超过3*15G，容易造成`Out of Memory`。解决办法：检查参数的`shape`，如果异常过大，减少shape。
 - 如果以上操作还是未能解决，可以上[官方论坛](https://bbs.huaweicloud.com/forum/forum-1076-1.html)发帖提出问题，将会有专门的技术人员帮助解决。
+
+<br/>
+
+Q：MindSpore执行GPU分布式训练报错如下，如何解决：
+
+```text
+Loading libgpu_collective.so failed. Many reasons could cause this:
+1.libgpu_collective.so is not installed.
+2.nccl is not installed or found.
+3.mpi is not installed or found
+```
+
+A：此问题为MindSpore动态加载集合通信库失败，可能原因如下：
+
+- 执行环境未安装分布式训练依赖的OpenMPI以及NCCL。
+- NCCL版本未更新至`v2.7.6`：MindSpore `v1.1.0`新增GPU P2P通信算子，该特性依赖于NCCL `v2.7.6`，若环境使用的NCCL未升级为此版本，则会引起加载失败错误。
