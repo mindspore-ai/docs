@@ -145,6 +145,7 @@ Math Operators
     mindspore.ops.IsNan
     mindspore.ops.Less
     mindspore.ops.LessEqual
+    mindspore.ops.LinSpace
     mindspore.ops.Log
     mindspore.ops.Log1p
     mindspore.ops.LogicalAnd

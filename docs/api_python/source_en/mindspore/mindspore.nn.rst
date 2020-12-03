@@ -69,6 +69,7 @@ Non-linear Activations
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.nn.ELU
     mindspore.nn.FastGelu
     mindspore.nn.GELU
     mindspore.nn.HSigmoid
