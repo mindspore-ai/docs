@@ -138,7 +138,7 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
         sliced_parameters.append(parameter)
     ```
 
-    > 如果要保证参数更新速度不变，需要对优化器中保存的参数，如“moments.model_parallel_weight”，同样做合并处理。
+    > 如果要保证参数更新速度不变，需要对优化器中保存的参数，如"moments.weight"，同样做合并处理。
 
 2. 调用`merge_sliced_parameter`接口进行参数合并。
 
@@ -162,13 +162,13 @@ strategy = build_searched_strategy("./strategy_train.cpkt")
         else:
             param_data = Tensor(value.data)
         each_param["data"] = param_data
-        param_list.append(each_param）
+        param_list.append(each_param)
     ```
 
 2. 调用`save_checkpoint`接口，将参数数据写入文件，生成新的CheckPoint文件。
 
    ```python
-   save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
+   save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
    ```
 
     其中，
@@ -196,7 +196,7 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 
 ### 步骤2：对模型并行参数做切分处理
 
-下面以一个具体的模型参数为例，参数名称为“model_parallel_weight"， 数据值为Tensor [[1, 2, 3, 4],  [5, 6, 7, 8]]，切分逻辑为2卡场景，按[2, 1]切分。
+下面以一个具体的模型参数为例，参数名称为"weight"， 数据值为Tensor [[1, 2, 3, 4],  [5, 6, 7, 8]]，切分逻辑为2卡场景，按[2, 1]切分。
 切分后数据分布情况如下：
 
 | Device0             | Device1              |
@@ -301,7 +301,7 @@ load_param_into_net(opt, param_dict)
             self.fc = ops.MatMul(transpose_b=True)
 
         def construct(self, x):
-            x = self.fc(x, self.weight1)
+            x = self.fc(x, self.weight)
             return x
 
     def integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size):
@@ -360,7 +360,7 @@ load_param_into_net(opt, param_dict)
             rank_size = int(sys.argv[4])
             integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size)
         except:
-            print("Fail to integrate checkpoint file)
+            print("Fail to integrate checkpoint file")
             sys.exit(-1)
     ```
 
@@ -509,7 +509,8 @@ load_param_into_net(opt, param_dict)
             input = np.random.random((4, 8)).astype(np.float32)
             print("mean = ", np.mean(input,axis=1, keepdims=True))
             label = np.random.random((4, 4)).astype(np.float32)
-            train_mindspore_impl_fc(input, label, weight1)
+            ckpt_file = sys.argv[1]
+            train_mindspore_impl_fc(input, label, ckpt_file)
     ```
 
     其中，
