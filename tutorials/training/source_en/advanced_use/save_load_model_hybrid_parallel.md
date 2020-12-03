@@ -138,7 +138,7 @@ The parameter name is weight and the dividing strategy is to perform dividing in
         sliced_parameters.append(parameter)
    ```
 
-   > To ensure that the parameter update speed remains unchanged, you need to integrate the parameters saved in the optimizer, for example, moments.model\_parallel\_weight.
+   > To ensure that the parameter update speed remains unchanged, you need to integrate the parameters saved in the optimizer, for example, moments.weight.
 
 2. Call the `merge_sliced_parameter` API to merge the sliced parameters.
 
@@ -162,13 +162,13 @@ The parameter name is weight and the dividing strategy is to perform dividing in
        else:
            param_data = Tensor(value.data)
        each_param["data"] = param_data
-       param_list.append(each_param）
+       param_list.append(each_param)
    ```
 
 2. Call the `save_checkpoint` API to write the parameter data to a file and generate a new checkpoint file.
 
     ```python
-    save_checkpoint(param_list, “./CKP-Integrated_1-4_32.ckpt”)
+    save_checkpoint(param_list, "./CKP-Integrated_1-4_32.ckpt")
     ```
 
     In the preceding information:
@@ -195,7 +195,7 @@ param_dict = load_checkpoint("./CKP-Integrated_1-4_32.ckpt")
 
 ### Step 2: Dividing a Model Parallel Parameter
 
-The following uses a specific model parameter as an example. The parameter name is model\_parallel\_weight, the data value is Tensor \[\[1, 2, 3, 4], \[5, 6, 7, 8]], and the dividing strategy is to perform dividing in the two-device scenario based on \[2, 1]. Data distribution after dividing is as follows:
+The following uses a specific model parameter as an example. The parameter name is weight, the data value is Tensor \[\[1, 2, 3, 4], \[5, 6, 7, 8]], and the dividing strategy is to perform dividing in the two-device scenario based on \[2, 1]. Data distribution after dividing is as follows:
 
 | Device0            | Device1             |
 |--------------------|---------------------|
@@ -355,7 +355,7 @@ User process:
             rank_size = int(sys.argv[4])
             integrate_ckpt_file(old_ckpt_file, new_ckpt_file, strategy_file, rank_size)
         except:
-            print("Fail to integrate checkpoint file)
+            print("Fail to integrate checkpoint file")
             sys.exit(-1)
    ```
 
@@ -475,7 +475,7 @@ User process:
            self.fc = ops.MatMul(transpose_b=True)
 
        def construct(self, x):
-           x = self.fc(x, self.weight1)
+           x = self.fc(x, self.weight)
            return x
    def train_mindspore_impl_fc(input, label, ckpt_file):
        param_dict = load_checkpoint(ckpt_file)
@@ -504,7 +504,8 @@ User process:
            input = np.random.random((4, 8)).astype(np.float32)
            print("mean = ", np.mean(input,axis=1, keepdims=True))
            label = np.random.random((4, 4)).astype(np.float32)
-           train_mindspore_impl_fc(input, label, weight1)
+           ckpt_file = sys.argv[1]
+           train_mindspore_impl_fc(input, label, ckpt_file)
    ```
 
    In the preceding information:
