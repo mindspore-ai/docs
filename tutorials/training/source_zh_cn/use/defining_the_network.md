@@ -8,7 +8,7 @@
 
 - 直接使用官方提供的典型网络模型。
 
-  建议通过查阅当前MindSpore提供的[网络支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/network_list_ms.html)列表，直接使用相应的网络模型。在网络支持列表中，提供了每个网络所支持的平台，直接点击相应网络名称查看网络的定义，用户可根据需求自定义网络初始化参数。
+  建议通过查阅当前MindSpore提供的[网络支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/network_list_ms.html)，直接使用相应的网络模型。在网络支持列表中，提供了每个网络所支持的平台，直接点击相应网络名称查看网络的定义，用户可根据需求自定义网络初始化参数。
 
 - 自行构建网络。
 
