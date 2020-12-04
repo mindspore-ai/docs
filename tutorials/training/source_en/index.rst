@@ -327,7 +327,21 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							
+
+							<div class="doc-article-item all hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_deep_probability_programming.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Deep Probabilistic Programming</span>
+										</div>
+										<div class="doc-article-desc">
+											MindSpore Deep Probabilistic Programming (MDP) combines deep learning and Bayesian learning. By setting a network weight to distribution and introducing latent space distribution, MDP can sample the distribution and forward propagation, which introduces uncertainty and enhances the robustness and explainability of a model.
+											This chapter will introduce in detail the application of deep probabilistic programming on MindSpore.
+										</div>
+									</div>
+								</a>
+							</div>
+
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html" class="article-link">
 									<div>
