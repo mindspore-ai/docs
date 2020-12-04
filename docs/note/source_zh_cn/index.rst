@@ -28,6 +28,7 @@ MindSpore设计和规格
    image_classification_lite
    object_detection_lite
    posenet_lite
+   image_segmentation_lite
 
 .. toctree::
    :glob:
