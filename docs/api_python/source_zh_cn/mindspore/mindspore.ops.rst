@@ -247,6 +247,7 @@ primitive
     mindspore.ops.constexpr
     mindspore.ops.prim_attr_register
     mindspore.ops.Primitive
+    mindspore.ops.PrimitiveWithCheck
     mindspore.ops.PrimitiveWithInfer
 
 vm_impl_registry
