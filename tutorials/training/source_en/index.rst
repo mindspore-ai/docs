@@ -45,6 +45,7 @@ Train with MindSpore
 
    advanced_use/custom_operator
    advanced_use/migrate_script
+   advanced_use/apply_deep_probability_programming
 
 .. toctree::
    :glob:
