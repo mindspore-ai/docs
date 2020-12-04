@@ -10,6 +10,7 @@
     - [实现CPU算子和注册算子信息](#实现cpu算子和注册算子信息)
         - [实现CPU算子](#实现cpu算子)
         - [注册算子信息](#注册算子信息)
+    - [编译MindSpore](#编译mindspore)
     - [使用自定义CPU算子](#使用自定义cpu算子)
     - [定义算子反向传播函数](#定义算子反向传播函数)
 
@@ -164,9 +165,13 @@ MS_REG_CPU_KERNEL(Transpose, KernelAttr().AddInputAttr(kNumberTypeFloat32).AddOu
 
 > 算子信息中定义输入输出信息的个数和顺序、算子实现中的输入输出信息的个数和顺序、算子原语中输入输出名称列表的个数和顺序，三者要完全一致。
 
+## 编译MindSpore
+
+写好自定义CPU算子后，需要重新编译安装MindSpore，具体请参考[安装文档](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_source.md#)。
+
 ## 使用自定义CPU算子
 
-自定义CPU算子通过导入原语直接使用。下面以`Transpose`的单算子网络测试为例进行说明。
+编译并安装完成后，自定义CPU算子可以通过导入原语直接使用。下面以`Transpose`的单算子网络测试为例进行说明。
 
 在`test_transpose.py`文件中定义网络。
 
