@@ -12,6 +12,7 @@ Using MindSpore on Mobile and IoT
    :caption: Quick Start
 
    quick_start/quick_start
+   quick_start/train_lenet
 
 .. toctree::
    :glob:
