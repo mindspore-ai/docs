@@ -92,5 +92,4 @@
 | 编程指南        | 自动数据增强     | [auto_augmentation.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/auto_augmentation.ipynb)       | - 介绍基于概率的自动数据增强<br/> - 介绍基于回调参数的自动数据增强
 | 编程指南        | 运行管理     | [context.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/context.ipynb)       | - 介绍执行模式的选择和切换<br/> - 介绍硬件管理的方式<br/> - 介绍分布式管理的用法<br/> - 介绍维测管理的使用方式
 | 编程指南        | 运行方式     | [run.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/run.ipynb)       | - 介绍单个算子的执行<br/> - 介绍普通函数的执行<br/> - 介绍网络模型的执行
-| 编程指南        | 分布式并行     | [auto_parallel.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/auto_parallel.ipynb)       | - 介绍分布式并行配置<br/> - 介绍分布式并行用到的通信接口<br/> - 介绍分布式属性配置<br/> - 介绍数据并行和自动并行
 | 编程指南        | 训练     | [train.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/train.ipynb)       | - 学习自定义训练网络<br/> - 学习自定义训练循环<br/> - 学习如何边训练边推理<br/> - 介绍On-device执行
