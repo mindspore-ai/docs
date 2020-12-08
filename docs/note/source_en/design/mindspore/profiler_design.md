@@ -46,7 +46,7 @@ Figure 1 Context relationship
 
 As shown in the preceding figure, the interaction between the Profiler and other components is as follows:
 
-1. In the training script, MindSpore Profiler is called to send the command to the MindSpore ada communication module for starting performance data collection. Finally, the ada generates original performance data.
+1. In the training script, MindSpore Profiler is called to send the command to the MindSpore ada(Ascend device) or CUPTI(GPU device) module for starting performance data collection. Finally, the ada or CUPTI generates original performance data.
 
 2. MindSpore Profiler parses the original data in the user script and generates the intermediate data results in the specified folder.
 
@@ -78,7 +78,7 @@ Figure 3 Module interaction
 
 The interaction process of each module is as follows:
 
-1. ProfilerAPI calls the control function of the lower-layer Controller to control the lower-layer collection module to collect performance information. Currently, the collection module (ada) receives commands in resident process mode and independently collects performance information.
+1. ProfilerAPI calls the control function of the lower-layer Controller to control the lower-layer collection module to collect performance information. Currently, the collection module (ada on Ascend or CUPTI on GPU) receives commands and independently collects performance information.
 
 2. After the training is complete, users call the analysis API of ProfilerAPI.
 
@@ -91,7 +91,7 @@ The interaction process of each module is as follows:
 #### Description
 
 ProfilerAPI provides an entry API in the training script for users to start performance collection and analyze performance data.
-ProfilerAPI delivers commands through Controller to control the startup of ada.
+ProfilerAPI delivers commands through Controller to control the startup of ada/CUPTI.
 
 #### Design
 
@@ -105,10 +105,16 @@ Controller provides an API for the upper layer, calls API of the lower-layer per
 
 The generated original performance data includes:
 
+Ascend:
+
 - `hwts.log.data.45.dev.profiler_default_tag` file: stores operator execution information, including the start and end of a task and stream ID.
 - `DATA_PREPROCESS.dev.AICPU` file: specifies AI CPU operator execution time at each stage.
 - `Framework.host.task_desc_info` file: stores the mapping between operator IDs and operator names and the input and output information of each operator.
 - `training_trace.46.dev.profiler_default_tag` file: stores the start and end time of each step and time of step interval, forward and backward propagation, and step tail.
+
+GPU:
+
+- `step_trace_profiling_0.txt` file: stores the start and end operator of each step.
 
 ### Parser
 
@@ -124,10 +130,16 @@ Figure 4 Parser module
 
 As shown in the preceding figure, there are HWTS Parser, AI CPU Parser, Framework Parser, and Training Trace Parser modules. Each module parses a type of original data to obtain the intermediate file that can be read by users.
 
+Ascend:
+
 - HWTS Parser: parses the `hwts.log.data.45.dev.profiler_default_tag` file to obtain the task-based statistics of the device, such as the start and end of each task and stream ID, which are used to compute the operator execution time.
 - AI CPU Parser: parses the `DATA_PREPROCESS.dev.AICPU` file to obtain the AI CPU operator execution time at each stage.
 - Framework Parser: parses the `Framework.host.task_desc_info` file to obtain the mapping between AI Core operator and task, and key operator information.
 - Training Trace Parser: parses the `training_trace.46.dev.profiler_default_tag` file to analyze the time at each training stage.
+
+GPU:
+
+- Training Trace Parser: parses the `step_trace_profiling_0.txt` file to analyze the time at each training stage.
 
 ### Analyser
 
@@ -148,7 +160,7 @@ As shown in the preceding figure, multiple Analysers are implemented for differe
 Currently, there are two types of analyzers for operator information:
 
 - Filter the average information of operator types.
-- Filter the detailed average information of each operator in two Analysers (AicoreTypeAnalyser and AicoreDetailAnalyser).
+- Filter the detailed average information of each operator in two Analysers (AicoreTypeAnalyser and AicoreDetailAnalyser for Ascend, GpuOpTypeAnalyser and GpuOpInfoAnalyser for GPU).
 
 To hide the internal implementation of Analyser and facilitate calling, the simple factory mode is used to obtain the specified Analyser through AnalyserFactory.
 
@@ -172,7 +184,7 @@ As shown in the preceding figure:
 - Proposer calls the Analyser API to obtain performance data and obtain optimization suggestions based on optimization rules.
 - Proposer calls Analyser factory to obtain the Analyser object.
 
-You can call the query API of the Analyser object to obtain information, including the top N AICore, AICoreType, and AICpu operators that are sorted by time and the time information of each traning trace stage.
+You can call the query API of the Analyser object to obtain information, including the top N operators that are sorted by time and the time information of each training trace stage.
 
 The following figure shows the module class design:
 
