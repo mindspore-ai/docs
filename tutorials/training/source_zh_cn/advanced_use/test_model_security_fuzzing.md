@@ -67,9 +67,9 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
    # Lenet model
    model = Model(net)
    # get training data
-   data_list = "../common/dataset/MNIST/train"
+   mnist_path = "../common/dataset/MNIST/"
    batch_size = 32
-   ds = generate_mnist_dataset(data_list, batch_size, sparse=False)
+   ds = generate_mnist_dataset(os.path.join(mnist_path, "train"), batch_size, sparse=False)
    train_images = []
    for data in ds.create_tuple_iterator():
        images = data[0].asnumpy().astype(np.float32)
@@ -77,9 +77,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
    train_images = np.concatenate(train_images, axis=0)
 
    # get test data
-   data_list = "../common/dataset/MNIST/test"
    batch_size = 32
-   ds = generate_mnist_dataset(data_list, batch_size, sparse=False)
+   ds = generate_mnist_dataset(os.path.join(mnist_path, "test"), batch_size, sparse=False)
    test_images = []
    test_labels = []
    for data in ds.create_tuple_iterator():
