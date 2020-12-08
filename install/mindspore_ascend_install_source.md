@@ -43,11 +43,18 @@
         pip install /usr/local/Ascend/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
-- 确认安装git工具。  
-    如果未安装，使用如下命令下载安装：
+- 确认安装git工具。
+
+    Ubuntu系统用户，如果未安装，使用如下命令下载安装：
 
     ```bash
     apt-get install git
+    ```
+
+    EulerOS和CentOS系统用户，如果未安装，使用如下命令下载安装：
+
+    ```bash
+    yum install git
     ```
 
 ## 从代码仓下载源码
