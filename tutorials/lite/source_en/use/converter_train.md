@@ -1,8 +1,8 @@
-# Converting MindSpore ToD Models
+# Creating MindSpore ToD Models
 
 <!-- TOC -->
 
-- [Converting MindSpore ToD Models](#creating-mindspore-tod-model)
+- [Creating MindSpore ToD Models](#creating-mindspore-tod-model)
     - [Overview](#overview)
     - [Exporting python written models to .mindir format](#exporting-python-written-models-to-.mindir-format)
         - [MindSpore Environment Preparation](#mindspore-environment-preparation)
@@ -18,7 +18,7 @@
 
 ## Overview
 
-Converting your MindSpore ToD(Train on Device) model is a two step procedure:
+Creating your MindSpore ToD(Train on Device) model is a two step procedure:
 
 - In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based Python code. The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
 - In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore ToD framework. The converted `.ms` models can be used for both training and inference.
@@ -111,7 +111,7 @@ export(train_net, x, label, file_name="gnet_tod.mindir", file_format='MINDIR')
 
 To use the MindSpore ToD(Train on Device) model conversion tool, you need to prepare the environment as follows:
 
-- Compile or download the pre-compiled converter as explained in the [previous page](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
+- Compile or download the pre-compiled converter for ToD as explained in the [previous page](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
 - Configure the converter environment variables as explained [here](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description).
 
 > Conversion of models is currently supported only on Linux environments
