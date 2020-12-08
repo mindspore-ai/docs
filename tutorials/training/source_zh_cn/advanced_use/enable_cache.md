@@ -65,7 +65,7 @@ Session created for server on port 50052: 1493732251
 
 ## 创建缓存实例
 
-在Python训练脚本中使用`DatasetCache` API来定义一个名为`some_cache`的缓存实例，并把上一步中创建的缓存会话id传入`session_id`参数：
+创建Python脚本`my_training_script.py`，在脚本中使用`DatasetCache` API来定义一个名为`some_cache`的缓存实例，并把上一步中创建的缓存会话id传入`session_id`参数：
 
 ```python
 import mindspore.dataset as ds
@@ -75,19 +75,28 @@ some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=True)
 
 ## 插入缓存实例
 
-在应用数据增强算子时将所创建的`some_cache`作为其`cache`参数传入：
+下面样例中使用到CIFAR-10数据集。运行样例前，需要参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
+
+```text
+├─my_training_script.py
+└─cifar-10-batches-bin
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    ├── data_batch_5.bin
+    ├── readme.html
+    └── test_batch.bin
+```
+
+继续编写Python脚本，在应用数据增强算子时将所创建的`some_cache`作为其`cache`参数传入：
 
 ```python
-import mindspore.common.dtype as mstype
 import mindspore.dataset.vision.c_transforms as c_vision
 
-schema = ds.Schema()
-schema.add_column('image', de_type=mstype.uint8, shape=[640, 480, 3])
-
-ds.config.set_seed(0)
-ds.config.set_num_parallel_workers(1)
-
-data = ds.RandomDataset(schema=schema, total_rows=4, num_parallel_workers=1)
+dataset_dir = "cifar-10-batches-bin/"
+data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=5, shuffle=False, num_parallel_workers=1)
 
 # apply cache to map
 rescale_op = c_vision.Rescale(1.0 / 255.0, -1.0)
@@ -100,13 +109,14 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
     num_iter += 1
 ```
 
-输出结果：
+运行Python脚本`my_training_script.py`，得到输出结果：
 
 ```text
-0 image shape: (640, 480, 3)
-1 image shape: (640, 480, 3)
-2 image shape: (640, 480, 3)
-3 image shape: (640, 480, 3)
+0 image shape: (32, 32, 3)
+1 image shape: (32, 32, 3)
+2 image shape: (32, 32, 3)
+3 image shape: (32, 32, 3)
+4 image shape: (32, 32, 3)
 ```
 
 通过`cache_admin --list_sessions`命令可以查看当前会话有四条数据，说明数据缓存成功。
@@ -115,8 +125,8 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
 $ cache_admin --list_sessions
 Listing sessions for server on port 50052
 
-     Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
-  1493732251  3847471003           4         n/a         3686561         4
+     Session    Cache Id  Mem cached  Disk cached  Avg cache size  Numa hit
+  1493732251  3618046178       5          n/a          12442         5
 ```
 
 ## 销毁缓存会话

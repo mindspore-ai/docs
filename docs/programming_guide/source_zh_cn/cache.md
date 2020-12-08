@@ -66,20 +66,20 @@
 
     `cache_admin`支持以下命令和参数：
     - `--start`：启动缓存服务器，支持通过以下参数进行配置：
-        - `-w`：设置缓存服务器的工作线程数量，默认情况下工作线程数量为机器CPU个数的一半。
-        - `-s`：设置若缓存数据的大小超过内存空间，则溢出至磁盘的数据文件路径，默认为`/tmp/mindspore/cache`。
-        - `-h`：缓存服务器的ip地址，默认为127.0.0.1。
-        - `-p`：缓存服务器的端口号，默认为50052。
-        - `-l`：设置日志等级，默认为1（INFO级别）。
+        - `--workers`或`-w`：设置缓存服务器的工作线程数量，默认情况下工作线程数量为机器CPU个数的一半。
+        - `--spilldir`或`-s`：设置若缓存数据的大小超过内存空间，则溢出至磁盘的数据文件路径，默认为`/tmp/mindspore/cache`。
+        - `--hostname`或`-h`：缓存服务器的ip地址，默认为127.0.0.1。
+        - `--port`或`-p`：缓存服务器的端口号，默认为50052。
+        - `--loglevel`或`-l`：设置日志等级，默认为1（WARNING级别）。若设置为0（INFO级别），会输出过多日志，导致性能劣化。
     - `--stop`：关闭缓存服务器。
     - `--generate_session`或`-g`：生成一个缓存会话。
     - `--destroy_session`或`-d`：删除一个缓存会话。
     - `--list_sessions`：查看当前缓存会话列表和详细信息。
     - `--help`：查看帮助信息。
 
-    以上命令均可使用`-h`和`-p`参数来指定服务器，若未指定则默认对ip为127.0.0.1且端口号为50052的服务器执行操作。交叉
+    以上命令均可使用`-h`和`-p`参数来指定服务器，若未指定则默认对ip为127.0.0.1且端口号为50052的服务器执行操作。
 
-    用户也可使用`ps -ef|grep cache_server`命令来检查服务器是否已启动以及查询服务器各参数。
+    用户可通过`ps -ef|grep cache_server`命令来检查服务器是否已启动以及查询服务器参数。
 
 3. 创建缓存会话。
 
@@ -133,30 +133,24 @@
     > - 设置`size=0`代表不限制缓存所使用的内存空间，但不超过系统可用内存的80%。
     > - 若设置`spilling=True`，则当内存空间不足时，多余数据将写入磁盘中。因此，用户需确保所设置的磁盘路径具有写入权限以及足够的磁盘空间，以存储溢出至磁盘的缓存数据。
     > - 若设置`spilling=False`，则缓存服务器在耗尽所设置的内存空间后将不再写入新的数据。
-    > - 当使用非映射数据集（不支持随机访问的数据集，如`TFRecordDataset`）进行数据加载并启用缓存服务时，需要保证整个数据集均存放于本地，即当内存不足时，必须将数据溢出至磁盘。但溢出过多数据会增加IO操作，导致性能变差。因此当使用可映射数据集（支持随机访问的数据集，如`ImageFolderDataset`）加载数据时，建议关闭数据溢出。
+    > - 当使用不支持随机访问的数据集（如`TFRecordDataset`）进行数据加载并启用缓存服务时，需要保证整个数据集均存放于本地。在该场景下，若本地内存空间不足以存放所有数据，则必须启用溢出，将数据溢出至磁盘。
     > - `num_connections`和`prefetch_size`为内部性能调优参数，一般情况下，用户无需设置这两个参数。
 
 5. 插入缓存实例。
 
-    在需要缓存的节点将所创建的`test_cache`作为`cache`参数传入。
+    当前缓存服务既支持对原始数据集的缓存，也可以用于缓存经过数据增强处理后的数据。下例分别展示了两种使用方式。
 
-    当前缓存算子既支持对原始数据集的缓存，也可以用于缓存经过数据增强处理后的数据。
+    需要注意的是，两个例子均需要按照步骤4中的方法分别创建一个缓存实例，并在数据集加载或map算子中将所创建的`test_cache`作为`cache`参数分别传入。
 
-    需要注意的是，同一个缓存实例只能供一个缓存算子使用。下面的例子为缓存的两种使用方式，若要同时运行，需要额外创建一个缓存实例`DatasetCache`并插入到算子。
+    下面两个样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。
 
     - 缓存原始数据集加载的数据。
 
         ```python
-        import mindspore.common.dtype as mstype
-
-        schema = ds.Schema()
-        schema.add_column('image', de_type=mstype.uint8, shape=[640, 480, 3])
-
-        ds.config.set_seed(1)
-        ds.config.set_num_parallel_workers(1)
+        dataset_dir = "cifar-10-batches-bin/"
 
         # apply cache to dataset
-        data = ds.RandomDataset(schema=schema, total_rows=4, num_parallel_workers=1, cache=test_cache)
+        data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=4, shuffle=False, num_parallel_workers=1, cache=test_cache)
 
         num_iter = 0
         for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionary
@@ -168,10 +162,10 @@
         输出结果：
 
         ```text
-        0 image shape: (640, 480, 3)
-        1 image shape: (640, 480, 3)
-        2 image shape: (640, 480, 3)
-        3 image shape: (640, 480, 3)
+        0 image shape: (32, 32, 3)
+        1 image shape: (32, 32, 3)
+        2 image shape: (32, 32, 3)
+        3 image shape: (32, 32, 3)
         ```
 
         通过`cache_admin --list_sessions`命令可以查看当前会话有四条数据，说明数据缓存成功。
@@ -181,22 +175,18 @@
         Listing sessions for server on port 50052
 
              Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
-          1456416665  3828314003           4         n/a          921720         4
+          1456416665   821590605       4         n/a          3226           4
         ```
 
     - 缓存经过数据增强处理后的数据。
 
         ```python
-        import mindspore.common.dtype as mstype
         import mindspore.dataset.vision.c_transforms as c_vision
 
-        schema = ds.Schema()
-        schema.add_column('image', de_type=mstype.uint8, shape=[320, 240, 3])
+        dataset_dir = "cifar-10-batches-bin/"
 
-        ds.config.set_seed(2)
-        ds.config.set_num_parallel_workers(1)
-
-        data = ds.RandomDataset(schema=schema, total_rows=5, num_parallel_workers=1)
+        # apply cache to dataset
+        data = ds.Cifar10Dataset(dataset_dir=dataset_dir, num_samples=5, shuffle=False, num_parallel_workers=1)
 
         # apply cache to map
         rescale_op = c_vision.Rescale(1.0 / 255.0, -1.0)
@@ -212,11 +202,11 @@
         输出结果：
 
         ```text
-        0 image shape: (320, 240, 3)
-        1 image shape: (320, 240, 3)
-        2 image shape: (320, 240, 3)
-        3 image shape: (320, 240, 3)
-        4 image shape: (320, 240, 3)
+        0 image shape: (32, 32, 3)
+        1 image shape: (32, 32, 3)
+        2 image shape: (32, 32, 3)
+        3 image shape: (32, 32, 3)
+        4 image shape: (32, 32, 3)
         ```
 
         通过`cache_admin --list_sessions`命令可以查看当前会话有五条数据，说明数据缓存成功。
@@ -226,7 +216,7 @@
         Listing sessions for server on port 50052
 
              Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
-          1456416665  3828314003           5         n/a          921720         5
+          1456416665  3618046178       5         n/a          12442         5
         ```
 
 6. 销毁缓存会话。
@@ -278,6 +268,14 @@
     #!/bin/bash
     # This shell script will launch parallel pipelines
 
+    # get path to dataset directory
+    if [ $# != 1 ]
+    then
+            echo "Usage: sh cache.sh [DATASET_PATH]"
+    exit 1
+    fi
+    dataset_path=$1
+
     # generate a session id that these parallel pipelines can share
     result=$(cache_admin -g 2>&1)
     rc=$?
@@ -299,7 +297,7 @@
     num_devices=4
 
     for p in $(seq 0 $((${num_devices}-1))); do
-        python my_training_script.py --num_devices "$num_devices" --device "$p" --session_id $session_id
+        python my_training_script.py --num_devices "$num_devices" --device "$p" --session_id $session_id --dataset_path $dataset_path
     done
     ```
 
@@ -307,29 +305,39 @@
 
 4. 创建并应用缓存实例。
 
-    创建Python脚本`my_training_script.py`，通过以下代码接收传入的`session_id`，并在定义缓存实例时将其作为参数传入：
+    下面样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
+
+    ```text
+    ├─cache.sh
+    ├─my_training_script.py
+    └─cifar-10-batches-bin
+        ├── batches.meta.txt
+        ├── data_batch_1.bin
+        ├── data_batch_2.bin
+        ├── data_batch_3.bin
+        ├── data_batch_4.bin
+        ├── data_batch_5.bin
+        ├── readme.html
+        └── test_batch.bin
+    ```
+
+    创建并编写Python脚本`my_training_script.py`，通过以下代码接收传入的`session_id`，并在定义缓存实例时将其作为参数传入。
 
     ```python
     import argparse
-    import mindspore.common.dtype as mstype
     import mindspore.dataset as ds
 
     parser = argparse.ArgumentParser(description='Cache Example')
     parser.add_argument('--num_devices', type=int, default=1, help='Device num.')
     parser.add_argument('--device', type=int, default=0, help='Device id.')
     parser.add_argument('--session_id', type=int, default=1, help='Session id.')
+    parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
     args_opt = parser.parse_args()
-
-    schema = ds.Schema()
-    schema.add_column('image', de_type=mstype.uint8, shape=[2])
-    schema.add_column('label', de_type=mstype.uint8, shape=[1])
-
-    ds.config.set_seed(1)
-    ds.config.set_num_parallel_workers(1)
 
     # apply cache to dataset
     test_cache = ds.DatasetCache(session_id=args_opt.session_id, size=0, spilling=False)
-    dataset = ds.RandomDataset(schema=schema, total_rows=4, num_parallel_workers=1, cache=test_cache, num_shards=args_opt.num_devices, shard_id=args_opt.device)
+    dataset = ds.Cifar10Dataset(dataset_dir=args_opt.dataset_path, num_samples=4, shuffle=False, num_parallel_workers=1,
+                                num_shards=args_opt.num_devices, shard_id=args_opt.device, cache=test_cache)
     num_iter = 0
     for _ in dataset.create_dict_iterator():
         num_iter += 1
@@ -343,21 +351,21 @@
     运行Shell脚本`cache.sh`开启分布式训练：
 
     ```shell
-    $ sh cache.sh
+    $ sh cache.sh cifar-10-batches-bin/
     Got 4 samples on device 0
     Got 4 samples on device 1
     Got 4 samples on device 2
     Got 4 samples on device 3
     ```
 
-    通过`cache_admin --list_sessions`命令可以查看当前会话有四条数据，说明数据缓存成功。
+    通过`cache_admin --list_sessions`命令可以查看当前会话中只有一组数据，说明缓存共享成功。
 
     ```shell
     $ cache_admin --list_sessions
     Listing sessions for server on port 50052
 
          Session    Cache Id  Mem cached Disk cached  Avg cache size  Numa hit
-      3361424923  3662550268           4         n/a             147         4
+      3392558708   821590605          16         n/a            3227        16
     ```
 
 6. 销毁缓存会话。
@@ -365,7 +373,7 @@
     在训练结束后，可以选择将当前的缓存销毁并释放内存：
 
     ```shell
-    $ cache_admin --destroy_session 3361424923
+    $ cache_admin --destroy_session 3392558708
     Drop session successfully for server on port 50052
     ```
 
@@ -380,9 +388,10 @@
 
 ## 当前限制
 
-- 当前`MindDataset`、`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`四种数据集类不支持缓存。
+- 当前`MindDataset`、`GraphDataset`、`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`等数据集类不支持缓存。其中，`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`属于`GeneratorOp`，在不支持的报错信息中会呈现"There is currently no support for GeneratorOp under cache"。
 - 经过`batch`、`concat`、`filter`、`repeat`、`skip`、`split`、`take`和`zip`处理后的数据不支持缓存。
 - 经过随机数据增强操作（如`RandomCrop`）后的数据不支持缓存。
+- 不支持在同个数据管道的不同位置嵌套使用同一个缓存实例。
 
 ## 缓存性能调优
 
@@ -394,4 +403,4 @@
 然而，在以下场景中使用缓存的收益可能较差，例如：
 
 - 系统内存不足、缓存未命中等因素将导致缓存服务在时间性能上提升不明显。因此，可在使用缓存前检查可用系统内存是否充足，选择一个适当的缓存大小。
-- 过多缓存溢出会导致时间性能变差。因此，在使用可映射数据集进行数据加载的场景，尽量不要允许缓存溢出至磁盘。
+- 过多缓存溢出会导致时间性能变差。因此，在使用可随机访问的数据集（如`ImageFolderDataset`）进行数据加载的场景，尽量不要允许缓存溢出至磁盘。
