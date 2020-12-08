@@ -16,6 +16,9 @@
             - [LogNormal Distribution](#lognormal-distribution)
             - [Gumbel Distribution](#gumbel-distribution)
             - [Logistic Distribution](#logistic-distribution)
+            - [Poisson Distribution](#poisson-distribution)
+            - [Gamma Distribution](#gamma-distribution)
+            - [Beta Distribution](#beta-distribution)
         - [Probability Distribution Class Application in PyNative Mode](#probability-distribution-class-application-in-pynative-mode)
         - [Probability Distribution Class Application in Graph Mode](#probability-distribution-class-application-in-graph-mode)
         - [TransformedDistribution Class API Design](#transformeddistribution-class-api-design)
@@ -106,7 +109,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Bernoulli` to implement the public APIs in the base class. `Bernoulli` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: The input parameter *probs1* that indicates the probability of experiment success is optional.
+- `mean`,`mode`,`var`, and `sd`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `entropy`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates another distribution type. Currently, only *'Bernoulli'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of experiment success is optional.
@@ -124,7 +127,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the `Exponential` private API to implement the public APIs in the base class. `Exponential` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: The input rate parameter *rate* is optional.
+- `mean`,`mode`,`var`, and `sd`: The input rate parameter *rate* is optional.
 - `entropy`: The input rate parameter *rate* is optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *rate_b* are mandatory.  *dist* indicates the name of another distribution type. Currently, only *'Exponential'* is supported. *rate_b* is the rate parameter of distribution *b*. Parameter *rate_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input rate parameter *rate*is optional.
@@ -142,7 +145,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Geometric` to implement the public APIs in the base class. `Geometric` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: The input parameter *probs1* that indicates the probability of experiment success is optional.
+- `mean`,`mode`,`var`, and `sd`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `entropy`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `cross_entropy`, `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Geometric'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs1* that indicates the probability of experiment success is optional.
@@ -156,7 +159,7 @@ Normal distribution (also known as Gaussian distribution), inherited from the `D
 
 The `Distribution` base class invokes the private API in the `Normal` to implement the public APIs in the base class. `Normal` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: Input parameters *mean* (for average value) and *sd* (for standard deviation) are optional.
+- `mean`,`mode`,`var`, and `sd`: Input parameters *mean* (for average value) and *sd* (for standard deviation) are optional.
 - `entropy`: Input parameters *mean* (for average value) and *sd* (for standard deviation) are optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *mean_b*, and *sd_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Normal'* is supported. *mean_b* and *sd_b* indicate the mean value and standard deviation of distribution *b*, respectively. Input parameters mean value *mean_a* and standard deviation *sd_a* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters mean value *mean_a* and standard deviation *sd_a* are optional.
@@ -175,7 +178,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes `Uniform` to implement public APIs in the base class. `Uniform` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: Input parameters maximum value *high* and minimum value *low* are optional.
+- `mean`,`mode`,`var`, and `sd`: Input parameters maximum value *high* and minimum value *low* are optional.
 - `entropy`: Input parameters maximum value *high* and minimum value *low* are optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *high_b*, and *low_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Uniform'* is supported. *high_b* and *low_b* are parameters of distribution *b*. Input parameters maximum value *high* and minimum value *low* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters maximum value *high* and minimum value *low* are optional.
@@ -193,7 +196,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Categorical` to implement the public APIs in the base class. `Categorical` supports the following public APIs:
 
-- `mean`, `mode`, and `var`: The input parameter *probs* that indicates the probability of each category is optional.
+- `mean`,`mode`,`var`, and `sd`: The input parameter *probs* that indicates the probability of each category is optional.
 - `entropy`: The input parameter *probs* that indicates the probability of each category is optional.
 - `cross_entropy`, `kl_loss`: The input parameters *dist* and *probs_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Categorical'* is supported. *probs_b* is the categories' probabilities of distribution *b*. Parameter *probs_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of each category is optional.
@@ -230,7 +233,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `LogNormal` and `TransformedDistribution` to implement the public APIs in the base class. `LogNormal` supports the following public APIs:
 
-- `mean`，`mode`，`var`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
+- `mean`,`mode`,`var`, and `sd`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `entropy`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'LogNormal'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*, respectively. Input parameters *loc* and *scale* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
@@ -249,7 +252,7 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Gumbel` and `TransformedDistribution` to implement the public APIs in the base class. `Gumbel` supports the following public APIs:
 
-- `mean`，`mode`，`var`：No paramter.
+- `mean`,`mode`,`var`, and `sd`：No paramter.
 - `entropy`: No paramter.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gumbel'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory.
@@ -268,12 +271,66 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Logistic` and `TransformedDistribution` to implement the public APIs in the base class. `Logistic` supports the following public APIs:
 
-- `mean`，`mode`，`var`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
+- `mean`,`mode`,`var`, and `sd`：Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `entropy`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
 - `sample`: Input parameters sample shape *shape*, location *loc* and scale *scale* are optional.
 - `get_dist_args`: Input parameters location *loc* and scale *scale* are optional.
 - `get_dist_type`: returns *'Logistic'*.
+
+#### Poisson Distribution
+
+Poisson distribution, inherited from the `Distribution` class.
+
+Properties are described as follows:
+
+- `Poisson.rate`: returns the rate as a `Tensor`.
+
+The `Distribution` base class invokes the private API in the `Poisson` to implement the public APIs in the base class. `Poisson` supports the following public APIs:
+
+- `mean`,`mode`,`var`, and `sd`: The input parameter *rate* is optional.
+- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter rate* is optional.
+- `sample`: Optional input parameters include sample shape *shape* and the parameter *rate*.
+- `get_dist_args`: The input parameter *rate* is optional.
+- `get_dist_type`: returns *'Poisson'*.
+
+#### Gamma Distribution
+
+Gamma distribution, inherited from the `Distribution` class.
+
+Properties are described as follows:
+
+- `Gamma.concentration`: returns the concentration as a `Tensor`.
+- `Gamma.rate`: returns the rate as a `Tensor`.
+
+The `Distribution` base class invokes the private API in the `Gamma` to implement the public APIs in the base class. `Gamma` supports the following public APIs:
+
+- `mean`,`mode`,`var`, and `sd`: The input parameters *concentration* and *rate* are optional.
+- `entropy`: The input parameters *concentration* and *rate* are optional.
+- `cross_entropy`, `kl_loss`: The input parameters *dist*, *concentration_b* and *rate_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gamma'* is supported. *concentration_b* and *rate_b* are the parameters of distribution *b*. The input parameters *concentration_a* and *rate_a* for distribution *a* are optional.
+- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameters *concentration* and *rate* are optional.
+- `sample`: Optional input parameters include sample shape *shape* and parameters *concentration* and *rate*.
+- `get_dist_args`: The input parameters *concentration* and *rate* are optional.
+- `get_dist_type`: returns *'Gamma'*.
+
+#### Beta Distribution
+
+Beta distribution, inherited from the `Distribution` class.
+
+Properties are described as follows:
+
+- `Beta.concentration1`: returns the rate as a `Tensor`.
+- `Beta.concentration0`: returns the rate as a `Tensor`.
+
+The `Distribution` base class invokes the private API in the `Beta` to implement the public APIs in the base class. `Beta` supports the following public APIs:
+
+- `mean`,`mode`,`var`, and `sd`: The input parameters *concentration1* and *concentration0* are optional.
+- `entropy`: The input parameters *concentration1* and *concentration0* are optional.
+- `cross_entropy`, `kl_loss`: The input parameters *dist*, *concentration1_b* and *rateconcentration0_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Beta'* is supported. *concentration1_b* and *concentration0_b* are the parameters of distribution *b*. The input parameters *concentratio1n_a* and *concentration0_a* for distribution *a* are optional.
+- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameters *concentration1* and *concentration0* are optional.
+- `sample`: Optional input parameters include sample shape *shape* and parameters *concentration1* and *concentration0*.
+- `get_dist_args`: The input parameters *concentration1* and *concentration0* are optional.
+- `get_dist_type`: returns *'Beta'*.
 
 ### Probability Distribution Class Application in PyNative Mode
 
@@ -509,8 +566,8 @@ The `Bijector` class is the base class for all probability distribution mappings
 
 1. Properties
    - `name`: returns the value of `name`.
-   - `is_dtype`: returns the value of `dtype`.
-   - `parameter`: returns the value of `parameter`.
+   - `dtype`: returns the value of `dtype`.
+   - `parameters`: returns the value of `parameter`.
    - `is_constant_jacobian`: returns the value of `is_constant_jacobian`.
    - `is_injective`: returns the value of `is_injective`.
 

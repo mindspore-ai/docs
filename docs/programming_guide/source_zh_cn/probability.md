@@ -16,6 +16,9 @@
             - [对数正态分布分布(LogNormal)](#对数正态分布lognormal)
             - [耿贝尔极值分布(Gumbel)](#耿贝尔极值分布gumbel)
             - [逻辑斯谛分布(Logistic)](#逻辑斯谛分布logistic)
+            - [泊松分布(Poisson)](#对数正态分布lognormal)
+            - [伽马分布(Gamma)](#伽马分布gamma)
+            - [贝塔分布(Beta)](#贝塔分布beta)
         - [概率分布类在PyNative模式下的应用](#概率分布类在pynative模式下的应用)
         - [概率分布类在图模式下的应用](#概率分布类在图模式下的应用)
         - [TransformedDistribution类接口设计](#transformeddistribution类接口设计)
@@ -106,7 +109,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Bernoulli` 中私有接口以实现基类中的公有接口。`Bernoulli` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入 试验成功的概率 *probs1* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入 试验成功的概率 *probs1* 。
 - `entropy`：可选择传入 试验成功的概率 *probs1* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型，目前只支持此处为 *‘Bernoulli’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs* 。
@@ -124,7 +127,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Exponential` 私有接口以实现基类中的公有接口。`Exponential` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入率参数 *rate* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入率参数 *rate* 。
 - `entropy`：可选择传入率参数 *rate* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *rate_b* 。 *dist* 为另一分布的类型的名称， 目前只支持此处为 *‘Exponential’* 。*rate_b* 为分布 *b* 的率参数。可选择传入分布 *a* 的参数 *rate_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入率参数 *rate* 。
@@ -142,7 +145,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Geometric` 中私有接口以实现基类中的公有接口。`Geometric` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入试验成功的概率 *probs1* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入试验成功的概率 *probs1* 。
 - `entropy`：可选择传入 试验成功的概率 *probs1* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Geometric’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs1* 。
@@ -156,7 +159,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Normal` 中私有接口以实现基类中的公有接口。`Normal` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
 - `entropy`：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*mean_b* 和 *sd_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Normal’* 。*mean_b* 和 *sd_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *mean_a* 和标准差 *sd_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *mean_a* 和标准差 *sd_a* 。
@@ -175,7 +178,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Uniform` 以实现基类中的公有接口。`Uniform` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入分布的参数最大值 *high* 和最小值 *low* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的参数最大值 *high* 和最小值 *low* 。
 - `entropy`：可选择传入分布的参数最大值 *high* 和最小值 *low* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*high_b* 和 *low_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Uniform’* 。 *high_b* 和 *low_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即最大值 *high_a* 和最小值 *low_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数最大值 *high* 和最小值 *low* 。
@@ -193,7 +196,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Categorical` 以实现基类中的公有接口。`Categorical` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入分布的参数类别概率 *probs*。
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的参数类别概率 *probs*。
 - `entropy`：可选择传入分布的参数类别概率 *probs* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*probs_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Categorical’* 。 *probs_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *probs_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数类别概率 *probs* 。
@@ -212,7 +215,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `LogNormal`及 `TransformedDistribution` 中私有接口以实现基类中的公有接口。`LogNormal` 支持的公有接口为：
 
-- `mean`，`mode`，`var`：可选择传入分布的位置参数*loc*和规模参数*scale* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的位置参数*loc*和规模参数*scale* 。
 - `entropy`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘LogNormal’* 。*loc_b* 和 *scale_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *loc_a* 和标准差 *sclae_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *loc_a* 和标准差 *scale_a* 。`Distribution` 基类调用 `TransformedDistribution`私有接口。
@@ -249,7 +252,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 `Distribution` 基类调用 `Gumbel` 中私有接口以实现基类中的公有接口。`Gumbel` 支持的公有接口为：
 
-- `mean`，`mode`，`sd`：无参数 。
+- `mean`，`mode`，`var`，`sd`：无参数 。
 - `entropy`：无参数 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Gumbel’* 。*loc_b* 和 *scale_b* 为分布 *b* 的位置参数和规模参数。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。
@@ -266,14 +269,68 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `Logistic.loc`：返回分布的位置参数，类型为`Tensor`。
 - `Logistic.scale`：返回分布的规模参数，类型为`Tensor`。
 
-`Distribution` 基类调用 `logistic` 中私有接口以实现基类中的公有接口。`Logistic` 支持的公有接口为：
+`Distribution` 基类调用 `Logistic` 中私有接口以实现基类中的公有接口。`Logistic` 支持的公有接口为：
 
-- `mean`，`mode`，`sd`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `entropy`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
 - `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `get_dist_type` ：返回 *‘Logistic’* 。
+
+#### 泊松分布(Poisson)
+
+泊松分布，继承自 `Distribution` 类。
+
+属性：
+
+- `Poisson.rate`：返回分布的率参数，类型为`Tensor`。
+
+`Distribution` 基类调用 `Poisson` 中私有接口以实现基类中的公有接口。`Poisson` 支持的公有接口为：
+
+- `mean`，`mode`，`var`，`sd`：可选择传入分布的率参数 *rate* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的率参数 *rate* 。
+- `sample`：可选择传入样本形状 *shape* 和分布的率参数 *rate* 。
+- `get_dist_args` ：可选择传入分布的率参数 *rate* 。
+- `get_dist_type` ：返回 *‘Poisson’* 。
+
+#### 伽马分布(Gamma)
+
+伽马分布，继承自 `Distribution` 类。
+
+属性：
+
+- `Gamma.concentration`：返回分布的参数 `concentration` ，类型为`Tensor`。
+- `Gamma.rate`：返回分布的参数 `rate` ，类型为`Tensor`。
+
+`Distribution` 基类调用 `Gamma` 中私有接口以实现基类中的公有接口。`Gamma` 支持的公有接口为：
+
+- `mean`，`mode`，`sd`，`var`：可选择传入分布的参数 *concentration* 和参数 *rate* 。
+- `entropy`：可选择传入分布的参数 *concentration* 和参数 *rate* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数 *concentration* 和参数 *rate* 。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*concentration_b* 和 *rate_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Gamma’* 。*concentration_b* 和 *rate_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *concentration_a* 和 *rate_a* 。
+- `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的参数 *concentration* 和参数 *rate* 。
+- `get_dist_args` ：可选择传入分布的参数 *concentration* 和参数 *rate* 。
+- `get_dist_type` ：返回 *‘Gamma’* 。
+
+#### 贝塔分布(Beta)
+
+贝塔分布，继承自 `Distribution` 类。
+
+属性：
+
+- `Beta.concentration1`：返回分布的参数 `concentration1` ，类型为`Tensor`。
+- `Beta.concentration0`：返回分布的参数 `concentration0` ，类型为`Tensor`。
+
+`Distribution` 基类调用 `Beta` 中私有接口以实现基类中的公有接口。`Beta` 支持的公有接口为：
+
+- `mean`，`mode`，`sd`，`var`：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `entropy`：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `cross_entropy`，`kl_loss`：必须传入 *dist* ，*concentration1_b* 和 *concentration1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Beta’* 。*concentration1_b* 和 *concentration1_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *concentration1_a* 和 *concentration0_a* 。
+- `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `get_dist_type` ：返回 *‘Beta’* 。
 
 ### 概率分布类在PyNative模式下的应用
 
@@ -511,8 +568,8 @@ Bijector（`mindspore.nn.probability.bijector`）是概率编程的基本组成�
 
 1. 属性
     - `name`：返回 `name` 的值。
-    - `is_dtype`：返回 `dtype` 的值。
-    - `parameter`：返回 `parameter` 的值。
+    - `dtype`：返回 `dtype` 的值。
+    - `parameters`：返回 `parameter` 的值。
     - `is_constant_jacobian`：返回 `is_constant_jacobian` 的值。
     - `is_injective`：返回 `is_injective` 的值。
 
