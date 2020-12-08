@@ -12,6 +12,7 @@
    :caption: 快速入门
 
    quick_start/quick_start
+   quick_start/train_lenet
 
 .. toctree::
    :glob:
