@@ -83,8 +83,6 @@ Non-linear Activations
     mindspore.nn.Sigmoid
     mindspore.nn.Softmax
     mindspore.nn.Tanh
-    mindspore.nn.Tril
-    mindspore.nn.Triu
 
 Utilities
 ---------
@@ -103,6 +101,8 @@ Utilities
     mindspore.nn.OneHot
     mindspore.nn.Pad
     mindspore.nn.Range
+    mindspore.nn.Tril
+    mindspore.nn.Triu
     mindspore.nn.Unfold
 
 Images Functions
