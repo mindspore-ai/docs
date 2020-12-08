@@ -39,7 +39,6 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.flip                                           | mindspore.ops.ReverseV2                                                |
 | torch.floor                                          | mindspore.ops.Floor                                                    |
 | torch.fmod                                           | mindspore.ops.Mod                                                      |
-| torch.linspace                                       | mindspore.nn.LinSpace                                                  |
 | torch.load                                           | mindspore.load_checkpoint                                              |
 | torch.log                                            | mindspore.ops.Log                                                      |
 | torch.log1p                                          | mindspore.ops.Log1p                                                    |
