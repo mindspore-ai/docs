@@ -16,4 +16,4 @@
 
 | 模型名称               | 大小(Mb) | IoU | CPU 4线程时延(ms) |
 |-----------------------| :------: | :-------: | :------: |
-| [Deeplabv3](https://download.mindspore.cn/model_zoo/official/lite/image_segmentation_lite/deeplabv3.ms) | 18.7 | 0.58 | 120 |
+| [Deeplabv3](https://download.mindspore.cn/model_zoo/official/lite/deeplabv3_lite/deeplabv3.ms) | 18.7 | 0.58 | 120 |
