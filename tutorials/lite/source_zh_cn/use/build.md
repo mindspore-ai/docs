@@ -1,5 +1,7 @@
 # 编译MindSpore Lite
 
+`Windows` `Linux` `Android` `环境准备` `中级` `高级`
+
 <!-- TOC -->
 
 - [编译MindSpore Lite](#编译mindspore-lite)

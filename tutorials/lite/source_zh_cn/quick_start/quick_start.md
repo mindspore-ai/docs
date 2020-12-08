@@ -1,5 +1,7 @@
 # 实现一个图像分类应用
 
+`Windows` `Linux` `Android` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
+
 <!-- TOC -->
 
 - [实现一个图像分类应用](#实现一个图像分类应用)
@@ -384,4 +386,3 @@ target_link_libraries(
             return categoryScore;
      }
      ```
-
