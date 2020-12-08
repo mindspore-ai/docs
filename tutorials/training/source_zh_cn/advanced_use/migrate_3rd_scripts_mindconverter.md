@@ -212,35 +212,9 @@ class Classifier(nn.Cell):
 
 #### TensorFlow模型脚本生成示例
 
-使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称，可参考如下方法进行导出、获取节点名称：
+使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式（Frozen graph），并且获取模型输入节点、输出节点名称。pb模型导出示例，请参考[MindConverter使用文档](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README_CN.md#tensorflow-pb模型导出)。
 
-```python
-import tensorflow as tf
-from tensorflow.python.framework import graph_io
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-
-def freeze_graph(graph, session, output):
-    saved_path = "/home/user/xxx"
-    with graph.as_default():
-        graphdef_inf = tf.graph_util.remove_training_nodes(graph.as_graph_def())
-        graphdef_frozen = tf.graph_util.convert_variables_to_constants(session, graphdef_inf, output)
-        graph_io.write_graph(graphdef_frozen, saved_path, "frozen_model.pb", as_text=False)
-
-tf.keras.backend.set_learning_phase(0)
-
-base_model = InceptionV3()
-session = tf.keras.backend.get_session()
-
-INPUT_NODES = [ipt.op.name for ipt in base_model.inputs]
-OUTPUT_NODES = [opt.op.name for opt in base_model.outputs]
-freeze_graph(session.graph, session, OUTPUT_NODES)
-print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
-
-```
-
-上述代码执行完毕，模型将会保存至`/home/user/xxx/frozen_model.pb`。其中，`INPUT_NODES`为输入节点名称，`OUTPUT_NODES`为输出节点名称。
-
-假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
+假设，模型被保存至`/home/user/xxx/frozen_model.pb`，输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
 
 ```bash
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
@@ -258,6 +232,6 @@ mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
 
 ## 注意事项
 
-1. PyTorch、TensorFlow、TF2ONNX(1.7.1)不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
+1. PyTorch、TensorFlow、TF2ONNX（>=1.7.1）、ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
 2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献；
 3. MindConverter仅保证转换后模型脚本在输入数据尺寸与`--shape`一致的情况下，可达到无需人工修改或少量修改（`--shape`中batch size维度不受限）。
