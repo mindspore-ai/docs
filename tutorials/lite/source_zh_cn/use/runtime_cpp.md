@@ -1,5 +1,7 @@
 # 使用Runtime执行推理（C++）
 
+`Windows` `Linux` `Android` `推理应用` `模型加载` `数据准备` `中级` `高级`
+
 <!-- TOC -->
 
 - [使用Runtime执行推理（C++）](#使用runtime执行推理c)

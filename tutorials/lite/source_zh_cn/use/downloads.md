@@ -1,5 +1,7 @@
 # 下载MindSpore Lite
 
+`Windows` `Linux` `Android` `环境准备` `初级` `中级` `高级`
+
 <!-- TOC -->
 
 - [下载MindSpore Lite](#下载mindspore-lite)
