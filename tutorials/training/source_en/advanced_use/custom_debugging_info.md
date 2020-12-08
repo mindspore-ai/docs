@@ -429,7 +429,7 @@ Sub modules of MindSpore grouped by source directory:
 | mindspore/ccsrc/pybind_api | COMMON |
 | mindspore/ccsrc/runtime/device | DEVICE |
 | mindspore/ccsrc/transform/graph_ir | GE_ADPT |
-| mindspore/ccsrc/transform/onnx | ONNX |
+| mindspore/ccsrc/transform/express_ir | EXPRESS |
 | mindspore/ccsrc/utils | UTILS |
 | mindspore/ccsrc/vm | VM |
 | mindspore/ccsrc | ME |
