@@ -40,9 +40,9 @@
   >
   > 参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
 
-- `NCCL-2.4.8`：Nvidia集合通信库。
+- `NCCL-2.7.6`：Nvidia集合通信库。
 
-  > NCCL-2.4.8下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
+  > NCCL-2.7.6下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
   >
   > 参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
 

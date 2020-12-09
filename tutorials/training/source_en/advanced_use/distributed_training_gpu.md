@@ -40,9 +40,9 @@ The `CIFAR-10` dataset is used as an example. The method of downloading and load
   >
   > For details about how to install OpenMPI, see the official tutorial: <https://www.open-mpi.org/faq/?category=building#easy-build>.
 
-- `NCCL-2.4.8`: Nvidia collective communication library.
+- `NCCL-2.7.6`: Nvidia collective communication library.
 
-  > Download NCCL-2.4.8 from <https://developer.nvidia.com/nccl/nccl-legacy-downloads>.
+  > Download NCCL-2.7.6 from <https://developer.nvidia.com/nccl/nccl-legacy-downloads>.
   >
   > For details about how to install NCCL, see the official tutorial: <https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>.
 
