@@ -87,9 +87,9 @@
 | 编程指南        | 采样器     | [mindspore_sampler.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_sampler.ipynb)       | - 介绍MindSpore采样器<br/> - 学习如何自定义采样器
 | 编程指南        | 数据处理     | [mindspore_pipeline.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_pipeline.ipynb)       | - 学习MindSpore数据处理算子的使用方法
 | 编程指南        | 数据增强     | [mindspore_augmentation.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_augmentation.ipynb)       | - 介绍MindSpore提供的数据增强操作<br/> - 介绍c_transforms使用方法<br/> - 介绍py_transforms使用方法
-| 编程指南        | 分词器     | [tokenizer.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/tokenizer.ipynb)       | - 介绍MindSpore提供的分词器
+| 编程指南        | 分词器     | [mindspore_tokenizer.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_tokenizer.ipynb)       | - 介绍MindSpore提供的分词器
 | 编程指南        | MindSpore数据格式转换     | [dataset_conversion.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/dataset_conversion.ipynb)       | - 介绍非标准数据集转换为MindRecord<br/> - 介绍常用数据集转换为MindRecord
 | 编程指南        | 自动数据增强     | [auto_augmentation.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/auto_augmentation.ipynb)       | - 介绍基于概率的自动数据增强<br/> - 介绍基于回调参数的自动数据增强
-| 编程指南        | 运行管理     | [context.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/context.ipynb)       | - 介绍执行模式的选择和切换<br/> - 介绍硬件管理的方式<br/> - 介绍分布式管理的用法<br/> - 介绍维测管理的使用方式
-| 编程指南        | 运行方式     | [run.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/run.ipynb)       | - 介绍单个算子的执行<br/> - 介绍普通函数的执行<br/> - 介绍网络模型的执行
-| 编程指南        | 训练     | [train.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/train.ipynb)       | - 学习自定义训练网络<br/> - 学习自定义训练循环<br/> - 学习如何边训练边推理<br/> - 介绍On-device执行
+| 编程指南        | 运行管理     | [mindspore_context.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_context.ipynb)       | - 介绍执行模式的选择和切换<br/> - 介绍硬件管理的方式<br/> - 介绍分布式管理的用法<br/> - 介绍维测管理的使用方式
+| 编程指南        | 运行方式     | [mindspore_run.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_run.ipynb)       | - 介绍单个算子的执行<br/> - 介绍普通函数的执行<br/> - 介绍网络模型的执行
+| 编程指南        | 训练     | [mindspore_train.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_train.ipynb)       | - 学习自定义训练网络<br/> - 学习自定义训练循环<br/> - 学习如何边训练边推理<br/> - 介绍On-device执行
