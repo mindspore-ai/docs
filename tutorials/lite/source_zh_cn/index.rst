@@ -13,6 +13,7 @@
    :hidden:
 
    quick_start/quick_start
+   quick_start/train_lenet
 
 .. toctree::
    :glob:
