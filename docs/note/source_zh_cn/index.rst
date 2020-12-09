@@ -29,6 +29,7 @@ MindSpore设计和规格
    object_detection_lite
    posenet_lite
    image_segmentation_lite
+   style_transfer_lite
 
 .. toctree::
    :glob:

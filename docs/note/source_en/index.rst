@@ -30,6 +30,7 @@ MindSpore Design And Specification
    object_detection_lite
    posenet_lite
    image_segmentation_lite
+   style_transfer_lite
 
 .. toctree::
    :glob:
