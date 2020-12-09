@@ -31,4 +31,5 @@
 | [GoogleNet](https://download.mindspore.cn/model_zoo/official/lite/googlenet_lite/googlenet.ms) | 25.3 | 72.2% | 90.06% | - | 23.257 |
 | [ResNext50](https://download.mindspore.cn/model_zoo/official/lite/resnext50_lite/resnext50.ms) | 95.8 | 73.1% | 91.21% | - | 138.164 |
 | [GhostNet](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet.ms) | 15.0 | 73.9% | 91.40% | - | 9.959 |
-| [GhostNet600](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet_600.ms) | 40.4 | 80.2% | 94.90% | - | 52.243 |
+| [GhostNet600](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet600.ms) | 40.4 | 80.2% | 94.90% | - | 52.243 |
+| [GhostNet_int8](https://download.mindspore.cn/model_zoo/official/lite/ghostnet_lite/ghostnet_int8.ms) | 15.3 | 73.6% | - | - | 31.452 |
