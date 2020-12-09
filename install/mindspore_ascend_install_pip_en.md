@@ -30,9 +30,9 @@ This document describes how to quickly install MindSpore in a Linux system with 
     - Install the .whl package provided in Ascend 910 AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
         ```bash
-        pip install /usr/local/Ascend/fwkacllib/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/fwkacllib/lib64/te-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
+        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/topi-{version}-py3-none-any.whl
+        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
+        pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
 ## Installing MindSpore
