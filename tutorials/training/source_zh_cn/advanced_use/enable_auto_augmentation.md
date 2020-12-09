@@ -12,6 +12,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/enable_auto_augmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_enable_auto_augmentation.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
