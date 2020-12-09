@@ -112,7 +112,7 @@ optional arguments:
     - type：必填，取值为`int`或`float`。
     - source：可选，取值为`system_defined`或`user_defined`。如果是自动收集的字段，默认为`system_defined`；否则，默认为`user_defined`。
 
-    > bounds和choice有且仅有一个，必填。
+    > `bounds`和`choice`有且仅有一个，必填。如果配置了`choice`，仅会从`choice`的列表中选取值；如果同时配置了`choice`和`type`，则`type`不生效。
 
 ## 使用示例
 

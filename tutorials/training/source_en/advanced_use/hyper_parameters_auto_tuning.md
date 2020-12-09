@@ -111,7 +111,7 @@ The file format of the configuration file is yaml, which requires configurations
     - type: This parameter is mandatory and should be set to `int` or `float`.
     - source: This parameter is optional. The value should be `system_defined` or `user_defined`. If the name of parameter exists in system-defined field, the default value is `system_defined`, otherwise, the default value is `user_defined`.
 
-    > You need to choose either bounds or choice.
+    > You need to choose either `bounds` or `choice`. If you have configured `choice`, values are selected from the configured list only, and if you have configured both `choice` and `type`, `type` does not take effect.
 
 ## Usage Examples
 
