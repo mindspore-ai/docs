@@ -43,9 +43,9 @@ Using MindSpore on Mobile and IoT
    :hidden:
 
    use/converter_train
-   use/runtime_train_cpp
+   use/runtime_train
 
-   .. raw:: html
+.. raw:: html
 
     <div class="container">
 			<div class="row">
