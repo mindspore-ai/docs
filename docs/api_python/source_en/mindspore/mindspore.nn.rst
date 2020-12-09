@@ -191,6 +191,7 @@ Optimizer Functions
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.nn.Adagrad
     mindspore.nn.Adam
     mindspore.nn.AdamOffload
     mindspore.nn.AdamWeightDecay
