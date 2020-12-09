@@ -38,7 +38,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
     - ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
 - Confirm that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) is installed as default configuration.
     - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
-- Confirm that [OpenMPI 3.1.5](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
+- Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that [NCCL 2.7.6-1](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that the git tool is installed.  
      If not, use the following command to install it:

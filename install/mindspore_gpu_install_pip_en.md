@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 - Confirm that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) is installed.
     - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
 - Confirm that [cuDNN 7.6.X](https://developer.nvidia.com/rdp/cudnn-archive) is installed.
-- Confirm that [OpenMPI 3.1.5](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
+- Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that [NCCL 2.7.6-1](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that Python 3.7.5 is installed.

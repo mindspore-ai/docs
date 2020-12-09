@@ -34,15 +34,15 @@
 
 ### 配置分布式环境
 
-- `OpenMPI-3.1.5`：MindSpore采用的多进程通信库。
+- `OpenMPI-4.0.3`：MindSpore采用的多进程通信库。
 
-  > OpenMPI-3.1.5源码下载地址：<https://www.open-mpi.org/software/ompi/v3.1/>，选择`openmpi-3.1.5.tar.gz`下载。
+  > OpenMPI-4.0.3源码下载地址：<https://www.open-mpi.org/software/ompi/v4.0/>，选择`openmpi-4.0.3.tar.gz`下载。
   >
   > 参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
 
-- `NCCL-2.4.8`：Nvidia集合通信库。
+- `NCCL-2.7.6`：Nvidia集合通信库。
 
-  > NCCL-2.4.8下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
+  > NCCL-2.7.6下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
   >
   > 参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
 
