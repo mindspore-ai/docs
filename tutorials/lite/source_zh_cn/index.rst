@@ -43,7 +43,7 @@
    :hidden:
 
    use/converter_train
-   use/runtime_train_cpp
+   use/runtime_train
 
 .. raw:: html
 
