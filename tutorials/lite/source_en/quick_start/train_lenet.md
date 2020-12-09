@@ -21,7 +21,7 @@
 ## Overview
 
 Here we will explain the code that trains a LeNet model using Training-on-Device infrastructure.
-The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/example/train_lenet/).
+The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/)
 
 ## Exporting the model to a .mindir file
 
@@ -39,7 +39,7 @@ n.set_train()
 
 Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for GPU. We define a batch size of 32 and initialize the tesnors according to MNIST data -- single channel 32x32 images.
 
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the GPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#creating-contexts) provided in the training program.
+The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the GPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
 import mindspore as M
@@ -88,7 +88,7 @@ docker run -w $PWD --runtime=nvidia -v /home/$USER:/home/$USER --privileged=true
 
 ## Converting the .mindir file into a ToD(Train on Device) loadable .ms file
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/convert_model.html)
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/create_model.html#converting-into-the-mindspore-tod-model)
 
 ```bash
 CONVERTER="../../../../../mindspore/lite/build/tools/converter/converter_lite"
@@ -112,7 +112,7 @@ In this example we use the MNIST dataset of handwritten digits as published in [
 
 - The dataset directory structure is as follows:
 
-```python
+```text
 mnist/
 ├── test
 │   ├── t10k-images-idx3-ubyte
@@ -124,7 +124,7 @@ mnist/
 
 ## Implementing the main code and train loop
 
-In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/example/train_lenet/src) the executable has the following API:
+In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src) the executable has the following API:
 
 ```bash
 Usage: net_runner -f <.ms model file> -d <data_dir> [-c <num of training cycles>]
@@ -176,7 +176,7 @@ void NetRunner::InitAndFigureInputs() {
 ```
 
 `InitDB` initializes the MNIST dataset and loads it into the memory. We will not discuss this code here.
-The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/example/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
+The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
 
 The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
 
@@ -191,12 +191,12 @@ int NetRunner::TrainLoop() {
     float loss = GetLoss();
     if (min_loss > loss) min_loss = loss;
 
-    if (save_checkpoint_ != 0 && (i+1)%save_checkpoint_ == 0) {
-      auto cpkt_file = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(i+1) + ".ms";
+    if (save_checkpoint_ != 0 && (i + 1) % save_checkpoint_ == 0) {
+      auto cpkt_file = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(i + 1) + ".ms";
       session_->SaveToFile(cpkt_file);
     }
 
-    if ((i+1)%100 == 0) {
+    if ((i + 1) % 100 == 0) {
       float acc = CalculateAccuracy(10);
       if (max_acc < acc) max_acc = acc;
       std::cout << i + 1 << ":\tLoss is " << std::setw(7) << loss << " [min=" << min_loss << "] " << " max_acc=" << max_acc << std::endl;
@@ -218,7 +218,7 @@ Then, `RunGraph` method is called. A debug callback that prints the input and ou
   session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
 ```
 
-Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#obtaining-output-tensors).
+Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors)
 It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. Checkpoints are easily saved by calling the `SaveToFile` API, like this:
 
 ```cpp
@@ -233,17 +233,18 @@ Finally, when trainining is completed, the fully trained model needs to be saved
 
 ## Preparing and running
 
-The code example provided in the [train_lenet directory](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/example/train_lenet/) includes a `prepare_and_run.sh` script that performs the followings:
+The code example provided in the [train_lenet directory](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/) includes a `prepare_and_run.sh` script that performs the followings:
 
 - Prepare a folder that should be sent to the device
 - Push this folder into the device
 - Run the scripts on the device
 
-The script accepts three paramaters:
+The script accepts four paramaters:
 
 - MNIST data directory.
 - MindSpore docker image.
-- A relaease tar file. Use the [downloaded](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) tar file or the [compiled one](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description)
+- A relaease tar file. Use the [downloaded](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) tar file or [compile mindspore for ToD](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description).
+- Target: arm64 for on-Device training or x86 for local testing.
 
 ### Preparing the model
 
@@ -313,7 +314,7 @@ echo
 
 The output on the device should look like this
 
-```bash
+```text
 Training on Device
 100:    Loss is 0.853509 [min=0.581739]  max_acc=0.674079
 200:    Loss is 0.729228 [min=0.350235]  max_acc=0.753305
@@ -350,3 +351,4 @@ accuracy = 0.970553
 Load trained model and evaluate accuracy
 accuracy = 0.970553
 ```
+

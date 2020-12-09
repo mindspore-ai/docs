@@ -12,7 +12,7 @@ Using MindSpore on Mobile and IoT
    :caption: Quick Start
 
    quick_start/quick_start
-   quick_start/train_lenet
+   quick_start/tod_examples
 
 .. toctree::
    :glob:
@@ -20,9 +20,9 @@ Using MindSpore on Mobile and IoT
    :caption: Basic Use
 
    use/preparation
-   use/convert_model
-   use/post_training_quantization
+   use/converter_tool
    use/data_preprocessing
    use/runtime
-   use/runtime_train
+   use/train
    use/tools
+
