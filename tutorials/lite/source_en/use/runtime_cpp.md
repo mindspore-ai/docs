@@ -1,5 +1,7 @@
 # Using Runtime for Model Inference (C++)
 
+`Windows` `Linux` `Android` `Inference` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Using Runtime for Model Inference (C++)](#using-runtime-for-model-inference-c)

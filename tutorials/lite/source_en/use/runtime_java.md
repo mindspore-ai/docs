@@ -1,5 +1,7 @@
 # Using Runtime for Model Inference (Java)
 
+`Windows` `Linux` `Android` `Inference` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Using Runtime for Model Inference (Java)](#using-runtime-for-model-inference-java)

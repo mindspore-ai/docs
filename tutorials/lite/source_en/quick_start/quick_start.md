@@ -1,5 +1,7 @@
 ﻿# Implementing an Image Classification Application
 
+`Windows` `Linux` `Android` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Implementing an Image Classification Application](#implementing-an-image-classification-application)

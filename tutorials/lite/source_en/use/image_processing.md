@@ -1,5 +1,7 @@
 # Preprocessing Image Data
 
+`Windows` `Linux` `Data Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Preprocessing Image Data](#preprocess-image-data)

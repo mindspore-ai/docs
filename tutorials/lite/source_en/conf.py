@@ -57,3 +57,8 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['_static']
+
+def setup(app):
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/lite.css')
+    app.add_javascript('js/lite.js')
