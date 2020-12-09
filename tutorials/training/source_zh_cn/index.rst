@@ -47,6 +47,7 @@
    advanced_use/custom_operator
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
+   advanced_use/achieve_high_order_differentiation
 
 .. toctree::
    :glob:
