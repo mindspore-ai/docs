@@ -25,15 +25,24 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-本章节介绍如何快速编译出MindSpore Lite，其包含的模块如下：
+本章节介绍如何快速编译出MindSpore Lite。
 
-| 模块 | 支持平台 | 说明 |
-| --- | ---- | ---- |
-| converter | Linux、Windows | 模型转换工具 |
-| runtime(cpp、java) | Linux、Android | 模型推理框架(cpp、java) |
-| benchmark | Linux、Windows、Android | 基准测试工具 |
-| lib_cropper        | Linux          | libmindspore-lite.a静态库裁剪工具 |
-| imageprocess | Linux、Android | 图像处理库 |
+推理版本包含模块：
+
+| 模块               | 支持平台                | 说明                              |
+| ------------------ | ----------------------- | --------------------------------- |
+| converter          | Linux、Windows          | 模型转换工具                      |
+| runtime(cpp、java) | Linux、Android          | 模型推理框架(cpp、java)           |
+| benchmark          | Linux、Windows、Android | 基准测试工具                      |
+| lib_cropper        | Linux                   | libmindspore-lite.a静态库裁剪工具 |
+| imageprocess       | Linux、Android          | 图像处理库                        |
+
+训练版本包含模块：
+
+| 模块         | 支持平台 | 说明              |
+| ------------ | -------- | ----------------- |
+| converter    | Linux    | 模型转换工具      |
+| runtime(cpp) | Linux    | 模型训练框架(cpp) |
 
 ## Linux环境编译
 
@@ -66,7 +75,7 @@
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
-> - 当安装完依赖项Android_NDK后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
+> - 当安装完依赖项`Android_NDK`后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
 > - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
 > - 当安装完依赖项Gradle后，需将其安装路径增加到PATH当中：`export PATH=${GRADLE_PATH}/bin:$PATH`。
 > - 通过`Android command line tools`安装Android SDK，首先需要创建一个新目录，并将其路径配置到环境变量`${ANDROID_SDK_ROOT}`中，然后通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`，最后通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`。
@@ -89,10 +98,13 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
 | -o | 设置该参数，则编译基准测试工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
+| -T | 是否编译运行时 (Runtime) 训练版本工具，默认为off | on、off | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 >
 > 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
+>
+> 编译选型 -T 只生成运行时训练版本工具。
 
 ### 编译示例
 
@@ -160,14 +172,29 @@ git clone https://gitee.com/mindspore/mindspore.git
   bash build.sh -I x86_64 -o on
   ```
 
+- 编译x86_64架构Release版本，同时生成端侧运行时 (Runtime) 训练版本工具
+
+  ```bash
+  bash build.sh -I x86_64 -T on
+  ```
+
 ### 编译输出
 
-编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
+执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
 
-- `mindspore-lite-{version}-converter-{os}.tar.gz`：包含模型转换工具converter。
+- `mindspore-lite-{version}-converter-{os}.tar.gz`：模型推理转换工具包。
+
 - `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
+
 - `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
+
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
+
+如果添加了开启了`-T`编译选项，同时会生成用于模型训练的转换工具包，如下：
+
+`mindspore-lite-{version}-converter-{os}-train.tar.gz`：模型训练转换工具包。
+
+`mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`：包含模型训练框架runtime。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -179,14 +206,16 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
 #### 模型转换工具converter目录结构说明
 
-转换工具仅在`-I x86_64`编译选项下获得，内容包括以下几部分：
+转换工具仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
 
 ```text
 |
@@ -201,7 +230,7 @@ unzip mindspore-lite-maven-{version}.zip
 
 #### 模型推理框架runtime及其他工具目录结构说明
 
-推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容包括以下几部分：
+推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得（推理和训练的目录结构相同），内容如下：
 
 - 当编译选项为`-I x86_64`时：
 
