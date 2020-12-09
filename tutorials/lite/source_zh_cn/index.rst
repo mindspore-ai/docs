@@ -14,19 +14,36 @@
 
    quick_start/quick_start
    quick_start/train_lenet
+   
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 获取MindSpore Lite
+   :hidden:
+
+   use/downloads
+   use/build
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 基础使用
+   :caption: 端侧推理
    :hidden:
 
-   use/preparation
-   use/convert_model
+   use/converter_tool
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
    use/tools
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 端侧训练
+   :hidden:
+
+   use/converter_train
+   use/runtime_train_cpp
 
 .. raw:: html
 

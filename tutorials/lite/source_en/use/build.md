@@ -1,5 +1,7 @@
 # Building MindSpore Lite
 
+`Windows` `Linux` `Android` `Environment Preparation` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Building MindSpore Lite](#building-mindspore-lite)

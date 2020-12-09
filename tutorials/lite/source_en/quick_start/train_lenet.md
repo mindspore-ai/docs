@@ -1,5 +1,7 @@
 # Training a LeNet Model
 
+`Windows` `Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Overview](#overview)
@@ -21,7 +23,7 @@
 ## Overview
 
 Here we will explain the code that trains a LeNet model using Training-on-Device infrastructure.
-The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/)
+The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
 
 ## Exporting the model to a .mindir file
 
@@ -218,7 +220,7 @@ Then, `RunGraph` method is called. A debug callback that prints the input and ou
   session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
 ```
 
-Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors)
+Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors).
 It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. Checkpoints are easily saved by calling the `SaveToFile` API, like this:
 
 ```cpp
@@ -243,7 +245,7 @@ The script accepts four paramaters:
 
 - MNIST data directory.
 - MindSpore docker image.
-- A relaease tar file. Use the [downloaded](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) tar file or [compile mindspore for ToD](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description).
+- A released tar file. Use the [downloaded](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) tar file or [compile mindspore for ToD](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description).
 - Target: arm64 for on-Device training or x86 for local testing.
 
 ### Preparing the model
@@ -351,4 +353,3 @@ accuracy = 0.970553
 Load trained model and evaluate accuracy
 accuracy = 0.970553
 ```
-

@@ -1,5 +1,7 @@
 # Converting Models for Inference
 
+`Windows` `Linux` `Model Converting` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Converting Models for Inference](#converting-models-for-inference)

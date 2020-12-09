@@ -1,5 +1,7 @@
 # Downloading MindSpore Lite
 
+`Windows` `Linux` `Android` `Environment Preparation` `Beginner` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Downloading MindSpore Lite](#downloading-mindspore-lite)
@@ -8,6 +10,8 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
+Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
 ## 1.0.1
 

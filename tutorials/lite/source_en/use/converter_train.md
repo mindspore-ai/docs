@@ -1,5 +1,7 @@
 # Creating MindSpore ToD Models
 
+`Windows` `Linux` `Environment Preparation` `Model Export` `Model Converting` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Creating MindSpore ToD Models](#creating-mindspore-tod-model)
@@ -161,4 +163,3 @@ which is followed by an [error code](https://www.mindspore.cn/doc/api_cpp/en/mas
 ## Windows Environment Instructions
 
 Conversion of models on Windows platform will be supported only in the next release.
-
