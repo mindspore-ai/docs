@@ -213,3 +213,141 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 - 返回值
 
     指向MindSpore Lite LiteSession的指针。
+
+## TrainSession
+
+继承于类 LiteSession，用于训练模型。
+
+### 析构函数
+
+#### ~TrainSession
+
+```cpp
+virtual ~TrainSession() = default;
+```
+
+虚析构函数。
+
+### 公有成员函数
+
+#### TrainSession
+
+```cpp
+static TrainSession *CreateSession(lite::Context *context);
+```
+
+创建一个用于训练会话的对象指针。
+
+- 参数
+
+    - `context`: 指向目标会话的指针。
+
+- 返回值
+
+    返回一个指向训练会话的指针。
+
+#### CompileTrainGraph
+
+```cpp
+virtual int CompileTrainGraph(lite::TrainModel *model) = 0;
+```
+
+- 参数
+
+    - `model`: 指向训练模型的指针。
+
+- 返回值
+
+    返回执行结果状态代码，状态码参见 " errorcode.h "。
+
+#### ExportToBuf
+
+```cpp
+virtual void *ExportToBuf(char *buf, size_t *len) const = 0;
+```
+
+创建一个指向缓冲区的字符指针。
+
+- 参数
+
+    - `buf`: 指向模型导出的目标缓冲区的指针，如果指针为空则自动分配一块内存。
+    - `len`: 指向预分配缓冲区大小的指针。
+
+- 返回值
+
+    返回一个指向存储导出模型缓冲区的字符指针。
+
+#### SaveToFile
+
+```cpp
+virtual int SaveToFile(const std::string &filename) const = 0;
+```
+
+保存已训练模型。
+
+- 参数
+
+    - `filename`: 已训练模型的文件名。
+    - `len`: 指向预分配缓冲区大小的指针。
+
+- 返回值
+
+    0 表示保存成功，-1 表示保存失败。
+
+#### Train
+
+```cpp
+virtual int Train() = 0;
+```
+
+设置为训练模式。
+
+- 返回值
+
+    返回执行结果状态代码，状态码参见 " errorcode.h "。
+
+#### IsTrain
+
+```cpp
+bool IsTrain() { return train_mode_ == true; }
+```
+
+检查当前模型是否为训练模式。
+
+- 返回值
+
+    返回 true 或 false，即当前模型是否为训练模式。
+
+#### Eval
+
+```cpp
+virtual int Eval() = 0;
+```
+
+设置为验证模式。
+
+- 返回值
+
+    返回执行结果状态代码，状态码参见 " errorcode.h "。
+
+#### IsEval
+
+```cpp
+bool IsEval() { return train_mode_ == false; }
+```
+
+检查当前模型是否为验证模式。
+
+- 返回值
+
+    返回 true 或 false，即当前模型是否为验证模式。
+
+### 公有属性
+
+#### train_mode_
+
+```cpp
+bool train_mode_ = false;
+```
+
+私有变量，布尔类型，表示当前的训练模式。

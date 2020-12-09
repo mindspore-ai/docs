@@ -309,3 +309,73 @@ enable_float16_
 **bool**值，默认为**false**，用于使能float16 推理。
 
 > 使能float16推理可能会导致模型推理精度下降，因为在模型推理的中间过程中，有些变量可能会超出float16的数值范围。
+
+## TrainModel
+
+继承于结构体Model，用于导入或导出训练模型。
+
+### 析构函数
+
+#### ~TrainModel
+
+```cpp
+virtual ~TrainModel();
+```
+
+虚析构函数。
+
+### 公有成员函数
+
+#### TrainModel
+
+```cpp
+static TrainModel *Import(const char *model_buf, size_t size);
+```
+
+导入模型。
+
+- 参数
+
+    - `model_buf`: 指向存储读入MindSpore模型缓冲区的常量字符型指针。
+
+    - `size`: 缓冲区大小。
+
+- 返回值  
+
+    返回一个指向MindSpore Lite训练模型(TrainModel)的指针。
+
+#### ExportBuf
+
+```cpp
+char* ExportBuf(char *buf, size_t *len) const;
+```
+
+导出模型缓冲区。
+
+- 参数
+
+    - `buf`: 指向模型导出的目标缓冲区的指针，如果指针为空则自动分配一块内存。
+
+    - `len`: 指向预分配缓冲区大小的指针。
+
+- 返回值  
+
+    返回一个指向存储导出模型缓冲区的字符指针。
+
+#### Free
+
+```cpp
+void Free() override;
+```
+
+释放计算-图的元数据。
+
+### 公有属性
+
+#### buf_size_
+
+```cpp
+size_t buf_size_;
+```
+
+缓冲区大小。
