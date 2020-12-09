@@ -214,36 +214,9 @@ class Classifier(nn.Cell):
 
 #### TensorFlow Model Scripts Conversion
 
-To use TensorFlow model script migration, you need to export TensorFlow model to Pb format first, and obtain the model input node and output node name. You can refer to the following methods to export and obtain the node name:
+To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [MindConverter tutorial](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README.md#tensorflow-pb-model-exporting) for the pb model exporting.
 
-```python
-import tensorflow as tf
-from tensorflow.python.framework import graph_io
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-
-
-def freeze_graph(graph, session, output):
-    saved_path = "/home/user/xxx"
-    with graph.as_default():
-        graphdef_inf = tf.graph_util.remove_training_nodes(graph.as_graph_def())
-        graphdef_frozen = tf.graph_util.convert_variables_to_constants(session, graphdef_inf, output)
-        graph_io.write_graph(graphdef_frozen, saved_path, "frozen_model.pb", as_text=False)
-
-tf.keras.backend.set_learning_phase(0) # this line most important
-
-base_model = InceptionV3()
-session = tf.keras.backend.get_session()
-
-INPUT_NODES = [ipt.op.name for ipt in base_model.inputs]
-OUTPUT_NODES = [opt.op.name for opt in base_model.outputs]
-freeze_graph(session.graph, session, OUTPUT_NODES)
-print(f"Input nodes name: {INPUT_NODES}, output nodes name: {OUTPUT_NODES}")
-
-```
-
-After the above code is executed, the model will be saved to `/home/user/xxx/frozen_model.pb`. `INPUT_NODES` can be passed into `--input_nodes`, and `OUTPUT_NODES` is the corresponding `--output_nodes`.
-
-Suppose the input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`, the following command can be used to generate the script:
+Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`, the following command can be used to generate the script:
 
 ```bash
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
@@ -261,6 +234,6 @@ In addition, for operators that are not converted successfully, the input and ou
 
 ## Caution
 
-1. PyTorch, TensorFlow, TF2ONNX(1.7.1) are not an explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (MindConverter recommends PyTorch 1.4.0 or 1.6.0 and TensorFlow 1.15.x)
+1. PyTorch, TensorFlow, TF2ONNX(>=1.7.1), ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2) are not an explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (MindConverter recommends PyTorch 1.4.0 or 1.6.0 and TensorFlow 1.15.x)
 2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
 3. MindConverter can only guarantee that the converted model scripts require a minor revision or no revision when the inputs' shape fed to the generated model script are equal to the value of `--shape` (The batch size dimension is not limited).
