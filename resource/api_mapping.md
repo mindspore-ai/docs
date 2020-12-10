@@ -81,8 +81,6 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.functional.binary_cross_entropy             | mindspore.ops.BinaryCrossEntropy                                       |
 | torch.nn.functional.conv2d                           | mindspore.ops.Conv2D                                                   |
 | torch.nn.functional.elu                              | mindspore.ops.Elu                                                      |
-| torch.nn.functional.interpolate                      | mindspore.ops.ResizeBilinear                                           |
-| torch.nn.functional.interpolate                      | mindspore.nn.Interpolate                                               |
 | torch.nn.functional.log_softmax                      | mindspore.nn.LogSoftmax                                                |
 | torch.nn.functional.normalize                        | mindspore.ops.L2Normalize                                              |
 | torch.nn.functional.one_hot                          | mindspore.ops.OneHot                                                   |
