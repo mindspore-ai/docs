@@ -48,7 +48,7 @@ call build.bat
 ## Installing MindSpore
 
 ```bash
-pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
+pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
