@@ -100,6 +100,7 @@
 
    advanced_use/cv
    advanced_use/nlp
+   advanced_use/hpc
    advanced_use/use_on_the_cloud
 
 .. raw:: html
