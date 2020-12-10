@@ -376,6 +376,18 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/achieve_high_order_differentiation.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">实现高阶自动微分</span>
+										</div>
+										<div class="doc-article-desc">
+											本教程主要介绍MindSpore图模式下的高阶导数。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html" class="article-link">
 									<div>
@@ -628,6 +640,18 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/enable_cache.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">应用单节点数据缓存</span>
+										</div>
+										<div class="doc-article-desc">
+											本教程将演示如何使用单节点缓存服务来缓存经过数据增强处理的数据。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_quantization_aware_training.html" class="article-link">
 									<div>
@@ -744,6 +768,18 @@
 										</div>
 										<div class="doc-article-desc">
 											本教程介绍通过MindSpore训练出智能写诗模型及部署预测服务。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/hpc_gomo.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">实现区域海洋模型GOMO</span>
+										</div>
+										<div class="doc-article-desc">
+											本篇教程将主要介绍如何在GPU上，使用MindSpore构建并运行三维海洋模型GOMO。
 										</div>
 									</div>
 								</a>
