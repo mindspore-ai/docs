@@ -19,6 +19,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_cpu_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
 
+本文档介绍如何在CPU环境的Ubuntu系统上快速安装MindSpore。
+
 ## 环境要求
 
 ### 系统要求和软件依赖
@@ -78,6 +80,7 @@
     ```
     >
     > - 在执行上述命令前，需保证可执行文件cmake和patch所在路径已加入环境变量PATH中。
+    > - 在执行上述命令前，需保证已经安装了[OpenSSL](https://github.com/openssl/openssl.git)，并设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - 如果编译机性能较好，可在执行中增加-j{线程数}来增加线程数量。如`bash build.sh -e cpu -j12`。
 

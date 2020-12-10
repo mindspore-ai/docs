@@ -22,6 +22,8 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_gpu_install.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
 
+本文档介绍如何在Nvidia GPU的环境上快速安装MindSpore。
+
 ## 环境要求
 
 ### 硬件要求
@@ -80,6 +82,7 @@
     ```
     >
     > - 在执行上述命令前，需保证可执行文件`cmake`和`patch`所在路径已加入环境变量PATH中。
+    > - 在执行上述命令前，需保证已经安装了[OpenSSL](https://github.com/openssl/openssl.git)，并设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
     > - `build.sh`中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
     > - `build.sh`中默认的编译线程数为8，如果编译机性能较差可能会出现编译错误，可在执行中增加-j{线程数}来减少线程数量。如`bash build.sh -e gpu -j4`。
 

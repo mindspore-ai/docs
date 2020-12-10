@@ -19,6 +19,8 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_cpu_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
 
+This document describes how to quickly install MindSpore in a Ubuntu system with a CPU environment.
+
 ## Environment Requirements
 
 ### System Requirements and Software Dependencies
@@ -78,6 +80,7 @@ This document describes how to quickly install MindSpore in a Ubuntu system with
     ```
     >
     > - Before running the preceding command, ensure that the paths where the executable files cmake and patch store have been added to the environment variable PATH.
+    > - Before running the preceding command, ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="path/to/openssl/install/directory"`.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - If the compiler performance is strong, you can add -j{Number of threads} in to script to increase the number of threads. For example, `bash build.sh -e cpu -j12`.
 
