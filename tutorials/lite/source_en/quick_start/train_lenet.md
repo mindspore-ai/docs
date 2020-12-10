@@ -1,6 +1,6 @@
 # Training a LeNet Model
 
-`Windows` `Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
+`Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

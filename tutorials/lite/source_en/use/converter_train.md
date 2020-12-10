@@ -1,6 +1,6 @@
 # Creating MindSpore ToD Models
 
-`Windows` `Linux` `Environment Preparation` `Model Export` `Model Converting` `Intermediate` `Expert`
+`Linux` `Environment Preparation` `Model Export` `Model Converting` `Intermediate` `Expert`
 
 <!-- TOC -->
 

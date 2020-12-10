@@ -55,7 +55,7 @@ Using MindSpore on Mobile and IoT
 						
 						<div class="doc-condition">
 							<span class="doc-filter">Filter</span>
-							<button class="doc-delete doc-btn" id="all">Clear all conditions</button>
+							<button class="doc-delete doc-btn" id="all">Clear All Conditions</button>
 						</div>
 					
 						<div class="doc-label-content">
@@ -99,6 +99,7 @@ Using MindSpore on Mobile and IoT
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Converting">Model Converting</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">Model Loading</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">Model Training</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">Model Optimization</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">Inference</button>
 									</div>
 								</div>
@@ -120,7 +121,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-                     <div class="doc-article-item all os-Windows os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -203,6 +204,30 @@ Using MindSpore on Mobile and IoT
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java API to write inference code.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Converting MindSpore ToD Models</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial introduces that how to convert your MindSpore ToD(Train on Device) model.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using runtime for Model Training and Inference (C++)</span>
+										</div>
+										<div class="doc-article-desc">
+											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write training code.
 										</div>
 									</div>
 								</a>

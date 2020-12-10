@@ -95,7 +95,10 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Whole-Process">全流程</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Environment-Preparation">环境准备</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Data-Preparation">数据准备</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Export">模型导出</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Converting">模型转换</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">模型训练</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
 									</div>
@@ -114,6 +117,19 @@
 							
 										<div class="doc-article-desc">
 											本教程从端侧Android图像分类demo入手，帮助用户了解MindSpore Lite应用工程的构建、依赖项配置以及相关API的使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">训练一个LeNet模型</span>
+										</div>
+							
+										<div class="doc-article-desc"> 
+											本教程基于LeNet训练示例代码，演示MindSpore Lite训练功能的使用。
 										</div>
 									</div>
 								</a>
@@ -200,6 +216,30 @@
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">训练模型转换</span>
+										</div>
+										<div class="doc-article-desc">
+											本教程介绍了如何进行训练模型的转换。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_train_cpp.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用Runtime执行训练 (C++)</span>
+										</div>
+										<div class="doc-article-desc">
+											通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用C++接口编写训练代码。
 										</div>
 									</div>
 								</a>

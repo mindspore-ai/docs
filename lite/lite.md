@@ -12,27 +12,55 @@
             </div>
         </a>
     </div>
-</div>
-
-<h2>基础使用</h2>
-<div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/preparation.html" style="display:block; text-decoration:none">
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px;">
+        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">获取MindSpore Lite</span>
+                    <span style="color:#1a1c33;">训练一个LeNet模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                本教程介绍如何快速下载或编译MindSpore Lite。
+                本教程基于LeNet训练示例代码，演示MindSpore Lite训练功能的使用。
                 </div>
             </div>
         </a>
     </div>
-    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/convert_model.html" style="display:block;text-decoration:none">
+</div>
+
+<h2>获取MindSpore Lite</h2>
+<div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">转换模型</span>
+                    <span style="color:#1a1c33;">下载MindSpore Lite</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                本教程介绍如何快速下载MindSpore Lite。
+                </div>
+            </div>
+        </a>
+    </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">编译MindSpore Lite</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                本教程介绍如何快速编译MindSpore Lite。
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<h2>端侧推理</h2>
+<div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html" style="display:block;text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">推理模型转换</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。
@@ -84,6 +112,34 @@
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 MindSpore Lite提供Benchmark工具用于基准测试，裁剪工具用于降低库文件大小。
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<h2>端侧训练</h2>
+<div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">训练模型转换</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                本教程介绍了如何进行训练模型的转换。
+                </div>
+            </div>
+        </a>
+    </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_train.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">执行训练</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。
                 </div>
             </div>
         </a>

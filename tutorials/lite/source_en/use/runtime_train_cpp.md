@@ -1,6 +1,6 @@
 # Using runtime for Model Training and Inference (C++)
 
-`Windows` `Linux` `Android` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+`Linux` `Android` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
