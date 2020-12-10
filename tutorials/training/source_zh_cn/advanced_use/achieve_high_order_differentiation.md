@@ -253,7 +253,7 @@ class GradSec(nn.Cell):
 net=Net()
 firstgrad = Grad(net) # first order
 secondgrad = GradSec(firstgrad) # second order
-x_train = Tensor(np.array([1.0],dtype=np.float32))
+x_train = Tensor(np.array([1.0], dtype=np.float32))
 output = secondgrad(x_train)
 print(output)
 ```
