@@ -1,0 +1,11 @@
+﻿Model List (Lite)
+===================
+
+.. toctree::
+  :maxdepth: 1
+
+  image_classification_lite
+  object_detection_lite
+  posenet_lite
+  image_segmentation_lite
+  style_transfer_lite

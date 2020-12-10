@@ -244,4 +244,16 @@
             </div>
         </a>
     </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/style_transfer_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">风格迁移模型支持（Lite）</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                风格迁移模型可以根据demo内置的标准图片改变用户目标图片的艺术风格，并在App图像预览界面中显示出来。用户可保存风格迁移结果，或者恢复图片的原始形态。
+                </div>
+            </div>
+        </a>
+    </div>
 </div>

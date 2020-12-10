@@ -26,11 +26,7 @@ MindSpore Design And Specification
    network_list
    operator_list
    constraints_on_network_construction
-   image_classification_lite
-   object_detection_lite
-   posenet_lite
-   image_segmentation_lite
-   style_transfer_lite
+   model_lite
 
 .. toctree::
    :glob:

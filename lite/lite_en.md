@@ -232,4 +232,16 @@
             </div>
         </a>
     </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/en/master/style_transfer_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">Style Transfer Model Support (Lite)</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                The style transfer model can change the artistic style of the user's target image according to the standard image built in this demo, and display it in the App image preview interface. Users can save the style transfer result or restore the original form of the target image.
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
