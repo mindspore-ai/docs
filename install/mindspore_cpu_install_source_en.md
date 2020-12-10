@@ -59,7 +59,7 @@ Of which,
 
 ```bash
 chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://mirrors.huaweicloud.com/repository/pypi/simple
+pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
