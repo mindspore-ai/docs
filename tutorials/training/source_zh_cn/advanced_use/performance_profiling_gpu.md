@@ -136,3 +136,7 @@ GPU场景下，MindData性能分析的使用方法和Ascend场景相同，使用
 > 与Ascend使用方式一致，可以参考：
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#minddata>
+
+## 注意事项
+
+- PyNative模式下暂不支持性能调试。

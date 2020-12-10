@@ -147,8 +147,7 @@ Figure 5 displays the page of MindData performance analysis component. It consis
 
 The step gap page is used to analyse whether there is performance bottleneck in the three stages. We can get our conclusion from the data queue graphs:  
 
-- The data queue size stands for the queue length when the training fetches data from the queue on the device. If the data queue size is 0, the training will wait until there is data in
-the queue; If the data queue size is above 0, the training can get data very quickly, and it means MindData is not the bottleneck for this training step.
+- The data queue size stands for the queue length when the training fetches data from the queue on the device. If the data queue size is 0, the training will wait until there is data in the queue; If the data queue size is above 0, the training can get data very quickly, and it means MindData is not the bottleneck for this training step.
 - The host queue size can be used to infer the speed of data process and data transfer. If the host queue size is 0, it means we need to speed up the data process stage.
 - If the size of the host queue is always large and the size of the data queue is continuously small, there may be a performance bottleneck in data transfer.
 
@@ -206,3 +205,7 @@ W/A/S/D can be applied to zoom in and out of the Timeline graph.
   > <https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html>
 
 - The parse of Timeline data is time consuming, and usually the data of a few steps is enough to analyze the results. In order to speed up the data parse and UI display, Profiler will show at most 20M data (Contain 10+ step information for large networks).
+
+## Notices
+
+- Currently running in PyNative mode is not supported.
