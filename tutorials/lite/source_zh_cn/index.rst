@@ -44,6 +44,7 @@
 
    use/converter_train
    use/runtime_train
+   use/tools_train
 
 .. raw:: html
 
