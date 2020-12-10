@@ -11,6 +11,8 @@
             - [gradients_mean](#gradients_mean)
             - [parallel_mode](#parallel_mode)
             - [all_reduce_fusion_config](#all_reduce_fusion_config)
+            - [enable_parallel_optimizer](#enable_parallel_optimizer)
+            - [parameter_broadcast](#parameter_broadcast)
         - [自动并行配置](#自动并行配置)
             - [gradient_fp32_sync](#gradient_fp32_sync)
             - [auto_parallel_search_mode](#auto_parallel_search_mode)
@@ -18,8 +20,6 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
-        - [数据并行配置](#数据并行配置)
-            - [enable_parallel_optimizer](#enable_parallel_optimizer)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -47,7 +47,6 @@ MindSpore的分布式并行配置通过`auto_parallel_context`来进行集中管
 
 - 通用配置：对数据并行、自动并行以及混合并行均起作用的配置，如：`device_num`、`global_rank`等。
 - 自动并行配置：仅在自动并行模式下起作用的配置，如：`auto_parallel_search_mode`、`gradient_fp32_sync`等。
-- 数据并行配置：仅在数据并行模式下起作用的配置，如：`enable_parallel_optimizer`等。
 
 用户可利用`context.set_auto_parallel_context`配置上述参数，同时可通过`context.get_auto_parallel_context`来获取上述参数。
 
@@ -132,6 +131,38 @@ context.get_auto_parallel_context("all_reduce_fusion_config")
 
 样例中，`all_reduce_fusion_config`的值为[20, 35]，将前20个AllReduce融合成1个，第20～35个AllReduce融合成1个，剩下的AllReduce融合成1个。
 
+#### enable_parallel_optimizer
+
+`enable_parallel_optimizer`是一个开发中特性，参数默认值是False。数据并行时参数更新部分在各卡间存在冗余计算，优化器并行通过将优化器的计算量分散到各个卡上，在大规模网络上（比如Bert、GPT）可以有效减少内存消耗并提升网络性能。
+
+在`data_parallel`模式下使能优化器并行，框架会将需要更新的参数进行分组到不同卡上，各自更新后再通过`Broadcast`算子在集群间做权重共享。需要注意的是参数量应当大于机器数，当前只支持`Lamb`和`AdamWeightDecay`优化器。
+
+在`auto_parallel`或者`semi_auto_parallel`模式下使能优化器并行，如果经过策略切分后的参数在机器间存在重复切片，并且shape的最高维可以被卡数整除，框架会以最小切片的方式保存参数并在优化器中更新。该模式下支持所有优化器。
+
+无论是哪种模式，优化器并行不会影响原有正反向网络的计算图，只会影响参数更新的计算量和计算逻辑。
+
+代码样例如下：
+
+```python
+from mindspore import context
+
+context.set_auto_parallel_context(enable_parallel_optimizer=True)
+context.get_auto_parallel_context("enable_parallel_optimizer")
+```
+
+#### parameter_broadcast
+
+`parameter_broadcast`将数据并行参数0号卡上的权值广播到其他卡上，达到同步初始化权重的目的。
+
+代码样例如下：
+
+```python
+from mindspore import context
+
+context.set_auto_parallel_context(parameter_broadcast=True)
+context.get_auto_parallel_context("parameter_broadcast")
+```
+
 ### 自动并行配置
 
 #### gradient_fp32_sync
@@ -209,21 +240,6 @@ context.get_auto_parallel_context("full_batch")
 from mindspore import context
 context.set_auto_parallel_context(pipeline_stage=4)
 context.get_auto_parallel_context("pipeline_stage")
-```
-
-### 数据并行配置
-
-#### enable_parallel_optimizer
-
-`enable_parallel_optimizer`是一个开发中特性，期望通过优化器并行的方式提升网络性能。默认是False。使能后框架将拆分权重到各卡上分别进行参数更新，由集合通信的方式在每卡间同步权重信息，再进入下一轮迭代计算。该功能目前只在数据并行模式和参数量大于机器数时有效，支持`Lamb`和`AdamWeightDecay`优化器。
-
-代码样例如下：
-
-```python
-from mindspore import context
-
-context.set_auto_parallel_context(enable_parallel_optimizer=True)
-context.get_auto_parallel_context("enable_parallel_optimizer")
 ```
 
 ## 分布式通信接口

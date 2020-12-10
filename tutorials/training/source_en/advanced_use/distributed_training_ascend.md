@@ -476,6 +476,8 @@ load_param_into_net(net, param_dict)
 
 For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint-configuration-policies).
 
+> By default, sliced parameters would be merged before saving. If the size of parameters is large, we recommend to use sliced parameters to save and infer, which could be referred to [Distributed inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#id1).
+
 ### Data Parallel Mode
 
 In data parallel mode, checkpoint is used in the same way as in auto parallel mode. You just need to change:
@@ -489,6 +491,8 @@ to:
 ```python
 context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
+
+> Under data parallel mode, we recommend to load the same checkpoint for each device to avoid accuracy problems. `parameter_broadcast` could also be used for sharing the values of parameters among devices.
 
 ### Semi Auto Parallel Mode
 
