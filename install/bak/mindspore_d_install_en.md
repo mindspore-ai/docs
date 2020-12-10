@@ -24,6 +24,8 @@ This document describes how to quickly install MindSpore in an Ascend AI process
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.0/install/mindspore_d_install_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.0/resource/_static/logo_source.png"></a>
 
+This document describes how to quickly install MindSpore in an Ascend AI processor environment.
+
 ## Environment Requirements
 
 ### Hardware Requirements
@@ -97,6 +99,7 @@ The compilation and installation must be performed on the Ascend 910 AI processo
     ```
     >
     > - Before running the preceding command, ensure that the paths where the executable files `cmake` and `patch` store have been added to the environment variable PATH.
+    > - Before running the preceding command, ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="path/to/openssl/install/directory"`.
     > - In the `build.sh` script, the `git clone` command will be executed to obtain the code in the third-party dependency database. Ensure that the network settings of Git are correct.
     > - In the `build.sh` script, the default number of compilation threads is 8. If the compiler performance is poor, compilation errors may occur. You can add -j{Number of threads} in to script to reduce the number of threads. For example, `bash build.sh -e ascend -j4`.
 
@@ -168,7 +171,7 @@ Using the following command if you need update MindSpore version.
 - Update Online
 
     ```bash
-    pip install --upgrade mindspore_ascend
+    pip install --upgrade mindspore-ascend
     ```
 
 - Update after source code compilation
