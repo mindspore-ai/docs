@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_high_order_differentiation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/achieve_high_order_differentiation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -85,13 +85,17 @@ z = Tensor([z])
 
 根据MatMul算子定义可得前向结果：
 
-$output = [[(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) \cdot z, (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) \cdot z, (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) \cdot z], \\ [(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) \cdot z, (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) \cdot z, (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9) \cdot z]]$
+$output = [[(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) \cdot z, (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) \cdot z, (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) \cdot z]$,
+
+$[(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) \cdot z, (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) \cdot z, (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9) \cdot z]]$
 
 梯度计算时由于MindSpore采用的是Reverse[3]自动微分机制，会对输出结果求和后再对输入`x`求导：
 
 (1) 求和公式：
 
-$\sum{output} = [(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) + (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) + (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) + \\ (x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) + (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) + (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9)] \cdot z$
+$\sum{output} = [(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) + (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) + (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) +$
+
+$(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) + (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) + (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9)] \cdot z$
 
 (2) 求导公式：
 
@@ -130,7 +134,9 @@ print(output)
 
 求导公式变为：
 
-$\frac{\mathrm{d}(\sum{output})}{\mathrm{d}z} = (x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) + (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) + (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) + \\ (x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) + (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) + (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9)$
+$\frac{\mathrm{d}(\sum{output})}{\mathrm{d}z} = (x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) + (x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) + (x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) + $
+
+$(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) + (x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) + (x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9)$
 
 计算结果：
 
@@ -169,11 +175,15 @@ self.grad_wrt_output = Tensor([[s1, s2, s3], [s4, s5, s6]])
 
 缩放后的输出值为原输出值与`self.grad_wrt_output`对应元素的乘积：
 
-$output = [[(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) \cdot z \cdot s1，(x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) \cdot z \cdot s2，(x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) \cdot z \cdot s3]，\\ [(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) \cdot z \cdot s4，(x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) \cdot z \cdot s5，(x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9) \cdot z \cdot s6]]$
+$output = [[(x1 \cdot y1 + x2 \cdot y4 + x3 \cdot y7) \cdot z \cdot s1，(x1 \cdot y2 + x2 \cdot y5 + x3 \cdot y8) \cdot z \cdot s2，(x1 \cdot y3 + x2 \cdot y6 + x3 \cdot y9) \cdot z \cdot s3]，$
+
+$[(x4 \cdot y1 + x5 \cdot y4 + x6 \cdot y7) \cdot z \cdot s4，(x4 \cdot y2 + x5 \cdot y5 + x6 \cdot y8) \cdot z \cdot s5，(x4 \cdot y3 + x5 \cdot y6 + x6 \cdot y9) \cdot z \cdot s6]]$
 
 求导公式变为输出值总和对`x`的每个元素求导：
 
-$\frac{\mathrm{d}(\sum{output})}{\mathrm{d}x} = [[(s1 \cdot y1 + s2 \cdot y2 + s3 \cdot y3) \cdot z，(s1 \cdot y4 + s2 \cdot y5 + s3 \cdot y6) \cdot z，(s1 \cdot y7 + s2 \cdot y8 + s3 \cdot y9) \cdot z]，\\ [(s4 \cdot y1 + s5 \cdot y2 + s6 \cdot y3) \cdot z，(s4 \cdot y4 + s5 \cdot y5 + s6 \cdot y6) \cdot z，(s4 \cdot y7 + s5 \cdot y8 + s6 \cdot y9) \cdot z]]$
+$\frac{\mathrm{d}(\sum{output})}{\mathrm{d}x} = [[(s1 \cdot y1 + s2 \cdot y2 + s3 \cdot y3) \cdot z，(s1 \cdot y4 + s2 \cdot y5 + s3 \cdot y6) \cdot z，(s1 \cdot y7 + s2 \cdot y8 + s3 \cdot y9) \cdot z]，$
+
+$[(s4 \cdot y1 + s5 \cdot y2 + s6 \cdot y3) \cdot z，(s4 \cdot y4 + s5 \cdot y5 + s6 \cdot y6) \cdot z，(s4 \cdot y7 + s5 \cdot y8 + s6 \cdot y9) \cdot z]]$
 
 如果想计算单个输出（例如`output[0][0]`）对输入的导数，可以将相应位置的缩放值置为1，其他置为0；也可以改变网络结构：
 
@@ -204,7 +214,7 @@ MindSpore可通过多次求导的方式支持高阶导数，下面通过几类�
 
 ### 单输入单输出高阶导数
 
-例如sin算子，其二阶导数（-sin）实现如下：
+例如Sin算子，其二阶导数（-Sin）实现如下：
 
 ```python
 import numpy as np
@@ -253,6 +263,8 @@ print(output)
 ```python
 [-0.841471]
 ```
+
+> 计算图的输入和算子的输入一致时，二阶求导就会失效，添加`self.network.add_flags(defer_inline=True)`可以避免上述问题，后续MindSpore会修复该问题。
 
 ### 单输入多输出高阶导数
 
@@ -367,11 +379,12 @@ print(dxdx, dxdy, dydx, dydy)
 
 ## 二阶微分算子支持情况
 
-CPU支持算子：square、exp、neg、mul、matmul；
+CPU支持算子：[Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Square.html#mindspore.ops.Square)、
+[Exp](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[MatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)；
 
-GPU支持算子：pow、log、square、exp、neg、mul、div、matmul、sin、cos、tan、atanh；
+GPU支持算子：[Pow](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Atanh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)；
 
-Ascend支持算子：pow、log、square、exp、neg、mul、div、matmul、sin、cos、tan、sinh、cosh、atanh。
+Ascend支持算子：[Pow](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Pow.html#mindspore.ops.Pow)、[Log](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Log.html#mindspore.ops.Log)、[Square](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Square.html#mindspore.ops.Square)、[Exp](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Exp.html#mindspore.ops.Exp)、[Neg](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Neg.html#mindspore.ops.Neg)、[Mul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Mul.html#mindspore.ops.Mul)、[Div](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Div.html#mindspore.ops.Div)、[MatMul](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.MatMul.html#mindspore.ops.MatMul)、[Sin](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)、[Cos](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)、[Tan](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)、[Sinh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)、[Cosh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh)、[Atanh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)。
 
 ## 引用
 
