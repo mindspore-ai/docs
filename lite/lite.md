@@ -220,4 +220,28 @@
             </div>
         </a>
     </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/posenet_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">骨骼检测模型支持（Lite）</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                骨骼检测可以识别摄像头中，不同姿势下人体的面部五官与肢体姿势。本文档列出可以使用MindSpore Lite推理的骨骼检测模型。
+                </div>
+            </div>
+        </a>
+    </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">图像分割模型支持（Lite）</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                图像分割是用于检测目标在图片中的位置或者图片中某一像素是输入何种对象的。本文档列出可以使用MindSpore Lite推理的图像分割模型。
+                </div>
+            </div>
+        </a>
+    </div>
 </div>

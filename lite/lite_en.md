@@ -191,7 +191,7 @@
                     <span style="color:#1a1c33;">Pre-trained Models of Image Classification</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                Image classification is to identity what an image represents, to predict the object list and the probabilites. This document lists image classification models that can be inferred using mindspore Lite.
+                Image classification is to identity what an image represents, to predict the object list and the probabilites. This document lists image classification models that can be inferred using MindSpore Lite.
                 </div>
             </div>
         </a>
@@ -203,7 +203,31 @@
                     <span style="color:#1a1c33;">Pre-trained Models of Object Detection</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                Object detection can identify the object in the image and its position in the image.This document lists target detection models that can be inferred using mindspore Lite.
+                Object detection can identify the object in the image and its position in the image.This document lists target detection models that can be inferred using MindSpore Lite.
+                </div>
+            </div>
+        </a>
+    </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/en/master/posenet_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">Posenet Model Support (Lite)</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                Under the detection of photo cameras, posenet model can identify the facial features and body posture of the human body in different positions. This document introduce the posenet model that can be inferred using MindSpore Lite.
+                </div>
+            </div>
+        </a>
+    </div>
+    <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
+        <a href="https://www.mindspore.cn/doc/note/en/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
+            <div>
+                <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
+                    <span style="color:#1a1c33;">Image Segmentation Model Support (Lite)</span>
+                </div>
+                <div style="font-size:0.9rem; color:#333">
+                Image segmentation is used to detect the position of the object in the picture or a pixel belongs to which object. This document introduce the image segmentation model that can be inferred using MindSpore Lite.
                 </div>
             </div>
         </a>
