@@ -108,7 +108,7 @@ Train with MindSpore
 						
 						<div class="doc-condition">
 							<span class="doc-filter">Filter condition</span>
-							<button class="doc-delete doc-btn" id="all">Clear all conditions</button>
+							<button class="doc-delete doc-btn" id="all">Clear All Conditions</button>
 						</div>
 					
 						<div class="doc-label-content">

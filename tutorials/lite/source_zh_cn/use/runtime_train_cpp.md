@@ -1,5 +1,7 @@
 # 使用Runtime执行训练 (C++)
 
+`Linux` `Android` `模型训练` `模型加载` `数据准备` `中级` `高级`
+
 <!-- TOC -->
 
 - [使用Runtime执行训练 (C++)](#使用Runtime执行训练 (C++))
