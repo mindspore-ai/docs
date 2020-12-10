@@ -11,6 +11,8 @@
             - [gradients_mean](#gradients_mean)
             - [parallel_mode](#parallel_mode)
             - [all_reduce_fusion_config](#all_reduce_fusion_config)
+            - [enable_parallel_optimizer](#enable_parallel_optimizer)
+            - [parameter_broadcast](#parameter_broadcast)
         - [Automatic Parallel Configuration](#automatic-parallel-configuration)
             - [gradient_fp32_sync](#gradient_fp32_sync)
             - [auto_parallel_search_mode](#auto_parallel_search_mode)
@@ -18,8 +20,6 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
-        - [Data Parallel Configuration](#data-parallel-configuration)
-            - [enable_parallel_optimizer](#enable_parallel_optimizer)
     - [Distributed Communication Interface](#distributed-communication-interface)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -47,7 +47,6 @@ The parallel distributed training configuration of MindSpore is managed by `auto
 
 - General configuration: takes effect on both data parallel and automatic parallel, for example, `device_num` and `global_rank` etc.
 - Automatic parallel configuration: takes effect only in automatic parallel mode, for example, `gradient_fp32_sync` etc.
-- Data parallel configuration: takes effect only in data parallel mode, for example, `enable_parallel_optimizer` etc.
 
 You can use `context.set_auto_parallel_context` to configure the preceding parameters and use `context.get_auto_parallel_context` to obtain the parameters.
 
@@ -130,6 +129,38 @@ context.get_auto_parallel_context("all_reduce_fusion_config")
 
 In the example, the value range of `all_reduce_fusion_config` is [20,35]. The first 20 AllReduce operators, the 20th to 35th AllReduce operators, and the remaining AllReduce operators are fused into three operators, respectively.
 
+#### enable_parallel_optimizer
+
+`enable_parallel_optimizer` is a feature under development. The default value is False. In data parallel, weight update has redundant computation among devices. Parallel optimizer shards the computation of optimizer to each device. For large-scale networks like Bert and GPT, this feature could reduce requirements on memory and improve the performance efficiently.
+
+When the `enable_parallel_optimizer` is enabled in the data_parallel mode, MindSpore will split the parameters that need to be updated into different devices, and then use the Broadcast operator to share weights between clusters after each update. It should be noted that the number of parameters should be greater than the number of machines. Currently, only the `Lamb` and `AdamWeightDecay` optimizers are supported.
+
+In the `auto_parallel` or `semi_auto_parallel` mode, the optimizer parallel is enabled. If one parameter which has been sliced by shard strategy still has repeated slices among devices, and the highest dimension of the shape can be divided by the number of devices, MindSpore would save parameters and update them by the smallest slice shapes. All optimizers are supported under this two modes.
+
+No matter which parallel mode is selected, parallel optimizer would not influence the forward and backward graph. Only the computation of weight update would be influenced.
+
+The following is a code example:
+
+```python
+from mindspore import context
+
+context.set_auto_parallel_context(enable_parallel_optimizer=True)
+context.get_auto_parallel_context("enable_parallel_optimizer")
+```
+
+#### parameter_broadcast
+
+Parameter broadcast shares the value of data parallel weights among devices, in the purpose of synchronization of weights.
+
+The following is a code example:
+
+```python
+from mindspore import context
+
+context.set_auto_parallel_context(parameter_broadcast=True)
+context.get_auto_parallel_context("parameter_broadcast")
+```
+
 ### Automatic Parallel Configuration
 
 #### gradient_fp32_sync
@@ -208,21 +239,6 @@ from mindspore import context
 
 context.set_auto_parallel_context(parallel_stages=4)
 context.get_auto_parallel_context("parallel_stages")
-```
-
-### Data Parallel Configuration
-
-#### enable_parallel_optimizer
-
-`enable_parallel_optimizer` is a feature under development. It is expected to improve network performance by using optimizers in parallel mode. After this function is enabled, the framework splits the weights to each device for parameter update. The weight information is synchronized between devices in aggregate communication mode, and then the next iterative calculation is performed. This function is valid only when the data parallel mode is used and the number of parameters is greater than the number of machines. The `Lamb` and `AdamWeightDecay` optimizers are supported.
-
-The following is a code example:
-
-```python
-from mindspore import context
-
-context.set_auto_parallel_context(enable_parallel_optimizer=True)
-context.get_auto_parallel_context("enable_parallel_optimizer")
 ```
 
 ## Distributed Communication Interface

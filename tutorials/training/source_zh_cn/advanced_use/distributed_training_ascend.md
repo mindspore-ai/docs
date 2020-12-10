@@ -478,6 +478,8 @@ load_param_into_net(net, param_dict)
 
 checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)。
 
+> 默认情况下，对于网络中切分的参数将会采用合并保存，对于参数量过大需要采用切片保存及推理的场景可以参考[分布式推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
+
 ### 数据并行模式
 
 数据并行模式（Data Parallel）下checkpoint的使用方法和自动并行模式（Auto Parallel）一样，只需要将`test_train_cifar`中
@@ -491,6 +493,8 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, grad
 ```python
 context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 ```
+
+> 数据并行场景下加载模型参数时建议每卡加载相同的checkpoint文件，避免造成计算误差，或者可以打开`parameter_broadcast`开关将0号卡的参数广播到其他卡上。
 
 ### 半自动并行模式
 
