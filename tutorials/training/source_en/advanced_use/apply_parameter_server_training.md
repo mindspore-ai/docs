@@ -61,6 +61,8 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     network.set_param_ps()
     ```
 
+4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Detailed network training script can be referred to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>.
+
 ### Environment Variable Setting
 
 MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
