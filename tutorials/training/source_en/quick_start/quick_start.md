@@ -40,7 +40,7 @@ During the practice, a simple image classification function is implemented. The 
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet>.
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lenet>.
 
 This is a simple and basic workflow. For applying to other advanced and complex applications, extend this basic process as appropriate.
 
