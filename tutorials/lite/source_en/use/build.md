@@ -13,8 +13,8 @@
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
         - [Training Output Description](#Training Output Description)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
+            - [Description of Training Converter's Directory Structure](#description-of-training-converters-directory-structure)
+            - [Description of Training Runtime and Other tools' Directory Structure](#description-of-training-runtime-and-other-tools-directory-structure)
     - [Windows Environment Compilation](#windows-environment-compilation)
         - [Environment Requirements](#environment-requirements-1)
         - [Compilation Options](#compilation-options-1)
@@ -22,6 +22,7 @@
         - [Output Description](#output-description-1)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure-1)
             - [Description of Benchmark Directory Structure](#description-of-benchmark-directory-structure-1)
+        - [Training Output Description](#Training Output Description-1)
 
 <!-- /TOC -->
 
@@ -186,7 +187,7 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -C on -T on
     ```
 
-### Output Description
+### Inference Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
@@ -201,24 +202,11 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 >
 > os: Operating system on which the output will be deployed.
 
-If ToD is enabled which means `-T on`, two more files will be generated in `mindspore/output` directory.
-
-- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
-- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
-
-> version: Version of the output, consistent with that of the MindSpore.
->
-> device: The processor that runs ToD Currently only built-in cpu is available.
->
-> os: Operating system on which the output will be deployed.
-
 Execute the decompression command to obtain the compiled output:
 
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
-tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
@@ -357,7 +345,127 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │       ├── flatbuffers # The Header files of FlatBuffers
 ```
 
-> If ToD is enabled which means `-T on`, the name of generated compressed files end up with `*-train.tar.gz`. Bit exactor tool `net_train` will generated in the runtime package and the `imageprocess` is not being generated.
+### Training Output Description
+
+When `-T on` is added the MindSpore ToD (Train on Device) is complied, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+
+- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model training framework, performance analysis tool.
+
+> version: Version of the output, consistent with that of the MindSpore.
+>
+> device: Currently divided into cpu (built-in CPU operator) and gpu (built-in CPU and GPU operator).
+>
+> os: Operating system on which the output will be deployed.
+
+Execute the decompression command to obtain the compiled output:
+
+```bash
+tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
+tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
+```
+
+#### Description of Training Converter's Directory Structure
+
+The training model conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
+
+```text
+|
+├── mindspore-lite-{version}-converter-{os}-train
+│   └── converter # Model conversion Ttool
+|       ├── converter_lite # Executable program
+│   └── lib # The dynamic link library that converter depends
+|       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
+│   └── third_party # Header files and libraries of third party libraries
+│       ├── glog # Dynamic library of Glog
+```
+
+#### Description of Training Runtime and Other tools' Directory Structure
+
+The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm64` and `-I arm32` compilation options, and the content includes the following parts:
+
+- When the compilation option is `-I x86_64`:
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-x86-cpu-train
+    |   └── lib_cropper # Static library crop tool
+    │       ├── lib_cropper  # Executable file of static library crop tool
+    │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
+    │   └── include # Header files of training framework
+    │   └── lib # Inference framework library
+    │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
+    │       ├── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
+    │   └── third_party # Header files and libraries of third party libraries
+    │       ├── flatbuffers # Header files of FlatBuffers
+    │   └── net_train
+    │       ├── net_train # training model benchmark tool
+    ```
+
+- When the compilation option is `-I arm64`:  
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-arm64-cpu-train
+    │   └── include # Header files of training framework
+    │   └── lib # Training framework library
+    │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
+    │       ├── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
+    │   └── third_party # Header files and libraries of third party libraries
+    │       ├── flatbuffers # Header files of FlatBuffers
+    │   └── net_train
+    │       ├── net_train # training model benchmark tool
+    ```
+
+- When the compilation option is `-I arm32`:  
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-arm32-cpu-train
+    │   └── include # Header files of training framework
+    │   └── lib # Training framework library
+    │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
+    │       ├── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+    │   └── minddata # Image processing dynamic library
+    │       └── include # Header files
+    │           └── lite_cv # The Header files of image processing dynamic library
+    │               ├── image_process.h # The Header files of image processing function
+    │               ├── lite_mat.h # The Header files of image data class structure
+    │       └── lib # Image processing dynamic library
+    │           ├── libminddata-lite.so # The files of image processing dynamic library
+    │   └── third_party # Header files and libraries of third party libraries
+    │       ├── flatbuffers # Header files of FlatBuffers
+    │   └── net_train
+    │       ├── net_train # training model benchmark tool
+    ```
+
+> Before running the tools in the converter, net_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
+
+Configure converter:
+
+```bash
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu-train/lib:./output/mindspore-lite-{version}-converter-ubuntu-train/third_party/glog/lib:${LD_LIBRARY_PATH}
+```
+
+Configure net_train:
+
+```bash
+export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu-train/lib:${LD_LIBRARY_PATH}
+```
 
 ## Windows Environment Compilation
 
@@ -455,3 +563,8 @@ The content includes the following parts:
 │   └── third_party # Header files and libraries of third party libraries
 │       ├── flatbuffers # Header files of FlatBuffers
 ```
+
+### Training Output Description
+
+MindSpore ToD (Train on Device) is not supported on Windows by now.
+

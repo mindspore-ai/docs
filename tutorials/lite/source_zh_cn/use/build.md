@@ -9,17 +9,21 @@
         - [环境要求](#环境要求)
         - [编译选项](#编译选项)
         - [编译示例](#编译示例)
-        - [编译输出](#编译输出)
-            - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [Runtime及其他工具目录结构说明](#Runtime及其他工具目录结构说明)
+        - [推理框架编译输出](#推理框架编译输出)
+            - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
+            - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
             - [图像处理库目录结构说明](#图像处理库目录结构说明)
-    - [Windows环境编译](#windows环境编译)  
+        - [训练框架编译输出](#训练框架编译输出)
+            - [训练模型转换工具converter目录结构说明](#训练模型转换工具converter目录结构说明)
+            - [训练Runtime及其他工具目录结构说明](#训练Runtime及其他工具目录结构说明)
+    - [Windows环境编译](#windows环境编译)
         - [环境要求](#环境要求-1)
         - [编译选项](#编译选项-1)
         - [编译示例](#编译示例-1)
-        - [编译输出](#编译输出-1)  
+        - [推理框架编译输出](#推理框架编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明-1)
             - [基准测试工具benchmark目录结构说明](#基准测试工具benchmark目录结构说明-1)
+        - [训练框架编译输出](#训练框架编译输出-1)
 
 <!-- /TOC -->
 
@@ -108,7 +112,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 >
 > 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
 >
-> 开启编译选项 -T 只生成训练版本工具。
+> 开启编译选项`-T`只生成训练版本工具。
 
 ### 编译示例
 
@@ -176,13 +180,13 @@ git clone https://gitee.com/mindspore/mindspore.git
   bash build.sh -I x86_64 -o on
   ```
 
-- 编译x86_64架构Release版本，同时生成端侧运行时 (Runtime) 训练版本工具
+- 编译x86_64架构Release版本，生成端侧训练版本的工具。
 
   ```bash
   bash build.sh -I x86_64 -T on
   ```
 
-### 编译输出
+### 推理框架编译输出
 
 执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
 
@@ -200,25 +204,11 @@ git clone https://gitee.com/mindspore/mindspore.git
 >
 > os: 输出件应部署的操作系统。
 
-如果添加了开启了`-T`编译选项，同时生成模型训练转换和Runtime工具，如下：
-
-`mindspore-lite-{version}-converter-{os}-train.tar.gz`：模型训练转换工具包。
-
-`mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`：包含模型训练框架runtime。
-
-> version: 输出件版本号，与所编译的分支代码对应的版本一致。
->
-> device: 设备端处理器架构型号，仅支持CPU上编译。
->
-> os: 输出件应部署的操作系统。
-
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
-tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
@@ -240,7 +230,7 @@ unzip mindspore-lite-maven-{version}.zip
 
 #### Runtime及其他工具目录结构说明
 
-推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得（推理和训练的目录结构相同），内容如下：
+推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容如下：
 
 - 当编译选项为`-I x86_64`时：
 
@@ -356,7 +346,131 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │       ├── flatbuffers # Flatbuffers的动态库
 ```
 
-> 如果开启了`-T`选项，编译生成的压缩包文件名的格式为`*-train.tar.gz`。此外，runtime压缩包会多一个`net_train`性能和精度测试工具。
+### 端侧训练框架编译输出
+
+如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
+
+`mindspore-lite-{version}-converter-{os}-train.tar.gz`：模型训练转换工具包。
+
+`mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`：模型训练框架runtime。
+
+> version: 输出件版本号，与所编译的分支代码对应的版本一致。
+>
+> device: 设备端处理器架构型号，仅支持CPU上编译。
+>
+> os: 输出件应部署的操作系统。
+
+执行解压缩命令，获取编译后的输出件：
+
+```bash
+tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
+tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
+```
+
+#### 训练模型转换工具converter目录结构说明
+
+仅在`-I x86_64`编译选项下获得内容如下：
+
+```text
+|
+├── mindspore-lite-{version}-converter-{os}-train
+│   └── converter # 模型转换工具
+|       ├── converter_lite # 可执行程序
+│   └── lib # 转换工具依赖的动态库
+|       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
+│   └── minddata # 图像处理动态库
+|       ├── include # 头文件
+│   └── third_party # 第三方库头文件和库
+|       ├── glog # Glog的动态库
+```
+
+#### 训练Runtime及其他工具目录结构说明
+
+训练框架可在`-I x86_64`、`-I arm64`、`-I arm32`编译选项下获得对应不同硬件平台的版本，内容如下：
+
+- 当编译选项为`-I x86_64`时：
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-x86-cpu-train
+    │   └── benchmark # 基准测试工具
+    |   └── lib_cropper # 库裁剪工具
+    │       ├── lib_cropper  # 库裁剪工具可执行文件
+    │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
+    │   └── include # 训练框架头文件
+    │   └── lib # 训练框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
+    │       ├── libmindspore-lite.so # MindSpore Lite训练框架的动态库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
+    │   └── third_party # 第三方库头文件和库
+    │       ├── flatbuffers # FlatBuffers头文件
+    │   └── net_train
+    │       ├── net_train # 训练模型性能与精度调测工具
+    ```
+
+- 当编译选项为`-I arm64`时：
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-arm64-cpu-train
+    │   └── include # 训练框架头文件
+    │   └── lib # 训练框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
+    │       ├── libmindspore-lite.so # MindSpore Lite训练框架的动态库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
+    │   └── third_party # 第三方库头文件和库
+    │       ├── flatbuffers # FlatBuffers头文件
+    │   └── net_train
+    │       ├── net_train # 训练模型性能与精度调测工具
+    ```
+
+- 当编译选项为`-I arm32`时：
+
+    ```text
+    |
+    ├── mindspore-lite-{version}-runtime-arm32-cpu-train
+    │   └── include # 训练框架头文件
+    │   └── lib # 训练框架库
+    │       ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
+    │       ├── libmindspore-lite.so # MindSpore Lite训练框架的动态库
+    │   └── minddata # 图像处理动态库
+    │       └── include # 头文件
+    │           └── lite_cv # 图像处理库头文件
+    │               ├── image_process.h # 图像处理函数头文件
+    │               ├── lite_mat.h # 图像数据类结构头文件
+    │       └── lib # 图像处理动态库
+    │           ├── libminddata-lite.so # 图像处理动态库文件
+    │   └── third_party # 第三方库头文件和库
+    │       ├── flatbuffers # FlatBuffers头文件
+    │   └── net_train
+    │       ├── net_train # 训练模型性能与精度调测工具
+    ```
+
+> 运行converter、net_train目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
+
+配置converter：
+
+```bash
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu-train/lib:./output/mindspore-lite-{version}-converter-ubuntu-train/third_party/glog/lib:${LD_LIBRARY_PATH}
+```
+
+配置net_train：
+
+```bash
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu-train/lib:${LD_LIBRARY_PATH}
+```
 
 ## Windows环境编译
 
@@ -401,7 +515,7 @@ call build.bat lite
 call build.bat lite 8
 ```
 
-### 编译输出
+### 推理框架编译输出
 
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
 
@@ -454,3 +568,8 @@ unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
 │   └── third_party # 第三方库头文件和库
 │       ├── flatbuffers # FlatBuffers头文件
 ```
+
+### 训练框架编译输出
+
+训练框架当前版本暂不支持在Windows。
+
