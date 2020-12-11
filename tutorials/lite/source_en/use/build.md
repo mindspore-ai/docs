@@ -9,10 +9,12 @@
         - [Environment Requirements](#environment-requirements)
         - [Compilation Options](#compilation-options)
         - [Compilation Example](#compilation-example)
-        - [Output Description](#output-description)
+        - [Inference Output Description](#inference-output-description)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-            - [Description of Imageprocess's Directory Structure](#description-of-imageprocesss-directory-structure)
+        - [Training Output Description](#Training Output Description)
+            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
+            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
     - [Windows Environment Compilation](#windows-environment-compilation)
         - [Environment Requirements](#environment-requirements-1)
         - [Compilation Options](#compilation-options-1)
@@ -27,6 +29,8 @@
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
+Modules in inference version:
+
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux, Windows | Model Conversion Tool |
@@ -34,6 +38,16 @@ This chapter introduces how to quickly compile MindSpore Lite, which includes th
 | benchmark | Linux, Windows, Android | Benchmarking Tool |
 | lib_cropper | Linux | libmindspore-lite.a static library crop tool |
 | imageprocess | Linux, Android | Image Processing Library |
+
+Modules in training version:
+
+| Module       | Support Platform | Description                                  |
+| ------------ | ---------------- | -------------------------------------------- |
+| converter    | Linux            | Model Conversion Tool                        |
+| runtime(cpp) | Linux, Android   | Model Inference/Train Framework(cpp)         |
+| net_train    | Linux            | Verify bit exactness                         |
+| lib_cropper  | Linux            | libmindspore-lite.a static library crop tool |
+| benchmark    | Linux, Android   | Image Processing Library                     |
 
 ## Linux Environment Compilation
 
@@ -97,6 +111,8 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 >
 > When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter.
+>
+> The compiler will only generate training tool packages when `-T` is opened.
 
 ### Compilation Example
 
@@ -172,8 +188,6 @@ Then, run the following commands in the root directory of the source code to com
 
 ### Output Description
 
-#### Inference on Device
-
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
 - `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
@@ -187,27 +201,27 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 >
 > os: Operating system on which the output will be deployed.
 
+If ToD is enabled which means `-T on`, two more files will be generated in `mindspore/output` directory.
+
+- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
+- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
+
+> version: Version of the output, consistent with that of the MindSpore.
+>
+> device: The processor that runs ToD Currently only built-in cpu is available.
+>
+> os: Operating system on which the output will be deployed.
+
 Execute the decompression command to obtain the compiled output:
 
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
 tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
-
-#### Train on Device
-
-If ToD is enabled which means `-T on`, the file in `mindspore/output` directory is divided into two parts.
-
-- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
-- `mindspore-lite-{version}-runtime-{os}-{architecture}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
-
-> `version` is the version of the output, consistent with MindSpore release version.
->
-> `device` is the processor that runs ToD Currently only built-in cpu is available.
->
-> `os` is the operating system on which the output will be deployed.
 
 #### Description of Converter's Directory Structure
 
@@ -343,6 +357,8 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 │       ├── flatbuffers # The Header files of FlatBuffers
 ```
 
+> If ToD is enabled which means `-T on`, the name of generated compressed files end up with `*-train.tar.gz`. Bit exactor tool `net_train` will generated in the runtime package and the `imageprocess` is not being generated.
+
 ## Windows Environment Compilation
 
 ### Environment Requirements
@@ -362,7 +378,7 @@ The compilation options of MindSpore Lite are as follows:
 | Parameter  |  Parameter Description   | Mandatory or Not |
 | -------- | ----- | ---- |
 | lite | Set this parameter to compile the MindSpore Lite project. | Yes |
-| [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |  
+| [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |
 
 ### Compilation Example
 

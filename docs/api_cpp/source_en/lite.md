@@ -309,3 +309,73 @@ enable_float16_
 A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
 
 > Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
+
+## TrainModel
+
+TrainModel Defines a class that allows to import and export a mindsport trainable model.
+
+### Constructors & Destructors
+
+#### ~TrainModel
+
+```cpp
+virtual ~TrainModel();
+```
+
+Class destructor, free all memory.
+
+### Public Member Functions
+
+#### Import
+
+```cpp
+static TrainModel *Import(const char *model_buf, size_t size);
+```
+
+Static method to create a TrainModel object.
+
+- Parameters
+
+    - `model_buf`: A buffer that was read from a MS model file.
+
+    - `size`: Length of the buffer.
+
+- Returns  
+
+    Pointer to MindSpore Lite TrainModel.
+
+#### Free
+
+```cpp
+void Free() override;
+```
+
+Free meta graph related data.
+
+#### ExportBuf
+
+```cpp
+char *ExportBuf(char *buf, size_t *len) const;
+```
+
+Export Model into a buffer.
+
+- Parameters
+
+    - `buf`: The buffer to Export into. If equal to nullptr, buf will be allocated.
+
+    - `len`: Size of the pre-allocated buffer, and returned size of the exported buffer.
+
+- Returns  
+
+    Pointer to buffer with exported model.
+
+### Public Attributes
+
+#### buf_size_
+
+```cpp
+size_t buf_size_;
+```
+
+The length of the buffer with exported model.

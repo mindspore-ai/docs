@@ -10,7 +10,6 @@
         - [环境准备](#环境准备)
         - [参数说明](#参数说明)
         - [模型转换示例](#模型转换示例)
-    - [Windows环境](#Windows环境)
 
 <!-- /TOC -->
 
@@ -67,7 +66,3 @@ CONVERT RESULT FAILED:
 ```
 
 程序会返回的[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)和错误信息。
-
-## Windows环境
-
-后续版本将会增加Windows平台下的训练模型转换工具。

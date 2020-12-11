@@ -6,17 +6,17 @@
 
 - [训练一个LeNet模型](#训练一个LeNet模型)
     - [概述](#概述)
-    - [准备环节](#准备环节)
+    - [准备](#准备)
+        - [安卓设备](#安卓设备)
         - [下载数据集](#下载数据集)
-        - [安装MindSpore Lite](#安装MindSpore-Lite)
         - [安装MindSpore](#安装MindSpore)
-    - [训练模型并验证精度](#训练模型并验证精度)
-    - [示例程序详细说明](#示例程序详细说明)
+        - [获取Converter和Runtime](#获取Converter和Runtime)
+    - [模型训练和验证](#模型训练和验证)
+    - [示例程序详解](#示例程序详解)
         - [示例程序结构](#示例程序结构)
         - [定义并导出模型](#定义并导出模型)
         - [转换模型](#转换模型)
         - [训练模型](#训练模型)
-        - [验证精度](#验证精度)
 
 <!-- /TOC -->
 
@@ -24,7 +24,7 @@
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/example/train_lenet)，演示MindSpore Lite训练功能的使用。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示MindSpore Lite训练功能的使用。
 
 整个端侧训练流程分为以下三步：
 
@@ -34,7 +34,9 @@
 
 下面章节首先通过示例代码中集成好的脚本，帮你快速部署并执行示例，再详细讲解实现细节。
 
-## 准备环节
+## 准备
+
+### 安卓设备
 
 首先请准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
@@ -51,34 +53,32 @@
 目录结构如下：
 
 ```text
-└─MNIST_Data
-    ├─test
-    │      t10k-images.idx3-ubyte
-    │      t10k-labels.idx1-ubyte
-    │
-    └─train
-            train-images.idx3-ubyte
-            train-labels.idx1-ubyte
+MNIST_Data/
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
+    ├── train-images-idx3-ubyte
+    └── train-labels-idx1-ubyte
 ```
-
-### 安装MindSpore Lite
-
-可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`conveter`以及`runtime-arm64-cpu`包，也可以在下载页面直接[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)MindSpore Lite模型训练框架。
 
 ### 安装MindSpore
 
 参考[MindSpore安装](https://www.mindspore.cn/install/)，正确安装MindSpore云侧环境。
 
-## 训练模型并验证精度
+### 获取Converter和Runtime
 
-示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/example/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/example/train_lenet`目录，执行如下命令：
+可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`conveter`以及`runtime-arm64-cpu`包，也可以在下载页面直接[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)。
+
+## 模型训练和验证
+
+示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令：
 
 ```bash
-sh prepare_and_run.sh /PATH/MNIST_Data
-
+bash prepare_and_run.sh /PATH/MNIST_Data
 ```
 
-该命令会在Android设备上训练LeNet模型，训练结果如下所示，会输出每100轮训练迭代的Loss和当前模型精度；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率。
+在Android设备上训练LeNet模型每100轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率，结果如下所示：
 
 ```text
 Training on Device
@@ -118,7 +118,7 @@ Load trained model and evaluate accuracy
 accuracy = 0.970553
 ```
 
-## 示例程序详细说明
+## 示例程序详解
 
 ### 示例程序结构
 
@@ -214,7 +214,7 @@ print("finished exporting")
 
 ### 训练模型
 
-源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/example/train_lenet/src/net_runner.cc)使用MindSpore Lite训练API完成模型训练，主函数如下：
+源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)使用MindSpore Lite训练API完成模型训练，主函数如下：
 
 ```cpp
 int NetRunner::Main() {
@@ -262,7 +262,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数初始化`MNIST`数据集，调用[`DataSet`类](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/example/train_lenet/src/dataset.cc)加载训练数据以及相应标签。
+    `InitDB`函数初始化`MNIST`数据集，调用[`DataSet`类](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc)加载训练数据以及相应标签。
 
     ```cpp
     int NetRunner::InitDB() {
