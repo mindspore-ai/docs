@@ -183,6 +183,8 @@ Different from the single-node system, the multi-node system needs to transfer t
 - `get_rank`: obtains the ID of the current device in the cluster.
 - `get_group_size`: obtains the number of devices.
 
+> Under data parallel mode, it is recommended to load the same dataset file for each device, or it may cause accuracy problems.
+
 ## Defining the Network
 
 In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py>
