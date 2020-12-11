@@ -103,6 +103,10 @@ The [Model API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mind
 
 You can transfer the initialized Model APIs such as the network, loss function, and optimizer as required. You can also configure amp_level to implement mixed precision and configure metrics to implement model evaluation.
 
+> Excecuting a network model will produce a `kernel_meta` directory in the current directory, and all the cache of operations compiled during the executing process will be stored in it. If user executes a same model again, or a model with some difference, MindSpore will automaticlly call the reusable cache in `kernel_meta` to reduce the compilation time of the whole model. It has a significant improvement in performance. The cache usually cannot be sharing between different situations, for example, single device and mutiple devices, training and inferring, etc.
+>
+> Please note that, if user only deletes the cache on part of the devices when executing models on several devices, may lead to a timeout of the waiting time between devices, because only some of them need to recompile the operations. To avoid this situation, user could set the environment variable `HCCL_CONNECT_TIMEOUT` to a reasonable waiting time. However, this way is has the same time consuming as deleting all the cache and recompiling.
+
 ### Executing a Training Model
 
 Call the train API of Model to implement training.
