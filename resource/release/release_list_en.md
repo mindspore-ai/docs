@@ -6,53 +6,41 @@
     - [1.0.1](#101)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes)
         - [Downloads](#downloads)
-        - [Tutorials, API and Docs](#tutorials-api-and-docs)
+        - [Related Documents](#related-documents)
     - [1.0.0](#100)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-1)
         - [Downloads](#downloads-1)
-        - [Tutorials, API and Docs](#tutorials-api-and-docs-1)
+        - [Related Documents](#related-documents-1)
     - [0.7.0-beta](#070-beta)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-2)
         - [Downloads](#downloads-2)
-        - [Tutorials, API and Docs](#tutorials-api-and-docs-2)
+        - [Related Documents](#related-documents-2)
     - [0.6.0-beta](#060-beta)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-3)
         - [Downloads](#downloads-3)
-        - [Tutorials](#tutorials)
-        - [API](#api)
-        - [Docs](#docs)
+        - [Related Documents](#related-documents-3)
     - [0.5.2-beta](#052-beta)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-4)
         - [Downloads](#downloads-4)
-        - [Tutorials](#tutorials-1)
-        - [API](#api-1)
-        - [Docs](#docs-1)
+        - [Related Documents](#related-documents-4)
     - [0.5.0-beta](#050-beta)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-5)
         - [Downloads](#downloads-5)
-        - [Tutorials](#tutorials-2)
-        - [API](#api-2)
-        - [Docs](#docs-2)
+        - [Related Documents](#related-documents-5)
     - [0.3.0-alpha](#030-alpha)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-6)
         - [Downloads](#downloads-6)
-        - [Tutorials](#tutorials-3)
-        - [API](#api-3)
-        - [Docs](#docs-3)
+        - [Related Documents](#related-documents-6)
     - [0.2.0-alpha](#020-alpha)
         - [Releasenotes and API Changes](#releasenotes-and-api-changes-7)
         - [Downloads](#downloads-7)
-        - [Tutorials](#tutorials-4)
-        - [API](#api-4)
-        - [Docs](#docs-4)
+        - [Related Documents](#related-documents-7)
     - [0.1.0-alpha](#010-alpha)
         - [Releasenotes](#releasenotes)
         - [Downloads](#downloads-8)
-        - [Tutorials](#tutorials-5)
-        - [API](#api-5)
-        - [Docs](#docs-5)
+        - [Related Documents](#related-documents-8)
     - [master(unstable)](#masterunstable)
-        - [Tutorials, API and Docs](#tutorials-api-and-docs-3)
+        - [Related Documents](#related-documents-9)
 
 <!-- /TOC -->
 
@@ -88,10 +76,11 @@
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/MindArmour/x86_64/mindarmour-1.0.1-cp37-cp37m-linux_x86_64.whl>   |   5f6cee4c36e009bc7cf0cb65d8c5d9a01d87b00dd9e4c48fb9c836fdd4be38ab   |
 |   MindSporeHub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/Hub/any/mindspore_hub-1.0.1-py3-none-any.whl>   |   5a0dc560c86aa35a54f4d8e20ba6e9b2b6084a5143fb4d6d73c2f6f3e55ab49e   |
 
-### Tutorials, API and Docs
+### Related Documents
 
 | Category | URL |
 | --- | --- |
+| Installation | <https://gitee.com/mindspore/docs/tree/r1.0/install> |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html> |
 | Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
 
@@ -134,10 +123,11 @@
 |   MindSpore Lite Minddata   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz>   |d998c5eba81b254c057eae61aeacd72cee24ad75eb01be89321133e6e035a330   |
 |      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz>   |9f6bd53663d029b7638274fca94e47efbfa33ff7dab5dbe1cf328379e3cbbc18   |
 
-### Tutorials, API and Docs
+### Related Documents
 
 | Category | URL |
 | --- | --- |
+| Installation | <https://gitee.com/mindspore/docs/tree/r1.0/install> |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.0/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.0/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.0/index.html> |
 | Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.0/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.0/index.html> |
 
@@ -168,10 +158,11 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/aarch64/mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl>   |   928754efcde8c2106e1af4fb883899d8f66aa864e0ac1ba7358a291792d898a2   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/x86_64/mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl>   |   bd3725991f227dde57afb1d11baf694a6ae0591d68355de18465a05b161bab14   |
 
-### Tutorials, API and Docs
+### Related Documents
 
 | Category | MindSpore | MindSpore Lite |
 | --- | --- | --- |
+| Installation | <https://gitee.com/mindspore/docs/tree/r0.7/install> | |
 | Tutorials | <https://www.mindspore.cn/tutorial/en/r0.7/index.html> | <https://www.mindspore.cn/lite/tutorial/en/r0.7/index.html> |
 | API | <https://www.mindspore.cn/api/en/r0.7/index.html> | <https://www.mindspore.cn/lite/apic/en/r0.7/lite/namespacemembers.html> |
 | Docs | <https://www.mindspore.cn/docs/en/r0.7/index.html> | <https://www.mindspore.cn/lite/docs/en/r0.7/index.html> |
@@ -202,17 +193,14 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/aarch64/mindarmour-0.6.0-cp37-cp37m-linux_aarch64.whl>   |   8da35bbf7e909bdce7972f7cd11aa495de2c18b9334052e60609dadd82649922   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/x86_64/mindarmour-0.6.0-cp37-cp37m-linux_x86_64.whl>   |   18f245bdff972414010c9f53de402d790cdef9a74f94ac41e5b6341e778e93b3   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/r0.6/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/r0.6/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/r0.6/index.html>
+| Category  | URL                                                    |
+|-----------|--------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.6/install>   |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/r0.6/index.html> |
+| API       | <https://www.mindspore.cn/api/en/r0.6/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/r0.6/index.html>     |
 
 ## 0.5.2-beta
 
@@ -240,17 +228,14 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl>   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/r0.5/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/r0.5/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/r0.5/index.html>
+| Category  | URL                                                    |
+|-----------|--------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.5/install>   |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/r0.5/index.html> |
+| API       | <https://www.mindspore.cn/api/en/r0.5/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/r0.5/index.html>     |
 
 ## 0.5.0-beta
 
@@ -278,17 +263,14 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl>   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/r0.5/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/r0.5/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/r0.5/index.html>
+| Category  | URL                                                    |
+|-----------|--------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.5/install>   |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/r0.5/index.html> |
+| API       | <https://www.mindspore.cn/api/en/r0.5/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/r0.5/index.html>     |
 
 ## 0.3.0-alpha
 
@@ -317,17 +299,14 @@
 |      |      |   Ubuntu-aarch64/EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/aarch64/mindarmour-0.3.0-cp37-cp37m-linux_aarch64.whl>   |   6d5f96cc004579d98664d018dca860d3b7f935df5b479f1192161f18a091d9c9   |
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/x86_64/mindarmour-0.3.0-cp37-cp37m-linux_x86_64.whl>   |   7a2bd6174be9e5a47e8ae6bcdd592ecdafc6e53e6f1cd5f0261fcb8337b5b337   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/0.3.0-alpha/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/0.3.0-alpha/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/0.3.0-alpha/index.html>
+| Category  | URL                                                           |
+|-----------|---------------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.3/install>          |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/0.3.0-alpha/index.html> |
+| API       | <https://www.mindspore.cn/api/en/0.3.0-alpha/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/0.3.0-alpha/index.html>     |
 
 ## 0.2.0-alpha
 
@@ -355,17 +334,14 @@
 |      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/aarch64/mindarmour-0.2.0-cp37-cp37m-linux_aarch64.whl>   |   5d5e532b9c4e466d89cf503f07c2d530b42216a14f193f685b9a81e190c8db44   |
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/x86_64/mindarmour-0.2.0-cp37-cp37m-linux_x86_64.whl>   |   4146790bc73a5846e92b943dfd3febb6c62052b217eeb45b6c48aa82b51e7cc3   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/0.2.0-alpha/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/0.2.0-alpha/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/0.2.0-alpha/index.html>
+| Category  | URL                                                           |
+|-----------|---------------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.2/install>          |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/0.2.0-alpha/index.html> |
+| API       | <https://www.mindspore.cn/api/en/0.2.0-alpha/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/0.2.0-alpha/index.html>     |
 
 ## 0.1.0-alpha
 
@@ -391,23 +367,21 @@
 |      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/aarch64/mindarmour-0.1.0-cp37-cp37m-linux_aarch64.whl>   |   f354fcdbb3d8b4022fda5a6636e763f8091aca2167dc23e60b7f7b6d710523cb   |
 |      |   GPU CUDA 9.2/GPU CUDA 10.1/CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
 
-### Tutorials
+### Related Documents
 
-<https://www.mindspore.cn/tutorial/en/0.1.0-alpha/index.html>
-
-### API
-
-<https://www.mindspore.cn/api/en/0.1.0-alpha/index.html>
-
-### Docs
-
-<https://www.mindspore.cn/docs/en/0.1.0-alpha/index.html>
+| Category  | URL                                                           |
+|-----------|---------------------------------------------------------------|
+| Installation   | <https://gitee.com/mindspore/docs/tree/r0.1/install>          |
+| Tutorials | <https://www.mindspore.cn/tutorial/en/0.1.0-alpha/index.html> |
+| API       | <https://www.mindspore.cn/api/en/0.1.0-alpha/index.html>      |
+| Docs      | <https://www.mindspore.cn/docs/en/0.1.0-alpha/index.html>     |
 
 ## master(unstable)
 
-### Tutorials, API and Docs
+### Related Documents
 
 | Category | URL |
 | --- | --- |
+| Installation | <https://gitee.com/mindspore/docs/tree/master/install> |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/master/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/master/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/master/index.html> |
 | Docs | Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/master/index.html> |
