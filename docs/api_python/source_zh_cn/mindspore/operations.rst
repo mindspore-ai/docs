@@ -227,6 +227,7 @@ Array Operators
     mindspore.ops.IsFinite
     mindspore.ops.IsInstance
     mindspore.ops.IsSubClass
+    mindspore.ops.Meshgrid
     mindspore.ops.Ones
     mindspore.ops.OnesLike
     mindspore.ops.Padding
@@ -329,6 +330,7 @@ Random Operators
     :template: classtemplate.rst
 
     mindspore.ops.Gamma
+    mindspore.ops.LogUniformCandidateSampler
     mindspore.ops.Multinomial
     mindspore.ops.Poisson
     mindspore.ops.RandomCategorical
