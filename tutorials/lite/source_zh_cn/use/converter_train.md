@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/training_model_converting.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/converter_train.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -41,13 +41,13 @@ MindSpore ToD 模型转换工具提供了多个参数，目前工具仅支持Lin
 | `--fmk=<FMK>`               | 是       | 输入模型的原始格式                          | MINDIR      | -      |
 | `--modelFile=<MODELFILE>`   | 是       | MINDIR模型文件名（包括路径）                | -           | -      |
 | `--outputFile=<OUTPUTFILE>` | 是       | 输出模型文件名（包括路径）自动生成`.ms`后缀 | -           | -      |
-| `--trainModel=true`         | 是       | 当前模型是否在设备上训练                    | true, false | false  |
+| `--trainModel=true`         | 是       | 是否是训练模式；如果要训练模型，必须为true  | true, false | false  |
 
 > 参数名称和数值之间使用等号连接且不能有空格。
 
 ### 模型转换示例
 
-假设待转换的文件为`my_model.mindir`，执行如下转换命令（使用训练版本转换工具，参见[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id9)章节）：
+假设待转换的模型文件为`my_model.mindir`，执行如下转换命令（使用训练版本转换工具，参见[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id9)章节）：
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=my_model.mindir --outputFile=my_model

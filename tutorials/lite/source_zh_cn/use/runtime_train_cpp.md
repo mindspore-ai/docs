@@ -24,11 +24,10 @@
         - [使用示例](#使用示例-4)
     - [获取版本号](#获取版本号)
         - [使用示例](#使用示例-5)
-    - [会话并行加载](#会话并行加载)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/using_runtime_for_model_training_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -41,7 +40,7 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 端侧训练主要步骤：
 
 1. 选择一个模型，定义待训练层并导出。
-2. 将模型转换为端侧可训练模型 .ms文件。
+2. 将模型转换为端侧可训练模型，即`.ms`文件。
 3. 在设备端训练该模型，导出已经训练好的模型方便后续使用。
 
 转换得到的 *.ms 文件包含模型结构，.ms文件将被载入设备端进行训练。
@@ -57,37 +56,39 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 - `DataLoader`：能够加载数据并能在模型训练中进行数据预处理的对象（例如读取图像，缩放至指定大小，转换为bitmap格式）。
 - `TrainSession`：一个由MindSpore Lite提供的软件模块，它能为模型节点和内联张量提供flatbuffer反序列化的功能、执行图编译并调用图执行器进行训练。
 
-然而，训练一个模型耗费大量计算资源，因此不建议在设备端完全训练一个深度神经网络。
+> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
 
 ## 创建会话
 
-在MindSpore设备端模型架构中，[TrainSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#trainsession)类可为系统提供主要的API。接下来我们将学习如何与TrainSession类的对象交互。
+使用Mindpore Lite训练框架进行训练时，[TrainSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#trainsession)是训练的主入口，通过`TrainSession`我们可以进行训练图编译、训练图执行。
 
 ### 读取模型
 
 模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载并解析。相关操作主要在`Model`类中实现，该类具有例如网络结构、张量大小、权重数据和操作属性等模型数据。
 
-与MindSpore Lite 架构不同的是：在 MindSpore ToD中，由于训练时模型的对象将被TrainSession占用，所以你操作它。所有与模型的交互操作包括实例化、编译和删除操作将在`TrainSession`中处理。
+> 与MindSpore Lite推理架构不同的是：在MindSpore ToD中，由于训练时模型对象`Model`将被`TrainSession`占用，所以你不允许再直接操作它。所有与`Model`对象的交互操作，包括实例化、编译和删除操作将在`TrainSession`中处理。
 
 ### 创建上下文
 
-`Context`是一个MindSpore Lite对象，它包含了会话用来引导图编译和执行的重要基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前TrainSession只支持单线程的CPU设备。当TrainSession被`Context`对象创建后，不被使用时可以删除。
+`Context`是一个MindSpore Lite对象，它包含了`TrainSession`用来引导图编译和执行的基础配置参数。它能够让你指定模型运行的设备类型（例如CPU或GPU），模型训练和推理时使用的线程数量，以及内存分配策略。目前`TrainSession`只支持单线程的CPU设备。
+
+如果用户通过`new`创建`Context`，不再需要时，需要用户通过`delete`释放。一般在`TrainSession`对象创建完成后，`Context`对象即可释放。
 
 ### 创建会话
 
 有两种方式可以创建会话：
 
-- 第一种能让MindSpore ToD有权限读取文件系统，读取训练模型，序列化，编译并生成有效的 TrainSession 对象。上述`Context`将作为一个基本配置传递给 TrainSession 。静态函数原型如下：
+- 第一种直接读取文件系统上的训练模型文件，然后反序列化，编译并生成有效的`TrainSession`对象。上述`Context`将作为一个基本配置传递给`TrainSession`。该静态函数原型如下：
 
   `TrainSession *TrainSession::CreateSession(const string &filename, const Context *context, bool mode)`
 
   其中`filename`是模型文件名，`context`是指向Context的对象指针，`mode`表示当前会话是否为训练模式。成功创建后，函数返回一个已全部编译并可使用的`TrainSession`，该实例必须在当前会话结束前使用`delete`释放。
 
-- 第二种使用  flatbuffer 的内存拷贝创建`TrainSession`。静态方法如下：
+- 第二种使用flatbuffer的内存拷贝创建`TrainSession`。静态方法如下：
 
   `TrainSession *TrainSession::CreateSession(const char *buf, size_t size, const Context *context, bool mode)`
 
-  其中`buf`是一个指向内存缓冲区的常量指针，`size`是缓冲区长度。成功创建后，函数返回一个完整编译并且可以使用的 TrainSession 实例。buf 指针可以被立即释放以节省资源。一旦 TrainSession 实例不再被使用，它必须使用`delete`释放。
+  其中`buf`是一个指向内存缓冲区的常量指针，`size`是缓冲区长度。成功创建后，函数返回一个完整编译并且可以使用的`TrainSession`实例。`buf`指针在函数调用完成后，可以被立即释放以节省资源。一旦`TrainSession`实例不再被使用，它必须使用`delete`释放。
 
 ### 使用示例
 
@@ -105,7 +106,7 @@ auto session = mindspore::session::TrainSession::CreateSession(std::string("mode
 
 ## 训练模式
 
-一个网络能通过TrainSession进行推理和训练。推理和训练模式的不同点：
+一个网络能通过`TrainSession`进行推理和训练。推理和训练模式的不同点：
 
 1. 网络输入：训练需要数据和标签，而推理只需要数据。
 2. 网络输出：训练返回损失值，而推理返回预测标签值。
@@ -165,7 +166,7 @@ if (ret != RET_OK) {
     virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
     ```
 
-如果模型需要1个以上的输入张量（当然是在训练过程总，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也根据输入张量的大小推导出这些信息。
+如果模型需要1个以上的输入张量（例如训练过程中，数据和标签都作为网络的输入），用户有必要知道输入顺序和张量名称，这些信息可以从Python对应的模型中获取。此外，用户也根据输入张量的大小推导出这些信息。
 
 ### 拷贝数据
 
@@ -205,7 +206,7 @@ virtual void *MutableData() const = 0;
 
 ### 使用示例
 
-以下示例代码展示了如何从LiteSession中获取完整的图输入张量和如何将模型输入数据转换为MSTensor类型。
+以下示例代码展示了如何从`LiteSession`中获取完整的图输入张量和如何将模型输入数据转换为`MSTensor`类型。
 
 ```cpp
 // Assuming session is a valid instance of TrainSession
@@ -250,7 +251,7 @@ memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
 
 ### 执行会话
 
-无论`TrainSession`对象是否为训练模式，使它运行的方式，例如，通过图来处理数据，称为`RunGraph`方法。
+无论`TrainSession`对象是训练模式还是推理模式，执行模型的方式都是调用`RunGraph`方法。
 
 ```cpp
 /// \brief Run session with callbacks.
