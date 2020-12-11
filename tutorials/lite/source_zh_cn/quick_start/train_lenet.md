@@ -210,7 +210,7 @@ print("finished exporting")
 
 转换成功后，当前目录下会生成`lenet_tod.ms`模型。
 
-> 详细的`converter`工具使用，可以参考[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool_train.html)。
+> 详细的`converter`工具使用，可以参考[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)。
 
 ### 训练模型
 
