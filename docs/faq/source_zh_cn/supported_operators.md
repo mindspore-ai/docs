@@ -8,7 +8,7 @@
 
 A：应该是`construct`中直接使用了带有`axis`属性的算子，比如`P.Concat(axis=1)((x1, x2))`这种，建议把算子在`__init__`中初始化 像这样
 
-```pyhton
+```python
 from mindspore import nn
 from mindspore.ops import operations as P
 
