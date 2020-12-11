@@ -46,10 +46,9 @@ CPU算子原语的接口定义如下：
 以`Transpose`算子原语为例，给出如下示例代码。
 
 ```python
-from mindspore.ops import PrimitiveWithCheck
-from mindspore._checkparam import Validator as validator
+from mindspore.ops import PrimitiveWithInfer
 
-class Transpose(PrimitiveWithCheck):
+class Transpose(PrimitiveWithInfer):
     """
     The definition of the Transpose primitive.
     """
@@ -58,13 +57,18 @@ class Transpose(PrimitiveWithCheck):
         """Initialize Transpose"""
         self.init_prim_io_names(inputs=['x', 'perm'], outputs=['output'])
 
-    def check_shape(self, x, perm):
-        validator.check_value_type("perm", perm, [tuple], self.name)
-        if len(x) != len(perm):
+    def infer_shape(self, x, perm):
+        x_shape = x['shape']
+        p_value = perm['value']
+        if len(x_shape) != len(p_value):
             raise ValueError('The dimension of x and perm must be equal.')
+        out_shapes = []
+        for i in p_value:
+            out_shapes.append(x_shape[i])
+        return out_shapes
 
-    def check_dtype(self, x, perm):
-        validator.check_subclass("x", x, mstype.tensor, self.name)
+    def infer_dtype(self, x_dtype, perm_dtype):
+        return x_dtype
 ```
 
 ## 实现CPU算子和注册算子信息
