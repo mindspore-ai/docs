@@ -215,7 +215,7 @@ docker run -w $PWD --runtime=nvidia -v /home/$USER:/home/$USER --privileged=true
 
 If you don't have docker environment, it will run locally.
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/create_model.html#converting-into-the-mindspore-tod-model)
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models)
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
@@ -279,7 +279,7 @@ void NetRunner::InitAndFigureInputs() {
 #### Dataset Processing
 
 `InitDB` initializes the MNIST dataset and loads it into the memory. We will not discuss this code here.
-The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
+The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
 
 ```cpp
 int NetRunner::InitDB() {

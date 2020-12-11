@@ -344,7 +344,7 @@
     print("Got {} samples on device {}".format(num_iter, args_opt.device))
     ```
 
-    > 直接获取完整样例代码：[my_training_script.py](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/cache/my_training_script.py)
+    > 直接获取完整样例代码：[my_training_script.py](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/my_training_script.py)
 
 5. 运行训练脚本。
 
