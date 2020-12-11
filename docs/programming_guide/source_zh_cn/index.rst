@@ -18,4 +18,4 @@ MindSpore编程指南
    advanced_usage
    network_list
    operator_list
-   static_graph_syntax_support
+   syntax_list
