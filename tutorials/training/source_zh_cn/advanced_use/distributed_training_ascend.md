@@ -185,6 +185,8 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 - `get_rank`：获取当前设备在集群中的ID。
 - `get_group_size`：获取集群数量。
 
+> 数据并行场景加载数据集时，建议对每卡指定相同的数据集文件，若是各卡加载的数据集不同，可能会影响计算精度。
+
 ## 定义网络
 
 数据并行及自动并行模式下，网络定义方式与单机写法一致，可以参考[ResNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/resnet/resnet.py)。
