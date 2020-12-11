@@ -27,7 +27,7 @@ Author: [Yi Yang](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;Edit
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/mindspore_linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## Overview
 
