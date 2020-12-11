@@ -263,42 +263,6 @@ std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vecto
 
     返回框的id。
 
-### Subtract
-
-```cpp
-bool Subtract(const LiteMat &src1, const LiteMat &src2, LiteMat &dst)
-```
-
-计算每个元素的两个图像之间的差异。
-
-- 参数
-
-    - `src1`: 输入的图像1的数据。
-    - `src2`: 输入的图像2的数据。
-    - `dst`: 输出图像的数据。
-
-- 返回值
-
-    满足条件的计算返回True，否则返回False。
-
-### Divide
-
-```cpp
-bool Divide(const LiteMat &src1, const LiteMat &src2, LiteMat &dst);
-```
-
-计算每个元素在两个图像之间的划分。
-
-- 参数
-
-    - `src1`: 输入的图像1的数据。
-    - `src2`: 输入的图像2的数据。
-    - `dst`: 输出图像的数据。
-
-- 返回值
-
-    满足条件的计算返回True，否则返回False。
-
 &emsp;
 
 ## LiteMat
@@ -411,6 +375,60 @@ void InitElemSize(LDataType data_type)
 
     - `p`: 指向引用的对象。
     - `value`: 引用时所加的值。
+
+### Subtract
+
+```cpp
+bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+计算每个元素的两个图像之间的差异。
+
+- 参数
+
+    - `src_a`: 输入的图像a的数据。
+    - `src_b`: 输入的图像b的数据。
+    - `dst`: 输出图像的数据。
+
+- 返回值
+
+    满足条件的计算返回True，否则返回False。
+
+### Divide
+
+```cpp
+bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+计算每个元素在两个图像之间的划分。
+
+- 参数
+
+    - `src_a`: 输入的图像a的数据。
+    - `src_b`: 输入的图像b的数据。
+    - `dst`: 输出图像的数据。
+
+- 返回值
+
+    满足条件的计算返回True，否则返回False。
+
+### Multiply
+
+```cpp
+bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+计算每个元素在两个图像之间的相乘值。
+
+- 参数
+
+    - `src_a`: 输入的图像a的数据。
+    - `src_b`: 输入的图像b的数据。
+    - `dst`: 输出图像的数据。
+
+- 返回值
+
+    满足条件的计算返回True，否则返回False。
 
 ## 端侧训练相关算子
 

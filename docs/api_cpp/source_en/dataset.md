@@ -263,42 +263,6 @@ Real-size box non-maximum suppression.
 
     Return the id of the boxes.
 
-### Subtract
-
-```cpp
-bool Subtract(const LiteMat &src1, const LiteMat &src2, LiteMat &dst)
-```
-
-Calculates the difference between the two images for each element.
-
-- Parameters
-
-    - `src1`: Input image1 data.
-    - `src2`: Input image2 data.
-    - `dst`: Output image data.
-
-- Returns
-
-    Return True if the calculation satisfies the conditions, otherwise return False.
-
-### Divide
-
-```cpp
-bool Divide(const LiteMat &src1, const LiteMat &src2, LiteMat &dst);
-```
-
-Calculates the division between the two images for each element.
-
-- Parameters
-
-    - `src1`: Input image1 data.
-    - `src2`: Input image2 data.
-    - `dst`: Output image data.
-
-- Returns
-
-    Return True if the calculation satisfies the conditions, otherwise return False.
-
 &emsp;
 
 ## LiteMat
@@ -413,6 +377,60 @@ A function to count the number of times the function is referenced.
 
     - `p`: Point to the referenced object.
     - `value`: Value added when quoted.
+
+### Subtract
+
+```cpp
+bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+Calculates the difference between the two images for each element.
+
+- Parameters
+
+    - `src_a`: Input image_a data.
+    - `src_b`: Input image_b data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the calculation satisfies the conditions, otherwise return False.
+
+### Divide
+
+```cpp
+bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+Calculates the division between the two images for each element.
+
+- Parameters
+
+    - `src_a`: Input image_a data.
+    - `src_b`: Input image_b data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the calculation satisfies the conditions, otherwise return False.
+
+### Multiply
+
+```cpp
+bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+```
+
+Calculates the multiply between the two images for each element.
+
+- Parameters
+
+    - `src_a`: Input image_a data.
+    - `src_b`: Input image_b data.
+    - `dst`: Output image data.
+
+- Returns
+
+    Return True if the calculation satisfies the conditions, otherwise return False.
 
 ## Operators related to device-side training
 
