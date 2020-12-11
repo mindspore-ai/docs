@@ -44,7 +44,7 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 2. 将模型转换为端侧可训练模型 .ms文件。
 3. 在设备端训练该模型，导出已经训练好的模型方便后续使用。
 
-训练架构存在 *.ms 模型文件中。接下来要讨论的软件架构可用一种通用方式进行训练和推理。在服务端转换得到的模型.ms文件会被载入嵌入式设备。
+转换得到的 *.ms 文件包含模型结构，.ms文件将被载入设备端进行训练。
 
 下面的时序图展示了训练流程：
 
@@ -55,7 +55,7 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 - `OS`：能够获取数据的操作系统。
 - `User`：能够进行训练的应用/对象。
 - `DataLoader`：能够加载数据并能在模型训练中进行数据预处理的对象（例如读取图像，缩放至指定大小，转换为bitmap格式）。
-- `TrainSession`：一个由MindSpore Lite提供的软件模块，它能为模型节点和内联张量提供flatbuffer反序列化的功能。它可执行图编译并调用图执行器进行训练和推理。
+- `TrainSession`：一个由MindSpore Lite提供的软件模块，它能为模型节点和内联张量提供flatbuffer反序列化的功能、执行图编译并调用图执行器进行训练。
 
 然而，训练一个模型耗费大量计算资源，因此不建议在设备端完全训练一个深度神经网络。
 
@@ -67,7 +67,7 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 
 模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载并解析。相关操作主要在`Model`类中实现，该类具有例如网络结构、张量大小、权重数据和操作属性等模型数据。
 
-与MindSpore Lite 架构不同的是：在 MindSpore 端侧架构中，由于模型的对象将在训练中被TrainSession类使用，所以用户不能获取它。所有与模型的交互操作包括实例化、编译和删除操作将在`TrainSession`中处理。
+与MindSpore Lite 架构不同的是：在 MindSpore ToD中，由于训练时模型的对象将被TrainSession占用，所以你操作它。所有与模型的交互操作包括实例化、编译和删除操作将在`TrainSession`中处理。
 
 ### 创建上下文
 
@@ -455,7 +455,3 @@ for (auto tensor_name : tensor_names) {
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
-
-## 会话并行加载
-
-尚不支持该特性。

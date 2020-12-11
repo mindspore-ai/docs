@@ -11,7 +11,7 @@
         - [编译示例](#编译示例)
         - [编译输出](#编译输出)
             - [模型转换工具converter目录结构说明](#模型转换工具converter目录结构说明)
-            - [模型推理框架runtime及其他工具目录结构说明](#模型推理框架runtime及其他工具目录结构说明)
+            - [Runtime及其他工具目录结构说明](#Runtime及其他工具目录结构说明)
             - [图像处理库目录结构说明](#图像处理库目录结构说明)
     - [Windows环境编译](#windows环境编译)  
         - [环境要求](#环境要求-1)
@@ -31,18 +31,22 @@
 
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
-| converter          | Linux、Windows          | 模型转换工具                      |
-| runtime(cpp、java) | Linux、Android          | 模型推理框架(cpp、java)           |
-| benchmark          | Linux、Windows、Android | 基准测试工具                      |
+| converter          | Linux, Windows          | 模型转换工具                      |
+| runtime(cpp、java) | Linux, Android          | 模型推理框架(cpp、java)           |
+| benchmark          | Linux, Windows, Android | 基准测试工具                      |
 | lib_cropper        | Linux                   | libmindspore-lite.a静态库裁剪工具 |
-| imageprocess       | Linux、Android          | 图像处理库                        |
+| imageprocess       | Linux, Android          | 图像处理库                        |
 
 训练版本包含模块：
 
-| 模块         | 支持平台 | 说明              |
-| ------------ | -------- | ----------------- |
-| converter    | Linux    | 模型转换工具      |
-| runtime(cpp) | Linux    | 模型训练框架(cpp) |
+| 模块         | 支持平台       | 说明                              |
+| ------------ | -------------- | --------------------------------- |
+| converter    | Linux          | 模型转换工具                      |
+| runtime(cpp) | Linux, Android | 模型训练框架(cpp)                 |
+| benchmark    | Linux          | 基准测试工具                      |
+| lib_cropper  | Linux          | libmindspore-lite.a静态库裁剪工具 |
+| imageprocess | Linux          | 图像处理库                        |
+| net_train    | Linux, Android | 性能测试和精度校验工具            |
 
 ## Linux环境编译
 
@@ -98,13 +102,13 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
 | -o | 设置该参数，则编译基准测试工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
-| -T | 是否编译运行时 (Runtime) 训练版本工具，默认为off | on、off | 否 |
+| -T | 是否编译训练版本工具，默认为off | on、off | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 >
 > 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
 >
-> 编译选型 -T 只生成运行时训练版本工具。
+> 开启编译选项 -T 只生成训练版本工具。
 
 ### 编译示例
 
@@ -190,17 +194,23 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
-如果添加了开启了`-T`编译选项，同时会生成用于模型训练的转换工具包，如下：
+> version: 输出件版本号，与所编译的分支代码对应的版本一致。
+>
+> device: 当前分为cpu（内置CPU算子）和gpu（内置CPU和GPU算子）。
+>
+> os: 输出件应部署的操作系统。
+
+如果添加了开启了`-T`编译选项，同时生成模型训练转换和Runtime工具，如下：
 
 `mindspore-lite-{version}-converter-{os}-train.tar.gz`：模型训练转换工具包。
 
 `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`：包含模型训练框架runtime。
 
-> version：输出件版本号，与所编译的分支代码对应的版本一致。
+> version: 输出件版本号，与所编译的分支代码对应的版本一致。
 >
-> device：当前分为cpu（内置CPU算子）和gpu（内置CPU和GPU算子）。
+> device: 设备端处理器架构型号，仅支持CPU上编译。
 >
-> os：输出件应部署的操作系统。
+> os: 输出件应部署的操作系统。
 
 执行解压缩命令，获取编译后的输出件：
 
@@ -215,7 +225,7 @@ unzip mindspore-lite-maven-{version}.zip
 
 #### 模型转换工具converter目录结构说明
 
-转换工具仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
+仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
 
 ```text
 |
@@ -228,7 +238,7 @@ unzip mindspore-lite-maven-{version}.zip
 |       ├── glog # Glog的动态库
 ```
 
-#### 模型推理框架runtime及其他工具目录结构说明
+#### Runtime及其他工具目录结构说明
 
 推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得（推理和训练的目录结构相同），内容如下：
 
@@ -345,6 +355,8 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │   └── third_party # 第三方库头文件和库
 │       ├── flatbuffers # Flatbuffers的动态库
 ```
+
+> 如果开启了`-T`选项，编译生成的压缩包文件名的格式为`*-train.tar.gz`。此外，runtime压缩包会多一个`net_train`性能和精度测试工具。
 
 ## Windows环境编译
 

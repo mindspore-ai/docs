@@ -230,35 +230,40 @@ virtual ~TrainSession() = default;
 
 ### 公有成员函数
 
-#### TrainSession
+#### CreateSession
 
 ```cpp
-static TrainSession *CreateSession(lite::Context *context);
+static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false);
 ```
 
-创建一个用于训练会话的对象指针。
+基于已有MS模型创建一个用于训练会话的静态对象指针。
 
 - 参数
 
+    - `model_buf`: 指向包含模型文件的缓冲区指针。
+    - `size`: 缓冲区长度。
     - `context`: 指向目标会话的指针。
+    - `train_mode`: 训练模式，默认值为false。
 
 - 返回值
 
-    返回一个指向训练会话的指针。
-
-#### CompileTrainGraph
+    返回一个指向训练会话的静态对象指针。
 
 ```cpp
-virtual int CompileTrainGraph(lite::TrainModel *model) = 0;
+static TrainSession *CreateSession(const std::string &filename, lite::Context *context, bool train_mode = false);
 ```
+
+基于已有模型创建一个用于训练会话的静态对象指针。
 
 - 参数
 
-    - `model`: 指向训练模型的指针。
+    - `filename`: 指向文件名称。
+    - `context`: 指向会话指针。
+    - `train_mode`: 训练模式。
 
 - 返回值
 
-    返回执行结果状态代码，状态码参见 " errorcode.h "。
+    返回一个指向训练会话的静态对象指针。
 
 #### ExportToBuf
 
@@ -341,13 +346,3 @@ bool IsEval() { return train_mode_ == false; }
 - 返回值
 
     返回 true 或 false，即当前模型是否为验证模式。
-
-### 公有属性
-
-#### train_mode_
-
-```cpp
-bool train_mode_ = false;
-```
-
-私有变量，布尔类型，表示当前的训练模式。

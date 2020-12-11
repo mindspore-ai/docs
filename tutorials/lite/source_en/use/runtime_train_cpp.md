@@ -456,7 +456,3 @@ The following sample code shows how to obtain version string using `Version` met
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
-
-## Session parallel launch
-
-This feature is not supported in the first release.

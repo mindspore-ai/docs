@@ -189,6 +189,7 @@ Resize inputs shape.
 - Parameters
 
     - `inputs`: Model inputs.
+
     - `dims`: Define the new inputs shape.
 
 - Returns
@@ -230,3 +231,143 @@ Static method to create a LiteSession pointer which has already compiled a model
 - Returns
 
     Pointer of MindSpore Lite LiteSession.
+
+## TrainSession
+
+TrainSession Defines a class that allows training a MindSpore model.
+
+### Constructors & Destructors
+
+#### ~TrainSession
+
+```cpp
+virtual ~TrainSession() = default;
+```
+
+Static method to create a TrainSession object.
+
+### Public Member Functions
+
+#### ExportToBuf
+
+```cpp
+virtual void *ExportToBuf(char *buf, size_t *len) const = 0;
+```
+
+Export the trained model into a buffer.
+
+- Parameters
+
+    - `buf`: The buffer to Export into. If equal to nullptr, buf will be allocated.
+
+    - `len`: Size of the pre-allocated buffer, and returned size of the exported buffer.
+
+- Returns
+
+    Pointer of MindSpore Lite TrainSession.
+
+#### SaveToFile
+
+```cpp
+virtual int SaveToFile(const std::string &filename) const = 0;
+```
+
+Save the trained model into a flatbuffer file.
+
+- Parameters
+
+    - `filename`: Filename to save flatbuffer to.
+
+- Returns
+
+    0 on success or -1 in case of error.
+
+#### Train
+
+```cpp
+virtual int Train() = 0;
+```
+
+Set model to train mode.
+
+- Returns
+
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)
+
+#### IsTrain
+
+```cpp
+bool IsTrain() { return train_mode_ == true; }
+```
+
+Check mode of model.
+
+- Returns
+
+    Boolean indication if model is in train mode.
+
+#### Eval
+
+```cpp
+virtual int Eval() = 0;
+```
+
+Set model to eval mode.
+
+- Returns
+
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+
+#### IsEval
+
+```cpp
+bool IsEval() { return train_mode_ == false; }
+```
+
+Check mode of model.
+
+- Returns
+
+    boolean indication if model is in eval mode.
+
+### Static Public Member Functions
+
+#### TrainSession
+
+```cpp
+static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `model_buf`: A buffer that was read from a MS model file.
+
+    - `size`: Length of the buffer.
+
+    - `context`: Defines the context of the session to be created.
+
+    - `train_mode`: Training mode to initialize Session with.
+
+- Returns
+
+    Pointer of MindSpore Lite TrainSession.
+
+```cpp
+static TrainSession *CreateSession(const std::string &filename, lite::Context *context, bool train_mode = false);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `filename`: Filename to read flatbuffer from.
+
+    - `context`: Defines the context of the session to be created.
+
+    - `train_mode`: Training mode to initialize Session with.
+
+- Returns
+
+    Pointer of MindSpore Lite TrainSession.
