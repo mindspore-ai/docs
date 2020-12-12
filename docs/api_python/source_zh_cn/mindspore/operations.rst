@@ -41,6 +41,8 @@ Neural Network Operators
     mindspore.ops.DepthwiseConv2dNative
     mindspore.ops.DropoutDoMask
     mindspore.ops.DropoutGenMask
+    mindspore.ops.DynamicGRUV2
+    mindspore.ops.DynamicRNN
     mindspore.ops.Elu
     mindspore.ops.FastGelu
     mindspore.ops.Flatten
