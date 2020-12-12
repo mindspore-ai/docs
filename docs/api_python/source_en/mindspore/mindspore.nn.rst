@@ -59,6 +59,7 @@ Sparse Layers
 
     mindspore.nn.Embedding
     mindspore.nn.EmbeddingLookup
+    mindspore.nn.MultiFieldEmbeddingLookup
     mindspore.nn.SparseToDense
 
 Non-linear Activations
@@ -72,6 +73,7 @@ Non-linear Activations
     mindspore.nn.ELU
     mindspore.nn.FastGelu
     mindspore.nn.GELU
+    mindspore.nn.get_activation
     mindspore.nn.HSigmoid
     mindspore.nn.HSwish
     mindspore.nn.LeakyReLU
@@ -160,10 +162,12 @@ Quantized Functions
     mindspore.nn.ActQuant
     mindspore.nn.Conv2dBnAct
     mindspore.nn.Conv2dBnFoldQuant
+    mindspore.nn.Conv2dBnFoldQuantOneConv
     mindspore.nn.Conv2dBnWithoutFoldQuant
     mindspore.nn.Conv2dQuant
     mindspore.nn.DenseBnAct
     mindspore.nn.DenseQuant
+    mindspore.nn.FakeQuantWithMinMaxObserver
     mindspore.nn.MulQuant
     mindspore.nn.TensorAddQuant
 
