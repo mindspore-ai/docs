@@ -147,7 +147,7 @@ The `Distribution` base class invokes the private API in the `Geometric` to impl
 
 - `mean`,`mode`,`var`, and `sd`: The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `entropy`: The input parameter *probs1* that indicates the probability of experiment success is optional.
-- `cross_entropy`, `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Geometric'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
+- `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Geometric'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `sample`: Optional input parameters include sample shape *shape* and experiment success probability *probs1*.
 - `get_dist_args`: The input parameter *probs1* that indicates the probability of experiment success is optional.
@@ -198,7 +198,7 @@ The `Distribution` base class invokes the private API in the `Categorical` to im
 
 - `mean`,`mode`,`var`, and `sd`: The input parameter *probs* that indicates the probability of each category is optional.
 - `entropy`: The input parameter *probs* that indicates the probability of each category is optional.
-- `cross_entropy`, `kl_loss`: The input parameters *dist* and *probs_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Categorical'* is supported. *probs_b* is the categories' probabilities of distribution *b*. Parameter *probs_a* of distribution *a* is optional.
+- `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Categorical'* is supported. *probs_b* is the categories' probabilities of distribution *b*. Parameter *probs_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of each category is optional.
 - `sample`: Optional input parameters include sample shape *shape* and the categories' probabilities *probs*.
 - `get_dist_args`: The input parameter *probs* that indicates the probability of each category is optional.
@@ -307,7 +307,7 @@ The `Distribution` base class invokes the private API in the `Gamma` to implemen
 
 - `mean`,`mode`,`var`, and `sd`: The input parameters *concentration* and *rate* are optional.
 - `entropy`: The input parameters *concentration* and *rate* are optional.
-- `cross_entropy`, `kl_loss`: The input parameters *dist*, *concentration_b* and *rate_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gamma'* is supported. *concentration_b* and *rate_b* are the parameters of distribution *b*. The input parameters *concentration_a* and *rate_a* for distribution *a* are optional.
+- `cross_entropy` and `kl_loss`: The input parameters *dist*, *concentration_b* and *rate_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gamma'* is supported. *concentration_b* and *rate_b* are the parameters of distribution *b*. The input parameters *concentration_a* and *rate_a* for distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameters *concentration* and *rate* are optional.
 - `sample`: Optional input parameters include sample shape *shape* and parameters *concentration* and *rate*.
 - `get_dist_args`: The input parameters *concentration* and *rate* are optional.
@@ -326,8 +326,8 @@ The `Distribution` base class invokes the private API in the `Beta` to implement
 
 - `mean`,`mode`,`var`, and `sd`: The input parameters *concentration1* and *concentration0* are optional.
 - `entropy`: The input parameters *concentration1* and *concentration0* are optional.
-- `cross_entropy`, `kl_loss`: The input parameters *dist*, *concentration1_b* and *rateconcentration0_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Beta'* is supported. *concentration1_b* and *concentration0_b* are the parameters of distribution *b*. The input parameters *concentratio1n_a* and *concentration0_a* for distribution *a* are optional.
-- `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameters *concentration1* and *concentration0* are optional.
+- `cross_entropy` and `kl_loss`: The input parameters *dist*, *concentration1_b* and *rateconcentration0_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Beta'* is supported. *concentration1_b* and *concentration0_b* are the parameters of distribution *b*. The input parameters *concentratio1n_a* and *concentration0_a* for distribution *a* are optional.
+- `prob` and `log_prob`: The input parameter *value* is mandatory. The input parameters *concentration1* and *concentration0* are optional.
 - `sample`: Optional input parameters include sample shape *shape* and parameters *concentration1* and *concentration0*.
 - `get_dist_args`: The input parameters *concentration1* and *concentration0* are optional.
 - `get_dist_type`: returns *'Beta'*.

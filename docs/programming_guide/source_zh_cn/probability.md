@@ -326,7 +326,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 
 - `mean`，`mode`，`sd`，`var`：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
 - `entropy`：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
-- `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `prob`，`log_prob`：必须传入 *value* 。可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*concentration1_b* 和 *concentration1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Beta’* 。*concentration1_b* 和 *concentration1_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *concentration1_a* 和 *concentration0_a* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
 - `get_dist_args` ：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
