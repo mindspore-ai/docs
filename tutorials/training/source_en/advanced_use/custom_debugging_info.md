@@ -356,7 +356,7 @@ The input and output of the operator can be saved for debugging through the data
     - `kernels`: Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
     - `enable`: Enable Asynchronous Dump.
-    - `op_debug_mode`: Please set to 0.
+    - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function.
 
 2. Specify the json configuration file of Dump.
 
