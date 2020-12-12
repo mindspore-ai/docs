@@ -16,5 +16,6 @@ MindSpore C++ API
   session
   tensor
   dataset
+  vision
   errorcode_and_metatype
   lite_cpp_example
