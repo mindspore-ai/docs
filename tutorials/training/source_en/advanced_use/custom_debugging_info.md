@@ -271,9 +271,11 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## Data Dump Introduction
 
-The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation. Data dump includes Synchronous Dump and Asynchronous Dump.
+The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 
 ### Synchronous Dump
+
+Synchronous Dump supports the graphics mode both on GPU and Ascend, and currently does not support PyNative mode. When Dump is enabled on Ascend, the operator to Dump will automatically close memory reuse. When the network does not occupy much memory, please use synchronous dump first. If an error of insufficient device memory occurs after enabling synchronous dump, please use asynchronous dump in the next section.
 
 1. Create dump json file:`data_dump.json`.
 
@@ -325,6 +327,8 @@ The input and output of the operator can be saved for debugging through the data
     Call `numpy.fromfile` to parse dump data file.
 
 ### Asynchronous Dump
+
+Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory reuse will not be turned off when asynchronous dump is enabled.
 
 1. Create dump json file:`data_dump.json`.
 

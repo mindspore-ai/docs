@@ -19,7 +19,7 @@ Tensor is a basic data structure in the MindSpore network computing. For details
 
 Tensors of different dimensions represent different data. For example, a 0-dimensional tensor represents a scalar, a 1-dimensional tensor represents a vector, a 2-dimensional tensor represents a matrix, and a 3-dimensional tensor may represent the three channels of RGB images.
 
-> All examples in this document can be run in the PyNative mode and do not support CPUs.
+> All examples in this document can be run in the PyNative mode.
 
 ## Tensor Structure
 
