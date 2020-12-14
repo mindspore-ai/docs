@@ -37,7 +37,7 @@
             - [def关键字](#def关键字)
             - [lambda表达式](#lambda表达式)
     - [函数](#函数)
-        - [内置函数](#内置函数)
+        - [Python内置函数](#python内置函数)
             - [len](#len)
             - [isinstance](#isinstance)
             - [partial](#partial)
@@ -61,10 +61,14 @@
 
   在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-  关于计算图，可参考：<https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture.html>
+  关于计算图，可参考文档：<https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture.html>
 
   当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
   对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
+
+  `ms_function`使用规则可参考文档：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.ms_function>
+
+  `Cell`定义可参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/master/cell.html>
 
   由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
@@ -75,6 +79,8 @@
 ## 数据类型
 
 ### Python内置数据类型
+
+当前支持的`Python`内置数据类型包括：`Number`、`String`、`List`、`Tuple`和`Dictionary`。
 
 #### Number
 
@@ -191,7 +197,7 @@
 
 #### Dictionary
 
-支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`，当前仅支持`String`作为key值。
+支持在网络里构造`Dictionary`，即支持语法`y = {"a": 1, "b": 2}`，当前仅支持`String`作为`key`值。
 
 计算图中最终需要输出的`Dictionary`，会取出所有的`value`组成`Tuple`输出。
 
@@ -237,6 +243,8 @@
 
 ### MindSpore自定义数据类型
 
+当前MindSpore自定义数据类型包括：`Tensor`、`Primitive`和`Cell`。
+
 #### Tensor
 
 当前不支持在网络里构造Tensor，即不支持语法`x = Tensor(args...)`。
@@ -254,6 +262,8 @@
 def generate_tensor():
     return Tensor(np.ones((3, 4)))
 ```
+
+下面将介绍下`Tensor`支持的属性、接口、索引取值和索引赋值。
 
 - 支持属性：
 
@@ -652,9 +662,9 @@ def generate_tensor():
 
 当前不支持在网络调用`Primitive`及其子类相关属性和接口。
 
-`Primitive`定义可参考：<https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/operators.md>
+`Primitive`定义可参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operators.html>
 
-当前已定义的`Primitive`可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html>
+当前已定义的`Primitive`可参考文档：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html>
 
 #### Cell
 
@@ -664,9 +674,9 @@ def generate_tensor():
 
 当前不支持在网络调用`Cell`及其子类相关属性和接口，除非是在`Cell`自己的`contrcut`中通过`self`调用。
 
-`Cell`定义可参考：<https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/cell.md>
+`Cell`定义可参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/master/cell.html>
 
-当前已定义的`Cell`可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html>
+当前已定义的`Cell`可参考文档：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html>
 
 ## 运算符
 
@@ -674,7 +684,7 @@ def generate_tensor():
 
 之所以支持，是因为这些运算符会转换成同名算子进行运算，这些算子支持了隐式类型转换。
 
-规则可参考文档：<https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/operator_list_implicit.md>
+规则可参考文档：<https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_implicit.html>
 
 ### 算术运算符
 
@@ -813,6 +823,8 @@ return out
 
 ### 流程控制语句
 
+当前流程控制语句支持了`break`、`continue`和`pass`。
+
 #### break
 
 可用于`for`和`while`代码块里，用于终止整个循环。
@@ -894,9 +906,11 @@ ret: 5
 
 ## 函数
 
-### 内置函数
+### Python内置函数
 
-#### lenT
+当前支持的Python内置函数包括：`len`、`isinstance`、`partial`、`map`、`range`、`enumerate`、`super`和`pow`。
+
+#### len
 
 功能：求序列的长度。
 
