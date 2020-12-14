@@ -34,6 +34,25 @@ Crop the center area of the input image to the given size.
 
     Return a CenterCrop operator.
 
+## Crop
+
+```cpp
+std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vector<int32_t> size)
+```
+
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
+Crop an image based on the location and crop size.
+
+- Parameters
+
+    - `coordinates`: The starting location of the crop.
+    - `size`: Size of the cropped area.
+
+- Returns
+
+    Return a Crop operator.
+
 ## Decode
 
 ```cpp
