@@ -1,4 +1,4 @@
-# CPU Operator Development
+# CPU Operators Development
 
 [comment]: <> (This document contains Hands-on Tutorial Series. Gitee does not support display. Please check tutorials on the official website)
 
