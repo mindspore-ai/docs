@@ -162,7 +162,7 @@ sys.path.append('./mindspore/model_zoo/offical/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU", save_graphs=False)
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs=False)
 ```
 
 然后定义输入和标签张量大小：

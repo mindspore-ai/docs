@@ -180,7 +180,7 @@ git clone https://gitee.com/mindspore/mindspore.git
   bash build.sh -I x86_64 -o on
   ```
 
-- 编译x86_64架构Release版本，生成端侧训练版本的工具。
+- 编译x86_64架构Release版本，同时生成端侧运行时 (Runtime) 训练版本工具。
 
   ```bash
   bash build.sh -I x86_64 -T on
@@ -346,7 +346,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${L
 │       ├── flatbuffers # Flatbuffers的动态库
 ```
 
-### 端侧训练框架编译输出
+#### 端侧训练框架编译输出
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 
@@ -571,5 +571,5 @@ unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
 
 ### 训练框架编译输出
 
-训练框架当前版本暂不支持在Windows。
+暂不支持在Windows进行端侧训练。
 

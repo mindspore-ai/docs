@@ -190,7 +190,7 @@ Resize inputs shape.
 
     - `inputs`: Model inputs.
 
-    - `dims`: Define the new inputs shape.
+    - `dims`: defines the new inputs shape.
 
 - Returns
 
@@ -234,7 +234,7 @@ Static method to create a LiteSession pointer which has already compiled a model
 
 ## TrainSession
 
-TrainSession Defines a class that allows training a MindSpore model.
+TrainSession defines the class that allows training the MindSpore model.
 
 ### Constructors & Destructors
 
@@ -258,9 +258,9 @@ Export the trained model into a buffer.
 
 - Parameters
 
-    - `buf`: The buffer to Export into. If equal to nullptr, buf will be allocated.
+    - `buf`: The buffer to be exported into. If equal to nullptr, `buf` will be allocated.
 
-    - `len`: Size of the pre-allocated buffer, and returned size of the exported buffer.
+    - `len`: Size of the pre-allocated buffer, and the returned size of the exported buffer.
 
 - Returns
 
@@ -276,11 +276,11 @@ Save the trained model into a flatbuffer file.
 
 - Parameters
 
-    - `filename`: Filename to save flatbuffer to.
+    - `filename`: Name of the file to save flatbuffer.
 
 - Returns
 
-    0 on success or -1 in case of error.
+    0 represents success or -1 in case of error.
 
 #### Train
 
