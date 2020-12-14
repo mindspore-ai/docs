@@ -276,9 +276,11 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## 数据Dump功能介绍
 
-训练网络时，当训练结果和预期有偏差时，可以通过数据Dump功能保存算子的输入输出进行调试。Dump功能分为同步Dump和异步Dump，同步Dump同时支持GPU和Ascend，而异步Dump只支持Ascend。
+训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。
 
-### 同步Dump功能介绍
+### 同步Dump功能使用方法
+
+同步Dump同时支持GPU和Ascend上的图模式，暂不支持PyNative模式。在Ascend上面开启Dump的时候，待Dump的算子会自动关闭内存复用。在网络占用内存不大的情况下，请优先使用同步Dump。若开启同步Dump后出现设备内存不足的报错，请使用下一节里面的异步Dump。
 
 1. 创建配置文件`data_dump.json`。
 
@@ -329,7 +331,9 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
     通过`numpy.fromfile`读取Dump数据文件即可解析。
 
-### 异步Dump功能介绍
+### 异步Dump功能使用方法
+
+异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
 
 1. 创建配置文件`data_dump.json`。
 

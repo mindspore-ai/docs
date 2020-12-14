@@ -1,6 +1,6 @@
 # 使用PyNative模式调试
 
-`Linux` `Ascend` `GPU` `模型开发` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -23,7 +23,7 @@
 
 MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:
 
-- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型(暂不支持CPU)。
+- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
 - Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
 
 默认情况下，MindSpore处于PyNative模式，可以通过`context.set_context(mode=context.GRAPH_MODE)`切换为Graph模式；同样地，MindSpore处于Graph模式时，可以通过 `context.set_context(mode=context.PYNATIVE_MODE)`切换为PyNative模式。

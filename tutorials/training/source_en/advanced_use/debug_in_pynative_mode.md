@@ -1,6 +1,6 @@
 # Debugging in PyNative Mode
 
-`Linux` `Ascend` `GPU` `Model Development` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -19,7 +19,7 @@
 
 MindSpore supports the following running modes which are optimized for debugging or running:
 
-- PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model(CPU is not supported).
+- PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
 By default, MindSpore is in PyNative mode. You can switch it to the graph mode by calling `context.set_context(mode=context.GRAPH_MODE)`. Similarly, MindSpore in graph mode can be switched to the PyNative mode through `context.set_context(mode=context.PYNATIVE_MODE)`.
