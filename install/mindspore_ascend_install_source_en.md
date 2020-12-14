@@ -43,6 +43,20 @@ This document describes how to quickly install MindSpore in a Linux system with 
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
+- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+
+    If not, for Ubuntu users, use the following command to install it:
+
+    ```bash
+    apt-get install libnuma-dev
+    ```
+
+    If not, for EulerOS and CentOS users, use the following command to install it:
+
+    ```bash
+    yum install numactl-devel
+    ```
+
 - Confirm that the git tool is installed.
 
     If not, for Ubuntu users, use the following command to install it:

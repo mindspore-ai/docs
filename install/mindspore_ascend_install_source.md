@@ -43,6 +43,19 @@
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
+- 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
+    Ubuntu系统用户，如果未安装，使用如下命令下载安装：
+
+    ```bash
+    apt-get install libnuma-dev
+    ```
+
+    EulerOS和CentOS系统用户，如果未安装，使用如下命令下载安装：
+
+    ```bash
+    yum install numactl-devel
+    ```
+
 - 确认安装git工具。  
 
     Ubuntu系统用户，如果未安装，使用如下命令下载安装：

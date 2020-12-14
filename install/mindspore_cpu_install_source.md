@@ -30,6 +30,13 @@
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后需将patch所在路径添加到系统环境变量中。
+- 确认安装[NUMA 2.0.11及以上版本](https://github.com/numactl/numactl)。
+    如果未安装，使用如下命令下载安装：
+
+    ```bash
+    apt-get install libnuma-dev
+    ```
+
 - 确认安装git工具。  
     如果未安装，使用如下命令下载安装：
 

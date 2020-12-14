@@ -30,6 +30,13 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
 - Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - Add the path where the executable file `patch` stores to the environment variable PATH.
+- Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
+     If not, use the following command to install it:
+
+    ```bash
+    apt-get install libnuma-dev
+    ```
+
 - Confirm that the git tool is installed.  
     If not, use the following command to install it:
 
