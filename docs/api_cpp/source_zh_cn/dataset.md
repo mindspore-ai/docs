@@ -2,19 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
-
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
-
-## image_process.h文件的函数
-
-### ResizeBilinear
+## ResizeBilinear
 
 ```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
 
@@ -27,13 +21,15 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 
 - 返回值
 
-    执行成功返回True，否则不满足条件返回False。
+    执行成功返回true，否则不满足条件返回false。
 
-### InitFromPixel
+## InitFromPixel
 
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 从像素初始化LiteMat，提供数据为RGB或者BGR格式，不用进行格式转换，当前支持的转换是RGB_TO_BGR、RGBA_To_RGB、RGBA_To_BGR、NV21_To_BGR和NV12_To_BGR。
 
@@ -48,13 +44,15 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
 
 - 返回值
 
-    初始化成功返回True，否则返回False。
+    初始化成功返回true，否则返回false。
 
-### ConvertTo
+## ConvertTo
 
 ```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 转换数据类型，当前支持的转换是将uint8转换为float。
 
@@ -66,13 +64,15 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
 - 返回值
 
-    转换数据类型成功返回True，否则返回False。
+    转换数据类型成功返回true，否则返回false。
 
-### Crop
+## Crop
 
 ```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 裁剪图像，通道支持为3和1。
 
@@ -87,13 +87,15 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
 - 返回值
 
-    裁剪图像成功返回True，否则返回False。
+    裁剪图像成功返回true，否则返回false。
 
-### SubStractMeanNormalize
+## SubStractMeanNormalize
 
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 归一化图像，当前支持的数据类型为float。
 
@@ -106,13 +108,15 @@ bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<
 
 - 返回值
 
-    归一化成功返回True，否则返回False。
+    归一化成功返回true，否则返回false。
 
-### Pad
+## Pad
 
 ```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 填充图像，通道支持为3和1。
 
@@ -126,18 +130,20 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
     - `right`: 图片右边长度。
     - `pad_type`: padding的类型。
     - `fill_b_or_gray`: R或者GRAY。
-    - `fill_g`: G.
-    - `fill_r`: R.
+    - `fill_g`: G。
+    - `fill_r`: R。
 
 - 返回值
 
-    填充图像成功返回True，否则返回False。
+    填充图像成功返回true，否则返回false。
 
-### ExtractChannel
+## ExtractChannel
 
 ```cpp
 bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 按索引提取图像通道。
 
@@ -148,13 +154,15 @@ bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 
 - 返回值
 
-    提取图像通道成功返回True，否则返回False。
+    提取图像通道成功返回true，否则返回false。
 
-### Split
+## Split
 
 ```cpp
 bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 将图像通道拆分为单通道。
 
@@ -165,13 +173,15 @@ bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 
 - 返回值
 
-    图像通道拆分成功返回True，否则返回False。
+    图像通道拆分成功返回true，否则返回false。
 
-### Merge
+## Merge
 
 ```cpp
 bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 用几个单通道阵列创建一个多通道图像。
 
@@ -182,13 +192,15 @@ bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 
 - 返回值
 
-    创建多通道图像成功返回True，否则返回False。
+    创建多通道图像成功返回true，否则返回false。
 
-### Affine
+## Affine
 
 ```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 对1通道图像应用仿射变换。
 
@@ -204,6 +216,8 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C3 borderValue)
 ```
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 对3通道图像应用仿射变换。
 
 - 参数
@@ -214,11 +228,13 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
     - `dsize`: 输出图像的大小。
     - `borderValue`: 采图之后用于填充的像素值。
 
-### GetDefaultBoxes
+## GetDefaultBoxes
 
 ```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 获取Faster R-CNN，SSD，YOLO等的默认框。
 
@@ -230,11 +246,13 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
     返回默认框。
 
-### ConvertBoxes
+## ConvertBoxes
 
 ```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 将预测框转换为（y，x，h，w）的实际框。
 
@@ -244,11 +262,13 @@ void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vecto
     - `default_boxes`: 默认框。
     - `config`: BoxesConfig结构体对象。
 
-### ApplyNms
+## ApplyNms
 
 ```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 对实际框的非极大值抑制。
 
@@ -263,9 +283,9 @@ std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vecto
 
     返回框的id。
 
-&emsp;
-
 ## LiteMat
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 LiteMat是一个处理图像的类。
 
@@ -285,8 +305,10 @@ LiteMat(int width, int height, int channel, LDataType data_type = LDataType::UIN
 
 MindSpore中dataset模块下LiteMat的构造方法，使用参数的默认值。
 
+#### ~LiteMat
+
 ```cpp
-~LiteMat();
+~LiteMat()
 ```
 
 MindSpore dataset LiteMat的析构函数。
@@ -315,7 +337,7 @@ bool IsEmpty() const
 
 - 返回值
 
-    返回True或者False。
+    返回true或者false。
 
 #### Release
 
@@ -325,62 +347,95 @@ void Release()
 
 释放内存的函数。
 
-### 私有成员函数
+### 公有属性
 
-#### AlignMalloc
-
-```cpp
-void *AlignMalloc(unsigned int size)
-```
-
-申请内存对齐的函数。
-
-- 参数
-
-    - `size`: 内存大小。
-
-- 返回值
-
-   返回指针的大小。
-
-#### AlignFree
+#### data_ptr_
 
 ```cpp
-void AlignFree(void *ptr)
+data_ptr_
 ```
 
-释放指针内存大小的方法。
+**pointer**类型，表示存放图像数据的地址。
 
-#### InitElemSize
+#### elem_size_
 
 ```cpp
-void InitElemSize(LDataType data_type)
+elem_size_
 ```
 
-通过data_type初始化元素字节数的值。
+**int**类型，表示元素的字节数。
 
-- 参数
-
-    - `data_type`: 数据的类型。
-
-#### addRef
+#### width_
 
 ```cpp
- int addRef(int *p, int value)
+width_
 ```
 
-用于计算引用该函数次数的函数。
+**int**类型，表示图像的宽度。
 
-- 参数
-
-    - `p`: 指向引用的对象。
-    - `value`: 引用时所加的值。
-
-### Subtract
+#### height_
 
 ```cpp
-bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+height_
 ```
+
+**int**类型，表示图像的高度。
+
+#### channel_
+
+```cpp
+channel_
+```
+
+**int**类型，表示图像的通道数。
+
+#### c_step_
+
+```cpp
+c_step_
+```
+
+**int**类型，表示经过对齐后的图像宽高之积。
+
+#### dims_
+
+```cpp
+dims_
+```
+
+**int**类型，表示图像的维数。
+
+#### size_
+
+```cpp
+size_
+```
+
+**size_t**类型，表示图像占用内存的大小。
+
+#### data_type_
+
+```cpp
+data_type_
+```
+
+**LDataType**类型，表示图像的数据类型。
+
+#### ref_count_
+
+```cpp
+ref_count_
+```
+
+**pointer**类型，表示引用计数器的地址。
+
+## Subtract
+
+```cpp
+bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
+```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素的两个图像之间的差异。
 
@@ -392,13 +447,15 @@ bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
 
 - 返回值
 
-    满足条件的计算返回True，否则返回False。
+    满足条件的计算返回true，否则返回false。
 
-### Divide
+## Divide
 
 ```cpp
-bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素在两个图像之间的划分。
 
@@ -410,13 +467,15 @@ bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
 
 - 返回值
 
-    满足条件的计算返回True，否则返回False。
+    满足条件的计算返回true，否则返回false。
 
-### Multiply
+## Multiply
 
 ```cpp
-bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素在两个图像之间的相乘值。
 
@@ -428,39 +487,4 @@ bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
 
 - 返回值
 
-    满足条件的计算返回True，否则返回False。
-
-## 端侧训练相关算子
-
-### Resize
-
-```cpp
-std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear);
-```
-
-通过给定的大小对输入的PIL图像进行调整。
-
-- 参数
-
-    - `size`: 表示调整大小后的图像的输出大小。如果size为单个值，则将以相同的图像纵横比将图像调整为该值，如果size具有2个值，则应为（高度，宽度）。
-    - `interpolation`: 插值模式的枚举。
-
-- 返回值
-
-    返回一个Resize的算子。
-
-### CenterCrop
-
-```cpp
-std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size);
-```
-
-将输入的PIL图像的中心区域裁剪到给定的大小。
-
-- 参数
-
-    - `size`: 表示调整大小后的图像的输出大小。如果size为单个值，则将以相同的图像纵横比将图像调整为该值， 如果size具有2个值，则应为（高度，宽度）。
-
-- 返回值
-
-    返回一个CenterCrop的算子。
+    满足条件的计算返回true，否则返回false。

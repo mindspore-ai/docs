@@ -271,7 +271,7 @@
     # get path to dataset directory
     if [ $# != 1 ]
     then
-            echo "Usage: sh cache.sh [DATASET_PATH]"
+            echo "Usage: sh cache.sh DATASET_PATH"
     exit 1
     fi
     dataset_path=$1
@@ -388,7 +388,7 @@
 
 ## 当前限制
 
-- 当前`MindDataset`、`GraphDataset`、`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`等数据集类不支持缓存。其中，`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`属于`GeneratorOp`，在不支持的报错信息中会呈现"There is currently no support for GeneratorOp under cache"。
+- 当前`MindDataset`、`GraphDataset`、`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`等数据集类不支持缓存。其中，`GeneratorDataset`、`PaddedDataset`和`NumpySlicesDataset`属于`GeneratorOp`，在不支持的报错信息中会呈现“There is currently no support for GeneratorOp under cache”。
 - 经过`batch`、`concat`、`filter`、`repeat`、`skip`、`split`、`take`和`zip`处理后的数据不支持缓存。
 - 经过随机数据增强操作（如`RandomCrop`）后的数据不支持缓存。
 - 不支持在同个数据管道的不同位置嵌套使用同一个缓存实例。

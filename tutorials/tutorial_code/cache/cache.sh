@@ -4,7 +4,7 @@
 # get path to dataset directory
 if [ $# != 1 ]
 then
-        echo "Usage: sh cache.sh [DATASET_PATH]"
+        echo "Usage: sh cache.sh DATASET_PATH"
 exit 1
 fi
 dataset_path=$1

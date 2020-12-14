@@ -2,19 +2,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
-
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
-
-## Functions of image_process.h
-
-### ResizeBilinear
+## ResizeBilinear
 
 ```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Resize image by bilinear algorithm, currently the data type only supports uint8, the channel only supports 3 and 1.
 
@@ -27,13 +21,15 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
 
 - Returns
 
-    Return True if the execution is successful, otherwise return False if the condition is not met.
+    Return true if the execution is successful, otherwise return false if the condition is not met.
 
-### InitFromPixel
+## InitFromPixel
 
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Initialize LiteMat from pixel, providing data in RGB or BGR format does not need to be converted. Currently the conversion supports RGB_TO_BGR, RGBA_To_RGB, RGBA_To_BGR, NV21_To_BGR and NV12_To_BGR.
 
@@ -48,13 +44,15 @@ Initialize LiteMat from pixel, providing data in RGB or BGR format does not need
 
 - Returns
 
-    Return True if the initialization is successful, otherwise return False.
+    Return true if the initialization is successful, otherwise return false.
 
-### ConvertTo
+## ConvertTo
 
 ```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Convert the data type, currently it supports converting the data type from uint8 to float.
 
@@ -66,13 +64,15 @@ Convert the data type, currently it supports converting the data type from uint8
 
 - Returns
 
-    Return True if the data type is converted successfully, otherwise return False.
+    Return true if the data type is converted successfully, otherwise return false.
 
-### Crop
+## Crop
 
 ```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Crop image, the channel supports is 3 and 1.
 
@@ -87,13 +87,15 @@ Crop image, the channel supports is 3 and 1.
 
 - Returns
 
-    Return True if the image is cropped successfully, otherwise return False.
+    Return true if the image is cropped successfully, otherwise return false.
 
-### SubStractMeanNormalize
+## SubStractMeanNormalize
 
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Normalize image, currently the supports data type is float.
 
@@ -106,13 +108,15 @@ Normalize image, currently the supports data type is float.
 
 - Returns
 
-    Return True if the normalization is successful, otherwise return False.
+    Return true if the normalization is successful, otherwise return false.
 
-### Pad
+## Pad
 
 ```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Pad image, the channel supports is 3 and 1.
 
@@ -131,13 +135,15 @@ Pad image, the channel supports is 3 and 1.
 
 - Returns
 
-    Return True if the image is filled successfully, otherwise return False.
+    Return true if the image is filled successfully, otherwise return false.
 
-### ExtractChannel
+## ExtractChannel
 
 ```cpp
 bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Extract image channel by index.
 
@@ -148,13 +154,15 @@ Extract image channel by index.
 
 - Returns
 
-    Return True if the image channel is extracted successfully, otherwise return False.
+    Return true if the image channel is extracted successfully, otherwise return false.
 
-### Split
+## Split
 
 ```cpp
 bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Split image channels to single channel.
 
@@ -165,13 +173,15 @@ Split image channels to single channel.
 
 - Returns
 
-    Return True if the image channel is split successfully, otherwise return False.
+    Return true if the image channel is split successfully, otherwise return false.
 
-### Merge
+## Merge
 
 ```cpp
 bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Create a multi-channel image out of several single-channel arrays.
 
@@ -182,13 +192,15 @@ Create a multi-channel image out of several single-channel arrays.
 
 - Returns
 
-    Return True if the multi-channel image is created successfully, otherwise returns False.
+    Return true if the multi-channel image is created successfully, otherwise returns false.
 
-### Affine
+## Affine
 
 ```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Apply affine transformation for 1 channel image.
 
@@ -204,6 +216,8 @@ Apply affine transformation for 1 channel image.
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C3 borderValue)
 ```
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 Apply affine transformation for 3 channel image.
 
 - Parameters
@@ -214,11 +228,13 @@ Apply affine transformation for 3 channel image.
     - `dsize`: The size of the output image.
     - `borderValue`: The pixel value is used for filing after the image is captured.
 
-### GetDefaultBoxes
+## GetDefaultBoxes
 
 ```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Get default anchor boxes for Faster R-CNN, SSD, YOLO etc.
 
@@ -230,11 +246,13 @@ Get default anchor boxes for Faster R-CNN, SSD, YOLO etc.
 
     Return the default boxes.
 
-### ConvertBoxes
+## ConvertBoxes
 
 ```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Convert the prediction boxes to the actual boxes with (y, x, h, w).
 
@@ -244,11 +262,13 @@ Convert the prediction boxes to the actual boxes with (y, x, h, w).
     - `default_boxes`: Default box.
     - `config`: Objects of BoxesConfig structure.
 
-### ApplyNms
+## ApplyNms
 
 ```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
+
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Real-size box non-maximum suppression.
 
@@ -263,9 +283,9 @@ Real-size box non-maximum suppression.
 
     Return the id of the boxes.
 
-&emsp;
-
 ## LiteMat
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Class that represents a lite Mat of a Image.
 
@@ -288,7 +308,7 @@ Constructor of MindSpore dataset LiteMat using default value of parameters.
 #### ~LiteMat
 
 ```cpp
-~LiteMat();
+~LiteMat()
 ```
 
 Destructor of MindSpore dataset LiteMat.
@@ -317,7 +337,7 @@ A function to determine whether the object is empty.
 
 - Returns
 
-    Return True or False.
+    Return true or false.
 
 #### Release
 
@@ -327,62 +347,95 @@ void Release()
 
 A function to release memory.
 
-### Private Member Functions
+### Public Attributes
 
-#### AlignMalloc
-
-```cpp
-void *AlignMalloc(unsigned int size)
-```
-
-Apply for memory alignment.
-
-- Parameters
-
-    - `size`: Memory size.
-
-- Returns
-
-   Return the size of a pointer.
-
-#### AlignFree
+#### data_ptr_
 
 ```cpp
-void AlignFree(void *ptr)
+data_ptr_
 ```
 
-A function to release pointer memory.
+A **pointer** to the image.
 
-#### InitElemSize
+#### elem_size_
 
 ```cpp
-void InitElemSize(LDataType data_type)
+elem_size_
 ```
 
-Initialize the value of elem_size_ by data_type.
+An **int** value. Bytes of the element.
 
-- Parameters
-
-    - `data_type`: Type of data.
-
-#### addRef
+#### width_
 
 ```cpp
- int addRef(int *p, int value)
+width_
 ```
 
-A function to count the number of times the function is referenced.
+An **int** value. The width of the image.
 
-- Parameters
-
-    - `p`: Point to the referenced object.
-    - `value`: Value added when quoted.
-
-### Subtract
+#### height_
 
 ```cpp
-bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+height_
 ```
+
+An **int** value. The height of the image.
+
+#### channel_
+
+```cpp
+channel_
+```
+
+An **int** value. The number of channels of the image.
+
+#### c_step_
+
+```cpp
+c_step_
+```
+
+An **int** value. The product of width and height after alignment.
+
+#### dims_
+
+```cpp
+dims_
+```
+
+An **int** value. The dimensions of the image.
+
+#### size_
+
+```cpp
+size_
+```
+
+The memory size of the image.
+
+#### data_type_
+
+```cpp
+data_type_
+```
+
+The data type of the image.
+
+#### ref_count_
+
+```cpp
+ref_count_
+```
+
+A **pointer** to the reference counter.
+
+## Subtract
+
+```cpp
+bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
+```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the difference between the two images for each element.
 
@@ -394,13 +447,15 @@ Calculates the difference between the two images for each element.
 
 - Returns
 
-    Return True if the calculation satisfies the conditions, otherwise return False.
+    Return true if the calculation satisfies the conditions, otherwise return false.
 
-### Divide
+## Divide
 
 ```cpp
-bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the division between the two images for each element.
 
@@ -412,13 +467,15 @@ Calculates the division between the two images for each element.
 
 - Returns
 
-    Return True if the calculation satisfies the conditions, otherwise return False.
+    Return true if the calculation satisfies the conditions, otherwise return false.
 
-### Multiply
+## Multiply
 
 ```cpp
-bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst);
+bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
+
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the multiply between the two images for each element.
 
@@ -430,39 +487,4 @@ Calculates the multiply between the two images for each element.
 
 - Returns
 
-    Return True if the calculation satisfies the conditions, otherwise return False.
-
-## Operators related to device-side training
-
-### Resize
-
-```cpp
-std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear)
-```
-
-Resize the input image to the given size.
-
-- Parameters
-
-    - `size`: Representing the output size of the resized image. If size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
-    - `interpolation`: An enumeration for the mode of interpolation.
-
-- Returns
-
-    Return a Resize operator.
-
-### CenterCrop
-
-```cpp
-std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
-```
-
-Crops the input image at the center to the given size.
-
-- Parameters
-
-    - `size`: Representing the output size of the resized image. If size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
-
-- Returns
-
-    Return a CenterCrop operator.
+    Return true if the calculation satisfies the conditions, otherwise return false.
