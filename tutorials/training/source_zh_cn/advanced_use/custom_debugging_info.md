@@ -365,7 +365,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     - `kernels`：算子的全称。开启IR保持开关`context.set_context(save_graphs=True)`并执行用例，从生成的`hwopt_d_end_graph_{graph_id}.ir`文件获取。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `enable`：开启异步Dump。
-    - `op_debug_mode`：该属性用于算子溢出调试，在使用Dump功能的时候，请设置成0。
+    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。
 
 2. 设置数据Dump的环境变量。
 
