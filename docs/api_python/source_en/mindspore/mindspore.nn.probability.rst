@@ -28,6 +28,7 @@ Bayesian Layers
     :template: classtemplate_probability.rst
 
     mindspore.nn.probability.bnn_layers.ConvReparam
+    mindspore.nn.probability.bnn_layers.DenseLocalReparam
     mindspore.nn.probability.bnn_layers.DenseReparam
 
 Prior and Posterior Distributions
@@ -106,6 +107,7 @@ ToolBox
     :template: classtemplate_probability.rst
 
     mindspore.nn.probability.toolbox.UncertaintyEvaluation
+    mindspore.nn.probability.toolbox.VAEAnomalyDetection
 
 Model Transformer
 ------------------
