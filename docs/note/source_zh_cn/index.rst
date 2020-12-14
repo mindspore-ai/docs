@@ -24,6 +24,7 @@ MindSpore设计和规格
    benchmark
    network_list
    operator_list
+   syntax_list
    model_lite
 
 .. toctree::
