@@ -102,7 +102,9 @@ def read_nc(file_path):
 
 ## 定义GOMO网络
 
-GOMO模型基于动量、能量和质量守恒定律，推导微分方程组和边界条件，确定需要求解的7个方程组，详细的公式推导参考[论文](https://gmd.copernicus.org/articles/12/4729/2019/gmd-12-4729-2019.pdf)。GOMO的整体执行流程如下。
+GOMO模型基于动量、能量和质量守恒定律，推导微分方程组和边界条件，确定需要求解的7个方程组，详细的公式推导参考[论文](https://gmd.copernicus.org/articles/12/4729/2019/gmd-12-4729-2019.pdf)。图1是GOMO的整体执行流程图。
+
+首先，从Semount数据中加载数据，用于模型中变量的初始化。加载初始值和模型参数后，计算分为内模态循环和外模态循环两个部分。在外模态循环中，主要计算二维海表面高度el和二维平均风速ua、va。在内模态循环中，循环次数iend是训练的总时间步数（由用户输入设定），内模态循环的计算三维数组占主导地位，依次计算湍流动能q2和产生湍流动能的湍流长度q2l、温度t和盐度s、x和y方向的风速u和v。计算完成之后，保存所需的变量结果，结束训练。
 
 ![GOMO](images/gomo.png)
 
@@ -200,7 +202,7 @@ if __name__ == "__main__":
 使用以下命令运行脚本：
 
 ```shell
-sh run_distribute_train.sh [im] [jm] [kb] [step] [DATASET_PATH]
+sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 ```
 
 脚本需要传入变量`im`、`jm`、`kb`、`step`、`DATASET_PATH`，其中：
