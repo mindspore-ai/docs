@@ -1,10 +1,10 @@
-# Using runtime for Model Training and Inference (C++)
+# Using Runtime for Model Training (C++)
 
 `Linux` `Android` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Using runtime for Model Training and Inference (C++)](#using-runtime-for-model-training-and-inference-c)
+- [Using runtime for Model Training (C++)](#using-runtime-for-model-training-c)
     - [Overview](#overview)
     - [Session Creation](#session-creation)
         - [Reading Models](#reading-models)
@@ -26,7 +26,6 @@
         - [Obtaining Output Tensors](#obtaining-output-tensors)
         - [Example](#example-5)
     - [Obtaining Version String](#obtaining-version-string)
-    - [Session parallel launch](#session-parallel-launch)
 
 <!-- /TOC -->
 

@@ -26,11 +26,11 @@ Creating your MindSpore ToD(Train on Device) model is a two step procedure:
 
 ### Environment Preparation
 
-MindSpore ToD model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is:
+MindSpore ToD model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
-- Compile or download the compiled modoel transfer tool.
+- Compile or download the compiled model transfer tool.
 
-- Set the environment variables of model transfer tool.
+- Set the environment variables of the model transfer tool.
 
 ### Parameters Description
 

@@ -162,12 +162,12 @@ sys.path.append('./mindspore/model_zoo/offical/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU", save_graphs=False)
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs=False)
 ```
 
-Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for GPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
+Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
 
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the GPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
+The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
 batch_size = 32
@@ -203,7 +203,7 @@ print("finished exporting")
 
 ### Model Transfering
 
-To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a GPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Instalation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
+To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Instalation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
 
 > MindSpore environment allows the developer to run MindSpore python code on server or PC. It differs from MindSpore Lite framework that allows to compile and run code on embedded devices.
 

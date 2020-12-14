@@ -12,7 +12,7 @@
         - [Inference Output Description](#inference-output-description)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-        - [Training Output Description](#Training Output Description)
+        - [Training Output Description](#training-output-description)
             - [Description of Training Converter's Directory Structure](#description-of-training-converters-directory-structure)
             - [Description of Training Runtime and Other tools' Directory Structure](#description-of-training-runtime-and-other-tools-directory-structure)
     - [Windows Environment Compilation](#windows-environment-compilation)
@@ -202,6 +202,17 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 >
 > os: Operating system on which the output will be deployed.
 
+If ToD is enabled which means `-T on`, two more files will be generated in the `mindspore/output` directory.
+
+- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
+- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
+
+> version: Version of the output, consistent with that of the MindSpore.
+>
+> device: The processor that runs ToD Currently only built-in cpu is available.
+>
+> os: Operating system on which the output will be deployed.
+
 Execute the decompression command to obtain the compiled output:
 
 ```bash
@@ -347,7 +358,7 @@ The image processing library is only available under the `-I arm64 -n lite_cv` c
 
 ### Training Output Description
 
-When `-T on` is added the MindSpore ToD (Train on Device) is complied, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
 - `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool.
 - `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model training framework, performance analysis tool.
@@ -453,7 +464,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │       ├── net_train # training model benchmark tool
     ```
 
-> Before running the tools in the converter, net_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
+> Before running the tools in the converter and the net_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
@@ -566,5 +577,5 @@ The content includes the following parts:
 
 ### Training Output Description
 
-MindSpore ToD (Train on Device) is not supported on Windows by now.
+Currently, MindSpore ToD (Train on Device) is not supported on Windows.
 

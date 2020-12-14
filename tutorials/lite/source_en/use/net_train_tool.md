@@ -52,7 +52,8 @@ The following describes the parameters in detail.
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--timeProfiling=<TIMEPROFILING>`  | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
 | `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
-| `--epochs=<EPOCHS>` | Optional | 指定循环训练的轮次，大于0时会执行训练EPOCHS次，并输出耗时数据。 | Integer | 0 | >=0 |`--exportFile=<EXPORTFILE>` | Optional | 指定循环训练的轮次，大于0时会执行训练EPOCHS次，并输出耗时数据。 | Integer | 0 | >=0 |
+| `--epochs=<EPOCHS>` | Optional | Specifies the number of training epochs and print the consuming time. | Integer | 0 | >=0 |
+| `--exportFile=<EXPORTFILE>` | Optional | Specifies the path of exporting file. | String | Null | - |
 
 ### Example
 
@@ -76,7 +77,7 @@ Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime
 ./net_train --modelFile=./models/test_benchmark.ms --timeProfiling=true
 ```
 
-This command uses a random input, sets the parameter `timeProfiling` as true,  times, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
+This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
 
 ```text
 -----------------------------------------------------------------------------------------

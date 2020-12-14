@@ -312,7 +312,7 @@ A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
 
 ## TrainModel
 
-TrainModel Defines a class that allows to import and export a mindsport trainable model.
+TrainModel defines a class that allows to import and export the MindSpore trainable model.
 
 ### Constructors & Destructors
 
@@ -362,9 +362,9 @@ Export Model into a buffer.
 
 - Parameters
 
-    - `buf`: The buffer to Export into. If equal to nullptr, buf will be allocated.
+    - `buf`: The buffer to be exported into. If it is equal to nullptr, `buf` will be allocated.
 
-    - `len`: Size of the pre-allocated buffer, and returned size of the exported buffer.
+    - `len`: Size of the pre-allocated buffer and the returned size of the exported buffer.
 
 - Returns  
 
