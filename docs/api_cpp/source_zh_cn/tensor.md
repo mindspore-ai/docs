@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
-
 ## MSTensor
 
 MSTensor定义了MindSpore Lite中的张量。
+
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
 
 ### 构造函数和析构函数
 

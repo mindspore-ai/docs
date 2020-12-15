@@ -2,11 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
-
 ## MSTensor
 
 MSTensor defined tensor in MindSpore Lite.
+
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
 
 ### Constructors & Destructors
 
