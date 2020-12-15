@@ -100,7 +100,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
-| -e | In the ARM architecture, select the backend operator and set the `gpu` parameter. The built-in GPU operator of the framework is compiled at the same time. | GPU | No |
+| -e | In the ARM architecture, select the backend operator. Otherwise, all operator of the framework is compiled at the same time. | CPU, GPU, NPU | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
 | -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
@@ -114,6 +114,8 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 > When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter.
 >
 > The compiler will only generate training tool packages when `-T` is opened.
+>
+> Any `-e` compilation option, the CPU operator will be compiled into it.
 
 ### Compilation Example
 
@@ -149,7 +151,13 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -i -j32
     ```
 
-- Release version of the ARM 64-bit architecture in the incremental compilation mode, with the built-in GPU operator compiled:
+- Release version of the ARM 64-bit architecture, with the built-in CPU operator compiled:
+
+    ```bash
+    bash build.sh -I arm64 -e cpu
+    ```
+
+- Release version of the ARM 64-bit architecture, with the built-in CPU and GPU operator compiled:
 
     ```bash
     bash build.sh -I arm64 -e gpu
@@ -191,34 +199,34 @@ Then, run the following commands in the root directory of the source code to com
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-converter-{os}.tar.gz`: Contains model conversion tool.
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
-- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`: Contains image processing library ImageProcess.
+- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
+- `mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz`: Contains image processing library ImageProcess.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
 > version: Version of the output, consistent with that of the MindSpore.
 >
-> device: Currently divided into cpu (built-in CPU operator) and gpu (built-in CPU and GPU operator).
->
 > os: Operating system on which the output will be deployed.
+>
+> arch: System architecture on which the output will be deployed.
 
 If ToD is enabled which means `-T on`, two more files will be generated in the `mindspore/output` directory.
 
-- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
-- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
+- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
+- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 >
-> device: The processor that runs ToD Currently only built-in cpu is available.
->
 > os: Operating system on which the output will be deployed.
+>
+> arch: System architecture on which the output will be deployed.
 
 Execute the decompression command to obtain the compiled output:
 
 ```bash
-tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
-tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
@@ -228,7 +236,7 @@ The conversion tool is only available under the `-I x86_64` compilation option, 
 
 ```text
 |
-├── mindspore-lite-{version}-converter-{os}
+├── mindspore-lite-{version}-converter-{os}-{arch}
 │   └── converter # Model conversion Ttool
 |       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
@@ -245,7 +253,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu
+    ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # Benchmarking Tool
     |   └── lib_cropper # Static library crop tool
     │       ├── lib_cropper  # Executable file of static library crop tool
@@ -269,7 +277,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu
+    ├── mindspore-lite-{version}-inference-android-aarch64
     │   └── benchmark # Benchmarking Tool
     │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
@@ -290,7 +298,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm32-cpu
+    ├── mindspore-lite-{version}-inference-android-aarch32
     │   └── benchmark # Benchmarking Tool
     │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
@@ -318,39 +326,39 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
-> 1. Compile ARM64 to get the inference framework output of arm64-cpu by default, if you add `-e gpu`, you will get the inference framework output of arm64-gpu, and the package name is `mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`, compiling ARM32 is in the same way.
+> 1. Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, compiling ARM32 is in the same way.
 > 2. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 Configure benchmark:
 
 ```bash
-export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-inference-{os}-{arch}/lib:${LD_LIBRARY_PATH}
 ```
 
 ### Training Output Description
 
 If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-converter-{os}-train.tar.gz`: Contains model conversion tool.
-- `mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`: Contains model training framework, performance analysis tool.
+- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 >
-> device: Currently divided into cpu (built-in CPU operator) and gpu (built-in CPU and GPU operator).
->
 > os: Operating system on which the output will be deployed.
+>
+> arch: System architecture on which the output will be deployed.
 
 Execute the decompression command to obtain the compiled output:
 
 ```bash
-tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
+tar -xvf mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 ```
 
 #### Description of Training Converter's Directory Structure
@@ -359,7 +367,7 @@ The training model conversion tool is only available under the `-I x86_64` compi
 
 ```text
 |
-├── mindspore-lite-{version}-converter-{os}-train
+├── mindspore-lite-{version}-train-converter-linux-x64
 │   └── converter # Model conversion Ttool
 |       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
@@ -376,7 +384,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu-train
+    ├── mindspore-lite-{version}-train-linux-x64
     |   └── lib_cropper # Static library crop tool
     │       ├── lib_cropper  # Executable file of static library crop tool
     │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
@@ -401,7 +409,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu-train
+    ├── mindspore-lite-{version}-train-android-aarch64
     │   └── include # Header files of training framework
     │   └── lib # Training framework library
     │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
@@ -423,7 +431,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm32-cpu-train
+    ├── mindspore-lite-{version}-train-android-aarch32
     │   └── include # Header files of training framework
     │   └── lib # Training framework library
     │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
@@ -446,13 +454,13 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 Configure converter:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu-train/lib:./output/mindspore-lite-{version}-converter-ubuntu-train/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-train-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 Configure net_train:
 
 ```bash
-export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu-train/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-train-{os}-{arch}/lib:${LD_LIBRARY_PATH}
 ```
 
 ## Windows Environment Compilation
@@ -502,16 +510,16 @@ call build.bat lite 8
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-converter-win-cpu.zip`: Contains model conversion tool.
-- `mindspore-lite-{version}-win-runtime-x86-cpu.zip`: Contains benchmarking tool.
+- `mindspore-lite-{version}-converter-win-x64.zip`: Contains model conversion tool.
+- `mindspore-lite-{version}-inference-win-x64.zip`: Contains benchmarking tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 
 Execute the decompression command to obtain the compiled output:
 
 ```bat
-unzip mindspore-lite-{version}-converter-win-cpu.zip
-unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
+unzip mindspore-lite-{version}-converter-win-x64.zip
+unzip mindspore-lite-{version}-inference-win-x64.zip
 ```
 
 #### Description of Converter's Directory Structure
@@ -520,7 +528,7 @@ The content includes the following parts:
 
 ```text
 |
-├── mindspore-lite-{version}-converter-win-cpu
+├── mindspore-lite-{version}-converter-win-x64
 │   └── converter # Model conversion Ttool
 |       ├── converter_lite # Executable program
 |       ├── libglog.dll # Dynamic library of Glog
@@ -537,7 +545,7 @@ The content includes the following parts:
 
 ```text
 |
-├── mindspore-lite-{version}-win-runtime-x86-cpu
+├── mindspore-lite-{version}-inference-win-x64
 │   └── benchmark # Benchmarking Tool
 │       ├── benchmark.exe # Executable program
 │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
