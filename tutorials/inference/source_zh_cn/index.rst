@@ -23,4 +23,7 @@
    :maxdepth: 1
    :caption: 推理服务
 
-   serving
+   serving_example
+   serving_grpc
+   serving_restful
+   serving_model
