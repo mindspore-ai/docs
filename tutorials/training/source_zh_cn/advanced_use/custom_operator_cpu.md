@@ -34,14 +34,13 @@
 
 ## 注册算子原语
 
-每个算子的原语是一个继承于`PrimitiveWithCheck`的子类，其类型名称即是算子名称。
+算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
 CPU算子原语的接口定义如下：
 
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有init属性，因此`__init__`没有额外的入参。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
-- 输出Tensor的shape检验在`check_shape`函数中定义，输出Tensor的dtype检验在`check_dtype`函数中定义。
-- `_checkparam`文件中定义了一系列合法性检查的操作，比如值检查，类型检查等。
+- 输出Tensor的shape和dtype检验在`__infer__`函数中实现。
 
 以`Transpose`算子原语为例，给出如下示例代码。
 
@@ -56,8 +55,7 @@ class Transpose(PrimitiveWithInfer):
     def __init__(self):
         """Initialize Transpose"""
         self.init_prim_io_names(inputs=['x', 'perm'], outputs=['output'])
-
-    def infer_shape(self, x, perm):
+    def __infer__(self, x, perm):
         x_shape = x['shape']
         p_value = perm['value']
         if len(x_shape) != len(p_value):
@@ -65,10 +63,10 @@ class Transpose(PrimitiveWithInfer):
         out_shapes = []
         for i in p_value:
             out_shapes.append(x_shape[i])
-        return out_shapes
-
-    def infer_dtype(self, x_dtype, perm_dtype):
-        return x_dtype
+        out = {'shape': tuple(out_shapes),
+               'dtype': x['dtype'],
+               'value': None}
+        return out
 ```
 
 ## 实现CPU算子和注册算子信息
