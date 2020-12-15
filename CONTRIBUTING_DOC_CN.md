@@ -10,6 +10,7 @@
     - [新建或更新文档](#新建或更新文档)
     - [提交修改](#提交修改)
     - [文档写作规范](#文档写作规范)
+    - [文档检查](#文档检查)
 
 <!-- /TOC -->
 
@@ -143,3 +144,13 @@
     ```markdown
     conda activate {your_env_name}
     ```
+
+## 文档检查
+
+Markdownlint是一款检查Markdown文件格式正确性的工具，可以根据设置的规则以及创建的新规则对Markdown文件进行全面的检查。
+
+其中，MindSpore CI 在默认配置的基础上，修改了如下规则：
+
+MD007（无序列表缩进）规则将参数indent设置为4；MD009（行尾空格）规则将参数br_spaces设置为2；MD029（有序列表的前缀序号）规则将参数style设置为ordered。
+
+详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。

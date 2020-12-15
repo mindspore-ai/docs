@@ -10,6 +10,7 @@ You are welcome to contribute MindSpore documents. Documents that meet requireme
     - [Creating or Updating Documents](#creating-or-updating-documents)
     - [Submitting Modification](#submitting-modification)
     - [Document Writing Specifications](#document-writing-specifications)
+    - [Markdown Check](#markdown-check)
 
 <!-- /TOC -->
 
@@ -143,3 +144,13 @@ The procedure for submitting the modification is the same as that for submitting
     ```markdown
     conda activate {your_env_name}
     ```
+
+## Markdown Check
+
+Markdownlint is a tool for checking the correctness of the Markdown file format. It can perform a comprehensive check on the Markdown file according to the set rules and the new rules created by users.
+
+Among them, MindSpore CI modified the following rules based on the default configuration:
+
+MD007(Unordered list indentation) sets the `indent` as 4; MD009 (Trailing spaces) sets the `br_spaces` as 2; MD029 (Ordered list item prefix) sets the `style` as ordered.
+
+For other detailed rules, please refer to [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
