@@ -47,7 +47,7 @@ MindSpore ToD 模型转换工具提供了多个参数，目前工具仅支持Lin
 
 ### 模型转换示例
 
-假设待转换的模型文件为`my_model.mindir`，执行如下转换命令（使用训练版本转换工具，参见[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id9)章节）：
+假设待转换的模型文件为`my_model.mindir`，执行如下转换命令（使用训练版本转换工具，参见[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#)章节）：
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=my_model.mindir --outputFile=my_model

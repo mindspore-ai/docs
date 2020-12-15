@@ -42,6 +42,7 @@ The table below shows the parameters used in the MindSpore ToD model training tr
 | `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                     | -           | -             |
 | `--outputFile=<OUTPUTFILE>` | yes      | Path of the output model. The suffix `.ms` can be automatically generated. | -           | -             |
 | `--trainModel=true`         | yes      | Training on Device or not                                    | true, false | false         |
+
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 
 If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
