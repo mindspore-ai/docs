@@ -8,6 +8,8 @@
 
 LiteSession defines session in MindSpore Lite for compiling Model and forwarding model.
 
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
 ### Constructors & Destructors
 
 #### LiteSession
@@ -235,6 +237,8 @@ Static method to create a LiteSession pointer which has already compiled a model
 ## TrainSession
 
 TrainSession defines the class that allows training the MindSpore model.
+
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
 
 ### Constructors & Destructors
 

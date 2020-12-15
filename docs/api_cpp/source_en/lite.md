@@ -2,19 +2,17 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
-
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
-
-\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
-
 ## Allocator
 
 Allocator defines a memory pool for dynamic memory malloc and memory free.
 
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
 ## Context
 
 Context is defined for holding environment variables during runtime.
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
 ### Constructors & Destructors
 
@@ -74,9 +72,13 @@ A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.
 
 Primitive is defined as prototype of operator.
 
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+
 ## Model
 
 Model defines model in MindSpore Lite for managing graph.
+
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
 
 ### Destructors
 
@@ -130,6 +132,8 @@ Static method to create a Model pointer.
 
 An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
 
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
 ### Public Attributes
 
 #### MID_CPU
@@ -159,6 +163,8 @@ No bind.
 ## DeviceType
 
 An **enum** type. DeviceType defined for holding user's preferred backend.
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
 ### Public Attributes
 
@@ -191,6 +197,8 @@ NPU device type, not supported yet.
 ```cpp
 std::string Version()
 ```
+
+\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
 
 Global method to get a version string.
 
@@ -226,9 +234,13 @@ Global method to get strings from MSTensor.
 
 A **vector** contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variable.
 
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
 ## DeviceContext
 
 DeviceContext defines different device contexts.
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
 ### Public Attributes
 
@@ -252,6 +264,8 @@ device_info_
 
 An **union** value. DeviceInfo is defined for backend's configuration information.
 
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
 ### Public Attributes
 
 #### cpu_device_info_
@@ -273,6 +287,8 @@ gpu_device_info_
 ## CpuDeviceInfo
 
 CpuDeviceInfo is defined for CPU's configuration information.
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
 ### Public Attributes
 
@@ -298,6 +314,8 @@ A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpu
 
 GpuDeviceInfo is defined for GPU's configuration information.
 
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
 ### Public Attributes
 
 #### enable_float16_
@@ -313,6 +331,8 @@ A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
 ## TrainModel
 
 TrainModel defines a class that allows to import and export the MindSpore trainable model.
+
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
 
 ### Constructors & Destructors
 
