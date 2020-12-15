@@ -34,6 +34,25 @@ std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
 
     返回一个CenterCrop的算子。
 
+## Crop
+
+```cpp
+std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vector<int32_t> size)
+```
+
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
+根据位置和尺寸裁切图像。
+
+- 参数
+
+    - `coordinates`: 裁剪的起始位置。
+    - `size`: 裁剪区域的大小。
+
+- 返回值
+
+    返回一个Crop的算子。
+
 ## Decode
 
 ```cpp
