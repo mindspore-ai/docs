@@ -333,29 +333,6 @@ Configure benchmark:
 export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
 ```
 
-#### Description of Imageprocess's Directory Structure
-
-The image processing library is only available under the `-I arm64 -n lite_cv` compilation option, and the content includes the following parts:
-
-```text
-|
-├── mindspore-lite-{version}-runtime-{os}-cpu
-│   └── benchmark # Benchmarking Tool
-│   └── include # Header files (Image processing files are not involved here, and will not be displayed)
-│   └── lib # Inference framework dynamic library
-│       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
-│       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-│   └── minddata # Image processing dynamic library
-│       └── include # Header files
-│           └── lite_cv # The Header files of image processing dynamic library
-│               ├── image_process.h # The Header files of image processing function
-│               ├── lite_mat.h # The Header files of image data class structure
-│       └── lib # Image processing dynamic library
-│           ├── libminddata-lite.so # The files of image processing dynamic library
-│   └── third_party # Third-party Iibrary header files and libraries
-│       ├── flatbuffers # The Header files of FlatBuffers
-```
-
 ### Training Output Description
 
 If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
