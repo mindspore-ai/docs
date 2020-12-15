@@ -12,7 +12,6 @@
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
             - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
-            - [图像处理库目录结构说明](#图像处理库目录结构说明)
         - [端侧训练框架编译输出](#端侧训练框架编译输出)
             - [训练模型转换工具converter目录结构说明](#训练模型转换工具converter目录结构说明)
             - [训练Runtime及其他工具目录结构说明](#训练Runtime及其他工具目录结构说明)
@@ -322,28 +321,6 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./
 
 ```bash
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
-```
-
-#### 图像处理库目录结构说明
-
-图像处理库在`-I arm64 -n lite_cv`编译选项下获得，内容包括以下几部分：
-
-```text
-|
-├── mindspore-lite-{version}-runtime-{os}-cpu
-│   └── benchmark # 基准测试工具
-│   └── lib # 推理框架态库
-│       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
-│       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-│   └── minddata # 图像处理动态库
-│       └── include # 头文件
-│           └── lite_cv # 图像处理库头文件
-│               ├── image_process.h # 图像处理函数头文件
-│               ├── lite_mat.h # 图像数据类结构头文件
-│       └── lib # 图像处理动态库
-│           ├── libminddata-lite.so # 图像处理动态库文件
-│   └── third_party # 第三方库头文件和库
-│       ├── flatbuffers # Flatbuffers的动态库
 ```
 
 #### 端侧训练框架编译输出
