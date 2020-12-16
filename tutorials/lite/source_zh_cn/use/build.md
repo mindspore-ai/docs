@@ -201,8 +201,6 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
 
-- `mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz`：包含图像处理库imageprocess。
-
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
 > version: 输出件版本号，与所编译的分支代码对应的版本一致。
@@ -216,7 +214,6 @@ git clone https://gitee.com/mindspore/mindspore.git
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
 tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
-tar -xvf mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 

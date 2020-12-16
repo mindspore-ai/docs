@@ -201,7 +201,6 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 
 - `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`: Contains model conversion tool.
 - `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
-- `mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz`: Contains image processing library ImageProcess.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
 > version: Version of the output, consistent with that of the MindSpore.
@@ -226,7 +225,6 @@ Execute the decompression command to obtain the compiled output:
 ```bash
 tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
 tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
-tar -xvf mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
