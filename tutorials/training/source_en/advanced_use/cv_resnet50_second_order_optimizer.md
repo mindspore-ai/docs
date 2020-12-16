@@ -116,27 +116,31 @@ During distributed training, load the dataset in parallel mode and process it th
 ```python
 import os
 from mindspore import dtype as mstype
-import mindspore.dataset.engine as de
-import mindspore.dataset.transforms.vision.c_transforms as C
+import mindspore.dataset as ds
+import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.communication.management import init, get_rank, get_group_size
 
 def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend"):
     if target == "Ascend":
         device_num, rank_id = _get_rank_info()
+        num_parallels = 8
     else:
         init()
         rank_id = get_rank()
         device_num = get_group_size()
+        num_parallels = 4
+
     if device_num == 1:
-        ds = de.ImageFolderDatasetV2(dataset_path, num_parallel_workers=8, shuffle=True)
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True)
     else:
-        ds = de.ImageFolderDatasetV2(dataset_path, num_parallel_workers=8, shuffle=True,
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True,
                                      num_shards=device_num, shard_id=rank_id)
 
     image_size = 224
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
     std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+
     # define map operations
     if do_train:
         trans = [
@@ -153,17 +157,19 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
             C.Normalize(mean=mean, std=std),
             C.HWC2CHW()
         ]
+
     type_cast_op = C2.TypeCast(mstype.int32)
-    ds = ds.map(input_columns="image", num_parallel_workers=8, operations=trans)
-    ds = ds.map(input_columns="label", num_parallel_workers=8, operations=type_cast_op)
+
+    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=num_parallels)
+    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallels)
 
     # apply batch operations
-    ds = ds.batch(batch_size, drop_remainder=True)
+    data_set = data_set.batch(batch_size, drop_remainder=True)
 
     # apply dataset repeat operation
-    ds = ds.repeat(repeat_num)
+    data_set = data_set.repeat(repeat_num)
 
-    return ds
+    return data_set
 ```
 
 > MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html).
