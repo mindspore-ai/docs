@@ -331,7 +331,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-{os}-{arch}/l
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/lib:${LD_LIBRARY_PATH}
 ```
 
-#### 端侧训练框架编译输出
+### 端侧训练框架编译输出
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 

@@ -75,10 +75,12 @@ Acquiring `converter` and `runtime-arm64-cpu` tool-package based on MindSpore LI
 Executing the bash command below under `./mindspore/lite/example/train_lenet` directory.
 
 ```bash
-bash prepare_and_run.sh ./PATH/MNIST_Data
+bash prepare_and_run.sh -D {your_mnist_data_path} [-d mindspore_docker_path] [-r mindspore_runtime_path] [-t arm64|x86]
 ```
 
-The model will be trained on your device and print training loss and accuracy value every 100 epochs. The trained model will be saved as 'lenet_tod.ms' file.
+`{your_mnist_data_path}` is the absolute mnist dataset path in your machine. `mindspore_docker_path` is the path of docker. `mindspore_runtime_path` is the path of ToD runtime training tool compression package. `-t` is the type of device processor framework.
+
+The model will be trained on your device and print training loss and accuracy value every 100 epochs. The trained model will be saved as 'lenet_tod.ms' file. The classification accuracy varies in devices.
 
 ```bash
 Training on Device
@@ -134,7 +136,7 @@ train_lenet/
   │   ├── train.sh
   │   └── run_train.sh
   │
-  ├── dataset
+  ├── src
   │   ├── dataset.cc
   │   ├── dataset.h
   │   ├── net_runner.cc

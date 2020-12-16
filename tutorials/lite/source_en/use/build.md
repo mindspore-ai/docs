@@ -210,17 +210,6 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 >
 > arch: System architecture on which the output will be deployed.
 
-If ToD is enabled which means `-T on`, two more files will be generated in the `mindspore/output` directory.
-
-- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool (only in x86_64 architecture).
-- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model inference framework, benchmarking tool and performance analysis tool.
-
-> version: Version of the output, consistent with that of the MindSpore.
->
-> os: Operating system on which the output will be deployed.
->
-> arch: System architecture on which the output will be deployed.
-
 Execute the decompression command to obtain the compiled output:
 
 ```bash
@@ -349,6 +338,8 @@ If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `minds
 - `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
+>
+> device: The processor that runs ToD. Currently only build-in CPU is available.
 >
 > os: Operating system on which the output will be deployed.
 >
