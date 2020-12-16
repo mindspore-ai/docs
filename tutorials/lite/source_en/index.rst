@@ -102,6 +102,8 @@ Using MindSpore on Mobile and IoT
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">Model Training</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">Model Optimization</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">Inference</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">Benchmark Testing</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">Static Library Cropping</button>
 									</div>
 								</div>
 							</div>
@@ -173,6 +175,19 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/post_training_quantization.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Optimizing the Model (Quantization After Training)</span>
+										</div>
+										<div class="doc-article-desc">
+											Converting a trained `float32` model into an `int8` model through quantization after training can reduce the model size and improve the inference performance.
+											This tutorial introduces how to use the function.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/image_processing.html" class="article-link">
 									<div>
@@ -209,6 +224,31 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Performing Benchmark Testing</span>
+										</div>
+										<div class="doc-article-desc">
+											After model conversion and before inference, you can use the Benchmark tool to perform benchmark testing on a MindSpore Lite model. 
+											It can not only perform quantitative analysis (performance) on the forward inference execution duration of a MindSpore Lite model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Use Cropper Tool To Reduce Library File Size</span>
+										</div>
+										<div class="doc-article-desc">
+											MindSpore Lite provides the libmindspore-lite.a static library cropping tool for runtime, which can filter out the operators in the ms model, crop the static library files, and effectively reduce the size of the library files.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html" class="article-link">
 									<div>
@@ -229,6 +269,18 @@ Using MindSpore on Mobile and IoT
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write training code.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/net_train_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Performing Benchmark Testing of MindSpore ToD</span>
+										</div>
+										<div class="doc-article-desc">
+											You can use the net_train tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 										</div>
 									</div>
 								</a>

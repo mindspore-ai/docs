@@ -102,6 +102,8 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">模型训练</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
 									</div>
 								</div>
 							</div>
@@ -221,6 +223,30 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用Benchmark进行基准测试</span>
+										</div>
+										<div class="doc-article-desc">
+											转换模型后执行推理前，你可以使用Benchmark工具对MindSpore Lite模型进行基准测试。它不仅可以对MindSpore Lite模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用裁剪工具降低库文件大小</span>
+										</div>
+										<div class="doc-article-desc">
+											MindSpore Lite提供对Runtime的libmindspore-lite.a静态库裁剪工具，能够筛选出ms模型中存在的算子，对静态库文件进行裁剪，有效降低库文件大小。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html" class="article-link">
 									<div>
@@ -241,6 +267,18 @@
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用C++接口编写训练代码。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/net_train_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用net_train进行端侧训练基准测试</span>
+										</div>
+										<div class="doc-article-desc">
+											MindSpore端侧训练为你提供了net_train工具对训练后的模型进行基准测试。它不仅可以对模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
 										</div>
 									</div>
 								</a>
