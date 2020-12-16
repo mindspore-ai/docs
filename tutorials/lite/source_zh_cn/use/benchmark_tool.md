@@ -1,5 +1,7 @@
 # 使用Benchmark进行基准测试
 
+`Windows` `Linux` `环境准备` `基准测试` `中级` `高级`
+
 <!-- TOC -->
 
 - [使用Benchmark进行基准测试](#使用benchmark进行基准测试)

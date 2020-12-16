@@ -1,5 +1,7 @@
 # Optimizing the Model (Quantization After Training)
 
+`Windows` `Linux` `Model Converting` `Model Optimization` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Optimizing the Model (Quantization After Training)](#optimizing-the-model-quantization-after-training)
@@ -137,4 +139,3 @@ The calibration dataset configuration file uses the `key=value` mode to define r
  | [Mobilenet_V2_1.0_224](https://storage.googleapis.com/download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224.tgz)      | [ImageNet](http://image-net.org/) | MAX_MIN |    71.56%    |  71.16%  | Randomly select 100 images from the ImageNet Validation dataset as a calibration dataset. |
 
 > All the preceding results are obtained in the x86 environment, and `bias_correction=true` is set.
-

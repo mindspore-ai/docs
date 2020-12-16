@@ -1,5 +1,7 @@
 # Use Cropper Tool To Reduce Library File Size
 
+`Windows` `Linux` `Environment Preparation` `Static Library Cropping` `Intermediate` `Expert`
+
 <!-- TOC -->
 
 - [Use Cropper Tool To Reduce Library File Size](#use-cropper-tool-to-reduce-library-file-size)
