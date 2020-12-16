@@ -57,11 +57,12 @@ Add Auto Augmentation transformation after the `RandomCropDecodeResize` as follo
 1. Import related modules.
 
     ```python
-    from mindspore import dtype as mstype
-    import mindspore.dataset.engine as de
-    import mindspore.dataset.vision.c_transforms as c_vision
-    import mindspore.dataset.transforms.c_transforms as c_transforms
     import matplotlib.pyplot as plt
+
+    import mindspore.dataset as ds
+    import mindspore.dataset.transforms.c_transforms as c_transforms
+    import mindspore.dataset.vision.c_transforms as c_vision
+    from mindspore import dtype as mstype
     ```
 
 2. Define the mapping from the MindSpore operators to the Auto Augmentation operators.
@@ -168,7 +169,7 @@ Add Auto Augmentation transformation after the `RandomCropDecodeResize` as follo
     ```python
     def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, shuffle=True, num_samples=5, target="Ascend"):
         # create a train or eval imagenet2012 dataset for ResNet-50
-        ds = de.ImageFolderDataset(dataset_path, num_parallel_workers=8,
+        dataset = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8,
                                    shuffle=shuffle, num_samples=num_samples)
 
         image_size = 224
@@ -192,29 +193,29 @@ Add Auto Augmentation transformation after the `RandomCropDecodeResize` as follo
                 c_vision.Normalize(mean=mean, std=std),
                 c_vision.HWC2CHW()
             ]
-        ds = ds.map(operations=trans, input_columns="image")
+        dataset = dataset.map(operations=trans, input_columns="image")
         if do_train:
-            ds = ds.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
-            ds = ds.map(operations=post_trans, input_columns="image")
+            dataset = dataset.map(operations=c_vision.RandomSelectSubpolicy(imagenet_policy), input_columns=["image"])
+            dataset = dataset.map(operations=post_trans, input_columns="image")
         type_cast_op = c_transforms.TypeCast(mstype.int32)
-        ds = ds.map(operations=type_cast_op, input_columns="label")
+        dataset = dataset.map(operations=type_cast_op, input_columns="label")
         # apply the batch operation
-        ds = ds.batch(batch_size, drop_remainder=True)
+        dataset = dataset.batch(batch_size, drop_remainder=True)
         # apply the repeat operation
-        ds = ds.repeat(repeat_num)
+        dataset = dataset.repeat(repeat_num)
 
-        return ds
+        return dataset
     ```
 
 5. Verify the effects of Auto Augmentation.
 
     ```python
     # Define the path to image folder directory. This directory needs to contain sub-directories which contain the images.
-    DATA_DIR = "/path/to/imagefolder_directory"
-    ds = create_dataset(dataset_path=DATA_DIR, do_train=True, batch_size=5, shuffle=False, num_samples=5)
+    DATA_DIR = "/path/to/image_folder_directory"
+    dataset = create_dataset(dataset_path=DATA_DIR, do_train=True, batch_size=5, shuffle=False, num_samples=5)
 
     epochs = 5
-    itr = ds.create_dict_iterator()
+    itr = dataset.create_dict_iterator()
     fig=plt.figure(figsize=(8, 8))
     columns = 5
     rows = 5
