@@ -98,7 +98,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 否 |
 | -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 否 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
-| -e | 选择除CPU之外的其他内置算子类型，仅在ARM架构下适用，当前仅支持GPU | GPU | 否 |
+| -e | 编译某种类型的内置算子，仅在ARM架构下适用，否则默认全部编译 | CPU、GPU、NPU | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
 | -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包 | cpp、java | 否 |
@@ -112,6 +112,8 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 > 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
 >
 > 开启编译选项`-T`只生成训练版本工具。
+>
+> 任何`-e`编译选项，CPU都会编译进去。
 
 ### 编译示例
 
@@ -147,7 +149,13 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -i -j32
     ```
 
-- 编译ARM64架构Release版本，同时编译内置的GPU算子。
+- 编译ARM64架构Release版本，只编译内置的CPU算子。
+
+    ```bash
+    bash build.sh -I arm64 -e cpu
+    ```
+
+- 编译ARM64架构Release版本，同时编译内置的CPU和GPU算子。
 
     ```bash
     bash build.sh -I arm64 -e gpu
@@ -189,26 +197,26 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
 
-- `mindspore-lite-{version}-converter-{os}.tar.gz`：模型推理转换工具包。
+- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`：模型推理转换工具包。
 
-- `mindspore-lite-{version}-runtime-{os}-{device}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
+- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
 
-- `mindspore-lite-{version}-minddata-{os}-{device}.tar.gz`：包含图像处理库imageprocess。
+- `mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz`：包含图像处理库imageprocess。
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
 > version: 输出件版本号，与所编译的分支代码对应的版本一致。
 >
-> device: 当前分为cpu（内置CPU算子）和gpu（内置CPU和GPU算子）。
->
 > os: 输出件应部署的操作系统。
+>
+> arch: 输出件应部署的系统架构。
 
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
-tar -xvf mindspore-lite-{version}-converter-{os}.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}.tar.gz
-tar -xvf mindspore-lite-{version}-minddata-{os}-{device}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-minddata-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
@@ -218,7 +226,7 @@ unzip mindspore-lite-maven-{version}.zip
 
 ```text
 |
-├── mindspore-lite-{version}-converter-{os}
+├── mindspore-lite-{version}-converter-{os}-{arch}
 │   └── converter # 模型转换工具
 |       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
@@ -235,7 +243,7 @@ unzip mindspore-lite-maven-{version}.zip
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu
+    ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # 基准测试工具
     |   └── lib_cropper # 库裁剪工具
     │       ├── lib_cropper  # 库裁剪工具可执行文件
@@ -259,7 +267,7 @@ unzip mindspore-lite-maven-{version}.zip
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu
+    ├── mindspore-lite-{version}-inference-android-aarch64
     │   └── benchmark # 基准测试工具
     │   └── include # 推理框架头文件  
     │   └── lib # 推理框架库
@@ -280,7 +288,7 @@ unzip mindspore-lite-maven-{version}.zip
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm32-cpu
+    ├── mindspore-lite-{version}-inference-android-aarch32
     │   └── benchmark # 基准测试工具
     │   └── include # 推理框架头文件  
     │   └── lib # 推理框架库
@@ -308,40 +316,40 @@ unzip mindspore-lite-maven-{version}.zip
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
-> 1. 编译ARM64默认可获得arm64-cpu的推理框架输出件，若添加`-e gpu`则获得arm64-gpu的推理框架输出件，此时包名为`mindspore-lite-{version}-runtime-arm64-gpu.tar.gz`，编译ARM32同理。
+> 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，编译ARM32同理。
 > 2. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
 
 配置converter：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu/lib:./output/mindspore-lite-{version}-converter-ubuntu/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 配置benchmark：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/lib:${LD_LIBRARY_PATH}
 ```
 
 #### 端侧训练框架编译输出
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 
-`mindspore-lite-{version}-converter-{os}-train.tar.gz`：模型训练转换工具包。
+`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型训练转换工具包。
 
-`mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz`：模型训练框架runtime。
+`mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
 
 > version: 输出件版本号，与所编译的分支代码对应的版本一致。
 >
-> device: 设备端处理器架构型号，仅支持CPU上编译。
->
 > os: 输出件应部署的操作系统。
+>
+> arch: 输出件应部署的系统架构。
 
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
-tar -xvf mindspore-lite-{version}-converter-{os}-train.tar.gz
-tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
+tar -xvf mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 ```
 
 #### 训练模型转换工具converter目录结构说明
@@ -350,7 +358,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 
 ```text
 |
-├── mindspore-lite-{version}-converter-{os}-train
+├── mindspore-lite-{version}-train-converter-linux-x64
 │   └── converter # 模型转换工具
 |       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
@@ -369,7 +377,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-x86-cpu-train
+    ├── mindspore-lite-{version}-train-linux-x64
     │   └── benchmark # 基准测试工具
     |   └── lib_cropper # 库裁剪工具
     │       ├── lib_cropper  # 库裁剪工具可执行文件
@@ -395,7 +403,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm64-cpu-train
+    ├── mindspore-lite-{version}-train-android-aarch64
     │   └── include # 训练框架头文件
     │   └── lib # 训练框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
@@ -417,7 +425,7 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 
     ```text
     |
-    ├── mindspore-lite-{version}-runtime-arm32-cpu-train
+    ├── mindspore-lite-{version}-train-android-aarch32
     │   └── include # 训练框架头文件
     │   └── lib # 训练框架库
     │       ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
@@ -440,13 +448,13 @@ tar -xvf mindspore-lite-{version}-runtime-{os}-{device}-train.tar.gz
 配置converter：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-ubuntu-train/lib:./output/mindspore-lite-{version}-converter-ubuntu-train/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-train-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 配置net_train：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-runtime-x86-cpu-train/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/lib:${LD_LIBRARY_PATH}
 ```
 
 ## Windows环境编译
@@ -496,16 +504,16 @@ call build.bat lite 8
 
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
 
-- `mindspore-lite-{version}-converter-win-cpu.zip`：包含模型转换工具converter。
-- `mindspore-lite-{version}-win-runtime-x86-cpu.zip`：包含基准测试工具benchmark。
+- `mindspore-lite-{version}-converter-win-x64.zip`：包含模型转换工具converter。
+- `mindspore-lite-{version}-inference-win-x64.zip`：包含基准测试工具benchmark。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
 执行解压缩命令，获取编译后的输出件：
 
 ```bat
-unzip mindspore-lite-{version}-converter-win-cpu.zip
-unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
+unzip mindspore-lite-{version}-converter-win-x64.zip
+unzip mindspore-lite-{version}-inference-win-x64.zip
 ```
 
 #### 模型转换工具converter目录结构说明
@@ -514,7 +522,7 @@ unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
 
 ```text
 |
-├── mindspore-lite-{version}-converter-win-cpu
+├── mindspore-lite-{version}-converter-win-x64
 │   └── converter # 模型转换工具
 |       ├── converter_lite.exe # 可执行程序
 |       ├── libglog.dll # Glog的动态库
@@ -531,7 +539,7 @@ unzip mindspore-lite-{version}-win-runtime-x86-cpu.zip
 
 ```text
 |
-├── mindspore-lite-{version}-win-runtime-x86-cpu
+├── mindspore-lite-{version}-inference-win-x64
 │   └── benchmark # 基准测试工具
 │       ├── benchmark.exe # 可执行程序
 │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
