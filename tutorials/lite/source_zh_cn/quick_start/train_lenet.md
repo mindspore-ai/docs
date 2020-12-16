@@ -75,10 +75,12 @@ MNIST_Data/
 示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令：
 
 ```bash
-bash prepare_and_run.sh /PATH/MNIST_Data
+bash prepare_and_run.sh -D {your_mnist_data_path} [-d mindspore_docker_path] [-r mindspore_runtime_path] [-t arm64|x86]
 ```
 
-在Android设备上训练LeNet模型每100轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率，结果如下所示：
+`{your_mnist_data_path}`是你服务器或笔记本上MNIST数据集绝对路径，`mindspore_docker_path`为docker镜像路径，`mindspore_runtime_path`为端侧运行时训练工具压缩包绝对路径，`-t`为设备处理器架构类型。
+
+在Android设备上训练LeNet模型每100轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率，结果如下所示（测试准确率会受设备差异的影响）：
 
 ```text
 Training on Device
@@ -134,7 +136,7 @@ accuracy = 0.970553
   │   ├── train.sh
   │   └── run_train.sh
   │
-  ├── dataset
+  ├── src
   │   ├── dataset.cc
   │   ├── dataset.h
   │   ├── net_runner.cc
