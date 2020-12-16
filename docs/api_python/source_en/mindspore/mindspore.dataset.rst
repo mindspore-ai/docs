@@ -88,5 +88,6 @@ Others
     :nosignatures:
     :template: classtemplate_inherited.rst
 
+    mindspore.dataset.DatasetCache
     mindspore.dataset.Schema
     mindspore.dataset.zip
