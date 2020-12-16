@@ -196,7 +196,7 @@ def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
 最后调用`export`接口将模型导出为`MINDIR`文件保存（目前端侧训练仅支持`MINDIR`格式）。
 
 ```python
-export(net, x, label, file_name="lenet_tod.mindir", file_format='MINDIR')
+export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
@@ -264,7 +264,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数初始化`MNIST`数据集，调用[`DataSet`类](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc)加载训练数据以及相应标签。
+    `InitDB`函数初始化`MNIST`数据集，调用[DataSet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc)加载训练数据以及相应标签。
 
     ```cpp
     int NetRunner::InitDB() {

@@ -50,7 +50,7 @@
 | `--modelFile=<MODELPATH>` | 必选 | 指定需要进行基准测试的MindSpore Lite模型文件路径。 | String | null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | 可选 | 指定准确度阈值。 | Float           | 0.5    | -        |
 | `--expectedDataFile=<CALIBDATAPATH>` | 可选 | 指定标杆数据的文件路径。标杆数据作为该测试模型的对比输出，是该测试模型使用相同输入并由其它深度学习框架前向推理而来。 | String | null | - |
-| `--help` | 可选 | 显示`benchmark`命令的帮助信息。 | - | - | - |
+| `--help` | 可选 | 显示`net_train`命令的帮助信息。 | - | - | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | 可选 | 指定测试模型在执行基准测试运行轮数前进行的模型预热推理次数。 | Integer | 3 | - |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
 | `--inDataFile=<INDATAPATH>` | 可选 | 指定测试模型输入数据的文件路径。如果未设置，则使用随机输入。 | String | null | - |
@@ -76,7 +76,7 @@ Model = test_benchmark.ms, numThreads = 1, MinRunTime = 72.228996 ms, MaxRuntime
 ```
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
+./net_train --modelFile=./models/test_benchmark.ms --epochs=10 --timeProfiling=true
 ```
 
 这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimess`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
