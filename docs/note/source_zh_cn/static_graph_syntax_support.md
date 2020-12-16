@@ -123,7 +123,11 @@
 
 - 支持索引取值和赋值
 
-  取值和赋值的索引值仅支持`int`。赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
+  支持单层和多层索引取值以及赋值。
+
+  取值和赋值的索引值仅支持`int`。
+
+  赋值时，所赋的值支持`Number`、`String`、`Tuple`、`List`、`Tensor`。
 
   示例如下：
 
@@ -134,13 +138,14 @@
   x[1] = Tensor(np.array([1, 2, 3]))
   x[2] = "ok"
   x[3] = (1, 2, 3)
+  x[0][1] = 88
   ```
 
   结果如下：
 
   ```text
   y: 2
-  x: ((1, 2), Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), "ok", (1, 2, 3))
+  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3))
   ```
 
 #### Tuple
