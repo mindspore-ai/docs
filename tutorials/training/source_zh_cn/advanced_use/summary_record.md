@@ -11,6 +11,7 @@
         - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
+        - [使用技巧：记录梯度信息](#使用技巧记录梯度信息)
     - [运行MindInsight](#运行mindinsight)
     - [注意事项](#注意事项)
 
@@ -127,6 +128,8 @@ model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], data
 ds_eval = create_dataset('./dataset_path')
 model.eval(ds_eval, callbacks=[summary_collector])
 ```
+
+> 使用summary功能时，建议将`model.train()`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
 
 ### 方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据
 
@@ -294,6 +297,33 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
+除了上述使用方式外，使用summary算子时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
+
+### 使用技巧：记录梯度信息
+
+通过继承原有优化器类的方法可以插入summary算子读取梯度信息。样例代码片段如下：
+
+```python
+import mindspore.nn as nn
+import mindspore.ops as ops
+
+# Define a new optimizer class by inheriting your original optimizer.
+class MyOptimizer(nn.Momentum):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_construct = super().construct
+        self.histogram_summary = ops.HistogramSummary()
+        self.gradient_names = [param.name + ".gradient" for param in self.parameters]
+
+    def construct(self, grads):
+        # Record gradient.
+        self.histogram_summary(self.gradient_names[0], grads[0])
+        return self._original_construct(grads)
+
+# Initialize your model with the newly defined optimizer.
+model = Model(net, loss_fn=loss_fn, optimizer=MyOptimizer(arg1=arg1value))
+```
+
 ## 运行MindInsight
 
 按照上面教程完成数据收集后，启动MindInsight，即可可视化收集到的数据。启动MindInsight时，
@@ -387,3 +417,5 @@ mindinsight stop
 3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
 
 4. 当前 `SummaryCollector` 和 `SummaryRecord` 不支持GPU多卡运行的场景。
+
+5. 使用summary功能时，建议将`model.train()`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
