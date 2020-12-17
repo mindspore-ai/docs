@@ -19,3 +19,4 @@ MindSpore C++ API
   vision
   errorcode_and_metatype
   lite_cpp_example
+  api
