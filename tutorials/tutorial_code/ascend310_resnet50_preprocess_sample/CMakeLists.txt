@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.14.1)
+project (ResNet50Sample[CXX])
+add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
+set(CMAKE_CXX_STANDARD 17)
+option(MINDSPORE_PATH "mindspore install path" "")
+include_directories(${MINDSPORE_PATH})
+include_directories(${MINDSPORE_PATH}/include)
+find_library(MS_LIB libmindspore.so ${MINDSPORE_PATH}/lib)
+file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
+
+add_executable(resnet50_sample main.cc)
+target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
