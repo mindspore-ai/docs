@@ -32,6 +32,8 @@ This tutorial demonstrates the on-device deployment process based on the image c
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
 
 > Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
+>
+> In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_segmentation) to learn more about Java API.
 
 We provide the APK file corresponding to this example. You can scan the QR code below or [download](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) it directly, and deploy it to Android devices for use.
 
