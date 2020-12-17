@@ -269,8 +269,27 @@ Metrics
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy
 
-Learning Rate Schedule
+Dynamic Learning Rate
 -----------------------
+
+LearningRateSchedule
+^^^^^^^^^^^^^^^^^^^^^^
+
+The dynamic learning rates in this module are all subclasses of LearningRateSchedule. Pass the instance of
+LearningRateSchedule to an optimizer. During the training process, the optimizer calls the instance taking current step
+as input to get the current learning rate.
+
+.. code-block:: python
+
+    import mindspore.nn as nn
+
+    min_lr = 0.01
+    max_lr = 0.1
+    decay_steps = 4
+    cosine_decay_lr = nn.CosineDecayLR(min_lr, max_lr, decay_steps)
+
+    net = Net()
+    optim = nn.Momentum(net.trainable_params(), learning_rate=cosine_decay_lr, momentum=0.9)
 
 .. autosummary::
     :toctree: nn
@@ -283,3 +302,37 @@ Learning Rate Schedule
     mindspore.nn.NaturalExpDecayLR
     mindspore.nn.PolynomialDecayLR
     mindspore.nn.WarmUpLR
+
+Dynamic LR
+^^^^^^^^^^^^^^^^^^^^^^
+
+The dynamic learning rates in this module are all functions. Call the function and pass the result to an optimizer.
+During the training process, the optimizer takes result[current step] as current learning rate.
+
+.. code-block:: python
+
+    import mindspore.nn as nn
+
+    min_lr = 0.01
+    max_lr = 0.1
+    total_step = 6
+    step_per_epoch = 1
+    decay_epoch = 4
+
+    lr= nn.cosine_decay_lr(min_lr, max_lr, total_step, step_per_epoch, decay_epoch)
+
+    net = Net()
+    optim = nn.Momentum(net.trainable_params(), learning_rate=lr, momentum=0.9)
+
+.. autosummary::
+    :toctree: nn
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.nn.cosine_decay_lr
+    mindspore.nn.exponential_decay_lr
+    mindspore.nn.inverse_decay_lr
+    mindspore.nn.natural_exp_decay_lr
+    mindspore.nn.piecewise_constant_lr
+    mindspore.nn.polynomial_decay_lr
+    mindspore.nn.warmup_lr
