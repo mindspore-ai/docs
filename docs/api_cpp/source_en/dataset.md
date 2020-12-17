@@ -60,7 +60,7 @@ Convert the data type, currently it supports converting the data type from uint8
 
     - `src`: Input image data.
     - `dst`: Output image data.
-    - `scale`: Scale pixel values(default=1.0).
+    - `scale`: Scale pixel values (default: 1.0).
 
 - Returns
 
@@ -74,7 +74,7 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-Crop image, the channel supports is 3 and 1.
+Crop image, the channel supports 3 and 1.
 
 - Parameters
 
@@ -118,7 +118,7 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-Pad image, the channel supports is 3 and 1.
+Pad image, the channel supports 3 and 1.
 
 - Parameters
 
@@ -202,7 +202,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-Apply affine transformation for 1 channel image.
+Apply affine transformation to the 1-channel image.
 
 - Parameters
 
@@ -218,7 +218,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-Apply affine transformation for 3 channel image.
+Apply affine transformation to the 3-channel image.
 
 - Parameters
 
@@ -236,7 +236,7 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
-Get default anchor boxes for Faster R-CNN, SSD, YOLO etc.
+Get default anchor boxes for Faster R-CNN, SSD, YOLO, etc.
 
 - Parameters
 
@@ -287,7 +287,7 @@ Real-size box non-maximum suppression.
 
 \#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
-Class that represents a lite Mat of a Image.
+LiteMat is a class that processes images.
 
 ### Constructors & Destructors
 
@@ -355,7 +355,7 @@ A function to release memory.
 data_ptr_
 ```
 
-A **pointer** to the image.
+A **pointer** to the address of the image.
 
 #### elem_size_
 
@@ -427,7 +427,7 @@ The data type of the image.
 ref_count_
 ```
 
-A **pointer** to the reference counter.
+A **pointer** to the address of the reference counter.
 
 ## Subtract
 

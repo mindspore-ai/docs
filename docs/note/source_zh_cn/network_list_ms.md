@@ -13,7 +13,7 @@
 
 ## Model Zoo
 
-|  领域 | 子领域  | 网络   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNaitve) | CPU(Graph) | CPU(PyNaitve)
+|  领域 | 子领域  | 网络   | Ascend (Graph) | Ascend (PyNative) | GPU (Graph) | GPU (PyNaitve) | CPU (Graph) | CPU (PyNaitve)
 |:----  |:-------  |:----   |:----    |:----    |:---- |:---- |:---- |:----
 |计算机视觉（CV） | 图像分类（Image Classification）  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)   |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/src/googlenet.py)   |  Supported     |  Supported | Supported |  Supported | Doing | Doing

@@ -14,9 +14,9 @@
 - [Model Exporting](#model-exporting)
 - [Model Transfering](#model-transfering)
 - [Model Training](#model-training)
-  - [Load Model](#load-model)
-      - [Dataset Processing](#dataset-processing)
-      - [Execute Training](#execute-training)
+    - [Load Model](#load-model)
+        - [Dataset Processing](#dataset-processing)
+        - [Execute Training](#execute-training)
 
 <!-- /TOC -->
 
@@ -68,7 +68,7 @@ Please referring MindSpore [installation](https://www.mindspore.cn/install/).
 
 ### Converter and Runtime Tool
 
-Acquiring `converter` and `runtime-arm64-cpu` tool-package based on MindSpore LIte architecture, refering [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter or you could get them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html).
+Acquiring `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refering [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter or you could get them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html).
 
 ## Train and Eval
 

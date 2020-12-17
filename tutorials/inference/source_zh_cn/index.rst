@@ -16,7 +16,7 @@
    multi_platform_inference_ascend_310
    multi_platform_inference_gpu
    multi_platform_inference_cpu
-   端侧推理 <https://www.mindspore.cn/lite>
+   端侧推理 <https://www.mindspore.cn/lite/docs?master>
 
 .. toctree::
    :glob:

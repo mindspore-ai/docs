@@ -40,7 +40,7 @@ Destructor of MindSpore Lite Context.
 vendor_name_
 ```
 
-A **string** value. Describes the vendor information.
+A **string** value. Describes the vendor information. This attribute is used to distinguish from different venders.
 
 #### thread_num_
 
@@ -106,7 +106,7 @@ Free MetaGraph in MindSpore Lite Model to reduce memory usage during inference.
 void Destroy()
 ```
 
-Destroy all temporary memory in MindSpore Lite Model.
+Free all temporary memory in MindSpore Lite Model.
 
 ### Static Public Member Functions
 
@@ -120,17 +120,17 @@ Static method to create a Model pointer.
 
 - Parameters
 
-    - `model_buf`: Define the buffer read from a model file.
+    - `model_buf`: Defines the buffer read from a model file.
 
-    - `size`: variable. Define bytes number of model buffer.
+    - `size`: variable. Defines the byte number of model buffer.
 
 - Returns  
 
-    Pointer of MindSpore Lite Model.
+    Pointer that points to the MindSpore Lite Model.
 
 ## CpuBindMode
 
-An **enum** type. CpuBindMode defined for holding bind cpu strategy argument.
+An **enum** type. CpuBindMode is defined for holding arguments of the bind CPU strategy.
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
@@ -162,7 +162,7 @@ No bind.
 
 ## DeviceType
 
-An **enum** type. DeviceType defined for holding user's preferred backend.
+An **enum** type. DeviceType is defined for holding user's preferred backend.
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
@@ -250,7 +250,7 @@ DeviceContext defines different device contexts.
 device_type_
 ```
 
-Defaults to **DT_CPU**. **enum** type. DeviceType is defined for holding user's cpu backend.
+An **enum** type. Defaults to **DT_CPU**. DeviceType is defined for holding user’s CPU backend.
 
 #### device_info_
 
@@ -274,7 +274,7 @@ An **union** value. DeviceInfo is defined for backend's configuration informatio
 cpu_device_info_
 ```
 
-[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) defined for CPU's configuration information.
+[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) is defined for CPU's configuration information.
 
 #### gpu_device_info_
 
@@ -282,7 +282,7 @@ cpu_device_info_
 gpu_device_info_
 ```
 
-[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) defined for GPU's configuration information.
+[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) is defined for GPU's configuration information.
 
 ## CpuDeviceInfo
 
@@ -298,7 +298,7 @@ CpuDeviceInfo is defined for CPU's configuration information.
 enable_float16_
 ```
 
-A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
+A **bool** value. Defaults to **false**. This attribute enables to perform the GPU float16 inference.
 
 > Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
 
@@ -324,13 +324,13 @@ GpuDeviceInfo is defined for GPU's configuration information.
 enable_float16_
 ```
 
-A **bool** value. Defaults to **false**. Prior enable GPU float16 inference.
+A **bool** value. Defaults to **false**. This attribute enables to perform the GPU float16 inference.
 
-> Enabling float16 inference may cause low precision inference，because some variables may exceed the range of float16 during forwarding.
+> Enabling float16 inference may cause low inference precision, because some variables may exceed the range of float16 during forwarding.
 
 ## TrainModel
 
-TrainModel defines a class that allows to import and export the MindSpore trainable model.
+Inherited from Model, TrainModel defines a class that allows to import and export the MindSpore trainable model.
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
 

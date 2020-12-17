@@ -13,7 +13,7 @@
 
 ## Model Zoo
 
-|  Domain | Sub Domain    | Network                                   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNative)| CPU(Graph) | CPU(PyNative)
+|  Domain | Sub Domain    | Network                                   | Ascend (Graph) | Ascend (PyNative) | GPU (Graph) | GPU (PyNative)| CPU (Graph) | CPU (PyNative)
 |:------   |:------| :-----------                               |:------   |:------   |:------  |:------  |:----- |:-----
 |Computer Vision (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)          |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/src/googlenet.py)    |  Supported     |  Supported | Supported |  Supported | Doing | Doing

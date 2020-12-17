@@ -346,7 +346,7 @@ virtual ~TrainModel();
 
 ### 公有成员函数
 
-#### TrainModel
+#### Import
 
 ```cpp
 static TrainModel *Import(const char *model_buf, size_t size);

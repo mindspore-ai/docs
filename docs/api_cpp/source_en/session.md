@@ -6,7 +6,7 @@
 
 ## LiteSession
 
-LiteSession defines session in MindSpore Lite for compiling Model and forwarding model.
+LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding inference.
 
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
 
@@ -36,7 +36,7 @@ Destructor of MindSpore Lite LiteSession.
 virtual void BindThread(bool if_bind)
 ```
 
-Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
+Attempts to bind threads in the thread pool to the specified CPU core or unbind threads from the core.
 
 - Parameters
 
@@ -129,7 +129,7 @@ Get output MindSpore Lite MSTensors of model by node name.
 virtual std::unordered_map <std::string, mindspore::tensor::MSTensor *> GetOutputs() const
 ```
 
-Get output MindSpore Lite MSTensors of model mapped by tensor name.
+Get the MSTensors output of the MindSpore Lite model mapped by tensor name.
 
 - Returns
 
@@ -145,23 +145,7 @@ Get name of output tensors of model compiled by this session.
 
 - Returns
 
-    The vector of string as output tensor names in order.
-
-#### GetOutputByTensorName
-
-```cpp
-virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const
-```
-
-Get output MindSpore Lite MSTensors of model by tensor name.
-
-- Parameters
-
-    - `tensor_name`: Define tensor name.
-
-- Returns
-
-    Pointer of MindSpore Lite MSTensor.
+    A string variable, contains the output tensors’ names in order.
 
 #### GetOutputByTensorName
 
@@ -192,7 +176,7 @@ Resize inputs shape.
 
     - `inputs`: Model inputs.
 
-    - `dims`: defines the new inputs shape.
+    - `dims`: defines the new inputs shape. Its order should be consistent with inputs.
 
 - Returns
 
@@ -214,29 +198,29 @@ Static method to create a LiteSession pointer.
 
 - Returns
 
-    Pointer of MindSpore Lite LiteSession.
+    Pointer that points to MindSpore Lite MSTensor.
 
 ```cpp
 static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
 ```
 
-Static method to create a LiteSession pointer which has already compiled a model.
+Static method to create a LiteSession pointer. The returned LiteSession pointer has already read model_buf and completed graph compilation.
 
 - Parameters
 
     - `model_buf`: Define the buffer read from a model file.
 
-    - `size`: variable. Define bytes number of model buffer.
+    - `size`: variable. Define the byte number of model buffer.
 
     - `context`: Define the context of session to be created.
 
 - Returns
 
-    Pointer of MindSpore Lite LiteSession.
+    Pointer that points to MindSpore Lite LiteSession.
 
 ## TrainSession
 
-TrainSession defines the class that allows training the MindSpore model.
+Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
 
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
 
@@ -251,6 +235,46 @@ virtual ~TrainSession() = default;
 Static method to create a TrainSession object.
 
 ### Public Member Functions
+
+#### CreateSession
+
+```cpp
+static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `model_buf`: A buffer that was read from a MS model file.
+
+    - `size`: Length of the buffer.
+
+    - `context`: Defines the context of the session to be created.
+
+    - `train_mode`: Training mode to initialize Session with.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
+```cpp
+static TrainSession *CreateSession(const std::string &filename, lite::Context *context, bool train_mode = false);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `filename`: Filename to read flatbuffer from.
+
+    - `context`: Defines the context of the session to be created.
+
+    - `train_mode`: Training mode to initialize Session with.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
 
 #### ExportToBuf
 
@@ -268,7 +292,7 @@ Export the trained model into a buffer.
 
 - Returns
 
-    Pointer of MindSpore Lite TrainSession.
+    Pointer that points to MindSpore Lite TrainSession.
 
 #### SaveToFile
 
@@ -304,7 +328,7 @@ Set model to train mode.
 bool IsTrain() { return train_mode_ == true; }
 ```
 
-Check mode of model.
+Checks whether the current model is under the train mode.
 
 - Returns
 
@@ -333,45 +357,3 @@ Check mode of model.
 - Returns
 
     boolean indication if model is in eval mode.
-
-### Static Public Member Functions
-
-#### TrainSession
-
-```cpp
-static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false);
-```
-
-Static method to create a TrainSession object.
-
-- Parameters
-
-    - `model_buf`: A buffer that was read from a MS model file.
-
-    - `size`: Length of the buffer.
-
-    - `context`: Defines the context of the session to be created.
-
-    - `train_mode`: Training mode to initialize Session with.
-
-- Returns
-
-    Pointer of MindSpore Lite TrainSession.
-
-```cpp
-static TrainSession *CreateSession(const std::string &filename, lite::Context *context, bool train_mode = false);
-```
-
-Static method to create a TrainSession object.
-
-- Parameters
-
-    - `filename`: Filename to read flatbuffer from.
-
-    - `context`: Defines the context of the session to be created.
-
-    - `train_mode`: Training mode to initialize Session with.
-
-- Returns
-
-    Pointer of MindSpore Lite TrainSession.

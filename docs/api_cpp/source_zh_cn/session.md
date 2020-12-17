@@ -295,7 +295,6 @@ virtual int SaveToFile(const std::string &filename) const = 0;
 - 参数
 
     - `filename`: 已训练模型的文件名。
-    - `len`: 指向预分配缓冲区大小的指针。
 
 - 返回值
 
