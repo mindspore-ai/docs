@@ -1,10 +1,10 @@
-# 使用RESTful接口
+# 基于RESTful接口访问MindSpore Serving服务
 
-`Linux` `Ascend` `Cpu` `Serving` `初级` `中级` `高级`
+`Linux` `Serving` `Ascend` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用RESTful接口](#使用restful接口)
+- [基于RESTful接口访问MindSpore Serving服务](#基于restful接口访问mindspore-serving服务)
     - [概述](#概述)
     - [请求方式](#请求方式)
     - [请求输入格式](#请求输入格式)
@@ -16,15 +16,15 @@
 
 ## 概述
 
-MindSpore Serving支持`GPRC`和`RESTful`两种请求方式。本章节介绍`RESTful`类型请求。
+MindSpore Serving支持`gPRC`和`RESTful`两种请求方式。本章节介绍`RESTful`类型请求。
 
 `RESTful`是一种基于`HTTP`协议的网络应用程序的设计风格和开发方式，通过`URI`实现对资源的管理及访问，具有扩展性强、结构清晰的特点。基于其轻量级以及通过`HTTP`直接传输数据的特性，`RESTful`已经成为最常见的`Web`服务访问方式。用户通过`RESTful`方式，能够简单直接的与服务进行交互。
 
 部署`Serving`参考[快速入门](https://www.mindspore.cn/tutorial/inference/zh-CN/serving_example.html) 章节。
 
-与通过`master.start_grpc_server("127.0.0.1", 5500)`启动`GRPC`服务不同的是，`RESTful`服务需要通过`master.start_restful_server("0.0.0.0", 1500)`方式来启动。
+与通过`master.start_grpc_server("127.0.0.1", 5500)`启动`gRPC`服务不同的是，`RESTful`服务需要通过`master.start_restful_server("0.0.0.0", 1500)`方式来启动。
 
->`RESTful`请求目前仅支持`Ascend`硬件，不支持`GPU`和`CPU`等硬件。
+>`RESTful`服务端（worker节点）当前仅支持`Ascend`硬件，`RESTful`客户端不依赖特定硬件平台。
 
 ## 请求方式
 
@@ -48,7 +48,7 @@ POST http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NA
 curl -X POST -d '${REQ_JSON_MESSAGE}' http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
 ```
 
-例子：请求`lenet`模型的`predict`方法进行数字图片的推理，请求如下：
+例子：请求`LeNet`模型的`predict`方法进行数字图片的推理，请求如下：
 
 ```text
 curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://127.0.0.1:1500/model/lenet/version/1:predict
@@ -58,7 +58,7 @@ curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://1
 
 ## 请求输入格式
 
-RESTful支持`Json`请求格式，`key`固定为`instances`，`value`:表示多个实例。
+RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多个实例。
 
 每个实例通过`key-value`格式的`Json`表示。其中：
 
@@ -160,25 +160,25 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`:表示多�
 
 ```text
 {
-"instances":[
-    {
-        "output_name1":<value>|<list>|<object>,
-        "output_name2":<value>|<list>|<object>,
+    "instances":[
+        {
+            "output_name1":<value>|<list>|<object>,
+            "output_name2":<value>|<list>|<object>,
+            ...
+        },
+        {
+         "output_name1":<value>|<list>|<object>,
+            "output_name2":<value>|<list>|<object>,
+            ...
+        }
         ...
-    },
-    {
-     "output_name1":<value>|<list>|<object>,
-        "output_name2":<value>|<list>|<object>,
-        ...
-    }
-    ...
-]
+    ]
 }
 ```
 
 1. 多实例请求后，如果多实例全部成功处理，则响应格式如下：
 
-   例子：`lenet`请求识别数字`0`和数字`1`。
+ 例子：`LeNet`请求识别数字`0`和数字`1`。
 
    ```json
    {
@@ -189,7 +189,7 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`:表示多�
            {
                "result":1
            }
-    ]
+       ]
    }
    ```
 
@@ -206,7 +206,7 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`:表示多�
            {
                "error_msg":"Preprocess Failed"
            }
-    ]
+       ]
    }
    ```
 
