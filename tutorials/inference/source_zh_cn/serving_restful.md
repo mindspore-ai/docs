@@ -1,0 +1,238 @@
+# 使用RESTful接口
+
+`Linux` `Ascend` `Cpu` `Serving` `初级` `中级` `高级`
+
+<!-- TOC -->
+
+- [使用RESTful接口](#使用restful接口)
+    - [概述](#概述)
+    - [请求方式](#请求方式)
+    - [请求输入格式](#请求输入格式)
+    - [请求应答格式](#请求应答格式)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/inference/source_zh_cn/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
+
+## 概述
+
+MindSpore Serving支持`GPRC`和`RESTful`两种请求方式。本章节介绍`RESTful`类型请求。
+
+`RESTful`是一种基于`HTTP`协议的网络应用程序的设计风格和开发方式，通过`URI`实现对资源的管理及访问，具有扩展性强、结构清晰的特点。基于其轻量级以及通过`HTTP`直接传输数据的特性，`RESTful`已经成为最常见的`Web`服务访问方式。用户通过`RESTful`方式，能够简单直接的与服务进行交互。
+
+部署`Serving`参考[快速入门](https://www.mindspore.cn/tutorial/inference/zh-CN/serving_example.html) 章节。
+
+与通过`master.start_grpc_server("127.0.0.1", 5500)`启动`GRPC`服务不同的是，`RESTful`服务需要通过`master.start_restful_server("0.0.0.0", 1500)`方式来启动。
+
+>`RESTful`请求目前仅支持`Ascend`硬件，不支持`GPU`和`CPU`等硬件。
+
+## 请求方式
+
+当前支持`POST`类型的RESTful请求，请求格式如下：
+
+```text
+POST http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+其中：
+
+- `HOST`：指定访问的IP地址；
+- `PORT`：指定访问的端口号；
+- `MODEL_NAME`：请求的模型名称；
+- `VERSION`：表示版本号。版本号是可选的，若未指定具体版本号，则默认使用模型的最新版本。
+- `METHOD_NAME`：表示请求模型的具体方法名称。
+
+如果使用`curl`工具，RESTful请求方式如下：
+
+```text
+curl -X POST -d '${REQ_JSON_MESSAGE}' http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+例子：请求`lenet`模型的`predict`方法进行数字图片的推理，请求如下：
+
+```text
+curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://127.0.0.1:1500/model/lenet/version/1:predict
+```
+
+其中：`babe64-encoded-string`是数字`1`图片经过`base64`编码之后的字符串。由于字符串比较长，不显式列出。
+
+## 请求输入格式
+
+RESTful支持`Json`请求格式，`key`固定为`instances`，`value`:表示多个实例。
+
+每个实例通过`key-value`格式的`Json`表示。其中：
+
+- `key`：表示输入名称，需要与请求模型提供的方法的输入参数名称一致，若不一致，则请求失败。
+
+- `value`：表示具体的值。当前支持的`value`类型：
+
+    - 标量：`str`、`bytes`、`int`、`float`、`bool`。
+
+      `bytes`：通过`base64`编码方式支持。
+
+    - 张量：`int`、`float`、`bool`。
+
+      张量通过数组格式表示数据和维度信息。
+
+`Json`中支持的`int`类型：是`int32`表示的范围，`float`类型：是`float32`表示的范围。
+
+请求格式：
+
+```text
+{
+"instances":[
+    {
+        "input_name1":<value>|<list>|<object>,
+        "input_name2":<value>|<list>|<object>,
+        ...
+    },
+    {
+     "input_name1":<value>|<list>|<object>,
+        "input_name2":<value>|<list>|<object>,
+        ...
+    }
+    ...
+]
+}
+```
+
+例子：
+
+```text
+{
+    "instances":[
+        {
+            "tag":"one",
+            "box":[[1,1],[2,3],[3,4]]
+            "image":{"b64":"iVBOR...ggg==="}
+        },
+        {
+            "tag":"two"
+            "box":[[2,2],[5,5],[6,6]]
+            "image":{"b64":"iVBOR...QmCC", "type":"bytes"}
+        }
+    ]
+}
+```
+
+其中：`iVBOR...ggg===`是图片数字`0`经过`base64`编码之后的省略字符串。`iVBOR...QmCC`是图片数字`1`经过`base64`编码之后的省略字符串。不同图片编码出来的字符串可能不同，上述是示意说明。
+
+`bytes`类型需要通过`base64`编码进行表示。`base64`除了支持`bytes`类型，也支持表示其他标量和张量，此时需要通过`type`指定数据类型，通过`shape`指定维度信息。
+
+- `type`：可选，如果不指定，默认为`bytes`。
+
+  支持`int8`、`int16`、`int32`、`int64`、`uint8`、`uint16`、`uint32`、`uint64`、`fp16`、`fp32`、`fp64`、`bool`、`str`、`bytes`。
+
+- `shape`：可选，如果不指定，默认为`[1]`。
+
+例子：
+
+如果要用`base64`编码表示：`int16`的数据类型，`shape`为3*2，值是`[[1,1],[2,3],[3,4]]`的张量，则表示如下：
+
+```json
+{
+    "instances":[
+        {
+            "tag":"one",
+            "box":{"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]},
+            "image":{"b64":"iVBOR...ggg==="}
+        }
+    ]
+}
+```
+
+其中`AQACAAIAAwADAAQA`：是`[[1,1],[2,3],[3,4]]`经过`base64`编码字后的字符串。
+
+**支持的类型总结如下:**
+
+|                                          支持的类型                                          | 例子                                                                           | 备注                               |
+| :------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------------ | ---------------------------------- |
+|                                            `int`                                             | 1，[1,2,3,4]                                                                   | 默认`int32`表示范围                |
+|                                           `float`                                            | 1.0，[[1.2, 2.3], [3.0, 4.5]]                                                  | 默认`float32`表示范围              |
+|                                            `bool`                                            | true，false，[[true],[false]]                                                  | `bool`类型                         |
+|                                           `string`                                           | "hello"或者<br/>  {"b64":"aGVsbG8=", "type":"str"}                             | 直接表示或者指定`type`方式表示     |
+|                                           `bytes`                                            | {"b64":"AQACAAIAAwADAAQA"} 或者 <br>{"b64":"AQACAAIAAwADAAQA", "type":"bytes"} | 如果不填`type`，默认为`bytes`      |
+| `int8`,`int16`,`int32`,`int64`,`uint8`,`uint16`,`uint32`,`uint64` `float16`,`float32`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]}                      | 利用base64编码，表示指定type的数据 |
+
+## 请求应答格式
+
+应答格式与请求格式保持一致。返回`Json`格式信息。应答格式如下：
+
+```text
+{
+"instances":[
+    {
+        "output_name1":<value>|<list>|<object>,
+        "output_name2":<value>|<list>|<object>,
+        ...
+    },
+    {
+     "output_name1":<value>|<list>|<object>,
+        "output_name2":<value>|<list>|<object>,
+        ...
+    }
+    ...
+]
+}
+```
+
+1. 多实例请求后，如果多实例全部成功处理，则响应格式如下：
+
+   例子：`lenet`请求识别数字`0`和数字`1`。
+
+   ```json
+   {
+       "instances":[
+           {
+               "result":0
+           },
+           {
+               "result":1
+           }
+    ]
+   }
+   ```
+
+2. 如果部分实例出错，则响应格式如下：
+
+   例子：`lenet`请求识别数字`0`和一个错误数字图片。
+
+   ```json
+   {
+       "instances":[
+           {
+               "result":0
+           },
+           {
+               "error_msg":"Preprocess Failed"
+           }
+    ]
+   }
+   ```
+
+3. 如果请求全部失败，则响应格式如下：
+
+   例子：`lenet`请求识别两张错误数字图片为例。
+
+   ```json
+   {
+       "instances":[
+           {
+               "error_msg":"Preprocess Failed"
+           },
+           {
+               "error_msg":"Time out"
+           }
+       ]
+   }
+   ```
+
+4. 出现系统性或者其他解析等错误，则返回格式：
+
+   例子：`lenet`传入非法`Json`字符串。
+
+   ```json
+   {
+       "error_msg":"Parse request failed"
+   }
+   ```
