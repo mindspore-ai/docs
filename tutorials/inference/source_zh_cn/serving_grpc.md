@@ -1,13 +1,13 @@
-# 使用GRPC接口
+# 基于gRPC接口访问MindSpore Serving服务
 
-`Linux` `Ascend` `Cpu` `Serving` `初级` `中级` `高级`
+`Linux` `Ascend` `Serving` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用GRPC接口](#使用grpc接口)
+- [基于gRPC接口访问MindSpore Serving服务](#基于grpc接口访问mindspore-serving服务)
     - [概述](#概述)
     - [add样例](#add样例)
-    - [resnet50样例](#resnet50样例)
+    - [ResNet-50样例](#resnet50样例)
 
 <!-- /TOC -->
 
@@ -15,11 +15,11 @@
 
 ## 概述
 
-MindSpore Serving提供GRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) 接口填写请求、解析回复。客户端运行不依赖Ascend、GPU等硬件环境。接下来我们通过`add`和`resnet50`样例来详细说明GRPC Python客户端接口的使用。
+MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我们提供[mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) 模块用于填写请求、解析回复。gRPC服务端（worker节点）当前仅支持Ascend平台，客户端运行不依赖特定硬件环境。接下来我们通过`add`和`ResNet-50`样例来详细说明gRPC Python客户端接口的使用。
 
 ## add样例
 
-样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中GRPC Python客户端代码如下所示，一次GRPC请求包括了三对独立的2x2 Tensor：
+样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
 
 ```python
 from mindspore_serving.client import Client
@@ -68,11 +68,11 @@ if __name__ == '__main__':
 
     构造`Client`时，指示Serving的ip和端口号，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，一个Servable可以通过提供多种方法来提供不同的服务。
 
-    上面的`add`样例， Serving运行在本地（`localhost`），指定的GRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
+    上面的`add`样例， Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
 
 2. 添加实例。
 
-   每次GRPC请求可包括一个或多个实例，每个实例之间相互独立，结果互不影响。
+   每次gRPC请求可包括一个或多个实例，每个实例之间相互独立，结果互不影响。
 
    比如：`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能，即一个实例包含两个2x2 Tensor输入，一个2x2 Tensor输出。一次请求可包括一个、两个或者多个这样的实例，针对每个实例返回一个结果。上述`add`样例提供了三个实例，预期将返回三个实例的结果。
 
@@ -94,25 +94,25 @@ if __name__ == '__main__':
 
     - 所有实例推理正确：
 
-    ```shell
-    [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
-     {'y': array([[4., 4.], [4., 4.]], dtype=float32)},
-     {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
-    ```
+        ```shell
+        [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
+         {'y': array([[4., 4.], [4., 4.]], dtype=float32)},
+         {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
+        ```
 
     - 针对所有实例共同的错误，返回一个包含`error`的dict。将例子中Client构造时填入的`add_common`改为`add_common2`，将返回结果：
 
-    ```shell
-    {'error', 'Request Servable(add) method(add_common2), method is not available'}
-    ```
+        ```shell
+        {'error', 'Request Servable(add) method(add_common2), method is not available'}
+        ```
 
     - 部分实例推理错误，出错的推理实例将返回包含`error`的dict。将instance2一个输入的`dtype`改为`np.int32`，将返回结果：
 
-    ```shell
-    [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
-     {'error': 'Given model input 1 data type kMSI_Int32 not match ...'},
-     {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
-    ```
+        ```shell
+        [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
+         {'error': 'Given model input 1 data type kMSI_Int32 not match ...'},
+         {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
+        ```
 
     每个实例返回一个dict，key的值来自于Servable的方法定义，例如本例子中，`add` Servable提供的`add_common`方法输出仅有一个，为`y`。value为以下格式：
 
@@ -123,9 +123,9 @@ if __name__ == '__main__':
     | String | python str | 字符串格式输出转为python str | "news_car"  |
     | Bytes | python bytes | 二进制格式输出转为python bytes | 图片数据  |
 
-## resnet50样例
+## ResNet-50样例
 
-样例来源于[resnet50 example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/client.py) ,`resnet50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
+样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/client.py) ，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
 
 ```python
 import os
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     run_classify_top1()
 ```
 
-`resnet50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
+`ResNet-50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
 正常结束执行后，预期将会有以下打印：
 
 ```shell

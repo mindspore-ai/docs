@@ -1,10 +1,10 @@
-# 实现一个Add网络示例
+# 基于MindSpore Serving部署推理服务
 
 `Linux` `Ascend` `Serving` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [实现一个Add网络示例](#实现一个add网络示例)
+- [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
     - [概述](#概述)
         - [导出模型](#导出模型)
         - [部署Serving推理服务](#部署serving推理服务)
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 ### 部署Serving推理服务
 
-启动Serving服务，当前目录下需要有模型文件夹，如`add`，文件夹下放置版本模型文件和配置文件，文件目录结果如下图所示：
+启动Serving服务，以Add用例为例，需要如下文件列表：
 
 ```shell
 test_dir
@@ -91,14 +91,18 @@ test_dir
 └── master_with_worker.py
 ```
 
-其中，模型文件为上一步网络生成的，即`tensor_add.mindir`文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下。
-配置文件为[servable_config.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/add/servable_config.py)，其定义了模型的处理函数。
+- `master_with_worker.py`为启动服务脚本文件。
+- `add`为模型文件夹，文件夹名即为模型名。
+- `tensor_add.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/add/servable_config.py)为[模型配置文件](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_model.md)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
+
+模型配置文件内容如下：
 
 ```python
 from mindspore_serving.worker import register
 import numpy as np
 
-# define preprocess pipeline, the function arg is multi instances, every instance is tuple of inputs
+# define preprocess pipeline, the function arg is multi instances, every instance is the tuple of inputs
 # this example has one input and one output
 def add_trans_datatype(instances):
     """preprocess python implement"""
@@ -108,8 +112,8 @@ def add_trans_datatype(instances):
         yield x1.astype(np.float32), x2.astype(np.float32)
 
 
-# when with_batch_dim set to False, only support 2x2 add
-# when with_batch_dim set to True(default), support Nx2 add, while N is view as batch
+# when with_batch_dim is set to False, only 2x2 add is supported
+# when with_batch_dim is set to True(default), Nx2 add is supported, while N is viewed as batch
 # float32 inputs/outputs
 register.declare_servable(servable_file="tensor_add.mindir", model_format="MindIR", with_batch_dim=False)
 
@@ -131,9 +135,7 @@ def add_cast(x1, x2):
     return y
 ```
 
-该文件定义了`add_common`和`add_cast`两个方法。
-
-MindSpore Serving提供两种部署方式，轻量级部署和集群部署，用户可根据需要进行选择部署。
+MindSpore Serving提供两种部署方式，轻量级部署和集群部署。轻量级部署master和worker在一个进程中，集群部署方式master和worker部署在不同的进程中。当只有一个worker节点时，用户可以考虑轻量级部署，即将master部署在这个worker所在进程中；当worker节点有多个，为了充分利用资源，可以考虑集群部署方式，选取一台机器作为master，管理所有的worker节点。用户可根据需要进行选择部署。
 
 #### 轻量级部署
 
@@ -159,6 +161,7 @@ if __name__ == "__main__":
 #### 集群部署
 
 服务端由master进程和worker进程组成，master用来管理集群内所有的worker节点，并进行推理任务的分发。部署方式如下：
+
 部署master：
 
 ```python
@@ -177,22 +180,23 @@ if __name__ == "__main__":
 
 ```python
 import os
-from mindspore_serving import master
+from mindspore_serving import worker
 
 def start():
     servable_dir = os.path.abspath(".")
     worker.start_servable(servable_dir, "add", device_id=0,
                           master_ip="127.0.0.1", master_port=6500,
-                          host_ip="127.0.0.1", host_port=6600)
+                          worker_ip="127.0.0.1", worker_port=6600)
 
 if __name__ == "__main__":
     start()
 ```
 
-轻量级部署和集群部署除了master和woker进程是否隔离，worker使用的接口也不同，轻量级部署使用worker的`start_servable_in_master`接口，集群部署使用worker的`start_servable`接口。
+轻量级部署和集群部署启动worker所使用的接口存在差异，其中，轻量级部署使用`start_servable_in_master`接口启动worker，集群部署使用`start_servable`接口启动worker。
 
 ### 执行推理
 
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_grpc.md)，一种是通过[RESTful方式](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_restful.md)，本文以gRPC方式为例。
 使用[client.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py)，启动Python客户端。
 
 ```python
@@ -237,7 +241,7 @@ if __name__ == '__main__':
     run_add_cast()
 ```
 
-使用`mindspore_serving.client`定义的`Client`类，分别调用模型的两个方法，显示如下返回值说明Serving服务已正确执行Add网络的推理。
+使用`mindspore_serving.client`定义的`Client`类，客户端定义两个用例，分别调用模型的两个方法，`run_add_common`用例为三对float32类型数组相加操作，`run_add_cast`用例计算两个int32数组相加操作。执行后显示如下返回值，三对float32类型相加结果合集和一对int32类型的相加结果，说明Serving服务已正确执行Add网络的推理。
 
 ```shell
 [{'y': array([[2. , 2.],

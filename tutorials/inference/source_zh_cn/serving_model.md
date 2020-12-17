@@ -1,10 +1,10 @@
-# 配置模型以提供一个Servable
+# 通过配置模型提供Servable
 
 `Linux` `Ascend` `Serving` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [配置模型以提供一个Servable](#配置模型以提供一个servable)
+- [通过配置模型提供Servable](#通过配置模型提供servable)
     - [概述](#概述)
     - [相关概念](#相关概念)
         - [预处理和后处理](#预处理和后处理)
@@ -21,13 +21,13 @@
 
 ## 概述
 
-MindSpore Serving当前仅支持Ascend310和Ascend910环境。
+MindSpore Serving当前仅支持Ascend 310和Ascend 910环境。
 
-MindSpore Serving的Servable包含两种类型。一种是推理服务来源于单模型，一种是推理服务来源于多模型组合，多模型组合当前不支持。
+MindSpore Serving的Servable提供推理服务，包含两种类型。一种是推理服务来源于单模型，一种是推理服务来源于多模型组合，多模型组合正在开发中。
 
 本文将说明如何对单模型进行配置以提供Servable，以下所有Servable配置说明针对的是单模型Servable，Serving客户端简称客户端。
 
-本文以Resnet50作为样例介绍如何配置模型提供Servable。样例代码可参考[Resnet50样例](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/) 。
+本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/) 。
 
 ## 相关概念
 
@@ -52,7 +52,7 @@ MindSpore Serving的Servable包含两种类型。一种是推理服务来源于�
 
 一个Servable可提供一个或多个方法，Servable的名称和方法的名称标记了Serving提供的一个服务，每个方法对客户端提供的数据进行可选的预处理，接着进行模型推理，对模型的推理结果进行可选的后处理，最后将需要的结果返回给客户端。
 
-即，每个方法：
+Servable包含如下内容：
 
 - 指定可选的预处理和可选的后处理；
 - 定义方法输入、预处理、模型、后处理、方法输出之间的数据流，前者可作为后者的输入。比如方法输出的值可来源于方法输入、预处理、模型或后处理；
@@ -70,9 +70,9 @@ MindSpore Serving的Servable包含两种类型。一种是推理服务来源于�
 ```shell
 resnet50
 ├── 1
-│   └── resnet_classify.minir
+│   └── resnet_classify.mindir
 ├── 2
-│   └── resnet_classify.minir
+│   └── resnet_classify.mindir
 └── servable_config.py
 ```
 
@@ -81,6 +81,8 @@ resnet50
 - 通过`servable_config.py`配置Servable，其中包括预处理和后处理定义、模型声明、方法定义。
 
 - 目录`1`和`2`表示版本`1`和版本`2`的模型，模型版本为正整数，从`1`开始，数字越大表示版本越新。
+
+- `resnet_classify.mindir`为模型文件，Servable启动会加载对应版本的模型文件。
 
 ### 预处理和后处理定义
 
@@ -142,7 +144,7 @@ def postprocess_top5(instances):
 
 预处理和后处理定义格式相同，入参为实例数据组成的tuple，每个实例数据为输入数据组成的tuple，每个输入数据为**numpy对象**，通过`yield`返回实例的处理结果，`yield`返回的数据类型可为**numpy对象、Python的bool、int、float、str、bytes**组成的tuple。
 
-预处理和后处理输入的来源和输出的使用由[方法定义](#方法定义)决定。
+预处理和后处理输入的来源和输出的使用由[方法定义](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_model.md#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89)决定。
 
 ### 模型声明
 
