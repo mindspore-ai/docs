@@ -114,7 +114,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型，目前只支持此处为 *‘Bernoulli’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs* 。
 - `sample`：可选择传入样本形状 *shape* 和试验成功的概率 *probs1* 。
-- `get_dist_args` ：可选择传入试验成功的概率 *probs*。
+- `get_dist_args` ：可选择传入试验成功的概率 *probs*。返回值为`(probs,)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Bernoulli’* 。
 
 #### 指数分布(Exponential)
@@ -132,7 +132,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *rate_b* 。 *dist* 为另一分布的类型的名称， 目前只支持此处为 *‘Exponential’* 。*rate_b* 为分布 *b* 的率参数。可选择传入分布 *a* 的参数 *rate_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入率参数 *rate* 。
 - `sample`：可选择传入样本形状 *shape* 和率参数 *rate* 。
-- `get_dist_args` ：可选择传入率参数 *rate* 。
+- `get_dist_args` ：可选择传入率参数 *rate* 。返回值为`(rate,)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Exponential’* 。
 
 #### 几何分布(Geometric)
@@ -150,7 +150,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* 和 *probs1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Geometric’* 。 *probs1_b* 为分布 *b* 的试验成功概率。可选择传入分布 *a* 的参数 *probs1_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入试验成功的概率 *probs1* 。
 - `sample`：可选择传入样本形状 *shape* 和试验成功的概率 *probs1* 。
-- `get_dist_args` ：可选择传入试验成功的概率 *probs1* 。
+- `get_dist_args` ：可选择传入试验成功的概率 *probs1* 。返回值为`(probs1,)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Geometric’* 。
 
 #### 正态分布(Normal)
@@ -164,7 +164,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*mean_b* 和 *sd_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Normal’* 。*mean_b* 和 *sd_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *mean_a* 和标准差 *sd_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *mean_a* 和标准差 *sd_a* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括均值 *mean_a* 和标准差 *sd_a* 。
-- `get_dist_args` ：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。
+- `get_dist_args` ：可选择传入分布的参数均值 *mean* 和标准差 *sd* 。返回值为`(mean, sd)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Normal’* 。
 
 #### 均匀分布(Uniform)
@@ -183,7 +183,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*high_b* 和 *low_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Uniform’* 。 *high_b* 和 *low_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即最大值 *high_a* 和最小值 *low_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数最大值 *high* 和最小值 *low* 。
 - `sample`：可选择传入 *shape* 和分布的参数即最大值 *high* 和最小值 *low* 。
-- `get_dist_args` ：可选择传入分布的参数最大值 *high* 和最小值 *low* 。
+- `get_dist_args` ：可选择传入分布的参数最大值 *high* 和最小值 *low* 。返回值为`(low, high)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Uniform’* 。
 
 #### 多类别分布（Categorical）
@@ -201,7 +201,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*probs_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Categorical’* 。 *probs_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *probs_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数类别概率 *probs* 。
 - `sample`：可选择传入 *shape* 和类别概率 *probs* 。
-- `get_dist_args` ：可选择传入分布的参数类别概率 *probs* 。
+- `get_dist_args` ：可选择传入分布的参数类别概率 *probs* 。返回值为`(probs,)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Categorical’* 。
 
 #### 对数正态分布(LogNormal)
@@ -220,7 +220,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘LogNormal’* 。*loc_b* 和 *scale_b* 为分布 *b* 的均值和标准差。可选择传入分布的参数 *a* 均值 *loc_a* 和标准差 *sclae_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择分布的参数包括均值 *loc_a* 和标准差 *scale_a* 。`Distribution` 基类调用 `TransformedDistribution`私有接口。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括均值 *loc_a* 和标准差 *scale_a* 。`Distribution` 基类调用 `TransformedDistribution`私有接口。
-- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数*scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数*scale* 。返回值为`(loc, scale)`，类型为tuple。
 - `get_dist_type` ：返回 *‘LogNormal’* 。
 
 #### 柯西分布(Cauchy)
@@ -238,7 +238,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Cauchy’* 。*loc_b* 和 *scale_b* 为分布 *b* 的位置参数和规模参数。可选择传入分布的参数 *a* 位置 *loc_a* 和规模 *scale_a* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
-- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。返回值为`(loc, scale)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Cauchy’* 。
 
 #### 耿贝尔极值分布(Gumbel)
@@ -257,7 +257,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*loc_b* 和 *scale_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Gumbel’* 。*loc_b* 和 *scale_b* 为分布 *b* 的位置参数和规模参数。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。
 - `sample`：可选择传入样本形状 *shape* 。
-- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。返回值为`(loc, scale)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Gumbel’* 。
 
 #### 逻辑斯谛分布(Logistic)
@@ -275,7 +275,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `entropy`：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
-- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。
+- `get_dist_args` ：可选择传入分布的位置参数 *loc* 和规模参数 *scale* 。返回值为`(loc, scale)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Logistic’* 。
 
 #### 泊松分布(Poisson)
@@ -291,7 +291,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `mean`，`mode`，`var`，`sd`：可选择传入分布的率参数 *rate* 。
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的率参数 *rate* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的率参数 *rate* 。
-- `get_dist_args` ：可选择传入分布的率参数 *rate* 。
+- `get_dist_args` ：可选择传入分布的率参数 *rate* 。返回值为`(rate,)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Poisson’* 。
 
 #### 伽马分布(Gamma)
@@ -310,7 +310,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `prob`，`log_prob`，`cdf`，`log_cdf`，`survival_function`，`log_survival`：必须传入 *value* 。可选择传入分布的参数 *concentration* 和参数 *rate* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*concentration_b* 和 *rate_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Gamma’* 。*concentration_b* 和 *rate_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *concentration_a* 和 *rate_a* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的参数 *concentration* 和参数 *rate* 。
-- `get_dist_args` ：可选择传入分布的参数 *concentration* 和参数 *rate* 。
+- `get_dist_args` ：可选择传入分布的参数 *concentration* 和参数 *rate* 。返回值为`(concentration, rate)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Gamma’* 。
 
 #### 贝塔分布(Beta)
@@ -329,7 +329,7 @@ MindSpore深度概率编程的目标是将深度学习和贝叶斯学习结合�
 - `prob`，`log_prob`：必须传入 *value* 。可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
 - `cross_entropy`，`kl_loss`：必须传入 *dist* ，*concentration1_b* 和 *concentration1_b* 。*dist* 为另一分布的类型的名称，目前只支持此处为 *‘Beta’* 。*concentration1_b* 和 *concentration1_b* 为分布 *b* 的参数。可选择传入分布 *a* 的参数即 *concentration1_a* 和 *concentration0_a* 。
 - `sample`：可选择传入样本形状 *shape* 和分布的参数包括分布的位置参数 *loc* 和规模参数 *scale* 。
-- `get_dist_args` ：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。
+- `get_dist_args` ：可选择传入分布的参数 *concentration1* 和参数 *concentration0* 。返回值为`(concentration1, concentration0)`，类型为tuple。
 - `get_dist_type` ：返回 *‘Beta’* 。
 
 ### 概率分布类在PyNative模式下的应用

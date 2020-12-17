@@ -114,7 +114,7 @@ The `Distribution` base class invokes the private API in the `Bernoulli` to impl
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates another distribution type. Currently, only *'Bernoulli'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of experiment success is optional.
 - `sample`: Optional input parameters include sample shape *shape* and experiment success probability *probs1*.
-- `get_dist_args`: The input parameter *probs* that indicates the probability of experiment success is optional.
+- `get_dist_args`: The input parameter *probs1* that indicates the probability of experiment success is optional. Return `(probs1,)` with type tuple.
 - `get_dist_type`: return *'Bernoulli'*.
 
 #### Exponential Distribution
@@ -132,7 +132,7 @@ The `Distribution` base class invokes the `Exponential` private API to implement
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *rate_b* are mandatory.  *dist* indicates the name of another distribution type. Currently, only *'Exponential'* is supported. *rate_b* is the rate parameter of distribution *b*. Parameter *rate_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input rate parameter *rate*is optional.
 - `sample`: Optional input parameters include sample shape *shape* and rate parameter *rate*.
-- `get_dist_args`: The input rate parameter *rate* is optional.
+- `get_dist_args`: The input rate parameter *rate* is optional. Return `(rate,)` with type tuple.
 - `get_dist_type`: returns *'Exponential'*.
 
 #### Geometric Distribution
@@ -150,7 +150,7 @@ The `Distribution` base class invokes the private API in the `Geometric` to impl
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs1_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Geometric'* is supported. *probs1_b* is the experiment success probability of distribution *b*. Parameter *probs1_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs1* that indicates the probability of experiment success is optional.
 - `sample`: Optional input parameters include sample shape *shape* and experiment success probability *probs1*.
-- `get_dist_args`: The input parameter *probs1* that indicates the probability of experiment success is optional.
+- `get_dist_args`: The input parameter *probs1* that indicates the probability of experiment success is optional. Return `(probs1,)` with type tuple.
 - `get_dist_type`: returns *'Geometric'*.
 
 #### Normal Distribution
@@ -164,7 +164,7 @@ The `Distribution` base class invokes the private API in the `Normal` to impleme
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *mean_b*, and *sd_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Normal'* is supported. *mean_b* and *sd_b* indicate the mean value and standard deviation of distribution *b*, respectively. Input parameters mean value *mean_a* and standard deviation *sd_a* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters mean value *mean_a* and standard deviation *sd_a* are optional.
 - `sample`: Input parameters sample shape *shape*, average value *mean_a*, and standard deviation *sd_a* are optional.
-- `get_dist_args`: Input parameters mean value *mean_a* and standard deviation *sd_a* are optional.
+- `get_dist_args`: Input parameters mean value *mean* and standard deviation *sd* are optional. Return `(mean, sd)` with type tuple.
 - `get_dist_type`: returns *'Normal'*.
 
 #### Uniform Distribution
@@ -183,7 +183,7 @@ The `Distribution` base class invokes `Uniform` to implement public APIs in the 
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *high_b*, and *low_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Uniform'* is supported. *high_b* and *low_b* are parameters of distribution *b*. Input parameters maximum value *high* and minimum value *low* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters maximum value *high* and minimum value *low* are optional.
 - `sample`: Input parameters *shape*, maximum value *high*, and minimum value *low* are optional.
-- `get_dist_args`: Input parameters maximum value *high* and minimum value *low* are optional.
+- `get_dist_args`: Input parameters maximum value *high* and minimum value *low* are optional. Return `(low, high)` with type tuple.
 - `get_dist_type`: returns *'Uniform'*.
 
 #### Categorical Distribution
@@ -201,7 +201,7 @@ The `Distribution` base class invokes the private API in the `Categorical` to im
 - `cross_entropy` and `kl_loss`: The input parameters *dist* and *probs_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Categorical'* is supported. *probs_b* is the categories' probabilities of distribution *b*. Parameter *probs_a* of distribution *a* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter *probs* that indicates the probability of each category is optional.
 - `sample`: Optional input parameters include sample shape *shape* and the categories' probabilities *probs*.
-- `get_dist_args`: The input parameter *probs* that indicates the probability of each category is optional.
+- `get_dist_args`: The input parameter *probs* that indicates the probability of each category is optional. Return `(probs,)` with type tuple.
 - `get_dist_type`: returns *'Categorical'*.
 
 #### Cauchy Distribution
@@ -219,7 +219,7 @@ The `Distribution` base class invokes the private API in the `Cauchy` to impleme
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Cauchy'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*, respectively. Input parameters *loc* and *scale* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
 - `sample`: Input parameters sample shape *shape*, location *loc* and scale *scale* are optional.
-- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional.
+- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional. Return `(loc, scale)` with type tuple.
 - `get_dist_type`: returns *'Cauchy'*.
 
 #### LogNormal Distribution
@@ -238,7 +238,7 @@ The `Distribution` base class invokes the private API in the `LogNormal` and `Tr
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'LogNormal'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*, respectively. Input parameters *loc* and *scale* of distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
 - `sample`: Input parameters sample shape *shape*, location *loc* and scale *scale* are optional.
-- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional.
+- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional. Return `(loc, scale)` with type tuple.
 - `get_dist_type`: returns *'LogNormal'*.
 
 #### Gumbel Distribution
@@ -257,7 +257,7 @@ The `Distribution` base class invokes the private API in the `Gumbel` and `Trans
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gumbel'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory.
 - `sample`: Input parameters sample shape *shape* is optional.
-- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional.
+- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional. Return `(loc, scale)` with type tuple.
 - `get_dist_type`: returns *'Gumbel'*.
 
 #### Logistic Distribution
@@ -275,7 +275,7 @@ The `Distribution` base class invokes the private API in the `Logistic` and `Tra
 - `entropy`: Input parameters *loc* (for location) and *scale* (for scale) are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. Input parameters location *loc* and scale *scale* are optional.
 - `sample`: Input parameters sample shape *shape*, location *loc* and scale *scale* are optional.
-- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional.
+- `get_dist_args`: Input parameters location *loc* and scale *scale* are optional. Return `(loc, scale)` with type tuple.
 - `get_dist_type`: returns *'Logistic'*.
 
 #### Poisson Distribution
@@ -291,7 +291,7 @@ The `Distribution` base class invokes the private API in the `Poisson` to implem
 - `mean`,`mode`,`var`, and `sd`: The input parameter *rate* is optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameter rate* is optional.
 - `sample`: Optional input parameters include sample shape *shape* and the parameter *rate*.
-- `get_dist_args`: The input parameter *rate* is optional.
+- `get_dist_args`: The input parameter *rate* is optional. Return `(rate,)` with type tuple.
 - `get_dist_type`: returns *'Poisson'*.
 
 #### Gamma Distribution
@@ -310,7 +310,7 @@ The `Distribution` base class invokes the private API in the `Gamma` to implemen
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *concentration_b* and *rate_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gamma'* is supported. *concentration_b* and *rate_b* are the parameters of distribution *b*. The input parameters *concentration_a* and *rate_a* for distribution *a* are optional.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory. The input parameters *concentration* and *rate* are optional.
 - `sample`: Optional input parameters include sample shape *shape* and parameters *concentration* and *rate*.
-- `get_dist_args`: The input parameters *concentration* and *rate* are optional.
+- `get_dist_args`: The input parameters *concentration* and *rate* are optional. Return `(concentration, rate)` with type tuple.
 - `get_dist_type`: returns *'Gamma'*.
 
 #### Beta Distribution
@@ -329,7 +329,7 @@ The `Distribution` base class invokes the private API in the `Beta` to implement
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *concentration1_b* and *rateconcentration0_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Beta'* is supported. *concentration1_b* and *concentration0_b* are the parameters of distribution *b*. The input parameters *concentratio1n_a* and *concentration0_a* for distribution *a* are optional.
 - `prob` and `log_prob`: The input parameter *value* is mandatory. The input parameters *concentration1* and *concentration0* are optional.
 - `sample`: Optional input parameters include sample shape *shape* and parameters *concentration1* and *concentration0*.
-- `get_dist_args`: The input parameters *concentration1* and *concentration0* are optional.
+- `get_dist_args`: The input parameters *concentration1* and *concentration0* are optional. Return `(concentration1, concentration0)` with type tuple.
 - `get_dist_type`: returns *'Beta'*.
 
 ### Probability Distribution Class Application in PyNative Mode
