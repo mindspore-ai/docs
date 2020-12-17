@@ -40,7 +40,7 @@ virtual TypeId data_type() const
 
 Get data type of the MindSpore Lite MSTensor.
 
-> TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types or kObjectTypeString in TypeId enum are suitable for MSTensor.
+> TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types or kObjectTypeString in TypeId enum are applicable for MSTensor.
 
 - Returns
 

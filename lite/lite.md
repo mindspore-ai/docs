@@ -224,7 +224,7 @@
         <a href="https://www.mindspore.cn/doc/note/zh-CN/master/posenet_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">骨骼检测模型支持（Lite）</span>
+                    <span style="color:#1a1c33;">骨骼检测模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 骨骼检测可以识别摄像头中，不同姿势下人体的面部五官与肢体姿势。本文档列出可以使用MindSpore Lite推理的骨骼检测模型。
@@ -236,7 +236,7 @@
         <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">图像分割模型支持（Lite）</span>
+                    <span style="color:#1a1c33;">图像分割模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 图像分割是用于检测目标在图片中的位置或者图片中某一像素是输入何种对象的。本文档列出可以使用MindSpore Lite推理的图像分割模型。
@@ -248,7 +248,7 @@
         <a href="https://www.mindspore.cn/doc/note/zh-CN/master/style_transfer_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
-                    <span style="color:#1a1c33;">风格迁移模型支持（Lite）</span>
+                    <span style="color:#1a1c33;">风格迁移模型</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
                 风格迁移模型可以根据demo内置的标准图片改变用户目标图片的艺术风格，并在App图像预览界面中显示出来。用户可保存风格迁移结果，或者恢复图片的原始形态。
