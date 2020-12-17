@@ -8,7 +8,6 @@
 
 | 环境变量 | 所属模块 | 功能 | 类型 | 取值范围 | 配置关系 | 是否必选 |
 | --- | --- | --- | --- | --- | --- | --- |
-| | | | | | | |
 |MS_ENABLE_CACHE|MindData|是否开启dataset数据处理cache功能，可以实现数据处理过程中数据的cache能力，加速数据集读取及增强处理|String|TRUE：开启数据处理cache功能 <br>FALSE：关闭数据处理cache功能|与MS_CACHE_HOST、MS_CACHE_PORT一起使用|可选|
 |MS_CACHE_HOST|MindData|开启cache时，cache服务所在的IP|String|Cache Server所在机器的IP|与MS_ENABLE_CACHE=TRUE、MS_CACHE_PORT一起使用|可选|
 |MS_CACHE_PORT|MindData|开启cache时，cache服务所在的端口|String|Cache Server所在机器的端口|与MS_ENABLE_CACHE=TRUE、MS_CACHE_HOST一起使用|可选|
