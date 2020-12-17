@@ -8,6 +8,7 @@
     - [概述](#概述)
     - [操作流程](#操作流程)
         - [准备脚本](#准备脚本)
+        - [使用限制](#使用限制)
         - [启动MindInsight](#启动mindinsight)
     - [页面及功能介绍](#页面及功能介绍)
         - [显著图可视化](#显著图可视化)
@@ -89,8 +90,32 @@ runner.register_saliency(explainers, benchmarkers)
 runner.run()
 ```
 
-> - 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
-> - 仅支持PyNative运行模式。
+### 使用限制
+
+- 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
+- 仅支持PyNative运行模式。
+- 所有解释方法及度量方法对象均不能被不同的ImageClassificationRunner对象重用，用户必须为每个ImageClassificationRunner对象实例化独占的解释方法及度量方法对象，否则可能会产生错误。下方是一个正确使用例子。
+
+```python
+gradcam = GradCAM(net, layer='layer4')
+guidedbackprop = GuidedBackprop(net)
+
+runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.run()
+
+# generate another summary with GradCAM only
+runner2 = ImageClassificationRunner(summary_dir='./summary_dir_2', network=net, activation_fn=activation_fn, data=data)
+
+# reusing explainer instance in other runner, errors may occur
+# runner2.register_saliency(explainers=[gradcam])
+
+# instantiating a new GradCAM is the correct way
+gradcam2 = GradCAM(net, layer='layer4')
+runner2.register_saliency(explainers=[gradcam2])
+
+runner2.run()
+```
 
 ### 启动MindInsight
 
