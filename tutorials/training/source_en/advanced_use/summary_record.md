@@ -11,6 +11,7 @@
         - [Method one: Automatically collected through SummaryCollector](#method-one-automatically-collected-through-summarycollector)
         - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
         - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
+        - [Tip: Recording gradients](#tip-recording-gradients)
     - [Run MindInsight](#run-mindinsight)
     - [Notices](#notices)
 
@@ -125,6 +126,8 @@ model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], data
 ds_eval = create_dataset('./dataset_path')
 model.eval(ds_eval, callbacks=[summary_collector])
 ```
+
+> When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train()` to `False`. Please see notices for more information.
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
@@ -292,6 +295,33 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
+There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
+
+### Tip: Recording gradients
+
+Recording gradients is possible by inheriting your original optimizer and inserting calls to summary operator. An example of code is as follows:
+
+```python
+import mindspore.nn as nn
+import mindspore.ops.operations as ops
+
+# Define a new optimizer class by inheriting your original optimizer.
+class MyOptimizer(nn.Momentum):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_construct = super().construct
+        self.histogram_summary = ops.HistogramSummary()
+        self.gradient_names = [param.name + ".gradient" for param in self.parameters]
+
+    def construct(self, grads):
+        # Record gradient.
+        self.histogram_summary(self.gradient_names[0], grads[0])
+        return self._original_construct(grads)
+
+# Initialize your model with the newly defined optimizer.
+model = Model(net, loss_fn=loss_fn, optimizer=MyOptimizer(arg1=arg1value))
+```
+
 ## Run MindInsight
 
 After completing the data collection in the tutorial above, you can start MindInsight to visualize the collected data. When start MindInsight, you need to specify the summary log file directory with the `--summary-base-dir` parameter.
@@ -383,3 +413,5 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
 
 4. Currently, `SummaryCollector` and `SummaryRecord` do not support scenarios with GPU multi-card running.
+
+5. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train()` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommend you set `collect_freq` manually.
