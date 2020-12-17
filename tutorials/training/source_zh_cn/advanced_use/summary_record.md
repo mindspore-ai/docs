@@ -419,3 +419,5 @@ mindinsight stop
 4. 当前 `SummaryCollector` 和 `SummaryRecord` 不支持GPU多卡运行的场景。
 
 5. 使用summary功能时，建议将`model.train()`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
+
+6. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
