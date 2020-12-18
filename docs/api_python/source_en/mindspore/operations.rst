@@ -273,7 +273,6 @@ Array Operators
     mindspore.ops.TensorScatterUpdate
     mindspore.ops.Tile
     mindspore.ops.Transpose
-    mindspore.ops.TruncatedNormal
     mindspore.ops.TupleToArray
     mindspore.ops.Unique
     mindspore.ops.UniqueWithPad
@@ -386,6 +385,7 @@ Other Operators
     mindspore.ops.BoundingBoxDecode
     mindspore.ops.BoundingBoxEncode
     mindspore.ops.CheckValid
+    mindspore.ops.Depend
     mindspore.ops.InTopK
     mindspore.ops.IOU
     mindspore.ops.MakeRefKey
