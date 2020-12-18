@@ -144,7 +144,7 @@ def postprocess_top5(instances):
 
 预处理和后处理定义格式相同，入参为实例数据组成的tuple，每个实例数据为输入数据组成的tuple，每个输入数据为**numpy对象**，通过`yield`返回实例的处理结果，`yield`返回的数据类型可为**numpy对象、Python的bool、int、float、str、bytes**组成的tuple。
 
-预处理和后处理输入的来源和输出的使用由[方法定义](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_model.md#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89)决定。
+预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html#id9)决定。
 
 ### 模型声明
 
