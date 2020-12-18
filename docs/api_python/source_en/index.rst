@@ -23,7 +23,6 @@ MindSpore Python API
    mindspore/mindspore.explainer
    mindspore/mindspore.mindrecord
    mindspore/mindspore.nn
-   mindspore/mindspore.nn.dynamic_lr
    mindspore/mindspore.nn.probability
    mindspore/mindspore.ops
    mindspore/mindspore.profiler
