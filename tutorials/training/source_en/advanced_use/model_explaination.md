@@ -8,6 +8,7 @@
     - [Overview](#overview)
     - [Operation Process](#operation-process)
         - [Preparing the Script](#preparing-the-script)
+        - [Restrictions](#restrictions)
         - [Enabling MindInsight](#enabling-mindinsight)
     - [Pages and Functions](#pages-and-functions)
         - [Saliency Map Visualization](#saliency-map-visualization)
@@ -89,8 +90,32 @@ runner.register_saliency(explainers, benchmarkers)
 runner.run()
 ```
 
-> - Only support CNN of image classification models, such as Lenet, Resnet, Alexnet.
-> - Only support PyNative mode.
+### Restrictions
+
+- Only support CNN of image classification models, such as Lenet, Resnet, Alexnet.
+- Only support PyNative mode.
+- All instances of explanation and evaluation methods cannot be reused across runners. Explanation and evaluation methods have to be instantiated exclusively for each runner. Otherwise, errors may occur. A correct example is shown below.
+
+```python
+gradcam = GradCAM(net, layer='layer4')
+guidedbackprop = GuidedBackprop(net)
+
+runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.run()
+
+# generate another summary with GradCAM only
+runner2 = ImageClassificationRunner(summary_dir='./summary_dir_2', network=net, activation_fn=activation_fn, data=data)
+
+# reusing explainer instance in other runner, errors may occur
+# runner2.register_saliency(explainers=[gradcam])
+
+# instantiating a new GradCAM is the correct way
+gradcam2 = GradCAM(net, layer='layer4')
+runner2.register_saliency(explainers=[gradcam2])
+
+runner2.run()
+```
 
 ### Enabling MindInsight
 
