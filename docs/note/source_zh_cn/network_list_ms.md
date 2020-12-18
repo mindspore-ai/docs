@@ -72,6 +72,7 @@
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 图神经网络（GNN） | 推荐系统（Recommender System） | [BGCF](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/bgcf/src/bgcf.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 |语音（Audio） | 音频标注（Audio Tagging）  | [FCN-4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/audio/fcn-4/src/musictagger.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-|高性能计算（HPC） | 分子动力学（MolecularDynamics）  |  [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+|高性能计算（HPC） | 分子动力学（Molecular Dynamics）  |  [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+|高性能计算（HPC） | 海洋模型（Ocean Model）  |  [GOMO](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/ocean_model/src/GOMO.py)   |  Doing |  Doing |  Supported |  Doing | Doing | Doing
 
 > 你也可以使用 [MindWizard工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/) 快速生成经典网络脚本。
