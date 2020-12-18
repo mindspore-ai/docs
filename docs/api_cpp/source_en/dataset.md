@@ -4,11 +4,11 @@
 
 ## ResizeBilinear
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Resize image by bilinear algorithm, currently the data type only supports uint8, the channel only supports 3 and 1.
 
@@ -25,11 +25,11 @@ Resize image by bilinear algorithm, currently the data type only supports uint8,
 
 ## InitFromPixel
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Initialize LiteMat from pixel, providing data in RGB or BGR format does not need to be converted. Currently the conversion supports RGB_TO_BGR, RGBA_To_RGB, RGBA_To_BGR, NV21_To_BGR and NV12_To_BGR.
 
@@ -48,11 +48,11 @@ Initialize LiteMat from pixel, providing data in RGB or BGR format does not need
 
 ## ConvertTo
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Convert the data type, currently it supports converting the data type from uint8 to float.
 
@@ -68,11 +68,11 @@ Convert the data type, currently it supports converting the data type from uint8
 
 ## Crop
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Crop image, the channel supports 3 and 1.
 
@@ -91,11 +91,11 @@ Crop image, the channel supports 3 and 1.
 
 ## SubStractMeanNormalize
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Normalize image, currently the supports data type is float.
 
@@ -112,11 +112,11 @@ Normalize image, currently the supports data type is float.
 
 ## Pad
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Pad image, the channel supports 3 and 1.
 
@@ -139,11 +139,11 @@ Pad image, the channel supports 3 and 1.
 
 ## ExtractChannel
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Extract image channel by index.
 
@@ -158,11 +158,11 @@ Extract image channel by index.
 
 ## Split
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Split image channels to single channel.
 
@@ -177,11 +177,11 @@ Split image channels to single channel.
 
 ## Merge
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Create a multi-channel image out of several single-channel arrays.
 
@@ -196,11 +196,11 @@ Create a multi-channel image out of several single-channel arrays.
 
 ## Affine
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Apply affine transformation to the 1-channel image.
 
@@ -230,11 +230,11 @@ Apply affine transformation to the 3-channel image.
 
 ## GetDefaultBoxes
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Get default anchor boxes for Faster R-CNN, SSD, YOLO, etc.
 
@@ -248,11 +248,11 @@ Get default anchor boxes for Faster R-CNN, SSD, YOLO, etc.
 
 ## ConvertBoxes
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Convert the prediction boxes to the actual boxes with (y, x, h, w).
 
@@ -264,11 +264,11 @@ Convert the prediction boxes to the actual boxes with (y, x, h, w).
 
 ## ApplyNms
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 Real-size box non-maximum suppression.
 
@@ -431,11 +431,11 @@ A **pointer** to the address of the reference counter.
 
 ## Subtract
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the difference between the two images for each element.
 
@@ -451,11 +451,11 @@ Calculates the difference between the two images for each element.
 
 ## Divide
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the division between the two images for each element.
 
@@ -471,11 +471,11 @@ Calculates the division between the two images for each element.
 
 ## Multiply
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 Calculates the multiply between the two images for each element.
 

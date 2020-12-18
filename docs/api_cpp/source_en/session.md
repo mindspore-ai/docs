@@ -2,13 +2,11 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
-
 ## LiteSession
 
-LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding inference.
-
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
+LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding inference.
 
 ### Constructors & Destructors
 
@@ -220,9 +218,9 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
 ## TrainSession
 
-Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
-
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
+Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
 
 ### Constructors & Destructors
 

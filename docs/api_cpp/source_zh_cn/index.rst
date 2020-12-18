@@ -12,11 +12,11 @@ MindSpore C++ API
 
   class_list
   mindspore
+  api
+  dataset
+  vision
   lite
   session
   tensor
-  dataset
-  vision
   errorcode_and_metatype
   lite_cpp_example
-  api

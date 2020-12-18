@@ -4,11 +4,11 @@
 
 ## HWC2CHW
 
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
 ```cpp
 std::shared_ptr<HwcToChwOperation> HWC2CHW()
 ```
-
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
 
 将输入图像的通道顺序从（H，W，C）转换成（C，H，W）。
 
@@ -18,11 +18,11 @@ std::shared_ptr<HwcToChwOperation> HWC2CHW()
 
 ## CenterCrop
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 将输入的PIL图像的中心区域裁剪到给定的大小。
 
@@ -36,11 +36,11 @@ std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
 
 ## Crop
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vector<int32_t> size)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 根据位置和尺寸裁切图像。
 
@@ -55,11 +55,11 @@ std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vecto
 
 ## Decode
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<DecodeOperation> Decode(bool rgb = true)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 对输入的图像进行解码。
 
@@ -73,11 +73,11 @@ std::shared_ptr<DecodeOperation> Decode(bool rgb = true)
 
 ## Normalize
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<NormalizeOperation> Normalize(std::vector<float> mean, std::vector<float> std)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 通过给定的均值和标准差对输入的图像进行标准化。
 
@@ -92,11 +92,11 @@ std::shared_ptr<NormalizeOperation> Normalize(std::vector<float> mean, std::vect
 
 ## Resize
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 通过给定的大小对输入的PIL图像进行调整。
 

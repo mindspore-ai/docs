@@ -4,11 +4,11 @@
 
 ## HWC2CHW
 
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
 ```cpp
 std::shared_ptr<HwcToChwOperation> HWC2CHW()
 ```
-
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
 
 Convert the channel of the input image from (H, W, C) to (C, H, W).
 
@@ -18,11 +18,11 @@ Convert the channel of the input image from (H, W, C) to (C, H, W).
 
 ## CenterCrop
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 Crop the center area of the input image to the given size.
 
@@ -36,11 +36,11 @@ Crop the center area of the input image to the given size.
 
 ## Crop
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vector<int32_t> size)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 Crop an image based on the location and crop size.
 
@@ -55,11 +55,11 @@ Crop an image based on the location and crop size.
 
 ## Decode
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<DecodeOperation> Decode(bool rgb = true)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 Decode the input image.
 
@@ -73,11 +73,11 @@ Decode the input image.
 
 ## Normalize
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<NormalizeOperation> Normalize(std::vector<float> mean, std::vector<float> std)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 Normalize the input image with the given mean and standard deviation.
 
@@ -92,11 +92,11 @@ Normalize the input image with the given mean and standard deviation.
 
 ## Resize
 
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
+
 ```cpp
 std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear)
 ```
-
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
 
 Resize the input image to the given size.
 
