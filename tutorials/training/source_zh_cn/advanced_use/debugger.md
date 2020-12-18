@@ -55,12 +55,12 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |参数名|属性|功能描述|参数类型|默认值|取值范围|
 |---|---|---|---|---|---|
 |`--port {PORT}`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|
-|`--enable-debugger {ENABLE_DEBUGGER}`|必选|取值为True, 开启MindInsight侧调试器|Boolean|False|True/False|
+|`--enable-debugger {ENABLE_DEBUGGER}`|必选|取值为True或1, 开启MindInsight侧调试器|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
 更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
-然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
+然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`或`export ENABLE_MS_DEBUGGER=True`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
 `export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
 `export MS_DEBUGGER_PORT=50051`(该端口需与MindInsight debugger-port一致)。
 
@@ -127,8 +127,9 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
     - 检查过小张量（TS）：通过对条件参数设置阈值来检查张量值是否过小，可选参数为`绝对值的平均值<`、`max <`、`min <`和`mean <`。
 
  - 检查权重
-    - 检查权重变化过大（WCL）：通过对条件参数设置阈值来检查权重值的变化是否过大，可选参数为`变化比例绝对值的平均值>`。
-    - 检查权重变化过小（WCS）：通过对条件参数设置阈值来检查权重值的变化是否过小，可选参数为`变化比例绝对值的平均值<`。
+    - 检查权重变化过大（WCL）：通过对条件参数设置阈值来检查权重值的变化是否过大，可选参数为`平均变化比例值>`。
+        - 其中`平均变化比例值`的计算方式为 `mean(abs(当前权重值 - 上一轮次权重值)) / (mean(abs(上一轮次权重值)) + 偏移量)`。
+    - 检查权重变化过小（WCS）：通过对条件参数设置阈值来检查权重值的变化是否过小，可选参数为`平均变化比例值<`。
     - 检查权重初始值（WI）：通过对条件参数设置阈值来检查权重的初始值，可选参数为`0值比例>=`、`max >`和`min <`。
     - 检查未变化权重（WNC）：通过对条件参数设置阈值来检查权重值是否更新，可选参数为`相对容忍度`。
     - 检查权重溢出（WO）：检查权重值是否存在溢出现象。
