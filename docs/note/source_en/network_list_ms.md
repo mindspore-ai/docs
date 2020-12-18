@@ -72,6 +72,7 @@
 | Graph Neural Networks (GNN) | Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py)                                          |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Graph Neural Networks (GNN) | Recommender System | [BGCF](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/bgcf/src/bgcf.py)                                         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Audio | Auto Tagging | [FCN-4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/audio/fcn-4/src/musictagger.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-| High Performance Computing | MolecularDynamics | [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| High Performance Computing | Molecular Dynamics | [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| High Performance Computing | Ocean Model | [GOMO](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/ocean_model/src/GOMO.py)   |  Doing |  Doing |  Supported |  Doing | Doing | Doing
 
 > You can also use [MindWizard Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/wizard/) to quickly generate classic network scripts.
