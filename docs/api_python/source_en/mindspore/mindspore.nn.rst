@@ -60,7 +60,6 @@ Sparse Layers
     mindspore.nn.Embedding
     mindspore.nn.EmbeddingLookup
     mindspore.nn.MultiFieldEmbeddingLookup
-    mindspore.nn.SparseToDense
 
 Non-linear Activations
 ----------------------
