@@ -4,9 +4,9 @@
 
 ## MSTensor
 
-MSTensor定义了MindSpore Lite中的张量。
-
 \#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+
+MSTensor定义了MindSpore Lite中的张量。
 
 ### 构造函数和析构函数
 

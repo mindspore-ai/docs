@@ -4,11 +4,11 @@
 
 ## ResizeBilinear
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 通过双线性算法调整图像大小，当前仅支持的数据类型为uint8，当前支持的通道为3和1。
 
@@ -25,11 +25,11 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 
 ## InitFromPixel
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 从像素初始化LiteMat，提供数据为RGB或者BGR格式，不用进行格式转换，当前支持的转换是RGB_TO_BGR、RGBA_To_RGB、RGBA_To_BGR、NV21_To_BGR和NV12_To_BGR。
 
@@ -48,11 +48,11 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
 
 ## ConvertTo
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 转换数据类型，当前支持的转换是将uint8转换为float。
 
@@ -68,11 +68,11 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
 ## Crop
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 裁剪图像，通道支持为3和1。
 
@@ -91,11 +91,11 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
 ## SubStractMeanNormalize
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 归一化图像，当前支持的数据类型为float。
 
@@ -112,11 +112,11 @@ bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<
 
 ## Pad
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 填充图像，通道支持为3和1。
 
@@ -139,11 +139,11 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
 
 ## ExtractChannel
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 按索引提取图像通道。
 
@@ -158,11 +158,11 @@ bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 
 ## Split
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 将图像通道拆分为单通道。
 
@@ -177,11 +177,11 @@ bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 
 ## Merge
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 用几个单通道阵列创建一个多通道图像。
 
@@ -196,11 +196,11 @@ bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 
 ## Affine
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 对1通道图像应用仿射变换。
 
@@ -230,11 +230,11 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 
 ## GetDefaultBoxes
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 获取Faster R-CNN，SSD，YOLO等的默认框。
 
@@ -248,11 +248,11 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
 ## ConvertBoxes
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 将预测框转换为（y，x，h，w）的实际框。
 
@@ -264,11 +264,11 @@ void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vecto
 
 ## ApplyNms
 
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+
 ```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
 ```
-
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 对实际框的非极大值抑制。
 
@@ -431,11 +431,11 @@ ref_count_
 
 ## Subtract
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素的两个图像之间的差异。
 
@@ -451,11 +451,11 @@ bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 
 ## Divide
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素在两个图像之间的划分。
 
@@ -471,11 +471,11 @@ bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 
 ## Multiply
 
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+
 ```cpp
 bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
-
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 计算每个元素在两个图像之间的相乘值。
 

@@ -4,9 +4,9 @@
 
 ## MSTensor
 
-MSTensor defined tensor in MindSpore Lite.
-
 \#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+
+MSTensor defined tensor in MindSpore Lite.
 
 ### Constructors & Destructors
 

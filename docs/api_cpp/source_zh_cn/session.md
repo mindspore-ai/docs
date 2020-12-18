@@ -4,9 +4,9 @@
 
 ## LiteSession
 
-LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和前向推理。
-
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
+LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和前向推理。
 
 ### 构造函数和析构函数
 
@@ -216,9 +216,9 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-继承于类 LiteSession，用于训练模型。
-
 \#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+
+继承于类 LiteSession，用于训练模型。
 
 ### 析构函数
 

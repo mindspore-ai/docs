@@ -4,15 +4,15 @@
 
 ## Allocator
 
-Allocator类定义了一个内存池，用于动态地分配和释放内存。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+Allocator类定义了一个内存池，用于动态地分配和释放内存。
 
 ## Context
 
-Context类用于保存执行中的环境变量。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+Context类用于保存执行中的环境变量。
 
 ### 构造函数和析构函数
 
@@ -70,15 +70,15 @@ device_list_
 
 ## PrimitiveC
 
-PrimitiveC定义为算子的原型。
-
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+
+PrimitiveC定义为算子的原型。
 
 ## Model
 
-Model定义了MindSpore Lite中的模型，便于计算图管理。
-
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+
+Model定义了MindSpore Lite中的模型，便于计算图管理。
 
 ### 析构函数
 
@@ -130,9 +130,9 @@ static Model *Import(const char *model_buf, size_t size)
 
 ## CpuBindMode
 
-枚举类型，设置cpu绑定策略。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+枚举类型，设置cpu绑定策略。
 
 ### 公有属性
 
@@ -162,9 +162,9 @@ NO_BIND = 0
 
 ## DeviceType
 
-枚举类型，设置设备类型。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+枚举类型，设置设备类型。
 
 ### 公有属性
 
@@ -194,11 +194,11 @@ DT_NPU = 2
 
 ## Version
 
+\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
+
 ```cpp
 std::string Version()
 ```
-
-\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
 
 全局方法，用于获取版本的字符串。
 
@@ -232,15 +232,15 @@ std::vector<std::string> MSTensorToStrings(const tensor::MSTensor *tensor)
 
 ## DeviceContextVector
 
-元素为[**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+元素为[**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**。
 
 ## DeviceContext
 
-DeviceContext类定义不同硬件设备的环境信息。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+DeviceContext类定义不同硬件设备的环境信息。
 
 ### 公有属性
 
@@ -262,9 +262,9 @@ device_info_
 
 ## DeviceInfo
 
-**union**类型，设置不同硬件的环境变量。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+**union**类型，设置不同硬件的环境变量。
 
 ### 公有属性
 
@@ -286,9 +286,9 @@ gpu_device_info_
 
 ## CpuDeviceInfo
 
-CpuDeviceInfo类，配置CPU的环境变量。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+CpuDeviceInfo类，配置CPU的环境变量。
 
 ### Public Attributes
 
@@ -312,9 +312,9 @@ cpu_bind_mode_
 
 ## GpuDeviceInfo
 
-GpuDeviceInfo类，用来配置GPU的环境变量。
-
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+GpuDeviceInfo类，用来配置GPU的环境变量。
 
 ### 公有属性
 
@@ -330,9 +330,9 @@ enable_float16_
 
 ## TrainModel
 
-继承于结构体Model，用于导入或导出训练模型。
-
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+
+继承于结构体Model，用于导入或导出训练模型。
 
 ### 析构函数
 
