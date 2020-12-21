@@ -22,3 +22,6 @@
 |RANK_ID|MindSpore|指定深度学习时调用Ascend AI处理器的逻辑ID|Integer|0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID|无|可选|
 |MS_SUBMODULE_LOG_v|MindSpore|[MS_SUBMODULE_LOG_v功能与用法](<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html?highlight=ms_submodule_log_v#id6>)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选
 |OPTION_PROTO_LIB_PATH|MindSpore|RPOTO依赖库库路径|String|文件路径，支持相对路径与绝对路径|无|可选|
+|GE_USE_STATIC_MEMORY|GraphEngine|当网络模型层数过大时，特征图中间计算数据可能超过25G，例如BERT24网络。多卡场景下为保证通信内存高效协同，需要配置为1，表示使用内存静态分配方式，其他网络暂时无需配置，默认使用内存动态分配方式。<br>静态内存默认配置为31G，如需要调整可以通过网络运行参数graph_memory_max_size和variable_memory_max_size的总和指定；动态内存是动态申请，最大不会超过graph_memory_max_size和variable_memory_max_size的总和。|Integer|1：使用内存静态分配方式<br>0：使用内存动态分配方式|无|可选|
+|DUMP_GE_GRAPH|GraphEngine|把整个流程中各个阶段的图描述信息打印到文件中，此环境变量控制dump图的内容多少|Integer|1：全量dump<br>2：不含有权重等数据的基本版dump<br>3：只显示节点关系的精简版dump|无|可选|
+|DUMP_GRAPH_LEVEL|GraphEngine|把整个流程中各个阶段的图描述信息打印到文件中，此环境变量可以控制dump图的个数|Integer|1：dump所有图<br>2：dump除子图外的所有图<br>3：dump最后的生成图|无|可选|
