@@ -47,3 +47,9 @@ MindSpore Python API
    :caption: MindSpore Hub Python API
 
    mindspore_hub/mindspore_hub
+
+.. toctree::
+   :maxdepth: 1
+   :caption: MindSpore Serving Python API
+
+   mindspore_serving/mindspore_serving
