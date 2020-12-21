@@ -6,6 +6,7 @@
 
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
     - [概述](#概述)
+        - [环境准备](#环境准备)
         - [导出模型](#导出模型)
         - [部署Serving推理服务](#部署serving推理服务)
             - [轻量级部署](#轻量级部署)
@@ -21,6 +22,10 @@
 MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。  
 
 本文以一个简单的Add网络为例，演示MindSpore Serving如何使用。
+
+### 环境准备
+
+运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving#%E5%AE%89%E8%A3%85serving)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
 
 ### 导出模型
 
@@ -94,7 +99,7 @@ test_dir
 - `master_with_worker.py`为启动服务脚本文件。
 - `add`为模型文件夹，文件夹名即为模型名。
 - `tensor_add.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
-- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/add/servable_config.py)为[模型配置文件](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_model.md)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/add/servable_config.py)为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
 
 模型配置文件内容如下：
 
@@ -196,7 +201,7 @@ if __name__ == "__main__":
 
 ### 执行推理
 
-客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_grpc.md)，一种是通过[RESTful方式](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_restful.md)，本文以gRPC方式为例。
+客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)，本文以gRPC方式为例。
 使用[client.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py)，启动Python客户端。
 
 ```python

@@ -54,7 +54,7 @@ if __name__ == '__main__':
     run_add_common()
 ```
 
-按照[入门流程](https://www.mindspore.cn/tutorial/inference/zh-CN/serving_example.html) 导出模型、启动Serving服务器，并执行上述客户端代码。当运行正常后，将打印以下结果，为了展示方便，格式作了调整：
+按照[入门流程](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html) 导出模型、启动Serving服务器，并执行上述客户端代码。当运行正常后，将打印以下结果，为了展示方便，格式作了调整：
 
 ```python
 [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
