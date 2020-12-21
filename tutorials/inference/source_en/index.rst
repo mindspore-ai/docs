@@ -23,4 +23,4 @@ Inference Using MindSpore
    :maxdepth: 1
    :caption: Inference Service
 
-   serving
+   serving_example
