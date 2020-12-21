@@ -45,15 +45,19 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 
 class Net(nn.Cell):
+    """Define Net of add"""
+
     def __init__(self):
         super(Net, self).__init__()
         self.add = ops.TensorAdd()
 
     def construct(self, x_, y_):
+        """construct add net"""
         return self.add(x_, y_)
 
 
 def export_net():
+    """Export add net of 2x2 + 2x2, and copy output model `tensor_add.mindir` to directory ../add/1"""
     x = np.ones([2, 2]).astype(np.float32)
     y = np.ones([2, 2]).astype(np.float32)
     add = Net()
@@ -104,17 +108,13 @@ test_dir
 模型配置文件内容如下：
 
 ```python
-from mindspore_serving.worker import register
 import numpy as np
+from mindspore_serving.worker import register
 
-# define preprocess pipeline, the function arg is multi instances, every instance is the tuple of inputs
-# this example has one input and one output
-def add_trans_datatype(instances):
-    """preprocess python implement"""
-    for instance in instances:
-        x1 = instance[0]
-        x2 = instance[1]
-        yield x1.astype(np.float32), x2.astype(np.float32)
+
+def add_trans_datatype(x1, x2):
+    """define preprocess, this example has one input and one output"""
+    return x1.astype(np.float32), x2.astype(np.float32)
 
 
 # when with_batch_dim is set to False, only 2x2 add is supported
@@ -208,6 +208,7 @@ if __name__ == "__main__":
 import numpy as np
 from mindspore_serving.client import Client
 
+
 def run_add_common():
     """invoke servable add method add_common"""
     client = Client("localhost", 5500, "add", "add_common")
@@ -231,6 +232,7 @@ def run_add_common():
     result = client.infer(instances)
     print(result)
 
+
 def run_add_cast():
     """invoke servable add method add_cast"""
     client = Client("localhost", 5500, "add", "add_cast")
@@ -240,6 +242,7 @@ def run_add_cast():
     instances.append({"x1": x1, "x2": x2})
     result = client.infer(instances)
     print(result)
+
 
 if __name__ == '__main__':
     run_add_common()
