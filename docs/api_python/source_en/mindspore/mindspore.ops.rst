@@ -117,8 +117,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.OnesLike`
    * - mindspore.ops.pack
      - :class:`mindspore.ops.Pack`
-   * - mindspore.ops.print
-     - :class:`mindspore.ops.Print`
    * - mindspore.ops.print\_
      - :class:`mindspore.ops.Print`
    * - mindspore.ops.rank
