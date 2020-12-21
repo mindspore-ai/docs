@@ -29,7 +29,7 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ### 导出模型
 
-使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
+使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
 ```python
 import os
@@ -99,7 +99,7 @@ test_dir
 - `master_with_worker.py`为启动服务脚本文件。
 - `add`为模型文件夹，文件夹名即为模型名。
 - `tensor_add.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
-- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/add/servable_config.py)为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/example/add/add/servable_config.py)为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
 
 模型配置文件内容如下：
 
@@ -145,7 +145,7 @@ MindSpore Serving提供两种部署方式，轻量级部署和集群部署。轻
 #### 轻量级部署
 
 服务端调用Python接口直接启动推理进程（master和worker共进程），客户端直接连接推理服务后下发推理任务。
-执行[master_with_worker.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/master_with_worker.py)，完成轻量级部署服务如下：
+执行[master_with_worker.py](https://gitee.com/mindspore/serving/blob/master/example/add/master_with_worker.py)，完成轻量级部署服务如下：
 
 ```python
 import os
@@ -202,7 +202,7 @@ if __name__ == "__main__":
 ### 执行推理
 
 客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)，本文以gRPC方式为例。
-使用[client.py](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py)，启动Python客户端。
+使用[client.py](https://gitee.com/mindspore/serving/blob/master/example/add/client.py)，启动Python客户端。
 
 ```python
 import numpy as np
