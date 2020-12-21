@@ -61,7 +61,7 @@
 
   在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-  关于计算图，可参考文档：<https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture.html>
+  关于Graph模式和计算图，可参考文档：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html>
 
   当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
   对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
@@ -700,7 +700,7 @@ def generate_tensor():
 | `*`          |`Number` * `Number`、`Tensor` * `Tensor`、`Tensor` * `Number`。
 | `/`          |`Number` / `Number`、`Tensor` / `Tensor`、`Tensor` / `Number`。
 | `%`          |`Number` % `Number`、`Tensor` % `Tensor`、`Tensor` % `Number`。
-| `**`         |`Number` ** `Number`、`Tensor` ** `Tensor`、`Tensor` ** `Number`。
+| `**`         |`Number` \** `Number`、`Tensor` ** `Tensor`、`Tensor` ** `Number`。
 | `//`         |`Number` // `Number`、`Tensor` // `Tensor`、`Tensor` // `Number`。
 
 ### 赋值运算符
@@ -713,7 +713,7 @@ def generate_tensor():
 | `*=`         |`Number` *= `Number`、`Tensor` *= `Tensor`、`Tensor` *= `Number`。
 | `/=`         |`Number` /= `Number`、`Tensor` /= `Tensor`、`Tensor` /= `Number`。
 | `%=`         |`Number` %= `Number`、`Tensor` %= `Tensor`、`Tensor` %= `Number`。
-| `**=`        |`Number` **= `Number`、`Tensor` **= `Tensor`、`Tensor` **= `Number`。
+| `**=`        |`Number` \**= `Number`、`Tensor` **= `Tensor`、`Tensor` **= `Number`。
 | `//=`        |`Number` //= `Number`、`Tensor` //= `Tensor`、`Tensor` //= `Number`。
 
 ### 逻辑运算符
@@ -789,6 +789,22 @@ return out
 
 使用方式：`for i in sequence`
 
+示例如下：
+
+```python
+z = Tensor(np.ones((2, 3)))
+x = (1, 2, 3)
+for i in x:
+  z += i
+return z
+```
+
+结果如下：
+
+```text
+z: Tensor(shape=[2, 3], dtype=Int64, value= [[7, 7], [7, 7], [7, 7]])
+```
+
 参数：`sequence` -- 遍历序列(`Tuple`、`List`)
 
 #### while
@@ -806,7 +822,7 @@ return out
 示例1：
 
 ```python
-while (x > y):
+while x > y:
   x += 1
   return m
 return n
@@ -817,14 +833,14 @@ return n
 示例2：
 
 ```python
-out = x
-while (x > y):
+out = m
+while x > y:
   x += 1
-  out = y
+  out = n
 return out
 ```
 
-`while`内更新后`out`和更新前`out`的数据类型和`shape`必须一致。
+`while`内，`out`更新后和更新前的数据类型和`shape`必须一致。
 
 ### 流程控制语句
 
@@ -1226,7 +1242,7 @@ ret: Tensor(shape=[3], dtype=Int64, value= [1, 4, 9]))
 
 ```python
 x = Tensor(np.array([1, 2, 3]))
-print("result", )
+print("result", x)
 ```
 
 结果如下：
