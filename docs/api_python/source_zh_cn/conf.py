@@ -22,6 +22,8 @@ import mindspore
 import mindarmour
 # If you don't want to generate MindSpore_Hub APIs, comment this line.
 import mindspore_hub
+# If you don't want to generate MindSpore_Serving APIs, comment this line.
+import mindspore_serving
 
 # -- Project information -----------------------------------------------------
 
