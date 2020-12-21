@@ -19,7 +19,7 @@ This document describes how to quickly install MindSpore by pip in a Linux syste
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with 64-bit operating system.
+- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
 - Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) is installed.
     - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
@@ -76,7 +76,7 @@ It means MindSpore has been installed successfully.
 
 ## Version Update
 
-Using the following command if you need update MindSpore version:
+Using the following command if you need to update the MindSpore version:
 
 ```bash
 pip install --upgrade mindspore-gpu
