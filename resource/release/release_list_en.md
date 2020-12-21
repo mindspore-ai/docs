@@ -4,35 +4,35 @@
 
 - [Release List](#release-list)
     - [1.0.1](#101)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates)
         - [Downloads](#downloads)
         - [Related Documents](#related-documents)
     - [1.0.0](#100)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-1)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-1)
         - [Downloads](#downloads-1)
         - [Related Documents](#related-documents-1)
     - [0.7.0-beta](#070-beta)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-2)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-2)
         - [Downloads](#downloads-2)
         - [Related Documents](#related-documents-2)
     - [0.6.0-beta](#060-beta)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-3)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-3)
         - [Downloads](#downloads-3)
         - [Related Documents](#related-documents-3)
     - [0.5.2-beta](#052-beta)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-4)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-4)
         - [Downloads](#downloads-4)
         - [Related Documents](#related-documents-4)
     - [0.5.0-beta](#050-beta)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-5)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-5)
         - [Downloads](#downloads-5)
         - [Related Documents](#related-documents-5)
     - [0.3.0-alpha](#030-alpha)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-6)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-6)
         - [Downloads](#downloads-6)
         - [Related Documents](#related-documents-6)
     - [0.2.0-alpha](#020-alpha)
-        - [Releasenotes and API Changes](#releasenotes-and-api-changes-7)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-7)
         - [Downloads](#downloads-7)
         - [Related Documents](#related-documents-7)
     - [0.1.0-alpha](#010-alpha)
@@ -48,7 +48,7 @@
 
 ## 1.0.1
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
 
@@ -86,7 +86,7 @@
 
 ## 1.0.0
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
 
@@ -133,7 +133,7 @@
 
 ## 0.7.0-beta
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md>
 
@@ -169,7 +169,7 @@
 
 ## 0.6.0-beta
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md>
 
@@ -204,7 +204,7 @@
 
 ## 0.5.2-beta
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
 
@@ -239,7 +239,7 @@
 
 ## 0.5.0-beta
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
 
@@ -274,7 +274,7 @@
 
 ## 0.3.0-alpha
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md>
 
@@ -310,7 +310,7 @@
 
 ## 0.2.0-alpha
 
-### Releasenotes and API Changes
+### Releasenotes and API Updates
 
 <https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md>
 
