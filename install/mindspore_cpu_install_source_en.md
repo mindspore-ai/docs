@@ -20,7 +20,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with 64-bit operating system.
+- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
 - Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
@@ -81,11 +81,11 @@ Of which,
 python -c 'import mindspore;print(mindspore.__version__)'
 ```
 
-If the MindSpore version number is output, it means that MindSpore is installed successfully, and if the output is `No module named'mindspore'`, it means that the installation was not successful.
+If the MindSpore version number is displayed, it means that MindSpore is installed successfully, and if the output is `No module named'mindspore'`, it means that the installation was not successful.
 
 ## Version Update
 
-Using the following command if you need update MindSpore version:
+Using the following command if you need to update the MindSpore version:
 
 - Update online
 

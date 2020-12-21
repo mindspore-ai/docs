@@ -16,7 +16,7 @@ This document describes how to quickly install MindSpore by pip in a Windows sys
 
 ## System Environment Information Confirmation
 
-- Confirm that Windows 10 is installed with x86 architecture 64-bit operating system.
+- Confirm that Windows 10 is installed with the x86 architecture 64-bit operating system.
 - Confirm that Python 3.7.5 is installed.  
     - If you didn't install Python or you have installed other versions, please download the Python 3.7.5 64-bit from [Huaweicloud](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) to install.
 - After installing Python, add Python and pip to the environment variable.
@@ -40,11 +40,11 @@ Of which,
 python -c "import mindspore;print(mindspore.__version__)"
 ```
 
-If the MindSpore version number is output, it means that MindSpore is installed successfully, and if the output is `No module named 'mindspore'`, it means that the installation was not successful.
+If the MindSpore version number is displayed, it means that MindSpore is installed successfully, and if the output is `No module named 'mindspore'`, it means that the installation was not successful.
 
 ## Version Update
 
-Using the following command if you need update MindSpore version:
+Using the following command if you need to update the MindSpore version:
 
 ```bash
 pip install --upgrade mindspore
