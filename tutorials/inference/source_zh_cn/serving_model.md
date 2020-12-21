@@ -27,7 +27,7 @@ MindSpore Serving的Servable提供推理服务，包含两种类型。一种是�
 
 本文将说明如何对单模型进行配置以提供Servable，以下所有Servable配置说明针对的是单模型Servable，Serving客户端简称客户端。
 
-本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/) 。
+本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/blob/master/example/resnet/) 。
 
 ## 相关概念
 

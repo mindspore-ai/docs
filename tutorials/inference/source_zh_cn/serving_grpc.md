@@ -19,7 +19,7 @@ MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我�
 
 ## add样例
 
-样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/add/client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
+样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/add/client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
 
 ```python
 from mindspore_serving.client import Client
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 
 ## ResNet-50样例
 
-样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/example/resnet/client.py) ，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
+样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/client.py) ，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
 
 ```python
 import os
