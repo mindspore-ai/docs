@@ -11,6 +11,7 @@
         - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
+        - [方式四：进阶用法，自定义训练循环](#方式四进阶用法，自定义训练循环)
         - [使用技巧：记录梯度信息](#使用技巧记录梯度信息)
     - [运行MindInsight](#运行mindinsight)
     - [注意事项](#注意事项)
@@ -34,7 +35,7 @@
 
 当前MindSpore支持将标量、图像、计算图、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。
 
-MindSpore目前支持三种方式将数据记录到summary日志文件中。
+MindSpore目前支持多种方式将数据记录到summary日志文件中。
 
 ### 方式一：通过SummaryCollector自动收集
 
@@ -297,9 +298,64 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 
 在保存的文件中，`ms_output_after_hwopt.pb` 即为算子融合后的计算图，可以使用可视化页面对其进行查看。
 
-除了上述使用方式外，使用summary算子时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
+### 方式四：进阶用法，自定义训练循环
+
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#id4)。
+
+下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。
+
+```python
+from mindspore import nn
+from mindspore.train import SummaryRecord
+import mindspore.ops as ops
+
+class LeNet5(nn.Cell):
+    def __init__(self, num_class=10):
+        super(LeNet5, self).__init__()
+        self.num_class = num_class
+        self.batch_size = 32
+        self.conv1 = conv(1, 6, 5)
+        ...
+
+        self.image_summary = ops.ImageSummary()
+        self.tensor_summary = ops.TensorSummary()
+
+    def construct(self, x):
+        self.image_summary('x1', x)
+        x = self.conv1(x)
+        self.tensor_summary('after_conv1', x)
+        x = self.relu(x)
+        ...
+        return x
+
+...
+
+def train():
+    epochs = 10
+    net = LeNet5()
+    with SummaryRecord('./summary_dir') as summary_record:
+        for epoch in range(epochs):
+            step = 1
+            for inputs in dataset_helper:
+                output = net(*inputs)
+                current_step = epoch * len(dataset_helper) + step
+                print("step: {0}, losses: {1}".format(current_step, output.asnumpy()))
+
+                # Note1: The output should be a scalar, and use 'add_value' method to record loss.
+                # Note2: You must use the 'record(step)' method to record the data of this step.
+                summary_record.add_value('scalar', 'loss', output)
+                summary_record.record(current_step)
+
+                step += 1
+
+if __name__ == '__main__':
+    train()
+
+```
 
 ### 使用技巧：记录梯度信息
+
+除了上述使用方式外，使用summary算子时还有一个记录梯度信息的技巧。请注意此技巧需要和上述的某一种使用方式同时使用。
 
 通过继承原有优化器类的方法可以插入summary算子读取梯度信息。样例代码片段如下：
 
