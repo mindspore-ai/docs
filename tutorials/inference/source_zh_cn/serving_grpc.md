@@ -66,9 +66,9 @@ if __name__ == '__main__':
 
 1. 构造`Client`。
 
-    构造`Client`时，指示Serving的ip和端口号，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，一个Servable可以通过提供多种方法来提供不同的服务。
+   构造`Client`时，指示Serving的ip和端口号，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，一个Servable可以通过提供多种方法来提供不同的服务。
 
-    上面的`add`样例， Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
+   上面的`add`样例， Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
 
 2. 添加实例。
 
@@ -89,10 +89,10 @@ if __name__ == '__main__':
     上面的add样例，`add` Servable提供的`add_common`方法入参名为`x1`和`x2`，添加每个实例时指定每个输入的值。
 
 3. 获取推理结果。
-    通过`Client.infer`填入一个或多个实例。
-    返回可能有以下形式：
+   通过`Client.infer`填入一个或多个实例。
+   返回可能有以下形式：
 
-    - 所有实例推理正确：
+   - 所有实例推理正确：
 
         ```shell
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
@@ -100,13 +100,13 @@ if __name__ == '__main__':
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
         ```
 
-    - 针对所有实例共同的错误，返回一个包含`error`的dict。将例子中Client构造时填入的`add_common`改为`add_common2`，将返回结果：
+   - 针对所有实例共同的错误，返回一个包含`error`的dict。将例子中Client构造时填入的`add_common`改为`add_common2`，将返回结果：
 
         ```shell
         {'error', 'Request Servable(add) method(add_common2), method is not available'}
         ```
 
-    - 部分实例推理错误，出错的推理实例将返回包含`error`的dict。将instance2一个输入的`dtype`改为`np.int32`，将返回结果：
+   - 部分实例推理错误，出错的推理实例将返回包含`error`的dict。将instance2一个输入的`dtype`改为`np.int32`，将返回结果：
 
         ```shell
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
@@ -114,14 +114,14 @@ if __name__ == '__main__':
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
         ```
 
-    每个实例返回一个dict，key的值来自于Servable的方法定义，例如本例子中，`add` Servable提供的`add_common`方法输出仅有一个，为`y`。value为以下格式：
+   每个实例返回一个dict，key的值来自于Servable的方法定义，例如本例子中，`add` Servable提供的`add_common`方法输出仅有一个，为`y`。value为以下格式：
 
-    |  Serving输出类型 | Client返回类型   | 说明  |  举例  |
-    |  ----  | ----  |  ---- | ---- |
-    | Tensor | numpy array | tensor array | np.ones((3,224), np.float32) |
-    | Scalar: <br>int8, int16, int32, int64, <br>uint8, uint16, uint32, uint64, <br>bool, float16, float32, float64 | numpy scalar | Scalar格式的数据转为numpy scalar | np.int8(5)  |
-    | String | python str | 字符串格式输出转为python str | "news_car"  |
-    | Bytes | python bytes | 二进制格式输出转为python bytes | 图片数据  |
+   |  Serving输出类型 | Client返回类型   | 说明  |  举例  |
+   |  ----  | ----  |  ---- | ---- |
+   | Tensor | numpy array | tensor array | np.ones((3,224), np.float32) |
+   | Scalar: <br>int8, int16, int32, int64, <br>uint8, uint16, uint32, uint64, <br>bool, float16, float32, float64 | numpy scalar | Scalar格式的数据转为numpy scalar | np.int8(5)  |
+   | String | python str | 字符串格式输出转为python str | "news_car"  |
+   | Bytes | python bytes | 二进制格式输出转为python bytes | 图片数据  |
 
 ## ResNet-50样例
 

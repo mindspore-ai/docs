@@ -5,11 +5,11 @@
 <!-- TOC -->
 
 - [Enabling Graph Kernel Fusion](#enabling-graph-kernel-fusion)
-  - [Introduction](#introduction)
-  - [Enabling Method](#enabling-method)
-    - [Sample Scripts](#sample-scripts)
-  - [Custom Combination Operators](#custom-combination-operators)
-    - [Sample Scripts](#sample-scripts-1)
+    - [Introduction](#introduction)
+    - [Enabling Method](#enabling-method)
+        - [Sample Scripts](#sample-scripts)
+    - [Custom Combination Operators](#custom-combination-operators)
+        - [Sample Scripts](#sample-scripts-1)
 
 <!-- /TOC -->
 
@@ -20,8 +20,9 @@
 The graph kernel fusion is used to optimize network performance by cooperating with JIT operator compilation. With analyzing and evaluating the compute graph, it will apply optimization such as computing workload reduction, operator splitting, fusion and special operator compiling, to reduce network execution time. Also, the whole optimization process is completed automatically only if the graph kernel setting is enabled. This will help the user focus on the network development.
 
 The graph kernel fusion is available for:
-+ Network with high performance requirement;
-+ Custom combination operators with high performance requirement.
+
+- Network with high performance requirement;
+- Custom combination operators with high performance requirement.
 
 ## Enabling Method
 
@@ -70,7 +71,7 @@ print("result: {}".format(result))
 
 The output is:
 
-```
+```text
 result: [[2. 2. 2. 2.]
  [2. 2. 2. 2.]
  [2. 2. 2. 2.]
@@ -139,7 +140,7 @@ print("result: {}".format(result))
 
 The output is:
 
-```
+```text
 result: [[-0.015104 -0.015104 -0.015104 -0.015104]
  [-0.015104 -0.015104 -0.015104 -0.015104]
  [-0.015104 -0.015104 -0.015104 -0.015104]
