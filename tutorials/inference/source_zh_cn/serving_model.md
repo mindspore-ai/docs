@@ -169,7 +169,7 @@ from mindspore_serving.worker import register
 @register.register_method(output_names=["label"])
 def classify_top1(image):
     """Define method `classify_top1` for servable `resnet50`.
-     The input is `image` and the output is `lable`."""
+     The input is `image` and the output is `label`."""
     x = register.call_preprocess(preprocess_pipeline, image)
     x = register.call_servable(x)
     x = register.call_postprocess(postprocess_top1, x)
@@ -179,7 +179,7 @@ def classify_top1(image):
 @register.register_method(output_names=["label", "score"])
 def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
-     The input is `image` and the output is `lable` and `score`. """
+     The input is `image` and the output is `label` and `score`. """
     x = register.call_preprocess(preprocess_pipeline, image)
     x = register.call_servable(x)
     label, score = register.call_postprocess(postprocess_top5, x)
