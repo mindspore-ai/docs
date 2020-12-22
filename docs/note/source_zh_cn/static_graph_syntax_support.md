@@ -55,7 +55,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/static_graph_syntax_support.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/static_graph_syntax_support.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -697,10 +697,10 @@ def generate_tensor():
 | :----------- |:--------
 | `+`          |`Number` + `Number`、`Tensor` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tuple`、`String` + `String`。
 | `-`          |`Number` - `Number`、`Tensor` - `Tensor`、`Tensor` - `Number`。
-| `*`          |`Number` * `Number`、`Tensor` * `Tensor`、`Tensor` * `Number`。
+| `*`          |`Number` \* `Number`、`Tensor` \* `Tensor`、`Tensor` \* `Number`。
 | `/`          |`Number` / `Number`、`Tensor` / `Tensor`、`Tensor` / `Number`。
 | `%`          |`Number` % `Number`、`Tensor` % `Tensor`、`Tensor` % `Number`。
-| `**`         |`Number` \** `Number`、`Tensor` ** `Tensor`、`Tensor` ** `Number`。
+| `**`         |`Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Tensor` \*\* `Number`。
 | `//`         |`Number` // `Number`、`Tensor` // `Tensor`、`Tensor` // `Number`。
 
 ### 赋值运算符
@@ -710,10 +710,10 @@ def generate_tensor():
 | `=`          |标量、`Tensor`
 | `+=`         |`Number` += `Number`、`Tensor` += `Tensor`、`Tensor` += `Number`、`Tuple` += `Tuple`、`String` += `String`。
 | `-=`         |`Number` -= `Number`、`Tensor` -= `Tensor`、`Tensor` -= `Number`。
-| `*=`         |`Number` *= `Number`、`Tensor` *= `Tensor`、`Tensor` *= `Number`。
+| `*=`         |`Number` \*= `Number`、`Tensor` \*= `Tensor`、`Tensor` \*= `Number`。
 | `/=`         |`Number` /= `Number`、`Tensor` /= `Tensor`、`Tensor` /= `Number`。
 | `%=`         |`Number` %= `Number`、`Tensor` %= `Tensor`、`Tensor` %= `Number`。
-| `**=`        |`Number` \**= `Number`、`Tensor` **= `Tensor`、`Tensor` **= `Number`。
+| `**=`        |`Number` \*\*= `Number`、`Tensor` \*\*= `Tensor`、`Tensor` \*\*= `Number`。
 | `//=`        |`Number` //= `Number`、`Tensor` //= `Tensor`、`Tensor` //= `Number`。
 
 ### 逻辑运算符
