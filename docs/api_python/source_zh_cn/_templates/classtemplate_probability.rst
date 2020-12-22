@@ -15,6 +15,12 @@
 .. autoclass:: mindspore.nn.probability.bnn_layers.DenseReparam(in_channels, out_channels, activation=None, has_bias=True, weight_prior_fn=NormalPrior, weight_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>, bias_prior_fn=NormalPrior, bias_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>)
         :members:
 
+{% elif fullname=="mindspore.nn.probability.bnn_layers.DenseLocalReparam" %}
+{{ fullname | underline }}
+
+.. autoclass:: mindspore.nn.probability.bnn_layers.DenseLocalReparam(in_channels, out_channels, activation=None, has_bias=True, weight_prior_fn=NormalPrior, weight_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>, bias_prior_fn=NormalPrior, bias_posterior_fn=<lambda name, shape: NormalPosterior(name=name, shape=shape)>)
+        :members:
+
 {% else %}
 {{ fullname | underline }}
 
