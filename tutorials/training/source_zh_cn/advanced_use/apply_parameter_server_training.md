@@ -63,6 +63,18 @@ Parameter Server(参数服务器)是分布式训练中一种广泛使用的架�
 
 4. [可选配置]针对超大shape的`embedding_table`，由于设备上存放不下全量的`embedding_table`，可以配置[EmbeddingLookup算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html)的`vocab_cache_size`，用于开启Parameter Server训练模式下`EmbeddingLookup`的cache功能，该功能使用`vocab_cache_size`大小的`embedding_table`在设备上训练，全量`embedding_table`存储在Server，将下批次训练用到的`embedding_table`提前换入到cache上，当cache放不下时则将过期的`embedding_table`放回到Server，以达到提升训练性能的目的，详细网络训练脚本参考<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>。
 
+    ```python
+    context.set_auto_parallel_context(full_batch=True)
+    network = Net()
+    model = Model(network)
+    model.train(epoch, train_dataset, dataset_sink_mode=True)
+    ```
+
+    其中，
+
+    - `dataset_sink_mode`：是否开启数据下沉模式 ，为`True`时表明开启，通过数据集通道传递数据，该场景中必须设置为`True`。
+    - `full_batch`：是否全量导入数据集，为`True`时表明全量导入，每卡的数据相同，在多worker场景中必须设置为`True`。
+
 ### 环境变量设置
 
 MindSpore通过读取环境变量，控制Parameter Server训练，环境变量包括以下选项(其中`MS_SCHED_HOST`及`MS_SCHED_PORT`所有脚本需保持一致)：

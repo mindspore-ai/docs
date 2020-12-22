@@ -63,6 +63,18 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
 4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Detailed network training script can be referred to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>.
 
+   ```python
+    context.set_auto_parallel_context(full_batch=True)
+    network = Net()
+    model = Model(network)
+    model.train(epoch, train_dataset, dataset_sink_mode=True)
+    ```
+
+    In the information:
+
+    - `dataset_sink_mode`: whether to enable the sink mode of dataset or not. When `True`, it indicates enable, and pass the data through dataset channel. It must be set to `True` in this scenario.
+    - `full_batch`: whether to load the dataset in full or not. When `True`, it indicates full load, and data of each device is the same. It must be set to `True` in the multi-workers scenario.
+
 ### Environment Variable Setting
 
 MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
