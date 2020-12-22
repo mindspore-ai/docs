@@ -256,8 +256,6 @@ unzip mindspore-lite-maven-{version}.zip
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     ```
 
 - 当编译选项为`-I arm64`时：
@@ -277,8 +275,6 @@ unzip mindspore-lite-maven-{version}.zip
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     ```
 
 - 当编译选项为`-I arm32`时：
@@ -298,8 +294,6 @@ unzip mindspore-lite-maven-{version}.zip
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     ```
 
 - 当编译选项为`-A java`时：
@@ -390,8 +384,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     │   └── net_train
     │       ├── net_train # 训练模型性能与精度调测工具
     ```
@@ -412,8 +404,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     │   └── net_train
     │       ├── net_train # 训练模型性能与精度调测工具
     ```
@@ -434,8 +424,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     │               ├── lite_mat.h # 图像数据类结构头文件
     │       └── lib # 图像处理动态库
     │           ├── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # 第三方库头文件和库
-    │       ├── flatbuffers # FlatBuffers头文件
     │   └── net_train
     │       ├── net_train # 训练模型性能与精度调测工具
     ```
@@ -547,8 +535,6 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 |       ├── libstdc++-6.dll # MinGW动态库
 |       ├── libwinpthread-1.dll # MinGW动态库
 │   └── include # 推理框架头文件  
-│   └── third_party # 第三方库头文件和库
-│       ├── flatbuffers # FlatBuffers头文件
 ```
 
 ### 端侧训练框架编译输出
