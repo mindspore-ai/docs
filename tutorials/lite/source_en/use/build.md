@@ -13,16 +13,16 @@
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
         - [Training Output Description](#training-output-description)
-            - [Description of Training Converter's Directory Structure](#description-of-training-converters-directory-structure)
+            - [Description of Training Converter's Directory Structure](#description-of-training-converter-s-directory-structure)
             - [Description of Training Runtime and Other tools' Directory Structure](#description-of-training-runtime-and-other-tools-directory-structure)
     - [Windows Environment Compilation](#windows-environment-compilation)
         - [Environment Requirements](#environment-requirements-1)
         - [Compilation Options](#compilation-options-1)
         - [Compilation Example](#compilation-example-1)
-        - [Output Description](#output-description-1)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure-1)
-            - [Description of Benchmark Directory Structure](#description-of-benchmark-directory-structure-1)
-        - [Training Output Description](#Training Output Description-1)
+        - [Output Description](#output-description)
+            - [Description of Converter's Directory Structure](#description-of-converter-s-directory-structure-1)
+            - [Description of Benchmark's Directory Structure](#description-of-benchmark-s-directory-structure)
+    - [Training Output Description](#training-output-description-1)
 
 <!-- /TOC -->
 
@@ -552,4 +552,3 @@ The content includes the following parts:
 ### Training Output Description
 
 Currently, MindSpore ToD (Train on Device) is not supported on Windows.
-

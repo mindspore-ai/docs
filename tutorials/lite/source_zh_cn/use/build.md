@@ -554,4 +554,3 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 ### 端侧训练框架编译输出
 
 暂不支持在Windows进行端侧训练。
-
