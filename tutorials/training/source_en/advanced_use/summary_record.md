@@ -11,6 +11,7 @@
         - [Method one: Automatically collected through SummaryCollector](#method-one-automatically-collected-through-summarycollector)
         - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
         - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
+        - [Method four: Advanced usage, custom training cycle](#method-four-advanced-usage-custom-training-cycle)
         - [Tip: Recording gradients](#tip-recording-gradients)
     - [Run MindInsight](#run-mindinsight)
     - [Notices](#notices)
@@ -33,7 +34,7 @@ Scalars, images, computational graphs, and model hyperparameters during training
 
 Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page.
 
-MindSpore currently supports three ways to record data into summary log file.
+MindSpore currently supports multiple ways to record data into summary log files.
 
 ### Method one: Automatically collected through SummaryCollector
 
@@ -295,9 +296,64 @@ the `save_graphs` option of `context.set_context` in the training script is set 
 
 In the saved files, `ms_output_after_hwopt.pb` is the computational graph after operator fusion, which can be viewed on the web page.
 
-There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
+### Method four: Advanced usage, custom training cycle
+
+If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner. For a detailed custom training cycle tutorial, please [refer to the tutorial on the official website](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle).
+
+The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html?highlight=summaryrecord#mindspore.train.summary.SummaryRecord).
+
+```python
+from mindspore import nn
+from mindspore.train import SummaryRecord
+import mindspore.ops as ops
+
+class LeNet5(nn.Cell):
+    def __init__(self, num_class=10):
+        super(LeNet5, self).__init__()
+        self.num_class = num_class
+        self.batch_size = 32
+        self.conv1 = conv(1, 6, 5)
+        ...
+
+        self.image_summary = ops.ImageSummary()
+        self.tensor_summary = ops.TensorSummary()
+
+    def construct(self, x):
+        self.image_summary('x1', x)
+        x = self.conv1(x)
+        self.tensor_summary('after_conv1', x)
+        x = self.relu(x)
+        ...
+        return x
+
+...
+
+def train():
+    epochs = 10
+    net = LeNet5()
+    with SummaryRecord('./summary_dir') as summary_record:
+        for epoch in range(epochs):
+            step = 1
+            for inputs in dataset_helper:
+                output = net(*inputs)
+                current_step = epoch * len(dataset_helper) + step
+                print("step: {0}, losses: {1}".format(current_step, output.asnumpy()))
+
+                # Note1: The output should be a scalar, and use 'add_value' method to record loss.
+                # Note2: You must use the 'record(step)' method to record the data of this step.
+                summary_record.add_value('scalar', 'loss', output)
+                summary_record.record(current_step)
+
+                step += 1
+
+if __name__ == '__main__':
+    train()
+
+```
 
 ### Tip: Recording gradients
+
+There is a tip for recording gradients with summary in addition to the above methods. Please note that the tip should be used with one of the above methods.
 
 Recording gradients is possible by inheriting your original optimizer and inserting calls to summary operator. An example of code is as follows:
 
