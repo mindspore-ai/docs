@@ -93,56 +93,48 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as TC
 import mindspore.dataset.vision.c_transforms as VC
 
-# preprocess, using MindData Eager
-def preprocess_eager(instances):
+def preprocess_eager(image):
     """
-    Define preprocess pipeline, the function arg is multi instances, every instance is tuple of inputs.
-    this example has one input and one output.
-    Use MindData Eager.
+    Define preprocess, input is image numpy, return preprocess result.
+    Return type can be numpy, str, bytes, int, float, or bool.
+    Use MindData Eager, this image processing can also use other image processing library, likes numpy, PIL or cv2 etc.
     """
     image_size = 224
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
     std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
 
     decode = VC.Decode()
-    resize = VC.Resize([image_size,image_size])
+    resize = VC.Resize([image_size, image_size])
     normalize = VC.Normalize(mean=mean, std=std)
     hwc2chw = VC.HWC2CHW()
 
-    for instance in instances:
-        image = instance[0]
-        image = decode(image)
-        image = resize(image)
-        image = normalize(image)
-        image = hwc2chw(image)
-        yield (image,)
+    image = decode(image)
+    image = resize(image)
+    image = normalize(image)
+    image = hwc2chw(image)
+    return image
 
-# postprocess of top1
-def postprocess_top1(instances):
+def postprocess_top1(score):
     """
-    Define postprocess pipeline, the function arg is multi instances, every instance is tuple of inputs
-    This example has one input and one output
+    Define postprocess. This example has one input and one output.
+    The input is the numpy tensor of the score, and the output is the label str of top one.
     """
-    for instance in instances:
-        score = instance[0] # get input 0
-        max_idx = np.argmax(score)
-        yield idx_2_label[max_idx]
+    max_idx = np.argmax(score)
+    return idx_2_label[max_idx]
 
-# postprocess of top5
-def postprocess_top5(instances):
+
+def postprocess_top5(score):
     """
-    Define postprocess pipeline, the function arg is multi instances, every instance is tuple of inputs
-    This example has one input and two output
+    Define postprocess. This example has one input and two outputs.
+    The input is the numpy tensor of the score. The first output is the str joined by labels of top five, and the second output is the score tensor of the top five.
     """
-    for instance in instances:
-        score = instance[0] # get input 0
-        idx = np.argsort(score)[::-1][:5] # top 5
-        ret_label = [idx_2_label[i] for i in idx]
-        ret_score = score[idx]
-        yield ";".join(ret_label), ret_score
+    idx = np.argsort(score)[::-1][:5]  # top 5
+    ret_label = [idx_2_label[i] for i in idx]
+    ret_score = score[idx]
+    return ";".join(ret_label), ret_score
 ```
 
-预处理和后处理定义格式相同，入参为实例数据组成的tuple，每个实例数据为输入数据组成的tuple，每个输入数据为**numpy对象**，通过`yield`返回实例的处理结果，`yield`返回的数据类型可为**numpy对象、Python的bool、int、float、str、bytes**组成的tuple。
+预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的数据可为**numpy、Python的bool、int、float、str、或bytes**单个数据对象或者由它们组成的tuple。
 
 预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html#id9)决定。
 
