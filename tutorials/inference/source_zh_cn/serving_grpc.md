@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
 1. 构造`Client`。
 
-   构造`Client`时，指示Serving的ip和端口号，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，一个Servable可以通过提供多种方法来提供不同的服务。
+   构造`Client`时，指示Serving的ip和端口号，并给定Servable名称和它提供的方法。这里的Servable可以是单个模型，也可以是多个模型的组合，多个模型组合提供Servable当前尚未支持，一个Servable可以通过提供多种方法来提供不同的服务。
 
    上面的`add`样例， Serving运行在本地（`localhost`），指定的gRPC端口号为`5500`，运行了`add` Servable，`add` Servable提供了`add_common`方法。
 
