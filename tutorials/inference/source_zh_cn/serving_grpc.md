@@ -78,13 +78,13 @@ if __name__ == '__main__':
 
    `Client.infer`接口入参可为一个或多个实例输入组成的list、tuple或者单个实例输入。每个实例输入由输入的名称和输入的值组成python字典，值可以是以下格式：
 
-    |  值类型   | 说明  |  举例  |
-    |  ----  | ----  |  ---- |
-    | numpy array  | 用以表示Tensor | np.ones((3,224), np.float32) |
-    | numpy number | 用以表示Scalar | np.int8(5)  |
-    | python bool int float | 用以表示Scalar, 当前int将作为int32, float将作为float32 | 32.0  |
-    | python str | 用以表示字符串 | "this is a text"  |
-    | python bytes | 用以表示二进制数据 | 图片数据  |
+   |  值类型   | 说明  |  举例  |
+   |  ----  | ----  |  ---- |
+   | numpy array  | 用以表示Tensor | np.ones((3,224), np.float32) |
+   | numpy number | 用以表示Scalar | np.int8(5)  |
+   | python bool int float | 用以表示Scalar, 当前int将作为int32, float将作为float32 | 32.0  |
+   | python str | 用以表示字符串 | "this is a text"  |
+   | python bytes | 用以表示二进制数据 | 图片数据  |
 
     上面的add样例，`add` Servable提供的`add_common`方法入参名为`x1`和`x2`，添加每个实例时指定每个输入的值。
 
