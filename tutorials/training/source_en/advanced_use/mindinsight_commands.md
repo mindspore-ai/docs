@@ -120,7 +120,7 @@ The output directory structure is as follows:
     └─scalar.csv
 ```
 
-In which, 
+In which,
 
 - output_{datetime} is the output directory. The rule is 'output_yyyyMMdd_HHmmss_SSSSSS' including year, month, day, hour, minute, second and microseconds.
 
@@ -131,6 +131,7 @@ In which,
 ## Use Mindoptimizer to Tune Hyperparameters
 
 MindInsight provides parameters tuning command. The command-line interface (CLI) provides the following commands:
+
 ```shell
 usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
                      [--iter <ITER>]

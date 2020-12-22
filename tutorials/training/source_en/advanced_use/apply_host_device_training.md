@@ -26,8 +26,7 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 
 ## Preliminaries
 
-1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training,
-`src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
+1. Prepare the model. The Wide&Deep code can be found at: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>, in which `train_and_eval_auto_parallel.py` is the main function for training, `src/` directory contains the model definition, data processing and configuration files, `script/` directory contains the launch scripts in different modes.
 
 2. Prepare the dataset. Please refer the link in [1] to download the dataset, and use the script `src/preprocess_data.py` to transform dataset into MindRecord format.
 
@@ -111,7 +110,6 @@ Search `FusedSparseFtrl` and `FusedSparseLazyAdam` in `test_deep0.log`, the foll
 ```
 
 The above shows the running time of two optimizers on the host.
-
 
 ## Reference
 

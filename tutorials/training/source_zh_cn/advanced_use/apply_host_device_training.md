@@ -104,7 +104,6 @@ epoch: 1 step: 10, wide_loss is 0.566089, deep_loss is 0.6884129
 
 表示两个优化器在主机端的执行时间。
 
-
 ## 参考文献
 
 [1] Huifeng Guo, Ruiming Tang, Yunming Ye, Zhenguo Li, Xiuqiang He. [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction.](https://doi.org/10.24963/ijcai.2017/239) IJCAI 2017.

@@ -111,6 +111,7 @@ mindinsight parse_summary --summary-dir ./ --output ./
 ```
 
 输出目录结构如下：
+
 ```text
 └─output_{datetime}
     ├─image
@@ -130,11 +131,13 @@ mindinsight parse_summary --summary-dir ./ --output ./
 ## 使用mindoptimizer进行超参调优
 
 MindInsight中提供调参命令，命令行（Command-line interface, CLI）的使用方式，命令如下。
+
 ```shell
 usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
                      [--iter <ITER>]
 
 ```
+
 参数含义如下:
 
 |参数名|属性|功能描述|参数类型|默认值|取值范围|规则限制|
