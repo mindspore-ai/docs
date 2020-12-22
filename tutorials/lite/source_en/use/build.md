@@ -35,10 +35,10 @@ Modules in inference version:
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux, Windows | Model Conversion Tool |
-| runtime(cpp, java) | Linux, Android | Model Inference/Train Framework(cpp, java) |
+| runtime(cpp, java) | Linux, Windows, Android | Model Inference Framework(Windows platform does not support java version runtime) |
 | benchmark | Linux, Windows, Android | Benchmarking Tool |
-| lib_cropper | Linux | libmindspore-lite.a static library crop tool |
-| imageprocess | Linux, Android | Image Processing Library |
+| cropper | Linux | static library crop tool for libmindspore-lite.a |
+| minddata | Linux, Android | Image Processing Library |
 
 Modules in training version:
 
@@ -46,9 +46,10 @@ Modules in training version:
 | ------------ | ---------------- | -------------------------------------------- |
 | converter    | Linux            | Model Conversion Tool                        |
 | runtime(cpp) | Linux, Android   | Model Inference/Train Framework(cpp)         |
-| net_train    | Linux            | Verify bit exactness                         |
-| lib_cropper  | Linux            | libmindspore-lite.a static library crop tool |
 | benchmark    | Linux, Android   | Image Processing Library                     |
+| cropper  | Linux            | static library crop tool for libmindspore-lite.a |
+| minddata | Linux, Android | Image Processing Library |
+| net_train    | Linux, Android | Verify bit exactness                         |
 
 ## Linux Environment Compilation
 
@@ -56,7 +57,7 @@ Modules in training version:
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
 
-- Compilation dependencies of runtime(cpp), benchmark:
+- Compilation dependencies of runtime(cpp):
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK r20b](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip)
@@ -105,7 +106,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
 | -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
-| -o | If this parameter is set, the benchmark is compiled, default on. | on, off | No |
+| -o | If this parameter is set, the benchmark and static library crop tool is compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
 | -T | If this parameter is set, ToD(Train on Device) is compiled, i.e., this option is required when compiling MindSpore ToD, default off. | on, off | No |
 
@@ -113,7 +114,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 >
 > When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter.
 >
-> The compiler will only generate training tool packages when `-T` is opened.
+> The compiler will only generate training packages when `-T` is opened.
 >
 > Any `-e` compilation option, the CPU operator will be compiled into it.
 
@@ -169,24 +170,10 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Compile MindSpore Lite AAR in the incremental compilation mode:
+- Compile MindSpore Lite AAR:
 
     ```bash
     bash build.sh -A java -i
-    ```
-
-  > Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
-
-- Release version of the x86_64 architecture, with the converter compiled:
-
-    ```bash
-    bash build.sh -I x86_64 -C on
-    ```
-
-- Release version of the x86_64 architecture, with the benchmark compiled:
-
-    ```bash
-    bash build.sh -I x86_64 -o on
     ```
 
 - Release version of the x86_64 architecture, with the converter compiled and train on device enabled:
@@ -242,8 +229,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     |
     ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # Benchmarking Tool
-    |   └── lib_cropper # Static library crop tool
-    │       ├── lib_cropper  # Executable file of static library crop tool
+    |   └── cropper # Static library crop tool
+    │       ├── cropper  # Executable file of static library crop tool
     │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
@@ -258,30 +245,11 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │           ├── libminddata-lite.so # The files of image processing dynamic library
     ```
 
-- When the compilation option is `-I arm64`:  
+- When the compilation option is `-I arm64` or `-I arm32`:
 
     ```text
     |
-    ├── mindspore-lite-{version}-inference-android-aarch64
-    │   └── benchmark # Benchmarking Tool
-    │   └── include # Header files of inference framework
-    │   └── lib # Inference framework library
-    │       ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
-    │       ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │   └── minddata # Image processing dynamic library
-    │       └── include # Header files
-    │           └── lite_cv # The Header files of image processing dynamic library
-    │               ├── image_process.h # The Header files of image processing function
-    │               ├── lite_mat.h # The Header files of image data class structure
-    │       └── lib # Image processing dynamic library
-    │           ├── libminddata-lite.so # The files of image processing dynamic library
-    ```
-
-- When the compilation option is `-I arm32`:  
-
-    ```text
-    |
-    ├── mindspore-lite-{version}-inference-android-aarch32
+    ├── mindspore-lite-{version}-inference-android-{arch}
     │   └── benchmark # Benchmarking Tool
     │   └── include # Header files of inference framework
     │   └── lib # Inference framework library
@@ -307,7 +275,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
-> 1. Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, compiling ARM32 is in the same way.
+> 1. Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
 > 2. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
@@ -326,7 +294,7 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-inference-{os}-{arch}/
 
 If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool, Only supports the MindIR model.
 - `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
@@ -368,8 +336,8 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     ```text
     |
     ├── mindspore-lite-{version}-train-linux-x64
-    |   └── lib_cropper # Static library crop tool
-    │       ├── lib_cropper  # Executable file of static library crop tool
+    |   └── cropper # Static library crop tool
+    │       ├── cropper  # Executable file of static library crop tool
     │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     │   └── include # Header files of training framework
     │   └── lib # Inference framework library
@@ -488,7 +456,7 @@ call build.bat lite 8
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
 - `mindspore-lite-{version}-converter-win-x64.zip`: Contains model conversion tool.
-- `mindspore-lite-{version}-inference-win-x64.zip`: Contains benchmarking tool.
+- `mindspore-lite-{version}-inference-win-x64.zip`: Contains model inference framework and benchmarking tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 

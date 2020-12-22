@@ -35,10 +35,10 @@
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
 | converter          | Linux, Windows          | 模型转换工具                      |
-| runtime(cpp、java) | Linux, Android          | 模型推理框架(cpp、java)           |
+| runtime(cpp、java) | Linux, Windows, Android | 模型推理框架（Windows平台不支持java版runtime） |
 | benchmark          | Linux, Windows, Android | 基准测试工具                      |
-| lib_cropper        | Linux                   | libmindspore-lite.a静态库裁剪工具 |
-| imageprocess       | Linux, Android          | 图像处理库                        |
+| cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
+| minddata           | Linux, Android          | 图像处理库                        |
 
 训练版本包含模块：
 
@@ -46,9 +46,9 @@
 | ------------ | -------------- | --------------------------------- |
 | converter    | Linux          | 模型转换工具                      |
 | runtime(cpp) | Linux, Android | 模型训练框架(cpp)                 |
-| benchmark    | Linux          | 基准测试工具                      |
-| lib_cropper  | Linux          | libmindspore-lite.a静态库裁剪工具 |
-| imageprocess | Linux          | 图像处理库                        |
+| benchmark    | Linux, Android | 基准测试工具                      |
+| cropper      | Linux          | libmindspore-lite.a静态库裁剪工具 |
+| minddata     | Linux, Android | 图像处理库                        |
 | net_train    | Linux, Android | 性能测试和精度校验工具            |
 
 ## Linux环境编译
@@ -56,7 +56,7 @@
 ### 环境要求
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
-- runtime(cpp)、benchmark编译依赖
+- runtime(cpp)编译依赖
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
@@ -103,7 +103,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
 | -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包 | cpp、java | 否 |
 | -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
-| -o | 设置该参数，则编译基准测试工具，默认为on | on、off | 否 |
+| -o | 设置该参数，则编译基准测试工具、静态库裁剪工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
 | -T | 是否编译训练版本工具，默认为off | on、off | 否 |
 
@@ -111,7 +111,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 >
 > 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
 >
-> 开启编译选项`-T`只生成训练版本工具。
+> 开启编译选项`-T`只生成训练版本。
 >
 > 任何`-e`编译选项，CPU都会编译进去。
 
@@ -167,24 +167,10 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- 增量编译MindSpore Lite AAR。
+- 编译MindSpore Lite AAR。
 
   ```bash
-  bash build.sh -A java -i
-  ```
-
-  > 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
-
-- 编译x86_64架构Release版本，同时编译模型转换工具。
-
-  ```bash
-  bash build.sh -I x86_64 -C on
-  ```
-
-- 编译x86_64架构Release版本，同时编译基准测试工具、库裁剪工具。
-
-  ```bash
-  bash build.sh -I x86_64 -o on
+  bash build.sh -A java
   ```
 
 - 编译x86_64架构Release版本，同时生成端侧运行时 (Runtime) 训练版本工具。
@@ -197,9 +183,9 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
 
-- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`：模型推理转换工具包。
+- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`：模型转换工具包。
 
-- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具lib_cropper。
+- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`：包含模型推理框架runtime、基准测试工具benchmark、库裁剪工具cropper。
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
@@ -242,8 +228,8 @@ unzip mindspore-lite-maven-{version}.zip
     |
     ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # 基准测试工具
-    |   └── lib_cropper # 库裁剪工具
-    │       ├── lib_cropper  # 库裁剪工具可执行文件
+    |   └── cropper # 库裁剪工具
+    │       ├── cropper  # 库裁剪工具可执行文件
     │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     │   └── include # 推理框架头文件
     │   └── lib # 推理框架库
@@ -258,30 +244,11 @@ unzip mindspore-lite-maven-{version}.zip
     │           ├── libminddata-lite.so # 图像处理动态库文件
     ```
 
-- 当编译选项为`-I arm64`时：
+- 当编译选项为`-I arm64`或`-I arm32`时：
 
     ```text
     |
-    ├── mindspore-lite-{version}-inference-android-aarch64
-    │   └── benchmark # 基准测试工具
-    │   └── include # 推理框架头文件  
-    │   └── lib # 推理框架库
-    │       ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
-    │       ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-    │   └── minddata # 图像处理动态库
-    │       └── include # 头文件
-    │           └── lite_cv # 图像处理库头文件
-    │               ├── image_process.h # 图像处理函数头文件
-    │               ├── lite_mat.h # 图像数据类结构头文件
-    │       └── lib # 图像处理动态库
-    │           ├── libminddata-lite.so # 图像处理动态库文件
-    ```
-
-- 当编译选项为`-I arm32`时：
-
-    ```text
-    |
-    ├── mindspore-lite-{version}-inference-android-aarch32
+    ├── mindspore-lite-{version}-inference-android-{arch}
     │   └── benchmark # 基准测试工具
     │   └── include # 推理框架头文件  
     │   └── lib # 推理框架库
@@ -307,7 +274,7 @@ unzip mindspore-lite-maven-{version}.zip
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
-> 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，编译ARM32同理。
+> 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32只支持CPU。
 > 2. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
 
 配置converter：
@@ -326,7 +293,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/l
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 
-`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型训练转换工具包。
+`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型转换工具包，只支持MindIR模型。
 
 `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
 
@@ -370,8 +337,8 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     |
     ├── mindspore-lite-{version}-train-linux-x64
     │   └── benchmark # 基准测试工具
-    |   └── lib_cropper # 库裁剪工具
-    │       ├── lib_cropper  # 库裁剪工具可执行文件
+    |   └── cropper # 库裁剪工具
+    │       ├── cropper  # 库裁剪工具可执行文件
     │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     │   └── include # 训练框架头文件
     │   └── lib # 训练框架库
@@ -490,7 +457,7 @@ call build.bat lite 8
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
 
 - `mindspore-lite-{version}-converter-win-x64.zip`：包含模型转换工具converter。
-- `mindspore-lite-{version}-inference-win-x64.zip`：包含基准测试工具benchmark。
+- `mindspore-lite-{version}-inference-win-x64.zip`：包含模型推理框架runtime、基准测试工具benchmark。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
