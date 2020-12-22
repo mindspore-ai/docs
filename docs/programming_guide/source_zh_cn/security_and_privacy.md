@@ -35,7 +35,7 @@
 
 ### Detector
 
-`Detector`基类定义了对抗样本检测的使用借口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
+`Detector`基类定义了对抗样本检测的使用接口，其子类实现了各种具体的检测算法，增强模型的对抗鲁棒性。
 
 详细内容，请参考[对抗鲁棒性官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html)。
 
