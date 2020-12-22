@@ -100,7 +100,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
-| -e | In the ARM architecture, select the backend operator. Otherwise, all operator of the framework is compiled at the same time. | CPU, GPU, NPU | No |
+| -e | In the ARM architecture, select the backend operator. Otherwise, all operator of the framework is compiled at the same time. | cpu, gpu, npu | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
 | -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
