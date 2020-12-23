@@ -22,7 +22,7 @@ A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.0/mode
 
 [GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/dataset_loading.html#id5)
 
-[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.dataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
