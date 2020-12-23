@@ -170,7 +170,7 @@ from mindspore_serving.worker import register
 def classify_top1(image):
     """Define method `classify_top1` for servable `resnet50`.
      The input is `image` and the output is `label`."""
-    x = register.call_preprocess(preprocess_pipeline, image)
+    x = register.call_preprocess(preprocess_eager, image)
     x = register.call_servable(x)
     x = register.call_postprocess(postprocess_top1, x)
     return x
@@ -180,7 +180,7 @@ def classify_top1(image):
 def classify_top5(image):
     """Define method `classify_top5` for servable `resnet50`.
      The input is `image` and the output is `label` and `score`. """
-    x = register.call_preprocess(preprocess_pipeline, image)
+    x = register.call_preprocess(preprocess_eager, image)
     x = register.call_servable(x)
     label, score = register.call_postprocess(postprocess_top5, x)
     return label, score
@@ -202,4 +202,4 @@ Python函数和Servable方法对应关系如下表：
 
 - `return`指示了方法的返回数据，和`register_method`的`output_names`参数对应。
 
-方法定义不能包括if、for、while等分支结构，预处理和后处理可选，模型推理必选，且顺序不能打乱。
+方法定义不能包括if、for、while等分支结构，预处理和后处理可选，不可重复，模型推理必选，且顺序不能打乱。
