@@ -78,17 +78,16 @@ if __name__ == '__main__':
 
    `Client.infer`接口入参可为一个或多个实例输入组成的list、tuple或者单个实例输入。每个实例输入由输入的名称和输入的值组成python字典，值可以是以下格式：
 
-   |  值类型   | 说明  |  举例  |
-   |  ----  | ----  |  ---- |
-   | numpy array  | 用以表示Tensor | np.ones((3,224), np.float32) |
-   | numpy number | 用以表示Scalar | np.int8(5)  |
-   | python bool int float | 用以表示Scalar, 当前int将作为int32, float将作为float32 | 32.0  |
-   | python str | 用以表示字符串 | "this is a text"  |
-   | python bytes | 用以表示二进制数据 | 图片数据  |
+   - `numpy array`：用以表示Tensor。例如：np.ones((3,224), np.float32)。
+   - `numpy number`：用以表示Scalar。例如：np.int8(5)。
+   - `python bool int float`：用以表示Scalar, 当前int将作为int32, float将作为float32。例如：32.0。
+   - `python str`：用以表示字符串。例如："this is a text"。
+   - `python bytes`：用以表示二进制数据。例如：图片数据。
 
-    上面的add样例，`add` Servable提供的`add_common`方法入参名为`x1`和`x2`，添加每个实例时指定每个输入的值。
+   上面的add样例，`add` Servable提供的`add_common`方法入参名为`x1`和`x2`，添加每个实例时指定每个输入的值。
 
 3. 获取推理结果。
+
    通过`Client.infer`填入一个或多个实例。
    返回可能有以下形式：
 
@@ -125,7 +124,7 @@ if __name__ == '__main__':
 
 ## ResNet-50样例
 
-样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/client.py) ，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
+样例来源于[ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/client.py)，`ResNet-50` Servable提供的`classify_top1`方法提供对图像进行识别的服务。`classify_top1`方法输入为图像数据，输出为字符串，方法中预处理对图像进行解码、Resize等操作，接着进行推理，并通过后处理返回得分最大的分类标签。
 
 ```python
 import os
