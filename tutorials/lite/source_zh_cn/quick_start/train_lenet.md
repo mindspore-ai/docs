@@ -7,10 +7,10 @@
 - [训练一个LeNet模型](#训练一个LeNet模型)
     - [概述](#概述)
     - [准备](#准备)
-        - [安卓设备](#安卓设备)
         - [下载数据集](#下载数据集)
         - [安装MindSpore](#安装MindSpore)
         - [获取Converter和Runtime](#获取Converter和Runtime)
+        - [连接安卓设备](#连接安卓设备)
     - [模型训练和验证](#模型训练和验证)
     - [示例程序详解](#示例程序详解)
         - [示例程序结构](#示例程序结构)
@@ -36,11 +36,7 @@
 
 ## 准备
 
-### 安卓设备
-
-首先请准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
-
-本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程执行各类设备操作；如果没有安装`adb`工具，可以执行`apt install adb`安装。
+以下操作均在PC上完成，推荐使用x86平台的Ubuntu 18.04 64位操作系统。
 
 ### 下载数据集
 
@@ -64,21 +60,37 @@ MNIST_Data/
 
 ### 安装MindSpore
 
-参考[MindSpore安装](https://www.mindspore.cn/install/)，正确安装MindSpore云侧环境。
+安装MindSpore CPU环境，具体请参考[MindSpore安装](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
 
 ### 获取Converter和Runtime
 
-可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`conveter`以及`runtime-arm64-cpu`包，也可以在下载页面直接[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)。
+可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`conveter`以及`runtime-arm64-cpu`包。编译命令如下：
+
+```shell
+# 生成converter工具以及x86平台的runtime包
+bash build.sh -I x86_64 -T on -e CPU -j8
+
+# 生成arm64平台的runtime包
+bash build.sh -I arm64 -T on -e CPU -j8
+```
+
+你也可以在[下载页面](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)直接下载所需要的转换工具以及模型训练框架，并将它们放在MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+
+### 连接安卓设备
+
+准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+
+本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程执行各类设备操作；如果没有安装`adb`工具，可以执行`apt install adb`安装。
 
 ## 模型训练和验证
 
-示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令：
+示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令后，脚本会导出`lenet_tod.mindir`模型，然后利用`converter`工具将`MINDIR`模型转换为MindSpore Lite可以识别的`lenet_tod.ms`模型；最后，将`lenet_tod.ms`模型文件、MNIST数据集以及MindSpore Lite训练runtime包推送到Andorid设备上，执行训练。
 
 ```bash
-bash prepare_and_run.sh -D {your_mnist_data_path} [-d mindspore_docker_path] [-r mindspore_runtime_path] [-t arm64|x86]
+bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-`{your_mnist_data_path}`是你服务器或笔记本上MNIST数据集绝对路径，`mindspore_docker_path`为docker镜像路径，`mindspore_runtime_path`为端侧运行时训练工具压缩包绝对路径，`-t`为设备处理器架构类型。
+其中，`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`表示我们将在Android设备上执行训练和推理。
 
 在Android设备上训练LeNet模型每100轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率，结果如下所示（测试准确率会受设备差异的影响）：
 
@@ -119,6 +131,8 @@ accuracy = 0.970553
 Load trained model and evaluate accuracy
 accuracy = 0.970553
 ```
+
+> 如果你没有Android设备，也可以执行`bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86`直接在PC上运行本示例。
 
 ## 示例程序详解
 

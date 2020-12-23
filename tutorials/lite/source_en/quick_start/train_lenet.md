@@ -6,17 +6,15 @@
 
 - [Overview](#overview)
 - [Environment Preparing](#environment-preparing)
-    - [Android Device](#android-device)
     - [Dataset](#dataset)
     - [Install MindSpore](#install-mindspore)
     - [Converter and Runtime Tool](#converter-and-runtime-tool)
+    - [Connect Android Device](#connect-android-device)
+- [Train and Eval](#train-and-eval)
 - [Details](#details)
-- [Model Exporting](#model-exporting)
-- [Model Transfering](#model-transfering)
-- [Model Training](#model-training)
-    - [Load Model](#load-model)
-        - [Dataset Processing](#dataset-processing)
-        - [Execute Training](#execute-training)
+    - [Model Exporting](#model-exporting)
+    - [Model Transfering](#model-transfering)
+    - [Model Training](#model-training)
 
 <!-- /TOC -->
 
@@ -36,49 +34,60 @@ Details will be told after environment deployed and model training by running pr
 
 ## Environment Preparing
 
-### Android Device
-
-Turning on the 'USB debugging' mode of your Android devices and connecting it with your PC or server by using `adb` debugging tool (run`sudo apt install adb` in Ubuntu OS command line).
+All the following operations are under PC, the Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
 
 ### DataSet
 
-In this example we use the MNIST dataset of handwritten digits as published in [THE MNIST DATABASE](http://yann.lecun.com/exdb/mnist/).
+The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixels grayscale images. It has a training set of 60,000 examples, and a test set of 10,000 examples.
 
-- Dataset size：52.4M, 28*28 in 10 classes
-    - Train：60,000 images
-    - Test：10,000 images
-- Data format：binary files
-    - Note：Data will be processed in dataset.cc
+> Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are for data training, and the last two links are for data test.
 
-- The dataset directory structure is as follows:
+Download the files, decompress them, and store them in the workspace directories `/PATH/MNIST_Data/train` and `/PATH/MNIST_Data/test`.
+
+The directory structure is as follows:
 
 ```text
-mnist/
-├── test
-│   ├── t10k-images-idx3-ubyte
-│   └── t10k-labels-idx1-ubyte
-└── train
-    ├── train-images-idx3-ubyte
-    └── train-labels-idx1-ubyte
+└─MNIST_Data
+    ├─test
+    │      t10k-images.idx3-ubyte
+    │      t10k-labels.idx1-ubyte
+    │
+    └─train
+            train-images.idx3-ubyte
+            train-labels.idx1-ubyte
 ```
 
 ### Install MindSpore
 
-Please referring MindSpore [installation](https://www.mindspore.cn/install/).
+Please referring MindSpore [installation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) to install MindSpore CPU environment.
 
 ### Converter and Runtime Tool
 
-Acquiring `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refering [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter or you could get them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html).
+Acquire `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter, the command is shown below:
+
+```shell
+# generate converter tools and runtime package on x86
+bash build.sh -I x86_64 -T on -e CPU -j8
+
+# generate runtime package on arm64
+bash build.sh -I arm64 -T on -e CPU -j8
+```
+
+You could also directly download them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
+
+### Connect Android Device
+
+Turning on the 'USB debugging' mode of your Android device and connect it with your PC by using `adb` debugging tool (run`sudo apt install adb` in Ubuntu OS command line).
 
 ## Train and Eval
 
 Executing the bash command below under `./mindspore/lite/example/train_lenet` directory.
 
 ```bash
-bash prepare_and_run.sh -D {your_mnist_data_path} [-d mindspore_docker_path] [-r mindspore_runtime_path] [-t arm64|x86]
+bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-`{your_mnist_data_path}` is the absolute mnist dataset path in your machine. `mindspore_docker_path` is the path of docker. `mindspore_runtime_path` is the path of ToD runtime training tool compression package. `-t` is the type of device processor framework.
+`/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device.
 
 The model will be trained on your device and print training loss and accuracy value every 100 epochs. The trained model will be saved as 'lenet_tod.ms' file. The classification accuracy varies in devices.
 
@@ -119,6 +128,8 @@ accuracy = 0.970553
 Load trained model and evaluate accuracy
 accuracy = 0.970553
 ```
+
+> If the Android device is not available on your hand, you could also exectute `bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86` and run it on the x86 platform.
 
 ## Details
 
