@@ -77,12 +77,16 @@
 
 本篇教程主要介绍在多卡训练过程中，每张卡上保存模型的切片，在推理阶段采用多卡形式，按照推理策略重新加载模型进行推理的过程。针对超大规模神经网络模型的参数个数过多，模型无法完全加载至单卡中进行推理的问题，可利用多卡进行分布式推理。
 
+> 分布式推理样例代码：
+>
+> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_inference>
+
 分布式推理流程如下：
 
 1. 执行训练，生成checkpoint文件和模型参数切分策略文件。
 
     > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>.
-    > - 在分布式推理场景中，训练阶段的`save_checkpoint`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
+    > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
     > - `set_auto_parallel_context`接口的`parallel_mode`参数需设定为`auto_parallel`或者`semi_auto_parallel`，并行模式为自动并行或者半自动并行。
     > - 此外还需指定`strategy_ckpt_save_file`参数，即生成的策略文件的地址。
 
