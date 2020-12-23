@@ -46,7 +46,7 @@
     export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
     ```
 
-   > 由于使用缓存可能会造成服务器的内存紧张，因此建议用户在使用缓存前增大服务器的交换内存空间至100GB以上，可参考[相关教程](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F)了解如何增大交换内存空间。
+   > 由于使用缓存可能会造成服务器的内存紧张，因此建议用户在使用缓存前增大服务器的交换内存空间至100GB以上，Ubuntu、EulerOS以及CentOS均可参考[相关教程](https://help.ubuntu.com/community/SwapFaq#How_do_I_add_a_swap_file.3F)了解如何增大交换内存空间。
 
 2. 启动缓存服务器。
 
