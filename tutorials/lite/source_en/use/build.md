@@ -256,8 +256,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     ```
 
 - When the compilation option is `-I arm64`:  
@@ -277,8 +275,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     ```
 
 - When the compilation option is `-I arm32`:  
@@ -298,8 +294,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     ```
 
 - When the compilation option is `-A java`:
@@ -388,8 +382,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     │   └── net_train
     │       ├── net_train # training model benchmark tool
     ```
@@ -410,8 +402,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     │   └── net_train
     │       ├── net_train # training model benchmark tool
     ```
@@ -432,8 +422,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # Header files and libraries of third party libraries
-    │       ├── flatbuffers # Header files of FlatBuffers
     │   └── net_train
     │       ├── net_train # training model benchmark tool
     ```
@@ -545,8 +533,6 @@ The content includes the following parts:
 |       ├── libstdc++-6.dll # Dynamic library of MinGW
 |       ├── libwinpthread-1.dll # Dynamic library of MinGW
 │   └── include # Header files of inference framework
-│   └── third_party # Header files and libraries of third party libraries
-│       ├── flatbuffers # Header files of FlatBuffers
 ```
 
 ### Training Output Description
