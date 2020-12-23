@@ -42,6 +42,8 @@
     - [贝叶斯层](#贝叶斯层)
     - [贝叶斯转换](#贝叶斯转换)
     - [贝叶斯工具箱](#贝叶斯工具箱)
+        - [不确定性评估](#不确定性评估)
+        - [异常检测](#异常检测)
 
 <!-- /TOC -->
 
@@ -998,6 +1000,8 @@ API`TransformToBNN`主要实现了两个功能：
 
 ## 贝叶斯工具箱
 
+### 不确定性评估
+
 贝叶斯神经网络的优势之一就是可以获取不确定性，MDP在上层提供了不确定性估计的工具箱（`mindspore.nn.probability.toolbox`），用户可以很方便地使用该工具箱计算不确定性。不确定性意味着深度学习模型对预测结果的不确定程度。目前，大多数深度学习算法只能给出高置信度的预测结果，而不能判断预测结果的确定性，不确定性主要有两种类型：偶然不确定性和认知不确定性。
 
 - 偶然不确定性（Aleatoric Uncertainty）：描述数据中的内在噪声，即无法避免的误差，这个现象不能通过增加采样数据来削弱。
@@ -1053,3 +1057,38 @@ The shape of aleatoric uncertainty is (32,)
 ```
 
 uncertainty的值大于等于0，越大表示不确定性越高。
+
+### 异常检测
+
+异常检测(Anomaly Detection)可以找到与“主要数据分布不同”的异常值，比如在数据预处理中找出异常点，有助于提升模型的拟合能力。
+
+MDP在上层基于变分自编码器（VAE）提供了异常检测的工具箱(`VAEAnomalyDetection`)，与VAE的使用类似，我们只需要自定义编码器和解码器（DNN模型），初始化相关参数，便可以使用该工具箱检测异常点。
+
+基于VAE的异常检测工具箱的接口如下：
+
+- `encoder`：编码器（Cell类型）
+- `decoder`：解码器（Cell类型）
+- `hidden_size`：编码器输出张量的大小
+- `latent_size`：隐空间的大小
+
+编码器和解码器可使用以上的Encoder和Decoder，设置hidden_size和latent_size，进行类的初始化，之后传入数据集可以进行异常点的检测。
+
+```python
+from mindspore.nn.probability.toolbox.vae_anomaly_detection import VAEAnomalyDetection
+
+if __name__ == '__main__':
+    encoder = Encoder()
+    decoder = Decoder()
+    ood = VAEAnomalyDetection(encoder=encoder, decoder=decoder,
+                              hidden_size=400, latent_size=20)
+    ds_train = create_dataset('workspace/mnist/train')
+    ds_eval = create_dataset('workspace/mnist/test')
+    model = ood.train(ds_train)
+    for sample in ds_eval.create_dict_iterator(output_numpy=True, num_epochs=1):
+        sample_x = Tensor(sample['image'], dtype=mstype.float32)
+        score = ood.predict_outlier_score(sample_x)
+        outlier = ood.predict_outlier(sample_x)
+        print(score, outlier)
+```
+
+`score`输出的是样本的异常分数；`outlier`是布尔类型，True代表是异常点，False代表不是异常点。

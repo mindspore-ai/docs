@@ -42,6 +42,8 @@
     - [Bayesian Layer](#bayesian-layer)
     - [Bayesian Conversion](#bayesian-conversion)
     - [Bayesian Toolbox](#bayesian-toolbox)
+        - [Uncertainty Estimation](#uncertainty-estimation)
+        - [Anomaly Detection](#anomaly-detection)
 
 <!-- /TOC -->
 
@@ -997,6 +999,8 @@ For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conv
 
 ## Bayesian Toolbox
 
+### Uncertainty Estimation
+
 One of the advantages of the BNN is that uncertainty can be obtained. MDP provides a toolbox (`mindspore.nn.probability.toolbox`) for uncertainty estimation at the upper layer. You can easily use the toolbox to calculate uncertainty. Uncertainty means the uncertainty of the prediction result of the deep learning model. Currently, most deep learning algorithms can only provide high-confidence prediction results, but cannot determine the certainty of the prediction results. There are two types of uncertainty: aleatoric uncertainty and epistemic uncertainty.
 
 - Aleatoric uncertainty: describes the internal noise of data, that is, the unavoidable error. This phenomenon cannot be weakened by adding sampling data.
@@ -1052,3 +1056,38 @@ The shape of epistemic uncertainty is (32,)
 ```
 
 The value of uncertainty is greater than or equal to zero. A larger value indicates higher uncertainty.
+
+### Anomaly Detection
+
+Anomaly Detection can find outliers that are "different from the main data distribution". For example, finding outliers in data preprocessing can help improve the model's fitting ability.
+
+MDP provides anomaly detection toolbox (`VAEAnomalyDetection`) based on the variational autoencoder (VAE) in the upper layer. Similar to the use of VAE, we only need to customize the encoder and decoder (DNN model), initialize the relevant parameters, then you can use the toolbox to detect abnormal points.
+
+The interface of the VAE-based anomaly detection toolbox is as follows:
+
+- `encoder`：Encoder(Cell)
+- `decoder`：Decoder(Cell)
+- `hidden_size`：The size of encoder's output tensor
+- `latent_size`：The size of the latent space
+
+Use Encoder and Decoder, set hidden_size and latent_size, initialize the class, and then pass the dataset to detect abnormal points.
+
+```python
+from mindspore.nn.probability.toolbox.vae_anomaly_detection import VAEAnomalyDetection
+
+if __name__ == '__main__':
+    encoder = Encoder()
+    decoder = Decoder()
+    ood = VAEAnomalyDetection(encoder=encoder, decoder=decoder,
+                              hidden_size=400, latent_size=20)
+    ds_train = create_dataset('workspace/mnist/train')
+    ds_eval = create_dataset('workspace/mnist/test')
+    model = ood.train(ds_train)
+    for sample in ds_eval.create_dict_iterator(output_numpy=True, num_epochs=1):
+        sample_x = Tensor(sample['image'], dtype=mstype.float32)
+        score = ood.predict_outlier_score(sample_x)
+        outlier = ood.predict_outlier(sample_x)
+        print(score, outlier)
+```
+
+The output of `score` is the anomaly score of the sample. `outlier` is a Boolean type, `True` represents an abnormal point, and `False` represents a normal point.
