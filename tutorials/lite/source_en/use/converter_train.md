@@ -1,10 +1,10 @@
-# Creating MindSpore ToD Models
+# Creating MindSpore Lite Models
 
 `Linux` `Environment Preparation` `Model Export` `Model Converting` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Creating MindSpore ToD Models](#creating-mindspore-tod-model)
+- [Creating MindSpore Lite Models](#creating-mindspore-lite-model)
     - [Overview](#overview)
     - [Linux Environment](#linux-environment)
         - [Environment Preparation](#environment-preparation)
@@ -17,16 +17,16 @@
 
 ## Overview
 
-Creating your MindSpore ToD(Train on Device) model is a two step procedure:
+Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
 - In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
-- In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore ToD framework. The converted `.ms` models can be used for both training and inference.
+- In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework. The converted `.ms` models can be used for both training and inference.
 
 ## Linux Environment
 
 ### Environment Preparation
 
-MindSpore ToD model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
+MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
 - Compile or download the compiled model transfer tool.
 
@@ -34,7 +34,7 @@ MindSpore ToD model transfer tool (only suppot Linux OS) has provided multiple p
 
 ### Parameters Description
 
-The table below shows the parameters used in the MindSpore ToD model training transfer tool.
+The table below shows the parameters used in the MindSpore Lite model training transfer tool.
 | Parameters                  | required | Parameter Description                                        | Value Range | Default Value |
 | --------------------------- | -------- | ------------------------------------------------------------ | ----------- | ------------- |
 | `--help`                    | no       | Prints all the help information.                             | -           | -             |

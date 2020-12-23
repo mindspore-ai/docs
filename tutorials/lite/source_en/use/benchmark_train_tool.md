@@ -15,28 +15,28 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/net_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/benchmark_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-The same as [`benchmark` tool](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html), you can use the `net_train` tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
+The same as `benchmark`, you can use the `benchmark_train` tool to perform benchmark testing on a MindSpore ToD (Train on Device) model. It can not only perform quantitative analysis (performance) on the execution duration the model, but also perform comparative error analysis (accuracy) based on the output of the specified model.
 
 ## Linux Environment Usage
 
 ### Environment Preparation
 
-To use the `net_train` tool, you need to prepare the environment as follows:
+To use the `benchmark_train` tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the `net_train` tool is stored in the `mindspore/lite/tools/net_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the `benchmark_train` tool is stored in the `mindspore/lite/tools/benchmark_train` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `net_train` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
+- Run: Obtain the `benchmark_train` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
 
 ### Parameter Description
 
-The command used for benchmark testing based on the compiled `net_train` tool is as follows:
+The command used for benchmark testing based on the compiled `benchmark_train` tool is as follows:
 
 ```bash
-./net_train [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
+./benchmark_train [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--expectedDataFile=<BENCHMARKDATAFILE>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
    [--timeProfiling=<TIMEPROFILING>] [--help]
    [--inDataFile=<INDATAFILE>] [--epochs=<EPOCHS>]
@@ -50,7 +50,7 @@ The following describes the parameters in detail.
 | `--modelFile=<MODELFILE>` | Mandatory | Specifies the file path of the MindSpore Lite model for benchmark testing. | String | Null  | -        |
 | `--accuracyThreshold=<ACCURACYTHRESHOLD>` | Optional | Specifies the accuracy threshold. | Float           | 0.5    | -        |
 | `--expectedDataFile=<BENCHMARKDATAFILE>` | Optional | Specifies the file path of the benchmark data. The benchmark data, as the comparison output of the tested model, is output from the forward inference of the tested model under other deep learning frameworks using the same input. | String | Null | - |
-| `--help` | Optional | Displays the help information about the `net_train` command. | - | - | - |
+| `--help` | Optional | Displays the help information about the `benchmark_train` command. | - | - | - |
 | `--warmUpLoopCount=<WARMUPLOOPCOUNT>` | Optional | Specifies the number of preheating inference times of the tested model before multiple rounds of the benchmark test are executed. | Integer | 3 | - |
 | `--timeProfiling=<TIMEPROFILING>`  | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
 | `--inDataFile=<INDATAFILE>` | Optional | Specifies the file path of the input data of the tested model. If this parameter is not set, a random value will be used. | String | Null  | -       |
@@ -59,14 +59,14 @@ The following describes the parameters in detail.
 
 ### Example
 
-When using the `net_train` tool to perform benchmark testing, you can set different parameters to implement different test functions. The testing is classified into performance test and accuracy test.
+When using the `benchmark_train` tool to perform benchmark testing, you can set different parameters to implement different test functions. The testing is classified into performance test and accuracy test.
 
 #### Performance Test
 
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
-./net_train --modelFile=./models/test_benchmark.ms --s=10
+./benchmark_train --modelFile=./models/test_benchmark.ms --s=10
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
@@ -76,7 +76,7 @@ Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime
 ```
 
 ```bash
-./net_train --modelFile=./models/test_benchmark.ms --timeProfiling=true
+./benchmark_train --modelFile=./models/test_benchmark.ms --timeProfiling=true
 ```
 
 This command uses a random input, sets the parameter `timeProfiling` as true,  times and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
@@ -124,7 +124,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
-./net_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
@@ -141,5 +141,5 @@ Mean bias of all nodes: 0%
 To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
-./net_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark_train --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
 ```

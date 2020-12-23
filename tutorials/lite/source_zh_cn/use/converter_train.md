@@ -26,14 +26,14 @@
 
 ### 环境准备
 
-MindSpore ToD 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
+MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
 
 - 编译或下载已编译好的模型转换工具。
 - 配置模型转换工具的环境变量。
 
 ### 参数说明
 
-下表为MindSpore ToD训练模型转换工具使用到的参数：
+下表为MindSpore Lite训练模型转换工具使用到的参数：
 
 | 参数                        | 是否必选 | 参数说明                                    | 取值范围    | 默认值 |
 | --------------------------- | -------- | ------------------------------------------- | ----------- | ------ |
@@ -47,7 +47,7 @@ MindSpore ToD 模型转换工具提供了多个参数，目前工具仅支持Lin
 
 ### 模型转换示例
 
-假设待转换的模型文件为`my_model.mindir`，执行如下转换命令（使用训练版本转换工具，参见[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#)章节）：
+假设待转换的模型文件为`my_model.mindir`，执行如下转换命令：
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=my_model.mindir --outputFile=my_model

@@ -31,12 +31,6 @@
 
 ## 概述
 
-MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindSpore Lite框架的一部分。用户可基于该框架在嵌入式设备上训练MindSpore模型。以下情况需要使用端侧训练：
-
-- 基于用户软件应用（例如图库、键盘等）的本地数据，无需云端计算。
-- 遵循 GDPR 等隐私条例，使用本地数据而非上传云端处理。
-- 与例如联邦学习等分布式学习理论相结合。
-
 端侧训练主要步骤：
 
 1. 选择一个模型，定义待训练层并导出。
@@ -66,7 +60,7 @@ MindSpore端侧训练(MindSpore Training on Device, MindSpore ToD)框架是MindS
 
 模型文件是一个flatbuffer序列化文件，它通过MindSpore模型转换工具得到，其文件扩展名为`.ms`。在模型训练或推理之前，模型需要从文件系统中加载并解析。相关操作主要在`Model`类中实现，该类具有例如网络结构、张量大小、权重数据和操作属性等模型数据。
 
-> 与MindSpore Lite推理架构不同的是：在MindSpore ToD中，由于训练时模型对象`Model`将被`TrainSession`占用，所以你不允许再直接操作它。所有与`Model`对象的交互操作，包括实例化、编译和删除操作将在`TrainSession`中处理。
+> 与MindSpore Lite推理架构不同的是：在MindSpore Lite中，由于训练时模型对象`Model`将被`TrainSession`占用，所以你不允许再直接操作它。所有与`Model`对象的交互操作，包括实例化、编译和删除操作将在`TrainSession`中处理。
 
 ### 创建上下文
 
@@ -144,12 +138,12 @@ if (ret != RET_OK) {
 
 ### 获取输入张量
 
-在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore ToD提供了以下函数来获取模型的输入张量：
+在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
 1. 使用[`GetInputsByTensorName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
-    /// \brief  Get input MindSpore ToD MSTensors of model by tensor    name.
+    /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
     ///
     /// \param[in] tensor_name  Define tensor name.
     ///
@@ -241,7 +235,7 @@ if ((in_data == nullptr)|| (in_labels == nullptr)) {
 memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
 memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
 // After filling the input tensors the data_ptr and label_ptr may be freed
-// The input tensors themselves are managed by MindSpore ToD and users are not allowd to access them or delete them
+// The input tensors themselves are managed by MindSpore Lite and users are not allowd to access them or delete them
 ```
 
 > - MindSpore Lite模型输入张量的数据维度必须为NHWC（批次数，高度，宽度和通道数）。

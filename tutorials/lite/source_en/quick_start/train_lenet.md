@@ -67,10 +67,10 @@ Acquire `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite
 
 ```shell
 # generate converter tools and runtime package on x86
-bash build.sh -I x86_64 -T on -e CPU -j8
+bash build.sh -I x86_64 -T on -e cpu -j8
 
 # generate runtime package on arm64
-bash build.sh -I arm64 -T on -e CPU -j8
+bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
 You could also directly download them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).

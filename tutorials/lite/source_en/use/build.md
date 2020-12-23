@@ -22,7 +22,6 @@
         - [Output Description](#output-description)
             - [Description of Converter's Directory Structure](#description-of-converter-s-directory-structure-1)
             - [Description of Benchmark's Directory Structure](#description-of-benchmark-s-directory-structure)
-    - [Training Output Description](#training-output-description-1)
 
 <!-- /TOC -->
 
@@ -42,14 +41,13 @@ Modules in inference version:
 
 Modules in training version:
 
-| Module       | Support Platform | Description                                  |
-| ------------ | ---------------- | -------------------------------------------- |
-| converter    | Linux            | Model Conversion Tool                        |
-| runtime(cpp) | Linux, Android   | Model Inference/Train Framework(cpp)         |
-| benchmark    | Linux, Android   | Image Processing Library                     |
-| cropper  | Linux            | static library crop tool for libmindspore-lite.a |
-| minddata | Linux, Android | Image Processing Library |
-| net_train    | Linux, Android | Verify bit exactness                         |
+| Module          | Support Platform | Description                                  |
+| --------------- | ---------------- | -------------------------------------------- |
+| converter       | Linux            | Model Conversion Tool                        |
+| runtime(cpp)    | Linux, Android   | Model Train Framework(java is not support)   |
+| benchmark_train | Linux, Android   | Performance and Accuracy Validation          |
+| cropper         | Linux            | libmindspore-lite.a static library crop tool |
+| minddata        | Linux            | Image Processing Library                     |
 
 ## Linux Environment Compilation
 
@@ -106,9 +104,9 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
 | -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
-| -o | If this parameter is set, the benchmark and static library crop tool is compiled, default on. | on, off | No |
+| -o | If this parameter is set, the benchmark and static library crop tool are compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
-| -T | If this parameter is set, ToD(Train on Device) is compiled, i.e., this option is required when compiling MindSpore ToD, default off. | on, off | No |
+| -T | If this parameter is set, MindSpore Lite training version is compiled, i.e., this option is required when compiling, default off. | on, off | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 >
@@ -173,20 +171,34 @@ Then, run the following commands in the root directory of the source code to com
 - Compile MindSpore Lite AAR:
 
     ```bash
+    bash build.sh -A java
+    ```
+
+- Incremental Compile MindSpore Lite AAR:
+
+    ```bash
     bash build.sh -A java -i
+    ```
+
+> Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
+
+- Release version of the x86_64 architecture, with the benchmark, cropper and converter compiled:
+
+    ```bash
+    bash build.sh -I x86_64
     ```
 
 - Release version of the x86_64 architecture, with the converter compiled and train on device enabled:
 
     ```bash
-    bash build.sh -I x86_64 -C on -T on
+    bash build.sh -I x86_64 -T on
     ```
 
 ### Inference Output Description
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`: Contains model conversion tool.
+- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`: Model converter.
 - `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`: Contains model inference framework, benchmarking tool, performance analysis tool and library crop tool.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
@@ -276,6 +288,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
   ```
 
 > 1. Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
+>
 > 2. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
@@ -292,14 +305,14 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-inference-{os}-{arch}/
 
 ### Training Output Description
 
-If the `-T on` is added to the MindSpore ToD (Train on Device), go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Contains model conversion tool, Only supports the MindIR model.
+- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Model converter, only support MINDIR format model file.
 - `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 >
-> device: The processor that runs ToD. Currently only build-in CPU is available.
+> device: The processor that runs MindSpore Lite. Currently only build-in CPU is available.
 >
 > os: Operating system on which the output will be deployed.
 >
@@ -350,15 +363,15 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── net_train
-    │       ├── net_train # training model benchmark tool
+    │   └── benchmark_train
+    │       ├── benchmark_train # training model benchmark tool
     ```
 
-- When the compilation option is `-I arm64`:  
+- When the compilation option is `-I arm64` or `-I arm32`:  
 
     ```text
     |
-    ├── mindspore-lite-{version}-train-android-aarch64
+    ├── mindspore-lite-{version}-train-android-{arch}
     │   └── include # Header files of training framework
     │   └── lib # Training framework library
     │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
@@ -370,31 +383,11 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │               ├── lite_mat.h # The Header files of image data class structure
     │       └── lib # Image processing dynamic library
     │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── net_train
-    │       ├── net_train # training model benchmark tool
+    │   └── benchmark_train
+    │       ├── benchmark_train # training model benchmark tool
     ```
 
-- When the compilation option is `-I arm32`:  
-
-    ```text
-    |
-    ├── mindspore-lite-{version}-train-android-aarch32
-    │   └── include # Header files of training framework
-    │   └── lib # Training framework library
-    │       ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
-    │       ├── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
-    │   └── minddata # Image processing dynamic library
-    │       └── include # Header files
-    │           └── lite_cv # The Header files of image processing dynamic library
-    │               ├── image_process.h # The Header files of image processing function
-    │               ├── lite_mat.h # The Header files of image data class structure
-    │       └── lib # Image processing dynamic library
-    │           ├── libminddata-lite.so # The files of image processing dynamic library
-    │   └── net_train
-    │       ├── net_train # training model benchmark tool
-    ```
-
-> Before running the tools in the converter and the net_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
+> Before running the tools in the converter and the benchmark_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
@@ -402,7 +395,7 @@ Configure converter:
 export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-train-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
-Configure net_train:
+Configure benchmark_train:
 
 ```bash
 export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-train-{os}-{arch}/lib:${LD_LIBRARY_PATH}
@@ -503,6 +496,4 @@ The content includes the following parts:
 │   └── include # Header files of inference framework
 ```
 
-### Training Output Description
-
-Currently, MindSpore ToD (Train on Device) is not supported on Windows.
+> Currently, MindSpore Lite is not supported on Windows.

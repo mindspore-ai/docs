@@ -68,10 +68,10 @@ MNIST_Data/
 
 ```shell
 # 生成converter工具以及x86平台的runtime包
-bash build.sh -I x86_64 -T on -e CPU -j8
+bash build.sh -I x86_64 -T on -e cpu -j8
 
 # 生成arm64平台的runtime包
-bash build.sh -I arm64 -T on -e CPU -j8
+bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
 你也可以在[下载页面](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)直接下载所需要的转换工具以及模型训练框架，并将它们放在MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
