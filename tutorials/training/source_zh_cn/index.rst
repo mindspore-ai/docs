@@ -175,13 +175,25 @@
 									</div>
 									
 								</div>
+							</div>							
+							<div class="doc-label-choice">
+								<div class="row">
+									<div class="col-sm-2 ">
+										<div class="doc-experience">体验</div>
+									</div>							
+									<div class="col-sm-10 col-sm-pull-1 doc-stage-detail">
+										<button class="doc-filter-btn doc-btn" id="experience-Online-Experience">在线体验</button>
+										<button class="doc-filter-btn doc-btn" id="experience-Local-Experience">本地体验</button>
+									</div>
+									
+								</div>
 								
 							</div>
 							
 						</div>
 						<hr>
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -194,7 +206,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/linear_regression.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -207,7 +219,7 @@
 								</a>
 							</div>
 							
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_dataset_image.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -220,7 +232,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_dataset_text.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -244,7 +256,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -256,7 +268,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Loading user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Loading user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_model_for_inference_and_transfer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -280,7 +292,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/convert_dataset.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -292,7 +304,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -388,7 +400,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -400,7 +412,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -436,7 +448,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/lineage_and_scalars_comparision.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -520,7 +532,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/enable_auto_augmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -532,7 +544,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/evaluate_the_model_during_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -604,7 +616,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Training user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Training user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/enable_mixed_precision.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -628,7 +640,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Optimization user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_gradient_accumulation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -664,7 +676,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Training stage-Model-Optimization user-Enterprise user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Training stage-Model-Optimization user-Enterprise user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -712,7 +724,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_resnet50.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -748,7 +760,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/nlp_sentimentnet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
