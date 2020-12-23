@@ -212,7 +212,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Android stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -237,7 +237,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
