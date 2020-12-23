@@ -18,3 +18,4 @@ MindSpore FAQ
   programming_language_extensions
   supported_features
   mindinsight_use
+  mindspore_lite
