@@ -25,7 +25,7 @@ Before customizing a training network, you need to understand the network suppor
 
 - Network support: Currently, MindSpore supports multiple types of networks, including computer vision, natural language processing, recommender, and graph neural network. For details, see [Network List](https://www.mindspore.cn/doc/note/en/master/network_list.html). If the existing networks cannot meet your requirements, you can define your own network as required.
 
-- Constraints on network construction using Python: MindSpore does not support the conversion of any Python source code into computational graphs. Therefore, the source code has the syntax and network definition constraints. For details, see [Constraints on Network Construction Using Python](https://www.mindspore.cn/doc/note/en/master/constraints_on_network_construction.html). These constraints may change as MindSpore evolves.
+- Constraints on network construction using Python: MindSpore does not support the conversion of any Python source code into computational graphs. Therefore, the source code has the syntax and network definition constraints. These constraints may change as MindSpore evolves.
 
 - Operator support: As the name implies, the network is based on operators. Therefore, before customizing a training network, you need to understand the operators supported by MindSpore. For details about operator implementation on different backends (Ascend, GPU, and CPU), see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
 

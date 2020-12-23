@@ -26,7 +26,6 @@ class Net(nn.Cell):
 <font size=3>**Q: When the `Tile` module in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
 
 A: The `multiples input` of the `Tile` operator must be a constant. (The value cannot directly or indirectly come from the input of the graph.) Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition.
-For details, see "Other Constraints" in the [Constraints on Network Construction](https://www.mindspore.cn/doc/note/en/master/constraints_on_network_construction.html).
 
 <br/>
 

@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/inference/source_zh_cn/serving_example.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_example.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述
 

@@ -29,7 +29,7 @@ MindSpore在Model_zoo也已经提供了大量的目标检测、自然语言处�
 
 - 网络支持：当前MindSpore已经支持多种网络，按类型分为计算机视觉、自然语言处理、推荐和图神经网络，可以通过[网络支持](https://www.mindspore.cn/doc/note/zh-CN/master/network_list.html)查看具体支持的网络情况。如果现有网络无法满足用户需求，用户可以根据实际需要定义自己的网络。
 
-- Python源码构造网络约束：MindSpore暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。详细情况可以查看[Python源码构造网络约束](https://www.mindspore.cn/doc/note/zh-CN/master/constraints_on_network_construction.html)了解。随着MindSpore的演进，这些约束可能会发生变化。
+- Python源码构造网络约束：MindSpore暂不支持将任意Python源码转换成计算图，所以对于用户源码支持的写法有所限制，主要包括语法约束和网络定义约束两方面。详细情况可以查看[静态图语法支持](https://www.mindspore.cn/doc/note/zh-CN/master/static_graph_syntax_support.html)了解。随着MindSpore的演进，这些约束可能会发生变化。
 
 - 算子支持：顾名思义，网络的基础是算子，所以用户自定义训练网络前要对MindSpore当前支持的算子有所了解，可以通过查看[算子支持](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list.html)了解不同的后端（Ascend、GPU和CPU）的算子实现情况。
 

@@ -16,4 +16,4 @@
 - [在CPU上执行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_cpu.html)
 - [在端侧执行推理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html)
 
-同时，MindSpore提供了一个轻量级、高性能的服务模块，称为MindSpore Serving，可帮助MindSpore开发者在生产环境中高效部署在线推理服务，使用方法可参考[部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving.html)。
+同时，MindSpore提供了一个轻量级、高性能的服务模块，称为MindSpore Serving，可帮助MindSpore开发者在生产环境中高效部署在线推理服务，使用方法可参考[部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html)。
