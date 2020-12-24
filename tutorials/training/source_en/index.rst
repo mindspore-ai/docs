@@ -46,6 +46,7 @@ Train with MindSpore
    advanced_use/custom_operator
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
+   advanced_use/achieve_high_order_differentiation
 
 .. toctree::
    :glob:
@@ -69,6 +70,7 @@ Train with MindSpore
    advanced_use/enable_mixed_precision
    advanced_use/enable_graph_kernel_fusion
    advanced_use/apply_gradient_accumulation
+   advanced_use/enable_cache
 
 .. toctree::
    :glob:
@@ -97,6 +99,8 @@ Train with MindSpore
 
    advanced_use/cv
    advanced_use/nlp
+   advanced_use/hpc
+   advanced_use/use_on_the_cloud
 
 .. raw:: html
 
