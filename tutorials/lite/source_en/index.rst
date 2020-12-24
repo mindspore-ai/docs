@@ -274,7 +274,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/net_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performing Benchmark Testing of MindSpore ToD</span>

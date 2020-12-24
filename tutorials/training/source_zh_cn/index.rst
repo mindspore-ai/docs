@@ -424,7 +424,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/summary_record.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -436,7 +436,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
