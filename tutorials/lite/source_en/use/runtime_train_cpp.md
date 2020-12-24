@@ -33,16 +33,8 @@
 
 ## Overview
 
-Here we review the operations that can be performed on the already converted MindSpore ToD(Train on Device) model.
-
-The model itself can represent different training schemes, for example:
-
-- A thin neural network that will be fully trained on the embedded device,
-- An already trained network that will only be fine tuned on the device,
-- A Transfer Learning Model in which an already trained "backbone" will be kept static while the "head" of the network will be trained.
-
 The exact training scheme is encapsulated within the `.ms` model. The software that we will discuss below is not aware of it but rather perform training and inference in a generic manner.
-Following the conversion of the model on the server to an `.ms` format, the file should be downloaded to the embedded device for the ToD(Train on Device) process.
+Following the conversion of the model on the server to an `.ms` format, the file should be downloaded to the embedded device for the ToD process.
 
 A sequence diagram explaining the train sequence is shown in the image below:
 
@@ -53,16 +45,16 @@ In this diagram the drawn objects represents:
 - `OS`: A software element that is responsible to access storage data.
 - `User`: The application/object that performs the training.
 - `DataLoader`: An object that is responsible to load data from the storage and perform pre-processing prior to using it in the training (e.g., reading an image, rescaling it to a given size and converting it to bitmap).
-- `TrainSession`: A software module provided by MindSpore ToD(Train on Device), that provides flatbuffer DeSerialization into a network of nodes and interconnecting tensors. It performs graph compilation and calls the graph executor for train and inference.
+- `TrainSession`: A software module provided by MindSpore Lite, that provides flatbuffer DeSerialization into a network of nodes and interconnecting tensors. It performs graph compilation and calls the graph executor for train and inference.
 
 ## Session Creation
 
-In MindSpore ToD(Train on Device) framework, `TrainSession` class provides the main API to the system. Here we will see how to interact with a `TrainSession` object.
+In MindSpore Lite framework, `TrainSession` class provides the main API to the system. Here we will see how to interact with a `TrainSession` object.
 
 ### Reading Models
 
 A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`Model`](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#model) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
-> Unlike in MindSpore Lite framework, in MindSpore ToD the user is not allowed to access the `Model` object, since it is being used by `TrainSession` during training. All interaction with `Model` including instantiation, Compiling and deletion are handled within `TrainSession`.
+> Unlike in MindSpore Lite framework, in MindSpore Lite the user is not allowed to access the `Model` object, since it is being used by `TrainSession` during training. All interaction with `Model` including instantiation, Compiling and deletion are handled within `TrainSession`.
 
 ### Creating Contexts
 
@@ -75,7 +67,7 @@ Once the TrainSession is created with the `Context` object, it is no longer need
 
 There are two methods to create a session:
 
-- The first API allows MindSpore ToD(Train on Device) to access the filesystem and read the model from a file, parse it, compile it and produce a valid TrainSession object. The `Context` described above is passed to the TrainSession as a basic configuration. The static function has the following signature `TrainSession *TrainSession::CreateSession(const string& filename, const Context *context, bool mode)`, where `filename` is the model's file name, context is the `Context` and mode is the initial training mode of the session (Train/Eval). On Success, a fully compiled and ready to use `TrainSession` instance is returned by the function, this instance must be freed using `delete` on the termination of the process.
+- The first API allows MindSpore Lite to access the filesystem and read the model from a file, parse it, compile it and produce a valid TrainSession object. The `Context` described above is passed to the TrainSession as a basic configuration. The static function has the following signature `TrainSession *TrainSession::CreateSession(const string& filename, const Context *context, bool mode)`, where `filename` is the model's file name, context is the `Context` and mode is the initial training mode of the session (Train/Eval). On Success, a fully compiled and ready to use `TrainSession` instance is returned by the function, this instance must be freed using `delete` on the termination of the process.
 - The second API is similar to the first but uses an in-memory copy of the flatbuffer in order to create the `TrainSession`. The static function has the following signature `TrainSession *TrainSession::CreateSession(const char* buf, size_t size, const Context *context, bool mode)`, where `buf` is a pointer to the in-memory buffer and `size` is its length. On Success, a fully compiled and ready-to-use `TrainSession` instance is returned by the function. If needed, the buf pointer can be freed immediately. The returned `TrainSession` instance must be freed using `delete` when no longer needed.
 
 ### Example
@@ -135,12 +127,12 @@ if (ret != RET_OK) {
 ### Obtaining Input Tensors
 
 Before graph execution, whether it is during training or inference, the input data must be filled-in into the model input tensors.
-MindSpore ToD(Train on Device) provides the following methods to obtain model input tensors:
+MindSpore Lite provides the following methods to obtain model input tensors:
 
 1. Use the `GetInputsByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
    ```cpp
-   /// \brief  Get input MindSpore ToD MSTensors of model by tensor name.
+   /// \brief  Get input MindSpore Lite MSTensors of model by tensor name.
    ///
    /// \param[in] tensor_name  Define tensor name.
    ///
@@ -233,7 +225,7 @@ if ((in_data == nullptr)|| (in_labels == nullptr)) {
 memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
 memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
 // After filling the input tensors the data_ptr and label_ptr may be freed
-// The input tensors themselves are managed by MindSpore ToD and users are not allowd to access them or delete them
+// The input tensors themselves are managed by MindSpore Lite and users are not allowd to access them or delete them
 ```
 
 Note:  
