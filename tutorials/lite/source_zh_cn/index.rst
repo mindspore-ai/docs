@@ -272,7 +272,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/net_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用net_train进行端侧训练基准测试</span>

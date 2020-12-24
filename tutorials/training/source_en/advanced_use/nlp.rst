@@ -5,3 +5,4 @@ Natural Language Processing
   :maxdepth: 1
 
   nlp_sentimentnet
+  nlp_bert_poetry

@@ -15,3 +15,4 @@ MindSpore Java API
   model
   msconfig
   mstensor
+  lite_java_example

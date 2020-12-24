@@ -11,3 +11,4 @@ Data Pipeline
   tokenizer
   dataset_conversion
   auto_augmentation
+  cache

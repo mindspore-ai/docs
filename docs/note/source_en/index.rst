@@ -25,7 +25,9 @@ MindSpore Design And Specification
    benchmark
    network_list
    operator_list
+   syntax_list
    model_lite
+   env_var_list
 
 .. toctree::
    :glob:

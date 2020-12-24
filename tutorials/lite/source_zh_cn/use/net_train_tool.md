@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/net_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
