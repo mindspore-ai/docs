@@ -87,6 +87,7 @@
 > - 当安装完依赖项Gradle后，需将其安装路径增加到PATH当中：`export PATH=${GRADLE_PATH}/bin:$PATH`。
 > - 通过`Android command line tools`安装Android SDK，首先需要创建一个新目录，并将其路径配置到环境变量`${ANDROID_SDK_ROOT}`中，然后通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`，最后通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`。
 > - 编译AAR需要依赖Android SDK Build-Tools、Android SDK Platform-Tools等Android SDK相关组件，如果环境中的Android SDK不存在相关组件，编译时会自动下载所需依赖。
+> - 编译NPU算子的时候需要下载[DDK V500.010](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。
 
 ### 编译选项
 
@@ -159,6 +160,12 @@ git clone https://gitee.com/mindspore/mindspore.git
 
     ```bash
     bash build.sh -I arm64 -e gpu
+    ```
+
+- 编译ARM64架构Release版本，同时编译内置的CPU和NPU算子。
+
+    ```bash
+    bash build.sh -I arm64 -e npu
     ```
 
 - 编译ARM64带图像预处理模块。

@@ -284,6 +284,14 @@ gpu_device_info_
 
 [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#gpudeviceinfo) 类型，配置GPU的环境变量。
 
+#### npu_device_info_
+
+```cpp
+npu_device_info_
+```
+
+[**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo) 类型，配置NPU的环境变量。
+
 ## CpuDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
@@ -327,6 +335,22 @@ enable_float16_
 **bool**值，默认为**false**，用于使能float16 推理。
 
 > 使能float16推理可能会导致模型推理精度下降，因为在模型推理的中间过程中，有些变量可能会超出float16的数值范围。
+
+## NpuDeviceInfo
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+NpuDeviceInfo类，用来配置NPU的环境变量。
+
+### 公有属性
+
+#### frequency
+
+```cpp
+frequency_
+```
+
+**int**值，默认为**3**，用来设置NPU频率，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能）。
 
 ## TrainModel
 

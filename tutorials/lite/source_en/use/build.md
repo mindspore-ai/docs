@@ -90,6 +90,7 @@ Modules in training version:
 > - After Gradle is installed, you need to add its installation path to the PATH: `export PATH=${GRADLE_PATH}/bin:$PATH`.
 > - To install the Android SDK via `Android command line tools`, you need to create a new directory first and configure its path to the environment variable in `${ANDROID_SDK_ROOT}`, then create SDK via `sdkmanager`: `./sdkmanager --sdk_root=$ {ANDROID_SDK_ROOT} "cmdline-tools;latest"`, and finally accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 > - Compiling AAR relies on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
+> - When compiling the NPU operator, you need to download [DDK V500.010](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180), the directory where the compressed package is decompressed Set to the environment variable `${HWHIAI_DDK}`.
 
 ### Compilation Options
 
@@ -162,6 +163,12 @@ Then, run the following commands in the root directory of the source code to com
 
     ```bash
     bash build.sh -I arm64 -e gpu
+    ```
+
+- Release version of the ARM 64-bit architecture, with the built-in CPU and NPU operator compiled:
+
+    ```bash
+    bash build.sh -I arm64 -e npu
     ```
 
 - Compile ARM64 with image preprocessing module:

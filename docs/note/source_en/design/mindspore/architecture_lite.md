@@ -1,4 +1,4 @@
-﻿# Overall Architecture (Lite)
+# Overall Architecture (Lite)
 
 `Linux` `Windows` `On Device` `Inference Application` `Intermediate` `Expert` `Contributor`
 
@@ -14,7 +14,7 @@ The overall architecture of MindSpore Lite is as follows:
 
 - **Backend:** optimizes graphs based on IR, including graph high level optimization (GHLO), graph low level optimization (GLLO), and quantization. GHLO is responsible for hardware-independent optimization, such as operator fusion and constant folding. GLLO is responsible for hardware-related optimization. Quantizer supports quantization methods after training, such as weight quantization and activation value quantization.
 
-- **Runtime:** inference runtime of intelligent devices. Sessions are responsible for session management and provide external APIs. The thread pool and parallel primitives are responsible for managing the thread pool used for graph execution. Memory allocation is responsible for memory overcommitment of each operator during graph execution. The operator library provides the CPU and GPU operators.
+- **Runtime:** inference runtime of intelligent devices. Sessions are responsible for session management and provide external APIs. The thread pool and parallel primitives are responsible for managing the thread pool used for graph execution. Memory allocation is responsible for memory overcommitment of each operator during graph execution. The operator library provides the CPU, GPU and NPU operators.
 
 - **Micro:** runtime of IoT devices, including the model generation .c file, thread pool, memory overcommitment, and operator library.
 

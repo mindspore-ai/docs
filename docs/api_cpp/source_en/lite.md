@@ -284,6 +284,12 @@ gpu_device_info_
 
 [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) is defined for GPU's configuration information.
 
+```cpp
+npu_device_info_
+```
+
+[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) is defined for NPU's configuration information.
+
 ## CpuDeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
@@ -327,6 +333,18 @@ enable_float16_
 A **bool** value. Defaults to **false**. This attribute enables to perform the GPU float16 inference.
 
 > Enabling float16 inference may cause low inference precision, because some variables may exceed the range of float16 during forwarding.
+
+## NpuDeviceInfo
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+
+NpuDeviceInfo is defined for NPU's configuration information.
+
+```cpp
+frequency_
+```
+
+A **int** value. Defaults to **3**. This attribute is used to set the NPU frequency, which can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance).
 
 ## TrainModel
 
