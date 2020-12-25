@@ -361,23 +361,28 @@ mean_b = Tensor(1.0, dtype=mstype.float32)
 sd_b = Tensor(2.0, dtype=mstype.float32)
 kl = my_normal.kl_loss('Normal', mean_b, sd_b)
 
+# get the distribution args as a tuple
+dist_arg = my_normal.get_dist_args()
+
 print("mean: ", mean)
 print("var: ", var)
 print("entropy: ", entropy)
 print("prob: ", prob)
 print("cdf: ", cdf)
 print("kl: ", kl)
+print("dist_arg: ", dist_arg)
 ```
 
 输出为：
 
 ```text
-mean: 0.0
-var: 1.0
-entropy: 1.4189385
-prob: [0.35206532, 0.3989423, 0.35206532]
-cdf: [0.3085482, 0.5, 0.6914518]
-kl: 0.44314718
+mean:  0.0
+var:  1.0
+entropy:  1.4189385
+prob:  [0.35206532 0.3989423  0.35206532]
+cdf:  [0.30853754 0.5        0.69146246]
+kl:  0.44314718
+dist_arg: (Tensor(shape=[], dtype=Float32, value= 0), Tensor(shape=[], dtype=Float32, value= 1))
 ```
 
 ### 概率分布类在图模式下的应用
@@ -465,7 +470,7 @@ tx = Tensor(x, dtype=dtype.float32)
 cdf = LogNormal.cdf(tx)
 
 # generate samples from the distribution
-shape = ((3, 2))
+shape = (3, 2)
 sample = LogNormal.sample(shape)
 
 # get information of the distribution
@@ -475,26 +480,24 @@ print("underlying distribution:\n", LogNormal.distribution)
 print("bijector:\n", LogNormal.bijector)
 # get the computation results
 print("cdf:\n", cdf)
-print("sample:\n", sample)
+print("sample shape:\n", sample.shape)
 ```
 
 输出为：
 
 ```text
 TransformedDistribution<
-  (_bijector): Exp<power = 0>
-  (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
-  >
+  (_bijector): Exp<exp>
+  (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
+  >
 underlying distribution:
-Normal<mean = 0.0, standard deviation = 1.0>
-bijector
-Exp<power = 0>
+ Normal<mean = 0.0, standard deviation = 1.0>
+bijector:
+ Exp<exp>
 cdf:
-[7.55891383e-01, 9.46239710e-01, 9.89348888e-01]
-sample:
-[[7.64315844e-01, 3.01435232e-01],
- [1.17166102e+00, 2.60277224e+00],
- [7.02699006e-01, 3.91564220e-01]]
+ [0.7558914 0.9462397 0.9893489]
+sample shape:
+(3, 2)
 ```
 
 当构造 `TransformedDistribution` 映射变换的 `is_constant_jacobian = true` 时（如 `ScalarAffine`)，构造的 `TransformedDistribution` 实例可以使用直接使用 `mean` 接口计算均值，例如：
@@ -546,15 +549,14 @@ x = np.array([2.0, 3.0, 4.0, 5.0]).astype(np.float32)
 tx = Tensor(x, dtype=dtype.float32)
 cdf, sample = net(tx)
 print("cdf: ", cdf)
-print("sample: ", sample)
+print("sample shape: ", sample.shape)
 ```
 
 输出为：
 
 ```text
 cdf:  [0.7558914  0.86403143 0.9171715  0.9462397 ]
-sample:  [[0.5361498  0.26627186 2.766659  ]
- [1.5831033  0.4096472  2.008679  ]]
+sample shape:  (2, 3)
 ```
 
 ## 概率分布映射
@@ -695,11 +697,11 @@ print("inverse_log_jacobian: ", inverse_log_jaco)
 输出：
 
 ```text
-PowerTransform<power = 2>
-forward: [2.23606801e+00, 2.64575124e+00, 3.00000000e+00, 3.31662488e+00]
-inverse: [1.50000000e+00, 4.00000048e+00, 7.50000000e+00, 1.20000010e+01]
-forward_log_jacobian: [-8.04718971e-01, -9.72955048e-01, -1.09861231e+00, -1.19894767e+00]
-inverse_log_jacobian: [6.93147182e-01  1.09861231e+00  1.38629436e+00  1.60943794e+00]
+PowerTransform<power = 2.0>
+forward:  [2.236068  2.6457515 3.        3.3166249]
+inverse:  [ 1.5       4.        7.5      12.000001]
+forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
+inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```
 
 ### 图模式下调用Bijector实例
@@ -741,10 +743,10 @@ print("inverse_log_jacobian: ", inverse_log_jaco)
 输出为：
 
 ```text
-forward:  [2.236068  2.6457515 3.        3.3166249]
-inverse:  [ 1.5       4.        7.5      12.000001]
-forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
-inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
+forward:  [2.236068  2.6457515 3.        3.3166249]
+inverse:  [ 1.5       4.        7.5      12.000001]
+forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
+inverse_log_jacobian:  [0.6931472 1.0986123 1.3862944 1.609438 ]
 ```
 
 ## 深度概率网络
