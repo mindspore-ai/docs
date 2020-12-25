@@ -76,7 +76,7 @@ pip install output/mindspore-ascend-{version}-cp37-cp37m-linux_{arch}.whl -i htt
 In the preceding information:
 
 - When the network is connected, dependencies of the MindSpore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). In other cases, install the dependencies by yourself.
-- `{version}` specifies the MindSpore version number. For example, when downloading MindSpore 1.0.1, set `{version}` to 1.0.1.
+- `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.1.0, set `{version}` to 1.1.0.
 - `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 
 ## Configuring Environment Variables
