@@ -179,7 +179,7 @@ Status GetInputsInfo(std::vector<std::string> *names, std::vector<std::vector<in
 Status GetOutputsInfo(std::vector<std::string> *names, std::vector<std::vector<int64_t>> *shapes, std::vector<DataType> *data_types, std::vector<size_t> *mem_sizes) const;
 ```
 
-获取模型输入信息。
+获取模型输出信息。
 
 - 参数
 
