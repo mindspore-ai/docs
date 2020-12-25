@@ -173,13 +173,11 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- 增量编译MindSpore Lite AAR。
+- 编译MindSpore Lite AAR。
 
     ```bash
-    bash build.sh -A java -i
+    bash build.sh -A java
     ```
-
-    > 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
 
 - 编译x86_64架构Release版本，编译模型转换、基准测试和库裁剪工具。
 

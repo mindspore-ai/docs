@@ -176,13 +176,11 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Incremental Compile MindSpore Lite AAR:
+- Compile MindSpore Lite AAR:
 
     ```bash
-    bash build.sh -A java -i
+    bash build.sh -A java
     ```
-
-    > Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
 
 - Release version of the x86_64 architecture, with the benchmark, cropper and converter compiled:
 
