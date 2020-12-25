@@ -1,10 +1,10 @@
 # mindspore::session
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## LiteSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/lite_session.h)&gt;
 
 LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和前向推理。
 
@@ -56,7 +56,7 @@ virtual int CompileGraph(lite::Model *model)
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h)中定义。
 
 #### GetInputs
 
@@ -97,13 +97,13 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 - 参数
 
-    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
 
-    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h)中定义。
 
 #### GetOutputsByNodeName
 
@@ -176,7 +176,7 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h)中定义。
 
 ### 静态公有成员函数
 
@@ -216,7 +216,7 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/lite_session.h)&gt;
 
 继承于类 LiteSession，用于训练模型。
 

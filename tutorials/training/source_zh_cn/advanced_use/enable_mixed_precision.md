@@ -13,8 +13,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/enable_mixed_precision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_mixed_precision.ipynb"><img src="../_static/logo_notebook.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/enable_mixed_precision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_mixed_precision.ipynb"><img src="../_static/logo_notebook.png"></a>&nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9taXhlZF9wcmVjaXNpb24uaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 
 ## 概述
@@ -49,7 +49,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.amp.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
+3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.train.html#mindspore.train.amp.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 
 代码样例如下：
 
@@ -101,9 +101,9 @@ output = train_network(predict, label)
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/master/use/data_preparation.html>；
+3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/data_preparation.html>；
 
-4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.model.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
+4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.train.html#mindspore.train.model.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 
 代码样例如下：
 

@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -128,7 +128,7 @@ mindconverter --in_file /home/user/model.py \
               --report /home/user/output/report
 ```
 
-转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
+转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
@@ -212,7 +212,7 @@ class Classifier(nn.Cell):
 
 #### TensorFlow模型脚本生成示例
 
-使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式（Frozen graph），并且获取模型输入节点、输出节点名称。pb模型导出示例，请参考[MindConverter使用文档](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README_CN.md#tensorflow-pb模型导出)。
+使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式（Frozen graph），并且获取模型输入节点、输出节点名称。pb模型导出示例，请参考[MindConverter使用文档](https://gitee.com/mindspore/mindinsight/blob/r1.1/mindinsight/mindconverter/README_CN.md#tensorflow-pb模型导出)。
 
 假设，模型被保存至`/home/user/xxx/frozen_model.pb`，输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，则可使用如下命令进行脚本生成：
 

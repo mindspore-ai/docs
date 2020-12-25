@@ -20,7 +20,7 @@ copyright = '2020, MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = 'r1.1'
 
 
 # -- General configuration ---------------------------------------------------

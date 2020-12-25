@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -31,9 +31,9 @@
 
 ### 算子评估
 
-分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)，梳理出MindSpore对这些算子的支持程度。
+分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list_ms.html)，梳理出MindSpore对这些算子的支持程度。
 
-以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
+以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
 
@@ -59,17 +59,17 @@
 
 MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差别，迁移前需要对原脚本有较为清晰的了解，明确地知道每一层的shape等信息。
 
-> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
+> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/r1.1/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
 
 下面，我们以ResNet-50的迁移，并在Ascend 910上训练为例：
 
 1. 导入MindSpore模块。
 
-    根据所需使用的接口，导入相应的MindSpore模块，模块列表详见<https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html>。
+    根据所需使用的接口，导入相应的MindSpore模块，模块列表详见<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html>。
 
 2. 加载数据集和预处理。
 
-    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/data_preparation.html)。
+    使用MindSpore构造你需要使用的数据集。目前MindSpore已支持常见数据集，你可以通过原始格式、`MindRecord`、`TFRecord`等多种接口调用，同时还支持数据处理以及数据增强等相关功能，具体用法可参考[准备数据教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/data_preparation.html)。
 
     本例中加载了Cifar-10数据集，可同时支持单卡和多卡的场景。
 
@@ -81,7 +81,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
                                num_shards=device_num, shard_id=rank_id)
     ```
 
-    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/dataset.py>。
+    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/resnet/src/dataset.py>。
 
 3. 构建网络。
 
@@ -215,7 +215,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 6. 构造整网。
 
-    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
+    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
 
 7. 定义损失函数和优化器。
 
@@ -236,7 +236,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
     ```
 
-    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#mindspore-metrics)属性设置希望使用的评估方法。
+    如果希望使用`Model`内置的评估方法，则可以使用[metrics](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/custom_debugging_info.html#mindspore-metrics)属性设置希望使用的评估方法。
 
     ```python
     model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'})
@@ -265,14 +265,14 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 #### 云上集成
 
-请参考[在云上使用MindSpore](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/use_on_the_cloud.html)，将你的脚本运行在ModelArts。
+请参考[在云上使用MindSpore](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/use_on_the_cloud.html)，将你的脚本运行在ModelArts。
 
 ### 推理阶段
 
-在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html)。
+在Ascend 910 AI处理器上训练后的模型，支持在不同的硬件平台上执行推理。详细步骤可参考[多平台推理教程](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/multi_platform_inference.html)。
 
 ## 样例参考
 
-1. [常用数据集读取样例](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)
+1. [常用数据集读取样例](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html)
 
-2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
+2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo)

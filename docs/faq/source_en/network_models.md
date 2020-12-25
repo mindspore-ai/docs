@@ -2,7 +2,7 @@
 
 `Data Processing` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
 
@@ -18,11 +18,11 @@ np.save("output.npy", out.asnumpy())
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.1/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
-[GenratorDataset example](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset)
+[GenratorDataset example](https://www.mindspore.cn/doc/programming_guide/en/r1.1/dataset_loading.html#loading-user-defined-dataset)
 
-[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
@@ -46,7 +46,7 @@ A: MindSpore uses protocol buffers (protobuf) to store training parameters and c
 
 <font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/r1.1/multi_platform_inference_ascend_310.html).
 
 <br/>
 
@@ -58,19 +58,19 @@ A: When building a network, use `if self.training: x = dropput(x)`. During verif
 
 <font size=3>**Q: Where can I view the sample code or tutorial of MindSpore training and inference?**</font>
 
-A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/master/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/master/index.html).
+A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/r1.1/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/r1.1/index.html).
 
 <br/>
 
 <font size=3>**Q: What types of model is currently supported by MindSpore for training?**</font>
 
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#) for detailed information.
+A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md#) for detailed information.
 
 <br/>
 
 <font size=3>**Q: What are the available recommendation or text generation networks or models provided by MindSpore?**</font>
 
-A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
+A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo).
 
 <br/>
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: How do I use MindSpore to fit quadratic functions such as $f(x)=ax^2+bx+c$?**</font>
 
-A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py).
+A: The following code is referenced from the official [MindSpore tutorial code](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/tutorial_code/linear_regression.py).
 
 Modify the following items to fit $f(x) = ax^2 + bx + c$:
 

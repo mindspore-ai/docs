@@ -11,11 +11,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/tensor.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
-Tensor is a basic data structure in the MindSpore network computing. For details about data types in tensors, see [dtype](https://www.mindspore.cn/doc/programming_guide/en/master/dtype.html).
+Tensor is a basic data structure in the MindSpore network computing. For details about data types in tensors, see [dtype](https://www.mindspore.cn/doc/programming_guide/en/r1.1/dtype.html).
 
 Tensors of different dimensions represent different data. For example, a 0-dimensional tensor represents a scalar, a 1-dimensional tensor represents a vector, a 2-dimensional tensor represents a matrix, and a 3-dimensional tensor may represent the three channels of RGB images.
 

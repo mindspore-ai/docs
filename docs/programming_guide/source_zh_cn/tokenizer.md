@@ -14,9 +14,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/tokenizer.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_tokenizer.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_tokenizer.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV90b2tlbml6ZXIuaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -40,7 +40,7 @@ MindSpore目前提供的分词器如下表所示。此外，用户也可以根�
 | WhitespaceTokenizer | 根据空格符对标量文本数据进行分词。 |
 | WordpieceTokenizer | 根据单词集对标量文本数据进行分词。 |
 
-更多分词器的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.text.html)。
+更多分词器的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.text.html)。
 
 ## MindSpore分词器
 
@@ -161,7 +161,7 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/master/tests/ut/data/dataset/test_sentencepiece/botchan.txt
+# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/r1.1/tests/ut/data/dataset/test_sentencepiece/botchan.txt
 vocab_file = "botchan.txt"
 vocab = text.SentencePieceVocab.from_file([vocab_file], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)

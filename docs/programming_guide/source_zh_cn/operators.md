@@ -40,9 +40,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_operators.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_operators.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9vcGVyYXRvcnMuaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -60,7 +60,7 @@ MindSpore的算子组件，可从算子使用方式和算子功能两种维度�
 
 ### mindspore.ops.operations
 
-operations提供了所有的Primitive算子接口，是开放给用户的最低阶算子接口。算子支持情况可查询[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list.html)。
+operations提供了所有的Primitive算子接口，是开放给用户的最低阶算子接口。算子支持情况可查询[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list.html)。
 
 Primitive算子也称为算子原语，它直接封装了底层的Ascend、GPU、AICPU、CPU等多种算子的具体实现，为用户提供基础算子能力。
 
@@ -89,7 +89,7 @@ output = [ 1.  8. 64.]
 
 ### mindspore.ops.functional
 
-为了简化没有属性的算子的调用流程，MindSpore提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子支持情况可以查询[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html#mindspore-ops-functional)。
+为了简化没有属性的算子的调用流程，MindSpore提供了一些算子的functional版本。入参要求参考原算子的输入输出要求。算子支持情况可以查询[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list_ms.html#mindspore-ops-functional)。
 
 例如`P.Pow`算子，我们提供了functional版本的`F.tensor_pow`算子。
 
@@ -172,7 +172,7 @@ tensor [[2.4, 4.2]
 scalar 3
 ```
 
-此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GradOperation.html)。
+此外，高阶函数`GradOperation`提供了根据输入的函数，求这个函数对应的梯度函数的方式，详细可以参阅[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.GradOperation.html)。
 
 ### operations/functional/composite三类算子合并用法
 
@@ -194,7 +194,7 @@ pow = ops.Pow()
 
 ## 算子功能
 
-算子按功能可分为张量操作、网络操作、数组操作、图像操作、编码操作、调试操作和量化操作七个功能模块。所有的算子在Ascend AI处理器、GPU和CPU的支持情况，参见[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list.html)。
+算子按功能可分为张量操作、网络操作、数组操作、图像操作、编码操作、调试操作和量化操作七个功能模块。所有的算子在Ascend AI处理器、GPU和CPU的支持情况，参见[算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list.html)。
 
 ### 张量操作
 

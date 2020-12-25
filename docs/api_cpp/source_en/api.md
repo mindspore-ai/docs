@@ -1,10 +1,10 @@
 ﻿# mindspore::api
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/api.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/api.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/context.h)&gt;
 
 The Context class is used to store environment variables during execution.
 
@@ -78,7 +78,7 @@ Obtains the device ID.
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/serialization.h)&gt;
 
 The Serialization class is used to summarize methods for reading and writing model files.
 
@@ -97,7 +97,7 @@ The Serialization class is used to summarize methods for reading and writing mod
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/model.h)&gt;
 
 A Model class is used to define a MindSpore model, facilitating computational graph management.
 
@@ -194,7 +194,7 @@ Obtains the model output information.
 
 ## Tensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/types.h)&gt;
 
 ### Constructor and Destructor
 

@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 使用checkpoint格式文件单卡推理
 
@@ -37,8 +37,8 @@
     ```
 
     其中，  
-    `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model.eval>。
-    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
+    `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.Model.eval>。
+    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/lenet/eval.py>。
 
    1.2 使用MindSpore Hub从华为云加载模型
 
@@ -60,7 +60,7 @@
     ```
 
     其中，  
-    `mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore_hub/mindspore_hub.html#module-mindspore_hub>。
+    `mindspore_hub.load`为加载模型参数接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore_hub/mindspore_hub.html#module-mindspore_hub>。
 
 2. 使用`model.predict`接口来进行推理操作。
 
@@ -69,7 +69,7 @@
    ```
 
    其中，  
-   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model.predict>。
+   `model.predict`为推理接口，对应接口说明：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.Model.predict>。
 
 ## 分布式推理
 
@@ -79,13 +79,13 @@
 
 > 分布式推理样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_inference>
+> <https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/distributed_inference>
 
 分布式推理流程如下：
 
 1. 执行训练，生成checkpoint文件和模型参数切分策略文件。
 
-    > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>.
+    > - 分布式训练教程和样例代码可参考链接：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_ascend.html>.
     > - 在分布式推理场景中，训练阶段的`CheckpointConfig`接口的`integrated_save`参数需设定为`False`，表示每卡仅保存模型切片而不是全量模型。
     > - `set_auto_parallel_context`接口的`parallel_mode`参数需设定为`auto_parallel`或者`semi_auto_parallel`，并行模式为自动并行或者半自动并行。
     > - 此外还需指定`strategy_ckpt_save_file`参数，即生成的策略文件的地址。
@@ -121,7 +121,7 @@
     - `load_distributed_checkpoint`：对模型切片进行合并，再根据推理策略进行切分，加载至网络中。
 
     > `load_distributed_checkpoint`接口支持predict_strategy为`None`，此时为单卡推理，其过程与分布式推理有所不同，详细用法请参考链接：
-    > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.load_distributed_checkpoint>.
+    > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.load_distributed_checkpoint>.
 
 4. 进行推理，得到推理结果。
 

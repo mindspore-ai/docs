@@ -22,7 +22,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -58,7 +58,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |`--enable-debugger {ENABLE_DEBUGGER}`|必选|取值为True或1, 开启MindInsight侧调试器|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/mindinsight_commands.html)。
 
 然后，设置环境变量`export ENABLE_MS_DEBUGGER=1`或`export ENABLE_MS_DEBUGGER=True`，将训练指定为调试模式，并设置训练要连接的调试服务和端口：
 `export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
@@ -228,5 +228,5 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
     - 由于GPU上一个轮次是一个子图（而非完整的图），GPU上多图做重新检查时，只能重新检查当前的子图。
 
 - 重新检查只检查当前有张量值的监测点。
-- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#id5)
+- 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/custom_debugging_info.html#id5)
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。

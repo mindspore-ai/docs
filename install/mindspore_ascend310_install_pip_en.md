@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
 
 The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment.
 
@@ -42,7 +42,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 
 In the preceding information:
 
-- When the network is connected, dependencies of the MindSpore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). In other cases, install the dependencies by yourself.
+- When the network is connected, dependencies of the MindSpore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.1/requirements.txt). In other cases, install the dependencies by yourself.
 - `{version}` specifies the MindSpore version number. For example, when downloading MindSpore 1.0.1, set `{version}` to 1.0.1.
 - `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 - `{system}` specifies the system version. For example, if EulerOS ARM64 is used, set `{system}` to `euleros_aarch64`. Currently, Ascend 310 supports the following systems: `euleros_aarch64`, `centos_aarch64`, `centos_x86`, `ubuntu_aarch64`, and `ubuntu_x86`.
@@ -118,4 +118,4 @@ The preceding information indicates that MindSpore is successfully installed.
 
 If you want to quickly experience the MindSpore online inference service, you can install MindSpore Serving.
 
-For details, see [MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README.md).
+For details, see [MindSpore Serving](https://gitee.com/mindspore/serving/blob/r1.1/README.md).

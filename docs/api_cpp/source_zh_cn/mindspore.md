@@ -1,8 +1,8 @@
 # mindspore
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/mindspore.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/mindspore.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/ms_tensor.h)&gt;
 
 ## KernelCallBack
 

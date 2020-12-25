@@ -11,9 +11,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/parameter.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/parameter.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_parameter.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_parameter.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9wYXJhbWV0ZXIuaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -41,7 +41,7 @@ mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_para
 
 当`layerwise_parallel`（混合并行）配置为True时，参数广播和参数梯度聚合时会过滤掉该参数。
 
-有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/master/auto_parallel.html>。
+有关分布式并行的相关配置，可以参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/auto_parallel.html>。
 
 下例通过三种不同的数据类型构造了`Parameter`，三个`Parameter`都需要更新，都不采用layerwise并行。如下：
 
@@ -126,7 +126,7 @@ data:  Parameter (name=x)
 - `set_data`：设置`Parameter`保存的数据，支持传入`Tensor`、`Initializer`、`int`和`float`进行设置，
   将方法的入参`slice_shape`设置为True时，可改变`Parameter`的shape，反之，设置的数据shape必须与`Parameter`原来的shape保持一致。
 
-- `set_param_ps`：控制训练参数是否通过[Parameter Server](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_parameter_server_training.html)进行训练。
+- `set_param_ps`：控制训练参数是否通过[Parameter Server](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/apply_parameter_server_training.html)进行训练。
 
 - `clone`：克隆`Parameter`，克隆完成后可以给新Parameter指定新的名字。
 

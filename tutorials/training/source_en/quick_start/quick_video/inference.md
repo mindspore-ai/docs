@@ -6,4 +6,4 @@
 <source id="mp44" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/Inference.mp4" type="video/mp4">
 </video>
 
-**See More**: <https://www.mindspore.cn/tutorial/inference/en/master/index.html>
+**See More**: <https://www.mindspore.cn/tutorial/inference/en/r1.1/index.html>

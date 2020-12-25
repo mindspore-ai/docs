@@ -14,13 +14,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
 MindSpore provides multiple samplers to help you sample datasets for various purposes to meet training requirements and solve problems such as oversized datasets and uneven distribution of sample categories. You only need to import the sampler object when loading the dataset for sampling the data.
 
-The following table lists part of the common samplers supported by MindSpore. In addition, you can define your own sampler class as required. For more samplers, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+The following table lists part of the common samplers supported by MindSpore. In addition, you can define your own sampler class as required. For more samplers, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.dataset.html).
 
 | Sampler | Description |
 | ----  | ----           |

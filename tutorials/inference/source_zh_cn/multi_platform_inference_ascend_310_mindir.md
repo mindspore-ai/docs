@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -30,15 +30,15 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 4. 加载保存的MindIR模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample> 。
 
 ## 开发环境准备
 
-参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_air.html#id2)
+参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/multi_platform_inference_ascend_310_air.html#id2)
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)获取，`model`目录用于存放接下来导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)获取，`model`目录用于存放接下来导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend310_resnet50_preprocess_sample
@@ -55,7 +55,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 ## 导出MindIR模型文件
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/save_model.html#mindir)。
 
 > 这里提供使用ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。
 

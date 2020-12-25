@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -75,7 +75,7 @@ some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=True)
 
 ## 插入缓存实例
 
-下面样例中使用到CIFAR-10数据集。运行样例前，需要参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
+下面样例中使用到CIFAR-10数据集。运行样例前，需要参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
 
 ```text
 ├─my_training_script.py

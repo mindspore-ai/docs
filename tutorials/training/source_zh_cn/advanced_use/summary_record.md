@@ -18,8 +18,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/mindinsight/mindinsight_dashboard.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/summary_record.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/notebook/mindinsight/mindinsight_dashboard.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -117,7 +117,7 @@ opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
 model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
 # How to create a valid dataset instance,
-# for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
+# for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html document.
 ds_train = create_dataset('./dataset_path')
 
 # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -138,10 +138,10 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 
 当前支持的Summary算子:
 
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.TensorSummary.html)：记录张量数据
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.ImageSummary.html)：记录图片数据
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.TensorSummary.html)：记录张量数据
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.ImageSummary.html)：记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
 
 记录方式如下面的步骤所示。
 
@@ -300,9 +300,9 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 
 ### 方式四：进阶用法，自定义训练循环
 
-如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#id4)。
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/train.html#id4)。
 
-下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。
+下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。
 
 ```python
 from mindspore import nn
@@ -428,7 +428,7 @@ mindinsight start --summary-base-dir ./summary
 mindinsight stop
 ```
 
-更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)页面。
+更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/mindinsight_commands.html)页面。
 
 ## 注意事项
 

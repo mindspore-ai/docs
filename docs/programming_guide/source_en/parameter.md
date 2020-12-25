@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/parameter.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/parameter.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -37,7 +37,7 @@ To update a parameter, set `requires_grad` to `True`.
 
 When `layerwise_parallel` is set to True, this parameter will be filtered out during parameter broadcast and parameter gradient aggregation.
 
-For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html>.
+For details about the configuration of distributed parallelism, see <https://www.mindspore.cn/doc/programming_guide/en/r1.1/auto_parallel.html>.
 
 In the following example, `Parameter` objects are built using three different data types. All the three `Parameter` objects need to be updated, and layerwise parallelism is not used.  
 
@@ -121,7 +121,7 @@ data:  Parameter (name=x)
 - `set_data`: sets the data saved by `Parameter`. `Tensor`, `Initializer`, `int`, and `float` can be input for setting.
   When the input parameter `slice_shape` of the method is set to True, the shape of `Parameter` can be changed. Otherwise, the configured shape must be the same as the original shape of `Parameter`.
 
-- `set_param_ps`: controls whether training parameters are trained by using the [Parameter Server](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html).
+- `set_param_ps`: controls whether training parameters are trained by using the [Parameter Server](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/apply_parameter_server_training.html).
 
 - `clone`: clones `Parameter`. You can specify the parameter name after cloning.
 

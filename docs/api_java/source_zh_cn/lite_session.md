@@ -1,6 +1,6 @@
 # LiteSession
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_zh_cn/lite_session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_java/source_zh_cn/lite_session.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ```java
 import com.mindspore.lite.LiteSession;
@@ -62,7 +62,7 @@ public boolean compileGraph(Model model)
 
 - 参数
 
-  - `Model`: 需要被编译的模型。
+    - `Model`: 需要被编译的模型。
 
 - 返回值
 
@@ -102,7 +102,7 @@ public MSTensor getInputByTensorName(String tensorName)
 
 - 参数
 
-  - `tensorName`: 张量名。
+    - `tensorName`: 张量名。
 
 - 返回值
 
@@ -118,7 +118,7 @@ public List<MSTensor> getOutputsByNodeName(String nodeName)
 
 - 参数
 
-  - `nodeName`: 节点名。
+    - `nodeName`: 节点名。
 
 - 返回值
 

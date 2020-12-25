@@ -6,8 +6,8 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%20Performance%20Profiling.mp4" type="video/mp4">
 </video>
 
-**See more**: 
+**See more**:
 
-<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html>
+<https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/performance_profiling.html>
 
-<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_gpu.html>
+<https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/performance_profiling_gpu.html>

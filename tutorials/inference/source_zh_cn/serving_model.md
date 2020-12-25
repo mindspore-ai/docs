@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_model.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/serving_model.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述
 
@@ -27,7 +27,7 @@ MindSpore Serving的Servable提供推理服务，包含两种类型。一种是�
 
 本文将说明如何对单模型进行配置以提供Servable，以下所有Servable配置说明针对的是单模型Servable，Serving客户端简称客户端。
 
-本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/master/example/resnet/) 。
+本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/r1.1/example/resnet/) 。
 
 ## 相关概念
 
@@ -136,7 +136,7 @@ def postprocess_top5(score):
 
 预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的数据可为**numpy、Python的bool、int、float、str、或bytes**单个数据对象或者由它们组成的tuple。
 
-预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html#id9)决定。
+预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/serving_model.html#id9)决定。
 
 ### 模型声明
 

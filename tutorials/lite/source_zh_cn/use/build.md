@@ -25,7 +25,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。
 
@@ -120,7 +120,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 首先，在进行编译之前，需从MindSpore代码仓下载源码。
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.1
 ```
 
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
@@ -428,7 +428,7 @@ MindSpore Lite提供编译脚本build.bat用于一键式编译，位于MindSpore
 首先，使用git工具，从MindSpore代码仓下载源码。
 
 ```bat
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.1
 ```
 
 然后，使用cmd工具在源码根目录下，执行如下命令即可编译MindSpore Lite。

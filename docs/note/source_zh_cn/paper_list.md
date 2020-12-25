@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `全流程` `框架开发` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/paper_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/paper_list.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 | 论文标题                                                     | 论文作者                                                     | 领域       | 期刊/会议名称  | 论文链接                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------- | -------------- | ------------------------------------------------------------ |

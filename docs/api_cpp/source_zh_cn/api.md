@@ -1,10 +1,10 @@
 # mindspore::api
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/api.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/api.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -78,7 +78,7 @@ Context &SetDeviceID(uint32_t device_id);
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 
@@ -97,7 +97,7 @@ Serialization类汇总了模型文件读写的方法。
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -194,7 +194,7 @@ Status GetOutputsInfo(std::vector<std::string> *names, std::vector<std::vector<i
 
 ## Tensor
 
-\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/types.h)&gt;
+\#include &lt;[types.h](https://gitee.com/mindspore/mindspore/blob/r1.1/include/api/types.h)&gt;
 
 ### 构造函数和析构函数
 

@@ -12,8 +12,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/convert_dataset_to_mindrecord/mindspore_convert_dataset_to_mindrecord.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/convert_dataset_to_mindrecord/mindspore_convert_dataset_to_mindrecord.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9jb252ZXJ0X2RhdGFzZXRfdG9fbWluZHJlY29yZC5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 
@@ -62,7 +62,7 @@ MindSpore数据格式的目标是归一化用户的数据集，并进一步通�
 
 ## 将数据集转换为MindRecord
 
-下面本教程将简单演示如何将图片数据及其标注转换为MindRecord格式。更多MindSpore数据格式转换说明，可参见编程指南中[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_conversion.html)章节。
+下面本教程将简单演示如何将图片数据及其标注转换为MindRecord格式。更多MindSpore数据格式转换说明，可参见编程指南中[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_conversion.html)章节。
 
 1. 导入文件写入工具类`FileWriter`。
 

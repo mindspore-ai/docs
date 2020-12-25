@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/cropper_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/cropper_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,9 +24,9 @@ The operating environment of the library cutting tool is x86_64, and currently s
 
 To use the Cropper tool, you need to prepare the environment as follows:
 
-- Compilation: The code of the Cropper tool is stored in the `mindspore/lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document to compile version x86_64 .
+- Compilation: The code of the Cropper tool is stored in the `mindspore/lite/tools/cropper` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html#compilation-example) in the build document to compile version x86_64 .
 
-- Run: Obtain the `cropper` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
+- Run: Obtain the `cropper` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html#output-description) in the build document.
 
 ## Parameter Description
 

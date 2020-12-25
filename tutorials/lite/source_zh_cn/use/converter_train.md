@@ -13,13 +13,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/converter_train.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/converter_train.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
 创建MindSpore端侧模型的步骤：
 
-- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/save_model.html#mindir)。
 - 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore端侧框架训练。
 
 ## Linux环境
@@ -65,4 +65,4 @@ CONVERTER RESULT SUCCESS:0
 CONVERT RESULT FAILED:
 ```
 
-程序会返回的[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)和错误信息。
+程序会返回的[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/errorcode_and_metatype.html)和错误信息。

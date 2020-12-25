@@ -1,6 +1,6 @@
 ﻿# 图像分类模型支持（Lite）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/image_classification_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/image_classification_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 图像分类介绍
 
@@ -15,7 +15,7 @@
 | tree       | 0.8584 |
 | houseplant | 0.7867 |
 
-使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification)。
+使用MindSpore Lite实现图像分类的[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/lite/image_classification)。
 
 ## 图像分类模型列表
 

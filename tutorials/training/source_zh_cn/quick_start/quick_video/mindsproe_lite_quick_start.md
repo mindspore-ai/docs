@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindSpore%20Lite%E5%BF%AB%E9%80%9F%E4%BD%93%E9%AA%8C.mp4" type="video/mp4">
 </video>
 
-**更多内容**: <https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html>
+**更多内容**: <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/quick_start/quick_start.html>
 
-**立即使用MindSpore Lite**：<https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html>
+**立即使用MindSpore Lite**：<https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/downloads.html>

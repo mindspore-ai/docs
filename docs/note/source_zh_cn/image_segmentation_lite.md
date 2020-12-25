@@ -1,12 +1,12 @@
 ﻿# 图像分割模型支持（Lite）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/image_segmentation_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/image_segmentation_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 图像分割介绍
 
 图像分割是用于检测目标在图片中的位置或者图片中某一像素是输入何种对象的。
 
-使用MindSpore Lite实现图像分割的[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_segmentation)。
+使用MindSpore Lite实现图像分割的[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/lite/image_segmentation)。
 
 ## 图像分割模型列表
 

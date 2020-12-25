@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q: Why is data loading abnormal when MindSpore1.0.1 is used in graph data offload mode?**</font>
 
@@ -38,7 +38,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: What can I do if the LSTM example on the official website cannot run on Ascend?**</font>
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/r1.1/operator_list_ms.html) to view the supported operators.
 
 <br/>
 

@@ -23,7 +23,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/nlp_sentimentnet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/nlp_sentimentnet.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -91,7 +91,7 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
     Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used for processing and predicting an important event with a long interval and delay in a time sequence. For details, refer to the online documentation.
 3. After the model is obtained, use the validation dataset to check the accuracy of model.
 
-> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>.
+> The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/nlp/lstm>.
 >
 > - `src/config.py`: some configurations of the network, including the batch size and number of training epochs.
 > - `src/dataset.py`: dataset related definition, including converted MindRecord file and preprocessed data.
@@ -166,7 +166,7 @@ if args.preprocess == "true":
 ```
 
 > After successful conversion, `mindrecord` files are generated under the directory `preprocess_path`. Usually, this operation does not need to be performed every time if the dataset is unchanged.
-> For `convert_to_mindrecord`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>.
+> For `convert_to_mindrecord`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/dataset.py>.
 > It consists of two steps:
 >
 >1. Process the text dataset, including encoding, word segmentation, alignment, and processing the original GloVe data to adapt to the network structure.
@@ -186,7 +186,7 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
                        batch_size=cfg.batch_size)
 ```
 
-> For `SentimentNet`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>.
+> For `SentimentNet`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/lstm.py>.
 
 ### Pre-Training
 
@@ -227,7 +227,7 @@ else:
 print("============== Training Success ==============")
 ```
 
-> For `lstm_create_dataset`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/dataset.py>.
+> For `lstm_create_dataset`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/dataset.py>.
 
 ### Validating the Model
 

@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/install/mindspore_gpu_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
 
 This document describes how to quickly install MindSpore by pip in a Linux system with a GPU environment.
 
@@ -38,7 +38,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 
 Of which,
 
-- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.  
+- When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.1/requirements.txt)). In other cases, you need to manually install dependency items.  
 - `{version}` denotes the version of MindSpore. For example, when you are downloading MindSpore 1.0.1, `{version}` should be 1.0.1.  
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
 
@@ -86,16 +86,16 @@ pip install --upgrade mindspore-gpu
 
 If you need to analyze information such as model scalars, graphs, computation graphs and model traceback, you can install MindInsight.
 
-For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README.md).
+For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/r1.1/README.md).
 
 ## Installing MindArmour
 
 If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
 
-For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README.md).
+For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.1/README.md).
 
 ## Installing MindSpore Hub
 
 If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
 
-For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README.md).
+For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/r1.1/README.md).

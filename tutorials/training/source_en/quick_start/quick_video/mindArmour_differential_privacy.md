@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindArmour%20Differential%20Privacy.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/protect_user_privacy_with_differential_privacy.html>
+**See more**: <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/protect_user_privacy_with_differential_privacy.html>

@@ -21,7 +21,7 @@ copyright = '2020, MindSpore Lite'
 author = 'MindSpore Lite'
 
 # The full version, including alpha/beta/rc tags
-release = 'master'
+release = 'r1.1'
 
 
 # -- General configuration ---------------------------------------------------

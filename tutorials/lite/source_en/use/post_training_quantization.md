@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/post_training_quantization.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -28,11 +28,11 @@ MindSpore Lite quantization after training is classified into two types:
 1. Weight quantization: quantizes a weight of a model and compresses only the model size. `float32` inference is still performed during inference.
 2. Full quantization: quantizes the weight and activation value of a model. The `int` operation is performed during inference to improve the model inference speed and reduce power consumption.
 
-Data types and parameters required for the two types are different, but both can be set by using the conversion tool. For details about how to use the conversion tool `converter_lite`, see [Converting Training Models](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html). After the tool configuration is completed, you can enable quantization after training.
+Data types and parameters required for the two types are different, but both can be set by using the conversion tool. For details about how to use the conversion tool `converter_lite`, see [Converting Training Models](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/converter_tool.html). After the tool configuration is completed, you can enable quantization after training.
 
 ## Weight Quantization
 
-Quantization of 1 to 16 bits is supported. A smaller number of quantization bits indicates a higher model compression ratio and a large accuracy loss. You can use the [Benchmark tool](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html) to evaluate the accuracy and determine the number of quantization bits. Generally, the average relative error (accuracyThreshold) is within 4% which is small. The following describes the usage and effect of weight quantization.
+Quantization of 1 to 16 bits is supported. A smaller number of quantization bits indicates a higher model compression ratio and a large accuracy loss. You can use the [Benchmark tool](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/benchmark_tool.html) to evaluate the accuracy and determine the number of quantization bits. Generally, the average relative error (accuracyThreshold) is within 4% which is small. The following describes the usage and effect of weight quantization.
 
 ### Parameter Description
 
@@ -56,7 +56,7 @@ You can adjust the weight quantization parameters based on the model and your re
 
 ### Procedure
 
-1. Correctly build the `converter_lite` executable file. For details about how to obtain the `converter_lite` tool and configure environment variables, see [Building MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
+1. Correctly build the `converter_lite` executable file. For details about how to obtain the `converter_lite` tool and configure environment variables, see [Building MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html).
 2. Take the TensorFlow Lite model as an example. Run the following command to convert the weight quantization model:
 
     ```bash

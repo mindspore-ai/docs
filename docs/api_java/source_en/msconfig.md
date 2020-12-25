@@ -1,6 +1,6 @@
 # MSConfig
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_en/msconfig.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_java/source_en/msconfig.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ```java
 import com.mindspore.lite.config.MSConfig;
@@ -29,10 +29,10 @@ Initialize MSConfig.
 
 - Parameters
 
-  - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type. 
-  - `threadNum`: Thread number config for thread pool.
-  - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
-  - `enable_float16`：Whether to use float16 operator for priority.
+    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
+    - `threadNum`: Thread number config for thread pool.
+    - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
+    - `enable_float16`：Whether to use float16 operator for priority.
 
 - Returns
 
@@ -46,9 +46,9 @@ Initialize MSConfig.
 
 - Parameters
 
-    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
+    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
     - `threadNum`: Thread number config for thread pool.
-    - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
+    - `cpuBindMode`: A [**CpuBindMode**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java) **enum** variable.
 
 - Returns
 
@@ -62,7 +62,7 @@ Initialize MSConfig, `cpuBindMode` defaults to `CpuBindMode.MID_CPU`.
 
 - Parameters
 
-    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
+    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
     - `threadNum`: Thread number config for thread pool.
 
 - Returns
@@ -77,7 +77,7 @@ Initialize MSConfig，`cpuBindMode` defaults to `CpuBindMode.MID_CPU`, `threadNu
 
 - Parameters
 
-    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
+    - `deviceType`: A [**DeviceType**](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) **enum** type.
 
 - Returns
 

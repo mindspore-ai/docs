@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Whole Process` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/help_seeking_path.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/help_seeking_path.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This document describes how to seek help and support when you encounter problems in using MindSpore. The following flowchart shows the overall help-seeking process which starts from users encountering a problem in using MindSpore and ends with they finding a proper solution. Help-seeking methods are introduced based on the flowchart.
 
@@ -25,5 +25,5 @@ This document describes how to seek help and support when you encounter problems
     - If you want a detailed solution, start a help post on the [Ascend forum](https://forum.huawei.com/enterprise/en/forum-100504.html).
     - After the post is sent, a forum moderator collects the question and contacts technical experts to answer the question. The question will be resolved within three working days.
     - Resolve the problem by referring to solutions provided by technical experts.
-  
+
   If the expert test result shows that the MindSpore function needs to be improved, you are advised to submit an issue in the [MindSpore repository](https://gitee.com/mindspore). Issues will be resolved in later versions.

@@ -1,7 +1,7 @@
 <h2>Quick Start</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:450px; height:120px;">
-        <a  href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
+        <a  href="https://www.mindspore.cn/tutorial/lite/en/r1.1/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Implementing an Image Classification Application</span>
@@ -13,7 +13,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px;">
-        <a  href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" style="display:inline-block; text-decoration:none">
+        <a  href="https://www.mindspore.cn/tutorial/lite/en/r1.1/quick_start/train_lenet.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Training a LeNet Model</span>
@@ -29,7 +29,7 @@
 <h2>Obtain MindSpore Lite</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/downloads.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Downloading MindSpore Lite</span>
@@ -41,7 +41,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/build.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Building MindSpore Lite</span>
@@ -57,7 +57,7 @@
 <h2>Inference on Devices</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:450px; height:120px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html" style="display:block;text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/converter_tool.html" style="display:block;text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Converting Models for Inference</span>
@@ -69,7 +69,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/image_processing.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/image_processing.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Preprocessing Image Data</span>
@@ -81,7 +81,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; ">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/runtime.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Executing Model Inference</span>
@@ -93,7 +93,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/tools.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/tools.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Other Tools</span>
@@ -109,7 +109,7 @@
 <h2>Training on Devices</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/converter_train.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Creating MindSpore ToD Models</span>
@@ -121,7 +121,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/r1.1/use/runtime_train.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Executing Model Training</span>
@@ -137,7 +137,7 @@
 <h2>Other Documents</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Overall Architecture</span>
@@ -149,7 +149,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/api_cpp/en/master/index.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/api_cpp/en/r1.1/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite C++ API</span>
@@ -161,7 +161,7 @@
         </a>
     </div>
         <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/api_java/en/master/index.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/api_java/en/r1.1/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite Java API</span>
@@ -173,7 +173,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/operator_list_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/operator_list_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite Operator List</span>
@@ -185,7 +185,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/image_classification_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Pre-trained Models of Image Classification</span>
@@ -197,7 +197,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/object_detection_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Pre-trained Models of Object Detection</span>
@@ -209,7 +209,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/posenet_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/posenet_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Posenet Model</span>
@@ -221,7 +221,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/image_segmentation_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Image Segmentation Model</span>
@@ -233,7 +233,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/style_transfer_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/en/r1.1/style_transfer_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Style Transfer Model</span>

@@ -16,8 +16,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/optimize_data_processing.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/optimize_the_performance_of_data_preparation/mindspore_optimize_the_performance_of_data_preparation.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9vcHRpbWl6ZV90aGVfcGVyZm9ybWFuY2Vfb2ZfZGF0YV9wcmVwYXJhdGlvbi5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 
@@ -85,7 +85,7 @@ dataset/Cifar10Data
 
 ## 数据加载性能优化
 
-MindSpore为用户提供了多种数据加载方式，其中包括常用数据集加载、用户自定义数据集加载、MindSpore数据格式加载，详情内容请参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)。对于数据集加载，底层实现方式的不同，会导致数据集加载的性能存在差异，如下所示：
+MindSpore为用户提供了多种数据加载方式，其中包括常用数据集加载、用户自定义数据集加载、MindSpore数据格式加载，详情内容请参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html)。对于数据集加载，底层实现方式的不同，会导致数据集加载的性能存在差异，如下所示：
 
 |      | 常用数据集 | 用户自定义 | MindRecord |
 | :----: | :----: | :----: | :----: |
@@ -98,9 +98,9 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
 数据加载性能优化建议如下：
 
-- 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)。
-- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)。
-- 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id17)。
+- 已经支持的数据集格式优选内置加载算子，具体内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id16)。
+- 不支持的数据集格式，优选转换为MindSpore数据格式后再使用`MindDataset`类进行加载，具体内容请参考[MindSpore数据格式转换](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_conversion.html)，如果性能仍无法满足需求，则可采取多线程并发方案，请参考本文[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id16)。
+- 不支持的数据集格式，算法快速验证场景，优选用户自定义`GeneratorDataset`类实现，如果性能仍无法满足需求，则可采取多进程并发方案，请参考本文[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id17)。
 
 ### 代码示例
 
@@ -181,7 +181,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
 
 ## shuffle性能优化
 
-shuffle操作主要是对有序的数据集或者进行过repeat的数据集进行混洗，MindSpore专门为用户提供了`shuffle`函数，其中设定的`buffer_size`参数越大，混洗程度越大，但时间、计算资源消耗也会大。该接口支持用户在整个pipeline的任何时候都可以对数据进行混洗，具体内容请参考[shuffle处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html#shuffle)。但是因为底层的实现方式不同，该方式的性能不如直接在[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)中设置`shuffle`参数直接对数据进行混洗。
+shuffle操作主要是对有序的数据集或者进行过repeat的数据集进行混洗，MindSpore专门为用户提供了`shuffle`函数，其中设定的`buffer_size`参数越大，混洗程度越大，但时间、计算资源消耗也会大。该接口支持用户在整个pipeline的任何时候都可以对数据进行混洗，具体内容请参考[shuffle处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/pipeline.html#shuffle)。但是因为底层的实现方式不同，该方式的性能不如直接在[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.html)中设置`shuffle`参数直接对数据进行混洗。
 
 ### 性能优化方案
 
@@ -267,7 +267,7 @@ shuffle性能优化建议如下：
 - 使用内置Python算子（`py_transforms`模块）进行数据增强。
 - 用户可根据自己的需求，自定义Python函数进行数据增强。
 
-具体的内容请参考[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)。因为底层的实现方式不同，所以性能还是有一定的差异，如下所示：
+具体的内容请参考[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/augmentation.html)。因为底层的实现方式不同，所以性能还是有一定的差异，如下所示：
 
 |   模块   | 底层接口 | 说明 |
 | :----: | :----: | :----: |
@@ -280,10 +280,10 @@ shuffle性能优化建议如下：
 
 数据增强性能优化建议如下：
 
-- 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id18)。
-- 如果使用了`py_transforms`模块进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)、[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id17)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id18)。
+- 优先使用`c_transforms`模块进行数据增强，因为性能最高，如果性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id16)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id18)。
+- 如果使用了`py_transforms`模块进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id16)、[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id17)、[Compose优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#compose)或者[算子融合优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id18)。
 - `c_transforms`模块是在C++内维护buffer管理，`py_transforms`模块是在Python内维护buffer管理。因为Python和C++切换的性能成本，建议不要混用算子。
-- 如果用户使用了自定义Python函数进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id16)或者[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html#id17)，如果还是无法提升性能，就需要对自定义的Python代码进行优化。
+- 如果用户使用了自定义Python函数进行数据增强，当性能仍无法满足需求，可采取[多线程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id16)或者[多进程优化方案](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html#id17)，如果还是无法提升性能，就需要对自定义的Python代码进行优化。
 
 ### 代码示例
 
@@ -406,14 +406,14 @@ shuffle性能优化建议如下：
 - 在数据增强的过程中，`map`函数有`num_parallel_workers`参数用来设置线程数。
 - 在Batch的过程中，`batch`函数有`num_parallel_workers`参数用来设置线程数。
 
-具体内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
+具体内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.html)。
 
 ### 多进程优化方案
 
 数据处理中Python实现的算子均支持多进程的模式，例如：
 
-- `GeneratorDataset`这个类默认是多进程模式，它的`num_parallel_workers`参数表示的是开启的进程数，默认为1，具体内容请参考[GeneratorDataset](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html)。
-- 如果使用Python自定义函数或者`py_transforms`模块进行数据增强的时候，当`map`函数的参数`python_multiprocessing`设置为True时，此时参数`num_parallel_workers`表示的是进程数，参数`python_multiprocessing`默认为False，此时参数`num_parallel_workers`表示的是线程数，具体的内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
+- `GeneratorDataset`这个类默认是多进程模式，它的`num_parallel_workers`参数表示的是开启的进程数，默认为1，具体内容请参考[GeneratorDataset](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/dataset/mindspore.dataset.GeneratorDataset.html)。
+- 如果使用Python自定义函数或者`py_transforms`模块进行数据增强的时候，当`map`函数的参数`python_multiprocessing`设置为True时，此时参数`num_parallel_workers`表示的是进程数，参数`python_multiprocessing`默认为False，此时参数`num_parallel_workers`表示的是线程数，具体的内容请参考[内置加载算子](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.html)。
 
 ### Compose优化方案
 
@@ -423,7 +423,7 @@ Map算子可以接收Tensor算子列表，并将按照顺序应用所有的这�
 
 ### 算子融合优化方案
 
-提供某些融合算子，这些算子将两个或多个算子的功能聚合到一个算子中。具体内容请参考[数据增强算子](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html)，与它们各自组件的流水线相比，这种融合算子提供了更好的性能。如图所示：
+提供某些融合算子，这些算子将两个或多个算子的功能聚合到一个算子中。具体内容请参考[数据增强算子](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.vision.html)，与它们各自组件的流水线相比，这种融合算子提供了更好的性能。如图所示：
 
 ![title](./images/operator_fusion.png)
 

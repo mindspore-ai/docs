@@ -8,4 +8,4 @@
 
 **Install now**: <https://www.mindspore.cn/install/en>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/improve_model_security_nad.html>
+**See more**: <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/improve_model_security_nad.html>

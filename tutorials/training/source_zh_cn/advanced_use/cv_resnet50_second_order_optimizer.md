@@ -29,7 +29,7 @@
             - [GPU](#gpu-2)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -39,7 +39,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor> 。
+<https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/cv/resnet_thor> 。
 
 示例代码目录结构
 
@@ -105,11 +105,11 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 #### Ascend 910
 
-Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id4)。
+Ascend 910 AI处理器的分布式环境变量配置参考[分布式并行训练 (Ascend)](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_ascend.html#id4)。
 
 #### GPU
 
-GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_gpu.html#id4)。
+GPU的分布式环境配置参考[分布式并行训练 (GPU)](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_gpu.html#id4)。
 
 ## 加载处理数据集
 
@@ -174,11 +174,11 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return data_set
 ```
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)和[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/pipeline.html)和[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/augmentation.html)章节。
 
 ## 定义网络
 
-本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
+本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
 和`Dense`算子。定义好的网络模型在在源码`src/resnet_thor.py`脚本中，自定义的算子`Conv2d_thor`和`Dense_thor`在`src/thor_layer.py`脚本中。
 
 - 使用`Conv2d_thor`替换原网络模型中的`Conv2d`
@@ -343,7 +343,7 @@ sh run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> <DEVICE_NUM>
 
 脚本需要传入变量`RANK_TABLE_FILE`、`DATASET_PATH`和`DEVICE_NUM`，其中：
 
-- `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
+- `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
 - `DEVICE_NUM`：实际的运行卡数。
 

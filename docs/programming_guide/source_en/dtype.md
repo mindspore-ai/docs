@@ -8,7 +8,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/dtype.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/dtype.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -16,7 +16,7 @@ MindSpore tensors support different data types, including `int8`, `int16`, `int3
 
 In the computation process of MindSpore, the `int` data type in Python is converted into the defined `int64` type, and the `float` data type is converted into the defined `float32` type.
 
-For details about the supported types, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.dtype>.
+For details about the supported types, see <https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.html#mindspore.dtype>.
 
 In the following code, the data type of MindSpore is int32.
 

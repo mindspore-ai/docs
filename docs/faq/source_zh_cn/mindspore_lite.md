@@ -1,6 +1,6 @@
 # 端侧使用类
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/mindspore_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/mindspore_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：NPU推理存在什么限制？**</font>
 
@@ -8,5 +8,5 @@ A：目前NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000�
 
 <font size=3>**Q：为什么使用裁剪工具裁剪后的静态库在集成时存在编译失败情况？**</font>
 
-A：目前裁剪工具仅支持CPU的库，即编译命令中指定了`-e CPU`，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html)文档。
+A：目前裁剪工具仅支持CPU的库，即编译命令中指定了`-e CPU`，具体使用请查看[使用裁剪工具降低库文件大小](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/cropper_tool.html)文档。
 

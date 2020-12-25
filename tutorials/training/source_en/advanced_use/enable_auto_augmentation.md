@@ -11,11 +11,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/enable_auto_augmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/enable_auto_augmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. Users can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html).
+Auto Augmentation [1] finds a suitable image augmentation scheme for a specific dataset by searching through a series of image augmentation sub-policies. The `c_transforms` module of MindSpore provides various C++ operators that are used in Auto Augmentation. Users can also customize functions or operators to implement Auto Augmentation. For more details about the MindSpore operators, see the [API document](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.dataset.vision.html).
 
 The mapping between MindSpore operators and Auto Augmentation operators is as follows:
 

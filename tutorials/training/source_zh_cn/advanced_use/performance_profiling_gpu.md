@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -26,7 +26,7 @@
 
 > 操作流程可以参考Ascend 910上profiler的操作：
 >
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id3>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/performance_profiling.html#id3>
 > 普通用户默认情况下无权访问目标设备上的NVIDIA GPU性能计数器。如果普通用户需要在训练脚本中使用profiler性能统计能力，则需参考以下网址的说明进行权限配置。
 >
 > <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
@@ -40,7 +40,7 @@
 
 > 样例代码与Ascend使用方式一致可以参考：
 >
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/performance_profiling.html#id4>
 
 GPU场景下还可以用自定义callback的方式收集性能数据（当前版本，MindData不支持该种方式，此方式下无MindData性能数据生成。），当前版本数据下沉模式不支持callback的方式收集性能数据，示例如下：
 
@@ -74,7 +74,7 @@ class StopAtStep(Callback):
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/mindinsight_commands.html)。
 
 ### 性能分析
 
@@ -127,7 +127,7 @@ GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处
 
 > 与Ascend使用方式一致，可以参考：
 >
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/performance_profiling.html#timeline>
 
 #### MindData性能分析
 
@@ -135,7 +135,7 @@ GPU场景下，MindData性能分析的使用方法和Ascend场景相同，使用
 
 > 与Ascend使用方式一致，可以参考：
 >
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#minddata>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/performance_profiling.html#minddata>
 
 ## 注意事项
 

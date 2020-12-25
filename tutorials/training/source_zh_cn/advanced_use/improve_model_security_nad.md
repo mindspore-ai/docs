@@ -17,8 +17,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/improve_model_security_nad.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master//mindspore_model_security.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/improve_model_security_nad.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1//mindspore_model_security.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9tb2RlbF9zZWN1cml0eS5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 
@@ -35,7 +35,7 @@ AI算法设计之初普遍未考虑相关的安全威胁，使得AI算法的判�
 这里通过图像分类任务上的对抗性攻防，以攻击算法FGSM和防御算法NAD为例，介绍MindArmour在对抗攻防上的使用方法。
 
 > 本例面向CPU、GPU、Ascend 910 AI处理器，你可以在这里下载完整的样例代码：
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/model_security/model_defenses/mnist_defense_nad.py>
+> <https://gitee.com/mindspore/mindarmour/blob/r1.1/examples/model_security/model_defenses/mnist_defense_nad.py>
 
 ## 建立被攻击模型
 

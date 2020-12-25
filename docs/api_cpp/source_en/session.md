@@ -1,10 +1,10 @@
 # mindspore::session
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## LiteSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/lite_session.h)&gt;
 
 LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding inference.
 
@@ -56,7 +56,7 @@ Compile MindSpore Lite model.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h).
 
 #### GetInputs
 
@@ -97,13 +97,13 @@ Run session with callback.
 
 - Parameters
 
-    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#kernelcallback) function. Define a callback function to be called before running each node.
+    - `before`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/r1.1/mindspore.html#kernelcallback) function. Define a callback function to be called before running each node.
 
-    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#kernelcallback) function. Define a callback function to be called after running each node.
+    - `after`: A [**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/en/r1.1/mindspore.html#kernelcallback) function. Define a callback function to be called after running each node.
 
 - Returns
 
-    STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h).
 
 #### GetOutputsByNodeName
 
@@ -178,7 +178,7 @@ Resize inputs shape.
 
 - Returns
 
-    STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h).
 
 ### Static Public Member Functions
 
@@ -218,7 +218,7 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
 ## TrainSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/lite_session.h)&gt;
 
 Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
 
@@ -318,7 +318,7 @@ Set model to train mode.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h)
 
 #### IsTrain
 
@@ -342,7 +342,7 @@ Set model to eval mode.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/include/errorcode.h).
 
 #### IsEval
 

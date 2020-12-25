@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -136,7 +136,7 @@ In the conversion report, non-transformed code is listed as follows:
 line <row>:<col> [UnConvert] 'operator' didn't convert. ...
 ```
 
-For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/master/index.html#operator_api) for more information about operator mapping.
+For non-transformed operators, the original code keeps. Please manually migrate them. [Click here](https://www.mindspore.cn/doc/note/en/r1.1/index.html#operator_api) for more information about operator mapping.
 
 Here is an example of the conversion report:
 
@@ -214,7 +214,7 @@ class Classifier(nn.Cell):
 
 #### TensorFlow Model Scripts Conversion
 
-To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [MindConverter tutorial](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README.md#tensorflow-pb-model-exporting) for the pb model exporting.
+To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [MindConverter tutorial](https://gitee.com/mindspore/mindinsight/blob/r1.1/mindinsight/mindconverter/README.md#tensorflow-pb-model-exporting) for the pb model exporting.
 
 Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`, the following command can be used to generate the script:
 

@@ -18,11 +18,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/lite/examples/train_lenet/).
 
 The completed training procedure is as follows:
 
@@ -59,11 +59,11 @@ The directory structure is as follows:
 
 ### Install MindSpore
 
-Please referring MindSpore [installation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) to install MindSpore CPU environment.
+Please referring MindSpore [installation](https://gitee.com/mindspore/docs/blob/r1.1/install/mindspore_cpu_install_pip_en.md#) to install MindSpore CPU environment.
 
 ### Converter and Runtime Tool
 
-Acquire `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter, the command is shown below:
+Acquire `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html) chapter, the command is shown below:
 
 ```shell
 # generate converter tools and runtime package on x86
@@ -73,7 +73,7 @@ bash build.sh -I x86_64 -T on -e cpu -j8
 bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
-You could also directly download them from [here](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
+You could also directly download them from [here](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
 
 ### Connect Android Device
 
@@ -159,7 +159,7 @@ train_lenet/
 
 ### Model Exporting
 
-Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet).
+Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/cv/lenet).
 
 Import and instantiate a LeNet5 model and set the model to train mode:
 
@@ -180,7 +180,7 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs
 
 Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
 
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
+The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
 batch_size = 32
@@ -216,7 +216,7 @@ print("finished exporting")
 
 ### Model Transfering
 
-To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Instalation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
+To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/r1.1/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Instalation instructions](https://gitee.com/mindspore/mindspore/blob/r1.1/README.md#docker-image).
 
 > MindSpore environment allows the developer to run MindSpore python code on server or PC. It differs from MindSpore Lite framework that allows to compile and run code on embedded devices.
 
@@ -228,7 +228,7 @@ docker run -w $PWD --runtime=nvidia -v /home/$USER:/home/$USER --privileged=true
 
 If you don't have docker environment, it will run locally.
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models)
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/converter_train.html#creating-mindspore-tod-models)
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
@@ -236,7 +236,7 @@ To convert the model simply use the converter as explained in the [Convert Secti
 
 ### Model Training
 
-In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src) the executable has the following API:
+In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/lite/examples/train_lenet/src) the executable has the following API:
 
 ```bash
 Usage: net_runner -f <.ms model file> -d <data_dir> [-c <num of training cycles>]
@@ -292,7 +292,7 @@ void NetRunner::InitAndFigureInputs() {
 #### Dataset Processing
 
 `InitDB` initializes the MNIST dataset and loads it into the memory. We will not discuss this code here.
-The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
+The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
 
 ```cpp
 int NetRunner::InitDB() {
@@ -350,7 +350,7 @@ Then, `RunGraph` method is called. A debug callback that prints the input and ou
 session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
 ```
 
-Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors).
+Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/runtime_train_cpp.html#obtaining-output-tensors).
 It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. Checkpoints are easily saved by calling the `SaveToFile` API, like this:
 
 ```cpp

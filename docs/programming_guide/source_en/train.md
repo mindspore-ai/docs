@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/train.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -23,13 +23,13 @@ MindSpore provides a large number of network models such as object detection and
 
 Before customizing a training network, you need to understand the network support of MindSpore, constraints on network construction using Python, and operator support.
 
-- Network support: Currently, MindSpore supports multiple types of networks, including computer vision, natural language processing, recommender, and graph neural network. For details, see [Network List](https://www.mindspore.cn/doc/note/en/master/network_list.html). If the existing networks cannot meet your requirements, you can define your own network as required.
+- Network support: Currently, MindSpore supports multiple types of networks, including computer vision, natural language processing, recommender, and graph neural network. For details, see [Network List](https://www.mindspore.cn/doc/note/en/r1.1/network_list.html). If the existing networks cannot meet your requirements, you can define your own network as required.
 
 - Constraints on network construction using Python: MindSpore does not support the conversion of any Python source code into computational graphs. Therefore, the source code has the syntax and network definition constraints. These constraints may change as MindSpore evolves.
 
-- Operator support: As the name implies, the network is based on operators. Therefore, before customizing a training network, you need to understand the operators supported by MindSpore. For details about operator implementation on different backends (Ascend, GPU, and CPU), see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+- Operator support: As the name implies, the network is based on operators. Therefore, before customizing a training network, you need to understand the operators supported by MindSpore. For details about operator implementation on different backends (Ascend, GPU, and CPU), see [Operator List](https://www.mindspore.cn/doc/note/en/r1.1/operator_list.html).
 
-> When the built-in operators of the network cannot meet the requirements, you can refer to [Custom Operators(Ascend)](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_ascend.html) to quickly expand the custom operators of the Ascend AI processor.
+> When the built-in operators of the network cannot meet the requirements, you can refer to [Custom Operators(Ascend)](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/custom_operator_ascend.html) to quickly expand the custom operators of the Ascend AI processor.
 
 The following is a code example:
 
@@ -246,7 +246,7 @@ if __name__ == "__main__":
             print("epoch: {0}/{1}, losses: {2}".format(step + 1, epoch, output.asnumpy(), flush=True))
 ```
 
-> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#downloading-the-dataset).
+> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html#downloading-the-dataset).
 
 The output is as follows:
 
@@ -263,11 +263,11 @@ epoch: 9/10, losses: 2.305952548980713
 epoch: 10/10, losses: 1.4282708168029785
 ```
 
-> The typical application scenario is gradient accumulation. For details, see [Applying Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_gradient_accumulation.html).
+> The typical application scenario is gradient accumulation. For details, see [Applying Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/apply_gradient_accumulation.html).
 
 ## Conducting Inference While Training
 
-For some complex networks with a large data volume and a relatively long training time, to learn the change of model accuracy in different training phases, the model accuracy may be traced in a manner of inference while training. For details, see [Evaluating the Model during Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/evaluate_the_model_during_training.html).
+For some complex networks with a large data volume and a relatively long training time, to learn the change of model accuracy in different training phases, the model accuracy may be traced in a manner of inference while training. For details, see [Evaluating the Model during Training](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/evaluate_the_model_during_training.html).
 
 ## On-Device Execution
 
