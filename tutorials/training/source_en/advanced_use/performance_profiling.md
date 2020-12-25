@@ -7,7 +7,6 @@
 - [Performance Profiling(Ascend)](#performance-profilingascend)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
-    - [Preparing the Environment](#preparing-the-environment)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launch MindInsight](#launch-mindinsight)
         - [Performance Analysis](#performance-analysis)
@@ -30,10 +29,6 @@ Performance data like operator's execution time is recorded in files and can be 
 - Prepare a training script, add profiler APIs in the training script and run the training script.
 - Start MindInsight and specify the profiler data directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - Find the training in the list, click the performance profiling link and view the data on the web page.
-
-## Preparing the Environment
-
-Before using Profiler, ensure that the background tool process (ada) is started correctly. Users are required to start the ada process with the user of the HwHiAiUser user group or root, and run the scripts using the same user. The start command is `/usr/local/Ascend/driver/tools/ada`.
 
 ## Preparing the Training Script
 

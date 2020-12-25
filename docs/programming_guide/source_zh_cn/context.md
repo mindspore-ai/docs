@@ -122,13 +122,25 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, grad
 
 - `enable_profiling`：是否开启profiling功能。设置为True，表示开启profiling功能，从enable_options读取profiling的采集选项；设置为False，表示关闭profiling功能，仅采集training_trace。
 
-- `profiling_options`：profiling采集选项，取值如下，支持采集多项数据。training_trace：采集迭代轨迹数据，即训练任务及AI软件栈的软件信息，实现对训练任务的性能分析，重点关注数据增强、前后向计算、梯度聚合更新等相关数据；task_trace：采集任务轨迹数据，即昇腾910处理器HWTS/AICore的硬件信息，分析任务开始、结束等信息；op_trace：采集单算子性能数据。
+- `profiling_options`：profiling采集选项，取值如下，支持采集多项数据。
+    result_path: Profiling采集结果文件保存路径。该参数指定的目录需要在启动训练的环境上（容器或Host侧）提前创建且确保安装时配置的运行用户具有读写权限，支持配置绝对路径或相对路径（相对执行命令时的当前路径）；
+    training_trace：采集迭代轨迹数据，即训练任务及AI软件栈的软件信息，实现对训练任务的性能分析，重点关注数据增强、前后向计算、梯度聚合更新等相关数据，取值on/off。
+    task_trace：采集任务轨迹数据，即昇腾910处理器HWTS/AICore的硬件信息，分析任务开始、结束等信息，取值on/off；
+    aicpu_trace: 采集aicpu数据增强的profiling数据。取值on/off；
+    fp_point: training_trace为on时需要配置。指定训练网络迭代轨迹正向算子的开始位置，用于记录前向算子开始时间戳。配置值为指定的正向第一个算子名字。当该值为空时，系统自动获取正向第一个算子名字；
+    bp_point: training_trace为on时需要配置。指定训练网络迭代轨迹反向算子的结束位置，用于记录反向算子结束时间戳。配置值为指定的反向最后一个算子名字。当该值为空时，系统自动获取反向最后一个算子名字；
+    ai_core_metrics: 取值如下：
+    - ArithmeticUtilization: 各种计算类指标占比统计。
+    - PipeUtilization: 计算单元和搬运单元耗时占比，该项为默认值。
+    - Memory: 外部内存读写类指令占比。
+    - MemoryL0: 内部内存读写类指令占比。
+    - ResourceConflictRatio: 流水线队列类指令占比。
 
 代码样例如下：
 
 ```python
 from mindspore import context
-context.set_context(enable_profiling=True, profiling_options="training_trace")
+context.set_context(enable_profiling=True, profiling_options= '{"result_path":"/home/data/output","training_trace":"on"}')
 ```
 
 ### 保存MindIR
