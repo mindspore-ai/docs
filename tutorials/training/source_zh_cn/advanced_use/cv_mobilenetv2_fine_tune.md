@@ -167,7 +167,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ### 准备数据
 
-准备ImageFolder格式管理的数据集，运行`run_train.sh`时加入`[dataset_path]`参数，运行`train.py`时加入`--dataset_path [dataset_path]`参数：
+准备ImageFolder格式管理的数据集，运行`run_train.sh`时加入`<dataset_path>`参数，运行`train.py`时加入`--dataset_path <dataset_path>`参数：
 
 数据集结构如下：
 
@@ -225,10 +225,10 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 ```bash
 # Windows/Linux train with Python file
-python train.py --platform [PLATFORM] --dataset_path [DATASET_PATH]  --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --freeze_layer[("none", "backbone")]
+python train.py --platform [PLATFORM] --dataset_path <DATASET_PATH>  --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --freeze_layer[("none", "backbone")]
 
 # Windows/Linux eval with Python file
-python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH]
+python eval.py --platform [PLATFORM] --dataset_path <DATASET_PATH> --pretrain_ckpt <PRETRAIN_CHECKPOINT_PATH>
 ```
 
 - `--dataset_path`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
@@ -243,25 +243,25 @@ python eval.py --platform [PLATFORM] --dataset_path [DATASET_PATH] --pretrain_ck
 ```bash
 # Windows doesn't support Shell
 # Linux train with Shell script
-sh run_train.sh [PLATFORM] [DEVICE_NUM] [VISIABLE_DEVICES(0,1,2,3,4,5,6,7)] [RANK_TABLE_FILE] [DATASET_PATH] [CKPT_PATH] [FREEZE_LAYER]
+sh run_train.sh <PLATFORM> <DEVICE_NUM> <VISIABLE_DEVICES(0,1,2,3,4,5,6,7)> <RANK_TABLE_FILE> <DATASET_PATH> <CKPT_PATH> [FREEZE_LAYER]
 
 # Linux eval with Shell script for fine tune
-sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
+sh run_eval.sh <PLATFORM> <DATASET_PATH> <PRETRAIN_CKPT_PATH>
 ```
 
-- `[PLATFORM]`：处理器类型，默认为“Ascend”，可以设置为“GPU”。
-- `[DEVICE_NUM]`：每个节点（一台服务器/PC相当于一个节点）进程数量，建议设置为机器上Ascend AI处理器数量或GPU数量。
-- `[VISIABLE_DEVICES(0,1,2,3,4,5,6,7)]`：字符串格式的的设备ID，训练将会根据`[VISIABLE_DEVICES]`将进程绑定到对应ID的设备上，多个设备ID之间使用','分隔，建议ID数量与进程数量相同。
-- `[RANK_TABLE_FILE]`：platform选择Ascend时，需要配置Ascend的配置Json文件,。
-- `[DATASET_PATH]`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
-- `[CKPT_PATH]`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重
+- `<PLATFORM>`：处理器类型，默认为“Ascend”，可以设置为“GPU”。
+- `<DEVICE_NUM>`：每个节点（一台服务器/PC相当于一个节点）进程数量，建议设置为机器上Ascend AI处理器数量或GPU数量。
+- `<VISIABLE_DEVICES(0,1,2,3,4,5,6,7)>`：字符串格式的的设备ID，训练将会根据`<VISIABLE_DEVICES>`将进程绑定到对应ID的设备上，多个设备ID之间使用','分隔，建议ID数量与进程数量相同。
+- `<RANK_TABLE_FILE>`：platform选择Ascend时，需要配置Ascend的配置Json文件,。
+- `<DATASET_PATH>`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
+- `<CKPT_PATH>`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重
 - `[FREEZE_LAYER]`：针对微调的模型做验证时，需要选择不冻结网络或者冻结backbone。
 
 ## 加载微调训练
 
 Windows系统上，MobileNetV2做微调训练时，只能运行`train.py`。Linux系统上，使用MobileNetV2做微调训练时，可以选择运行`run_train.sh`， 并在运行Shell脚本文件时传入[参数](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_mobilenetv2_fine_tune.html#id8)。
 
-Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> [log_file_path]`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
+Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_train.sh`时，命令行结尾使用`&> <log_file_path>`将标准输出与错误输出写入log文件。微调成功开始训练，`./train/rank*/log*.log`中会持续写入每一个epoch的训练时间与Loss等信息。若未成功，上述log文件会写入失败报错信息。
 
 ### CPU加载训练
 
@@ -275,21 +275,21 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     ```bash
     # Windows or Linux with Python
-    python train.py --platform CPU --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
+    python train.py --platform CPU --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
     ```
 
   使用样例2：通过Shell文件调用1个CPU处理器。
 
     ```bash
     # Linux with Shell
-    sh run_train.sh CPU [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetV2_cpu_gpu.ckpt backbone
+    sh run_train.sh CPU <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetV2_cpu_gpu.ckpt backbone
     ```
 
 ### GPU加载训练
 
 - 设置节点数量
 
-  目前运行`train.py`时仅支持单处理器，不需要调整节点数量。运行`run_train.sh`文件时，设置`[nproc_per_node]`为GPU数量， `[visible_devices]`为可使用的处理器编号，即GPU的ID，可以选择一个或多个设备ID，使用`,`隔开。
+  目前运行`train.py`时仅支持单处理器，不需要调整节点数量。运行`run_train.sh`文件时，设置`<nproc_per_node>`为GPU数量， `<visible_devices>`为可使用的处理器编号，即GPU的ID，可以选择一个或多个设备ID，使用`,`隔开。
 
 - 开始增量训练
 
@@ -297,28 +297,28 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
         ```bash
         # Windows or Linux with Python
-        python train.py --platform GPU --dataset_path [TRAIN_DATASET_PATH] --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
+        python train.py --platform GPU --dataset_path <TRAIN_DATASET_PATH> --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
         ```
 
     - 使用样例2：通过Shell脚本调用1个GPU处理器，设备ID为`“0”`。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh GPU 1 0 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        sh run_train.sh GPU 1 0 <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
         ```
 
     - 使用样例3：通过Shell脚本调用8个GPU处理器，设备ID为`“0,1,2,3,4,5,6,7”`。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 <<TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
         ```
 
 ### Ascend加载训练
 
 - 设置节点数量
 
-  目前运行`train.py`时仅支持单处理器，不需要调整节点数量。运行`run_train.sh`文件时，设置`[nproc_per_node]`为Ascend AI处理器数量， `[visible_devices]`为可使用的处理器编号，即Ascend AI处理器的ID，8卡服务器可以选择0-7中一个或多个设备ID，使用`,`隔开。Ascend节点处理器数量目前只能设置为1或者8。
+  目前运行`train.py`时仅支持单处理器，不需要调整节点数量。运行`run_train.sh`文件时，设置`<nproc_per_node>`为Ascend AI处理器数量， `<visible_devices>`为可使用的处理器编号，即Ascend AI处理器的ID，8卡服务器可以选择0-7中一个或多个设备ID，使用`,`隔开。Ascend节点处理器数量目前只能设置为1或者8。
 
 - 开始增量训练
 
@@ -326,21 +326,21 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
         ```bash
         # Windows or Linux with Python
-        python train.py --platform Ascend --dataset_path [TRAIN_DATASET_PATH]  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
+        python train.py --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
         ```
 
     - 使用样例2：通过Shell脚本调用1个Ascend AI处理器，设备ID为“0”。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 1 0 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 1 0 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
         ```
 
     - 使用样例3：通过Shell脚本调用8个Ascend AI处理器，设备ID为”0,1,2,3,4,5,6,7“。
 
         ```bash
         # Linux with Shell
-        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json [TRAIN_DATASET_PATH] ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
+        sh run_train.sh Ascend 8 0,1,2,3,4,5,6,7 ~/rank_table.json <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_ascend.ckpt backbone
         ```
 
 ### 微调训练结果
@@ -393,10 +393,10 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
 ```bash
 # Windows/Linux with Python
-python eval.py --platform CPU --dataset_path [VAL_DATASET_PATH] --pretrain_ckpt ./ckpt_0/mobilenetv2_15.ckpt
+python eval.py --platform CPU --dataset_path <VAL_DATASET_PATH> --pretrain_ckpt ./ckpt_0/mobilenetv2_15.ckpt
 
 # Linux with Shell
-sh run_eval.sh CPU [VAL_DATASET_PATH] ../ckpt_0/mobilenetv2_15.ckpt
+sh run_eval.sh CPU <VAL_DATASET_PATH> ../ckpt_0/mobilenetv2_15.ckpt
 ```
 
 ### 验证结果
