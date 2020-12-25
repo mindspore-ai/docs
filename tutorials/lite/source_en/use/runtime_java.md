@@ -76,7 +76,7 @@ if (!model.loadModel(context, "model.ms")) {
 
  [MSConfig](https://www.mindspore.cn/doc/api_java/en/master/msconfig.html#msconfig) saves some basic configuration parameters required by the session, which is used to guide graph compilation and graph execution
 
-MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` in [MSConfig](https://www.mindspore.cn/doc/api_java/en/master/msconfig.html#msconfig) and is CPU by default. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
+MindSpore Lite supports heterogeneous inference. The preferred backend for inference is specified by `deviceType` in [MSConfig](https://www.mindspore.cn/doc/api_java/en/master/msconfig.html#msconfig) and only CPU is supported. During graph compilation, operator selection and scheduling are performed based on the preferred backend.
 
 MindSpore Lite has a built-in thread pool shared by processes. During inference, `threadNum` is used to specify the maximum number of threads in the thread pool. The default maximum number is 2. It is recommended that the maximum number does not exceed 4. Otherwise, the performance may be affected.
 
