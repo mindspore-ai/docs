@@ -112,7 +112,7 @@ The AST mode is recommended for the first demand (AST mode is only supported for
 
 For the second demand, the Graph mode is recommended. As the computational graph is a standard descriptive language, it is not affected by user's coding style. This mode may have more operators converted as long as these operators are supported by MindConverter.
 
-Some typical image classification networks such as ResNet and VGG have been tested for the Graph mode. Note that:
+Some typical networks in computer vision field have been tested for the Graph mode. Note that:
 
 > 1. Currently, the Graph mode does not support models with multiple inputs. Only models with a single input and single output are supported.
 > 2. The Dropout operator will be lost after conversion because the inference mode is used to load the PyTorch or TensorFlow model. Manually re-implement is necessary.
