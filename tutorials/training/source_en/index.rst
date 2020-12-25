@@ -697,7 +697,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							
+							<div class="doc-article-item all os-Windows os-Linux hardware-CPU hardware-Ascend hardware-GPU stage-Model-Development user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_mobilenetv2_fine_tune.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using MobileNetV2 to Implement Fine-Tuning</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial describes how to perform fine-tuning training and validation in the MindSpore frameworks of different systems and processors.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/nlp_sentimentnet.html" class="article-link">
 									<div>
@@ -710,7 +721,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Inference user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/nlp_bert_poetry.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Using the BERT Network to Implement Intelligent Poem Writing</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial introduces how to use MindSpore to train an intelligent poem writing model and deploy the prediction service.
+										</div>
+									</div>
+								</a>
+							</div>
 			
 						</div>
 						<div class="doc-footer">

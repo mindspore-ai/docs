@@ -1,8 +1,8 @@
-﻿# Installing MindSpore Ascend 310 Through Source Code Compilation
+﻿# Installing MindSpore in Ascend 310 by Source Code Compilation
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 310 Through Source Code Compilation](#installing-mindspore-ascend-310-through-source-code-compilation)
+- [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
     - [Checking System Environment Information](#checking-system-environment-information)
     - [Downloading Source Code from the Code Repository](#downloading-source-code-from-the-code-repository)
     - [Building MindSpore](#building-mindspore)
