@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/debugger.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -55,7 +55,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Required|Should be set to `True`, this will launch the MindInsight debugger server.|Boolean|False|True/False|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
+For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/mindinsight_commands.html).
 
 Then, set `export ENABLE_MS_DEBUGGER=1` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
 `export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);

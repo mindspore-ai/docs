@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -35,10 +35,10 @@
 
 本章将详细介绍深度概率编程在MindSpore上的应用。在动手进行实践之前，确保，你已经正确安装了MindSpore 0.7.0-beta及其以上版本。本章的具体内容如下：
 
-1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网络（Bayesian Neural Network, BNN）；
-2. 介绍如何使用[variational模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/infer/variational)和[dpn模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/dpn)实现变分自编码器（Variational AutoEncoder, VAE）；
-3. 介绍如何使用[transforms模块](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/transforms)实现DNN（Deep Neural Network, DNN）一键转BNN；
-4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
+1. 介绍如何使用[bnn_layers模块](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/bnn_layers)实现贝叶斯神经网络（Bayesian Neural Network, BNN）；
+2. 介绍如何使用[variational模块](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/infer/variational)和[dpn模块](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/dpn)实现变分自编码器（Variational AutoEncoder, VAE）；
+3. 介绍如何使用[transforms模块](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/transforms)实现DNN（Deep Neural Network, DNN）一键转BNN；
+4. 介绍如何使用[toolbox模块](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/nn/probability/toolbox/uncertainty_evaluation.py)实现不确定性估计。
 
 ## 使用贝叶斯神经网络
 
@@ -49,11 +49,11 @@
 3. 定义损失函数和优化器；
 4. 加载数据集并进行训练。
 
-> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/bnn_layers>
 
 ### 处理数据集
 
-本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。
+本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html)一致。
 
 ### 定义贝叶斯神经网络
 
@@ -192,7 +192,7 @@ def validate_model(net, dataset):
 4. 训练网络；
 5. 生成新样本或重构输入样本。
 
-> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/dpn>
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/dpn>
 
 ### 定义变分自编码器
 
@@ -252,7 +252,7 @@ net_with_loss = nn.WithLossCell(vae, net_loss)
 
 ### 处理数据
 
-本例使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。
+本例使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html)一致。
 
 ### 训练网络
 
@@ -289,7 +289,7 @@ for sample in ds_train.create_dict_iterator():
 3. 实现功能一：转换整个模型；
 4. 实现功能二：转换指定类型的层。
 
-> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/transforms>
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/transforms>
 
 ### 定义DNN模型
 
@@ -628,9 +628,9 @@ LeNet5
 - 认知不确定性（Epistemic Uncertainty）：模型自身对输入数据的估计可能因为训练不佳、训练数据不够等原因而不准确，可以通过增加训练数据等方式来缓解。
 
 不确定性估计工具箱，适用于主流的深度学习模型，如回归、分类等。在推理阶段，利用不确定性估计工具箱，开发人员只需通过训练模型和训练数据集，指定需要估计的任务和样本，即可得到任意不确定性和认知不确定性。基于不确定性信息，开发人员可以更好地理解模型和数据集。
-> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/toolbox>
 
-以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
+以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation

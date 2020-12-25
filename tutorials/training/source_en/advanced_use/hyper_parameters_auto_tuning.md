@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/hyper_parameters_auto_tuning.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/hyper_parameters_auto_tuning.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -55,7 +55,7 @@ The file format of the configuration file is yaml, which requires configurations
 
 2. Configure the root directory of training summaries
 
-    The `summary_base_dir` is the root directory of training summaries. It is also used for the extraction of training records, which makes hyperparameters better recommended. At the same time, it is recommended that users add `SummaryColletor` in their training scripts to collect training information, you can view the [summmary collection tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/summary_record.html). The tuning command generates a subdirectory path based on the configured `summary_base_dir`, which can be configured to record the training record at `SummaryColletor`. Therefore, after training, the training information is recorded in the subdirecte of the root directory of training summaries, and the training information can be used as a training record to recommend the next required hyperparameters. Configure the `summary_base_dir`, such as `/home/summaries`.
+    The `summary_base_dir` is the root directory of training summaries. It is also used for the extraction of training records, which makes hyperparameters better recommended. At the same time, it is recommended that users add `SummaryColletor` in their training scripts to collect training information, you can view the [summmary collection tutorial](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/summary_record.html). The tuning command generates a subdirectory path based on the configured `summary_base_dir`, which can be configured to record the training record at `SummaryColletor`. Therefore, after training, the training information is recorded in the subdirecte of the root directory of training summaries, and the training information can be used as a training record to recommend the next required hyperparameters. Configure the `summary_base_dir`, such as `/home/summaries`.
 
 3. Configure the parameter tuning method
 
@@ -161,7 +161,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
     (1) After instantiating `HyperConfig`, use the parameter variables of the `HyperConfig` instance as the values of the corresponding parameters in the training script.  
     (2) Please add `SummaryCollector` to collect lineage information, including hyperparameters and evaluation metrics.
 
-    For example, the training script in [Model Zoo](https://www.mindspore.cn/doc/note/en/master/network_list_ms.html) is as follows:
+    For example, the training script in [Model Zoo](https://www.mindspore.cn/doc/note/en/r1.1/network_list_ms.html) is as follows:
 
     ```python
     ds_train = create_dataset_cifar10(args.data_path, batch_size)
@@ -202,7 +202,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
 
 4. Visualization
 
-    Enable MindInsight based on summary_base_dir configured in config.yaml. For details about the visualization method, see the [MindInsight start tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html#start-the-service).
+    Enable MindInsight based on summary_base_dir configured in config.yaml. For details about the visualization method, see the [MindInsight start tutorial](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/mindinsight_commands.html#start-the-service).
 
 ## Notices
 

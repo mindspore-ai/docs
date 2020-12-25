@@ -40,8 +40,8 @@ mindspore
     ============================   =================
     Type                            Description
     ============================   =================
-    ``tensor``                      MindSpore's ``tensor`` type. Data format uses NCHW. For details, see `tensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>`_.
-    ``MetaTensor``                  A tensor only has data type and shape. For details, see `MetaTensor <https://www.gitee.com/mindspore/mindspore/blob/master/mindspore/common/parameter.py>`_.
+    ``tensor``                      MindSpore's ``tensor`` type. Data format uses NCHW. For details, see `tensor <https://www.gitee.com/mindspore/mindspore/blob/r1.1/mindspore/common/tensor.py>`_.
+    ``MetaTensor``                  A tensor only has data type and shape. For details, see `MetaTensor <https://www.gitee.com/mindspore/mindspore/blob/r1.1/mindspore/common/parameter.py>`_.
     ``bool_``                       Boolean ``True`` or ``False``.
     ``int_``                        Integer scalar.
     ``uint``                        Unsigned integer scalar.

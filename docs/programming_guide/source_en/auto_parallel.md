@@ -33,7 +33,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/auto_parallel.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -101,7 +101,7 @@ context.get_auto_parallel_context("gradients_mean")
 - `semi_auto_parallel`: semi-automatic parallel mode. In this mode, you can use the `shard` method to configure a segmentation policy for an operator. If no policy is configured, the data parallel policy is used by default.
 - `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users.
 
-The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html).
+The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_tutorials.html).
 
 The following is a code example:
 
@@ -338,10 +338,10 @@ x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 
 Data parallel refers to the parallel mode in which data is segmented. Generally, data is segmented by batch and distributed to each computing unit (worker) for model calculation. In data parallel mode, datasets must be imported in data parallel mode, and `parallel_mode` must be set to `data_parallel`.
 
-For details about the test cases, see [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_tutorials.html).
+For details about the test cases, see [Distributed Training](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_tutorials.html).
 
 ## Automatic Parallel
 
 Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish a cost model and select a parallel mode for users. The cost model refers to modeling the training time based on the memory computing overhead and the communication overhead, and designing an efficient algorithm to find a parallel policy with a relatively short training time. In automatic parallel mode, datasets must be imported in data parallel mode, and `parallel_mode` must be set to `auto_parallel`.
 
-For details about the test cases, see the [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_tutorials.html).
+For details about the test cases, see the [Distributed Training](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_tutorials.html).

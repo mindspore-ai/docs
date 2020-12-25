@@ -15,7 +15,7 @@
 1. 打开Git Bash，下载MindSpore Docs仓代码。
 
    ```shell
-   git clone https://gitee.com/mindspore/docs.git
+   git clone https://gitee.com/mindspore/docs.git -b r1.1
    ```
 
 2. 进入`tools/link_detection`目录，安装执行所需的第三方库。

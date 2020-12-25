@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -88,7 +88,7 @@ lambda (x, y)
     c end
 ```
 
-The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/images/ir/ir.dot).
+The corresponding MindIR is [ir.dot](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindspore/images/ir/ir.dot).
 
 ![image](./images/ir/ir.png)
 
@@ -122,7 +122,7 @@ def hof(x):
     return res
 ```
 
-The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/images/ir/hof.dot).
+The corresponding MindIR is [hof.dot](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindspore/images/ir/hof.dot).
 ![image](./images/ir/hof.png)
 
 In the actual network training scripts, the automatic derivation generic function `GradOperation` and `Partial` and `HyperMap` that are commonly used in the optimizer are typical high-order functions. Higher-order semantics greatly improve the flexibility and simplicity of MindSpore representations.
@@ -144,7 +144,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/images/ir/cf.dot).
+The corresponding MindIR is [cf.dot](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindspore/images/ir/cf.dot).
 ![image](./images/ir/cf.png)
 
 `fibonacci` is a top-level function graph. Two function graphs at the top level are selected and called by `switch`. `✓fibonacci` is the True branch of the first `if`, and `✗fibonacci` is the False branch of the first `if`. `✓✗fibonacci` called in `✗fibonacci` is the True branch of `elif`, and `✗✗fibonacci` is the False branch of `elif`. The key is, in a MindIR, conditional jumps and recursion are represented in the form of higher-order control flows. For example, `✓✗fibonacci` and `✗fibonacci` are transferred in as parameters of the `switch` operator. `switch` selects a function as the return value based on the condition parameter. In this way, `switch` performs a binary selection operation on the input functions as common values and does not call the functions. The real function call is completed on CNode following `switch`.
@@ -170,7 +170,7 @@ def ms_closure():
     return out1, out2
 ```
 
-The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/images/ir/closure.dot).
+The corresponding MindIR is [closure.dot](https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/design/mindspore/images/ir/closure.dot).
 ![image](./images/ir/closure.png)
 
 In the example, `a` and `b` are free variables because the variables `a` and `b` in `func_inner` are parameters defined in the referenced parent graph `func_outer`. The variable `closure` is a closure, which is the combination of the function `func_inner` and its context `func_outer(1, 2)`. Therefore, the result of `out1` is 4, which is equivalent to `1+2+1`, and the result of `out2` is 5, which is equivalent to `1+2+2`.

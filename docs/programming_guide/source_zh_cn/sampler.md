@@ -14,9 +14,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/sampler.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_sampler.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_sampler.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9zYW1wbGVyLmlweW5i&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -24,7 +24,7 @@
 
 MindSpore提供了多种用途的采样器（Sampler），帮助用户对数据集进行不同形式的采样，以满足训练需求，能够解决诸如数据集过大或样本类别分布不均等问题。只需在加载数据集时传入采样器对象，即可实现数据的采样。
 
-MindSpore目前提供的部分采样器类别如下表所示。此外，用户也可以根据需要实现自定义的采样器类。更多采样器的使用方法参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.html)。
+MindSpore目前提供的部分采样器类别如下表所示。此外，用户也可以根据需要实现自定义的采样器类。更多采样器的使用方法参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.html)。
 
 | 采样器名称  | 采样器说明 |
 | ----  | ----           |

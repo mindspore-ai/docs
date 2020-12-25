@@ -1,6 +1,6 @@
 # 骨骼检测模型支持（Lite）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 骨骼检测介绍
 
@@ -12,4 +12,4 @@
 
 ![image_posenet](images/posenet_detection.png)
 
-使用MindSpore Lite实现骨骼检测的[示例代码](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/posenet)。
+使用MindSpore Lite实现骨骼检测的[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/lite/posenet)。

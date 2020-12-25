@@ -2,7 +2,7 @@
 
 `数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：模型已经训练好，如何将模型的输出结果保存为文本或者`npy`的格式？**</font>
 
@@ -18,11 +18,11 @@ np.save("output.npy", out.asnumpy())
 
 <font size=3>**Q：使用MindSpore做分割训练，必须将数据转为MindRecords吗？**</font>
 
-A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.1/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#id5)
+[GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html#id5)
 
-[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 
@@ -34,7 +34,7 @@ A：MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是
 
 <font size=3>**Q：如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
 
-A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)文档中的自定义数据集加载。
+A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html)文档中的自定义数据集加载。
 
 <br/>
 
@@ -46,7 +46,7 @@ A： MindSpore采用protbuf存储训练参数，无法直接读取其他框架�
 
 <font size=3>**Q：用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？**</font>
 
-A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
+A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/multi_platform_inference_ascend_310.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
 
 <br/>
 
@@ -58,19 +58,19 @@ A：在构造网络的时候可以通过 `if self.training: x = dropput(x)`，�
 
 <font size=3>**Q：从哪里可以查看MindSpore训练及推理的样例代码或者教程？**</font>
 
-A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
+A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html)。
 
 <br/>
 
 <font size=3>**Q：MindSpore支持哪些模型的训练？**</font>
 
-A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)。
+A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md#)。
 
 <br/>
 
 <font size=3>**Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo)。
 
 <br/>
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q：如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A：以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py)
+A：以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/tutorial_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$：
 

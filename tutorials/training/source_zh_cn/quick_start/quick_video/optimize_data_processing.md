@@ -6,4 +6,4 @@
 <source id="mp45" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/%E4%BC%98%E5%8C%96%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.mp4" type="video/mp4">
 </video>
 
-**查看更多内容**：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html>
+**查看更多内容**：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/optimize_data_processing.html>

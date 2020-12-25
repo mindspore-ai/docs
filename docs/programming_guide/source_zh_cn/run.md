@@ -12,9 +12,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_run.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_run.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9ydW4uaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -105,7 +105,7 @@ print(output.asnumpy())
 
 ## 执行网络模型
 
-MindSpore的[Model接口](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model)是用于训练和验证的高级接口。可以将有训练或推理功能的layers组合成一个对象，通过调用train、eval、predict接口可以分别实现训练、推理和预测功能。
+MindSpore的[Model接口](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.Model)是用于训练和验证的高级接口。可以将有训练或推理功能的layers组合成一个对象，通过调用train、eval、predict接口可以分别实现训练、推理和预测功能。
 
 用户可以根据实际需要传入网络、损失函数和优化器等初始化Model接口，还可以通过配置amp_level实现混合精度，配置metrics实现模型评估。
 
@@ -243,7 +243,7 @@ if __name__ == "__main__":
     model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
 ```
 
-> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的下载数据集部分，下同。
+> 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html)的下载数据集部分，下同。
 
 输出如下：
 
@@ -257,7 +257,7 @@ epoch: 1 step: 1874, loss is 0.0346688
 epoch: 1 step: 1875, loss is 0.017264696
 ```
 
-> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
+> 使用PyNative模式调试， 请参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/debug_in_pynative_mode.html)， 包括单算子、普通函数和网络训练模型的执行。
 
 ### 执行推理模型
 
@@ -391,7 +391,7 @@ if __name__ == "__main__":
 - `checkpoint_lenet-1_1875.ckpt`：保存的CheckPoint模型文件名称。
 - `load_param_into_net`：通过该接口把参数加载到网络中。
 
-> `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的训练网络部分。
+> `checkpoint_lenet-1_1875.ckpt`文件的保存方法，可以参考[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/quick_start/quick_start.html)的训练网络部分。
 
 输出如下：
 

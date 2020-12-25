@@ -18,7 +18,7 @@
 
 <!--/ TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/model_explaination.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/model_explaination.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 

@@ -1,6 +1,6 @@
 # Posenet Model Support (Lite)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Posenet introduction
 
@@ -12,4 +12,4 @@ The blue marking points detect the distribution of facial features of the human 
 
 ![image_posenet](images/posenet_detection.png)
 
-Using MindSpore Lite to realize posenet [example](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/posenet).
+Using MindSpore Lite to realize posenet [example](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/lite/posenet).

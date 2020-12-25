@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%20Debugger.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger.html>
+**See more**: <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/debugger.html>

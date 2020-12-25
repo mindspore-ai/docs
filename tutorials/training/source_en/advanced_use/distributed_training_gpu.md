@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/distributed_training_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -30,7 +30,7 @@ The `CIFAR-10` dataset is used as an example. The method of downloading and load
 
 > The method of downloading and loading the dataset:
 >
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>
+> <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_ascend.html>
 
 ### Configuring Distributed Environment
 
@@ -82,7 +82,7 @@ In the preceding information,
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-> For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>.
+> For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_ascend.html>.
 
 ## Running the Script
 
@@ -90,7 +90,7 @@ On the GPU hardware platform, MindSpore uses OpenMPI `mpirun` for distributed tr
 
 > Obtain the running script of the example from:
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/run_gpu.sh>
+> <https://gitee.com/mindspore/docs/blob/r1.1/tutorials/tutorial_code/distributed_training/run_gpu.sh>
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 
@@ -152,4 +152,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-Run running on GPU, the model parameters can be saved and loaded by referring to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
+Run running on GPU, the model parameters can be saved and loaded by referring to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).

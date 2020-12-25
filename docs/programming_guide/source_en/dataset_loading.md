@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/dataset_loading.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -50,7 +50,7 @@ MindSpore can also load datasets in different data storage formats. You can dire
 
 MindSpore also supports user-defined dataset loading using `GeneratorDataset`. You can implement your own dataset classes as required.
 
-> For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+> For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.dataset.html).
 
 ## Loading Common Dataset
 
@@ -205,7 +205,7 @@ The following describes how to load dataset files in specific formats.
 
 MindRecord is a data format defined by MindSpore. Using MindRecord can improve performance.
 
-> For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html).
+> For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/r1.1/dataset_conversion.html).
 
 The following example uses the `MindDataset` API to load MindRecord files, and displays labels of the loaded data.
 

@@ -1,7 +1,7 @@
 <h2>快速入门</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px;">
-        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
+        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/quick_start/quick_start.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">实现一个图像分类应用</span>
@@ -13,7 +13,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px;">
-        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" style="display:inline-block; text-decoration:none">
+        <a  href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/quick_start/train_lenet.html" style="display:inline-block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">训练一个LeNet模型</span>
@@ -29,7 +29,7 @@
 <h2>获取MindSpore Lite</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/downloads.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">下载MindSpore Lite</span>
@@ -41,7 +41,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">编译MindSpore Lite</span>
@@ -57,7 +57,7 @@
 <h2>端侧推理</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem; display:inline-block; width:400px; height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html" style="display:block;text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/converter_tool.html" style="display:block;text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">推理模型转换</span>
@@ -69,7 +69,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/post_training_quantization.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">优化模型（训练后量化）</span>
@@ -81,7 +81,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/image_processing.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/image_processing.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">预处理图像数据</span>
@@ -93,7 +93,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/runtime.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">执行推理</span>
@@ -105,7 +105,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/tools.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/tools.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">其他工具</span>
@@ -121,7 +121,7 @@
 <h2>端侧训练</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/converter_train.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">训练模型转换</span>
@@ -133,7 +133,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_train.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/runtime_train.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">执行训练</span>
@@ -149,7 +149,7 @@
 <h2>其它文档</h2>
 <div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/design/mindspore/architecture_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">总体架构</span>
@@ -161,7 +161,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite C++ API</span>
@@ -173,7 +173,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite Java API</span>
@@ -185,7 +185,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite算子支持</span>
@@ -197,7 +197,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_classification_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">图像分类预训练模型</span>
@@ -209,7 +209,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/object_detection_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">目标检测预训练模型</span>
@@ -221,7 +221,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/posenet_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/posenet_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">骨骼检测模型</span>
@@ -233,7 +233,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/image_segmentation_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">图像分割模型</span>
@@ -245,7 +245,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/zh-CN/master/style_transfer_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/doc/note/zh-CN/r1.1/style_transfer_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">风格迁移模型</span>

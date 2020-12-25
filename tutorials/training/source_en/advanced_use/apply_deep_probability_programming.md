@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/apply_deep_probability_programming.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -35,10 +35,10 @@ A deep learning model has a strong fitting capability, and the Bayesian theory h
 
 The following describes applications of deep probabilistic programming in MindSpore. Before performing the practice, ensure that MindSpore 0.7.0-beta or a later version has been installed. The contents are as follows:
 
-1. Describe how to use the [bnn_layers module](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/bnn_layers) to implement the Bayesian neural network (BNN).
-2. Describe how to use the [variational module](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/infer/variational) and [dpn module](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/dpn) to implement the Variational Autoencoder (VAE).
-3. Describe how to use the [transforms module](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/probability/transforms) to implement one-click conversion from deep neural network (DNN) to BNN.
-4. Describe how to use the [toolbox module](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/probability/toolbox/uncertainty_evaluation.py) to implement uncertainty evaluation.
+1. Describe how to use the [bnn_layers module](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/bnn_layers) to implement the Bayesian neural network (BNN).
+2. Describe how to use the [variational module](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/infer/variational) and [dpn module](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/dpn) to implement the Variational Autoencoder (VAE).
+3. Describe how to use the [transforms module](https://gitee.com/mindspore/mindspore/tree/r1.1/mindspore/nn/probability/transforms) to implement one-click conversion from deep neural network (DNN) to BNN.
+4. Describe how to use the [toolbox module](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/nn/probability/toolbox/uncertainty_evaluation.py) to implement uncertainty evaluation.
 
 ## Using BNN
 
@@ -49,11 +49,11 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 3. Define the loss function and optimizer.
 4. Load and train the dataset.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/bnn_layers>.
 
 ### Processing the Dataset
 
-The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial.
+The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html) in the tutorial.
 
 ### Defining the BNN
 
@@ -192,7 +192,7 @@ The following describes how to use the variational and dpn modules in MDP to imp
 4. Train the network.
 5. Generate new samples or rebuild input samples.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/dpn>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/dpn>.
 
 ### Defining the VAE
 
@@ -252,7 +252,7 @@ net_with_loss = nn.WithLossCell(vae, net_loss)
 
 ### Processing Data
 
-The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial.
+The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html) in the tutorial.
 
 ### Training the Network
 
@@ -289,7 +289,7 @@ For DNN researchers unfamiliar with the Bayesian model, MDP provides an advanced
 3. Function 1: Convert the entire model.
 4. Function 2: Convert a layer of a specified type.
 
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/transforms>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/transforms>.
 
 ### Defining the DNN Model
 
@@ -628,9 +628,9 @@ One of advantages of BNN is that uncertainty can be obtained. MDP provides a too
 - Epistemic uncertainty: An inaccurate evaluation of input data by a model due to reasons such as poor training or insufficient training data. This may be reduced by adding training data.
 
 The uncertainty evaluation toolbox is applicable to mainstream deep learning models, such as regression and classification. During inference, developers can use the toolbox to obtain any aleatoric uncertainty and epistemic uncertainty by training models and training datasets and specifying tasks and samples to be evaluated. Developers can understand models and datasets based on uncertainty information.
-> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>.
+> This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/r1.1/tests/st/probability/toolbox>.
 
-The classification task is used as an example. The model is LeNet, the dataset is MNIST, and the data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial. To evaluate the uncertainty of the test example, use the toolbox as follows:
+The classification task is used as an example. The model is LeNet, the dataset is MNIST, and the data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html) in the tutorial. To evaluate the uncertainty of the test example, use the toolbox as follows:
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation

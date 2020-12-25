@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -64,7 +64,7 @@ class Net(nn.Cell):
 
 The `parameters_dict` method is used to identify all parameters in the network structure and return `OrderedDict` with key as the parameter name and value as the parameter value.
 
-There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Cell.html).
+There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/nn/mindspore.nn.Cell.html).
 
 A code example is as follows:
 
@@ -338,7 +338,7 @@ In this case, two pieces of tensor data are built. The `nn.L1Loss` API is used t
 
 ## Optimization Algorithms
 
-`mindspore.nn.optim` is a module that implements various optimization algorithms in the MindSpore framework. For details, see [Optimization Algorithms](https://www.mindspore.cn/doc/programming_guide/en/master/optim.html)
+`mindspore.nn.optim` is a module that implements various optimization algorithms in the MindSpore framework. For details, see [Optimization Algorithms](https://www.mindspore.cn/doc/programming_guide/en/r1.1/optim.html)
 
 ## Building a Customized Network
 

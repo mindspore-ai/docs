@@ -12,9 +12,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/auto_augmentation.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/notebook/programming_guide/auto_augmentation.ipynb" target="_blank"><img src="./_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -26,7 +26,7 @@ MindSpore除了可以让用户自定义数据增强的使用，还提供了一�
 
 MindSpore提供了一系列基于概率的自动数据增强API，用户可以对各种数据增强操作进行随机选择与组合，使数据增强更加灵活。
 
-关于API的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.transforms.html)。
+关于API的详细说明，可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.dataset.transforms.html)。
 
 ### RandomApply
 

@@ -14,13 +14,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 In computer vision training tasks, it is often difficult to read the entire dataset directly into memory due to memory capacity. The `mindspore.dataset` module provided by MindSpore enables users to customize their data fetching strategy from disk. At the same time, data processing and data augmentation operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
 
-In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
+In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
 
 This tutorial uses the MNIST dataset [1] as an example to demonstrate how to load and process image data using MindSpore.
 

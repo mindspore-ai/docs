@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/auto_augmentation.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ Auto augmentation can be implemented based on probability or callback parameters
 
 MindSpore provides a series of probability-based auto augmentation APIs. You can randomly select and combine various data augmentation operations to make data augmentation more flexible.
 
-For details about APIs, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.transforms.html).
+For details about APIs, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.dataset.transforms.html).
 
 ### RandomApply
 

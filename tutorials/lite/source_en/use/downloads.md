@@ -9,7 +9,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
@@ -23,4 +23,4 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 |      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz>   |4306b5b2ecb7324133eab27f40c6c05efa1be28b2e2ecd1c35b152ef15de5482   |
 |      |   GPU   |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-gpu.tar.gz>   |09407dff8cc0aee5a8075a12a4fbde10634aafde238eeb686c3cf91481c667b5   |
 
-MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.

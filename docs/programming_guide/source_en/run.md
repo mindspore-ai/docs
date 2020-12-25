@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/run.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -99,7 +99,7 @@ The output is as follows:
 
 ## Executing a Network Model
 
-The [Model API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model) of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
+The [Model API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.html#mindspore.Model) of MindSpore is an advanced API used for training and validation. Layers with the training or inference function can be combined into an object. The training, inference, and prediction functions can be implemented by calling the train, eval, and predict APIs, respectively.
 
 You can transfer the initialized Model APIs such as the network, loss function, and optimizer as required. You can also configure amp_level to implement mixed precision and configure metrics to implement model evaluation.
 
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
 ```
 
-> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#downloading-the-dataset).
+> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html#downloading-the-dataset).
 
 The output is as follows:
 
@@ -251,7 +251,7 @@ epoch: 1 step: 1874, loss is 0.0346688
 epoch: 1 step: 1875, loss is 0.017264696
 ```
 
-> Use the PyNative mode for debugging, including the execution of single operator, common function, and network training model. For details, see [Debugging in PyNative Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
+> Use the PyNative mode for debugging, including the execution of single operator, common function, and network training model. For details, see [Debugging in PyNative Mode](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/debug_in_pynative_mode.html).
 
 ### Executing an Inference Model
 
@@ -385,7 +385,7 @@ In the preceding information:
 - `checkpoint_lenet-1_1875.ckpt`: name of the saved checkpoint model file.
 - `load_param_into_net`: loads parameters to the network.
 
-> For details about how to save the `checkpoint_lenet-1_1875.ckpt` file, see [Training the Network](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#training-the-network).
+> For details about how to save the `checkpoint_lenet-1_1875.ckpt` file, see [Training the Network](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html#training-the-network).
 
 The output is as follows:
 

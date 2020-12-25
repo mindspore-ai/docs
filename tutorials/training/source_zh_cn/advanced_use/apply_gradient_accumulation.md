@@ -17,9 +17,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_apply_gradient_accumulation.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_apply_gradient_accumulation.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9hcHBseV9ncmFkaWVudF9hY2N1bXVsYXRpb24uaXB5bmI=&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 
@@ -33,7 +33,7 @@
 
 最终目的是为了达到跟直接用N*Mini-batch数据训练几乎同样的效果。
 
-> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
+> 本教程用于GPU, 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/gradient_accumulation>
 
 ## 创建梯度累积模型
 
@@ -59,11 +59,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/lenet/src/dataset.py>)导入。
 
 ### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练模型
 
@@ -261,7 +261,7 @@ if __name__ == "__main__":
 
 **验证模型:**
 
-通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU

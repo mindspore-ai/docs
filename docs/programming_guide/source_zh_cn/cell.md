@@ -21,8 +21,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_cell.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/cell.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_cell.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9jZWxsLmlweW5i&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -67,7 +67,7 @@ class Net(nn.Cell):
 
 `parameters_dict`方法识别出网络结构中所有的参数，返回一个以key为参数名，value为参数值的`OrderedDict`。
 
-`Cell`类中返回参数的方法还有许多，例如`get_parameters`、`trainable_params`等，具体使用方法可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Cell.html)。
+`Cell`类中返回参数的方法还有许多，例如`get_parameters`、`trainable_params`等，具体使用方法可以参见[API文档](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/nn/mindspore.nn.Cell.html)。
 
 代码样例如下：
 
@@ -342,7 +342,7 @@ print(loss(input_data, target_data))
 
 ## 优化算法
 
-`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，详细说明参见[优化算法](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/optim.html)。
+`mindspore.nn.optim`是MindSpore框架中实现各种优化算法的模块，详细说明参见[优化算法](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/optim.html)。
 
 ## 构建自定义网络
 

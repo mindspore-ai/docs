@@ -29,7 +29,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -53,12 +53,12 @@ In MindSpore Lite framework, `TrainSession` class provides the main API to the s
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`Model`](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#model) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`Model`](https://www.mindspore.cn/doc/api_cpp/en/r1.1/lite.html#model) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
 > Unlike in MindSpore Lite framework, in MindSpore Lite the user is not allowed to access the `Model` object, since it is being used by `TrainSession` during training. All interaction with `Model` including instantiation, Compiling and deletion are handled within `TrainSession`.
 
 ### Creating Contexts
 
-[`Context`](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#context) is a Mindspore Lite Object that contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device on which to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[`Context`](https://www.mindspore.cn/doc/api_cpp/en/r1.1/lite.html#context) is a Mindspore Lite Object that contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device on which to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only single threaded CPU device is supported by TrainSession.
 
 Once the TrainSession is created with the `Context` object, it is no longer needed and can be deleted.
@@ -154,7 +154,7 @@ Alternatively, one can deduce this information from the sizes of the input tenso
 
 ### Copying Data
 
-After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) API docuemtnation.
+After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.1/tensor.html#mstensor) API docuemtnation.
 
 ```cpp
 /// \brief  Get byte size of data in MSTensor.

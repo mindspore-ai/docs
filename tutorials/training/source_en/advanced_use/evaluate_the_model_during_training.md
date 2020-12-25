@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/evaluate_the_model_during_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -25,11 +25,11 @@ The procedure is as follows:
 2. Define a training network and execute it.
 3. Draw a line chart based on the model accuracy under different epochs and select the optimal model.
 
-Source code address of this example: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>.
+Source code address of this example: <https://gitee.com/mindspore/docs/blob/r1.1/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>.
 
 ## Defining the Callback Function EvalCallBack
 
-Implementation idea: The model accuracy is validated every n epochs. The model accuracy needs to be implemented in the custom callback function. For details about the usage, see [API Description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html#mindspore.train.callback.Callback).
+Implementation idea: The model accuracy is validated every n epochs. The model accuracy needs to be implemented in the custom callback function. For details about the usage, see [API Description](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.train.html#mindspore.train.callback.Callback).
 
 Core implementation: Validation points are set in `epoch_end` of the callback function as follows:
 

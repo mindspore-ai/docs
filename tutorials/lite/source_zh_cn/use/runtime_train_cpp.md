@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -50,11 +50,11 @@
 - `DataLoader`：能够加载数据并能在模型训练中进行数据预处理的对象（例如读取图像，缩放至指定大小，转换为bitmap格式）。
 - `TrainSession`：一个由MindSpore Lite提供的软件模块，它能为模型节点和内联张量提供flatbuffer反序列化的功能、执行图编译并调用图执行器进行训练。
 
-> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html)。
 
 ## 创建会话
 
-使用Mindpore Lite训练框架进行训练时，[TrainSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#trainsession)是训练的主入口，通过`TrainSession`我们可以进行训练图编译、训练图执行。
+使用Mindpore Lite训练框架进行训练时，[TrainSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#trainsession)是训练的主入口，通过`TrainSession`我们可以进行训练图编译、训练图执行。
 
 ### 读取模型
 
@@ -140,7 +140,7 @@ if (ret != RET_OK) {
 
 在图执行之前，无论执行训练或推理，输入数据必须载入模型的输入张量。MindSpore Lite提供了以下函数来获取模型的输入张量：
 
-1. 使用[`GetInputsByTensorName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
+1. 使用[`GetInputsByTensorName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#getinputsbytensorname)方法，获取连接到基于张量名称的模型输入节点模型输入张量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model by tensor    name.
@@ -151,7 +151,7 @@ if (ret != RET_OK) {
     virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
     ```
 
-2. 使用[`GetInputs`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputs)方法，直接获取所有模型输入张量的向量。
+2. 使用[`GetInputs`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#getinputs)方法，直接获取所有模型输入张量的向量。
 
     ```cpp
     /// \brief  Get input MindSpore Lite MSTensors of model.
@@ -164,7 +164,7 @@ if (ret != RET_OK) {
 
 ### 拷贝数据
 
-一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) API 文档。
+一旦获取到了模型的输入张量，数据需要拷贝到张量中。下列方法可以获取数据字节大小、数据维度、元素个数、数据类型和写指针。详见 [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.1/tensor.html#mstensor) API 文档。
 
 ```cpp
 /// \brief  Get byte size of data in MSTensor.
@@ -318,7 +318,7 @@ if (ret != RET_OK) {
 
 MindSpore Lite提供下列方法来获取模型的输入张量：
 
-1. 使用[`GetOutputByNodeName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputbynodename)方法获取一个确定节点的输出张量。
+1. 使用[`GetOutputByNodeName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#getoutputbynodename)方法获取一个确定节点的输出张量。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
@@ -329,7 +329,7 @@ MindSpore Lite提供下列方法来获取模型的输入张量：
    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
    ```
 
-2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
+2. 使用[`GetOutputByTensorName`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#getoutputbytensorname)方法，依据张量名称获取输出张量。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
@@ -340,7 +340,7 @@ MindSpore Lite提供下列方法来获取模型的输入张量：
    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
    ```
 
-3. 使用[`GetOutputs`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)方法，根据张量名称排序的所有输出张量。
+3. 使用[`GetOutputs`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/session.html#getoutputs)方法，根据张量名称排序的所有输出张量。
 
    ```cpp
    /// \brief  Get output MindSpore Lite MSTensors of model mapped by tensor name.
@@ -444,7 +444,7 @@ for (auto tensor_name : tensor_names) {
 
 ### 使用示例
 
-下列代码展示了如何使用[`Version`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html)方法获取版本号：
+下列代码展示了如何使用[`Version`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html)方法获取版本号：
 
 ```cpp
 #include "include/version.h"

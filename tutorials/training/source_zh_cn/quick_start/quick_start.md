@@ -25,9 +25,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_zh_cn/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_quick_start.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/mindspore_quick_start.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9xdWlja19zdGFydC5pcHluYg==&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="../_static/logo_modelarts.png"></a>
 &nbsp;&nbsp;
@@ -46,7 +46,7 @@
 5. 加载保存的模型，进行推理。
 6. 验证模型，加载测试数据集和训练后的模型，验证结果精度。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lenet> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/lenet> 。
 
 这是简单、基础的应用流程，其他高级、复杂的应用可以基于这个基本流程进行扩展。
 
@@ -91,7 +91,7 @@
 import os
 ```
 
-详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html)中搜索查询。
+详细的MindSpore的模块说明，可以在[MindSpore API页面](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html)中搜索查询。
 
 ### 配置运行信息
 
@@ -187,7 +187,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 先进行shuffle、batch操作，再进行repeat操作，这样能保证1个epoch内数据不重复。
 
-> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)和与[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)章节。
+> MindSpore支持进行多种数据处理和增强的操作，各种操作往往组合使用，具体可以参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/pipeline.html)和与[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/augmentation.html)章节。
 
 ## 定义网络
 

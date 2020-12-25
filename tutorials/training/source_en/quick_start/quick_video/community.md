@@ -6,4 +6,4 @@
 <source id="mp43" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/community.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/doc/note/en/master/community.html>
+**See more**: <https://www.mindspore.cn/doc/note/en/r1.1/community.html>

@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/multi_platform_inference_ascend_310_air.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -39,7 +39,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 5. 加载保存的OM模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/acl_resnet50_sample> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/acl_resnet50_sample> 。
 
 ## 开发环境准备
 
@@ -91,7 +91,7 @@ Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进�
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，其中`inc`、`src`、`test_data`目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/acl_resnet50_sample)获取，`model`目录用于存放接下来导出的`AIR`模型文件和转换后的`OM`模型文件，`out`目录用于存放执行编译生成的可执行文件和输出结果目录，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，其中`inc`、`src`、`test_data`目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/acl_resnet50_sample)获取，`model`目录用于存放接下来导出的`AIR`模型文件和转换后的`OM`模型文件，`out`目录用于存放执行编译生成的可执行文件和输出结果目录，推理代码工程目录结构如下:
 
 ```text
 └─acl_resnet50_sample
@@ -121,7 +121,7 @@ Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进�
 
 ## 导出AIR模型文件
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#air)。
+在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的AIR格式模型文件，导出流程参见[导出AIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/save_model.html#air)。
 
 > 这里提供使用ResNet-50模型导出的示例AIR文件[resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air)。
 

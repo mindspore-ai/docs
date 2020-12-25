@@ -25,7 +25,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_en/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
@@ -123,7 +123,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 First, download source code from the MindSpore code repository.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.1
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -427,7 +427,7 @@ The compilation options of MindSpore Lite are as follows:
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bat
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.1
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

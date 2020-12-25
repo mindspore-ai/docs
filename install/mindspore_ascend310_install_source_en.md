@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
 
 The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment.
 
@@ -51,7 +51,7 @@ The following describes how to quickly install MindSpore by compiling the source
 ## Downloading Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.1
 ```
 
 ## Building MindSpore
@@ -75,7 +75,7 @@ pip install output/mindspore-ascend-{version}-cp37-cp37m-linux_{arch}.whl -i htt
 
 In the preceding information:
 
-- When the network is connected, dependencies of the MindSpore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt). In other cases, install the dependencies by yourself.
+- When the network is connected, dependencies of the MindSpore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.1/requirements.txt). In other cases, install the dependencies by yourself.
 - `{version}` specifies the MindSpore version number. For example, when downloading MindSpore 1.0.1, set `{version}` to 1.0.1.
 - `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 
@@ -150,4 +150,4 @@ The preceding information indicates that MindSpore is successfully installed.
 
 If you want to quickly experience the MindSpore online inference service, you can install MindSpore Serving.
 
-For details, see [MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README.md).
+For details, see [MindSpore Serving](https://gitee.com/mindspore/serving/blob/r1.1/README.md).

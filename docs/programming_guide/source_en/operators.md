@@ -40,7 +40,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -56,7 +56,7 @@ APIs related to operators include operations, functional, and composite. Operato
 
 ### mindspore.ops.operations
 
-The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/r1.1/operator_list.html).
 
 Primitive operators directly encapsulate the implementation of operators at bottom layers such as Ascend, GPU, AICPU, and CPU, providing basic operator capabilities for users.
 
@@ -85,7 +85,7 @@ output = [ 1.  8. 64.]
 
 ### mindspore.ops.functional
 
-To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html#mindspore-ops-functional).
+To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/r1.1/operator_list_ms.html#mindspore-ops-functional).
 
 For example, the functional version of the `P.Pow` operator is `F.tensor_pow`.
 
@@ -168,7 +168,7 @@ tensor [[2.4, 4.2]
 scalar 3
 ```
 
-In addition, the high-order function `GradOperation` provides the method of computing the gradient function corresponding to the input function. For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html).
+In addition, the high-order function `GradOperation` provides the method of computing the gradient function corresponding to the input function. For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.GradOperation.html).
 
 ### Combination usage of operations/functional/composite three types of operators
 
@@ -190,7 +190,7 @@ pow = ops.Pow()
 
 ## Operator Functions
 
-Operators can be classified into seven functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+Operators can be classified into seven functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/doc/note/en/r1.1/operator_list.html).
 
 ### Tensor Operations
 

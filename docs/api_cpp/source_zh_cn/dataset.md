@@ -1,10 +1,10 @@
 # mindspore::dataset
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## ResizeBilinear
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
@@ -25,7 +25,7 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 
 ## InitFromPixel
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType data_type, int w, int h, LiteMat &m)
@@ -48,7 +48,7 @@ bool InitFromPixel(const unsigned char *data, LPixelType pixel_type, LDataType d
 
 ## ConvertTo
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
@@ -68,7 +68,7 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
 ## Crop
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
@@ -91,7 +91,7 @@ bool Crop(LiteMat &src, LiteMat &dst, int x, int y, int w, int h)
 
 ## SubStractMeanNormalize
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<float> &mean, const std::vector<float> &std)
@@ -112,7 +112,7 @@ bool SubStractMeanNormalize(const LiteMat &src, LiteMat &dst, const std::vector<
 
 ## Pad
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int right, PaddBorderType pad_type, uint8_t fill_b_or_gray, uint8_t fill_g, uint8_t fill_r)
@@ -139,7 +139,7 @@ bool Pad(const LiteMat &src, LiteMat &dst, int top, int bottom, int left, int ri
 
 ## ExtractChannel
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
@@ -158,7 +158,7 @@ bool ExtractChannel(const LiteMat &src, LiteMat &dst, int col)
 
 ## Split
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
@@ -177,7 +177,7 @@ bool Split(const LiteMat &src, std::vector<LiteMat> &mv)
 
 ## Merge
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
@@ -196,7 +196,7 @@ bool Merge(const std::vector<LiteMat> &mv, LiteMat &dst)
 
 ## Affine
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C1 borderValue)
@@ -216,7 +216,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsize, UINT8_C3 borderValue)
 ```
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 对3通道图像应用仿射变换。
 
@@ -230,7 +230,7 @@ void Affine(LiteMat &src, LiteMat &out_img, double M[6], std::vector<size_t> dsi
 
 ## GetDefaultBoxes
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
@@ -248,7 +248,7 @@ std::vector<std::vector<float>> GetDefaultBoxes(BoxesConfig config)
 
 ## ConvertBoxes
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vector<float>> &default_boxes, BoxesConfig config)
@@ -264,7 +264,7 @@ void ConvertBoxes(std::vector<std::vector<float>> &boxes, std::vector<std::vecto
 
 ## ApplyNms
 
-\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
+\#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
 
 ```cpp
 std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vector<float> &all_scores, float thres, int max_boxes)
@@ -285,7 +285,7 @@ std::vector<int> ApplyNms(std::vector<std::vector<float>> &all_boxes, std::vecto
 
 ## LiteMat
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 LiteMat是一个处理图像的类。
 
@@ -431,7 +431,7 @@ ref_count_
 
 ## Subtract
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 ```cpp
 bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
@@ -451,7 +451,7 @@ bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 
 ## Divide
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 ```cpp
 bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
@@ -471,7 +471,7 @@ bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 
 ## Multiply
 
-\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
+\#include &lt;[lite_mat.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h)&gt;
 
 ```cpp
 bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)

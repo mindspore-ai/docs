@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/pipeline.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -22,7 +22,7 @@ Data is the basis of deep learning. Good data input can play a positive role in 
 
 Each dataset class of MindSpore provides multiple data processing operators. You can build a data processing pipeline to define the data processing operations to be used. In this way, data can be continuously transferred to the training system through the data processing pipeline during the training process.
 
-The following table lists part of the common data processing operators supported by MindSpore. For more data processing operations, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+The following table lists part of the common data processing operators supported by MindSpore. For more data processing operations, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.dataset.html).
 
 | Data Processing Operator | Description |
 | ----  | ----           |
@@ -76,7 +76,7 @@ The output is as follows:
 
 Applies a specified function or operator to specified columns in a dataset to implement data mapping. You can customize the mapping function or use operators in c_transforms or py_transforms to augment image and text data.
 
-> For details about how to use data augmentation, see [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html) in the Programming Guide.
+> For details about how to use data augmentation, see [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.1/augmentation.html) in the Programming Guide.
 
 ![map](./images/map.png)
 

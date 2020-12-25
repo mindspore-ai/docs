@@ -16,9 +16,9 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/programming_guide/mindspore_context.ipynb"><img src="./_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.1/programming_guide/mindspore_context.ipynb"><img src="./_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://console.huaweicloud.com/modelarts/?region=cn-north-4#/notebook/loading?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL3Byb2dyYW1taW5nX2d1aWRlL21pbmRzcG9yZV9jb250ZXh0LmlweW5i&image_id=65f636a0-56cf-49df-b941-7d2a07ba8c8c" target="_blank"><img src="./_static/logo_modelarts.png"></a>
 
@@ -110,7 +110,7 @@ from mindspore.context import ParallelMode
 context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
 ```
 
-> 分布式并行训练详细介绍可以查看[分布式并行训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html)。
+> 分布式并行训练详细介绍可以查看[分布式并行训练](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_tutorials.html)。
 
 ## 维测管理
 
@@ -158,13 +158,13 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> MindIR详细介绍可以查看[MindSpore IR（MindIR）](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html)。
+> MindIR详细介绍可以查看[MindSpore IR（MindIR）](https://www.mindspore.cn/doc/note/zh-CN/r1.1/design/mindspore/mindir.html)。
 
 ### print算子落盘
 
 默认情况下，MindSpore的自研print算子可以将用户输入的Tensor或字符串信息打印出来，支持多字符串输入，多Tensor输入和字符串与Tensor的混合输入，输入参数以逗号隔开。
 
-> Print打印功能可以查看[Print算子功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#print)。
+> Print打印功能可以查看[Print算子功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/custom_debugging_info.html#print)。
 
 - `print_file_path`：可以将print算子数据保存到文件，同时关闭屏幕打印功能。如果保存的文件已经存在，则会给文件添加时间戳后缀。数据保存到文件可以解决数据量较大时屏幕打印数据丢失的问题。
 
@@ -175,4 +175,4 @@ from mindspore import context
 context.set_context(print_file_path="print.pb")
 ```
 
-> context接口详细介绍可以查看[mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html)。
+> context接口详细介绍可以查看[mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.context.html)。

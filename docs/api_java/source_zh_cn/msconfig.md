@@ -1,6 +1,6 @@
 # MSConfig
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_java/source_zh_cn/msconfig.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_java/source_zh_cn/msconfig.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ```java
 import com.mindspore.lite.config.MSConfig;
@@ -29,9 +29,9 @@ public boolean init(int deviceType, int threadNum, int cpuBindMode, boolean enab
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
     - `threadNum`: 线程数。
-    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
+    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
     - `enable_float16`：是否优先使用float16算子。
 
 - 返回值
@@ -46,9 +46,9 @@ public boolean init(int deviceType, int threadNum, int cpuBindMode)
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
     - `threadNum`: 线程数。
-    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
+    - `cpuBindMode`: CPU绑定模式，`cpuBindMode`在[com.mindspore.lite.config.CpuBindMode](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/CpuBindMode.java)中定义。
 
 - 返回值
 
@@ -62,7 +62,7 @@ public boolean init(int deviceType, int threadNum)
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
     - `threadNum`: 线程数。
 
 - 返回值
@@ -77,7 +77,7 @@ public boolean init(int deviceType)
 
 - 参数
 
-    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
+    - `deviceType`: 设备类型，`deviceType`在[com.mindspore.lite.config.DeviceType](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java)中定义。
 
 - 返回值
 

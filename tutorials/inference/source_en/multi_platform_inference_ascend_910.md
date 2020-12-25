@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_en/multi_platform_inference_ascend_910.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Inference Using a Checkpoint File with Single Device
 
@@ -37,8 +37,8 @@
     ```
 
     In the preceding information:  
-    `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model.eval>.
-    > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>.
+    `model.eval` is an API for model validation. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.html#mindspore.Model.eval>.
+    > Inference sample code: <https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/lenet/eval.py>.
 
     1.2 Remote Storage
 
@@ -61,7 +61,7 @@
 
     In the preceding information:
 
-    `mindpsore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/doc/api_python/en/master/mindspore_hub/mindspore_hub.html#module-mindspore_hub>.
+    `mindpsore_hub.load` is an API for loading model parameters. Please check the details in <https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore_hub/mindspore_hub.html#module-mindspore_hub>.
 
 2. Use the `model.predict` API to perform inference.
 
@@ -70,7 +70,7 @@
    ```
 
    In the preceding information:  
-   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Model.predict>.
+   `model.predict` is an API for inference. For details about the API, see <https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/mindspore.html#mindspore.Model.predict>.
 
 ## Distributed Inference With Multi Devices
 
@@ -80,13 +80,13 @@ This tutorial would focus on the process that the model slices are saved on each
 
 > Distributed inference sample code:
 >
-> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_inference>
+> <https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/distributed_inference>
 
 The process of distributed inference is as follows:
 
 1. Execute training, generate the checkpoint file and the model strategy file.
 
-    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>.
+    > - The distributed training tutorial and sample code can be referred to the link: <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/distributed_training_ascend.html>.
     > - In the distributed Inference scenario, during the training phase, the `integrated_save` of `CheckpointConfig` interface should be set to `False`, which means that each device only saves the slice of model instead of the full model.
     > - `parallel_mode` of `set_auto_parallel_context` interface should be set to `auto_parallel` or `semi_auto_parallel`.
     > - In addition, you need to specify `strategy_ckpt_save_file` to indicate the path of the strategy file.
@@ -122,7 +122,7 @@ The process of distributed inference is as follows:
     - `load_distributed_checkpoint`：merges model slices, then splits it according to the predication strategy, and loads it into the network.
 
     > The `load_distributed_checkpoint` interface supports that predict_strategy is `None`, which is single device inference, and the process is different from distributed inference. The detailed usage can be referred to the link:
-    > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.load_distributed_checkpoint>.
+    > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.load_distributed_checkpoint>.
 
 4. Execute inference.
 

@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/security_and_privacy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_en/security_and_privacy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -37,7 +37,7 @@ The `Defense` base class defines the interface for adversarial training. Its sub
 
 The `Detector` base class defines the interface for adversarial sample detection. Its subclasses implement various specific detection algorithms to enhance the adversarial robustness of the models.
 
-For details, see [Improving Model Security with NAD Algorithm](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/improve_model_security_nad.html).
+For details, see [Improving Model Security with NAD Algorithm](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/improve_model_security_nad.html).
 
 ## Model Security Test
 
@@ -45,7 +45,7 @@ For details, see [Improving Model Security with NAD Algorithm](https://www.minds
 
 The `Fuzzer` class controls the fuzzing process based on the neuron coverage gain. It uses natural perturbation and adversarial sample generation methods as the mutation policy to activate more neurons to explore different types of model output results and error behavior, helping users enhance model robustness.
 
-For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/test_model_security_fuzzing.html).
+For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/test_model_security_fuzzing.html).
 
 ## Differential Privacy Training
 
@@ -53,7 +53,7 @@ For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspo
 
 `DPModel` inherits `mindspore.Model` and provides the entry function for differential privacy training.
 
-For details, see [Protecting User Privacy with Differential Privacy Mechanism](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/protect_user_privacy_with_differential_privacy.html).
+For details, see [Protecting User Privacy with Differential Privacy Mechanism](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/protect_user_privacy_with_differential_privacy.html).
 
 ## Privacy Breach Risk Assessment
 
@@ -61,4 +61,4 @@ For details, see [Protecting User Privacy with Differential Privacy Mechanism](h
 
 The `MembershipInference` class provides a reverse analysis method. It can infer whether a sample is in the training set of a model based on the prediction information of the model on the sample to evaluate the privacy breach risk of the model.
 
-For details, see [Testing Model Security with Membership Inference](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/test_model_security_membership_inference.html).
+For details, see [Testing Model Security with Membership Inference](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/test_model_security_membership_inference.html).

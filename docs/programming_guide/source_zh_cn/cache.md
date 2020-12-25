@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/programming_guide/source_zh_cn/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -146,7 +146,7 @@
 
     需要注意的是，两个例子均需要按照步骤4中的方法分别创建一个缓存实例，并在数据集加载或map算子中将所创建的`test_cache`作为`cache`参数分别传入。
 
-    下面两个样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。
+    下面两个样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。
 
     - 缓存原始数据集加载的数据。
 
@@ -305,11 +305,11 @@
     done
     ```
 
-    > 直接获取完整样例代码：[cache.sh](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/cache/cache.sh)
+    > 直接获取完整样例代码：[cache.sh](https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/cache/cache.sh)
 
 4. 创建并应用缓存实例。
 
-    下面样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
+    下面样例中使用到CIFAR-10数据集。运行样例前，需参照[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/dataset_loading.html#cifar-10-100)中的方法下载并存放CIFAR-10数据集。目录结构如下：
 
     ```text
     ├─cache.sh
@@ -348,7 +348,7 @@
     print("Got {} samples on device {}".format(num_iter, args_opt.device))
     ```
 
-    > 直接获取完整样例代码：[my_training_script.py](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/my_training_script.py)
+    > 直接获取完整样例代码：[my_training_script.py](https://gitee.com/mindspore/docs/blob/r1.1/tutorials/tutorial_code/cache/my_training_script.py)
 
 5. 运行训练脚本。
 

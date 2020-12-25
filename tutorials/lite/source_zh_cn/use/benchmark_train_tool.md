@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/benchmark_train_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -27,9 +27,9 @@
 
 使用`benchmark_train`工具，需要进行如下环境准备工作。
 
-- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)执行编译。
+- 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html#id3)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`benchmark_train`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html#id4)，获得`benchmark_train`工具，并配置环境变量。
 
 ### 参数说明
 

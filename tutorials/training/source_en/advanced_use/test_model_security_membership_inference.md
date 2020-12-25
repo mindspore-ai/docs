@@ -15,7 +15,7 @@
     - [References](#references)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -27,7 +27,7 @@ The following uses a VGG16 model and CIFAR-100 dataset as an example to describe
 
 > This example is for the Ascend 910 AI Processor. You can download the complete sample code in the following link:
 >
-> <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/membership_inference/example_vgg_cifar.py>
+> <https://gitee.com/mindspore/mindarmour/blob/r1.1/examples/privacy/membership_inference/example_vgg_cifar.py>
 
 ## Implementation
 

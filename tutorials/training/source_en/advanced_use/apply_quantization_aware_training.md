@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/apply_quantization_aware_training.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Background
 
@@ -52,7 +52,7 @@ Aware quantization training specifications
 | Specification | Description                              |
 | ------------- | ---------------------------------------- |
 | Hardware      | Supports hardware platforms based on the GPU or Ascend AI 910 processor. |
-| Network       | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/master/model_zoo>. |
+| Network       | Supports networks such as LeNet and ResNet50. For details, see <https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo>. |
 | Algorithm     | Supports symmetric and asymmetric quantization algorithms in MindSpore fake quantization training. |
 | Solution      | Supports 4-, 7-, and 8-bit quantization solutions. |
 | Datatype      | Ascend platform supports network with FP32 and FP16 precision to do quantization training, GPU platform supports FP32. |
@@ -76,7 +76,7 @@ Compared with common training, the quantization aware training requires addition
 
 Next, the LeNet network is used as an example to describe steps 2 and 3.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/cv/lenet_quant>.
 
 ### Defining a Fusion Network
 
@@ -176,13 +176,13 @@ The preceding describes the quantization aware training from scratch. A more com
  4. Define a fusion network.
  5. Define an optimizer and loss function.
  6. Generate a quantative network based on the fusion network.
- 7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/master/use/load_model_for_inference_and_transfer.html>.
+ 7. Load a model file and retrain the model. Load the unquantative model file generated in step 3 and retrain the quantative model based on the quantative network to generate a quantative model. For details, see <https://www.mindspore.cn/tutorial/training/en/r1.1/use/load_model_for_inference_and_transfer.html>.
 
 ### Inference
 
 The inference using a quantization model is the same the common model inference. The inference can be performed by directly using the checkpoint file or converting the checkpoint file into a common model format (such as AIR or MINDIR).
 
-For details, see <https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference.html>.
+For details, see <https://www.mindspore.cn/tutorial/inference/en/r1.1/multi_platform_inference.html>.
 
 - To use a checkpoint file obtained after quantization aware training for inference, perform the following steps:
 

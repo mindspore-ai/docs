@@ -1,6 +1,6 @@
 # Style Transfer Model Support (Lite)
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/style_transfer_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/style_transfer_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Style transfer introduction
 
@@ -14,4 +14,4 @@ Selecting the first standard image from left to perform the style transfer, as s
 
 ![image_after_transfer](images/after_transfer.png)
 
-Using MindSpore Lite to realize style transfer [example](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/style_transfer).
+Using MindSpore Lite to realize style transfer [example](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/lite/style_transfer).

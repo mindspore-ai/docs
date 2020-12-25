@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/inference/source_zh_cn/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## 概述
 
@@ -20,7 +20,7 @@ MindSpore Serving支持`gPRC`和`RESTful`两种请求方式。本章节介绍`RE
 
 `RESTful`是一种基于`HTTP`协议的网络应用程序的设计风格和开发方式，通过`URI`实现对资源的管理及访问，具有扩展性强、结构清晰的特点。基于其轻量级以及通过`HTTP`直接传输数据的特性，`RESTful`已经成为最常见的`Web`服务访问方式。用户通过`RESTful`方式，能够简单直接的与服务进行交互。
 
-部署`Serving`参考[快速入门](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html) 章节。
+部署`Serving`参考[快速入门](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/serving_example.html) 章节。
 
 与通过`master.start_grpc_server("127.0.0.1", 5500)`启动`gRPC`服务不同的是，`RESTful`服务需要通过`master.start_restful_server("0.0.0.0", 1500)`方式来启动。
 

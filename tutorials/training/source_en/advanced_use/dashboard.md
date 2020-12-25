@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/dashboard.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/dashboard.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -196,6 +196,6 @@ Figure 13 shows tensors recorded by a user in a form of a histogram. Click the u
 
    Remarks: The method of estimating the space usage of `TensorSummary` is as follows:
 
-   The size of a `TensorSummary` data = the number of values in the tensor \* 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is 32 \* 1 \* 256 \* 256, then a `TensorSummary` data needs about 32 \* 1 \* 256 \* 256 \* 4 bytes = 8,388,608 bytes = 8MiB. `TensorSummary` will record data of 20 steps by default. Then the required space when recording these 20 sets of data is about 20 \* 8 MiB = 160MiB. It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 160MiB.
+   The size of a `TensorSummary` data = the number of values in the tensor \* 4 bytes. Assuming that the size of the tensor recorded by `TensorSummary` is `32 * 1 * 256 * 256`, then a `TensorSummary` data needs about `32 * 1 * 256 * 256 * 4 bytes = 8,388,608 bytes = 8MiB`. `TensorSummary` will record data of 20 steps by default. Then the required space when recording these 20 sets of data is about `20 * 8 MiB = 160MiB`. It should be noted that due to the overhead of data structure and other factors, the actual storage space used will be slightly larger than 160MiB.
 
 6. The training log file is large when using `TensorSummary` because the complete tensor data is recorded. MindInsight needs more time to parse the training log file, please be patient.

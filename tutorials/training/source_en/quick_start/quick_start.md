@@ -25,7 +25,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -40,7 +40,7 @@ During the practice, a simple image classification function is implemented. The 
 5. Load the saved model for inference.
 6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lenet>.
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/lenet>.
 
 This is a simple and basic workflow. For applying to other advanced and complex applications, extend this basic process as appropriate.
 
@@ -85,7 +85,7 @@ Currently, the `os` libraries are required. For ease of understanding, other req
 import os
 ```
 
-For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/api_python/en/master/index.html).
+For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/api_python/en/r1.1/index.html).
 
 ### Configuring the Running Information
 
@@ -181,7 +181,7 @@ In the preceding information:
 
 Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data is unique during one epoch.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html) in the MindSpore Tutorials.
+> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.1/use/data_preparation.html) in the MindSpore Tutorials.
 
 ## Defining the Network
 

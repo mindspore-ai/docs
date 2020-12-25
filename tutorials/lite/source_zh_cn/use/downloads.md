@@ -9,7 +9,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/lite/source_zh_cn/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 欢迎使用MindSpore Lite，我们提供了支持多种操作系统和硬件平台的模型转换、模型推理、图像处理等功能，你可以下载适用于本地环境的版本包直接使用。
 
@@ -23,4 +23,4 @@
 |      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz>   |4306b5b2ecb7324133eab27f40c6c05efa1be28b2e2ecd1c35b152ef15de5482   |
 |      |   GPU   |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-gpu.tar.gz>   |09407dff8cc0aee5a8075a12a4fbde10634aafde238eeb686c3cf91481c667b5   |
 
-MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html#)，用于剪裁静态库文件，有效降低库文件大小。
+MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/cropper_tool.html#)，用于剪裁静态库文件，有效降低库文件大小。

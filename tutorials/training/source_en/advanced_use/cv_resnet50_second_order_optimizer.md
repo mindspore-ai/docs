@@ -29,7 +29,7 @@
             - [GPU](#gpu-2)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/advanced_use/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -39,7 +39,7 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 > Download address of the complete code example:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor>
+<https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/official/cv/resnet_thor>
 
 Directory Structure of Code Examples
 
@@ -103,11 +103,11 @@ The directory structure is as follows:
 
 #### Ascend 910
 
-For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_ascend.html#configuring-distributed-environment-variables).
 
 #### GPU
 
-For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_gpu.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/distributed_training_gpu.html#configuring-distributed-environment-variables).
 
 ## Loading the Dataset
 
@@ -172,11 +172,11 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
     return data_set
 ```
 
-> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html).
+> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.1/use/data_preparation.html).
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
  The defined network model is stored in the `src/resnet_thor.py` script in the source code, and the customized operators `Conv2d_thor` and `Dense_thor` are stored in the `src/thor_layer.py` script.
 
 - Use `Conv2d_thor` to replace `Conv2d` in the original network model.
@@ -341,7 +341,7 @@ sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
 
 Variables `RANK_TABLE_FILE`, `DATASET_PATH`, and `DEVICE_NUM` need to be transferred to the script. The meanings of variables are as follows:
 
-- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
+- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/r1.1/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
 - `DEVICE_NUM`: the actual number of running devices.
 
