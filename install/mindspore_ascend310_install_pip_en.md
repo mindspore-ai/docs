@@ -1,8 +1,8 @@
-﻿# Installing MindSpore Ascend 310 Through pip
+﻿# Installing MindSpore in Ascend 310 by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore Ascend 310 Through pip](#installing-mindspore-ascend-310-through-pip)
+- [Installing MindSpore in Ascend 310 by pip](#installing-mindspore-in-ascend-310-by-pip)
     - [Checking System Environment Information](#checking-system-environment-information)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
@@ -13,7 +13,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-The following describes how to quickly install MindSpore through pip on Linux in the Ascend 310 environment.
+The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment.
 
 ## Checking System Environment Information
 
