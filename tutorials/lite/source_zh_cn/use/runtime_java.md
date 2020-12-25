@@ -76,7 +76,7 @@ if (!model.loadModel(context, "model.ms")) {
 
 创建配置上下文[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。
 
-MindSpore Lite支持异构推理，推理时的主选后端由[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)的`deviceType`指定，默认为CPU。在进行图编译时，会根据主选后端进行算子选型调度。
+MindSpore Lite支持异构推理，推理时的主选后端由[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)的`deviceType`指定，目前仅支持CPU。在进行图编译时，会根据主选后端进行算子选型调度。
 
 MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
 

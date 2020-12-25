@@ -75,7 +75,9 @@ Runtime总体使用流程如下图所示：
 
 上下文会保存会话所需的一些基本配置参数，用于指导图编译和图执行，其定义如下：
 
-MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)中的[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)。在进行图编译时，会根据[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)中不同的后端配置信息进行算子选型调度。目前支持CPU、GPU、NPU, 当配置GPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用GPU推理；当配置NPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用NPU推理。
+MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)中的[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)。在进行图编译时，会根据[device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)中不同的后端配置信息进行算子选型调度。目前仅支持两种异构，CPU和GPU异构或者CPU和NPU异构。 当配置GPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用GPU推理；当配置NPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用NPU推理。
+
+> `device_list_[0]`必须是CPU的`DeviceContext`, `device_list_[1]`是GPU的`DeviceContext`或者NPU的`DeviceContext`。暂时不支持同时设置CPU, GPU和NPU三个`DeviceContext`。
 
 MindSpore Lite内置一个进程共享的线程池，推理时通过[thread_num_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#thread-num)指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
 
