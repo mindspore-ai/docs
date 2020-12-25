@@ -36,18 +36,19 @@ Modules in inference version:
 | converter | Linux, Windows | Model Conversion Tool |
 | runtime(cpp, java) | Linux, Windows, Android | Model Inference Framework(Windows platform does not support java version runtime) |
 | benchmark | Linux, Windows, Android | Benchmarking Tool |
-| cropper | Linux | static library crop tool for libmindspore-lite.a |
+| cropper | Linux | Static library crop tool for libmindspore-lite.a |
 | minddata | Linux, Android | Image Processing Library |
 
 Modules in training version:
 
-| Module          | Support Platform | Description                                  |
-| --------------- | ---------------- | -------------------------------------------- |
-| converter       | Linux            | Model Conversion Tool                        |
-| runtime(cpp)    | Linux, Android   | Model Train Framework(java is not support)   |
-| benchmark_train | Linux, Android   | Performance and Accuracy Validation          |
-| cropper         | Linux            | libmindspore-lite.a static library crop tool |
-| minddata        | Linux            | Image Processing Library                     |
+| Module          | Support Platform | Description                                      |
+| --------------- | ---------------- | ------------------------------------------------ |
+| converter       | Linux            | Model Conversion Tool                            |
+| runtime(cpp)    | Linux, Android   | Model Train Framework(java is not support)       |
+| benchmark       | Linux, Android   | Benchmarking Tool                                |
+| cropper         | Linux            | Static library crop tool for libmindspore-lite.a |
+| minddata        | Linux, Android   | Image Processing Library                         |
+| benchmark_train | Linux, Android   | Performance and Accuracy Validation              |
 
 ## Linux Environment Compilation
 
@@ -175,19 +176,13 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Compile MindSpore Lite AAR:
-
-    ```bash
-    bash build.sh -A java
-    ```
-
 - Incremental Compile MindSpore Lite AAR:
 
     ```bash
     bash build.sh -A java -i
     ```
 
-> Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
+    > Turn on the incremental compilation mode. If the ARM64 or ARM32 runtime already exists in the `mindspore/output/` directory, the corresponding version of the runtime will not be recompiled.
 
 - Release version of the x86_64 architecture, with the benchmark, cropper and converter compiled:
 

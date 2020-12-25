@@ -45,8 +45,9 @@
 | --------------- | -------------- | --------------------------------- |
 | converter       | Linux          | 模型转换工具                      |
 | runtime(cpp)    | Linux, Android | 模型训练框架(暂不支持java)        |
+| benchmark       | Linux, Android | 基准测试工具                      |
 | cropper         | Linux          | libmindspore-lite.a静态库裁剪工具 |
-| minddata        | Linux          | 图像处理库                        |
+| minddata        | Linux, Android | 图像处理库                        |
 | benchmark_train | Linux, Android | 性能测试和精度校验工具            |
 
 ## Linux环境编译
@@ -172,19 +173,13 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- 编译MindSpore Lite AAR。
-
-    ```bash
-    bash build.sh -A java
-    ```
-
 - 增量编译MindSpore Lite AAR。
 
     ```bash
     bash build.sh -A java -i
     ```
 
-> 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
+    > 开启增量编译后，若arm64、arm32的runtime已经存在于`mindspore/output/`目录，将不会重新编译对应版本的runtime。
 
 - 编译x86_64架构Release版本，编译模型转换、基准测试和库裁剪工具。
 
@@ -293,7 +288,7 @@ unzip mindspore-lite-maven-{version}.zip
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
-> 1. 编译ARM32、ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件。
+> 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
 >
 > 2. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
 
