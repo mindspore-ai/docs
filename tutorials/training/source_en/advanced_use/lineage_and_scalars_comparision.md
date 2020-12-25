@@ -19,6 +19,8 @@
 
 Model lineage, data lineage and comparison Kanban in mindinsight are the same as training dashboard. In the visualization of training data, different scalar trend charts are observed by comparison dashboard to find problems, and then the lineage function is used to locate the problem causes, so as to give users the ability of efficient tuning in data enhancement and deep neural network.
 
+Access the Training Dashboard by selecting Comparison Dashboard.
+
 ## Model Lineage
 
 Model lineage visualization is used to display the parameter information of all training models.
@@ -97,7 +99,7 @@ Figure 9: Scalars comparision function area
 
 Figure 9 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 
-- Training Selection: Select or filter the required trainings to view the corresponding scalar information.
+- Training Selection: Click the expand button and select or filter the required trainings to view the corresponding scalar information.
 - Tag Selection: Select the required tags to view the corresponding scalar information.
 - Horizontal Axis: Select any of Step, Relative Time, and Absolute Time as the horizontal axis of the scalar curve.
 - Smoothness: Adjust the smoothness to smooth the scalar curve.
