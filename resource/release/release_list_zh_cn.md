@@ -3,48 +3,68 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
-    - [1.0.1](#101)
+    - [1.1.0](#110)
         - [版本说明和接口变更](#版本说明和接口变更)
         - [下载地址](#下载地址)
         - [配套资料](#配套资料)
-    - [1.0.0](#100)
+    - [1.0.1](#101)
         - [版本说明和接口变更](#版本说明和接口变更-1)
         - [下载地址](#下载地址-1)
         - [配套资料](#配套资料-1)
-    - [0.7.0-beta](#070-beta)
+    - [1.0.0](#100)
         - [版本说明和接口变更](#版本说明和接口变更-2)
         - [下载地址](#下载地址-2)
         - [配套资料](#配套资料-2)
-    - [0.6.0-beta](#060-beta)
+    - [0.7.0-beta](#070-beta)
         - [版本说明和接口变更](#版本说明和接口变更-3)
         - [下载地址](#下载地址-3)
         - [配套资料](#配套资料-3)
-    - [0.5.2-beta](#052-beta)
+    - [0.6.0-beta](#060-beta)
         - [版本说明和接口变更](#版本说明和接口变更-4)
         - [下载地址](#下载地址-4)
         - [配套资料](#配套资料-4)
-    - [0.5.0-beta](#050-beta)
+    - [0.5.2-beta](#052-beta)
         - [版本说明和接口变更](#版本说明和接口变更-5)
         - [下载地址](#下载地址-5)
         - [配套资料](#配套资料-5)
-    - [0.3.0-alpha](#030-alpha)
+    - [0.5.0-beta](#050-beta)
         - [版本说明和接口变更](#版本说明和接口变更-6)
         - [下载地址](#下载地址-6)
         - [配套资料](#配套资料-6)
-    - [0.2.0-alpha](#020-alpha)
+    - [0.3.0-alpha](#030-alpha)
         - [版本说明和接口变更](#版本说明和接口变更-7)
         - [下载地址](#下载地址-7)
         - [配套资料](#配套资料-7)
-    - [0.1.0-alpha](#010-alpha)
-        - [版本说明](#版本说明)
+    - [0.2.0-alpha](#020-alpha)
+        - [版本说明和接口变更](#版本说明和接口变更-8)
         - [下载地址](#下载地址-8)
         - [配套资料](#配套资料-8)
-    - [master(unstable)](#masterunstable)
+    - [0.1.0-alpha](#010-alpha)
+        - [版本说明](#版本说明)
+        - [下载地址](#下载地址-9)
         - [配套资料](#配套资料-9)
+    - [master(unstable)](#masterunstable)
+        - [配套资料](#配套资料-10)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
+
+## 1.1.0
+
+### 版本说明和接口变更
+
+<https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md>
+
+### 下载地址
+
+### 配套资料
+
+| 类别 | 网址 |
+| --- | --- |
+|安装 | <https://gitee.com/mindspore/docs/tree/r1.1/install> |
+| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html> |
 
 ## 1.0.1
 
@@ -384,4 +404,4 @@
 | --- | --- |
 |安装 | <https://gitee.com/mindspore/docs/tree/master/install> |
 | 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/master/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/master/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/master/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/master/index.html> |

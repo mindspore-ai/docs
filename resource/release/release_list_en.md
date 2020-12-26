@@ -3,48 +3,68 @@
 <!-- TOC -->
 
 - [Release List](#release-list)
-    - [1.0.1](#101)
+    - [1.1.0](#110)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates)
         - [Downloads](#downloads)
         - [Related Documents](#related-documents)
-    - [1.0.0](#100)
+    - [1.0.1](#101)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-1)
         - [Downloads](#downloads-1)
         - [Related Documents](#related-documents-1)
-    - [0.7.0-beta](#070-beta)
+    - [1.0.0](#100)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-2)
         - [Downloads](#downloads-2)
         - [Related Documents](#related-documents-2)
-    - [0.6.0-beta](#060-beta)
+    - [0.7.0-beta](#070-beta)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-3)
         - [Downloads](#downloads-3)
         - [Related Documents](#related-documents-3)
-    - [0.5.2-beta](#052-beta)
+    - [0.6.0-beta](#060-beta)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-4)
         - [Downloads](#downloads-4)
         - [Related Documents](#related-documents-4)
-    - [0.5.0-beta](#050-beta)
+    - [0.5.2-beta](#052-beta)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-5)
         - [Downloads](#downloads-5)
         - [Related Documents](#related-documents-5)
-    - [0.3.0-alpha](#030-alpha)
+    - [0.5.0-beta](#050-beta)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-6)
         - [Downloads](#downloads-6)
         - [Related Documents](#related-documents-6)
-    - [0.2.0-alpha](#020-alpha)
+    - [0.3.0-alpha](#030-alpha)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates-7)
         - [Downloads](#downloads-7)
         - [Related Documents](#related-documents-7)
-    - [0.1.0-alpha](#010-alpha)
-        - [Releasenotes](#releasenotes)
+    - [0.2.0-alpha](#020-alpha)
+        - [Releasenotes and API Updates](#releasenotes-and-api-updates-8)
         - [Downloads](#downloads-8)
         - [Related Documents](#related-documents-8)
-    - [master(unstable)](#masterunstable)
+    - [0.1.0-alpha](#010-alpha)
+        - [Releasenotes](#releasenotes)
+        - [Downloads](#downloads-9)
         - [Related Documents](#related-documents-9)
+    - [master(unstable)](#masterunstable)
+        - [Related Documents](#related-documents-10)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.1/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
+
+## 1.1.0
+
+### Releasenotes and API Updates
+
+<https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md>
+
+### Downloads
+
+### Related Documents
+
+| Category | URL |
+| --- | --- |
+| Installation | <https://gitee.com/mindspore/docs/tree/r1.1/install> |
+| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.1/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.1/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.1/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.1/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.1/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/en/r1.1/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.1/index.html><br>Design&Specification <https://www.mindspore.cn/doc/note/en/r1.1/index.html> |
 
 ## 1.0.1
 
@@ -384,4 +404,4 @@
 | --- | --- |
 | Installation | <https://gitee.com/mindspore/docs/tree/master/install> |
 | Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/master/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/master/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/master/index.html> |
-| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/master/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Design&Specification <https://www.mindspore.cn/doc/note/en/master/index.html> |
