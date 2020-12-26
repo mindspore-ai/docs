@@ -26,6 +26,7 @@
         - [Obtaining Output Tensors](#obtaining-output-tensors)
         - [Example](#example-5)
     - [Obtaining Version String](#obtaining-version-string)
+    - [Saving the Trained Model](#saving-the-trained-model)
 
 <!-- /TOC -->
 
@@ -447,3 +448,22 @@ The following sample code shows how to obtain version string using `Version` met
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
+
+## Saving the Trained Model
+
+MindSpore Lite provides the following API to save the trained model:
+
+```cpp
+  /// \brief Save the trained model into a flatbuffer file
+  ///
+  /// \param[in] filename Filename to save flatbuffer to
+  ///
+  /// \return 0 on success or -1 in case of error
+  virtual int SaveToFile(const std::string &filename) const = 0;
+```
+
+You can load the saved model to do re-training or inference.
+
+> - The trained model by MindSpore Lite can only be inferenced by MindSpore Lite training framework, that is, to create `TrainSession` first and call the `Eval()` api setting to the inference mode.
+> - You can not use benchmark tool to run the trained model, please use [benchmark_train](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/benchmark_train_tool.html) instead.
+
