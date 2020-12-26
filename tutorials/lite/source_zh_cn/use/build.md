@@ -109,7 +109,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 >
-> 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数。
+> 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数，默认同时编译内置的CPU和GPU算子。
 >
 > 开启编译选项`-T`只生成训练版本。
 >
@@ -173,10 +173,16 @@ git clone https://gitee.com/mindspore/mindspore.git -b r1.1
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- 编译MindSpore Lite AAR。
+- 编译MindSpore Lite AAR，同时编译内置的CPU和GPU算子。
 
     ```bash
     bash build.sh -A java
+    ```
+
+- 编译MindSpore Lite AAR，只编译内置的CPU算子。
+
+    ```bash
+    bash build.sh -A java -e cpu
     ```
 
 - 编译x86_64架构Release版本，编译模型转换、基准测试和库裁剪工具。

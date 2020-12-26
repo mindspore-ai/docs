@@ -112,11 +112,11 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 >
-> When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter.
+> When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter. By default, the built-in CPU and GPU operators are compiled at the same time.
 >
 > The compiler will only generate training packages when `-T` is opened.
 >
-> Any `-e` compilation option, the CPU operator will be compiled into it.
+> Any `-e` compilation option, the CPU operators will be compiled into it.
 
 ### Compilation Example
 
@@ -152,19 +152,19 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -i -j32
     ```
 
-- Release version of the ARM 64-bit architecture, with the built-in CPU operator compiled:
+- Release version of the ARM 64-bit architecture, with the built-in CPU operators compiled:
 
     ```bash
     bash build.sh -I arm64 -e cpu
     ```
 
-- Release version of the ARM 64-bit architecture, with the built-in CPU and GPU operator compiled:
+- Release version of the ARM 64-bit architecture, with the built-in CPU and GPU operators compiled:
 
     ```bash
     bash build.sh -I arm64 -e gpu
     ```
 
-- Release version of the ARM 64-bit architecture, with the built-in CPU and NPU operator compiled:
+- Release version of the ARM 64-bit architecture, with the built-in CPU and NPU operators compiled:
 
     ```bash
     bash build.sh -I arm64 -e npu
@@ -176,10 +176,16 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Compile MindSpore Lite AAR:
+- Compile MindSpore Lite AAR, with the built-in CPU and GPU operators compiled:
 
     ```bash
     bash build.sh -A java
+    ```
+
+- Compile MindSpore Lite AAR, with the built-in CPU operators compiled:
+
+    ```bash
+    bash build.sh -A java -e cpu
     ```
 
 - Release version of the x86_64 architecture, with the benchmark, cropper and converter compiled:
