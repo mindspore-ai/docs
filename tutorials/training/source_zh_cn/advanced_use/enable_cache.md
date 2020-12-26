@@ -119,7 +119,7 @@ for item in data.create_dict_iterator(num_epochs=1):  # each data is a dictionar
 4 image shape: (32, 32, 3)
 ```
 
-通过`cache_admin --list_sessions`命令可以查看当前会话有四条数据，说明数据缓存成功。
+通过`cache_admin --list_sessions`命令可以查看当前会话有五条数据，说明数据缓存成功。
 
 ```shell
 $ cache_admin --list_sessions
