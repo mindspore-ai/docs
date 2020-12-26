@@ -24,6 +24,7 @@
         - [使用示例](#使用示例-4)
     - [获取版本号](#获取版本号)
         - [使用示例](#使用示例-5)
+    - [保存训练后模型](#保存训练后模型)
 
 <!-- /TOC -->
 
@@ -450,3 +451,23 @@ for (auto tensor_name : tensor_names) {
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
+
+## 保存训练后模型
+
+MindSpore Lite提供了下面的方法保存训练好的模型：
+
+```cpp
+  /// \brief Save the trained model into a flatbuffer file
+  ///
+  /// \param[in] filename Filename to save flatbuffer to
+  ///
+  /// \return 0 on success or -1 in case of error
+  virtual int SaveToFile(const std::string &filename) const = 0;
+```
+
+保存下来的模型可以用于继续训练或者使用`TrainSesson`的`Eval`模式执行推理。
+
+> - MindSpore Lite训练出来的模型，必须使用训练框架的接口进行推理，即创建`TrainSession`并调用`Eval()`方法设置为推理模式。
+> - benchmark工具不支持运行训练出的模型，请使用[benchmark_train工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html)。
+
+
