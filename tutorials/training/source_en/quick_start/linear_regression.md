@@ -125,7 +125,7 @@ repeat_number = 1
 
 ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
 print("The dataset size of ds_train:", ds_train.get_dataset_size())
-dict_datasets = ds_train.create_dict_iterator().get_next()
+dict_datasets = next(ds_train.create_dict_iterator())
 
 print(dict_datasets.keys())
 print("The x label value shape:", dict_datasets["data"].shape)

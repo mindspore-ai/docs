@@ -63,7 +63,7 @@ MindSpore目前支持加载图像领域常用的经典数据集和多种数据�
     import matplotlib.pyplot as plt
 
     mnist_it = mnist_dataset.create_dict_iterator()
-    data = mnist_it.get_next()
+    data = next(mnist_it)
     plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
     plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()
@@ -187,7 +187,7 @@ MindSpore目前支持的数据增强算子及其详细使用方法，可参考�
 
     ```python
     mnist_it = ds4.create_dict_iterator()
-    data = mnist_it.get_next()
+    data = next(mnist_it)
     plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
     plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()

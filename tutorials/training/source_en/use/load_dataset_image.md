@@ -59,7 +59,7 @@ The following tutorial shows how to load the MNIST dataset using the `MnistDatas
     import matplotlib.pyplot as plt
 
     mnist_it = mnist_dataset.create_dict_iterator()
-    data = mnist_it.get_next()
+    data = next(mnist_it)
     plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
     plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()
@@ -179,7 +179,7 @@ The following tutorial demonstrates how to use the `c_transforms` module to augm
 
     ```python
     mnist_it = ds4.create_dict_iterator()
-    data = mnist_it.get_next()
+    data = next(mnist_it)
     plt.imshow(data['image'].asnumpy().squeeze(), cmap=plt.cm.gray)
     plt.title(data['label'].asnumpy(), fontsize=20)
     plt.show()

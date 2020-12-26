@@ -59,13 +59,15 @@ ds.config.set_seed(0)
 
 DATA_DIR = "cifar-10-batches-bin/"
 
+print("------ Without Replacement ------")
+
 sampler = ds.RandomSampler(num_samples=5)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 
 for data in dataset1.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 
-print("------------")
+print("------ With Replacement ------")
 
 sampler = ds.RandomSampler(replacement=True, num_samples=5)
 dataset2 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -77,12 +79,13 @@ for data in dataset2.create_dict_iterator():
 The output is as follows:
 
 ```text
+------ Without Replacement ------
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 6
 Image shape: (32, 32, 3) , Label: 7
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 4
-------------
+------ With Replacement ------
 Image shape: (32, 32, 3) , Label: 4
 Image shape: (32, 32, 3) , Label: 6
 Image shape: (32, 32, 3) , Label: 9
@@ -200,7 +203,7 @@ Image shape: (32, 32, 3) , Label: 9
 
 Samples dataset shards in distributed training.
 
-The following example uses a distributed sampler to divide a generated dataset into three shards, obtains three data samples in each shard, and displays the loaded data.
+The following example uses a distributed sampler to divide a generated dataset into three shards, obtains no more than three data samples in each shard, and displays the loaded data on shard number 0.
 
 ```python
 import numpy as np
