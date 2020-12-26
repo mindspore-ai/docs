@@ -13,13 +13,15 @@
 
 ## Model Zoo
 
+### Official
+
 |  Domain | Sub Domain    | Network                                   | Ascend (Graph) | Ascend (PyNative) | GPU (Graph) | GPU (PyNative)| CPU (Graph) | CPU (PyNative)
 |:------   |:------| :-----------                               |:------   |:------   |:------  |:------  |:----- |:-----
 |Computer Vision (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)          |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [GoogleNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/src/googlenet.py)    |  Supported     |  Supported | Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [LeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py)              |  Supported |  Supported |  Supported |  Supported | Supported | Supported
 | Computer Vision (CV)  | Image Classification  | [LeNet(Quantization)](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet_quant/src/lenet_fusion.py)      |  Supported |  Doing |  Supported |  Doing | Doing | Doing
-| Computer Vision (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)          |  Supported |  Supported |  Supported |  Supported | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)          |  Supported |  Supported |  Supported |  Supported | Doing | Supported
 | Computer Vision (CV)  | Image Classification  | [ResNet-50(Quantization)](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet50_quant/models/resnet_quant.py)          |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 |Computer Vision (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)       |  Supported |  Supported | Supported |  Supported | Doing | Doing
 |Computer Vision (CV)  | Image Classification  | [SE-ResNet50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)      |  Supported | Supported | Doing | Doing | Doing | Doing
@@ -36,11 +38,7 @@
 | Computer Vision (CV)  | Image Classification  | [NASNET](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/nasnet/src/nasnet_a_mobile.py) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [ShuffleNetV2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/shufflenetv2/src/shufflenetv2.py) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [EfficientNet-B0](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/efficientnet/src/efficientnet.py) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
-| Computer Vision (CV)  | Image Classification  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ssd_ghostnet/src/ssd_ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
-| Computer Vision（CV） | Image Classification  | [FaceAttributes](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceAttribute/src/FaceAttribute/resnet18.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-| Computer Vision（CV） | Image Classification  | [FaceQualityAssessment](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceQualityAssessment/src/face_qa.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-| Computer Vision（CV） | Image Classificationn  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceRecognitionForTracking/src/reid.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-| Computer Vision (CV)  | Image Classification  | [SqueezeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/squeezenet/src/squeezenet.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [Tiny-Darknet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/tinydarknet/src/tinydarknet.py)                   |  Supported |  Doing |  Doing |  Doing | Doing
 |Computer Vision (CV)  | Object Detection  | [SSD](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/ssd.py)                   |  Supported |  Supported | Supported | Supported | Supported | Supported
 | Computer Vision (CV)  | Object Detection  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)         |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)         |  Supported |  Supported |  Supported |  Supported | Doing | Doing
@@ -50,7 +48,6 @@
 | Computer Vision（CV） | Object Detection  | [WarpCTC](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/warpctc/src/warpctc.py)                    |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Computer Vision（CV） | Object Detection  | [Retinaface-ResNet50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/retinaface_resnet50/src/network.py)     |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision（CV） | Object Detection  | [CenterFace](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/centerface/src/centerface.py)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
-| Computer Vision（CV） | Object Detection  | [FaceDetection](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceDetection/src/FaceDetection/yolov3.py)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [MaskRCNN-MobileNetV1](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/maskrcnn_mobilenetv1/src/maskrcnn_mobilenetv1/mobilenetv1.py)         |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/mobilenet_v1_fpn.py)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [YoloV4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov4/src/yolo.py)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
@@ -66,7 +63,6 @@
 | Natural Language Processing (NLP) | Natural Language Understanding  | [MASS](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)   |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TinyBert](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/tinybert/src/tinybert_model.py)       |  Supported |  Supported |  Supported | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [GNMT v2](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/gnmt_v2/src/gnmt_model/gnmt.py)        |  Supported |  Doing |  Doing | Doing | Doing | Doing
-| Natural Language Processing (NLP) | Natural Language Understanding  | [DS-CNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/nlp/dscnn/src/ds_cnn.py)                    |  Supported |  Supported |  Doing | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TextCNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/textcnn/src/textcnn.py)                |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Recommender | Recommender System, CTR prediction  | [DeepFM](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/deepfm/src/deepfm.py)                               |  Supported |  Supported |  Supported | Supported | Supported | Doing
 | Recommender | Recommender System, Search, Ranking  | [Wide&Deep](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/recommend/wide_and_deep/src/wide_and_deep.py)             |  Supported |  Supported |  Supported | Supported | Doing | Doing
@@ -74,6 +70,22 @@
 | Graph Neural Networks (GNN) | Text Classification  | [GCN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gcn/src/gcn.py)                                          |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Graph Neural Networks (GNN) | Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/gat/src/gat.py)                                          |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Graph Neural Networks (GNN) | Recommender System | [BGCF](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/gnn/bgcf/src/bgcf.py)                                         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+
+### Research
+
+|  Domain | Sub Domain    | Network                                   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNative)| CPU(Graph)
+|:------   |:------| :-----------                               |:------   |:------   |:------  |:------  |:-----
+| Computer Vision (CV)  | Image Classification  | [GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ghostnet/src/ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision（CV） | Image Classification  | [FaceAttributes](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceAttribute/src/FaceAttribute/resnet18.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision（CV） | Image Classification  | [FaceQualityAssessment](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceQualityAssessment/src/face_qa.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision（CV） | Image Classificationn  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceRecognitionForTracking/src/reid.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [SqueezeNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/squeezenet/src/squeezenet.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision（CV） | Object Detection  | [FaceDetection](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceDetection/src/FaceDetection/yolov3.py)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision（CV） | Object Detection  | [SSD_GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ssd_ghostnet/src/ssd_ghostnet.py)                    |  Supported |  Doing |  Doing |  Doing | Doing
+| Computer Vision (CV)  | Key Point Detection  | [CenterNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/centernet/src/centernet_pose.py)                                               |  Supported     |  Doing | Doing |  Doing | Doing
+| Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/cycle_gan/src/models/cycle_gan.py)                                               |  Doing     |  Doing | Doing |  Doing | Supported
+| Natural Language Processing (NLP) | Natural Language Understanding  | [DS-CNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/nlp/dscnn/src/ds_cnn.py)                    |  Supported |  Supported |  Doing | Doing | Doing | Doing
+| Recommender | Recommender System, CTR prediction | [AutoDis](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/recommend/autodis/src/autodis.py)          |  Supported |  Doing |  Doing |  Doing | Doing
 | Audio | Auto Tagging | [FCN-4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/audio/fcn-4/src/musictagger.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | High Performance Computing | Molecular Dynamics | [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | High Performance Computing | Ocean Model | [GOMO](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/hpc/ocean_model/src/GOMO.py)   |  Doing |  Doing |  Supported |  Supported | Doing | Doing
