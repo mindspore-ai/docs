@@ -48,30 +48,19 @@
 from mindspore.profiler import Profiler
 from mindspore import Model, nn, context
 
+# Init context env
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
 
-def test_profiler():
-    # Init context env
-    context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+# Init Profiler
+# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
+# 'data' directory should be placed under summary-base-dir.
+profiler = Profiler()
 
-    # Init Profiler
-    # Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
-    # 'data' directory should be placed under summary-base-dir.
-    profiler = Profiler()
+# Train Model
+Model.train()
 
-    # Init hyperparameter
-    epoch = 2
-    # Init network and Model
-    net = Net()
-    loss_fn = CrossEntropyLoss()
-    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-    model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics=None)  
-    # Prepare mindrecord_dataset for training
-    train_ds = create_mindrecord_dataset_for_training()
-    # Model Train
-    model.train(epoch, train_ds)
-
-    # Profiler end
-    profiler.analyse()
+# Profiler end
+profiler.analyse()
 ```
 
 ## 启动MindInsight
