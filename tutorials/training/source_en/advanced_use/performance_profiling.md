@@ -27,7 +27,7 @@ Performance data like operator's execution time is recorded in files and can be 
 ## Operation Process
 
 - Prepare a training script, add profiler APIs in the training script and run the training script.
-- Start MindInsight and specify the profiler data directory using startup parameters. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+- Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
 - Find the training in the list, click the performance profiling link and view the data on the web page.
 
 ## Preparing the Training Script
@@ -50,6 +50,8 @@ def test_profiler():
     context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
 
     # Init Profiler
+    # Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
+    # 'data' directory should be placed under summary-base-dir.
     profiler = Profiler()
 
     # Init hyperparameter
