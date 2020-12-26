@@ -63,13 +63,15 @@ ds.config.set_seed(0)
 
 DATA_DIR = "cifar-10-batches-bin/"
 
+print("------ Without Replacement ------")
+
 sampler = ds.RandomSampler(num_samples=5)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
 
 for data in dataset1.create_dict_iterator():
     print("Image shape:", data['image'].shape, ", Label:", data['label'])
 
-print("------------")
+print("------ With Replacement ------")
 
 sampler = ds.RandomSampler(replacement=True, num_samples=5)
 dataset2 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -81,12 +83,13 @@ for data in dataset2.create_dict_iterator():
 输出结果如下：
 
 ```text
+------ Without Replacement ------
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 6
 Image shape: (32, 32, 3) , Label: 7
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 4
-------------
+------ With Replacement ------
 Image shape: (32, 32, 3) , Label: 4
 Image shape: (32, 32, 3) , Label: 6
 Image shape: (32, 32, 3) , Label: 9
@@ -204,7 +207,7 @@ Image shape: (32, 32, 3) , Label: 9
 
 在分布式训练中，对数据集分片进行采样。
 
-下面的样例使用分布式采样器将构建的数据集分为3片，在每个分片中采样3个数据样本，并展示已读取的数据。
+下面的样例使用分布式采样器将构建的数据集分为3片，在每个分片中采样不多于3个数据样本，并展示第0个分片读取到的数据。
 
 ```python
 import numpy as np
