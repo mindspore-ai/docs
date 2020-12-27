@@ -42,6 +42,7 @@
             - [isinstance](#isinstance)
             - [partial](#partial)
             - [map](#map)
+            - [zip](#zip)
             - [range](#range)
             - [enumerate](#enumerate)
             - [super](#super)
@@ -278,36 +279,39 @@ def generate_tensor():
 
 - 支持接口：
 
-  `all`：对`Tensor`通过`all`操作进行归约， 仅支持`Bool`类型的`Tensor`。
+  `all`：对`Tensor`通过`all`操作进行归约，仅支持`Bool`类型的`Tensor`。
 
-  `any`：对`Tensor`通过`any`操作进行归约。仅支持`Bool`类型的`Tensor`。
-
-  `expand_as`：将`Tensor`按照广播规则扩展成与另一个`Tensor`相同的`shape`。
+  `any`：对`Tensor`通过`any`操作进行归约，仅支持`Bool`类型的`Tensor`。
 
   `view`：将`Tensor`reshape成输入的`shape`。
+
+  `expand_as`：将`Tensor`按照广播规则扩展成与另一个`Tensor`相同的`shape`。
 
   示例如下：
 
   ```python
   x = Tensor(np.array([[True, False, True], [False, True, False]]))
-  y = Tensor(np.array([[1, 2], [3, 4], [5, 6]]))
   x_shape = x.shape
   x_dtype = x.dtype
   x_all = x.all()
   x_any = x.any()
-  x_as = x.expand_as(y)
   x_view = x.view((1, 6))
+
+  y = Tensor(np.ones((2, 3), np.float32))
+  z = Tensor(np.ones((2, 2, 3)))
+  y_as_z = y.expand_as(z)
   ```
 
   结果如下:
 
   ```text
   x_shape: (2, 3)
-  x_dtype: Int64
+  x_dtype: Bool
   x_all: Tensor(shape=[], dtype=Bool, value= False)
   x_any: Tensor(shape=[], dtype=Bool, value= True)
-  x_as: Tensor(shape=[2, 3], dtype=Bool, value= [[True, False], [True, False], [True, False]])
   x_view: Tensor(shape=[1, 6], dtype=Bool, value= [[True, False, True, False, True, False]])
+
+  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value= [[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
   ```
 
 - 索引取值
@@ -437,7 +441,7 @@ def generate_tensor():
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 2)))
+      tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
       tensor_index0 = Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
       tensor_index1 = Tensor(np.array([[0, 0]]), mstype.int32)
       data_single = tensor_x[tensor_index0]
@@ -509,7 +513,7 @@ def generate_tensor():
       tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)))
       tensor_x[1] = 88
       tensor_y[1][1] = 88
-      tensor_y[1]= Tensor(np.array([66, 88, 99]))
+      tensor_z[1]= Tensor(np.array([66, 88, 99]))
       ```
 
       结果如下：
@@ -557,7 +561,7 @@ def generate_tensor():
 
       当所赋值为`Number`时，可以理解为将`slice`索引取到位置元素都更新为`Number`。
 
-      当所赋值为`Tensor`时，`Tensor`的`shape`必须等于或者可广播为`slice`索引取到结果的`shape`，在保持二者`shape`一致后，然后将赋值`Tensor`元素更新到索引取出结果对应元素的原`Tensor`位置。
+      当所赋值为`Tensor`时，`Tensor`的`shape`必须等于或者可`reshape`为`slice`索引取到结果的`shape`，在保持二者`shape`一致后，然后将赋值`Tensor`元素更新到索引取出结果对应元素的原`Tensor`位置。
 
       例如，对`shape = (2, 3, 4)`的`Tensor`，通过`0:1:1`索引赋值为100，更新后的`Tensor`shape仍为`(2, 3, 4)`，但第0维位置为0的所有元素，值都更新为100。
 
@@ -569,7 +573,7 @@ def generate_tensor():
       tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
       tensor_x[0:1] = 88
       tensor_y[0:2][0:2] = 88
-      tensor_z[0:2] = Tensor(np.array([11, 12, 13]))
+      tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]))
       ```
 
       结果如下：
@@ -582,7 +586,7 @@ def generate_tensor():
 
     - `Tensor`索引赋值
 
-      支持单层和多层`Tensor`索引赋值，单层`Tensor`索引赋值：`tensor_x[tensor_index] = u`，多层`Tensor`索引赋值：`tensor_x[tensor_index0][tensor_index1]... = u`。
+      仅支持单层`Tensor`索引赋值，即`tensor_x[tensor_index] = u`。
 
       索引`Tensor`支持`int32`和`bool`类型。
 
@@ -598,34 +602,31 @@ def generate_tensor():
 
       当全是`Tensor`的时候，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照所赋值为`Tensor`的规则进行赋值。
 
-      例如，对一个`shape`为`(6, 4, 5)`、`dtype`为`int64`的tensor通过`shape`为`(2, 3)`的tensor进行索引赋值，如果所赋值为`Number`，则`Number`必须是`int`；
-      如果所赋值为`Tuple`，则`tuple`里的元素都得是`int`，且个数为5；如果所赋值为`Tensor`，则`Tensor`的`dtype`必须为`int64`，且`shape`可广播为`(2, 3, 4, 5)`。
+      例如，对一个`shape`为`(6, 4, 5)`、`dtype`为`float32`的tensor通过`shape`为`(2, 3)`的tensor进行索引赋值，如果所赋值为`Number`，则`Number`必须是`float`；
+      如果所赋值为`Tuple`，则`tuple`里的元素都得是`float`，且个数为5；如果所赋值为`Tensor`，则`Tensor`的`dtype`必须为`float32`，且`shape`可广播为`(2, 3, 4, 5)`。
 
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]]))
-      tensor_x[tensor_index] = 88
-      tensor_y[tensor_index][tensor_index] = 88
-      tensor_z[tensor_index] = Tensor(np.array([11, 12, 13]))
+      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32))
+      tensor_x[tensor_index] = 88.0
+      tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]))
       ```
 
       结果如下：
 
       ```text
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88, 88, 88], [6, 7, 8], [88, 88, 88]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
-      tensor_z: Tensor(shape=[3, 3], dtype=Int64, value= [[11, 12, 13], [6, 7, 8], [11, 12, 13]])
+      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
       ```
 
     - `Tuple`索引赋值
 
       支持单层和多层`Tuple`索引赋值，单层`Tuple`索引赋值：`tensor_x[tuple_index] = u`，多层`Tuple`索引赋值：`tensor_x[tuple_index0][tuple_index1]... = u`。
 
-      `Tuple`索引赋值和`Tuple`索引取值对索引的支持一致。
+      `Tuple`索引赋值和`Tuple`索引取值对索引的支持一致, 但多层`Tuple`索引赋值不支持`Tuple`里包含`Tensor`。
 
       所赋值支持`Number`、`Tuple`和`Tensor`，`Number`、`Tuple`和`Tensor`里的值必须与原`Tensor`数据类型一致。
 
@@ -644,7 +645,7 @@ def generate_tensor():
       ```python
       tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
       tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
+      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
       tensor_index = Tensor(np.array([[0, 1], [1, 0]]))
       tensor_x[1, 1:3] = 88
       tensor_y[1:3, tensor_index] = 88
@@ -983,16 +984,16 @@ z_len: 6
 x = (2, 3, 4)
 y = [2, 3, 4]
 z = Tensor(np.ones((6, 4, 5)))
-x_is_list = isinstance(x, mstype.list_)
-y_is_tuple= isinstance(y, mstype.tuple_)
+x_is_tuple = isinstance(x, mstype.tuple_)
+y_is_list= isinstance(y, mstype.list_)
 z_is_tensor = isinstance(z, mstype.tensor)
 ```
 
 结果如下：
 
 ```text
-x_is_list: True
-y_is_tuple: True
+x_is_tuple: True
+y_is_list: True
 z_is_tensor: True
   ```
 
@@ -1082,7 +1083,7 @@ ret = zip(elements_a, elements_b)
 结果如下：
 
 ```text
-ret: (1, 4), (2, 5), (3, 6))
+ret: ((1, 4), (2, 5), (3, 6))
 ```
 
 #### range
@@ -1154,7 +1155,7 @@ n = enumerate(y)
 
 ```text
 m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (0, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (0, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
+n: ((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
 ```
 
 #### super
@@ -1225,7 +1226,7 @@ ret = pow(x, y)
 结果如下：
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value= [1, 4, 9]))
+ret: Tensor(shape=[3], dtype=Int64, value= [1, 4, 27]))
 ```
 
 #### print
