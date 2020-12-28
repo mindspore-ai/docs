@@ -209,7 +209,7 @@ def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
 
 Finally, exporting the defined model.
 
-```cpp
+```python
 export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
