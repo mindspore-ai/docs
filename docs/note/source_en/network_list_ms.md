@@ -75,7 +75,6 @@
 
 |  Domain | Sub Domain    | Network                                   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNative)| CPU(Graph)
 |:------   |:------| :-----------                               |:------   |:------   |:------  |:------  |:-----
-| Computer Vision (CV)  | Image Classification  | [GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ghostnet/src/ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision（CV） | Image Classification  | [FaceAttributes](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceAttribute/src/FaceAttribute/resnet18.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision（CV） | Image Classification  | [FaceQualityAssessment](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceQualityAssessment/src/face_qa.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision（CV） | Image Classificationn  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceRecognitionForTracking/src/reid.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing

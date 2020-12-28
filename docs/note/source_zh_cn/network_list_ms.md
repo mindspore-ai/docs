@@ -75,7 +75,6 @@
 
 |  领域 | 子领域  | 网络   | Ascend(Graph) | Ascend(PyNative) | GPU(Graph) | GPU(PyNaitve) | CPU(Graph)
 |:----  |:-------  |:----   |:----    |:----    |:---- |:---- |:----
-| 计算机视觉（CV）  | 图像分类（Image Classification）  | [GhostNet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/ghostnet/src/ghostnet.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceAttributes](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceAttribute/src/FaceAttribute/resnet18.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceQualityAssessment](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceQualityAssessment/src/face_qa.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/FaceRecognitionForTracking/src/reid.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
