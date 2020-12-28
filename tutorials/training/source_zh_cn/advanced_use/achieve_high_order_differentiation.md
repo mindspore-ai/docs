@@ -237,7 +237,6 @@ class Grad(nn.Cell):
         super(Grad, self).__init__()
         self.grad = ops.GradOperation()
         self.network = network
-        self.network.add_flags(defer_inline=True)
     def construct(self, x):
         gout= self.grad(self.network)(x)
         return gout
@@ -263,8 +262,6 @@ print(output)
 ```python
 [-0.841471]
 ```
-
-> 计算图的输入和算子的输入一致时，二阶求导就会失效，添加`self.network.add_flags(defer_inline=True)`可以避免上述问题，后续MindSpore会修复该问题。
 
 ### 单输入多输出高阶导数
 
