@@ -49,44 +49,45 @@ MindSpore目前支持多种方式将数据记录到summary日志文件中。
 ```python
 import mindspore
 import mindspore.nn as nn
+from mindspore import ops
 from mindspore import context, Tensor, Model
-from mindspore.common.initializer import TruncatedNormal
-import mindspore.ops as ops
-from mindspore.train.callback import SummaryCollector
 from mindspore.nn.metrics import Accuracy
+from mindspore.train.callback import SummaryCollector
 
-"""AlexNet initial."""
-def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid"):
-    weight = weight_variable()
-    return nn.Conv2d(in_channels, out_channels,
-                     kernel_size=kernel_size, stride=stride, padding=padding,
-                     weight_init=weight, has_bias=False, pad_mode=pad_mode)
 
-def fc_with_initialize(input_channels, out_channels):
-    weight = weight_variable()
-    bias = weight_variable()
-    return nn.Dense(input_channels, out_channels, weight, bias)
+def conv(in_channels, out_channels, kernel_size, stride=1, padding=0, pad_mode="valid", has_bias=True):
+    return nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding,
+                     has_bias=has_bias, pad_mode=pad_mode)
 
-def weight_variable():
-    return TruncatedNormal(0.02)
+
+def fc_with_initialize(input_channels, out_channels, has_bias=True):
+    return nn.Dense(input_channels, out_channels, has_bias=has_bias)
 
 
 class AlexNet(nn.Cell):
-    def __init__(self, num_classes=10, channel=3):
+    """AlexNet"""
+    def __init__(self, num_classes=10, channel=3, phase='train', include_top=True):
         super(AlexNet, self).__init__()
-        self.conv1 = conv(channel, 96, 11, stride=4)
-        self.conv2 = conv(96, 256, 5, pad_mode="same")
-        self.conv3 = conv(256, 384, 3, pad_mode="same")
-        self.conv4 = conv(384, 384, 3, pad_mode="same")
-        self.conv5 = conv(384, 256, 3, pad_mode="same")
-        self.relu = nn.ReLU()
-        self.max_pool2d = ops.MaxPool(ksize=3, strides=2)
-        self.flatten = nn.Flatten()
-        self.fc1 = fc_with_initialize(6*6*256, 4096)
-        self.fc2 = fc_with_initialize(4096, 4096)
-        self.fc3 = fc_with_initialize(4096, num_classes)
+        self.conv1 = conv(channel, 64, 11, stride=4, pad_mode="same", has_bias=True)
+        self.conv2 = conv(64, 128, 5, pad_mode="same", has_bias=True)
+        self.conv3 = conv(128, 192, 3, pad_mode="same", has_bias=True)
+        self.conv4 = conv(192, 256, 3, pad_mode="same", has_bias=True)
+        self.conv5 = conv(256, 256, 3, pad_mode="same", has_bias=True)
+        self.relu = ops.ReLU()
+        self.max_pool2d = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode='valid')
+        self.include_top = include_top
+        if self.include_top:
+            dropout_ratio = 0.65
+            if phase == 'test':
+                dropout_ratio = 1.0
+            self.flatten = nn.Flatten()
+            self.fc1 = fc_with_initialize(6 * 6 * 256, 4096)
+            self.fc2 = fc_with_initialize(4096, 4096)
+            self.fc3 = fc_with_initialize(4096, num_classes)
+            self.dropout = nn.Dropout(dropout_ratio)
 
     def construct(self, x):
+        """define network"""
         x = self.conv1(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
@@ -100,13 +101,18 @@ class AlexNet(nn.Cell):
         x = self.conv5(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
+        if not self.include_top:
+            return x
         x = self.flatten(x)
         x = self.fc1(x)
         x = self.relu(x)
+        x = self.dropout(x)
         x = self.fc2(x)
         x = self.relu(x)
+        x = self.dropout(x)
         x = self.fc3(x)
         return x
+
 
 context.set_context(mode=context.GRAPH_MODE)
 
@@ -154,9 +160,9 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 样例代码如下：
 
 ```python
-from mindspore import context, Tensor, nn
-from mindspore import dtype as mstype
+import mindspore
 import mindspore.ops as ops
+from mindspore import Tensor, nn
 from mindspore.nn import Optimizer
 
 
@@ -167,8 +173,8 @@ class CrossEntropyLoss(nn.Cell):
         self.cross_entropy = ops.SoftmaxCrossEntropyWithLogits()
         self.mean = ops.ReduceMean()
         self.one_hot = ops.OneHot()
-        self.on_value = Tensor(1.0, mstype.float32)
-        self.off_value = Tensor(0.0, mstype.float32)
+        self.on_value = Tensor(1.0, mindspore.float32)
+        self.off_value = Tensor(0.0, mindspore.float32)
 
         # Init ScalarSummary
         self.scalar_summary = ops.ScalarSummary()
@@ -185,15 +191,15 @@ class CrossEntropyLoss(nn.Cell):
 
 class MyOptimizer(Optimizer):
     """Optimizer definition."""
-    def __init__(self, learning_rate, params, ......):
-        ......
+    def __init__(self, learning_rate, params, ...):
+        ...
         # Initialize ScalarSummary
         self.scalar_summary = ops.ScalarSummary()
         self.histogram_summary = ops.HistogramSummary()
         self.weight_names = [param.name for param in self.parameters]
 
     def construct(self, grads):
-        ......
+        ...
         # Record learning rate here
         self.scalar_summary("learning_rate", learning_rate)
 
@@ -202,13 +208,13 @@ class MyOptimizer(Optimizer):
         # Record gradient
         self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
 
-        ......
+        ...
 
 class Net(nn.Cell):
     """Net definition."""
     def __init__(self):
         super(Net, self).__init__()
-        ......
+        ...
 
         # Init ImageSummary
         self.image_summary = ops.ImageSummary()
@@ -220,9 +226,8 @@ class Net(nn.Cell):
         self.image_summary("image", data)
         # Record tensor by Summary operator
         self.tensor_summary("tensor", data)
-        ......
+        ...
         return out
-
 ```
 
 > 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。
@@ -235,18 +240,18 @@ class Net(nn.Cell):
 ```python
 from mindspore import Model, nn, context
 from mindspore.train.callback import SummaryCollector
-......
+...
 
 context.set_context(mode=context.GRAPH_MODE)
-net = Net()
+network = Net()
 loss_fn = CrossEntropyLoss()
 optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-model = Model(net, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
+model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
 
-train_ds = create_mindrecord_dataset_for_training()
+ds_train = create_dataset('./dataset_path')
 
 summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-model.train(epoch=2, train_dataset=train_ds, callbacks=[summary_collector])
+model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
 ```
 
 ### 方式三：自定义Callback记录数据
@@ -270,7 +275,7 @@ class ConfusionMatrixCallback(Callback):
 
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
-        self.summary_record = SummaryRecord(summary_dir)
+        self.summary_record = SummaryRecord(self._summary_dir)
 
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
@@ -282,15 +287,15 @@ class ConfusionMatrixCallback(Callback):
         cb_params = run_context.run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
-        confusion_martrix = create_confusion_matrix(cb_params)
-        self.summary_record.add_value('image', 'confusion_matrix', confusion_matric)
+        confusion_matrix = create_confusion_matrix(cb_params)
+        self.summary_record.add_value('image', 'confusion_matrix', confusion_matrix)
         self.summary_record.record(cb_params.cur_step)
 
 # init you train script
 ...
 
-confusion_martrix = ConfusionMartrixCallback(summary_dir='./summary_dir')
-model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
+confusion_matrix = ConfusionMatrixCallback(summary_dir='./summary_dir')
+model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
@@ -306,7 +311,7 @@ model.train(cnn_network, train_dataset=train_ds, callbacks=[confusion_martrix])
 
 ```python
 from mindspore import nn
-from mindspore.train import SummaryRecord
+from mindspore.train.summary import SummaryRecord
 import mindspore.ops as ops
 
 class LeNet5(nn.Cell):
@@ -362,6 +367,7 @@ if __name__ == '__main__':
 ```python
 import mindspore.nn as nn
 import mindspore.ops as ops
+...
 
 # Define a new optimizer class by inheriting your original optimizer.
 class MyOptimizer(nn.Momentum):
@@ -376,8 +382,10 @@ class MyOptimizer(nn.Momentum):
         self.histogram_summary(self.gradient_names[0], grads[0])
         return self._original_construct(grads)
 
+...
+
 # Initialize your model with the newly defined optimizer.
-model = Model(net, loss_fn=loss_fn, optimizer=MyOptimizer(arg1=arg1value))
+model = Model(network, loss_fn=loss_fn, optimizer=MyOptimizer(arg1=arg1value))
 ```
 
 ## 运行MindInsight
