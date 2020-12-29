@@ -1,8 +1,8 @@
-﻿# Installing MindSpore in Ascend by pip
+﻿# Installing MindSpore in Ascend 910 by pip
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend by pip](#installing-mindspore-in-ascend-by-pip)
+- [Installing MindSpore in Ascend 910 by pip](#installing-mindspore-in-ascend-910-by-pip)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
