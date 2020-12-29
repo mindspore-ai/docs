@@ -1,8 +1,8 @@
-﻿# Installing MindSpore in Ascend by Source Code
+﻿# Installing MindSpore in Ascend 910 by Source Code
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend by Source Code](#installing-mindspore-in-ascend-by-source-code)
+- [Installing MindSpore in Ascend 910 by Source Code](#installing-mindspore-in-ascend-910-by-source-code)
     - [System Environment Information Confirmation](#system-environment-information-confirmation)
     - [Downloading Source Code from Code Repository](#downloading-source-code-from-code-repository)
     - [Compiling MindSpore](#compiling-mindspore)
