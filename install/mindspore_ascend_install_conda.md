@@ -1,8 +1,8 @@
-# Conda方式安装MindSpore Ascend版本
+# Conda方式安装MindSpore Ascend 910版本
 
 <!-- TOC -->
 
-- [Conda方式安装MindSpore Ascend版本](#conda方式安装mindspore-ascend版本)
+- [Conda方式安装MindSpore Ascend 910版本](#conda方式安装mindspore-ascend-910版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [安装Conda](#安装conda)
     - [添加Conda镜像源](#添加conda镜像源)

@@ -1,8 +1,8 @@
-# pip方式安装MindSpore Ascend版本
+# pip方式安装MindSpore Ascend 910版本
 
 <!-- TOC -->
 
-- [pip方式安装MindSpore Ascend版本](#pip方式安装mindspore-ascend版本)
+- [pip方式安装MindSpore Ascend 910版本](#pip方式安装mindspore-ascend-910版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)

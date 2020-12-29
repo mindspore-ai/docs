@@ -1,8 +1,8 @@
-# 源码编译方式安装MindSpore Ascend版本
+# 源码编译方式安装MindSpore Ascend 910版本
 
 <!-- TOC -->
 
-- [源码编译方式安装MindSpore Ascend版本](#源码编译方式安装mindspore-ascend版本)
+- [源码编译方式安装MindSpore Ascend 910版本](#源码编译方式安装mindspore-ascend-910版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [从代码仓下载源码](#从代码仓下载源码)
     - [编译MindSpore](#编译mindspore)
