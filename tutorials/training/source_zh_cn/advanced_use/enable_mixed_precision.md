@@ -49,7 +49,7 @@ MindSpore混合精度典型的计算流程如下图所示：
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.train.html#mindspore.train.amp.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
+3. 使用`amp.build_train_network`接口封装网络模型、优化器和损失函数，设置level参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.build_train_network>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 
 代码样例如下：
 
@@ -103,7 +103,7 @@ output = train_network(predict, label)
 
 3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/data_preparation.html>；
 
-4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.train.html#mindspore.train.model.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
+4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/mindspore.html#mindspore.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 
 代码样例如下：
 
