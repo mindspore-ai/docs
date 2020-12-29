@@ -1,25 +1,24 @@
 # Custom CPU Operators
 
+Translator: [JuLyAi](https://gitee.com/julyai)
+
 `Linux` `CPU` `model developing` `advanced_use`
 
 <!-- TOC -->
 
-
-- [Custom CPU Operators](#Custom-CPU-Operators)
-  - [Overview](#Overview)
-  - [Registration Operator's Primitives](#Registration-Operators-Primitives)
-  - [Implementing CPU Operators and Registration Operators Information](#Implementing-CPU-Operators-and-Registration-Operators-Information)
-    - [Implementing CPU Operators](#Implementing-CPU-Operators)
-    - [Registration Operators Information](#Registration-Operators-Information)
-  - [Editing MindSpore](#Editing-MindSpore)
-  - [Using Custom CPU Operators](#Using-Custom-CPU-Operators)
-  - [Defining Operators' BProp Functions](#Defining-Operators-BProp-Functions)
+- [Custom CPU Operators](#custom-cpu-operators)
+    - [Overview](#overview)
+    - [Registration Operator's Primitives](#registration-operators-primitives)
+    - [Implementing CPU Operators and Registration Operators Information](#implementing-cpu-operators-and-registration-operators-information)
+        - [Implementing CPU Operators](#implementing-cpu-operators)
+        - [Registration Operators Information](#registration-operators-information)
+    - [Editing MindSpore](#editing-mindspore)
+    - [Using Custom CPU Operators](#using-custom-cpu-operators)
+    - [Defining Operators' BProp Functions](#defining-operators-bprop-functions)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/custom_operator_cpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
-
-
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/custom_operator_cpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -104,7 +103,7 @@ class TransposeCPUFwdKernel : public CPUKernel {
 - The input parameters of the function `Launch` are 3 vectors, including all the input addresses, workspace addresses and all the output addresses, respectively. The concrete implementation logic of the operator is described in the function body.
 - `shape_` and `axis_` are 2 member variables defined.
 
-The definition of the function `InitKernel` in the source file is as follows: 
+The definition of the function `InitKernel` in the source file is as follows:
 
 ```cpp
 void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
@@ -117,7 +116,7 @@ void TransposeCPUFwdKernel::InitKernel(const CNodePtr &kernel_node) {
 }
 ```
 
-- The functions in the class `AnfRuntimeAlgorithm` implement various operations on operator nodes. `shape_` represents the shape of the first input of the operator. `axis_` represents the attribute "perm" of the operator. 
+- The functions in the class `AnfRuntimeAlgorithm` implement various operations on operator nodes. `shape_` represents the shape of the first input of the operator. `axis_` represents the attribute "perm" of the operator.
 - The parameter "perm" of the`Transpose` operator's primitive is as an input, but "perm" is actually considered as the attribute of the operation when parsing.
 
 > For details of the class `AnfRuntimeAlgorithm`, please refer to the declaration in MindSpore source codes under [mindspore/ccsrc/backend/session/anf_runtime_algorithm.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/backend/session/anf_runtime_algorithm.h).

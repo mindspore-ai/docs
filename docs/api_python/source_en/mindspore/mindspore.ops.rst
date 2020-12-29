@@ -10,7 +10,7 @@ composite
 
 The composite operators are the pre-defined combination of operators.
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: ops
     :nosignatures:
     :template: classtemplate.rst
