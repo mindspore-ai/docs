@@ -1,5 +1,7 @@
 # Defining the Network
 
+Translator: [huqi](https://gitee.com/hu-qi)
+
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Beginner` `Intermediate` `Expert`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/tutorials/training/source_en/use/defining_the_network.md" target="_blank"><img src="../_static/logo_source.png"></a>
