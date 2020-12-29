@@ -111,7 +111,7 @@ inited_param:  None
 requires_grad:  True
 layerwise_parallel:  False
 
-data:  Parameter (name=x)
+data:  Parameter (name=Parameter)
 ```
 
 ## Methods
