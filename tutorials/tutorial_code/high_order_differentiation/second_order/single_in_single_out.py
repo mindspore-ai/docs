@@ -32,7 +32,6 @@ class Grad(nn.Cell):
         super(Grad, self).__init__()
         self.grad = ops.GradOperation()
         self.network = network
-        self.network.add_flags(defer_inline=True)
     def construct(self, x):
         gout = self.grad(self.network)(x)
         return gout
