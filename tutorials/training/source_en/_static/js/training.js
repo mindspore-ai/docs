@@ -58,14 +58,25 @@ $(function() {
 				var user_list = [];
 				var stage_list = [];
 				var all_list = [];
+				var hasWindows = false;
+				var hasAscend = false;
+				var hasGPU = false;
 				
 				$('.doc-article-item').addClass('hidden');
 				var str = 'OUO';
 				for(var i=0;i<list.length;i++){
 					if(list[i].indexOf('os') == 0){
 						os_list.push(list[i]);
+						if (list[i].indexOf('Windows') > -1){
+							hasWindows = true;
+						}
 					}else if (list[i].indexOf('hardware') == 0){
 						hardware_list.push(list[i]);
+						if (list[i].indexOf('Ascend') > -1){
+							hasAscend = true;
+						} else if (list[i].indexOf('GPU') > -1){
+							hasGPU = true;
+					}
 					}else if (list[i].indexOf('user') == 0){
 						user_list.push(list[i]);
 					}else if (list[i].indexOf('stage') == 0){
@@ -75,67 +86,69 @@ $(function() {
 					}
 				}
 
-				$('.doc-article-item').each(function(){
-					var os_count = 0;
-					var hardware_count = 0;
-					var user_count = 0;
-					var stage_count = 0;
-					var all_count = 0;
-					if(os_list.length > 0){
-						for(var i=0;i<os_list.length;i++){
-							if ($(this).attr('class').replace('hidden ','').indexOf(os_list[i]) > -1){
-								os_count += 1;
-							}						
+				if (!(hasWindows && (hasAscend||hasGPU))){
+					$('.doc-article-item').each(function(){
+						var os_count = 0;
+						var hardware_count = 0;
+						var user_count = 0;
+						var stage_count = 0;
+						var all_count = 0;
+						if(os_list.length > 0){
+							for(var i=0;i<os_list.length;i++){
+								if ($(this).attr('class').replace('hidden ','').indexOf(os_list[i]) > -1){
+									os_count += 1;
+								}						
+							}
+						}else{
+							os_count = 'empty';
 						}
-					}else{
-						os_count = 'empty';
-					}
-					
-					if(hardware_list.length > 0){
-						for(var i=0;i<hardware_list.length;i++){
-							if ($(this).attr('class').replace('hidden ','').indexOf(hardware_list[i]) > -1){
-								hardware_count += 1;
-							}						
+						
+						if(hardware_list.length > 0){
+							for(var i=0;i<hardware_list.length;i++){
+								if ($(this).attr('class').replace('hidden ','').indexOf(hardware_list[i]) > -1){
+									hardware_count += 1;
+								}						
+							}
+						}else{
+							hardware_count = 'empty';
 						}
-					}else{
-						hardware_count = 'empty';
-					}
-					
-					if(user_list.length > 0){
-						for(var i=0;i<user_list.length;i++){
-							if ($(this).attr('class').replace('hidden ','').indexOf(user_list[i]) > -1){
-								user_count += 1;
-							}						
+						
+						if(user_list.length > 0){
+							for(var i=0;i<user_list.length;i++){
+								if ($(this).attr('class').replace('hidden ','').indexOf(user_list[i]) > -1){
+									user_count += 1;
+								}						
+							}
+						}else{
+							user_count = 'empty';
 						}
-					}else{
-						user_count = 'empty';
-					}
-					
-					if(stage_list.length > 0){
-						for(var i=0;i<stage_list.length;i++){
-							if ($(this).attr('class').replace('hidden ','').indexOf(stage_list[i]) > -1){
-								stage_count += 1;
-							}						
+						
+						if(stage_list.length > 0){
+							for(var i=0;i<stage_list.length;i++){
+								if ($(this).attr('class').replace('hidden ','').indexOf(stage_list[i]) > -1){
+									stage_count += 1;
+								}						
+							}
+						}else{
+							stage_count = 'empty';
 						}
-					}else{
-						stage_count = 'empty';
-					}
-					
-					if(all_list.length > 0){
-						for(var i=0;i<all_list.length;i++){
-							if ($(this).attr('class').replace('hidden ','').indexOf(all_list[i]) > -1){
-								all_count += 1;
-							}					
+						
+						if(all_list.length > 0){
+							for(var i=0;i<all_list.length;i++){
+								if ($(this).attr('class').replace('hidden ','').indexOf(all_list[i]) > -1){
+									all_count += 1;
+								}					
+							}
+						}else{
+							all_count = 'empty';
 						}
-					}else{
-						all_count = 'empty';
-					}
-					
-					
-					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty')){
-						$(this).removeClass('hidden').addClass(str);
-					}			
-			});
+						
+						
+						if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty')){
+							$(this).removeClass('hidden').addClass(str);
+						}			
+					});
+				}
 										
 			}else{
 				$('.doc-article-item').addClass('hidden');
