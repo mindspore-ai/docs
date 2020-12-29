@@ -1,5 +1,7 @@
 # 源码编译方式安装MindSpore CPU版本（含第三方依赖）
 
+作者：[damon0626](https://gitee.com/damon0626)
+
 本文档介绍如何在```Ubuntu 18.04 64```位操作系统```CPU```环境下，使用源码编译方式安装```MindSpore```。
 
 ## 确认系统环境信息
@@ -242,14 +244,14 @@ ms-sd@mssd:~$ cd cmake-3.18.5/
 > For example, if you simply want to build and install CMake from source,
 > you can build directly in the source tree::
 >
->   $ ./bootstrap && make && sudo make install
+> $ ./bootstrap && make && sudo make install
 >
 > Or, if you plan to develop CMake or otherwise run the test suite, create
 > a separate build tree::
 >
->  $.mkdir cmake-build && cd cmake-build
+> $.mkdir cmake-build && cd cmake-build
 >
->  $./cmake-source/bootsrap && make
+> $./cmake-source/bootsrap && make
 
 选择从源码编译安装，根据提示在终端依次输入以下命令：
 
@@ -379,4 +381,3 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> mindspore.__version__
 '1.1.0'
 ```
-
