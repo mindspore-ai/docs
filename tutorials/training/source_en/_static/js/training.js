@@ -59,8 +59,7 @@ $(function() {
 				var stage_list = [];
 				var all_list = [];
 				var hasWindows = false;
-				var hasAscend = false;
-				var hasGPU = false;
+				var hasCpu = false;
 				
 				$('.doc-article-item').addClass('hidden');
 				var str = 'OUO';
@@ -72,11 +71,9 @@ $(function() {
 						}
 					}else if (list[i].indexOf('hardware') == 0){
 						hardware_list.push(list[i]);
-						if (list[i].indexOf('Ascend') > -1){
-							hasAscend = true;
-						} else if (list[i].indexOf('GPU') > -1){
-							hasGPU = true;
-					}
+						if (list[i].indexOf('CPU') > -1) {
+							hasCpu = true;
+						}
 					}else if (list[i].indexOf('user') == 0){
 						user_list.push(list[i]);
 					}else if (list[i].indexOf('stage') == 0){
@@ -86,7 +83,7 @@ $(function() {
 					}
 				}
 
-				if (!(hasWindows && (hasAscend||hasGPU))){
+				if(!((os_list.length === 1 && hasWindows) && (hardware_list.length && !hasCpu))) {
 					$('.doc-article-item').each(function(){
 						var os_count = 0;
 						var hardware_count = 0;
