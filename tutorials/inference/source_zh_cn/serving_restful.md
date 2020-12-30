@@ -108,8 +108,8 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
             "image":{"b64":"iVBOR...ggg==="}
         },
         {
-            "tag":"two"
-            "box":[[2,2],[5,5],[6,6]]
+            "tag":"two",
+            "box":[[2,2],[5,5],[6,6]],
             "image":{"b64":"iVBOR...QmCC", "type":"bytes"}
         }
     ]
