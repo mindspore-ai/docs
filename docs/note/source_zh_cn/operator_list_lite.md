@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_zh_cn/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-| 操作名                   | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU | 支持的TensorFlow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |支持的TensorFlow<br/>算子 |
+| 操作名<br/>&nbsp;         | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp; | 支持的TensorFlow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |支持的TensorFlow<br/>算子 |
 |-----------------------|----------|----------|----------|-----------|----------|-------------------|----------|----------|---------|---------|---------|
 | Abs                   | Supported    | Supported    | Supported    | Supported     | Supported    | Supported    | Supported | Abs                             |                          | Abs                                             |                                                 |
 | Add                   | Supported    | Supported    | Supported    | Supported     | Supported    | Supported    | Supported | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |

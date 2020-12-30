@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/note/source_en/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-| Operation             | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU       | TensorFlow<br/>Lite operators supported   | Caffe<br/>Lite operators supported | Onnx<br/>Lite operators supported                         | TensorFlow<br/>operators supported |
+| Operation<br/>&nbsp;        | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;   | TensorFlow<br/>Lite operators supported   | Caffe<br/>Lite operators supported | Onnx<br/>Lite operators supported                         | TensorFlow<br/>operators supported |
 | --------------------- | ------------ | ------------ | ------------ | ------------- | ------------ | ------------ | --------- | ------------------------------- | ------------------------ | ----------------------------------------------- | ----------------------------------------------- |
 | Abs                   | Supported    | Supported    | Supported    | Supported     | Supported    | Supported    | Supported | Abs                             |                          | Abs                                             |                                                 |
 | Add                   | Supported    | Supported    | Supported    | Supported     | Supported    | Supported    | Supported | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |
