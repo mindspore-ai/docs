@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式当前仅支持数据并行）。
 - `device_id`：卡的物理序号，即卡所在机器中的实际序号。
 - `init`：使能HCCL通信，并完成分布式训练初始化操作。
 
