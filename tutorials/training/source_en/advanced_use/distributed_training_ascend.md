@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
 In the preceding code:
 
-- `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode does not support parallel running.)
+- `mode=context.GRAPH_MODE`: sets the running mode to graph mode for distributed training. (The PyNative mode only support data parallel running.)
 - `device_id`: physical sequence number of a device, that is, the actual sequence number of the device on the corresponding host.
 - `init`: enables HCCL communication and completes the distributed training initialization.
 
