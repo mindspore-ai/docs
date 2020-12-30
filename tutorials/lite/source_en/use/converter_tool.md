@@ -45,7 +45,7 @@ The following describes the parameters in detail.
 | Parameter  |  Mandatory or Not   |  Parameter Description  | Value Range | Default Value |
 | -------- | ------- | ----- | --- | ---- |
 | `--help` | No | Prints all the help information. | - | - |
-| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, or ONNX | - |
+| `--fmk=<FMK>`  | Yes | Original format of the input model. | MINDIR, CAFFE, TFLITE, TF, or ONNX | - |
 | `--modelFile=<MODELFILE>` | Yes | Path of the input model. | - | - |
 | `--outputFile=<OUTPUTFILE>` | Yes | Path of the output model. The suffix `.ms` can be automatically generated. | - | - |
 | `--weightFile=<WEIGHTFILE>` | Yes (for Caffe models only) | Path of the weight file of the input model. | - | - |
@@ -100,6 +100,12 @@ The following describes how to use the conversion command by using several commo
 
       ```bash
       ./converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
+      ```
+
+    - TensorFlow model `model.pb`
+
+      ```bash
+      ./converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
       ```
 
     - ONNX model `model.onnx`
@@ -168,6 +174,12 @@ Several common examples are selected below to illustrate the use of conversion c
 
       ```bat
       call converter_lite --fmk=TFLITE --modelFile=model.tflite --outputFile=model
+      ```
+
+    - TensorFlow model `model.pb`
+
+      ```bat
+      call converter_lite --fmk=TF --modelFile=model.pb --outputFile=model
       ```
 
     - ONNX model`model.onnx`
