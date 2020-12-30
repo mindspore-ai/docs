@@ -150,7 +150,7 @@ context.get_auto_parallel_context("enable_parallel_optimizer")
 
 #### parameter_broadcast
 
-Parameter broadcast shares the value of data parallel weights among devices, in the purpose of synchronization of weights.
+Parameter broadcast shares the value of data parallel weights among devices, in the purpose of synchronization of weights. The default value is False and only the graph mode is supported.
 
 The following is a code example:
 
@@ -298,7 +298,7 @@ rank_id = get_rank()
 
 ### cross_batch
 
-In specific scenarios, the calculation logic of `data_parallel` is different from that of `stand_alone`. The calculation logic of `auto_parallel` is the same as that of `stand_alone` in any scenario. The convergence effect of `data_parallel` may be better. Therefore, MindSpore provides the `cross_barch` parameter to ensure that the calculation logic of `auto_parallel` is consistent with that of `data_parallel`. You can use the `add_prim_attr` method to configure the logic. The default value is False.
+In specific scenarios, the calculation logic of `data_parallel` is different from that of `stand_alone`. The calculation logic of `auto_parallel` is the same as that of `stand_alone` in any scenario. The convergence effect of `data_parallel` may be better. Therefore, MindSpore provides the `cross_batch` parameter to ensure that the calculation logic of `auto_parallel` is consistent with that of `data_parallel`. You can use the `add_prim_attr` method to configure the logic. The default value is False.
 
 The following is a code example:
 
