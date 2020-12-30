@@ -86,27 +86,7 @@ context.set_context(device_target="Ascend", device_id=6)
 
 The context contains the context.set_auto_parallel_context API that is used to configure parallel training parameters. This API must be called before the network is initialized.
 
-- `parallel_mode`: parallel distributed mode. The default value is `ParallelMode.STAND_ALONE`. The options are `ParallelMode.DATA_PARALLEL` and `ParallelMode.AUTO_PARALLEL`.
-
-- `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
-
-- `enable_parallel_optimizer`: This feature is being developed. It enables the model parallelism of an optimizer and splits the weight to each device for update and synchronization to improve performance. This parameter is valid only in data parallel mode and when the number of parameters is greater than the number of hosts. The `Lamb` and `Adam` optimizers are supported.
-
-- `device_num`: indicates the number of available device. Its value is int type and must be in the range of 1~4096.
-
-- `global_rank`: indicates the logical sequence number of the current device, its value is int type and must be in the range of 0~4095.
-
-> You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
-
-A code example is as follows:
-
-```python
-from mindspore import context
-from mindspore.context import ParallelMode
-context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-```
-
-For details about distributed parallel training, see [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_tutorials.html).
+> For details about distributed management, see [Parallel Distributed Training](https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html).
 
 ## Maintenance and Test Management
 
