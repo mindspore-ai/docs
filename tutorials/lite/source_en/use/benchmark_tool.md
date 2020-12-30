@@ -12,6 +12,7 @@
         - [Example](#example)
             - [Performance Test](#performance-test)
             - [Accuracy Test](#accuracy-test)
+            - [CPU Performance Test](#CPU-performance-test)
     - [Windows Environment Usage](#windows-environment-usage)
         - [Environment Preparation](#environment-preparation-1)
         - [Parameter Description](#parameter-description-1)
@@ -48,7 +49,8 @@ The command used for benchmark testing based on the compiled Benchmark tool is a
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
    [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
    [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
-            [--inputShapes=<INPUTSHAPES>]
+   [--inputShapes=<INPUTSHAPES>] [--perfProfiling=<PERFPROFILING>]
+            [--perfEvent=<PERFEVENT>]
 ```
 
 The following describes the parameters in detail.
@@ -69,6 +71,8 @@ The following describes the parameters in detail.
 | `--enableFp16=<ENABLEFP16>` | Optional | Specifies whether the float16 operator is preferred. | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>` | Optional | Specifies whether to use TimeProfiler to print every kernel's cost time. | Boolean | false | true, false |
 | `--inputShapes=<INPUTSHAPES>` | Optional | Specifies the shape of input data, the format should be NHWC. Use "," to segregate each dimension of input shape, and for several input shapes, use ":" to segregate. | String | Null | - |
+| `--perfProfiling=<PERFPROFILING>` | Optional | Specifies whether to use PerfProfiler to print every kernel's CPU performance data (PMU readings), it is disabled when timeProfiling is true. Only aarch64 CPU is supported. | Boolean | false | true, false |
+| `--perfEvent=<PERFEVENT>` | Optional | Specifies what CPU performance data to measure when PerfProfiling is true. When set as CYCLE, the number of CPU cycles and instructions will be printed; when set as CACHE, cache reference times and cache miss times will be printed; when set as STALL, CPU front-end stall cycles and back-end stall cycles will be printed. | String | CYCLE | CYCLE/CACHE/STALL |
 
 ### Example
 
@@ -155,6 +159,51 @@ To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
+
+#### CPU Performance Test
+
+The main test indicator of the CPU performance test performed by the Benchmark tool is the readings of CPU Performance Monitor Unit(PMU) of a single forward inference, including the number of CPU cycles and instructions, cache reference times and cache miss times, front-end stall cycles and back-end stall cycles. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `perfProfiling` as True or False to decide whether to print the CPU performance data of the model at the network layer on a certain device, and set `perfEvent` as `CYCLE`/`CACHE`/`STALL` to decide what CPU performance data to measure. The default value of `perfProfiling` is False, the default value of `perfEvent` is `CYCLE`. Due to the fluctuation of PMU readings in multi-thread tests, `numThreads` is suggested to be set as `1`. For example:
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1
+```
+
+This command uses a random input, sets the parameter `perfProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `cycles(k)` indicates the average CPU cycles of the operator per single run (in thousand, affected by CPU frequency), `cycles(%)` indicates the ratio of the operator CPU cycles to the total operator CPU cycles, `ins(k)` indicates the average CPU instructions of the operator per single run (in thousand), and `ins(%)` indicates the ratio of the operator CPU instructions to the total operator CPU instructions. Finally, `Model`/`NumThreads`/`MinRuntime`/`MaxRunTime`/`AvgRunTime` is presented for reference.
+
+```text
+-----------------------------------------------------------------------------------------
+opName                                                   cycles(k)       cycles(%)       ins(k)          ins(%)
+Add_Plus214_Output_0                                     1.53            0.006572        1.27            0.002148
+Conv_Convolution110_Output_0                             91.12           0.390141        217.58          0.369177
+Conv_COnvolution28_Output_0                              114.61          0.490704        306.28          0.519680
+Matmul_Times212_Output_0                                 8.75            0.037460        15.55           0.026385
+MaxPool_Pooling160_Output_0                              3.24            0.013873        8.70            0.014767
+MaxPool_Pooling66_Output_0                               11.63           0.049780        35.17           0.059671
+Reshape_Pooling160_Output_0_reshape0                     0.91            0.003899        1.58            0.002677
+nhwc2nchw_MaxPool_Pooling160_Output_0_post8_0            1.77            0.007571        3.25            0.005508
+-----------------------------------------------------------------------------------------
+opType          cycles(k)       cycles(%)       ins(k)          ins(%)
+Add             1.53            0.006572        1.27            0.002148
+Conv2D          205.73          0.880845        523.85          0.888856
+MatMul          8.75            0.037460        15.55           0.026385
+Nhwc2nchw       1.77            0.007571        3.25            0.005508
+Pooling         14.87           0.063654        43.87           0.074437
+Reshape         0.91            0.003839        1.58            0.002677
+
+Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
+
+-----------------------------------------------------------------------------------------
+```
+
+When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`, which indicate cache reference times / cache reference ratio / cache miss times / cache miss ratio(to all cache misses, not to cache references); when `perfEvent` is set as `STALL`, the columns will be`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`, which indicate CPU front-end stall cycles / front-end stall cycles ratio / back-end stall cycles / back-end stall cycles ratio. For example:
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1 --perfEvent="CACHE"
+```
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1 --perfEvent="STALL"
 ```
 
 ## Windows Environment Usage

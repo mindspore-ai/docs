@@ -12,6 +12,7 @@
         - [使用示例](#使用示例)
             - [性能测试](#性能测试)
             - [精度测试](#精度测试)
+            - [CPU性能测试](#CPU性能测试)
     - [Windows环境使用说明](#Windows环境使用说明)
         - [环境准备](#环境准备-1)
         - [参数说明](#参数说明-1)
@@ -48,7 +49,8 @@
    [--inDataFile=<INDATAFILE>] [--loopCount=<LOOPCOUNT>]
    [--numThreads=<NUMTHREADS>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
    [--enableFp16=<ENABLEFP16>] [--timeProfiling=<TIMEPROFILING>]
-            [--inputShapes=<INPUTSHAPES>]
+   [--inputShapes=<INPUTSHAPES>] [--perfProfiling=<PERFPROFILING>]
+            [--perfEvent=<PERFEVENT>]
 ```
 
 下面提供详细的参数说明。
@@ -69,6 +71,8 @@
 | `--enableFp16=<FP16PIORITY>` | 可选 | 指定是否优先使用float16算子。 | Boolean | false | true, false |
 | `--timeProfiling=<TIMEPROFILING>`  | 可选 | 性能验证时生效，指定是否使用TimeProfiler打印每个算子的耗时。 | Boolean | false | true, false |
 | `--inputShapes=<INPUTSHAPES>` | 可选 | 指定输入维度，维度应该按照NHWC格式输入. 维度值之间用‘,'隔开，多个输入的维度之间用‘:’隔开 | String | Null | - |
+| `--perfProfiling=<PERFPROFILING>` | 可选 | CPU性能验证时生效，指定是否使用PerfProfiler打印每个算子的CPU性能，当timeProfiling为true时无效。目前仅支持aarch64 CPU。 | Boolean | false | true, false |
+| `--perfEvent=<PERFEVENT>` | 可选 | CPU性能验证时生效，指定PerfProfiler打印的CPU性能参数的具体内容，指定为CYCLE时，会打印算子的CPU周期数和指令条数；指定为CACHE时，会打印算子的缓存读取次数和缓存未命中次数；指定为STALL时，会打印CPU前端等待周期数和后端等待周期数。 | String | CYCLE | CYCLE/CACHE/STALL |
 
 ### 使用示例
 
@@ -155,6 +159,51 @@ Mean bias of all nodes: 0%
 
 ```bash
 ./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+```
+
+#### CPU性能测试
+
+Benchmark工具进行的CPU性能测试主要的测试指标为模型单次前向推理CPU性能参数(目前只支持aarch64 CPU)，包括周期数和指令数、缓存读取次数和缓存未命中次数、CPU前端和后端等待时间。在CPU性能测试任务中，不需要设置`benchmarkDataFile`等标杆数据参数。但是，可以设置`perfProfiling`与`perfEvent`选项参数，控制输出在某设备上模型网络层的哪些CPU性能参数，`perfProfiling`默认为false，`perfEvent`默认为`CYCLE`(CPU周期数和指令数)。由于多线程的读数波动较大，建议设置线程数为1。使用方法如下：
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1
+```
+
+这条命令使用随机输入，并且输出模型网络层的周期数/指令数信息，其他参数使用默认值。该命令执行后，会输出如下CPU性能参数统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`cycles(k)`表示该算子的平均CPU周期数（以k为单位，受CPU频率影响），`cycles(%)`表示该算子CPU周期数占所有算子CPU周期数的比例，`ins(k)`表示该算子的指令数（以k为单位），`ins(%)`表示该算子的指令数占所有算子指令数的比例。最后会显示当前模型、线程数、最小运行时间、最大运行时间、平均运行时间用做参考。
+
+```text
+-----------------------------------------------------------------------------------------
+opName                                                   cycles(k)       cycles(%)       ins(k)          ins(%)
+Add_Plus214_Output_0                                     1.53            0.006572        1.27            0.002148
+Conv_Convolution110_Output_0                             91.12           0.390141        217.58          0.369177
+Conv_COnvolution28_Output_0                              114.61          0.490704        306.28          0.519680
+Matmul_Times212_Output_0                                 8.75            0.037460        15.55           0.026385
+MaxPool_Pooling160_Output_0                              3.24            0.013873        8.70            0.014767
+MaxPool_Pooling66_Output_0                               11.63           0.049780        35.17           0.059671
+Reshape_Pooling160_Output_0_reshape0                     0.91            0.003899        1.58            0.002677
+nhwc2nchw_MaxPool_Pooling160_Output_0_post8_0            1.77            0.007571        3.25            0.005508
+-----------------------------------------------------------------------------------------
+opType          cycles(k)       cycles(%)       ins(k)          ins(%)
+Add             1.53            0.006572        1.27            0.002148
+Conv2D          205.73          0.880845        523.85          0.888856
+MatMul          8.75            0.037460        15.55           0.026385
+Nhwc2nchw       1.77            0.007571        3.25            0.005508
+Pooling         14.87           0.063654        43.87           0.074437
+Reshape         0.91            0.003839        1.58            0.002677
+
+Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
+
+-----------------------------------------------------------------------------------------
+```
+
+当`perfEvent`参数被指定为`CACHE`时，列标题会变为`cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`，分别代表算子缓存读取次数/缓存读取占比/缓存未命中次数/缓存未命中次数占比；当`perfEvent`参数被指定为`STALL`时，列标题会变为`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`，分别代表CPU前端等待时间/CPU前端等待时间占比/CPU后端等待时间/CPU后端等待时间数占比。使用方法如下：
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --perfEvent="CACHE"
+```
+
+```bash
+./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --perfEvent="STALL"
 ```
 
 ## Windows环境使用说明
