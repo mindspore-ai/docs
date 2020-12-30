@@ -25,7 +25,7 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving#%E5%AE%89%E8%A3%85serving)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/r1.1/README_CN.md#安装)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/r1.1/README_CN.md#配置环境变量)完成环境变量配置。
 
 ### 导出模型
 
