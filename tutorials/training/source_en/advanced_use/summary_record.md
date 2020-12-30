@@ -481,3 +481,5 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 5. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train()` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommend you set `collect_freq` manually.
 
 6. The maximum amount of data saved per step is 2147483647Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
+
+7. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary operator can not be used.
