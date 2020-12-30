@@ -97,3 +97,10 @@ A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络
 <font size=3>**Q：MindSpore是否附带开源电商类数据集？**</font>
 
 A：暂时还没有，可以持续关注[MindSpore官网](https://www.mindspore.cn)。
+
+<br/>
+
+<font size=3>**Q：能否使用第三方库numpy array封装MindSpore的Tensor数据？**</font>
+
+A：不能，可能出现各种问题. 例如：`numpy.array(Tensor(1)).astype(numpy.float32)`的报错信息为"ValueError: settinng an array element with a sequence."。
+

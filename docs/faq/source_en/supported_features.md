@@ -97,3 +97,9 @@ A: For details about script or model migration, please visit the [MindSpore offi
 <font size=3>**Q: Does MindSpore provide open-source e-commerce datasets?**</font>
 
 A: No. Please stay tuned for updates on the [MindSpore official website](https://www.mindspore.cn/en).
+
+<br/>
+
+<font size=3>**Q：Can I encapsulate the Tensor data of MindSpore using numpy array?**</font>
+
+A：No, all sorts of problems could arise. For example, `numpy.array(Tensor(1)).astype(numpy.float32)` will raise "ValueError: settinng an array element with a sequence.".
