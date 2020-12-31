@@ -152,7 +152,7 @@ context.get_auto_parallel_context("enable_parallel_optimizer")
 
 #### parameter_broadcast
 
-`parameter_broadcast`将数据并行参数0号卡上的权值广播到其他卡上，达到同步初始化权重的目的。
+`parameter_broadcast`将数据并行参数在0号卡上的权值广播到其他卡上，达到同步初始化权重的目的。参数默认值是False，当前仅支持图模式。
 
 代码样例如下：
 
@@ -299,7 +299,7 @@ rank_id = get_rank()
 
 ### cross_batch
 
-在特定场景下，`data_parallel`的计算逻辑和`stand_alone`是不一样的，`auto_parallel`在任何场景下都是和`stand_alone`的计算逻辑保持一致。而`data_parallel`的收敛效果可能更好，因此MindSpore提供了`cross_barch`这个参数，可以使`auto_parallel`的计算逻辑和`data_parallel`保持一致，用户可通过`add_prim_attr`方法进行配置，默认值是False。
+在特定场景下，`data_parallel`的计算逻辑和`stand_alone`是不一样的，`auto_parallel`在任何场景下都是和`stand_alone`的计算逻辑保持一致。而`data_parallel`的收敛效果可能更好，因此MindSpore提供了`cross_batch`这个参数，可以使`auto_parallel`的计算逻辑和`data_parallel`保持一致，用户可通过`add_prim_attr`方法进行配置，默认值是False。
 
 代码样例如下：
 
