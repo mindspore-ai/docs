@@ -113,7 +113,7 @@ from mindspore_serving.worker import register
 
 
 def add_trans_datatype(x1, x2):
-    """define preprocess, this example has one input and one output"""
+    """define preprocess, this example has two input and two output"""
     return x1.astype(np.float32), x2.astype(np.float32)
 
 
@@ -126,7 +126,7 @@ register.declare_servable(servable_file="tensor_add.mindir", model_format="MindI
 # register add_common method in add
 @register.register_method(output_names=["y"])
 def add_common(x1, x2):  # only support float32 inputs
-    """method add_common data flow definition, only call model servable"""
+    """method add_common data flow definition, only call model inference"""
     y = register.call_servable(x1, x2)
     return y
 
@@ -134,7 +134,7 @@ def add_common(x1, x2):  # only support float32 inputs
 # register add_cast method in add
 @register.register_method(output_names=["y"])
 def add_cast(x1, x2):
-    """method add_cast data flow definition, only call preprocess and model servable"""
+    """method add_cast data flow definition, only call preprocess and model inference"""
     x1, x2 = register.call_preprocess(add_trans_datatype, x1, x2)  # cast input to float32
     y = register.call_servable(x1, x2)
     return y
