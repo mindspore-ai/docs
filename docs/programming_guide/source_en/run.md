@@ -255,7 +255,7 @@ epoch: 1 step: 1875, loss is 0.017264696
 
 ### Executing an Inference Model
 
-Call the train API of Model to implement inference. To facilitate model evaluation, you can set metrics when the Model API is initialized.
+Call the eval API of Model to implement inference. To facilitate model evaluation, you can set metrics when the Model API is initialized.
 
 Metrics are used to evaluate models. Common metrics include Accuracy, Fbeta, Precision, Recall, and TopKCategoricalAccuracy. Generally, the comprehensive model quality cannot be evaluated by one model metric. Therefore, multiple metrics are often used together to evaluate the model.
 
