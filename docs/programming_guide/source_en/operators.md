@@ -529,7 +529,7 @@ print(result)
  The following information is displayed:
 
 ```text
-[0.  0.  0.  0.]
+(Tensor(shape=[4], dtype=Float32, value= [ 1.98989999e+00, -4.90300000e-01,  1.69520009e+00,  3.98009992e+00]),)
 ```
 
 ### Array Operations
@@ -607,7 +607,7 @@ print(output)
  The following information is displayed:
 
 ```text
-[3, 2, 1]
+(3, 2, 1)
 ```
 
 ### Image Operations
