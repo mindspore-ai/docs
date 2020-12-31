@@ -261,7 +261,7 @@ epoch: 1 step: 1875, loss is 0.017264696
 
 ### 执行推理模型
 
-通过调用Model的train接口可以实现推理。为了方便评估模型的好坏，可以在Model接口初始化的时候设置评估指标Metric。
+通过调用Model的eval接口可以实现推理。为了方便评估模型的好坏，可以在Model接口初始化的时候设置评估指标Metric。
 
 Metric是用于评估模型好坏的指标。常见的主要有Accuracy、Fbeta、Precision、Recall和TopKCategoricalAccuracy等，通常情况下，一种模型指标无法全面的评估模型的好坏，一般会结合多个指标共同作用对模型进行评估。
 
