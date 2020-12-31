@@ -158,7 +158,7 @@ $(function() {
 					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty') && ((experience_count >0 && experience_count <= experience_list.length) || experience_count == 'empty')){
 						$(this).removeClass('hidden').addClass(str);
 					}			
-			});
+				});
 			}
 
 		}else{
