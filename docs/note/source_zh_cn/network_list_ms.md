@@ -29,6 +29,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [VGG16](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/vgg16/src/vgg.py)  |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [InceptionV3](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/inceptionv3/src/inception_v3.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [InceptionV4](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/inceptionv4/src/inceptionv4.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [Xception](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/xception/src/Xception.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [DenseNet121](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/densenet121/src/network/densenet.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [MobileNetV1](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/mobilenetv1/src/mobilenet_v1.py)        |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [MobileNetV2](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/mobilenetv2/src/mobilenetV2.py)        |  Supported |  Supported |  Supported |  Supported | Doing | Doing
@@ -39,6 +40,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ShuffleNetV2](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/shufflenetv2/src/shufflenetv2.py) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [EfficientNet-B0](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/efficientnet/src/efficientnet.py) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [Tiny-Darknet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/tinydarknet/src/tinydarknet.py)  |  Supported |  Doing |  Doing |  Doing | Doing
+| 计算机视觉（CV）  | 图像分类（Image Classification）  | [CNN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/cnn_direction_model/src/cnn_direction_model.py)  |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 |计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/ssd/src/ssd.py)      |  Supported |  Supported |Supported |Supported | Supported | Supported
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-ResNet18](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/yolov3_resnet18/src/yolov3.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [YoloV3-DarkNet53](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/yolov3_darknet53/src/yolo.py)   |  Supported |  Supported |  Supported |  Supported | Doing | Doing
@@ -56,6 +58,7 @@
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeeplabV3](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/deeplabv3/src/nets/deeplab_v3/deeplab_v3.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [UNet2D-Medical](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/unet/src/unet/unet_model.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 关键点检测（Keypoint Detection）  |[Openpose](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/openpose/src/openposenet.py)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| 计算机视觉（CV） | 关键点检测（Keypoint Detection）  |[SimplePoseNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/simple_pose/src/model.py)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 光学字符识别（Optical Character Recognition）  |[CRNN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/crnn/src/crnn.py)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [BERT](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/bert/src/bert_model.py)  |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [Transformer](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/transformer/src/transformer_model.py)  |  Supported |  Supported |  Supported |  Supported | Doing | Doing
@@ -69,7 +72,6 @@
 | 推荐（Recommender） | 推荐系统（Recommender System）  | [NCF](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/recommend/ncf/src/ncf.py)    |  Supported |  Doing |  Supported | Doing| Doing | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/gnn/gcn/src/gcn.py)  |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/gnn/gat/src/gat.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
-| 图神经网络（GNN） | 推荐系统（Recommender System） | [BGCF](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/gnn/bgcf/src/bgcf.py) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 
 ### 研究网络
 
@@ -78,12 +80,14 @@
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceAttributes](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/FaceAttribute/src/FaceAttribute/resnet18.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceQualityAssessment](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/FaceQualityAssessment/src/face_qa.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/FaceRecognitionForTracking/src/reid.py)     |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognition](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/FaceRecognition/src/init_network.py)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  |[SqueezeNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/cv/squeezenet/src/squeezenet.py) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 目标检测（Object Detection）  | [FaceDetection](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/FaceDetection/src/FaceDetection/yolov3.py)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD_GhostNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/ssd_ghostnet/src/ssd_ghostnet.py)                    |  Supported |  Doing |  Doing |  Doing | Doing
 | 计算机视觉（CV）  | 关键点检测（Key Point Detection）  | [CenterNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/centernet/src/centernet_pose.py)                                               |  Supported     |  Doing | Doing |  Doing | Doing
 | 计算机视觉（CV）  | 图像风格迁移(Image Style Transfer)  | [CycleGAN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/cv/cycle_gan/src/models/cycle_gan.py)                                               |  Doing     |  Doing | Doing |  Doing | Supported
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [DS-CNN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/nlp/dscnn/src/ds_cnn.py)                |  Supported |  Supported |  Doing | Doing | Doing | Doing
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TextRCNN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/nlp/textrcnn/src/textrcnn.py)                |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction） | [AutoDis](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/recommend/autodis/src/autodis.py)          |  Supported |  Doing |  Doing |  Doing | Doing
 |语音（Audio） | 音频标注（Audio Tagging）  | [FCN-4](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/audio/fcn-4/src/musictagger.py)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 |高性能计算（HPC） | 分子动力学（Molecular Dynamics）  |  [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/research/hpc/molecular_dynamics/src/network.py)   |  Supported | Supported|  Doing |  Doing | Doing | Doing
