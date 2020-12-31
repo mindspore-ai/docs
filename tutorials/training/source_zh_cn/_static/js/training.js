@@ -60,24 +60,21 @@ $(function() {
 			var experience_list = [];
 			var all_list = [];
 			var hasWindows = false;
-			var hasAscend = false;
-			var hasGPU = false;
+			var hasCpu = false;
 			
 			$('.doc-article-item').addClass('hidden');
 			var str = 'OUO';
 			for(var i=0;i<list.length;i++){
 				if(list[i].indexOf('os') == 0){
 					os_list.push(list[i]);
-					if (list[i].indexOf('Windows') > -1){
+					if (list[i].indexOf('Windows') > -1) {
 						hasWindows = true;
 					}
 				}else if (list[i].indexOf('hardware') == 0){
 					hardware_list.push(list[i]);
-					if (list[i].indexOf('Ascend') > -1){
-						hasAscend = true;
-					} else if (list[i].indexOf('GPU') > -1){
-						hasGPU = true;
-				}
+					if (list[i].indexOf('CPU') > -1) {
+						hasCpu = true;
+					}
 				}else if (list[i].indexOf('user') == 0){
 					user_list.push(list[i]);
 				}else if (list[i].indexOf('stage') == 0){
@@ -88,7 +85,8 @@ $(function() {
 					all_list.push(list[i]);
 				}
 			}
-			if (!(hasWindows && (hasAscend||hasGPU))){
+
+			if(!((os_list.length === 1 && hasWindows) && (hardware_list.length && !hasCpu))) {
 				$('.doc-article-item').each(function(){
 					var os_count = 0;
 					var hardware_count = 0;
@@ -155,14 +153,14 @@ $(function() {
 					}else{
 						all_count = 'empty';
 					}
-				
+					
 					
 					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty') && ((experience_count >0 && experience_count <= experience_list.length) || experience_count == 'empty')){
 						$(this).removeClass('hidden').addClass(str);
 					}			
-			 	});
+				});
 			}
-									
+
 		}else{
 			$('.doc-article-item').addClass('hidden');
 		}
