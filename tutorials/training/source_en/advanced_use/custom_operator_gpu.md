@@ -1,10 +1,12 @@
-# Custom Operators(GPU)
+# Custom Operators (GPU)
+
+Translator: [Leon_02](https://gitee.com/Leon_02)
 
 `Linux` `GPU` `Model Development` `Expert`
 
 <!-- TOC -->
 
-- [Custom Operators(GPU)](#custom-operatorsgpu)
+- [Custom Operators (GPU)](#custom-operators-gpu)
     - [Overview](#overview)
     - [Registering the Operator Primitive](#registering-the-operator-primitive)
     - [Defining the bprop Function for an Operator](#defining-the-bprop-function-for-an-operator)
@@ -33,7 +35,7 @@ Operator primitives usually include:
 
 - Aperator names: operator names are used to uniquely identify operators.
 - Annotations: describe the algorithm and usage constraints of operators. The annotations will be exported as Mindspore API interface documentation for developers to refer to.
-- Input：the tensor(s) for operator input.
+- Input: the tensor(s) for operator input.
 - Attributes: for example, the `data_format` attribute in Conv2d describes that the input data is in `NCHW` or `NHWC` format.
 - Validation of input data: verify the validity of input data and attributes, which is convenient for developers to find the problems of network model as soon as possible.
 - Output data type and dimension derivation: used to derive the data type and dimension of output.
@@ -43,7 +45,7 @@ The following code defines an operator called TensorAddV2:
 - `TensorAddV2` is a subclass inherited from `PrimitiveWithInfer`.
 - The constructor `__init__` is used to initialize the operator, since TensorAddV2 doesn't have any attributes, there is none additional input for `__init__`.
 - The function `infer_shape` constraints two input dimensions must be the same and the output dimension will be same as the dimension of x1.
-- the function `infer_dtype` constrains that two input data must be of type float32 and the output data type is the same as the input data type.
+- The function `infer_dtype` constrains that two input data must be of type float32 and the output data type is the same as the input data type.
 
 ```python
 # mindspore/ops/operations/math_ops.py
