@@ -174,14 +174,15 @@ class LinearNet(nn.Cell):
 ```python
 net = LinearNet()
 model_params = net.trainable_params()
-print(model_params)
+for param in model_params:
+    print(param, param.asnumpy())
 ```
 
 输出结果：
 
 ```text
-[Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
-[[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
+Parameter (name=fc.weight) [[-0.02289871]]
+Parameter (name=fc.bias) [0.01492652]
 ```
 
 初始化网络模型后，接下来将初始化的网络函数和训练数据集进行可视化，了解拟合前的模型函数情况。
@@ -207,7 +208,7 @@ plt.show()
 
 ## 定义前向传播网络与反向传播网络并关联
 
-接下来需要定义模型的损失函数，这里采用均方差的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失函数公式为：
+接下来需要定义模型的损失函数，这里采用均方误差（MSE，Mean Squared Error）的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失函数公式为：
 
 $$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
@@ -327,7 +328,8 @@ imageshow_cb = ImageShowCallback(net, eval_data)
 model.train(epoch, ds_train, callbacks=[imageshow_cb], dataset_sink_mode=False)
 
 plot_model_and_datasets(net,eval_data)
-print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
+for param in net.trainable_params():
+    print(param, param.asnumpy())
 ```
 
 输出结果：
@@ -335,8 +337,8 @@ print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ![gif](./images/linear_regression.gif)
 
 ```text
-Parameter (name=fc.weight, value=[[2.0065749]])
-Parameter (name=fc.bias, value=[3.0089042])
+Parameter (name=fc.weight) [[2.0064354]]
+Parameter (name=fc.bias) [2.9529438]
 ```
 
 训练完成后打印出最终模型的权重参数，其中weight接近于2.0，bias接近于3.0，模型训练完成，符合预期。
