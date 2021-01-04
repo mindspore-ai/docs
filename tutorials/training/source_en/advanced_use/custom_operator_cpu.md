@@ -1,4 +1,4 @@
-# Custom CPU Operators
+# Custom Operators (CPU)
 
 Translator: [JuLyAi](https://gitee.com/julyai)
 
@@ -6,7 +6,7 @@ Translator: [JuLyAi](https://gitee.com/julyai)
 
 <!-- TOC -->
 
-- [Custom CPU Operators](#custom-cpu-operators)
+- [Custom Operators (CPU)](#custom-operators-cpu)
     - [Overview](#overview)
     - [Registration Operator's Primitives](#registration-operators-primitives)
     - [Implementing CPU Operators and Registration Operators Information](#implementing-cpu-operators-and-registration-operators-information)
