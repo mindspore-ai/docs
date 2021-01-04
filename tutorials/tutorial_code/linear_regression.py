@@ -48,4 +48,5 @@ if __name__ == "__main__":
     model = Model(net, net_loss, opt)
     ds_train = create_dataset(data_number, batch_size=batch_number, repeat_size=repeat_number)
     model.train(1, ds_train, callbacks=LossMonitor(), dataset_sink_mode=False)
-    print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
+    for param in net.trainable_params():
+        print(param, param.asnumpy())

@@ -208,7 +208,7 @@ plt.show()
 
 ## 定义前向传播网络与反向传播网络并关联
 
-接下来需要定义模型的损失函数，这里采用均方误差（MSE，Mean Squared Error）的方法用于判断拟合的效果如何，即均方差值越小，拟合的效果越好，其损失函数公式为：
+接下来需要定义模型的损失函数，这里采用均方误差（MSE，Mean Squared Error）的方法用于判断拟合的效果如何，即均方误差值越小，拟合的效果越好，其损失函数公式为：
 
 $$J(w)=\frac{1}{2m}\sum_{i=1}^m(h(x_i)-y^{(i)})^2\tag{2}$$
 
@@ -327,7 +327,7 @@ epoch = 1
 imageshow_cb = ImageShowCallback(net, eval_data)
 model.train(epoch, ds_train, callbacks=[imageshow_cb], dataset_sink_mode=False)
 
-plot_model_and_datasets(net,eval_data)
+plot_model_and_datasets(net, eval_data)
 for param in net.trainable_params():
     print(param, param.asnumpy())
 ```
