@@ -146,7 +146,7 @@
 
   ```text
   y: 2
-  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3))
+  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
   ```
 
 #### Tuple
@@ -182,7 +182,7 @@
 
   ```text
   y: 3
-  z: Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])
+  z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   m: (2, 3, 4), 3, 4)
   ```
 
@@ -225,7 +225,7 @@
 
   ```text
   y: ("a", "b", "c")
-  z: (Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
   ```
 
 - 支持索引取值和赋值
@@ -243,8 +243,8 @@
   结果如下：
 
   ```text
-  y: Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])
-  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  y: Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])
+  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])}
   ```
 
 ### MindSpore自定义数据类型
@@ -307,11 +307,11 @@ def generate_tensor():
   ```text
   x_shape: (2, 3)
   x_dtype: Bool
-  x_all: Tensor(shape=[], dtype=Bool, value= False)
-  x_any: Tensor(shape=[], dtype=Bool, value= True)
-  x_view: Tensor(shape=[1, 6], dtype=Bool, value= [[True, False, True, False, True, False]])
+  x_all: Tensor(shape=[], dtype=Bool, value=False)
+  x_any: Tensor(shape=[], dtype=Bool, value=True)
+  x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
 
-  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value= [[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
+  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
   ```
 
 - 索引取值
@@ -339,8 +339,8 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data_single: Tensor(shape=[3, 2], dtype=Int64, value= [[0, 1], [2, 3], [4, 5]])
-      data_multi: Tensor(shape=[2], dtype=Int64, value= [2, 3])
+      data_single: Tensor(shape=[3, 2], dtype=Int64, value=[[0, 1], [2, 3], [4, 5]])
+      data_multi: Tensor(shape=[2], dtype=Int64, value=[2, 3])
       ```
 
     - `True`索引取值
@@ -364,8 +364,8 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value= [[[0, 1, 2], [3, 4, 5]]])
-      data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value= [[[[0, 1, 2], [3, 4, 5]]]])
+      data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
+      data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3, 4, 5]]]])
       ```
 
     - `None`索引取值
@@ -391,8 +391,8 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data_single: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 4, 5]])
-      data_multi: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 4, 5]])
+      data_single: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
+      data_multi: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
       ```
 
     - `slice`索引取值
@@ -420,8 +420,8 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data_single: Tensor(shape=[2, 2, 2], dtype=Int64, value= [[[4, 5], [6, 7]], [[12, 13], [14, 15]]])
-      data_multi: Tensor(shape=[1, 2, 2], dtype=Int64, value= [[[12, 13], [14, 15]]])
+      data_single: Tensor(shape=[2, 2, 2], dtype=Int64, value=[[[4, 5], [6, 7]], [[12, 13], [14, 15]]])
+      data_multi: Tensor(shape=[1, 2, 2], dtype=Int64, value=[[[12, 13], [14, 15]]])
       ```
 
     - `Tensor`索引取值
@@ -451,8 +451,8 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value= [[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
-      data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value= [[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
+      data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
+      data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
       ```
 
     - `Tuple`索引取值
@@ -482,7 +482,7 @@ def generate_tensor():
       结果如下：
 
       ```text
-      data: Tensor(shape=[2, 3, 1], dtype=Int64, value= [[[13], [14], [13]], [[12], [15], [14]]])
+      data: Tensor(shape=[2, 3, 1], dtype=Int64, value=[[[13], [14], [13]], [[12], [15], [14]]])
       ```
 
 - 索引赋值
@@ -508,20 +508,20 @@ def generate_tensor():
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_x[1] = 88
-      tensor_y[1][1] = 88
-      tensor_z[1]= Tensor(np.array([66, 88, 99]))
+      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_x[1] = 88.0
+      tensor_y[1][1] = 88.0
+      tensor_z[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
       ```
 
       结果如下：
 
       ```text
-      tensor_x: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [88, 88, 88]])
-      tensor_y: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 88, 5]])
-      tensor_z: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [66, 88, 99]])
+      tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 5.0]])
+      tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
       ```
 
     - `ellipsis`索引赋值
@@ -532,25 +532,26 @@ def generate_tensor():
 
       当所赋值为`Number`时，可以理解为将所有元素都更新为`Number`。
 
-      当所赋值为`Tensor`时，`Tensor`的`shape`必须等于或者可广播为原`Tensor`的`shape`，在保持二者`shape`一致后，将赋值`Tensor`元素更新到原`Tensor`对应位置。
+      当所赋值为`Tensor`时，`Tensor`里元素个数必须为1或者等于原`Tensor`里元素个数，元素为1时进行广播，个数相等`shape`不一致时进行`reshape`，
+      在保证二者`shape`一致后，将赋值`Tensor`元素按照位置逐一更新到原`Tensor`里。
 
       例如，对`shape = (2, 3, 4)`的`Tensor`，通过`...`索引赋值为100，更新后的`Tensor`shape仍为`(2, 3, 4)`，所有元素都变为100。
 
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_x[...] = 88
-      tensor_y[...]= Tensor(np.array([22, 44, 55]))
+      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_x[...] = 88.0
+      tensor_y[...] = Tensor(np.array([22, 44, 55, 22, 44, 55]).astype(np.float32))
       ```
 
       结果如下：
 
       ```text
-      tensor_x: Tensor(shape=[2, 3], dtype=Int64, value= [[88, 88, 88], [88, 88, 88]])
-      tensor_y: Tensor(shape=[2, 3], dtype=Int64, value= [[22, 44, 55], [22, 44, 55]])
+      tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[22.0, 44.0, 55.0], [22.0, 44.0, 55.0]])
       ```
 
     - `slice`索引赋值
@@ -561,27 +562,28 @@ def generate_tensor():
 
       当所赋值为`Number`时，可以理解为将`slice`索引取到位置元素都更新为`Number`。
 
-      当所赋值为`Tensor`时，`Tensor`的`shape`必须等于或者可`reshape`为`slice`索引取到结果的`shape`，在保持二者`shape`一致后，然后将赋值`Tensor`元素更新到索引取出结果对应元素的原`Tensor`位置。
+      当所赋值为`Tensor`时，`Tensor`里元素个数必须为1或者等于`slice`索引取到`Tensor`里元素个数，元素为1时进行广播，个数相等`shape`不一致时进行`reshape`，
+      在保证二者`shape`一致后，将赋值`Tensor`元素按照位置逐一更新到原`Tensor`里。
 
       例如，对`shape = (2, 3, 4)`的`Tensor`，通过`0:1:1`索引赋值为100，更新后的`Tensor`shape仍为`(2, 3, 4)`，但第0维位置为0的所有元素，值都更新为100。
 
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_x[0:1] = 88
-      tensor_y[0:2][0:2] = 88
-      tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]))
+      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_x[0:1] = 88.0
+      tensor_y[0:2][0:2] = 88.0
+      tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]).astype(np.float32))
       ```
 
       结果如下：
 
       ```text
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88, 88, 88], [3, 4, 5], [6, 7, 8]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[88, 88, 88], [88, 88, 88], [6, 7, 8]])
-      tensor_z: Tensor(shape=[3, 3], dtype=Int64, value= [[11, 12, 13], [11, 12, 13], [6, 7, 8]])
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
+      tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [11.0, 12.0, 13.0], [6.0, 7.0, 8.0]])
       ```
 
     - `Tensor`索引赋值
@@ -612,14 +614,14 @@ def generate_tensor():
       tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
       tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32))
       tensor_x[tensor_index] = 88.0
-      tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]))
+      tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]).astype(np.float32))
       ```
 
       结果如下：
 
       ```text
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
       ```
 
     - `Tuple`索引赋值
@@ -643,21 +645,21 @@ def generate_tensor():
       示例如下：
 
       ```python
-      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_index = Tensor(np.array([[0, 1], [1, 0]]))
-      tensor_x[1, 1:3] = 88
-      tensor_y[1:3, tensor_index] = 88
-      tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]))
+      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+      tensor_x[1, 1:3] = 88.0
+      tensor_y[1:3, tensor_index] = 88.0
+      tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]).astype(np.float32))
       ```
 
       结果如下：
 
-      ```python
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [3, 88, 88], [6, 7, 8]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [88, 88, 5], [88, 88, 8]])
-      tensor_z: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [12, 11, 5], [12, 11, 8]])
+      ```text
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
+      tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
       ```
 
 #### Primitive
@@ -803,7 +805,7 @@ return z
 结果如下：
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value= [[7, 7], [7, 7], [7, 7]])
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
 ```
 
 参数：`sequence` -- 遍历序列(`Tuple`、`List`)
@@ -1155,7 +1157,7 @@ n = enumerate(y)
 
 ```text
 m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
+n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dtype=Int64, value=[3, 4])), (2, Tensor(shape=[2], dtype=Int64, value=[5, 6])))
 ```
 
 #### super
@@ -1226,7 +1228,7 @@ ret = pow(x, y)
 结果如下：
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value= [1, 4, 27]))
+ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 ```
 
 #### print
@@ -1249,7 +1251,7 @@ print("result", x)
 结果如下：
 
 ```text
-result Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]))
+result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 ```
 
 ### 函数参数
