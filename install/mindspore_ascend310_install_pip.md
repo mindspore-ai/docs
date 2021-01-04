@@ -18,7 +18,7 @@
 ## 确认系统环境信息
 
 - 确认安装Ubuntu 18.04/CentOS 8.2/EulerOS 2.8是64位操作系统。
-- 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
+- 确认安装正确[GCC 版本](http://ftp.gnu.org/gnu/gcc/)，Ubuntu 18.04/EulerOS 2.8用户，GCC>=7.3.0; CentOS 8.2用户 GCC>=8.3.1。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 - 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
     - 安装完成后将CMake所在路径添加到系统环境变量。
