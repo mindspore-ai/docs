@@ -170,14 +170,15 @@ Call the network to view the initialized model parameters.
 ```python
 net = LinearNet()
 model_params = net.trainable_params()
-print(model_params)
+for param in model_params:
+    print(param)
 ```
 
 The output is as follows:
 
 ```text
-[Parameter (name=fc.weight, value=Tensor(shape=[1, 1], dtype=Float32,
-[[-7.35660456e-003]])), Parameter (name=fc.bias, value=Tensor(shape=[1], dtype=Float32, [-7.35660456e-003]))]
+Parameter (name=fc.weight) [[-0.02289871]]
+Parameter (name=fc.bias) [0.01492652]
 ```
 
 After initializing the network model, visualize the initialized network function and training dataset to understand the model function before fitting.
@@ -323,7 +324,8 @@ imageshow_cb = ImageShowCallback(net, eval_data)
 model.train(epoch, ds_train, callbacks=[imageshow_cb], dataset_sink_mode=False)
 
 plot_model_and_datasets(net, eval_data)
-print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
+for param in net.trainable_params():
+    print(param, param.asnumpy())
 ```
 
 The output is as follows:
@@ -331,8 +333,8 @@ The output is as follows:
 ![gif](./images/linear_regression.gif)
 
 ```text
-Parameter (name=fc.weight, value=[[2.0065749]])
-Parameter (name=fc.bias, value=[3.0089042])
+Parameter (name=fc.weight) [[2.0064354]]
+Parameter (name=fc.bias) [2.9529438]
 ```
 
 After the training is complete, the weight parameters of the final model are printed. The value of weight is close to 2.0 and the value of bias is close to 3.0. As a result, the model training meets the expectation.
