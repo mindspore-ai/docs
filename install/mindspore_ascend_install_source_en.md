@@ -24,7 +24,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 ## System Environment Information Confirmation
 
 - Confirm that Ubuntu 18.04/CentOS 8.2/EulerOS 2.8 is installed with the 64-bit operating system.
-- Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
+- Ensure that right version [GCC](http://ftp.gnu.org/gnu/gcc/) is installed, for Ubuntu 18.04, EulerOS 2.8 users, GCC>=7.3.0; for CentOS 8.2 users, GCC>=8.3.1 .
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
 - Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
