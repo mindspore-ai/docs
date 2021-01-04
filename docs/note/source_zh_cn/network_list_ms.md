@@ -54,6 +54,7 @@
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/ssd/src/mobilenet_v1_fpn.py)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[YoloV4](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov4/src/yolo.py)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉 (CV) | 文本检测 (Text Detection)  | [PSENet](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/psenet/src/ETSNET/etsnet.py)                |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| 计算机视觉 (CV) | 文本检测 (Text Detection)  | [DeepText](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeptext/src/Deeptext/deeptext_vgg16.py)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉 (CV) | 文本识别 (Text Recognition)  | [CNNCTC](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/cnnctc/src/cnn_ctc.py)                |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeeplabV3](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/nets/deeplab_v3/deeplab_v3.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [UNet2D-Medical](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/unet/src/unet/unet_model.py)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
