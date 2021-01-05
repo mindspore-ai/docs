@@ -8,7 +8,7 @@
     - [概述](#概述)
     - [保存CheckPoint格式文件](#保存checkpoint格式文件)
         - [CheckPoint配置策略](#checkpoint配置策略)
-    - [导出MINDIR格式文件](#导出mindir格式文件)
+    - [导出MindIR格式文件](#导出mindir格式文件)
     - [导出AIR格式文件](#导出air格式文件)
     - [导出ONNX格式文件](#导出onnx格式文件)
 
@@ -22,14 +22,14 @@
 
 ## 概述
 
-在模型训练过程中，可以添加检查点(CheckPoint)用于保存模型的参数，以便进行推理及再训练使用。如果想继续在不同硬件平台上做推理，可通过网络和CheckPoint格式文件生成对应的MINDIR、AIR和ONNX格式文件。
+在模型训练过程中，可以添加检查点(CheckPoint)用于保存模型的参数，以便执行推理及再训练使用。如果想继续在不同硬件平台上做推理，可通过网络和CheckPoint格式文件生成对应的MindIR、AIR和ONNX格式文件。
 
-- MINDIR：MindSpore的一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换，目前可用于MindSpore Lite端侧推理。
+- MindIR：MindSpore的一种基于图表示的函数式IR，定义了可扩展的图结构以及算子的IR表示，它消除了不同后端的模型差异。可以把在Ascend 910训练好的模型，在Ascend 310、GPU以及MindSpore Lite端侧上执行推理。
 - CheckPoint：MindSpore的存储了所有训练参数值的二进制文件。采用了Google的Protocol Buffers机制，与开发语言、平台无关，具有良好的可扩展性。CheckPoint的protocol格式定义在`mindspore/ccsrc/utils/checkpoint.proto`中。
 - AIR：全称Ascend Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。
 - ONNX：全称Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。
 
-以下通过示例来介绍保存CheckPoint格式文件和导出MINDIR、AIR和ONNX格式文件的方法。
+以下通过示例来介绍保存CheckPoint格式文件和导出MindIR、AIR和ONNX格式文件的方法。
 
 ## 保存CheckPoint格式文件
 
@@ -77,7 +77,6 @@ resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参�
 
 例：`resnet50_3-2_32.ckpt` 表示运行第3次脚本生成的第2个epoch的第32个step的CheckPoint文件。
 
-> - 当保存的单个模型参数较大时(超过64M)，会因为Protobuf自身对数据大小的限制，导致保存失败。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
 > - 当执行分布式并行训练任务时，每个进程需要设置不同`directory`参数，用以保存CheckPoint文件到不同的目录，以防文件发生读写错乱。
 
 ### CheckPoint配置策略
@@ -95,19 +94,17 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 
 两种策略不能同时使用，迭代策略优先级高于时间策略，当同时设置时，只有迭代策略可以生效。当参数显示设置为`None`时，表示放弃该策略。在迭代策略脚本正常结束的情况下，会默认保存最后一个step的CheckPoint文件。
 
-## 导出MINDIR格式文件
+## 导出MindIR格式文件
 
-当有了CheckPoint文件后，如果想继续在MindSpore Lite端侧做推理，需要通过网络和CheckPoint生成对应的MINDIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
+如果想跨平台或硬件执行推理(GPU、Lite、Ascend 310)，可以通过网络定义和CheckPoint生成MindIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
@@ -117,22 +114,18 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 
 ## 导出AIR格式文件
 
-当有了CheckPoint文件后，如果想继续在昇腾AI处理器上做推理，需要通过网络和CheckPoint生成对应的AIR格式模型文件。导出该格式文件的代码样例如下：
+如果想在昇腾AI处理器上执行推理，还可以通过网络定义和CheckPoint生成AIR格式模型文件。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
-
-使用`export`接口之前，需要先导入`mindspore.train.serialization`。
 
 `input`用来指定导出模型的输入shape以及数据类型。
 
@@ -144,17 +137,16 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 当有了CheckPoint文件后，如果想继续在昇腾AI处理器、GPU、CPU等多种硬件上做推理，需要通过网络和CheckPoint生成对应的ONNX格式模型文件。导出该格式文件的代码样例如下：
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
 > - 导出的文件名称会自动添加".onnx"后缀。
+> - 目前ONNX格式导出仅支持ResNet系列网络。

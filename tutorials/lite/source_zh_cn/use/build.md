@@ -312,7 +312,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/l
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 
-`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型转换工具，仅支持MINDIR模型文件。
+`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型转换工具，仅支持MindIR模型文件。
 
 `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
 

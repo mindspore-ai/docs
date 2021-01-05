@@ -8,7 +8,7 @@
     - [Overview](#overview)
     - [Saving CheckPoint files](#saving-checkpoint-files)
         - [CheckPoint Configuration Policies](#checkpoint-configuration-policies)
-    - [Export MINDIR Model](#export-mindir-model)
+    - [Export MindIR Model](#export-mindir-model)
     - [Export AIR Model](#export-air-model)
     - [Export ONNX Model](#export-onnx-model)
 
@@ -18,14 +18,14 @@
 
 ## Overview
 
-During model training, you can add CheckPoints to save model parameters for inference and retraining after interruption. If you want to do inference on different hardware platforms, you need to generate corresponding models based on the network and CheckPoint, such as MINDIR, AIR, ONNX.
+During model training, you can add CheckPoints to save model parameters for inference and retraining after interruption. If you want to perform inference on different hardware platforms, you need to generate corresponding models based on the network and CheckPoint, such as MindIR, AIR and ONNX.
 
-- MINDIR: MindSpore IR (MindIR) is a function-style IR based on graph representation. Its core purpose is to serve automatic differential transformation. It can be used on device inference now.
+- MindIR: A functional IR of MindSpore based on graph representation, which defines an extensible graph structure and IR representation of operators, which eliminates the model differences between different backends. The model trained on Ascend 910 can be used for reasoning on the upper side of Ascend 310, GPU and MindSpore Lite.
 - CheckPoint: A CheckPoint file of MindSpore is a binary file that stores the values of all training parameters. The Google Protocol Buffers mechanism with good scalability is adopted, which is independent of the development language and platform. The protocol format of CheckPoints is defined in `mindspore/ccsrc/utils/checkpoint.proto`.
 - AIR: Ascend Intermediate Representation (AIR) is an open file format defined by Huawei for machine learning and can better adapt to the Ascend AI processor. It is similar to ONNX.
 - ONNX: Open Neural Network Exchange (ONNX) is an open file format designed for machine learning. It is used to store trained models.
 
-The following uses examples to describe how to save MindSpore CheckPoint files, and how to export MINDIR, AIR, ONNX files.
+The following uses examples to describe how to save MindSpore CheckPoint files, and how to export MindIR, AIR and ONNX files.
 
 ## Saving CheckPoint files
 
@@ -73,7 +73,6 @@ If you use the same prefix and run the training script for multiple times, Check
 
 For example, `resnet50_3-2_32.ckpt` indicates the CheckPoint file generated during the 32th step of the second epoch after the script is executed for the third time.
 
-> - When the saved single model parameter is large (more than 64M), it will fail to be saved due to the limitation of Protobuf's own data size. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
 > - When performing distributed parallel training tasks, each process needs to set different `directory` parameters to save the CheckPoint file to a different directory to prevent files from being read or written incorrectly.
 
 ### CheckPoint Configuration Policies
@@ -93,23 +92,22 @@ The two types of policies cannot be used together. Iteration policies have a hig
 If a parameter is set to None, the related policy is cancelled.
 After the training script is normally executed, the CheckPoint file generated during the last step is saved by default.
 
-## Export MINDIR Model
+## Export MindIR Model
 
-When you have a CheckPoint file, if you want to do inference on device, you need to generate MINDIR models based on the network and CheckPoint. MINDIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
+If you want to perform inference across platforms or hardware (GPU, Lite, Ascend 310), you can generate the corresponding MindIR format model file through the network definition and CheckPoint. MindIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
 
-If you want to do inference on the device, then you need to generate corresponding MINDIR models based on the network and CheckPoint.
-Currently we support the export of MINDIR models for inference based on graph mode, which don't contain control flow. Taking the export of MINDIR model as an example to illustrate the implementation of model export,
+If you want to perform inference on the device, then you need to generate corresponding MindIR models based on the network and CheckPoint.
+Currently we support the export of MindIR models for inference based on the graph mode, which do not contain control flow. Taking the export of MindIR model as an example to illustrate the implementation of model export,
 the code is as follows:
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+import numpy as np
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
@@ -119,22 +117,18 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 
 ## Export AIR Model
 
-When you have a CheckPoint file, if you want to do inference on Ascend AI processor, you need to generate AIR models based on the network and CheckPoint. AIR format file only supports Ascend AI processor. The code example of exporting this format file is as follows:
+If you want to perform inference on the Shengteng AI processor, you can also generate the corresponding AIR format model file through the network definition and CheckPoint. The code example of exporting this format file is as follows:
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
-
-Before using the `export` interface, you need to import`mindspore.train.serialization`.
 
 The `input` parameter is used to specify the input shape and the data type of the exported model.
 
@@ -146,17 +140,16 @@ The `input` parameter is used to specify the input shape and the data type of th
 When you have a CheckPoint file, if you want to do inference on Ascend AI processor, GPU, or CPU, you need to generate ONNX models based on the network and CheckPoint. ONNX format file is a general model file, which can be applied to many kinds of hardware, such as Ascend AI processor, GPU, CPU, etc. The code example of exporting this format file is as follows:
 
 ```python
-from mindspore import export, load_checkpoint, load_param_into_net
-from mindspore import Tensor
 import numpy as np
+from mindspore import Tensor, export, load_checkpoint, load_param_into_net
+
 resnet = ResNet50()
-# return a parameter dict for model
-param_dict = load_checkpoint("resnet50-2_32.ckpt")
 # load the parameter into net
-load_param_into_net(resnet, param_dict)
+load_checkpoint("resnet50-2_32.ckpt", net=resnet)
 input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`.
 > - The suffix ".onnx" is automatically added to the exported file name.
+> - Currently, only the ONNX format export of ResNet series networks is supported.

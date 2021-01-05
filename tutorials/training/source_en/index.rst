@@ -239,7 +239,7 @@ Train with MindSpore
 											<span class="doc-head-content">Saving Models</span>
 										</div>
 										<div class="doc-article-desc">
-											This tutorial describes how to save MindSpore CheckPoint files, and how to export MINDIR, AIR, ONNX files.
+											This tutorial describes how to save MindSpore CheckPoint files, and how to export MindIR, AIR, ONNX files.
 										</div>
 									</div>
 								</a>

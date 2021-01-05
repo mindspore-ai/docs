@@ -204,7 +204,7 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
 
 - 模型导出
 
-    在使用Serving部署服务前，需要导出模型文件，在`poetry.py`中提供了`export_net`函数负责导出MINDIR模型，执行命令:
+    在使用Serving部署服务前，需要导出模型文件，在`poetry.py`中提供了`export_net`函数负责导出MindIR模型，执行命令:
 
     ```bash
     python poetry.py --export=True --ckpt_path=/your/ckpt/path
@@ -214,7 +214,7 @@ python poetry.py --train=False  --ckpt_path=/your/ckpt/path
 
 - Serving服务
 
-    在服务器侧启动Serving服务，并加载导出的MINDIR文件`poetry.pb`。
+    在服务器侧启动Serving服务，并加载导出的MindIR文件`poetry.pb`。
 
     ```bash
     cd serving
