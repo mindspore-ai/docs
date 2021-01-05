@@ -15,6 +15,7 @@
 |MINDDATA_PROFILING_DIR|MindData|系统路径，保存dataset profiling结果路径|String|系统路径，支持相对路径|与PROFILING_MODE=true配合使用|可选|
 |OPTIMIZE|MindData|是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率|String|true: 开启pipeline树优化<br>false: 关闭pipeline树优化|无|可选|
 |ENABLE_MS_DEBUGGER|Debugger|是否在训练中启动Debugger|Boolean|1：开启Debugger<br>0：关闭Debugger|无|可选|
+|MS_BUILD_PROCESS_NUM|MindSpore|Ascend后端编译时，指定并行编译进程数|Integer|1~24：允许设置并行进程数取值范围|无|可选|
 |MS_DEBUGGER_PORT|Debugger|连接MindInsight Debugger Server的端口|Integer|1~65536，连接MindInsight Debugger Server的端口|无|可选
 |MS_DEBUGGER_PARTIAL_MEM|Debugger|是否开启部分内存复用（只有在Debugger选中的节点才会关闭这些节点的内存复用）|Boolean|1：开启Debugger选中节点的内存复用<br>0：关闭Debugger选中节点的内存复用|无|可选|
 |RANK_TABLE_FILE|MindSpore|路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的"device_id"对应的"device_ip"。|String|文件路径，支持相对路径与绝对路径|与RANK_SIZE配合使用|必选（使用Ascend AI处理器时）|
