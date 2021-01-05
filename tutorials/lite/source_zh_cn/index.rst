@@ -110,6 +110,15 @@
 							
 						</div>
 						<hr>
+
+						<div class="doc-footer">
+							<nav aria-label="Page navigation">
+								<ul class="pagination" id="pageNav">
+									
+								</ul>
+							</nav>
+						</div>
+
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" class="article-link">
@@ -284,13 +293,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="doc-footer">
-							<nav aria-label="Page navigation">
-								<ul class="pagination" id="pageNav">
-									
-								</ul>
-							</nav>
-						</div>					
+				
 					</div>
 					
 				</div>
