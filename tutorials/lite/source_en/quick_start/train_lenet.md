@@ -26,8 +26,8 @@ Here we will demonstrate the code that trains a LeNet model using MindSpore Trai
 
 The completed training procedure is as follows:
 
-1. Constructing your training model based on MindSpore Lite Architecture and Export it into `MINDIR` model file.
-2. Converting `MINDIR` model file to the `MS` ToD model file by using MindSpore Lite `Converter` tool.
+1. Constructing your training model based on MindSpore Lite Architecture and Export it into `MindIR` model file.
+2. Converting `MindIR` model file to the `MS` ToD model file by using MindSpore Lite `Converter` tool.
 3. Loading `MS` model file and executing model training by calling MindSpore Lite training API.
 
 Details will be told after environment deployed and model training by running prepared shell scripts.
@@ -189,7 +189,7 @@ label = Tensor(np.zeros([batch_size, 10]).astype(np.float32))
 net = TrainWrap(n)
 ```
 
-Wrapping the network with a loss layer and an optimizer and `export` it to a `MINDIR` file. `TrainWrap` is provided in the example as:
+Wrapping the network with a loss layer and an optimizer and `export` it to a `MindIR` file. `TrainWrap` is provided in the example as:
 
 ```python
 import mindspore.nn as nn
