@@ -263,7 +263,7 @@
 											<span class="doc-head-content">保存模型</span>
 										</div>
 										<div class="doc-article-desc">
-											本教程通过示例来介绍保存CheckPoint格式文件和导出MINDIR、AIR和ONNX格式文件的方法。
+											本教程通过示例来介绍保存CheckPoint格式文件和导出MindIR、AIR和ONNX格式文件的方法。
 										</div>
 									</div>
 								</a>

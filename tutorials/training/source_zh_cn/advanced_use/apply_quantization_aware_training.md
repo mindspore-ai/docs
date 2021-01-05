@@ -180,7 +180,7 @@ net = quantizer.quantize(network)
 
 ### 进行推理
 
-使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（AIR、MINDIR等）进行推理。
+使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（AIR、MindIR等）进行推理。
 
 > 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html>
 
