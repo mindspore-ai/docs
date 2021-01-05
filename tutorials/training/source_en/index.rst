@@ -179,6 +179,15 @@ Train with MindSpore
 							
 						</div>
 						<hr>
+
+						<div class="doc-footer">
+							<nav aria-label="Page navigation">
+								<ul class="pagination" id="pageNav">
+									
+								</ul>
+							</nav>
+						</div>
+
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html" class="article-link">
@@ -735,13 +744,7 @@ Train with MindSpore
 							</div>
 			
 						</div>
-						<div class="doc-footer">
-							<nav aria-label="Page navigation">
-								<ul class="pagination" id="pageNav">
-									
-								</ul>
-							</nav>
-						</div>					
+					
 					</div>
 					
 				</div>
