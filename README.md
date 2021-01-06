@@ -19,6 +19,18 @@ If you have any comments or suggestions on the documents, submit them in Issues.
 ```text
 docs
 ├───docs // Technical documents about architecture, network list, operator list, programming guide and so on. Configuration files for API generation.
+|    |
+|    ├───api_cpp // C++ API project.
+|    |
+|    ├───api_java // Java API project.
+|    |
+|    ├───api_python // Python API project.
+|    |
+|    ├───faq // Frequently asked questions.
+|    |
+|    ├───note // Design and specification.
+|    |
+|    └───programming_guide // Programming guide documents.
 │
 ├───install // Installation guide.
 │
@@ -26,11 +38,21 @@ docs
 │
 ├───resource // Resource-related documents.
 │
-├───tools // Automation tool.
+├───tools // Automation tools.
 │
 ├───tutorials // Tutorial-related documents.
+|    |
+|    ├───inference // Inference-related documents.
+|    |
+|    ├───lite // MindSpore Lite related documents.
+|    |
+|    ├───notebook // Experiential documents.
+|    |
+|    ├───training // Training-related documents.
+|    |
+|    ├───tutorial_code // Sample code corresponding to the tutorial.
 │
-└───README_CN.md // Docs repository description.
+└───README.md // Docs repository description.
 ```
 
 ## Document Construction

@@ -7,150 +7,157 @@
 <!-- TOC -->
 
 - [贡献文档](#贡献文档)
-    - [新建或更新文档](#新建或更新文档)
-    - [提交修改](#提交修改)
-    - [文档写作规范](#文档写作规范)
-    - [文档检查](#文档检查)
+    - [文档](#文档)
+        - [更新/新增文档](#更新新增文档)
+            - [更新文档](#更新文档)
+            - [新增文档](#新增文档)
+        - [检查文档](#检查文档)
+        - [确认内容](#确认内容)
+    - [API](#api)
+        - [更新/新增API](#更新新增api)
+            - [更新Python API](#更新python-api)
+            - [新增Python API](#新增python-api)
+        - [检查Python API](#检查python-api)
+        - [确认内容](#确认内容-1)
 
 <!-- /TOC -->
 
-## 新建或更新文档
+本项目支持Markdown和reStructuredText格式的内容贡献，对应地可创建`.md`和`.rst`为后缀的文档或修改已存在的文档。
 
-本项目支持MarkDown和reStructuredText格式的内容贡献，对应地可创建```.md```和```.rst```为后缀的文档或修改已存在的文档。
+## 文档
 
-## 提交修改
+MindSpore docs仓提供了[文档写作要求](https://gitee.com/mindspore/docs/wikis/文档写作要求?sort_id=3363974)供写作时参考。
 
-提交修改的步骤与代码相同，请参考[代码贡献指南](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md)。
+### 更新/新增文档
 
-## 文档写作规范
+#### 更新文档
 
-- 标题仅支持Atx风格，标题与上下文需用空行隔开。
+如果您发现现有文档需要刷新，可点击页面上方的“View Source on Gitee”（如下图所示），跳转至源文件。修改该文件，并提交PR即可参与贡献。
 
-  ```markdown
-  # 一级标题
+![View Source on Gitee](./resource/_static/logo_source.png)
 
-  ## 二级标题
+#### 新增文档
 
-  ### 三级标题
-  ```
+如果您需要新增文档，请在合适目录新建Markdown或reStructuredText文件，MindSpore docs仓目录结构说明可参考[README](https://gitee.com/mindspore/docs/blob/master/README_CN.md#目录结构说明)。
 
-- 列表标题和内容如需换行显示，标题和内容间需增加一个空行，否则无法实现换行。
+1. 新建文件
 
-  ```markdown
-  - 标题
+    新建文件要求如下：
 
-    内容。
-  ```
+    - 存放路径：中文文档需新建在`source_zh_cn`目录下，英文文档需新建在`source_en`目录下。
+    - 文件名：文件名需由英文小写或下划线组成。
 
-- 目录中的锚点（超链接）只能使用中文、小写英文字母或“-”，不能带有空格或其他特殊字符，否则会导致链接无效。
+2. 将新建文件添加到网页
 
-- 注意事项使用“>”标识。
+    完成写作后，需在网页目录中添加新建的文件。
 
-  ```markdown
-  > 注意事项内容。
-  ```  
+    以训练教程为例，先在`source_zh_cn`目录下找到[`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/index.rst)文件，该文件即对应训练教程网页的组织结构。
 
-- 参考文献需列举在文末，并在文中标注。
+    在对应的分类中添加新建的文件，也可新建分类后再添加。以《实现一个图片分类应用》文档为例，该文档存放在`quick_start`目录，命名为`quick_start.md`，需将`quick_start/quick_start`添加至“快速入门”分类下，如下所示。
 
-  ```markdown
-  引用文字或图片说明后，增加标注[编号]。
+    ```rst
+    .. toctree::
+      :glob:
+      :maxdepth: 1
+      :caption: 快速入门
+      :hidden:
 
-  ## 参考文献
-
-  [1] 作者. [有链接的文献名](http://xxx).
-
-  [2] 作者. 没有链接的文献名.
-  ```
-
-- 示例代码注释需遵循如下要求：
-
-    - 注释用英文写作；
-    - Python函数、方法、类的注释使用```"""```；
-    - Python其他代码注释使用```#```；
-    - C++代码注释使用```//```。
-
-  ```markdown
-  """
-  Python函数、方法、类的注释
-  """
-
-  # Python代码注释
-
-  // C++代码注释
-
-  ```
-
-- 图和图标题前后需增加一个空行，否则会导致排版异常。正确举例如下：
-
-   ```markdown
-  如下图所示：
-
-  ![](./xxx.png)
-
-  图1：xxx
-
-  下文内容。
-  ```
-
-- 表格前后需增加一个空行，否则会导致排版异常。有序或无序列表内不支持表格。正确举例如下：
-
-  ```markdown
-  ## 文章标题
-
-  | 表头1   | 表头2
-  | :-----  | :----
-  | 内容I1  | 内容I2
-  | 内容II1 | 内容II2
-
-  下文内容。
-  ```
-
-- 教程、文档中引用接口、路径名、文件名等使用“\` \`”标注，如果是函数或方法，最后不加括号。举例如下：
-
-    - 引用方法
-
-    ```markdown
-    使用映射 `map` 方法。
+      quick_start/quick_start
+      quick_start/linear_regression
+      quick_start/quick_video
     ```
 
-    - 引用代码
+完成上述操作后，并提交PR即可参与贡献。
 
-    ```markdown
-    `batch_size`：每组包含的数据个数。
-    ```
+### 检查文档
 
-    - 引用路径
+提交PR后，需要确保有`mindspore-cla/yes`和`ci-pipeline-passed`标签，没有`stat/need-squash`标签，并经过Committer审核后方可合入。
 
-    ```markdown
-    将数据集解压存放到工作区`./MNIST_Data`路径下。
-    ```
+- `mindspore-cla/yes`：表示已正确签署CLA。如果已签署，系统会自动添加该标签。如果没有签署，系统会自动添加`mindspore-cla/no`标签，签署完后在PR下添加评论`/check-cla`，即可自动添加`mindspore-cla/yes`标签。
+- `ci-pipeline-passed`：表示已通过MindSpore CI检查。创建PR时，MindSpore CI会自动启动检查，如果已检查通过，系统会自动添加该标签。如果没有检查通过，系统会自动添加`ci-pipeline-failed`标签，问题修改完后在PR下添加评论`/retest`，检查通过即可自动添加`ci-pipeline-passed`标签。
+- `stat/need-squash`：表示该PR存在多次提交记录，需通过`git rebase`操作整合成一次提交记录后，才可自动删除该标签。
 
-    - 引用文件名
+MindSpore CI采用了Markdownlint、Pylint、Shellcheck、Cppcheck、Cpplint、Tab等检查工具。
 
-    ```markdown
-    其他依赖项在`requirements.txt`中有详细描述。
-    ```
+其中，Markdownlint是一款检查Markdown文件格式正确性的工具，可以根据设置的规则以及创建的新规则对Markdown文件进行全面的检查。MindSpore CI在默认配置的基础上，修改了如下规则：
 
-- 教程、文档中待用户替换的内容需要额外标注，在正文中，使用“*”包围需要替换内容，在代码片段中，使用“{}”包围替换内容。举例如下：
+- MD007（无序列表缩进）规则将参数indent设置为4，表示无序列表内的所有内容需缩进4格写作。
+- MD009（行尾空格）规则将参数br_spaces设置为2，表示行尾可以有0个或2个空格。
+- MD029（有序列表的前缀序号）规则将参数style设置为ordered，表示有序列表的前缀序号需按顺序递增。
 
-    - 正文中
+更为详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。
 
-    ```markdown
-    需要替换你的本地路径*your_path*。
-    ```
+### 确认内容
 
-    - 代码片段中
+PR合入后次日，即可在MindSpore官网中查看到新增内容，新增文档将新建链接。
 
-    ```markdown
-    conda activate {your_env_name}
-    ```
+官网各教程和文档默认选中最新发布版本，如需查看新合入的内容，需在下拉列表中切换至master。
 
-## 文档检查
+![master_doc](./resource/_static/master_doc.png)
 
-Markdownlint是一款检查Markdown文件格式正确性的工具，可以根据设置的规则以及创建的新规则对Markdown文件进行全面的检查。
+以《实现一个图片分类应用》文档为例，该文档的链接为<https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html>。
 
-其中，MindSpore CI 在默认配置的基础上，修改了如下规则：
+## API
 
-MD007（无序列表缩进）规则将参数indent设置为4；MD009（行尾空格）规则将参数br_spaces设置为2；MD029（有序列表的前缀序号）规则将参数style设置为ordered。
+MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/docs/wikis/API注释写作要求?sort_id=3364069)供写作时参考。
 
-详细规则信息请参考[RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md)。
+### 更新/新增API
+
+#### 更新Python API
+
+如果您发现现有API需要刷新，请先在MindSpore代码中找到该接口所在的源文件。
+
+如果不清楚所在文件，可点击“source”，并参考跳转的链接地址中`_modules`后的内容，找到该文件。
+
+以Tensor为例，点击“source”后得到地址<https://www.mindspore.cn/doc/api_python/zh-CN/master/_modules/mindspore/common/tensor.html#Tensor>，源文件地址即为<https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>。
+
+![API Source](./resource/_static/api_source.png)
+
+修改源文件的注释，并提交PR即可参与贡献。
+
+#### 新增Python API
+
+如果您需要新增API，请先确认是否在已有模块中添加，已有模块列表请查看<https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html>。
+
+如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保通过“mindspore.模块名.API名”可使用。
+
+如果属于以下模块，还需更新MindSpore docs仓的接口列表。
+
+- `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.rst)
+- `mindspore.dataset.text`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.text.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.text.rst)
+- `mindspore.dataset.transforms`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.transforms.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.transforms.rst)
+- `mindspore.dataset.vision`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.vision.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.vision.rst)
+- `mindspore.nn`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.rst)
+- `mindspore.nn.probability`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.probability.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.probability.rst)
+- `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.ops.rst)
+- `mindspore.ops.operations`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/operations.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/operations.rst)
+
+如果不属于已有模块，需新增MindSpore docs仓的接口工程文件。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.context.rst)文件，并将其添加到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/index.rst)中。同时，在`source_en`目录下做相应修改，即可生成英文页面内容。
+
+```rst
+.. toctree::
+   :maxdepth: 1
+   :caption: MindSpore Python API
+
+   ...
+   mindspore/mindspore.context
+   ...
+```
+
+完成上述修改，并提交PR即可参与贡献。
+
+### 检查Python API
+
+提交PR后，需要确保有`mindspore-cla/yes`和`ci-pipeline-passed`标签，没有`stat/need-squash`标签，并经过Committer审核后方可合入。
+
+各标签的详细说明可参见[检查文档](#检查文档)中的相关内容。
+
+MindSpore CI采用了Pylint检查工具。
+
+### 确认内容
+
+PR合入后次日，即可在MindSpore官网[Python API页面](<https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html>)中查看到新增内容。
+
+官网API默认选中最新发布版本，如需查看新合入的内容，需切换至master。
+
+![master_api](./resource/_static/master_api.png)
