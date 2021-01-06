@@ -225,6 +225,7 @@ Based on the tensor relationship diagram, you can analyze which tensors are used
     - The debugger does not support inference scenarios.
     - The debugger does not support the single-node multi-device or cluster scenario.
     - The Debugger does not support connected to multiple training process.
+    - The debugger does not support CPU scenarios.
 
 - Impact on Performance:
     - Debugger will slow down the training performance.

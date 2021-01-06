@@ -218,6 +218,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
     - 调试器暂不支持推断场景。
     - 调试器暂不支持单机多卡/集群场景。
     - 调试器暂不支持连接多个训练进程。
+    - 调试器暂不支持CPU场景。
 
 - 性能影响：
     - 使用调试器时，会对训练性能产生一定影响。
