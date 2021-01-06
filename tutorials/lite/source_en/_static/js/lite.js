@@ -146,7 +146,7 @@ $(function() {
 			// 计算总页数
 			var len = Math.ceil((all - hidden_num) / curNum);
 			// 生成页码
-			var pageList = '<li class="disabled"><span>' + '共' + all_article + '条' +  '</span></li>' + '<li class="pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+			var pageList = '<li class="disabled"><span>' + 'Total ' + all_article + ' Results(s)' +  '</span></li>' + '<li class="pre"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
 			// 当前的索引值
 			var iNum = 0;
 
@@ -158,7 +158,7 @@ $(function() {
 			if (all_article > 0){
 				$('#pageNav').html(pageList).find('li').eq(2).addClass('active');
 			}else{
-				$('#pageNav').html('<li class="disabled"><span>' + '共' + all_article + '条' +  '</span></li>');
+				$('#pageNav').html('<li class="disabled"><span>' + 'Total ' + all_article + ' Results(s)' +  '</span></li>');
 			}
 			
 			// 标签页的点击事件
