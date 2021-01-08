@@ -139,7 +139,7 @@ MindSpore为用户提供了多种数据加载方式，其中包括常用数据�
     ```python
     from mindspore.mindrecord import Cifar10ToMR
 
-    cifar10_path = './dataset/Cifar10Data/cifar-10-batches-py/'
+    cifar10_path = './dataset/Cifar10Data/cifar-10-batches-py'
     cifar10_mindrecord_path = './transform/cifar10.record'
 
     cifar10_transformer = Cifar10ToMR(cifar10_path, cifar10_mindrecord_path)
