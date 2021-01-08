@@ -104,6 +104,7 @@ Note the following parameters when setting `TBERegOp`:
 - `OPAQUE` in `fusion_type("OPAQUE")` indicates that the custom operator uses the non-fusion strategy.
 - `CusSquareImpl` in `kernel_name("CusSquareImpl")` must be the same as the name of the operator entry function.
 - `dtype_format` is used to describe data types supported by the operator. In the following example, two types are registered, indicating that the operator supports two data types. Each type describes the supported format in order of input and output. The first `dtype_format` indicates that the data type input0 is in F32_Default format and the data type output0 is in F32_Default format. The second `dtype_format` indicates that the data type input0 is in F16_Default format and the data type output0 is in F16_Default format.
+- About the interfaces `auto_schedule` and `cce_build_code`, please see the TBE documents [auto_schedule](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_07_0071.html) and [cce_build_code](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_07_0072.html) for details.
 
 ```python
 from __future__ import absolute_import
@@ -113,7 +114,7 @@ import te.lang.cce
 from topi.cce import util
 from mindspore.ops.op_info_register import op_info_register, TBERegOp, DataType
 
-def square_compute(input_x, output_y):
+def square_compute(input_x):
     """
     The compute function of the CusSquare implementation.
     """
@@ -147,7 +148,7 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
     data = tvm.placeholder(shape, name="data", dtype=dtype.lower())
 
     with tvm.target.cce():
-        res = square_compute(data, output_y)
+        res = square_compute(data)
         sch = generic.auto_schedule(res)
 
     config = {"print_ir": False,
