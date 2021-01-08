@@ -19,6 +19,18 @@
 ```text
 docs
 ├───docs // 架构、网络和算子支持、编程指南等技术文档以及用于生成API的相关配置文件
+|    |
+|    ├───api_cpp // C++ API工程
+|    |
+|    ├───api_java // Java API工程
+|    |
+|    ├───api_python // Python API工程
+|    |
+|    ├───faq // 常见问题
+|    |
+|    ├───note // 设计和规格
+|    |
+|    └───programming_guide // 编程指南相关文档
 │
 ├───install // 安装指南
 │
@@ -29,6 +41,16 @@ docs
 ├───tools // 自动化工具
 │
 ├───tutorials // 教程相关文档
+|    |
+|    ├───inference // 推理教程相关文档
+|    |
+|    ├───lite // 手机及IoT教程相关文档
+|    |
+|    ├───notebook // 体验式文档
+|    |
+|    ├───training // 训练教程相关文档
+|    |
+|    ├───tutorial_code // 教程对应样例代码
 │
 └───README_CN.md // Docs仓说明
 ```
