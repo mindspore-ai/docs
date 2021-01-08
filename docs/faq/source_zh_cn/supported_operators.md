@@ -32,13 +32,13 @@ A：在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 <font size=3>**Q：Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？**</font>
 
 A：`Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[相关文档](https://www.mindspore.cn/doc/note/zh-CN/r1.1/static_graph_syntax_support.html)的“其他约束”。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/doc/note/zh-CN/r1.1/static_graph_syntax_support.html)。
 
 <br/>
 
 <font size=3>**Q：官网的LSTM示例在Ascend上跑不通。**</font>
 
-A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以[点击这里](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list_ms.html)查看算子支持情况。
+A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以通过[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.1/operator_list_ms.html)查看算子支持情况。
 
 <br/>
 

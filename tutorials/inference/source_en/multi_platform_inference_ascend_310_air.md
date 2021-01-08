@@ -91,7 +91,7 @@ Install the development kit software package `Ascend-Toolkit-*{version}*-arm64-l
 
 ## Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`. The `inc`, `src`, and `test_data` directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/acl_resnet50_sample), and the `model` directory stores the exported `AIR` model file and the converted `OM` model file. The `out` directory stores the executable file generated after building and the output result directory. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`. The `inc`, `src`, and `test_data` [sample code](https://gitee.com/mindspore/docs/tree/r1.1/tutorials/tutorial_code/acl_resnet50_sample) can be obtained from the official website, and the `model` directory stores the exported `AIR` model file and the converted `OM` model file. The `out` directory stores the executable file generated after building and the output result directory. The directory structure of the inference code project is as follows:
 
 ```text
 └─acl_resnet50_sample

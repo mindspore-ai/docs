@@ -36,7 +36,7 @@ A: If you cooperate with MindSpore in papers and scientific research, you can ob
 
 <font size=3>**Q: How do I visualize the MindSpore Lite offline model (.ms file) to view the network structure?**</font>
 
-A: MindSpore Lite code is being submitted to the open-source repository Netron. Later, the MS model visualization will be implemented using Netron. While there are still some issues to be resolved in the Netron open-source repository, we have a Netron version for internal use, which can be [downloaded](https://github.com/lutzroeder/netron/releases).
+A: MindSpore Lite code is being submitted to the open-source repository Netron. Later, the MS model visualization will be implemented using Netron. While there are still some issues to be resolved in the Netron open-source repository, we have a Netron version for internal use, which can be downloaded in the [`netron` releases](https://github.com/lutzroeder/netron/releases).
 
 <br/>
 
@@ -54,7 +54,7 @@ A: In addition to data parallelism, MindSpore distributed training also supports
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, click [here](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/custom_operator_ascend.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/custom_operator.html).
 
 <br/>
 
