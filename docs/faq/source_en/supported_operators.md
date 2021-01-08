@@ -38,7 +38,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: What can I do if the LSTM example on the official website cannot run on Ascend?**</font>
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [here](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
 
 <br/>
 

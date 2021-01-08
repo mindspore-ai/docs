@@ -466,4 +466,3 @@ You can load the saved model to do re-training or inference.
 
 > - The trained model by MindSpore Lite can only be inferenced by MindSpore Lite training framework, that is, to create `TrainSession` first and call the `Eval()` api setting to the inference mode.
 > - You can not use benchmark tool to run the trained model, please use [benchmark_train](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html) instead.
-

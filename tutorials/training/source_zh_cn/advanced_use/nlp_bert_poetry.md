@@ -85,7 +85,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ## 样例代码
 
-样例代码可[点击下载](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry_c.rar)，可直接运行体验实现写诗效果，代码结构如下:
+可点击下载[样例代码](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry_c.rar)，直接运行体验实现写诗效果，代码结构如下:
 
 ```text
 └─bert_poetry
@@ -118,7 +118,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ### 数据准备
 
-数据集为43030首诗词：可[下载](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
+数据集为[43030首诗词](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator)其中的`poetry.txt`。
 
 BERT-Base模型的预训练ckpt：可在[MindSpore官网](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz)下载。
 

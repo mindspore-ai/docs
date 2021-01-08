@@ -101,7 +101,7 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
    ```
 
-3. After loading the model, you can use MindSpore to do inference. You can refer to [here](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference.html).
+3. After loading the model, you can use MindSpore to do inference. You can refer to [Multi-Platform Inference Overview](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference.html).
 
 ### For Transfer Training
 

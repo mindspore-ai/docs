@@ -67,7 +67,7 @@ GOMO（Generalized Operator Modelling of the Ocean）是基于 OpenArray 的三�
 
 ### 准备数据
 
-本教程使用的是netCDF格式的Seamount文件，贝克曼和海德沃格尔提出的Seamount问题是区域海洋模型广泛使用的理想试验案例（[Beckmann and Haidvogel, 1993](https://journals.ametsoc.org/view/journals/phoc/23/8/1520-0485_1993_023_1736_nsofaa_2_0_co_2.xml?tab_body=fulltext-display)）。Seamount文件可[点击此处](https://github.com/hxmhuang/GOMO/tree/master/bin/data)。
+本教程使用的是netCDF格式的[Seamount文件](https://github.com/hxmhuang/GOMO/tree/master/bin/data)，贝克曼和海德沃格尔提出的Seamount问题是区域海洋模型广泛使用的理想试验案例（[Beckmann and Haidvogel, 1993](https://journals.ametsoc.org/view/journals/phoc/23/8/1520-0485_1993_023_1736_nsofaa_2_0_co_2.xml?tab_body=fulltext-display)）。
 
 ## 加载数据
 
