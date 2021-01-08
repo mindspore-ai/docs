@@ -469,5 +469,3 @@ MindSpore Lite提供了下面的方法保存训练好的模型：
 
 > - MindSpore Lite训练出来的模型，必须使用训练框架的接口进行推理，即创建`TrainSession`并调用`Eval()`方法设置为推理模式。
 > - benchmark工具不支持运行训练出的模型，请使用[benchmark_train工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html)。
-
-

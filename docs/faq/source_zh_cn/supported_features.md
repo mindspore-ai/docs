@@ -12,7 +12,7 @@ A：您好，很抱歉暂时还未有这样的功能。目前只能通过训练-
 
 <font size=3>**Q：第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，[点击查询](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html)。
+A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html)。
 
 <br/>
 
@@ -36,7 +36,7 @@ A：当前如果与MindSpore展开论文、科研合作是可以获得免费云�
 
 <font size=3>**Q：MindSpore Lite的离线模型MS文件如何进行可视化，看到网络结构？**</font>
 
-A：MindSpore Lite正在往开源仓库`netron`上提交代码，后面MS模型会首先使用`netron`实现可视化。现在上`netron`开源仓还有一些问题需要解决，不过我们有内部使用的`netron`版本，可以在[这个链接](https://github.com/lutzroeder/netron/releases)里下载到。
+A：MindSpore Lite正在往开源仓库`netron`上提交代码，后面MS模型会首先使用`netron`实现可视化。现在上`netron`开源仓还有一些问题需要解决，不过我们有内部使用的`netron`版本，可以在[`netron`版本发布](https://github.com/lutzroeder/netron/releases)里下载到。
 
 <br/>
 
@@ -54,7 +54,7 @@ A：MindSpore分布式训练除了支持数据并行，还支持算子级模型�
 
 <font size=3>**Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子,自定义算子[详见这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_ascend.html)。
+A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
 
 <br/>
 

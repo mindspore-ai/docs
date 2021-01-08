@@ -38,7 +38,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，目录代码可以从[官网示例下载](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)获取，`model`目录用于存放接下来导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)，`model`目录用于存放接下来导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend310_resnet50_preprocess_sample

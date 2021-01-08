@@ -31,18 +31,18 @@ This tutorial demonstrates the on-device deployment process based on the image c
 2. Convert the model into a MindSpore Lite model.
 3. Use the MindSpore Lite inference model on the device. The following describes how to use the MindSpore Lite C++ APIs (Android JNIs) and MindSpore Lite image classification models to perform on-device inference, classify the content captured by a device camera, and display the most possible classification result on the application's image preview screen.
 
-> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
+> Click to find [Android image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite) and [image classification sample code](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_classification).
 >
 > In this example, we explain how to use C++ API. Besides, MindSpore Lite also supports Java API. Please refer to [image segmentation demo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/lite/image_segmentation) to learn more about Java API.
 
-We provide the APK file corresponding to this example. You can scan the QR code below or [download](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) it directly, and deploy it to Android devices for use.
+We provide the APK file corresponding to this example. You can scan the QR code below or download the [APK file](https://download.mindspore.cn/model_zoo/official/lite/apk/label/Classification.apk) directly, and deploy it to Android devices for use.
 
 ![apk](../images/classification_apk.png)
 
 ## Selecting a Model
 
 The MindSpore team provides a series of preset device models that you can use in your application.  
-Click [here](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) to download image classification models in MindSpore ModelZoo.
+Click to download [image classification models](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) in MindSpore ModelZoo.
 In addition, you can use the preset model to perform transfer learning to implement your image classification tasks.
 
 ## Converting a Model
@@ -140,9 +140,7 @@ When MindSpore C++ APIs are called at the Android JNI layer, related library fil
 
 In this example, the build process automatically downloads the `mindspore-lite-1.0.1-runtime-arm64-cpu` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
-
-mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz [Download link](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz)
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz) and put them in the corresponding location.
 
 ```text
 android{
@@ -195,9 +193,7 @@ target_link_libraries(
 
 In this example, the build process automatically downloads the `mobilenetv2.ms` by referring to the `app/download.gradle` file and saves in the `app/src/main/assets/model` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files and put them in the corresponding location.
-
-mobilenetv2.ms [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms)
+Note: if the automatic download fails, please manually download the relevant library files [mobilenetv2.ms]( https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2.ms) and put them in the corresponding location.
 
 ### Writing On-Device Inference Code
 

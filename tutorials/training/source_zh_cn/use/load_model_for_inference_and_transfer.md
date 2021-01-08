@@ -103,7 +103,7 @@ model.train(epoch, dataset)
 
    ```
 
-3. 完成模型加载后，可以使用MindSpore进行推理，参考[这里](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html)。
+3. 完成模型加载后，可以使用MindSpore进行推理，参考[推理模型总览](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html)。
 
 ### 用于迁移学习
 

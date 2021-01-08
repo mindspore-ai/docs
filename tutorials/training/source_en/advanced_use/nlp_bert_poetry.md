@@ -85,7 +85,7 @@ Figure 3 Training process
 
 ## Sample Code
 
-Click [here](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry_c.rar) to download and run the sample code to view the poem writing effect. The code structure is as follows:
+Download the [sample code](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/DemoCode/bert_poetry_c.rar) and run the sample code to view the poem writing effect. The code structure is as follows:
 
 ```text
 └─bert_poetry
@@ -118,7 +118,7 @@ Perform training and inference on the Ascend 910 AI Processor using MindSpore 0.
 
 ### Data Preparation
 
-A dataset containing 43030 poems: [Download](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator) `poetry.txt`.
+A dataset containing [43030 poems](https://github.com/AaronJny/DeepLearningExamples/tree/master/keras-bert-poetry-generator): `poetry.txt`.
 
 Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](http://download.mindspore.cn/model_zoo/official/nlp/bert/bert_base_ascend_0.5.0_cn-wiki_official_nlp_20200720.tar.gz).
 
