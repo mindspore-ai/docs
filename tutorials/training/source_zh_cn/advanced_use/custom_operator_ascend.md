@@ -104,6 +104,7 @@ class CusSquare(PrimitiveWithInfer):
 - `fusion_type("OPAQUE")`中`OPAQUE`表示自定义算子采取不融合策略。
 - `kernel_name("CusSquareImpl")`中`CusSquareImpl`需要与算子入口函数名称一致。
 - `dtype_format`用来描述算子支持的数据类型，下面示例中注册了两项，说明该算子支持两种数据类型，每一项需按照输入和输出的顺序依次描述支持的格式。第一个`dtype_format`说明支持的第一种数据类型是input0为F32_Default格式，output0为F32_Default格式。第二个`dtype_format`说明支持的第二种数据类型是input0为F16_Default格式，output0为F16_Default格式。
+- `auto_schedule`、`cce_build_code`等TBE相关接口描述请见TBE文档中[auto_schedule](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_07_0071.html)和[cce_build_code](https://support.huaweicloud.com/odevg-A800_3000_3010/atlaste_07_0072.html)的详细说明。
 
 ```python
 from __future__ import absolute_import
@@ -113,7 +114,7 @@ import te.lang.cce
 from topi.cce import util
 from mindspore.ops.op_info_register import op_info_register, TBERegOp, DataType
 
-def square_compute(input_x, output_y):
+def square_compute(input_x):
     """
     The compute function of the CusSquare implementation.
     """
@@ -147,7 +148,7 @@ def CusSquareImpl(input_x, output_y, kernel_name="CusSquareImpl"):
     data = tvm.placeholder(shape, name="data", dtype=dtype.lower())
 
     with tvm.target.cce():
-        res = square_compute(data, output_y)
+        res = square_compute(data)
         sch = generic.auto_schedule(res)
 
     config = {"print_ir": False,
