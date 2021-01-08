@@ -36,8 +36,8 @@ The following describes how to quickly install MindSpore by compiling the source
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
         ```bash
-        pip install /usr/local/Ascend/atc/lib64/topi-{version}-py3-none-any.whl
-        pip install /usr/local/Ascend/atc/lib64/te-{version}-py3-none-any.whl
+        pip install /usr/local/Ascend/ascend-toolkit/latest/atc/lib64/topi-{version}-py3-none-any.whl
+        pip install /usr/local/Ascend/ascend-toolkit/latest/atc/lib64/te-{version}-py3-none-any.whl
         ```
 
 - Ensure that the git tool is installed.
