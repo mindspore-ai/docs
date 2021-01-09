@@ -42,6 +42,7 @@ class FakeData:
         self.rank_id = get_rank()
         self.total_batch_size = self.rank_batch_size * self.rank_size
         self.total_batch_data_size = (self.rank_size, self.rank_batch_size) + image_size
+        self.do_copy = False
 
     def get_dataset_size(self):
         """get dataset size"""
@@ -51,9 +52,10 @@ class FakeData:
         """get repeat count"""
         return 1
 
-    def create_tuple_iterator(self, num_epochs=-1):
+    def create_tuple_iterator(self, num_epochs=-1, do_copy=False):
         """create tuple iterator"""
         self.num_epochs = num_epochs
+        self.do_copy = do_copy
         return self
 
     def __getitem__(self, batch_index):
