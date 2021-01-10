@@ -48,8 +48,8 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
     ├── model
     │   └── resnet50_imagenet.mindir      // MindIR模型文件
     └── test_data
-        ├── ILSVRC2012_val_00000293.JPEG  // 输入样本图片1
-        ├── ILSVRC2012_val_00002138.JPEG  // 输入样本图片2
+        ├── ILSVRC2012_val_00002138.JPEG  // 输入样本图片1
+        ├── ILSVRC2012_val_00003014.JPEG  // 输入样本图片2
         ├── ...                           // 输入样本图片n
 ```
 
@@ -79,7 +79,7 @@ export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print
 # Environment variables that must be configured
 export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/atc/ccec_compiler/bin/:${PATH}                       # TBE operator compilation tool path
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
@@ -107,10 +107,9 @@ make
 ./resnet50_sample
 ```
 
-执行后，会对`test_data`目录下放置的所有图片进行推理，比如放置了10张[ImageNet2012](http://image-net.org/download-images)验证集中label为0的图片，可以看到推理结果如下。
+执行后，会对`test_data`目录下放置的所有图片进行推理，比如放置了9张[ImageNet2012](http://image-net.org/download-images)验证集中label为0的图片，可以看到推理结果如下。
 
 ```text
-Image: ./test_data/ILSVRC2012_val_00000293.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00002138.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00003014.JPEG infer result: 0
 Image: ./test_data/ILSVRC2012_val_00006697.JPEG infer result: 0
