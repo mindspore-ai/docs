@@ -267,7 +267,6 @@
 | [mindspore.ops.GatherV2](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.GatherV2)                           |    Supported | Supported    | Supported | array_ops
 | [mindspore.ops.Split](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Split)                                 |    Supported | Supported  | Doing | array_ops
 | [mindspore.ops.Rank](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Rank)                                   |    Supported |   Supported  |   Supported | array_ops
-| [mindspore.ops.TruncatedNormal](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.TruncatedNormal)             |  Supported | Supported  | Supported | array_ops
 | [mindspore.ops.Size](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Size)                                   |    Supported |   Supported  |   Supported | array_ops
 | [mindspore.ops.Fill](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.Fill)                                   |   Supported |  Supported  |  Supported | array_ops
 | [mindspore.ops.OnesLike](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/mindspore/mindspore.ops.html#mindspore.ops.OnesLike)                           |   Supported | Supported  | Doing | array_ops
