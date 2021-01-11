@@ -168,6 +168,6 @@ size_t GetMax(const ms::Buffer &data) {
       max_value = p[i];
       max_idx = i;
     }
-    return max_idx;
   }
+  return max_idx;
 }
