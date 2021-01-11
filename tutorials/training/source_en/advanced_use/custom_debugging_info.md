@@ -375,12 +375,18 @@ Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory 
 
     You can set `context.set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-4. Parse the Dump file.
+4. Parse the dumped file.
+
+    Parse the dumped file using `dump_data_conversion.pyc` provied in the run package. You can find it through the find command:
+
+    ```bash
+    find ${Installation path of run package} -name "dump_data_conversion.pyc"
+    ```
 
     Change directory to `/absolute_path` after training, execute the following commands to parse Dump data file:
 
     ```bash
-    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
+    python ${Absolute path of dump_data_conversion.pyc} -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
     ```
 
 ## Log-related Environment Variables and Configurations

@@ -382,10 +382,16 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 4. 解析文件。
 
-    执行完用例后去`/absolute_path`目录下，运行如下命令解析Dump数据：
+    使用run包中提供的`dump_data_conversion.pyc`解析Dump出来的文件。不同的环境上`dump_data_conversion.pyc`文件所在的路径可能不同，可以通过find命令进行查找：
 
     ```bash
-    python /usr/local/HiAI/toolkit/tools/operator_cmp/compare/dump_data_conversion.pyc -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析生成的文件路径}
+    find ${run包安装路径} -name "dump_data_conversion.pyc"
+    ```
+
+    找到`dump_data_conversion.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
+
+    ```bash
+    python ${dump_data_conversion.pyc的绝对路径} -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析生成的文件路径}
     ```
 
 ## 日志相关的环境变量和配置
