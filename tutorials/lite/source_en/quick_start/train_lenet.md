@@ -73,7 +73,7 @@ bash build.sh -I x86_64 -T on -e cpu -j8
 bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
-You could also directly download them from [here](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
+You could also directly [download MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
 
 ### Connect Android Device
 
