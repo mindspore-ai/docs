@@ -24,7 +24,7 @@ MindInsight provides `mindoptimizer`. This tuning command can extract past train
 
 ## Installation
 
-This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://www.mindspore.cn/install/en).
+This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://gitee.com/mindspore/mindinsight/blob/r1.1/README.md#).
 
 ## Usage
 

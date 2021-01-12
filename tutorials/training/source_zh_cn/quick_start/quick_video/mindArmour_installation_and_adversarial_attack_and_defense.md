@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindArmour%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%8A%97%E6%94%BB%E9%98%B2.mp4" type="video/mp4">
 </video>
 
-**立即安装**：<https://www.mindspore.cn/install>
+**立即安装**：<https://gitee.com/mindspore/mindarmour/blob/r1.1/README_CN.md#>
 
 **查看更多内容**：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/improve_model_security_nad.html>

@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%E5%AE%89%E8%A3%85%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.mp4" type="video/mp4">
 </video>
 
-**立即安装**：<https://www.mindspore.cn/install>
+**立即安装**：<https://gitee.com/mindspore/mindinsight/blob/r1.1/README_CN.md#>
 
 **查看更多命令**：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/mindinsight_commands.html>
