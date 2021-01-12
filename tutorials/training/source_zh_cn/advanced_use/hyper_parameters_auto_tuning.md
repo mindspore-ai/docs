@@ -24,7 +24,7 @@ MindInsight提供的`mindoptimizer`调参命令可以根据用户配置，从训
 
 ## 安装
 
-此工具为MindInsight的子模块，安装MindInsight后，即可使用MindInsight调参命令，安装MindInsight请参考该[安装文档](https://www.mindspore.cn/install/)。
+此工具为MindInsight的子模块，安装MindInsight后，即可使用MindInsight调参命令，安装MindInsight请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/r1.1/README_CN.md#)。
 
 ## 用法
 

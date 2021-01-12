@@ -28,7 +28,7 @@ MindConverter是一款用于将PyTorch、TensorFlow脚本转换到MindSpore脚�
 
 ## 安装
 
-此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://www.mindspore.cn/install/)。
+此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/r1.1/README_CN.md#)。
 
 ## 用法
 

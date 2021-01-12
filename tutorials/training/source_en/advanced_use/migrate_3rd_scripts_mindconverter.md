@@ -28,7 +28,7 @@ MindConverter is a migration tool to transform the model scripts from PyTorch or
 
 ## Installation
 
-Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://www.mindspore.cn/install/en) here to install MindInsight.
+Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://gitee.com/mindspore/mindinsight/blob/r1.1/README.md#) here to install MindInsight.
 
 ## Usage
 

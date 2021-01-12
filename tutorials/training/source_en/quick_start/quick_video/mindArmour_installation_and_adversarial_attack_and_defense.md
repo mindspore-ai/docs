@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindArmour%20Installation%20and%20Adversarial%20attack%20and%20defense.mp4" type="video/mp4">
 </video>
 
-**Install now**: <https://www.mindspore.cn/install/en>
+**Install now**: <https://gitee.com/mindspore/mindarmour/blob/r1.1/README.md#>
 
 **See more**: <https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/improve_model_security_nad.html>
