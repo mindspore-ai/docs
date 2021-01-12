@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
+
+A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
+
+<br/>
+
 <font size=3>**Q：如何在训练神经网络过程中对计算损失的超参数进行改变？**</font>
 
 A：您好，很抱歉暂时还未有这样的功能。目前只能通过训练-->重新定义优化器-->训练，这样的过程寻找较优的超参数。
