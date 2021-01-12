@@ -66,7 +66,7 @@ device_list_
 
 A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontextvector) contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variables.
 
-> Only CPU and GPU are supported now. If GPU device context is set, use GPU device first, otherwise use CPU device first.
+> CPU, GPU and NPU are supported now. If GPU device context is set and GPU is supported in the current device, use GPU device first, otherwise use CPU device first. If NPU device context is set and GPU is supported in the current device, use NPU device first, otherwise use CPU device first.
 
 ## PrimitiveC
 
@@ -190,7 +190,7 @@ GPU device type.
 DT_NPU = 2
 ```
 
-NPU device type, not supported yet.
+NPU device type.
 
 ## Version
 
@@ -258,7 +258,7 @@ An **enum** type. Defaults to **DT_CPU**. DeviceType is defined for holding 
 device_info_
 ```
 
- An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) and [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo)
+An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo) .
 
 ## DeviceInfo
 
