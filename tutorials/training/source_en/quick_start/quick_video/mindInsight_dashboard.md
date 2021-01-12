@@ -6,6 +6,6 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%20Training%20Dashboard.mp4" type="video/mp4">
 </video>
 
-**Install now**: <https://www.mindspore.cn/install/en>
+**Install now**: <https://gitee.com/mindspore/mindinsight/blob/master/README.md#>
 
 **See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dashboard.html>
