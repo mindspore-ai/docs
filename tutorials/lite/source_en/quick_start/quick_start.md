@@ -113,12 +113,12 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-1.0.1-runtime-arm64-cpu #MindSpore Lite version
+|   |   ├── mindspore-lite-1.1.0-inference-android #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
 │   ├── java # application code at the Java layer
-│   │   └── com.mindspore.himindsporedemo
+│   │   └── com.mindspore.classification
 │   │       ├── gallery.classify # implementation related to image processing and MindSpore JNI calling
 │   │       │   └── ...
 │   │       └── widget # implementation related to camera enabling and drawing
@@ -138,9 +138,9 @@ app
 
 When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
-In this example, the build process automatically downloads the `mindspore-lite-1.0.1-runtime-arm64-cpu` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+In this example, the build process automatically downloads the `mindspore-lite-1.1.0-inference-android` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.1.0-inference-android.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-inference-android.tar.gz) and put them in the corresponding location.
 
 ```text
 android{
@@ -164,27 +164,40 @@ Create a link to the `.so` library file in the `app/CMakeLists.txt` file:
 # ============== Set MindSpore Dependencies. =============
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/flatbuffers/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION})
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/ir/dtype)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/schema)
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/include)
 
-add_library(mindspore-lite SHARED IMPORTED )
-add_library(minddata-lite SHARED IMPORTED )
+add_library(mindspore-lite SHARED IMPORTED)
+add_library(minddata-lite SHARED IMPORTED)
+add_library(hiai SHARED IMPORTED)
+add_library(hiai_ir SHARED IMPORTED)
+add_library(hiai_ir_build SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/libmindspore-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/aarch64/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/lib/libminddata-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/lib/aarch64/libminddata-lite.so)
+set_target_properties(hiai PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai.so)
+set_target_properties(hiai_ir PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai_ir.so)
+set_target_properties(hiai_ir_build PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai_ir_build.so)
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.
 target_link_libraries(
     ...
      # --- mindspore ---
-        minddata-lite
-        mindspore-lite
+         minddata-lite
+         mindspore-lite
+         hiai
+         hiai_ir
+         hiai_ir_build
     ...
 )
 ```
