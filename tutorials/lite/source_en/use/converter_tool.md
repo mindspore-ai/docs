@@ -59,6 +59,7 @@ The following describes the parameters in detail.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
 > - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
+> - Currently, TensorFlow converter is in the Beta stage, the range of supported parsers for TensorFlow is relatively limited.
 
 ### Example
 

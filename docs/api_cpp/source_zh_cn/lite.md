@@ -66,7 +66,7 @@ device_list_
 
 [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#devicecontextvector) 类型, 元素为 [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#devicecontext) 的**vector**.
 
-> 现在只支持CPU和GPU。如果设置了GPU设备环境变量，优先使用GPU设备，否则优先使用CPU设备。
+> 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
 
 ## PrimitiveC
 
@@ -190,7 +190,7 @@ DT_GPU = 1
 DT_NPU = 2
 ```
 
-设备为NPU，暂不支持。
+设备为NPU。
 
 ## Version
 
@@ -258,7 +258,7 @@ device_type
 device_info_
 ```
 
-**union**类型，包含[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#cpudeviceinfo) 和[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#gpudeviceinfo) 。
+**union**类型，包含 [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#cpudeviceinfo) 、 [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#gpudeviceinfo)  和 [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/lite.html#npudeviceinfo) 。
 
 ## DeviceInfo
 
