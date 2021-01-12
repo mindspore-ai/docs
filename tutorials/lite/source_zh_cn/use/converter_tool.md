@@ -58,6 +58,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - 为保证权重量化的精度，建议`--bitNum`参数设定范围为8bit～16bit。
 > - 全量化目前仅支持激活值8bit、权重8bit的量化方式。
+> - 当前转换工具对于TensorFlow的支持处于Beta阶段，支持的算子范围比较有限。
 
 ### 使用示例
 
