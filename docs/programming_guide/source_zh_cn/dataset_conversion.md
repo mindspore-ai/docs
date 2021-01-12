@@ -34,7 +34,7 @@
 本示例主要介绍用户如何将自己的CV类数据集转换成MindRecord，并使用`MindDataset`读取。
 
 本示例首先创建一个包含100条记录的MindRecord文件，其样本包含`file_name`（字符串）、
-`label`（整形）、 `data`（二进制）三个字段，然后使用`MindDataset`读取该MindRecord文件。
+`label`（整型）、 `data`（二进制）三个字段，然后使用`MindDataset`读取该MindRecord文件。
 
 1. 导入相关模块。
 
@@ -105,7 +105,7 @@
 
 本示例主要介绍用户如何将自己的NLP类数据集转换成MindRecord，并使用`MindDataset`读取。为了方便展示，此处略去了将文本转换成字典序的预处理过程。
 
-本示例首先创建一个包含100条记录的MindRecord文件，其样本包含八个字段，均为整形数组，然后使用`MindDataset`读取该MindRecord文件。
+本示例首先创建一个包含100条记录的MindRecord文件，其样本包含八个字段，均为整型数组，然后使用`MindDataset`读取该MindRecord文件。
 
 1. 导入相关模块。
 
