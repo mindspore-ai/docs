@@ -12,7 +12,7 @@
 #
 import os
 import sys
-
+import IPython
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +23,6 @@ author = 'MindSpore'
 # The full version, including alpha/beta/rc tags
 release = 'master'
 
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -32,6 +31,9 @@ release = 'master'
 extensions = [
     'recommonmark',
     'sphinx_markdown_tables',
+    'nbsphinx',
+    'sphinx.ext.mathjax',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 source_suffix = {
@@ -46,6 +48,12 @@ templates_path = ['_templates']
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
+
+highlight_language = 'none'
+
+suppress_warnings = [
+    'nbsphinx',
+]
 
 pygments_style = 'sphinx'
 
