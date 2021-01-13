@@ -63,7 +63,7 @@ Please referring MindSpore [installation](https://gitee.com/mindspore/docs/blob/
 
 ### Converter and Runtime Tool
 
-Acquire `converter` and `runtime-arm64-cpu` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html) chapter, the command is shown below:
+Acquire `train-converter-linux-x64` and `train-android-aarch64` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/r1.1/use/build.html) chapter, the command is shown below:
 
 ```shell
 # generate converter tools and runtime package on x86
