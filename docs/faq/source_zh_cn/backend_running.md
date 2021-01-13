@@ -4,6 +4,35 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：如何在训练过程中监控`loss`在最低的时候并保存训练参数？**</font>
+
+A：可以自定义一个`Callback`。参考`ModelCheckpoint`的写法，此外再增加判断`loss`的逻辑：
+
+```python
+class EarlyStop(Callback):
+def __init__(self):
+    self.loss = None
+def step_end(self, run_context):
+     loss =  ****(get current loss)
+     if (self.loss == None or loss < self.loss):
+         self.loss = loss
+         # do save ckpt
+```
+
+<br/>
+
+<font size=3>**Q：`mindspore/tests`下怎样执行单个`ut`用例？**</font>
+
+A：`ut`用例通常需要基于debug版本的MindSpore包，官网并没有提供。可以基于源码使用`sh build.sh`编译，然后通过`pytest`指令执行，debug模式编包不依赖后端。编译选项`sh build.sh -t on`，用例执行可以参考`tests/runtest.sh`脚本。
+
+<br/>
+
+<font size=3>**Q：使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
+
+A：`Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+
+<br/>
+
 <font size=3>**Q：MindSpore安装完成，执行训练时发现网络性能异常，权重初始化耗时过长，怎么办？**</font>  
 
 A：可能与环境中使用了`scipy 1.4`系列版本有关，通过`pip list | grep scipy`命令可查看scipy版本，建议改成MindSpore要求的`scipy`版本。版本第三方库依赖可以在`requirement.txt`中查看。

@@ -4,6 +4,46 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？**</font>
+
+A：`Conv2D`算子是有这个约束条件的：当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用`ops.Conv2D`，这个算子目前不支持`group`>1。目前MindSpore只有`nn.Conv2D`接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
+`Conv2D`算子的
+
+```python
+def __init__(self,
+                 out_channel,
+                 kernel_size,
+                 mode=1,
+                 pad_mode="valid",
+                 pad=0,
+                 stride=1,
+                 dilation=1,
+                 group=1,
+                 data_format="NCHW"):
+```
+
+函数中带有`group`参数，这个参数默认就会被传到C++层。
+
+<br/>
+
+<font size=3>**Q：Convolution Layers有没有提供3D卷积？**</font>
+
+A：目前MindSpore在Ascend上有支持3D卷积的计划。您可以关注官网的[支持列表](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operator_list.html)，等到算子支持后会在表中展示。
+
+<br/>
+
+<font size=3>**Q：MindSpore支持矩阵转置吗？**</font>
+
+A：支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+
+<br/>
+
+<font size=3>**Q：请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
+
+A：MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/doc/api_python/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+
+<br/>
+
 <font size=3>**Q：使用MindSpore-1.0.1版本在图数据下沉模式加载数据异常是什么原因？**</font>
 
 A：应该是`construct`中直接使用了带有`axis`属性的算子，比如`P.Concat(axis=1)((x1, x2))`这种，建议把算子在`__init__`中初始化 像这样
