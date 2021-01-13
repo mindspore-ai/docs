@@ -24,7 +24,7 @@
     - 安装完成后将CMake所在路径添加到系统环境变量。
 - 确认安装Python 3.7.5版本。
     - 如果未安装或者已安装其他版本的Python，可从[官网](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)或者[华为云](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz)下载Python 3.7.5版本 64位，进行安装。
-- 确认安装Ascend 310 AI处理器软件配套包（Atlas Intelligent Edge Solution V100R020C20T200）。
+- 确认安装Ascend 310 AI处理器软件配套包（[Atlas Intelligent Edge Solution V100R020C20T200](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-intelligent-edge-solution-pid-251167903/software/252198033)）。
     - 确认当前用户有权限访问Ascend 310 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
     - 需要安装配套GCC 7.3版本的Ascend 310 AI处理器软件配套包。
     - 安装Ascend 310 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
