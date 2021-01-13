@@ -28,8 +28,8 @@
 
 整个端侧训练流程分为以下三步：
 
-1. 基于MindSpore构建训练模型，并导出`MINDIR`格式文件。
-2. 使用MindSpore Lite `Converter`工具，将`MINDIR`模型转为端侧`MS`模型。
+1. 基于MindSpore构建训练模型，并导出`MindIR`格式文件。
+2. 使用MindSpore Lite `Converter`工具，将`MindIR`模型转为端侧`MS`模型。
 3. 调用MindSpore Lite训练API，加载端侧`MS`模型，执行训练。
 
 下面章节首先通过示例代码中集成好的脚本，帮你快速部署并执行示例，再详细讲解实现细节。
@@ -84,7 +84,7 @@ bash build.sh -I arm64 -T on -e cpu -j8
 
 ## 模型训练和验证
 
-示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令后，脚本会导出`lenet_tod.mindir`模型，然后利用`converter`工具将`MINDIR`模型转换为MindSpore Lite可以识别的`lenet_tod.ms`模型；最后，将`lenet_tod.ms`模型文件、MNIST数据集以及MindSpore Lite训练runtime包推送到Andorid设备上，执行训练。
+示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令后，脚本会导出`lenet_tod.mindir`模型，然后利用`converter`工具将`MindIR`模型转换为MindSpore Lite可以识别的`lenet_tod.ms`模型；最后，将`lenet_tod.ms`模型文件、MNIST数据集以及MindSpore Lite训练runtime包推送到Andorid设备上，执行训练。
 
 ```bash
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
@@ -207,7 +207,7 @@ def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
     train_net = nn.TrainOneStepCell(loss_net, optimizer)
 ```
 
-最后调用`export`接口将模型导出为`MINDIR`文件保存（目前端侧训练仅支持`MINDIR`格式）。
+最后调用`export`接口将模型导出为`MindIR`文件保存（目前端侧训练仅支持`MindIR`格式）。
 
 ```python
 export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
