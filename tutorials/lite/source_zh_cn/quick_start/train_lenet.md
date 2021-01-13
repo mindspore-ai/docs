@@ -64,7 +64,7 @@ MNIST_Data/
 
 ### 获取Converter和Runtime
 
-可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html)生成模型训练所需的`conveter`以及`runtime-arm64-cpu`包。编译命令如下：
+可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/build.html)生成模型训练所需的`train-linux-x64`以及`train-android-aarch64`包。编译命令如下：
 
 ```shell
 # 生成converter工具以及x86平台的runtime包
