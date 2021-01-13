@@ -6,7 +6,7 @@
 
 ## 简介
 
-此工程提供MindSpore官方网站<https://mindspore.cn>所呈现安装指南、教程、文档的源文件以及API的相关配置。
+此工程提供MindSpore官方网站<https://www.mindspore.cn>所呈现安装指南、教程、文档的源文件以及API的相关配置。
 
 ## 贡献
 
