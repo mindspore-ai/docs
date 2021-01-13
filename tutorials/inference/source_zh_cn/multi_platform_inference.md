@@ -10,26 +10,42 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-基于MindSpore训练后的模型，支持在不同的硬件平台上执行推理。本文介绍各平台上的推理流程。
+MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务
 
-按照原理不同，推理可以有两种方式：
+MindSpore支持保存两种类型的数据：训练参数和网络模型(模型中包含参数信息)
 
-- 直接使用checkpoint文件进行推理，即在MindSpore训练环境下，使用推理接口加载数据及checkpoint文件进行推理。
-- 将checkpoint文件转化为通用的模型格式，如ONNX、AIR格式模型文件进行推理，推理环境不需要依赖MindSpore。这样的好处是可以跨硬件平台，只要支持ONNX/AIR推理的硬件平台即可进行推理。譬如在Ascend 910 AI处理器上训练的模型，可以在GPU/CPU上进行推理。
+- 训练参数对应的是Checkpoint文件。
+- 网络模型对应的有三种文件格式：MindIR、AIR、ONNX。
 
-MindSpore支持的推理场景，按照硬件平台维度可以分为下面几种：
+下面介绍一下这几种格式的基本概念和相关应用场景：
 
-硬件平台 | 模型文件格式 | 说明
---|--|--
-Ascend 910 AI处理器 | checkpoint格式 | 与MindSpore训练环境依赖一致
-Ascend 310 AI处理器 | ONNX、AIR格式 | 搭载了ACL框架，支持OM格式模型，需要使用工具转化模型为OM格式模型。
-GPU | checkpoint格式 | 与MindSpore训练环境依赖一致。
-GPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
-CPU | checkpoint格式 | 与MindSpore训练环境依赖一致。
-CPU | ONNX格式 | 支持ONNX推理的runtime/SDK，如TensorRT。
+- Checkpoint
+    - 采用了proto buffer格式，存储了网络中所有参数值的二进制文件。
+    - 一般用训练任务中断后恢复训练，或训练后Fine-tune(微调)任务。
+- MindIR
+    - 全称MindSpore IR，是MindSpore的一种基于图表示的函数式IR，定义了可扩展的图结构以及算子的IR表示。
+    - 它消除了不同后端的模型差异，一般用于跨硬件平台执行推理任务。
+- AIR
+    - 全称Ascend Intermediate Representation，是华为定义的针对机器学习所设计的开放式文件格式。
+    - 它能更好地适应华为AI处理器，一般用在Ascend 310上进行推理任务。
+- ONNX
+    - 全称Open Neural Network Exchange，是一种针对机器学习模型的通用表达。
+    - 一般用于不同框架间的模型迁移或在推理引擎([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html))上使用。
 
-> - ONNX，全称Open Neural Network Exchange，是一种针对机器学习所设计的开放式的文件格式，用于存储训练好的模型。它使得不同的人工智能框架（如PyTorch, MXNet）可以采用相同格式存储模型数据并交互。详细了解，请参见ONNX官网<https://onnx.ai/>。
-> - AIR，全称Ascend Intermediate Representation，类似ONNX，是华为定义的针对机器学习所设计的开放式的文件格式，能更好地适配Ascend AI处理器。
-> - ACL，全称Ascend Computer Language，提供Device管理、Context管理、Stream管理、内存管理、模型加载与执行、算子加载与执行、媒体数据处理等C++ API库，供用户开发深度神经网络应用。它匹配Ascend AI处理器，使能硬件的运行管理、资源管理能力。
-> - OM，全称Offline Model，华为Ascend AI处理器支持的离线模型，实现算子调度的优化，权值数据重排、压缩，内存使用优化等可以脱离设备完成的预处理功能。
-> - TensorRT，NVIDIA 推出的高性能深度学习推理的SDK，包括深度推理优化器和runtime，提高深度学习模型在边缘设备上的推断速度。详细请参见<https://developer.nvidia.com/tensorrt>。
+按照使用环境的不同，推理有两种方式：
+
+- 本机推理
+    - 加载网络训练产生的Checkpoint文件，调用`model.predict`接口进行推理验证，具体操作可查看[本地加载模型](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_model_for_inference_and_transfer.html)。
+- 跨平台推理
+    - 使用网络定义和Checkpoint文件，调用`export`接口导出模型文件，在不同平台执行推理，目前支持导出AIR(仅支持Ascend AI处理器)、MindIR、ONNX模型，具体操作可查看[保存模型](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html)。
+
+MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，实现了MindIR格式的模型文件与硬件平台解耦，实现一次训练多次部署。
+
+首先需要使用网络定义和Checkpoint文件导出MindIR模型文件，根据不同需求执行推理任务，常见的应用场景如下：
+
+- 云侧
+    - 在Ascend 910上执行推理任务，详见：[Ascend 910 推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html)。
+    - 在Ascend 310上执行推理任务，详见：[Ascend 310 推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)。
+    - 基于MindSpore Serving部署推理服务，详见：[Serving 部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html)。
+- 端侧
+    - 使用MindSpore Lite提供的离线转换模型功能工具，对模型进行转化优化后用于推理，详见：[端侧推理](https://www.mindspore.cn/lite/docs?master)。
