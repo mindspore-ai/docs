@@ -30,7 +30,7 @@
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
     - 安装完成后将patch所在路径添加到系统环境变量中。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装Ascend 310 AI处理器软件配套包（Atlas Intelligent Edge Solution V100R020C20T200）。
+- 确认安装Ascend 310 AI处理器软件配套包（[Atlas Intelligent Edge Solution V100R020C20T200](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-intelligent-edge-solution-pid-251167903/software/252198033)）。
     - 确认当前用户有权限访问Ascend 310 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
     - 需要安装配套GCC 7.3版本的Ascend 310 AI处理器软件配套包。
     - 安装Ascend 310 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
