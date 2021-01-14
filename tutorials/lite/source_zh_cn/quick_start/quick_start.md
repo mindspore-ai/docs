@@ -233,11 +233,12 @@ target_link_libraries(
         context->thread_num_ = num_thread;
 
         // Create the mindspore session.
+        context->device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
+        context->device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
+        context->device_list_[0].device_type_ = mindspore::lite::DT_CPU;
+
         labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
         delete (context);
-        context->device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-        context->device_list_[0].device_info_.cpu_device_info_.enable_float16_ = true;
-        context->device_list_[0].device_type_ = mindspore::lite::DT_CPU;
         ```
 
     - 加载模型文件并构建用于推理的计算图
@@ -245,10 +246,9 @@ target_link_libraries(
         ```cpp
         void MSNetWork::CreateSessionMS(char* modelBuffer, size_t bufferLen, std::string name, mindspore::lite::Context* ctx)
         {
-            CreateSession(modelBuffer, bufferLen, ctx);  
-            session = mindspore::session::LiteSession::CreateSession(ctx);
-            auto model = mindspore::lite::Model::Import(modelBuffer, bufferLen);
-            int ret = session->CompileGraph(model);
+            session_ = mindspore::session::LiteSession::CreateSession(ctx);
+            model_ = mindspore::lite::Model::Import(modelBuffer, bufferLen);
+            int ret = session_->CompileGraph(model_);
         }
         ```
 
