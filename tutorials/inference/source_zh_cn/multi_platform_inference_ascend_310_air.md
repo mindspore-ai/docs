@@ -52,9 +52,9 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 配置开发环境需要的脚本和软件包如下5类，共7个文件。
 
-1. 制卡入口脚本：[make_sd_card.py](https://gitee.com/ascend/tools/blob/master/makesd/for_1.7x.0.0/make_sd_card.py)
+1. 制卡入口脚本：[make_sd_card.py](https://gitee.com/ascend/tools/blob/master/makesd/for_20.0/make_sd_card.py)
 
-2. 制作SD卡操作系统脚本：[make_ubuntu_sd.sh](https://gitee.com/ascend/tools/blob/master/makesd/for_1.7x.0.0/make_ubuntu_sd.sh)
+2. 制作SD卡操作系统脚本：[make_ubuntu_sd.sh](https://gitee.com/ascend/tools/blob/master/makesd/for_20.0/make_ubuntu_sd.sh)
 
 3. Ubuntu操作系统镜像包：[ubuntu-18.04.xx-server-arm64.iso](http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.5-server-arm64.iso)
 
