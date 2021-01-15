@@ -373,14 +373,14 @@ if __name__ == "__main__":
 
     network = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-    repeat_size = 10
+    repeat_size = 1
     net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy(), "Precision": Precision()})
 
     print("============== Starting Testing ==============")
     param_dict = load_checkpoint("./ckpt/checkpoint_lenet-1_1875.ckpt")
     load_param_into_net(network, param_dict)
-    ds_eval = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data", "test"), 32, 1)
+    ds_eval = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data", "test"), 32, repeat_size)
     acc = model.eval(ds_eval, dataset_sink_mode=True)
     print("============== {} ==============".format(acc))
 ```
