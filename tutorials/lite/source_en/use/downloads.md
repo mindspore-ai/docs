@@ -30,7 +30,7 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 |   Module Name   |   Hardware Platform   |   Operating System   |   Download Links   |   SHA-256   |
 |       ---       |          ---          |          ---         |         ---        |     ---     |
 | MindSpore Lite Converter                          | CPU         | Ubuntu-x64                      | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/linux/mindspore-lite-1.1.0-train-converter-linux-x64.tar.gz> | f95a9db98c84ec3d97f88383ecc3832582aa9737ed287c33703deb0b419acf25 |
-| MindSpore Lite Runtime (include image processing) | CPU/GPU/NPU | Android-aarch64/Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-train-android.tar.gz>             | a6d8152f4e2d674c52af2c379f7d07858d30bc0dceef1dbc366e6fa16a5948b5 |
+| MindSpore Lite Runtime (include image processing) | CPU | Android-aarch64/Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-train-android.tar.gz>             | a6d8152f4e2d674c52af2c379f7d07858d30bc0dceef1dbc366e6fa16a5948b5 |
 |                                                   | CPU         | Ubuntu-x64                      | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/linux/mindspore-lite-1.1.0-train-linux-x64.tar.gz>           | 1290f0adc790adc9edce654b9a629a9a323cfcb8453eb6bc19b779ef726282bf |
 
 Android-aarch32 does not support GPU and NPU.
