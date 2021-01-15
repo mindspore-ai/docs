@@ -68,9 +68,8 @@ GradNetWrtX(Net())(x, y)
 输出如下：
 
 ```text
-Tensor(shape=[2, 3], dtype=Float32,
 [[1.4100001 1.5999999 6.6      ]
- [1.4100001 1.5999999 6.6      ]])
+ [1.4100001 1.5999999 6.6      ]]
 ```
 
 MindSpore涉及梯度计算的其他组件，例如`WithGradCell`和`TrainOneStepCell`等，都用到了`GradOperation`，
