@@ -32,7 +32,6 @@ GradOperation的使用实例如下：
 
 ```python
 import numpy as np
-
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
@@ -83,7 +82,6 @@ MindSpore涉及梯度计算的其他组件，例如`WithGradCell`和`TrainOneSte
 
 ```python
 import numpy as np
-
 import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor

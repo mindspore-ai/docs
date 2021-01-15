@@ -81,11 +81,7 @@ The following information is displayed:
 
 ```text
 odict_keys(['weight'])
-Parameter (name=weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
-   [ 8.66129529e-03  7.36288540e-03 -4.32638079e-03]
-   [-1.47628486e-02  8.24100431e-03 -2.71035335e-03]]
-   ......
-   [ 1.58852488e-02 -1.03505487e-02  1.72988791e-02]]]])
+Parameter (name=weight)
 ```
 
 ### cells_and_names
