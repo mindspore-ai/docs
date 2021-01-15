@@ -78,17 +78,13 @@ print(result.keys())
 print(result['weight'])
 ```
 
-样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`conv.weight`参数的结果。
+样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`weight`参数的结果。
 
 输出如下：
 
 ```text
 odict_keys(['weight'])
-Parameter (name=weight, value=[[[[-3.95042636e-03  1.08830128e-02 -6.51786150e-03]
-   [ 8.66129529e-03  7.36288540e-03 -4.32638079e-03]
-   [-1.47628486e-02  8.24100431e-03 -2.71035335e-03]]
-   ......
-   [ 1.58852488e-02 -1.03505487e-02  1.72988791e-02]]]])
+Parameter (name=weight)
 ```
 
 ### cells_and_names
@@ -126,9 +122,9 @@ print(names)
 
 ```text
 ('', Net1<
-  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>
+  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>
   >)
-('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>)
+('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>)
 -------names-------
 ['conv']
 ```

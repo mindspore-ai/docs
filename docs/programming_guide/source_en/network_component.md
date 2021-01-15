@@ -27,7 +27,6 @@ The following is an example of using GradOperation:
 
 ```python
 import numpy as np
-
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
@@ -64,9 +63,8 @@ The preceding example is used to calculate the gradient value of `Net` to x. You
 The following information is displayed:
 
 ```text
-Tensor(shape=[2, 3], dtype=Float32,
 [[1.4100001 1.5999999 6.6      ]
- [1.4100001 1.5999999 6.6      ]])
+ [1.4100001 1.5999999 6.6      ]]
 ```
 
 All other components, such as `WithGradCell` and `TrainOneStepCell`, involved in gradient calculation use `GradOperation`.
@@ -80,7 +78,6 @@ The following uses an example to describe how to use this function. First, you n
 
 ```python
 import numpy as np
-
 import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor
