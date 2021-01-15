@@ -78,7 +78,7 @@ print(result.keys())
 print(result['weight'])
 ```
 
-样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`conv.weight`参数的结果。
+样例中的`Net`采用上文构造网络的用例，打印了网络中所有参数的名字和`weight`参数的结果。
 
 输出如下：
 
@@ -126,9 +126,9 @@ print(names)
 
 ```text
 ('', Net1<
-  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>
+  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>
   >)
-('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>)
+('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>)
 -------names-------
 ['conv']
 ```

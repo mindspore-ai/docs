@@ -75,7 +75,7 @@ print(result.keys())
 print(result['weight'])
 ```
 
-In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `conv.weight` parameter.
+In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `weight` parameter.
 
 The following information is displayed:
 
@@ -123,9 +123,9 @@ The following information is displayed:
 
 ```text
 ('', Net1<
-  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>
+  (conv): Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>
   >)
-('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros>)
+('conv', Conv2d<input_channels=3, output_channels=64, kernel_size=(3, 3),stride=(1, 1),  pad_mode=same, padding=0, dilation=(1, 1), group=1, has_bias=False,weight_init=normal, bias_init=zeros, format=NCHW>)
 -------names-------
 ['conv']
 ```
