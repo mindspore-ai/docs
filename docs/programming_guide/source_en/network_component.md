@@ -27,7 +27,6 @@ The following is an example of using GradOperation:
 
 ```python
 import numpy as np
-
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
@@ -79,7 +78,6 @@ The following uses an example to describe how to use this function. First, you n
 
 ```python
 import numpy as np
-
 import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor
