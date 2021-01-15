@@ -64,9 +64,8 @@ The preceding example is used to calculate the gradient value of `Net` to x. You
 The following information is displayed:
 
 ```text
-Tensor(shape=[2, 3], dtype=Float32,
 [[1.4100001 1.5999999 6.6      ]
- [1.4100001 1.5999999 6.6      ]])
+ [1.4100001 1.5999999 6.6      ]]
 ```
 
 All other components, such as `WithGradCell` and `TrainOneStepCell`, involved in gradient calculation use `GradOperation`.
