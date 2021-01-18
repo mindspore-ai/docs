@@ -1,156 +1,163 @@
-# Contributing Documents
+﻿# Contributing Documents
 
 [查看中文](./CONTRIBUTING_DOC_CN.md)
 
-You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore official website](https://www.mindspore.cn).
+You are welcome to contribute MindSpore documents. Documents that meet requirements will be displayed on the [MindSpore website](https://www.mindspore.cn/en).
 
 <!-- TOC -->
 
 - [Contributing Documents](#contributing-documents)
-    - [Creating or Updating Documents](#creating-or-updating-documents)
-    - [Submitting Modification](#submitting-modification)
-    - [Document Writing Specifications](#document-writing-specifications)
-    - [Markdown Check](#markdown-check)
+    - [Document](#document)
+        - [Updating or Adding a Document](#updating-or-adding-a-document)
+            - [Updating a Document](#updating-a-document)
+            - [Adding a Document](#adding-a-document)
+        - [Checking a Document](#checking-a-document)
+        - [Confirming the Content](#confirming-the-content)
+    - [API](#api)
+        - [Updating or Adding an API](#updating or adding an-api)
+            - [Updating a Python API](#updating-a-python-api)
+            - [Adding a Python API](#adding-a-python-api)
+        - [Checking the Python API](#checking-the-python-api)
+        - [Confirming the Content](#confirming-the-content-1)
 
 <!-- /TOC -->
 
-## Creating or Updating Documents
+This project supports contribution documents in markdown and reStructuredText formats. You can create the `.md` or `.rst` files or modify existing files.
 
-This project supports contribution documents in MarkDown and reStructuredText formats. You can create the ```.md``` or ```.rst``` files or modify existing documents.
+## Document
 
-## Submitting Modification
+MindSpore docs repository provides [Document Writing Specifications](https://gitee.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825) for your reference.
 
-The procedure for submitting the modification is the same as that for submitting the code. For details, see [Code Contribution Guide](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md).
+### Updating or Adding a Document
 
-## Document Writing Specifications
+#### Updating a Document
 
-- The title supports only the ATX style. The title and context must be separated by a blank line.
+If you want to update an existing document, click `View source on Gitee` (as shown in the following figure) on the top of the page to go to the source file. Modify the document and commit changes to a PR to make the contribution.
 
-  ```markdown
-  # Heading 1
+![View Source on Gitee](./resource/_static/logo_source.png)
 
-  ## Heading 2
+#### Adding a Document
 
-  ### Heading 3
-  ```
+If you need to add a document, create a markdown or reStructuredText file in a proper directory. For details about the directory structure of the MindSpore docs repository, see [README](https://gitee.com/mindspore/docs/blob/master/README.md#directory-structure-description).
 
-- If the list title and content need to be displayed in different lines, add a blank line between the title and content. Otherwise, the line breaks may not be implemented.
+1. Create a document.
 
-  ```markdown
-  - Title
+    Requirements for the new document are as follows:
 
-    Content
-  ```
+    - Storage path: A Chinese document is stored in the `source_zh_cn` directory and an English document is stored in the `source_en` directory.
+    - Document name: A document name must consist of lowercase letters or underscores (_).
 
-- Anchors (hyperlinks) in the table of content can contain only Chinese characters, lowercase letters, and hyphens (-). Spaces or other special characters are not allowed. Otherwise, the link is invalid.
+2. Add the new document to the web page.
 
-- Precautions are marked with a right angle bracket (>).
+    After the writing is complete, add the new document to the web page directory.
 
-  ```markdown
-  > Precautions
-  ```
+   Take a training tutorial as an example. Find the [`index.rst`](https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/index.rst) file in the `source_en` directory. This file corresponds to the organization structure of the training tutorial web page.
 
-- References should be listed at the end of the document and marked in the document.
+    Add the new document to the corresponding category. You can also create a category before adding the document. Take **Implementing an Image Classification Application** as an example. Save the document in the `quick_start` directory and name it as `quick_start.md`. Add `quick_start/quick_start` to the Quick Start category, as shown below.
 
-  ```markdown
-  Add a [number] after the referenced text or image description.
+    ```rst
+    .. toctree::
+      :glob:
+      :maxdepth: 1
+      :caption: Quick Start
+      :hidden:
 
-  ## References
-
-  [1] Author. [Document Name](http://xxx).
-
-  [2] Author. Document Name.
-  ```
-
-- Comments in the sample code must comply with the following requirements:
-
-    - Comments are written in English.
-    - Use ```"""``` to comment out Python functions, methods, and classes.
-    - Use ```#``` to comment out other Python code.
-    - Use ```//``` to comment out C++ code.
-
-  ```markdown
-  """
-  Comments on Python functions, methods, and classes
-  """
-
-  # Python code comments
-
-  // C++ code comments
-
-  ```
-
-- A blank line must be added before and after an image and an image title. Otherwise, the typesetting will be abnormal. For example as correctly:
-
-   ```markdown
-  Example:
-
-  ![](./xxx.png)
-
-  Figure 1: xxx
-
-  The following content.
-  ```
-
-- A blank line must be added before and after a table. Otherwise, the typesetting will be abnormal. Tables are not supported in ordered or unordered lists. For example as correctly:
-
-  ```markdown
-  ## Title
-
-  | Header1  | Header2
-  | :-----   | :----
-  | Body I1  | Body I2
-  | Body II1 | Body II2
-
-  The following content.
-  ```
-
-- Mark the reference interface, path name, file name in the tutorial and document with "\` \`". If it's a function or method, don't use parentheses at the end. For example:
-
-    - Reference method
-
-    ```markdown
-    Use the `map` method.
+      quick_start/quick_start
+      quick_start/linear_regression
+      quick_start/quick_video
     ```
 
-    - Reference code
+After completing the preceding operations, commit to a PR to make contribution.
 
-    ```markdown
-    `batch_size`: number of data in each group.
-    ```
+### Checking a Document
 
-    - Reference path
+After committing to a PR, ensure that the `mindspore-cla/yes` and `ci-pipeline-passed` labels exist and the `stat/need-squash` label does not exist. The PR can be merged only after being approved by the committer.
 
-    ```markdown
-    Decompress the dataset and store it in `./MNIST_Data`.
-    ```
+- `mindspore-cla/yes`: indicates that the CLA has been properly signed. If the CLA is not signed, the system automatically adds the `mindspore-cla/no` label. After the CLA is signed, add the comment `/check-cla` under the PR. Then the `mindspore-cla/yes` label is automatically added.
+- `ci-pipeline-passed`: indicates that the MindSpore CI check is passed. When a PR is created, MindSpore CI automatically starts the check. If the check is passed, the system automatically adds the label. If the check fails, the system automatically adds the `ci-pipeline-failed` label. After problems are resolved, add the comment `/retest` under the PR. If the check is successful, the `ci-pipeline-passed` label is automatically added.
+- `stat/need-squash`: indicates that the PR has multiple commits. The label is automatically deleted only after the commits are merged into one commit through the `git rebase` operation.
 
-    - Reference file name
+MindSpore CI uses check tools such as Markdownlint, Pylint, Shellcheck, Cppcheck, Cpplint, and Tab.
 
-    ```markdown
-    Other dependencies is described in `requirements.txt`.
-    ```
+Markdownlint is a tool for checking the markdown file format. You can use the tool to check the format based on the configured rules and new rules. MindSpore CI modifies the following rules based on the default configuration:
 
-- In tutorials and documents, the contents that need to be replaced need additional annotation. In the body, a "*" should be added before and after the content. In the code snippet, the content should be annotated with "{}". For example:
+- MD007 (unordered list indentation): The **indent** parameter is set to **4**, indicating that all content in the unordered list needs to be indented using four spaces.
+- MD009 (spaces at the line end): The **br_spaces** parameter is set to **2**, indicating that there can be 0 or 2 spaces at the end of a line.
+- MD029 (sequence numbers of an ordered list): The **style** parameter is set to **ordered**, indicating that the sequence numbers of the ordered list are in ascending order.
 
-    - In body
+For details, see [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
 
-    ```markdown
-    Need to replace your local path *your_ path*.
-    ```
+### Confirming the Content
 
-    - In code snippet
+On the next day after the PR is merged, you can view the new content on the MindSpore website. A new link will be created for the new document.
 
-    ```markdown
-    conda activate {your_env_name}
-    ```
+By default, tutorials and documents of the latest version are displayed on the official website. To view the newly merged content, switch to master from the drop-down list.
 
-## Markdown Check
+![master_doc_en](./resource/_static/master_doc_en.png)
 
-Markdownlint is a tool for checking the correctness of the Markdown file format. It can perform a comprehensive check on the Markdown file according to the set rules and the new rules created by users.
+Take **Implementing an Image Classification Application** as an example. The document link is <https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html>.
 
-Among them, MindSpore CI modified the following rules based on the default configuration:
+## API
 
-MD007(Unordered list indentation) sets the `indent` as 4; MD009 (Trailing spaces) sets the `br_spaces` as 2; MD029 (Ordered list item prefix) sets the `style` as ordered.
+MindSpore docs repository provides [API Comment Specifications](https://gitee.com/mindspore/docs/wikis/MindSpore%20API%20Comment%20Specifications?sort_id=3379820) for your reference.
 
-For other detailed rules, please refer to [RULES](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
+### Updating or Adding an API
+
+#### Updating a Python API
+
+If you want to update an existing API, find the source file of the API in the MindSpore code.
+
+If you do not know the file link, click **source** and find the file link by referring to the content following `_modules` in the link.
+
+Take Tensor as an example. After clicking **source**, you can obtain the link <https://www.mindspore.cn/doc/api_python/en/master/_modules/mindspore/common/tensor.html#Tensor>. Then, the source file link is <https://gitee.com/mindspore/mindspore/blob/master/mindspore/common/tensor.py>.
+
+![API Source](./resource/_static/api_source.png)
+
+Modify the comments in the source file and commit changes to a PR to make the contribution.
+
+#### Adding a Python API
+
+If you want to add an API, check whether the API has been added to an existing module. For details about the existing modules, see <https://www.mindspore.cn/doc/api_python/en/master/index.html>.
+
+If the API belongs to an existing module, comment out the API in the MindSpore code repository based on the requirements and add the API to \_\_all\_\_ of the corresponding module. Ensure that the API can be used in **mindspore.*Module name*.*API name*** format.
+
+If the API belongs to the following modules, the API list of the MindSpore docs repository needs to be updated.
+
+- `mindspore.dataset`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.rst)
+- `mindspore.dataset.text`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.text.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.text.rst)
+- `mindspore.dataset.transforms`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.transforms.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.transforms.rst)
+- `mindspore.dataset.vision`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.vision.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.vision.rst)
+- `mindspore.nn`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.rst)
+- `mindspore.nn.probability`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.nn.probability.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.nn.probability.rst)
+- `mindspore.ops`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.ops.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.ops.rst)
+- `mindspore.ops.operations`: [中文](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/operations.rst) | [English](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/operations.rst)
+
+If the API does not belong to the existing module, add an API project file of the MindSpore docs repository. To add the API of the `mindspore.context` module, you need to create the [`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.context.rst) file in the `docs/docs/api_python/source_en/mindspore` directory and add the file to the [directory structure](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/index.rst).
+
+```rst
+.. toctree::
+   :maxdepth: 1
+   :caption: MindSpore Python API
+
+   ...
+   mindspore/mindspore.context
+   ...
+```
+
+After completing the preceding modification, commit to a PR to make contribution.
+
+### Checking the Python API
+
+After committing to a PR, ensure that the `mindspore-cla/yes` and `ci-pipeline-passed` labels exist and the `stat/need-squash` label does not exist. The PR can be merged only after being approved by the committer.
+
+For details about each label, see [Checking a Document](#checking-a-document).
+
+MindSpore CI uses the Pylint check tool.
+
+### Confirming the Content
+
+On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](<https://www.mindspore.cn/doc/api_python/en/master/index.html>) page.
+
+By default, APIs of the latest version are displayed. To view the newly merged content, switch to the master version.
+
+![master_api_en](./resource/_static/master_api_en.png)
