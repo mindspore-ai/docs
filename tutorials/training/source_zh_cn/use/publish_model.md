@@ -44,14 +44,14 @@
    ├── mshub_res
    │   ├── assets
    │       ├── mindspore
-   |           ├── gpu
-   |               ├── 0.7
-   |           ├── ascend
-   |               ├── 0.7
-   |                   ├── googlenet_v1_cifar10.md
+   │           ├── gpu
+   │               ├── 0.7
+   │           ├── ascend
+   │               ├── 0.7
+   │                   ├── googlenet_v1_cifar10.md
    │   ├── tools
-   |       ├── md_validator.py
-   |       └── md_validator.py
+   │       ├── md_validator.py
+   │       └── md_validator.py
    ```
 
    注意，`{model_name}_{model_version}_{dataset}.md`文件中需要补充如下所示的`file-format`、`asset-link` 和 `asset-sha256`信息，它们分别表示模型文件格式、模型存储位置（步骤1所得）和模型哈希值。

@@ -226,14 +226,14 @@ unzip mindspore-lite-maven-{version}.zip
 仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-converter-{os}-{arch}
 │   └── converter # 模型转换工具
-|       ├── converter_lite # 可执行程序
+│       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
-|       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
+│       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
 │   └── third_party # 第三方库头文件和库
-|       ├── glog # Glog的动态库
+│       ├── glog # Glog的动态库
 ```
 
 #### Runtime及其他工具目录结构说明
@@ -243,10 +243,10 @@ unzip mindspore-lite-maven-{version}.zip
 - 当编译选项为`-I x86_64`时：
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # 基准测试工具
-    |   └── cropper # 库裁剪工具
+    │   └── cropper # 库裁剪工具
     │       ├── cropper  # 库裁剪工具可执行文件
     │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     │   └── include # 推理框架头文件
@@ -265,7 +265,7 @@ unzip mindspore-lite-maven-{version}.zip
 - 当编译选项为`-I arm64`或`-I arm32`时：
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-inference-android-{arch}
     │   └── benchmark # 基准测试工具
     │   └── include # 推理框架头文件  
@@ -284,11 +284,11 @@ unzip mindspore-lite-maven-{version}.zip
 - 当编译选项为`-A java`时：
 
   ```text
-  |
+  │
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
   │       └── mindspore-lite
-  |           └── {version}
+  │           └── {version}
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
   ```
 
@@ -334,16 +334,16 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 仅在`-I x86_64`编译选项下获得内容如下：
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-train-converter-linux-x64
 │   └── converter # 模型转换工具
-|       ├── converter_lite # 可执行程序
+│       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
-|       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
+│       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
 │   └── minddata # 图像处理动态库
-|       ├── include # 头文件
+│       ├── include # 头文件
 │   └── third_party # 第三方库头文件和库
-|       ├── glog # Glog的动态库
+│       ├── glog # Glog的动态库
 ```
 
 #### 训练Runtime及其他工具目录结构说明
@@ -353,10 +353,10 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 - 当编译选项为`-I x86_64`时：
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-train-linux-x64
     │   └── benchmark # 基准测试工具
-    |   └── cropper # 库裁剪工具
+    │   └── cropper # 库裁剪工具
     │       ├── cropper  # 库裁剪工具可执行文件
     │       ├── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     │   └── include # 训练框架头文件
@@ -377,7 +377,7 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 - 当编译选项为`-I arm64`或`-I arm32`时：
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-train-android-{arch}
     │   └── include # 训练框架头文件
     │   └── lib # 训练框架库
@@ -472,16 +472,16 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 转换工具的内容包括以下几部分：
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-converter-win-x64
 │   └── converter # 模型转换工具
-|       ├── converter_lite.exe # 可执行程序
-|       ├── libglog.dll # Glog的动态库
-|       ├── libmindspore_gvar.dll # 存储某些全局变量的动态库
-|       ├── libgcc_s_seh-1.dll # MinGW动态库
-|       ├── libssp-0.dll # MinGW动态库
-|       ├── libstdc++-6.dll # MinGW动态库
-|       ├── libwinpthread-1.dll # MinGW动态库
+│       ├── converter_lite.exe # 可执行程序
+│       ├── libglog.dll # Glog的动态库
+│       ├── libmindspore_gvar.dll # 存储某些全局变量的动态库
+│       ├── libgcc_s_seh-1.dll # MinGW动态库
+│       ├── libssp-0.dll # MinGW动态库
+│       ├── libstdc++-6.dll # MinGW动态库
+│       ├── libwinpthread-1.dll # MinGW动态库
 ```
 
 #### 基准测试工具benchmark目录结构说明
@@ -489,7 +489,7 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 基准测试工具的内容包括以下几部分：
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-inference-win-x64
 │   └── benchmark # 基准测试工具
 │       ├── benchmark.exe # 可执行程序
@@ -497,9 +497,9 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 │       ├── libmindspore-lite.dll # MindSpore Lite推理框架的动态库
 │       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
 │       ├── libgcc_s_seh-1.dll # MinGW动态库
-|       ├── libssp-0.dll # MinGW动态库
-|       ├── libstdc++-6.dll # MinGW动态库
-|       ├── libwinpthread-1.dll # MinGW动态库
+│       ├── libssp-0.dll # MinGW动态库
+│       ├── libstdc++-6.dll # MinGW动态库
+│       ├── libwinpthread-1.dll # MinGW动态库
 │   └── include # 推理框架头文件  
 ```
 
