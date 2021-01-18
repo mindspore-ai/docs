@@ -56,6 +56,7 @@
    :hidden:
 
    advanced_use/debug_in_pynative_mode
+   advanced_use/dump_data_from_ir_files
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
@@ -417,6 +418,18 @@
 										</div>
 										<div class="doc-article-desc">
 											PyNative模式下，支持执行单算子、普通函数和网络，以及单独求梯度的操作，本教程将详细介绍使用方法和注意事项。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">借助IR文件进行调试</span>
+										</div>
+										<div class="doc-article-desc">
+											Graph模式下，生成训练时产生的IR文件，并根据此文件Dump出特定算子供于调试。本教程将详细介绍使用方法和注意事项。
 										</div>
 									</div>
 								</a>
