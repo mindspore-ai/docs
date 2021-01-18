@@ -36,8 +36,9 @@ MindSpore调试器是为图模式训练提供的调试工具，可以用来查�
 
 ## 操作流程
 
-- 以调试模式启动MindInsight，配置相关环境变量；
-- 训练开始，在MindInsight调试器界面设置监测点；
+- 以调试模式启动MindInsight，等待训练连接；
+- 配置相关环境变量，运行训练脚本；
+- 训练连接成功，在MindInsight调试器界面设置监测点；
 - 在MindInsight调试器界面分析训练执行情况。
 
 ## 调试器环境准备
@@ -68,9 +69,11 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 此外，训练时不要使用数据下沉模式（需设置`model.train`中的`dataset_sink_mode`为`False`），以保证调试器可以获取每个轮次的训练信息。
 
+调试器环境准备完成后，运行训练脚本。
+
 ## 调试器页面介绍
 
-调试器环境准备完成后，开始训练。在训练正式执行前，可以在MindInsight调试器界面查看计算图等训练元信息，调试器页面布局由计算图、节点列表、节点信息、监测点列表、监测点命中列表等部分组成。
+训练连接成功后，可以在MindInsight调试器界面查看计算图等训练元信息，调试器页面布局由计算图、节点列表、节点信息、监测点列表、监测点命中列表等部分组成。
 
 ![debugger_init_page](images/debugger_init_page.png)
 
