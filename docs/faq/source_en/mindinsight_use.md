@@ -24,3 +24,9 @@ In this case, you can perform either of the following operations:
 <font size=3>**Q: What can I do if the Google's Chrome browser prompts the error message `ERR_UNSAFE_PORT after` MindInsight is successfully started?**</font>
 
 A: Chrome browser's kernel prohibits certain ports from being used as HTTP services. You can add `--explicitly-allowed-ports=port` in Chrome browser's configuration. Otherwise you can change the port or browser like IE browser.
+
+<br />
+
+<font size=3>**Q: What can I do if the error `Exeption calling application: Field number 0 is illegal` appears on Ascend after MindInsight is successfully started with debugger turning on, and the training script is trying to connecting to debugger?**</font>
+
+A: It means the wrong version of protobuf is installed, please install the right version, see [Installing protobuf Python](https://support.huaweicloud.com/intl/en-us/instg-cli-cann/atlascli_03_0046.html).
