@@ -35,8 +35,6 @@
 
     ![cache on map pipeline](./images/cache_processed_data.png)
 
-   > 对于图像数据，推荐使用 `decode` + `resize` + `cache` 的方式进行数据缓存。如果想要直接缓存`decode`处理后的数据，当前仅支持单机单卡模式。
-
 ## 缓存基础使用
 
 1. 配置环境。
