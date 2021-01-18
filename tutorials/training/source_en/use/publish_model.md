@@ -44,14 +44,14 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ├── mshub_res
    │   ├── assets
    │       ├── mindspore
-   |           ├── gpu
-   |               ├── 0.7
-   |           ├── ascend
-   |               ├── 0.7
-   |                   ├── googlenet_v1_cifar10.md
+   │           ├── gpu
+   │               ├── 0.7
+   │           ├── ascend
+   │               ├── 0.7
+   │                   ├── googlenet_v1_cifar10.md
    │   ├── tools
-   |       ├── md_validator.py
-   |       └── md_validator.py
+   │       ├── md_validator.py
+   │       └── md_validator.py
    ```
 
    Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.

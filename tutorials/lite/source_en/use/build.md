@@ -227,12 +227,12 @@ unzip mindspore-lite-maven-{version}.zip
 The conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-converter-{os}-{arch}
 │   └── converter # Model conversion Ttool
-|       ├── converter_lite # Executable program
+│       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
-|       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
+│       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
 │   └── third_party # Header files and libraries of third party libraries
 │       ├── glog # Dynamic library of Glog
 ```
@@ -244,10 +244,10 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-I x86_64`:
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-inference-linux-x64
     │   └── benchmark # Benchmarking Tool
-    |   └── cropper # Static library crop tool
+    │   └── cropper # Static library crop tool
     │       ├── cropper  # Executable file of static library crop tool
     │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     │   └── include # Header files of inference framework
@@ -266,7 +266,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-I arm64` or `-I arm32`:
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-inference-android-{arch}
     │   └── benchmark # Benchmarking Tool
     │   └── include # Header files of inference framework
@@ -285,11 +285,11 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-A java`:
 
   ```text
-  |
+  │
   ├── mindspore-lite-maven-{version}
   │   └── mindspore
   │       └── mindspore-lite
-  |           └── {version}
+  │           └── {version}
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
   ```
 
@@ -336,12 +336,12 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 The training model conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-train-converter-linux-x64
 │   └── converter # Model conversion Ttool
-|       ├── converter_lite # Executable program
+│       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
-|       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
+│       ├── libmindspore_gvar.so # A dynamic library that stores some global variables
 │   └── third_party # Header files and libraries of third party libraries
 │       ├── glog # Dynamic library of Glog
 ```
@@ -353,9 +353,9 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 - When the compilation option is `-I x86_64`:
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-train-linux-x64
-    |   └── cropper # Static library crop tool
+    │   └── cropper # Static library crop tool
     │       ├── cropper  # Executable file of static library crop tool
     │       ├── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     │   └── include # Header files of training framework
@@ -376,7 +376,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 - When the compilation option is `-I arm64` or `-I arm32`:  
 
     ```text
-    |
+    │
     ├── mindspore-lite-{version}-train-android-{arch}
     │   └── include # Header files of training framework
     │   └── lib # Training framework library
@@ -471,16 +471,16 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 The content includes the following parts:
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-converter-win-x64
 │   └── converter # Model conversion Ttool
-|       ├── converter_lite # Executable program
-|       ├── libglog.dll # Dynamic library of Glog
-|       ├── libmindspore_gvar.dll # A dynamic library that stores some global variables
-|       ├── libgcc_s_seh-1.dll # Dynamic library of MinGW
-|       ├── libssp-0.dll # Dynamic library of MinGW
-|       ├── libstdc++-6.dll # Dynamic library of MinGW
-|       ├── libwinpthread-1.dll # Dynamic library of MinGW
+│       ├── converter_lite # Executable program
+│       ├── libglog.dll # Dynamic library of Glog
+│       ├── libmindspore_gvar.dll # A dynamic library that stores some global variables
+│       ├── libgcc_s_seh-1.dll # Dynamic library of MinGW
+│       ├── libssp-0.dll # Dynamic library of MinGW
+│       ├── libstdc++-6.dll # Dynamic library of MinGW
+│       ├── libwinpthread-1.dll # Dynamic library of MinGW
 ```
 
 #### Description of Benchmark's Directory Structure
@@ -488,7 +488,7 @@ The content includes the following parts:
 The content includes the following parts:
 
 ```text
-|
+│
 ├── mindspore-lite-{version}-inference-win-x64
 │   └── benchmark # Benchmarking Tool
 │       ├── benchmark.exe # Executable program
@@ -496,9 +496,9 @@ The content includes the following parts:
 │       ├── libmindspore-lite.dll # Dynamic library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite.dll.a # Link file of dynamic library of infernece framework in MindSpore Lite
 │       ├── libgcc_s_seh-1.dll # Dynamic library of MinGW
-|       ├── libssp-0.dll # Dynamic library of MinGW
-|       ├── libstdc++-6.dll # Dynamic library of MinGW
-|       ├── libwinpthread-1.dll # Dynamic library of MinGW
+│       ├── libssp-0.dll # Dynamic library of MinGW
+│       ├── libstdc++-6.dll # Dynamic library of MinGW
+│       ├── libwinpthread-1.dll # Dynamic library of MinGW
 │   └── include # Header files of inference framework
 ```
 
