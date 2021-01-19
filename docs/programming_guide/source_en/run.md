@@ -234,7 +234,7 @@ if __name__ == "__main__":
     model = Model(network, net_loss, net_opt)
 
     print("============== Starting Training ==============")
-    model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
+    model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
 ```
 
 > For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/r1.1/quick_start/quick_start.html#downloading-the-dataset).
