@@ -1,5 +1,239 @@
-# Access MindSpore Serving service based on RESTful interface
+# RESTful-based MindSpore Serving Access
 
-No English version available right now, welcome to contribute.
+`Linux` `Serving` `Ascend` `Beginner` `Intermediate` `Expert`
+
+<!-- TOC -->
+
+- [RESTful-based MindSpore Serving Access](#restful-based-mindspore-serving-access)
+    - [Overview](#overview)
+    - [Request Method](#request-method)
+    - [Request Format](#request-format)
+        - [Base64 Data Encoding](#base64-data-encoding)
+    - [Response Format](#response-format)
+
+<!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
+
+## Overview
+
+MindSpore Serving supports both `gPRC` and `RESTful` request modes. The following describes the `RESTful` request.
+
+`RESTful` is an API designed and developed based on `HTTP`. It manages and accesses resources through `URI` and features high scalability and clear structure. The lightweight `RESTful` can directly transmit data through `HTTP`, and has become the most popular `Web` service access mode. Users can directly interact with services in `RESTful` mode.
+
+For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html).
+
+Use the `master.start_restful_server` API to start the `RESTful` service. Alternatively, you can use `master.start_grpc_server` to start the `gRPC` service.
+
+> `RESTful` clients do not depend on specific hardware platforms. Currently, the Serving server supports only `Ascend 310` and `Ascend 910` hardware environments.
+
+## Request Method
+
+Currently, only RESTful request of the `POST` type is supported. The request format is as follows:
+
+```text
+POST http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+In the preceding information:
+
+- `${HOST}`: specifies the IP address to be accessed.
+- `${PORT}`: specifies the port number to be accessed.
+- `${MODLE_NAME}`: specifies the name of a model in the request.
+- `${VERSION}`: specifies the version number. The version number is optional. If it is not specified, the latest model version is used by default.
+- `${METHOD_NAME}`: specifies the method name of the request model.
+
+If the `curl` tool is used, the RESTful request method is as follows:
+
+```text
+curl -X POST -d '${REQ_JSON_MESSAGE}' http://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+For example, request for the `predict` method of the `LeNet` model to perform digital image inference:
+
+```text
+curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://127.0.0.1:1500/model/lenet/version/1:predict
+```
+
+In the preceding information, `babe64-encoded-string` indicates the character string generated after the digital image is encoded using `base64`. The character string is long and is not listed explicitly.
+
+## Request Format
+
+RESTful supports the `Json` request format. `key` is fixed at `instances`, and `value` indicates multiple instances.
+
+Each instance is represented by a `Json` object in `key-value` format. In the preceding information:
+
+- `key`: specifies the input name, which must be the same as the input parameter name of the method provided by the request model. If they are different, the request fails.
+
+- `value`: a specific value. Currently supported `value` types:
+
+    - Scalar: `str`, `bytes`, `int`, `float` and `bool`
+
+      `bytes` is supported after `base64` encoding.
+
+    - Tensor: a one-level or multi-level array consisting of `int`, `float`, and `bool`
+
+      A tensor uses the array format to indicate data and dimension information.
+
+The `int` type supported in `Json` is `int32`, indicating the range, and the supported `float` type is `float32`, indicating the range.
+
+Request format:
+
+```text
+{
+    "instances":[
+        {
+            "input_name1":<value>|<list>|<object>,
+            "input_name2":<value>|<list>|<object>,
+            ...
+        },
+        {
+            "input_name1":<value>|<list>|<object>,
+            "input_name2":<value>|<list>|<object>,
+            ...
+        }
+        ...
+    ]
+}
+```
+
+Example:
+
+```text
+{
+    "instances":[
+        {
+            "tag":"one",
+            "box":[[1,1],[2,3],[3,4]],
+            "image":{"b64":"iVBOR...ggg==="}
+        },
+        {
+            "tag":"two",
+            "box":[[2,2],[5,5],[6,6]],
+            "image":{"b64":"iVBOR...QmCC", "type":"bytes"}
+        }
+    ]
+}
+```
+
+In the preceding information, `iVBOR...ggg===` is the omitted character string of the image number `0` after `base64` encoding. `iVBOR...QmCC` is the omitted character string of the image number `1` after `base64` encoding. The character strings encoded in different images may be different. The preceding description is for reference only.
+
+### Base64 Data Encoding
+
+The `bytes` type needs to be encoded using `base64`. `base64` can indicate the `bytes` type as well as other scalar and tensor data. In this case, the binary data of scalar and tensor is encoded using `base64`, the data type is specified using `type`, and the dimension information is specified using `shape`.
+
+- `type`: This parameter is optional. If it is not specified, the default value is `bytes`.
+
+  The value can be `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64`, `fp16`, `fp32`, `fp64`, `bool`, `str`, or `bytes`.
+
+- `shape`: This parameter is optional. If it is not specified, the default value is `[1]`.
+
+Example:
+
+If the `base64` encoding is used to indicate a tensor of `int16` type, with `shape` 3*2 and the value `[[1,1],[2,3],[3,4]]`, the expression is as follows:
+
+```json
+{
+    "instances":[
+        {
+            "box":{"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]}
+        }
+    ]
+}
+```
+
+`AQACAAIAAwADAAQA` is a character string obtained after the binary data format of `[[1,1],[2,3],[3,4]]` is encoded using `base64`.
+
+**The supported types are as follows:**
+
+| Supported Type | Example | Remarks |
+| :------: | -------- | ---------------- |
+| `int` | 1, [1, 2, 3, 4] | The default value is `int32`, indicating the range. |
+| `float` | 1.0, [[1.2, 2.3], [3.0, 4.5]] | The default value is `float32`, indicating the range. |
+| `bool` | true, false, [[true], [false]] | `bool` type |
+| `string` | "hello" or <br/> {"b64":"aGVsbG8=", "type":"str"} | Direct representation or representation specified by `type`. |
+| `bytes` | {"b64":"AQACAAIAAwADAAQA"} or <br>{"b64":"AQACAAIAAwADAAQA", "type":"bytes"} | If `type` is not specified, the default value `bytes` is used. |
+| `int8`,`int16`,`int32`,`int64`,`uint8`,`uint16`,`uint32`,`uint64` `f16`,`f32`,`f64`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]} | The base64 encoding is used to indicate the data specified by `type`. |
+
+## Response Format
+
+The response format is the same as the request format. The information in the `Json` format is returned. The response format is as follows:
+
+```text
+{
+    "instances":[
+        {
+            "output_name1":<value>|<list>|<object>,
+            "output_name2":<value>|<list>|<object>,
+            ...
+        },
+        {
+            "output_name1":<value>|<list>|<object>,
+            "output_name2":<value>|<list>|<object>,
+            ...
+        }
+        ...
+    ]
+}
+```
+
+1. If all instances in a request are successfully processed, the response format is as follows:
+
+   Example: `LeNet` requests to recognize numbers `0` and `1`.
+
+   ```json
+   {
+       "instances":[
+           {
+               "result":0
+           },
+           {
+               "result":1
+           }
+       ]
+   }
+   ```
+
+2. If certain instances are faulty, the response format is as follows:
+
+   Example: `LeNet` requests to recognize the digit `0` and an incorrect digit image.
+
+   ```json
+   {
+       "instances":[
+           {
+               "result":0
+           },
+           {
+               "error_msg":"Preprocess Failed"
+           }
+       ]
+   }
+   ```
+
+3. If all instances in a request fail, the response format is as follows:
+
+   Example: `LeNet` requests to recognize two incorrect digital images.
+
+   ```json
+   {
+       "instances":[
+           {
+               "error_msg":"Preprocess Failed"
+           },
+           {
+               "error_msg":"Time out"
+           }
+       ]
+   }
+   ```
+
+4. If a system error or other parsing error occurs, the return value is in the following format:
+
+   For example, the value of `LeNet` is an invalid JSON character string.
+
+   ```json
+   {
+       "error_msg":"Parse request failed"
+   }
+   ```
