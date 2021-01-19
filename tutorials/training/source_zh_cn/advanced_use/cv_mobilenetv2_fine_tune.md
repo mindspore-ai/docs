@@ -251,7 +251,7 @@ sh run_eval.sh <PLATFORM> <DATASET_PATH> <PRETRAIN_CKPT_PATH>
 
 - `<PLATFORM>`：处理器类型，默认为“Ascend”，可以设置为“GPU”。
 - `<DEVICE_NUM>`：每个节点（一台服务器/PC相当于一个节点）进程数量，建议设置为机器上Ascend AI处理器数量或GPU数量。
-- `<VISIABLE_DEVICES(0,1,2,3,4,5,6,7)>`：字符串格式的的设备ID，训练将会根据`<VISIABLE_DEVICES>`将进程绑定到对应ID的设备上，多个设备ID之间使用','分隔，建议ID数量与进程数量相同。
+- `<VISIABLE_DEVICES(0,1,2,3,4,5,6,7)>`：字符串格式的设备ID，训练将会根据`<VISIABLE_DEVICES>`将进程绑定到对应ID的设备上，多个设备ID之间使用','分隔，建议ID数量与进程数量相同。
 - `<RANK_TABLE_FILE>`：platform选择Ascend时，需要配置Ascend的配置Json文件,。
 - `<DATASET_PATH>`：训练与验证数据集地址，无默认值，用户训练/验证时必须输入。
 - `<CKPT_PATH>`：增量训练或调优时，需要传入checkpoint文件路径以加载预训练好的模型参数权重
