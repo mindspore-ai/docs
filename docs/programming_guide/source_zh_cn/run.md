@@ -240,7 +240,7 @@ if __name__ == "__main__":
     model = Model(network, net_loss, net_opt)
 
     print("============== Starting Training ==============")
-    model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True)
+    model.train(1, ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
 ```
 
 > 示例中用到的MNIST数据集的获取方法，可以参照[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)的下载数据集部分，下同。
