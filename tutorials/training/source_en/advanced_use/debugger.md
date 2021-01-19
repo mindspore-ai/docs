@@ -36,8 +36,9 @@ In `Graph Mode` training, the computation results of intermediate nodes in the c
 
 ## Operation Process
 
-- Launch MindInsight in debugger mode, and set Debugger environment variables for the training.
-- After the training starts, set watchpoints on the MindInsight Debugger UI.
+- Launch MindInsight in debugger mode and wait for the training.
+- Set debugger environment variables and run the training script.
+- After the training is connected, set watchpoints on the MindInsight Debugger UI.
 - Analyze the training progress on MindInsight Debugger UI.
 
 ## Debugger Environment Preparation
@@ -68,9 +69,11 @@ If the memory space of your equipment is limited, you can use the memory reuse m
 
 In addition, do not use data offload mode during training (you need to set `dataset_sink_mode` in `model.train` to `False`) to ensure that the debugger can obtain the training information of each step.
 
+After the debugger environment is prepared, run the training script.
+
 ## Debugger UI Introduction
 
-After the debugger environment is prepared, start training. Before the training is executed, you can view the training meta information such as a computational graph on the MindInsight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, and watchpoint hit list.
+After the training is connected, you can view the training meta information such as a computational graph on the MindInsight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, and watchpoint hit list.
 The Debugger UI components are shown as follows.
 
 ![debugger_init_page](./images/debugger_init_page.png)
@@ -199,7 +202,7 @@ Based on the tensor relationship diagram, you can analyze which tensors are used
 
     The Debugger server is launched and waiting for the training to connect.
 
-2. Run the training script on the device.
+2. Run the training script on terminal.
 
 3. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints, as shown in the following figure.
 
