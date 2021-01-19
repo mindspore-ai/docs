@@ -7,8 +7,10 @@
 - [Ascend 310 AI处理器上使用MindIR模型进行推理](#ascend-310-ai处理器上使用mindir模型进行推理)
     - [概述](#概述)
     - [开发环境准备](#开发环境准备)
-    - [推理目录结构介绍](#推理目录结构介绍)
     - [导出MindIR模型文件](#导出mindir模型文件)
+    - [推理目录结构介绍](#推理目录结构介绍)
+    - [推理代码介绍](#推理代码介绍)
+    - [构建脚本介绍](#构建脚本介绍)
     - [编译推理代码](#编译推理代码)
     - [执行推理并查看结果](#执行推理并查看结果)
 
@@ -36,13 +38,19 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_air.html#id2)
 
+## 导出MindIR模型文件
+
+在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+
+> 这里提供使用ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。
+
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)，`model`目录用于存放接下来导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend310_resnet50_preprocess_sample
-    ├── CMakeLists.txt                    // 编译脚本
+    ├── CMakeLists.txt                    // 构建脚本
     ├── README.md                         // 使用说明
     ├── main.cc                           // 主函数
     ├── model
@@ -53,11 +61,102 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
         ├── ...                           // 输入样本图片n
 ```
 
-## 导出MindIR模型文件
+## 推理代码介绍
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> 。
 
-> 这里提供使用ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。
+环境初始化，指定硬件为Ascend 310，DeviceID为0：
+
+```c++
+ms::Context::Instance()
+    .SetDeviceTarget(ms::kDeviceTypeAscend310)
+    .SetDeviceID(0);
+```
+
+加载模型文件:
+
+```c++
+// Load MindIR model
+auto graph =ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+// Build model with graph object
+ms::Model resnet50((ms::GraphCell(graph)));
+ms::Status ret = resnet50.Build({});
+```
+
+加载图片文件:
+
+```c++
+// Readfile is a function to read images
+std::shared_ptr<ms::Tensor> ReadFile(const std::string &file);
+auto origin_image = ReadFile(image_file);
+```
+
+图片预处理:
+
+```c++
+// Create the CPU operator provided by MindData to get the function object
+ms::MindDataEager compose({mindspore::dataset::vision::Decode(), // Decode the input to PIL format
+                           mindspore::dataset::vision::Resize({256}), // Resize the image to the given size
+                           mindspore::dataset::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
+                                                                 {0.229 * 255, 0.224 * 255, 0.225 * 255}), // Normalize the input
+                           mindspore::dataset::vision::CenterCrop({224, 224}), // Crop the input image at the center
+                           mindspore::dataset::vision::HWC2CHW(), // shape (H, W, C) to shape(C, H, W)
+                          });
+// Call the function object to get the processed image
+auto img = compose(origin_image);
+```
+
+执行推理:
+
+```c++
+// Create outputs
+std::vector<ms::Buffer> outputs;
+// Create inputs
+std::vector<ms::Buffer> inputs;
+inputs.emplace_back(img->Data(), img->DataSize());
+// Call the Predict function of Model for inference
+ret = resnet50.Predict(inputs, &outputs);
+```
+
+获取推理结果:
+
+```c++
+// Output the maximum probability to the screen
+std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+```
+
+## 构建脚本介绍
+
+构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
+
+由于MindSpore使用[旧版的C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)，因此用户程序需与MindSpore一致，否则编译链接会失败。
+
+```bash
+add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
+set(CMAKE_CXX_STANDARD 17)
+```
+
+为编译器添加头文件搜索路径：
+
+```bash
+option(MINDSPORE_PATH "mindspore install path" "")
+include_directories(${MINDSPORE_PATH})
+include_directories(${MINDSPORE_PATH}/include)
+```
+
+在MindSpore中查找所需动态库：
+
+```bash
+find_library(MS_LIB libmindspore.so ${MINDSPORE_PATH}/lib)
+file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
+```
+
+使用指定的源文件生成目标可执行文件，并为目标文件链接MindSpore库：
+
+```bash
+add_executable(resnet50_sample main.cc)
+target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
+```
 
 ## 编译推理代码
 
