@@ -68,6 +68,7 @@ Neural Network Operators
     mindspore.ops.MaxPool
     mindspore.ops.MaxPoolWithArgmax
     mindspore.ops.MirrorPad
+    mindspore.ops.NLLLoss
     mindspore.ops.OneHot
     mindspore.ops.Pack
     mindspore.ops.Pad
