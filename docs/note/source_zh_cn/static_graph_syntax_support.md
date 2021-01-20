@@ -50,7 +50,8 @@
             - [print](#print)
         - [函数参数](#函数参数)
     - [网络定义](#网络定义)
-        - [整网实例类型](#整网实例类型)
+        - [网络入参](#网络入参)
+        - [网络实例类型](#网络实例类型)
         - [网络构造组件](#网络构造组件)
         - [网络使用约束](#网络使用约束)
 
@@ -974,9 +975,9 @@ z_len: 6
 
 入参：
 
-- `obj` -- 任意支持类型的任意一个实例。
+- `obj` -- MindSpore支持类型的一个实例。
 
-- `type` -- `MindSpore dtype`模块下的一个类型。
+- `type` -- `bool`、`int`、`float`、`str`、`list`、`tuple`、`Tensor`、`Parameter`，或者是一个只包含这些类型的`tuple`。
 
 返回值：`obj`为`type`的实例，返回`True`，否则返回`False`。
 
@@ -986,9 +987,9 @@ z_len: 6
 x = (2, 3, 4)
 y = [2, 3, 4]
 z = Tensor(np.ones((6, 4, 5)))
-x_is_tuple = isinstance(x, mstype.tuple_)
-y_is_list= isinstance(y, mstype.list_)
-z_is_tensor = isinstance(z, mstype.tensor)
+x_is_tuple = isinstance(x, tuple)
+y_is_list= isinstance(y, list)
+z_is_tensor = isinstance(z, Tensor)
 ```
 
 结果如下：
@@ -1266,7 +1267,35 @@ result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 
 ## 网络定义
 
-### 整网实例类型
+### 网络入参
+
+整网（最外层网络）入参支持`bool`、`int`、`float`、`Tensor`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`dict`。
+如果要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。
+内层嵌套网络的入参无此限制。
+
+在网络中使用str，示例如下：
+
+```python
+class Net(nn.Cell):
+    def __init__(self, flag):
+        super(Net, self).__init__()
+        self.flag = flag
+
+    def construct(self, x, y):
+        if self.flag == "ok":
+            return x + y
+        return x - y
+
+flag = "ok"
+net = Net(flag)
+input_x = Tensor(np.random.randn(2, 3).astype(np.float32))
+input_y = Tensor(np.random.randn(2, 3).astype(np.float32))
+net(input_x, input_y)
+```
+
+上面定义的网络里，在初始化时传入一个`str`，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
+
+### 网络实例类型
 
 - 带[@ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
 
@@ -1286,27 +1315,7 @@ result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 
 ### 网络使用约束
 
-1. 当前整网入参（即最外层网络入参）默认仅支持`Tensor`，如果要支持非`Tensor`，可设置网络的`support_non_tensor_inputs`属性为`True`。
-
-   在网络初始化的时候，设置`self.support_non_tensor_inputs = True`，该配置目前仅支持正向网络，暂不支持反向网络，即不支持对整网入参有非`Tensor`的网络求反向。
-
-   支持最外层传入标量示例如下：
-
-   ```python
-   class ExpandDimsNet(nn.Cell):
-       def __init__(self):
-           super(ExpandDimsNet, self).__init__()
-           self.support_non_tensor_inputs = True
-           self.expandDims = ops.ExpandDims()
-
-       def construct(self, input_x, input_axis):
-           return self.expandDims(input_x, input_axis)
-   expand_dim_net = ExpandDimsNet()
-   input_x = Tensor(np.random.randn(2,2,2,2).astype(np.float32))
-   expand_dim_net(input_x, 0)
-   ```
-
-2. 不允许修改网络的非`Parameter`类型数据成员。
+1. 不允许修改网络的非`Parameter`类型数据成员。
 
    示例如下：
 
@@ -1323,7 +1332,7 @@ result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 
    上面所定义的网络里，`self.num`不是一个`Parameter`，不允许被修改，而`self.par`是一个`Parameter`，可以被修改。
 
-3. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
+2. 当`construct`函数里，使用未定义的类成员时，不会像Python解释器那样抛出`AttributeError`，而是作为`None`处理。
 
    示例如下：
 
