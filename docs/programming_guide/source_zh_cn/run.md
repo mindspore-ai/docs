@@ -247,7 +247,8 @@ if __name__ == "__main__":
 
 输出如下：
 
-```python
+```text
+============== Starting Training ==============
 epoch: 1 step: 1, loss is 2.300784
 epoch: 1 step: 2, loss is 2.3076947
 epoch: 1 step: 3, loss is 2.2993166
