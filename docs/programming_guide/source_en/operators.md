@@ -123,7 +123,7 @@ from mindspore import Tensor
 mean = Tensor(1.0, mstype.float32)
 stddev = Tensor(1.0, mstype.float32)
 output = C.normal((2, 3), mean, stddev, seed=5)
-print("ouput =", output)
+print("output =", output)
 ```
 
 The following information is displayed:
@@ -358,9 +358,10 @@ from mindspore import Tensor
 import mindspore.ops as ops
 import numpy as np
 
-input_ = Tensor(np.ones([2, 8]).astype(np.float32))
-broadcast = ops.Broadcast(1)
-output = broadcast((input_,))
+shape = (2, 3)
+input_x = Tensor(np.array([1, 2, 3]).astype(np.float32))
+broadcast_to = ops.BroadcastTo(shape)
+output = broadcast_to(input_x)
 
 print(output)
 ```
@@ -368,8 +369,8 @@ print(output)
 The following information is displayed:
 
 ```text
-[[1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0],
- [1.0, 1.0, 1.0 ... 1.0, 1.0, 1.0]]
+[[1. 2. 3.]
+ [1. 2. 3.]]
 ```
 
 ### Network Operations
