@@ -45,7 +45,7 @@ If the operators used for replacement are not able to fulfill complete function,
 - Delete unnecessary functions.
 - Find a substitution solution for necessary functions.
 
-If the preceding requirements cannot be met, you can raise requirements in the [MindSpore community](https://gitee.com/mindspore/mindspore).
+If the preceding requirements cannot be met, you can raise requirements in the [MindSpore code repository](https://gitee.com/mindspore/mindspore).
 
 ### Software and Hardware Environments
 
