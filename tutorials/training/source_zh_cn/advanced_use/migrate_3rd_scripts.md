@@ -45,7 +45,7 @@
 - 非必要功能：可删除。
 - 必要功能：寻找替代方案。
 
-如果上述仍不能满足你的要求，你可以在[MindSpore社区](https://gitee.com/mindspore/mindspore)提出诉求。
+如果上述仍不能满足你的要求，你可以在[MindSpore代码仓](https://gitee.com/mindspore/mindspore)提出诉求。
 
 ### 软硬件环境准备
 
