@@ -4,6 +4,18 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
+
+A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/doc/programming_guide/en/r1.1/dataset_loading.html).
+
+<br/>
+
+<font size=3>**Q: How do I load the PyTorch weight to MindSpore during model transfer?**</font>
+
+A: First, enter the `PTH` file of PyTorch. Take `ResNet-18` as an example. The network structure of MindSpore is the same as that of PyTorch. After transferring, the file can be directly loaded to the network. Only `BN` and `Conv2D` are used during loading. If the network names of MindSpore and PyTorch at other layers are different, change the names to the same.
+
+<br/>
+
 <font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
 
 A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `NumPy` and then save the data. For details, see the following:
@@ -18,7 +30,7 @@ np.save("output.npy", out.asnumpy())
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.1/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.1/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
 [GenratorDataset example](https://www.mindspore.cn/doc/programming_guide/en/r1.1/dataset_loading.html#loading-user-defined-dataset)
 
