@@ -111,14 +111,14 @@ msConfig.free();
 Before graph execution, call the [compileGraph](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#compilegraph) API of the [LiteSession](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#litesession) to compile graphs and further parse the Model instance loaded from the file, mainly for subgraph split and operator selection and scheduling. This process takes a long time. Therefore, it is recommended that [LiteSession](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#litesession) achieves multiple executions with one creation and one compilation. After the graph is compiled, you can call the [freeBuffer](https://www.mindspore.cn/doc/api_java/en/master/model.html#freebuffer) function of the [model](https://www.mindspore.cn/doc/api_java/en/master/model.html#model) to release the MetaGraph in the MindSpore Lite Model, which is used to reduce the runtime memory, but the model cannot be compiled again after being released.
 
 ```java
-// Complile graph.
+// Compile graph.
 if (!session.compileGraph(model)) {
     Log.e("MS_LITE", "Compile graph failed");
     model.freeBuffer();
     return false;
 }
 
-// Note: when use model.freeBuffer(), the model can not be compliled.
+// Note: when use model.freeBuffer(), the model can not be compiled.
 model.freeBuffer();
 ```
 
@@ -159,7 +159,7 @@ After the inference is finished, the inference result can be obtained by output 
 // Get output tensor values.
 List<String> tensorNames = session.getOutputTensorNames();
 Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-Set<Map.Entry<String, MSTensor>> entrys = outputs.entrySet();
+Set<Map.Entry<String, MSTensor>> entries = outputs.entrySet();
 for (String tensorName : tensorNames) {
     MSTensor output = outputs.get(tensorName);
     if (output == null) {
@@ -213,14 +213,14 @@ private boolean init(Context context) {
     }
     msConfig.free();
 
-    // Complile graph.
+    // Compile graph.
     if (!session.compileGraph(model)) {
         Log.e("MS_LITE", "Compile graph failed");
         model.freeBuffer();
         return false;
     }
 
-    // Note: when use model.freeBuffer(), the model can not be compliled.
+    // Note: when use model.freeBuffer(), the model can not be compiled.
     model.freeBuffer();
 
     return true;
@@ -242,7 +242,7 @@ private void DoInference(Context context) {
     // Get output tensor values.
     List<String> tensorNames = session.getOutputTensorNames();
     Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-    Set<Map.Entry<String, MSTensor>> entrys = outputs.entrySet();
+    Set<Map.Entry<String, MSTensor>> entries = outputs.entrySet();
     for (String tensorName : tensorNames) {
         MSTensor output = outputs.get(tensorName);
         if (output == null) {

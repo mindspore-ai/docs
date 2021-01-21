@@ -1,4 +1,4 @@
-# MindInsight Lineage and Comparision Dashboard
+# MindInsight Lineage and Comparison Dashboard
 
 [comment]: <> (This document contains Hands-on Tutorial Series. Gitee does not support display. Please check tutorials on the official website)
 
@@ -6,4 +6,4 @@
 <source id="mp47" src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/video/MindInsight%20Lineage%20and%20Comparision%20Dashboard.mp4" type="video/mp4">
 </video>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/lineage_and_scalars_comparision.html>
+**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/lineage_and_scalars_comparison.html>

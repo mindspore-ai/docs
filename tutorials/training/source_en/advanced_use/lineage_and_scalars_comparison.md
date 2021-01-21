@@ -1,19 +1,19 @@
-# Viewing Lineage and Scalars Comparision
+# Viewing Lineage and Scalars Comparison
 
 `Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Viewing Lineage and Scalars Comparision](#viewing-lineage-and-scalars-comparision)
+- [Viewing Lineage and Scalars Comparison](#viewing-lineage-and-scalars-comparison)
     - [Overview](#overview)
     - [Model Lineage](#model-lineage)
     - [Dataset Lineage](#dataset-lineage)
-    - [Scalars Comparision](#scalars-comparision)
+    - [Scalars Comparison](#scalars-comparison)
     - [Notices](#notices)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/lineage_and_scalars_comparision.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/lineage_and_scalars_comparison.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -75,15 +75,15 @@ Figure 7 shows the data processing and augmentation information of all model tra
 
 > If user filters the model lineage and then switches to the data lineage page, the line chart will show the latest filtered column in model lineage.
 
-## Scalars Comparision
+## Scalars Comparison
 
-Scalars Comparision can be used to compare scalar curves between multiple trainings
+Scalars Comparison can be used to compare scalar curves between multiple trainings
 
 ![multi_scalars.png](./images/multi_scalars.png)
 
-Figure 8: Scalars comparision curve area
+Figure 8: Scalars comparison curve area
 
-Figure 8 shows the scalar curve comparision between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
+Figure 8 shows the scalar curve comparison between multiple trainings. The horizontal coordinate indicates the training step, and the vertical coordinate indicates the scalar value.
 
 Buttons from left to right in the upper right corner of the figure are used to display the chart in full screen, switch the Y-axis scale, enable or disable the rectangle selection, roll back the chart step by step, and restore the chart.
 
@@ -95,9 +95,9 @@ Buttons from left to right in the upper right corner of the figure are used to d
 
 ![multi_scalars_select.png](./images/multi_scalars_select.png)
 
-Figure 9: Scalars comparision function area
+Figure 9: Scalars comparison function area
 
-Figure 9 shows the scalars comparision function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
+Figure 9 shows the scalars comparison function area, which allows you to view scalar information by selecting different trainings or tags, different dimensions of the horizontal axis, and smoothness.
 
 - Training Selection: Click the expand button and select or filter the required trainings to view the corresponding scalar information.
 - Tag Selection: Select the required tags to view the corresponding scalar information.
@@ -106,8 +106,8 @@ Figure 9 shows the scalars comparision function area, which allows you to view s
 
 ## Notices
 
-To ensure performance, MindInsight implements scalars comparision with the cache mechanism and the following restrictions:
+To ensure performance, MindInsight implements scalars comparison with the cache mechanism and the following restrictions:
 
-- The scalars comparision supports only for trainings in cache.
+- The scalars comparison supports only for trainings in cache.
 - The maximum of 15 latest trainings (sorted by modification time) can be retained in the cache.
-- The maximum of 5 trainings can be selected for scalars comparision at the same time.
+- The maximum of 5 trainings can be selected for scalars comparison at the same time.

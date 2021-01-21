@@ -254,8 +254,8 @@ Properties are described as follows:
 
 The `Distribution` base class invokes the private API in the `Gumbel` and `TransformedDistribution` to implement the public APIs in the base class. `Gumbel` supports the following public APIs:
 
-- `mean`,`mode`,`var`, and `sd`：No paramter.
-- `entropy`: No paramter.
+- `mean`,`mode`,`var`, and `sd`：No parameter.
+- `entropy`: No parameter.
 - `cross_entropy` and `kl_loss`: The input parameters *dist*, *loc_b*, and *scale_b* are mandatory. *dist* indicates the name of another distribution type. Currently, only *'Gumbel'* is supported. *loc_b* and *scale_b* indicate the location and scale of distribution *b*.
 - `prob`, `log_prob`, `cdf`, `log_cdf`, `survival_function`, and `log_survival`: The input parameter *value* is mandatory.
 - `sample`: Input parameters sample shape *shape* is optional.
@@ -473,7 +473,7 @@ sample = LogNormal.sample(shape)
 
 # get information of the distribution
 print(LogNormal)
-# get information of the underyling distribution and the bijector separately
+# get information of the underlying distribution and the bijector separately
 print("underlying distribution:\n", LogNormal.distribution)
 print("bijector:\n", LogNormal.bijector)
 # get the computation results

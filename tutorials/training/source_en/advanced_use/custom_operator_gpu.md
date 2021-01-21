@@ -24,7 +24,7 @@ Translator: [Leon_02](https://gitee.com/Leon_02)
 Operator is the basic element of constructing neural network. When built-in operators cannot meet requirements during network development, you can utilize MindSpore to quickly extend custom operators of the Graphics Processing Unit.
 
 - Primitive registration: the register operator primitive is the basic unit of constructing network model. Users can directly or indirectly call the operator primitive to build a neural network model.
-- GPU Kernel implemention: GPU kernel is used to call GPU to accelerate computing.
+- GPU Kernel implementation: GPU kernel is used to call GPU to accelerate computing.
 - GPU Kernel registration: operator registration is used to register the GPU kernel and necessary information to the framework, and the framework completes the call to the GPU kernel.
 
 In this tutorial, we will develop a TensorAddV2 operator using C++ and CUDA in the mindspore framework. TensorAddV2 is used to add two tensors of the same dimension element by element.
@@ -202,9 +202,9 @@ Operator information includes:
 - `Primive`
 - `Input dtype, output dtype`
 - `GPU Kernel class`
-- `CUDA build-in dtype`
+- `CUDA built-in dtype`
 
-Framework calls `CUDA build-in dtype` to instantiate `GPU Kernel class` template class based on `Primive` and `Input dtype, output dtype`.
+Framework calls `CUDA built-in dtype` to instantiate `GPU Kernel class` template class based on `Primive` and `Input dtype, output dtype`.
 
 The TensorAddV2 operators supporting float and int are registered in the code below:
 

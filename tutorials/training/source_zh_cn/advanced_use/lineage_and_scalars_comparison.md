@@ -13,8 +13,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/lineage_and_scalars_comparision.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindinsight/mindspore_lineage_and_scalars_comparision.ipynb"><img src="../_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/lineage_and_scalars_comparison.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindinsight/mindspore_lineage_and_scalars_comparison.ipynb"><img src="../_static/logo_notebook.png"></a>
 
 ## 概述
 

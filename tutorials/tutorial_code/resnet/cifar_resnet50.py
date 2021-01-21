@@ -56,7 +56,7 @@ if args_opt.device_target == "Ascend":
 
 def create_dataset(repeat_num=1, training=True):
     """
-    create data for next use such as training or infering
+    create data for next use such as training or inferring
     """
     cifar_ds = ds.Cifar10Dataset(data_home)
 
