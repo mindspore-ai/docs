@@ -4,6 +4,46 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: When `Conv2D` is used to define convolution, the `group` parameter is used. Is it necessary to ensure that the value of `group` can be exactly divided by the input and output dimensions? How is the group parameter transferred?**</font>
+
+A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use `ops.Conv2D`. Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the `nn.Conv2d` API of MindSpore supports `group` convolution. However, the number of groups must be the same as the number of input and output channels.
+The `Conv2D` operator function is as follows:
+
+```python
+def __init__(self,
+                 out_channel,
+                 kernel_size,
+                 mode=1,
+                 pad_mode="valid",
+                 pad=0,
+                 stride=1,
+                 dilation=1,
+                 group=1,
+                 data_format="NCHW"):
+```
+
+If the function contains a `group` parameter, the parameter will be transferred to the C++ layer by default.
+
+<br/>
+
+<font size=3>**Q: Does MindSpore provide 3D convolutional layers?**</font>
+
+A: 3D convolutional layers on Ascend are coming soon. Go to the [Operator List](https://www.mindspore.cn/doc/programming_guide/en/master/operator_list.html) on the official website to view the operators that are supported.
+
+<br/>
+
+<font size=3>**Q: Does MindSpore support matrix transposition?**</font>
+
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+
+<br/>
+
+<font size=3>**Q: Can MindSpore calculate the variance of any tensor?**</font>
+
+A: Currently, MindSpore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/doc/api_python/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+
+<br/>
+
 <font size=3>**Q: Why is data loading abnormal when MindSpore1.0.1 is used in graph data offload mode?**</font>
 
 A: An operator with the `axis` attribute, for example, `P.Concat(axis=1)((x1, x2))`, is directly used in `construct`. You are advised to initialize the operator in `__init__` as follows:
