@@ -5,8 +5,8 @@
 - [Docker方式安装MindSpore Ascend 910版本](#docker方式安装mindspore-ascend-910版本)
     - [确认系统环境信息](#确认系统环境信息)
     - [获取MindSpore镜像](#获取mindspore镜像)
-    - [启动Docker容器实例](#启动docker容器实例)
-    - [验证是否成功安装](#验证是否成功安装)
+    - [运行MindSpore镜像](#运行mindspore镜像)
+    - [验证是否安装成功](#验证是否安装成功)
     - [升级MindSpore版本](#升级mindspore版本)
 
 <!-- /TOC -->
@@ -14,9 +14,10 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/install/mindspore_ascend_install_docker.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
 
 [Docker](https://docs.docker.com/get-docker/)是一个开源的应用容器引擎，让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中。通过使用Docker，可以实现MindSpore的快速部署，并与系统环境隔离。
+
 本文档介绍如何在Ascend 910环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
-MindSpore的Ascend910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascendhub/#/main)上。
+MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascendhub/#/main)上。
 
 目前容器化构建选项支持情况如下：
 
@@ -24,7 +25,7 @@ MindSpore的Ascend910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascen
 | :----- | :------------------------ | :----------------------- | :--------------------------------------- |
 | Ascend | `public-ascendhub/ascend-mindspore-arm` | `x.y.z` | 已经预安装与Ascend Data Center Solution `x.y.z` 版本共同发布的MindSpore的生产环境。 |
 
-> x.y.z对应Atlas Data Center Solution版本号，可以在Ascend Hub页面获取。
+> `x.y.z`对应Atlas Data Center Solution版本号，可以在Ascend Hub页面获取。
 
 ## 确认系统环境信息
 
@@ -49,9 +50,9 @@ MindSpore的Ascend910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascen
     - `{username}` `{password}` `{url}` 代表用户的登录信息与镜像服务器信息，均为注册并激活账号后自动生成，在对应MindSpore镜像页面复制登录命令即可获取。
     - `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面复制下载命令获取。
 
-## 启动Docker容器实例
+## 运行MindSpore镜像
 
-启动Docker容器实例时，执行以下命令：
+执行以下命令启动Docker容器实例：
 
 ```bash
 docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
@@ -64,11 +65,11 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 
 其中：
 
-- `{tag}` 为Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
+- `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
 
-## 验证是否成功安装
+## 验证是否安装成功
 
-验证镜像是否安装成功，在容器中执行如下python代码：
+按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请运行下面的Python代码并检查输出：
 
 ```python
 import numpy as np
@@ -82,7 +83,7 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.tensor_add(x, y))
 ```
 
-如果输出：
+代码成功运行时会输出：
 
 ```text
 [[[ 2.  2.  2.  2.],
@@ -98,7 +99,7 @@ print(ops.tensor_add(x, y))
     [ 2.  2.  2.  2.]]]
 ```
 
-说明MindSpore Docker镜像安装成功了。
+至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
 
 ## 升级MindSpore版本
 
