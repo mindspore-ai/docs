@@ -56,7 +56,7 @@ The Debugger related parameters:
 |Name|Argument|Description|Type|Default|Scope|
 |---|---|---|---|---|---|
 |`--port {PORT}`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|
-|`--enable-debugger {ENABLE_DEBUGGER}`|Required|Should be set to `True` or `1`, this will launch the MindInsight debugger server.|Boolean|False|True/False/1/0|
+|`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
 For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).

@@ -56,7 +56,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 |参数名|属性|功能描述|参数类型|默认值|取值范围|
 |---|---|---|---|---|---|
 |`--port {PORT}`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|
-|`--enable-debugger {ENABLE_DEBUGGER}`|必选|取值为True或1, 开启MindInsight侧调试器|Boolean|False|True/False/1/0|
+|`--enable-debugger {ENABLE_DEBUGGER}`|可选|取值为True或1, 开启MindInsight侧调试器；默认为False，不开启。|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|可选|指定调试服务端口。|Integer|50051|1~65535|
 
 更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
