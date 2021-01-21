@@ -390,7 +390,7 @@ For the datasets that cannot be directly loaded by MindSpore, you can construct 
 
 ### Constructing Dataset Generator Function
 
-Construct a generator function that defines the data return method, and then use this function to construct the user-defined dataset object. This method is appliable for simple scenarios.
+Construct a generator function that defines the data return method, and then use this function to construct the user-defined dataset object. This method is applicable for simple scenarios.
 
 ```python
 import numpy as np
@@ -468,7 +468,7 @@ The output is as follows:
 
 ### Constructing Random Accessible Dataset Class
 
-Construct a dataset class to implement the `__getitem__` method, and then use the object of this class to construct a user-defined dataset object. This method is appliable for achieving distributed training.
+Construct a dataset class to implement the `__getitem__` method, and then use the object of this class to construct a user-defined dataset object. This method is applicable for achieving distributed training.
 
 ```python
 import numpy as np

@@ -475,7 +475,7 @@ sample = LogNormal.sample(shape)
 
 # get information of the distribution
 print(LogNormal)
-# get information of the underyling distribution and the bijector separately
+# get information of the underlying distribution and the bijector separately
 print("underlying distribution:\n", LogNormal.distribution)
 print("bijector:\n", LogNormal.bijector)
 # get the computation results

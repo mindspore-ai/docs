@@ -140,7 +140,7 @@ A：常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，�
 ```python
 import numpy as np
 from mindspore import Tensor
-imort mindspore.ops as ops
+import mindspore.ops as ops
 import mindspore.context as context
 
 context.set_context(device_target="Ascend")

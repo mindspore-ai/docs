@@ -92,7 +92,7 @@ With TrainSessions, a network can be used for both inference and training.
 These two modes differ in several aspects:
 
 1. The input of the network: Running inference requires only the data, while running training requires both data and labels
-2. The output of the network: Runing inference returns the predicted values in the output, while running in training mode returns the loss
+2. The output of the network: Running inference returns the predicted values in the output, while running in training mode returns the loss
 3. In training mode, the weights of the layers are updated in each Run, while in inference mode they are static
 4. Some layers behave differently in inference vs. training mode, e.g., updating the accumulated batch mean and variance in Batch Normalization layers
 
@@ -150,12 +150,12 @@ MindSpore Lite provides the following methods to obtain model input tensors:
    virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
    ```
 
-If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's reponsibility to know the inputs order or their tensorName. This can be obtained from the Python model. XXX
+If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
 Alternatively, one can deduce this information from the sizes of the input tensors.
 
 ### Copying Data
 
-After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.1/tensor.html#mstensor) API docuemtnation.
+After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.1/tensor.html#mstensor) API documentation.
 
 ```cpp
 /// \brief  Get byte size of data in MSTensor.
@@ -226,7 +226,7 @@ if ((in_data == nullptr)|| (in_labels == nullptr)) {
 memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
 memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
 // After filling the input tensors the data_ptr and label_ptr may be freed
-// The input tensors themselves are managed by MindSpore Lite and users are not allowd to access them or delete them
+// The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
 ```
 
 Note:  
@@ -466,4 +466,3 @@ You can load the saved model to do re-training or inference.
 
 > - The trained model by MindSpore Lite can only be inferenced by MindSpore Lite training framework, that is, to create `TrainSession` first and call the `Eval()` api setting to the inference mode.
 > - You can not use benchmark tool to run the trained model, please use [benchmark_train](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/use/benchmark_train_tool.html) instead.
-
