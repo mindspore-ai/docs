@@ -191,7 +191,7 @@
                     <span style="color:#1a1c33;">Pre-trained Models of Image Classification</span>
                 </div>
                 <div style="font-size:0.9rem; color:#333">
-                Image classification is to identity what an image represents, to predict the object list and the probabilites. This document lists image classification models that can be inferred using MindSpore Lite.
+                Image classification is to identity what an image represents, to predict the object list and the probabilities. This document lists image classification models that can be inferred using MindSpore Lite.
                 </div>
             </div>
         </a>

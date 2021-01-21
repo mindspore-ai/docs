@@ -174,7 +174,7 @@ from lenet import LeNet5
 import numpy as np
 from train_utils import TrainWrap
 
-sys.path.append('./mindspore/model_zoo/offical/cv/lenet/src/')
+sys.path.append('./mindspore/model_zoo/official/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()

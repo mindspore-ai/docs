@@ -202,7 +202,7 @@ class MyOptimizer(Optimizer):
         self.scalar_summary("learning_rate", learning_rate)
 
         # Record weight
-        self.histogram_summary(self.weight_names[0], self.paramters[0])
+        self.histogram_summary(self.weight_names[0], self.parameters[0])
         # Record gradient
         self.histogram_summary(self.weight_names[0] + ".gradient", grads[0])
 

@@ -126,7 +126,7 @@ void ModelProcess::DestroyInput() {
 
 Result ModelProcess::CreateOutput() {
     if (modelDesc_ == nullptr) {
-        ERROR_LOG("no model description, create ouput failed");
+        ERROR_LOG("no model description, create output failed");
         return FAILED;
     }
 

@@ -4,7 +4,7 @@
 
 ## Image classification introduction
 
-Image classification is to identity what an image represents, to predict the object list and the probabilites. For example，the following tabel shows the classification results after mode inference.
+Image classification is to identity what an image represents, to predict the object list and the probabilities. For example，the following table shows the classification results after mode inference.
 
 ![image_classification](images/image_classification_result.png)
 

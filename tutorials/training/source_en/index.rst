@@ -428,7 +428,7 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											Performance data like operators’ execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. 
-											This tutorial is appliable for the hardware platform of Ascend AI processors.
+											This tutorial is applicable for the hardware platform of Ascend AI processors.
 										</div>
 									</div>
 								</a>
@@ -441,7 +441,7 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											Performance data like operators’ execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. 
-											This tutorial is appliable for the hardware platform of GPU.
+											This tutorial is applicable for the hardware platform of GPU.
 										</div>
 									</div>
 								</a>

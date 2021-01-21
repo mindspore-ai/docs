@@ -318,8 +318,6 @@ If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` dire
 
 > version: Version of the output, consistent with that of the MindSpore.
 >
-> device: The processor that runs MindSpore Lite. Currently only build-in CPU is available.
->
 > os: Operating system on which the output will be deployed.
 >
 > arch: System architecture on which the output will be deployed.
