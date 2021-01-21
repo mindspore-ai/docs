@@ -97,6 +97,16 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 
 ## 验证是否安装成功
 
+如果你安装的是`runtime`标签的容器，需要自行安装MindSpore：
+
+可以参考[pip方式安装MindSpore GPU版本](https://www.mindspore.cn/install)中的介绍，选择GPU硬件平台，Ubuntu-x86操作系统所需版本的MindSpore，并进行验证。
+
+如果你安装的是`devel`标签的容器，需要自行编译并安装MindSpore：
+
+可以参考[源码编译方式安装MindSpore GPU版本](https://www.mindspore.cn/install)中的介绍，运行容器后下载MindSpore代码仓并进行编译安装，并进行验证。
+
+如果你安装的是指定版本`x.y.z`的容器：
+
 按照上述步骤进入MindSpore容器后，测试Docker是否正常工作，请运行下面的Python代码并检查输出：
 
 ```python
