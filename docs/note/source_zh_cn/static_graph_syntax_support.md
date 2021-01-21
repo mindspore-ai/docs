@@ -977,7 +977,7 @@ z_len: 6
 
 - `obj` -- MindSpore支持类型的一个实例。
 
-- `type` -- `bool`、`int`、`float`、`str`、`list`、`tuple`、`Tensor`、`Parameter`，或者是一个只包含这些类型的`tuple`。
+- `type` -- `bool`、`int`、`float`、`str`、`list`、`tuple`、`dict`、`Tensor`、`Parameter`，或者是一个只包含这些类型的`tuple`。
 
 返回值：`obj`为`type`的实例，返回`True`，否则返回`False`。
 
@@ -1270,10 +1270,13 @@ result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 ### 网络入参
 
 整网（最外层网络）入参支持`bool`、`int`、`float`、`Tensor`、`mstype.number(mstype.bool_、mstype.int、mstype.float、mstype.uint)`，以及只包含这些类型对象的`list`或者`tuple`，和`value`值是这些类型的`dict`。
-如果要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。
-内层嵌套网络的入参无此限制。
 
-在网络中使用str，示例如下：
+在对整网入参求梯度的时候，会忽略非`Tensor`的入参，只计算`Tensor`入参的梯度，例如整网入参`(x, y, z)`中，`x`和`z`是`Tensor`，`y`是非`Tensor`时，在对整网入参求梯度的时候，只会计算`x`和`z`的梯度，返回`(grad_x, grad_z)`。
+
+如果网络里要使用其他类型，可在初始化网络的时候，传入该类型对象，作为网络属性保存起来，然后在`construct`里使用。
+内层调用的网络入参无此限制。
+
+示例如下：
 
 ```python
 class Net(nn.Cell):
@@ -1281,19 +1284,33 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.flag = flag
 
-    def construct(self, x, y):
+    def construct(self, x, y, z):
         if self.flag == "ok":
-            return x + y
-        return x - y
+            return x + y + z
+        return x - y - z
+
+class GradNet(nn.Cell):
+    def __init__(self, net):
+        super(GradNet, self).__init__()
+        self.grad_all = C.GradOperation(get_all=True)
+        self.forward_net = net
+
+    def construct(self, x, y, z):
+        return self.grad_all(self.forward_net)(x, y, z)
 
 flag = "ok"
+input_x = Tensor(np.ones((2, 3)).astype(np.float32))
+input_y = 2
+input_z = Tensor(np.ones((2, 3)).astype(np.float32) * 2)
+
 net = Net(flag)
-input_x = Tensor(np.random.randn(2, 3).astype(np.float32))
-input_y = Tensor(np.random.randn(2, 3).astype(np.float32))
-net(input_x, input_y)
+grad_net = GradNet(net)
+ret = grad_net(input_x, input_y, input_z)
 ```
 
-上面定义的网络里，在初始化时传入一个`str`，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
+上面定义的Net网络里，在初始化时传入一个`str`，作为网络的属性保存起来，然后在`construct`里使用`self.flag`这个属性。
+
+整网入参`x`和`z`是`Tensor`，`y`是`int`数，`grad_net`在对整网入参`(x, y, z)`求梯度时，会自动忽略`y`的梯度，只计算`x`和`z`的梯度，`ret = (grad_x, grad_z)`。
 
 ### 网络实例类型
 
@@ -1320,7 +1337,7 @@ net(input_x, input_y)
    示例如下：
 
    ```python
-   class Net(Cell):
+   class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
            self.num = 2
@@ -1337,7 +1354,7 @@ net(input_x, input_y)
    示例如下：
 
    ```python
-   class Net(Cell):
+   class Net(nn.Cell):
        def __init__(self):
            super(Net, self).__init__()
 
