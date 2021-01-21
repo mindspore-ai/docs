@@ -13,6 +13,8 @@
 import os
 import sys
 import IPython
+import re
+import nbsphinx as nbs
 
 # -- Project information -----------------------------------------------------
 
@@ -22,6 +24,19 @@ author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
 release = 'master'
+
+# Remove extra outputs for nbsphinx extension.
+nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
+mod_path = os.path.abspath(nbs.__file__)
+with open(mod_path, "r+", encoding="utf8") as f:
+    contents = f.readlines()
+    for num,line in enumerate(contents):
+        _content_re = nbsphinx_source_re.search(line)
+        if _content_re and "#" not in line:
+            contents[num] = nbsphinx_source_re.sub(r"# \g<1>", line)
+            break
+    f.seek(0)
+    f.writelines(contents)
 
 # -- General configuration ---------------------------------------------------
 
