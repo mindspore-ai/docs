@@ -49,7 +49,8 @@
 3. 定义损失函数和优化器；
 4. 加载数据集并进行训练。
 
-> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>
+> 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/bnn_layers>。  
+> 贝叶斯神经网络目前只支持图模式，需要在代码中设置`context.set_context(mode=context.GRAPH_MODE)`。
 
 ### 处理数据集
 
