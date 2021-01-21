@@ -200,9 +200,9 @@ class TensorAddV2GpuKernel : public GpuKernel {
 - `Primive`
 - `Input dtype, output dtype`
 - `GPU Kernel class`
-- `CUDA build-in dtype`
+- `CUDA内置数据类型`
 
-框架会根据`Primive`和`Input dtype, output dtype`，调用以`CUDA build-in dtype`实例化`GPU Kernel class`模板类。
+框架会根据`Primive`和`Input dtype, output dtype`，调用以`CUDA内置数据类型`实例化`GPU Kernel class`模板类。
 
 如下代码中分别注册了支持float和int的TensorAddV2算子。
 

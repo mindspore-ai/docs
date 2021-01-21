@@ -13,7 +13,7 @@
 - [Train and Eval](#train-and-eval)
 - [Details](#details)
     - [Model Exporting](#model-exporting)
-    - [Model Transfering](#model-transfering)
+    - [Model Transferring](#model-transferring)
     - [Model Training](#model-training)
 
 <!-- /TOC -->
@@ -22,7 +22,7 @@
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segements that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
 
 The completed training procedure is as follows:
 
@@ -171,7 +171,7 @@ from lenet import LeNet5
 import numpy as np
 from train_utils import TrainWrap
 
-sys.path.append('./mindspore/model_zoo/offical/cv/lenet/src/')
+sys.path.append('./mindspore/model_zoo/official/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()
@@ -214,9 +214,9 @@ export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
-### Model Transfering
+### Model Transferring
 
-To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Instalation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
+To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Installation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
 
 > MindSpore environment allows the developer to run MindSpore python code on server or PC. It differs from MindSpore Lite framework that allows to compile and run code on embedded devices.
 

@@ -404,7 +404,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/lineage_and_scalars_comparision.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/lineage_and_scalars_comparison.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Viewing Lineage and Scalars Comparison</span>
@@ -437,7 +437,7 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											Performance data like operators’ execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. 
-											This tutorial is appliable for the hardware platform of Ascend AI processors.
+											This tutorial is applicable for the hardware platform of Ascend AI processors.
 										</div>
 									</div>
 								</a>
@@ -450,7 +450,7 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											Performance data like operators’ execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks. 
-											This tutorial is appliable for the hardware platform of GPU.
+											This tutorial is applicable for the hardware platform of GPU.
 										</div>
 									</div>
 								</a>

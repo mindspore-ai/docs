@@ -236,7 +236,7 @@ if ((in_data == nullptr)|| (in_labels == nullptr)) {
 memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
 memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
 // After filling the input tensors the data_ptr and label_ptr may be freed
-// The input tensors themselves are managed by MindSpore Lite and users are not allowd to access them or delete them
+// The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
 ```
 
 > - MindSpore Lite模型输入张量的数据维度必须为NHWC（批次数，高度，宽度和通道数）。

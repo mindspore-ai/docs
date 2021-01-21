@@ -6,7 +6,7 @@ Training Process Visualization
 
    summary_record
    dashboard
-   lineage_and_scalars_comparision
+   lineage_and_scalars_comparison
    hyper_parameters_auto_tuning
    performance_profiling
    performance_profiling_gpu

@@ -471,7 +471,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert experience-Local-Experience hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/lineage_and_scalars_comparision.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/lineage_and_scalars_comparison.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">查看溯源和对比看板</span>

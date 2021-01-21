@@ -40,7 +40,7 @@ Destructor of MindSpore Lite Context.
 vendor_name_
 ```
 
-A **string** value. Describes the vendor information. This attribute is used to distinguish from different venders.
+A **string** value. Describes the vendor information. This attribute is used to distinguish from different vendors.
 
 #### thread_num_
 
