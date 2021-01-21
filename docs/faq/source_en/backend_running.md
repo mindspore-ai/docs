@@ -4,6 +4,35 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: How do I monitor the loss during training and save the training parameters when the `loss` is the lowest?**</font>
+
+A: You can customize a `callback`.For details, see the writing method of `ModelCheckpoint`. In addition, the logic for determining loss is added.
+
+```python
+class EarlyStop(Callback):
+def __init__(self):
+    self.loss = None
+def step_end(self, run_context):
+     loss =  ****(get current loss)
+     if (self.loss == None or loss < self.loss):
+         self.loss = loss
+         # do save ckpt
+```
+
+<br/>
+
+<font size=3>**Q: How do I execute a single `ut` case in `mindspore/tests`?**</font>
+
+A: `ut` cases are usually based on the MindSpore package of the debug version, which is not provided on the official website. You can run `sh build.sh` to compile the source code and then run the `pytest` command. The compilation in debug mode does not depend on the backend. Run the `sh build.sh -t on` command. For details about how to execute cases, see the `tests/runtest.sh` script.
+
+<br/>
+
+<font size=3>**Q: How do I obtain the expected `feature map` when `nn.Conv2d` is used?**</font>
+
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d.) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+
+<br/>
+
 <font size=3>**Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?**</font>
 
 A: The `SciPy 1.4` series versions may be used in the environment. Run the `pip list | grep scipy` command to view the `SciPy` version and change the `SciPy` version to that required by MindSpore. You can view the third-party library dependency in the `requirement.txt` file.

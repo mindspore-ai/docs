@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: Does MindSpore support truncated gradient?**</font>
+
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
+
+<br/>
+
 <font size=3>**Q: How do I change hyperparameters for calculating loss values during neural network training?**</font>
 
 A: Sorry, this function is not available yet. You can find the optimal hyperparameters by training, redefining an optimizer, and then training.
@@ -12,13 +18,13 @@ A: Sorry, this function is not available yet. You can find the optimal hyperpara
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing pipeline supports NPUs, GPUs, and CPUs. The CPU usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html).
 
 <br/>
 
 <font size=3>**Q: What is the MindSpore IR design concept?**</font>
 
-A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT compilation capability`: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. `Turing-complete IR`: More flexible syntaxes are provided for converting `Python`, such as recursion.
+A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Turing-complete IR: More flexible syntaxes are provided for converting `Python`, such as recursion.
 
 <br/>
 
