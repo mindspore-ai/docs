@@ -222,6 +222,7 @@ Wrapper Functions
     mindspore.nn.FixedLossScaleUpdateCell
     mindspore.nn.GetNextSingleOp
     mindspore.nn.ParameterUpdate
+    mindspore.nn.TimeDistributed
     mindspore.nn.TrainOneStepCell
     mindspore.nn.TrainOneStepWithLossScaleCell
     mindspore.nn.WithEvalCell
