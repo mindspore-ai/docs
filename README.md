@@ -18,6 +18,8 @@ If you have any comments or suggestions on the documents, submit them in Issues.
 
 ```text
 docs
+├───activity // Record the activity experience.
+|
 ├───docs // Technical documents about architecture, network list, operator list, programming guide and so on. Configuration files for API generation.
 |    |
 |    ├───api_cpp // C++ API project.
