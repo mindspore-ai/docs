@@ -617,6 +617,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_cache.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Application of Single-Node Tensor Cache</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial demonstrates how to use the single-node cache service to cache data that has been processed with data augmentation.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_quantization_aware_training.html" class="article-link">
 									<div>
