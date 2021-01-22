@@ -16,10 +16,12 @@ The composite operators are the pre-defined combination of operators.
     :template: classtemplate.rst
 
     mindspore.ops.add_flags
+    mindspore.ops.batch_dot
     mindspore.ops.clip_by_global_norm
     mindspore.ops.clip_by_value
     mindspore.ops.core
     mindspore.ops.count_nonzero
+    mindspore.ops.dot
     mindspore.ops.gamma
     mindspore.ops.GradOperation
     mindspore.ops.HyperMap
