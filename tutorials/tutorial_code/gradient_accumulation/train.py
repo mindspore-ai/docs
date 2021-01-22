@@ -30,8 +30,8 @@ _clear_op = ops.MultitypeFuncGraph("clear_op")
 
 
 @_sum_op.register("Tensor", "Tensor")
-def _cumulative_gard(grad_sum, grad):
-    """Apply gard sum to cumulative gradient."""
+def _cumulative_grad(grad_sum, grad):
+    """Apply grad sum to cumulative gradient."""
     add = ops.AssignAdd()
     return add(grad_sum, grad)
 
@@ -140,7 +140,7 @@ class GradientAccumulation:         # pylint: disable=missing-docstring
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='MindSpore Gard Cumulative Example')
+    parser = argparse.ArgumentParser(description='MindSpore Grad Cumulative Example')
     parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU'],
                         help='device where the code will be implemented (default: GPU)')
     parser.add_argument('--data_path', type=str, default="./Data",
