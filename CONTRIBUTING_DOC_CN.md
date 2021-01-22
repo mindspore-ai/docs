@@ -121,7 +121,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 
 如果属于已有模块，在MindSpore代码仓按注释要求完成注释内容，并将该API添加至对应模块的\_\_all\_\_中，确保通过“mindspore.模块名.API名”可使用。
 
-如果属于以下模块，还需更新MindSpore docs仓的接口列表。
+如果属于以下模块，还需更新MindSpore docs仓的接口列表，请按字母序添加API。
 
 - `mindspore.dataset`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.rst)
 - `mindspore.dataset.text`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.dataset.text.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.dataset.text.rst)
@@ -132,7 +132,7 @@ MindSpore docs仓提供了[API注释写作要求](https://gitee.com/mindspore/do
 - `mindspore.ops`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.ops.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/mindspore.ops.rst)
 - `mindspore.ops.operations`：[中文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/operations.rst) | [英文页面列表](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_en/mindspore/operations.rst)
 
-如果不属于已有模块，需新增MindSpore docs仓的接口工程文件。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.context.rst)文件，并将其添加到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/index.rst)中。同时，在`source_en`目录下做相应修改，即可生成英文页面内容。
+如果不属于已有模块，需新增MindSpore docs仓的接口工程文件，并按字母序添加模块到[目录结构](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/index.rst)中。如需新增`mindspore.context`模块接口，需在`docs/docs/api_python/source_zh_cn/mindspore`目录下新增[`mindspore.context.rst`](https://gitee.com/mindspore/docs/blob/master/docs/api_python/source_zh_cn/mindspore/mindspore.context.rst)文件，并将其添加到目录结构中。同时，在`source_en`目录下做相应修改，即可生成英文页面内容。
 
 ```rst
 .. toctree::
