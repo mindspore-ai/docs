@@ -4,8 +4,8 @@
 
 - [Docker方式安装MindSpore GPU版本](#docker方式安装mindspore-gpu版本)
     - [确认系统环境信息](#确认系统环境信息)
-    - [获取MindSpore镜像](#获取mindspore镜像)
     - [nvidia-container-toolkit安装](#nvidia-container-toolkit安装)
+    - [获取MindSpore镜像](#获取mindspore镜像)
     - [运行MindSpore镜像](#运行mindspore镜像)
     - [验证是否安装成功](#验证是否安装成功)
 
@@ -32,20 +32,8 @@ MindSpore的Docker镜像托管在[Huawei SWR](https://support.huaweicloud.com/sw
 
 ## 确认系统环境信息
 
-- 确认安装Ubuntu 18.04是64位操作系统。
+- 确认安装Ubuntu 18.04是基于x86架构的64位操作系统。
 - 确认安装[Docker 18.03或者更高版本](https://docs.docker.com/get-docker/)。
-
-## 获取MindSpore镜像
-
-对于`GPU`后端，可以直接使用以下命令获取最新的稳定镜像：
-
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
-```
-
-其中：
-
-- `{tag}`对应上述表格中的标签。
 
 ## nvidia-container-toolkit安装
 
@@ -81,6 +69,18 @@ $ vim /etc/docker/daemon.json
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
+## 获取MindSpore镜像
+
+对于`GPU`后端，可以直接使用以下命令获取最新的稳定镜像：
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag}
+```
+
+其中：
+
+- `{tag}`对应上述表格中的标签。
 
 ## 运行MindSpore镜像
 
@@ -136,7 +136,7 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
-    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择GPU硬件平台、Ubuntu-x86操作系统和Pip的安装方式，获得安装指南。运行容器后参考安装指南，通过Pip方式安装MindSpore GPU版本，并进行验证。
+    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择GPU硬件平台、Ubuntu-x86操作系统和Pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore GPU版本，并进行验证。
 
 - 如果你安装的是`devel`标签的容器，需要自行编译并安装MindSpore。
 
