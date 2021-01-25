@@ -28,6 +28,6 @@ MindSpore团队将持续推出体验项目，以便于用户的快速入门和�
 | 5 | 1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103385-1-1.html  |活动教程整体还是很容易理解才很好操作，教程的平台采用Windows也照顾到了很多初学者可能不怎么会用Linux。教程中如果能加上提醒Linux环境的用户可以在python train.py后面加上--dataset_path指定一下数据目录的话就完美很多了（不然的话会报路径错误）当然更完美一点的话可以写一下linux下如何编译convert（可以是一个链接），不然的话还需要找个windows平台进行转换模型.总体来说通过猫狗识别实现1小时入门AI这个教程还是蛮有意思的。  | 丁一超  | JeffDing890430@163.com  | 2021-01-24 |
 | 6 | 1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103213-1-1.html | 1小时即可入门,简单便捷，感谢版主| 多米诺的古牌 | 845053993@qq.com | 2021-01-25|
 | 7 | 1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103645-1-1.html | 务必按照文档操作，我用系统已经装好的python3.8就不行，后来卸载用3.7.5才OK  | 胡余雷 | dongzhumao@139.com | 2021-01-25 |
-| 8 | <!--请在此处填写-->  | <!--请在此处填写-->  | <!--请在此处填写-->  | <!--请在此处填写-->  | <!--请在此处填写-->  | <!--请在此处填写-->  |
+| 8 | 1小时入门AI开发工程师  | https://bbs.huaweicloud.com/forum/thread-103095-1-1.html  | 文档很好，非常给力。  | 刘炳成  | xjtlbc@163.com  | 2021-01-22  |
 | 9 |1小时入门AI开发工程师 | https://bbs.huaweicloud.com/forum/thread-103299-1-1.html | 体验很有趣，可以把AI模型部署到手机上，让AI走进生活中，给自己的猫猫进行识别！而且是用华为自己的MindSpore来做的，MindSpore加油！| JinhengZhang | 931136898@qq.com | 2021-01-23|
 | 10 |1小时入门AI开发工程师 |https://bbs.huaweicloud.com/forum/thread-103198-1-1.html | 受限于硬件环境和创作条件，没能 1 小时体验完毕，除去其他干扰，可能半小时能完成，当然知识点很丰富，值得深入学习！| 胡琦 | huqi@gpdi.com | 2021-01-23|
