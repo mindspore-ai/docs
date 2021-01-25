@@ -68,6 +68,7 @@ Neural Network Operators
     mindspore.ops.MaxPool
     mindspore.ops.MaxPoolWithArgmax
     mindspore.ops.MirrorPad
+    mindspore.ops.Mish
     mindspore.ops.NLLLoss
     mindspore.ops.OneHot
     mindspore.ops.Pack
@@ -79,6 +80,7 @@ Neural Network Operators
     mindspore.ops.ResizeBilinear
     mindspore.ops.RNNTLoss
     mindspore.ops.ROIAlign
+    mindspore.ops.SeLU
     mindspore.ops.SGD
     mindspore.ops.Sigmoid
     mindspore.ops.SigmoidCrossEntropyWithLogits
@@ -160,6 +162,7 @@ Math Operators
     mindspore.ops.Minimum
     mindspore.ops.Mod
     mindspore.ops.Mul
+    mindspore.ops.MulNoNan
     mindspore.ops.Neg
     mindspore.ops.NMSWithMask
     mindspore.ops.NotEqual
