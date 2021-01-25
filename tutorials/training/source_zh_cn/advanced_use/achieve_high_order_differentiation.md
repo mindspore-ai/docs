@@ -385,8 +385,8 @@ Ascend支持算子：[Pow](https://www.mindspore.cn/doc/api_python/zh-CN/master/
 
 ## 引用
 
-[1] Zhang L, Han J, Wang H, et al. Deep potential molecular dynamics: a scalable model with the accuracy of quantum mechanics[J]. Physical review letters, 2018, 120(14): 143001.
+[1] Zhang L, Han J, Wang H, et al. [Deep potential molecular dynamics: a scalable model with the accuracy of quantum mechanics[J]](https://arxiv.org/pdf/1707.09571v2.pdf). Physical review letters, 2018, 120(14): 143001.
 
-[2] Raissi M, Perdikaris P, Karniadakis G E. Physics informed deep learning (part i): Data-driven solutions of nonlinear partial differential equations[J]. arXiv preprint arXiv:1711.10561, 2017.
+[2] Raissi M, Perdikaris P, Karniadakis G E. [Physics informed deep learning (part i): Data-driven solutions of nonlinear partial differential equations[J]](https://arxiv.org/pdf/1711.10561.pdf). arXiv preprint arXiv:1711.10561, 2017.
 
-[3] Baydin A G, Pearlmutter B A, Radul A A, et al. Automatic differentiation in machine learning: a survey[J]. The Journal of Machine Learning Research, 2017, 18(1): 5595-5637.
+[3] Baydin A G, Pearlmutter B A, Radul A A, et al. [Automatic differentiation in machine learning: a survey[J]](https://jmlr.org/papers/volume18/17-468/17-468.pdf). The Journal of Machine Learning Research, 2017, 18(1): 5595-5637.
