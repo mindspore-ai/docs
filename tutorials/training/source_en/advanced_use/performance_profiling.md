@@ -14,6 +14,7 @@
             - [Operator Performance Analysis](#operator-performance-analysis)
             - [MindData Performance Analysis](#minddata-performance-analysis)
             - [Timeline Analysis](#timeline-analysis)
+            - [Memory Analysis](#memory-analysis)
     - [Specifications](#specifications)
 
 <!-- /TOC -->
@@ -182,6 +183,30 @@ The Timeline consists of the following parts:
 - The Operator Information: When we click one task, the corresponding operator of this task will be shown at the bottom.
 
 W/A/S/D can be applied to zoom in and out of the Timeline graph.
+
+#### Memory Analysis
+
+This page is used to show the memory usage of the neural network model on the **device**, which is an **ideal prediction** based on the theoretical calculation results. The content of the page includes:
+
+- An overview of the memory usage of the model, including the total available memory, peak memory and other information.
+- The memory occupied varies in the execution order while the model is running.
+- The memory usage of each operator is decomposed and displayed in the table of ```Operator Memory Allocation```.
+
+![memory.png](./images/memory.png)
+
+Figure 8：Memory Analysis
+
+Users can obtain the summary of memory usage via the ```Memory Allocation Overview```. In addition, they can obtain more detailed information from ```Memory Usage```, including:
+
+- **Line Chart**: Changes in model memory usage, including static memory, total occupied memory and total available memory.
+- **Zooming**: There is a zoom scroll bar under the line chart. Users can zoom in or out the line chart by adjusting its size to observe more details.
+- **FP/BP**: The execution positions of the start of ```Forward Propagation``` and the end of ```Backward Propagation``` of the model on the line chart.
+- **Details of Nodes**: Hovering over the line chart, the information of the corresponding execution operator is shown, including the execution order of the operator, the name of the operator, the memory occupied by the operator, the total memory occupied by the model in the current position, and the relative memory change compared with the previous execution position.
+- **Memory Decomposition**: Left clicking a position on the line chart, the memory breakdowns of the execution position is shown in the table below the line chart, called ```Operator Memory Allocation```. The table shows the memory decomposition of the corresponding execution position, i.e., the output tensor of which operators are allocated the occupied memory of the current execution position. The module provides users with abundant information, including tensor name, tensor size, tensor type, data type, shape, format, and the active lifetime of tensor memory.
+
+![memory_graphics.png](./images/memory_graphics.png)
+
+Figure 9：Memory Statistics
 
 ## Specifications
 
