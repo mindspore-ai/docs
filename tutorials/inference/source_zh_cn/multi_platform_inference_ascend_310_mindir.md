@@ -68,9 +68,8 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 环境初始化，指定硬件为Ascend 310，DeviceID为0：
 
 ```c++
-ms::Context::Instance()
-    .SetDeviceTarget(ms::kDeviceTypeAscend310)
-    .SetDeviceID(0);
+ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
+ms::GlobalContext::SetGlobalDeviceID(0);
 ```
 
 加载模型文件:
@@ -83,37 +82,44 @@ ms::Model resnet50((ms::GraphCell(graph)));
 ms::Status ret = resnet50.Build({});
 ```
 
+获取模型所需输入信息：
+
+```c++
+std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
+```
+
 加载图片文件:
 
 ```c++
 // Readfile is a function to read images
-std::shared_ptr<ms::Tensor> ReadFile(const std::string &file);
-auto origin_image = ReadFile(image_file);
+ms::MSTensor ReadFile(const std::string &file);
+auto image = ReadFile(image_file);
 ```
 
 图片预处理:
 
 ```c++
 // Create the CPU operator provided by MindData to get the function object
-ms::MindDataEager compose({mindspore::dataset::vision::Decode(), // Decode the input to PIL format
-                           mindspore::dataset::vision::Resize({256}), // Resize the image to the given size
-                           mindspore::dataset::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
-                                                                 {0.229 * 255, 0.224 * 255, 0.225 * 255}), // Normalize the input
-                           mindspore::dataset::vision::CenterCrop({224, 224}), // Crop the input image at the center
-                           mindspore::dataset::vision::HWC2CHW(), // shape (H, W, C) to shape(C, H, W)
-                          });
+ms::dataset::Execute preprocessor({ms::dataset::vision::Decode(),  // Decode the input to RGB format
+                                   ms::dataset::vision::Resize({256}),  // Resize the image to the given size
+                                   ms::dataset::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
+                                                                  {0.229 * 255, 0.224 * 255, 0.225 * 255}),  // Normalize the input
+                                   ms::dataset::vision::CenterCrop({224, 224}),  // Crop the input image at the center
+                                   ms::dataset::vision::HWC2CHW(),  // shape (H, W, C) to shape(C, H, W)
+                                  });
 // Call the function object to get the processed image
-auto img = compose(origin_image);
+ret = preprocessor(image, &image);
 ```
 
 执行推理:
 
 ```c++
-// Create outputs
-std::vector<ms::Buffer> outputs;
-// Create inputs
-std::vector<ms::Buffer> inputs;
-inputs.emplace_back(img->Data(), img->DataSize());
+// Create outputs vector
+std::vector<ms::MSTensor> outputs;
+// Create inputs vector
+std::vector<ms::MSTensor> inputs;
+inputs.emplace_back(model_inputs[0].Name(), model_inputs[0].DataType(), model_inputs[0].Shape(),
+                    image.Data().get(), image.DataSize());
 // Call the Predict function of Model for inference
 ret = resnet50.Predict(inputs, &outputs);
 ```
@@ -131,14 +137,14 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 由于MindSpore使用[旧版的C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)，因此用户程序需与MindSpore一致，否则编译链接会失败。
 
-```bash
+```cmake
 add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 set(CMAKE_CXX_STANDARD 17)
 ```
 
 为编译器添加头文件搜索路径：
 
-```bash
+```cmake
 option(MINDSPORE_PATH "mindspore install path" "")
 include_directories(${MINDSPORE_PATH})
 include_directories(${MINDSPORE_PATH}/include)
@@ -146,14 +152,14 @@ include_directories(${MINDSPORE_PATH}/include)
 
 在MindSpore中查找所需动态库：
 
-```bash
+```cmake
 find_library(MS_LIB libmindspore.so ${MINDSPORE_PATH}/lib)
 file(GLOB_RECURSE MD_LIB ${MINDSPORE_PATH}/_c_dataengine*)
 ```
 
 使用指定的源文件生成目标可执行文件，并为目标文件链接MindSpore库：
 
-```bash
+```cmake
 add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
