@@ -27,9 +27,7 @@ Initialize a `Parameter` object. The input data supports the `Tensor`, `Initiali
 
 The `initializer` API can be called to generate the `Initializer` object.
 
-When the network uses the semi-automatic or automatic parallel strategy and `Initializer` is used to initialize `Parameter`, `Parameter` does not store `Tensor` but `MetaTensor`.
-
-Different from `Tensor`, `MetaTensor` only stores the shape and type of the tensor, not the actual data. Therefore, `MetaTensor` does not occupy any memory, you can call the `init_data` API to convert `MetaTensor` saved in `Parameter` to `Tensor`.
+When `init` is used to initialize `Tensor`, the `Tensor` only stores the shape and type of the tensor, not the actual data. Therefore, `Tensor` does not occupy any memory, you can call the `init_data` API to convert `Tensor` saved in `Parameter` to the actual data.
 
 You can specify a name for each `Parameter` to facilitate subsequent operations and updates. It is recommended to use the default value of `name` when initialize a parameter as one attribute of a cell, otherwise, the parameter name may be different than expected.
 
@@ -66,7 +64,7 @@ Parameter (name=z)
 
 ## Attributes
 
-- `inited_param`: returns `Parameter` that stores the actual data. If `Parameter` originally stores `MetaTensor`, the data will be converted into `Tensor`.
+- `inited_param`: returns `Parameter` that stores the actual data.
 
 - `name`: specifies a name for an instantiated `Parameter`.
 
