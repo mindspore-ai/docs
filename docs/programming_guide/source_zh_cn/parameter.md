@@ -31,9 +31,7 @@ mindspore.Parameter(default_input, name=None, requires_grad=True, layerwise_para
 
 `Initializer`是初始化器，可调用`initializer`接口生成`Initializer`对象。
 
-当网络采用半自动或者全自动并行策略，并且使用`Initializer`初始化`Parameter`时，`Parameter`里保存的不是`Tensor`，而是`MetaTensor`。
-
-`MetaTensor`与`Tensor`不同，`MetaTensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`MetaTensor`转化为`Tensor`。
+当使用`init`去初始化`Tensor`时，`Tensor`仅保存张量的形状和类型，而不保存实际数据，所以不会占用任何内存，可调用`init_data`接口将`Parameter`里保存的`Tensor`转化为数据。
 
 可为每个`Parameter`指定一个名称，便于后续操作和更新。如果在Cell里初始化一个Parameter作为Cell的属性时，建议使用默认值None，否则可能会出现Parameter的name与预期的不一致的情况。
 
@@ -70,7 +68,7 @@ Parameter (name=z)
 
 ## 属性
 
-- `inited_param`：返回保存了实际数据的`Parameter`，如果`Parameter`原本保存的是`MetaTensor`，会将其转换为`Tensor`。
+- `inited_param`：返回保存了实际数据的`Parameter`。
 
 - `name`：实例化`Parameter`时，为其指定的名字。
 
