@@ -2,6 +2,38 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+## Execute
+
+\#include &lt;[execute.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/execute.h)&gt;
+
+```cpp
+Execute(std::shared_ptr<TensorOperation> op);
+
+Execute(std::vector<std::shared_ptr<TensorOperation>> ops);
+```
+
+Transform（图像、文本）变换算子Eager模式执行类。
+
+- 参数
+
+    - `op`: 指定单个使用的变换算子。
+    - `ops`: 指定一个列表，包含多个使用的变换算子。
+
+```cpp
+Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
+```
+
+Eager模式执行接口。
+
+- 参数
+
+    - `input`: 待变换的Tensor张量。
+    - `output`: 变换后的Tensor张量。
+
+- 返回值
+
+    返回一个状态码指示执行变换是否成功。
+
 ## ResizeBilinear
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;

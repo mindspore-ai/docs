@@ -2,20 +2,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/vision.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-## HWC2CHW
-
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
-
-```cpp
-std::shared_ptr<HwcToChwOperation> HWC2CHW()
-```
-
-Convert the channel of the input image from (H, W, C) to (C, H, W).
-
-- Returns
-
-    Return a HwcToChw operator.
-
 ## CenterCrop
 
 \#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/vision_lite.h)&gt;
@@ -28,7 +14,7 @@ Crop the center area of the input image to the given size.
 
 - Parameters
 
-    - `size`: The output size of the resized image. If the size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
+    - `size`: The output size of the cropped image. If the size is a single value, a square crop of size (size, size) is returned. If the size has 2 values, it should be (height, width).
 
 - Returns
 
@@ -46,8 +32,8 @@ Crop an image based on the location and crop size.
 
 - Parameters
 
-    - `coordinates`: The starting location of the crop.
-    - `size`: Size of the cropped area.
+    - `coordinates`: Starting location of crop.
+    - `size`: The output size of the cropped image. If the size is a single value, a square crop of size (size, size) is returned. If the size has 2 values, it should be (height, width).
 
 - Returns
 
@@ -108,3 +94,60 @@ Resize the input image to the given size.
 - Returns
 
     Return a Resize operator.
+
+## HWC2CHW
+
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
+```cpp
+std::shared_ptr<HwcToChwOperation> HWC2CHW()
+```
+
+Convert the channel of the input image from (H, W, C) to (C, H, W).
+
+- Returns
+
+    Return a HwcToChw operator.
+
+## Pad
+
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
+```cpp
+std::shared_ptr<PadOperation> Pad(std::vector<int32_t> padding, std::vector<uint8_t> fill_value = {0}, BorderType padding_mode = BorderType::kConstant)
+```
+
+Pad the image according to padding parameters.
+
+- Parameters
+
+    - `padding`: A vector representing the number of pixels to pad the image. If the vector has a single value, it pads all sides of the image with that value. If the vector has two values, it pads left and right with the first value, and pads top and bottom with the second value. If the vector has four values, it pads left, top, right, and bottom with those values respectively.
+    - `fill_value`: A vector representing the pixel intensity of the borders if the padding_mode is BorderType.kConstant. If 3 values are provided, it is used to fill R, G, B channels respectively.
+    - `padding_mode`: padding_mode The method of padding. Can be any of BorderType.kConstant, BorderType.kEdge, BorderType.kReflect, BorderType.kSymmetric.
+        - BorderType.kConstant, means it fills the border with constant values.
+        - BorderType.kEdge, means it pads with the last value on the edge.
+        - BorderType.kReflect, means it reflects the values on the edge omitting the last value of edge.
+        - BorderType.kSymmetric, means it reflects the values on the edge repeating the last value of edge.
+
+- Returns
+
+    Return a Pad operator.
+
+## Rescale
+
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/vision.h)&gt;
+
+```cpp
+std::shared_ptr<RescaleOperation> Rescale(float rescale, float shift)
+```
+
+Apply `y = αx + β` transform on pixels of input image.
+
+- Parameters
+
+    - `rescale`: paramter α.
+    - `shift`: paramter β.
+
+- Returns
+
+    Return a Rescale operator.

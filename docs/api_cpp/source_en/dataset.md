@@ -2,6 +2,38 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/api_cpp/source_en/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+## Execute
+
+\#include &lt;[execute.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/include/execute.h)&gt;
+
+```cpp
+Execute(std::shared_ptr<TensorOperation> op);
+
+Execute(std::vector<std::shared_ptr<TensorOperation>> ops);
+```
+
+Class to run Tensor operations(cv, text) in the eager mode.
+
+- Parameters
+
+    - `op`: Single transform operation to be used.
+    - `ops`: A list of transform operations to be used.
+
+```cpp
+Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
+```
+
+Callable function to execute the TensorOperation in the eager mode.
+
+- Parameters
+
+    - `input`: Tensor to be transformed.
+    - `output`: Transformed tensor.
+
+- Returns
+
+    Return Status code to indicate transform successful or not.
+
 ## ResizeBilinear
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/r1.1/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
