@@ -11,11 +11,10 @@
         - [伪量化节点](#伪量化节点)
     - [感知量化训练](#感知量化训练)
     - [感知量化训练示例](#感知量化训练示例)
-        - [定义融合网络](#定义融合网络)
-        - [转化为量化网络](#转化为量化网络)
-    - [重训和推理](#重训和推理)
-        - [导入模型重新训练](#导入模型重新训练)
-        - [进行推理](#进行推理)
+        - [定义量化网络](#定义量化网络)
+            - [自动构建量化网络](#自动构建量化网络)
+            - [手动构建量化网络](#手动构建量化网络)
+        - [导出量化模型](#导出量化模型)
     - [参考文献](#参考文献)
 
 <!-- /TOC -->
@@ -34,7 +33,7 @@
 
 如上所述，与FP32类型相比，FP16、INT8、INT4等低精度数据表达类型所占用空间更小。使用低精度数据表达类型替换高精度数据表达类型，可以大幅降低存储空间和传输时间。而低比特的计算性能也更高，INT8相对比FP32的加速比可达到3倍甚至更高，对于相同的计算，功耗上也有明显优势。
 
-当前业界量化方案主要分为两种：感知量化训练（Quantization Aware Training）和训练后量化（Post-training Quantization）。
+当前业界量化方案主要分为两种：感知量化训练（Quantization Aware Training）和训练后量化（Post-training Quantization）。感知量化训练需要训练数据，在模型准确率上通常表现更好，适用于对模型压缩率和模型准确率要求较高的场景；训练后量化简单易用，只需少量校准数据，适用于追求高易用性和缺乏训练资源的场景。
 
 ### 伪量化节点
 
@@ -45,7 +44,7 @@
 
 ## 感知量化训练
 
-MindSpore的感知量化训练是在训练基础上，使用低精度数据替换高精度数据来简化训练模型的过程。这个过程不可避免引入精度的损失，这时使用伪量化节点来模拟引入的精度损失，并通过反向传播学习，来减少精度损失。对于权值和数据的量化，MindSpore采用了参考文献[1]中的方案。
+MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟量化操作，过程中仍然采用浮点数计算，并通过反向传播学习更新网络参数，使得网络参数更好地适应量化带来的损失。对于权值和数据的量化，MindSpore采用了参考文献[1]中的方案。
 
 感知量化训练规格
 
@@ -53,39 +52,35 @@ MindSpore的感知量化训练是在训练基础上，使用低精度数据替�
 | --- | --- |
 | 硬件支持 | GPU、Ascend AI 910处理器的硬件平台 |
 | 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
-| 算法支持 | 在MindSpore的伪量化训练中，支持非对称和对称的量化算法。 |
+| 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
 | 方案支持 | 支持4、7和8比特的量化方案。 |
 | 数据类型支持 | Ascend平台支持精度为FP32和FP16的网络进行量化训练，GPU平台支持FP32。 |
+| 运行模式支持 | Graph模式 |
 
 ## 感知量化训练示例
 
-感知量化训练模型与一般训练步骤一致，在定义网络和最后生成模型阶段后，需要进行额外的操作，完整流程如下：
+感知量化训练与一般训练步骤一致，在定义量化网络和生成量化模型阶段需要进行额外的操作，完整流程如下：
 
-1. 数据处理加载数据集。
-2. 定义原始非量化网络。
-3. 定义融合网络。在完成定义原始非量化网络后，替换指定的算子，完成融合网络的定义。
-4. 定义优化器和损失函数。
-5. 转化量化网络。基于融合网络，使用转化接口在融合网络中插入伪量化节点，生成量化网络。
-6. 进行量化训练。基于量化网络训练，生成量化模型。
+1. 加载数据集，处理数据。
+2. 定义量化网络。
+3. 定义优化器和损失函数。
+4. 训练网络，保存模型文件。
+5. 加载保存的模型，进行推理。
+6. 导出量化模型。
 
-在上面流程中，第3、5、6步是感知量化训练区别普通训练需要额外进行的步骤。
-
-> - 融合网络：使用指定算子（`nn.Conv2dBnAct`、`nn.DenseBnAct`）替换后的网络。
-> - 量化网络：融合模型使用转换接口（`QuantizationAwareTraining.quantize`）插入伪量化节点后得到的网络。
-> - 量化模型：量化网络训练后得到的checkpoint格式的模型。
-
-接下来，以LeNet网络为例，展开叙述2、3两个步骤。
+在上面流程中，步骤2和步骤6是感知量化训练区别普通训练需要额外进行的步骤。接下来，以LeNet网络为例，展开叙述量化相关步骤。
 
 > 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant> 。
 
-### 定义融合网络
+### 定义量化网络
 
-定义融合网络，在定义网络后，替换指定的算子。
+量化网络是指在原网络定义的基础上修改需要量化的网络层后生成的带有伪量化节点的网络。根据构建量化网络的不同，定义量化网络可分为如下两种的方法：
 
-1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的2个算子`nn.Conv2d`和`nn.ReLU`。
-2. 使用`nn.DenseBnAct`算子替换原网络模型中的2个算子`nn.Dense`和`nn.ReLU`。
+- 自动构建量化网络：定义融合网络后，调用转换接口后会自动将融合网络转化为量化网络。用户无需感知插入伪量化节点的过程，更简单易用。
+- 手动构建量化网络：手动将需要量化的网络层替换成对应的量化节点，或者直接在需要量化的网络层后插入伪量化节点，修改后的网络即量化网络。用户可以自定义需要量化的网络层，更加灵活易扩展。
 
-> 无论`nn.Dense`和`nn.Conv2d`算子后面有没有`nn.BatchNorm*`和`nn.ReLU`，都要按规定使用上述两个算子进行融合替换。
+> - 自动构建量化网络方法支持量化的网络层包含`nn.Conv2dBnAct`、`nn.DenseBnAct`、`TensorAdd`、`Sub`、`Mul`和`RealDiv`。如果只需量化这些网络层的部分层，或者要支持量化其他网络层，请使用手动构建量化网络方法。
+> - 自动构建量化网络的转换接口是`QuantizationAwareTraining.quantize`。
 
 原网络模型LeNet5的定义如下所示：
 
@@ -124,6 +119,15 @@ class LeNet5(nn.Cell):
         return x
 ```
 
+#### 自动构建量化网络
+
+首先定义融合网络：
+
+1. 使用`nn.Conv2dBnAct`算子替换原网络模型中的2个算子`nn.Conv2d`和`nn.ReLU`。
+2. 使用`nn.DenseBnAct`算子替换原网络模型中的2个算子`nn.Dense`和`nn.ReLU`。
+
+> 无论`nn.Dense`和`nn.Conv2d`算子后面有没有`nn.BatchNorm`和`nn.ReLU`，都要按规定使用上述两个算子进行融合替换。
+
 替换算子后的融合网络如下：
 
 ```python
@@ -150,9 +154,19 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-### 转化为量化网络
+使用感知量化训练进行微调时，需要加载预训练模型的参数。
 
-使用`QuantizationAwareTraining.quantize`接口自动在融合模型中插入伪量化节点，将融合模型转化为量化网络。
+```python
+from mindspore.compression.quant import load_nonquant_param_into_quant_net
+...
+# define fusion network
+network = LeNet5(cfg.num_classes)
+
+param_dict = load_checkpoint(args.ckpt_path)
+load_nonquant_param_into_quant_net(network, param_dict)
+```
+
+然后使用`QuantizationAwareTraining.quantize`接口自动在融合网络中插入伪量化节点，将融合网络转化为量化网络。
 
 ```python
 from mindspore.compression.quant import QuantizationAwareTraining
@@ -164,32 +178,99 @@ quantizer = QuantizationAwareTraining(quant_delay=900,
 net = quantizer.quantize(network)
 ```
 
-## 重训和推理
+> 如果量化精度不满足要求，请先调整合适的量化策略参数。例如，一般量化bit数越大量化精度损失越小，权重采用逐通道量化会比逐层量化获取更好的精度。另外，还可以选择手动构建量化网络方法，通过手动选择量化部分网络层来平衡准确率和推理性能之间的关系。
 
-### 导入模型重新训练
+#### 手动构建量化网络
 
-上面介绍了从零开始进行感知量化训练。更常见情况是已有一个模型文件，希望生成量化模型，这时已有正常网络模型训练得到的模型文件及训练脚本，进行感知量化训练。这里使用checkpoint文件重新训练的功能，详细步骤为：
+把原网络中需要量化的层替换成对应的量化算子：
 
-  1. 数据处理加载数据集。
-  2. 定义原始非量化网络。
-  3. 训练原始网络生成非量化模型。
-  4. 定义融合网络。
-  5. 定义优化器和损失函数。
-  6. 基于融合网络转化生成量化网络。
-  7. 加载模型文件重训。加载已有非量化模型文件，基于量化网络重新训练生成量化模型。详细模型重载训练，请参见<https://www.mindspore.cn/tutorial/training/zh-CN/master/use/load_model_for_inference_and_transfer.html>。
+1. 使用`nn.Conv2dQuant`替换原网络模型中的`nn.Conv2d`算子。
+2. 使用`nn.DenseQuant`替换原网络模型中`nn.Dense`算子。
+3. 使用`nn.ActQuant`替换原网络模型中的`nn.ReLU`算子。
 
-### 进行推理
+```python
+class LeNet5(nn.Cell):
+    def __init__(self, num_class=10, channel=1):
+        super(LeNet5, self).__init__()
+        self.num_class = num_class
 
-使用量化模型进行推理，与普通模型推理一致，分为直接checkpoint文件推理及转化为通用模型格式（AIR、MindIR等）进行推理。
+        self.qconfig = create_quant_config(quant_dtype=(QuantDtype.INT8, QuantDtype.INT8), per_channel=(True, False), symmetric=[True, False])
 
-> 推理详细说明请参见<https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference.html>
+        self.conv1 = nn.Conv2dQuant(channel, 6, 5, pad_mode='valid', quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
+        self.conv2 = nn.Conv2dQuant(6, 16, 5, pad_mode='valid', quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
+        self.fc1 = nn.DenseQuant(16 * 5 * 5, 120, quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
+        self.fc2 = nn.DenseQuant(120, 84, quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
+        self.fc3 = nn.DenseQuant(84, self.num_class, quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
 
-- 使用感知量化训练后得到的checkpoint文件进行推理：
+        self.relu = nn.ActQuant(nn.ReLU(), quant_config=self.qconfig, quant_dtype=QuantDtype.INT8)
+        self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
 
-  1. 加载量化模型。
-  2. 推理。
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.conv2(x)
+        x = self.relu(x)
+        x = self.max_pool2d(x)
+        x = self.flatten(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        x = self.relu(x)
+        x = self.fc3(x)
+        return x
+```
 
-- 转化为ONNX等通用格式进行推理（暂不支持，开发完善后补充）。
+> - 量化算子：`nn.Conv2dQuant`、`nn.DenseQuant`、`nn.ActQuant`等为含有伪量化节点的算子。更多的量化算子内容请参见<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#quantized-functions> 。
+> - 在需要量化的网络层后面插入伪量化节点`nn.FakeQuantWithMinMaxObserver`可以实现更多网络层的量化。
+> - 建议优先选择量化网络中靠后的层，因为量化前面的网络层可能会造成更多的精度损失。
+
+使用感知量化训练进行微调时，需要加载预训练模型的参数。
+
+```python
+from mindspore.compression.quant import load_nonquant_param_into_quant_net
+...
+# define quant network
+network = LeNet5(cfg.num_classes)
+
+param_dict = load_checkpoint(args.ckpt_path)
+load_nonquant_param_into_quant_net(network, param_dict)
+```
+
+### 导出量化模型
+
+在端侧硬件平台上部署的量化模型为通用模型格式（AIR、MindIR等），并且不包含伪量化节点。导出步骤为：
+
+1. 定义量化网络。该步骤的量化网络和感知量化训练时的量化网络相同。
+2. 加载感知量化训练时保存的CheckPoint格式文件。
+3. 导出量化模型。设置`export`接口的`quant_mode`参数。
+
+```python
+from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
+
+if __name__ == "__main__":
+    ...
+    # define fusion network
+    network = LeNet5(cfg.num_classes)
+    quantizer = QuantizationAwareTraining(bn_fold=False,
+                                          per_channel=[True, False],
+                                          symmetric=[True, False])
+    network = quantizer.quantize(network)  
+
+    # load quantization aware network checkpoint
+    param_dict = load_checkpoint(args.ckpt_path)
+    load_param_into_net(network, param_dict)
+
+    # export network
+    inputs = Tensor(np.ones([1, 1, cfg.image_height, cfg.image_width]), mindspore.float32)
+    export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='AUTO')
+```
+
+导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
+
+> - 导出的模型格式支持MindIR和AIR。
+> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs?master)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。
 
 ## 参考文献
 
