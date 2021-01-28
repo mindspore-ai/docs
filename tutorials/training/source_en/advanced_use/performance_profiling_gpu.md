@@ -40,7 +40,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
 
-Users can get profiling data by user-defined callback (In the current version, minddata does not support this mode. There is no minddata performance data generation in this mode.) :
+In GPU scenarios, users can customize the callback mode to collect performance data (Currently, MindData does not support this mode, and there is no MindData performance data file generation in this mode.), the current data sinking mode does not support callback to collect performance data in the specified step interval. The following is the example：
 
 ```python
 class StopAtStep(Callback):
