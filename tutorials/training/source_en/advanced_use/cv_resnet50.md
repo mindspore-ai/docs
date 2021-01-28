@@ -22,7 +22,7 @@
 
 ## Overview
 
-Computer vision is one of the most widely researched and mature technology fields of deep learning, and is widely applied to scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, tracking, retrieval, recognition, promotion, and reconstruction.
+Computer vision is one of the most widely researched and mature technology fields of deep learning, and is widely applied to scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, retrieval, recognition, promotion, and reconstruction.
 
 This chapter describes how to apply MindSpore to computer vision scenarios based on image classification tasks.
 
