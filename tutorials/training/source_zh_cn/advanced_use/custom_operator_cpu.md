@@ -36,7 +36,7 @@
 
 算子的原语是一个继承于`PrimitiveWithInfer`的子类，其类型名称即是算子名称。
 
-CPU算子原语的接口定义如下：
+CPU算子原语定义在`mindspore/ops/operations`路径下，根据算子类型选择适合的文件，接口定义如下：
 
 - 属性由构造函数`__init__`的入参定义。本用例的算子没有init属性，因此`__init__`没有额外的入参。
 - 输入输出的名称通过`init_prim_io_names`函数定义。
@@ -73,7 +73,7 @@ class Transpose(PrimitiveWithInfer):
 
 ### 实现CPU算子
 
-通常一个CPU算子的实现，需要编写一个头文件和一个源文件。
+通常一个CPU算子的实现，需要编写一个头文件和一个源文件，文件路径为`mindspore/ccsrc/backend/kernel_compiler/cpu`，如果算子的逻辑实现是通过调用第三方库`MKL-DNN`，则放在子目录`mkldnn`下。详细介绍请参考[oneMKL](https://github.com/oneapi-src/oneMKL)和[oneDNN](https://github.com/oneapi-src/oneDNN) 。
 
 算子的头文件中包括算子的注册信息和类的声明。算子类继承于`CPUKernel`父类，重载`InitKernel`和`Launch`两个成员函数。
 
