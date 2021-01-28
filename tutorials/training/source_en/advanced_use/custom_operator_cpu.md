@@ -37,7 +37,7 @@ This paper will take the custom `Transpose` operator as an example to introduce 
 
 Each operator's primitive is a subclass inherited from the class `PrimitiveWithCheck`, whose type name is the operator's name.
 
-Definition of CPU operators' primitives' interface is as follows:
+The CPU operator primitives are defined under the path `mindspore/ops/operations`, and the appropriate file is selected according to the operator type. Definition of CPU operators' primitives' interface is as follows:
 
 - Attributes are defined by the input parameters of construction function `__init__`. Operators in this use case have no init attributes, thus `__init__` has no additional input parameters.
 - The input and output names are defined by the function `init_prim_io_names`.
@@ -76,7 +76,7 @@ class Transpose(PrimitiveWithInfer):
 
 ### Implementing CPU Operators
 
-Usually, to implement a CPU operator needs to write a head file and a source file.
+Usually, to implement a CPU operator needs to write a head file and a source file. The file path is `mindspore/ccsrc/backend/kernel_compiler/cpu`. If the logical realization of the operator is by calling the third-party library `MKL-DNN`, it will be placed in the subdirectory `mkldnn`. Please refer to [oneMkl](https://github.com/oneapi-src/oneMKL) and [oneDNN](https://github.com/oneapi-src/oneDNN) for details.
 
 The head file of the operator contains the registration information of the operator and the declaration of the class. The operator class inherits from the parent class of `CPUKernel` and overloads `InitKernel` and `Launch`.
 
