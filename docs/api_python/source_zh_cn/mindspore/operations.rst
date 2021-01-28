@@ -46,6 +46,7 @@ Neural Network Operators
     mindspore.ops.DynamicRNN
     mindspore.ops.Elu
     mindspore.ops.FastGelu
+    mindspore.ops.FastGeLU
     mindspore.ops.Flatten
     mindspore.ops.FloorMod
     mindspore.ops.FusedBatchNorm
@@ -54,6 +55,7 @@ Neural Network Operators
     mindspore.ops.FusedSparseLazyAdam
     mindspore.ops.FusedSparseProximalAdagrad
     mindspore.ops.Gelu
+    mindspore.ops.GeLU
     mindspore.ops.GetNext
     mindspore.ops.HSigmoid
     mindspore.ops.HSwish
@@ -108,6 +110,7 @@ Math Operators
     mindspore.ops.Abs
     mindspore.ops.AccumulateNV2
     mindspore.ops.ACos
+    mindspore.ops.Add
     mindspore.ops.AddN
     mindspore.ops.ApproximateEqual
     mindspore.ops.Asin
@@ -223,6 +226,7 @@ Array Operators
     mindspore.ops.Eye
     mindspore.ops.Fill
     mindspore.ops.FusedSparseFtrl
+    mindspore.ops.Gather
     mindspore.ops.GatherD
     mindspore.ops.GatherNd
     mindspore.ops.GatherV2
