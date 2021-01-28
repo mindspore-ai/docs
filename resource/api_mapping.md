@@ -114,6 +114,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.Sigmoid                                     | mindspore.nn.Sigmoid                                                   |
 | torch.nn.SmoothL1Loss                                | mindspore.nn.SmoothL1Loss                                              |
 | torch.nn.Softmax                                     | mindspore.nn.Softmax                                                   |
+| torch.nn.SyncBatchNorm.convert_sync_batchnorm        | mindspore.nn.GlobalBatchNorm                                           |
 | torch.nn.Tanh                                        | mindspore.nn.Tanh                                                      |
 | torch.nn.Unfold                                      | mindspore.nn.Unfold                                                    |
 | torch.nn.Upsample                                    | mindspore.ops.ResizeBilinear                                           |
