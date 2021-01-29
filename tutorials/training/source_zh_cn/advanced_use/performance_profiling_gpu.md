@@ -42,7 +42,7 @@
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
 
-GPU场景下还可以用自定义callback的方式收集性能数据（当前版本，MindData不支持该种方式，此方式下无MindData性能数据生成。），当前版本数据下沉模式不支持callback的方式收集性能数据，示例如下：
+GPU场景可自定义callback方式收集性能数据（当前MindData不支持该种方式，此方式下无MindData性能数据文件生成。），当前数据下沉模式不支持callback指定step区间收集性能数据，示例如下：
 
 ```python
 class StopAtStep(Callback):
