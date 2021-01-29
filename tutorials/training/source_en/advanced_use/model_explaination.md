@@ -15,6 +15,10 @@
         - [Explanation Method Assessment](#explanation-method-assessment)
             - [Comprehensive Assessment](#comprehensive-assessment)
             - [Classification Assessment](#classification-assessment)
+    - [Counterfactual](#counterfactual)
+        - [Hierarchical Occlusion](#hierarchical-occlusion-counterfactual-hoc)
+            - [Restrictions](#hoc-restrictions)
+            - [Pages and Functions](#hoc-pages-and-functions)
 
 <!--/ TOC -->
 
@@ -92,7 +96,8 @@ runner.run()
 
 ### Restrictions
 
-- Only support CNN of image classification models, such as Lenet, Resnet, Alexnet.
+- Only support image classification models, such as Lenet, Resnet, Alexnet.
+- Input images must be in 1, 3, or 4 channels format.
 - Only support PyNative mode.
 - All instances of explanation and evaluation methods cannot be reused across runners. Explanation and evaluation methods have to be instantiated exclusively for each runner. Otherwise, errors may occur. A correct example is shown below.
 
@@ -142,10 +147,11 @@ Operations:
 1. Select the required explanation methods. Currently, we support four explanation methods. More explanation methods will be provided in the future.
 2. Click **Overlay on Original Image** in the upper right corner of the page to overlay the saliency map on the original image.
 3. Click different tags to display the saliency map analysis results of the model for different tags. For different classification results, the focus of the model is usually different.
-4. Use the tag filtering function on the upper part of the page to filter out images with specified tags.
-5. Select an image display sequence from **Sort Images By** in the upper right corner of the page.
-6. Click **View Score** on the right of an explanation method. The page for assessing all explanation methods is displayed.
-7. Click image you will see the higher resolution image.
+4. Check prediction type checkboxes to display images with the checked tag types: TP - true positive, FN - false negative, FP - false positive.
+5. Use the tag filtering function on the upper part of the page to filter out images with specified tags.
+6. Select an image display sequence from **Sort Images By** in the upper right corner of the page.
+7. Click **View Score** on the right of an explanation method. The page for assessing all explanation methods is displayed.
+8. Click image you will see the higher resolution image.
 
 ![xai_saliency_map_detail](./images/xai_saliency_map_detail.png)
 
@@ -162,3 +168,49 @@ The provided explanation methods are scored from different dimensions. We provid
 The classification assessment page provides two types of comparison. One is to compare scores of different evaluation dimensions of the same explanation method in each tag. The other is to compare scores of different explanation methods of the same evaluation dimension in each tag.
 
 ![xai_metrix_class](./images/xai_metrix_class.png)
+
+## Counterfactual
+
+Counterfactual is a relatively new way of explaining a model's decision, which inverts the decision by modifying the traits of the sample. For example, there is an animal image that is classified as a cat by the model. How can we edit that image in order to make the classification not happening? By answering that question, we can explain the model decision of classifying to "cat". Counterfactuals come in various forms, currently, `ImageClassificationRunner` provides an easy-to-use method called Hierarchical Occlusion Counterfactual (HOC), more counterfactual methods will be provided in the future.
+
+### Hierarchical Occlusion Counterfactual (HOC)
+
+HOC is an occlusion-based method, it searches for the smallest possible display region that is subjected to the constraint of the target label's prediction confidence greater than a threshold (currently fixed at 0.5). The search process is conducted in a hierarchical manner, at the beginning, the original image was covered by its blurred version, then HOC searches large occlusion areas and recursively deeps down into smaller areas for achieving a more accurate result. It ends up with an area tree, each node represents a square display area and the smaller child areas are fall inside the parent. The root node represents the entire area of the original image, its immediate children are the first layer display areas.
+
+At the moment, `ImageClassificationRunner` automatically generates the number of layers (1 to 3), the sizes of occluded areas, the strides, and the blur mask base on the image dimensions. The side length of the first layer occlusion square is defined as the round down of half of the short side of the image, we cut the side length in half in every next layer. Meanwhile, the side length has to be equals to or greater than 28, otherwise, stop adding layers. The stride is the round down of 1/5 of the occluded area's side length.
+
+The preparation of network and data is the same as the saliency explanation methods, users can employ HOC by invoking `register_hierarchical_occlusion()` of `ImageClassificiationRunner`. The sample code is shown below.
+
+```python
+runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
+runner.register_hierarchical_occlusion()
+runner.run()
+```
+
+Users may combine the use of `register_saliency()` with the same runner.
+
+#### HOC Restrictions
+
+- Apart from all the restrictions from saliency explanation methods, models must take 3 channels input images.
+- Input images must be in RGB 3 channels format and the length of the short side must be equals to or greater than 56.
+
+#### HOC Pages and Functions
+
+You can see that the 'Counterfactual Explanation' operations are enabled for those explanation jobs employed HOC. Clicking it will lead you to the HOC explanation page.
+
+![xai_hoc_index](./images/xai_hoc_index.png)
+
+The HOC explanation page displays all HOC results, includes:
+
+- Samples with prediction confidence of any tag that greater than 0.5 and their original images.
+- Prediction confidence of the target tags.
+- The outcome images and their prediction confidences of each layer.
+
+![xai_hoc](./images/xai_hoc.png)
+
+Operations:
+
+1. Change the tag filter and sampler sorting on the left panel. Samples can be sorted by prediction confidence.
+2. Browse samples or switch to the next page in the sample list inside the left panel. Select a sample then its HOC results will be shown on the other panels.
+3. Change the tag of HOC result showing on the center panel. Only tags with prediction confidence greater than 0.5 have HOC results.
+4. Inspect the HOC search process on the bottom panel, select a step image then its enlarged version will be shown on the right panel. (Notes: The occluded regions were darkened and converted to greyscale for display, but it is not the case in the actual HOC search process, only Gaussian blur is employed while brightness and saturation are not altered.)
