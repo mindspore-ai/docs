@@ -14,6 +14,8 @@
     - [数据Dump功能介绍](#数据dump功能介绍)
         - [同步Dump功能介绍](#同步dump功能介绍)
         - [异步Dump功能介绍](#异步dump功能介绍)
+    - [Running Data Recorder](#Running-Data-Recorder)
+        - [使用方法](#使用方法)
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
@@ -395,6 +397,39 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     ```
 
     或者使用`msaccucmp.pyc`执行Dump数据文件format转换，具体使用参考链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+
+## Running Data Recorder
+
+Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的功能。要记录的数据将会在MindSpore中进行预设，运行训练脚本时，如果MindSpore出现了运行异常，则会自动地导出MindSpore中预先记录的数据以辅助定位运行异常的原因。不同的运行异常将会导出不同的数据，比如出现`Run task error`异常，将会导出计算图、图执行顺序、内存分配等信息以辅助定位异常的原因。
+
+> 并非所有运行异常都会导出数据，目前仅支持部分异常导出数据。
+
+### 使用方法
+
+1. 创建配置文件`mindspore_config.json`。
+
+    ```json
+    {
+        "rdr": {
+            "enable": true,
+            "path": "/home/mindspore/rdr"
+        }
+    }
+    ```
+
+    > enable: 控制RDR功能是否开启
+    > path: 设置RDR保存数据的路径。当前必须为绝对路径。
+
+2. 通过 `context` 配置RDR。
+
+    ```python3
+    context.set_context(env_config_path="./mindspore_config.json")
+    ```
+
+3. 假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
+
+   这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。
+   比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 
 ## 日志相关的环境变量和配置
 
