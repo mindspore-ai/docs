@@ -70,6 +70,8 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 
 新建一个自己的OBS桶（例如：`resnet50-train`），在桶中创建代码目录（例如：`resnet50_cifar10_train`），并将以下目录中的所有脚本上传至代码目录：
 > <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
+>
+> 注意运行脚本的版本需要与"创建训练任务"步骤选择的MindSpore版本一致。例如：使用MindSpore 1.1版本教程提供的脚本，则需要在创建训练任务时选择1.1版本的MindSpore引擎。
 
 为了方便后续创建训练作业，先创建训练输出目录和日志输出目录，本示例创建的目录结构如下：
 
@@ -270,7 +272,6 @@ if __name__ == '__main__':
 ## 创建训练任务
 
 准备好数据和执行脚本以后，需要创建训练任务将MindSpore脚本真正运行起来。首次使用ModelArts的用户可以根据本章节了解ModelArts创建训练作业的流程。
-> 本章节以MindSpore 0.5.0-beta版本为例。ModelArts支持的MindSpore版本以创建训练作业时"算法来源"->"常用框架"->"AI引擎"可选择的版本为准。
 
 ### 进入ModelArts控制台
 
@@ -284,7 +285,7 @@ ModelArts教程<https://support.huaweicloud.com/engineers-modelarts/modelarts_23
 
 以本教程使用的训练脚本和数据为例，详细列出在创建训练作业界面如何进行配置：
 
-1. `算法来源`选择`常用框架 > Ascend-Powered-Engine > MindSpore-0.5-python3.7-aarch64`。
+1. `算法来源`：选择`常用框架`，然后`AI引擎`选择`Ascend-Powered-Engine`和所需的MindSpore版本(本示例图片为`Mindspore-0.5-python3.7-aarch64`，请注意使用与所选版本对应的脚本)。
 
 2. `代码目录`选择预先在OBS桶中创建代码目录，`启动文件`选择代码目录下的启动脚本。
 
