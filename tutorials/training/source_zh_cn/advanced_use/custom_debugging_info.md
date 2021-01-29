@@ -394,6 +394,8 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     python ${dump_data_conversion.pyc的绝对路径} -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析生成的文件路径}
     ```
 
+    或者使用`msaccucmp.pyc`执行Dump数据文件format转换，具体使用参考链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+
 ## 日志相关的环境变量和配置
 
 MindSpore采用glog来输出日志，常用的几个环境变量如下：

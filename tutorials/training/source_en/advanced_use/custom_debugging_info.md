@@ -389,6 +389,8 @@ Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory 
     python ${Absolute path of dump_data_conversion.pyc} -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
     ```
 
+    Or you can use `msaccucmp.pyc` to convert the format of dump file. Please see <https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html>.
+
 ## Log-related Environment Variables and Configurations
 
 MindSpore uses glog to output logs. The following environment variables are commonly used:
