@@ -107,6 +107,7 @@ Math Operators
     mindspore.ops.Abs
     mindspore.ops.AccumulateNV2
     mindspore.ops.ACos
+    mindspore.ops.Add
     mindspore.ops.AddN
     mindspore.ops.ApproximateEqual
     mindspore.ops.Asin
@@ -189,7 +190,6 @@ Math Operators
     mindspore.ops.Sub
     mindspore.ops.Tan
     mindspore.ops.TensorAdd
-    mindspore.ops.Add
     mindspore.ops.TruncateDiv
     mindspore.ops.TruncateMod
     mindspore.ops.Xdivy
