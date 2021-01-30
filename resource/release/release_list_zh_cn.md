@@ -3,52 +3,104 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
-    - [1.1.0](#110)
+    - [1.1.1](#111)
         - [版本说明和接口变更](#版本说明和接口变更)
         - [下载地址](#下载地址)
         - [配套资料](#配套资料)
-    - [1.0.1](#101)
+    - [1.1.0](#110)
         - [版本说明和接口变更](#版本说明和接口变更-1)
         - [下载地址](#下载地址-1)
         - [配套资料](#配套资料-1)
-    - [1.0.0](#100)
+    - [1.0.1](#101)
         - [版本说明和接口变更](#版本说明和接口变更-2)
         - [下载地址](#下载地址-2)
         - [配套资料](#配套资料-2)
-    - [0.7.0-beta](#070-beta)
+    - [1.0.0](#100)
         - [版本说明和接口变更](#版本说明和接口变更-3)
         - [下载地址](#下载地址-3)
         - [配套资料](#配套资料-3)
-    - [0.6.0-beta](#060-beta)
+    - [0.7.0-beta](#070-beta)
         - [版本说明和接口变更](#版本说明和接口变更-4)
         - [下载地址](#下载地址-4)
         - [配套资料](#配套资料-4)
-    - [0.5.2-beta](#052-beta)
+    - [0.6.0-beta](#060-beta)
         - [版本说明和接口变更](#版本说明和接口变更-5)
         - [下载地址](#下载地址-5)
         - [配套资料](#配套资料-5)
-    - [0.5.0-beta](#050-beta)
+    - [0.5.2-beta](#052-beta)
         - [版本说明和接口变更](#版本说明和接口变更-6)
         - [下载地址](#下载地址-6)
         - [配套资料](#配套资料-6)
-    - [0.3.0-alpha](#030-alpha)
+    - [0.5.0-beta](#050-beta)
         - [版本说明和接口变更](#版本说明和接口变更-7)
         - [下载地址](#下载地址-7)
         - [配套资料](#配套资料-7)
-    - [0.2.0-alpha](#020-alpha)
+    - [0.3.0-alpha](#030-alpha)
         - [版本说明和接口变更](#版本说明和接口变更-8)
         - [下载地址](#下载地址-8)
         - [配套资料](#配套资料-8)
-    - [0.1.0-alpha](#010-alpha)
-        - [版本说明](#版本说明)
+    - [0.2.0-alpha](#020-alpha)
+        - [版本说明和接口变更](#版本说明和接口变更-9)
         - [下载地址](#下载地址-9)
         - [配套资料](#配套资料-9)
-    - [master(unstable)](#masterunstable)
+    - [0.1.0-alpha](#010-alpha)
+        - [版本说明](#版本说明)
+        - [下载地址](#下载地址-10)
         - [配套资料](#配套资料-10)
+    - [master(unstable)](#masterunstable)
+        - [配套资料](#配套资料-11)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.1/resource/_static/logo_source.png"></a>
+
+## 1.1.1
+
+### 版本说明和接口变更
+
+<https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md>
+
+### 下载地址
+
+|   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
+|    ---   |    ---   |    ---   |       ---      |    ---      |
+|   MindSpore   |   Ascend 910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ubuntu_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ubuntu_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ubuntu_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ubuntu_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/euleros_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/euleros_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/centos_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/centos_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/centos_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/centos_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+| | Ascend 310 | Ubuntu-x86 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/ubuntu_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/ubuntu_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+| | | Ubuntu-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/ubuntu_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/ubuntu_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+| | | EulerOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/euleros_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/euleros_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+| | | CentOS-x86 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/centos_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/centos_x86/mindspore_ascend-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+| | | CentOS-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/centos_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/ascend/ascend310/centos_aarch64/mindspore_ascend-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/gpu/ubuntu_x86/cuda-10.1/mindspore_gpu-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/gpu/ubuntu_x86/cuda-10.1/mindspore_gpu-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |   CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/ubuntu_x86/mindspore-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/ubuntu_x86/mindspore-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/ubuntu_aarch64/mindspore-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/ubuntu_aarch64/mindspore-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |         |   Windows-x64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/windows_x64/mindspore-1.1.1-cp37-cp37m-win_amd64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindSpore/cpu/windows_x64/mindspore-1.1.1-cp37-cp37m-win_amd64.whl.sha256> |
+|   MindInsight   |   Ascend 910   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/euleros_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/euleros_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/centos_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/centos_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/centos_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/centos_aarch64/mindinsight-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |   GPU CUDA 10.1   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindInsight/ascend/ubuntu_x86/mindinsight-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|   MindArmour   |   Ascend 910   |   Ubuntu-x86<br>CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/x86_64/mindarmour-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/x86_64/mindarmour-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   Ubuntu-aarch64<br>EulerOS-aarch64<br>CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/aarch64/mindarmour-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/aarch64/mindarmour-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/x86_64/mindarmour-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/MindArmour/x86_64/mindarmour-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|   MindSpore<br>Hub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Hub/any/mindspore_hub-1.1.1-py3-none-any.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Hub/any/mindspore_hub-1.1.1-py3-none-any.whl.sha256> |
+|   MindSpore<br>Serving   |   Ascend 910<br>Ascend310   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/ubuntu_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/ubuntu_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   Ubuntu-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/ubuntu_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/ubuntu_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/euleros_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/euleros_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+|      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
+|      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
+
+### 配套资料
+
+| 类别 | 网址 |
+| --- | --- |
+|安装 | <https://gitee.com/mindspore/docs/tree/r1.1/install> |
+| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html> |
 
 ## 1.1.0
 

@@ -25,7 +25,7 @@
 ## 确认系统环境信息
 
 - 确认安装Ubuntu 18.04/CentOS 8.2/EulerOS 2.8是64位操作系统。
-- 确认安装Ascend 910 AI处理器软件配套包（[Atlas Data Center Solution V100R020C20T600](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251931825)）。
+- 确认安装Ascend 910 AI处理器软件配套包（[Atlas Data Center Solution V100R020C20](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251826872)）。
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
     - 安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，升级配套软件包之后需要重新安装。
 
@@ -71,7 +71,7 @@ pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSp
 其中：
 
 - 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.1/requirements.txt)），其余情况需自行安装。  
-- `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。  
+- `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。
 - `{arch}`表示系统架构，例如使用的系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。  
 - `{system}`表示系统，例如使用的欧拉系统ARM架构，`{system}`应写为`euleros_aarch64`，目前可支持以下系统`euleros_aarch64`/`euleros_x86`/`centos_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`。
 
