@@ -24,4 +24,4 @@ EXTRADIR      = $(SOURCEDIR)/mindspore
 .PHONY: clean
 
 clean:
-	-rm -rf $(BUILDDIR)/* $(EXTRADIR)/ops $(EXTRADIR)/nn $(EXTRADIR)/nn_probability $(EXTRADIR)/dataset $(EXTRADIR)/dataset_vision $(EXTRADIR)/dataset_transforms $(EXTRADIR)/dataset_text $(EXTRADIR)/text
+	-rm -rf $(BUILDDIR)/* $(EXTRADIR)/ops $(EXTRADIR)/nn $(EXTRADIR)/nn_probability $(EXTRADIR)/dataset $(EXTRADIR)/dataset_vision $(EXTRADIR)/dataset_transforms $(EXTRADIR)/dataset_text $(EXTRADIR)/text $(EXTRADIR)/numpy

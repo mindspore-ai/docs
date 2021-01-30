@@ -10,6 +10,13 @@
     :inherited-members:
     :members:
 
+{% elif fullname=="mindspore.numpy.ix_" %}
+
+mindspore.numpy.ix\_
+====================
+
+.. autofunction:: mindspore.numpy.ix_
+
 {% else %}
 {{ fullname | underline }}
 
