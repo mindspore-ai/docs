@@ -105,6 +105,10 @@ class Callback():
 
 下面通过两个例子，进一步了解自定义`Callback`的用法。
 
+> 自定义`Callback`样例代码：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_callback.py>
+
 - 在规定时间内终止训练。
 
     ```python
@@ -126,15 +130,6 @@ class Callback():
             if (cur_time - cb_params.init_time) > self.run_time:
                 print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
                 run_context.request_stop()
-
-    stop_cb = StopAtTime(run_time=10)
-    model.train(100, dataset, callbacks=stop_cb)
-    ```
-
-    输出：
-
-    ```text
-    epoch: 20 step: 32 loss: 2.298344373703003
     ```
 
     实现逻辑为：通过`run_context.original_args`方法可以获取到`cb_params`字典，字典里会包含前文描述的主要属性信息。
@@ -144,35 +139,24 @@ class Callback():
 - 保存训练过程中精度最高的checkpoint文件。
 
     ```python
-    from mindspore import save_checkpoint
-
     class SaveCallback(Callback):
-        def __init__(self, model, eval_dataset):
+        def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
-            self.model = model
-            self.eval_dataset = eval_dataset
-            self.acc = 0.5
+            self.model = eval_model
+            self.ds_eval = ds_eval
+            self.acc = 0
 
         def step_end(self, run_context):
             cb_params = run_context.original_args()
-            epoch_num = cb_params.cur_epoch_num
-
-            result = self.model.eval(self.eval_dataset)
+            result = self.model.eval(self.ds_eval)
             if result['accuracy'] > self.acc:
                 self.acc = result['accuracy']
                 file_name = str(self.acc) + ".ckpt"
                 save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
-
-
-    network = Lenet()
-    loss = nn.SoftmaxCrossEntryWithLogits(sparse=True, reduction='mean')
-    oprimizer = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = Model(network, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
-    model.train(epoch_size, train_dataset=ds_train, callbacks=SaveCallback(model, ds_eval))
     ```
 
-    具体实现逻辑为：定义一个`Callback`对象，初始化对象接收`model`对象和`ds_eval`(验证数据集)。在`step_end`阶段验证模型的精度，当精度为当前最高时，手动触发保存checkpoint方法，保存当前的参数。
+    具体实现逻辑为：定义一个`Callback`对象，初始化对象接收`model`对象和`ds_eval`(验证数据集)。在`step_end`阶段验证模型的精度，当精度为当前最高时，自动触发保存checkpoint方法，保存当前的参数。
 
 ## MindSpore metrics功能介绍
 
@@ -180,7 +164,11 @@ class Callback():
 
 MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`。
 
-用户可以定义一个metrics字典对象，里面包含多种指标，传递给`model.eval`接口用来验证训练精度。
+用户可以定义一个metrics字典对象，里面包含多种指标，传递给`model`对象，通过`model.eval`来验证训练的效果。
+
+> `metrics`使用样例代码：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/use_metrics.py>
 
 ```python
 metrics = {
@@ -190,12 +178,8 @@ metrics = {
     'recall': nn.Recall(),
     'f1_score': nn.F1()
 }
-net = ResNet()
-loss = CrossEntropyLoss()
-opt = Momentum()
-model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, callbacks=TimeMonitor())
-ds_eval = create_dataset()
-output = model.eval(ds_eval)
+model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+result = model.eval(ds_eval)
 ```
 
 `model.eval`方法会返回一个字典，里面是传入metrics的指标和结果。

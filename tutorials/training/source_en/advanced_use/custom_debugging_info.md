@@ -101,6 +101,10 @@ You can inherit the callback base class to customize a callback object.
 
 Here are two examples to further explain the usage of custom Callback.
 
+> custom `Callback` sample code：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_callback.py>
+
 - Terminate training within the specified time.
 
     ```python
@@ -122,9 +126,6 @@ Here are two examples to further explain the usage of custom Callback.
             if (cur_time - cb_params.init_time) > self.run_time:
                 print("epoch: ", epoch_num, " step: ", step_num, " loss: ", loss)
                 run_context.request_stop()
-
-    stop_cb = StopAtTime(run_time=10)
-    model.train(100, dataset, callbacks=stop_cb)
     ```
 
     The output is as follows:
@@ -140,35 +141,24 @@ Here are two examples to further explain the usage of custom Callback.
 - Save the checkpoint file with the highest accuracy during training.
 
     ```python
-    from mindspore import save_checkpoint
-
     class SaveCallback(Callback):
-        def __init__(self, model, eval_dataset):
+        def __init__(self, eval_model, ds_eval):
             super(SaveCallback, self).__init__()
-            self.model = model
-            self.eval_dataset = eval_dataset
-            self.acc = 0.5
+            self.model = eval_model
+            self.ds_eval = ds_eval
+            self.acc = 0
 
         def step_end(self, run_context):
             cb_params = run_context.original_args()
-            epoch_num = cb_params.cur_epoch_num
-
-            result = self.model.eval(self.eval_dataset)
+            result = self.model.eval(self.ds_eval)
             if result['accuracy'] > self.acc:
                 self.acc = result['accuracy']
                 file_name = str(self.acc) + ".ckpt"
                 save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
                 print("Save the maximum accuracy checkpoint,the accuracy is", self.acc)
-
-
-    network = Lenet()
-    loss = nn.SoftmaxCrossEntryWithLogits(sparse=True, reduction='mean')
-    oprimizer = nn.Momentum(network.trainable_params(), 0.01, 0.9)
-    model = Model(network, loss_fn=loss, optimizer=optimizer, metrics={"accuracy"})
-    model.train(epoch_size, train_dataset=ds_train, callbacks=SaveCallback(model, ds_eval))
     ```
 
-    The specific implementation principle is: define a callback object, and initialize the object to receive the model object and the ds_eval (verification dataset). Verify the accuracy of the model in the step_end phase. When the accuracy is the current highest, manually trigger the save checkpoint method to save the current parameters.
+    The specific implementation principle is: define a callback object, and initialize the object to receive the model object and the ds_eval (verification dataset). Verify the accuracy of the model in the step_end phase. When the accuracy is the current highest, automatically trigger the save checkpoint method to save the current parameters.
 
 ## MindSpore Metrics
 
@@ -176,7 +166,11 @@ After the training is complete, you can use metrics to evaluate the training res
 
 MindSpore provides multiple metrics, such as `accuracy`, `loss`, `tolerance`, `recall`, and `F1`.
 
-You can define a metrics dictionary object that contains multiple metrics and transfer them to the `model.eval` interface to verify the training precision.
+You can define a metrics dictionary object that contains multiple metrics and transfer them to the `model` object and use the `model.eval` function to verify the training result.
+
+> `metrics` sample code：
+>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/use_metrics.py>
 
 ```python
 metrics = {
@@ -186,12 +180,8 @@ metrics = {
     'recall': nn.Recall(),
     'f1_score': nn.F1()
 }
-net = ResNet()
-loss = CrossEntropyLoss()
-opt = Momentum()
-model = Model(net, loss_fn=loss, optimizer=opt, metrics=metrics, callbacks=TimeMonitor())
-ds_eval = create_dataset()
-output = model.eval(ds_eval)
+model = Model(network=net, loss_fn=net_loss, optimizer=net_opt, metrics=metrics)
+result = model.eval(ds_eval)
 ```
 
 The `model.eval` method returns a dictionary that contains the metrics and results transferred to the metrics.
