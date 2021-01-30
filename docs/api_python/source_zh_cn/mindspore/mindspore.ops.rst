@@ -79,7 +79,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.fill
      - :class:`mindspore.ops.Fill`
    * - mindspore.ops.gather
-     - :class:`mindspore.ops.GatherV2`
+     - :class:`mindspore.ops.Gather`
    * - mindspore.ops.gather_nd
      - :class:`mindspore.ops.GatherNd`
    * - mindspore.ops.hastype
@@ -205,7 +205,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.string_eq
      - :class:`mindspore.ops.Primitive` ('string_equal')               
    * - mindspore.ops.tensor_add
-     - :class:`mindspore.ops.TensorAdd`
+     - :class:`mindspore.ops.Add`
    * - mindspore.ops.tensor_div
      - :class:`mindspore.ops.RealDiv`
    * - mindspore.ops.tensor_floordiv

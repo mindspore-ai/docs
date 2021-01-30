@@ -63,6 +63,7 @@
 | [mindspore.ops.BitwiseOr](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.BitwiseOr.html)                                       |
 | [mindspore.ops.BitwiseXor](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.BitwiseXor.html)                                     |
 | [mindspore.ops.TensorAdd](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.TensorAdd.html)                                       |
+| [mindspore.ops.Add](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.Add.html)                                                   |
 | [mindspore.ops.Sub](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.Sub.html)                                                   |
 | [mindspore.ops.Mul](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.Mul.html)                                                   |
 | [mindspore.ops.Pow](https://www.mindspore.cn/doc/api_python/en/r1.1/mindspore/ops/mindspore.ops.Pow.html)                                                   |
