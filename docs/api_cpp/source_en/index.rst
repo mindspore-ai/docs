@@ -12,7 +12,6 @@ MindSpore C++ API
 
   class_list
   mindspore
-  api
   dataset
   vision
   lite
