@@ -355,6 +355,8 @@ Inner Operators
     :nosignatures:
     :template: classtemplate.rst
 
+    mindspore.ops.NoRepeatNGram
+    mindspore.ops.Randperm
     mindspore.ops.ScalarCast
 
 Image Operators
