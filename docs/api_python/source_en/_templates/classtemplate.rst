@@ -3,7 +3,11 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname[0].istitle() %}
+{% if objname in ["FastGelu", "GatherV2", "TensorAdd", "Gelu"] %}
+{{ fullname | underline }}
+
+.. autofunction:: {{ fullname }}
+{% elif objname[0].istitle() %}
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
