@@ -65,7 +65,7 @@ The cache session ID is randomly allocated by the server.
 
 ## Creating a Cache Instance
 
-Create the Python script `my_training_script.py`, use the `DatasetCache` API to define a cache instance named `some_cache` in the script, and transfer the cache session ID created in the previous step to the `session_id` parameter.
+Create the Python script `my_training_script.py`, use the `DatasetCache` API to define a cache instance named `some_cache` in the script, and specify the `session_id` parameter to a cache session ID created in the previous step.
 
 ```python
 import mindspore.dataset as ds
@@ -90,7 +90,7 @@ The following uses the CIFAR-10 dataset as an example. Before running the sample
     └── test_batch.bin
 ```
 
-Continue to write the Python script. When the data augmentation operator is applied, use the created `some_cache` as the `cache` parameter.
+To cache the enhanced data processed by data augmentation of the map operator, the created `some_cache` instance is used as the input parameter of the `cache` API in the map operator.
 
 ```python
 import mindspore.dataset.vision.c_transforms as c_vision
