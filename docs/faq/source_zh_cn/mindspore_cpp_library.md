@@ -1,0 +1,19 @@
+# C++接口使用类
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/mindspore_cpp_library.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+<font size=3>**Q：编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办?**</font>
+
+A：寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html#id6)。
+
+<font size=3>**Q：编译应用时出现`undefined reference to mindspore::GlobalContext::SetGlobalDeviceTarget(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const &)`怎么办？**</font>
+
+A：MindSpore使用旧版的C++ ABI，因此用户程序需与MindSpore一致，添加编译选项`-D_GLIBCXX_USE_CXX11_ABI=0`，否则编译链接会失败，CMake脚本编写参考[Ascend 310 AI处理器上使用MindIR模型进行推理#构建脚本介绍](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html#id5)
+
+<font size=3>**Q：运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
+
+A：首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
+
+<font size=3>**Q：运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+
+A：安装MindSpore所依赖的Ascend 310 AI处理器软件配套包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。

@@ -37,7 +37,7 @@ size_t GetMax(ms::MSTensor data);
 
 int main() {
   // set context
-  ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
+  ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend910);
   ms::GlobalContext::SetGlobalDeviceID(0);
   // define model
   auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
