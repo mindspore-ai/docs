@@ -20,12 +20,12 @@
 
 ## Overview
 
-Computer vision is the most widely researched and mature technology field of deep learning, and is widely used in scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, tracking, retrieval, recognition, promotion, and reconstruction.
+Computer vision is the most widely researched and mature technology field of deep learning, and is widely used in scenarios such as mobile phone photographing, intelligent security protection, and automated driving. Since AlexNet won the ImageNet competition in 2012, deep learning has greatly promoted the development of the computer vision field. Almost all the most advanced computer vision algorithms are related to deep learning. Deep neural network can extract image features layer by layer and retain local invariance. It is widely used in visual tasks such as classification, detection, segmentation, retrieval, recognition, promotion, and reconstruction.
 
 This chapter describes how to apply MindSpore to computer vision scenarios based on image classification tasks.
 
-
 ## Image Classification
+
 Image classification is the most basic computer vision application and belongs to the supervised learning category. For example, determine the class of a digital image, such as cat, dog, airplane, or car. The function is as follows:
 
 ```python
@@ -45,7 +45,6 @@ network = LeNet(num_classes)
 
 MindSpore supports the following image classification networks: LeNet, AlexNet, and ResNet.
 
-
 ## Task Description and Preparation
 
 ![cifar10](images/cifar10.jpg)
@@ -57,6 +56,7 @@ Figure 1 shows that the CIFAR-10 dataset contains 10 classes of 60,000 images. E
 Generally, a training indicator of image classification is accuracy, that is, a ratio of a quantity of accurately predicted examples to a total quantity of predicted examples.
 
 Next, let's use MindSpore to solve the image classification task. The overall process is as follows:
+
 1. Download the CIFAR-10 dataset.
 2. Load and preprocess data.
 3. Define a convolutional neural network. In this example, the ResNet-50 network is used.
@@ -69,6 +69,7 @@ Next, let's use MindSpore to solve the image classification task. The overall pr
 The key parts of the task process code are explained below.
 
 ### Downloading the CIFAR-10 Dataset
+
 CIFAR-10 dataset download address: [the website of Cifar-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html) In this example, the data is in binary format. In the Linux environment, run the following command to download the dataset:
 
 ```shell
@@ -81,7 +82,6 @@ Run the following command to decompress the dataset:
 tar -zvxf cifar-10-binary.tar.gz
 ```
 
-
 ### Data Preloading and Preprocessing
 
 1. Load the dataset.
@@ -89,9 +89,7 @@ tar -zvxf cifar-10-binary.tar.gz
     Data can be loaded through the built-in dataset format `Cifar10Dataset` API.
     > `Cifar10Dataset`: The read type is random read. The built-in CIFAR-10 dataset contains images and labels. The default image format is uint8, and the default label data format is uint32. For details, see the description of the `Cifar10Dataset` API.
 
-
     The data loading code is as follows, where `data_home` indicates the data storage location:
-
 
     ```python
     cifar_ds = ds.Cifar10Dataset(data_home)
@@ -141,7 +139,6 @@ tar -zvxf cifar-10-binary.tar.gz
     cifar_ds = cifar_ds.repeat(repeat_num)
     ```
 
-
 ### Defining the CNN
 
 CNN is a standard algorithm for image classification tasks. CNN uses a layered structure to perform feature extraction on an image, and is formed by stacking a series of network layers, such as a convolutional layer, a pooling layer, and an activation layer.
@@ -157,9 +154,7 @@ network = resnet50(class_num=10)
 
 For more information about ResNet, see [ResNet Paper](https://arxiv.org/abs/1512.03385).
 
-
 ### Defining the Loss Function and Optimizer
-
 
 A loss function and an optimizer need to be defined. The loss function is a training objective of the deep learning, and is also referred to as an objective function. The loss function indicates the distance between a logit of a neural network and a label, and is scalar data.
 
@@ -176,7 +171,6 @@ ls = SoftmaxCrossEntropyWithLogits(sparse=True, is_grad=False, reduction="mean")
 # optimization definition
 opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
 ```
-
 
 ### Calling the High-level `Model` API To Train and Save the Model File
 
@@ -214,8 +208,6 @@ res = model.eval(eval_dataset)
 print("result: ", res)
 ```
 
-
-
 ## References
 
-[1] https://www.cs.toronto.edu/~kriz/cifar.html
+[1] <https://www.cs.toronto.edu/~kriz/cifar.html>
