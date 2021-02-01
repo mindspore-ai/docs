@@ -12,7 +12,7 @@
         - [性能分析](#性能分析)
             - [算子性能分析](#算子性能分析)
             - [Timeline分析](#timeline分析)
-            - [MindData性能分析](#minddata性能分析)
+            - [数据准备性能分析](#数据准备性能分析)
 
 <!-- /TOC -->
 
@@ -42,7 +42,10 @@
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
 
-GPU场景可自定义callback方式收集性能数据（当前MindData不支持该种方式，此方式下无MindData性能数据文件生成。），当前数据下沉模式不支持callback指定step区间收集性能数据，示例如下：
+GPU场景可自定义callback方式收集性能。
+> 数据准备阶段、数据下沉模式不支持该方式收集性能数据。
+
+示例如下：
 
 ```python
 class StopAtStep(Callback):
@@ -78,17 +81,17 @@ class StopAtStep(Callback):
 
 ### 性能分析
 
-用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景支持算子耗时统计排名、Timeline以及MindData功能，其他功能敬请期待）。
+用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景支持算子耗时统计排名、Timeline以及数准备性能分析，其他功能敬请期待）。
 
 ![performance_overall.png](./images/performance_overall.png)
 
 图1：性能数据总览
 
-图1展示了性能数据总览页面，包含了迭代轨迹（Step Trace）、算子性能、MindData性能和Timeline等组件的数据总体呈现：  
+图1展示了性能数据总览页面，包含了迭代轨迹（Step Trace）、算子性能、数据准备性能和Timeline等组件的数据总体呈现：  
 
 - 算子性能：统计单算子以及各算子类型的执行时间，进行排序展示；总览页中展示了各算子类型平均执行时间占比的饼状图。
 - Timeline：统计了算子以及CUDA activity，在时间轴排列展示；总览页展示了Timeline中执行情况汇总。
-- MindData性能：统计训练数据准备阶段各阶段的性能情况；总览页中展示了各阶段性能可能存在瓶颈的step数目。
+- 数据准备性能：统计训练数据准备阶段各阶段的性能情况；总览页中展示了各阶段性能可能存在瓶颈的step数目。
 
 用户可以点击查看详情链接，进入组件页面进行详细分析。
 
@@ -129,9 +132,9 @@ GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
 
-#### MindData性能分析
+#### 数据准备性能分析
 
-GPU场景下，MindData性能分析的使用方法和Ascend场景相同，使用方法参考：
+GPU场景下，数据准备性能分析的使用方法和Ascend场景相同，使用方法参考：
 
 > 与Ascend使用方式一致，可以参考：
 >
