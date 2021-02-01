@@ -18,10 +18,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-## Overview
-
-Performance data like operators' execution time is recorded in files and can be viewed on the web page, this can help the user optimize the performance of neural networks.
-
 ## Operation Process
 
 > The GPU operation process is the same as that in the Ascend chip.

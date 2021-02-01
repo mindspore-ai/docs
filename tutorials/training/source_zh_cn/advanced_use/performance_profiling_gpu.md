@@ -18,10 +18,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-## 概述
-
-将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。
-
 ## 操作流程
 
 > 操作流程可以参考Ascend 910上profiler的操作：
