@@ -19,3 +19,4 @@ MindSpore FAQ
   supported_features
   mindinsight_use
   mindspore_lite
+  mindspore_cpp_library
