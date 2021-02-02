@@ -19,6 +19,10 @@
             - [新增Python API](#新增python-api)
         - [检查Python API](#检查python-api)
         - [确认内容](#确认内容-1)
+    - [作图](#作图)
+        - [更新/新增图片](#更新新增图片)
+        - [引用图片](#引用图片)
+        - [确认内容](#确认内容-2)
 
 <!-- /TOC -->
 
@@ -161,3 +165,27 @@ PR合入后次日，即可在MindSpore官网[Python API页面](<https://www.mind
 官网API默认展示最新发布版本，如需查看新合入的内容，如下图所示切换至master分支版本。
 
 ![master_api](./resource/_static/master_api.png)
+
+## 作图
+
+文档中的图片主要分为程序流程图、配置流程图和功能结构图等。
+
+具体的作图要求及规范，请参考MindSpore docs仓提供的[作图规范](https://gitee.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531)。
+
+### 更新/新增图片
+
+如果您发现现有文档中的图片需要更新/新增，可点击页面上方的![View Source on Gitee](./resource/_static/logo_source.png)，跳转至源文件。通常图片会存放在./images目录中，只需将需要新增的图片放进这个目录，或将修改后的图片替换原图，并提交PR即可参与贡献。
+
+> 请同时把原图一并提交到Gitee，放在与存放图片相同的路径下，方便后续修改。
+
+### 图片引用
+
+图片引用的格式为：\!\[图片名称](图片所在目录)。详情请参考[Markdown图片引用要求](https://gitee.com/mindspore/docs/wikis/%E6%96%87%E6%A1%A3%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3363974#%E5%9B%BE%E7%89%87)和[Notebook图片引用要求](https://gitee.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614)。
+
+### 确认内容
+
+PR合入后次日，即可在MindSpore官网中查看到新增内容，更新/新增图片将会出现在文档中。
+
+官网各教程和文档默认选中最新发布版本，如需查看新合入的内容，需在下拉列表中切换至master。
+
+![master_doc](./resource/_static/master_doc.png)
