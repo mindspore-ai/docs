@@ -129,11 +129,11 @@ profiler.analyse()
 
 使用MindData性能分析组件可以对训练数据准备过程进行性能分析。数据准备过程可以分为三个阶段：数据处理pipeline、数据发送至Device以及Device侧读取训练数据，MindData性能分析组件会对每个阶段的处理性能进行详细分析，并将分析结果进行展示。
 
-![minddata_profile.png](./images/minddata_profile.png)
+![minddata_profile.png](images/data_profile.png)
 
 图5：MindData性能分析
 
-图5展示了MindData性能分析页面，包含迭代间隙和数据处理两个TAB页面。
+图5展示了MindData性能分析页面，包含迭代间隙、数据处理、CPU利用率三个TAB页面。
 
 迭代间隙TAB页主要用来分析数据准备三个阶段是否存在性能瓶颈，数据队列图是分析判断的重要依据：  
 
@@ -160,6 +160,32 @@ profiler.analyse()
 - 如果MapOp类型的算子是性能瓶颈，建议增加`num_parallel_workers`，如果该算子为Python算子，可以尝试优化脚本。
 - 如果BatchOp类型的算子是性能瓶颈，建议调整`prefetch_size`的大小。
 
+CPU利用率分析，主要起到辅助性能调试的作用。根据Queue size确定了性能瓶颈后，可以根据CPU利用率辅助对性能进行调试（用户利用率过低，增加线程数；系统利用率过大，减小线程数）。
+CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子CPU利用率。
+
+![device_cpu_utilization.png](./images/device_cpu_utilization.png)
+
+图7: 整机CPU利用率
+
+整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
+
+![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
+
+图8: 进程利用率
+
+进程利用率：展示单个进程的CPU占用情况。整机利用率和进程利用率结合，可以确定训练过程中是否有其他进程影响训练。
+
+![data_op_cpu_utilization.png](./images/data_op_utilization.png)
+
+图9: 算子利用率
+
+算子利用率：展示Data pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
+
+CPU利用率常用场景:
+
+- 网络调试人员根据Queue size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
+- 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
+
 #### Timeline分析
 
 Timeline组件可以展示：  
@@ -177,7 +203,7 @@ Timeline组件可以展示：
 
 ![timeline.png](./images/timeline.png)
 
-图7：Timeline分析
+图10：Timeline分析
 
 Timeline主要包含如下几个部分：  
 
