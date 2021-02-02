@@ -116,7 +116,7 @@ app
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
 |   |   ├── ..
-|   |   ├── mindspore-lite-1.0.1-runtime-arm64-cpu # MindSpore Lite版本
+|   |   ├── mindspore-lite-1.1.0-inference-android # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
 |   |   └── MsNetWork.cpp # MindSpore接口封装
@@ -150,7 +150,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
-注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz)，解压后将其放在对应位置。
+注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-1.1.0-inference-android.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-inference-android.tar.gz)，解压后将其放在对应位置。
 
 ```text
 android{

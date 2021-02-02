@@ -113,7 +113,7 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-1.0.1-runtime-arm64-cpu #MindSpore Lite version
+|   |   ├── mindspore-lite-1.1.0-inference-android #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
@@ -140,7 +140,7 @@ When MindSpore C++ APIs are called at the Android JNI layer, related library fil
 
 In this example, the build process automatically downloads the `mindspore-lite-1.0.1-runtime-arm64-cpu` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/lite/android_aarch64/mindspore-lite-1.0.1-runtime-arm64-cpu.tar.gz) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.1.0-inference-android.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-inference-android.tar.gz) and put them in the corresponding location.
 
 ```text
 android{
