@@ -215,8 +215,6 @@ Array Operators
     mindspore.ops.Cast
     mindspore.ops.Concat
     mindspore.ops.DepthToSpace
-    mindspore.ops.Diag
-    mindspore.ops.DiagPart
     mindspore.ops.DType
     mindspore.ops.DynamicShape
     mindspore.ops.EditDistance
@@ -319,7 +317,6 @@ Debug Operators
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.ops.Assert
     mindspore.ops.HistogramSummary
     mindspore.ops.ImageSummary
     mindspore.ops.InsertGradientOf
