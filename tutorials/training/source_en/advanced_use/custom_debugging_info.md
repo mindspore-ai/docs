@@ -14,6 +14,8 @@
     - [Data Dump Introduction](#data-dump-introduction)
         - [Synchronous Dump](#synchronous-dump)
         - [Asynchronous Dump](#asynchronous-dump)
+    - [Running Data Recorder](#running-data-recorder)
+        - [Usage](#usage)
     - [Log-related Environment Variables and Configurations](#log-related-environment-variables-and-configurations)
 
 <!-- /TOC -->
@@ -380,6 +382,38 @@ Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory 
     ```
 
     Or you can use `msaccucmp.pyc` to convert the format of dump file. Please see <https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html>.
+
+## Running Data Recorder
+
+Running Data Recorder(RDR) is the feature MindSpore provides to record data while training program is running. If a running exception occurs in MindSpore, the pre-recorded data in MindSpore is automatically exported to assist in locating the cause of the running exception. Different exceptions will export different data, for instance, the occurrence of `Run task error` exception, the computational graph, execution sequence of the graph, memory allocation and other information will be exported to assist in locating the cause of the exception.
+
+> Not all run exceptions export data, and only partial exception exports are currently supported.
+
+### Usage
+
+1. Create the configuration file `mindspore_config.json`.
+
+    ```json
+    {
+        "rdr": {
+            "enable": true,
+            "path": "/home/mindspore/rdr"
+        }
+    }
+    ```
+
+    > enable: Controls whether the RDR is enabled
+    > path: Set the path to which RDR stores data.The current path must be absolute.
+
+2. Configure RDR via `context`.
+
+    ```python3
+    context.set_context(env_config_path="./mindspore_config.json")
+    ```
+
+3. If MindSpore is used for training on Ascend 910, there is an exception `Run task error` in training.
+
+   When we go to the directory `/home/mindspore-rdr`, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
 
 ## Log-related Environment Variables and Configurations
 
