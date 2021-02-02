@@ -37,7 +37,7 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 ## Installing MindSpore
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/{system}/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/ascend310/{system}/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 In the preceding information:
@@ -61,7 +61,7 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 # lib libraries that the run package depends on
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/acllib/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/atc/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
-# lib libraries that the mindspore depends on
+# lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
@@ -90,7 +90,7 @@ Go to the directory of the sample project and change the path based on the actua
 cd /home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_single_op_sample
 ```
 
-Build a project by referring to `README.md`.
+Build a project by referring to `README.md`, modify `pip3` according to the actual situation.
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
