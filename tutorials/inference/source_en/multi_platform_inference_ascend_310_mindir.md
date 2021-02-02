@@ -178,7 +178,7 @@ LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 # lib libraries that the run package depends on
 export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/acllib/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/atc/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
-# lib libraries that the mindspore depends on
+# lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
 
 # Environment variables that must be configured
@@ -188,7 +188,7 @@ export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/atc/ccec_compiler/bin/:${PATH}
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
-Run the `cmake` command:
+Run the `cmake` command, modify `pip3` according to the actual situation:
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`

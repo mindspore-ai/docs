@@ -1,10 +1,10 @@
 
-0.1.0	MindSpore*1.1.0:³
-¤
+0.1.0	MindSpore*1.1.0:§
+˜
 8_7_5_construct_wrapper:x_
-8_7_5_construct_wrapper:y_8_7_5_construct_wrapper:1:2"8_7_5_construct_wrapper:[CNode]0:1"	TensorAdd*b:shape1zshape:shape1,*0
+8_7_5_construct_wrapper:y_8_7_5_construct_wrapper:1:2"8_7_5_construct_wrapper:[CNode]0:1"Add*b:shape1zshape:shape1,*0
 output_namesZoutputzscalar:List[value1,],€*4
-input_namesZxZyzscalar:List[value1,value2,],€:Default/TensorAdd-op38_7_5_construct_wrapper*$
+input_namesZxZyzscalar:List[value1,value2,],€:Default/Add-op38_7_5_construct_wrapper*$
 8_7_5_construct_wrapper:x_*$
 8_7_5_construct_wrapper:y_2%
 8_7_5_construct_wrapper:1:2
