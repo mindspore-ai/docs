@@ -12,6 +12,7 @@
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
         - [方式四：进阶用法，自定义训练循环](#方式四进阶用法，自定义训练循环)
+        - [分布式训练场景](#分布式训练场景)
         - [使用技巧：记录梯度信息](#使用技巧记录梯度信息)
     - [运行MindInsight](#运行mindinsight)
     - [注意事项](#注意事项)
@@ -113,30 +114,35 @@ class AlexNet(nn.Cell):
         x = self.fc3(x)
         return x
 
+def train():
+    context.set_context(mode=context.GRAPH_MODE)
 
-context.set_context(mode=context.GRAPH_MODE)
+    network = AlexNet(num_classes=10)
+    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    lr = Tensor(0.5, mindspore.float32)
+    opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
+    model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
-network = AlexNet(num_classes=10)
-loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-lr = Tensor(0.5, mindspore.float32)
-opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
-model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
+    # How to create a valid dataset instance,
+    # for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
+    ds_train = create_dataset('./dataset_path')
 
-# How to create a valid dataset instance,
-# for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
-ds_train = create_dataset('./dataset_path')
+    # Init a SummaryCollector callback instance, and use it in model.train or model.eval
+    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
 
-# Init a SummaryCollector callback instance, and use it in model.train or model.eval
-summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+    # Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
 
-# Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+    ds_eval = create_dataset('./dataset_path')
+    model.eval(ds_eval, callbacks=[summary_collector])
 
-ds_eval = create_dataset('./dataset_path')
-model.eval(ds_eval, callbacks=[summary_collector])
+if __name__ == '__main__':
+    train()
+
 ```
 
-> 使用summary功能时，建议将`model.train()`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
+> 1. 使用summary功能时，建议将`model.train`的`dataset_sink_mode`参数设置为`False`。请参考文末的注意事项。
+> 2. 使用summary功能时，需要将代码放置到`if __name__ == "__main__"`中运行。详情请[参考Python官网介绍](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html?highlight=multiprocess#multiprocessing-programming)。
 
 ### 方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据
 
@@ -230,8 +236,8 @@ class Net(nn.Cell):
         return out
 ```
 
-> 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。
-> 比如使用两个 `ScalarSummary` 算子收集标量数据，给两个标量设置的名字不能是相同的。
+> 1. 同一种Summary算子中，给数据设置的名字不能重复，否则数据收集和展示都会出现非预期行为。比如使用两个 `ScalarSummary` 算子收集标量数据，给两个标量设置的名字不能是相同的。
+> 2. summary算子仅支持图模式，需要在`nn.Cell`的`construct`中使用。暂不支持PyNative模式。
 
 步骤二：在训练脚本中，实例化 `SummaryCollector`，并将其应用到 `model.train`。
 
@@ -242,16 +248,20 @@ from mindspore import Model, nn, context
 from mindspore.train.callback import SummaryCollector
 ...
 
-context.set_context(mode=context.GRAPH_MODE)
-network = Net()
-loss_fn = CrossEntropyLoss()
-optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
+def train():
+    context.set_context(mode=context.GRAPH_MODE)
+    network = Net()
+    loss_fn = CrossEntropyLoss()
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
+    model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
 
-ds_train = create_dataset('./dataset_path')
+    ds_train = create_dataset('./dataset_path')
 
-summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
+    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+    model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
+
+if __name__ == '__main__':
+    train()
 ```
 
 ### 方式三：自定义Callback记录数据
@@ -284,12 +294,12 @@ class ConfusionMatrixCallback(Callback):
         return self
 
     def step_end(self, run_context):
-        cb_params = run_context.run_context.original_args()
+        cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
         confusion_matrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matrix)
-        self.summary_record.record(cb_params.cur_step)
+        self.summary_record.record(cb_params.cur_step_num)
 
 # init you train script
 ...
@@ -356,6 +366,33 @@ def train():
 if __name__ == '__main__':
     train()
 
+```
+
+### 分布式训练场景
+
+由于`SummaryCollector`和`SummaryRecord`写数据是非进程安全的。所以在单机多卡的场景中，需要确保每张卡保存数据的目录不一样。在分布式场景下，我们通过`get_rank`函数设置summary目录。
+
+```python3
+summary_dir = "summary_dir" + str(get_rank())
+```
+
+示例代码如下：
+
+```python3
+from mindspore.communication.management import get_rank
+
+...
+
+network = ResNet50(num_classes=10)
+
+# Init a SummaryCollector callback instance, and use it in model.train or model.eval
+summary_dir = "summary_dir" + str(get_rank())
+summary_collector = SummaryCollector(summary_dir=summary_dir, collect_freq=1)
+
+# Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
+model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+
+model.eval(ds_eval, callbacks=[summary_collector])
 ```
 
 ### 使用技巧：记录梯度信息
@@ -480,10 +517,8 @@ mindinsight stop
 
 3. 每个summary日志文件目录中，应该只放置一次训练的数据。一个summary日志目录中如果存放了多次训练的summary数据，MindInsight在可视化数据时会将这些训练的summary数据进行叠加展示，可能会与预期可视化效果不相符。
 
-4. 当前 `SummaryCollector` 和 `SummaryRecord` 不支持GPU多卡运行的场景。
+4. 使用summary功能时，建议将`model.train`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
 
-5. 使用summary功能时，建议将`model.train()`方法的`dataset_sink_mode`参数设置为`False`，从而以`step`作为`collect_freq`参数的单位收集数据。当`dataset_sink_mode`为`True`时，将以`epoch`作为`collect_freq`的单位，此时建议手动设置`collect_freq`参数。`collect_freq`参数默认值为`10`。
+5. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
 
-6. 每个step保存的数据量，最大限制为2147483647Bytes。如果超出该限制，则无法记录该step的数据，并出现错误。
-
-7. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary算子。
+6. PyNative模式下，`SummaryCollector` 能够正常使用，但不支持记录计算图以及不支持使用Summary算子。

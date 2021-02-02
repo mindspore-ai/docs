@@ -12,6 +12,7 @@
         - [Method two: Custom collection of network data with summary operators and SummaryCollector](#method-two-custom-collection-of-network-data-with-summary-operators-and-summarycollector)
         - [Method three: Custom callback recording data](#method-three-custom-callback-recording-data)
         - [Method four: Advanced usage, custom training cycle](#method-four-advanced-usage-custom-training-cycle)
+        - [Distributed Training Scene](#distributed-training-scene)
         - [Tip: Recording gradients](#tip-recording-gradients)
     - [Run MindInsight](#run-mindinsight)
     - [Notices](#notices)
@@ -111,30 +112,34 @@ class AlexNet(nn.Cell):
         x = self.fc3(x)
         return x
 
+def train():
+    context.set_context(mode=context.GRAPH_MODE)
 
-context.set_context(mode=context.GRAPH_MODE)
+    network = AlexNet(num_classes=10)
+    loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+    lr = Tensor(0.5, mindspore.float32)
+    opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
+    model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
-network = AlexNet(num_classes=10)
-loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
-lr = Tensor(0.5, mindspore.float32)
-opt = nn.Momentum(network.trainable_params(), lr, momentum=0.9)
-model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
+    # How to create a valid dataset instance,
+    # for details, see the https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html document.
+    ds_train = create_dataset('./dataset_path')
 
-# How to create a valid dataset instance,
-# for detail, see the https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html document.
-ds_train = create_dataset('./dataset_path')
+    # Initialize a SummaryCollector callback instance, and use it in model.train or model.eval
+    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
 
-# Init a SummaryCollector callback instance, and use it in model.train or model.eval
-summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+    # Note: dataset_sink_mode should be set to False, else you should modify collect_freq in SummaryCollector
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
 
-# Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
-model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+    ds_eval = create_dataset('./dataset_path')
+    model.eval(ds_eval, callbacks=[summary_collector])
 
-ds_eval = create_dataset('./dataset_path')
-model.eval(ds_eval, callbacks=[summary_collector])
+if __name__ == '__main__':
+    train()
 ```
 
-> When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train()` to `False`. Please see notices for more information.
+> 1. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`. Please see notices for more information.
+> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html?highlight=multiprocess#multiprocessing-programming)
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
@@ -228,8 +233,9 @@ class Net(nn.Cell):
         return out
 ```
 
-> In the same Summary operator, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
+> 1. In the same Summary operator, the name given to the data must not be repeated, otherwise the data collection and presentation will have unexpected behavior.
 > For example, if two `ScalarSummary` operators are used to collect scalar data, two scalars cannot be given the same name.
+> 2. Summary operator only supports Graph mode and needs to be used in `construct` of `nn.Cell`. The PyNative mode is not supported yet.
 
 Step 2: In the training script, instantiate the `SummaryCollector` and apply it to `model.train`.
 
@@ -240,16 +246,20 @@ from mindspore import Model, nn, context
 from mindspore.train.callback import SummaryCollector
 ...
 
-context.set_context(mode=context.GRAPH_MODE)
-network = Net()
-loss_fn = CrossEntropyLoss()
-optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
-model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
+def train():
+    context.set_context(mode=context.GRAPH_MODE)
+    network = Net()
+    loss_fn = CrossEntropyLoss()
+    optim = MyOptimizer(learning_rate=0.01, params=network.trainable_params())
+    model = Model(network, loss_fn=loss_fn, optimizer=optim, metrics={"Accuracy": Accuracy()})
 
-ds_train = create_dataset('./dataset_path')
+    ds_train = create_dataset('./dataset_path')
 
-summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
-model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
+    summary_collector = SummaryCollector(summary_dir='./summary_dir', collect_freq=1)
+    model.train(epoch=2, train_dataset=ds_train, callbacks=[summary_collector])
+
+if __name__ == '__main__':
+    train()
 ```
 
 ### Method three: Custom callback recording data
@@ -282,12 +292,12 @@ class ConfusionMatrixCallback(Callback):
         return self
 
     def step_end(self, run_context):
-        cb_params = run_context.run_context.original_args()
+        cb_params = run_context.original_args()
 
         # create a confusion matric image, and record it to summary file
         confusion_matrix = create_confusion_matrix(cb_params)
         self.summary_record.add_value('image', 'confusion_matrix', confusion_matrix)
-        self.summary_record.record(cb_params.cur_step)
+        self.summary_record.record(cb_params.cur_step_num)
 
 # init you train script
 ...
@@ -354,6 +364,34 @@ def train():
 if __name__ == '__main__':
     train()
 
+```
+
+### Distributed Training Scene
+
+The `SummaryCollector` and the `SummaryRecord` are not multi-process safe when writing data, so in a single-machine multi-card scenario, you need to make sure that each card stores data in a different directory. In a distributed scenario, we set the summary directory with the 'get_rank' function.
+
+```python3
+from mindspore.communication.management import get_rank
+summary_dir = "summary_dir" + str(get_rank())
+```
+
+The sample code is as follows:
+
+```python3
+from mindspore.communication.management import get_rank
+
+...
+
+network = ResNet50(num_classes=10)
+
+# Init a SummaryCollector callback instance, and use it in model.train or model.eval
+summary_dir = "summary_dir" + str(get_rank())
+summary_collector = SummaryCollector(summary_dir=summary_dir, collect_freq=1)
+
+# Note: dataset_sink_mode should be set to False, else you should modify collect freq in SummaryCollector
+model.train(epoch=1, train_dataset=ds_train, callbacks=[summary_collector], dataset_sink_mode=False)
+
+model.eval(ds_eval, callbacks=[summary_collector])
 ```
 
 ### Tip: Recording gradients
@@ -476,10 +514,8 @@ For more parameter Settings, see the [MindInsight related commands](https://www.
 
 3. In each Summary log file directory, only one training data should be placed. If a summary log directory contains summary data from multiple training, MindInsight will overlay the summary data from these training when visualizing the data, which may not be consistent with the expected visualizations.
 
-4. Currently, `SummaryCollector` and `SummaryRecord` do not support scenarios with GPU multi-card running.
+4. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommended that you set `collect_freq` manually.
 
-5. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train()` to `False`, so that the unit of `collect_freq` is `step`. When `dataset_sink_mode` was `True`, the unit of `collect_freq` would be `epoch` and it is recommend you set `collect_freq` manually.
+5. The maximum amount of data saved per step is 2147483647 Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
 
-6. The maximum amount of data saved per step is 2147483647Bytes. If this limit is exceeded, data for the step cannot be recorded and an error occurs.
-
-7. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary operator can not be used.
+6. In PyNative mode, the `SummaryCollector` can be used properly, but the computational graph can not be recorded and the summary operator can not be used.
