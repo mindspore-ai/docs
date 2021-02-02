@@ -130,7 +130,7 @@ the data process pipeline, data transfer from host to device and data fetch on d
 
 Figure 5: MindData Performance Analysis
 
-Figure 5 displays the page of MindData performance analysis component. It consists of two tabs: The step gap and the data process.
+Figure 5 displays the page of MindData performance analysis component. It consists of three tabs: The step gap, the data process, and the CPU utilization.
 
 The step gap page is used to analyse whether there is performance bottleneck in the three stages. We can get our conclusion from the data queue graphs:  
 
@@ -155,6 +155,32 @@ To optimize the perforamnce of MindData operators, there are some suggestions:
 - If a MapOp type operator is the bottleneck, try to increase the `num_parallel_workers`. If it is a python operator, try to optimize the training script.
 - If a BatchOp type operator is the bottleneck, try to adjust the size of `prefetch_size`.
 
+CPU utilization, which is mainly used to assist performance debugging. After the performance bottleneck is determined according to the queue size, the performance can be debugged according to the CPU utilization (if the user utilization is too low, increase the number of threads; if the system utilization is too high, decrease the number of threads).
+CPU utilization includes CPU utilization of the whole machine, process and Data pipeline operator.
+
+![device_utilization.png](./images/device_cpu_utilization.png)
+
+Figure 7: CPU utilization of the whole machine
+
+CPU utilization of the whole machine: Show the overall CPU usage of the device in the training process, including user utilization, system utilization, idle utilization, IO utilization, current number of active processes, and context switching times. If the user utilization is low, you can try to increase the number of operator threads to increase the CPU utilization; if the system utilization is high, and the number of context switching and CPU waiting for processing is large, it indicates that the number of threads needs to be reduced accordingly.
+
+![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
+
+Figure 8: Process utilization
+
+Process utilization: Show the CPU usage of a single process. The combination of whole machine utilization and process utilization can determine whether other processes affect the training process.
+
+![data_op_utilization.png](./images/data_op_utilization.png)
+
+Figure 9: Operator utilization
+
+Operator utilization: Show the CPU utilization of Data pipeline single operator. We can adjust the number of threads of the corresponding operator according to the actual situation. If the number of threads is small and takes up a lot of CPU, you can consider whether you need to optimize the code.
+
+Common scenarios of CPU utilization:
+
+- According to the queue size, the network debugging personnel can judge that the performance of MindData has a bottleneck. They can adjust the number of threads by combining the utilization rate of the whole machine and the utilization rate of the operator.
+- Developers can check the utilization of operators. If an operator consumes CPU utilization, they can confirm whether the code needs to be optimized.
+
 #### Timeline Analysis
 
 The Timeline component can display:
@@ -175,7 +201,7 @@ Users can click the download button on the overall performance page to view Time
 
 ![timeline.png](./images/timeline.png)
 
-Figure 7: Timeline Analysis
+Figure 10: Timeline Analysis
 
 The Timeline consists of the following parts:  
 
