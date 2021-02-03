@@ -172,7 +172,7 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 
 > `metrics` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/use_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_metrics.py>
 
 ```python
 metrics = {
