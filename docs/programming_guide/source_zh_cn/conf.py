@@ -11,7 +11,10 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-
+import sys
+import IPython
+import re
+import nbsphinx as nbs
 
 # -- Project information -----------------------------------------------------
 
@@ -31,6 +34,9 @@ release = 'master'
 extensions = [
     'sphinx_markdown_tables',
     'recommonmark',
+    'nbsphinx',
+    'sphinx.ext.mathjax',
+    'IPython.sphinxext.ipython_console_highlighting'
 ]
 
 source_suffix = {
@@ -46,6 +52,12 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+highlight_language = 'none'
+
+suppress_warnings = [
+    'nbsphinx',
+]
+
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
@@ -60,3 +72,24 @@ html_search_language = 'zh'
 html_search_options = {'dict': '../../resource/jieba.txt'}
 
 html_static_path = ['_static']
+
+def setup(app):
+    app.add_stylesheet('css/bootstrap.min.css')
+    app.add_stylesheet('css/training.css')
+    app.add_javascript('js/training.js')
+
+# Remove extra outputs for nbsphinx extension.
+nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
+nbsphinx_math_re = re.compile(r"(\S.*$)")
+mod_path = os.path.abspath(nbs.__file__)
+with open(mod_path, "r+", encoding="utf8") as f:
+    contents = f.readlines()
+    for num, line in enumerate(contents):
+        _content_re = nbsphinx_source_re.search(line)
+        if _content_re and "#" not in line:
+            contents[num] = nbsphinx_source_re.sub(r"# \g<1>", line)
+        if "mathjax_config = app.config" in line and "#" not in line:
+            contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
+            break
+    f.seek(0)
+    f.writelines(contents)
