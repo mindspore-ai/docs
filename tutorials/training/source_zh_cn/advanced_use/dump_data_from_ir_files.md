@@ -32,11 +32,12 @@ if __name__ == "__main__":
     context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
 ```
 
-> 在本教程中，我们运行的为单机版本的训练脚本。当运行的脚本使用多个计算设备时，MindSpore会为每一个计算设备生成一个独立的进程。因此我们建议用户在多卡版本的训练脚本中读取当前的计算设备id，从而为每个设备设置独立的`save_graphs_path`实现将每个设备的ir文件保存在不同的路径下。
->
-> \>>> device_id = os.getenv("DEVICE_ID")
->
-> \>>> context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files"+device_id)
+ 在本教程中，我们运行的为单机版本的训练脚本。当运行的脚本使用多个计算设备时，MindSpore会为每一个计算设备生成一个独立的进程。因此我们建议用户在多卡版本的训练脚本中读取当前的计算设备id，从而为每个设备设置独立的`save_graphs_path`实现将每个设备的IR文件保存在不同的路径下。例如：
+
+```python
+device_id = os.getenv("DEVICE_ID")
+context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files"+device_id)
+```
 
 执行训练命令后，在指定的目录生成如下文件，其中以数字下划线开头的IR文件是MindSpore在ME pipeline不同阶段输出的IR文件，以`hwopt`开头的则是后端LLO不同优化阶段输出的IR文件。其余的则如文件名所示，并根据子图的个数分别保存。
 
@@ -171,8 +172,14 @@ class LeNet5(nn.Cell):
 
    可以通过`numpy.fromfile`读取上一步生成的文件。读取后得到的`ndarray`即对应该算子的输入/输出。
 
-   ```bash
-   >>> output = numpy.fromfile("Default--network-TrainOneStepWithLossScaleCell--network-WithLossCell--_backbone-LeNet5--conv1-Conv2d--Conv2D-op89_input_0_shape_32_1_32_32_16_Float16_NC1HWC0.bin")
-   >>> output
-   array([1.17707155e-17, 4.07526143e-17, 5.84038559e-18, ..., 0.00000000e+00, 0.00000000e+00, 0.00000000e+00])
+   ```python
+   import numpy
+   output = numpy.fromfile("Default--network-TrainOneStepWithLossScaleCell--network-WithLossCell--_backbone-LeNet5--conv1-Conv2d--Conv2D-op89_input_0_shape_32_1_32_32_16_Float16_NC1HWC0.bin")
+   print(output)
+   ```
+
+   输出为：
+
+   ```text
+   [1.17707155e-17 4.07526143e-17 5.84038559e-18 ... 0.00000000e+00 0.00000000e+00 0.00000000e+00]
    ```
