@@ -170,7 +170,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 
 > `metrics`使用样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/use_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_metrics.py>
 
 ```python
 metrics = {

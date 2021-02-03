@@ -16,9 +16,8 @@
 The sample can be run on CPU/GPU/Ascend.
 """
 import mindspore.nn as nn
-from mindspore.nn import Momentum
+from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
 from mindspore import Model, context
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 
 from src.dataset import create_train_dataset, create_eval_dataset

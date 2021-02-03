@@ -17,10 +17,8 @@ The sample can be run on CPU/GPU/Ascend.
 """
 import time
 import mindspore.nn as nn
-from mindspore.nn import Momentum
-from mindspore import Model, context
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-from mindspore.train.serialization import save_checkpoint
+from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits
+from mindspore import Model, context, save_checkpoint
 from mindspore.train.callback import Callback, LossMonitor
 
 from src.dataset import create_train_dataset, create_eval_dataset
@@ -71,8 +69,41 @@ class SaveCallback(Callback):
             save_checkpoint(save_obj=cb_params.train_network, ckpt_file_name=file_name)
             print("Save the maximum accuracy checkpoint, the accuracy is", self.acc)
 
+def set_dump_info():
+    """
+    set the dump parameter and write it in the JSON file of this directory
+    """
+    abspath = os.getcwd()
+    data_dump = {
+        "common_dump_settings": {
+            "dump_mode": 0,
+            "path": abspath + "/data_dump",
+            "net_name": "LeNet5",
+            "iteration": 0,
+            "input_output": 2,
+            "kernels": ["Default/network-WithLossCell/_backbone-LeNet5/flatten-Flatten/Reshape-op118"],
+            "support_device": [0, 1, 2, 3, 4, 5, 6, 7]
+        },
+        "e2e_dump_settings": {
+            "enable": True,
+            "trans_flag": False
+        }
+    }
+    with open("./data_dump.json", "w", encoding="GBK") as f:
+        json.dump(data_dump, f)
+    os.environ['MINDSPORE_DUMP_CONFIG'] = abspath + "/data_dump.json"
+
+def set_log_info():
+    os.environ['GLOG_v'] = '1'
+    os.environ['GLOG_logtostderr'] = '1'
+    os.environ['logger_maxBytes'] = '5242880'
+    os.environ['GLOG_log_dir'] = 'D:/' if os.name == "nt" else '/var/log/mindspore'
+    os.environ['logger_backupCount'] = '10'
+    print(logger.get_log_config())
 
 if __name__ == "__main__":
+    set_dump_info()
+    set_log_info()
     context.set_context(mode=context.GRAPH_MODE)
     train_dataset = create_train_dataset()
     eval_dataset = create_eval_dataset()
