@@ -12,7 +12,7 @@
         - [Performance Analysis](#performance-analysis)
             - [Step Trace Analysis](#step-trace-analysis)
             - [Operator Performance Analysis](#operator-performance-analysis)
-            - [MindData Performance Analysis](#minddata-performance-analysis)
+            - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
             - [Timeline Analysis](#timeline-analysis)
             - [Memory Analysis](#memory-analysis)
     - [Specifications](#specifications)
@@ -72,11 +72,11 @@ Users can access the Performance Profiler by selecting a specific training from 
 
 Figure 1: Overall Performance
 
-Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline. The data shown in these components include:  
+Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, Data Preparation Performance and Timeline. The data shown in these components include:  
 
 - Step Trace: It will divide the training steps into several stages and collect execution time for each stage. The overall performance page will show the step trace graph.
 - Operator Performance: It will collect the execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
-- MindData Performance: It will analyse the performance of the data input stages. The overall performance page will show the number of steps that may be the bottleneck for these stages.
+- Data Preparation Performance: It will analyse the performance of the data input stages. The overall performance page will show the number of steps that may be the bottleneck for these stages.
 - Timeline: It will collect execution time for stream tasks on the devices. The tasks will be shown on the time axis. The overall performance page will show the statistics for streams and tasks.  
 
 Users can click the detail link to see the details of each components. Besides, MindInsight Profiler will try to analyse the performance data, the assistant on the left will show performance tuning suggestions for this training.
@@ -121,20 +121,20 @@ Figure 4 displays the statistics table for the operators, including:
 - Choose Type: Display statistics for the operator types, including operator type name, execution time, execution frequency and proportion of total time. Users can click on each line, querying for all the operators belonging to this type.
 - Search: There is a search box on the right, which can support fuzzy search for operators/operator types.
 
-#### MindData Performance Analysis
+#### Data Preparation Performance Analysis
 
-The MindData performance analysis component is used to analyse the execution of data input pipeline for the training. The data input pipeline can be divided into three stages:  
+The Data preparation performance analysis component is used to analyse the execution of data input pipeline for the training. The data input pipeline can be divided into three stages:  
 the data process pipeline, data transfer from host to device and data fetch on device. The component will analyse the performance of each stage in detail and display the results.
 
 ![minddata_profile.png](./images/minddata_profile.png)
 
-Figure 5: MindData Performance Analysis
+Figure 5: Data Preparation Performance Analysis
 
-Figure 5 displays the page of MindData performance analysis component. It consists of three tabs: The step gap, the data process, and the CPU utilization.
+Figure 5 displays the page of data preparation performance analysis component. It consists of three tabs: The step gap, the data process, and the CPU utilization.
 
 The step gap page is used to analyse whether there is performance bottleneck in the three stages. We can get our conclusion from the data queue graphs:  
 
-- The data queue size stands for the queue length when the training fetches data from the queue on the device. If the data queue size is 0, the training will wait until there is data in the queue; If the data queue size is above 0, the training can get data very quickly, and it means MindData is not the bottleneck for this training step.
+- The data queue size stands for the queue length when the training fetches data from the queue on the device. If the data queue size is 0, the training will wait until there is data in the queue; If the data queue size is greater than 0, the training can get data very quickly, and it means data preparation stage is not the bottleneck for this training step.
 - The host queue size can be used to infer the speed of data process and data transfer. If the host queue size is 0, it means we need to speed up the data process stage.
 - If the size of the host queue is always large and the size of the data queue is continuously small, there may be a performance bottleneck in data transfer.
 
@@ -142,13 +142,13 @@ The step gap page is used to analyse whether there is performance bottleneck in 
 
 Figure 6: Data Process Pipeline Analysis
 
-Figure 6 displays the page of data process pipeline analysis. The data queues are used to exchange data between the MindData operators. The data size of the queues reflect the data consume speed of the operators, and can be used to infer the bottleneck operator. The queue usage percentage stands for the average value of data size in queue divide data queue maximum size, the higher the usage percentage, the more data that is accumulated in the queue. The graph at the bottom of the page shows the MindData pipeline operators with the data queues, the user can click one queue to see how the data size changes according to the time, and the operators connected to the queue. The data process pipeline can be analysed as follows:  
+Figure 6 displays the page of data process pipeline analysis. The data queues are used to exchange data between the data processing operators. The data size of the queues reflect the data consume speed of the operators, and can be used to infer the bottleneck operator. The queue usage percentage stands for the average value of data size in queue divide data queue maximum size, the higher the usage percentage, the more data that is accumulated in the queue. The graph at the bottom of the page shows the data processing pipeline operators with the data queues, the user can click one queue to see how the data size changes according to the time, and the operators connected to the queue. The data process pipeline can be analysed as follows:  
 
 - When the input queue usage percentage of one operator is high, and the output queue usage percentage is low, the operator may be the bottleneck.
 - For the leftmost operator, if the usage percentage of all the queues on the right are low, the operator may be the bottleneck.
 - For the rightmost operator, if the usage percentage of all the queues on the left are high, the operator may be the bottleneck.
 
-To optimize the perforamnce of MindData operators, there are some suggestions:  
+To optimize the performance of data processing operators, there are some suggestions:  
 
 - If the Dataset Operator is the bottleneck, try to increase the `num_parallel_workers`.
 - If a GeneratorOp type operator is the bottleneck, try to increase the `num_parallel_workers` and replace the operator to `MindRecordDataset`.

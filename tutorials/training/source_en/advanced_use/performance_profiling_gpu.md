@@ -12,7 +12,7 @@
         - [Performance Analysis](#performance-analysis)
             - [Operator Performance Analysis](#operator-performance-analysis)
             - [Timeline Analysis](#timeline-analysis)
-            - [MindData Performance Analysis](#minddata-performance-analysis)
+            - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
 
 <!-- /TOC -->
 
@@ -40,7 +40,10 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
 
-In GPU scenarios, users can customize the callback mode to collect performance data (Currently, MindData does not support this mode, and there is no MindData performance data file generation in this mode.), the current data sinking mode does not support callback to collect performance data in the specified step interval. The following is the example：
+In GPU scenarios, users can customize the callback mode to collect performance data.
+> Data preparation stage and data sinking mode do not support this mode.
+
+The following is the example：
 
 ```python
 class StopAtStep(Callback):
@@ -76,17 +79,17 @@ The MindInsight launch command can refer to [MindInsight Commands](https://www.m
 
 ### Performance Analysis
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis and Timeline Analysis and MindData Analysis now, the others modules will be published soon.
+Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis, Timeline Analysis, and Data Preparation Analysis now, other modules will be published soon.
 
 ![performance_overall.png](./images/performance_overall.png)
 
 Figure 1: Overall Performance
 
-Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, MindData Performance and Timeline:  
+Figure 1 displays the overall performance of the training, including the overall data of Step Trace, Operator Performance, Data Preparation Performance and Timeline:  
 
 - Operator Performance: It will collect the average execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
 - Timeline: It will collect execution time for operations and CUDA activity. The tasks will be shown on the time axis. The overall performance page will show the statistics for tasks.
-- MindData Performance: It will analyse the performance of the data input stages. The overall performance page will show the number of steps that may be the bottleneck for these stages.
+- Data Preparation Performance: It will analyse the performance of the data input stages. The overall performance page will show the number of steps that may be the bottleneck for these stages.
 
 Users can click the detail link to see the details of each components.
 
@@ -127,7 +130,7 @@ The usage is almost the same as that in Ascend. The difference is GPU Timeline d
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
 
-#### MindData Analysis
+#### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
