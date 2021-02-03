@@ -77,9 +77,10 @@
     - `--generate_session`或`-g`：生成一个缓存会话。
     - `--destroy_session`或`-d`：删除一个缓存会话。
     - `--list_sessions`：查看当前缓存会话列表和详细信息。
+    - `--server_info`：查看当前服务器配置参数及会话列表。
     - `--help`：查看帮助信息。
 
-    以上命令均可使用`-h`和`-p`参数来指定服务器，若未指定则默认对ip为127.0.0.1且端口号为50052的服务器执行操作。
+    以上命令均可使用`-h`和`-p`参数来指定服务器，用户也可通过配置环境变量`MS_CACHE_HOST`和`MS_CACHE_PORT`来指定。若未指定则默认对ip为127.0.0.1且端口号为50052的服务器执行操作。
 
     用户可通过`ps -ef|grep cache_server`命令来检查服务器是否已启动以及查询服务器参数。
 
@@ -122,7 +123,7 @@
     ```python
     import mindspore.dataset as ds
 
-    test_cache = ds.DatasetCache(session_id=1456416665, size=0, spilling=True)
+    test_cache = ds.DatasetCache(session_id=1456416665, size=0, spilling=False)
     ```
 
     `DatasetCache`支持以下参数：
