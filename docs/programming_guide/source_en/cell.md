@@ -81,7 +81,7 @@ The following information is displayed:
 
 ```text
 odict_keys(['weight'])
-Parameter (name=weight)
+Parameter (name=weight, shape=(20, 10, 3, 3), dtype=Float32, requires_grad=True)
 ```
 
 ### cells_and_names

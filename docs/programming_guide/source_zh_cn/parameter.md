@@ -59,11 +59,11 @@ print(x, "\n\n", y, "\n\n", z)
 输出如下：
 
 ```text
-Parameter (name=x)
+Parameter (name=x, shape=(2, 3), dtype=Int64, requires_grad=True)
 
-Parameter (name=y)
+Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 
-Parameter (name=z)
+Parameter (name=z, shape=(), dtype=Float32, requires_grad=True)
 ```
 
 ## 属性
@@ -113,7 +113,7 @@ inited_param:  None
 requires_grad:  True
 layerwise_parallel:  False
 
-data:  Parameter (name=Parameter)
+data:  Parameter (name=Parameter, shape=(2, 3), dtype=Int64, requires_grad=True)
 ```
 
 ## 方法
@@ -152,10 +152,10 @@ print(x.set_data(data=Tensor(np.arange(2*3).reshape((1, 2, 3)))))
 输出如下：
 
 ```text
-Parameter (name=Parameter)
-Parameter (name=x_clone)
-Parameter (name=Parameter)
-Parameter (name=Parameter)
+Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+Parameter (name=x_clone, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+Parameter (name=Parameter, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
 ```
 
 ## ParameterTuple
@@ -182,7 +182,7 @@ print(params_copy)
 输出如下：
 
 ```text
-(Parameter (name=x), Parameter (name=y), Parameter (name=z))
+(Parameter (name=x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
 
-(Parameter (name=params_copy.x), Parameter (name=params_copy.y), Parameter (name=params_copy.z))
+(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
 ```
