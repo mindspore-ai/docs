@@ -19,6 +19,10 @@ You are welcome to contribute MindSpore documents. Documents that meet requireme
             - [Adding a Python API](#adding-a-python-api)
         - [Checking the Python API](#checking-the-python-api)
         - [Confirming the Content](#confirming-the-content-1)
+    - [Image](#image)
+        - [Updating or Adding an Image](#updating-or-adding-an-image)
+        - [Image Citation](#image-citation)
+        - [Confirming the Content](#confirming-the-content-2)
 
 <!-- /TOC -->
 
@@ -161,3 +165,27 @@ On the next day after the PR is merged, you can view the new content on the [Min
 By default, APIs of the latest version are displayed. To view the newly merged content, switch to the master version.
 
 ![master_api_en](./resource/_static/master_api_en.png)
+
+## Image
+
+The images in the document are mainly divided into program flowcharts, configuration flowcharts, functional structure diagrams and so on.
+
+For specific image requirements and specifications, please refer to [Image Specifications](https://gitee.com/mindspore/docs/wikis/%E4%BD%9C%E5%9B%BE%E8%A7%84%E8%8C%83?sort_id=3498531) provided by MindSpore docs.
+
+### Updating or Adding an Image
+
+If you want to update an existing image or adding a new image, click ![View Source on Gitee](./resource/_static/logo_source.png) on the top of the page to go to the source file. Usually the images will be stored in the directory ./images. You only need to put the new images into this directory, or replace the modified images with the original ones, and commit changes to a PR to make the contribution.
+
+> Please submit the original image to Gitee at the same time, and put it in the same path as the image for subsequent modification.
+
+### Image Citation
+
+The format of the image citation is: \!\[image name] (the path where the image is located). For details, please refer to [Markdown Image Citation Requirements](https://gitee.com/mindspore/docs/wikis/Document%20Writing%20Specifications?sort_id=3379825#image) and [Notebook Image Citation Requirements](https://gitee.com/mindspore/docs/wikis/Notebook%E5%86%99%E4%BD%9C%E8%A6%81%E6%B1%82?sort_id=3462614).
+
+### Confirming the Content
+
+On the next day after the PR is merged, you can view the new content on the MindSpore website. The new image will shown in the document.
+
+By default, tutorials and documents of the latest version are displayed on the official website. To view the newly merged content, switch to master from the drop-down list.
+
+![master_doc_en](./resource/_static/master_doc_en.png)
