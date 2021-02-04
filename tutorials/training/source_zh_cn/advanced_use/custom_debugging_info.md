@@ -315,7 +315,13 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 4. 解析Dump数据。
 
-    通过`numpy.fromfile`读取Dump数据文件即可解析。
+    同步Dump生成的数据文件是以`.bin`结尾的二进制文件，可以通过`numpy.fromfile`读取解析。
+
+    - Dump路径的命名规则为：`{path}/{net_name}/{device_id}/{iteration}/`。
+    - Dump文件的命名规则为：`{算子名称}_{input_output_index}_{shape}_{data_type}_{format}.bin`。
+
+    下面以一个简单网络的Dump为例，Dump生成的文件：`/absolute_path/ResNet50/device_0/iteration_0/Default--Add-op1_input_0_shape_1_3_3_4_Float32_DefaultFormat.bin`。
+    其中`Default--Add-op1`是算子名称，`input_0`是`{input_output_index}`，`shape_1_3_3_4`是`{shape}`，`Float32`是`{data_type}`，`DefaultFormat`是`{format}`。
 
 ### 异步Dump功能使用方法
 
@@ -368,6 +374,11 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 4. 解析文件。
 
+    - Dump路径的命名规则为：`{path}/{device_id}/{net_name}/{graph_id}/{iteration}`。
+    - Dump文件的命名规则为：`{op_type}.{op_name}.{task_id}.{timestamp}`。
+
+    以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
+
     使用run包中提供的`dump_data_conversion.pyc`解析Dump出来的文件。不同的环境上`dump_data_conversion.pyc`文件所在的路径可能不同，可以通过find命令进行查找：
 
     ```bash
@@ -377,7 +388,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     找到`dump_data_conversion.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
 
     ```bash
-    python ${dump_data_conversion.pyc的绝对路径} -type offline -target numpy -i ./{Dump出来的文件} -o ./{解析生成的文件路径}
+    python ${dump_data_conversion.pyc的绝对路径} -type offline -target numpy -i ./Add.Default_Add-op1.2.161243956333802 -o ./{解析生成的文件路径}
     ```
 
     或者使用`msaccucmp.pyc`执行Dump数据文件format转换，具体使用参考链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
