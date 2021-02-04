@@ -298,7 +298,7 @@ Synchronous Dump supports the graphics mode both on GPU and Ascend, and currentl
     - `input_output`: 0:dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel.
     - `kernels`: Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `ir` file. You can get it from `hwopt_d_end_graph_{graph_id}.ir` when `device_target` is `Ascend` and you can get it from `hwopt_pm_7_getitem_tuple.ir` when `device_target` is `GPU`.
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-    - `enable`: Enable synchronous dump.
+    - `enable`: Enable synchronous dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
     - `trans_flag`: Enable trans flag. Transform the device data format into NCHW.
 
 2. Specify the location of the JSON file.
@@ -351,8 +351,8 @@ Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory 
     - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
     - `kernels`: Full name of kernel. Enable `context.set_context(save_graphs=True)` and get full name of kernel from `hwopt_d_end_graph_{graph_id}.ir`. `kernels` only support TBE operator, AiCPU operator and communication operator. Data of communication operation input operator will be dumped if `kernels` is set to the name of communication operator.
     - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
-    - `enable`: Enable Asynchronous Dump.
-    - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function.
+    - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
+    - `op_debug_mode`: 0: disable overflow check function; 1: enable AiCore overflow check; 2: enable Atomic overflow check; 3: enable all overflow check function. If it is not set to 0, only the data of the overflow operator will be dumped.
 
 2. Specify the json configuration file of Dump.
 

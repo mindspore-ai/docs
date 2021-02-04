@@ -297,7 +297,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数仅支持Ascend，GPU只能Dump算子的输出。
     - `kernels`：算子的全称，可以通过开启IR保持开关`context.set_context(save_graphs=True)`执行用例，从生成的`ir`文件获取。例如，`device_target`为`Ascend`时，可以从`hwopt_d_end_graph_{graph_id}.ir`中获取算子全称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。详细说明可以参照教程：[借助IR图进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html)
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `enable`：开启E2E Dump。
+    - `enable`：开启E2E Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。
 
 2. 指定Dump的json配置文件。
@@ -350,8 +350,8 @@ Tensor(shape=[2, 2], dtype=Int32, value=
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
     - `kernels`：算子的全称。开启IR保持开关`context.set_context(save_graphs=True)`并执行用例，从生成的`hwopt_d_end_graph_{graph_id}.ir`文件获取。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[借助IR图进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html)
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `enable`：开启异步Dump。
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。
+    - `enable`：开启异步Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
+    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
 
 2. 设置数据Dump的环境变量。
 
