@@ -38,6 +38,7 @@
 
 | op name                                                                                                                                                       |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [mindspore.ops.Add](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Add.html)                                                     |
 | [mindspore.ops.Assign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Assign.html)                                             |
 | [mindspore.ops.AssignSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.AssignSub.html)                                       |
 | [mindspore.ops.ApplyMomentum](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyMomentum.html)                               |
@@ -72,6 +73,7 @@
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Div.html)                                                   |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DivNoNan.html)                                         |
 | [mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorDiv.html)                                         |
+| [mindspore.ops.TensorAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorAdd.html)                                            |
 | [mindspore.ops.TruncateDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateDiv.html)                                   |
 | [mindspore.ops.TruncateMod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateMod.html)                                   |
 | [mindspore.ops.Mod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Mod.html)                                                   |

@@ -6,7 +6,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 |------------------------------------------------------|------------------------------------------------------------------------|
 | torch.abs                                            | mindspore.ops.Abs                                                      |
 | torch.acos                                           | mindspore.ops.ACos                                                     |
-| torch.add                                            | mindspore.ops.TensorAdd                                                |
+| torch.add                                            | mindspore.ops.Add                                                      |
 | torch.argmax                                         | mindspore.ops.Argmax                                                   |
 | torch.argmin                                         | mindspore.ops.Argmin                                                   |
 | torch.asin                                           | mindspore.ops.Asin                                                     |

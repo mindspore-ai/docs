@@ -55,7 +55,7 @@ context.set_context(enable_graph_kernel=True)
 class MyNet(Cell):
     def __init__(self):
         super(MyNet, self).__init__()
-        self.add = ops.TensorAdd()
+        self.add = ops.Add()
         self.mul = ops.Mul()
 
     def construct(self, x):
