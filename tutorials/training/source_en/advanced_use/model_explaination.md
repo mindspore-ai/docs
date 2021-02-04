@@ -139,7 +139,7 @@ Saliency map visualization is used to display the image area that has the most s
 The following information is displayed on the **Saliency Map Visualization** page:
 
 - Objective dataset set by a user through the Python API of the dataset.
-- Ground truth tags, prediction tags, and the prediction probabilities of the model for the corresponding tags. The system adds the TP, TN, FP and FN flags(meanings are provided in the page's information) in the upper left corner of the corresponding tag based on the actual requirements.
+- Ground truth tags, prediction tags, and the prediction probabilities of the model for the corresponding tags. The system adds the TP, TN, and FP flags(meanings are provided in the page's information) in the upper left corner of the corresponding tag based on the actual requirements.
 - A saliency map given by the selected explanation method.
 
 Operations:
@@ -149,7 +149,7 @@ Operations:
 3. Click different tags to display the saliency map analysis results of the model for different tags. For different classification results, the focus of the model is usually different.
 4. Check prediction type checkboxes to display images with the checked tag types: TP - true positive, FN - false negative, FP - false positive.
 5. Use the tag filtering function on the upper part of the page to filter out images with specified tags.
-6. Select an image display sequence from **Sort Images By** in the upper right corner of the page.
+6. Select an image display sequence from **Sort Images By** in the upper right corner of the page, options: "Probabilities in descending order" and "Uncertainties in descending order".
 7. Click **View Score** on the right of an explanation method. The page for assessing all explanation methods is displayed.
 8. Click image you will see the higher resolution image.
 
@@ -193,6 +193,7 @@ Users may combine the use of `register_saliency()` with the same runner.
 
 - Apart from all the restrictions from saliency explanation methods, models must take 3 channels input images.
 - Input images must be in RGB 3 channels format and the length of the short side must be equals to or greater than 56.
+- If `register_hierarchical_occlusion()` is called but `register_saliency()` is not called, then both PyNative and Graph mode are supported.
 
 #### HOC Pages and Functions
 
@@ -210,7 +211,7 @@ The HOC explanation page displays all HOC results, includes:
 
 Operations:
 
-1. Change the tag filter and sampler sorting on the left panel. Samples can be sorted by prediction confidence.
-2. Browse samples or switch to the next page in the sample list inside the left panel. Select a sample then its HOC results will be shown on the other panels.
-3. Change the tag of HOC result showing on the center panel. Only tags with prediction confidence greater than 0.5 have HOC results.
-4. Inspect the HOC search process on the bottom panel, select a step image then its enlarged version will be shown on the right panel. (Notes: The occluded regions were darkened and converted to greyscale for display, but it is not the case in the actual HOC search process, only Gaussian blur is employed while brightness and saturation are not altered.)
+1. Change the tag filter and sampler sorting on the left "Picture list" panel. Samples can be sorted by prediction confidence.
+2. Browse samples or switch to the next page in the sample list inside the left "Picture list" panel. Select a sample then its HOC results will be shown on the other panels.
+3. Change the tag of HOC result showing on the center "Original Image" panel. Only tags with prediction confidence greater than 0.5 have HOC results.
+4. Inspect the HOC search process on the bottom "Layer-by-layer Masking Process" panel, select a step image then it will be enlarged and shown on the right "View Explanation" panel. (Notes: The occluded regions were darkened and converted to greyscale for display, but it is not the case in the actual HOC search process, only Gaussian blur is employed while brightness and saturation are not altered.)
