@@ -385,5 +385,4 @@ Other Operators
     mindspore.ops.Depend
     mindspore.ops.InTopK
     mindspore.ops.IOU
-    mindspore.ops.MakeRefKey
     mindspore.ops.PopulationCount
