@@ -70,7 +70,7 @@ Create the Python script `my_training_script.py`, use the `DatasetCache` API to 
 ```python
 import mindspore.dataset as ds
 
-some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=True)
+some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=False)
 ```
 
 ## Inserting a Cache Instance

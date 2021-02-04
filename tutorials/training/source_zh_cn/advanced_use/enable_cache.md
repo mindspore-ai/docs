@@ -70,7 +70,7 @@ Session created for server on port 50052: 1493732251
 ```python
 import mindspore.dataset as ds
 
-some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=True)
+some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=False)
 ```
 
 ## 插入缓存实例
