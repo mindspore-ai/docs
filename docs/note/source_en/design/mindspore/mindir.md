@@ -30,7 +30,7 @@ MindSpore IR (MindIR) is a function-style IR based on graph representation. Its 
 
 ANF is a simple IR commonly used during functional programming. The ANF syntax is defined as follows:
 
-```python
+```text
 <aexp> ::= NUMBER | STRING | VAR | BOOLEAN | PRIMOP
           |  (lambda (VAR …) <exp>)
 <cexp> ::= (<aexp> <aexp> …)
@@ -43,7 +43,7 @@ Expressions in the ANF are classified into atomic expressions (aexp) and compoun
 
 The syntax of MindIR is inherited from the ANF and is defined as follows:
 
-```python
+```text
 <ANode> ::= <ValueNode> | <ParameterNode>
 <ParameterNode> ::= Parameter
 <ValueNode> ::= Scalar | Named | Tensor | Type | Shape
