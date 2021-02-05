@@ -96,7 +96,7 @@ docker run -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /b
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
-    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Ubuntu-x86操作系统和Pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore CPU版本，并进行验证。
+    进入[MindSpore安装指南页面](https://www.mindspore.cn/install)，选择CPU硬件平台、Ubuntu-x86操作系统和pip的安装方式，获得安装指南。运行容器后参考安装指南，通过pip方式安装MindSpore CPU版本，并进行验证。
 
 - 如果你安装的是`devel`标签的容器，需要自行编译并安装MindSpore。
 
