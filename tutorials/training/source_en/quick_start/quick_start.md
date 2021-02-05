@@ -12,20 +12,16 @@
         - [Configuring the Running Information](#configuring-the-running-information)
     - [Processing Data](#processing-data)
         - [Defining the Dataset and Data Operations](#defining-the-dataset-and-data-operations)
+        - [Viewing Enhanced Data](#viewing-enhanced-data)
     - [Defining the Network](#defining-the-network)
+    - [Custom Callback Function to Collect the Model Loss Value and Precision Value](#custom-callback-function-to-collect-the-model-loss-value-and-precision-value)
     - [Defining the Loss Function and Optimizer](#defining-the-loss-function-and-optimizer)
-        - [Basic Concepts](#basic-concepts)
-        - [Defining the Loss Function](#defining-the-loss-function)
-        - [Defining the Optimizer](#defining-the-optimizer)
     - [Training the Network](#training-the-network)
-        - [Saving the Configured Model](#saving-the-configured-model)
-        - [Configuring the Network Training](#configuring-the-network-training)
-    - [Running and Viewing the Result](#running-and-viewing-the-result)
+        - [Checking the Loss Value of the Model with the Change of Training Steps](#checking-the-loss-value-of-the-model-with-the-change-of-training-steps)
     - [Validating the Model](#validating-the-model)
+    - [Inference and Prediction](#inference-and-prediction)
 
 <!-- /TOC -->
-
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -35,14 +31,17 @@ During the practice, a simple image classification function is implemented. The 
 
 1. Process the required dataset. The MNIST dataset is used in this example.
 2. Define a network. The LeNet network is used in this example.
-3. Define the loss function and optimizer.
-4. Load the dataset and perform training. After the training is complete, check the result and save the model file.
-5. Load the saved model for inference.
-6. Validate the model, load the test dataset and trained model, and validate the result accuracy.
+3. The loss value and precision value of the model collected by the custom callback function.
+4. Define the loss function and optimizer.
+5. Load the dataset and perform training. After the training is complete, check the result and save the model file.
+6. Load the saved model for inference.
+7. Validate the model, load the test dataset and trained model, and validate the result accuracy.
 
+This is a simple and basic application process. Other advanced and complex applications can be extended based on this basic process.
+
+> This document is applicable to CPU, GPU and Ascend environments.
+>
 > You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lenet>.
-
-This is a simple and basic workflow. For applying to other advanced and complex applications, extend this basic process as appropriate.
 
 ## Preparations
 
@@ -58,22 +57,23 @@ The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixel
 
 > Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are required for data training, and the last two links are required for data test.
 
-Download the files, decompress them, and store them in the workspace directories `./MNIST_Data/train` and `./MNIST_Data/test`.
-
-The directory structure is as follows:
-
-```text
-└─MNIST_Data
-    ├─test
-    │      t10k-images.idx3-ubyte
-    │      t10k-labels.idx1-ubyte
-    │
-    └─train
-            train-images.idx3-ubyte
-            train-labels.idx1-ubyte
+```python
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
+!unzip -o MNIST_Data.zip -d ./datasets
+!tree ./datasets/MNIST_Data/
 ```
 
-> For ease of use, we added the function of automatically downloading datasets in the sample script.
+```text
+./datasets/MNIST_Data/
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
+    ├── train-images-idx3-ubyte
+    └── train-labels-idx1-ubyte
+
+2 directories, 4 files
+```
 
 ### Importing Python Libraries and Modules
 
@@ -96,17 +96,9 @@ You can use `context.set_context` to configure the information required for runn
 Import the `context` module and configure the required information.
 
 ```python
-import argparse
 from mindspore import context
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='MindSpore LeNet Example')
-    parser.add_argument('--device_target', type=str, default="CPU", choices=['Ascend', 'GPU', 'CPU'],
-                        help='device where the code will be implemented (default: CPU)')
-    args = parser.parse_args()
-    context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
-    dataset_sink_mode = not args.device_target == "CPU"
-    ...
+context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 ```
 
 This example runs in graph mode. You can configure hardware information based on site requirements. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about parameters, see the API description for `context.set_context`.
@@ -114,6 +106,48 @@ This example runs in graph mode. You can configure hardware information based on
 ## Processing Data
 
 Datasets are important for training. A good dataset can effectively improve training accuracy and efficiency. Generally, before loading a dataset, you need to perform some operations on the dataset.
+
+Since a convolutional neural network such as LeNet will be used to train the dataset later, and when the data is used for training, the data format is required, so it is needed to check what the data format in the dataset looks like, so that you can construct a targeted data conversion function, and the dataset data can be converted into a data form that meets the training requirements.
+
+Execute the following code to view the original dataset data:
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+import mindspore.dataset as ds
+
+train_data_path = "./datasets/MNIST_Data/train"
+test_data_path = "./datasets/MNIST_Data/test"
+mnist_ds = ds.MnistDataset(train_data_path)
+print('The type of mnist_ds:', type(mnist_ds))
+print("Number of pictures contained in the mnist_ds：", mnist_ds.get_dataset_size())
+
+dic_ds = mnist_ds.create_dict_iterator()
+item = next(dic_ds)
+img = item["image"].asnumpy()
+label = item["label"].asnumpy()
+
+print("The item of mnist_ds:", item.keys())
+print("Tensor of image in item:", img.shape)
+print("The label of item:", label)
+
+plt.imshow(np.squeeze(img))
+plt.title("number:%s"% item["label"].asnumpy())
+plt.show()
+```
+
+```text
+The type of mnist_ds: <class 'mindspore.dataset.engine.datasets.MnistDataset'>
+Number of pictures contained in the mnist_ds： 60000
+The item of mnist_ds: dict_keys(['image', 'label'])
+Tensor of image in item: (28, 28, 1)
+The label of item: 8
+```
+
+![quick_start_quick_start_11_1](./images/quick_start_quick_start_11_1.png)
+
+From the above operation, we can see that the training datasets `train-images-idx3-ubyte` and `train-labels-idx1-ubyte` correspond to 60,000 images and 60,000 digital labels. After loading the data, the dictionary data set is converted by `create_dict_iterator`, Take one of the data to view, this is a dictionary with keys `image` and `label`, where the tensor of `image` (height 28, width 28, channel 1) and `label` are the numbers corresponding to the image.
 
 ### Defining the Dataset and Data Operations
 
@@ -125,63 +159,125 @@ Define the `create_dataset` function to create a dataset. In this function, defi
 4. Use the `map` mapping function to apply data operations to the dataset.
 5. Process the generated dataset.
 
+After the definition is completed, use `create_datasets` to enhance the original data, and extract a batch of data to view the changes after the data is enhanced.
+
 ```python
-import mindspore.dataset as ds
-import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as CV
+import mindspore.dataset.transforms.c_transforms as C
 from mindspore.dataset.vision import Inter
 from mindspore import dtype as mstype
 
+
 def create_dataset(data_path, batch_size=32, repeat_size=1,
                    num_parallel_workers=1):
-    """ create dataset for train or test
+    """
+    create dataset for train or test
+
     Args:
-        data_path: Data path
-        batch_size: The number of data records in each group
-        repeat_size: The number of replicated data records
-        num_parallel_workers: The number of parallel workers
+        data_path (str): Data path
+        batch_size (int): The number of data records in each group
+        repeat_size (int): The number of replicated data records
+        num_parallel_workers (int): The number of parallel workers
     """
     # define dataset
     mnist_ds = ds.MnistDataset(data_path)
 
-    # define operation parameters
+    # define some parameters needed for data enhancement and rough justification
     resize_height, resize_width = 32, 32
     rescale = 1.0 / 255.0
     shift = 0.0
     rescale_nml = 1 / 0.3081
     shift_nml = -1 * 0.1307 / 0.3081
 
-    # define map operations
-    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)  # resize images to (32, 32)
-    rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)  # normalize images
-    rescale_op = CV.Rescale(rescale, shift)  # rescale images
-    hwc2chw_op = CV.HWC2CHW()  # change shape from (height, width, channel) to (channel, height, width) to fit network.
-    type_cast_op = C.TypeCast(mstype.int32)  # change data type of label to int32 to fit network
+    # according to the parameters, generate the corresponding data enhancement method
+    resize_op = CV.Resize((resize_height, resize_width), interpolation=Inter.LINEAR)
+    rescale_nml_op = CV.Rescale(rescale_nml, shift_nml)
+    rescale_op = CV.Rescale(rescale, shift)
+    hwc2chw_op = CV.HWC2CHW()
+    type_cast_op = C.TypeCast(mstype.int32)
 
-    # apply map operations on images
+    # using map to apply operations to a dataset
     mnist_ds = mnist_ds.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=resize_op, input_columns="image", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=rescale_op, input_columns="image", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=rescale_nml_op, input_columns="image", num_parallel_workers=num_parallel_workers)
     mnist_ds = mnist_ds.map(operations=hwc2chw_op, input_columns="image", num_parallel_workers=num_parallel_workers)
 
-    # apply DatasetOps
+    # process the generated dataset
     buffer_size = 10000
-    mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)  # 10000 as in LeNet train script
+    mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)
     mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
     mnist_ds = mnist_ds.repeat(repeat_size)
 
     return mnist_ds
 
+ms_dataset = create_dataset(train_data_path)
+print('Number of groups in the dataset:', ms_dataset.get_dataset_size())
 ```
 
-In the preceding information:  
-`batch_size`: number of data records in each group. Currently, each group contains 32 data records.  
-`repeat_size`: number of replicated data records.
+```text
+Number of groups in the dataset: 1875
+```
 
-Perform the shuffle and batch operations, and then perform the repeat operation to ensure that data is unique during one epoch.
+After calling the data enhancement function, check that the dataset `size` has changed from 60000 to 1875, which meets the expectations of the `mnist_ds.batch` operation in our data enhancement ($60000/32=1875$).
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html) in the MindSpore Tutorials.
+During the above enhancement process:
+
+- The `label` data enhancement operation in the dataset:
+
+    - `C.TypeCast`: Convert the data type to `int32`.
+
+- The `image` data enhancement operation in the dataset:  
+
+    - `datasets.MnistDataset`: Convert the dataset into MindSpore trainable data.  
+    - `CV.Resize`: Resize image data pixels to meet the data size requirements of the LeNet network.
+    - `CV.Rescale`: Standardize and normalize image data so that the value of each pixel is in the range (0,1), which can improve training efficiency.  
+    - `CV.HWC2CHW`: Transform the image data tensor, the tensor form is changed from `height x width x channel` (HWC) to `channel x height x width` (CHW), which is convenient for data training.
+
+- Other enhancement operations:
+
+    - `mnist_ds.shuffle`: Randomly store data in a memory that can hold 10,000 images for shuffle.  
+    - `mnist_ds.batch`: Extract 32 images from the shuffled 10,000 image addresses to form a `batch`, the parameter `batch_size` indicates the number of data contained in each group, and each group is now set to contain 32 data.  
+    - `mnist_ds.repeat`: The `batch` data is replicated and enhanced. The parameter `repeat_size` indicates the number of replicated datasets.
+
+Perform the `shuffle` and `batch` operations, and then perform the `repeat` operation to ensure that data is unique during one `epoch`.
+
+> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html) and [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html) in the MindSpore tutorials.
+
+### Viewing Enhanced Data
+
+Take a set of data from 1875 groups of data, and view its data tensor and `label`.
+
+```python
+data = next(ms_dataset.create_dict_iterator(output_numpy=True))
+images = data["image"]
+labels = data["label"]
+print('Tensor of image:', images.shape)
+print('Labels:', labels)
+```
+
+```text
+Tensor of image: (32, 1, 32, 32)
+Labels: [9 8 5 5 1 2 3 5 7 0 6 1 0 3 8 1 2 1 5 1 5 2 8 4 4 6 4 5 5 5 7 8]
+```
+
+Visualize the tensor data and the value corresponding to `label`.
+
+```python
+count = 1
+for i in images:
+    plt.subplot(4, 8, count)
+    plt.imshow(np.squeeze(i))
+    plt.title('num:%s'%labels[count-1])
+    plt.xticks([])
+    count += 1
+    plt.axis("off")
+plt.show()
+```
+
+![quick_start_quick_start_21_0](./images/quick_start_quick_start_21_0.png)
+
+Through the above query operation, you can see the transformed images. The dataset is divided into 1875 groups of data. Each group of data contains 32 images. Each image has a value of 32×32. After all the data is prepared, you can proceed to the next step of data training.
 
 ## Defining the Network
 
@@ -204,10 +300,8 @@ import mindspore.nn as nn
 from mindspore.common.initializer import Normal
 
 class LeNet5(nn.Cell):
-    """
-    Lenet network structure
-    """
-    #define the operator required
+    """Lenet network structure."""
+    # define the operator required
     def __init__(self, num_class=10, num_channel=1):
         super(LeNet5, self).__init__()
         self.conv1 = nn.Conv2d(num_channel, 6, 5, pad_mode='valid')
@@ -219,7 +313,7 @@ class LeNet5(nn.Cell):
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
         self.flatten = nn.Flatten()
 
-    #use the preceding operators to construct networks
+    # use the preceding operators to construct networks
     def construct(self, x):
         x = self.max_pool2d(self.relu(self.conv1(x)))
         x = self.max_pool2d(self.relu(self.conv2(x)))
@@ -228,196 +322,355 @@ class LeNet5(nn.Cell):
         x = self.relu(self.fc2(x))
         x = self.fc3(x)
         return x
+
+network = LeNet5()
+print("layer conv1:", network.conv1)
+print("*"*40)
+print("layer fc1:", network.fc1)
 ```
 
-## Defining the Loss Function and Optimizer
+```text
+layer conv1: Conv2d<input_channels=1, output_channels=6, kernel_size=(5, 5),stride=(1, 1),  pad_mode=valid, padding=0, dilation=(1, 1), group=1, has_bias=Falseweight_init=normal, bias_init=zeros, format=NCHW>
+****************************************
+layer fc1: Dense<input_channels=400, output_channels=120, has_bias=True>
+```
 
-### Basic Concepts
+After the construction is completed, you can use `print(LeNet5())` to print out all the parameters of each layer in the neural network, or use `LeNet().{layer name}` to print the corresponding parameter information. This example chooses to print the corresponding parameters of the first convolutional layer and the first fully connected layer.
+
+## Custom Callback Function to Collect the Model Loss Value and Precision Value
+
+Customize a data collection callback class `StepLossAccInfo`, it is used to collect two types of information:
+
+1. Information about the relationship between `step` and `loss` values during training;
+
+2. Information of each 125 training `step` and corresponding model accuracy value `accuracy`.
+
+This class inherits the `Callback` class, and can customize the operations during the training process. After the training is completed, the data can be drawn into a graph to view the changes in `step` and `loss`, as well as the `step` and `accuracy` changes.
+
+The following code will be used as a callback function to be called in the model training function `model.train`. This article will visualize the information collected during the model verification stage.
+
+```python
+from mindspore.train.callback import Callback
+
+# custom callback function
+class StepLossAccInfo(Callback):
+    def __init__(self, model, eval_dataset, steps_loss, steps_eval):
+        self.model = model
+        self.eval_dataset = eval_dataset
+        self.steps_loss = steps_loss
+        self.steps_eval = steps_eval
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        cur_epoch = cb_params.cur_epoch_num
+        cur_step = (cur_epoch-1)*1875 + cb_params.cur_step_num
+        self.steps_loss["loss_value"].append(str(cb_params.net_outputs))
+        self.steps_loss["step"].append(str(cur_step))
+        if cur_step % 125 == 0:
+            acc = self.model.eval(self.eval_dataset, dataset_sink_mode=False)
+            self.steps_eval["step"].append(cur_step)
+            self.steps_eval["acc"].append(acc["Accuracy"])
+```
+
+of which,
+
+- `model`: computational graph model.
+- `eval_dataset`: validation dataset.
+- `steps_loss`: Collect the relationship between step and loss value, the data format is `{"step": [], "loss_value": []}`.
+- `steps_eval`: Collect information about the model accuracy value `accuracy` corresponding to step, the data format is `{"step": [], "acc": []}`.
+
+## Defining the Loss Function and Optimizer
 
 Before definition, this section briefly describes concepts of loss function and optimizer.
 
 - Loss function: It is also called objective function and is used to measure the difference between a predicted value and an actual value. Deep learning reduces the value of the loss function by continuous iteration. Defining a good loss function can effectively improve the model performance.
+
 - Optimizer: It is used to minimize the loss function, improving the model during training.
 
 After the loss function is defined, the weight-related gradient of the loss function can be obtained. The gradient is used to indicate the weight optimization direction for the optimizer, improving model performance.
 
-### Defining the Loss Function
-
 Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `L1Loss`, `MSELoss`. The loss function `SoftmaxCrossEntropyWithLogits` is used in this example.
 
-```python
-from mindspore.nn.loss import SoftmaxCrossEntropyWithLogits
-```
-
-Call the defined loss function in the `__main__` function.
+The optimizers supported by MindSpore include `Adam`, `AdamWeightDecay`, `Momentum`, etc. The popular `Momentum` optimizer is used here.
 
 ```python
-if __name__ == "__main__":
-    ...
-    #define the loss function
-    net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-    ...
-```
+import mindspore.nn as nn
+from mindspore.nn import SoftmaxCrossEntropyWithLogits
 
-### Defining the Optimizer
+lr = 0.01
+momentum = 0.9
 
-Optimizers supported by MindSpore include `Adam`, `AdamWeightDecay` and `Momentum`.
+# create the network
+network = LeNet5()
 
-The popular Momentum optimizer is used in this example.
+# define the optimizer
+net_opt = nn.Momentum(network.trainable_params(), lr, momentum)
 
-```python
-if __name__ == "__main__":
-    ...
-    #learning rate setting
-    lr = 0.01
-    momentum = 0.9
-    #create the network
-    net = LeNet5()
-    #define the optimizer
-    net_opt = nn.Momentum(net.trainable_params(), lr, momentum)
-    ...
+# define the loss function
+net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
 ## Training the Network
 
-### Saving the Configured Model
+After completing the construction of the neural network, you can start network training. The network training can be conveniently performed through the `Model.train` interface provided by MindSpore. The parameters mainly include:
 
-MindSpore provides the callback mechanism to execute customized logic during training. `ModelCheckpoint` provided by the framework is used in this example.
-`ModelCheckpoint` can save network models and parameters for subsequent fine-tuning.
-
-```python
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
-
-if __name__ == "__main__":
-    ...
-    # set parameters of check point
-    config_ck = CheckpointConfig(save_checkpoint_steps=1875, keep_checkpoint_max=10)
-    # apply parameters of check point
-    ckpoint = ModelCheckpoint(prefix="checkpoint_lenet", config=config_ck)
-    ...
-```
-
-### Configuring the Network Training
-
-Use the `model.train` API provided by MindSpore to easily train the network. `LossMonitor` can monitor the changes of the `loss` value during training.
-In this example, set `train_epoch` to 1 to train the dataset for five iterations.
+1. Each epoch needs to traverse all the batches of images: `epoch_size`.
+2. Training dataset, `ds_train`.  
+3. MindSpore provides the callback mechanism. The callback function, `callbacks`, includes `ModelCheckpoint`, `LossMonitor`, and `Callback` arguments. In particular, `ModelCheckpoint` is used to save network models and parameters for performing fine-tuning later.
+4. The dataset sink mode, `dataset_sink_mode`, is set to `True` by default. However, it needs to be set to `False`. As a result, this mode does not support in the CPU computation platform.
 
 ```python
-from mindspore.nn.metrics import Accuracy
-from mindspore.train.callback import LossMonitor
-from mindspore import Model
+import os
+from mindspore import Tensor, Model
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
+from mindspore.nn import Accuracy
 
-...
-def train_net(args, model, epoch_size, data_path, repeat_size, ckpoint_cb, sink_mode):
-    """define the training method"""
-    print("============== Starting Training ==============")
-    #load training dataset
-    ds_train = create_dataset(os.path.join(data_path, "train"), 32, repeat_size)
-    model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor()], dataset_sink_mode=sink_mode) # train
-...
+epoch_size = 1
+mnist_path = "./datasets/MNIST_Data"
+model_path = "./models/ckpt/mindspore_quick_start/"
 
-if __name__ == "__main__":
-    ...
+repeat_size = 1
+ds_train = create_dataset(os.path.join(mnist_path, "train"), 32, repeat_size)
+eval_dataset = create_dataset(os.path.join(mnist_path, "test"), 32)
 
-    train_epoch = 1
-    mnist_path = "./MNIST_Data"
-    dataset_size = 1
-    model = Model(net, net_loss, net_opt, metrics={"Accuracy": Accuracy()})
-    train_net(args, model, train_epoch, mnist_path, dataset_size, ckpoint, dataset_sink_mode)
-    ...
+# clean up old run files before in Linux
+os.system('rm -f {0}*.ckpt {0}*.meta {0}*.pb'.format(model_path))
+
+# define the model
+model = Model(network, net_loss, net_opt, metrics={"Accuracy": Accuracy()} )
+
+# save the network model and parameters for subsequence fine-tuning
+config_ck = CheckpointConfig(save_checkpoint_steps=375, keep_checkpoint_max=16)
+# group layers into an object with training and evaluation features
+ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet", directory=model_path, config=config_ck)
+
+steps_loss = {"step": [], "loss_value": []}
+steps_eval = {"step": [], "acc": []}
+# collect the steps,loss and accuracy information
+step_loss_acc_info = StepLossAccInfo(model , eval_dataset, steps_loss, steps_eval)
+
+model.train(epoch_size, ds_train, callbacks=[ckpoint_cb, LossMonitor(125), step_loss_acc_info], dataset_sink_mode=False)
 ```
 
-In the preceding information:
-In the `train_net` method, we loaded the training dataset, `mnist_path` is MNIST dataset path.
-
-## Running and Viewing the Result
-
-Run the script using the following command:
-
-```bash
-python lenet.py --device_target=CPU
+```text
+epoch: 1 step: 125, loss is 2.2961428
+epoch: 1 step: 250, loss is 2.2972755
+epoch: 1 step: 375, loss is 2.2992194
+epoch: 1 step: 500, loss is 2.3089285
+epoch: 1 step: 625, loss is 2.304193
+epoch: 1 step: 750, loss is 2.3023324
+epoch: 1 step: 875, loss is 0.69262105
+epoch: 1 step: 1000, loss is 0.23356618
+epoch: 1 step: 1125, loss is 0.35567114
+epoch: 1 step: 1250, loss is 0.2065609
+epoch: 1 step: 1375, loss is 0.19551893
+epoch: 1 step: 1500, loss is 0.1836512
+epoch: 1 step: 1625, loss is 0.028234977
+epoch: 1 step: 1750, loss is 0.1124336
+epoch: 1 step: 1875, loss is 0.026502304
 ```
 
-In the preceding information:
-`Lenet. Py`: the script file you wrote.  
-`--device_target CPU`: Specify the hardware platform.The   parameters are 'CPU', 'GPU' or 'Ascend'.
+After training, multiple model files will be generated and saved under the pre-set directory.
 
-Loss values are printed during training, as shown in the following figure. Although loss values may fluctuate, they gradually decrease and the accuracy gradually increases in general. Loss values displayed each time may be different because of their randomicity.
-
-The following is an example of loss values output during training:
-
-```bash
-...
-epoch: 1 step: 1, loss is 2.3025916
-epoch: 1 step: 2, loss is 2.302577
-epoch: 1 step: 3, loss is 2.3023994
-epoch: 1 step: 4, loss is 2.303059
-epoch: 1 step: 5, loss is 2.3025753
-epoch: 1 step: 6, loss is 2.3027692
-epoch: 1 step: 7, loss is 2.3026521
-epoch: 1 step: 8, loss is 2.3014607
-...
-epoch: 1 step: 1871, loss is 0.048939988
-epoch: 1 step: 1872, loss is 0.028885357
-epoch: 1 step: 1873, loss is 0.09475248
-epoch: 1 step: 1874, loss is 0.046067055
-epoch: 1 step: 1875, loss is 0.12366105
-...
+```python
+!tree $model_path
 ```
 
-The following is an example of model files saved after training:
+```text
+./models/ckpt/mindspore_quick_start/
+├── checkpoint_lenet-1_1125.ckpt
+├── checkpoint_lenet-1_1500.ckpt
+├── checkpoint_lenet-1_1875.ckpt
+├── checkpoint_lenet-1_375.ckpt
+├── checkpoint_lenet-1_750.ckpt
+└── checkpoint_lenet-graph.meta
 
-```bash
-checkpoint_lenet-1_1875.ckpt
+    0 directories, 6 files
 ```
 
-In the preceding information:  
-`checkpoint_lenet-1_1875.ckpt`: saved model parameter file. The following refers to saved files as well. The file name format is checkpoint_*network name*-*epoch No.*_*step No.*.ckpt.
+The meaning of the file name: `{Customized name configured in ModelCheckpoint}-{The number of epoch}-{The number of step}`.
+
+### Checking the Loss Value of the Model with the Change of Training Steps
+
+```python
+steps = steps_loss["step"]
+loss_value = steps_loss["loss_value"]
+steps = list(map(int, steps))
+loss_value = list(map(float, loss_value))
+plt.plot(steps, loss_value, color="red")
+plt.xlabel("Steps")
+plt.ylabel("Loss_value")
+plt.title("Change chart of model loss value")
+plt.show()
+```
+
+![quick_start_quick_start_45_0](./images/quick_start_quick_start_45_0.png)
+
+Judging from the above, it can be divided into three stages:
+
+Stage 1: When the training starts, the loss value is around 2.2, which indicates that the training performance is not satisfied.
+
+Stage 2: When the training arrives at a certain point, the loss value decreases sharply and the training performance is greatly improved.
+
+Stage 3: After the loss value converges to a small value, it tends to get close to 0. At this point, the training performance is steady and cannot be further improved, leading to the result that the training is terminated.
 
 ## Validating the Model
 
 After obtaining the model file, we verify the generalization ability of the model.
 
+The process of building a network for verification is as follows:
+
+1. Load the model by reading the parameter `param_dict` in the `.ckpt` file.
+2. Load the parameter `param_dict` to the neural network, Lenet.
+3. Load the test dataset.
+4. Call the function, `model.eval`, to transfer the parameters of the test dataset, `ds_eval`. Compute the accuracy of `checkpoint_lenet-{epoch}_1875.ckpt`
+
 ```python
 from mindspore import load_checkpoint, load_param_into_net
 
-def test_net(network,model,data_path):
-    """define the evaluation method"""
+# testing relate modules
+def test_net(network, model, mnist_path):
+    """Define the evaluation method."""
     print("============== Starting Testing ==============")
-    #load the saved model for evaluation
-    param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
-    #load parameter to the network
+    # load the saved model for evaluation
+    param_dict = load_checkpoint("./models/ckpt/mindspore_quick_start/checkpoint_lenet-1_1875.ckpt")
+    # load parameter to the network
     load_param_into_net(network, param_dict)
-    #load testing dataset
-    ds_eval = create_dataset(os.path.join(data_path, "test")) # test
+    # load testing dataset
+    ds_eval = create_dataset(os.path.join(mnist_path, "test"))
     acc = model.eval(ds_eval, dataset_sink_mode=False)
     print("============== Accuracy:{} ==============".format(acc))
 
-if __name__ == "__main__":
-    ...
-    test_net(net, model, mnist_path)
+test_net(network, model, mnist_path)
 ```
-
-In the preceding information:
-`load_checkpoint`: This API is used to load the CheckPoint model parameter file and return a parameter dictionary.  
-`checkpoint_lenet-3_1404.ckpt`: name of the saved CheckPoint model file.  
-`load_param_into_net`: This API is used to load parameters to the network.
-
-Run the script using the following command:
-
-```bash
-python lenet.py --device_target=CPU
-```
-
-In the preceding information:
-`Lenet. Py`: the script file you wrote.
-`--device_target CPU`: Specify the hardware platform.The parameters are 'CPU', 'GPU' or 'Ascend'.
-
-After executing the command, the result is displayed as follows:
 
 ```text
 ============== Starting Testing ==============
-============== Accuracy:{'Accuracy': 0.9663477564102564} ==============
+============== Accuracy:{'Accuracy': 0.9697516025641025} ==============
 ```
 
-The model accuracy is displayed in the output content. In the example, the accuracy reaches 96.6%, indicating a good model quality. The model accuracy will be improved with more iterations `train_epoch`.
+of which,
+
+- `load_checkpoint`：This API is used to load the CheckPoint model parameter file and return a parameter dictionary.
+
+- `checkpoint_lenet-1_1875.ckpt`：name of the saved CheckPoint model file.
+
+- `load_param_into_net`：This API is used to load parameters to the network.
+
+When the training step reaches 1875, the accuracy of the model is over 95%, meaning the model performance is good.
+
+We can check the change of the model accuracy as the training step changes.
+
+`eval_show` will draw the line chart of model accuracy every 25 `step`. In particular, `steps_eval` stores the training step of the model and the corresponding accuracy information.
+
+```python
+def eval_show(steps_eval):
+    plt.xlabel("step number")
+    plt.ylabel("Model accuracy")
+    plt.title("Model accuracy variation chart")
+    plt.plot(steps_eval["step"], steps_eval["acc"], "red")
+    plt.show()
+
+eval_show(steps_eval)
+```
+
+![quick_start_quick_start_52_0](./images/quick_start_quick_start_52_0.png)
+
+In the figure, it can be seen that the change of the model accuracy can be divided in three stages:
+
+Stage 1: When the training starts, the model accuracy rises slowly.
+
+Stage 2: At a certain point, the model accuracy rises sharply.
+
+Stage 3: The model accuracy nearly comes to 1 without reaching.
+
+During the training process, as the training data increases, it will have a positive correlation with the model accuracy, but as the accuracy reaches a certain level, the training gains will decrease.
+
+## Inference and Prediction
+
+We apply the trained model to predict a single image or a set of images. The procedure is as follows:
+
+1. Transform the test data to the data that fits LeNet.
+2. Extract the `image` data.
+3. Call the function, `model.predict`, to predict the corresponding digit in each `image`. To be noted, `predict` will returns the probability of predicting 0 to 9 for each `image`.
+4. Call the `plot_pie` function to display the probability of predictions. Negative probabilities will be removed and not be displayed.
+
+Load the dataset to be predicted and call the `create_dataset` function to transform the test dataset into required formats. Select a set of 32 images for inference and prediction.
+
+```python
+ds_test = create_dataset(test_data_path).create_dict_iterator()
+data = next(ds_test)
+images = data["image"].asnumpy()
+labels = data["label"].asnumpy()
+
+output = model.predict(Tensor(data['image']))
+pred = np.argmax(output.asnumpy(), axis=1)
+err_num = []
+index = 1
+for i in range(len(labels)):
+    plt.subplot(4, 8, i+1)
+    color = 'blue' if pred[i] == labels[i] else 'red'
+    plt.title("pre:{}".format(pred[i]), color=color)
+    plt.imshow(np.squeeze(images[i]))
+    plt.axis("off")
+    if color == 'red':
+        index = 0
+        print("Row {}, column {} is incorrectly identified as {}, the correct value should be {}".format(int(i/8)+1, i%8+1, pred[i], labels[i]), '\n')
+if index:
+    print("All the figures in this group are predicted correctly!")
+print(pred, "<--Predicted figures")
+print(labels, "<--The right number")
+plt.show()
+```
+
+```text
+Row 1, column 2 is incorrectly identified as 8, the correct value should be 2
+
+Row 3, column 7 is incorrectly identified as 9, the correct value should be 4
+
+[5 8 0 2 7 4 1 7 8 6 6 8 7 9 5 8 7 2 0 4 5 9 9 3 9 1 3 9 7 6 3 4] <--Predicted figures
+[5 2 0 2 7 4 1 7 8 6 6 8 7 9 5 8 7 2 0 4 5 9 4 3 9 1 3 9 7 6 3 4] <--The right number
+```
+
+![quick_start_quick_start_58_1](./images/quick_start_quick_start_58_1.png)
+
+Draw a pie chart for probability analysis. In this example, it displays a pie chart for the current `batch` in the first image.
+
+`prb` stores the output of the predictions for the above 32 images. Extract `prb[0]` (the prediction result for the first image) and load it to the sigmol equation$\frac{1}{1+e^{-x}}$ to obtain the probability of predictions for 0 to 9. The probabilities over 0.5 will be chosen to draw the pie chart for analysis.
+
+```python
+import numpy as np
+# define the pie drawing function of probability analysis
+
+prb = output.asnumpy()
+
+def plot_pie(prbs):
+    dict1 = {}
+    # remove the negative number and build the dictionary dict1. The key is the number and the value is the probability value
+    for i in range(10):
+        if prbs[i] > 0:
+            dict1[str(i)] = prbs[i]
+
+    label_list = dict1.keys()
+    size = dict1.values()
+    colors = ["red", "green", "pink", "blue", "purple", "orange", "gray"]
+    color = colors[: len(size)]
+    plt.pie(size, colors=color, labels=label_list, labeldistance=1.1, autopct="%1.1f%%", shadow=False, startangle=90, pctdistance=0.6)
+    plt.axis("equal")
+    plt.legend()
+    plt.title("Image classification")
+    plt.show()
+
+
+print("The probability of corresponding numbers [0-9] in Figure 1:\n", list(map(lambda x:1/(1+np.exp(-x)), prb[0])))
+plot_pie(prb[0])
+```
+
+```text
+The probability of corresponding numbers [0-9] in Figure 1:
+[0.16316024637045334, 0.04876983802517727, 0.02261393383191808, 0.9963960715325838, 0.037634749376478496, 0.998856840107891, 0.1612087582052347, 0.08714517716531343, 0.6207903209907534, 0.9653037548477632]
+```
+
+![quick_start_quick_start_60_1](./images/quick_start_quick_start_60_1.png)
+
+In summary, the above tutorial describes the detail of the handwritten digit classification application.
