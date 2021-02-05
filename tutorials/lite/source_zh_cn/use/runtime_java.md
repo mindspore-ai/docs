@@ -169,7 +169,7 @@ for (String tensorName : tensorNames) {
     float[] results = output.getFloatData();
 
     // Apply infer results.
-    ……
+    ...
 }
 ```
 
@@ -252,7 +252,7 @@ private void DoInference(Context context) {
         float[] results = output.getFloatData();
 
         // Apply infer results.
-        ……
+        ...
     }
 }
 

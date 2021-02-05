@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 MindSpore设计和规格
-==================
+=====================
 
 .. toctree::
    :glob:
