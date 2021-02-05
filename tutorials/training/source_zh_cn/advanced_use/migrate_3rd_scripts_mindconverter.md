@@ -297,7 +297,7 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 
 ## 注意事项
 
-1. PyTorch、TensorFlow、TF2ONNX（>=1.7.1）、ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（==0.1.2）不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.4.0或PyTorch 1.6.0进行脚本生成），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
+1. PyTorch、TensorFlow、TF2ONNX（>=1.7.1）、ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（==0.1.2）不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.5.0进行脚本生成），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
 2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献；
 3. MindConverter仅保证转换后模型脚本在输入数据尺寸与`--shape`一致的情况下，可达到无需人工修改或少量修改（`--shape`中batch size维度不受限）。
 4. 脚本文件、权重文件和权重映射表输出于同一个目录下。
