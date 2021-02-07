@@ -130,6 +130,14 @@ The usage is almost the same as that in Ascend. The difference is GPU Timeline d
 >
 > <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
 
+#### Timeline Analysis
+
+The usage is almost the same as that in Ascend.
+
+> The usage is described as follows:
+>
+> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#step-trace-analysis>
+
 #### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.

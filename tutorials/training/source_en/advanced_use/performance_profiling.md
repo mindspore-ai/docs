@@ -95,8 +95,8 @@ Figure 2 displays the Step Trace page. The Step Trace detail will show the start
 In order to divide the stages, the Step Trace Component need to figure out the forward propagation start operator and the backward propagation end operator. MindSpore will automatically figure out the two operators to reduce the profiler configuration work. The first operator after `get_next` will be selected as the forward start operator and the operator before the last all reduce will be selected as the backward end operator.
 **However, Profiler do not guarantee that the automatically selected operators will meet the user's expectation in all cases.** Users can set the two operators manually as follows:  
 
-- Set environment variable `FP_POINT` to configure the forward start operator, for example, `export FP_POINT=fp32_vars/conv2d/BatchNorm`.
-- Set environment variable `BP_POINT` to configure the backward end operator, for example, `export BP_POINT=loss_scale/gradients/AddN_70`.
+- Set environment variable `PROFILING_FP_START` to configure the forward start operator, for example, `export PROFILING_FP_START=fp32_vars/conv2d/BatchNorm`.
+- Set environment variable `PROFILING_BP_END` to configure the backward end operator, for example, `export PROFILING_BP_END=loss_scale/gradients/AddN_70`.
 
 #### Operator Performance Analysis
 
