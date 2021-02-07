@@ -71,7 +71,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
     `cache_admin` supports the following commands and options:
     - `--start`: starts the cache server. The following options are supported:
         - `--workers` or `-w`: specifies the number of worker threads on the cache server. By default, the number of worker threads is half of the number of CPUs.
-        - `--spilldir` or `-s`: specifies the disk file path for storing remaining data when the cached data size exceeds the memory space. The default value is `/tmp/mindspore/cache`.
+        - `--spilldir` or `-s`: specifies the disk file path for storing remaining data when the cached data size exceeds the memory space. The default value is '' (which means disabling spilling).
         - `--hostname` or `-h`: specifies the IP address of the cache server. The default value is 127.0.0.1.
         - `--port` or `-p`: specifies the port number of the cache server. The default value is 50052.
         - `--loglevel` or `-l`: sets the log level. The default value is 1 (WARNING). If this option is set to 0 (INFO), excessive logs will be generated, resulting in performance deterioration.
@@ -79,13 +79,15 @@ Currently, the cache service supports only single-node cache. That is, the clien
     - `--generate_session` or `-g`: generates a cache session.
     - `--destroy_session` or `-d`: deletes a cache session.
     - `--list_sessions`: displays the list of currently cached sessions and their details.
+    - `--server_info`：displays the configuration parameters and active session list of current server.
     - `--help`: displays the help information.
 
-    In the preceding options, you can use `-h` and `-p` to specify a server. If the options are not specified, operations are performed on the server with the IP address 127.0.0.1 and port number 50052 by default.
+    In the preceding options, you can use `-h` and `-p` to specify a server. Users can also set environment variables `MS_CACHE_HOST` and `MS_CACHE_PORT` to specify it. If hostname and port are not set, operations are performed on the server with the IP address 127.0.0.1 and port number 50052 by default.
 
     You can run the `ps -ef|grep cache_server` command to check whether the server is started and query server parameters.
 
-    > Before setting cache_server initialization parameters, check the available memory of the system and the size of the dataset to be loaded. If the memory of cache_server or the dataset size exceeds the available memory of the system, the server may break down or restart, the cache_server may automatically shut down, or the training process fails to be executed.
+    > - Before setting cache_server initialization parameters, check the available memory of the system and the size of the dataset to be loaded. If the memory of cache_server or the dataset size exceeds the available memory of the system, the server may break down or restart, the cache_server may automatically shut down, or the training process fails to be executed.
+    > - To enable data spilling, you need to use `-s` to set spilling path when starting cache server. Otherwise, this feature is default to be disabled and it will bring up a memory-only cache server.
 
 3. Create a cache session.
 
@@ -123,7 +125,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
     ```python
     import mindspore.dataset as ds
 
-    test_cache = ds.DatasetCache(session_id=1456416665, size=0, spilling=True)
+    test_cache = ds.DatasetCache(session_id=1456416665, size=0, spilling=False)
     ```
 
     `DatasetCache` supports the following parameters:
@@ -137,7 +139,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     > - In actual use, you are advised to run the `cache_admin -g` command to obtain a cache session ID from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
     > - `size=0` indicates that the memory space used by the cache is not limited manually, but cannot exceed 80% of the total system memory. Note that `size=0` may cause the out of memory error. Therefore, you are advised to set `size` to a proper value based on the idle memory of the machine.
-    > - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the write permission on the configured disk path and the disk space is sufficient to store the remaining cache data.
+    > - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the write permission on the configured disk path and the disk space is sufficient to store the remaining cache data. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
     > - `spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
     > - If a dataset that does not support random access (such as `TFRecordDataset`) is used to load data and the cache service is enabled, ensure that the entire dataset is stored locally. In this scenario, if the local memory space is insufficient to store all data, spilling must be enabled to spill data to disks.
     > - `num_connections` and `prefetch_size` are internal performance tuning parameters. Generally, you do not need to set these two parameters.
