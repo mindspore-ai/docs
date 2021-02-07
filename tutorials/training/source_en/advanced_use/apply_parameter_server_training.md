@@ -61,10 +61,11 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
     network.set_param_ps()
     ```
 
-4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Detailed network training script can be referred to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>.
+4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>.
 
    ```python
-    context.set_auto_parallel_context(full_batch=True)
+    context.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)
+    context.set_context(enable_sparse=True)
     network = Net()
     model = Model(network)
     model.train(epoch, train_dataset, dataset_sink_mode=True)
@@ -72,8 +73,10 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
     In the information:
 
-    - `dataset_sink_mode`: whether to enable the sink mode of dataset or not. When `True`, it indicates enable, and pass the data through dataset channel. It must be set to `True` in this scenario.
+    - `dataset_sink_mode`: whether to enable the sink mode of dataset or not. When `True`, it indicates enable, and pass the data through dataset channel. It must be set to `True` in this scenario(The inference during training also need to enable sink mode of dataset).
     - `full_batch`: whether to load the dataset in full or not. When `True`, it indicates full load, and data of each device is the same. It must be set to `True` in the multi-workers scenario.
+    - `parallel_mode`:parallel mode, auto parallel mode must enable in the multi-workers scenario, please set `parallel_mode`=`ParallelMode.AUTO_PARALLEL`.
+    - `enable_sparse`: whether to enable sparse training, default: `False`; `enable_sparse`=`True` indicates enabling ps cache; The parameter `sparse` of all `EmbeddingLookup` kernels which enable cache must be equal to the value of `enable_sparse` in parameter server mode.
 
 ### Environment Variable Setting
 
