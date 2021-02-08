@@ -47,7 +47,7 @@
    advanced_use/custom_operator
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
-   advanced_use/achieve_high_order_differentiation
+   advanced_use/implement_high_order_differentiation
 
 .. toctree::
    :glob:
@@ -399,7 +399,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/achieve_high_order_differentiation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/implement_high_order_differentiation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">实现高阶自动微分</span>
