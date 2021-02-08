@@ -57,7 +57,7 @@ The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixel
 
 > Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are required for data training, and the last two links are required for data test.
 
-```python
+```bash
 !wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
 !unzip -o MNIST_Data.zip -d ./datasets
 !tree ./datasets/MNIST_Data/
@@ -472,7 +472,7 @@ epoch: 1 step: 1875, loss is 0.026502304
 
 After training, multiple model files will be generated and saved under the pre-set directory.
 
-```python
+```bash
 !tree $model_path
 ```
 
