@@ -6,7 +6,7 @@
 
 <font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
 
-A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 
