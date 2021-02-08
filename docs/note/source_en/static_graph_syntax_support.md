@@ -126,7 +126,7 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
 
   ```text
   y: 2
-  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), 'ok', (1, 2, 3))
+  x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
   ```
 
 #### Tuple
@@ -162,7 +162,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
 
   ```text
   y: 3
-  z: Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])
+  z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   m: (2, 3, 4), 3, 4)
   ```
 
@@ -205,7 +205,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
 
   ```text
   y: ("a", "b", "c")
-  z: (Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9]))
+  z: (Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9]))
   ```
 
 - Supported index values and value assignment
@@ -223,8 +223,8 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   The result is as follows:
 
   ```text
-  y: Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])
-  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value= [4, 5, 6]), Tensor(shape=[3], dtype=Int64, value= [7, 8, 9])}
+  y: Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])
+  x: {"a": (2, 3, 4), Tensor(shape=[3], dtype=Int64, value=[4, 5, 6]), Tensor(shape=[3], dtype=Int64, value=[7, 8, 9])}
   ```
 
 ### MindSpore User-defined Data Types
@@ -287,11 +287,11 @@ The following describes the attributes, APIs, index values, and index value assi
   ```text
   x_shape: (2, 3)
   x_dtype: Bool
-  x_all: Tensor(shape=[], dtype=Bool, value= False)
-  x_any: Tensor(shape=[], dtype=Bool, value= True)
-  x_view: Tensor(shape=[1, 6], dtype=Bool, value= [[True, False, True, False, True, False]])
+  x_all: Tensor(shape=[], dtype=Bool, value=False)
+  x_any: Tensor(shape=[], dtype=Bool, value=True)
+  x_view: Tensor(shape=[1, 6], dtype=Bool, value=[[True, False, True, False, True, False]])
 
-  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value= [[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
+  y_as_z: Tensor(shape=[2, 2, 3], dtype=Float32, value=[[[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]], [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]])
   ```
 
 - Index values
@@ -319,8 +319,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data_single: Tensor(shape=[3, 2], dtype=Int64, value= [[0, 1], [2, 3], [4, 5]])
-      data_multi: Tensor(shape=[2], dtype=Int64, value= [2, 3])
+      data_single: Tensor(shape=[3, 2], dtype=Int64, value=[[0, 1], [2, 3], [4, 5]])
+      data_multi: Tensor(shape=[2], dtype=Int64, value=[2, 3])
       ```
 
     - `True` index value
@@ -344,8 +344,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value= [[[0, 1, 2], [3, 4, 5]]])
-      data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value= [[[[0, 1, 2], [3, 4, 5]]]])
+      data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
+      data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3, 4, 5]]]])
       ```
 
     - `None` index value
@@ -371,8 +371,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data_single: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 4, 5]])
-      data_multi: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 4, 5]])
+      data_single: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
+      data_multi: Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [3, 4, 5]])
       ```
 
     - `slice` index value
@@ -400,8 +400,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data_single: Tensor(shape=[2, 2, 2], dtype=Int64, value= [[[4, 5], [6, 7]], [[12, 13], [14, 15]]])
-      data_multi: Tensor(shape=[1, 2, 2], dtype=Int64, value= [[[12, 13], [14, 15]]])
+      data_single: Tensor(shape=[2, 2, 2], dtype=Int64, value=[[[4, 5], [6, 7]], [[12, 13], [14, 15]]])
+      data_multi: Tensor(shape=[1, 2, 2], dtype=Int64, value=[[[12, 13], [14, 15]]])
       ```
 
     - `Tensor` index value
@@ -431,8 +431,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value= [[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
-      data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value= [[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
+      data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
+      data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
       ```
 
     - `Tuple` index value
@@ -462,7 +462,7 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      data: Tensor(shape=[2, 3, 1], dtype=Int64, value= [[[13], [14], [13]], [[12], [15], [14]]])
+      data: Tensor(shape=[2, 3, 1], dtype=Int64, value=[[[13], [14], [13]], [[12], [15], [14]]])
       ```
 
 - Index value assignment
@@ -488,20 +488,21 @@ The following describes the attributes, APIs, index values, and index value assi
       For example:
 
       ```python
-      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)))
-      tensor_x[1] = 88
-      tensor_y[1][1] = 88
-      tensor_z[1]= Tensor(np.array([66, 88, 99]))
+
+      tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+      tensor_x[1] = 88.0
+      tensor_y[1][1] = 88.0
+      tensor_z[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
       ```
 
       The result is as follows:
 
       ```text
-      tensor_x: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [88, 88, 88]])
-      tensor_y: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [3, 88, 5]])
-      tensor_z: Tensor(shape=[2, 3], dtype=Int64, value= [[0, 1, 2], [66, 88, 99]])
+      tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 5.0]])
+      tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
       ```
 
     - `ellipsis` index value assignment
@@ -512,7 +513,7 @@ The following describes the attributes, APIs, index values, and index value assi
 
       When an assigned value is `Number`, all elements are updated to `Number`.
 
-      When an assigned value is `Tensor`, the `shape` of `Tensor` must be equal to or can be broadcast as the `shape` of the original `Tensor`. After the `shape` of `Tensor` and `shape` of `Tensor` are consistent, update the assigned `Tensor` element to the corresponding position of the original `Tensor` element.
+      When an assigned value is `Tensor`, the number of elements in `Tensor` must be 1 or equal to the number of elements in the `Tensor` obtained by the `slice` index. Broadcast when the element is 1, and `reshape` when the number is equal but the `shape` is inconsistent. After ensuring that the two `shape` are the same, update the assigned `Tensor` elements to the original `Tensor` one by one according to their positions.
 
       For example, if the value of `Tensor` of `shape = (2, 3, 4)` is set to 100 by using the `...` index, the updated `Tensor` shape is still `(2, 3, 4)`, and all elements are changed to 100.
 
@@ -529,8 +530,8 @@ The following describes the attributes, APIs, index values, and index value assi
       The result is as follows:
 
       ```text
-      tensor_x: Tensor(shape=[2, 3], dtype=Int64, value= [[88, 88, 88], [88, 88, 88]])
-      tensor_y: Tensor(shape=[2, 3], dtype=Int64, value= [[22, 44, 55], [22, 44, 55]])
+      tensor_x: Tensor(shape=[2, 3], dtype=Int64, value=[[88, 88, 88], [88, 88, 88]])
+      tensor_y: Tensor(shape=[2, 3], dtype=Int64, value=[[22, 44, 55], [22, 44, 55]])
       ```
 
     - `slice` index value assignment
@@ -548,20 +549,20 @@ The following describes the attributes, APIs, index values, and index value assi
       For example:
 
       ```python
-      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_x[0:1] = 88
-      tensor_y[0:2][0:2] = 88
-      tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]))
+      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_x[0:1] = 88.0
+      tensor_y[0:2][0:2] = 88.0
+      tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]).astype(np.float32))
       ```
 
       The result is as follows:
 
       ```text
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88, 88, 88], [3, 4, 5], [6, 7, 8]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[88, 88, 88], [88, 88, 88], [6, 7, 8]])
-      tensor_z: Tensor(shape=[3, 3], dtype=Int64, value= [[11, 12, 13], [11, 12, 13], [6, 7, 8]])
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
+      tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [11.0, 12.0, 13.0], [6.0, 7.0, 8.0]])
       ```
 
     - `Tensor` index value assignment
@@ -592,14 +593,14 @@ The following describes the attributes, APIs, index values, and index value assi
       tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
       tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32))
       tensor_x[tensor_index] = 88.0
-      tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]))
+      tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]).astype(np.float32))
       ```
 
       The result is as follows:
 
       ```text
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [3.0, 4.0, 5.0], [88.0, 88.0, 88.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
       ```
 
     - `Tuple` index value assignment
@@ -623,21 +624,21 @@ The following describes the attributes, APIs, index values, and index value assi
       For example:
 
       ```python
-      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)))
-      tensor_index = Tensor(np.array([[0, 1], [1, 0]]))
-      tensor_x[1, 1:3] = 88
-      tensor_y[1:3, tensor_index] = 88
-      tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]))
+      tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+      tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+      tensor_x[1, 1:3] = 88.0
+      tensor_y[1:3, tensor_index] = 88.0
+      tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]).astype(np.float32))
       ```
 
       The result is as follows:
 
-      ```python
-      tensor_x: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [3, 88, 88], [6, 7, 8]])
-      tensor_y: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [88, 88, 5], [88, 88, 8]])
-      tensor_z: Tensor(shape=[3, 3], dtype=Int64, value= [[0, 1, 2], [12, 11, 5], [12, 11, 8]])
+      ```text
+      tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
+      tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
+      tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
       ```
 
 #### Primitive
@@ -783,7 +784,7 @@ return z
 The result is as follows:
 
 ```text
-z: Tensor(shape=[2, 3], dtype=Int64, value= [[7, 7], [7, 7], [7, 7]])
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
 ```
 
 Parameter: `sequence` --Traverses sequences (`Tuple` and `List`).
@@ -1135,7 +1136,7 @@ The result is as follows:
 
 ```text
 m: ((3, 100), (4, 200), (5, 300), (5, 400))
-n: ((0, Tensor(shape=[2], dtype=Int64, value= [1, 2])), (1, Tensor(shape=[2], dtype=Int64, value= [3, 4])), (2, Tensor(shape=[2], dtype=Int64, value= [5, 6])))
+n: ((0, Tensor(shape=[2], dtype=Int64, value=[1, 2])), (1, Tensor(shape=[2], dtype=Int64, value=[3, 4])), (2, Tensor(shape=[2], dtype=Int64, value=[5, 6])))
 ```
 
 #### super
@@ -1206,7 +1207,7 @@ ret = pow(x, y)
 The result is as follows:
 
 ```text
-ret: Tensor(shape=[3], dtype=Int64, value= [1, 4, 27]))
+ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 ```
 
 #### print
@@ -1229,7 +1230,7 @@ print("result", x)
 The result is as follows:
 
 ```text
-result Tensor(shape=[3], dtype=Int64, value= [1, 2, 3]))
+result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
 ```
 
 ### Function Parameters
