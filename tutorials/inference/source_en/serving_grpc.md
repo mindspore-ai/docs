@@ -79,7 +79,7 @@ Details are described as follows:
    The input parameters of the `Client.infer` API can be a list or tuple consisting of one or more instance inputs, or a single instance input. Each instance input consists of the input name and value. The value can be in the following format:
 
    - `numpy array`: represents a tensor. For example, np.ones((3,224), np.float32).
-   - `numpy number`: represents a scaler. For example, np.int8(5).
+   - `numpy number`: represents a scalar. For example, np.int8(5).
    - `python bool int float`: represents a scalar. Currently, int is regarded as int32, and float is regarded as float32. For example, 32.0.
    - `python str`: represents a character string. For example, "this is a text".
    - `python bytes`: represents binary data. For example, image data.
