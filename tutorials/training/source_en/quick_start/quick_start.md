@@ -79,7 +79,7 @@ The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixel
 
 Before start, you need to import Python libraries.
 
-Currently, the `os` libraries are required. For ease of understanding, other required libraries will not be described here.
+Currently, only the `os` library is required. Other libraries are not described here.
 
 ```python
 import os
@@ -101,13 +101,13 @@ from mindspore import context
 context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 ```
 
-This example runs in graph mode. You can configure hardware information based on site requirements. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about parameters, see the API description for `context.set_context`.
+This example runs in graph mode. You can configure hardware information based on actual requirements. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about parameters, see the API description for `context.set_context`.
 
 ## Processing Data
 
 Datasets are important for training. A good dataset can effectively improve training accuracy and efficiency. Generally, before loading a dataset, you need to perform some operations on the dataset.
 
-Since a convolutional neural network such as LeNet will be used to train the dataset later, and when the data is used for training, the data format is required, so it is needed to check what the data format in the dataset looks like, so that you can construct a targeted data conversion function, and the dataset data can be converted into a data form that meets the training requirements.
+A convolutional neural network such as LeNet is used to train the dataset. During data training, the data format is required. Therefore, you need to check the data in the dataset first. In this way, a targeted data conversion function can be constructed to convert the data in the dataset into a data format that meets the training requirements.
 
 Execute the following code to view the original dataset data:
 
@@ -147,7 +147,7 @@ The label of item: 8
 
 ![quick_start_quick_start_11_1](./images/quick_start_quick_start_11_1.png)
 
-From the above operation, we can see that the training datasets `train-images-idx3-ubyte` and `train-labels-idx1-ubyte` correspond to 60,000 images and 60,000 digital labels. After loading the data, the dictionary data set is converted by `create_dict_iterator`, Take one of the data to view, this is a dictionary with keys `image` and `label`, where the tensor of `image` (height 28, width 28, channel 1) and `label` are the numbers corresponding to the image.
+From the above operation, we can see that the training datasets `train-images-idx3-ubyte` and `train-labels-idx1-ubyte` correspond to 60,000 images and 60,000 digital labels. After loading the data, the dictionary data set is converted by `create_dict_iterator`. View one of the data, which is a dictionary with keys `image` and `label`. The tensor of `image` (height: 28; width: 28; channel: 1) and `label` are numbers corresponding to the image.
 
 ### Defining the Dataset and Data Operations
 
@@ -159,7 +159,7 @@ Define the `create_dataset` function to create a dataset. In this function, defi
 4. Use the `map` mapping function to apply data operations to the dataset.
 5. Process the generated dataset.
 
-After the definition is completed, use `create_datasets` to enhance the original data, and extract a batch of data to view the changes after the data is enhanced.
+After the definition is completed, use `create_datasets` to perform data augmentation on the original data, and extract a `batch` of data to view the changes after data augmentation.
 
 ```python
 import mindspore.dataset.vision.c_transforms as CV
@@ -219,9 +219,9 @@ print('Number of groups in the dataset:', ms_dataset.get_dataset_size())
 Number of groups in the dataset: 1875
 ```
 
-After calling the data enhancement function, check that the dataset `size` has changed from 60000 to 1875, which meets the expectations of the `mnist_ds.batch` operation in our data enhancement ($60000/32=1875$).
+After the data augmentation function is called, the dataset `size` changes from 60000 to 1875, which meets the expectations of the `mnist_ds.batch` operation in data augmentation ($60000/32=1875$).
 
-During the above enhancement process:
+In the preceding augmentation process:
 
 - The `label` data enhancement operation in the dataset:
 
@@ -246,7 +246,7 @@ Perform the `shuffle` and `batch` operations, and then perform the `repeat` oper
 
 ### Viewing Enhanced Data
 
-Take a set of data from 1875 groups of data, and view its data tensor and `label`.
+Obtain a group of data from the 1875 groups of data and view the data tensor and `label`.
 
 ```python
 data = next(ms_dataset.create_dict_iterator(output_numpy=True))
@@ -277,7 +277,7 @@ plt.show()
 
 ![quick_start_quick_start_21_0](./images/quick_start_quick_start_21_0.png)
 
-Through the above query operation, you can see the transformed images. The dataset is divided into 1875 groups of data. Each group of data contains 32 images. Each image has a value of 32×32. After all the data is prepared, you can proceed to the next step of data training.
+Through the above query operation, you can see the transformed images. The dataset is divided into 1875 groups of data. Each group of data contains 32 images. The resolution of each image is 32 x 32. After all the data is prepared, you can proceed to the next step of data training.
 
 ## Defining the Network
 
@@ -345,9 +345,9 @@ Customize a data collection callback class `StepLossAccInfo`, it is used to coll
 
 2. Information of each 125 training `step` and corresponding model accuracy value `accuracy`.
 
-This class inherits the `Callback` class, and can customize the operations during the training process. After the training is completed, the data can be drawn into a graph to view the changes in `step` and `loss`, as well as the `step` and `accuracy` changes.
+This class inherits the `Callback` class. You can customize operations during training. After the training is completed, the data can be drawn into a graph to view the changes in `step` and `loss`, as well as the `step` and `accuracy` changes.
 
-The following code will be used as a callback function to be called in the model training function `model.train`. This article will visualize the information collected during the model verification stage.
+The following code will be used as a callback function to be called in the model training function `model.train`. The following visualizes the information collected during the model verification stage.
 
 ```python
 from mindspore.train.callback import Callback
@@ -372,7 +372,7 @@ class StepLossAccInfo(Callback):
             self.steps_eval["acc"].append(acc["Accuracy"])
 ```
 
-of which,
+In the preceding information:
 
 - `model`: computational graph model.
 - `eval_dataset`: validation dataset.
@@ -414,10 +414,10 @@ net_loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
 After completing the construction of the neural network, you can start network training. The network training can be conveniently performed through the `Model.train` interface provided by MindSpore. The parameters mainly include:
 
-1. Each epoch needs to traverse all the batches of images: `epoch_size`.
-2. Training dataset, `ds_train`.  
-3. MindSpore provides the callback mechanism. The callback function, `callbacks`, includes `ModelCheckpoint`, `LossMonitor`, and `Callback` arguments. In particular, `ModelCheckpoint` is used to save network models and parameters for performing fine-tuning later.
-4. The dataset sink mode, `dataset_sink_mode`, is set to `True` by default. However, it needs to be set to `False`. As a result, this mode does not support in the CPU computation platform.
+1. `epoch_size`: specifies the number of batches of images that need to be traversed by each epoch.
+2. `ds_train`: specifies the training dataset.
+3. MindSpore-provided callback mechanism. The callback function `callbacks` contains `ModelCheckpoint`, `LossMonitor`, and `Callback` arguments, where `ModelCheckpoint` is used to save network models and parameters for performing fine-tuning.
+4. `dataset_sink_mode`: specifies the dataset sink mode. The default value `True` needs to be  set to `False` because this mode does not support the CPU computing platform.
 
 ```python
 import os
@@ -516,7 +516,7 @@ Stage 3: After the loss value converges to a small value, it tends to get close 
 
 ## Validating the Model
 
-After obtaining the model file, we verify the generalization ability of the model.
+After obtaining the model file, validate the model generalization capability.
 
 The process of building a network for verification is as follows:
 
@@ -549,7 +549,7 @@ test_net(network, model, mnist_path)
 ============== Accuracy:{'Accuracy': 0.9697516025641025} ==============
 ```
 
-of which,
+In the preceding information:
 
 - `load_checkpoint`：This API is used to load the CheckPoint model parameter file and return a parameter dictionary.
 
@@ -561,7 +561,7 @@ When the training step reaches 1875, the accuracy of the model is over 95%, mean
 
 We can check the change of the model accuracy as the training step changes.
 
-`eval_show` will draw the line chart of model accuracy every 25 `step`. In particular, `steps_eval` stores the training step of the model and the corresponding accuracy information.
+`eval_show` draws the line chart of model accuracy every 25 `step`. In particular, `steps_eval` stores the training step of the model and the corresponding accuracy information.
 
 ```python
 def eval_show(steps_eval):
@@ -588,7 +588,7 @@ During the training process, as the training data increases, it will have a posi
 
 ## Inference and Prediction
 
-We apply the trained model to predict a single image or a set of images. The procedure is as follows:
+Apply the trained model to predict a single image or a set of images. The procedure is as follows:
 
 1. Transform the test data to the data that fits LeNet.
 2. Extract the `image` data.
@@ -636,7 +636,7 @@ Row 3, column 7 is incorrectly identified as 9, the correct value should be 4
 
 Draw a pie chart for probability analysis. In this example, it displays a pie chart for the current `batch` in the first image.
 
-`prb` stores the output of the predictions for the above 32 images. Extract `prb[0]` (the prediction result for the first image) and load it to the sigmol equation$\frac{1}{1+e^{-x}}$ to obtain the probability of predictions for 0 to 9. The probabilities over 0.5 will be chosen to draw the pie chart for analysis.
+`prb` stores the preceding 32 prediction numbers and corresponding output results. The classification result `prb[0]` corresponding to the first image is obtained, and the sigmol formula $\frac{1}{1+e^{-x}}$ is used to obtain the probability of [0-9] corresponding to the image. The number whose probability value is greater than 0.5 is analyzed in the pie chart.
 
 ```python
 import numpy as np
@@ -673,4 +673,4 @@ The probability of corresponding numbers [0-9] in Figure 1:
 
 ![quick_start_quick_start_60_1](./images/quick_start_quick_start_60_1.png)
 
-In summary, the above tutorial describes the detail of the handwritten digit classification application.
+That's the whole experience of the handwritten number classification application.
