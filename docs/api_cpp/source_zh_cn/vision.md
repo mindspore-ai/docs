@@ -104,6 +104,10 @@ std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, Interpolation
 
     - `size`: 表示调整大小后的图像的输出大小。如果size为单个值，则将以相同的图像纵横比将图像调整为该值，如果size具有2个值，则应为（高度，宽度）。
     - `interpolation`: 插值模式的枚举。
+        - kLinear，线性差值。
+        - kNearestNeighbour，最近邻插值。
+        - kCubic，双三次插值。
+        - kArea，区域插值。
 
 - 返回值
 

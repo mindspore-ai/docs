@@ -104,6 +104,10 @@ Resize the input image to the given size.
 
     - `size`: The output size of the resized image. If the size is a single value, the image will be resized to this value with the same image aspect ratio. If the size has 2 values, it should be (height, width).
     - `interpolation`: An enumeration for the mode of interpolation.
+        - kLinear, Linear interpolation.
+        - kNearestNeighbour, Nearest Interpolation.
+        - kCubic, Bicubic interpolation.
+        - kArea, Area interpolation.
 
 - Returns
 

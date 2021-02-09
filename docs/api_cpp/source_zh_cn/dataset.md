@@ -21,7 +21,7 @@ bool ResizeBilinear(LiteMat &src, LiteMat &dst, int dst_w, int dst_h)
 
 - 返回值
 
-    执行成功返回true，否则不满足条件返回false。
+    执行成功返回true，执行失败返回false。
 
 ## InitFromPixel
 
@@ -60,7 +60,7 @@ bool ConvertTo(LiteMat &src, LiteMat &dst, double scale = 1.0)
 
     - `src`: 输入的图片数据。
     - `dst`: 输出图像数据。
-    - `scale`: 对像素做尺度(默认值为1.0)。
+    - `scale`: 对像素进行缩放(默认值为1.0)。
 
 - 返回值
 
@@ -437,7 +437,7 @@ ref_count_
 bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
 
-计算每个元素的两个图像之间的差异。
+对两个图像间的元素进行减法运算。
 
 - 参数
 
@@ -457,7 +457,7 @@ bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
 
-计算每个元素在两个图像之间的划分。
+对两个图像间的元素进行除法运算。
 
 - 参数
 
@@ -477,7 +477,7 @@ bool Divide(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 bool Multiply(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
 
-计算每个元素在两个图像之间的相乘值。
+对两个图像间的元素进行乘法运算。
 
 - 参数
 

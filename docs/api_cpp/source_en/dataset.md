@@ -437,7 +437,7 @@ A **pointer** to the address of the reference counter.
 bool Subtract(const LiteMat &src_a, const LiteMat &src_b, LiteMat *dst)
 ```
 
-Calculates the difference between the two images for each element.
+Calculate the element difference between two images.
 
 - Parameters
 
