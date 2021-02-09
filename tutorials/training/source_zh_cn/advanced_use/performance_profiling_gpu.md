@@ -132,6 +132,14 @@ GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处
 >
 > <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
 
+#### 迭代轨迹分析
+
+GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同，使用方法参考：
+
+> 与Ascend使用方式一致，可以参考：
+>
+> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id5>
+
 #### 数据准备性能分析
 
 GPU场景下，数据准备性能分析的使用方法和Ascend场景相同，使用方法参考：

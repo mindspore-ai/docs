@@ -99,8 +99,8 @@ profiler.analyse()
 迭代轨迹在做阶段划分时，需要识别前向计算开始的算子和反向计算结束的算子。为了降低用户使用Profiler的门槛，MindSpore会对这两个算子做自动识别，方法为：  
 前向计算开始的算子指定为`get_next`算子之后连接的第一个算子，反向计算结束的算子指定为最后一次all reduce之前连接的算子。**Profiler不保证在所有情况下自动识别的结果和用户的预期一致，用户可以根据网络的特点自行调整**，调整方法如下：  
 
-- 设置`FP_POINT`环境变量指定前向计算开始的算子，如`export FP_POINT=fp32_vars/conv2d/BatchNorm`。
-- 设置`BP_POINT`环境变量指定反向计算结束的算子，如`export BP_POINT=loss_scale/gradients/AddN_70`。
+- 设置`PROFILING_FP_START`环境变量指定前向计算开始的算子，如`export PROFILING_FP_START=fp32_vars/conv2d/BatchNorm`。
+- 设置`PROFILING_BP_END`环境变量指定反向计算结束的算子，如`export PROFILING_BP_END=loss_scale/gradients/AddN_70`。
 
 #### 算子性能分析
 
