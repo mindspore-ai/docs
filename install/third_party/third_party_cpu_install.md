@@ -8,7 +8,7 @@
 
 ### 1. 确认安装Ubuntu 18.04是64位操作系统
 
-（1）确认系统版本号，在终端输入```lab_release -a```
+（1）确认系统版本号，在终端输入```lsb_release -a```
 
 ```shell
 ms-sd@mssd:~$ lsb_release -a

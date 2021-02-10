@@ -100,12 +100,12 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
    数据变异方法中一定要包含基于图像像素值变化的方法。
 
-   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用于自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>
+   前两种类型的图像变化方法，支持用户自定义配置参数，也支持算法随机选择参数。用户自定义参数配置范围请参考:<https://gitee.com/mindspore/mindarmour/blob/master/mindarmour/fuzz_testing/image_transform.py>
    中对应的类方法。算法随机选择参数，则`params`设置为`'auto_param': [True]`，参数将在推荐范围内随机生成。
 
    基于对抗攻击方法的参数配置请参考对应的攻击方法类。
 
-   下面时变异方法及其参数配置的一个例子：
+   下面是变异方法及其参数配置的一个例子：
 
    ```python
    mutate_config = [{'method': 'Blur',
@@ -151,9 +151,9 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 4. 测试Fuzz测试前的神经元覆盖率。
 
    ```python
-   segmented_num=1000
-   neuron_num=10
-   model_coverage_test = ModelCoverageMetrics(model, segmented_num, neuron_num, train_images)
+   segmented_num = 1000
+   neuron_num = 10
+   model_coverage_test = ModelCoverageMetrics(model, neuron_num, segmented_num, train_images)
    model_coverage_test.calculate_coverage(np.array(test_images[:100]).astype(np.float32))
    LOGGER.info(TAG, 'KMNC of this test is : %s', model_coverage_test.get_kmnc())
    ```
