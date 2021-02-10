@@ -150,9 +150,9 @@ For details about the API configuration, see the `context.set_context`.
 4. Test the neuron coverage rate before the fuzz testing.
 
    ```python
-   segmented_num=1000
-   neuron_num=10
-   model_coverage_test = ModelCoverageMetrics(model, segmented_num, neuron_num, train_images)
+   segmented_num = 1000
+   neuron_num = 10
+   model_coverage_test = ModelCoverageMetrics(model, neuron_num, segmented_num, train_images)
    model_coverage_test.calculate_coverage(np.array(test_images[:100]).astype(np.float32))
    LOGGER.info(TAG, 'KMNC of this test is : %s', model_coverage_test.get_kmnc())
    ```
