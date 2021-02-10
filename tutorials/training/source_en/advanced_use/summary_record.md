@@ -33,7 +33,7 @@ Scalars, images, computational graphs, and model hyperparameters during training
 
 ## Preparing The Training Script
 
-Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page.
+Currently, MindSpore supports to save scalars, images, computational graph, and model hyperparameters to summary log file and display them on the web page. The computational graph can only be recorded in the graph mode.
 
 MindSpore currently supports multiple ways to record data into summary log files.
 
@@ -315,7 +315,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner. For a detailed custom training cycle tutorial, please [refer to the tutorial on the official website](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle).
 
-The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html?highlight=summaryrecord#mindspore.train.summary.SummaryRecord).
+The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html?highlight=summaryrecord#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
 ```python
 from mindspore import nn
@@ -346,7 +346,9 @@ class LeNet5(nn.Cell):
 def train():
     epochs = 10
     net = LeNet5()
-    with SummaryRecord('./summary_dir') as summary_record:
+    # Note1: An instance of the network should be passed to SummaryRecord if you want to record
+    # computational graph.
+    with SummaryRecord('./summary_dir', network=net) as summary_record:
         for epoch in range(epochs):
             step = 1
             for inputs in dataset_helper:
@@ -354,8 +356,8 @@ def train():
                 current_step = epoch * len(dataset_helper) + step
                 print("step: {0}, losses: {1}".format(current_step, output.asnumpy()))
 
-                # Note1: The output should be a scalar, and use 'add_value' method to record loss.
-                # Note2: You must use the 'record(step)' method to record the data of this step.
+                # Note2: The output should be a scalar, and use 'add_value' method to record loss.
+                # Note3: You must use the 'record(step)' method to record the data of this step.
                 summary_record.add_value('scalar', 'loss', output)
                 summary_record.record(current_step)
 

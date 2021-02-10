@@ -11,7 +11,7 @@
         - [方式一：通过SummaryCollector自动收集](#方式一通过summarycollector自动收集)
         - [方式二：结合Summary算子和SummaryCollector，自定义收集网络中的数据](#方式二结合summary算子和summarycollector自定义收集网络中的数据)
         - [方式三：自定义Callback记录数据](#方式三自定义callback记录数据)
-        - [方式四：进阶用法，自定义训练循环](#方式四进阶用法，自定义训练循环)
+        - [方式四：进阶用法，自定义训练循环](#方式四进阶用法自定义训练循环)
         - [分布式训练场景](#分布式训练场景)
         - [使用技巧：记录梯度信息](#使用技巧记录梯度信息)
     - [运行MindInsight](#运行mindinsight)
@@ -34,7 +34,7 @@
 
 ## 准备训练脚本
 
-当前MindSpore支持将标量、图像、计算图、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。
+当前MindSpore支持将标量、图像、计算图、模型超参等信息保存到summary日志文件中，并通过可视化界面进行展示。计算图数据仅能在图模式下记录。
 
 MindSpore目前支持多种方式将数据记录到summary日志文件中。
 
@@ -317,7 +317,7 @@ model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
 
 如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#id4)。
 
-下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。
+下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
 ```python
 from mindspore import nn
@@ -348,7 +348,9 @@ class LeNet5(nn.Cell):
 def train():
     epochs = 10
     net = LeNet5()
-    with SummaryRecord('./summary_dir') as summary_record:
+    # Note1: An instance of the network should be passed to SummaryRecord if you want to record
+    # computational graph.
+    with SummaryRecord('./summary_dir', network=net) as summary_record:
         for epoch in range(epochs):
             step = 1
             for inputs in dataset_helper:
@@ -356,8 +358,8 @@ def train():
                 current_step = epoch * len(dataset_helper) + step
                 print("step: {0}, losses: {1}".format(current_step, output.asnumpy()))
 
-                # Note1: The output should be a scalar, and use 'add_value' method to record loss.
-                # Note2: You must use the 'record(step)' method to record the data of this step.
+                # Note2: The output should be a scalar, and use 'add_value' method to record loss.
+                # Note3: You must use the 'record(step)' method to record the data of this step.
                 summary_record.add_value('scalar', 'loss', output)
                 summary_record.record(current_step)
 
