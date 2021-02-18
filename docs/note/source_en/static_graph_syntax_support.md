@@ -32,7 +32,27 @@
         - [Process Control Statements](#process-control-statements)
             - [break](#break)
             - [continue](#continue)
+            - [pass](#pass)
+        - [Function Definition Statements](#function-definition-statements)
+            - [def Keyword](#def-keyword)
+            - [lambda Expression](#lambda-expression)
+    - [Functions](#functions)
+        - [Python Built-in Functions](#python-built-in-functions)
+            - [len](#len)
             - [isinstance](#isinstance)
+            - [partial](#partial)
+            - [map](#map)
+            - [zip](#zip)
+            - [range](#range)
+            - [enumerate](#enumerate)
+            - [super](#super)
+            - [pow](#pow)
+            - [print](#print)
+        - [Function Parameters](#function-parameters)
+    - [Network Definition](#network-definition)
+        - [Instance Types on the Entire Network](#instance-types-on-the-entire-network)
+        - [Network Construction Components](#network-construction-components)
+        - [Network Constraints](#network-constraints)
 
 <!-- /TOC -->
 
@@ -296,7 +316,7 @@ The following describes the attributes, APIs, index values, and index value assi
 
 - Index values
 
-  The index value can be `int`, `True`, `None`, `slice`, `Tensor`, or `Tuple`.
+  The index value can be `int`, `bool`, `None`, `slice`, `Tensor`, `List`, or `Tuple`.
 
     - `int` index value
 
@@ -323,29 +343,29 @@ The following describes the attributes, APIs, index values, and index value assi
       data_multi: Tensor(shape=[2], dtype=Int64, value=[2, 3])
       ```
 
-    - `True` index value
+    - `bool` index value
 
-      Single-level and multi-level `True` index values are supported. The single-level `True` index value is `tensor_x[True]`, and the multi-level `True` index value is `tensor_x[True][True]...`.
+      Single-level and multi-level `bool` index values are supported. The single-level `bool` index value is `tensor_x[True]`, and the multi-level `True` index value is `tensor_x[True][False]...`.
 
       The `True` index value operation is obtained on dimension 0. After all data is obtained, a dimension is extended on the `axis=0` axis. The length of the dimension is 1.
 
-      For example, if a single-level `True` index value is obtained for a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(1, 3, 4, 5)`.
+      For example, if a single-level `True` index value is obtained from a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(1, 3, 4, 5)`, if a single-level `False` index value is obtained from a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(0, 3, 4, 5)`.
 
-      The multi-level index value can be understood as obtaining the current-level `True` index value based on the previous-level index value.
+      The multi-level index value can be understood as obtaining the current-level `bool` index value based on the previous-level index value.
 
       For example:
 
       ```python
       tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
       data_single = tensor_x[True]
-      data_multi = tensor_x[True][True]
+      data_multi = tensor_x[True][False]
       ```
 
       The result is as follows:
 
       ```text
       data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
-      data_multi: Tensor(shape=[1, 1, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3, 4, 5]]]])
+      data_multi: Tensor(shape=[1, 0, 2, 3], dtype=Int64, value=[[[[], []]]])
       ```
 
     - `None` index value
@@ -356,7 +376,7 @@ The following describes the attributes, APIs, index values, and index value assi
 
       Single-level and multi-level `ellipsis` index values are supported. The single-level `ellipsis` index value is `tensor_x[...]`, and the multi-level `ellipsis` index value is `tensor_x[...][...]...`.
 
-      The `ellipsis` index value is obtained on all dimensions. All data is obtained without any change. Generally, it is used as a component of the `Tuple` index. The `Tuple` index is described as follows.
+      The `ellipsis` index value is obtained on all dimensions to get the original data without any change. Generally, it is used as a component of the `Tuple` index. The `Tuple` index is described as follows.
 
       For example, if the `ellipsis` index value is obtained for a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is still `(3, 4, 5)`.
 
@@ -410,9 +430,40 @@ The following describes the attributes, APIs, index values, and index value assi
 
       The `Tensor` index value is obtained on dimension 0, and the element in the corresponding position of dimension 0 is obtained.
 
-      The data type of the `Tensor` index must be int32, the element cannot be a negative number, and the value must be less than the length of dimension 0.
+      The data type of the `Tensor` index must be one of int8, int16, int32, and int64, the element cannot be a negative number, and the value must be less than the length of dimension 0.
 
-      The `Tensor` index value is obtained by `data_shape = tensor_index.shape + tensor_x.shape[1:]`.
+      The `Tensor` index value is obtained by `data_shape = tensor_inde4x.shape + tensor_x.shape[1:]`.
+
+      For example, if the index value is obtained for a tensor whose shape is `(6, 4, 5)` by using a tensor whose shape is `(2, 3)`, the obtained shape is `(2, 3, 4, 5)`.
+
+      The multi-level index value can be understood as obtaining the current-level `Tensor` index value based on the previous-level index value.
+
+      For example:
+
+      ```python
+      tensor_x = Tensor(np.arange(4 * 2 * 3).reshape((4, 2, 3)))
+      tensor_index0 = Tensor(np.array([[1, 2], [0, 3]]), mstype.int32)
+      tensor_index1 = Tensor(np.array([[0, 0]]), mstype.int32)
+      data_single = tensor_x[tensor_index0]
+      data_multi = tensor_x[tensor_index0][tensor_index1]
+      ```
+
+      The result is as follows:
+
+      ```text
+      data_single: Tensor(shape=[2, 2, 2, 3], dtype=Int64, value=[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[0, 1], [2, 3]], [[12, 13], [14, 15]]]])
+      data_multi: Tensor(shape=[1, 2, 2, 2, 3], dtype=Int64, value=[[[[[4, 5], [6, 7]], [[8, 9], [10, 11]]], [[[4, 5], [6, 7]], [[8, 9], [10, 11]]]]])
+      ```
+
+    - `List` index value
+
+      Single-level and multi-level `Tensor` index values are supported. The single-level `List` index value is `tensor_x[list_index]`, and the multi-level `List` index value is `tensor_x[list_index0][list_index1]...`.
+
+      The `List` index value is obtained on dimension 0, and the element in the corresponding position of dimension 0 is obtained.
+
+      The data type of the `List` index must be all bool, all int or mixed of them. The `List` elements of int type must be in the range of [`-dimension_shape`, `dimension_shape-1`] and the count of `List` elements with bool type must be the same as the `dimension_shape` of dimension 0 and will perform as to filter the corresponding element of the Tenson data. If the above two types appear simultaneously, the `List` elements with the bool type will be converted to `1/0` for `True/False`.
+
+      The `Tensor` index value is obtained by `data_shape = tensor_inde4x.shape + tensor_x.shape[1:]`.
 
       For example, if the index value is obtained for a tensor whose shape is `(6, 4, 5)` by using a tensor whose shape is `(2, 3)`, the obtained shape is `(2, 3, 4, 5)`.
 
@@ -437,15 +488,15 @@ The following describes the attributes, APIs, index values, and index value assi
 
     - `Tuple` index value
 
-      The data type of the `Tuple` index must be int32. Single-level and multi-level `Tuple` index values are supported. For the single-level `Tuple` index, the value is `tensor_x[tuple_index]`. For the multi-level `Tuple` index, the value is `tensor_x[tuple_index0][tuple_index1]...`.
+      The data type of the `Tuple` index can be `int`, `bool`, `None`, `slice`, `ellipsis`, `Tensor`, `List`, or `Tuple`. Single-level and multi-level `Tuple` index values are supported. For the single-level `Tuple` index, the value is `tensor_x[tuple_index]`. For the multi-level `Tuple` index, the value is `tensor_x[tuple_index0][tuple_index1]...`. The regulations of elements `List` and `Tuple` are the same as that of single index `List` index. The regulations of others are the same to the respondding single element type.
 
-      Elements in the `Tuple` index can be `int`, `slice`, `ellipsis` and `Tensor`.
+      Elements in the `Tuple` index can be sort out by `Basic Index` or `Advanced Index`. `slice`, `ellipsis` and `None` are `Basic Index` and `int`, `bool`, `Tensor`, `List`, `Tuple` are `Advanced Index`. In the Getitem Progress, all the elements of the `Advanced Index` type will be broadcast to the same shape, and the final shape will be inserted to the first `Advanced Index` element's position if they are continuous, else they will be inserted to the `0` position.
 
-      In the index, each element except `ellipsis` corresponds to a position dimension. That is, the 0th element in `Tuple` operates the 0th dimension, and the 1st element operates the 1st dimension. The index rule of each element is the same as the index value rule of the element type.
+      In the index, the `None` elements will expand the corresponding dimensions, `bool` elements will expand the corresponding dimension and be broadcast with the other `Advanced Index` element. The others elements except the type of `ellipsis`, `bool`, and `None`, will correspond to each position dimension. That is, the 0th element in `Tuple` operates the 0th dimension, and the 1st element operates the 1st dimension. The index rule of each element is the same as the index value rule of the element type.
 
       The `Tuple` index contains a maximum of one `ellipsis`. The first half of the `ellipsis` index elements correspond to the `Tensor` dimensions starting from the dimension 0, and the second half of the index elements correspond to the `Tensor` dimensions starting from the last dimension. If other dimensions are not specified, all dimensions are obtained.
 
-      The data type of `Tensor` contained in the element must be int32. In addition, the `Tensor` element cannot be a negative number and its value must be less than the length of the operation dimension.
+      The data type of `Tensor` contained in the element must be one of (int8, int16, int32, int64). In addition, the value of `Tensor` element must be non-negative and less than the length of the operation dimension.
 
       For example, `tensor_x[0:3, 1, tensor_index] == tensor_x[(0:3, 1, tensor_index)]`, because `0:3, 1, tensor_index` is a `Tuple`.
 
