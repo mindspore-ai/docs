@@ -178,8 +178,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
    ```python
    if metrics:
-    for key in metrics:
-       LOGGER.info(TAG, key + ': %s', metrics[key])
+       for key in metrics:
+           LOGGER.info(TAG, key + ': %s', metrics[key])
    ```
 
    Fuzz测试后结果如下：

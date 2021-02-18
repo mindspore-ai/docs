@@ -187,8 +187,8 @@ For details about the API configuration, see the `context.set_context`.
 
    ```python
    if metrics:
-      for key in metrics:
-         LOGGER.info(TAG, key + ': %s', metrics[key])
+       for key in metrics:
+           LOGGER.info(TAG, key + ': %s', metrics[key])
    ```
 
    The fuzz testing result is as follows:
