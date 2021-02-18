@@ -15,6 +15,7 @@
         - [Explanation Method Assessment](#explanation-method-assessment)
             - [Comprehensive Assessment](#comprehensive-assessment)
             - [Classification Assessment](#classification-assessment)
+    - [Uncertainty](#uncertainty)
     - [Counterfactual](#counterfactual)
         - [Hierarchical Occlusion](#hierarchical-occlusion-counterfactual-hoc)
             - [Restrictions](#hoc-restrictions)
@@ -139,7 +140,7 @@ Saliency map visualization is used to display the image area that has the most s
 The following information is displayed on the **Saliency Map Visualization** page:
 
 - Objective dataset set by a user through the Python API of the dataset.
-- Ground truth tags, prediction tags, and the prediction probabilities of the model for the corresponding tags. The system adds the TP, TN, and FP flags(meanings are provided in the page's information) in the upper left corner of the corresponding tag based on the actual requirements.
+- Ground truth tags, prediction tags, and the prediction probabilities of the model for the corresponding tags. The system adds the TP, FN, and FP flags(meanings are provided in the page's information) in the upper left corner of the corresponding tag based on the actual requirements.
 - A saliency map given by the selected explanation method.
 
 Operations:
@@ -168,6 +169,23 @@ The provided explanation methods are scored from different dimensions. We provid
 The classification assessment page provides two types of comparison. One is to compare scores of different evaluation dimensions of the same explanation method in each tag. The other is to compare scores of different explanation methods of the same evaluation dimension in each tag.
 
 ![xai_metrix_class](./images/xai_metrix_class.png)
+
+## Uncertainty
+
+The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
+
+![xai_saliency_map](./images/xai_uncertainty.png)
+
+The restrictions, preparation of network and data is the same as the saliency explanation methods, users enable uncertainty calculations by invoking `register_uncertainty()` of `ImageClassificiationRunner`. The sample code is shown below.
+
+```python
+runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.register_uncertainty()
+runner.run()
+```
+
+Please note that `register_uncertainty()` must be used together with `register_saliency()`, their calling order doesn't matter.
 
 ## Counterfactual
 
