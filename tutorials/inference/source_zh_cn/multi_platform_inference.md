@@ -7,6 +7,8 @@
 - [推理模型总览](#推理模型总览)
     - [模型文件](#模型文件)
     - [执行推理](#执行推理)
+    - [MindIR介绍](#mindir介绍)
+        - [MindIR支持的网络列表](#mindir支持的网络列表)
 
 <!-- /TOC -->
 
@@ -67,36 +69,55 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 ### MindIR支持的网络列表
 
-| Model name         |
-|-----------------------|
-| AlexNet |
-| BERT |
-| BGCF |
-| CenterFace |
-| CNN&CTC |
-| DeepLabV3 |
-| DenseNet121 |
-| Faster R-CNN |
-| GAT |
-| GCN |
-| GoogLeNet |
-| LeNet |
-| Mask R-CNN |
-| MASS |
-| MobileNetV2 |
-| NCF |
-| PSENet |
-| ResNet |
-| ResNeXt |
-| InceptionV3 |
-| SqueezeNet |
-| SSD |
-| Transformer |
-| TinyBert |
-| UNet2D |
-| VGG16 |
-| Wide&Deep |
-| YOLOv3 |
-| YOLOv4 |
-
->
+<table class="docutils">
+<tr>
+  <td>AlexNet</td>
+  <td>BERT</td>
+  <td>BGCF</td>
+</tr>
+<tr>
+  <td>CenterFace</td>
+  <td>CNN&CTC</td>
+  <td>DeepLabV3</td>
+</tr>
+<tr>
+  <td>DenseNet121</td>
+  <td>Faster R-CNN</td>
+  <td>GAT</td>
+</tr>
+<tr>
+  <td>GCN</td>
+  <td>GoogLeNet</td>
+  <td>LeNet</td>
+</tr>
+<tr>
+  <td>Mask R-CNN</td>
+  <td>MASS</td>
+  <td>MobileNetV2</td>
+</tr>
+<tr>
+  <td>NCF</td>
+  <td>PSENet</td>
+  <td>ResNet</td>
+</tr>
+<tr>
+  <td>ResNeXt</td>
+  <td>InceptionV3</td>
+  <td>SqueezeNet</td>
+</tr>
+<tr>
+  <td>SSD</td>
+  <td>Transformer</td>
+  <td>TinyBert</td>
+</tr>
+<tr>
+  <td>UNet2D</td>
+  <td>VGG16</td>
+  <td>Wide&Deep</td>
+</tr>
+<tr>
+  <td>YOLOv3</td>
+  <td>YOLOv4</td>
+  <td></td>
+</tr>
+</table>
