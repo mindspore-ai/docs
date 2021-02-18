@@ -57,8 +57,18 @@ Execute the following command to start the Docker container instance:
 ```bash
 docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
-               -v /var/log/npu/conf/slog/slog.conf:/var/log/npu/conf/slog/slog.conf \
                -v /var/log/npu/:/usr/slog \
+               --device=/dev/davinci0 \
+               --device=/dev/davinci1 \
+               --device=/dev/davinci2 \
+               --device=/dev/davinci3 \
+               --device=/dev/davinci4 \
+               --device=/dev/davinci5 \
+               --device=/dev/davinci6 \
+               --device=/dev/davinci7 \
+               --device=/dev/davinci_manager \
+               --device=/dev/devmm_svm \
+               --device=/dev/hisi_hdc \
                swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag} \
                /bin/bash
 ```
