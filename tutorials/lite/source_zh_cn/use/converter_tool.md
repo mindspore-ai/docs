@@ -23,7 +23,7 @@
 
 MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模型转换，转换后的模型可用于推理。命令行参数包含多种个性化选项，为用户提供方便的转换途径。
 
-目前支持的输入格式有：MindSpore、TensorFlow Lite、Caffe和ONNX。
+目前支持的输入格式有：MindSpore、TensorFlow Lite、Caffe、TensorFlow和ONNX。
 
 ## Linux环境使用说明
 
