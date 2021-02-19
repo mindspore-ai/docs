@@ -379,19 +379,19 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
     以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
 
-    使用run包中提供的`dump_data_conversion.pyc`解析Dump出来的文件。不同的环境上`dump_data_conversion.pyc`文件所在的路径可能不同，可以通过find命令进行查找：
+    使用run包中提供的`msaccucmp.pyc`解析Dump出来的文件。不同的环境上`msaccucmp.pyc`文件所在的路径可能不同，可以通过find命令进行查找：
 
     ```bash
-    find ${run包安装路径} -name "dump_data_conversion.pyc"
+    find ${run包安装路径} -name "msaccucmp.pyc"
     ```
 
-    找到`dump_data_conversion.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
+    找到`msaccucmp.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
 
     ```bash
-    python ${dump_data_conversion.pyc的绝对路径} -type offline -target numpy -i ./Add.Default_Add-op1.2.161243956333802 -o ./{解析生成的文件路径}
+    python ${msaccucmp.pyc的绝对路径} convert -d {原始的dump文件路径} -out {解析生成的文件路径}
     ```
 
-    或者使用`msaccucmp.pyc`执行Dump数据文件format转换，具体使用参考链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
 
 ## Running Data Recorder
 
