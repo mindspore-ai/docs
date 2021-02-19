@@ -95,9 +95,11 @@ Neural Network Operators
     mindspore.ops.SparseApplyAdagradV2
     mindspore.ops.SparseApplyProximalAdagrad
     mindspore.ops.SparseSoftmaxCrossEntropyWithLogits
+    mindspore.ops.Stack
     mindspore.ops.Tanh
     mindspore.ops.TopK
     mindspore.ops.Unpack
+    mindspore.ops.Unstack
 
 Math Operators
 ^^^^^^^^^^^^^^
