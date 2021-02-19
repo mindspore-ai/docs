@@ -74,6 +74,8 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    pip install -r requirements.txt
    ```
 
+    > 生成[训练教程](https://gitee.com/mindspore/docs/tree/master/tutorials/training)和[编程指南](https://gitee.com/mindspore/docs/tree/master/docs/programming_guide)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+
 3. 在api_python目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
 
    ```shell
