@@ -21,10 +21,6 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
-## Overview
-
-Performance data like operator's execution time is recorded in files and can be viewed on the web page, this can help users optimize the performance of neural networks.
-
 ## Operation Process
 
 - Prepare a training script, add profiler APIs in the training script and run the training script.
