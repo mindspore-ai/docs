@@ -379,16 +379,16 @@ Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory 
 
     Take the Dump result of a simple network as an example: `Add.Default_Add-op1.2.161243956333802`, where `Add` is `{op_type}`, `Default_Add-op1` is `{op_name}`, and `2` is `{task_id' }`, `161243956333802` is `{timestamp}`.
 
-    Parse the dumped file using `dump_data_conversion.pyc` provied in the run package. You can find it through the find command:
+    Parse the dumped file using `msaccucmp.pyc` provied in the run package. You can find it through the find command:
 
     ```bash
-    find ${Installation path of run package} -name "dump_data_conversion.pyc"
+    find ${Installation path of run package} -name "msaccucmp.pyc"
     ```
 
     Change directory to `/absolute_path` after training, execute the following commands to parse Dump data file:
 
     ```bash
-    python ${Absolute path of dump_data_conversion.pyc} -type offline -target numpy -i ./{Dump file path}} -o ./{output file path}
+    python ${Absolute path of msaccucmp.pyc} -d ./{Dump file path}} -out ./{output file path}
     ```
 
     Or you can use `msaccucmp.pyc` to convert the format of dump file. Please see <https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html>.
