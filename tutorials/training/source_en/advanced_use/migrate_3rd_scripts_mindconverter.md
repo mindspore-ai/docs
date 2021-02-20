@@ -299,7 +299,7 @@ The example of weight map refers to that in **PyTorch Model Scripts Conversion**
 
 ## Caution
 
-1. PyTorch, TensorFlow, TF2ONNX(>=1.7.1), ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2), ONNXOPTIMIZER(==0.1.2) are not explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (MindConverter recommends PyTorch 1.5.0 and TensorFlow 1.15.x)
+1. PyTorch, TensorFlow, TF2ONNX(>=1.7.1), ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2), ONNXOPTIMIZER(==0.1.2) are not explicitly stated dependency libraries in MindInsight. The Graph conversion requires the consistent PyTorch or TensorFlow version as the model is trained. (PyTorch 1.5.0 or TensorFlow 1.15.x is recommended, PyTorch 1.4.x is unsupported. PyTorch 1.6.x and 1.7.x are not been tested)
 2. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
 3. MindConverter can only guarantee that the converted model scripts require a minor revision or no revision when the inputs' shape fed to the generated model script are equal to the value of `--shape` (The batch size dimension is not limited).
 4. MindSpore script, MindSpore checkpoint file and weight map file are saved in the same file folder path.
