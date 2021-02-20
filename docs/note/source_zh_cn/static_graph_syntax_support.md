@@ -1000,7 +1000,7 @@ z_len: 6
 
 #### isinstance
 
-功能：判断对象是否为类的实例。
+功能：判断对象是否为类的实例。区别于算子Isinstance，该算子的第二个入参是MindSpore的dtype模块下定义的类型。
 
 调用：`isinstance(obj, type)`
 
