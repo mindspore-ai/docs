@@ -36,72 +36,116 @@
 
 ### support ops
 
-| op name                                                                                                                                                       |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [mindspore.ops.Add](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Add.html)                                                     |
-| [mindspore.ops.Assign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Assign.html)                                             |
-| [mindspore.ops.AssignSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.AssignSub.html)                                       |
-| [mindspore.ops.ApplyMomentum](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyMomentum.html)                               |
-| [mindspore.ops.FusedSparseAdam](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseAdam.html)                           |
-| [mindspore.ops.FusedSparseLazyAdam](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseLazyAdam.html)                   |
-| [mindspore.ops.FusedSparseFtrl](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseFtrl.html)                           |
-| [mindspore.ops.FusedSparseProximalAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseProximalAdagrad.html)     |
-| [mindspore.ops.ApplyAdaMax](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdaMax.html)                                   |
-| [mindspore.ops.ApplyAdadelta](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdadelta.html)                               |
-| [mindspore.ops.ApplyAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdagrad.html)                                 |
-| [mindspore.ops.ApplyAdagradV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdagradV2.html)                             |
-| [mindspore.ops.SparseApplyAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyAdagrad.html)                     |
-| [mindspore.ops.SparseApplyAdagradV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyAdagradV2.html)                 |
-| [mindspore.ops.ApplyProximalAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyProximalAdagrad.html)                 |
-| [mindspore.ops.SparseApplyProximalAdagrad](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyProximalAdagrad.html)     |
-| [mindspore.ops.ApplyAddSign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAddSign.html)                                 |
-| [mindspore.ops.ApplyPowerSign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyPowerSign.html)                             |
-| [mindspore.ops.ApplyGradientDescent](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyGradientDescent.html)                 |
-| [mindspore.ops.ApplyProximalGradientDescent](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyProximalGradientDescent.html) |
-| [mindspore.ops.SparseApplyFtrl](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrl.html)                           |
-| [mindspore.ops.SparseApplyFtrlV2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrlV2.html)                       |
-| [mindspore.ops.BitwiseAnd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseAnd.html)                                     |
-| [mindspore.ops.BitwiseOr](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseOr.html)                                       |
-| [mindspore.ops.BitwiseXor](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseXor.html)                                     |
-| [mindspore.ops.TensorAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorAdd.html)                                       |
-| [mindspore.ops.Sub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Sub.html)                                                   |
-| [mindspore.ops.Mul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Mul.html)                                                   |
-| [mindspore.ops.Pow](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Pow.html)                                                   |
-| [mindspore.ops.Minimum](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Minimum.html)                                           |
-| [mindspore.ops.Maximum](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Maximum.html)                                           |
-| [mindspore.ops.RealDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.RealDiv.html)                                           |
-| [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Div.html)                                                   |
-| [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DivNoNan.html)                                         |
-| [mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorDiv.html)                                         |
-| [mindspore.ops.TensorAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorAdd.html)                                            |
-| [mindspore.ops.TruncateDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateDiv.html)                                   |
-| [mindspore.ops.TruncateMod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateMod.html)                                   |
-| [mindspore.ops.Mod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Mod.html)                                                   |
-| [mindspore.ops.FloorMod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorMod.html)                                         |
-| [mindspore.ops.Atan2](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Atan2.html)                                               |
-| [mindspore.ops.SquaredDifference](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SquaredDifference.html)                       |
-| [mindspore.ops.Xdivy](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xdivy.html)                                               |
-| [mindspore.ops.Xlogy](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xlogy.html)                                               |
-| [mindspore.ops.Equal](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Equal.html)                                               |
-| [mindspore.ops.ApproximateEqual](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApproximateEqual.html)                         |
-| [mindspore.ops.NotEqual](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.NotEqual.html)                                         |
-| [mindspore.ops.Greater](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Greater.html)                                           |
-| [mindspore.ops.GreaterEqual](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GreaterEqual.html)                                 |
-| [mindspore.ops.Less](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Less.html)                                                 |
-| [mindspore.ops.LessEqual](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LessEqual.html)                                       |
-| [mindspore.ops.LogicalAnd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LogicalAnd.html)                                     |
-| [mindspore.ops.LogicalOr](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LogicalOr.html)                                       |
-| [mindspore.ops.ScatterNdUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdUpdate.html)                           |
-| [mindspore.ops.ScatterNdAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdAdd.html)                                 |
-| [mindspore.ops.ScatterNdSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdSub.html)                                 |
-| [mindspore.ops.ScatterNonAliasingAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNonAliasingAdd.html)               |
-| [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterUpdate.html)                               |
-| [mindspore.ops.ScatterMax](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMax.html)                                     |
-| [mindspore.ops.ScatterMin](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMin.html)                                     |
-| [mindspore.ops.ScatterAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterAdd.html)                                     |
-| [mindspore.ops.ScatterSub](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterSub.html)                                     |
-| [mindspore.ops.ScatterMul](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMul.html)                                     |
-| [mindspore.ops.ScatterDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterDiv.html)                                     |
-| [mindspore.ops.AssignAdd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.AssignAdd.html)                                       |
+<table class="docutils">
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Add.html">mindspore.ops.Add</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdadelta.html">mindspore.ops.ApplyAdadelta</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdagrad.html">mindspore.ops.ApplyAdagrad</a></td>
+</tr>
+<tr>
+  <td><a href="ttps://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdagradV2.html">mindspore.ops.ApplyAdagradV2</a></td>
+  <td><a href="ttps://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAdaMax.html">mindspore.ops.ApplyAdaMax</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyAddSign.html">mindspore.ops.ApplyAddSign</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyGradientDescent.html">mindspore.ops.ApplyGradientDescent</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyMomentum.html">mindspore.ops.ApplyMomentum</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyPowerSign.html">mindspore.ops.ApplyPowerSign</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyProximalAdagrad.html">mindspore.ops.ApplyProximalAdagrad</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApplyProximalGradientDescent.html">mindspore.ops.ApplyProximalGradientDescent</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ApproximateEqual.html">mindspore.ops.ApproximateEqual</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Assign.html">mindspore.ops.Assign</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.AssignAdd.html">mindspore.ops.AssignAdd</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.AssignSub.html">mindspore.ops.AssignSub</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Atan2.html">mindspore.ops.Atan2</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseAnd.html">mindspore.ops.BitwiseAnd</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseOr.html">mindspore.ops.BitwiseOr</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.BitwiseXor.html">mindspore.ops.BitwiseXor</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Div.html">mindspore.ops.Div</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DivNoNan.html">mindspore.ops.DivNoNan</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Equal.html">mindspore.ops.Equal</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorDiv.html">mindspore.ops.FloorDiv</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorMod.html">mindspore.ops.FloorMod</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseAdam.html">mindspore.ops.FusedSparseAdam</td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseFtrl.html">mindspore.ops.FusedSparseFtrl</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseLazyAdam.html">mindspore.ops.FusedSparseLazyAdam</td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FusedSparseProximalAdagrad.html">mindspore.ops.FusedSparseProximalAdagrad</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Greater.html">mindspore.ops.Greater</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GreaterEqual.html">mindspore.ops.GreaterEqual</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Less.html">mindspore.ops.Less</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LessEqual.html">mindspore.ops.LessEqual</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LogicalAnd.html">mindspore.ops.LogicalAnd</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.LogicalOr.html">mindspore.ops.LogicalOr</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Maximum.html">mindspore.ops.Maximum</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Minimum.html">mindspore.ops.Minimum</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Mod.html">mindspore.ops.Mod</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Mul.html">mindspore.ops.Mul</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.NotEqual.html">mindspore.ops.NotEqual</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Pow.html">mindspore.ops.Pow</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.RealDiv.html">mindspore.ops.RealDiv</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterAdd.html">mindspore.ops.ScatterAdd</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterDiv.html">mindspore.ops.ScatterDiv</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMax.html">mindspore.ops.ScatterMax</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMin.html">mindspore.ops.ScatterMin</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterMul.html">mindspore.ops.ScatterMul</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdAdd.html">mindspore.ops.ScatterNdAdd</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdSub.html">mindspore.ops.ScatterNdSub</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNdUpdate.html">mindspore.ops.ScatterNdUpdate</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterNonAliasingAdd.html">mindspore.ops.ScatterNonAliasingAdd</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterSub.html">mindspore.ops.ScatterSub</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterUpdate.html">mindspore.ops.ScatterUpdate</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyAdagrad.html">mindspore.ops.SparseApplyAdagrad</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyAdagradV2.html">mindspore.ops.SparseApplyAdagradV2</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrl.html">mindspore.ops.SparseApplyFtrl</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrlV2.html">mindspore.ops.SparseApplyFtrlV2</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyProximalAdagrad.html">mindspore.ops.SparseApplyProximalAdagrad</a></td>
 
->
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SquaredDifference.html">mindspore.ops.SquaredDifference</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Sub.html">mindspore.ops.Sub</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorAdd.html">mindspore.ops.TensorAdd</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateDiv.html">mindspore.ops.TruncateDiv</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateMod.html">mindspore.ops.TruncateMod</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xdivy.html">mindspore.ops.Xdivy</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xlogy.html">mindspore.ops.Xlogy</a></td>
+  <td></td>
+  <td></td>
+</tr>
+</table>
