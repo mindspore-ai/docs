@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [性能调试（GPU）](#性能调试-gpu)
+- [性能调试（GPU）](#性能调试gpu)
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
@@ -12,18 +12,27 @@
         - [性能分析](#性能分析)
             - [算子性能分析](#算子性能分析)
             - [Timeline分析](#timeline分析)
+            - [迭代轨迹分析](#迭代轨迹分析)
             - [数据准备性能分析](#数据准备性能分析)
+    - [注意事项](#注意事项)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
+## 概述
+
+本教程介绍如何在GPU上使用MindSpore Profiler进行性能调试。
+
 ## 操作流程
 
-> 操作流程可以参考Ascend 910上profiler的操作：
+- 准备训练脚本，并在训练脚本中调用性能调试接口，接着运行训练脚本。
+- 启动MindInsight，并通过启动参数指定summary-base-dir目录(summary-base-dir是Profiler所创建目录的父目录)，例如训练时Profiler创建的文件夹绝对路径为`/home/user/code/data`，则summary-base-dir设为`/home/user/code`。启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
+- 在训练列表找到对应训练，点击性能分析，即可在页面中查看训练性能数据。
+
+> 普通用户在默认情况下无权访问目标设备上的NVIDIA GPU性能计数器。
 >
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id3>
-> 普通用户默认情况下无权访问目标设备上的NVIDIA GPU性能计数器。如果普通用户需要在训练脚本中使用profiler性能统计能力，则需参考以下网址的说明进行权限配置。
+> 如果普通用户需要在训练脚本中使用profiler性能统计能力，则需参考以下网址的说明进行权限配置。
 >
 > <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
 
@@ -31,15 +40,17 @@
 
 为了收集神经网络的性能数据，需要在训练脚本中添加MindSpore Profiler相关接口。  
 
-- `set_context`之后，需要初始化MindSpore `Profiler`对象，GPU多卡场景需要在初始化NCCL和`set_auto_parallel_context`之后初始化`Profiler`对象, GPU场景下初始化Profiler对象时只有output_path参数有效。
+- `set_context`之后，需要初始化MindSpore `Profiler`对象。
+
+    > GPU多卡场景需要在初始化NCCL和`set_auto_parallel_context`之后初始化`Profiler`对象。
+    >
+    > GPU场景下初始化Profiler对象时只有output_path参数有效。
+
 - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
-> 样例代码与Ascend使用方式一致可以参考：
->
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
+样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id4>
 
-GPU场景可自定义callback方式收集性能。
-> 数据准备阶段、数据下沉模式不支持该方式收集性能数据。
+GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
 示例如下：
 
@@ -122,27 +133,21 @@ class StopAtStep(Callback):
 
 #### Timeline分析
 
-GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息和CUDA activity的信息。使用方法参考：
+GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息和CUDA activity的信息。
 
-> 与Ascend使用方式一致，可以参考：
->
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
+使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
 
 #### 迭代轨迹分析
 
-GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同，使用方法参考：
+GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同。
 
-> 与Ascend使用方式一致，可以参考：
->
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id5>
+使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#id5>
 
 #### 数据准备性能分析
 
-GPU场景下，数据准备性能分析的使用方法和Ascend场景相同，使用方法参考：
+GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
-> 与Ascend使用方式一致，可以参考：
->
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#minddata>
+使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#minddata>
 
 ## 注意事项
 

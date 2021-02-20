@@ -1,10 +1,10 @@
-# 分布式并行训练 (GPU)
+# 分布式并行训练 （GPU）
 
 `Linux` `GPU` `模型训练` `中级` `高级`
 
 <!-- TOC -->
 
-- [分布式并行训练 (GPU)](#分布式并行训练-gpu)
+- [分布式并行训练 （GPU）](#分布式并行训练-gpu)
     - [概述](#概述)
     - [准备环节](#准备环节)
         - [下载数据集](#下载数据集)
@@ -28,23 +28,21 @@
 
 本样例采用`CIFAR-10`数据集，数据集的下载以及加载方式和Ascend 910 AI处理器一致。
 
-> 数据集的下载和加载方式参考：
->
-> <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+数据集的下载和加载方式可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>。
 
 ### 配置分布式环境
 
 - `OpenMPI-4.0.3`：MindSpore采用的多进程通信库。
 
-  > OpenMPI-4.0.3源码下载地址：<https://www.open-mpi.org/software/ompi/v4.0/>，选择`openmpi-4.0.3.tar.gz`下载。
-  >
-  > 参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
+  OpenMPI-4.0.3源码下载地址：<https://www.open-mpi.org/software/ompi/v4.0/>，选择`openmpi-4.0.3.tar.gz`下载。
+
+  参考OpenMPI官网教程安装：<https://www.open-mpi.org/faq/?category=building#easy-build>。
 
 - `NCCL-2.7.6`：Nvidia集合通信库。
 
-  > NCCL-2.7.6下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
-  >
-  > 参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
+  NCCL-2.7.6下载地址：<https://developer.nvidia.com/nccl/nccl-legacy-downloads>。
+
+  参考NCCL官网教程安装：<https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>。
 
 - 主机间免密登陆（涉及多机训练时需要）。若训练涉及多机，则需要配置多机间免密登陆，可参考以下步骤进行配置：
   1. 每台主机确定同一个用户作为登陆用户（不推荐root）；
@@ -82,7 +80,7 @@ if __name__ == "__main__":
 
 在GPU硬件平台上，网络的定义和Ascend 910 AI处理器一致。
 
-> 网络、优化器、损失函数的定义参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>。
+网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>。
 
 ## 运行脚本
 

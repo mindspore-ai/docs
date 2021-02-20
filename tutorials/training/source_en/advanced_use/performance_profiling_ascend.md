@@ -1,10 +1,10 @@
-# Performance Profiling(Ascend)
+# Performance Profiling (Ascend)
 
 `Linux` `Ascend` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Performance Profiling(Ascend)](#performance-profilingascend)
+- [Performance Profiling (Ascend)](#performance-profiling-ascend)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
@@ -16,10 +16,15 @@
             - [Timeline Analysis](#timeline-analysis)
             - [Memory Analysis](#memory-analysis)
     - [Specifications](#specifications)
+    - [Notices](#notices)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
+## Overview
+
+This article describes how to use MindSpore Profiler for performance debugging on Ascend AI processors.
 
 ## Operation Process
 

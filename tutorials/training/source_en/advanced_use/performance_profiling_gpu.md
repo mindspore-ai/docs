@@ -1,10 +1,10 @@
-# Performance Profiling（GPU）
+# Performance Profiling (GPU)
 
 `Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Performance Profiling（GPU）](#performance-profilinggpu)
+- [Performance Profiling (GPU)](#performance-profiling-gpu)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
@@ -12,32 +12,41 @@
         - [Performance Analysis](#performance-analysis)
             - [Operator Performance Analysis](#operator-performance-analysis)
             - [Timeline Analysis](#timeline-analysis)
-            - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
+            - [Timeline Analysis](#timeline-analysis-1)
+            - [Data Preparation Analysis](#data-preparation-analysis)
+    - [Notices](#notices)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/performance_profiling_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
+## Overview
+
+This article describes how to use MindSpore Profiler for performance debugging on GPU.
+
 ## Operation Process
 
-> The GPU operation process is the same as that in the Ascend chip.
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-environment>
+- Prepare a training script, add profiler APIs in the training script and run the training script.
+- Start MindInsight and specify the summary-base-dir using startup parameters, note that summary-base-dir is the parent directory of the directory created by Profiler. For example, the directory created by Profiler is `/home/user/code/data/`, the summary-base-dir should be `/home/user/code`. After MindInsight is started, access the visualization page based on the IP address and port number. The default access IP address is `http://127.0.0.1:8080`.
+- Find the training in the list, click the performance profiling link and view the data on the web page.
+
 > By default, common users do not have the permission to access the NVIDIA GPU performance counters on the target device.
+>
 > If common users need to use the profiler performance statistics capability in the training script, configure the permission by referring to the following description:
 >
 > <https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti>
 
 ## Preparing the Training Script
 
-To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script. Only the output_path in parameters is working in GPU now. Then, at the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
+To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.
 
-> The sample code is the same as that in the Ascend chip:
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>
+> Only the output_path in parameters is working in GPU now.
 
-In GPU scenarios, users can customize the callback mode to collect performance data.
-> Data preparation stage and data sinking mode do not support this mode.
+`Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
+
+The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#preparing-the-training-script>.
+
+In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
 The following is the example：
 
@@ -122,25 +131,25 @@ Figure 3 displays the statistics for the Kernel, including:
 
 The usage is almost the same as that in Ascend. The difference is GPU Timeline displays the operation information and CUDA activity.
 
-> The usage is described as follows:
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
+The usage is described as follows:
+
+<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
 
 #### Timeline Analysis
 
 The usage is almost the same as that in Ascend.
 
-> The usage is described as follows:
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#step-trace-analysis>
+The usage is described as follows:
+
+<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#step-trace-analysis>
 
 #### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
-> The usage is described as follows:
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#minddata-performance-analysis>
+The usage is described as follows:
+
+<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#minddata-performance-analysis>
 
 ## Notices
 

@@ -28,23 +28,21 @@ This tutorial describes how to train the ResNet-50 network using MindSpore data 
 
 The `CIFAR-10` dataset is used as an example. The method of downloading and loading the dataset is the same as that for the Ascend 910 AI processor.
 
-> The method of downloading and loading the dataset:
->
-> <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>
+The method of downloading and loading the dataset: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>
 
 ### Configuring Distributed Environment
 
 - `OpenMPI-4.0.3`: multi-process communication library used by MindSpore.
 
-  > Download the OpenMPI-4.0.3 source code package `openmpi-4.0.3.tar.gz` from <https://www.open-mpi.org/software/ompi/v4.0/>.
-  >
-  > For details about how to install OpenMPI, see the official tutorial: <https://www.open-mpi.org/faq/?category=building#easy-build>.
+  Download the OpenMPI-4.0.3 source code package `openmpi-4.0.3.tar.gz` from <https://www.open-mpi.org/software/ompi/v4.0/>.
+
+  For details about how to install OpenMPI, see the official tutorial: <https://www.open-mpi.org/faq/?category=building#easy-build>.
 
 - `NCCL-2.7.6`: Nvidia collective communication library.
 
-  > Download NCCL-2.7.6 from <https://developer.nvidia.com/nccl/nccl-legacy-downloads>.
-  >
-  > For details about how to install NCCL, see the official tutorial: <https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>.
+  Download NCCL-2.7.6 from <https://developer.nvidia.com/nccl/nccl-legacy-downloads>.
+
+  For details about how to install NCCL, see the official tutorial: <https://docs.nvidia.com/deeplearning/nccl/install-guide/index.html#debian>.
 
 - Password-free login between hosts (required for multi-host training). If multiple hosts are involved in the training, you need to configure password-free login between them. The procedure is as follows:
   1. Ensure that the same user is used to log in to each host. (The root user is not recommended.)
@@ -82,7 +80,7 @@ In the preceding information,
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-> For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>.
+For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>.
 
 ## Running the Script
 
