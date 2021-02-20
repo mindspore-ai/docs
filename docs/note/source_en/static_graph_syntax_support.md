@@ -998,7 +998,7 @@ z_len: 6
 
 #### isinstance
 
-The result is as follows:
+Determines whether an object is an instance of a class. Different from operator `Isinstance`, the second input parameter of `Isinstance` is the type defined in the `dtype` module of MindSpore.
 
 Calling: `isinstance(obj, type)`
 
