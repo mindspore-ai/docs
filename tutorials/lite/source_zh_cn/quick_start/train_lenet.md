@@ -151,10 +151,9 @@ accuracy = 0.970553
   │   └── run_train.sh
   │
   ├── src
-  │   ├── dataset.cc
-  │   ├── dataset.h
   │   ├── net_runner.cc
-  │   └── net_runner.h
+  │   ├── net_runner.h
+  │   └── utils.h
   │
   ├── README.md
   └── prepare_and_run.sh
@@ -278,7 +277,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数初始化`MNIST`数据集，调用[DataSet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc)加载训练数据以及相应标签。
+    `InitDB`函数初始化`MNIST`数据集并加载至内存，[参见Gitee代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)，我们将会在下个版本中新增MindData至本示例程序中。
 
     ```cpp
     int NetRunner::InitDB() {
@@ -289,7 +288,6 @@ int NetRunner::Main() {
         std::cout << "No relevant data was found in " << data_dir_ << std::endl;
         assert(ds_.test_data().size() != 0);
       }
-
       return ret;
     }
     ```

@@ -148,10 +148,9 @@ train_lenet/
   │   └── run_train.sh
   │
   ├── src
-  │   ├── dataset.cc
-  │   ├── dataset.h
   │   ├── net_runner.cc
-  │   └── net_runner.h
+  │   ├── net_runner.h
+  │   └── utils.h
   │
   ├── README.md
   └── prepare_and_run.sh
@@ -292,7 +291,7 @@ void NetRunner::InitAndFigureInputs() {
 #### Dataset Processing
 
 `InitDB` initializes the MNIST dataset and loads it into the memory. We will not discuss this code here.
-The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/dataset.cc). In the next release, MindData framework will be integrated into this example.
+The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc). In the next release, MindData framework will be integrated into this example.
 
 ```cpp
 int NetRunner::InitDB() {
@@ -303,7 +302,6 @@ int NetRunner::InitDB() {
     std::cout << "No relevant data was found in " << data_dir_ << std::endl;
     assert(ds_.test_data().size() != 0);
   }
-
   return ret;
 }
 ```
