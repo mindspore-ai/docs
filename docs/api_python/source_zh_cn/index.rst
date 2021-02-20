@@ -41,6 +41,7 @@ MindSpore Python API
    mindarmour/mindarmour.fuzz_testing
    mindarmour/mindarmour.privacy.diff_privacy
    mindarmour/mindarmour.privacy.evaluation
+   mindarmour/mindarmour.privacy.sup_privacy
    mindarmour/mindarmour.utils
 
 .. toctree::

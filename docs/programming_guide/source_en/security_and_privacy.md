@@ -55,6 +55,14 @@ For details, see [Testing Model Security Using Fuzz Testing](https://www.mindspo
 
 For details, see [Protecting User Privacy with Differential Privacy Mechanism](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/protect_user_privacy_with_differential_privacy.html).
 
+## Suppress Privacy Training
+
+### SuppressModel
+
+`SuppressModel` inherits `mindspore.Model` and provides the entry function for suppress privacy training.
+
+For details, see [Protecting User Privacy with Suppress Privacy Mechanism](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/protect_user_privacy_with_suppress_privacy.html).
+
 ## Privacy Breach Risk Assessment
 
 ### Membership Inference

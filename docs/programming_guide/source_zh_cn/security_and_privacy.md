@@ -55,6 +55,14 @@
 
 详细内容，请参考[差分隐私官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/protect_user_privacy_with_differential_privacy.html)。
 
+## 抑制隐私训练
+
+### SuppressModel
+
+`SuppressModel`继承了`mindspore.Model`，提供了抑制隐私训练的入口函数。
+
+详细内容，请参考[抑制隐私官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/protect_user_privacy_with_suppress_privacy.html)。
+
 ## 隐私泄露风险评估
 
 ### MembershipInference
