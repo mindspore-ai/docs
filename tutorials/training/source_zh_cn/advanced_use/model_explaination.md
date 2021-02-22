@@ -15,6 +15,7 @@
         - [解释方法评估](#解释方法评估)
             - [综合评估](#综合评估)
             - [分类评估](#分类评估)
+    - [不确定性](#不确定性)
     - [反事实](#反事实)
         - [基于遮掩的反事实](#基于遮掩的反事实)
             - [基于遮掩的反事实使用限制](#基于遮掩的反事实使用限制)
@@ -139,7 +140,7 @@ runner2.run()
 进入显著图可视化界面，会展示：
 
 - 用户通过Dataset的Python API接口设置的目标数据集。
-- 真实标签、预测标签，以及模型对对应标签的预测概率。根据具体情况，系统会在对应标签的左上角增加TP，TN，FP（含义见界面提示信息）的旗标。
+- 真实标签、预测标签，以及模型对对应标签的预测概率。根据具体情况，系统会在对应标签的左上角增加TP，FN，FP（含义见界面提示信息）的旗标。
 - 选中的解释方法给出的显著图。
 
 界面操作：
@@ -168,6 +169,23 @@ runner2.run()
 分类评估页提供两种形式的对比，一种是同一解释方法的不同度量维度在各个标签下的分值，一种是对于同一度量维度，不同解释方法在各个标签下的分值。
 
 ![xai_metrix_class](./images/xai_metrix_class.png)
+
+## 不确定性
+
+模型决策结果存有不确定性, 名为 [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
+
+![xai_saliency_map](./images/xai_uncertainty.png)
+
+模型和数据集的准备、使用限制跟前述的解释方法相同，用户通过调用 `ImageClassificationRunner` 的 `register_uncertainty()` 来启用不确定性计算，下方是一个使用例子。
+
+```python
+runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
+runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.register_uncertainty()
+runner.run()
+```
+
+要注意的是 `register_uncertainty()` 必须跟 `register_saliency()`一起使用，但调用次序没有限制。
 
 ## 反事实
 
