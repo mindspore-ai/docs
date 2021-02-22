@@ -46,6 +46,15 @@ Using MindSpore on Mobile and IoT
    use/runtime_train
    use/tools_train
 
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: References
+   :hidden:
+
+   operator_list_lite
+   model_lite
+
 .. raw:: html
 
     <div class="container">
@@ -107,6 +116,18 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</div>
 							</div>
+
+							<div class="doc-label-choice">
+								<div class="row">
+									<div class="col-sm-2">
+										<div class="doc-language">Programming Language</div>
+									</div>
+									<div class="col-sm-10 col-sm-pull-1">
+										<button class="doc-filter-btn doc-btn" id="language-cpp">C++</button>
+										<button class="doc-filter-btn doc-btn" id="language-java">Java</button>
+									</div>
+								</div>
+							</div>
 							
 						</div>
 						<hr>
@@ -120,7 +141,7 @@ Using MindSpore on Mobile and IoT
 						</div>
 
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -197,7 +218,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -209,7 +230,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -221,7 +242,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -270,7 +291,7 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Android stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">

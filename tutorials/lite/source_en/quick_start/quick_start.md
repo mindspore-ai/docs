@@ -1,6 +1,6 @@
 ﻿# Implementing an Image Classification Application
 
-`Windows` `Linux` `Android` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Windows` `Linux` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

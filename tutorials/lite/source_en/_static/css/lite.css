@@ -95,6 +95,10 @@ button.doc-btn{
     font-weight: bold;
     padding-top: 0.3rem;
 }
+.doc-language{
+    font-weight: bold;
+    padding-top: 0.3rem;
+}
 .doc-label-content{
     margin-bottom: 2.2rem;
 }

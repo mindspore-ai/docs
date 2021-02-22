@@ -1,6 +1,6 @@
 # Using Runtime for Model Training (C++)
 
-`Linux` `Android` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+`Linux` `Android` `C++` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 

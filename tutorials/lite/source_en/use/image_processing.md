@@ -1,6 +1,6 @@
 # Preprocessing Image Data
 
-`Windows` `Linux` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Windows` `Linux` `C++` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
