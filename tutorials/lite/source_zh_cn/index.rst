@@ -134,6 +134,19 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Windows os-Android stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">实现一个图像分割应用</span>
+										</div>
+							
+										<div class="doc-article-desc">
+											本教程基于MindSpore团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
 									<div>

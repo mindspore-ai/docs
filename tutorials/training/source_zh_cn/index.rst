@@ -723,6 +723,18 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Model-Optimization user-Enterprise user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/protect_user_privacy_with_suppress_privacy.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">应用抑制隐私机制保护用户隐私</span>
+										</div>
+										<div class="doc-article-desc">
+											抑制隐私是一种保护用户数据隐私的机制。实验表明抑制隐私技术相对于差分隐私能够在某些模型的训练精度和隐私保护程度之间取得更好的平衡。这里以LeNet模型，MNIST数据集为例，说明如何在MindSpore上使用抑制隐私优化器训练神经网络模型。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Evaluation user-Enterprise user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/test_model_security_fuzzing.html" class="article-link">
 									<div>
