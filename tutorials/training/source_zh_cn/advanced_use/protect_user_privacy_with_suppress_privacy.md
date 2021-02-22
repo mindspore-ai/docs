@@ -253,11 +253,11 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
    不加抑制隐私的LeNet模型精度稳定在99%，使用抑制隐私LeNet模型收敛，精度稳定在97.5%左右。
 
    ```text
-   ============== Starting Training ==============
+   ============== Starting SUPP Training ==============
    ...
-   ============== Starting Testing ==============
+   ============== Starting SUPP Testing ==============
    ...
-   ============== Accuracy: 0.9745  ==============
+   ============== SUPP Accuracy: 0.9745  ==============
    ```
 
 ### 隐私保护效果测试
