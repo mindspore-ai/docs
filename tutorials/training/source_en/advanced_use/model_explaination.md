@@ -229,7 +229,8 @@ The HOC explanation page displays all HOC results, includes:
 
 Operations:
 
-1. Change the tag filter and sampler sorting on the left "Picture list" panel. Samples can be sorted by prediction confidence.
-2. Browse samples or switch to the next page in the sample list inside the left "Picture list" panel. Select a sample then its HOC results will be shown on the other panels.
-3. Change the tag of HOC result showing on the center "Original Image" panel. Only tags with prediction confidence greater than 0.5 have HOC results.
-4. Inspect the HOC search process on the bottom "Layer-by-layer Masking Process" panel, select a step image then it will be enlarged and shown on the right "View Explanation" panel. (Notes: The occluded regions were darkened and converted to greyscale for display, but it is not the case in the actual HOC search process, only Gaussian blur is employed while brightness and saturation are not altered.)
+1. In the upper right corner of "Picture list" panel, there is a "Hide" switch. When the switch is turned on, the samples without HOC explanation result will not be displayed. By default, the switch is on and the users can turn it off to display all samples.
+2. Change the tag filter and sampler sorting on the left "Picture list" panel. Samples can be sorted by prediction confidence.
+3. Browse samples or switch to the next page in the sample list inside the left "Picture list" panel. Select a sample then its HOC results will be shown on the other panels.
+4. Change the tag of HOC result showing on the center "Original Image" panel. Only tags with prediction confidence greater than 0.5 have HOC results.
+5. Inspect the HOC search process on the bottom "Layer-by-layer Masking Process" panel, select a step image then it will be enlarged and shown on the right "View Explanation" panel. (Notes: The occluded regions were darkened and converted to greyscale for display, but it is not the case in the actual HOC search process, only Gaussian blur is employed while brightness and saturation are not altered.)
