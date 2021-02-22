@@ -1,6 +1,6 @@
 # Using Runtime for Model Inference (Java)
 
-`Android` `Inference` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+`Android` `Java` `Inference` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 

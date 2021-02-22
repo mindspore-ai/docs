@@ -57,6 +57,7 @@ $(function() {
 				var hardware_list = [];
 				var user_list = [];
 				var stage_list = [];
+				var language_list = [];
 				var all_list = [];
 				
 				$('.doc-article-item').addClass('hidden');
@@ -70,6 +71,8 @@ $(function() {
 						user_list.push(list[i]);
 					}else if (list[i].indexOf('stage') == 0){
 						stage_list.push(list[i]);
+					}else if (list[i].indexOf('language') == 0){
+						language_list.push(list[i]);
 					}else{
 						all_list.push(list[i]);
 					}
@@ -80,6 +83,7 @@ $(function() {
 					var hardware_count = 0;
 					var user_count = 0;
 					var stage_count = 0;
+					var language_count = 0;
 					var all_count = 0;
 					if(os_list.length > 0){
 						for(var i=0;i<os_list.length;i++){
@@ -120,6 +124,16 @@ $(function() {
 					}else{
 						stage_count = 'empty';
 					}
+
+					if(language_list.length > 0){
+						for(var i=0;i<language_list.length;i++){
+							if ($(this).attr('class').replace('hidden ','').indexOf(language_list[i]) > -1){
+								language_count += 1;
+							}						
+						}
+					}else{
+						language_count = 'empty';
+					}
 					
 					if(all_list.length > 0){
 						for(var i=0;i<all_list.length;i++){
@@ -132,7 +146,7 @@ $(function() {
 					}
 					
 					
-					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty')){
+					if(((os_count >0 && os_count <= os_list.length) || os_count=='empty') && ((hardware_count >0 && hardware_count <= hardware_list.length) || hardware_count=='empty') && ((user_count >0 && user_count <= user_list.length) || user_count == 'empty') && ((stage_count >0 && stage_count <= stage_list.length) || stage_count == 'empty') && ((language_count >0 && language_count <= language_list.length) || language_count=='empty')){
 						$(this).removeClass('hidden').addClass(str);
 					}			
 			});
@@ -236,6 +250,4 @@ $(function() {
 		$('#all').trigger('click');
 
 	});
-
-
 
