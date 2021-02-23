@@ -55,6 +55,7 @@ Train with MindSpore
    :hidden:
 
    advanced_use/debug_in_pynative_mode
+   advanced_use/dump_data_from_ir_files
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
@@ -374,6 +375,18 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											In PyNative mode, single operators, common functions, network inference, and separated gradient calculation can be executed. This tutorial describes the usage and precautions in detail.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dump_data_from_ir_files.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Debugging with IR Diagrams</span>
+										</div>
+										<div class="doc-article-desc">
+											In the Graph mode, IR files will be generated during training, and dump specific operators based on this file for debugging. This tutorial will introduce the usage and precautions in detail.
 										</div>
 									</div>
 								</a>

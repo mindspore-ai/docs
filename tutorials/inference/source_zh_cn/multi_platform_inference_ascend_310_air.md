@@ -71,7 +71,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 其中，
 
 - 前3项可以参考[Atlas 200 DK 开发者套件使用指南](https://support.huaweicloud.com/usermanual-A200dk_3000/atlas200dk_02_0011.html)获取。
-- 其余软件包建议从[基础软件下载](https://www.huaweicloud.com/ascend/resource/Software)中获取，在该页面中选择产品系列和产品型号为`Atlas 200 DK`，选中需要的文件，即可下载。
+- 其余软件包建议从[固件与驱动](https://ascend.huawei.com/#/hardware/firmware-drivers)中获取，在该页面中选择产品系列和产品型号为`Atlas 200 DK`，选中需要的文件，即可下载。
 
 ### 制作SD卡
 

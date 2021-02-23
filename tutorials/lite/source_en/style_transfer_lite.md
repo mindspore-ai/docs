@@ -1,4 +1,4 @@
-# Style Transfer Model Support
+# Style Transfer Model
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/style_transfer_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

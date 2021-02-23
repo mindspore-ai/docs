@@ -245,7 +245,7 @@ export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
 
 In this example, the following files are obtained, which correspond to the input and output of the operator.
 
-```text.
+```text
 ├── Default--network-TrainOneStepWithLossScaleCell--network-WithLossCell--_backbone-LeNet5--conv1-Conv2d--Conv2D-op89_input_0_shape_32_1_32_32_16_Float16_NC1HWC0.bin
 ├── Default--network-TrainOneStepWithLossScaleCell--network-WithLossCell--_backbone-LeNet5--conv1-Conv2d--Conv2D-op89_input_1_shape_25_1_16_16_Float16_FracZ.bin
 └── Default--network-TrainOneStepWithLossScaleCell--network-WithLossCell--_backbone-LeNet5--conv1-Conv2d--Conv2D-op89_output_0_shape_32_1_28_28_16_Float16_NC1HWC0.bin

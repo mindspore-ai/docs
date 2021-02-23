@@ -1,8 +1,10 @@
-# MindSpore Lite Operator List
+# Operator List
 
 `Linux` `On Device` `Inference Application` `Beginner` `Intermediate` `Expert`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+This article lists the operators supported by MindSpore Lite.
 
 | Operation<br/>&nbsp;              | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;       | TensorFlow<br/>Lite operators supported   | Caffe<br/>Lite operators supported | Onnx<br/>Lite operators supported | TensorFlow<br/>operators supported |
 | --------------------- | ------------ | ------------ | ------------ | ------------- | ------------ | ------------ | --------- | ------------------------------- | ------------------------ | ----------------------------------------------- | ----------------------------------------------- |

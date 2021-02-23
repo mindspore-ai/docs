@@ -1,4 +1,4 @@
-﻿# 图像分类模型支持
+﻿# 图像分类模型
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/image_classification_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

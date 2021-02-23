@@ -1,8 +1,10 @@
-# MindSpore Lite算子支持
+# 算子支持
 
 `Linux` `Ascend` `端侧` `推理应用` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+本文列举MindSpore Lite支持的算子。
 
 | 操作名 <br/>&nbsp;            | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;  | 支持的TensorFlow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |支持的TensorFlow<br/>算子 |
 |-----------------------|----------|----------|----------|-----------|----------|-------------------|----------|----------|---------|---------|---------|
