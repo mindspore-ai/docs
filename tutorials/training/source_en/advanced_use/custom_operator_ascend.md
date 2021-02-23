@@ -27,7 +27,7 @@ To add a custom operator, you need to register the operator primitive, implement
 The related concepts are as follows:  
 
 - Operator primitive: defines the frontend API prototype of an operator on the network. It is the basic unit for forming a network model and includes the operator name, attribute (optional), input and output names, output shape inference method, and output dtype inference method.
-- Operator implementation: describes the implementation of the internal computation logic for an operator through the DSL API provided by the Tensor Boost Engine (TBE). The TBE supports the development of custom operators based on the Ascend AI chip. You can apply for Open Beta Tests (OBTs) by visiting <https://www.huaweicloud.com/ascend/tbe>.
+- Operator implementation: describes the implementation of the internal computation logic for an operator through the DSL API provided by the Tensor Boost Engine (TBE). The TBE supports the development of custom operators based on the Ascend AI chip.
 - Operator information: describes basic information about a TBE operator, such as the operator name and supported input and output types. It is the basis for the backend to select and map operators.
 
 This section takes a Square operator as an example to describe how to customize an operator.
