@@ -133,6 +133,7 @@ Normalization Layers
     mindspore.nn.BatchNorm2d
     mindspore.nn.GlobalBatchNorm
     mindspore.nn.GroupNorm
+    mindspore.nn.InstanceNorm2d
     mindspore.nn.LayerNorm
     mindspore.nn.MatrixDiag
     mindspore.nn.MatrixDiagPart
