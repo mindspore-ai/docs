@@ -181,6 +181,7 @@ Loss Functions
     :template: classtemplate.rst
 
     mindspore.nn.BCELoss
+    mindspore.nn.BCEWithLogitsLoss
     mindspore.nn.CosineEmbeddingLoss
     mindspore.nn.L1Loss
     mindspore.nn.MSELoss

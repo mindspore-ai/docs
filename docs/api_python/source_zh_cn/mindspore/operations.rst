@@ -29,6 +29,7 @@ Neural Network Operators
     mindspore.ops.AvgPool
     mindspore.ops.BasicLSTMCell
     mindspore.ops.BatchNorm
+    mindspore.ops.BCEWithLogitsLoss
     mindspore.ops.BiasAdd
     mindspore.ops.BinaryCrossEntropy
     mindspore.ops.BNTrainingReduce
