@@ -688,8 +688,8 @@ print(res)
  The following information is displayed:
 
 ```text
-[[ －1.  0.25  0.  0.40551758]
- [ －1.  0.25  0.  0.40551758]]
+[[ -1.  0.25  0.  0.40551758]
+ [ -1.  0.25  0.  0.40551758]]
 ```
 
 #### BoundingBoxDecode
