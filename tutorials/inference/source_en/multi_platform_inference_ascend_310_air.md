@@ -71,7 +71,7 @@ The following five types of scripts and software packages are required for confi
 In the preceding information:
 
 - For details about the first three items, see [Creating an SD Card with a Card Reader](https://support.huaweicloud.com/intl/en-us//usermanual-A200dk_3000/atlas200dk_02_0011.html).
-- You are advised to obtain other software packages from [Firmware and Driver](https://www.huaweicloud.com/intl/en-us/ascend/resource/Software). On this page, select `Atlas 200 DK` from the product series and product model and select the required files to download.
+- You are advised to obtain other software packages from [Firmware and Driver](https://ascend.huawei.com/en/#/hardware/firmware-drivers). On this page, select `Atlas 200 DK` from the product series and product model and select the required files to download.
 
 ### Preparing the SD Card
 

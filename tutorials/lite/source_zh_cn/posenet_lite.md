@@ -1,4 +1,4 @@
-# 骨骼检测模型支持
+# 骨骼检测模型
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/posenet_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 

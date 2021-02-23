@@ -1,4 +1,4 @@
-﻿# 目标检测模型支持
+﻿# 目标检测模型
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/object_detection_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
