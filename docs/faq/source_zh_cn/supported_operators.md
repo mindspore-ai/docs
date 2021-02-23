@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：算子`Concat`拼接包含多个Tensor的元组出错，似乎传入的`tensor list`元素个数>=192就会报错。如果要`Concat`包含多个Tensor的元组，有什么较好的解决方案？**</font>
+
+A：这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过192个，可以尝试分开两次进行拼接。
+
+<br/>
+
 <font size=3>**Q：在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？**</font>
 
 A：`Conv2D`算子是有这个约束条件的：当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用`ops.Conv2D`，这个算子目前不支持`group`>1。目前MindSpore只有`nn.Conv2D`接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。

@@ -74,7 +74,7 @@ A：目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Wi
     docker run -it --runtime=nvidia mindspore/mindspore-gpu:1.0.0 /bin/bash
     ```
 
-详细步骤可以参考社区提供的实践[张小白GPU安装MindSpore给你看（Ubuntu 18.04.5）](https://bbs.huaweicloud.com/blogs/198357)。
+详细步骤可以参考社区提供的实践[张小白教你安装Windows10的GPU驱动（CUDA和cuDNN）](https://bbs.huaweicloud.com/blogs/212446)。
 在此感谢社区成员[张辉](https://bbs.huaweicloud.com/community/usersnew/id_1552550689252345)的分享。
 
 <br />
