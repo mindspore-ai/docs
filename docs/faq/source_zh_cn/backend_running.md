@@ -4,6 +4,38 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：如何查看模型参数量？**</font>
+
+A：可以直接加载CheckPoint统计，可能额外统计了动量和optimizer中的变量，需要过滤下相关变量。
+您可以参考如下接口统计网络参数量:
+
+```python
+def count_params(net):
+    """Count number of parameters in the network
+    Args:
+        net (mindspore.nn.Cell): Mindspore network instance
+    Returns:
+        total_params (int): Total number of trainable params
+    """
+    total_params = 0
+    for param in net.trainable_params():
+        total_params += np.prod(param.shape)
+    return total_params
+```
+
+具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py)。
+
+<br/>
+
+<font size=3>**Q：如何构建图像的多标签MindRecord格式数据集？**</font>
+
+A：数据Schema可以按如下方式定义：`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
+
+说明：label是一个数组，numpy类型，这里面可以存你说的 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即：同一个图像的二进制值。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/convert_dataset.html#id3)教程。
+
+<br/>
+
 <font size=3>**Q：如何在训练过程中监控`loss`在最低的时候并保存训练参数？**</font>
 
 A：可以自定义一个`Callback`。参考`ModelCheckpoint`的写法，此外再增加判断`loss`的逻辑：
@@ -89,10 +121,37 @@ A：首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用�
 
 <br/>
 
-<font size=3>**Q：在Ascend平台上，执行用例有时候会报错run task error，如何获取更详细的日志帮助问题定位？**</font>
+<font size=3>**Q：在Ascend平台上，执行用例有时候会报错`run task error`，如何获取更详细的日志帮助问题定位？**</font>
 
-A：可以通过开启slog获取更详细的日志信息以便于问题定位，修改`/var/log/npu/conf/slog/slog.conf`中的配置，可以控制不同的日志级别，对应关系为：0:debug、1:info、2:warning、3:error、4:null(no output log)，默认值为1。
+A：使用msnpureport工具设置device侧日志级别，工具位置在：`/usr/local/Ascend/driver/tools/msnpureport`。
 
+- 全局级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -g info
+```
+
+- 模块级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+````
+
+- Event级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+```
+
+- 多device id级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+```
+
+假设deviceID的取值范围是[0-7]，`device0`-`device3`和`device4`-`device7`分别在一个os上。其中`device0`-`device3`共用一个日志配置文件；`device4`-`device7`共用一个配置文件。如果修改了`device0`-`device3`中的任意一个日志级别，其他`device`的日志级别也会被修改。如果修改了`device4`-`device7`中的任意一个日志级别，其他device的日志级别也会被修改。
+
+`Driver`包安装以后（假设安装路径为/usr/local/HiAI，在Windows环境下，`msnpureport.exe`执行文件在C:\ProgramFiles\Huawei\Ascend\Driver\tools\目录下），假设用户在/home/shihangbo/目录下直接执行命令行，则Device侧日志被导出到当前目录下，并以时间戳命名文件夹进行存放。
 <br/>
 
 <font size=3>**Q：使用ExpandDims算子报错：`Pynative run op ExpandDims failed`。具体代码：**</font>

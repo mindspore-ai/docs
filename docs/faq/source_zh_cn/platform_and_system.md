@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q:使用PyNative模式能够进行迁移学习？**</font>
+
+A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_mobilenetv2_fine_tune.html#id7)。
+
+<br/>
+
 <font size=3>**Q:MindSpore只能在华为自己的`NPU`上跑么？**</font>
 
 A: MindSpore同时支持华为自己的`Ascend NPU`、`GPU`与`CPU`，是支持异构算力的。
