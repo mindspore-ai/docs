@@ -15,7 +15,6 @@ The composite operators are the pre-defined combination of operators.
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.ops.add_flags
     mindspore.ops.batch_dot
     mindspore.ops.clip_by_global_norm
     mindspore.ops.clip_by_value
@@ -118,8 +117,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.Primitive` ('not_in_dict')               
    * - mindspore.ops.ones_like
      - :class:`mindspore.ops.OnesLike`
-   * - mindspore.ops.pack
-     - :class:`mindspore.ops.Pack`
    * - mindspore.ops.print\_
      - :class:`mindspore.ops.Print`
    * - mindspore.ops.rank
@@ -137,7 +134,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.same_type_shape
      - :class:`mindspore.ops.SameTypeShape`
    * - mindspore.ops.scalar_add
-     - :class:`mindspore.ops.Primitive` ('scalar_add')               
+     - :class:`mindspore.ops.Primitive` ('scalar_add')
    * - mindspore.ops.scalar_cast
      - :class:`mindspore.ops.ScalarCast`
    * - mindspore.ops.scalar_div
@@ -198,6 +195,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.Sqrt`
    * - mindspore.ops.square
      - :class:`mindspore.ops.Square`
+   * - mindspore.ops.stack
+     - :class:`mindspore.ops.Stack`
    * - mindspore.ops.stop_gradient
      - :class:`mindspore.ops.Primitive` ('stop_gradient')               
    * - mindspore.ops.strided_slice
