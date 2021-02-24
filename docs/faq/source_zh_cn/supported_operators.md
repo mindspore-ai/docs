@@ -1,8 +1,14 @@
-# 算子支持类
+﻿# 算子支持类
 
 `Ascend` `CPU` `GPU` `环境准备` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+<font size=3>**Q：算子`Concat`拼接包含多个Tensor的元组出错，似乎传入的`tensor list`元素个数>=192就会报错。如果要`Concat`包含多个Tensor的元组，有什么较好的解决方案？**</font>
+
+A：这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过192个，可以尝试分开两次进行拼接。
+
+<br/>
 
 <font size=3>**Q：在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？**</font>
 
