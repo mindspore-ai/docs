@@ -246,7 +246,7 @@ target_link_libraries(
         构建上下文，设置会话参数。通过上下文和模型数据创建会话。
 
         ```cpp
-        // To create a mindspore network inference environment.
+        // To create a MindSpore network inference environment.
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
@@ -307,7 +307,7 @@ target_link_libraries(
       inputDims.width = lite_norm_mat_cut.width_;
       inputDims.height = lite_norm_mat_cut.height_;
 
-      // Get the mindsore inference environment which created in loadModel().
+      // Get the MindSpore inference environment which created in loadModel().
       void **labelEnv = reinterpret_cast<void **>(netEnv);
       if (labelEnv == nullptr) {
           MS_PRINT("MindSpore error, labelEnv is a nullptr.");
