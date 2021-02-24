@@ -1,8 +1,14 @@
-# 特性支持类
+﻿# 特性支持类
 
 `特性优势` `端侧推理` `功能模块` `推理工具`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+<font size=3>**Q：MindSpore serving是否支持热加载，避免推理服务中断？**</font>
+
+A：很抱歉，MindSpore当前还不支持热加载，需要重启。建议您可以跑多个Serving服务，切换版本时，重启部分。
+
+<br/>
 
 <font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
 
