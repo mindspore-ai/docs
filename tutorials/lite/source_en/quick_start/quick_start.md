@@ -113,7 +113,7 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-1.1.0-inference-android #MindSpore Lite version
+|   |   ├── mindspore-lite-{version}-inference-android #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
@@ -138,9 +138,9 @@ app
 
 When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
-In this example, the build process automatically downloads the `mindspore-lite-1.1.0-inference-android` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+In this example, the build process automatically downloads the `mindspore-lite-{version}-inference-android` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-1.1.0-inference-android.tar.gz](https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-inference-android.tar.gz) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html) and put them in the corresponding location.
 
 ```text
 android{
@@ -152,7 +152,7 @@ android{
         }
 
         ndk{
-            abiFilters'armeabi-v7a', 'arm64-v8a'  
+            abiFilters'armeabi-v7a', 'arm64-v8a'
         }
     }
 }
@@ -216,176 +216,221 @@ The inference process code is as follows. For details about the complete code, s
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
 
-    - Load a model file. Create and configure the context for model inference.
+    - Load model file:
+
+       Read the model file in the Java layer of Android and convert it into a ByteBuffer type file `model _ Buffer`, which is transferred to C++ layer by calling JNI. Finally, the `model_ Buffer` is converted to char type file `modelbuffer`.
 
         ```cpp
         // Buffer is the model data passed in by the Java layer
-        jlong bufferLen = env->GetDirectBufferCapacity(buffer);
-        char *modelBuffer = CreateLocalModelBuffer(env, buffer);  
+        jlong bufferLen = env->GetDirectBufferCapacity(model_buffer);
+        if (0 == bufferLen) {
+            MS_PRINT("error, bufferLen is 0!");
+            return (jlong) nullptr;
+        }
+
+        char *modelBuffer = CreateLocalModelBuffer(env, model_buffer);
+        if (modelBuffer == nullptr) {
+            MS_PRINT("modelBuffer create failed!");
+            return (jlong) nullptr;
+        }
         ```
 
-    - Create a session.
+    - Build context, session, and computational graph for inference:
+
+        Build context and set session parameters. Create a session from context and model data.
 
         ```cpp
+        // To create a Mindspore network inference environment.
         void **labelEnv = new void *;
         MSNetWork *labelNet = new MSNetWork;
         *labelEnv = labelNet;
 
-        // Create context.
         mindspore::lite::Context *context = new mindspore::lite::Context;
         context->thread_num_ = num_thread;
-
-        // Create the mindspore session.
         context->device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
         context->device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
         context->device_list_[0].device_type_ = mindspore::lite::DT_CPU;
 
         labelNet->CreateSessionMS(modelBuffer, bufferLen, context);
-        delete (context);
+        delete context;
         ```
 
-    - Load the model file and build a computational graph for inference.
+    - Based on the model file `modelbuffer`, the computational graph for inference is constructed.
 
         ```cpp
-        void MSNetWork::CreateSessionMS(char* modelBuffer, size_t bufferLen, std::string name, mindspore::lite::Context* ctx){
-            session_ = mindspore::session::LiteSession::CreateSession(ctx);
-            model_ = mindspore::lite::Model::Import(modelBuffer, bufferLen);
-            int ret = session_->CompileGraph(model_);
-        }
+       void MSNetWork::CreateSessionMS(char *modelBuffer, size_t bufferLen, mindspore::lite::Context *ctx) {
+           session_ = mindspore::session::LiteSession::CreateSession(ctx);
+           if (session_ == nullptr) {
+               MS_PRINT("Create Session failed.");
+               return;
+           }
+
+           // Compile model.
+           model_ = mindspore::lite::Model::Import(modelBuffer, bufferLen);
+           if (model_ == nullptr) {
+               ReleaseNets();
+               MS_PRINT("Import model failed.");
+               return;
+           }
+
+           int ret = session_->CompileGraph(model_);
+           if (ret != mindspore::lite::RET_OK) {
+                ReleaseNets();
+                MS_PRINT("CompileGraph failed.");
+                return;
+           }
+         }
         ```
 
 2. Convert the input image into the Tensor format of the MindSpore model.
 
-    Convert the image data to be detected into the Tensor format of the MindSpore model.
+    Cut the size of the image `srcbitmap` to be detected and convert it to LiteMat format `lite_norm_mat_cut`. The width, height and channel number information are converted into float format data `dataHWC`. Finally, copy the `dataHWC` to the input `inTensor` of MindSpore model.
 
     ```cpp
-    // Convert the Bitmap image passed in from the JAVA layer to Mat for OpenCV processing
-     BitmapToMat(env, srcBitmap, matImageSrc);
-   // Processing such as zooming the picture size.
-    matImgPreprocessed = PreProcessImageData(matImageSrc);  
+    if (!BitmapToLiteMat(env, srcBitmap, &lite_mat_bgr)) {
+          MS_PRINT("BitmapToLiteMat error");
+          return NULL;
+       }
+      if (!PreProcessImageData(lite_mat_bgr, &lite_norm_mat_cut)) {
+          MS_PRINT("PreProcessImageData error");
+          return NULL;
+       }
 
-    ImgDims inputDims;
-    inputDims.channel = matImgPreprocessed.channels();
-    inputDims.width = matImgPreprocessed.cols;
-    inputDims.height = matImgPreprocessed.rows;
-    float *dataHWC = new float[inputDims.channel * inputDims.width * inputDims.height]
+      ImgDims inputDims;
+      inputDims.channel = lite_norm_mat_cut.channel_;
+      inputDims.width = lite_norm_mat_cut.width_;
+      inputDims.height = lite_norm_mat_cut.height_;
 
-    // Copy the image data to be detected to the dataHWC array.
-    // The dataHWC[image_size] array here is the intermediate variable of the input MindSpore model tensor.
-    float *ptrTmp = reinterpret_cast<float *>(matImgPreprocessed.data);
-    for(int i = 0; i < inputDims.channel * inputDims.width * inputDims.height; i++){
-       dataHWC[i] = ptrTmp[i];
-    }
+      // Get the MindSpore inference environment which created in loadModel().
+      void **labelEnv = reinterpret_cast<void **>(netEnv);
+      if (labelEnv == nullptr) {
+          MS_PRINT("MindSpore error, labelEnv is a nullptr.");
+          return NULL;
+       }
+      MSNetWork *labelNet = static_cast<MSNetWork *>(*labelEnv);
 
-    // Assign dataHWC[image_size] to the input tensor variable.
-    auto msInputs = mSession->GetInputs();
-    auto inTensor = msInputs.front();
-    memcpy(inTensor->MutableData(), dataHWC,
-        inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
-    delete[] (dataHWC);
+      auto mSession = labelNet->session();
+      if (mSession == nullptr) {
+          MS_PRINT("MindSpore error, Session is a nullptr.");
+          return NULL;
+        }
+       MS_PRINT("MindSpore get session.");
+
+       auto msInputs = mSession->GetInputs();
+       if (msInputs.size() == 0) {
+          MS_PRINT("MindSpore error, msInputs.size() equals 0.");
+          return NULL;
+        }
+        auto inTensor = msInputs.front();
+
+        float *dataHWC = reinterpret_cast<float *>(lite_norm_mat_cut.data_ptr_);
+        // Copy dataHWC to the model input tensor.
+        memcpy(inTensor->MutableData(), dataHWC,
+           inputDims.channel * inputDims.width * inputDims.height * sizeof(float));
    ```
 
-3. Preprocess the input data.
+   Adjust the size of the input image, as well as the detailed algorithm of data processing.
 
    ```cpp
    bool PreProcessImageData(const LiteMat &lite_mat_bgr, LiteMat *lite_norm_mat_ptr) {
-       bool ret = false;
-       LiteMat lite_mat_resize;
-       LiteMat &lite_norm_mat_cut = *lite_norm_mat_ptr;
-       ret = ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
-       if (!ret) {
-           MS_PRINT("ResizeBilinear error");
-           return false;
-       }
-       LiteMat lite_mat_convert_float;
-       ret = ConvertTo(lite_mat_resize, lite_mat_convert_float, 1.0 / 255.0);
-       if (!ret) {
-           MS_PRINT("ConvertTo error");
-           return false;
-       }
-       LiteMat lite_mat_cut;
-       ret = Crop(lite_mat_convert_float, lite_mat_cut, 16, 16, 224, 224);
-       if (!ret) {
-           MS_PRINT("Crop error");
-           return false;
-       }
-       float means[3] = {0.485, 0.456, 0.406};
-       float vars[3] = {1.0 / 0.229, 1.0 / 0.224, 1.0 / 0.225};
-       SubStractMeanNormalize(lite_mat_cut, lite_norm_mat_cut, means, vars);
-       return true;
-   }
+         bool ret = false;
+         LiteMat lite_mat_resize;
+         LiteMat &lite_norm_mat_cut = *lite_norm_mat_ptr;
+         ret = ResizeBilinear(lite_mat_bgr, lite_mat_resize, 256, 256);
+         if (!ret) {
+            MS_PRINT("ResizeBilinear error");
+            return false;
+         }
+         LiteMat lite_mat_convert_float;
+         ret = ConvertTo(lite_mat_resize, lite_mat_convert_float, 1.0 / 255.0);
+         if (!ret) {
+             MS_PRINT("ConvertTo error");
+             return false;
+         }
+         LiteMat lite_mat_cut;
+         ret = Crop(lite_mat_convert_float, lite_mat_cut, 16, 16, 224, 224);
+         if (!ret) {
+             MS_PRINT("Crop error");
+             return false;
+         }
+         std::vector<float> means = {0.485, 0.456, 0.406};
+         std::vector<float> stds = {0.229, 0.224, 0.225};
+         SubStractMeanNormalize(lite_mat_cut, lite_norm_mat_cut, means, stds);
+         return true;
+        }
    ```
 
-4. Perform inference on the input tensor based on the model, obtain the output tensor, and perform post-processing.
+3. The input tensor is inferred according to the model, and the output tensor is obtained and post processed.
 
-   - Perform graph execution and on-device inference.
+   - The graph and model are loaded and on device inference is performed.
 
         ```cpp
         // After the model and image tensor data is loaded, run inference.
         auto status = mSession->RunGraph();
         ```
 
-   - Obtain the output data.
+   - Get the tensor output `msOutputs` of MindSpore model. The text information `resultCharData` displayed in the APP is calculated through `msOutputs` and classification array information.
 
         ```cpp
-        auto names = mSession->GetOutputTensorNames();
-        std::unordered_map<std::string,mindspore::tensor::MSTensor *> msOutputs;
+       auto names = mSession->GetOutputTensorNames();
+        std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs;
         for (const auto &name : names) {
             auto temp_dat =mSession->GetOutputByTensorName(name);
             msOutputs.insert(std::pair<std::string, mindspore::tensor::MSTensor *> {name, temp_dat});
           }
-        std::string retStr = ProcessRunnetResult(msOutputs, ret);
+        std::string resultStr = ProcessRunnetResult(::RET_CATEGORY_SUM,::labels_name_map, msOutputs);
+
+        const char *resultCharData = resultStr.c_str();
+        return (env)->NewStringUTF(resultCharData);
         ```
 
-   - Perform post-processing of the output data.
+   - Perform post-processing of the output data. Obtain the output object `outputTensor` through `msOutputs`, and parse it with the thing category array `labels_name_map` to obtain the training score array `scores[]` of each element. Set the credibility threshold value to `unifiedThre`, and count the credibility threshold value according to the training data. Above the threshold, it belongs to this type. On the contrary, it is not. Finally, a corresponding category name and corresponding score data `categoryScore` are returned.
 
         ```cpp
-        std::string ProcessRunnetResult(const int RET_CATEGORY_SUM, const char *const labels_name_map[],
-                                        std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs) {
-            // Get the branch of the model output.
-            // Use iterators to get map elements.
-            std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
-            iter = msOutputs.begin();
-            // The mobilenetv2.ms model output just one branch.
-            auto outputTensor = iter->second;
-            int tensorNum = outputTensor->ElementsNum();
-            MS_PRINT("Number of tensor elements:%d", tensorNum);
-            // Get a pointer to the first score.
-            float *temp_scores = static_cast<float *>(outputTensor->MutableData());
-            float scores[RET_CATEGORY_SUM];
-            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                scores[i] = temp_scores[i];
-            }
+         std::string ProcessRunnetResult(const int RET_CATEGORY_SUM, const char *const labels_name_map[], std::unordered_map<std::string, mindspore::tensor::MSTensor *> msOutputs) {
+        // Get the branch of the model output.
+        // Use iterators to get map elements.
+        std::unordered_map<std::string, mindspore::tensor::MSTensor *>::iterator iter;
+        iter = msOutputs.begin();
 
-            float unifiedThre = 0.5;
-            float probMax = 1.0;
-            for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
-                float threshold = g_thres_map[i];
-                float tmpProb = scores[i];
-                if (tmpProb < threshold) {
-                    tmpProb = tmpProb / threshold * unifiedThre;
-                } else {
-                    tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
-                }
-                scores[i] = tmpProb;
-            }
-            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                if (scores[i] > 0.5) {
-                    MS_PRINT("MindSpore scores[%d] : [%f]", i, scores[i]);
-                }
-            }
-            // Score for each category.
-            // Converted to text information that needs to be displayed in the APP.
-            std::string categoryScore = "";
-            for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
-                categoryScore += labels_name_map[i];
-                categoryScore += ":";
-                std::string score_str = std::to_string(scores[i]);
-                categoryScore += score_str;
-                categoryScore += ";";
-            }
-            return categoryScore;
+        // The mobilenetv2.ms model output just one branch.
+        auto outputTensor = iter->second;
+
+        int tensorNum = outputTensor->ElementsNum();
+        MS_PRINT("Number of tensor elements:%d", tensorNum);
+
+        // Get a pointer to the first score.
+        float *temp_scores = static_cast<float *>(outputTensor->MutableData());
+        float scores[RET_CATEGORY_SUM];
+        for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+             scores[i] = temp_scores[i];
         }
+
+        const float unifiedThre = 0.5;
+        const float probMax = 1.0;
+        for (size_t i = 0; i < RET_CATEGORY_SUM; ++i) {
+             float threshold = g_thres_map[i];
+             float tmpProb = scores[i];
+        if (tmpProb < threshold) {
+            tmpProb = tmpProb / threshold * unifiedThre;
+        } else {
+            tmpProb = (tmpProb - threshold) / (probMax - threshold) * unifiedThre + unifiedThre;
+        }
+        scores[i] = tmpProb;
+        }
+
+         // Score for each category.
+         // Converted to text information that needs to be displayed in the APP.
+         std::string categoryScore = "";
+         for (int i = 0; i < RET_CATEGORY_SUM; ++i) {
+             categoryScore += labels_name_map[i];
+             categoryScore += ":";
+             std::string score_str = std::to_string(scores[i]);
+             categoryScore += score_str;
+             categoryScore += ";";
+          }
+         return categoryScore;
+      }
        ```
 
    ​
