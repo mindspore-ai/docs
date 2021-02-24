@@ -131,21 +131,15 @@
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrl.html">mindspore.ops.SparseApplyFtrl</a></td>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyFtrlV2.html">mindspore.ops.SparseApplyFtrlV2</a></td>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SparseApplyProximalAdagrad.html">mindspore.ops.SparseApplyProximalAdagrad</a></td>
-
 </tr>
 <tr>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SquaredDifference.html">mindspore.ops.SquaredDifference</a></td>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Sub.html">mindspore.ops.Sub</a></td>
-  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorAdd.html">mindspore.ops.TensorAdd</a></td>
+  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateDiv.html">mindspore.ops.TruncateDiv</a></td>
 </tr>
 <tr>
-  <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateDiv.html">mindspore.ops.TruncateDiv</a></td>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TruncateMod.html">mindspore.ops.TruncateMod</a></td>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xdivy.html">mindspore.ops.Xdivy</a></td>
-</tr>
-<tr>
   <td><a href="https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Xlogy.html">mindspore.ops.Xlogy</a></td>
-  <td></td>
-  <td></td>
 </tr>
 </table>

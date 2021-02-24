@@ -3,7 +3,7 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname in ["FastGelu", "GatherV2", "TensorAdd", "Gelu"] %}
+{% if objname in [] %}
 {{ fullname | underline }}
 
 .. autofunction:: {{ fullname }}

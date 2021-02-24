@@ -147,7 +147,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.split                                          | mindspore.ops.Split                                                    |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                                     |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                                  |
-| torch.stack                                          | mindspore.ops.Pack                                                     |
+| torch.stack                                          | mindspore.ops.Stack                                                    |
 | torch.std_mean                                       | mindspore.ops.ReduceMean                                               |
 | torch.sum                                            | mindspore.ops.ReduceSum                                                |
 | torch.tan                                            | mindspore.ops.Tan                                                      |
@@ -181,7 +181,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.transpose                                      | mindspore.ops.Transpose                                                |
 | torch.tril                                           | mindspore.nn.Tril                                                      |
 | torch.triu                                           | mindspore.nn.Triu                                                      |
-| torch.unbind                                         | mindspore.ops.Unpack                                                   |
+| torch.unbind                                         | mindspore.ops.Unstack                                                  |
 | torch.unique                                         | mindspore.ops.Unique                                                   |
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                               |
 | torch.utils.data.DataLoader                          | mindspore.DatasetHelper                                                |
