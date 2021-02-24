@@ -80,7 +80,7 @@ Details are described as follows:
 
    - `numpy array`: represents a tensor. For example, np.ones((3,224), np.float32).
    - `numpy number`: represents a scalar. For example, np.int8(5).
-   - `python bool int float`: represents a scalar. Currently, int is regarded as int32, and float is regarded as float32. For example, 32.0.
+   - `python bool int float`: represents a scalar. Currently, int is regarded as int64, and float is regarded as float64. For example, 32.0.
    - `python str`: represents a character string. For example, "this is a text".
    - `python bytes`: represents binary data. For example, image data.
 
