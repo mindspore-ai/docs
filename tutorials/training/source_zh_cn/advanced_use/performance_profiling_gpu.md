@@ -104,7 +104,7 @@ class StopAtStep(Callback):
 
 #### 算子性能分析
 
-使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示。
+使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括GPU算子、CUDA内核、HOSTCPU算子)。
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
 
@@ -129,11 +129,11 @@ class StopAtStep(Callback):
 
 - 统计图表：展示了各个kernel activity的占比以及前15个算子的耗时信息。
 - 内核信息列表：信息列表展示activity的名称、所属算子名称、执行次数、总时间、平均时间等信息。
-- 搜索：可以通过name(activity名称)以及`op_full_name`（所属算子名称）进程部分匹配的搜索。
+- 搜索：可以通过name(activity名称)以及`op_full_name`（所属算子名称）进行部分匹配的搜索。
 
 #### Timeline分析
 
-GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息和CUDA activity的信息。
+GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息(包括GPU算子和CPU算子)和CUDA activity的信息。
 
 使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html#timeline>
 

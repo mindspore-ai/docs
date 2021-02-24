@@ -100,7 +100,7 @@ Users can click the detail link to see the details of each components.
 
 #### Operator Performance Analysis
 
-The operator performance analysis component is used to display the execution time of the operators when running MindSpore.
+The operator performance analysis component is used to display the execution time of the operators when running MindSpore(include GPU operator,CUDA kernel,HOSTCPU operator).
 
 ![gpu_op_ui_profiler.png](./images/gpu_op_ui_profiler.png)
 
