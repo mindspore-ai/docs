@@ -13,12 +13,18 @@ mindspore_serving.worker
 ------------------------
 
 .. automodule:: mindspore_serving.worker
-    :members:
+    :members: start_servable, start_servable_in_master, stop
 
 mindspore_serving.worker.register
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. automodule:: mindspore_serving.worker.register
+    :members:
+
+mindspore_serving.worker.distributed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: mindspore_serving.worker.distributed
     :members:
 
 mindspore_serving.client
