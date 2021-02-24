@@ -124,7 +124,7 @@ The `bytes` type needs to be encoded using `base64`. `base64` can indicate the `
 
 - `type`: This parameter is optional. If it is not specified, the default value is `bytes`.
 
-  The value can be `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64`, `fp16`, `fp32`, `fp64`, `bool`, `str`, or `bytes`.
+  The value can be `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64`, `float16`(or `fp16`), `float32`(or `fp32`), `float64`(or `fp64`), `bool`, `str`, or `bytes`.
 
 - `shape`: This parameter is optional. If it is not specified, the default value is `[1]`.
 
@@ -144,16 +144,16 @@ If the `base64` encoding is used to indicate a tensor of `int16` type, with `sha
 
 `AQACAAIAAwADAAQA` is a character string obtained after the binary data format of `[[1,1],[2,3],[3,4]]` is encoded using `base64`.
 
-**The supported types are as follows:**
+**The supported types in request are as follows:**
 
 | Supported Type | Example | Remarks |
-| :------: | -------- | ---------------- |
+| ------ | -------- | ---------------- |
 | `int` | 1, [1, 2, 3, 4] | The default value is `int32`, indicating the range. |
 | `float` | 1.0, [[1.2, 2.3], [3.0, 4.5]] | The default value is `float32`, indicating the range. |
 | `bool` | true, false, [[true], [false]] | `bool` type |
 | `string` | "hello" or <br/> {"b64":"aGVsbG8=", "type":"str"} | Direct representation or representation specified by `type`. |
 | `bytes` | {"b64":"AQACAAIAAwADAAQA"} or <br>{"b64":"AQACAAIAAwADAAQA", "type":"bytes"} | If `type` is not specified, the default value `bytes` is used. |
-| `int8`,`int16`,`int32`,`int64`,`uint8`,`uint16`,`uint32`,`uint64` `f16`,`f32`,`f64`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]} | The base64 encoding is used to indicate the data specified by `type`. |
+| `int8`,`int16`,`int32`,`int64`,<br/>`uint8`,`uint16`,`uint32`,`uint64`,<br/>`float16`,`float32`,`float64`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]} | The base64 encoding is used to indicate the data specified by `type`. |
 
 ## Response Format
 
@@ -237,3 +237,13 @@ The response format is the same as the request format. The information in the `J
        "error_msg":"Parse request failed"
    }
    ```
+
+**The response data is represented as follows:**
+
+   |  Serving Output Type | RESTful json Data Type   | Description  |  Example  |
+   |  ----  | ----  |  ---- | ---- |
+   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | All types of integer data are represented as JSON integer | 1，[1,2,3,4]  |
+   | `float16`, `float32`, `float64` | json float | All types of float data are represented as JSON float | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
+   | `bool` | json bool | Bool data is represented as json bool | true，false，[[true],[false]]  |
+   | `string` | json str | String data is represented as json string | "news_car"  |
+   | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |

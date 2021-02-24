@@ -124,7 +124,7 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
 
 - `type`：可选，如果不指定，默认为`bytes`。
 
-  支持`int8`、`int16`、`int32`、`int64`、`uint8`、`uint16`、`uint32`、`uint64`、`fp16`、`fp32`、`fp64`、`bool`、`str`、`bytes`。
+  支持`int8`、`int16`、`int32`、`int64`、`uint8`、`uint16`、`uint32`、`uint64`、`float16`(或`fp16`)、`float32`(或`fp32`)、`float64`(或`fp64`)、`bool`、`str`、`bytes`。
 
 - `shape`：可选，如果不指定，默认为`[1]`。
 
@@ -144,16 +144,16 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
 
 其中`AQACAAIAAwADAAQA`：是`[[1,1],[2,3],[3,4]]`的二进制数据格式经过`base64`编码后的字符串。
 
-**支持的类型总结如下:**
+**请求支持的类型总结如下:**
 
 | 支持的类型 |    例子   |     备注         |
-| :------: | -------- | ---------------- |
+| ------ | -------- | ---------------- |
 |  `int`  | 1，[1,2,3,4]                   | 默认`int32`表示范围   |
 | `float` | 1.0，[[1.2, 2.3], [3.0, 4.5]]  | 默认`float32`表示范围 |
 |  `bool` | true，false，[[true],[false]]  | `bool`类型           |
 | `string` | "hello"或者<br/>  {"b64":"aGVsbG8=", "type":"str"} | 直接表示或者指定`type`方式表示     |
 | `bytes` | {"b64":"AQACAAIAAwADAAQA"} 或者 <br>{"b64":"AQACAAIAAwADAAQA", "type":"bytes"} | 如果不填`type`，默认为`bytes` |
-| `int8`,`int16`,`int32`,`int64`,`uint8`,`uint16`,`uint32`,`uint64` `f16`,`f32`,`f64`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]}  | 利用base64编码，表示指定type的数据 |
+| `int8`,`int16`,`int32`,`int64`,<br/>`uint8`,`uint16`,`uint32`,`uint64`,<br/>`float16`,`float32`,`float64`,`bool` | {"b64":"AQACAAIAAwADAAQA", "type":"int16", "shape":[3,2]}  | 利用base64编码，表示指定type的数据 |
 
 ## 请求应答格式
 
@@ -237,3 +237,13 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
        "error_msg":"Parse request failed"
    }
    ```
+
+**应答数据表示如下:**
+
+   |  Serving输出类型 | RESTful json中数据类型   | 说明  |  举例  |
+   |  ----  | ----  |  ---- | ---- |
+   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | 整型格式的数据表示为json整型 | 1，[1,2,3,4]  |
+   | `float16`, `float32`, `float64` | json float | 浮点格式的数据表示为json浮点数 | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
+   | `bool` | json bool | bool类型数据表示为json bool | true，false，[[true],[false]]  |
+   | `string` | json str | 字符串格式输出表示为json str | "news_car"  |
+   | `bytes` | base64 object | 二进制格式输出转为base64对象 | {"b64":"AQACAAIAAwADAAQA"}  |

@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
    - `numpy array`：用以表示Tensor。例如：np.ones((3,224), np.float32)。
    - `numpy number`：用以表示Scalar。例如：np.int8(5)。
-   - `python bool int float`：用以表示Scalar, 当前int将作为int32, float将作为float32。例如：32.0。
+   - `python bool int float`：用以表示Scalar, 当前int将作为int64, float将作为float64。例如：32.0。
    - `python str`：用以表示字符串。例如："this is a text"。
    - `python bytes`：用以表示二进制数据。例如：图片数据。
 
