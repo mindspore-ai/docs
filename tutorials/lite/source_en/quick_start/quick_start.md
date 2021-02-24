@@ -255,7 +255,7 @@ The inference process code is as follows. For details about the complete code, s
         delete context;
         ```
 
-    - Based on the model file `modelbuffer`, the computational graph for inference is constructed.
+    - Based on the model file `modelBuffer`, the computational graph for inference is constructed.
 
         ```cpp
        void MSNetWork::CreateSessionMS(char *modelBuffer, size_t bufferLen, mindspore::lite::Context *ctx) {
