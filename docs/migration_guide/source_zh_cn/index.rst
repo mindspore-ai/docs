@@ -8,3 +8,15 @@ MindSpore迁移指南
 
 .. toctree::
    :maxdepth: 1
+
+   overview
+   preparation
+   script_analysis
+   script_development
+   operator_development_and_debug
+   neural_network_debug
+   accuracy_optimization
+   performance_optimization
+   inference
+   sample_code
+   faq
