@@ -149,6 +149,8 @@ export ASCEND_OPP_PATH=${install_path}/opp
 - `--output`：转换得到的OM模型文件的路径。
 - `--input_format`：输入数据格式。
 
+ATC工具详细资料可在[昇腾社区开发者文档](https://ascend.huawei.com/#/document?tag=developer)中选择相应CANN版本后，查找《ATC工具使用指南》章节查看。
+
 ## 编译推理代码
 
 进入工程目录`acl_resnet50_sample`，设置如下环境变量：

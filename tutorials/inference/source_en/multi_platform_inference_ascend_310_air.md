@@ -149,6 +149,8 @@ In the preceding information:
 - `--output`: path of the converted OM model file
 - `--input_format`: input image format
 
+For detailed information about ATC tools, please select the corresponding CANN version in the [Developer Documentation(Community Edition)](https://ascend.huawei.com/en/#/document?tag=developer), and then search for the chapter of "ATC Tool Instructions".
+
 ## Building Inference Code
 
 Go to the project directory `acl_resnet50_sample` and set the following environment variables:
