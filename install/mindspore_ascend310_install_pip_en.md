@@ -13,7 +13,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_pip_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment.
+The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
 ## Checking System Environment Information
 
