@@ -26,8 +26,6 @@ Author: [Yi Yang](https://github.com/helloyesterday)&nbsp;&nbsp;&nbsp;&nbsp;Edit
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/quick_start/linear_regression.md" target="_blank"><img src="../_static/logo_source.png"></a>
-&nbsp;&nbsp;
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/mindspore_linear_regression.ipynb" target="_blank"><img src="../_static/logo_notebook.png"></a>
 
 ## Overview
 
@@ -41,13 +39,11 @@ The whole process is as follows:
 4. Prepare for fitting process visualization.
 5. Perform training.
 
-Source code address of this example: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>.
+> This document is applicable to CPU, GPU and Ascend environments. The source code address of this example: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py>.
 
 ## Environment Preparation
 
 Complete MindSpore running configuration.
-
-Third-party support package: `matplotlib`. If this package is not installed, run the `pip install matplotlib` command to install it first.
 
 ```python
 from mindspore import context
@@ -58,6 +54,8 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 `GRAPH_MODE`: graph mode.
 
 `device_target`: sets the MindSpore training hardware to CPU.
+
+> Third-party support package: `matplotlib`. If this package is not installed, run the `pip install matplotlib` command to install it first.
 
 ## Generating Datasets
 
@@ -189,7 +187,7 @@ from mindspore import Tensor
 x_model_label = np.array([-10, 10, 0.1])
 y_model_label = (x_model_label * Tensor(model_params[0]).asnumpy()[0][0] +
                  Tensor(model_params[1]).asnumpy()[0])
-
+plt.axis([-10, 10, -20, 25])
 plt.scatter(x_eval_label, y_eval_label, color="red", s=5)
 plt.plot(x_model_label, y_model_label, color="blue")
 plt.plot(x_target_label, y_target_label, color="green")
@@ -285,12 +283,14 @@ def plot_model_and_datasets(net, eval_data):
     plt.plot(x, y, color="blue")
     plt.plot(x_target, y_target, color="green")
     plt.show()
-    time.sleep(0.02)
+    time.sleep(0.2)
 ```
 
 ### Defining the Callback Function
 
 MindSpore provides tools to customize the model training process. The following calls the visualization function in `step_end` to display the fitting process. For more information, see [Customized Debugging Information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#callback).
+
+- `display.clear_output`：Clear the printed content to achieve dynamic fitting effect.
 
 ```python
 from IPython import display
