@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: An error occurs when the `Concat` operator concatenates tuples containing multiple tensors. An error occurs when the number of `tensor list` elements entered is greater than or equal to 192. What is a better solution (running in dynamic mode) for `Concat` to concatenate tuples containing multiple Tensors?**</font>
+
+A: The number of tensors to be concatenated at a time cannot exceed 192 according to the bottom-layer specifications of the Ascend operator. You can try to concatenate them twice.
+
+<br/>
+
 <font size=3>**Q: When `Conv2D` is used to define convolution, the `group` parameter is used. Is it necessary to ensure that the value of `group` can be exactly divided by the input and output dimensions? How is the group parameter transferred?**</font>
 
 A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use `ops.Conv2D`. Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the `nn.Conv2d` API of MindSpore supports `group` convolution. However, the number of groups must be the same as the number of input and output channels.
