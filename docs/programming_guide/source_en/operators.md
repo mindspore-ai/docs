@@ -152,7 +152,7 @@ def add_scalar(x, y):
 
 @add.register("Tensor", "Tensor")
 def add_tensor(x, y):
-    return ops.tensor_add(x, y)
+    return ops.add(x, y)
 
 tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
 tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
