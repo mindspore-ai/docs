@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: Does MindSpore Serving support hot loading to avoid inference service interruption?**</font>
+
+A: MindSpore does not support hot loading. It is recommended that you run multiple Serving services and restart some of them when switching the version.
+
+<br/>
+
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
 A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
