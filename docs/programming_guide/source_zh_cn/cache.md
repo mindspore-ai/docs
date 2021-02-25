@@ -84,6 +84,26 @@
 
     用户可通过`ps -ef|grep cache_server`命令来检查服务器是否已启动以及查询服务器参数。
 
+    用户也可通过`cache_admin --server_info`命令查看服务器的详细参数列表。
+
+    ```shell
+    $ cache_admin --server_info
+    Cache Server Configuration:
+    ----------------------------------------
+             config name          value
+    ----------------------------------------
+                hostname      127.0.0.1
+                    port          50052
+       number of workers             16
+               log level              1
+                   spill       disabled
+    ----------------------------------------
+    Active sessions:
+    No active sessions.
+    ```
+
+    其中，Cache Server Configuration表格分别列出了当前服务器的IP地址、端口号、工作线程数、日志等级、溢出路径等详细配置信息。Active sessions模块展示了当前服务器中已启用的session ID列表。
+
     > - 设置cache_server初始化参数时，要先确认系统可用内存和待加载数据集大小，cache_server初始化容量或待加载数据集空间占耗超过系统可用内存时，都有可能导致机器宕机/重启、cache_server自动关闭、训练流程执行失败等问题。
     > - 若要启用数据溢出功能，则用户在启动缓存服务器时必须使用`-s`参数对溢出路径进行设置，否则该功能默认关闭。
 
