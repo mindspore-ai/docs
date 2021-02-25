@@ -101,7 +101,7 @@ In order to divide the stages, the Step Trace Component need to figure out the f
 
 #### Operator Performance Analysis
 
-The operator performance analysis component is used to display the execution time of the operators during MindSpore run.
+The operator performance analysis component is used to display the execution time of the operators(AICORE/AICPU/HOSTCPU) during MindSpore run.
 
 ![op_type_statistics.png](./images/op_type_statistics.PNG)
 
@@ -186,7 +186,7 @@ Common scenarios of CPU utilization:
 
 The Timeline component can display:
 
-- The operators (AICore/AICPU operators) are executed on which device.
+- The operators (AICORE/AICPU/HOSTCPU operators) are executed on which device.
 - The MindSpore stream split strategy for this neural network.
 - The execution sequence and execution time of the operator on the device.
 

@@ -105,7 +105,7 @@ profiler.analyse()
 
 #### 算子性能分析
 
-使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示。
+使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括AICORE、AICPU、HOSTCPU算子)。
 
 ![op_type_statistics.png](./images/op_type_statistics.PNG)
 
@@ -191,7 +191,7 @@ CPU利用率常用场景:
 
 Timeline组件可以展示：  
 
-- 算子分配到哪个设备（AICPU、AICore等）执行。
+- 算子分配到哪个设备（AICPU、AICORE、HOSTCPU）执行。
 - MindSpore对该网络的流切分策略。
 - 算子在Device上的执行序列和执行时长。
 
