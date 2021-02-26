@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
+<font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
 A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
 
