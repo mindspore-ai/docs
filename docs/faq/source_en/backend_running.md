@@ -4,6 +4,38 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: How do I view the number of model parameters?**</font>
+
+A: You can load the checkpoint to count the parameter number. Variables in the momentum and optimizer may be counted, so you need to filter them out.
+You can refer to the following APIs to collect the number of network parameters:
+
+```python
+def count_params(net):
+    """Count number of parameters in the network
+    Args:
+        net (mindspore.nn.Cell): Mindspore network instance
+    Returns:
+        total_params (int): Total number of trainable params
+    """
+    total_params = 0
+    for param in net.trainable_params():
+        total_params += np.prod(param.shape)
+    return total_params
+```
+
+[Script Link](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py).
+
+<br/>
+
+<font size=3>**Q: How do I build a multi-label MindRecord dataset for images?**</font>
+
+A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
+
+Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/convert_dataset.html#id3).
+
+<br/>
+
 <font size=3>**Q: How do I monitor the loss during training and save the training parameters when the `loss` is the lowest?**</font>
 
 A: You can customize a `callback`.For details, see the writing method of `ModelCheckpoint`. In addition, the logic for determining loss is added.
@@ -97,7 +129,27 @@ A: Currently, the PyNative mode supports only Ascend and GPU and does not suppor
 
 <font size=3>**Q: For Ascend users, how to get more detailed logs when the `run task error` is reported?**</font>
 
-A: More detailed logs info can be obtained by modify slog config file. You can get different level by modify `/var/log/npu/conf/slog/slog.conf`. The values are as follows: 0:debug、1:info、2:warning、3:error、4:null(no output log), default 1.
+A: Use the msnpureport tool to set the on-device log level. The tool is stored in `/usr/local/Ascend/driver/tools/msnpureport`.
+
+```bash
+- Global: /usr/local/Ascend/driver/tools/msnpureport -g info
+```
+
+```bash
+- Module-level: /usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+```
+
+```bash
+- Event-level: /usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+```
+
+```bash
+- Multi-device ID-level: /usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+```
+
+Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `Devices 0–3` share the same log configuration file and `devices 4–7` share the same configuration file. In this way, changing the log level of any device (for example device 0) will change that of other devices (for example `devices 1–3`). This rule also applies to `devices 4–7`.
+
+After the driver package is installed (assuming that the installation path is /usr/local/HiAI and the execution file `msnpureport.exe` is in the C:\ProgramFiles\Huawei\Ascend\Driver\tools\ directory on Windows), run the command in the /home/shihangbo/ directory to export logs on the device to the current directory and store logs in a folder named after the timestamp.
 
 <br/>
 
