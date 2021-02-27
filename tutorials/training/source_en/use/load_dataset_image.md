@@ -7,6 +7,8 @@
 - [Loading Image Dataset](#loading-image-dataset)
     - [Overview](#overview)
     - [Preparations](#preparations)
+        - [Importing Module](#importing-module)
+        - [Downloading Dataset](#downloading-dataset)
     - [Loading Dataset](#loading-dataset)
     - [Processing Data](#processing-data)
     - [Augmentation](#augmentation)
@@ -26,23 +28,39 @@ This tutorial uses the MNIST dataset [1] as an example to demonstrate how to loa
 
 ## Preparations
 
-1. Download and decompress the training [Image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [Label](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz) of the MNIST dataset to `./MNIST` directory. The directory structure is as follows.
+### Importing Module
 
-    ```text
-    └─MNIST
-        ├─train-images.idx3-ubyte
-        └─train-labels.idx1-ubyte
-    ```
+This module provides APIs to load and process data sets.
 
-2. Import the `mindspore.dataset` module.
-
-    ```python
+   ```python
     import mindspore.dataset as ds
-    ```
+   ```
+
+### Downloading Dataset
+
+Run the following command to download the training images and labels of the MNIST dataset and unzip them, put them in the path `./datasets/MNIST_Data`, the directory structure is as follows:
+
+```text
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
+!unzip -o MNIST_Data.zip -d ./datasets
+!tree ./datasets/MNIST_Data/
+```
+
+```text
+./datasets/MNIST_Data/
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
+    ├── train-images-idx3-ubyte
+    └── train-labels-idx1-ubyte
+
+2 directories, 4 files
+```
 
 ## Loading Dataset
 
-MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data.
+MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data. For the detailed loading method of various datasets, please refer to the [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html) in the programming guide.
 
 The following tutorial shows how to load the MNIST dataset using the `MnistDataset` in the `mindspore.dataset` module.
 
@@ -69,9 +87,11 @@ The following tutorial shows how to load the MNIST dataset using the `MnistDatas
 
     ![mnist_5](./images/mnist_5.png)
 
-In addition, users can pass in a sampler to specify the sampling process during dataset loading.
+In addition, users can pass in a `sampler` parameter to specify the sampling process during dataset loading. For the data samplers supported by MindSpore and their detailed usage methods, please refer to the programming guide [sampler](https://www.mindspore.cn/doc/programming_guide/en/master/sampler.html).
 
 ## Processing Data
+
+For the data processing operators currently supported by MindSpore and their detailed usage methods, please refer to the [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html) in the programming guide.
 
 The following tutorial demonstrates how to construct a pipeline and perform operations such as `shuffle`, `batch` and `repeat` on the MNIST dataset.
 
@@ -97,6 +117,7 @@ The output is as follows:
     ds.config.set_seed(58)
     ds1 = mnist_dataset.shuffle(buffer_size=6)
 
+    print('after shuffle: ')
     for data in ds1.create_dict_iterator():
         print(data['label'])
     ```
@@ -104,6 +125,7 @@ The output is as follows:
     The output is as follows:
 
     ```text
+    after shuffle:
     4
     2
     1
@@ -117,6 +139,7 @@ The output is as follows:
     ```python
     ds2 = ds1.batch(batch_size=2)
 
+    print('after batch: ')
     for data in ds2.create_dict_iterator():
         print(data['label'])
     ```
@@ -124,6 +147,7 @@ The output is as follows:
     The output is as follows:
 
     ```text
+    after batch:
     [4 2]
     [1 0]
     [5 9]
@@ -134,6 +158,7 @@ The output is as follows:
     ```python
     ds3 = ds2.repeat(count=2)
 
+    print('after repeat: ')
     for data in ds3.create_dict_iterator():
         print(data['label'])
     ```
@@ -141,6 +166,7 @@ The output is as follows:
     The output is as follows:
 
     ```text
+    after repeat
     [4 2]
     [1 0]
     [5 9]
@@ -154,6 +180,8 @@ The output is as follows:
     > Having `repeat` in the pipeline results in the execution of repeated operations defined in the entire pipeline, instead of simply copying the current dataset. So the order of the replica is different from that of the first copy after `shuffle`.
 
 ## Augmentation
+
+For the data augmentation operators supported by MindSpore and their detailed usage methods, please refer to the programming guide [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
 
 The following tutorial demonstrates how to use the `c_transforms` module to augment data in the MNIST dataset.
 
