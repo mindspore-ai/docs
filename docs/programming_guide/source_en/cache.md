@@ -86,6 +86,26 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     You can run the `ps -ef|grep cache_server` command to check whether the server is started and query server parameters.
 
+    You can also run the `cache_admin --server_info` command to get the full list of configuration of cache server.
+
+    ```shell
+    $ cache_admin --server_info
+    Cache Server Configuration:
+    ----------------------------------------
+             config name          value
+    ----------------------------------------
+                hostname      127.0.0.1
+                    port          50052
+       number of workers             16
+               log level              1
+                   spill       disabled
+    ----------------------------------------
+    Active sessions:
+    No active sessions.
+    ```
+
+    Where, the table of Cache Server Configuration lists five detailed configuration information. Active sessions shows the list of active session ID in current server if any.
+
     > - Before setting cache_server initialization parameters, check the available memory of the system and the size of the dataset to be loaded. If the memory of cache_server or the dataset size exceeds the available memory of the system, the server may break down or restart, the cache_server may automatically shut down, or the training process fails to be executed.
     > - To enable data spilling, you need to use `-s` to set spilling path when starting cache server. Otherwise, this feature is default to be disabled and it will bring up a memory-only cache server.
 
