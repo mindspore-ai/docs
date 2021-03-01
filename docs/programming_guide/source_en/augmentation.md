@@ -60,18 +60,27 @@ Crops the input image at a random position.
 
 The following example uses a sequential sampler to load the CIFAR-10 dataset [1], randomly crops the loaded image to 10 in both length and width, outputs the image shapes and labels before and after cropping, and displays the cropped image.
 
-Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it. The directory structure is as follows:
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
+
+```bash
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/cifar10.zip
+!unzip -o cifar10.zip -d ./datasets
+!tree ./datasets/cifar10
+```
 
 ```text
-└─cifar-10-batches-bin
-    ├── batches.meta.txt
-    ├── data_batch_1.bin
-    ├── data_batch_2.bin
-    ├── data_batch_3.bin
-    ├── data_batch_4.bin
-    ├── data_batch_5.bin
-    ├── readme.html
-    └── test_batch.bin
+./datasets/cifar10
+├── test
+│   └── test_batch.bin
+└── train
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    └── data_batch_5.bin
+
+2 directories, 7 files
 ```
 
 ```python
@@ -82,7 +91,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 ds.config.set_seed(5)
 ds.config.set_num_parallel_workers(1)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar10/train/"
 
 sampler = ds.SequentialSampler(num_samples=3)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -152,7 +161,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 ds.config.set_seed(6)
 ds.config.set_num_parallel_workers(1)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar10/train/"
 
 sampler = ds.RandomSampler(num_samples=4)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -216,12 +225,24 @@ Resizes the input image.
 
 The following example loads the MNIST dataset [2], resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
 
-Download the MNIST dataset training [image](http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz) and [labels](http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz), decompress them and store them in the `./MNIST` path. The directory structure is as follows:
+Download and decompress the MNIST dataset, store it in the `./datasets/MNIST_data/` path, execute the following command:
+
+```bash
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
+!unzip -o MNIST_Data.zip -d ./datasets
+!tree ./datasets/MNIST_Data/
+```
 
 ```text
-└─MNIST
-    ├─train-images.idx3-ubyte
-    └─train-labels.idx1-ubyte
+./datasets/MNIST_Data/
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
+    ├── train-images-idx3-ubyte
+    └── train-labels-idx1-ubyte
+
+2 directories, 4 files
 ```
 
 ```python
@@ -229,7 +250,7 @@ import matplotlib.pyplot as plt
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as c_trans
 
-DATA_DIR = "MNIST/"
+DATA_DIR = "./datasets/MNIST_Data/train/"
 
 dataset1 = ds.MnistDataset(DATA_DIR, num_samples=4, shuffle=False)
 
@@ -296,7 +317,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 
 ds.config.set_seed(8)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar10/train/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=4, shuffle=True)
 
@@ -370,7 +391,7 @@ from PIL import Image
 
 ds.config.set_seed(8)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar10/train/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=5, shuffle=True)
 def decode(image):

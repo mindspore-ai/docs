@@ -75,14 +75,14 @@ print(result.keys())
 print(result['weight'])
 ```
 
-In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `weight` parameter.
-
 The following information is displayed:
 
 ```text
 odict_keys(['weight'])
 Parameter (name=weight, shape=(20, 10, 3, 3), dtype=Float32, requires_grad=True)
 ```
+
+In the example, `Net` uses the preceding network building case to print names of all parameters on the network and the result of the `weight` parameter.
 
 ### cells_and_names
 
@@ -114,8 +114,6 @@ for m in net.cells_and_names():
 print('-------names-------')
 print(names)
 ```
-
-The following information is displayed:
 
 ```text
 ('', Net1<
@@ -236,7 +234,7 @@ The MindSpore framework provides abundant APIs at the layer of `mindspore.nn`. T
 
 - Mathematical computation layer
 
-The mathematical computation layer provides some computation functions formed by operators, for example, data generation and some other mathematical computations.
+  The mathematical computation layer provides some computation functions formed by operators, for example, data generation and some other mathematical computations.
 
   Main APIs include `ReduceLogSumExp`, `Range`, `LinSpace` and `LGamma`.
 
@@ -323,8 +321,6 @@ input_data = Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
 target_data = Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
 print(loss(input_data, target_data))
 ```
-
-The output is as follows:
 
 ```text
 1.5
