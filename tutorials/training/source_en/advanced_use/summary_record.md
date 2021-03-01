@@ -284,12 +284,12 @@ class ConfusionMatrixCallback(Callback):
     def __enter__(self):
         # init you summary record in here, when the train script run, it will be inited before training
         self.summary_record = SummaryRecord(self._summary_dir)
+        return self
 
     def __exit__(self, *exc_args):
         # Note: you must close the summary record, it will release the process pool resource
         # else your training script will not exit from training.
         self.summary_record.close()
-        return self
 
     def step_end(self, run_context):
         cb_params = run_context.original_args()
