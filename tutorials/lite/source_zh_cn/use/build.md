@@ -101,7 +101,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -e | 编译某种类型的内置算子，仅在ARM架构下适用，否则默认全部编译 | cpu、gpu、npu | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
-| -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包 | cpp、java | 否 |
+| -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包和Linux X86的JAR包。 | cpp、java | 否 |
 | -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
 | -o | 设置该参数，则编译基准测试工具、静态库裁剪工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
@@ -173,13 +173,13 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- 编译MindSpore Lite AAR，同时编译内置的CPU和GPU算子。
+- 编译MindSpore Lite AAR和Linux X86_64 JAR版本，MindSpore Lite AAR同时编译内置的CPU和GPU算子，JAR只编译内置的的CPU算子。
 
     ```bash
     bash build.sh -A java
     ```
 
-- 编译MindSpore Lite AAR，只编译内置的CPU算子。
+- 编译MindSpore Lite AAR和Linux X86_64 JAR版本，只编译内置的CPU算子。
 
     ```bash
     bash build.sh -A java -e cpu
@@ -290,6 +290,16 @@ unzip mindspore-lite-maven-{version}.zip
   │       └── mindspore-lite
   │           └── {version}
   │               ├── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
+  ```
+
+  ```text
+  │
+  ├── mindspore-lite-{version}-inference-linux-x64
+  │   └── lib # 推理框架库
+  │       └── jar
+  │           ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+  │           ├── libmindspore-lite-jni.so # MindSpore Lite JNI的动态库
+  │           ├── libmindspore-lite-java.jar # MindSpore Lite推理框架jar包
   ```
 
 > 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
