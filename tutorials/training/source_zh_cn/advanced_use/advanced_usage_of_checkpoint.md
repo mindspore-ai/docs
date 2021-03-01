@@ -18,7 +18,7 @@
 
 此文为MindSpore checkpoint的进阶用法，用于涉及使用checkpoint的复杂场景。
 
-基础用法可参考：[保存加载参数](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/use/save_model.html#checkpoint)。
+基础用法可参考：[保存加载参数](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)。
 
 ## 高级用法
 
