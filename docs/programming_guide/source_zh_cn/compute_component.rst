@@ -8,3 +8,4 @@
   parameter
   cell
   network_component
+  numpy
