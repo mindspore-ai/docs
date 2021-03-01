@@ -27,6 +27,8 @@ Currently, there are two execution modes of a mainstream deep learning framework
 
 A neural network model is usually trained based on gradient descent algorithm, but the manual derivation process is complex and the result is prone to errors. The automatic differentiation mechanism of MindSpore based on source code transformation (SCT) uses a functional differential programming architecture and provides Python APIs at the API layer, including the expression of control flows. Users can focus on the native mathematical expression of the model algorithm without manual derivation. The sample code for automatic differentiation is as follows:
 
+> This example is applicable to GPU and Ascend environments.
+
 ```python
 import mindspore as ms
 from mindspore import ops
@@ -50,6 +52,10 @@ def df2_func(x):
 if __name__ == "__main__":
     print(df2_func(ms.Tensor(2, ms.float32)))
 
+```
+
+```text
+12.0
 ```
 
 In the first step, a function (computational graph) is defined. In the second step, automatic differentiation is performed by using a backward API provided by MindSpore, and the first derivative function (computational graph) is defined. In the third step, the second derivative function (computational graph) is defined. After the input is given, the second derivative of the function defined in step 1 can be obtained at the specified position. The result of the second derivative is `12`.
