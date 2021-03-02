@@ -138,6 +138,7 @@ Normalization Layers
     mindspore.nn.MatrixDiag
     mindspore.nn.MatrixDiagPart
     mindspore.nn.MatrixSetDiag
+    mindspore.nn.SyncBatchNorm
 
 Pooling layers
 --------------
