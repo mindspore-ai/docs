@@ -73,7 +73,7 @@ docker run -it swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-cpu:{tag} /b
 
     x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
     y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    print(ops.tensor_add(x, y))
+    print(ops.add(x, y))
     ```
 
     代码成功运行时会输出：

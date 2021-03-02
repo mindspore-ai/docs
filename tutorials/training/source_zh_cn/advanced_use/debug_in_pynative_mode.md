@@ -90,14 +90,14 @@ import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-def tensor_add_func(x, y):
-    z = ops.tensor_add(x, y)
-    z = ops.tensor_add(z, x)
+def add_func(x, y):
+    z = ops.add(x, y)
+    z = ops.add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
 y = Tensor(np.ones([3, 3], dtype=np.float32))
-output = tensor_add_func(x, y)
+output = add_func(x, y)
 print(output.asnumpy())
 ```
 
@@ -139,8 +139,8 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 net = TensorAddNet()
 
 z = net(x, y) # Staging mode
-tensor_add = ops.Add()
-res = tensor_add(x, z) # PyNative mode
+add = ops.Add()
+res = add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
 
@@ -153,9 +153,9 @@ print(res.asnumpy())
  [3. 3. 3. 3.]]
 ```
 
-上述示例代码中，在`TensorAddNet`类的`construct`之前加装了`ms_function`装饰器，该装饰器会将`construct`方法编译成计算图，在给定输入之后，以图的形式下发执行，而上一示例代码中的`tensor_add`会直接以普通的PyNative的方式执行。
+上述示例代码中，在`TensorAddNet`类的`construct`之前加装了`ms_function`装饰器，该装饰器会将`construct`方法编译成计算图，在给定输入之后，以图的形式下发执行，而上一示例代码中的`add`会直接以普通的PyNative的方式执行。
 
-需要说明的是，加装了`ms_function`装饰器的函数中，如果包含不需要进行参数训练的算子（如`pooling`、`tensor_add`等算子），则这些算子可以在被装饰的函数中直接调用，如下例所示。
+需要说明的是，加装了`ms_function`装饰器的函数中，如果包含不需要进行参数训练的算子（如`pooling`、`add`等算子），则这些算子可以在被装饰的函数中直接调用，如下例所示。
 
 示例代码：
 
@@ -168,16 +168,16 @@ from mindspore import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-tensor_add = ops.Add()
+add = ops.Add()
 
 @ms_function
-def tensor_add_fn(x, y):
-    res = tensor_add(x, y)
+def add_fn(x, y):
+    res = add(x, y)
     return res
 
 x = Tensor(np.ones([4, 4]).astype(np.float32))
 y = Tensor(np.ones([4, 4]).astype(np.float32))
-z = tensor_add_fn(x, y)
+z = add_fn(x, y)
 print(z.asnumpy())
 ```
 

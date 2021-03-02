@@ -78,14 +78,14 @@ from mindspore.ops import functional as F
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
 
-def tensor_add_func(x, y):
-    z = F.tensor_add(x, y)
-    z = F.tensor_add(z, x)
+def add_func(x, y):
+    z = F.add(x, y)
+    z = F.add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
 y = Tensor(np.ones([3, 3], dtype=np.float32))
-output = tensor_add_func(x, y)
+output = add_func(x, y)
 print(output.asnumpy())
 ```
 

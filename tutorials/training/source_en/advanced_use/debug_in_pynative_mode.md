@@ -86,14 +86,14 @@ import mindspore.ops as ops
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-def tensor_add_func(x, y):
-    z = ops.tensor_add(x, y)
-    z = ops.tensor_add(z, x)
+def add_func(x, y):
+    z = ops.add(x, y)
+    z = ops.add(z, x)
     return z
 
 x = Tensor(np.ones([3, 3], dtype=np.float32))
 y = Tensor(np.ones([3, 3], dtype=np.float32))
-output = tensor_add_func(x, y)
+output = add_func(x, y)
 print(output.asnumpy())
 ```
 
@@ -135,8 +135,8 @@ y = Tensor(np.ones([4, 4]).astype(np.float32))
 net = TensorAddNet()
 
 z = net(x, y) # Staging mode
-tensor_add = ops.Add()
-res = tensor_add(x, z) # PyNative mode
+add = ops.Add()
+res = add(x, z) # PyNative mode
 print(res.asnumpy())
 ```
 
@@ -149,9 +149,9 @@ Output:
  [3. 3. 3. 3.]]
 ```
 
-In the preceding code, the `ms_function` decorator is added before `construct` of the `TensorAddNet` class. The decorator compiles the `construct` method into a computational graph. After the input is given, the graph is delivered and executed, `tensor_add` in the preceding code is executed in the common PyNative mode.
+In the preceding code, the `ms_function` decorator is added before `construct` of the `TensorAddNet` class. The decorator compiles the `construct` method into a computational graph. After the input is given, the graph is delivered and executed, `add` in the preceding code is executed in the common PyNative mode.
 
-It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `tensor_add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
+It should be noted that, in a function to which the `ms_function` decorator is added, if an operator (such as `pooling` or `add`) that does not need parameter training is included, the operator can be directly called in the decorated function, as shown in the following example:
 
 Example Code:
 
@@ -164,16 +164,16 @@ from mindspore import ms_function
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
 
-tensor_add = ops.Add()
+add = ops.Add()
 
 @ms_function
-def tensor_add_fn(x, y):
-    res = tensor_add(x, y)
+def add_fn(x, y):
+    res = add(x, y)
     return res
 
 x = Tensor(np.ones([4, 4]).astype(np.float32))
 y = Tensor(np.ones([4, 4]).astype(np.float32))
-z = tensor_add_fn(x, y)
+z = add_fn(x, y)
 print(z.asnumpy())
 ```
 
