@@ -1,8 +1,8 @@
-# MindSpore Numpy 函数使用介绍
+# MindSpore Numpy函数使用介绍
 
 <!-- TOC -->
 
-- [MindSpore Numpy 函数使用介绍](#mindspore-numpy-函数使用介绍)
+- [MindSpore Numpy函数使用介绍](#mindspore-numpy函数使用介绍)
     - [概述](#概述)
     - [算子介绍](#算子介绍)
         - [张量生成](#张量生成)
@@ -21,7 +21,7 @@
             - [指数](#指数)
     - [MindSpore框架赋能](#mindspore框架赋能)
         - [ms_function使用示例](#ms_function使用示例)
-        - [GradOperation 使用示例](#gradoperation-使用示例)
+        - [GradOperation使用示例](#gradoperation使用示例)
         - [mindspore.context使用示例](#mindsporecontext使用示例)
         - [mindspore.numpy使用示例](#mindsporenumpy使用示例)
 
@@ -35,11 +35,11 @@ MindSpore Numpy工具包提供了一系列类Numpy接口。用户可以使用类
 
 ## 算子介绍
 
-MindSpore Numpy具有四大功能模块：张量生成，张量操作，逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[Numpy Interface List](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.numpy.html).
+MindSpore Numpy具有四大功能模块：张量生成，张量操作，逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[Numpy Interface List](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.numpy.html)。
 
 ### 张量生成
 
-生成类算子用来生成和构建具有指定数值，类型和形状的数组(Tensor).
+生成类算子用来生成和构建具有指定数值，类型和形状的数组(Tensor)。
 
 示例：
 
@@ -217,7 +217,7 @@ print(output)
 
 ### 逻辑运算
 
-逻辑计算类算子主要进行逻辑运算.
+逻辑计算类算子主要进行逻辑运算。
 
 示例：
 
@@ -363,9 +363,9 @@ print(forward_compiled(x, w1, b1, w2, b2, w3, b3))
 ```
 
 **注意**:
-目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function).
+目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function)。
 
-### GradOperation 使用示例
+### GradOperation使用示例
 
 `GradOperation` 可以实现自动求导。以下示例可以实现对上述没有用`ms_function`修饰的`forward`函数定义的计算求导。
 
@@ -394,7 +394,7 @@ forward_compiled = ms_function(forward)
 print(grad_all(forward_compiled)(x, w1, b1, w2, b2, w3, b3))
 ```
 
- 更多细节可参考[API: GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GradOperation.html).
+ 更多细节可参考[API: GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GradOperation.html)。
 
 ### mindspore.context使用示例
 
@@ -421,13 +421,13 @@ context.set_context(device_target="Ascend")
 ...
 ```
 
- 更多细节可参考[API: mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html).
+ 更多细节可参考[API: mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html)。
 
 ### mindspore.numpy使用示例
 
 这里提供一个使用`mindspore.numpy`构建网络模型的示例。
 
-`mindspore.numpy` 的多数算子可以使用图模式或者动态模式运行，也可以运行在CPU，CPU或者Ascend等多种后端设备上.
+`mindspore.numpy` 的多数算子可以使用图模式或者动态模式运行，也可以运行在CPU，CPU或者Ascend等多种后端设备上。
 
 `mindspore.numpy` 接口可以定义在`nn.Cell`代码块内进行网络的构建，示例如下：
 
@@ -461,4 +461,4 @@ net = NeuralNetwork()
 print(net(x, w1, b1, w2, b2, w3, b3))
 ```
 
-更多构建网络的细节可以参考[MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html).
+更多构建网络的细节可以参考[MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
