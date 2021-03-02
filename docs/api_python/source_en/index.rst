@@ -55,3 +55,9 @@ MindSpore Python API
    :caption: MindSpore Serving Python API
 
    mindspore_serving/mindspore_serving
+
+.. toctree::
+   :maxdepth: 1
+   :caption: MindQuantum Python API
+
+   mindquantum/mindquantum
