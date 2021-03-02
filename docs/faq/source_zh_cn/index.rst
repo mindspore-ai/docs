@@ -20,3 +20,4 @@ MindSpore FAQ
   mindinsight_use
   mindspore_lite
   mindspore_cpp_library
+  mindspore_serving
