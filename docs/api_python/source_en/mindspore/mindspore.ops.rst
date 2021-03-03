@@ -45,6 +45,8 @@ The functional operators are the pre-instantiated Primitive operators, which can
 
    * - functional
      - operations
+   * - mindspore.ops.add
+     - :class:`mindspore.ops.Add`
    * - mindspore.ops.addn
      - :class:`mindspore.ops.AddN`
    * - mindspore.ops.array_reduce
@@ -205,8 +207,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.Primitive` ('string_concat')               
    * - mindspore.ops.string_eq
      - :class:`mindspore.ops.Primitive` ('string_equal')               
-   * - mindspore.ops.add
-     - :class:`mindspore.ops.Add`
    * - mindspore.ops.tensor_div
      - :class:`mindspore.ops.RealDiv`
    * - mindspore.ops.tensor_floordiv
