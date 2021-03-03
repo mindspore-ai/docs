@@ -163,8 +163,8 @@ print('scalar', add(1, 2))
 The following information is displayed:
 
 ```text
-tensor [[2.4, 4.2]
- [4.4, 6.4]]
+tensor [[2.4 4.2]
+ [4.4 6.4]]
 scalar 3
 ```
 
@@ -241,7 +241,7 @@ print(input_x + input_y)
  The following information is displayed:
 
 ```text
-[4.0 5.0 7.0]
+[4. 5. 7.]
 ```
 
 #### Element-wise Multiplication
@@ -287,7 +287,7 @@ print(output)
  The following information is displayed:
 
 ```text
-[0.7377037, 1.5307858, 1.2661037, 0.97641146]
+[0.7377037 1.5307858 1.2661037 0.97641146]
 ```
 
 ### Vector Operations
