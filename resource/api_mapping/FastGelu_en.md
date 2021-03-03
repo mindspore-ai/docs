@@ -2,4 +2,4 @@
 
 PyTorch: Cumulative distribution function based on Gaussian distribution.
 
-MindSpore：The calculation formula is different from that of PyTorch, which has better performance.
+MindSpore：Compared with PyTorch, MindSpore adopts a different calculation formula and has better performance.
