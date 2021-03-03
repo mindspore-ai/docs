@@ -104,7 +104,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -e | In the ARM architecture, select the backend operator. Otherwise, all operator of the framework is compiled at the same time. | cpu, gpu, npu | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
-| -A | Language used by mindspore lite, default cpp. If the parameter is set to java，the AAR is compiled. | cpp, java | No |
+| -A | Language used by mindspore lite, default cpp. If the parameter is set to java, the AAR and JAR for Linux x86 are compiled. | cpp, java | No |
 | -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
 | -o | If this parameter is set, the benchmark and static library crop tool are compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
@@ -176,13 +176,13 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I arm64 -n lite_cv
     ```
 
-- Compile MindSpore Lite AAR, with the built-in CPU and GPU operators compiled:
+- Compile MindSpore Lite AAR and JAR for Linux x86, AAR compiles the built-in CPU and GPU operators at the same time, but JAR only compiles the built-in CPU:
 
     ```bash
     bash build.sh -A java
     ```
 
-- Compile MindSpore Lite AAR, with the built-in CPU operators compiled:
+- Compile MindSpore Lite AAR and JAR for Linux x86, with the built-in CPU operators compiled:
 
     ```bash
     bash build.sh -A java -e cpu

@@ -50,7 +50,7 @@
 
 ![img](../images/lite_runtime.png)
 
-> 快速了解MindSpore Lite执行推理的完整调用流程，请参考体验Mindspore Lite C++极简Demo。
+> 快速了解MindSpore Lite执行推理的完整调用流程，请参考体验MindSpore Lite C++极简Demo。
 
 ## 模型加载
 
@@ -203,8 +203,8 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    ```cpp
    // Pre-processing of input data, convert input data format to NHWC.
    ...
-   // Assume that the model has only one input tensor named 2029_2028_1_construct_wrapper:x.
-   auto in_tensor = session->GetInputsByTensorName("2029_2028_1_construct_wrapper:x");
+   // Assume that the model has only one input tensor named 2031_2030_1_construct_wrapper:x.
+   auto in_tensor = session->GetInputsByTensorName("2031_2030_1_construct_wrapper:x");
    if (in_tensor == nullptr) {
        std::cerr << "Input tensor is nullptr" << std::endl;
    }
@@ -236,7 +236,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    // Users need to free input_buf.
    ```
 
-> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考的[实现一个图像分类应用对输入数据进行处理部分](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html#id11)。
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考[实现一个图像分类应用对输入数据进行处理部分](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html#id11)。
 >
 > [GetInputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputs)和[GetInputsByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbyname)方法返回的vector不需要用户释放。
 
@@ -261,8 +261,8 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
 
    ```cpp
    // Assume we have created a LiteSession instance named session before.
-   // Assume that model has a output node named Default/Sigmoid-op204.
-   auto output_vec = session->GetOutputsByNodeName("Default/Sigmoid-op204");
+   // Assume that model has a output node named Default/head-MobileNetV2Head/Softmax-op204.
+   auto output_vec = session->GetOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
    // Assume that output node named Default/Sigmoid-op204 has only one output tensor.
    auto out_tensor = output_vec.front();
    if (out_tensor == nullptr) {
@@ -288,7 +288,7 @@ MindSpore Lite在执行完推理后，就可以获取模型的推理结果。Min
    }
    ```
 
-   使用[GetOutputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)方法，直接获取所有的模型输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的名称和[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)指针的一个map，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L242)演示如何调用`GetOutputs`获得输出Tensor。
+3. 使用[GetOutputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getoutputs)方法，直接获取所有的模型输出[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)的名称和[MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html#mstensor)指针的一个map，下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L242)演示如何调用`GetOutputs`获得输出Tensor。
 
    ```cpp
    // Assume we have created a LiteSession instance named session.

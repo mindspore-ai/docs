@@ -6,17 +6,26 @@
 
 - [使用Runtime执行推理（Java）](#使用runtime执行推理java)
     - [概述](#概述)
-    - [Android项目引用AAR包](#android项目引用aar包)
-    - [运行MindSpore Lite推理框架](#运行mindspore-lite推理框架)
-        - [加载模型](#加载模型)
-        - [创建配置上下文](#创建配置上下文)
-        - [创建会话](#创建会话)
-        - [图编译](#图编译)
-        - [输入数据](#输入数据)
-        - [图执行](#图执行)
-        - [获得输出](#获得输出)
-        - [释放内存](#释放内存)
-    - [Android项目使用MindSpore Lite推理框架示例](#android项目使用mindspore-lite推理框架示例)
+    - [引用MindSpore Lite Java库](#引用mindspore-lite-java库)
+        - [Linux X86项目引用JAR库](#linux-x86项目引用jar库)
+        - [Android项目引用AAR库](#android项目引用aar库)
+    - [加载模型](#加载模型)
+    - [创建配置上下文](#创建配置上下文)
+        - [配置使用CPU后端](#配置使用cpu后端)
+        - [配置使用GPU后端](#配置使用gpu后端)
+    - [创建会话](#创建会话)
+    - [图编译](#图编译)
+    - [输入数据](#输入数据)
+    - [执行推理](#执行推理)
+    - [获得输出](#获得输出)
+    - [释放内存](#释放内存)
+    - [高级用法](#高级用法)
+        - [优化运行内存大小](#优化运行内存大小)
+        - [绑核操作](#绑核操作)
+        - [输入维度Resize](#输入维度resize)
+        - [Session并行](#session并行)
+        - [查看日志](#查看日志)
+        - [获取版本号](#获取版本号)
 
 <!-- /TOC -->
 
@@ -24,13 +33,46 @@
 
 ## 概述
 
-通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用Java接口编写推理代码。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[JAVA接口](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)执行推理。
 
-> 更多Java API说明，请参考 [API文档](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)。
+Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)或者[Java API](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html)运行推理框架。Java API与C++ API相比较而言，Java API可以直接在Java Class中调用，用户无需实现JNI层的相关代码，具有更好的便捷性。运行MindSpore Lite推理框架主要包括以下步骤：
 
-## Android项目引用AAR包
+1. 模型加载：从文件系统中读取由[模型转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)转换得到的`.ms`模型，通过Model的[loadModel](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#loadmodel)导入模型。
+2. 创建配置上下文：创建配置上下文[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用Float16算子。
+3. 创建会话：创建[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)，并调用[init](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#init)方法将上一步得到的[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)配置到会话中。
+4. 图编译：在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[compileGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)创建一次，编译一次，多次执行。
+5. 输入数据：图执行之前需要向输入Tensor中填充数据。
+6. 执行推理：使用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#rungraph)进行模型推理。
+7. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
+8. 释放内存：无需使用MindSpore Lite推理框架的时候，需要释放已创建的[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)和[model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)。
 
-首先将`mindspore-lite-{version}.aar`文件移动到目标module的**libs**目录，然后在目标module的`build.gradle`的`repositories`中添加本地引用目录，最后在`dependencies`中添加aar的依赖，具体如下所示。
+![img](../images/lite_runtime.png)
+
+## 引用MindSpore Lite Java库
+
+### Linux X86项目引用JAR库
+
+采用`Maven`作为构建工具时，可将`mindspore-lite-java.jar`拷贝到根目录下的`lib`目录，并在`pom.xml`中增加jar包的依赖。
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.mindspore.lite</groupId>
+        <artifactId>mindspore-lite-java</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${project.basedir}/lib/mindspore-lite-java.jar</systemPath>
+    </dependency>
+</dependencies>
+```
+
+> 运行时需要将`libmindspore-lite.so`以及`libminspore-lite-jni.so`的所在路径添加到`java.library.path`。
+
+### Android项目引用AAR库
+
+采用`Gradle`作为构建工具时，首先将`mindspore-lite-{version}.aar`文件移动到目标module的`libs`目录，然后在目标module的`build.gradle`的`repositories`中添加本地引用目录，最后在`dependencies`中添加AAR的依赖，具体如下所示。
+
+> 注意mindspore-lite-{version}是AAR的文件名，需要将{version}替换成对应版本信息。
 
 ```groovy
 repositories {
@@ -40,225 +82,284 @@ repositories {
 }
 
 dependencies {
-    implementation(name:'mindspore-lite-{version}', ext:'aar')
+    implementation fileTree(dir: "libs", include: ['*.aar'])
 }
 ```
 
-> 注意mindspore-lite-{version}是aar的文件名，需要将{version}替换成对应版本信息。
+## 加载模型
 
-## 运行MindSpore Lite推理框架
+MindSpore Lite进行模型推理时，需要先从文件系统中加载模型转换工具转换后的`.ms`模型，并进行模型解析。Java的[model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)类提供了2个[loadModel](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#loadmodel)接口，使其可以从`Assets`或其他文件路径中加载模型。
 
-Android项目中使用MindSpore Lite，可以选择采用C++ APIs或者Java APIs运行推理框架。Java APIs与C++ APIs相比较而言，Java APIs可以直接在Java Class中调用，无需实现JNI层的相关代码，具有更好的便捷性。运行Mindspore Lite推理框架主要包括以下步骤：
-
-1. 加载模型：从文件系统中读取MindSpore Lite模型，并进行模型解析。
-2. 创建配置上下文：创建配置上下文[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。主要包括`deviceType`：设备类型、`threadNum`：线程数、`cpuBindMode`：CPU绑定模式、`enable_float16`：是否优先使用float16算子。
-3. 创建会话：创建[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)，并调用[init](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#init)方法将上一步得到[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)配置到会话中。
-4. 图编译：在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[compileGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)创建一次，编译一次，多次执行。
-5. 输入数据：图执行之前需要向输入Tensor中填充数据。
-6. 图执行：使用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#rungraph)进行模型推理。
-7. 获得输出：图执行结束之后，可以通过输出Tensor得到推理结果。
-8. 释放内存：无需使用MindSpore Lite推理框架的时候，需要将创建的[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)和[model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)进行释放。
-
-### 加载模型
-
-MindSpore Lite进行模型推理时，需要先从文件系统中加载模型转换工具转换后的`.ms`模型，并进行模型解析。Java的[model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)类提供了[loadModel](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#loadmodel)，使其可以从`Assets`或其他文件路径中加载模型。
+下面示例代码将从`Assets`读取`mobilenetv2.ms`模型文件进行模型加载。
 
 ```java
 // Load the .ms model.
-model = new Model();
-if (!model.loadModel(context, "model.ms")) {
-    Log.e("MS_LITE", "Load Model failed");
-    return false;
-}
+Model model = new Model();
+String modelPath = "mobilenetv2.ms";
+boolean ret = model.loadModel(this.getApplicationContext(), modelPath);
 ```
 
-### 创建配置上下文
+>只有`AAR`库才支持从`Assert`加载模型文件的接口。
+
+下面示例代码将从`modelPath`路径读取模型文件进行模型加载。
+
+```java
+Model model = new Model();
+boolean ret = model.loadModel(modelPath);
+```
+
+## 创建配置上下文
 
 创建配置上下文[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)，保存会话所需的一些基本配置参数，用于指导图编译和图执行。
 
 MindSpore Lite支持异构推理，推理时的主选后端由[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)的`deviceType`指定，目前支持CPU和GPU。在进行图编译时，会根据主选后端进行算子选型调度。
 
-MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程，推荐最多不超过4个线程，否则可能会影响性能。
+MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite支持float16算子的模式进行推理。`enable_float16`设置为`true`后，将会优先使用float16算子。
+MindSpore Lite支持> 注意mindspore-lite-{version}是AAR的文件名，需要将{version}替换成对应版本信息。算子的模式进行推理。`enable_float16`设置为`true`后，将会优先使用Float16算子。
+
+### 配置使用CPU后端
+
+当需要执行的后端为CPU时，`MSConfig`创建后需要在[init](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#init)中配置`DeviceType.DT_CPU`，同时CPU支持设置绑核模式以及是否优先使用Float16算子。
+
+下面示例代码演示如何创建CPU后端，同时设定CPU绑核模式为大核优先并且使能Float16推理：
 
 ```java
-// Create and init config.
 MSConfig msConfig = new MSConfig();
-if (!msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.MID_CPU, true)) {
-    Log.e("MS_LITE", "Init context failed");
-    return false;
-}
+boolean ret = msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.HIGHER_CPU, true);
 ```
 
-### 创建会话
+> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型会自动回退到Float32执行。
+
+### 配置使用GPU后端
+
+当需要执行的后端为CPU和GPU的异构推理时，`MSConfig`创建后需要在[init](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#init)中配置`DeviceType.DT_GPU`，配置后将会优先使用GPU推理。同时是否优先使用Float16算子设置为true后，GPU和CPU都会优先使用Float16算子。
+
+下面示例代码演示如何创建CPU与GPU异构推理后端，同时GPU也设定使能Float16推理：
+
+```java
+MSConfig msConfig = new MSConfig();
+boolean ret = msConfig.init(DeviceType.DT_GPU, 2, CpuBindMode.MID_CPU, true);
+```
+
+> 目前GPU只能在Android手机端侧运行，所以只有`AAR`库才能支持运行。
+
+## 创建会话
 
 [LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)是推理的主入口，通过[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)可以进行图编译、图执行。创建[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)，并调用[init](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#init)方法将上一步得到[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)配置到会话中。[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)初始化之后，[MSConfig](https://www.mindspore.cn/doc/api_java/zh-CN/master/msconfig.html#msconfig)将可以进行释放操作。
 
 ```java
-// Create the MindSpore lite session.
-session = new LiteSession();
-if (!session.init(msConfig)) {
-    Log.e("MS_LITE", "Create session failed");
-    msConfig.free();
-    return false;
-}
+LiteSession session = new LiteSession();
+boolean ret = session.init(msConfig);
 msConfig.free();
 ```
 
-### 图编译
+## 图编译
 
-在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[compileGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)创建一次，编译一次，多次执行。图编译结束之后，可以调用[Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)的[freeBuffer](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#freebuffer)函数，释放MindSpore Lite Model中的MetaGraph，用于减小运行时的内存，但释放后该[Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)就不能再次图编译。
+在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[compileGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#compilegraph)接口进行图编译，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)创建一次，编译一次，多次执行。
+
+```java
+boolean ret = session.compileGraph(model);
+```
+
+## 输入数据
+
+MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方法获得输入Tensor，同时支持`byte[]`或者`ByteBuffer`两种类型的数据，通过[setData](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#setdata)设置输入Tensor的数据。
+
+1. 使用[getInputsByTensorName](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getinputsbytensorname)方法，根据模型输入Tensor的名称来获取模型输入Tensor中连接到输入节点的Tensor，下面示例代码演示如何调用`getInputsByTensorName`获得输入Tensor并填充数据。
+
+    ```java
+    MSTensor inputTensor = session.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
+    // Set Input Data.
+    inputTensor.setData(inputData);
+    ```
+
+2. 使用[getInputs](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getinputs)方法，直接获取所有的模型输入Tensor的vector，下面示例代码演示如何调用`getInputs`获得输入Tensor并填充数据。
+
+    ```java
+    List<MSTensor> inputs = session.getInputs();
+    MSTensor inputTensor = inputs.get(0);
+    // Set Input Data.
+    inputTensor.setData(inputData);
+    ```
+
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考[实现一个图像分割应用对输入数据进行处理部分](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html#id10)。
+
+## 执行推理
+
+MindSpore Lite会话在进行图编译以后，即可调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#rungraph)执行模型推理。
+
+下面示例代码演示调用`runGraph`执行推理。
+
+```java
+// Run graph to infer results.
+boolean ret = session.runGraph();
+```
+
+## 获得输出
+
+MindSpore Lite在执行完推理后，可以通过输出Tensor得到推理结果。MindSpore Lite提供三种方法来获取模型的输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html)，同时支持[getByteData](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#getbytedata)、[getFloatData](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#getfloatdata)、[getIntData](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#getintdata)、[getLongData](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#getlongdata)四种方法获得输出数据。
+
+1. 使用[getOutputMapByTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputmapbytensor)方法，直接获取所有的模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)的名称和[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)指针的一个map。下面示例代码演示如何调用`getOutputMapByTensor`获得输出Tensor。
+
+    ```java
+    Map<String, MSTensor> outTensors = session.getOutputMapByTensor();
+
+    Iterator<Map.Entry<String, MSTensor>> entries = outTensors.entrySet().iterator();
+    while (entries.hasNext()) {
+        Map.Entry<String, MSTensor> entry = entries.next();
+        // Apply infer results.
+        ...
+    }
+    ```
+
+2. 使用[getOutputByTensorName](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)中连接到该节点的Tensor的vector。下面示例代码演示如何调用`getOutputByTensorName`获得输出Tensor。
+
+    ```java
+    MSTensor outTensor = session.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
+    // Apply infer results.
+    ...
+    ```
+
+3. 使用[getOutputByTensorName](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputbytensorname)方法，根据模型输出Tensor的名称来获取对应的模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)。下面示例代码演示如何调用`getOutputByTensorName`获得输出Tensor。
+
+    ```java
+    MSTensor outTensor = session.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
+    // Apply infer results.
+    ...
+    ```
+
+## 释放内存
+
+无需使用MindSpore Lite推理框架时，需要释放已经创建的LiteSession和Model，下列示例代码演示如何在程序结束前进行内存释放。
+
+```java
+session.free();
+model.free();
+```
+
+## 高级用法
+
+### 优化运行内存大小
+
+如果对运行时内存有较大的限制，图编译结束之后，调用[Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)的[freeBuffer](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#freebuffer)函数，释放MindSpore Lite Model中的MetaGraph，用于减小运行时的内存。一旦调用某个[Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)的[freeBuffer](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#freebuffer)后，该[Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)就不能再次图编译。
+
+下面示例代码演示如何调用`Model`的`freeBuffer`接口来释放`MetaGraph`减少运行时内存大小。
 
 ```java
 // Compile graph.
-if (!session.compileGraph(model)) {
-    Log.e("MS_LITE", "Compile graph failed");
-    model.freeBuffer();
-    return false;
-}
-
+ret = session.compileGraph(model);
+...
 // Note: when use model.freeBuffer(), the model can not be compiled.
 model.freeBuffer();
 ```
 
-### 输入数据
+### 绑核操作
 
-Java目前支持`byte[]`或者`ByteBuffer`两种类型的数据，设置输入Tensor的数据。
+MindSpore Lite内置线程池支持绑核、解绑操作，通过调用[bindThread](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#bindthread)接口，可以将线程池中的工作线程绑定到指定CPU核，用于性能分析。绑核操作与创建[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)时用户指定的上下文有关，绑核操作会根据上下文中的绑核策略进行线程与CPU的亲和性设置。
+
+需要注意的是，绑核是一个亲和性操作，不保证一定能绑定到指定的CPU核，会受到系统调度的影响。而且绑核后，需要在执行完代码后进行解绑操作。
+
+下面示例代码演示如何在执行推理时绑定大核优先。
 
 ```java
-// Set input tensor values.
+boolean ret = msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.HIGHER_CPU, true);
+...
+session.bindThread(true);
+// Run Inference.
+ret = session.runGraph();
+session.bindThread(false);
+```
+
+> 绑核参数有两种选择：大核优先和中核优先。
+>
+> 判定大核和中核的规则其实是根据CPU核的频率而不是根据CPU的架构，对于没有大中小核之分的CPU架构，在该规则下也可以区分大核和中核。
+>
+> 绑定大核优先是指线程池中的线程从频率最高的核开始绑定，第一个线程绑定在频率最高的核上，第二个线程绑定在频率第二高的核上，以此类推。
+>
+> 对于中核优先，中核的定义是根据经验来定义的，默认设定中核是第三和第四高频率的核，当绑定策略为中核优先时，会优先绑定到中核上，当中核不够用时，会往小核上进行绑定。
+
+### 输入维度Resize
+
+使用MindSpore Lite进行推理时，如果需要对输入的shape进行Resize，则可以在已完成创建会话`CreateSession`与图编译`CompileGraph`之后调用[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)的[resize](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#resize)接口，对输入的Tensor重新设置shape。
+
+> 某些网络是不支持可变维度，会提示错误信息后异常退出，比如，模型中有MatMul算子，并且MatMul的一个输入Tensor是权重，另一个输入Tensor是输入时，调用可变维度接口会导致输入Tensor和权重Tensor的Shape不匹配，最终导致推理失败。
+
+下面示例代码演示如何对MindSpore Lite的输入Tensor进行[resize](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#resize)：
+
+```java
 List<MSTensor> inputs = session.getInputs();
-MSTensor inTensor = inputs.get(0);
-byte[] inData = readFileFromAssets(context, "model_inputs.bin");
-inTensor.setData(inData);
+int[][] dims = {{1, 300, 300, 3}};
+bool ret = session.resize(inputs, dims);
 ```
 
-### 图执行
+### Session并行
 
-通过[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#rungraph)执行模型推理。
+MindSpore Lite支持多个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)并行推理，每个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的线程池和内存池都是独立的。但不支持多个线程同时调用单个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)的[runGraph](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#rungraph)接口。
 
-```java
-// Run graph to infer results.
-if (!session.runGraph()) {
-    Log.e("MS_LITE", "Run graph failed");
-    return;
-}
-```
-
-### 获得输出
-
-推理结束之后，可以通过输出Tensor得到推理结果。目前输出tensor支持的数据类型包括`float`、`int`、`long`、`byte`。
-
-- 获得输出Tensor的方法有三种：
-    - 使用[getOutputMapByTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputmapbytensor)方法，直接获取所有的模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)的名称和[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)指针的一个map。
-    - 使用[GetOutputsByNodeName](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputsbynodename)方法，根据模型输出节点的名称来获取模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)中连接到该节点的Tensor的vector。
-    - 使用[GetOutputByTensorName](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#getoutputbytensorname)方法，根据模型输出Tensor的名称来获取对应的模型输出[MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html#mstensor)。
+下面示例代码演示如何并行执行推理多个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)的过程：
 
 ```java
-// Get output tensor values.
-List<String> tensorNames = session.getOutputTensorNames();
-Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-Set<Map.Entry<String, MSTensor>> entries = outputs.entrySet();
-for (String tensorName : tensorNames) {
-    MSTensor output = outputs.get(tensorName);
-    if (output == null) {
-        Log.e("MS_LITE", "Can not find output " + tensorName);
-        return;
-    }
-    float[] results = output.getFloatData();
-
-    // Apply infer results.
-    ...
+session1 = createLiteSession(false);
+if (session1 != null) {
+    session1Compile = true;
+} else {
+    Toast.makeText(getApplicationContext(), "session1 Compile Failed.",
+            Toast.LENGTH_SHORT).show();
 }
-```
-
-### 释放内存
-
-无需使用MindSpore Lite推理框架的时候，需要将创建的[session](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html#litesession)和[model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html#model)进行释放。
-
-```java
-private void free() {
-    session.free();
-    model.free();
+session2 = createLiteSession(true);
+if (session2 != null) {
+    session2Compile = true;
+} else {
+    Toast.makeText(getApplicationContext(), "session2 Compile Failed.",
+            Toast.LENGTH_SHORT).show();
 }
-```
-
-## Android项目使用MindSpore Lite推理框架示例
-
-采用MindSpore Lite Java API推理主要包括`加载模型`、`创建配置上下文`、`创建会话`、`图编译`、`输入数据`、`图执行`、`获得输出`、`释放内存`等步骤。
-
-```java
-private boolean init(Context context) {
-    // Load the .ms model.
-    model = new Model();
-    if (!model.loadModel(context, "model.ms")) {
-        Log.e("MS_LITE", "Load Model failed");
-        return false;
-    }
-
-    // Create and init config.
-    MSConfig msConfig = new MSConfig();
-    if (!msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.MID_CPU)) {
-        Log.e("MS_LITE", "Init context failed");
-        return false;
-    }
-
-    // Create the MindSpore lite session.
-    session = new LiteSession();
-    if (!session.init(msConfig)) {
-        Log.e("MS_LITE", "Create session failed");
-        msConfig.free();
-        return false;
-    }
-    msConfig.free();
-
-    // Compile graph.
-    if (!session.compileGraph(model)) {
-        Log.e("MS_LITE", "Compile graph failed");
-        model.freeBuffer();
-        return false;
-    }
-
-    // Note: when use model.freeBuffer(), the model can not be compiled.
-    model.freeBuffer();
-
-    return true;
-}
-
-private void DoInference(Context context) {
-    // Set input tensor values.
-    List<MSTensor> inputs = session.getInputs();
-    MSTensor inTensor = inputs.get(0);
-    byte[] inData = readFileFromAssets(context, "model_inputs.bin");
-    inTensor.setData(inData);
-
-    // Run graph to infer results.
-    if (!session.runGraph()) {
-        Log.e("MS_LITE", "Run graph failed");
-        return;
-    }
-
-    // Get output tensor values.
-    List<String> tensorNames = session.getOutputTensorNames();
-    Map<String, MSTensor> outputs = session.getOutputMapByTensor();
-    Set<Map.Entry<String, MSTensor>> entries = outputs.entrySet();
-    for (String tensorName : tensorNames) {
-        MSTensor output = outputs.get(tensorName);
-        if (output == null) {
-            Log.e("MS_LITE", "Can not find output " + tensorName);
-            return;
+...
+if (session1Finish && session1Compile) {
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            session1Finish = false;
+            runInference(session1);
+            session1Finish = true;
         }
-        float[] results = output.getFloatData();
-
-        // Apply infer results.
-        ...
-    }
+    }).start();
 }
 
-// Note: we must release the memory at the end, otherwise it will cause the memory leak.
-private void free() {
-    session.free();
-    model.free();
+if (session2Finish && session2Compile) {
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            session2Finish = false;
+            runInference(session2);
+            session2Finish = true;
+        }
+    }).start();
 }
 ```
+
+MindSpore Lite不支持多线程并行执行单个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)的推理，否则会得到以下错误信息：
+
+```bash
+ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
+```
+
+### 查看日志
+
+当推理出现异常的时候，可以通过查看日志信息来定位问题。针对Android平台，采用`Logcat`命令行工具查看MindSpore Lite推理的日志信息，并利用`MS_LITE` 进行筛选。
+
+```shell
+logcat -s "MS_LITE"
+```
+
+### 获取版本号
+
+MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到当前MindSpore Lite的版本号。
+
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L712)演示如何获取MindSpore Lite的版本号：
+
+```java
+import com.mindspore.lite.Version;
+String version = Version.version();
+```
+
