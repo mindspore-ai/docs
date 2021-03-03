@@ -54,7 +54,7 @@ MindSpore的算子组件，可从算子使用方式和算子功能两种维度�
 
 算子相关接口主要包括operations、functional和composite，可通过ops直接获取到这三类算子。
 
-- operations提供单个的Primtive算子。一个算子对应一个原语，是最小的执行对象，需要实例化之后使用。
+- operations提供单个的Primitive算子。一个算子对应一个原语，是最小的执行对象，需要实例化之后使用。
 - composite提供一些预定义的组合算子，以及复杂的涉及图变换的算子，如`GradOperation`。
 - functional提供operations和composite实例化后的对象，简化算子的调用流程。
 

@@ -168,7 +168,7 @@ import numpy as np
 import mindspore.nn as nn
 import mindspore.context as context
 from mindspore import Tensor
-# Import the definition of the CusSquare primtive.
+# Import the definition of the CusSquare primitive.
 from cus_square import CusSquare
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
