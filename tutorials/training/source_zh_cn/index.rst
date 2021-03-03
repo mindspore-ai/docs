@@ -581,6 +581,19 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/kernel_incremental_compilation.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">算子增量编译</span>
+										</div>
+										<div class="doc-article-desc">
+											在执行网络模型的过程中，MindSpore会对所使用的算子进行编译，该阶段耗时会随网络模型规模的增大而增大。为提升用户二次执行模型的性能体验，我们提供了一种算子增量编译机制。目前算子增量编译功能仅支持在昇腾AI芯片上使用。
+
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html" class="article-link">
 									<div>
