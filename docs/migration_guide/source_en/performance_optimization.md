@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/performance_profiling.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, iteration performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
@@ -48,7 +48,7 @@ Figure 3: Data Preparation Details -- Data Processing
 
 By observing the ```Queue relationship between operators```, we find that the average usage of ```Queue_3``` and ```Queue_2``` is relatively inefficient.
 
-Therefore, it can be determined that we can adjust the corresponding dataset operators, ```ShuffleOp_ 3``` and ```BatchOp_2```, to achieve better performance. Then, you can adjust the training script based on this information.
+Therefore, it can be determined that we can adjust the corresponding dataset operators, ```ShuffleOp_3``` and ```BatchOp_2```, to achieve better performance. Then, you can adjust the training script based on this information.
 
 You can also refer to the suggestion provided by the ```Helper``` on the left side of the home page to optimize the training script.
 

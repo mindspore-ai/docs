@@ -329,7 +329,7 @@ During the single-node multi-device distributed training, the cache operator all
     done
     ```
 
-    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/cache/cache.sh)
+    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/cache.sh)
 
 4. Create and apply a cache instance.
 

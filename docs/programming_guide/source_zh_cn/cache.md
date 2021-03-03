@@ -327,7 +327,7 @@
     done
     ```
 
-    > 直接获取完整样例代码：[cache.sh](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/cache/cache.sh)
+    > 直接获取完整样例代码：[cache.sh](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/cache.sh)
 
 4. 创建并应用缓存实例。
 
