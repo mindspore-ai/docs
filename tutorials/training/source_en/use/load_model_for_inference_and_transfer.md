@@ -107,30 +107,28 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
 When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network.
 
-We use GoogleNet as example to illustrate how to load a model trained on ImageNet dataset and then perform transfer learning (re-training) on specific sub-task dataset. The main steps are listed below:
+We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/mobilenetv2) as example to illustrate how to load a model trained on ImageNet dataset and then perform transfer learning (re-training) on specific sub-task dataset. The main steps are listed below:
 
 1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`.
 
-2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer, and `src.dataset` shown below is located in [GoogleNet directory](https://gitee.com/mindspore/mindspore/blob/r0.7/model_zoo/official/cv/googlenet/src/dataset.py).
+2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer.
 
    ```python
-   import mindspore
-   from mindspore import nn, context, Tensor
-   from mindspore import save_checkpoint
-   from mindspore.nn import SoftmaxCrossEntropyWithLogits
-   import mindspore.ops as ops
-   from mindspore.nn import Momentum
-
-   import math
-   import numpy as np
-
    import mindspore_hub as mshub
-   from src.dataset import create_dataset
+   import mindspore
+   from mindspore import context, Tensor, nn
+   from mindspore.nn import Momentum
+   from mindspore.train.serialization import save_checkpoint, load_checkpoint,load_param_into_net
+   from mindspore import ops
+   import mindspore.dataset as ds
+   import mindspore.dataset.transforms.c_transforms as C2
+   import mindspore.dataset.vision.c_transforms as C
+   from mindspore import dtype as mstype
+   from mindspore import Model
+   context.set_context(mode=context.GRAPH_MODE, device_target="Ascend", device_id=0)
 
-   context.set_context(mode=context.GRAPH_MODE, device_target="Ascend",
-                        save_graphs=False)
-   model_url = "mindspore/ascend/0.7/googlenet_v1_cifar10"
-   network = mshub.load(model_url, include_top=False, num_classes=1000)
+   model = "mindspore/ascend/1.0/mobilenetv2_v1.0_openimage"
+   network = mshub.load(model, num_classes=500, include_top=False, activation="Sigmoid")
    network.set_train(False)
    ```
 
@@ -148,11 +146,11 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
             x = self.flatten(x)
             return x
 
-   # Check MindSpore Hub website to conclude that the last output shape is 1024.
-   last_channel = 1024
+   # Check MindSpore Hub website to conclude that the last output shape is 1280.
+   last_channel = 1280
 
-   # The number of classes in target task is 26.
-   num_classes = 26
+   # The number of classes in target task is 10.
+   num_classes = 10
 
    reducemean_flatten = ReduceMeanFlatten()
 
@@ -162,36 +160,85 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
    train_network = nn.SequentialCell([network, reducemean_flatten, classification_layer])
    ```
 
-4. Define `loss` and `optimizer` for training.
+4. Define `dataset_loader`.
+
+   As shown below， the new dataset used for fine-tuning is the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html). It is noted here we need to download the `binary version` dataset. After downloading and decompression, the following code can be used for data loading and processing. It is noted the `dataset_path` is the path to the dataset and should be given by the user.
 
    ```python
+   def create_cifar10dataset(dataset_path, batch_size, do_train):
+    if do_train:
+        usage, shuffle = "train", True
+    else:
+        usage, shuffle = "test", False
+
+    data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
+
+    # define map operations
+    trans = [C.Resize((224, 224))]
+    if do_train:
+        trans += [
+            C.RandomHorizontalFlip(prob=0.5),
+        ]
+
+    trans += [
+        C.Rescale(1.0 / 255.0, 0.0),
+        C.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+        C.HWC2CHW()
+    ]
+
+    type_cast_op = C2.TypeCast(mstype.int32)
+
+    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
+    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
+
+    # apply batch operations
+    data_set = data_set.batch(batch_size, drop_remainder=True)
+    return data_set
+
+   # Create Dataset
+   dataset_path = "/path_to_dataset/cifar-10-batches-bin"
+   dataset = create_cifar10dataset(dataset_path, batch_size=32, do_train=True)
+   ```
+
+5. Define `loss`, `optimizer` and `learning rate`.
+
+   ```python
+   def generate_steps_lr(lr_init, lr_max, steps_per_epoch, total_epochs, warmup_epochs):
+    total_steps = total_epochs * steps_per_epoch
+    warmup_steps = warmup_epochs * steps_per_epoch
+    decay_epoch_index = [0.3*total_steps, 0.6*total_steps, 0.8*total_steps]
+    lr_each_step = []
+    for i in range(total_steps):
+        if i < warmup_steps:
+            lr = lr_init + (lr_max - lr_init) * i / warmup_steps
+        else:
+            if i < decay_epoch_index[0]:
+                lr = lr_max
+            elif i < decay_epoch_index[1]:
+                lr = lr_max * 0.1
+            elif i < decay_epoch_index[2]:
+                lr = lr_max * 0.01
+            else:
+                lr = lr_max * 0.001
+        lr_each_step.append(lr)
+    return lr_each_step
+
+   # Set epoch size
    epoch_size = 60
 
    # Wrap the backbone network with loss.
-   loss_fn = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
+   loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
    loss_net = nn.WithLossCell(train_network, loss_fn)
-
-   lr = get_lr(global_step=0,
-               lr_init=0,
-               lr_max=0.05,
-               lr_end=0.001,
-               warmup_epochs=5,
-               total_epochs=epoch_size)
-
+   steps_per_epoch = dataset.get_dataset_size()
+   lr = generate_steps_lr(lr_init=0, lr_max=0.01, steps_per_epoch=steps_per_epoch, total_epochs=epoch_size, warmup_epochs=0)
    # Create an optimizer.
-   optim = Momentum(filter(lambda x: x.requires_grad, loss_net.get_parameters()), Tensor(lr), 0.9, 4e-5)
+   optim = Momentum(filter(lambda x: x.requires_grad, classification_layer.get_parameters()), Tensor(lr, mindspore.float32), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
    ```
 
-5. Create dataset and start fine-tuning. As is shown below, the new dataset used for fine-tuning is the garbage classification data located at `/ssd/data/garbage/train` folder.
+6. Start fine-tuning.
 
    ```python
-   dataset = create_dataset("/ssd/data/garbage/train",
-                              do_train=True,
-                              batch_size=32,
-                              platform="Ascend",
-                              repeat_num=1)
-
    for epoch in range(epoch_size):
          for i, items in enumerate(dataset):
             data, label = items
@@ -201,40 +248,38 @@ We use GoogleNet as example to illustrate how to load a model trained on ImageNe
             loss = train_net(data, label)
             print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
          # Save the ckpt file for each epoch.
-         ckpt_path = f"./ckpt/garbage_finetune_epoch{epoch}.ckpt"
+         if not os.path.exists('ckpt'):
+            os.mkdir('ckpt')
+         ckpt_path = f"./ckpt/cifar10_finetune_epoch{epoch}.ckpt"
          save_checkpoint(train_network, ckpt_path)
    ```
 
 6. Eval on test set.
 
    ```python
-   from mindspore import load_checkpoint, load_param_into_net
+   model = "mindspore/ascend/1.0/mobilenetv2_v1.0_openimage"
 
-   network = mshub.load('mindspore/ascend/0.7/googlenet_v1_cifar10', pretrained=False,
-                        include_top=False, num_classes=1000)
-
+   network = mshub.load(model, num_classes=500, pretrained=True, include_top=False, activation="Sigmoid")
+   network.set_train(False)
    reducemean_flatten = ReduceMeanFlatten()
-
    classification_layer = nn.Dense(last_channel, num_classes)
    classification_layer.set_train(False)
    softmax = nn.Softmax()
-   network = nn.SequentialCell([network, reducemean_flatten,
-                                 classification_layer, softmax])
+   network = nn.SequentialCell([network, reducemean_flatten, classification_layer, softmax])
 
    # Load a pre-trained ckpt file.
-   ckpt_path = "./ckpt/garbage_finetune_epoch59.ckpt"
+   ckpt_path = "./ckpt/cifar10_finetune_epoch59.ckpt"
    trained_ckpt = load_checkpoint(ckpt_path)
-   load_param_into_net(network, trained_ckpt)
+   load_param_into_net(classification_layer, trained_ckpt)
+
+   loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 
    # Define loss and create model.
-   model = Model(network, metrics={'acc'}, eval_network=network)
-
-   eval_dataset = create_dataset("/ssd/data/garbage/test",
-                              do_train=True,
-                              batch_size=32,
-                              platform="Ascend",
-                              repeat_num=1)
-
-   res = model.eval(eval_dataset)
-   print("result:", res, "ckpt=", ckpt_path)
+   eval_dataset = create_cifar10dataset(dataset_path, batch_size=32, do_train=False)
+   eval_metrics = {'Loss': nn.Loss(),
+                    'Top1-Acc': nn.Top1CategoricalAccuracy(),
+                    'Top5-Acc': nn.Top5CategoricalAccuracy()}
+   model = Model(network, loss_fn=loss, optimizer=None, metrics=eval_metrics)
+   metrics = model.eval(eval_dataset)
+   print("metric: ", metrics)
    ```
