@@ -103,7 +103,7 @@ The [Model API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mind
 
 You can transfer the initialized Model APIs such as the network, loss function, and optimizer as required. You can also configure amp_level to implement mixed precision and configure metrics to implement model evaluation.
 
-> Executing a network model will produce a `kernel_meta` directory in the current directory, and all the cache of operations compiled during the executing process will be stored in it. If user executes the same model again, or a model with some differences, MindSpore will automatically call the reusable cache in `kernel_meta` to reduce the compilation time of the whole model. It has a significant improvement in performance. For details please see [kernel_incremental_compilation](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/kernel_incremental_compilation.html).
+> Executing a network model will produce a `kernel_meta` directory in the current directory, and all the cache of operations compiled during the executing process will be stored in it. If user executes the same model again, or a model with some differences, MindSpore will automatically call the reusable cache in `kernel_meta` to reduce the compilation time of the whole model. It has a significant improvement in performance.
 
 ### Executing a Training Model
 
