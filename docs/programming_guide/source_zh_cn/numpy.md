@@ -19,7 +19,7 @@
             - [矩阵乘法](#矩阵乘法)
             - [求平均值](#求平均值)
             - [指数](#指数)
-    - [MindSpore框架赋能](#mindspore框架赋能)
+    - [MindSpore Numpy与MindSpore特性结合](#mindspore-numpy与mindspore特性结合)
         - [ms_function使用示例](#ms_function使用示例)
         - [GradOperation使用示例](#gradoperation使用示例)
         - [mindspore.context使用示例](#mindsporecontext使用示例)
@@ -41,7 +41,7 @@ MindSpore Numpy具有四大功能模块：张量生成、张量操作、逻辑�
 
 生成类算子用来生成和构建具有指定数值、类型和形状的数组(Tensor)。
 
-示例：
+构建数组代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -62,7 +62,7 @@ type of input_x = Tensor[Float32]
 
 #### 生成具有相同元素的数组
 
-示例：
+生成具有相同元素的数组代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -77,7 +77,7 @@ print(input_x)
  [6. 6. 6.]]
 ```
 
-示例：
+生成指定形状的全1数组，示例：
 
 ```python
 import mindspore.numpy as np
@@ -94,7 +94,7 @@ print(input_x)
 
 #### 生成具有某个范围内的数值的数组
 
-示例：
+生成指定范围内的等差数组代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -110,7 +110,7 @@ print(input_x)
 
 #### 生成特殊类型的数组
 
-示例：
+生成给定对角线处下方元素为1，上方元素为0的矩阵，示例：
 
 ```python
 import mindspore.numpy as np
@@ -126,7 +126,7 @@ print(input_x)
  [1. 1. 1.]]
 ```
 
-示例：
+生成对角线为1，其他元素为0的二维矩阵，示例：
 
 ```python
 import mindspore.numpy as np
@@ -147,7 +147,7 @@ print(input_x)
 
 #### 数组维度变换
 
-示例：
+矩阵转置，代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -163,7 +163,7 @@ print(output)
  [1 3 5 7 9]]
 ```
 
-示例：
+交换指定轴，代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -180,7 +180,7 @@ print(output.shape)
 
 #### 数组分割
 
-示例：
+将输入数组平均切分为多个数组，代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -199,7 +199,7 @@ print(output)
 
 #### 数组拼接
 
-示例：
+将两个数组按照指定轴进行拼接，代码示例：
 
 ```python
 import mindspore.numpy as np
@@ -219,7 +219,7 @@ print(output)
 
 逻辑计算类算子主要进行逻辑运算。
 
-示例：
+相等（equal）和小于（less）计算代码示例如下：
 
 ```python
 import mindspore.numpy as np
@@ -247,7 +247,7 @@ output of less: [False  True  True  True  True]
 
 #### 加法
 
-示例：
+以下代码实现了`input_x`和`input_y`两数组相加的操作：
 
 ```python
 import mindspore.numpy as np
@@ -267,7 +267,7 @@ print(output)
 
 #### 矩阵乘法
 
-示例：
+以下代码实现了`input_x`和`input_y`两矩阵相乘的操作：
 
 ```python
 import mindspore.numpy as np
@@ -286,12 +286,12 @@ print(output)
 
 #### 求平均值
 
-示例：
+以下代码实现了求`input_x`所有元素的平均值的操作：
 
 ```python
 import mindspore.numpy as np
 input_x = np.arange(6).astype('float32')
-output = np.mean(input_x, 0)
+output = np.mean(input_x)
 print(output)
 ```
 
@@ -303,7 +303,7 @@ print(output)
 
 #### 指数
 
-示例：
+以下代码实现了自然常数`e`的`input_x`次方的操作：
 
 ```python
 import mindspore.numpy as np
@@ -318,7 +318,7 @@ print(output)
 [ 1.         2.718282   7.3890557 20.085537  54.598145 ]
 ```
 
-## MindSpore框架赋能
+## MindSpore Numpy与MindSpore特性结合
 
 `mindspore.numpy`能够充分利用MindSpore的强大功能，实现算子的自动微分，并使用图模式加速运算，帮助用户快速构建高效的模型。同时，MindSpore还支持多种后端设备，包括`Ascend`、`GPU`和`CPU`等，用户可以根据自己的需求灵活设置。以下提供了几种常用方法：
 
@@ -334,13 +334,13 @@ print(output)
 ```python
 import mindspore.numpy as np
 
-x = np.ones((32, 784))
-w1 = np.ones((784, 512))
-b1 = np.zeros((512,))
-w2 = np.ones((512, 256))
-b2 = np.zeros((256,))
-w3 = np.ones((256, 10))
-b3 = np.zeros((10,))
+x = np.arange(8).reshape(2, 4).astype('float32')
+w1 = np.ones((4, 8))
+b1 = np.zeros((8,))
+w2 = np.ones((8, 16))
+b2 = np.zeros((16,))
+w3 = np.ones((16, 4))
+b3 = np.zeros((4,))
 
 def forward(x, w1, b1, w2, b2, w3, b3):
     x = np.dot(x, w1) + b1
@@ -351,15 +351,19 @@ def forward(x, w1, b1, w2, b2, w3, b3):
 print(forward(x, w1, b1, w2, b2, w3, b3))
 ```
 
+输出如下:
+
+```python
+[[ 768.  768.  768.  768.]
+ [2816. 2816. 2816. 2816.]]
+```
+
 对上述示例，我们可以借助`ms_function`将所有算子编译到一张静态图里以加快运行效率，示例如下：
 
 ```python
 from mindspore import ms_function
 
-...
-
 forward_compiled = ms_function(forward)
-print(forward_compiled(x, w1, b1, w2, b2, w3, b3))
 ```
 
 > 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function)。
@@ -369,28 +373,21 @@ print(forward_compiled(x, w1, b1, w2, b2, w3, b3))
 `GradOperation` 可以实现自动求导。以下示例可以实现对上述没有用`ms_function`修饰的`forward`函数定义的计算求导。
 
 ```python
-import mindspore.numpy as np
-from mindspore import ops, ms_function
+from mindspore import ops
 
 grad_all = ops.composite.GradOperation(get_all=True)
-
-...
-
-print(grad_all(forward)(x, w1, b1, w2, b2, w3, b3))
+grad_all(forward)(x, w1, b1, w2, b2, w3, b3)
 ```
 
 如果要对`ms_function`修饰的`forward`计算求导，需要提前使用`context`设置运算模式为图模式，示例如下：
 
 ```python
-import mindspore.numpy as np
 from mindspore import ops, ms_function, context
 
 context.set_context(mode=context.GRAPH_MODE)
 
-...
-
-forward_compiled = ms_function(forward)
-print(grad_all(forward_compiled)(x, w1, b1, w2, b2, w3, b3))
+grad_all = ops.composite.GradOperation(get_all=True)
+grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3)
 ```
 
  更多细节可参考[API: GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GradOperation.html)。
@@ -400,13 +397,12 @@ print(grad_all(forward_compiled)(x, w1, b1, w2, b2, w3, b3))
 MindSpore支持多后端运算，可以通过`mindspore.context`进行设置。`mindspore.numpy` 的多数算子可以使用图模式或者PyNative模式运行，也可以运行在CPU，CPU或者Ascend等多种后端设备上。
 
 ```python
-import mindspore.numpy as np
 from mindspore import context
 
 # Execucation in static graph mode
 context.set_context(mode=context.GRAPH_MODE)
 
-# Execucation in dynamic graph mode
+# Execucation in PyNative mode
 context.set_context(mode=context.PYNATIVE_MODE)
 
 # Execucation on CPU backend
@@ -435,13 +431,13 @@ from mindspore.nn import Cell
 
 context.set_context(mode=context.GRAPH_MODE)
 
-x = np.ones((32, 784))
-w1 = np.ones((784, 512))
-b1 = np.zeros((512,))
-w2 = np.ones((512, 256))
-b2 = np.zeros((256,))
-w3 = np.ones((256, 10))
-b3 = np.zeros((10,))
+x = np.arange(8).reshape(2, 4).astype('float32')
+w1 = np.ones((4, 8))
+b1 = np.zeros((8,))
+w2 = np.ones((8, 16))
+b2 = np.zeros((16,))
+w3 = np.ones((16, 4))
+b3 = np.zeros((4,))
 
 class NeuralNetwork(Cell):
     def __init__(self):
@@ -458,4 +454,11 @@ net = NeuralNetwork()
 print(net(x, w1, b1, w2, b2, w3, b3))
 ```
 
-更多构建网络的细节可以参考[MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
+输出如下:
+
+```python
+[[ 768.  768.  768.  768.]
+ [2816. 2816. 2816. 2816.]]
+```
+
+更多构建网络的细节可以参考[MindSpore训练指导](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
