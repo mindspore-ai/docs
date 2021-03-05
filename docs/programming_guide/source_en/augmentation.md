@@ -24,23 +24,23 @@ In a computer vision task, if the data volume is small or the scenario of the sa
 
 MindSpore provides the `c_transforms` and `py_transforms` modules for data augmentation. You can also customize functions or operators to augment data.
 
-|  Module  |  Implementation  |  Description  |
-|  ----                             | ----  | ----           |
-| c_transforms | Implemented based on C++. | This module provides high performance. |
+| Module        | Implementation                  | Description                                                                                          |
+| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| c_transforms  | Implemented based on C++.       | This module provides high performance.                                                               |
 | py_transforms | Implemented based on Python PIL | This module provides multiple image augmentation methods and can convert PIL images to NumPy arrays. |
 
 The following table lists the common data augmentation operators supported by MindSpore. For details about more data augmentation operators, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html).
 
-| Module | Operator | Description |
-| ---- | ---- | ---- |
-| c_transforms | RandomCrop | Crops an image of a specified size at a random position. |
-| | RandomHorizontalFlip | Flips the image horizontally based on the specified probability. |
-| | Resize | Resizes the image to the specified size. |
-| | Invert | Inverts the image. |
-| py_transforms | RandomCrop | Crops an image of a specified size at a random position. |
-| | Resize | Resizes the image to the specified size. |
-| | Invert | Inverts the image. |
-| |Compose | Performs the data augmentation operations in the list in sequence. |
+| Module        | Operator             | Description                                                        |
+| ------------- | -------------------- | ------------------------------------------------------------------ |
+| c_transforms  | RandomCrop           | Crops an image of a specified size at a random position.           |
+|               | RandomHorizontalFlip | Flips the image horizontally based on the specified probability.   |
+|               | Resize               | Resizes the image to the specified size.                           |
+|               | Invert               | Inverts the image.                                                 |
+| py_transforms | RandomCrop           | Crops an image of a specified size at a random position.           |
+|               | Resize               | Resizes the image to the specified size.                           |
+|               | Invert               | Inverts the image.                                                 |
+|               | Compose              | Performs the data augmentation operations in the list in sequence. |
 
 ## c_transforms
 
@@ -220,7 +220,7 @@ Resizes the input image.
 
 **Parameter description:**
 
-- `self`: target size of the image.
+- `size`: target size of the image.
 - `interpolation`: interpolation mode used during resizing.
 
 The following example loads the MNIST dataset [2], resizes the loaded image to (101, 101), outputs the image shapes and labels before and after the resizing, and displays the resized image.
