@@ -48,6 +48,8 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 ![img](../images/lite_runtime.png)
 
+快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite Java极简Demo](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html)。
+
 ## 引用MindSpore Lite Java库
 
 ### Linux X86项目引用JAR库

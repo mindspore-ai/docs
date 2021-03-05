@@ -426,7 +426,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/lib:$
 
 - 编译依赖
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) >= 7.3.0
+    - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
 
 > 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
 

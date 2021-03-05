@@ -1,6 +1,6 @@
 # 体验MindSpore Lite C++ 极简Demo
 
-`Linux` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
+`Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 
 <!-- TOC -->
 
@@ -37,12 +37,14 @@
 
 ## 构建与运行
 
+### Linux X86
+
 - 环境要求
+
     - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
     - 编译依赖：
-        - [CMake](https://cmake.org/download/) >= 3.18.3
+        - [CMake](https://cmake.org/download/) >= 3.14
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-        - [Git](https://git-scm.com/downloads) >= 2.28.0
 
 - 编译构建
 
@@ -52,7 +54,7 @@
   bash build.sh
   ```
 
-  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU，操作系统为Ubuntu-x64的[MindSpore Lite 模型推理框架](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、include目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-inference-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后lib目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、include目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
@@ -70,6 +72,78 @@
   tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
   output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
   ```
+
+### Windows
+
+- 环境要求
+
+    - 系统环境：Windows 7，Windows 10；64位。
+    - 编译依赖：
+        - [CMake](https://cmake.org/download/) >= 3.14
+        - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/ToolchainstargettingWin64/PersonalBuilds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
+
+- 编译构建
+
+  - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-inference-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，将解压后`benchmark`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、include目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+  - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
+
+  - 编译：在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
+
+  ```bash
+  call build.bat
+  ```
+
+- 执行推理
+
+  编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
+
+  ```bash
+  call ./mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
+  ```
+
+  执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
+
+  ```shell
+  tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
+  output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
+  ```
+
+## CMake集成
+
+CMake集成`libmindspore-lite.a`静态库时，需要将`-Wl,--whole-archive`的选项传递给链接器，另外由于在编译MindSpore Lite的时候增加了`-fstack-protector-strong`栈保护的编译选项，所以在Windows平台上还需要链接MinGW中的`ssp`库。
+
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(QuickStartCpp)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3.0)
+    message(FATAL_ERROR "GCC version ${CMAKE_CXX_COMPILER_VERSION} must not be less than 7.3.0")
+endif()
+
+# Add directory to include search path
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+# Add directory to include search path
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
+
+file(GLOB_RECURSE QUICK_START_CXX ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
+add_executable(mindspore_quick_start_cpp ${QUICK_START_CXX})
+
+target_link_libraries(
+        mindspore_quick_start_cpp
+        -Wl,--whole-archive mindspore-lite -Wl,--no-whole-archive
+        pthread
+)
+
+# Due to the increased compilation options for stack protection,
+# it is necessary to target link ssp library when Use the static library in Windows.
+if(WIN32)
+    target_link_libraries(
+            mindspore_quick_start_cpp
+            ssp
+    )
+endif()
+```
 
 ## 模型加载
 
