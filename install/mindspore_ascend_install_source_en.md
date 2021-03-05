@@ -44,6 +44,12 @@ This document describes how to quickly install MindSpore in a Linux system with 
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
+    - If the Ascend 910 AI processor software package is upgraded, the .whl package need update too, using the following command to uninstall the .whl packages firstly, and then reinstall them.
+
+        ```bash
+        pip uninstall te topi hccl -y
+        ```
+
 - Confirm that [NUMA 2.0.11 or later](https://github.com/numactl/numactl) is installed.
 
     If not, for Ubuntu users, use the following command to install it:
