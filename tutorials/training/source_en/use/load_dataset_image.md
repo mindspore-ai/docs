@@ -166,7 +166,7 @@ The output is as follows:
     The output is as follows:
 
     ```text
-    after repeat
+    after repeat:
     [4 2]
     [1 0]
     [5 9]

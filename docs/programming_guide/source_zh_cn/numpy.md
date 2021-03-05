@@ -1,8 +1,8 @@
-# MindSpore Numpy函数使用介绍
+# MindSpore NumPy函数使用介绍
 
 <!-- TOC -->
 
-- [MindSpore Numpy函数使用介绍](#mindspore-numpy函数使用介绍)
+- [MindSpore NumPy函数使用介绍](#mindspore-numpy函数使用介绍)
     - [概述](#概述)
     - [算子介绍](#算子介绍)
         - [张量生成](#张量生成)
@@ -31,15 +31,15 @@
 
 ## 概述
 
-MindSpore Numpy工具包提供了一系列类Numpy接口。用户可以使用类Numpy语法在MindSpore上进行模型的搭建。
+MindSpore NumPy工具包提供了一系列类NumPy接口。用户可以使用类NumPy语法在MindSpore上进行模型的搭建。
 
 ## 算子介绍
 
-MindSpore Numpy具有四大功能模块：张量生成，张量操作，逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[Numpy Interface List](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.numpy.html)。
+MindSpore Numpy具有四大功能模块：张量生成、张量操作、逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[NumPy接口列表](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.numpy.html)。
 
 ### 张量生成
 
-生成类算子用来生成和构建具有指定数值，类型和形状的数组(Tensor)。
+生成类算子用来生成和构建具有指定数值、类型和形状的数组(Tensor)。
 
 示例：
 
@@ -320,7 +320,7 @@ print(output)
 
 ## MindSpore框架赋能
 
-`mindspore.numpy`能够充分利用MindSpore的强大功能，实现算子的自动微分，并使用图模式加速运算，帮助用户快速构建高效的模型。同时，MindSpore还支持多种后端设备，包括`Ascend`，`GPU`和`CPU`等，用户可以根据自己的需求灵活设置。以下提供了几种常用方法：
+`mindspore.numpy`能够充分利用MindSpore的强大功能，实现算子的自动微分，并使用图模式加速运算，帮助用户快速构建高效的模型。同时，MindSpore还支持多种后端设备，包括`Ascend`、`GPU`和`CPU`等，用户可以根据自己的需求灵活设置。以下提供了几种常用方法：
 
 - `ms_function`: 将代码包裹进图模式，用于提高代码运行效率。
 - `GradOperation`: 用于自动求导。
@@ -362,8 +362,7 @@ forward_compiled = ms_function(forward)
 print(forward_compiled(x, w1, b1, w2, b2, w3, b3))
 ```
 
-**注意**:
-目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function)。
+> 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function)。
 
 ### GradOperation使用示例
 
@@ -398,7 +397,7 @@ print(grad_all(forward_compiled)(x, w1, b1, w2, b2, w3, b3))
 
 ### mindspore.context使用示例
 
-MindSpore支持多后端运算，可以通过`mindspore.context`进行设置。
+MindSpore支持多后端运算，可以通过`mindspore.context`进行设置。`mindspore.numpy` 的多数算子可以使用图模式或者PyNative模式运行，也可以运行在CPU，CPU或者Ascend等多种后端设备上。
 
 ```python
 import mindspore.numpy as np
@@ -426,8 +425,6 @@ context.set_context(device_target="Ascend")
 ### mindspore.numpy使用示例
 
 这里提供一个使用`mindspore.numpy`构建网络模型的示例。
-
-`mindspore.numpy` 的多数算子可以使用图模式或者动态模式运行，也可以运行在CPU，CPU或者Ascend等多种后端设备上。
 
 `mindspore.numpy` 接口可以定义在`nn.Cell`代码块内进行网络的构建，示例如下：
 
