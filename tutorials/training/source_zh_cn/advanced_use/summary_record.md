@@ -315,7 +315,7 @@ model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
 
 ### 方式四：进阶用法，自定义训练循环
 
-如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#id4)。
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#自定义训练循环)。
 
 下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
