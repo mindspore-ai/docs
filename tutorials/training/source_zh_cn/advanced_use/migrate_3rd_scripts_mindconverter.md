@@ -38,8 +38,9 @@ MindConverter提供命令行（Command-line interface, CLI）的使用方式，�
 
 ```bash
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
-                     [--model_file MODEL_FILE] [--shape SHAPE]
-                     [--input_nodes INPUT_NODES] [--output_nodes OUTPUT_NODES]
+                     [--model_file MODEL_FILE] [--shape SHAPE [SHAPE ...]]
+                     [--input_nodes INPUT_NODES [INPUT_NODES ...]]
+                     [--output_nodes OUTPUT_NODES [OUTPUT ...]]
                      [--output OUTPUT] [--report REPORT]
                      [--project_path PROJECT_PATH]
 
@@ -53,17 +54,20 @@ optional arguments:
                         file path is expected to do script generation based on
                         graph schema. When `--in_file` and `--model_file` are
                         both provided, use AST schema as default.
-  --shape SHAPE         Optional, expected input tensor shape of
+  --shape SHAPE [SHAPE ...]
+                        Optional, expected input tensor shape of
                         `--model_file`. It is required when use graph based
-                        schema. Usage: --shape 1,3,244,244
-  --input_nodes INPUT_NODES
+                        schema. Both order and number should be consistent
+                        with `--input_nodes`. Usage: --shape 1,512 1,512
+  --input_nodes INPUT_NODES [INPUT_NODES ...]
                         Optional, input node(s) name of `--model_file`. It is
-                        required when use TensorFlow model. Usage:
-                        --input_nodes input_1:0,input_2:0
-  --output_nodes OUTPUT_NODES
+                        required when use TensorFlow and ONNX model. Both
+                        order and number should be consistent with `--shape`.
+                        Usage: --input_nodes input_1:0 input_2:0
+  --output_nodes OUTPUT_NODES [OUTPUT_NODES ...]
                         Optional, output node(s) name of `--model_file`. It is
-                        required when use TensorFlow model. Usage:
-                        --output_nodes output_1:0,output_2:0
+                        required when use TensorFlow and ONNX model. Usage:
+                        --output_nodes output_1:0 output_2:0
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -95,6 +99,8 @@ MindConverter提供两种PyTorch模型脚本迁移方案：
 > 假设用户项目目录为`/home/user/project/model_training`，用户可通过如下命令手动将项目目录添加至包搜索路径中：`export PYTHONPATH=/home/user/project/model_training:$PYTHONPATH`
 > 此处MindConverter需要引用原PyTorch脚本，是因为PyTorch模型反向序列化过程中会引用原脚本。
 
+PyTorch(.pth)模型转换仅支持单输入、单输出的PyTorch模型，如需转换多输入、多输出模型，建议转换为ONNX之后，使用ONNX进行转换。
+
 ### TensorFlow模型脚本迁移
 
 **MindConverter提供基于图结构的脚本生成方案**：指定`--model_file`、`--shape`、`--input_nodes`、`--output_nodes`进行脚本迁移。
@@ -120,9 +126,8 @@ MindConverter提供两种技术方案，以应对不同脚本迁移场景：
 
 目前已基于计算机视觉领域典型模型对图结构的脚本转换方案进行测试。
 
-> 1. 基于图结构的脚本生成方案，目前仅支持单输入、单输出模型，对于多输入模型暂不支持；
-> 2. 基于图结构的脚本生成方案，由于要加载PyTorch、TensorFlow模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐；
-> 3. 基于图结构的脚本生成方案持续优化中。
+> 1. 基于图结构的脚本生成方案，由于要加载PyTorch、TensorFlow模型，会导致转换后网络中Dropout算子丢失，需要用户手动补齐。
+> 2. 基于图结构的脚本生成方案持续优化中。
 
 ## 使用示例
 
@@ -297,7 +302,7 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 
 ## 注意事项
 
-1. PyTorch、TensorFlow、TF2ONNX（>=1.7.1）、ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（==0.1.2）不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.5.0进行转换，PyTorch 1.4.x不支持，PyTorch 1.6.x、PyTorch 1.7.x未进行转换测试），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）；
-2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献；
-3. MindConverter仅保证转换后模型脚本在输入数据尺寸与`--shape`一致的情况下，可达到无需人工修改或少量修改（`--shape`中batch size维度不受限）。
+1. PyTorch、TensorFlow、TF2ONNX（>=1.7.1）、ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（==0.1.2）不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装与生成PyTorch模型版本一致的PyTorch库（MindConverter推荐使用PyTorch 1.5.0进行转换，PyTorch 1.4.x不支持，PyTorch 1.6.x、PyTorch 1.7.x未进行转换测试），或TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）。
+2. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的PyTorch或ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
+3. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
 4. 脚本文件、权重文件和权重映射表输出于同一个目录下。
