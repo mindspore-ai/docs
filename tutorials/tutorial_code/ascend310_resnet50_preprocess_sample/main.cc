@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #include <sys/stat.h>
 #include <dirent.h>
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
+
 #include "include/api/context.h"
 #include "include/api/model.h"
 #include "include/api/serialization.h"
@@ -26,6 +28,7 @@
 #include "include/minddata/dataset/include/vision.h"
 
 namespace ms = mindspore;
+namespace ds = mindspore::dataset;
 constexpr auto resnet_file = "./model/resnet50_imagenet.mindir";
 constexpr auto image_path = "./test_data";
 
@@ -39,34 +42,42 @@ int main() {
   // set context
   ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
   ms::GlobalContext::SetGlobalDeviceID(0);
+
   // define model
   auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
   ms::Model resnet50((ms::GraphCell(graph)));
+
   // build model
   ms::Status ret = resnet50.Build();
   if (ret != ms::kSuccess) {
     std::cout << "Build model failed." << std::endl;
     return 1;
   }
+
   // get model info
   std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
   if (model_inputs.empty()) {
     std::cout << "Invalid model, inputs is empty." << std::endl;
     return 1;
   }
+
+  // define transforms
+  std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
+  std::shared_ptr<ds::TensorTransform> resize(new ds::vision::Resize({256}));
+  std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
+                                                                           {0.229 * 255, 0.224 * 255, 0.225 * 255}));
+  std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
+  std::shared_ptr<ds::TensorTransform> hwc2chw(new ds::vision::HWC2CHW());
+
   // define preprocessor
-  ms::dataset::Execute preprocessor({ms::dataset::vision::Decode(),
-                                     ms::dataset::vision::Resize({256}),
-                                     ms::dataset::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
-                                                                    {0.229 * 255, 0.224 * 255, 0.225 * 255}),
-                                     ms::dataset::vision::CenterCrop({224, 224}),
-                                     ms::dataset::vision::HWC2CHW(),
-                                    });
+  ds::Execute preprocessor({decode, resize, normalize, center_crop, hwc2chw});
+
   std::vector<std::string> images = GetAllFiles(image_path);
   for (const auto &image_file : images) {
     // prepare input
     std::vector<ms::MSTensor> outputs;
     std::vector<ms::MSTensor> inputs;
+
     // read image file and preprocess
     auto image = ReadFile(image_file);
     ret = preprocessor(image, &image);
@@ -77,16 +88,17 @@ int main() {
 
     inputs.emplace_back(model_inputs[0].Name(), model_inputs[0].DataType(), model_inputs[0].Shape(),
                         image.Data().get(), image.DataSize());
+
     // infer
     ret = resnet50.Predict(inputs, &outputs);
     if (ret != ms::kSuccess) {
       std::cout << "Predict model failed." << std::endl;
       return 1;
     }
+
     // print infer result
     std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
   }
-
   return 0;
 }
 

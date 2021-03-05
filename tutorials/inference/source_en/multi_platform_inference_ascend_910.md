@@ -6,13 +6,13 @@
 
 - [Inference on the Ascend 910 AI processor](#inference-on-the-ascend-910-ai-processor)
     - [Inference Using a Checkpoint File with Single Device](#inference-using-a-checkpoint-file-with-single-device)
-    - [Distributed Inference with Multiple Devices](#distributed-inference-with-multi-devices)
-    - [Use C++ Interface to Load a MindIR file for inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
+    - [Distributed Inference With Multi Devices](#distributed-inference-with-multi-devices)
+    - [Use C++ Interface to Load a MindIR File for Inferencing](#use-c-interface-to-load-a-mindir-file-for-inferencing)
         - [Inference Directory Structure](#inference-directory-structure)
         - [Inference Code](#inference-code)
         - [Introduce to Building Script](#introduce-to-building-script)
         - [Building Inference Code](#building-inference-code)
-        - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
+    - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
 
 <!-- /TOC -->
 
@@ -161,6 +161,13 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 Inference sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
+Using namespace of `mindspore` and `mindspore::dataset`.
+
+```c++
+namespace ms = mindspore;
+namespace ds = mindspore::dataset;
+```
+
 Set global context, device target is `Ascend910` and evice id is `0`:
 
 ```c++
@@ -172,7 +179,7 @@ Load mindir file:
 
 ```c++
 // Load MindIR model
-auto graph =ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
 // Build model with graph object
 ms::Model resnet50((ms::GraphCell(graph)));
 ms::Status ret = resnet50.Build({});
@@ -196,13 +203,22 @@ Image preprocess:
 
 ```c++
 // Create the CPU operator provided by MindData to get the function object
-ms::dataset::Execute preprocessor({ms::dataset::vision::Decode(),  // Decode the input to RGB format
-                                   ms::dataset::vision::Resize({256}),  // Resize the image to the given size
-                                   ms::dataset::vision::Normalize({0.485 * 255, 0.456 * 255, 0.406 * 255},
-                                                                  {0.229 * 255, 0.224 * 255, 0.225 * 255}),  // Normalize the input
-                                   ms::dataset::vision::CenterCrop({224, 224}),  // Crop the input image at the center
-                                   ms::dataset::vision::HWC2CHW(),  // shape (H, W, C) to shape(C, H, W)
-                                  });
+
+// Decode the input to RGB format
+std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
+// Resize the image to the given size
+std::shared_ptr<ds::TensorTransform> resize(new ds::vision::Resize({256}));
+// Normalize the input
+std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
+    {0.485 * 255, 0.456 * 255, 0.406 * 255}, {0.229 * 255, 0.224 * 255, 0.225 * 255}));
+// Crop the input image at the center
+std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
+// shape (H, W, C) to shape (C, H, W)
+std::shared_ptr<ds::TensorTransform> hwc2chw(new ds::vision::HWC2CHW());
+
+// // Define a MindData preprocessor
+ds::Execute preprocessor({decode, resize, normalize, center_crop, hwc2chw});
+
 // Call the function object to get the processed image
 ret = preprocessor(image, &image);
 ```

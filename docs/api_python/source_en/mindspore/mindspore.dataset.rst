@@ -78,6 +78,7 @@ Sampler
     mindspore.dataset.RandomSampler
     mindspore.dataset.SequentialSampler
     mindspore.dataset.SubsetRandomSampler
+    mindspore.dataset.SubsetSampler
     mindspore.dataset.WeightedRandomSampler
 
 Others
