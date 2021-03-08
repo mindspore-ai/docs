@@ -32,7 +32,7 @@ MindSpore团队总结了在AI训练过程中，遇到的造成模型精度无法
 
 训练过程中进行可视化数据采集时，可参考资料[收集Summary数据](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/summary_record.html)。
 
-训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/lineage_and_scalars_comparision.html)。
+训练过程中进行可视化数据分析时，可参考资料[训练看板](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html)和[溯源和对比看板](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/lineage_and_scalars_comparison.html)。
 
 ### 数据问题处理
 
