@@ -433,9 +433,83 @@ The following shows the processed image.
 
 ![pytrans_compose](./images/pytrans_compose.png)
 
+## Eager Mode
+
+All data augmentation operators we introduced above need to be run under pipeline mode. That is, we have to
+define a `map` operator which helps us to apply these augmentations, for example:
+
+```python
+random_crop = c_trans.RandomCrop([10, 10])
+dataset = dataset.map(operations=random_crop, input_columns=["image"])
+```
+
+However, the pipeline code seems heavy while we sometime just want to do a little experiment (e.g. model inference).
+Thus, MindSpore provides a simple way to execute these augmentation operators, calls `Eager Mode`.
+
+To achieve the augmented result, you can write code easily as following:
+
+```python
+import os
+import numpy as np
+from PIL import Image
+import matplotlib.pyplot as plt
+import mindspore.dataset.vision.c_transforms as C
+import mindspore.dataset.vision.py_transforms as P
+
+os.system("wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg")
+img = Image.open("banana.jpg").convert("RGB")
+print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
+
+# Define a Resize op from c_transform and execute it immediately
+op1 = C.Resize(size=(320))
+img = op1(img_ori)
+print("Image.type: {}, Image.shape: {}".format(type(img), img.shape))
+
+# Define a CenterCrop op from c_transform and execute it immediately
+op2 = C.CenterCrop((280, 280))
+img = op2(img)
+print("Image.type: {}, Image.shape: {}".format(type(img), img.shape))
+
+# Define a Pad op from py_transform and execute it immediately
+# Before calling Pad, you need to call ToPIL()
+op3 = P.ToPIL()
+op4 = P.Pad(40)
+img = op4(op3(img))
+print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
+
+# Show the result
+plt.subplot(1, 2, 1)
+plt.imshow(img_ori)
+plt.title("original image")
+plt.subplot(1, 2, 2)
+plt.imshow(img)
+plt.title("transformed image")
+plt.show()
+```
+
+The output is as follows:
+
+```text
+Image.type: <class 'PIL.Image.Image'>, Image.shape: (356, 200)
+Image.type: <class 'numpy.ndarray'>, Image.shape: (320, 570, 3)
+Image.type: <class 'numpy.ndarray'>, Image.shape: (280, 280, 3)
+Image.type: <class 'PIL.Image.Image'>, Image.shape: (360, 360)
+```
+
+The following shows the processed image.
+
+![eager_mode](./images/eager_mode.png)
+
+- Augmentation operators that support to be run in Eager Mode are listed in the following files:
+    - [mindspore.dataset.vision.c_transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-c-transforms)
+
+    - [mindspore.dataset.vision.py_transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-py-transforms)
+
+    - [mindspore.dataset.text.transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.text.html)
+
 ## Usage Instructions
 
-Do not use `c_transforms` and `py_transforms` together because they apply to images in different ways and using them together will reduce the processing performance.
+Do not use `c_transforms` and `py_transforms` together because they apply to images in different ways and using them together will reduce the processing performance (Except for Eager Mode).
 
 ![map](./images/map.png)
 
