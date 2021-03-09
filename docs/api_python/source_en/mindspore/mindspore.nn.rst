@@ -184,8 +184,13 @@ Loss Functions
     mindspore.nn.BCELoss
     mindspore.nn.BCEWithLogitsLoss
     mindspore.nn.CosineEmbeddingLoss
+    mindspore.nn.DiceLoss
+    mindspore.nn.FocalLoss
     mindspore.nn.L1Loss
+    mindspore.nn.MAELoss
     mindspore.nn.MSELoss
+    mindspore.nn.MultiClassDiceLoss
+    mindspore.nn.RMSELoss
     mindspore.nn.SampledSoftmaxLoss
     mindspore.nn.SmoothL1Loss
     mindspore.nn.SoftmaxCrossEntropyWithLogits
@@ -259,16 +264,28 @@ Metrics
     :template: classtemplate.rst
 
     mindspore.nn.Accuracy
+    mindspore.nn.auc
+    mindspore.nn.BleuScore
+    mindspore.nn.ConfusionMatrix
+    mindspore.nn.ConfusionMatrixMetric
+    mindspore.nn.CosineSimilarity
+    mindspore.nn.Dice
     mindspore.nn.F1
     mindspore.nn.Fbeta
+    mindspore.nn.HausdorffDistance
     mindspore.nn.get_metric_fn
     mindspore.nn.Loss
-    mindspore.nn.MAE 
+    mindspore.nn.MAE
+    mindspore.nn.MeanSurfaceDistance
     mindspore.nn.Metric
     mindspore.nn.MSE
     mindspore.nn.names
+    mindspore.nn.OcclusionSensitivity
+    mindspore.nn.Perplexity
     mindspore.nn.Precision
     mindspore.nn.Recall
+    mindspore.nn.ROC
+    mindspore.nn.RootMeanSquareDistance
     mindspore.nn.Top1CategoricalAccuracy
     mindspore.nn.Top5CategoricalAccuracy
     mindspore.nn.TopKCategoricalAccuracy
