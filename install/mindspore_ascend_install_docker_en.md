@@ -33,7 +33,7 @@ The current support for containerized build options is as follows:
 - Confirm that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
 - Confirm that the Ascend 910 AI processor software package ([Atlas Data Center Solution V100R020C20](https://support.huawei.com/enterprise/en/ascend-computing/atlas-data-center-solution-pid-251167910/software/251826872)) are installed.
     - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
-    - Confirm the toolbox utility package in the installation software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
+    - After installing basic driver and corresponding software packages, confirm that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
 ## Obtaining MindSpore Image
 
@@ -42,12 +42,13 @@ The current support for containerized build options is as follows:
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag}
+    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     of which,
 
     - `{username}` `{password}` `{url}` represents the user's login information and image server information, which are automatically generated after registering and activating the account, and can be obtained by copying the login command on the corresponding MindSpore image page.
+    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
 
 ## Running MindSpore Image
@@ -69,12 +70,13 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
 of which,
 
+- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
 ## Installation Verification
@@ -113,12 +115,16 @@ It means MindSpore has been installed by docker successfully.
 
 ## Version Update
 
-When you need to update the MindSpore version, log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
+When you need to update the MindSpore version:
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag}
-```
+- update Ascend 910 AI processor software package according to MindSpore package version of which you wish to update.
+- log in to [Ascend Hub Image Center](https://ascend.huawei.com/ascendhub/#/home) again to obtain the download command of the latest docker version and execute:
 
-of which,
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    ```
 
-- `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
+    of which,
+
+    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
+    - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
