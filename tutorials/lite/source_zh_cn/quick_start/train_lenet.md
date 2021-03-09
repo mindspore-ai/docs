@@ -144,11 +144,10 @@ accuracy = 0.970553
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
   │   └── train_utils.py
+  |
   ├── scripts
   │   ├── eval.sh
-  │   ├── run_eval.sh
-  │   ├── train.sh
-  │   └── run_train.sh
+  │   └── train.sh
   │
   ├── src
   │   ├── net_runner.cc
@@ -156,6 +155,7 @@ accuracy = 0.970553
   │   └── utils.h
   │
   ├── README.md
+  ├── README_CN.md
   └── prepare_and_run.sh
 ```
 
@@ -229,7 +229,14 @@ print("finished exporting")
 
 ### 训练模型
 
-源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)使用MindSpore Lite训练API完成模型训练，主函数如下：
+源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)使用MindSpore Lite训练API完成模型训练，执行训练脚本指令如下：
+
+```bash
+Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>]
+                 [-v (verbose mode)] [-s <save checkpoint every X iterations>]
+```
+
+模型训练的主函数如下：
 
 ```cpp
 int NetRunner::Main() {
@@ -239,11 +246,10 @@ int NetRunner::Main() {
 
   TrainLoop();
 
-  float acc = CalculateAccuracy();
-  std::cout << "accuracy = " << acc << std::endl;
+  CalculateAccuracy();
 
-  if (cycles_ > 0) {
-    auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(cycles_) + ".ms";
+  if (epochs_ > 0) {
+    auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
     session_->SaveToFile(trained_fn);
   }
   return 0;
@@ -252,117 +258,98 @@ int NetRunner::Main() {
 
 1. 加载模型
 
-    `InitAndFigureInputs`函数加载转换后的`MS`模型文件，调用`CreateSession`接口创建`TrainSession`实例(下述代码中的`ms_file_`就是转换模型阶段生成的`lenet_tod.ms`模型)。同时根据模型的输入Tensor设置`batch_szie`、`data_size`。
+    `InitAndFigureInputs`函数加载转换后的`MS`模型文件，调用`CreateSession`接口创建`TrainSession`实例(下述代码中的`ms_file_`就是转换模型阶段生成的`lenet_tod.ms`模型)。
 
     ```cpp
     void NetRunner::InitAndFigureInputs() {
       mindspore::lite::Context context;
       context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-      context.thread_num_ = 1;
+      context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
+      context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
+      context.thread_num_ = 2;
 
-      session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
-      assert(nullptr != session_);
+      loop_ = mindspore::session::TrainLoop::CreateTrainLoop(ms_file_, &context);
+      session_ = loop_->train_session();
+      MS_ASSERT(nullptr != session_);
+
+      acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+
+      loop_->Init({acc_metrics_.get()});
 
       auto inputs = session_->GetInputs();
-      assert(inputs.size() > 1);
-      this->data_index_  = 0;
-      this->label_index_ = 1;
-      this->batch_size_ = inputs[data_index_]->shape()[0];
-      this->data_size_  = inputs[data_index_]->Size() / batch_size_;  // in bytes
-      if (verbose_) {
-        std::cout << "data size: " << data_size_ << "\nbatch size: " << batch_size_ << std::endl;
-      }
+      MS_ASSERT(inputs.size() > 1);
     }
     ```
 
 2. 数据集处理
 
-    `InitDB`函数初始化`MNIST`数据集并加载至内存，[参见Gitee代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)，我们将会在下个版本中新增MindData至本示例程序中。
+    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[头文件](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/minddata/dataset/include) 获取更多详细信息。
 
     ```cpp
     int NetRunner::InitDB() {
-      if (data_size_ != 0) ds_.set_expected_data_size(data_size_);
-      int ret = ds_.Init(data_dir_, DS_MNIST_BINARY);
-      num_of_classes_ = ds_.num_of_classes();
-      if (ds_.test_data().size() == 0) {
-        std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-        assert(ds_.test_data().size() != 0);
+      train_ds_ = Mnist(data_dir_ + "/train", "all");
+
+      std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
+      std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
+      train_ds_ = train_ds_->Map({resize, typecast_f}, {"image"});
+
+      std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
+    train_ds_ = train_ds_->Map({typecast}, {"label"});
+
+      train_ds_ = train_ds_->Shuffle(2);
+      train_ds_ = train_ds_->Batch(32, true);
+
+      if (verbose_) {
+        std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
       }
-      return ret;
-    }
+      if (train_ds_->GetDatasetSize() == 0) {
+        std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+        MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+      }
+
+      return 0;
+}
     ```
 
 3. 执行训练
 
-    `TrainSession`和`DataSet`创建完毕后，就可以开始训练了。首先调用`TrainSession`的`Train`方法，将模型设置为训练模式；然后循环调用`RunGraph`函数，通过`DataSet`读取训练数据，执行训练；在一轮训练完成后，可以调用`SaveToFile`方法保存成`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
+    首先创建训练回调类对象（例如`LRScheduler`、`LossMonitor`、`ClassificationTrainAccuracyMonitor`和`CkptSaver`）数组指针；然后调用`TrainLoop`类的`Train`函数，将模型设置为训练模式；最后在训练过程中遍历执行回调类对象对应的函数并输出训练日志。`CkptSaver`会根据设定训练步长数值为当前会话保存`CheckPoint`模型，`CheckPoint`模型包含已更新的权重，在应用崩溃或设备出现故障时可以直接加载`CheckPoint`模型，继续开始训练。
 
     ```cpp
     int NetRunner::TrainLoop() {
-        session_->Train();
-        float  min_loss = 1000.;
-        float max_acc = 0;
-        for (int i = 0; i < cycles_; i++) {
-            FillInputData(ds_.train_data());
-            session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
-            float loss = GetLoss();
-            if (min_loss > loss) {
-                min_loss = loss;
-            }
-            if (save_checkpoint_ != 0 && (i+1)%save_checkpoint_ == 0) {
-                auto cpkt_file = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(i+1) + ".ms";
-                session_->SaveToFile(cpkt_file);
-            }
+      struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.9);
+      mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 100);
 
-            std::cout << i + 1 << ": Loss is " << loss[0] << " [min=" << min_loss << "]";
-            if (max_acc > 0) {
-                std::cout << "max_acc=" << max_acc;
-            }
-            std::cout << std::endl;
-            if ((i+1)%100 == 0) {
-                float acc = CalculateAccuracy(10);
-                if (max_acc < acc) {
-                    max_acc = acc;
-                }
-                std::cout << "accuracy (on " << batch_size_ * 10 << " samples) = " << acc;
-                std::cout << "max accuracy= " << max_acc << std::endl;
-            }
-        }
-        return 0;
+      mindspore::lite::LossMonitor lm(100);
+      mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
+      mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
+      Rescaler rescale(255.0);
+
+      loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
+      return 0;
     }
     ```
 
 4. 验证精度
 
-    在每一轮训练结束后，都会调用`CalculateAccuracy`评估模型精度。验证精度是执行推理流程，需要首先调用`TrainSession`的`Eval`方法，将当前的模型设置为推理模式；然后通过读取`/PATH/MNIST_Data/test`测试数据集，调用`RunGraph`执行推理，获取模型输出并比对结果得到识别率。为了下一轮的训练能够继续执行，在获取当前阶段的精度后，调用`Train`方法，将`TrainSession`重新设置为训练模式。
+    训练结束后调用`CalculateAccuracy`评估模型精度。该函数调用`TrainSession`的`Eval`方法，将模型设置为推理模式。
 
     ```cpp
-    float NetRunner::CalculateAccuracy(int max_tests) const {
-      float accuracy = 0.0;
-      const std::vector<DataLabelTuple> test_set = ds_.test_data();
-      int tests = test_set.size() / batch_size_;
-      if (max_tests != -1 && tests < max_tests) tests = max_tests;
+    float NetRunner::CalculateAccuracy(int max_tests) {
+      test_ds_ = Mnist(data_dir_ + "/test", "all");
+      std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
+      std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
+      test_ds_ = test_ds_->Map({resize, typecast_f}, {"image"});
 
-      session_->Eval();
-      for (int i = 0; i < tests; i++) {
-        auto labels = FillInputData(test_set, (max_tests == -1));
-        session_->RunGraph();
-        auto outputsv = SearchOutputsForSize(batch_size_ * num_of_classes_);
-        assert(outputsv != nullptr);
-        auto scores = reinterpret_cast<float *>(outputsv->MutableData());
-        for (int b = 0; b < batch_size_; b++) {
-          int max_idx = 0;
-          float max_score = scores[num_of_classes_ * b];
-          for (int c = 0; c < num_of_classes_; c++) {
-            if (scores[num_of_classes_ * b + c] > max_score) {
-              max_score = scores[num_of_classes_ * b + c];
-              max_idx = c;
-            }
-          }
-          if (labels[b] == max_idx) accuracy += 1.0;
-        }
-      }
-      session_->Train();
-      accuracy /= static_cast<float>(batch_size_ * tests);
-      return accuracy;
+      std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
+      test_ds_ = test_ds_->Map({typecast}, {"label"});
+      test_ds_ = test_ds_->Batch(32, true);
+
+      Rescaler rescale(255.0);
+
+      loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
+      std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
+
+      return 0.0;
     }
     ```

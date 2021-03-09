@@ -141,11 +141,10 @@ train_lenet/
   │   ├── lenet_export.py
   │   ├── prepare_model.sh
   │   └── train_utils.py
+  │
   ├── scripts
   │   ├── eval.sh
-  │   ├── run_eval.sh
-  │   ├── train.sh
-  │   └── run_train.sh
+  │   └── train.sh
   │
   ├── src
   │   ├── net_runner.cc
@@ -153,6 +152,7 @@ train_lenet/
   │   └── utils.h
   │
   ├── README.md
+  ├── README_CN.md
   └── prepare_and_run.sh
 ```
 
@@ -238,7 +238,7 @@ To convert the model simply use the converter as explained in the [Convert Secti
 In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src) the executable has the following API:
 
 ```bash
-Usage: net_runner -f <.ms model file> -d <data_dir> [-c <num of training cycles>]
+Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>]
                  [-v (verbose mode)] [-s <save checkpoint every X iterations>]
 ```
 
@@ -252,11 +252,10 @@ int NetRunner::Main() {
 
   TrainLoop();
 
-  float acc = CalculateAccuracy();
-  std::cout << "accuracy = " << acc << std::endl;
+  CalculateAccuracy()yuchuli;
 
-  if (cycles_ > 0) {
-    auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(cycles_) + ".ms";
+  if (epochs_ > 0) {
+    auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
     session_->SaveToFile(trained_fn);
   }
   return 0;
@@ -271,38 +270,50 @@ int NetRunner::Main() {
 void NetRunner::InitAndFigureInputs() {
   mindspore::lite::Context context;
   context.device_list_[0].device_info_.cpu_device_info_.cpu_bind_mode_ = mindspore::lite::NO_BIND;
-  context.thread_num_ = 1;
+  context.device_list_[0].device_info_.cpu_device_info_.enable_float16_ = false;
+  context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
+  context.thread_num_ = 2;
 
-  session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
-  assert(nullptr != session_);
+  loop_ = mindspore::session::TrainLoop::CreateTrainLoop(ms_file_, &context);
+  session_ = loop_->train_session();
+  MS_ASSERT(nullptr != session_);
+
+  acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
+
+  loop_->Init({acc_metrics_.get()});
 
   auto inputs = session_->GetInputs();
-  assert(inputs.size() > 1);
-  this->data_index_  = 0;
-  this->label_index_ = 1;
-  this->batch_size_ = inputs[data_index_]->shape()[0];
-  this->data_size_  = inputs[data_index_]->Size() / batch_size_;  // in bytes
-  if (verbose_) {
-    std::cout << "data size: " << data_size_ << "\nbatch size: " << batch_size_ << std::endl;
-  }
+  MS_ASSERT(inputs.size() > 1);
 }
 ```
 
 #### Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. We will not discuss this code here.
-The user may refer to the [code in gitee](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc). In the next release, MindData framework will be integrated into this example.
+`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [head files](https://gitee.com/mindspore/mindspore/tree/master/mindspore/ccsrc/minddata/dataset/include) for more details.
 
 ```cpp
 int NetRunner::InitDB() {
-  if (data_size_ != 0) ds_.set_expected_data_size(data_size_);
-  int ret = ds_.Init(data_dir_, DS_MNIST_BINARY);
-  num_of_classes_ = ds_.num_of_classes();
-  if (ds_.test_data().size() == 0) {
-    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
-    assert(ds_.test_data().size() != 0);
+  train_ds_ = Mnist(data_dir_ + "/train", "all");
+
+  std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
+  std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
+  train_ds_ = train_ds_->Map({resize, typecast_f}, {"image"});
+
+  std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
+  train_ds_ = train_ds_->Map({typecast}, {"label"});
+
+  train_ds_ = train_ds_->Shuffle(2);
+  train_ds_ = train_ds_->Batch(32, true);
+
+  if (verbose_) {
+    std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
   }
-  return ret;
+  if (train_ds_->GetDatasetSize() == 0) {
+    std::cout << "No relevant data was found in " << data_dir_ << std::endl;
+    MS_ASSERT(train_ds_->GetDatasetSize() != 0);
+  }
+
+  return 0;
 }
 ```
 
@@ -311,81 +322,46 @@ int NetRunner::InitDB() {
 The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
 
 ```cpp
-int NetRunner::TrainLoop() {
-  session_->Train();
-  float min_loss = 1000.;
-  float max_acc = 0.;
-  for (int i = 0; i < cycles_; i++) {
-    FillInputData(ds_.train_data());
-    session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
-    float loss = GetLoss();
-    if (min_loss > loss) min_loss = loss;
+TrainLoopCallBackint NetRunner::TrainLoop() {
+  struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.9);
+  mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 100);
 
-    if (save_checkpoint_ != 0 && (i + 1) % save_checkpoint_ == 0) {
-      auto cpkt_file = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained_" + std::to_string(i + 1) + ".ms";
-      session_->SaveToFile(cpkt_file);
-    }
+  mindspore::lite::LossMonitor lm(100);
+  mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
+  mindspore::lite::CkptSaver cs(1000, std::string("lenet"));
+  Rescaler rescale(255.0);
 
-    if ((i + 1) % 100 == 0) {
-      float acc = CalculateAccuracy(10);
-      if (max_acc < acc) max_acc = acc;
-      std::cout << i + 1 << ":\tLoss is " << std::setw(7) << loss << " [min=" << min_loss << "] " << " max_acc=" << max_acc << std::endl;
-    }
-  }
+  loop_->Train(epochs_, train_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale, &lm, &cs, &am, &step_lr_sched});
   return 0;
 }
 ```
 
-Within this section of code the session is switched to train mode using the `Train()` method, then the main loop over all the training cycles takes place. In each cycle, the data is read from the training dataset and loaded into the input tensors. Both data and label are filled in.
-
-```cpp
-FillInputData(ds_.train_data());
-```
-
-Then, `RunGraph` method is called. A debug callback that prints the input and output tensors is provided if program is launched in verbose mode.
-
-```cpp
-session_->RunGraph(nullptr, verbose_? after_callback : nullptr);
-```
-
-Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors).
-It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. Checkpoints are easily saved by calling the `SaveToFile` API, like this:
+Within this section of code the session is switched to train mode using the `Train()` method, then the main loop over all the training cycles takes place. In each cycle, the data and label are read from the training dataset and loaded into the input tensors. Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors).
+It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. The user could also save checkpoints manually by calling the `SaveToFile` API, like this:
 
 ```cpp
 session_->SaveToFile(cpkt_file);
 ```
 
-To keep track of the model accuracy, the `CalculateAccuracy` method is being called. Within which, the model is switched to `Eval` mode, and the method runs a cycle of test tensors through the trained network to measure the current accuracy rate. Since this method is time consuming it is not advised to run it every train cycle.
+To eval the model accuracy, the `CalculateAccuracy` method is being called. Within which, the model is switched to `Eval` mode, and the method runs a cycle of test tensors through the trained network to measure the current accuracy rate.
 
 ```cpp
-float NetRunner::CalculateAccuracy(int max_tests) const {
-  float accuracy = 0.0;
-  const std::vector<DataLabelTuple> test_set = ds_.test_data();
-  int tests = test_set.size() / batch_size_;
-  if (max_tests != -1 && tests < max_tests) tests = max_tests;
+float NetRunner::CalculateAccuracy(int max_tests) {
+  test_ds_ = Mnist(data_dir_ + "/test", "all");
+  std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
+  std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
+  test_ds_ = test_ds_->Map({resize, typecast_f}, {"image"});
 
-  session_->Eval();
-  for (int i = 0; i < tests; i++) {
-    auto labels = FillInputData(test_set, (max_tests == -1));
-    session_->RunGraph();
-    auto outputsv = SearchOutputsForSize(batch_size_ * num_of_classes_);
-    assert(outputsv != nullptr);
-    auto scores = reinterpret_cast<float *>(outputsv->MutableData());
-    for (int b = 0; b < batch_size_; b++) {
-      int max_idx = 0;
-      float max_score = scores[num_of_classes_ * b];
-      for (int c = 0; c < num_of_classes_; c++) {
-        if (scores[num_of_classes_ * b + c] > max_score) {
-          max_score = scores[num_of_classes_ * b + c];
-          max_idx = c;
-        }
-      }
-      if (labels[b] == max_idx) accuracy += 1.0;
-    }
-  }
-  session_->Train();
-  accuracy /= static_cast<float>(batch_size_ * tests);
-  return accuracy;
+  std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
+  test_ds_ = test_ds_->Map({typecast}, {"label"});
+  test_ds_ = test_ds_->Batch(32, true);
+
+  Rescaler rescale(255.0);
+
+  loop_->Eval(test_ds_.get(), std::vector<TrainLoopCallBack *>{&rescale});
+  std::cout << "Eval Accuracy is " << acc_metrics_->Eval() << std::endl;
+
+  return 0.0;
 }
 ```
 
