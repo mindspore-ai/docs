@@ -50,7 +50,7 @@
 
 ![img](../images/lite_runtime.png)
 
-> 快速了解MindSpore Lite执行推理的完整调用流程，请参考体验MindSpore Lite C++极简Demo。
+> 快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite C++极简Demo](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html)。
 
 ## 模型加载
 
