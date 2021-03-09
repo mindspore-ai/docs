@@ -444,6 +444,7 @@ class IterDatasetGenerator:
             return item
 
     def __iter__(self):
+        self.__index = 0
         return self
 
     def __len__(self):
