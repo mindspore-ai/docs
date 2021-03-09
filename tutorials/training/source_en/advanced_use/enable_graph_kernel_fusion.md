@@ -1,6 +1,6 @@
 # Enabling Graph Kernel Fusion
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+`Linux` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
