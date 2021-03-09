@@ -33,7 +33,7 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 - 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
 - 确认安装Ascend 910 AI处理器软件配套包（[Atlas Data Center Solution V100R020C20](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251826872)）。
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
-    - 确认安装软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
+    - 在完成安装基础驱动与配套软件包的基础上，确认安装CANN软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
 
 ## 获取MindSpore镜像
 
@@ -42,13 +42,14 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
     ```bash
     docker login -u {username} -p {password} {url}
-    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag}
+    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
     ```
 
     其中：
 
     - `{username}` `{password}` `{url}` 代表用户的登录信息与镜像服务器信息，均为注册并激活账号后自动生成，在对应MindSpore镜像页面复制登录命令即可获取。
-    - `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面复制下载命令获取。
+    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
+    - `{tag}` 对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面复制下载命令获取。
 
 ## 运行MindSpore镜像
 
@@ -69,12 +70,13 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
                --device=/dev/davinci_manager \
                --device=/dev/devmm_svm \
                --device=/dev/hisi_hdc \
-               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag} \
+               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
                /bin/bash
 ```
 
 其中：
 
+- `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
 - `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
 
 ## 验证是否安装成功
@@ -113,12 +115,16 @@ print(ops.tensor_add(x, y))
 
 ## 升级MindSpore版本
 
-当需要升级MindSpore版本时，再次登录[Ascend Hub镜像中心](https://ascend.huawei.com/ascendhub/#/home)获取最新docker版本的下载命令，并执行：
+当需要升级MindSpore版本时：
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-arm:{tag}
-```
+- 根据需要升级的MindSpore版本，升级对应的Ascend 910 AI处理器软件配套包。
+- 再次登录[Ascend Hub镜像中心](https://ascend.huawei.com/ascendhub/#/home)获取最新docker版本的下载命令，并执行：
 
-其中：
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag}
+    ```
 
-- `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面自动获取。
+    其中：
+
+    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
+    - `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面自动获取。
