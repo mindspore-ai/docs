@@ -44,6 +44,7 @@
    :caption: 构建网络
    :hidden:
 
+   advanced_use/custom_loss_function
    advanced_use/custom_operator
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
@@ -326,6 +327,18 @@
 										</div>
 										<div class="doc-article-desc">
 											MindSpore为用户提供了数据处理和数据增强的功能，在整个pipeline过程中的每一步骤，如果都能够进行合理的运用，那么数据的性能会得到很大的优化和提升。本教程将基于CIFAR-10数据集来为大家展示如何在数据加载、数据处理和数据增强的过程中进行性能的优化。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_loss_function.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">定义与使用损失函数 </span>
+										</div>
+										<div class="doc-article-desc">
+											当MindSpore提供的损失函数不足以满足需求时，自定义损失函数并使用Model进行模型训练。
 										</div>
 									</div>
 								</a>
