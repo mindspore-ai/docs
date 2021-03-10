@@ -147,7 +147,7 @@ endif()
 
 ## 模型加载
 
-首先从文件系统中读取MindSpore Lite模型，并通过`mindspore::lite::Model::Impor`t函数导入模型进行解析。
+首先从文件系统中读取MindSpore Lite模型，并通过`mindspore::lite::Model::Import`函数导入模型进行解析。
 
 ```c++
 // Read model file.
