@@ -228,6 +228,7 @@ Wrapper Functions
     mindspore.nn.DistributedGradReducer
     mindspore.nn.DynamicLossScaleUpdateCell
     mindspore.nn.FixedLossScaleUpdateCell
+    mindspore.nn.ForwardValueAndGrad
     mindspore.nn.GetNextSingleOp
     mindspore.nn.ParameterUpdate
     mindspore.nn.TimeDistributed
