@@ -36,7 +36,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/hccl-{version}-py3-none-any.whl
         ```
 
-    - If the Ascend 910 AI processor software package is upgraded, the .whl package need update too, using the following command to uninstall the .whl packages firstly, and then reinstall them.
+    - If the Ascend 910 AI processor software package is upgraded, the .whl package also needs to be reinstalled, first uninstall the original installation package, and then refer to the above command to reinstall.
 
         ```bash
         pip uninstall te topi hccl -y

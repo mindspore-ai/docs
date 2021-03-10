@@ -127,4 +127,4 @@ When you need to update the MindSpore version:
     of which,
 
     - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
-    - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
+    - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
