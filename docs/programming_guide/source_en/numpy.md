@@ -41,7 +41,7 @@ Mindspore Numpy operators can be classified into four functional modules: `array
 
 Array generation operators are used to generate tensors.
 
-For example:
+Here is an example to generate an array:
 
 ```python
 import mindspore.numpy as np
@@ -62,7 +62,7 @@ Here we have more examples:
 
 #### Generate a tensor filled with the same element
 
-For example:
+`np.full` can be used to generate a tensor with user-specified values:
 
 ```python
 import mindspore.numpy as np
@@ -77,7 +77,7 @@ The output is:
  [6. 6. 6.]]
 ```
 
-For example:
+Here is another example to generate an array with the specified shape and filled with the value of 1:
 
 ```python
 import mindspore.numpy as np
@@ -94,7 +94,7 @@ The output is:
 
 #### Generate tensors in a specified range
 
-For example：
+Generate an arithmetic array within the specified range：
 
 ```python
 import mindspore.numpy as np
@@ -110,7 +110,7 @@ The output is:
 
 #### Generate tensors with specific requirement
 
-For example:
+Generate a matrix where the lower elements are 1 and the upper elements are 0 on the given diagonal:
 
 ```python
 import mindspore.numpy as np
@@ -126,7 +126,7 @@ The output is:
  [1. 1. 1.]]
 ```
 
-Another example:
+Another example, generate a 2-D matrix with a diagonal of 1 and other elements of 0:
 
 ```python
 import mindspore.numpy as np
@@ -147,7 +147,7 @@ Array operations focus on tensor manipulation.
 
 #### Manipulate the shape of the tensor
 
-For example:
+For example, transpose a matrix:
 
 ```python
 import mindspore.numpy as np
@@ -163,7 +163,7 @@ The output is:
  [1 3 5 7 9]]
 ```
 
-Another example:
+Another example, swap two axes:
 
 ```python
 import mindspore.numpy as np
@@ -180,7 +180,7 @@ The output is:
 
 #### Tensor splitting
 
-For example:
+Divide the input tensor into multiple tensors equally, for example:
 
 ```python
 import mindspore.numpy as np
@@ -199,7 +199,7 @@ The output is:
 
 #### Tensor combination
 
-For example:
+Concatenate the two tensors according to the specified axis, for example:
 
 ```python
 import mindspore.numpy as np
@@ -217,7 +217,8 @@ The output is:
 
 ### Logic Operations
 
-Logic operations define computations related with boolean types:
+Logic operations define computations related with boolean types.
+Examples of `equal` and `less` operations are as follows:
 
 ```python
 import mindspore.numpy as np
@@ -242,6 +243,8 @@ Math operations include basic and advanced math operations on tensors, and they 
 
 #### Sum two tensors
 
+The following code implements the operation of adding two tensors of `input_x` and `input_y`:
+
 ```python
 import mindspore.numpy as np
 input_x = np.full((3, 2), [1, 2])
@@ -260,6 +263,8 @@ The output is:
 
 #### Matrics multiplication
 
+The following code implements the operation of multiplying two matrices `input_x` and `input_y`:
+
 ```python
 import mindspore.numpy as np
 input_x = np.arange(2*3).reshape(2, 3).astype('float32')
@@ -277,10 +282,12 @@ The output is:
 
 #### Take the average along a given axis
 
+The following code implements the operation of averaging all the elements of `input_x`:
+
 ```python
 import mindspore.numpy as np
 input_x = np.arange(6).astype('float32')
-output = np.mean(input_x, 0)
+output = np.mean(input_x)
 print(output)
 ```
 
@@ -291,6 +298,8 @@ The output is:
 ```
 
 #### Exponential arithmetic
+
+The following code implements the operation of the natural constant `e` to the power of `input_x`:
 
 ```python
 import mindspore.numpy as np
@@ -321,13 +330,13 @@ Let's first see an example consisted of matrix multiplication and bias add, whic
 ```python
 import mindspore.numpy as np
 
-x = np.ones((32, 784))
-w1 = np.ones((784, 512))
-b1 = np.zeros((512,))
-w2 = np.ones((512, 256))
-b2 = np.zeros((256,))
-w3 = np.ones((256, 10))
-b3 = np.zeros((10,))
+x = np.arange(8).reshape(2, 4).astype('float32')
+w1 = np.ones((4, 8))
+b1 = np.zeros((8,))
+w2 = np.ones((8, 16))
+b2 = np.zeros((16,))
+w3 = np.ones((16, 4))
+b3 = np.zeros((4,))
 
 def forward(x, w1, b1, w2, b2, w3, b3):
     x = np.dot(x, w1) + b1
@@ -338,53 +347,50 @@ def forward(x, w1, b1, w2, b2, w3, b3):
 print(forward(x, w1, b1, w2, b2, w3, b3))
 ```
 
+The output is:
+
+```python
+[[ 768.  768.  768.  768.]
+ [2816. 2816. 2816. 2816.]]
+```
+
 In this function, MindSpore dispatches each computing kernel to device separately. However, with the help of `ms_function`, we can compile all operations into a single static computing graph.
 
 ```python
 from mindspore import ms_function
 
-...
-
 forward_compiled = ms_function(forward)
-print(forward_compiled(x, w1, b1, w2, b2, w3, b3))
 ```
 
-**Note**: Currently, static graph cannot run in command line mode, and not all python types can be passed into functions decorated with `ms_function`. For details, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function).
+> Currently, static graph cannot run in command line mode and not all python types can be passed into functions decorated with `ms_function`. For details about the static graph syntax support, see [Syntax Support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html). For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function).
 
 ### Use GradOperation to compute deratives
 
 `GradOperation` can be used to take deratives from normal functions and functions decorated with `ms_function`. Take the previous example:
 
 ```python
-import mindspore.numpy as np
-from mindspore import ops, ms_function
+from mindspore import ops
 
 grad_all = ops.composite.GradOperation(get_all=True)
-
-...
-
-print(grad_all(forward)(x, w1, b1, w2, b2, w3, b3))
+grad_all(forward)(x, w1, b1, w2, b2, w3, b3)
 ```
 
 To take the gradient of `ms_function` compiled functions, first we need to set the execution mode to static graph mode.
 
 ```python
-import mindspore.numpy as np
 from mindspore import ops, ms_function, context
 
 context.set_context(mode=context.GRAPH_MODE)
 
-...
-
-forward_compiled = ms_function(forward)
-print(grad_all(forward_compiled)(x, w1, b1, w2, b2, w3, b3))
+grad_all = ops.composite.GradOperation(get_all=True)
+grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3)
 ```
 
  For more details, see [API: GradOperation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html).
 
 ### Use mindspore.context to control execution mode
 
-Like MindSpore, mindspore.numpy programs can run on different devices and different modes.
+Most functions in `mindspore.numpy` can run in Graph Mode and PyNative Mode, and can run on `CPU`，`GPU` and `Ascend`. Like MindSpore, users can manage the execution mode using `mindspore.context`：
 
 ```python
 import mindspore.numpy as np
@@ -411,8 +417,6 @@ context.set_context(device_target="Ascend")
 
 ### Use mindspore.numpy in MindSpore Deep Learning Models
 
-`mindspore.numpy` was built directly on top of MindSpore, so most of its methods can be used freely in both static and dynamic graph mode, with GPU, CPU or Ascend backend.
-
 `mindspore.numpy` interfaces can be used inside `nn.cell` blocks as well. For example, the above code can be modified to:
 
 ```python
@@ -422,13 +426,13 @@ from mindspore.nn import Cell
 
 context.set_context(mode=context.GRAPH_MODE)
 
-x = np.ones((32, 784))
-w1 = np.ones((784, 512))
-b1 = np.zeros((512,))
-w2 = np.ones((512, 256))
-b2 = np.zeros((256,))
-w3 = np.ones((256, 10))
-b3 = np.zeros((10,))
+x = np.arange(8).reshape(2, 4).astype('float32')
+w1 = np.ones((4, 8))
+b1 = np.zeros((8,))
+w2 = np.ones((8, 16))
+b2 = np.zeros((16,))
+w3 = np.ones((16, 4))
+b3 = np.zeros((4,))
 
 class NeuralNetwork(Cell):
     def __init__(self):
@@ -442,6 +446,13 @@ class NeuralNetwork(Cell):
 net = NeuralNetwork()
 
 print(net(x, w1, b1, w2, b2, w3, b3))
+```
+
+The output is:
+
+```python
+[[ 768.  768.  768.  768.]
+ [2816. 2816. 2816. 2816.]]
 ```
 
 For more details on building Neural Network with MindSpore, see [MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/en/master/index.html).
