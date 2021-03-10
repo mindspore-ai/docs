@@ -82,7 +82,7 @@ output: [1. 16. 81.]
 `.info`文件记录了该算子的所有有效信息，包括算子名称、算子属性、输入输出格式、输入输出数据类型等等。`.info`文件用于查找并确定算子的`.o`文件是否可复用。详细内容如下：
 
 ```text
-{"full_name":"Default/Square-op1","gen_model":"single","impl_path":"","op_info":{"attrs":null,"inputs":[[{"dtype":"float32","format":"NCHW","name":"x_0","ori_format":"NCHW","ori_shape":[3],"param_type":"required","range":[[3,3]],"shape":[3],"valid":true}]],"is_dynamic_shape":false,"kernel_name":"Square_3307185124911971026_7","name":"square","outputs":[[{"dtype":"float32","format":"NCHW","name":"y","ori_format":"NCHW","ori_shape":[3],"param_type":"required","range":[[3,3]],"shape":[3],"valid":true}]],"socVersion":"Ascend910A"},"platform":"TBE"}
+{"SocInfo":{"autoTilingMode":"NO_TUNE","coreNum":"","coreType":"","l1Fusion":"false","l2Fusion":"false","l2Mode":"2","op_debug_level":"","op_impl_mode":"","op_impl_mode_list":[],"socVersion":"Ascend910A"},"impl_path":"","op_info":{"Type":"Square","attrs":null,"full_name":"Default/Square-op1","gen_model":"single","graph_id":0,"inputs":[[{"dtype":"float32","format":"NCHW","name":"x_0","ori_format":"NCHW","ori_shape":[3],"param_type":"required","range":[[3,3]],"shape":[3],"valid":true}]],"is_dynamic_shape":false,"kernel_name":"Square_2989580383048251395_7","module_name":"impl.square","name":"square","outputs":[[{"dtype":"float32","format":"NCHW","name":"y","ori_format":"NCHW","ori_shape":[3],"param_type":"required","range":[[3,3]],"shape":[3],"valid":true}]],"py_module_path":"/usr/local/Ascend/opp/op_impl/built-in/ai_core/tbe","socVersion":"Ascend910A"},"platform":"TBE"}
 ```
 
 `.json`文件存放了算子编译结果，在运行时将会使用到。详细内容如下：
