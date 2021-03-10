@@ -83,6 +83,7 @@
    :hidden:
 
    advanced_use/apply_quantization_aware_training
+   advanced_use/apply_post_training_quantization
 
 .. toctree::
    :glob:
