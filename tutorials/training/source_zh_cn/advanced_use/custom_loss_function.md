@@ -1,6 +1,6 @@
 # 定义与使用损失函数
 
-`Linux` `Ascend` `GPU` `CPU` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型开发` `高级`
 
 <!-- TOC -->
 
@@ -30,18 +30,18 @@ Cell是MindSpore的基本网络单元，可以用于构建网络，损失函数�
 以MindSpore提供的损失函数L1Loss为例，损失函数的定义方法如下：
 
 ```python
-    import mindspore.nn as nn
-    import mindspore.ops as ops
+import mindspore.nn as nn
+import mindspore.ops as ops
 
-    class L1Loss(nn.Cell):
-        def __init__(self):
-            super(L1Loss, self).__init__()
-            self.abs = ops.Abs()
-            self.reduce_mean = ops.ReduceMean()
+class L1Loss(nn.Cell):
+    def __init__(self):
+        super(L1Loss, self).__init__()
+        self.abs = ops.Abs()
+        self.reduce_mean = ops.ReduceMean()
 
-        def construct(self, base, target):
-            x = self.abs(base - target)
-            return self.reduce_mean(x)
+    def construct(self, base, target):
+        x = self.abs(base - target)
+        return self.reduce_mean(x)
 ```
 
 在`__init__`方法中实例化所需的算子，并在`construct`中调用这些算子。这样，一个用于计算L1Loss的损失函数就定义好了。
@@ -49,15 +49,15 @@ Cell是MindSpore的基本网络单元，可以用于构建网络，损失函数�
 给定一组预测值和真实值，调用损失函数，就可以得到这组预测值和真实值之间的差异，如下所示：
 
 ```python
-    import numpy as np
-    from mindspore import Tensor
+import numpy as np
+from mindspore import Tensor
 
-    loss = L1Loss()
-    input_data = Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32))
-    target_data = Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32))
+loss = L1Loss()
+input_data = Tensor(np.array([0.1, 0.2, 0.3]).astype(np.float32))
+target_data = Tensor(np.array([0.1, 0.2, 0.2]).astype(np.float32))
 
-    output = loss(input_data, target_data)
-    print(output)
+output = loss(input_data, target_data)
+print(output)
 ```
 
 输出结果如下：
@@ -69,17 +69,17 @@ Cell是MindSpore的基本网络单元，可以用于构建网络，损失函数�
 在定义损失函数时还可以继承损失函数的基类`_Loss`。`_Loss`提供了`get_loss`方法，用于对损失值求和或求均值，输出一个标量。L1Loss使用`_Loss`作为基类的定义如下：
 
 ```python
-    import mindspore.ops as ops
-    from mindspore.nn.loss.loss import _Loss
+import mindspore.ops as ops
+from mindspore.nn.loss.loss import _Loss
 
-    class L1Loss(_Loss):
-        def __init__(self, reduction="mean"):
-            super(L1Loss, self).__init__(reduction)
-            self.abs = ops.Abs()
+class L1Loss(_Loss):
+    def __init__(self, reduction="mean"):
+        super(L1Loss, self).__init__(reduction)
+        self.abs = ops.Abs()
 
-        def construct(self, base, target):
-            x = self.abs(base - target)
-            return self.get_loss(x)
+    def construct(self, base, target):
+        x = self.abs(base - target)
+        return self.get_loss(x)
 ```
 
 首先，使用`_Loss`作为L1Loss的基类，然后给`__init__`增加一个参数`reduction`，并通过`super`传给基类，最后在`construct`中调用基类提供的`get_loss`方法。`reduction`的合法参数有三个，`mean`、`sum`和`none`，分别表示求均值、求和与输出原值。
