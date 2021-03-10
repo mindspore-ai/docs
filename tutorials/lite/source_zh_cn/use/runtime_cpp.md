@@ -160,7 +160,7 @@ context->device_list_.push_back(npu_device_ctx);
 
 使用MindSpore Lite执行推理时，[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)是推理的主入口，通过[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)可以进行图编译、图执行。采用上一步创建得到的[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)，调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的静态[static LiteSession *CreateSession(const lite::Context *context)](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)方法来创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L275)演示如何创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的方式：
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L275)演示如何创建`LiteSession`的方式：
 
 ```cpp
 // Use Context to create Session.
@@ -180,7 +180,7 @@ if (session == nullptr) {
 
 在图执行前，需要调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#compilegraph)接口进行图编译，进一步解析从文件中加载的[Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#model)实例，主要进行子图切分、算子选型调度。这部分会耗费较多时间，所以建议[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)创建一次，编译一次，多次执行。
 
-下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L282)演示`CompileGraph`进行图编译。
+下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L282)演示调用`CompileGraph`进行图编译。
 
 ```cpp
 // Assume we have created a LiteSession instance named session and a Model instance named model before.
