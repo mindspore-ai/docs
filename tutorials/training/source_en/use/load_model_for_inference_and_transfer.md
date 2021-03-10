@@ -107,7 +107,7 @@ The `load_checkpoint` method returns a parameter dictionary and then the `load_p
 
 When loading a model with `mindspore_hub.load` API, we can add an extra argument to load the feature extraction part of the model only. So we can easily add new layers to perform transfer learning. This feature can be found in the related model page when an extra argument (e.g., include_top) has been integrated into the model construction by the model developer. The value of `include_top` is True or False, indicating whether to keep the top layer in the fully-connected network.
 
-We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/mobilenetv2) as example to illustrate how to load a model trained on ImageNet dataset and then perform transfer learning (re-training) on specific sub-task dataset. The main steps are listed below:
+We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/official/cv/mobilenetv2) as an example to illustrate how to load a model trained on the ImageNet dataset and then perform transfer learning (re-training) on a specific sub-task dataset. The main steps are listed below:
 
 1. Search the model of interest on [MindSpore Hub Website](https://www.mindspore.cn/resources/hub/) and get the related `url`.
 
@@ -173,7 +173,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 
     data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
 
-    # define map operations
+    # Define map operations
     trans = [C.Resize((224, 224))]
     if do_train:
         trans += [
@@ -191,7 +191,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
     data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
     data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
 
-    # apply batch operations
+    # Apply batch operations
     data_set = data_set.batch(batch_size, drop_remainder=True)
     return data_set
 
