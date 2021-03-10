@@ -310,16 +310,46 @@ mul = P.Mul().add_prim_attr("cross_batch", True)
 
 ### fusion
 
-To ensure performance, MindSpore provides the fusion function for the `AllGather` and `AllReduce` operators. Operators of the same type (of the same operator type and in the same communication domain) with the same `fusion` value will be fused together. The value of `fusion` must be greater than or equal to 0. When the value of `fusion` is 0, operators will not be fused together.
+To ensure performance, MindSpore provides the fusion function for the `AllGather` and `AllReduce` operators. Operators of the same type (of the same operator type and in the same communication domain) with the same `fusion` value will be fused together. The value of `fusion` must be greater than or equal to 0. When the value of `fusion` is 0, operators will not be fused together. Only `Ascend` backend is supported.
 
-The following is a code example:
+There are two ways for configuration. If the communication operators are called explicitly, `add_prim_attr` could be used to configure. The following is a code example:
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-allreduce1 = P.AllReduce().add_prim_attr("fusion", 1)
-allreduce2 = P.AllReduce().add_prim_attr("fusion", 1)
+allreduce1 = ops.AllReduce().add_prim_attr("fusion", 1)
+allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 ```
+
+`allreduce1` and `allreduce2` will be fused into one operator during execution.
+
+In `AUTO_PARALLEL` and `SEMI_AUTO_PARALLEL` mode, some communication operators used for parameters or gradients aggregation are inserted automatically. So the attribute should be added on a `Cell` or a `Parameter`. For example:
+
+```python
+import mindspore.nn as nn
+from mindspore import Tensor, Parameter
+from mindspore import context
+
+class Net(nn.Cell):
+    """Net definition"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc1 = P.MatMul()
+        self.fc2 = P.MatMul()
+        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1", comm_fusion=2)
+        self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")
+
+    def construct(self, x, y):
+        x = self.fc1(x, self.p1)
+        x = self.fc2(x, self.p2)
+        return x - y
+
+context.set_context(mode=context.GRAPH_MODE)
+context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=dev_num)
+net = Net().set_comm_fusion(2)
+```
+
+Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fusion` is 2 for the communication operators generated for this parameter. When you need to manipulate the parameters in batches, it is recommended to call `set_comm_fusion` to set `comm_fusion` for all the parameters in the Net. The value of attribute will be overwritten when the function is called multiply.
 
 ### layerwise_parallel
 

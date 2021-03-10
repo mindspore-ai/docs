@@ -311,9 +311,9 @@ mul = ops.Mul().add_prim_attr("cross_batch", True)
 
 ### fusion
 
-出于性能考虑，MindSpore提供了`AllGather`和`AllReduce`算子的融合功能，`fusion`值相同的同类算子（算子类型以及通信域相同）会融合在一起，`fusion`的值必须大于等于0，且当`fusion`值为0时，表示不融合。
+出于性能考虑，MindSpore提供了`AllGather`和`AllReduce`算子的融合功能，`fusion`值相同的同类算子（算子类型以及通信域相同）会融合在一起，`fusion`的值必须大于等于0，且当`fusion`值为0时，表示不融合。目前只支持`Ascend`后端。
 
-代码样例如下：
+`fusion`属性的配置有两种方式，如果是显式调用通信算子可以通过`add_prim_attr`方法直接为通信算子配置属性。代码样例如下：
 
 ```python
 import mindspore.ops as ops
@@ -321,6 +321,36 @@ import mindspore.ops as ops
 allreduce1 = ops.AllReduce().add_prim_attr("fusion", 1)
 allreduce2 = ops.AllReduce().add_prim_attr("fusion", 1)
 ```
+
+样例中的`allreduce1`和`allreduce2`将在执行时被融合为一个算子。
+
+在`AUTO_PARALLEL`和`SEMI_AUTO_PARALLEL`模式下自动插入的用于参数或者梯度聚合的通信算子，需要通过对`Cell`或者`Parameter`设置属性的方式间接添加。例如：
+
+```python
+import mindspore.nn as nn
+from mindspore import Tensor, Parameter
+from mindspore import context
+
+class Net(nn.Cell):
+    """Net definition"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.fc1 = P.MatMul()
+        self.fc2 = P.MatMul()
+        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1", comm_fusion=2)
+        self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")
+
+    def construct(self, x, y):
+        x = self.fc1(x, self.p1)
+        x = self.fc2(x, self.p2)
+        return x - y
+
+context.set_context(mode=context.GRAPH_MODE)
+context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=dev_num)
+net = Net().set_comm_fusion(2)
+```
+
+样例中对参数`Net.p1`设置`comm_fusion`为2，表示作用于该参数的通信算子`fusion`属性为2。当需要批量对参数进行操作时，可以调用`set_comm_fusion`方法将网络`Net`中包含的全部参数设置`comm_fusion`属性。如果多次调用的话，属性值会被覆盖。
 
 ### layerwise_parallel
 
