@@ -512,7 +512,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">性能调试（Ascend）</span>
@@ -579,6 +579,18 @@
 										</div>
 										<div class="doc-article-desc">
 											自动数据增强（AutoAugment）是在一系列图像增强子策略的搜索空间中，通过搜索算法找到适合特定数据集的图像增强方案。本教程介绍如何在ImageNet数据集上应用自动数据增强。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/evaluate_the_model_during_training.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">训练时验证模型</span>
+										</div>
+										<div class="doc-article-desc">
+											本教程使用MNIST数据集通过卷积神经网络LeNet5进行训练，着重介绍了在进行模型训练的同时进行模型的验证，保存对应epoch的模型，并从中挑选出最优模型的方法。
 										</div>
 									</div>
 								</a>
@@ -724,6 +736,18 @@
 										</div>
 										<div class="doc-article-desc">
 											MindSpore的感知量化训练是在训练基础上，使用低精度数据替换高精度数据来简化训练模型的过程。这个过程不可避免引入精度的损失，这时使用伪量化节点来模拟引入的精度损失，并通过反向传播学习，来减少精度损失。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Optimization user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_post_training_quantization.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">应用训练后量化</span>
+										</div>
+										<div class="doc-article-desc">
+											训练后量化是指对预训练后的网络进行权重量化或者全量化，以达到减小模型大小和提升推理性能的目的。 该过程不需要训练，对激活值量化时需要少量校准数据。
 										</div>
 									</div>
 								</a>
