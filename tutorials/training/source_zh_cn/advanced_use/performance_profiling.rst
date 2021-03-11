@@ -8,3 +8,4 @@
 
    performance_profiling_ascend
    performance_profiling_gpu
+   performance_profiling_ascend_of_cluster
