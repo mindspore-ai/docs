@@ -1,4 +1,4 @@
-# checkpoint高级用法
+# 保存、加载与转化模型
 
 - [基础用法](#基础用法)
 - [高级用法](#高级用法)
@@ -76,7 +76,7 @@ model.train(epoch_size, dataset, callbacks=ckpoint)
 
 - 训练过程中需要额外保存参数(lr、epoch_size等)为checkpoint文件
 - 修改checkpoint里面的参数值后重新保存
-- 把pytorch、tf的checkpoint文件转化为MindSpore的checkpoint文件
+- 把PyTorch、TensorFlow的checkpoint文件转化为MindSpore的checkpoint文件
 
 根据具体场景分为两种情况：
 
@@ -117,7 +117,7 @@ save_checkpoint(param_list, 'hyperparameters.ckpt')
 
 #### 严格匹配参数名
 
-背景：ckpt文件中的权重参数到net中的时候，会优先匹配net和ckpt中name相同的parameter。匹配完成后，发现net中存在没有加载的parameter，会匹配net中后缀名称与ckpt相同的parameter.(原因是ms的parameter命名机制)
+背景：ckpt文件中的权重参数到net中的时候，会优先匹配net和ckpt中name相同的parameter。匹配完成后，发现net中存在没有加载的parameter，会匹配net中后缀名称与ckpt相同的parameter。(原因是ms的parameter命名机制)
 
 例如：会把ckpt中名为：`conv.0.weight`的参数值加载到net中名为`net.conv.0.weight`的parameter中。
 
@@ -135,8 +135,8 @@ load_param_into_net(net, param_list, strict_load=True):
 
 使用场景：加载ckpt时，想要过滤某些包含特定前缀的parameter
 
-- 加载ckpt时，不加载优化器中的parameter(eg：filter_prefix=’opt‘)
-- 不加载卷积层的parameter(eg：filter_prefix=’conv‘)
+- 加载ckpt时，不加载优化器中的parameter(eg：filter_prefix='opt')
+- 不加载卷积层的parameter(eg：filter_prefix='conv')
 
 ```python
 net = Lenet()
@@ -152,7 +152,7 @@ load_param_into_net(net, param_list, filter_prefix='opt'):
 
 思路：不管是什么框架，checkpoint文件中保存的就是参数名和参数值，调用相应框架的读取接口后，获取到参数名和数值后，按照MindSpore格式，构建出对象，就可以直接调用ms接口保存成ms格式的checkpoint文件了。
 
-其中主要的工作量为对比不同框架间的parameter 名称，做到两个框架的网络中所有parameter name一一对应(可以使用一个map进行映射)，下面代码的逻辑转化parameter格式，不包括对应parameter name。
+其中主要的工作量为对比不同框架间的parameter名称，做到两个框架的网络中所有parameter name一一对应(可以使用一个map进行映射)，下面代码的逻辑转化parameter格式，不包括对应parameter name。
 
 ```python
 import torch
