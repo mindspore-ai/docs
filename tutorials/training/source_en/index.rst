@@ -454,7 +454,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performance Profiling (Ascend)</span>
@@ -774,6 +774,30 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											This tutorial introduces how to use MindSpore to train an intelligent poem writing model and deploy the prediction service.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/hpc_gomo.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Implementing Regional Ocean Model GOMO</span>
+										</div>
+										<div class="doc-article-desc">
+											This tutorial describes how to use MindSpore to build and run the 3D ocean model GOMO on GPU.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/use_on_the_cloud.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Use MindSpore on the Cloud</span>
+										</div>
+										<div class="doc-article-desc">
+											ModelArts is a one-stop AI development platform provided by HUAWEI CLOUD. It integrates the Ascend AI Processor resource pool. Developers can experience MindSpore on this platform. ResNet-50 is used as an example to describe how to use MindSpore to complete a training task on ModelArts.
 										</div>
 									</div>
 								</a>

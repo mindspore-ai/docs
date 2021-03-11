@@ -1,35 +1,123 @@
-# Multi-Platform Inference Overview
+# Inference Model Overview
 
 `Linux` `Ascend` `GPU` `CPU` `Inference Application` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Multi-Platform Inference Overview](#multi-platform-inference-overview)
+- [Inference Model Overview](#inference-model-overview)
+    - [Model Files](#model-files)
+    - [Inference Execution](#inference-execution)
+    - [Introduction to MindIR](#introduction-to-mindir)
+        - [Networks Supported by MindIR](#networks-supported-by-mindir)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/multi_platform_inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-Models trained by MindSpore support the inference on different hardware platforms. This document describes the inference process on each platform.
+MindSpore can execute inference tasks on different hardware platforms based on trained models.
 
-The inference can be performed in either of the following methods based on different principles:
+## Model Files
 
-- Use a checkpoint file for inference, that is, use the inference API to load data and the checkpoint file for inference in the MindSpore training environment.
-- Convert the checkpoint file into a common model format, such as ONNX or AIR, for inference. The inference environment does not depend on MindSpore. In this way, inference can be performed across hardware platforms as long as the platform supports ONNX or AIR inference. For example, models trained on the Ascend 910 AI processor can be inferred on the GPU or CPU.
+MindSpore can save two types of data: training parameters and network models that contain parameter information.
 
-MindSpore supports the following inference scenarios based on the hardware platform:
+- Training parameters are stored in the checkpoint format.
+- Network models are stored in the MindIR, AIR, or ONNX format.
 
-| Hardware Platform       | Model File Format | Description                              |
-| ----------------------- | ----------------- | ---------------------------------------- |
-| Ascend 910 AI processor | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
-| Ascend 310 AI processor | ONNX or AIR       | Equipped with the ACL framework and supports the model in OM format. You need to use a tool to convert a model into the OM format. |
-| GPU                     | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
-| GPU                     | ONNX              | Supports ONNX Runtime or SDK, for example, TensorRT. |
-| CPU                     | Checkpoint        | The training environment dependency is the same as that of MindSpore. |
-| CPU                     | ONNX              | Supports ONNX Runtime or SDK, for example, TensorRT. |
+Basic concepts and application scenarios of these formats are as follows:
 
-> - Open Neural Network Exchange (ONNX) is an open file format designed for machine learning. It is used to store trained models. It enables different AI frameworks (such as PyTorch and MXNet) to store model data in the same format and interact with each other. For details, visit the ONNX official website <https://onnx.ai/>.
-> - Ascend Intermediate Representation (AIR) is an open file format defined by Huawei for machine learning and can better adapt to the Ascend AI processor. It is similar to ONNX.
-> - Ascend Computer Language (ACL) provides C++ API libraries for users to develop deep neural network applications, including device management, context management, stream management, memory management, model loading and execution, operator loading and execution, and media data processing. It matches the Ascend AI processor and enables hardware running management and resource management.
-> - Offline Model (OM) is supported by the Huawei Ascend AI processor. It implements preprocessing functions that can be completed without devices, such as operator scheduling optimization, weight data rearrangement and compression, and memory usage optimization.
-> - NVIDIA TensorRT is an SDK for high-performance deep learning inference. It includes a deep learning inference optimizer and runtime to improve the inference speed of the deep learning model on edge devices. For details, see <https://developer.nvidia.com/tensorrt>.
+- Checkpoint
+    - Checkpoint uses the Protocol Buffers format and stores all network parameter values.
+    - It is generally used to resume training after a training task is interrupted or executes a fine-tune task after training.
+- MindSpore IR (MindIR)
+    - MindIR is a graph-based function-like IR of MindSpore and defines scalable graph structures and operator IRs.
+    - It eliminates model differences between different backends and is generally used to perform inference tasks across hardware platforms.
+- Open Neural Network Exchange (ONNX)
+    - ONNX is an open format built to represent machine learning models.
+    - It is generally used to transfer models between different frameworks or used on the inference engine ([TensorRT](https://docs.nvidia.com/deeplearning/tensorrt/api/python_api/index.html)).
+- Ascend Intermediate Representation (AIR)
+    - AIR is an open file format defined by Huawei for machine learning.
+    - It adapts to Huawei AI processors well and is generally used to execute inference tasks on Ascend 310.
+
+## Inference Execution
+
+Inference can be classified into the following two modes based on the application environment:
+
+1. Local inference
+
+    Load a checkpoint file generated during network training and call the `model.predict` API for inference and validation. For details, see [Inference Using a Checkpoint File with Single Device](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#checkpoint).
+
+2. Cross-platform inference
+
+    Use a network definition and a checkpoint file, call the `export` API to export a model file, and perform inference on different platforms. Currently, MindIR, ONNX, and AIR (on only Ascend AI Processors) models can be exported. For details, see [Saving Models](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html).
+
+## Introduction to MindIR
+
+MindSpore defines logical network structures and operator attributes through a unified IR, and decouples model files in MindIR format from hardware platforms to implement one-time training and multiple-time deployment.
+
+1. Overview
+
+    As a unified model file of MindSpore, MindIR stores network structures and weight parameter values. In addition, it can be deployed on the on-cloud Serving and the on-device Lite platforms to execute inference tasks.
+
+    A MindIR file supports the deployment of multiple hardware forms.
+
+    - On-cloud deployment and inference on Serving: After MindSpore trains and generates a MindIR model file, the file can be directly sent to MindSpore Serving for loading and inference. No additional model conversion is required. This ensures that models on different hardware such as Ascend, GPU, and CPU are unified.
+    - On-device inference and deployment on Lite: MindIR can be directly used for Lite deployment. In addition, to meet the lightweight requirements on devices, the model miniaturization and conversion functions are provided. An original MindIR model file can be converted from the Protocol Buffers format to the FlatBuffers format for storage, and the network structure is lightweight to better meet the performance and memory requirements on devices.
+
+2. Application Scenarios
+
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en?master).
+
+### Networks Supported by MindIR
+
+<table class="docutils">
+<tr>
+  <td>AlexNet</td>
+  <td>BERT</td>
+  <td>BGCF</td>
+</tr>
+<tr>
+  <td>CenterFace</td>
+  <td>CNN&CTC</td>
+  <td>DeepLabV3</td>
+</tr>
+<tr>
+  <td>DenseNet121</td>
+  <td>Faster R-CNN</td>
+  <td>GAT</td>
+</tr>
+<tr>
+  <td>GCN</td>
+  <td>GoogLeNet</td>
+  <td>LeNet</td>
+</tr>
+<tr>
+  <td>Mask R-CNN</td>
+  <td>MASS</td>
+  <td>MobileNetV2</td>
+</tr>
+<tr>
+  <td>NCF</td>
+  <td>PSENet</td>
+  <td>ResNet</td>
+</tr>
+<tr>
+  <td>ResNeXt</td>
+  <td>InceptionV3</td>
+  <td>SqueezeNet</td>
+</tr>
+<tr>
+  <td>SSD</td>
+  <td>Transformer</td>
+  <td>TinyBert</td>
+</tr>
+<tr>
+  <td>UNet2D</td>
+  <td>VGG16</td>
+  <td>Wide&Deep</td>
+</tr>
+<tr>
+  <td>YOLOv3</td>
+  <td>YOLOv4</td>
+  <td></td>
+</tr>
+</table>
