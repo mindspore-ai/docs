@@ -70,7 +70,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     `cache_admin` supports the following commands and options:
     - `--start`: starts the cache server. The following options are supported:
-        - `--workers` or `-w`: specifies the number of worker threads on the cache server. By default, the number of worker threads is half of the number of CPUs.
+        - `--workers` or `-w`: specifies the number of worker threads on the cache server. By default, the number of worker threads is half of the number of CPUs. This parameter relies on the NUMA architecture of the server. The value will be adjusted automatically by the server if it's not a multiple of number of NUMA nodes in the machine.
         - `--spilldir` or `-s`: specifies the disk file path for storing remaining data when the cached data size exceeds the memory space. The default value is '' (which means disabling spilling).
         - `--hostname` or `-h`: specifies the IP address of the cache server. The default value is 127.0.0.1.
         - `--port` or `-p`: specifies the port number of the cache server. The default value is 50052.
@@ -98,7 +98,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
                     port          50052
        number of workers             16
                log level              1
-                   spill       disabled
+               spill dir           None
     ----------------------------------------
     Active sessions:
     No active sessions.
