@@ -10,5 +10,5 @@
 | com.mindspore.lite        | [LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html) | LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和前向推理。 |
 | com.mindspore.lite        | [Model](https://www.mindspore.cn/doc/api_java/zh-CN/master/model.html) | Model定义了MindSpore Lite中的模型，便于计算图管理。          |
 | com.mindspore.lite        | [MSTensor](https://www.mindspore.cn/doc/api_java/zh-CN/master/mstensor.html) | MSTensor定义了MindSpore Lite中的张量。                       |
-| com.mindspore.lite        | [DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/app/src/main/java/com/mindspore/lite/config/DeviceType.java) | DataType定义了所支持的数据类型。                             |
+| com.mindspore.lite        | [DataType](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java) | DataType定义了所支持的数据类型。                             |
 | com.mindspore.lite        | [Version](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/Version.java) | Version用于获取MindSpore Lite的版本信息。                    |
