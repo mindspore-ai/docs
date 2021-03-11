@@ -241,7 +241,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/defining_the_network.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Defining the Network</span>
+										</div>
+										<div class="doc-article-desc">
+										A neural network model composed of multiple layers is an important part of the training process. This tutorial introduces several ways to define the network model.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html" class="article-link">
 									<div>
@@ -316,7 +327,30 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-					
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_gpu.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Custom Operators (GPU)</span>
+										</div>
+										<div class="doc-article-desc">
+										When built-in operators cannot meet requirements during network development, you can utilize MindSpore to quickly extend custom operators of the Graphics Processing Unit.
+										</div>
+									</div>
+								</a>
+							</div>							
+							<div class="doc-article-item all os-Linux hardware-CPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_cpu.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Custom Operators (CPU)</span>
+										</div>
+										<div class="doc-article-desc">
+										When the built-in operators are not enough for developing the network, you can extend your custom CPU operators fast and conveniently using MindSpore’s Python API and C++ API.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Development user-Beginner hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts_mindconverter.html" class="article-link">
 									<div>
