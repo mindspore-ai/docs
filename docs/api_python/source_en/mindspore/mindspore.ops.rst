@@ -25,6 +25,7 @@ The composite operators are the pre-defined combination of operators.
     mindspore.ops.GradOperation
     mindspore.ops.HyperMap
     mindspore.ops.laplace
+    mindspore.ops.matmul
     mindspore.ops.multinomial
     mindspore.ops.MultitypeFuncGraph
     mindspore.ops.normal
