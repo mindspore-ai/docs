@@ -62,7 +62,6 @@
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
    advanced_use/evaluate_the_model_during_training
-   advanced_use/advanced_usage_of_checkpoint
    advanced_use/kernel_incremental_compilation
 
 .. toctree::
