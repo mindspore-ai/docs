@@ -43,6 +43,7 @@
 | Computer Vision (CV)  | Image Classification  | [VGG16](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/vgg16)                |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [Xception](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/xception)             |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Object Detection  | [CenterFace](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/centerface)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV) | Object Detection  | [CTPN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ctpn)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [Faster R-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/faster_rcnn)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [Mask R-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn)         |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [Mask R-CNN (MobileNetV1)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn_mobilenetv1)    |  Supported |  Doing |  Doing |  Doing | Doing | Doing

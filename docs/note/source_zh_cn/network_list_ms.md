@@ -43,6 +43,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [VGG16](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/vgg16)  |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [Xception](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/xception) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 目标检测（Object Detection）  | [CenterFace](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/centerface)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| 计算机视觉（CV） | 目标检测（Object Detection）  | [CTPN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ctpn)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [Faster R-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/faster_rcnn)  |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [Mask R-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn)  |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[Mask R-CNN (MobileNetV1)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn_mobilenetv1)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
