@@ -56,7 +56,7 @@ virtual int CompileGraph(lite::Model *model)
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 #### GetInputs
 
@@ -176,7 +176,7 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 ### 静态公有成员函数
 
@@ -216,11 +216,11 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[ltrain_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train_session.h)&gt;
 
 继承于类 LiteSession，用于训练模型。
 
-### 析构函数
+### 构造和析构函数
 
 #### ~TrainSession
 
@@ -238,7 +238,7 @@ virtual ~TrainSession() = default;
 static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Context *context, bool train_mode = false);
 ```
 
-基于已有MS模型创建一个用于训练会话的静态对象指针。
+创建训练会话指针的静态方法。
 
 - 参数
 
@@ -249,13 +249,13 @@ static TrainSession *CreateSession(const char *model_buf, size_t size, lite::Con
 
 - 返回值
 
-    返回一个指向训练会话的静态对象指针。
+    指向训练会话的指针。
 
 ```cpp
 static TrainSession *CreateSession(const std::string &filename, lite::Context *context, bool train_mode = false);
 ```
 
-基于已有模型创建一个用于训练会话的静态对象指针。
+创建训练会话指针的静态方法。
 
 - 参数
 
@@ -265,7 +265,45 @@ static TrainSession *CreateSession(const std::string &filename, lite::Context *c
 
 - 返回值
 
-    返回一个指向训练会话的静态对象指针。
+    指向训练会话的指针。
+
+#### CreateTransferSession
+
+```cpp
+static TrainSession *CreateTransferSession(const char *model_buf_backbone, size_t size_backbone, const char *model_buf_head, size_t size_head, lite::Context *context, bool train_mode = false);
+```
+
+创建迁移学习训练会话指针的静态方法。
+
+- 参数
+
+    - `model_buf_backbone`: 指向主干网络模型的字符指针。
+    - `size_backbone`: 暂存主干网络模型的缓冲区大小。
+    - `model_buf_head`: 指向顶层网络模型的字符指针。
+    - `size_head`: 暂存顶层网络模型的缓冲区大小。
+    - `context`: 指向目标会话的指针。
+    - `train_mode`: 是否开启训练模式。
+
+- 返回值
+
+    指向训练会话的指针。
+
+```cpp
+static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, lite::Context *context, bool train_mode = false);
+```
+
+创建迁移学习训练会话指针的静态方法。
+
+- 参数
+
+    - `filename_backbone`: 主干网络的名称。
+    - `filename_head`: 顶层网络的名称。
+    - `context`: 指向目标会话的指针。
+    - `train_mode`: 是否开启训练模式。
+
+- 返回值
+
+    指向训练会话的指针。
 
 #### ExportToBuf
 
@@ -273,16 +311,16 @@ static TrainSession *CreateSession(const std::string &filename, lite::Context *c
 virtual void *ExportToBuf(char *buf, size_t *len) const = 0;
 ```
 
-创建一个指向缓冲区的字符指针。
+将训练好的模型导出至缓冲区。
 
 - 参数
 
-    - `buf`: 指向模型导出的目标缓冲区的指针，如果指针为空则自动分配一块内存。
-    - `len`: 指向预分配缓冲区大小的指针。
+    - `buf`: 指向导出模型的目标缓冲区的指针，如果指针为空则自动分配一块内存。
+    - `len`: 预分配缓冲区大小。
 
 - 返回值
 
-    返回一个指向存储导出模型缓冲区的字符指针。
+    指向存储导出模型缓冲区的字符指针。
 
 #### SaveToFile
 
@@ -294,11 +332,11 @@ virtual int SaveToFile(const std::string &filename) const = 0;
 
 - 参数
 
-    - `filename`: 已训练模型的文件名。
+    - `filename`: 保存模型的文件名。
 
 - 返回值
 
-    0 表示保存成功，-1 表示保存失败。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 #### Train
 
@@ -310,7 +348,7 @@ virtual int Train() = 0;
 
 - 返回值
 
-    返回执行结果状态代码，状态码参见 " errorcode.h "。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 #### IsTrain
 
@@ -322,7 +360,7 @@ bool IsTrain() { return train_mode_ == true; }
 
 - 返回值
 
-    返回 true 或 false，即当前模型是否为训练模式。
+    true 或 false，即当前模型是否为训练模式。
 
 #### Eval
 
@@ -334,7 +372,7 @@ virtual int Eval() = 0;
 
 - 返回值
 
-    返回执行结果状态代码，状态码参见 " errorcode.h "。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
 
 #### IsEval
 
@@ -346,4 +384,213 @@ bool IsEval() { return train_mode_ == false; }
 
 - 返回值
 
-    返回 true 或 false，即当前模型是否为验证模式。
+    true 或 false，即当前模型是否为验证模式。
+
+#### SetLearningRate
+
+```cpp
+virtual int SetLearningRate(float learning_rate) = 0;
+```
+
+为当前模型设置学习率。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### GetLearningRate
+
+```cpp
+virtual float GetLearningRate() = 0;
+```
+
+获取当前模型的学习率。
+
+- 返回值
+
+    当前模型的学习率， 如果未设置优化器则返回0.0。
+
+#### SetupVirtualBatch
+
+```cpp
+virtual int SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f) = 0;
+```
+
+用户自定义虚拟批次数,，用于减少内存消耗。
+
+- 参数
+
+    - `virtual_batch_multiplier`: 自定义虚拟批次数。
+    - `lr`: 自定义学习率。
+    - `momentum`: 自定义动量。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### GetPredictions
+
+```cpp
+virtual std::vector<tensor::MSTensor *> GetPredictions() const = 0;
+```
+
+获取训练模型的预测结果。
+
+- 返回值
+
+    预测结果张量指针数组。
+
+#### SetLossName
+
+```cpp
+void SetLossName(std::string loss_name) { loss_name_ = loss_name; }
+```
+
+设置损失值名称。
+
+- 参数
+
+    - `loss_name`: 损失值名称。
+
+## TrainLoop
+
+\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;
+
+继承于Session，可设置训练参数和数据预处理函数，用于减少模型训练的资源消耗。
+
+### 析构函数
+
+#### ~TrainLoop
+
+```cpp
+virtual ~TrainLoop() = default;
+```
+
+虚析构函数。
+
+### 公有成员函数
+
+#### CreateTrainLoop
+
+```cpp
+static TrainLoop *CreateTrainLoop(const std::string &model_filename, lite::Context *context, int batch_size = -1);
+```
+
+创建迭代训练指针的静态方法。
+
+- 参数
+
+    - `model_filename`: 模型文件名。
+    - `context`: 指向目标会话的指针。
+    - `batch_size`: 批次数。
+
+- 返回值
+
+    指向迭代训练对象的指针。
+
+#### Reset
+
+```cpp
+virtual int Reset() = 0;
+```
+
+重置迭代次数为0。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### train_session
+
+```cpp
+virtual session::TrainSession *train_session() = 0;
+```
+
+获取TrainSession会话对象。
+
+- 返回值
+
+    指向训练会话对象的指针。
+
+#### Init
+
+```cpp
+virtual int Init(std::vector<mindspore::session::Metrics *> metrics) = 0;
+```
+
+初始化模型评估矩阵。
+
+- 参数
+
+    - `metrics`: 模型评估矩阵指针数组。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### GetMetrics
+
+```cpp
+virtual std::vector<mindspore::session::Metrics *> GetMetrics() = 0;
+```
+
+获取模型评估矩阵。
+
+- 返回值
+
+    模型评估矩阵指针数组。
+
+#### SetKernelCallBack
+
+```cpp
+virtual int SetKernelCallBack(const KernelCallBack &before, const KernelCallBack &after) = 0;
+```
+
+设置运行时回调函数。
+
+- 参数
+
+    - `before`: 执行前回调。
+    - `after`: 执行后回调。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### Train
+
+```cpp
+virtual int Train(int epochs, mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCallBack *> cbs, LoadDataFunc load_func = nullptr)= 0;
+```
+
+执行迭代训练。
+
+- 参数
+
+    - `epochs`: 迭代次数。
+    - `dataset`: 指向MindData类对象的指针。
+    - `cbs`: 对象指针数组。
+    - `load_func`: 类模板函数对象。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### Eval
+
+```cpp
+virtual int Eval(mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCallBack *> cbs, LoadDataFunc load_func = nullptr, int max_steps = INT_MAX) = 0;
+```
+
+执行迭代训练。
+
+- 参数
+
+    - `dataset`: 指向MindData类对象的指针。
+    - `cbs`: 对象指针数组。
+    - `load_func`: 类模板函数对象。
+    - `max_steps`: 重复迭代次数。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
