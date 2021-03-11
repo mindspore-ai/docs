@@ -159,7 +159,7 @@ Get output MindSpore Lite MSTensors of model by tensor name.
 
 - Returns
 
-  Pointer of MindSpore Lite MSTensor.
+    Pointer of MindSpore Lite MSTensor.
 
 #### Resize
 
@@ -208,7 +208,7 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
     - `model_buf`: Define the buffer read from a model file.
 
-    - `size`: variable. Define the byte number of model buffer.
+    - `size`: Define the byte number of model buffer.
 
     - `context`: Define the context of session to be created.
 
@@ -218,7 +218,7 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
 ## TrainSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train_session.h)&gt;
 
 Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
 
@@ -274,6 +274,44 @@ Static method to create a TrainSession object.
 
     Pointer that points to MindSpore Lite TrainSession.
 
+#### CreateTransferSession
+
+```cpp
+static TrainSession *CreateTransferSession(const char *model_buf_backbone, size_t size_backbone, const char *model_buf_head, size_t size_head, lite::Context *context, bool train_mode = false);
+```
+
+Static method that creates the object pointer that points to the transfer learning training session.
+
+- Parameters
+
+    - `model_buf_backbone`: Pointer that points to the backbone network.
+    - `size_backbone`: The size of backbone network temporary saving buffer.
+    - `model_buf_head`: Pointer that points to the head network.
+    - `size_head`: The size of head network temporary saving buffer.
+    - `context`: Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize Session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
+```cpp
+static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, lite::Context *context, bool train_mode = false);
+```
+
+Static method that creates the object pointer that points to the transfer learning training session.
+
+- Parameters
+
+    - `filename_backbone`: Filename of the backbone network to read flatbuffer.
+    - `filename_head`: Filename of the head network to read flatbuffer.
+    - `context`: Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize Session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
 #### ExportToBuf
 
 ```cpp
@@ -302,7 +340,7 @@ Save the trained model into a flatbuffer file.
 
 - Parameters
 
-    - `filename`: Name of the file to save flatbuffer.
+    - `filename`: Filename of the file to save buffer.
 
 - Returns
 
@@ -355,3 +393,212 @@ Check mode of model.
 - Returns
 
     boolean indication if model is in eval mode.
+
+#### SetLearningRate
+
+```cpp
+virtual int SetLearningRate(float learning_rate) = 0;
+```
+
+Set the learning rate for the current model.
+
+- Returns
+
+    0 represents success or -1 in case of error.
+
+#### GetLearningRate
+
+```cpp
+virtual float GetLearningRate() = 0;
+```
+
+Get the learning rate of the current model.
+
+- Returns
+
+    The learning rate of the current model, default is 0.0.
+
+#### SetupVirtualBatch
+
+```cpp
+virtual int SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f) = 0;
+```
+
+Customize the virtual batch size, in order to reduce memory consumption.
+
+- Parameters
+
+    - `virtual_batch_multiplier`: virtual batch number.
+    - `lr`: learning rate.
+    - `momentum`: momentum.
+
+- Returns
+
+    0 represents success or -1 in case of error.
+
+#### GetPredictions
+
+```cpp
+virtual std::vector<tensor::MSTensor *> GetPredictions() const = 0;
+```
+
+Get the predicting result of the trained model.
+
+- Returns
+
+    Return the pointer vector of prediction results.
+
+#### SetLossName
+
+```cpp
+void SetLossName(std::string loss_name) { loss_name_ = loss_name; }
+```
+
+Set the loss name.
+
+- Parameters
+
+    - `loss_name`: The name of loss kernels.
+
+## TrainLoop
+
+\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;
+
+Inherited from Session and used for reducing the RAM consumption during model training, user can set hyper-parameters and customized data preprocessing function.
+
+### Constructors & Destructors
+
+#### ~TrainLoop
+
+```cpp
+virtual ~TrainLoop() = default;
+```
+
+Destructor function.
+
+### Public Member Functions
+
+#### CreateTrainLoop
+
+```cpp
+static TrainLoop *CreateTrainLoop(const std::string &model_filename, lite::Context *context, int batch_size = -1);
+```
+
+A static method of creating TrainLoop pointer.
+
+- Parameters
+
+    - `model_filename`: Name of ms model.
+    - `context`: Pointer that points to a context.
+    - `batch_size`: Batch size number.
+
+- Returns
+
+    Pointer that points to the TrainLoop object .
+
+#### Reset
+
+```cpp
+virtual int Reset() = 0;
+```
+
+Reset the epoch to 0.
+
+- Returns
+
+    0 means resetting successfully while -1 means failed.
+
+#### train_session
+
+```cpp
+virtual session::TrainSession *train_session() = 0;
+```
+
+Get the object of the current TrainSession.
+
+- Returns
+
+    Pointer that points to the object of TrainSession.
+
+#### Init
+
+```cpp
+virtual int Init(std::vector<mindspore::session::Metrics *> metrics) = 0;
+```
+
+Initialize the model evaluation matrix.
+
+- Parameters
+
+    - `metrics`: Pointer vector of the model evaluating matrix.
+
+- Returns
+
+    0 means initializing successfully while -1 means failed.
+
+#### GetMetrics
+
+```cpp
+virtual std::vector<mindspore::session::Metrics *> GetMetrics() = 0;
+```
+
+Get the model evaluation matrix.
+
+- Returns
+
+    Pointer vector of the model evaluation matrix.
+
+#### SetKernelCallBack
+
+```cpp
+virtual int SetKernelCallBack(const KernelCallBack &before, const KernelCallBack &after) = 0;
+```
+
+Set the callback function during training.
+
+- Parameters
+
+    - `before`: Callback pointer before execution.
+    - `after`: Callback pointer after execution.
+
+- Returns
+
+    0 means setting successfully while -1 means failed.
+
+#### Train
+
+```cpp
+virtual int Train(int epochs, mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCallBack *> cbs, LoadDataFunc load_func = nullptr)= 0;
+```
+
+Execute training.
+
+- Parameters
+
+    - `epochs`: Training epoch number.
+    - `dataset`: Pointer that points to the MindData object.
+    - `cbs`: Object pointer vector.
+    - `load_func`: Class template function object.
+
+- Returns
+
+    0 means training successfully while -1 means failed.
+
+#### Eval
+
+```cpp
+virtual int Eval(mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCallBack *> cbs, LoadDataFunc load_func = nullptr, int max_steps = INT_MAX) = 0;
+```
+
+Execute evaluating.
+
+- Parameters
+
+    - `dataset`: Pointer that points to the DataSet object.
+    - `cbs`: Object pointer vector.
+    - `load_func`: Class template function object.
+    - `max_steps`: Eval epoch number.
+
+- Returns
+
+    0 means evaluating successfully while -1 means failed.
