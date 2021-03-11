@@ -20,6 +20,7 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
+            - [grad_accumulation_step](#grad_accumulation_step)
     - [Distributed Communication Interface](#distributed-communication-interface)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -241,6 +242,18 @@ context.set_auto_parallel_context(parallel_stages=4)
 context.get_auto_parallel_context("parallel_stages")
 ```
 
+#### grad_accumulation_step
+
+`grad_accumulation_step` means the steps where the gradients are accumulated.
+
+The following is a code example:
+
+```python
+from mindspore import context
+context.set_auto_parallel_context(grad_accumulation_step=4)
+context.get_auto_parallel_context("grad_accumulation_step")
+```
+
 ## Distributed Communication Interface
 
 `mindspore.communication.management` encapsulates a collection of communication interfaces used by parallel distributed training, facilitating users to configure distributed information.
@@ -336,7 +349,8 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.fc1 = P.MatMul()
         self.fc2 = P.MatMul()
-        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1", comm_fusion=2)
+        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1")
+        self.p1.comm_fusion = 2
         self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")
 
     def construct(self, x, y):
@@ -345,11 +359,13 @@ class Net(nn.Cell):
         return x - y
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=dev_num)
+context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=8)
 net = Net().set_comm_fusion(2)
 ```
 
 Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fusion` is 2 for the communication operators generated for this parameter. When you need to manipulate the parameters in batches, it is recommended to call `set_comm_fusion` to set `comm_fusion` for all the parameters in the Net. The value of attribute will be overwritten when the function is called multiply.
+
+> When a parameter is shared, the operators connected with the parameter should have the same data type. Otherwise, fusion would failed.
 
 ### layerwise_parallel
 

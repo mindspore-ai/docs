@@ -20,6 +20,7 @@
             - [strategy_ckpt_save_file](#strategy_ckpt_save_file)
             - [full_batch](#full_batch)
             - [pipeline_stages](#pipeline_stages)
+            - [grad_accumulation_step](#grad_accumulation_step)
     - [分布式通信接口](#分布式通信接口)
         - [init](#init)
         - [get_group_size](#get_group_size)
@@ -242,6 +243,18 @@ context.set_auto_parallel_context(pipeline_stage=4)
 context.get_auto_parallel_context("pipeline_stage")
 ```
 
+#### grad_accumulation_step
+
+`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_gradient_accumulation.html)
+
+代码样例如下：
+
+```python
+from mindspore import context
+context.set_auto_parallel_context(grad_accumulation_step=4)
+context.get_auto_parallel_context("grad_accumulation_step")
+```
+
 ## 分布式通信接口
 
 `mindspore.communication.management`中封装了分布式并行用到的集合通信接口，方便用户配置分布式信息。
@@ -337,7 +350,8 @@ class Net(nn.Cell):
         super(Net, self).__init__()
         self.fc1 = P.MatMul()
         self.fc2 = P.MatMul()
-        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1", comm_fusion=2)
+        self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1")
+        self.p1.comm_fusion = 2
         self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")
 
     def construct(self, x, y):
@@ -346,11 +360,13 @@ class Net(nn.Cell):
         return x - y
 
 context.set_context(mode=context.GRAPH_MODE)
-context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=dev_num)
+context.set_auto_parallel_context(parallel_mode="auto_parallel", device_num=8)
 net = Net().set_comm_fusion(2)
 ```
 
 样例中对参数`Net.p1`设置`comm_fusion`为2，表示作用于该参数的通信算子`fusion`属性为2。当需要批量对参数进行操作时，可以调用`set_comm_fusion`方法将网络`Net`中包含的全部参数设置`comm_fusion`属性。如果多次调用的话，属性值会被覆盖。
+
+> 当参数被共享时，需要保证连接参数的多个算子混合精度一致，否则融合会失败。
 
 ### layerwise_parallel
 
