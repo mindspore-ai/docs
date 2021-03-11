@@ -20,7 +20,7 @@
 
 A parameter server is a widely used architecture in distributed training. Compared with the synchronous AllReduce training method, a parameter server has better flexibility, scalability, and node failover capabilities. Specifically, the parameter server supports both synchronous and asynchronous SGD training algorithms. In terms of scalability, model computing and update are separately deployed in the worker and server processes, so that resources of the worker and server can be independently scaled out and in horizontally. In addition, in an environment of a large-scale data center, various failures often occur in a computing device, a network, and a storage device, and consequently some nodes are abnormal. However, in an architecture of a parameter server, such a failure can be relatively easily handled without affecting a training job.
 
-In the parameter server implementation of MindSpore, the open-source [ps-lite](https://github.com/dmlc/ps-lite) is used as the basic architecture. Based on the remote communication capability provided by the [ps-lite](https://github.com/dmlc/ps-lite) and abstract Push/Pull primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
+In the parameter server implementation of MindSpore, the self-developed communication framework (core) is used as the basic architecture. Based on the remote communication capability provided by the core and abstract Send/Broadcast primitives, the distributed training algorithm of the synchronous SGD is implemented. In addition, with the high-performance collective communication library in Ascend and GPU(HCCL and NCCL), MindSpore also provides the hybrid training mode of parameter server and AllReduce. Some weights can be stored and updated through the parameter server, and other weights are still trained through the AllReduce algorithm.
 
 The ps-lite architecture consists of three independent components: server, worker, and scheduler. Their functions are as follows:
 
@@ -63,8 +63,9 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
 4. [optional configuration] For a large shape `embedding_table`, because the device can not store a full amount of `embedding_table`. You can configure the `vocab_cache_size` of [EmbeddingLookup operator](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.EmbeddingLookup.html) to enable the cache function of `EmbeddingLookup` in the Parameter Server training mode. The `vocab_cache_size` of `embedding_table` is trained on device, and a full amount of `embedding_table` is stored in the Server. The `embedding_table` of the next batch is swapped to the cache in advance, and the expired `embedding_table` is put back to the Server when the cache cannot be placed, to achieve the purpose of improving the training performance. Each Server could save a checkpoint containing the trained `embedding_table` after the training. Detailed network training script can be referred to <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep>.
 
-   ```python
-    context.set_auto_parallel_context(full_batch=True, parallel_mode=ParallelMode.AUTO_PARALLEL)
+    ```python
+    context.set_auto_parallel_context(full_batch=True,
+    parallel_mode=ParallelMode.AUTO_PARALLEL)
     context.set_context(enable_sparse=True)
     network = Net()
     model = Model(network)
@@ -83,7 +84,6 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
 
 ```bash
-export PS_VERBOSE=1                   # Print ps-lite log
 export MS_SERVER_NUM=1                # Server number
 export MS_WORKER_NUM=1                # Worker number
 export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address
@@ -101,7 +101,6 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
     ```bash
     #!/bin/bash
-    export PS_VERBOSE=1
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
@@ -114,7 +113,6 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
     ```bash
     #!/bin/bash
-    export PS_VERBOSE=1
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
@@ -127,7 +125,6 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
 
     ```bash
     #!/bin/bash
-    export PS_VERBOSE=1
     export MS_SERVER_NUM=1
     export MS_WORKER_NUM=1
     export MS_SCHED_HOST=XXX.XXX.XXX.XXX
@@ -151,10 +148,9 @@ export MS_ROLE=MS_SCHED               # The role of this process: MS_SCHED repre
     Run the following command to view the communication logs between the server and worker in the `scheduler.log` file:
 
     ```text
-    Bind to role=scheduler, id=1, ip=XXX.XXX.XXX.XXX, port=XXXX
-    Assign rank=8 to node role=server, ip=XXX.XXX.XXX.XXX, port=XXXX
-    Assign rank=9 to node role=worker, ip=XXX.XXX.XXX.XXX, port=XXXX
-    the scheduler is connected to 1 workers and 1 servers
+    The server node id:b5d8a47c-46d7-49a5-aecf-d29d7f8b6124,node ip: 10.90.53.118,node port:46737 assign rank id:0
+    The worker node id:55e86d4b-d717-4930-b414-ebd80082f541 assign rank id:1
+    Start the scheduler node is successful!
     ```
 
     The preceding information indicates that the communication between the server, worker, and scheduler is established successfully.
