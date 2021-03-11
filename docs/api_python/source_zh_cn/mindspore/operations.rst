@@ -345,6 +345,43 @@ Random Operators
     mindspore.ops.UniformInt
     mindspore.ops.UniformReal
 
+Sponge Operators
+^^^^^^^^^^^^^^^^
+
+.. msplatformautosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.AngleAtomEnergy
+    mindspore.ops.AngleEnergy
+    mindspore.ops.AngleForce
+    mindspore.ops.AngleForceWithAtomEnergy
+    mindspore.ops.BondAtomEnergy
+    mindspore.ops.BondEnergy
+    mindspore.ops.BondForce
+    mindspore.ops.BondForceWithAtomEnergy
+    mindspore.ops.BondForceWithAtomVirial
+    mindspore.ops.DihedralAtomEnergy
+    mindspore.ops.DihedralEnergy
+    mindspore.ops.DihedralForce
+    mindspore.ops.DihedralForceWithAtomEnergy
+    mindspore.ops.Dihedral14CFAtomEnergy
+    mindspore.ops.Dihedral14CFEnergy
+    mindspore.ops.Dihedral14LJAtomEnergy
+    mindspore.ops.Dihedral14LJCFForceWithAtomEnergy
+    mindspore.ops.Dihedral14LJEnergy
+    mindspore.ops.Dihedral14LJForce
+    mindspore.ops.Dihedral14LJForceWithDirectCF
+    mindspore.ops.LJEnergy
+    mindspore.ops.LJForce
+    mindspore.ops.LJForceWithPMEDirectForce
+    mindspore.ops.MDIterationLeapFrog
+    mindspore.ops.NeighborListUpdate
+    mindspore.ops.PMEEnergy
+    mindspore.ops.PMEExcludedForce
+    mindspore.ops.PMEReciprocalForce
+
 Inner Operators
 ^^^^^^^^^^^^^^^^
 
