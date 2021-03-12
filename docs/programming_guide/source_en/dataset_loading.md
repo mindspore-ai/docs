@@ -50,9 +50,10 @@ MindSpore can also load datasets in different data storage formats. You can dire
 
 MindSpore also supports user-defined dataset loading using `GeneratorDataset`. You can implement your own dataset classes as required.
 
-| Data Format | Dataset Class | Description |
-|  ----                    | ----  | ----           |
-|  User defined   | GeneratorDataset | User defined class or function to load and process dataset. |
+| Dataset Class | Description |
+| ----          | ----        |
+| GeneratorDataset | User defined class or function to load and process dataset. |
+| NumpySlicesDataset | User defined data source to construct dataset using NumPy. |
 
 > For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
