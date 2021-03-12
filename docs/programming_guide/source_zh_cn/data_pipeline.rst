@@ -12,3 +12,4 @@
   dataset_conversion
   auto_augmentation
   cache
+  dump_tutorial
