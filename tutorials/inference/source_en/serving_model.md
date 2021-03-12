@@ -170,7 +170,7 @@ register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format=
                           with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
-For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `declare_distributed_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline, you can refer to [Deploy distributed inference service](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_distributed_example.md#deploy-distributed-inference-service).
+For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `declare_distributed_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline.
 
 ```python
 from mindspore_serving.worker import distributed
