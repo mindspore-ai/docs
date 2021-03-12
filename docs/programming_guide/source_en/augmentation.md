@@ -501,11 +501,11 @@ The following shows the processed image.
 ![eager_mode](./images/eager_mode.png)
 
 - Augmentation operators that support to be run in Eager Mode are listed in the following files:
-    - [mindspore.dataset.vision.c_transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-c-transforms)
+    - [mindspore.dataset.vision.c_transforms](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-c-transforms)
 
-    - [mindspore.dataset.vision.py_transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-py-transforms)
+    - [mindspore.dataset.vision.py_transforms](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.vision.html#mindspore-dataset-vision-py-transforms)
 
-    - [mindspore.dataset.text.transforms](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.dataset.text.html)
+    - [mindspore.dataset.text.transforms](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.text.html#mindspore-dataset-text-transforms)
 
 ## Usage Instructions
 
