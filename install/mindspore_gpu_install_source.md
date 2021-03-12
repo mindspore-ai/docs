@@ -19,7 +19,7 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
-详细步骤可以参考社区提供的实践————[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
+详细步骤可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
 
 ## 确认系统环境信息
 
