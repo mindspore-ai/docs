@@ -163,11 +163,11 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
 
     - `Tuple` stores `Cell`. Each `Cell` must be defined before a tuple is defined. The number of input parameters, input parameter type, and input parameter `shape` of each `Cell` must be the same. The number of outputs of each `Cell` must be the same. The output type must be the same as the output shape.
 
-    - The index `Tensor` is a scalar `Tensor` whose `dtype` is `int32`. The value range is `[-tuple_len, tuple_len)`.
+    - The index `Tensor` is a scalar `Tensor` whose `dtype` is `int32`. The value range is `[-tuple_len, tuple_len)`, negative index is not supported in `Ascend` backend.
 
     - This syntax does not support the running branches whose control flow conditions `if`, `while`, and `for` are variables. The control flow conditions can be constants only.
 
-    - Only the `GPU` backend is supported.
+    - `GPU` and `Ascend` backend is supported.
 
   An example of the `int` and `slice` indexes is as follows:
 
@@ -183,7 +183,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   ```text
   y: 3
   z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
-  m: (2, 3, 4), 3, 4)
+  m: ((2, 3, 4), 3, 4)
   ```
 
   An example of the `Tensor` index is as follows:

@@ -164,11 +164,11 @@
 
     - `tuple`里存放的都是`Cell`，每个`Cell`要在tuple定义之前完成定义，每个`Cell`的入参个数、入参类型和入参`shape`要求一致，每个`Cell`的输出个数、输出类型和输出`shape`也要求一致。
 
-    - 索引`Tensor`是一个`dtype`为`int32`的标量`Tensor`，取值范围在`[-tuple_len, tuple_len)`。
+    - 索引`Tensor`是一个`dtype`为`int32`的标量`Tensor`，取值范围在`[-tuple_len, tuple_len)`，`Ascend`后端不支持负数索引。
 
     - 该语法不支持`if`、`while`、`for`控制流条件为变量的运行分支，仅支持控制流条件为常量。
 
-    - 仅支持`GPU`后端。
+    - 支持`GPU`和`Ascend`后端。
 
   `int`、`slice`索引示例如下：
 
@@ -184,7 +184,7 @@
   ```text
   y: 3
   z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
-  m: (2, 3, 4), 3, 4)
+  m: ((2, 3, 4), 3, 4)
   ```
 
   `Tensor`索引示例如下：
