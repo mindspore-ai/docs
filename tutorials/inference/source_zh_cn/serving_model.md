@@ -170,6 +170,15 @@ register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format=
                           with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
+对于分布式模型`distributed_servable`，与非分布式单模型配置相比仅声明方法不同，需要使用`declare_distributed_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/serving_distributed_example.md#部署分布式推理服务)。
+
+```python
+from mindspore_serving.worker import distributed
+from mindspore_serving.worker import register
+
+distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+```
+
 ### 方法定义
 
 方法定义的例子如下：
