@@ -118,7 +118,7 @@ cpu_device_info.cpu_bind_mode_ = HIGHER_CPU;
 cpu_device_info.enable_float16_ = true;
 ```
 
->Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型会自动回退到Float32执行。
+> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
 
 ### 配置使用GPU后端
 
@@ -362,7 +362,7 @@ if (ret != mindspore::lite::RET_OK) {
 session->BindThread(false);
 ```
 
-> 绑核参数有两种选择：大核优先和中核优先。
+> 绑核参数有三种选择：大核优先、中核优先以及不邦核。
 >
 > 判定大核和中核的规则其实是根据CPU核的频率而不是根据CPU的架构，对于没有大中小核之分的CPU架构，在该规则下也可以区分大核和中核。
 >

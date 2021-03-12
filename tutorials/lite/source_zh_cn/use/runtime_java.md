@@ -118,7 +118,7 @@ MindSpore Lite支持异构推理，推理时的主选后端由[MSConfig](https:/
 
 MindSpore Lite内置一个进程共享的线程池，推理时通过`threadNum`指定线程池的最大线程数，默认为2线程。
 
-MindSpore Lite支持> 注意mindspore-lite-{version}是AAR的文件名，需要将{version}替换成对应版本信息。算子的模式进行推理。`enable_float16`设置为`true`后，将会优先使用Float16算子。
+MindSpore Lite支持Float16算子的模式进行推理。`enable_float16`设置为`true`后，将会优先使用Float16算子。
 
 ### 配置使用CPU后端
 
@@ -131,7 +131,7 @@ MSConfig msConfig = new MSConfig();
 boolean ret = msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.HIGHER_CPU, true);
 ```
 
-> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型会自动回退到Float32执行。
+> Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
 
 ### 配置使用GPU后端
 
@@ -277,7 +277,7 @@ ret = session.runGraph();
 session.bindThread(false);
 ```
 
-> 绑核参数有两种选择：大核优先和中核优先。
+> 绑核参数有三种选择：大核优先、中核优先以及不邦核。
 >
 > 判定大核和中核的规则其实是根据CPU核的频率而不是根据CPU的架构，对于没有大中小核之分的CPU架构，在该规则下也可以区分大核和中核。
 >
@@ -360,7 +360,7 @@ logcat -s "MS_LITE"
 
 ### 获取版本号
 
-MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)方法可以获取版本号，包含在`include/version.h`头文件中，调用该方法可以得到当前MindSpore Lite的版本号。
+MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)方法可以获取版本号，包含在`com.mindspore.lite.Version`头文件中，调用该方法可以得到当前MindSpore Lite的版本号。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215)演示如何获取MindSpore Lite的版本号：
 
