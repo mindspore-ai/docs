@@ -11,6 +11,7 @@
         - [编译示例](#编译示例)
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
+            - [代码生成工具Codegen目录结构说明](#代码生成工具Codegen目录结构说明)
             - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
         - [端侧训练框架编译输出](#端侧训练框架编译输出)
             - [训练模型转换工具converter目录结构说明](#训练模型转换工具converter目录结构说明)
@@ -38,6 +39,7 @@
 | benchmark          | Linux, Windows, Android | 基准测试工具                      |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
+| Codegen            | Linux                   | 模型推理代码生成工具               |
 
 训练版本包含模块：
 
@@ -80,6 +82,10 @@
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
+- Codegen编译依赖
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
 
 > - 当安装完依赖项`Android_NDK`后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
 > - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
@@ -207,6 +213,8 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
+- `mindspore-lite-{version}-codegen-{os}-{arch}.tar.gz`：模型编译，代码生成工具。
+
 > version: 输出件版本号，与所编译的分支代码对应的版本一致。
 >
 > os: 输出件应部署的操作系统。
@@ -219,6 +227,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
 tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
+tar -xvf mindspore-lite-{version}-codegen-{os}-{arch}.tar.gz
 ```
 
 #### 模型转换工具converter目录结构说明
@@ -234,6 +243,69 @@ unzip mindspore-lite-maven-{version}.zip
 │       ├── libmindspore_gvar.so # 存储某些全局变量的动态库
 │   └── third_party # 第三方库头文件和库
 │       ├── glog # Glog的动态库
+```
+
+#### 代码生成工具Codegen目录结构说明
+
+仅在`-I x86_64`编译选项下获得Codegen，在`-I arm64`和`-I arm32`编译选项下只生成Codegen生成的推理代码所需要的算子库。
+
+- `-I x86_64`编译选项下获得Codegen，内容如下：
+
+```text
+│
+├── mindspore-lite-{version}-codegen-{os}-{arch}
+│   └── codegen # 代码成功工具
+│       ├── codegen # 可执行程序
+│   └── include # 推理框架头文件
+│       └── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
+│           └── Core
+│           └── DSP
+│           └── NN
+|       └── nnacl # nnacl 算子头文件
+│           └── base
+│           └── fp32
+│           └── int8
+│   └── lib # 推理框架库
+│       └── x86
+│           ├── libops.a  # MindSpore Lite Codegen生成代码依赖的x86算子静态库
+```
+
+- `-I arm64`编译选项下获得Codegen，内容如下：
+
+ ```text
+    │
+    ├── mindspore-lite-codegen-android-{arch}
+    │   └── include # 推理框架头文件
+    │       └── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
+    │           └── Core
+    │           └── DSP
+    │           └── NN
+    |       └── nnacl # nnacl 算子头文件
+    │           └── base
+    │           └── fp32
+    │           └── int8
+    │   └── lib # 推理框架库
+    │       └── arm64
+    │           ├── libops.a  # MindSpore Lite Codegen生成代码依赖的arm64算子静态库
+```
+
+- `-I arm32`编译选项下获得Codegen，内容如下：
+
+ ```text
+    |
+    ├── mindspore-lite-codegen-android-{arch}
+    │   └── include # 推理框架头文件
+    │       └── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
+    │           └── Core
+    │           └── DSP
+    │           └── NN
+    |       └── nnacl # nnacl 算子头文件
+    │           └── base
+    │           └── fp32
+    │           └── int8
+    │   └── lib # 推理框架库
+    │       └── arm32
+    │           ├── libops.a  # MindSpore Lite Codegen生成代码依赖的arm32算子静态库
 ```
 
 #### Runtime及其他工具目录结构说明
