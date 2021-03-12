@@ -60,7 +60,7 @@ output = loss(input_data, target_data)
 print(output)
 ```
 
-输出结果如下：
+以`Ascend`后端为例，输出结果如下：
 
 ```python
 0.03333334
@@ -158,7 +158,7 @@ class L1Loss(_Loss):
 
 3. 创建数据集，并调用`train`接口进行模型训练
 
-    调用`train`接口时必须指定迭代次数`epoch`和训练数据集`train_dataset`，我们将`epoch`设置为1，将`create_dataset`创建的数据集作为训练集。`callbacks`是`train`接口的可选参数，在`callbacks`中使用`LossMonitor`可以监控训练过程中损失函数值的变化。
+    调用`train`接口时必须指定迭代次数`epoch`和训练数据集`train_dataset`，我们将`epoch`设置为1，将`create_dataset`创建的数据集作为训练集。`callbacks`是`train`接口的可选参数，在`callbacks`中使用`LossMonitor`可以监控训练过程中损失函数值的变化。`dataset_sink_mode`也是一个可选参数，这里设置为`False`，表示使用非下沉模式进行训练。
 
     ```python
     from mindspore.train.callback import LossMonitor
@@ -166,7 +166,7 @@ class L1Loss(_Loss):
     # create dataset
     ds_train = create_dataset(num_data=160)
     # training
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()])
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
     ```
 
 完整代码如下：
@@ -222,7 +222,7 @@ model = Model(net, loss, opt)
 # create dataset
 ds_train = create_dataset(num_data=160)
 # training
-model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()])
+model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
 ```
 
 执行结果如下：
@@ -265,7 +265,7 @@ def get_multilabel_data(num, w=2.0, b=3.0):
         noise1 = np.random.normal(0, 1)
         noise2 = np.random.normal(-1, 1)
         y1 = x * w + b + noise1
-        y2 = x * w + b + noise1
+        y2 = x * w + b + noise2
         yield np.array([x]).astype(np.float32), np.array([y1]).astype(np.float32), np.array([y2]).astype(np.float32)
 
 def create_multilabel_dataset(num_data, batch_size=16):
@@ -356,7 +356,7 @@ class WithLossCell(nn.Cell):
     opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
     model = Model(network=loss_net, optimizer=opt)
     ds_train = create_multilabel_dataset(num_data=160)
-    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()])
+    model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
     ```
 
 完整代码如下：
@@ -422,22 +422,22 @@ loss_net = CustomWithLossCell(net, loss)
 opt = nn.Momentum(net.trainable_params(), learning_rate=0.005, momentum=0.9)
 model = Model(network=loss_net, optimizer=opt)
 ds_train = create_multilabel_dataset(num_data=160)
-model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()])
+model.train(epoch=1, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=False)
 ```
 
 执行结果如下：
 
 ```text
-epoch: 1 step: 1, loss is 10.887222
-epoch: 1 step: 2, loss is 10.120434
-epoch: 1 step: 3, loss is 6.028298
-epoch: 1 step: 4, loss is 9.607307
-epoch: 1 step: 5, loss is 9.233578
-epoch: 1 step: 6, loss is 7.9760203
-epoch: 1 step: 7, loss is 8.74382
-epoch: 1 step: 8, loss is 7.342132
-epoch: 1 step: 9, loss is 5.757135
-epoch: 1 step: 10, loss is 6.2793884
+epoch: 1 step: 1, loss is 11.039986
+epoch: 1 step: 2, loss is 7.7847576
+epoch: 1 step: 3, loss is 9.236277
+epoch: 1 step: 4, loss is 8.3316345
+epoch: 1 step: 5, loss is 6.957058
+epoch: 1 step: 6, loss is 9.231144
+epoch: 1 step: 7, loss is 9.1072
+epoch: 1 step: 8, loss is 6.7703295
+epoch: 1 step: 9, loss is 6.363703
+epoch: 1 step: 10, loss is 5.014839
 ```
 
 本章节简单讲解了多标签数据集场景下，如何定义损失函数并使用Model进行模型训练。在很多其他场景中，也可以采用此类方法进行模型训练。
