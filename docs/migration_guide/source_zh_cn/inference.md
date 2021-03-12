@@ -31,7 +31,7 @@ MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mind
 - CPU硬件平台参考[CPU上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_cpu.html)。
 - Lite端侧推理的相关应用参考[端侧推理](https://www.mindspore.cn/lite/docs?master)。
 
-> Ascend硬件平台推理的接口使用问题参考[C++接口使用类](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_cpp_library.html)解决，
+> Ascend硬件平台推理的接口使用问题参考[C++接口使用类](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_cpp_library.html)解决。
 
 ## 基于MindSpore Serving部署在线推理服务
 
@@ -41,5 +41,6 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 - [基于gRPC接口访问MindSpore Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)。
 - [基于RESTful接口访问MindSpore Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)。
 - [通过配置模型提供Servable](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)。
+- [基于MindSpore Serving部署分布式推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_distributed_example.html)。
 
 > MindSpore Serving部署在线推理服务的问题可以参考[MindSpore Serving类](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_serving.html)解决。
