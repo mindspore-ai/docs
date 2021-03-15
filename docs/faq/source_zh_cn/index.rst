@@ -15,6 +15,7 @@ MindSpore FAQ
   network_models
   platform_and_system
   backend_running
+  usage_migrate_3rd
   programming_language_extensions
   supported_features
   mindinsight_use
