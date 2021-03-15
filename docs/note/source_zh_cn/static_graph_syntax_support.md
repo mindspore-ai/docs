@@ -136,18 +136,20 @@
   ```python
   x = [[1, 2], 2, 3, 4]
 
-  y = x[0][1]
+  m = x[0][1]
   x[1] = Tensor(np.array([1, 2, 3]))
   x[2] = "ok"
   x[3] = (1, 2, 3)
   x[0][1] = 88
+  n = x[-3]
   ```
 
   结果如下：
 
   ```text
-  y: 2
+  m: 2
   x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
+  n: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   ```
 
 #### Tuple
@@ -177,6 +179,7 @@
   y = x[1][1]
   z = x[4]
   m = x[1:4]
+  n = x[-4]
   ```
 
   结果如下：
@@ -185,6 +188,7 @@
   y: 3
   z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   m: ((2, 3, 4), 3, 4)
+  n: (2, 3, 4)
   ```
 
   `Tensor`索引示例如下：
@@ -737,6 +741,7 @@ def generate_tensor():
 | `%`        | `Number` % `Number`、`Tensor` % `Tensor`、`Tensor` % `Number`。                                         |
 | `**`       | `Number` \*\* `Number`、`Tensor` \*\* `Tensor`、`Tensor` \*\* `Number`。                                |
 | `//`       | `Number` // `Number`、`Tensor` // `Tensor`、`Tensor` // `Number`。                                      |
+| `~`        | `~Tensor[Bool]`。                                                                                       |
 
 ### 赋值运算符
 
@@ -1269,7 +1274,8 @@ ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 
 调用：`print(arg, ...)`
 
-入参：`arg` -- 要打印的信息(`String`或`Tensor`）。
+入参：`arg` -- 要打印的信息(`int` 、`float`、`bool`、`String`或`Tensor`)。
+当打印的数据是`int`，`float`或者`bool`时，会将其包成一个`0-D`的tensor打印出来。
 
 返回值：无返回值。
 
@@ -1277,13 +1283,16 @@ ret: Tensor(shape=[3], dtype=Int64, value=[1, 4, 27]))
 
 ```python
 x = Tensor(np.array([1, 2, 3]))
-print("result", x)
+y = 3
+print("x", x)
+print("y", y)
 ```
 
 结果如下：
 
 ```text
-result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
+x Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
+y Tensor(shape=[], dtype=Int64, value=3))
 ```
 
 ### 函数参数

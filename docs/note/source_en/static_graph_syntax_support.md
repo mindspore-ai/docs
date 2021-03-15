@@ -135,18 +135,20 @@ Forcible conversion to `List` is not supported on the network. That is, the synt
   ```python
   x = [[1, 2], 2, 3, 4]
 
-  y = x[0][1]
+  m = x[0][1]
   x[1] = Tensor(np.array([1, 2, 3]))
   x[2] = "ok"
   x[3] = (1, 2, 3)
   x[0][1] = 88
+  n = x[-3]
   ```
 
   The result is as follows:
 
   ```text
-  y: 2
+  m: 2
   x: ([1, 88], Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]), 'ok', (1, 2, 3))
+  n: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   ```
 
 #### Tuple
@@ -176,6 +178,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   y = x[1][1]
   z = x[4]
   m = x[1:4]
+  n = x[-4]
   ```
 
   The result is as follows:
@@ -184,6 +187,7 @@ Forcible conversion to `Tuple` is not supported on the network. That is, the syn
   y: 3
   z: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])
   m: ((2, 3, 4), 3, 4)
+  n: (2, 3, 4)
   ```
 
   An example of the `Tensor` index is as follows:
@@ -735,6 +739,7 @@ For details about the rules, click <https://www.mindspore.cn/doc/note/en/master/
 | `%` |`Number` % `Number`, `Tensor` % `Tensor`, and `Tensor`% `Number`
 | `**` |`Number` \*\* `Number`, `Tensor` \*\* `Tensor`, and `Tensor` \*\* `Number`
 | `//` |`Number` // `Number`, `Tensor` // `Tensor`, and `Tensor` // `Number`
+| `~`  | `~Tensor[Bool]`
 
 ### Assignment Operators
 
@@ -1267,7 +1272,8 @@ Prints logs.
 
 Calling: `print(arg, ...)`
 
-Input parameter: `arg` -- Information to be printed (`String` or `Tensor`).
+Input parameter: `arg` -- Information to be printed (`int`, `float`, `bool`, `String` or `Tensor`).
+When the `arg` is `int`, `float`, or `bool`, it will be printed out as a `0-D` tensor.
 
 Return value: none
 
@@ -1275,13 +1281,16 @@ For example:
 
 ```python
 x = Tensor(np.array([1, 2, 3]))
-print("result", x)
+y = 3
+print("x: ", x)
+print("y: ", y)
 ```
 
 The result is as follows:
 
 ```text
-result Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
+x: Tensor(shape=[3], dtype=Int64, value=[1, 2, 3]))
+y: Tensor(shape=[], dtype=Int64, value=3))
 ```
 
 ### Function Parameters
