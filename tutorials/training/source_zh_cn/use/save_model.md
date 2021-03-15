@@ -112,6 +112,23 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 > - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
 > - 导出的文件名称会自动添加".mindir"后缀。
 
+为了避免protobuf的硬件限制，当导出的模型参数大小超过1G时，框架默认会把网络结构和参数分开保存。
+
+- 网络结构文件的名称以用户指定前缀加`_graph.mindir`结尾。
+- 同级目录下，会生用户指定前缀加`_variables`的文件夹，里面存放网络的参数。
+
+以上述代码为例，如果模型中参数大小超过1G，生成的目录结构如下：
+
+```text
+resnet50-2_32_graph.mindir
+resnet50-2_32_variables
+    data_0
+    data_1
+    ...
+```
+
+> 加载时，如果传入的文件名以`_graph.mindir`结尾，框架会自动查找同级目录下的参数文件。
+
 ## 导出AIR格式文件
 
 如果想在昇腾AI处理器上执行推理，还可以通过网络定义和CheckPoint生成AIR格式模型文件。导出该格式文件的代码样例如下：

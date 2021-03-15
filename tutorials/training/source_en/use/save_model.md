@@ -115,6 +115,21 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 > - `input` is the input parameter of the `export` method, representing the input of the network. If the network has multiple inputs, they need to be passed into the `export` method together. eg: `export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`.
 > - The suffix ".mindir" is automatically added to the exported file name.
 
+In order to avoid the hardware limitation of protobuf, when the exported model parameter size exceeds 1G, the framework will save the network structure and parameters separately by default.
+
+-The name of the network structure file ends with the user-specified prefix plus `_graph.mindir`.
+-In the same level directory, there will be a folder with user-specified prefix plus `_variables`, which stores network parameters.
+
+Taking the above code as an example, if the parameter size in the model exceeds 1G, the generated directory structure is as follows:
+
+```text
+resnet50-2_32_graph.mindir
+resnet50-2_32_variables
+     data_0
+     data_1
+     ...
+```
+
 ## Export AIR Model
 
 If you want to perform inference on the Shengteng AI processor, you can also generate the corresponding AIR format model file through the network definition and CheckPoint. The code example of exporting this format file is as follows:
