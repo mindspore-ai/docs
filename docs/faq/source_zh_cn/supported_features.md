@@ -48,7 +48,7 @@ A：当前如果与MindSpore展开论文、科研合作是可以获得免费云�
 
 <font size=3>**Q：MindSpore Lite的离线模型MS文件如何进行可视化，看到网络结构？**</font>
 
-A：MindSpore Lite正在往开源仓库`netron`上提交代码，后面MS模型会首先使用`netron`实现可视化。现在上`netron`开源仓还有一些问题需要解决，不过我们有内部使用的`netron`版本，可以在[`netron`版本发布](https://github.com/lutzroeder/netron/releases)里下载到。
+A：模型可视化开源仓库`Netron`已经支持查看MindSpore Lite模型（MindSpore版本 >= r1.1），请到Netron官网下载安装包[Netron](https://github.com/lutzroeder/netron)。
 
 <br/>
 
