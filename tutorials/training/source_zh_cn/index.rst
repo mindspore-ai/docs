@@ -594,18 +594,6 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/evaluate_the_model_during_training.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">训练时验证模型</span>
-										</div>
-										<div class="doc-article-desc">
-											本教程使用MNIST数据集通过卷积神经网络LeNet5进行训练，着重介绍了在进行模型训练的同时进行模型的验证，保存对应epoch的模型，并从中挑选出最优模型的方法。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/kernel_incremental_compilation.html" class="article-link">
 									<div>

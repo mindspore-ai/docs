@@ -148,7 +148,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">实现一个图像分类应用</span>
+											<span class="doc-head-content">实现一个图像分类应用（C++）</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -161,7 +161,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">实现一个图像分割应用</span>
+											<span class="doc-head-content">实现一个图像分割应用（Java）</span>
 										</div>
 							
 										<div class="doc-article-desc">
