@@ -49,6 +49,7 @@
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
    advanced_use/implement_high_order_differentiation
+   advanced_use/quantum_neural_network
 
 .. toctree::
    :glob:
