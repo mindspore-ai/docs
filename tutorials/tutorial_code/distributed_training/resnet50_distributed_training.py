@@ -13,7 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """resnet50_distributed_training
-The sample can be run on Ascend 910 AI processor.
+This sample code is applicable to Ascend.
 """
 import os
 import mindspore.nn as nn

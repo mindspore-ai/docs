@@ -14,7 +14,7 @@
 # ============================================================================
 
 """Custom Debugging Info Tutorial
-The sample can be run on GPU and Ascend 910 AI processor.
+This sample code is applicable to CPU, GPU and Ascend.
 """
 
 import os

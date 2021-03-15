@@ -13,7 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """train
-Training sample code for applying gradient accumulation algorithm.
+This sample code is applicable to GPU and Ascend.
 """
 import argparse
 import os

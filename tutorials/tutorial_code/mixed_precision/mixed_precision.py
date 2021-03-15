@@ -14,7 +14,7 @@
 # ============================================================================
 
 """Mixed Precision Tutorial
-The sample can be run on GPU and Ascend 910 AI processor.
+This sample code is applicable to GPU and Ascend.
 """
 import mindspore.nn as nn
 from mindspore import context, Model

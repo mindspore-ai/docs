@@ -1,3 +1,6 @@
+"""lenet tutorial
+This sample code is applicable to Ascend.
+"""
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops

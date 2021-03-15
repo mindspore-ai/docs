@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""ResNet50 model train with MindSpore"""
+"""ResNet50 model train with MindSpore
+This sample code is applicable to GPU and Ascend
+"""
 import os
 import argparse
 import random

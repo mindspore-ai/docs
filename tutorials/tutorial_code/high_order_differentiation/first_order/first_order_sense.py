@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==========================================================
+
+"""first order sense tutorial
+This sample code is applicable to GPU and Ascend.
+"""
 import numpy as np
 import mindspore.context as context
 import mindspore.nn as nn
