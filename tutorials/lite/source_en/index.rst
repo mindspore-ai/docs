@@ -145,7 +145,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Implementing an Image Classification Application</span>
+											<span class="doc-head-content">Implementing an Image Classification Application (C++)</span>
 										</div>
 							
 										<div class="doc-article-desc">

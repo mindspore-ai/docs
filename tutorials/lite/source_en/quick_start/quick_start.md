@@ -1,4 +1,4 @@
-﻿# Implementing an Image Classification Application
+﻿# Implementing an Image Classification Application (C++)
 
 `Windows` `Linux` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
