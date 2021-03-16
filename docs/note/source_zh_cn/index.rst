@@ -25,7 +25,6 @@ MindSpore设计和规格
    network_list
    operator_list
    syntax_list
-   model_lite
    env_var_list
 
 .. toctree::

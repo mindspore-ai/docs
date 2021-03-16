@@ -7,4 +7,3 @@ Operator List
   operator_list_ms
   operator_list_implicit
   operator_list_parallel
-  operator_list_lite
