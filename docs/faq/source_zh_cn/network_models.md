@@ -211,3 +211,9 @@ if __name__ == "__main__":
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
+
+<br/>
+
+<font size=3>**Q：在使用ckpt或导出模型的过程中，报Protobuf内存限制错误，如何处理？**</font>
+
+A：当单条Protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。

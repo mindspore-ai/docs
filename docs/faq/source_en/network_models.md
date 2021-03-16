@@ -211,3 +211,9 @@ if __name__ == "__main__":
 
     print(net.trainable_params()[0], "\n%s" % net.trainable_params()[1])
 ```
+
+<br/>
+
+<font size=3>**Q：What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
+
+A：When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
