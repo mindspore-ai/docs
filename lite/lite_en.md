@@ -173,7 +173,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/operator_list_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/operator_list_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">MindSpore Lite Operator List</span>
@@ -185,7 +185,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/image_classification_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/image_classification_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Pre-trained Models of Image Classification</span>
@@ -197,7 +197,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:450px;height:120px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/object_detection_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/object_detection_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Pre-trained Models of Object Detection</span>
@@ -209,7 +209,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/posenet_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/posenet_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Posenet Model</span>
@@ -221,7 +221,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/image_segmentation_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Image Segmentation Model</span>
@@ -233,7 +233,7 @@
         </a>
     </div>
     <div style="padding:1.2rem 2rem; margin:0.9rem 1.6rem; border:1px solid #e5e5e5; border-radius:0.5rem;display:inline-block;width:400px;height:80px; float:left">
-        <a href="https://www.mindspore.cn/doc/note/en/master/style_transfer_lite.html" style="display:block; text-decoration:none">
+        <a href="https://www.mindspore.cn/tutorial/lite/en/master/style_transfer_lite.html" style="display:block; text-decoration:none">
             <div>
                 <div style="font-size:1.2rem; font-weight:400; margin-bottom:0.5rem;text-align:left">
                     <span style="color:#1a1c33;">Style Transfer Model</span>

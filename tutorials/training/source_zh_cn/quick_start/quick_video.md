@@ -492,7 +492,7 @@
           </div>
           <div
                class="video-item-wraper" style="width: 33.3%;display: flex;justify-content: center;align-items: center;padding: 10px;box-sizing: border-box;">
-               <a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_video/mindInsight_model_explaination.html" target="_blank"
+               <a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_video/mindInsight_model_explanation.html" target="_blank"
                     style="position: relative;">
                     <img src="https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/teaching_video/cover/%E6%89%8B%E6%8A%8A%E6%89%8B%E7%B3%BB%E5%88%97/MindInsight%E6%A8%A1%E5%9E%8B%E8%A7%A3%E9%87%8A%E6%B1%87%E6%80%BB%E9%A1%B5.png"
                          style="max-width: 100%;width: 400px;">

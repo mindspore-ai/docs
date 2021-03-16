@@ -526,7 +526,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/model_explaination.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/model_explanation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Explain Models</span>
