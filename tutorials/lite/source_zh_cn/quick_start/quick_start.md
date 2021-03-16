@@ -1,6 +1,6 @@
 # 实现一个图像分类应用（C++）
 
-`Windows` `Linux` `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
+`Windows` `Android` `C++` `全流程` `模型转换` `模型加载` `推理应用` `数据准备` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -52,7 +52,7 @@ MindSpore团队提供了一系列预置终端模型，你可以在应用程序�
 以mobilenetv2模型为例，如下脚本将其转换为MindSpore Lite模型用于端侧推理。
 
 ```bash
-./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
+call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
 ```
 
 ## 部署应用
@@ -146,7 +146,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
-注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将其放在对应位置。
+注： 若自动下载失败，请手动下载操作系统为Android-aarch64/Android-aarch32的MindSpore Lite 模型推理框架相关库文件[mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`mindspore-lite-{version}-inference-android`的文件夹拷贝到`src/main/cpp`目录下。
 
 ```text
 android{
@@ -218,7 +218,7 @@ target_link_libraries(
 
 在JNI层调用MindSpore Lite C++ API实现端侧推理。
 
-推理代码流程如下，完整代码请参见`src/cpp/MindSporeNetnative.cpp`。
+推理代码流程如下，完整代码请参见[MindSporeNetnative.cpp](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 

@@ -1,6 +1,6 @@
 ﻿# Implementing an Image Classification Application (C++)
 
-`Windows` `Linux` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Windows` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -52,7 +52,7 @@ After you retrain a model provided by MindSpore, export the model in the [.mindi
 Take the mobilenetv2 model as an example. Execute the following script to convert a model into a MindSpore Lite model for on-device inference.
 
 ```bash
-./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2.ms
+call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
 ```
 
 ## Deploying an Application
@@ -140,7 +140,7 @@ When MindSpore C++ APIs are called at the Android JNI layer, related library fil
 
 In this example, the build process automatically downloads the `mindspore-lite-{version}-inference-android` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html) and put them in the corresponding location.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-inference-android` folder to the directory of `src/main/cpp`.
 
 ```text
 android{
@@ -212,7 +212,7 @@ Note: if the automatic download fails, please manually download the relevant lib
 
 Call MindSpore Lite C++ APIs at the JNI layer to implement on-device inference.
 
-The inference process code is as follows. For details about the complete code, see `src/cpp/MindSporeNetnative.cpp`.
+The inference process code is as follows. For details about the complete code, see [MindSporeNetnative.cpp](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_classification/app/src/main/cpp/MindSporeNetnative.cpp).
 
 1. Load the MindSpore Lite model file and build the context, session, and computational graph for inference.  
 
