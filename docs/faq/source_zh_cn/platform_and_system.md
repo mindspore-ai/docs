@@ -4,6 +4,18 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q:PyNative模式和Graph模式的区别？**</font>
+
+A: 在使用效率上，两个模式使用的算子是一致的，因此相同的网络和算子，分别在两个模式下执行时，精度效果是一致的。由于执行机理的差异，网络的执行性能是会不同的，并且在理论上，MindSpore提供的算子同时支持PyNative模式和Graph模式；
+
+在场景使用方面，Graph模式需要一开始就构建好网络结构，然后框架做整图优化和执行，对于网络固定没有变化，且需要高性能的场景比较适合；
+
+在不同硬件（`Ascend`、`GPU`和`CPU`）资源上都支持这两种模式；
+
+代码调试方面，由于是逐行执行算子，因此用户可以直接调试Python代码，在代码中任意位置打断点查看对应算子`/api`的输出或执行结果。而Graph模式由于在构造函数里只是完成网络构造，实际没有执行，因此在`construct`函数里打断点是无法获取对应算子的输出，而只能等整网执行中指定对应算子的输出打印，在网络执行完成后进行查看。
+
+<br/>
+
 <font size=3>**Q:使用PyNative模式能够进行迁移学习？**</font>
 
 A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/advanced_use/cv_mobilenetv2_fine_tune.html#id7)。

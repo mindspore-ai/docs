@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：`TransData`算子的功能是什么，能否优化性能？**</font>
+
+A：`TransData`算子出现的场景是：如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。 可以考虑训练的时候用我们的`amp`做混合精度，这样能减少一些`fp32`的运算，应该能减少一些`transdata`算子的调用。
+
+<br/>
+
 <font size=3>**Q：算子`Concat`拼接包含多个Tensor的元组出错，似乎传入的`tensor list`元素个数>=192就会报错。如果要`Concat`包含多个Tensor的元组，有什么较好的解决方案？**</font>
 
 A：这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过192个，可以尝试分开两次进行拼接。
