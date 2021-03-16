@@ -285,7 +285,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": false
+            "trans_flag": true
         }
     }
     ```
