@@ -48,7 +48,7 @@ A: If you cooperate with MindSpore in papers and scientific research, you can ob
 
 <font size=3>**Q: How do I visualize the MindSpore Lite offline model (.ms file) to view the network structure?**</font>
 
-A: Model visualization open-source repository `Netron` supports viewing MindSpore Lite models (MindSpore >= r1.1), which can be downloaded in the [Netron](https://github.com/lutzroeder/netron).
+A: Model visualization open-source repository `Netron` supports viewing MindSpore Lite models (MindSpore >= r1.2), which can be downloaded in the [Netron](https://github.com/lutzroeder/netron).
 
 <br/>
 
