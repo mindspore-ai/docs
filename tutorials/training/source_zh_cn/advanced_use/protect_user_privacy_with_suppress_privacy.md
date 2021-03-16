@@ -267,7 +267,66 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 这种攻击方法的原理可以参考<https://arxiv.org/pdf/1412.0035.pdf>，完整的代码实现可以参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/inversion_attack/mnist_inversion_attack.py>
 ，下面介绍详细的测试步骤：
 
-1. 导入需要的库文件
+1. 准备工作
+
+    为了和抑制隐私训练进行对比，我们需要先使用常规训练得到模型的CheckPoint文件。模型训练可以参考
+    [mindarmour/examples/common/networks/lenet5](https://gitee.com/mindspore/mindarmour/blob/master/examples/common/networks/lenet5/mnist_train.py) ，
+    它的目录结构如下：
+
+    ```text
+    ├── __init__.py
+    ├── lenet5_net.py
+    └── mnist_train.py
+    ```
+
+    其中`lenet5_net.py`为LeNet5的模型定义，`mnist_train.py`为LeNet5的常规训练脚本。在该目录下运行如下命令，即可生成包含模型CheckPoint文件的`trained_ckpt_file`文件夹。
+
+    ```python
+    python mnist_train.py
+    ```
+
+   此外，由于下面的步骤7中需要用到新训练的模型进行攻击效果的评估，我们在生成`trained_ckpt_file`目录后，将`mnist_train.py`文件中的变量`ckpoint_cb`的生成命令改成：
+
+   ```python
+   ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
+                             directory="./new_trained_ckpt_file/",
+                             config=config_ck)
+   ```
+
+   其中`prefix`代表生成的CheckPoint文件名的前缀，`directory`代表CheckPoint文件的存放路径，再运行`mnist_train.py`，
+   就可以得到`new_trained_ckpt_file`文件夹及包含其中的模型文件。此时`examples/common/networks/lenet5`的目录结构应该如下所示：
+
+   ```text
+    ├── __init__.py
+    ├── lenet5_net.py
+    ├── mnist_train.py
+    ├── new_trained_ckpt_file
+    │   ├── checkpoint_lenet-10_1875.ckpt
+    │   ├── checkpoint_lenet-1_1875.ckpt
+    │   ├── checkpoint_lenet-2_1875.ckpt
+    │   ├── checkpoint_lenet-3_1875.ckpt
+    │   ├── checkpoint_lenet-4_1875.ckpt
+    │   ├── checkpoint_lenet-5_1875.ckpt
+    │   ├── checkpoint_lenet-6_1875.ckpt
+    │   ├── checkpoint_lenet-7_1875.ckpt
+    │   ├── checkpoint_lenet-8_1875.ckpt
+    │   ├── checkpoint_lenet-9_1875.ckpt
+    │   └── checkpoint_lenet-graph.meta
+    └── trained_ckpt_file
+        ├── checkpoint_lenet-10_1875.ckpt
+        ├── checkpoint_lenet-1_1875.ckpt
+        ├── checkpoint_lenet-2_1875.ckpt
+        ├── checkpoint_lenet-3_1875.ckpt
+        ├── checkpoint_lenet-4_1875.ckpt
+        ├── checkpoint_lenet-5_1875.ckpt
+        ├── checkpoint_lenet-6_1875.ckpt
+        ├── checkpoint_lenet-7_1875.ckpt
+        ├── checkpoint_lenet-8_1875.ckpt
+        ├── checkpoint_lenet-9_1875.ckpt
+        └── checkpoint_lenet-graph.meta
+   ```
+
+2. 导入需要的模块
 
     ```python
     import numpy as np
@@ -285,7 +344,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     TAG = 'InversionAttack'
     ```
 
-2. 构建逆向测试网络
+3. 构建逆向测试网络
 
     为了更好地演示，我们取LeNet5的前面两个卷积层conv1、conv2和第一个全连接层fc1作为测试网络，于是攻击任务就是：根据某一图片从fc1输出的feature map来还原出该图片。
 
@@ -318,9 +377,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
             return x
     ```
 
-3. 将训练好的Checkpoint文件导入模型
-
-    我们首先使用常规训练好的模型(参考<https://gitee.com/mindspore/mindarmour/blob/master/examples/common/networks/lenet5/mnist_train.py>)进行逆向攻击。
+4. 将训练好的CheckPoint文件导入模型
 
     ```python
     Checkpoint_path = '../../common/networks/lenet5/trained_ckpt_file/checkpoint_lenet-10_1875.ckpt'
@@ -329,9 +386,9 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     load_param_into_net(net, load_dict)
     ```
 
-4. 获取测试样本
+5. 获取测试样本
 
-    我们取30张图片进行测试，保存好它们本身以及它们经过LeNet5_part的输出(即target_features)。
+    我们取30张图片进行测试，保存好它们本身以及它们经过`LeNet5_part`的输出（即`target_features`）。
 
     ```python
     # get original data
@@ -351,18 +408,19 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
             break
     ```
 
-5. 进行逆向攻击
+6. 进行逆向攻击
 
     ```python
     inversion_attack = ImageInversionAttack(net, input_shape=(1, 32, 32), input_bound=(0, 1), loss_weights=[1, 0.1, 5])
     inversion_images = inversion_attack.generate(target_features, iters=100)
     ```
 
-6. 攻击结果评估和展示
+7. 攻击结果评估和展示
 
-    我们用matplotlib画出原始图像以及用逆向攻击还原出来的图像，并且调用inversion_attack的evaluate()进行定量评估，
-    evaluate()函数会返回avg_l2_dis，avg_ssim和avg_confi, 分别表示原图与逆向还原的图像之间的平均L2范数距离和平均结构相似性，以及逆向还原出来的图片在一个新模型上的推理结果（在其真实标签上的平均置信度）。
-    一般来说，avg_l2_dis越小、avg_ssim越大，则代表inversion_images与original_images越接近；而新的神经网络模型可以替代人眼对图片的可识别度做一个定量的评估（即avg_confi越高，说明inversion_image包含的语义信息与原图更为接近）。
+    我们用matplotlib画出原始图像以及用逆向攻击还原出来的图像，并且调用`inversion_attack`的`evaluate`方法进行定量评估，
+    `evaluate`方法会返回`avg_l2_dis`，`avg_ssim`和`avg_confi`，分别表示原图与逆向还原的图像之间的平均L2
+   范数距离和平均结构相似性，以及逆向还原出来的图片在一个新模型上的推理结果（在其真实标签上的平均置信度）。
+    一般来说，`avg_l2_dis`越小、`avg_ssim`越大，则代表inversion_images与original_images越接近；而新的神经网络模型可以替代人眼对图片的可识别度做一个定量的评估（即`avg_confi`越高，说明inversion_image包含的语义信息与原图更为接近）。
 
     ```python
     plot_num = min(sample_num, 10)
@@ -393,7 +451,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     LOGGER.info(TAG, 'Predicted labels of inverted images are: %s' % pred_labels)
     ```
 
-7. 实验结果
+8. 实验结果
 
     ```text
     The average L2 distance between original images and inverted images is: 0.8294931122450715
@@ -405,8 +463,8 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
     ![fuzz_seed](./images/inversion_ordinary.png)
 
-    我们可以从inversion_images看出original_images的大概轮廓了，说明常规训练的模型很可能会导致训练集的隐私泄露，
-    接下来我们将步骤3中的Checkpoint文件换成抑制隐私训练得到的Checkpoint文件，执行步骤4、5、6，可以得到如下结果：
+    我们可以从inversion_images看出original_images的大概轮廓了，说明常规训练的模型很可能会导致训练集的隐私泄露。
+    **为了验证抑制隐私训练得到的模型可以更好地保护训练数据的信息**，我们将上述步骤4中的CheckPoint文件换成抑制隐私训练得到的CheckPoint文件，并执行上述步骤2至步骤7的过程，可以得到如下结果：
 
     ```text
     The average L2 distance between original images and inverted images is: 0.862553358599391
