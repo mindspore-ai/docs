@@ -220,7 +220,7 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 继承于类 LiteSession，用于训练模型。
 
-### 构造和析构函数
+### 构造函数和析构函数
 
 #### ~TrainSession
 
@@ -458,7 +458,7 @@ void SetLossName(std::string loss_name) { loss_name_ = loss_name; }
 
 继承于Session，可设置训练参数和数据预处理函数，用于减少模型训练的资源消耗。
 
-### 析构函数
+### 构造函数和析构函数
 
 #### ~TrainLoop
 
@@ -473,7 +473,7 @@ virtual ~TrainLoop() = default;
 #### CreateTrainLoop
 
 ```cpp
-static TrainLoop *CreateTrainLoop(const std::string &model_filename, lite::Context *context, int batch_size = -1);
+static TrainLoop *CreateTrainLoop(session::TrainSession *train_session, lite::Context *context, int batch_size = -1);
 ```
 
 创建迭代训练指针的静态方法。
@@ -594,3 +594,138 @@ virtual int Eval(mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCall
 - 返回值
 
     STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+## TrainLoopCallback
+
+\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop_callback.h)&gt;
+
+在模型训练中执行回调函数。
+
+### 构造函数和析构函数
+
+#### ~TrainLoopCallback
+
+```cpp
+virtual ~TrainLoopCallback() = default;
+```
+
+析构函数。
+
+### Public Member Functions
+
+#### Begin
+
+```cpp
+virtual void Begin(const TrainLoopCallBackData &cb_data) {}
+```
+
+在模型训练前执行。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+#### End
+
+```cpp
+virtual void End(const TrainLoopCallBackData &cb_data) {}
+```
+
+在模型训练后执行回调。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+#### EpochBegin
+
+```cpp
+virtual void EpochBegin(const TrainLoopCallBackData &cb_data) {}
+```
+
+每次迭代开始前执行回调。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+#### EpochEnd
+
+```cpp
+virtual int EpochEnd(const TrainLoopCallBackData &cb_data) { return RET_CONTINUE; }
+```
+
+每次迭代结束后执行回调。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+- 返回
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### StepBegin
+
+```cpp
+virtual void StepBegin(const TrainLoopCallBackData &cb_data) {}
+```
+
+每一步开始前执行回调。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+#### StepEnd
+
+```cpp
+virtual void StepEnd(const TrainLoopCallBackData &cb_data) {}
+```
+
+每一步开始后执行回调。
+
+- 参数
+
+    - `cb_data`: 回调函数对象。
+
+## Metrics
+
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/metrics.h)&gt;
+
+训练模型评估矩阵类
+
+### 构造函数和析构函数
+
+#### ~Metrics
+
+```cpp
+virtual ~Metrics() = default;
+```
+
+析构函数。
+
+### Public Member Functions
+
+#### Clear
+
+```cpp
+virtual void Clear() {}
+```
+
+将成员变量`total_accuracy_`和`total_steps_`置为零。
+
+#### Eval
+
+```cpp
+virtual float Eval() {}
+```
+
+评估模型。
+
+#### Update
+
+```cpp
+virtual void Update(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs) = 0;
+```
+
+更新成员变量`total_accuracy_`和`total_steps_`的值。
