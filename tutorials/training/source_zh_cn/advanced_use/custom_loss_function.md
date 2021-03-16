@@ -406,7 +406,7 @@ def get_multilabel_data(num, w=2.0, b=3.0):
         noise1 = np.random.normal(0, 1)
         noise2 = np.random.normal(-1, 1)
         y1 = x * w + b + noise1
-        y2 = x * w + b + noise1
+        y2 = x * w + b + noise2
         yield np.array([x]).astype(np.float32), np.array([y1]).astype(np.float32), np.array([y2]).astype(np.float32)
 
 def create_multilabel_dataset(num_data, batch_size=16):
