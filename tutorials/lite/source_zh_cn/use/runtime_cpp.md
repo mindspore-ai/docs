@@ -139,6 +139,16 @@ gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
 context->device_list_.push_back(gpu_device_ctx);
 ```
 
+> 目前GPU的后端是基于OpenCL，支持Mali、Adreno的GPU，OpenCL版本为2.0。
+>
+> 具体配置为：
+>
+> CL_TARGET_OPENCL_VERSION=200
+>
+> CL_HPP_TARGET_OPENCL_VERSION=120
+>
+> CL_HPP_MINIMUM_OPENCL_VERSION=120
+
 ### 配置使用NPU后端
 
 当需要执行的后端为CPU和NPU的异构推理时，需要同时设置CPU和NPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)，配置后将会优先使用NPU推理，其中[NpuDeviceInfo](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo)包含`frequency_`公有属性用来设置NPU频率。

@@ -25,6 +25,8 @@ MindSpore Lite provides a tool for offline model conversion. It supports convers
 
 Currently, the following input formats are supported: MindSpore, TensorFlow Lite, Caffe, TensorFlow and ONNX.
 
+The ms model converted by the conversion tool supports the conversion tool and the higher version of the Runtime framework to perform inference.
+
 ## Linux Environment Instructions
 
 ### Environment Preparation
@@ -95,6 +97,8 @@ The following describes how to use the conversion command by using several commo
       ```bash
       ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
+
+     > The `MindIR` model exported by MindSpore v1.1.1 or earlier is recommended to be converted to the `ms` model using the converter tool of the corresponding version. MindSpore v1.1.1 and later versions, the converter tool will be forward compatible.
 
     - TensorFlow Lite model `model.tflite`
 
@@ -169,6 +173,8 @@ Several common examples are selected below to illustrate the use of conversion c
       ```bat
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
+
+     > The `MindIR` model exported by MindSpore v1.1.1 or earlier is recommended to be converted to the `ms` model using the converter tool of the corresponding version. MindSpore v1.1.1 and later versions, the converter tool will be forward compatible.
 
     - TensorFlow Lite model`model.tflite`
 

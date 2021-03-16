@@ -25,6 +25,8 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 目前支持的输入格式有：MindSpore、TensorFlow Lite、Caffe、TensorFlow和ONNX。
 
+通过转换工具转换成的`ms`模型，支持转换工具配套及更高版本的Runtime推理框架执行推理。
+
 ## Linux环境使用说明
 
 ### 环境准备
@@ -94,6 +96,8 @@ bash build.sh -I x86_64
       ```bash
       ./converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
+
+     > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
 
     - TensorFlow Lite模型`model.tflite`
 
@@ -170,6 +174,8 @@ set GLOG_v=1
       ```bat
       call converter_lite --fmk=MINDIR --modelFile=model.mindir --outputFile=model
       ```
+
+      > 通过MindSpore v1.1.1之前版本导出的`MindIR`模型，建议采用对应版本的转换工具转换成`ms`模型。MindSpore v1.1.1及其之后的版本，转换工具会做前向兼容。
 
     - TensorFlow Lite模型`model.tflite`
 
