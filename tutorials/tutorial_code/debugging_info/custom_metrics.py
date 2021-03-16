@@ -13,7 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """use metrics
-The sample can be run on CPU/GPU/Ascend.
+This sample code is applicable to CPU, GPU and Ascend.
 """
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits

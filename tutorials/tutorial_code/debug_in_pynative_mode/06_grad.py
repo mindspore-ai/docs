@@ -1,3 +1,6 @@
+"""grad tutorial
+This sample code is applicable to Ascend.
+"""
 import mindspore.ops as ops
 import mindspore.context as context
 from mindspore import dtype as mstype

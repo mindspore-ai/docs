@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-'''distributed training
-The sample can be run on Ascend 910 AI processor.
-'''
+"""distributed training
+This sample code is applicable to Ascend.
+"""
 import os
 from dataset import FakeData
 from net import Net

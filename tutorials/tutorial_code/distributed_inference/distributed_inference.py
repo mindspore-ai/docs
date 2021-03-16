@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-'''distributed inference
-The sample can be run on Ascend 910 AI processor.
-'''
+"""distributed inference
+This sample code is applicable to Ascend.
+"""
 import numpy as np
 from net import Net
 from mindspore import context, Model, Tensor, load_distributed_checkpoint

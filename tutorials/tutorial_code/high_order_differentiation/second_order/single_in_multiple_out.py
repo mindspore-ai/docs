@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==========================================================
+
+"""Single in multiple out tutorial
+This sample code is applicable to GPU and Ascend.
+"""
 import mindspore.context as context
 import mindspore.nn as nn
 import mindspore.ops as ops

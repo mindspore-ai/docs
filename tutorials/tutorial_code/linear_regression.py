@@ -1,5 +1,5 @@
 """Linear Regression Tutorial
-The sample can be run on CPU, GPU and Ascend 910 AI processor.
+This sample code is applicable to CPU, GPU and Ascend.
 """
 import numpy as np
 from mindspore import dataset as ds

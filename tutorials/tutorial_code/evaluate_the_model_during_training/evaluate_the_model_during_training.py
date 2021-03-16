@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""evaluate_the_model_during_training
-The sample can be run on CPU.
+"""Evaluate the model during training tutorial
+This sample code is applicable to CPU, GPU and Ascend.
 """
 import mindspore.dataset as ds
 import mindspore.dataset.vision.c_transforms as CV

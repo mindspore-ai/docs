@@ -1,3 +1,6 @@
+"""single function
+This sample code is applicable to Ascend.
+"""
 import numpy as np
 from mindspore import context, Tensor
 import mindspore.ops as ops

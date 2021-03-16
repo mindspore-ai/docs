@@ -1,3 +1,6 @@
+"""single op tutorial
+This sample code is applicable to Ascend.
+"""
 import numpy as np
 import mindspore.nn as nn
 from mindspore import context, Tensor

@@ -13,7 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """Lenet Tutorial
-The sample can be run on CPU, GPU and Ascend 910 AI processor.
+This sample code is applicable to CPU, GPU and Ascend.
 """
 import os
 import argparse
