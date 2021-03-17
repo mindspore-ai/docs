@@ -102,7 +102,8 @@ The following tutorial demonstrates how to construct a pipeline and perform oper
     ```python
     replace_op1 = text.RegexReplace("Beijing", "Shanghai")
     replace_op2 = text.RegexReplace("北京", "上海")
-    dataset = dataset.map(operations=[replace_op1, replace_op2])
+    dataset = dataset.map(operations=replace_op1)
+    dataset = dataset.map(operations=replace_op2)
 
     for data in dataset.create_dict_iterator(output_numpy=True):
         print(text.to_str(data['text']))
