@@ -92,41 +92,62 @@ bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 The model will be trained on your device and print training loss and accuracy value every 100 epochs. The trained model will be saved as 'lenet_tod.ms' file. The classification accuracy varies in devices.
 
 ```bash
-Training on Device
-100:    Loss is 0.853509 [min=0.581739]  max_acc=0.674079
-200:    Loss is 0.729228 [min=0.350235]  max_acc=0.753305
-300:    Loss is 0.379949 [min=0.284498]  max_acc=0.847957
-400:    Loss is 0.773617 [min=0.186403]  max_acc=0.867788
-500:    Loss is 0.477829 [min=0.0688716]  max_acc=0.907051
-600:    Loss is 0.333066 [min=0.0688716]  max_acc=0.93099
-700:    Loss is 0.197988 [min=0.0549653]  max_acc=0.940905
-800:    Loss is 0.128299 [min=0.048147]  max_acc=0.946314
-900:    Loss is 0.43212 [min=0.0427626]  max_acc=0.955729
-1000:   Loss is 0.446575 [min=0.033213]  max_acc=0.95643
-1100:   Loss is 0.162593 [min=0.025461]  max_acc=0.95643
-1200:   Loss is 0.177662 [min=0.0180249]  max_acc=0.95643
-1300:   Loss is 0.0425688 [min=0.00832943]  max_acc=0.95643
-1400:   Loss is 0.270186 [min=0.00832943]  max_acc=0.963041
-1500:   Loss is 0.0340949 [min=0.00832943]  max_acc=0.963041
-1600:   Loss is 0.205415 [min=0.00832943]  max_acc=0.969551
-1700:   Loss is 0.0269625 [min=0.00810314]  max_acc=0.970152
-1800:   Loss is 0.197761 [min=0.00680999]  max_acc=0.970152
-1900:   Loss is 0.19131 [min=0.00680999]  max_acc=0.970152
-2000:   Loss is 0.182704 [min=0.00680999]  max_acc=0.970453
-2100:   Loss is 0.375163 [min=0.00313038]  max_acc=0.970453
-2200:   Loss is 0.296488 [min=0.00313038]  max_acc=0.970453
-2300:   Loss is 0.0556241 [min=0.00313038]  max_acc=0.970453
-2400:   Loss is 0.0753383 [min=0.00313038]  max_acc=0.973057
-2500:   Loss is 0.0732852 [min=0.00313038]  max_acc=0.973057
-2600:   Loss is 0.220644 [min=0.00313038]  max_acc=0.973057
-2700:   Loss is 0.0159947 [min=0.00313038]  max_acc=0.973257
-2800:   Loss is 0.0800904 [min=0.00168969]  max_acc=0.973257
-2900:   Loss is 0.0210299 [min=0.00168969]  max_acc=0.97476
-3000:   Loss is 0.256663 [min=0.00168969]  max_acc=0.97476
-accuracy = 0.970553
-
-Load trained model and evaluate accuracy
-accuracy = 0.970553
+======Training Locally=========
+1.100:  Loss is 1.19449
+1.200:  Loss is 0.477986
+1.300:  Loss is 0.440362
+1.400:  Loss is 0.165605
+1.500:  Loss is 0.368853
+1.600:  Loss is 0.179764
+1.700:  Loss is 0.173386
+1.800:  Loss is 0.0767713
+1.900:  Loss is 0.493
+1.1000: Loss is 0.460352
+1.1100: Loss is 0.262044
+1.1200: Loss is 0.222022
+1.1300: Loss is 0.058006
+1.1400: Loss is 0.0794117
+1.1500: Loss is 0.0241433
+1.1600: Loss is 0.127109
+1.1700: Loss is 0.0557566
+1.1800: Loss is 0.0698758
+Epoch (1):      Loss is 0.384778
+Epoch (1):      Training Accuracy is 0.8702
+2.100:  Loss is 0.0538642
+2.200:  Loss is 0.444504
+2.300:  Loss is 0.0806976
+2.400:  Loss is 0.0495807
+2.500:  Loss is 0.178903
+2.600:  Loss is 0.265705
+2.700:  Loss is 0.0933796
+2.800:  Loss is 0.0880472
+2.900:  Loss is 0.0480734
+2.1000: Loss is 0.241272
+2.1100: Loss is 0.0920451
+2.1200: Loss is 0.371406
+2.1300: Loss is 0.0365746
+2.1400: Loss is 0.0784372
+2.1500: Loss is 0.207537
+2.1600: Loss is 0.442626
+2.1700: Loss is 0.0814725
+2.1800: Loss is 0.12081
+Epoch (2):      Loss is 0.176118
+Epoch (2):      Training Accuracy is 0.94415
+......
+10.1000:        Loss is 0.0984653
+10.1100:        Loss is 0.189702
+10.1200:        Loss is 0.0896037
+10.1300:        Loss is 0.0138191
+10.1400:        Loss is 0.0152357
+10.1500:        Loss is 0.12785
+10.1600:        Loss is 0.026495
+10.1700:        Loss is 0.436495
+10.1800:        Loss is 0.157564
+Epoch (10):     Loss is 0.102652
+Epoch (10):     Training Accuracy is 0.96805
+Eval Accuracy is 0.965244
+===Evaluating trained Model=====
+Eval Accuracy is 0.965244
 ```
 
 > If the Android device is not available on your hand, you could also exectute `bash prepare_and_run.sh -D /PATH/MNIST_Data -t x86` and run it on the x86 platform.
@@ -274,9 +295,9 @@ void NetRunner::InitAndFigureInputs() {
   context.device_list_[0].device_type_ = mindspore::lite::DT_CPU;
   context.thread_num_ = 2;
 
-  loop_ = mindspore::session::TrainLoop::CreateTrainLoop(ms_file_, &context);
-  session_ = loop_->train_session();
+  session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
   MS_ASSERT(nullptr != session_);
+  loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_, &context);
 
   acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
 
@@ -294,13 +315,12 @@ void NetRunner::InitAndFigureInputs() {
 ```cpp
 int NetRunner::InitDB() {
   train_ds_ = Mnist(data_dir_ + "/train", "all");
+  TypeCast typecast_f("float32");
+  Resize resize({32, 32});
+  train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
-  std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
-  train_ds_ = train_ds_->Map({resize, typecast_f}, {"image"});
-
-  std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
-  train_ds_ = train_ds_->Map({typecast}, {"label"});
+  TypeCast typecast("int32");
+  train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
   train_ds_ = train_ds_->Shuffle(2);
   train_ds_ = train_ds_->Batch(32, true);
@@ -322,7 +342,7 @@ int NetRunner::InitDB() {
 The `TrainLoop` method is the core of the training procedure. We first display its code then review it.
 
 ```cpp
-TrainLoopCallBackint NetRunner::TrainLoop() {
+int NetRunner::TrainLoop() {
   struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.9);
   mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 100);
 
@@ -348,12 +368,12 @@ To eval the model accuracy, the `CalculateAccuracy` method is being called. With
 ```cpp
 float NetRunner::CalculateAccuracy(int max_tests) {
   test_ds_ = Mnist(data_dir_ + "/test", "all");
-  std::shared_ptr<TensorOperation> typecast_f = mindspore::dataset::transforms::TypeCast("float32");
-  std::shared_ptr<TensorOperation> resize = mindspore::dataset::vision::Resize({32, 32});
-  test_ds_ = test_ds_->Map({resize, typecast_f}, {"image"});
+  TypeCast typecast_f("float32");
+  Resize resize({32, 32});
+  test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
-  std::shared_ptr<TensorOperation> typecast = mindspore::dataset::transforms::TypeCast("int32");
-  test_ds_ = test_ds_->Map({typecast}, {"label"});
+  TypeCast typecast("int32");
+  test_ds_ = test_ds_->Map({&typecast}, {"label"});
   test_ds_ = test_ds_->Batch(32, true);
 
   Rescaler rescale(255.0);

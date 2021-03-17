@@ -394,7 +394,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/l
 
 如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
 
-`mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`：模型转换工具，仅支持MindIR模型文件。
+`mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`：模型转换工具，仅支持MindIR模型文件。
 
 `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
 
@@ -407,7 +407,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/l
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
-tar -xvf mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
 tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 ```
 
@@ -417,7 +417,7 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 
 ```text
 │
-├── mindspore-lite-{version}-train-converter-linux-x64
+├── mindspore-lite-{version}-converter-linux-x64
 │   └── converter # 模型转换工具
 │       ├── converter_lite # 可执行程序
 │   └── lib # 转换工具依赖的动态库
@@ -481,7 +481,7 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 配置converter：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-train-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 配置benchmark_train：

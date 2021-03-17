@@ -313,7 +313,7 @@ export LD_LIBRARY_PATH= ./output/mindspore-lite-{version}-inference-{os}-{arch}/
 
 If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz`: Model converter, only support MINDIR format model file.
+- `mindspore-lite-{version}-converter-{os}-{arch}.tar.gz`: Model converter, only support MINDIR format model file.
 - `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
@@ -325,7 +325,7 @@ If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` dire
 Execute the decompression command to obtain the compiled output:
 
 ```bash
-tar -xvf mindspore-lite-{version}-train-converter-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-converter-{os}-{arch}.tar.gz
 tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 ```
 
@@ -335,7 +335,7 @@ The training model conversion tool is only available under the `-I x86_64` compi
 
 ```text
 │
-├── mindspore-lite-{version}-train-converter-linux-x64
+├── mindspore-lite-{version}-converter-linux-x64
 │   └── converter # Model conversion Ttool
 │       ├── converter_lite # Executable program
 │   └── lib # The dynamic link library that converter depends
@@ -396,7 +396,7 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 Configure converter:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-train-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-converter-{os}-{arch}/lib:./output/mindspore-lite-{version}-converter-{os}-{arch}/third_party/glog/lib:${LD_LIBRARY_PATH}
 ```
 
 Configure benchmark_train:

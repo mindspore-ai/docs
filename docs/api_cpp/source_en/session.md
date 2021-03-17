@@ -481,14 +481,14 @@ Destructor function.
 #### CreateTrainLoop
 
 ```cpp
-static TrainLoop *CreateTrainLoop(const std::string &model_filename, lite::Context *context, int batch_size = -1);
+static TrainLoop *CreateTrainLoop(session::TrainSession *train_session, lite::Context *context, int batch_size = -1);
 ```
 
 A static method of creating TrainLoop pointer.
 
 - Parameters
 
-    - `model_filename`: Name of ms model.
+    - `train_session`: Pointer that points to the CreateSession or CreateTransferSession object.
     - `context`: Pointer that points to a context.
     - `batch_size`: Batch size number.
 
@@ -602,3 +602,138 @@ Execute evaluating.
 - Returns
 
     0 means evaluating successfully while -1 means failed.
+
+## TrainLoopCallback
+
+\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop_callback.h)&gt;
+
+Execute the callback functions during the model training.
+
+### Constructors & Destructors
+
+#### ~TrainLoopCallback
+
+```cpp
+virtual ~TrainLoopCallback() = default;
+```
+
+Destructor function.
+
+### Public Member Functions
+
+#### Begin
+
+```cpp
+virtual void Begin(const TrainLoopCallBackData &cb_data) {}
+```
+
+The method is called once before the network is executed.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+#### End
+
+```cpp
+virtual void End(const TrainLoopCallBackData &cb_data) {}
+```
+
+The method is called once after the network executed.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+#### EpochBegin
+
+```cpp
+virtual void EpochBegin(const TrainLoopCallBackData &cb_data) {}
+```
+
+The method is called at the beginning of each epoch.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+#### EpochEnd
+
+```cpp
+virtual int EpochEnd(const TrainLoopCallBackData &cb_data) { return RET_CONTINUE; }
+```
+
+The method is called at the end of each epoch.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+- Returns
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+
+#### StepBegin
+
+```cpp
+virtual void StepBegin(const TrainLoopCallBackData &cb_data) {}
+```
+
+The method is called at the beginning of each step.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+#### StepEnd
+
+```cpp
+virtual void StepEnd(const TrainLoopCallBackData &cb_data) {}
+```
+
+The method is called after each step has finished.
+
+- Parameters
+
+    - `cb_data`: cb_data info about current execution.
+
+## Metrics
+
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/metrics.h)&gt;
+
+Evaluation metrics of the training model.
+
+### Constructors & Destructors
+
+#### ~Metrics
+
+```cpp
+virtual ~Metrics() = default;
+```
+
+Destructor function.
+
+### Public Member Functions
+
+#### Clear
+
+```cpp
+virtual void Clear() {}
+```
+
+Reset the member variables `total_accuracy_` and `total_steps_` to 0.
+
+#### Eval
+
+```cpp
+virtual float Eval() {}
+```
+
+Evaluation the model.
+
+#### Update
+
+```cpp
+virtual void Update(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs) = 0;
+```
+
+Update the member variables `total_accuracy_` and `total_steps_`.
