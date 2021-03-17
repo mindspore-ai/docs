@@ -16,6 +16,7 @@
    quick_start/quick_start_java
    quick_start/quick_start
    quick_start/image_segmentation
+   quick_start/quick_start_codegen
    quick_start/train_lenet
    
 .. toctree::
@@ -34,6 +35,7 @@
    :hidden:
 
    use/converter_tool
+   use/code_generator
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -56,6 +58,7 @@
    :hidden:
 
    operator_list_lite
+   operator_list_codegen
    model_lite
 
 .. raw:: html
