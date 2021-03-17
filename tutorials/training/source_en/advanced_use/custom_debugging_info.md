@@ -286,7 +286,7 @@ Synchronous Dump supports the graphics mode both on GPU and Ascend, and currentl
         },
         "e2e_dump_settings": {
             "enable": true,
-            "trans_flag": false
+            "trans_flag": true
         }
     }
     ```
