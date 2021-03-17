@@ -114,6 +114,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 2. Load the model from MindSpore Hub using the `url`. Note that the parameter `include_top` is provided by the model developer.
 
    ```python
+   import os
    import mindspore_hub as mshub
    import mindspore
    from mindspore import context, Tensor, nn
@@ -166,34 +167,34 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 
    ```python
    def create_cifar10dataset(dataset_path, batch_size, do_train):
-    if do_train:
-        usage, shuffle = "train", True
-    else:
-        usage, shuffle = "test", False
+       if do_train:
+           usage, shuffle = "train", True
+       else:
+           usage, shuffle = "test", False
 
-    data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
+       data_set = ds.Cifar10Dataset(dataset_dir=dataset_path, usage=usage, shuffle=True)
 
-    # Define map operations
-    trans = [C.Resize((224, 224))]
-    if do_train:
-        trans += [
-            C.RandomHorizontalFlip(prob=0.5),
-        ]
+       # define map operations
+       trans = [C.Resize((256, 256))]
+       if do_train:
+           trans += [
+               C.RandomHorizontalFlip(prob=0.5),
+           ]
 
-    trans += [
-        C.Rescale(1.0 / 255.0, 0.0),
-        C.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
-        C.HWC2CHW()
-    ]
+       trans += [
+           C.Rescale(1.0 / 255.0, 0.0),
+           C.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+           C.HWC2CHW()
+       ]
 
-    type_cast_op = C2.TypeCast(mstype.int32)
+       type_cast_op = C2.TypeCast(mstype.int32)
 
-    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
-    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
+       data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
+       data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
 
-    # Apply batch operations
-    data_set = data_set.batch(batch_size, drop_remainder=True)
-    return data_set
+       # apply batch operations
+       data_set = data_set.batch(batch_size, drop_remainder=True)
+       return data_set
 
    # Create Dataset
    dataset_path = "/path_to_dataset/cifar-10-batches-bin"
@@ -203,25 +204,21 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 5. Define `loss`, `optimizer` and `learning rate`.
 
    ```python
-   def generate_steps_lr(lr_init, lr_max, steps_per_epoch, total_epochs, warmup_epochs):
-    total_steps = total_epochs * steps_per_epoch
-    warmup_steps = warmup_epochs * steps_per_epoch
-    decay_epoch_index = [0.3*total_steps, 0.6*total_steps, 0.8*total_steps]
-    lr_each_step = []
-    for i in range(total_steps):
-        if i < warmup_steps:
-            lr = lr_init + (lr_max - lr_init) * i / warmup_steps
-        else:
-            if i < decay_epoch_index[0]:
-                lr = lr_max
-            elif i < decay_epoch_index[1]:
-                lr = lr_max * 0.1
-            elif i < decay_epoch_index[2]:
-                lr = lr_max * 0.01
-            else:
-                lr = lr_max * 0.001
-        lr_each_step.append(lr)
-    return lr_each_step
+   def generate_steps_lr(lr_init, steps_per_epoch, total_epochs):
+       total_steps = total_epochs * steps_per_epoch
+       decay_epoch_index = [0.3*total_steps, 0.6*total_steps, 0.8*total_steps]
+       lr_each_step = []
+       for i in range(total_steps):
+           if i < decay_epoch_index[0]:
+               lr = lr_init
+           elif i < decay_epoch_index[1]:
+               lr = lr_init * 0.1
+           elif i < decay_epoch_index[2]:
+               lr = lr_init * 0.01
+           else:
+               lr = lr_init * 0.001
+           lr_each_step.append(lr)
+       return lr_each_step
 
    # Set epoch size
    epoch_size = 60
@@ -230,7 +227,7 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
    loss_fn = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
    loss_net = nn.WithLossCell(train_network, loss_fn)
    steps_per_epoch = dataset.get_dataset_size()
-   lr = generate_steps_lr(lr_init=0, lr_max=0.01, steps_per_epoch=steps_per_epoch, total_epochs=epoch_size, warmup_epochs=0)
+   lr = generate_steps_lr(lr_init=0.01, steps_per_epoch=steps_per_epoch, total_epochs=epoch_size)
    # Create an optimizer.
    optim = Momentum(filter(lambda x: x.requires_grad, classification_layer.get_parameters()), Tensor(lr, mindspore.float32), 0.9, 4e-5)
    train_net = nn.TrainOneStepCell(loss_net, optim)
@@ -240,18 +237,18 @@ We use [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.0/model_zoo/o
 
    ```python
    for epoch in range(epoch_size):
-         for i, items in enumerate(dataset):
-            data, label = items
-            data = mindspore.Tensor(data)
-            label = mindspore.Tensor(label)
+       for i, items in enumerate(dataset):
+           data, label = items
+           data = mindspore.Tensor(data)
+           label = mindspore.Tensor(label)
 
-            loss = train_net(data, label)
-            print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
-         # Save the ckpt file for each epoch.
-         if not os.path.exists('ckpt'):
-            os.mkdir('ckpt')
-         ckpt_path = f"./ckpt/cifar10_finetune_epoch{epoch}.ckpt"
-         save_checkpoint(train_network, ckpt_path)
+           loss = train_net(data, label)
+           print(f"epoch: {epoch}/{epoch_size}, loss: {loss}")
+       # Save the ckpt file for each epoch.
+       if not os.path.exists('ckpt'):
+          os.mkdir('ckpt')
+       ckpt_path = f"./ckpt/cifar10_finetune_epoch{epoch}.ckpt"
+       save_checkpoint(train_network, ckpt_path)
    ```
 
 6. Eval on test set.
