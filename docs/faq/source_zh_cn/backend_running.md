@@ -253,3 +253,11 @@ A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 - 删除溢出到磁盘空间的数据文件。
 
     进入启用缓存服务器时指定的溢出数据路径。通常，默认溢出路径为`/tmp/mindspore/cache`。找到路径下对应的数据文件夹并逐一删除。
+
+<font size=3>**Q：使用GPU版本MindSpore时，如何设置`DEVICE_ID`环境变量**</font>
+
+A：MindSpore GPU模式一般无需设置`DEVICE_ID`环境变量，MindSpore会根据cuda环境变量`CUDA_VISIBLE_DEVICES`，自动选择可见的GPU设备。设置`CUDA_VISIBLE_DEVICES`环境变量后，则`DEVICE_ID`环境变量代表可见GPU设备的下标：
+
+- 执行`export CUDA_VISIBLE_DEVICES=1,3,5`后，`DEVICE_ID`应当被设置为`0`，`1`或`2`，若设置为`3`及以上，MindSpore会由于设备ID不合法而运行失败。
+
+<br/>
