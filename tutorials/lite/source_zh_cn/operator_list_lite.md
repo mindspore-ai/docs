@@ -101,7 +101,6 @@
 | Pow                   |              | Supported    | Supported    | Supported     | Supported    | Supported    |           | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | Supported |  |  |  |  | |  |  |  |  |
 | PReLU                 |              | Supported    |              |               | Supported    | Supported    |           | PRELU                           | PReLU                    | PRelu                                           |                                                 |
-| PReLU | | Supported | | |  |  | |  |  |  | |
 | RandomStandardNormal  |              | Supported    |              |               |              |              |           |                                 |                          |                                                 | RandomStandardNormal                            |
 | RandomUniform         |              | Supported    |              |               |              |              |           |                                 |                          |                                                 | RandomUniform                                   |
 | Range                 |              | Supported    |              |               |              |              |           | Range                           |                          |                                                 | Range, RaggedRange                              |
