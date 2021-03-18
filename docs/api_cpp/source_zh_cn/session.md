@@ -216,7 +216,7 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-\#include &lt;[ltrain_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train_session.h)&gt;
+\#include &lt;[ltrain_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_session.h)&gt;
 
 继承于类 LiteSession，用于训练模型。
 
