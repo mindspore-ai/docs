@@ -36,7 +36,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 context.set_context(device_id=device_id) # set device_id
 init()
 
-def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):     # pylint: disable=missing-docstring
+def create_dataset(data_path, repeat_num=1, batch_size=32):     # pylint: disable=missing-docstring
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
@@ -111,11 +111,11 @@ class SoftmaxCrossEntropyExpand(nn.Cell):       # pylint: disable=missing-docstr
 
 
 def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
-    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
+    context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, grad_accumulation_step=6)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
-    dataset = create_dataset(data_path)
     batch_size = 32
+    dataset = create_dataset(data_path, batch_size=batch_size)
     num_classes = 10
     net = resnet50(batch_size, num_classes)
     loss = SoftmaxCrossEntropyExpand(sparse=True)

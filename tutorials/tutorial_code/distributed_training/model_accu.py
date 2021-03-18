@@ -1,24 +1,8 @@
-# Copyright 2021 Huawei Technologies Co., Ltd
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ============================================================================
-"""Model."""
 import math
 from mindspore.train.callback import RunContext
 from mindspore import context
 from mindspore.context import ParallelMode
 from mindspore import Model, connect_network_with_dataset
-from mindspore.parallel._utils import _need_to_full, _to_full_tensor
 from mindspore.common.dtype import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
 from mindspore.train.train_thor.dataset_helper import DatasetHelper
@@ -69,7 +53,7 @@ class Model_ACCU(Model):
     def __init__(self, network, loss_fn=None, optimizer=None, metrics=None, eval_network=None,
                  eval_indexes=None, amp_level="O0", **kwargs):
         super(Model_ACCU, self).__init__(network, loss_fn, optimizer, metrics, eval_network,
-                                        eval_indexes, amp_level, **kwargs)
+                                         eval_indexes, amp_level, **kwargs)
         self._frequency = context.get_auto_parallel_context("grad_accumulation_step")
         self._train_network = self._build_train_network()
 
@@ -142,18 +126,16 @@ class Model_ACCU(Model):
             # for data sink dataset_helper only iter once, other wise iter epoch_size times.
             for inputs in dataset_helper:
                 list_callback.step_begin(run_context)
-                if train_network_init_flag:
-                    self._train_network.add_flags_recursive(accumulation=True)
-                    self._train_network.phase = 'train0'
-                    self._train_network.compile(*inputs)
-                    self._train_network.add_flags_recursive(accumulation=False)
-                    self._train_network.phase = 'train1'
-                    self._train_network.compile(*inputs)
                 if switch_branch_one:
                     cb_params.cur_step_num += iter_second_order
+                    if train_network_init_flag:
+                        self._train_network.add_flags_recursive(accumulation=True)
                     self._train_network.phase = 'train0'
                 else:
                     cb_params.cur_step_num += iter_first_order
+                    if train_network_init_flag:
+                        self._train_network.add_flags_recursive(accumulation=True)
+                        train_network_init_flag = False
                     self._train_network.phase = 'train1'
                     if not has_do_dataset_init:
                         _exec_datagraph(train_dataset, iter_first_order, phase='train1_dataset')
@@ -170,4 +152,3 @@ class Model_ACCU(Model):
         dataset_helper.stop_send()
 
         list_callback.end(run_context)
-

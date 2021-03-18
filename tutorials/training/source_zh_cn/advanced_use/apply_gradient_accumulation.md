@@ -444,7 +444,6 @@ from mindspore.train.callback import RunContext
 from mindspore import context
 from mindspore.context import ParallelMode
 from mindspore import Model, connect_network_with_dataset
-from mindspore.parallel._utils import _need_to_full, _to_full_tensor
 from mindspore.common.dtype import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
 from mindspore.train.train_thor.dataset_helper import DatasetHelper
@@ -495,7 +494,7 @@ class Model_ACCU(Model):
     def __init__(self, network, loss_fn=None, optimizer=None, metrics=None, eval_network=None,
                  eval_indexes=None, amp_level="O0", **kwargs):
         super(Model_ACCU, self).__init__(network, loss_fn, optimizer, metrics, eval_network,
-                                        eval_indexes, amp_level, **kwargs)
+                                         eval_indexes, amp_level, **kwargs)
         self._frequency = context.get_auto_parallel_context("grad_accumulation_step")
         self._train_network = self._build_train_network()
 
@@ -568,18 +567,16 @@ class Model_ACCU(Model):
             # for data sink dataset_helper only iter once, other wise iter epoch_size times.
             for inputs in dataset_helper:
                 list_callback.step_begin(run_context)
-                if train_network_init_flag:
-                    self._train_network.add_flags_recursive(accumulation=True)
-                    self._train_network.phase = 'train0'
-                    self._train_network.compile(*inputs)
-                    self._train_network.add_flags_recursive(accumulation=False)
-                    self._train_network.phase = 'train1'
-                    self._train_network.compile(*inputs)
                 if switch_branch_one:
                     cb_params.cur_step_num += iter_second_order
+                    if train_network_init_flag:
+                        self._train_network.add_flags_recursive(accumulation=True)
                     self._train_network.phase = 'train0'
                 else:
                     cb_params.cur_step_num += iter_first_order
+                    if train_network_init_flag:
+                        self._train_network.add_flags_recursive(accumulation=True)
+                        train_network_init_flag = False
                     self._train_network.phase = 'train1'
                     if not has_do_dataset_init:
                         _exec_datagraph(train_dataset, iter_first_order, phase='train1_dataset')
@@ -605,11 +602,11 @@ class Model_ACCU(Model):
 完成上述定义后，即可利用训练接口完成模型训练。首先需要在`context.set_auto_parallel_context`配置`grad_accumulation_step`参数，使能梯度累积。其次利用改造的`cell_warapper`封装网络结构，传入`Model_ACCU`中初始化模型。
 
 ```python
-context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, grad_accumulation_step=4)
+context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, grad_accumulation_step=6)
 loss_cb = LossMonitor()
 data_path = os.getenv('DATA_PATH')
-dataset = create_dataset(data_path)
-batch_size = 8
+batch_size = 32
+dataset = create_dataset(data_path, batch_size=batch_size)
 num_classes = 10
 net = resnet50(batch_size, num_classes)
 loss = SoftmaxCrossEntropyExpand(sparse=True)
@@ -623,10 +620,10 @@ model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
 在日志中可以检索到如下的日志打印：
 
 ```text
-epoch: 1 step: 937, loss is 1.7588712
-epoch: 2 step: 937, loss is 1.7275971
-epoch: 3 step: 937, loss is 1.5423206
-epoch: 4 step: 937, loss is 1.2762429
-epoch: 5 step: 937, loss is 1.0915408
+epoch: 1 step: 234, loss is 1.7588712
+epoch: 2 step: 234, loss is 1.7275971
+epoch: 3 step: 234, loss is 1.5423206
+epoch: 4 step: 234, loss is 1.2762429
+epoch: 5 step: 234, loss is 1.0915408
 ```
 
