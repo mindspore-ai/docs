@@ -12,7 +12,11 @@ Using MindSpore on Mobile and IoT
    :caption: Quick Start
    :hidden:
 
+   quick_start/quick_start_cpp
+   quick_start/quick_start_java
    quick_start/quick_start
+   quick_start/image_segmentation
+   quick_start/quick_start_codegen
    quick_start/train_lenet
 
 .. toctree::
@@ -31,6 +35,7 @@ Using MindSpore on Mobile and IoT
    :hidden:
 
    use/converter_tool
+   use/code_generator
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
@@ -53,6 +58,7 @@ Using MindSpore on Mobile and IoT
    :hidden:
 
    operator_list_lite
+   operator_list_codegen
    model_lite
 
 .. raw:: html

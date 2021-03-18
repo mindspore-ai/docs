@@ -1,6 +1,6 @@
 # "编译"一个MNIST分类模型
 
- `Linux x86_64` `IOT` `C++` `全流程` `模型编译` `模型代码生成` `模型部署` `推理应用` `初级` `中级` `高级`
+ `Linux` `IoT` `C++` `全流程` `模型编译` `模型代码生成` `模型部署` `推理应用` `初级` `中级` `高级`
 
 <!-- TOC -->
 
@@ -48,7 +48,7 @@
 ./codegen --codePath=. --modelPath=mnist.ms --moduleName=mnist --target=x86
 ```
 
-关于Codegen的更多使用命令说明，可参见[Codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/code_genetator.html)。
+关于Codegen的更多使用命令说明，可参见[Codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/code_generator.html)。
 
 ## 部署应用
 

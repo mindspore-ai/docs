@@ -24,6 +24,7 @@ Inference Using MindSpore
    :caption: Inference Service
 
    serving_example
+   serving_distributed_example
    serving_grpc
    serving_restful
    serving_model

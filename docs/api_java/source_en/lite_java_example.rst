@@ -4,4 +4,6 @@ Example
 .. toctree::
   :maxdepth: 1
 
-  Quick Start <https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html>
+  Simple Demo <https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_java.html>
+  Implementing an Image Segmentation Application <https://www.mindspore.cn/tutorial/lite/en/master/quick_start/image_segmentation.html>
+  High-level Usage <https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html>

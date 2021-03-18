@@ -18,3 +18,4 @@ MindSpore Programming Guide
    advanced_usage
    network_list
    operator_list
+   syntax_list
