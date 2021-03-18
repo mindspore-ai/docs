@@ -71,7 +71,7 @@ bash mnist.sh
 
 推理结果如下：
 
-```txt
+```text
 input 0: mnist_input.bin
 51, 52, 68, 78, 78, 88, 75, 87, 68, 61, 51, 56, 63, 55, 66, 61, 56, 71, 57, 73,
 mnist inference success.
@@ -83,93 +83,93 @@ mnist inference success.
 
 1. 算子静态库目录说明
 
-在编译此工程之前需要预先获取x86平台对应的算子库[codegen](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到operator_library，将其拷贝到当前目录下。
+    在编译此工程之前需要预先获取x86平台对应的算子库[codegen](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到operator_library，将其拷贝到当前目录下。
 
-以本教程为例，预置x86平台算子静态库的目录如下：
+    以本教程为例，预置x86平台算子静态库的目录如下：
 
-```txt
-├── operator_library    # 对应平台算子库目录
-    ├── include         # 对应平台算子库头文件目录
-    └── lib             # 对应平台算子库静态库目录
-```
+    ```text
+    ├── operator_library    # 对应平台算子库目录
+        ├── include         # 对应平台算子库头文件目录
+        └── lib             # 对应平台算子库静态库目录
+    ```
 
 2. 生成代码工程目录说明
 
-当前目录下预置了MNIST分类网络生成的代码。
+    当前目录下预置了MNIST分类网络生成的代码。
 
-```txt
-├── mnist               # 生成代码的根目录
-    ├── benchmark       # 生成代码的benchmark目录
-    └── src             # 模型推理代码目录
-```
+    ```text
+    ├── mnist               # 生成代码的根目录
+        ├── benchmark       # 生成代码的benchmark目录
+        └── src             # 模型推理代码目录
+    ```
 
 #### 代码编译
 
 1. 编译生成模型静态库
 
-组织模型生成的推理代码以及算子静态库，编译生成模型推理静态库。
+    组织模型生成的推理代码以及算子静态库，编译生成模型推理静态库。
 
-进入代码工程src目录下并新建build目录：
+    进入代码工程src目录下并新建build目录：
 
-```bash
-cd mnist/src && mkdir build
-```
+    ```bash
+    cd mnist/src && mkdir build
+    ```
 
-进入build目录：
+    进入build目录：
 
-```bash
-cd build
-```
+    ```bash
+    cd build
+    ```
 
-开始编译：
+    开始编译：
 
-```bash
-cmake -DOP_LIB={path to}/operator_library/lib/x86/liboplib.a  \
-      -DOP_HEADER_PATH={path to}/operator_library/include/    \
-      ..
-make
-```
+    ```bash
+    cmake -DOP_LIB={path to}/operator_library/lib/x86/liboplib.a  \
+        -DOP_HEADER_PATH={path to}/operator_library/include/    \
+        ..
+    make
+    ```
 
-> {path to}需要用户根据实际情况填写。
+    > {path to}需要用户根据实际情况填写。
 
-代码工程编译成功结果：
+    代码工程编译成功结果：
 
-```txt
-[100%] Linking C static library libmnist.a
-unzip raw static library libmnist.a
-raw static library libmnist.a size:
--rw-r--r-- 1 root root 356K Mar  4 16:48 libmnist.a
-generate specified static library libmnist.a
-new static library libmnist.a size:
--rw-r--r-- 1 root root 735K Mar  4 16:48 libmnist.a
-```
+    ```text
+    [100%] Linking C static library libmnist.a
+    unzip raw static library libmnist.a
+    raw static library libmnist.a size:
+    -rw-r--r-- 1 root root 356K Mar  4 16:48 libmnist.a
+    generate specified static library libmnist.a
+    new static library libmnist.a size:
+    -rw-r--r-- 1 root root 735K Mar  4 16:48 libmnist.a
+    ```
 
-此时在mnist/src/build目录下生成了libmnist.a，推理执行库。
+    此时在mnist/src/build目录下生成了libmnist.a，推理执行库。
 
 2. 编译生成可执行文件
 
-组织模型推理静态库以及benchmark代码，编译生成二进制可执行文件文件，进入mnist/benchmark目录并新建build目录：
+    组织模型推理静态库以及benchmark代码，编译生成二进制可执行文件文件，进入mnist/benchmark目录并新建build目录：
 
-```bash
-cd mnist/benchmark && mkdir build
-```
+    ```bash
+    cd mnist/benchmark && mkdir build
+    ```
 
-进入build目录并编译：
+    进入build目录并编译：
 
-```bash
-cd build
-cmake -DMODEL_LIB=../../src/build/libmnist.a  ..
-make
-```
+    ```bash
+    cd build
+    cmake -DMODEL_LIB=../../src/build/libmnist.a  ..
+    make
+    ```
 
- 代码工程编译成功结果：
+    代码工程编译成功结果：
 
-```txt
-[100%] Linking C executable benchmark
-[100%] Built target benchmark
-```
+    ```text
+    [100%] Linking C executable benchmark
+    [100%] Built target benchmark
+    ```
 
-此时在mnist/benchmark/build目录下生成了benchmark可执行文件。
+    此时在mnist/benchmark/build目录下生成了benchmark可执行文件。
 
 #### 代码部署
 
@@ -182,7 +182,7 @@ make
 > mnist_input.bin在example/mnist目录下，mnist.net为模型参数文件，在example/mnist/src目录下。
 生成结果如下：
 
-```txt
+```text
 input 0: mnist_input.bin
 51, 52, 68, 78, 78, 88, 75, 87, 68, 61, 51, 56, 63, 55, 66, 61, 56, 71, 57, 73,
 mnist inference success.
