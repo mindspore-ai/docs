@@ -63,6 +63,8 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Inference Code
 
+### Data-preprocessing by CPU operators
+
 Inference sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
 Using namespace of `mindspore` and `mindspore::dataset`.
@@ -72,7 +74,7 @@ namespace ms = mindspore;
 namespace ds = mindspore::dataset;
 ```
 
-Set global context, device target is `Ascend310` and evice id is `0`:
+Set global context, device target is `Ascend 310` and device id is `0`:
 
 ```c++
 ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
@@ -103,7 +105,7 @@ ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-Image preprocess:
+Image preprocess(CPU operators):
 
 ```c++
 // Create the CPU operator provided by MindData to get the function object
@@ -125,6 +127,101 @@ ds::Execute preprocessor({decode, resize, normalize, center_crop, hwc2chw});
 
 // Call the function object to get the processed image
 ret = preprocessor(image, &image);
+```
+
+Execute the model:
+
+```c++
+// Create outputs vector
+std::vector<ms::MSTensor> outputs;
+// Create inputs vector
+std::vector<ms::MSTensor> inputs;
+inputs.emplace_back(model_inputs[0].Name(), model_inputs[0].DataType(), model_inputs[0].Shape(),
+                    image.Data().get(), image.DataSize());
+// Call the Predict function of Model for inference
+ret = resnet50.Predict(inputs, &outputs);
+```
+
+Print the result:
+
+```c++
+// Output the maximum probability to the screen
+std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) << std::endl;
+```
+
+### Data pre-processing by Ascend 310 operators
+
+Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compare with CPU operators. Several transforms applied on JPEG format image are supported.
+
+Using namespace of `mindspore` and `mindspore::dataset`.
+
+```c++
+namespace ms = mindspore;
+namespace ds = mindspore::dataset;
+```
+
+Set global context, device target is `Ascend 310` and device id is `0`:
+
+```c++
+ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
+ms::GlobalContext::SetGlobalDeviceID(0);
+```
+
+Load image file:
+
+```c++
+// Readfile is a function to read images
+ms::MSTensor ReadFile(const std::string &file);
+auto image = ReadFile(image_file);
+```
+
+Image preprocess(Ascend 310 operators):
+
+```c++
+// Create the CPU operator provided by MindData to get the function object
+
+// Decode the input to YUV420 format
+std::shared_ptr<ds::TensorTransform> decode(new ds::vision::Decode());
+// Resize the image to the given size
+std::shared_ptr<ds::TensorTransform> resize(new ds::vision::Resize({256}));
+// Normalize the input
+std::shared_ptr<ds::TensorTransform> normalize(new ds::vision::Normalize(
+    {0.485 * 255, 0.456 * 255, 0.406 * 255}, {0.229 * 255, 0.224 * 255, 0.225 * 255}));
+// Crop the input image at the center
+std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224, 224}));
+```
+
+Image preprocess (Ascend 310 operators, 130% performance increasing compare to CPU operators).
+
+Explicitly specify the computing hardware as Ascend 310.
+
+```c++
+// Define a MindData preprocessor,  set deviceType = kAscend310
+ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310);
+
+// Call the function object to get the processed image
+ret = preprocessor(image, &image);
+```
+
+Load mindir file: Ascend 310 operators must bind with Aipp module, insert Aipp module for model graph compiling.
+
+ ```c++
+// Load MindIR model
+auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+
+auto model_context = std::make_shared<ms::ModelContext>();
+
+ms::ModelContext::SetInsertOpConfigPath(model_context, preprocessor.AippCfgGenerator());
+
+// Build model with graph object
+ms::Model resnet50(ms::GraphCell(graph), model_context);
+ms::Status ret = resnet50.Build();
+ ```
+
+Get input information of this model:
+
+```c++
+std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
 Execute the model:

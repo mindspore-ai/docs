@@ -2,6 +2,88 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+## Execute
+
+\#include &lt;[execute.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/execute.h)&gt;
+
+```cpp
+// shared_ptr
+Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType);
+
+// normal pointer
+Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType)
+
+// reference_wrapper
+Execute::Execute(TensorTransform *op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType);
+```
+
+Transform（图像、文本）变换算子Eager模式执行类。支持多种构造函数形式，包括智能指针，普通指针以及引用封装。
+
+- 参数
+
+    - `op`: 指定单个使用的变换算子。
+    - `ops`: 指定一个列表，包含多个使用的变换算子。
+    - `deviceType`:  指定运行硬件设备，选项为CPU，GPU以及Ascend 310。
+
+```cpp
+Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
+```
+
+Eager模式执行接口。
+
+- 参数
+
+    - `input`: 待变换的Tensor张量。
+    - `output`: 变换后的Tensor张量。
+
+- 返回值
+
+    返回一个状态码指示执行变换是否成功。
+
+```cpp
+std::string Execute::AippCfgGenerator()
+```
+
+与Dvpp相关的Aipp配置文件生成器。
+该接口在`deviceType = kAscend310`时生效，依据数据预处理算子的参数自动生成Ascend 310内置Aipp模块推理配置文件。
+
+- 参数
+
+    无。
+
+- 返回值
+
+    返回一个`string`表示Aipp配置文件的系统路径。
+
+## Dvpp模块
+
+Dvpp模块为Ascend 310芯片内置硬件解码器，相较于CPU拥有对图形处理更强劲的性能。支持JPEG图片的解码缩放等基础操作。
+
+- 定义`execute`对象时，若设置`deviceType = kAscend310`则会调用Dvpp模块执行数据预处理算子。
+- 当前Dvpp模块支持`Decode()`， `Resize()`， `CenterCrop()`， `Normalize()`。
+- 上述Dvpp算子与同功能CPU算子共用统一API，仅以`deviceType`区分。
+
+示例代码：
+
+```cpp
+// Define dvpp transforms
+std::vector<int32_t> crop_paras = {224, 224};
+std::vector<int32_t> resize_paras = {256};
+std::vector<float> mean = {0.485 * 255, 0.456 * 255, 0.406 * 255};
+std::vector<float> std = {0.229 * 255, 0.224 * 255, 0.225 * 255};
+
+std::shared_ptr<TensorTransform> decode(new vision::Decode());
+std::shared_ptr<TensorTransform> resize(new vision::Resize(resize_paras));
+std::shared_ptr<TensorTransform> centercrop(new vision::CenterCrop(crop_paras));
+std::shared_ptr<TensorTransform> normalize(new vision::Normalize(mean, std));
+
+std::vector<std::shared_ptr<TensorTransform>> trans_list = {decode, resize, centercrop, normalize};
+mindspore::dataset::Execute Transform(trans_list, MapTargetDevice::kAscend310);
+```
+
 ## ResizeBilinear
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;

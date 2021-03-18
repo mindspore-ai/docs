@@ -2,6 +2,93 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/dataset.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+## Execute
+
+\#include &lt;[execute.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/execute.h)&gt;
+
+```cpp
+// shared_ptr
+Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType);
+
+// normal pointer
+Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType)
+
+// reference_wrapper
+Execute::Execute(TensorTransform *op, MapTargetDevice deviceType);
+Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType);
+```
+
+Transform（image, text）Transform operators in eager mode executor class。Multiple constructors are supported，include shared_ptr, normal pointer and reference_wrapper.
+
+- Parameters
+
+    - `op`: Single transform operator.
+    - `ops`: A list of transform operators.
+    - `deviceType`: Runtime hardware. Options are: CPU, GPU and Ascend310.
+
+```cpp
+Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
+```
+
+Eager mode execution API.
+
+- Parameters
+
+    - `input`: Tensor before transformations.
+    - `output`: Tensor after transformations.
+
+- Returns
+
+    Status code which indicate the execution result.
+
+```cpp
+std::string Execute::AippCfgGenerator()
+```
+
+Aipp module config file generator, Aipp module binds with Dvpp module. This API takes effects on case `deviceType = kAscend310`, generates Aipp config file according to the parameters of operators defined in data pre-processing.
+
+- Parameters
+
+    None.
+
+- Returns
+
+    Return a string indicates the system path of Aipp config file.
+
+## Dvpp Module
+
+Dvpp module is a hardware decoder embedded in Ascend 310 AI chip which has a better performance on image processing compare with CPU operators. Several transforms applied on JPEG format image are supported.
+
+- If let `deviceType = kAscend310` when constructing `execute` object, Dvpp operators will be applied during runtime.
+- Dvpp module supporting transforms list: `Decode(), Resize(), CenterCrop(), Normalize()`.
+- The above Dvpp operator and the CPU operator of the same function share a unified API, which is only distinguished by `deviceType`.
+
+Example:
+
+```cpp
+// Define dvpp transforms
+std::vector<int32_t> crop_paras = {224, 224};
+
+std::vector<int32_t> resize_paras = {256};
+
+std::vector<float> mean = {0.485 * 255, 0.456 * 255, 0.406 * 255};
+
+std::vector<float> std = {0.229 * 255, 0.224 * 255, 0.225 * 255};
+
+std::shared_ptr<TensorTransform> decode(new vision::Decode());
+
+std::shared_ptr<TensorTransform> resize(new vision::Resize(resize_paras));
+
+std::shared_ptr<TensorTransform> centercrop(new vision::CenterCrop(crop_paras));
+
+std::shared_ptr<TensorTransform> normalize(new vision::Normalize(mean, std));
+
+std::vector<std::shared_ptr<TensorTransform>> trans_list = {decode, resize, centercrop, normalize};
+mindspore::dataset::Execute Transform(trans_list, MapTargetDevice::kAscend310);
+```
+
 ## ResizeBilinear
 
 \#include &lt;[image_process.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h)&gt;
