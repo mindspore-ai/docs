@@ -85,7 +85,7 @@ The output is as follows:
 
 ## Customizing a Training Cycle
 
-If you do not want to use the `Model` interface provided by MindSpore, you can use the `train` interface to control the number of iterations and the number of steps for each epoch.
+If you do not want to use the `Model` interface provided by MindSpore, you can also refer to the following examples to freely control the number of iterations, traverse the data set, and so on.
 
 The following is a code example:
 
@@ -227,7 +227,7 @@ class TrainOneStepCell(nn.Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
     ds_train = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data/", "train"), 32)
 
     network = LeNet5(10)
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     print("============== Starting Training ==============")
     epoch = 10
     for step in range(epoch):
-        for inputs in dataset_helper:
+        for inputs in ds_train:
             output = net(*inputs)
             print("epoch: {0}/{1}, losses: {2}".format(step + 1, epoch, output.asnumpy(), flush=True))
 ```
@@ -250,17 +250,26 @@ if __name__ == "__main__":
 
 The output is as follows:
 
-```python
-epoch: 1/10, losses: 2.294034719467163
-epoch: 2/10, losses: 2.3150298595428467
-epoch: 3/10, losses: 2.3107073307037354
-epoch: 4/10, losses: 2.3155436515808105
-epoch: 5/10, losses: 2.28973388671875
-epoch: 6/10, losses: 2.3108928203582764
-epoch: 7/10, losses: 2.293713092803955
-epoch: 8/10, losses: 2.29837703704834
-epoch: 9/10, losses: 2.305952548980713
-epoch: 10/10, losses: 1.4282708168029785
+```text
+============== Starting Training ==============
+epoch: 1/10, losses: 2.3086986541748047
+epoch: 1/10, losses: 2.309938430786133
+epoch: 1/10, losses: 2.302298069000244
+epoch: 1/10, losses: 2.310209035873413
+epoch: 1/10, losses: 2.3002336025238037
+epoch: 1/10, losses: 2.3022992610931396
+... ...
+epoch: 1/10, losses: 0.18848800659179688
+epoch: 1/10, losses: 0.15532201528549194
+epoch: 2/10, losses: 0.179201140999794
+epoch: 2/10, losses: 0.20995387434959412
+epoch: 2/10, losses: 0.4867479205131531
+... ...
+epoch: 10/10, losses: 0.027243722230196
+epoch: 10/10, losses: 0.07665436714887619
+epoch: 10/10, losses: 0.005962767638266087
+epoch: 10/10, losses: 0.026364721357822418
+epoch: 10/10, losses: 0.0003102901973761618
 ```
 
 > The typical application scenario is gradient accumulation. For details, see [Applying Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_gradient_accumulation.html).
@@ -419,7 +428,7 @@ class LeNet5(nn.Cell):
 
 
 if __name__ == "__main__":
-    context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+    context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
     ds_train = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data/", "train"), 32)
 
     network = LeNet5(10)

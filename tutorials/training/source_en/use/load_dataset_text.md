@@ -33,11 +33,24 @@ This tutorial briefly demonstrates how to load and process text data using MindS
     我喜欢English!
     ```
 
-2. Create the `tokenizer.txt` file, copy the text data to the file, and save the file under `./test` directory. The directory structure is as follow.
+2. Create the `tokenizer.txt` file, copy the text data to the file, and save the file under `./datasets` directory. The directory structure is as follow.
+
+    ```python
+    import os
+
+    if not os.path.exists('./datasets'):
+        os.mkdir('./datasets')
+    file_handle=open('./datasets/tokenizer.txt',mode='w')
+    file_handle.write('Welcome to Beijing \n北京欢迎您！ \n我喜欢English! \n')
+    file_handle.close()
+    ! tree ./datasets
+    ```
 
     ```text
-    └─test
-        └─tokenizer.txt
+    ./datasets
+    └── tokenizer.txt
+
+    0 directories, 1 file
     ```
 
 3. Import the `mindspore.dataset` and `mindspore.dataset.text` modules.
@@ -49,14 +62,14 @@ This tutorial briefly demonstrates how to load and process text data using MindS
 
 ## Loading Dataset
 
-MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data.
+MindSpore supports loading common datasets in the field of text processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data. For detailed loading methods of various datasets, please refer to the [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html) chapter in the Programming Guide.
 
 The following tutorial demonstrates loading datasets using the `TextFileDataset` in the `mindspore.dataset` module.
 
 1. Configure the dataset directory as follows and create a dataset object.
 
     ```python
-    DATA_FILE = "./test/tokenizer.txt"
+    DATA_FILE = "./datasets/tokenizer.txt"
     dataset = ds.TextFileDataset(DATA_FILE, shuffle=False)
     ```
 
@@ -76,6 +89,8 @@ The following tutorial demonstrates loading datasets using the `TextFileDataset`
     ```
 
 ## Processing Data
+
+For the data processing operators currently supported by MindSpore and their detailed usage methods, please refer to the [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html) chapter in the Programming Guide
 
 The following tutorial demonstrates how to construct a pipeline and perform operations such as `shuffle` and `RegexReplace` on the text dataset.
 
@@ -118,6 +133,8 @@ The following tutorial demonstrates how to construct a pipeline and perform oper
     ```
 
 ## Tokenization
+
+For the data tokenization operators currently supported by MindSpore and their detailed usage methods, please refer to the [Tokenizer](https://www.mindspore.cn/doc/programming_guide/en/master/tokenizer.html) chapter in the Programming Guide.
 
 The following tutorial demonstrates how to use the `WhitespaceTokenizer` to tokenize words with space.
 

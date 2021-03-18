@@ -250,6 +250,7 @@ epoch: 1 step: 1875, loss is 0.017264696
 ```
 
 > Use the PyNative mode for debugging, including the execution of single operator, common function, and network training model. For details, see [Debugging in PyNative Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
+> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the official website programming guide "[Training](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle)".
 
 ### Executing an Inference Model
 
