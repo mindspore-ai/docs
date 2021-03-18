@@ -134,7 +134,7 @@ class Model_ACCU(Model):
                 else:
                     cb_params.cur_step_num += iter_first_order
                     if train_network_init_flag:
-                        self._train_network.add_flags_recursive(accumulation=True)
+                        self._train_network.add_flags_recursive(accumulation=False)
                         train_network_init_flag = False
                     self._train_network.phase = 'train1'
                     if not has_do_dataset_init:
