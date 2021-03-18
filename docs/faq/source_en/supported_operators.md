@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
+
+A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. You can consider using the `amp` for mixed-precision training. In this way, some `FP32` operations and the invocation of some `TransData` operators can be reduced.
+
+<br/>
+
 <font size=3>**Q: An error occurs when the `Concat` operator concatenates tuples containing multiple tensors. An error occurs when the number of `tensor list` elements entered is greater than or equal to 192. What is a better solution (running in dynamic mode) for `Concat` to concatenate tuples containing multiple Tensors?**</font>
 
 A: The number of tensors to be concatenated at a time cannot exceed 192 according to the bottom-layer specifications of the Ascend operator. You can try to concatenate them twice.
