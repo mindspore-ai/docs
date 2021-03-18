@@ -490,6 +490,8 @@ After training, multiple model files will be generated and saved under the pre-s
 
 The meaning of the file name: `{Customized name configured in ModelCheckpoint}-{The number of epoch}-{The number of step}`.
 
+> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the official website programming guide "[Training](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle)".
+
 ### Checking the Loss Value of the Model with the Change of Training Steps
 
 ```python
