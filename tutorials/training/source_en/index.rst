@@ -43,10 +43,12 @@ Train with MindSpore
    :caption: Build Networks
    :hidden:
 
+   advanced_use/custom_loss_function  
    advanced_use/custom_operator
    advanced_use/migrate_script
    advanced_use/apply_deep_probability_programming
    advanced_use/implement_high_order_differentiation
+   advanced_use/quantum_neural_network
 
 .. toctree::
    :glob:
@@ -60,6 +62,7 @@ Train with MindSpore
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
    advanced_use/evaluate_the_model_during_training
+   advanced_use/kernel_incremental_compilation
 
 .. toctree::
    :glob:
@@ -80,6 +83,7 @@ Train with MindSpore
    :hidden:
 
    advanced_use/apply_quantization_aware_training
+   advanced_use/apply_post_training_quantization
 
 .. toctree::
    :glob:
@@ -89,6 +93,7 @@ Train with MindSpore
 
    advanced_use/improve_model_security_nad
    advanced_use/protect_user_privacy_with_differential_privacy
+   advanced_use/protect_user_privacy_with_suppress_privacy
    advanced_use/test_model_security_fuzzing
    advanced_use/test_model_security_membership_inference
 

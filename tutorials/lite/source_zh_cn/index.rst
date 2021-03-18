@@ -78,12 +78,13 @@
 							<div class="doc-label-choice">
 								<div class="row">
 									<div class="col-sm-2">
-										<div class="doc-os">操作系统</div>
+										<div class="doc-os">环境</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
 										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
 										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
 										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
+										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
 									</div>
 								</div>
 			
@@ -116,6 +117,8 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Loading">模型加载</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Training">模型训练</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Compiling">模型编译</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Code-Generation">模型代码生成</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
@@ -169,6 +172,19 @@
 							
 										<div class="doc-article-desc">
 											本教程基于MindSpore团队提供的Android“端侧图像分割”示例程序，演示了端侧部署的流程。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Whole-Process stage-Model-Compiling stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.md" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">"编译"一个MNIST分类模型</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										本教程介绍如何使用MindSpore Lite代码生成工具Codegen，快速生成以及部署轻量化推理代码。
 										</div>
 									</div>
 								</a>
