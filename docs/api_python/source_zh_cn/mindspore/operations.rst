@@ -51,8 +51,6 @@ Neural Network Operators
     mindspore.ops.FastGeLU
     mindspore.ops.Flatten
     mindspore.ops.FloorMod
-    mindspore.ops.FusedBatchNorm
-    mindspore.ops.FusedBatchNormEx
     mindspore.ops.FusedSparseAdam
     mindspore.ops.FusedSparseLazyAdam
     mindspore.ops.FusedSparseProximalAdagrad
