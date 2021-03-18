@@ -234,7 +234,7 @@ if __name__ == "__main__":
     model.train_process(10, ds_train, mini_steps=4)
 ```
 
-## 实验结果
+### 实验结果
 
 在经历了10轮epoch之后，在测试集上的精度约为96.31%。
 
@@ -629,4 +629,3 @@ epoch: 3 step: 937, loss is 1.5423206
 epoch: 4 step: 937, loss is 1.2762429
 epoch: 5 step: 937, loss is 1.0915408
 ```
-

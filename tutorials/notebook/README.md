@@ -83,7 +83,7 @@
 | 编程指南        | 算子     | [mindspore_operators.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/operators.ipynb)       | - 学习算子的使用方式<br/> - 介绍算子的功能
 | 编程指南        | Parameter     | [mindspore_parameter.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/parameter.ipynb)       | - 介绍Parameter的初始化<br/> - 介绍Parameter的属性<br/> - 介绍Parameter的方法
 | 编程指南        | Cell构建及其子类     | [mindspore_cell.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/cell.ipynb)       | - 介绍Cell的关键成员函数<br/> - 介绍nn模块与ops模块的关系<br/> - 了解模型层<br/> - 了解MindSpore的损失函数<br/> - 学习MindSpore优化算法<br/> - 学习构建自定义网络
-| 编程指南        | 优化算法     | [mindspore_optim.ipynb](https://gitee.com/mindspore/docs/blob/master/tutorials/notebook/programming_guide/mindspore_optim.ipynb)       | - 介绍各种类型学习率的类<br/> - 介绍Optimizer的构建及使用方式
+| 编程指南        | 优化算法     | [mindspore_optim.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/optim.ipynb)       | - 介绍各种类型学习率的类<br/> - 介绍Optimizer的构建及使用方式
 | 编程指南        | 常用网络组件     | [mindspore_network_component.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/network_component.ipynb)       | - 介绍GradOperation的使用方法<br/> - 介绍WithLossCell的使用方法<br/> - 介绍TrainOneStepCell的使用方法
 | 编程指南        | 数据集加载     | [mindspore_dataset_loading.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/dataset_loading.ipynb)       | - 了解常用数据集加载<br/> - 学习特定格式数据集加载<br/> - 学习自定义数据集加载
 | 编程指南        | 采样器     | [mindspore_sampler.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/sampler.ipynb)       | - 介绍MindSpore采样器<br/> - 学习如何自定义采样器
@@ -95,3 +95,4 @@
 | 编程指南        | 运行管理     | [mindspore_context.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/context.ipynb)       | - 介绍执行模式的选择和切换<br/> - 介绍硬件管理的方式<br/> - 介绍分布式管理的用法<br/> - 介绍维测管理的使用方式
 | 编程指南        | 运行方式     | [mindspore_run.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/run.ipynb)       | - 介绍单个算子的执行<br/> - 介绍普通函数的执行<br/> - 介绍网络模型的执行
 | 编程指南        | 训练     | [mindspore_train.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/train.ipynb)       | - 学习自定义训练网络<br/> - 学习自定义训练循环<br/> - 学习如何边训练边推理<br/> - 介绍On-device执行
+| 编程指南        | 深度概率编程库     | [mindspore_probability.ipynb](https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/probability.ipynb)       | - 介绍概率分布类<br/> - 介绍概率分布映射<br/> - 学习深度概率网络构建<br/> - 学习概率推断算法<br/>  - 学习贝叶斯网络的构建及转换<br/> - 学习MindSpore中贝叶斯工具箱的使用方法
