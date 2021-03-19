@@ -401,6 +401,8 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 ### 使用方法
 
+#### 通过配置文件配置RDR
+
 1. 创建配置文件`mindspore_config.json`。
 
     ```json
@@ -421,10 +423,17 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
     context.set_context(env_config_path="./mindspore_config.json")
     ```
 
-3. 假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
+#### 通过环境变量配置RDR
 
-   这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。
-   比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
+通过`export MS_RDR_ENABLE=1`来开启RDR, 然后设置RDR文件导出路径: `export MS_RDR_PATH=/absolute/path`.
+
+> 用户设置的配置文件优先级高于环境变量。
+
+#### 异常处理
+
+假如在Ascend 910上使用MindSpore进行训练，训练出现了`Run task error`异常。
+
+这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 
 ## 日志相关的环境变量和配置
 
