@@ -1,6 +1,6 @@
 # RESTful-based MindSpore Serving Access
 
-`Linux` `Serving` `Ascend` `Beginner` `Intermediate` `Expert`
+`Linux` `Serving` `Ascend` `GPU` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

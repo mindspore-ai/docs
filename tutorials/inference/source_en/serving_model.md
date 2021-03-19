@@ -1,6 +1,6 @@
 # Servable Provided Through Model Configuration
 
-`Linux` `Ascend` `Serving` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

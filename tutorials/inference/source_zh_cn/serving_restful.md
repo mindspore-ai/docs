@@ -1,6 +1,6 @@
 # 基于RESTful接口访问MindSpore Serving服务
 
-`Linux` `Serving` `Ascend` `初级` `中级` `高级`
+`Linux` `Serving` `Ascend` `GPU` `初级` `中级` `高级`
 
 <!-- TOC -->
 

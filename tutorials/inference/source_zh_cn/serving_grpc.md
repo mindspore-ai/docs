@@ -1,6 +1,6 @@
 # 基于gRPC接口访问MindSpore Serving服务
 
-`Linux` `Ascend` `Serving` `初级` `中级` `高级`
+`Linux` `Ascend` `GPU` `Serving` `初级` `中级` `高级`
 
 <!-- TOC -->
 

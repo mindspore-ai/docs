@@ -1,6 +1,6 @@
 # MindSpore Serving-based Inference Service Deployment
 
-`Linux` `Ascend` `Serving` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `Serving` `GPU` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
