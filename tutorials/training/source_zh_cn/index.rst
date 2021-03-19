@@ -63,7 +63,7 @@
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
    advanced_use/evaluate_the_model_during_training
-   advanced_use/kernel_incremental_compilation
+   advanced_use/incremental_operator_build
 
 .. toctree::
    :glob:
@@ -596,7 +596,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/kernel_incremental_compilation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/incremental_operator_build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">算子增量编译</span>
