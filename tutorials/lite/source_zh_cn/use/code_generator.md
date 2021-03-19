@@ -65,19 +65,18 @@
 执行成功后，会在codePath指定的目录下，生成名为moduleName的文件夹，内容如下：
 
 ```text
-lenet
-├── benchmark               # 集成调试相关的例程
-│   ├── benchmark.cc
-│   ├── benchmark.cmake
-│   └── CMakeLists.txt
-└── src                     # 源文件
-|    ├── CMakeLists.txt
-|    ├── lenet.c
-|    ├── lenet.h
-|    ├── lenet.net          # 二进制形式的模型权重
-|    ├── net.cmake
-|    ├── session.cc
-|    └── session.h
+mnist/
+├── benchmark                       # 集成调试相关的例程
+│   ├── CMakeLists.txt
+│   └── benchmark.cc
+└── src                             # 源文件
+    ├── CMakeLists.txt
+    ├── net.c
+    ├── net.cmake
+    ├── net.h
+    ├── net.bin                     # 二进制形式的模型权重
+    ├── weight.c
+    └── weight.h
 ```
 
 > 详细接口使用说明，请[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。

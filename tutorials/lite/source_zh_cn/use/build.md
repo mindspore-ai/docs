@@ -11,7 +11,7 @@
         - [编译示例](#编译示例)
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
-            - [代码生成工具Codegen目录结构说明](#代码生成工具Codegen目录结构说明)
+            - [代码生成工具codegen目录结构说明](#代码生成工具codegen目录结构说明)
             - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
         - [端侧训练框架编译输出](#端侧训练框架编译输出)
             - [训练Runtime及配套工具目录结构说明](#训练Runtime及配套工具目录结构说明)
@@ -37,7 +37,7 @@
 | benchmark          | Linux, Windows, Android | 基准测试工具                      |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
-| Codegen            | Linux                   | 模型推理代码生成工具               |
+| codegen            | Linux                   | 模型推理代码生成工具               |
 
 训练版本包含模块：
 
@@ -248,8 +248,7 @@ mindspore-lite-{version}-inference-linux-x64
                 │   ├── nnacl # nnacl 算子头文件
                 │   └── wrapper
                 └── lib      # 推理框架库
-                    └── x86
-                        └── libops.a # MindSpore Lite Codegen生成代码依赖的x86算子静态库
+                    └── libops.a # MindSpore Lite Codegen生成代码依赖的x86算子静态库
     ```
 
 - `-I arm64`编译选项下获得Codegen，内容如下：
@@ -264,8 +263,7 @@ mindspore-lite-{version}-inference-linux-x64
                 │   ├── nnacl # nnacl 算子头文件
                 │   └── wrapper
                 └── lib       # 推理框架库
-                    └── arm64
-                        └── libops.a # MindSpore Lite Codegen生成代码依赖的arm64算子静态库
+                    └── libops.a # MindSpore Lite Codegen生成代码依赖的arm64算子静态库
     ```
 
 - `-I arm32`编译选项下获得Codegen，内容如下：
@@ -280,8 +278,7 @@ mindspore-lite-{version}-inference-linux-x64
                 │   ├── nnacl # nnacl 算子头文件
                 │   └── wrapper
                 └── lib       # 推理框架库
-                    └── arm32a
-                        └── libops.a # MindSpore Lite Codegen生成代码依赖的arm32算子静态库
+                    └── libops.a # MindSpore Lite Codegen生成代码依赖的arm32算子静态库
     ```
 
 #### Runtime及其他工具目录结构说明

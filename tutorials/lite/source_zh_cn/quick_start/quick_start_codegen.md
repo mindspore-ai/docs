@@ -29,7 +29,7 @@
 
 其主要流程如下图流程图所示：
 
-![img](../images/lite_codegen.png)"
+![img](../images/lite_codegen.png)
 
 1. 使用训练框架，如MindSpore等，得到训练好的模型；
 2. 使用MindSpore Lite转换工具converter，将预训练模型转换为`*.ms`格式文件；
@@ -45,7 +45,7 @@
 首先下载[MNIST分类网络](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)。使用Codegen编译MNIST分类模型，生成对应的x86平台推理代码。生成代码的具体命令如下：
 
 ```bash
-./codegen --codePath=. --modelPath=mnist.ms --moduleName=mnist --target=x86
+./codegen --codePath=. --modelPath=mnist.ms --target=x86
 ```
 
 关于Codegen的更多使用命令说明，可参见[Codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/code_generator.html)。
@@ -72,9 +72,11 @@ bash mnist.sh
 推理结果如下：
 
 ```text
+start run benchmark
 input 0: mnist_input.bin
-51, 52, 68, 78, 78, 88, 75, 87, 68, 61, 51, 56, 63, 55, 66, 61, 56, 71, 57, 73,
-mnist inference success.
+output size: 1
+name: Softmax-7, size: 10
+run benchmark success
 ```
 
 #### 生成代码工程说明
@@ -124,7 +126,7 @@ mnist inference success.
     开始编译：
 
     ```bash
-    cmake -DOP_LIB={path to}/operator_library/lib/x86/liboplib.a  \
+    cmake -DOP_LIB={path to}/operator_library/lib/liboplib.a    \
         -DOP_HEADER_PATH={path to}/operator_library/include/    \
         ..
     make
@@ -183,9 +185,11 @@ mnist inference success.
 生成结果如下：
 
 ```text
+start run benchmark
 input 0: mnist_input.bin
-51, 52, 68, 78, 78, 88, 75, 87, 68, 61, 51, 56, 63, 55, 66, 61, 56, 71, 57, 73,
-mnist inference success.
+output size: 1
+name: Softmax-7, size: 10
+run benchmark success
 ```
 
 ### 编写推理代码示例
