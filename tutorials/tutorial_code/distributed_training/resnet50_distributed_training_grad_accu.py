@@ -29,7 +29,7 @@ from mindspore.context import ParallelMode
 from mindspore.train.callback import LossMonitor
 from resnet import resnet50
 from model_accu import Model_ACCU
-from cell_wrapper import TrainAccuStepsCell
+from cell_wrapper import TrainAccuStepsCell, VirtualDatasetCell
 
 device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
@@ -121,6 +121,7 @@ def test_train_cifar(epoch_size=10):        # pylint: disable=missing-docstring
     loss = SoftmaxCrossEntropyExpand(sparse=True)
     opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
     net_with_loss = nn.WithLossCell(net, loss)
+    net_with_loss = VirtualDatasetCell(net_with_loss)
     wrap_net = TrainAccuStepsCell(net_with_loss, opt)
     model = Model_ACCU(wrap_net)
     model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)

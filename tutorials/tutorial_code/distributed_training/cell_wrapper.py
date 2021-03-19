@@ -18,9 +18,10 @@ grad accumulation cell wrapper
 import numpy as np
 import mindspore.common.dtype as mstype
 from mindspore import ops, context, Tensor, Parameter
-from mindspore.nn import TrainOneStepCell, TrainOneStepWithLossScaleCell
+from mindspore.nn import Cell, TrainOneStepCell, TrainOneStepWithLossScaleCell
 from mindspore.nn.wrap.loss_scale import _grad_scale
 from mindspore.common.initializer import initializer
+from mindspore.ops.operations.comm_ops import _VirtualDataset
 
 zeroslike = ops.ZerosLike()
 reset_accu_grads = ops.MultitypeFuncGraph("reset_accu_grads")
@@ -44,13 +45,9 @@ class TrainAccuStepsCell(TrainOneStepCell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainAccuStepsCell, self).__init__(network, optimizer, sens)
         self.accumulation = False
-        self.is_accu_step = Tensor(np.array([self.accumulation]))
         self.accumulation_steps = context.get_auto_parallel_context("grad_accumulation_step")
-        self.one = Tensor(np.array([1]).astype(np.int32))
-        self.zero = Tensor(np.array([0]).astype(np.int32))
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')
-        self.accu_overflow = Parameter(initializer(0, [1], mstype.int32))
-        self.accu_loss = Parameter(initializer(0, [1], mstype.float32))
+        self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
         """Defines the computation performed."""
@@ -58,16 +55,16 @@ class TrainAccuStepsCell(TrainOneStepCell):
         loss = self.network(*inputs)
         sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(*inputs, sens)
-        if self.is_accu_step and self.accumulation_steps > 1:
+        if self.accumulation and self.accumulation_steps > 1:
             accu_succ = self.hyper_map(update_accu_grads, self.accu_grads, grads)
             loss = ops.depend(loss, accu_succ)
-        if self.is_accu_step:
+        if self.accumulation:
             succ = False
         else:
             grads = self.grad_reducer(grads)
             accu_grads = ops.depend(self.accu_grads, grads)
             accu_succ = self.hyper_map(reset_accu_grads, accu_grads)
-            ops.depend(loss, accu_succ)
+            loss = ops.depend(loss, accu_succ)
             succ = self.optimizer(grads)
         return ops.depend(loss, succ)
 
@@ -93,14 +90,14 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
         weights = self.weights
         loss = self.network(*inputs)
         scaling_sens = self.scale_sense
-        status, scaling_sens = self.start_overflow(loss, scaling_sens)
+        status, scaling_sens = self.start_overflow_check(loss, scaling_sens)
         scaling_sens_filled = ops.ones_like(loss) * ops.cast(scaling_sens, ops.dtype(loss))
         grads = self.grad(self.network, weights)(*inputs, scaling_sens_filled)
         # accumulate gradients
         if self.accumulation and self.accumulation_steps > 1:
             accu_succ = self.hyper_map(update_accu_grads, self.accu_grads, grads)
             loss = ops.depend(loss, accu_succ)
-        overflow = self.detect_overflow(status, grads)
+        overflow = self.get_overflow_status(status, grads)
         overflow = self.logical_or(self.not_equal(self.accu_overflow, self.zero), overflow)
         accu_overflow = self.select(overflow, self.one, self.zero)
 
@@ -111,9 +108,8 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
             self.accu_overflow = self.zero
             # apply grad reducer on grads
             grads = self.grad_reducer(grads)
-            scaling = scaling_sens * self.degree
-            grads = self.hyper_map(ops.partial(_grad_scale, scaling), grads)
-            accu_overflow = self.overflow_reducer(accu_overflow)
+            grads = self.hyper_map(ops.partial(_grad_scale, scaling_sens), grads)
+            accu_overflow = self.allreduce(accu_overflow)
             overflow = self.less_equal(self.base, accu_overflow)
             accu_grads = ops.depend(self.accu_grads, grads)
             accu_succ = self.hyper_map(reset_accu_grads, accu_grads)
@@ -127,4 +123,15 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
         ret = (loss, overflow, scaling_sens)
         return ops.depend(ret, succ)
+
+
+class VirtualDatasetCell(Cell):
+    def __init__(self, backbone):
+        super(VirtualDatasetCell, self).__init__(auto_prefix=False)
+        self._backbone = backbone
+        self._virtual_dataset = _VirtualDataset()
+
+    def construct(self, *inputs):
+        output = self._virtual_dataset(*inputs)
+        return self._backbone(*output)
 

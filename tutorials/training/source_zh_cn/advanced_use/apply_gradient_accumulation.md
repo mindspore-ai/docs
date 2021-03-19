@@ -15,8 +15,8 @@
         - [训练并保存模型](#训练并保存模型)
         - [实验结果](#实验结果)
     - [并行模式](#并行模式)
-        - [定义训练流程](#定义训练流程)
-        - [定义训练模型](#定义训练模型)
+        - [定义并行训练流程](#定义并行训练流程)
+        - [定义并行训练模型](#定义并行训练模型)
         - [训练模型](#训练模型)
 
 <!-- /TOC -->
@@ -284,7 +284,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 > 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
 
-### 定义训练流程
+### 定义并行训练流程
 
 通常情况下，定义了正向网络后会使用[`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.TrainOneStepCell.html?highlight=trainonestepcell)将网络正反向及优化器关联到一起。但是梯度累积时存在累积和更新两种情况，所以我们要基于原有类定义做一些改造。样例代码如下：
 
@@ -316,13 +316,9 @@ class TrainAccuStepsCell(TrainOneStepCell):
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainAccuStepsCell, self).__init__(network, optimizer, sens)
         self.accumulation = False
-        self.is_accu_step = Tensor(np.array([self.accumulation]))
         self.accumulation_steps = context.get_auto_parallel_context("grad_accumulation_step")
-        self.one = Tensor(np.array([1]).astype(np.int32))
-        self.zero = Tensor(np.array([0]).astype(np.int32))
         self.accu_grads = self.weights.clone(prefix="accu_grads", init='zeros')
-        self.accu_overflow = Parameter(initializer(0, [1], mstype.int32))
-        self.accu_loss = Parameter(initializer(0, [1], mstype.float32))
+        self.hyper_map = ops.HyperMap()
 
     def construct(self, *inputs):
         """Defines the computation performed."""
@@ -330,16 +326,16 @@ class TrainAccuStepsCell(TrainOneStepCell):
         loss = self.network(*inputs)
         sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(*inputs, sens)
-        if self.is_accu_step and self.accumulation_steps > 1:
+        if self.accumulation and self.accumulation_steps > 1:
             accu_succ = self.hyper_map(update_accu_grads, self.accu_grads, grads)
             loss = ops.depend(loss, accu_succ)
-        if self.is_accu_step:
+        if self.accumulation:
             succ = False
         else:
             grads = self.grad_reducer(grads)
             accu_grads = ops.depend(self.accu_grads, grads)
             accu_succ = self.hyper_map(reset_accu_grads, accu_grads)
-            ops.depend(loss, accu_succ)
+            loss = ops.depend(loss, accu_succ)
             succ = self.optimizer(grads)
         return ops.depend(loss, succ)
 ```
@@ -375,6 +371,7 @@ def _update_accu_grads(accu_grad, grad):
     succ = True
     return ops.depend(succ, ops.assign_add(accu_grad, cast(grad, mstype.float32)))
 
+
 class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
     def __init__(self, network, optimizer, scale_sense):
         super(TrainAccuStepsWithLossScaleCell, self).__init__(network, optimizer, scale_sense)
@@ -396,14 +393,14 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
         weights = self.weights
         loss = self.network(*inputs)
         scaling_sens = self.scale_sense
-        status, scaling_sens = self.start_overflow(loss, scaling_sens)
+        status, scaling_sens = self.start_overflow_check(loss, scaling_sens)
         scaling_sens_filled = ops.ones_like(loss) * ops.cast(scaling_sens, ops.dtype(loss))
         grads = self.grad(self.network, weights)(*inputs, scaling_sens_filled)
         # accumulate gradients
         if self.accumulation and self.accumulation_steps > 1:
             accu_succ = self.hyper_map(update_accu_grads, self.accu_grads, grads)
             loss = ops.depend(loss, accu_succ)
-        overflow = self.detect_overflow(status, grads)
+        overflow = self.get_overflow_status(status, grads)
         overflow = self.logical_or(self.not_equal(self.accu_overflow, self.zero), overflow)
         accu_overflow = self.select(overflow, self.one, self.zero)
 
@@ -414,9 +411,8 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
             self.accu_overflow = self.zero
             # apply grad reducer on grads
             grads = self.grad_reducer(grads)
-            scaling = scaling_sens * self.degree
-            grads = self.hyper_map(ops.partial(_grad_scale, scaling), grads)
-            accu_overflow = self.overflow_reducer(accu_overflow)
+            grads = self.hyper_map(ops.partial(_grad_scale, scaling_sens), grads)
+            accu_overflow = self.allreduce(accu_overflow)
             overflow = self.less_equal(self.base, accu_overflow)
             accu_grads = ops.depend(self.accu_grads, grads)
             accu_succ = self.hyper_map(reset_accu_grads, accu_grads)
@@ -434,7 +430,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 其中`accu_overflow`是专门用来保存累积溢出标志位的参数。
 
-### 定义训练模型
+### 定义并行训练模型
 
 经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=model#mindspore.Model)接口实现上述功能。
 
@@ -575,7 +571,7 @@ class Model_ACCU(Model):
                 else:
                     cb_params.cur_step_num += iter_first_order
                     if train_network_init_flag:
-                        self._train_network.add_flags_recursive(accumulation=True)
+                        self._train_network.add_flags_recursive(accumulation=False)
                         train_network_init_flag = False
                     self._train_network.phase = 'train1'
                     if not has_do_dataset_init:
@@ -612,6 +608,7 @@ net = resnet50(batch_size, num_classes)
 loss = SoftmaxCrossEntropyExpand(sparse=True)
 opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
 net_with_loss = nn.WithLossCell(net, loss)
+net_with_loss = VirtualDatasetCell(net_with_loss)
 wrap_net = TrainAccuStepsCell(net_with_loss, opt)
 model = Model_ACCU(wrap_net)
 model.train(epoch_size, dataset, callbacks=[loss_cb], dataset_sink_mode=True)
