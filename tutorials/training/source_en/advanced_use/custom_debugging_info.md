@@ -401,6 +401,8 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 ### Usage
 
+#### Set RDR By Configuration File
+
 1. Create the configuration file `mindspore_config.json`.
 
     ```json
@@ -421,9 +423,17 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     context.set_context(env_config_path="./mindspore_config.json")
     ```
 
-3. If MindSpore is used for training on Ascend 910, there is an exception `Run task error` in training.
+#### Set RDR By Environment Variables
 
-   When we go to the directory `/home/mindspore-rdr`, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
+Set `export MS_RDR_ENABLE=1` to enable RDR, and set the absolute path for recording data: `export MS_RDR_PATH=/absolute/path`.
+
+> The configuration file set by the user takes precedence over the environment variables.
+
+#### Exception Handling
+
+If MindSpore is used for training on Ascend 910, there is an exception `Run task error` in training.
+
+When we go to the directory `/home/mindspore-rdr`, we can see several files appear in this directory, each file represents a kind of data. For example, `hwopt_d_before_graph_0.ir` is a computational graph file. You can use a text tool to open this file to view the calculational graph and analyze whether the calculational graph meets your expectations.
 
 ## Log-related Environment Variables and Configurations
 
