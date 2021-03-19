@@ -33,22 +33,22 @@ The functional gates are the pre-instantiated quantum gates, which can be used d
 
    * - functional
      - gates
-   * - mindspore.gate.CNOT
-     - :class:`mindspore.gate.CNOTGate`
-   * - mindspore.gate.I
-     - :class:`mindspore.gate.IGate`
-   * - mindspore.gate.H
-     - :class:`mindspore.gate.HGate`
-   * - mindspore.gate.S
-     - :class:`mindspore.gate.PhaseShift` (numpy.pi/2)
-   * - mindspore.gate.SWAP
-     - :class:`mindspore.gate.SWAPGate`
-   * - mindspore.gate.X
-     - :class:`mindspore.gate.XGate`   
-   * - mindspore.gate.Y
-     - :class:`mindspore.gate.YGate`
-   * - mindspore.gate.Z
-     - :class:`mindspore.gate.ZGate`
+   * - mindquantum.gate.CNOT
+     - :class:`mindquantum.gate.CNOTGate`
+   * - mindquantum.gate.I
+     - :class:`mindquantum.gate.IGate`
+   * - mindquantum.gate.H
+     - :class:`mindquantum.gate.HGate`
+   * - mindquantum.gate.S
+     - :class:`mindquantum.gate.PhaseShift` (numpy.pi/2)
+   * - mindquantum.gate.SWAP
+     - :class:`mindquantum.gate.SWAPGate`
+   * - mindquantum.gate.X
+     - :class:`mindquantum.gate.XGate`   
+   * - mindquantum.gate.Y
+     - :class:`mindquantum.gate.YGate`
+   * - mindquantum.gate.Z
+     - :class:`mindquantum.gate.ZGate`
 
 mindquantum.nn
 --------------
