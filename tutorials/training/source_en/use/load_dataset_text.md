@@ -43,7 +43,10 @@ This tutorial briefly demonstrates how to load and process text data using MindS
     file_handle=open('./datasets/tokenizer.txt',mode='w')
     file_handle.write('Welcome to Beijing \n北京欢迎您！ \n我喜欢English! \n')
     file_handle.close()
-    ! tree ./datasets
+    ```
+
+    ```bash
+    tree ./datasets
     ```
 
     ```text
