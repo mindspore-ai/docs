@@ -177,7 +177,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Whole-Process stage-Model-Compiling stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.md" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">"编译"一个MNIST分类模型</span>
