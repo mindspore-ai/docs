@@ -1,6 +1,6 @@
 # gRPC-based MindSpore Serving Access
 
-`Linux` `Ascend` `Serving` `Beginner` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `Serving` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
