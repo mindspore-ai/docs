@@ -28,7 +28,7 @@ class Mydata:
 dataset_generator = Mydata()
 dataset = ds.GeneratorDataset(dataset_generator, ["data", "label"], shuffle=False)
 #2 Custom data enhancement
-dataset = dataset.map(operations=pyFunc, …)
+dataset = dataset.map(operations=pyFunc, {other_params})
 #3 batch
 dataset = dataset.batch(batch_size, drop_remainder=True)
 ```
