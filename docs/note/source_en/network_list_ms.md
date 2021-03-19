@@ -19,7 +19,8 @@
 |:------   |:------| :-----------  |:------   |:------   |:------  |:------  |:----- |:-----
 |Computer Vision (CV) | Image Classification  | [AlexNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/alexnet)          |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/cnn_direction_model)  |  Supported |  Doing |  Doing |  Doing | Doing | Doing
-| Computer Vision (CV)  | Image Classification  | [DenseNet121](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/densenet121) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [DenseNet100](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/densenet) |  Doing |  Doing |  Doing |  Doing | Supported | Supported
+| Computer Vision (CV)  | Image Classification  | [DenseNet121](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/densenet) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [EfficientNet-B0](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/efficientnet) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [GoogLeNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/googlenet)    |  Supported  |  Supported | Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [InceptionV3](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/inceptionv3)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
