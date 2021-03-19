@@ -62,7 +62,7 @@ Train with MindSpore
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
    advanced_use/evaluate_the_model_during_training
-   advanced_use/kernel_incremental_compilation
+   advanced_use/incremental_operator_build
 
 .. toctree::
    :glob:
@@ -576,6 +576,19 @@ Train with MindSpore
 										</div>
 										<div class="doc-article-desc">
 											This tutorial applies a neural network, LeNet5, to the MINIST dataset and introduces how to evaluate the model during training, save models in corresponding epochs, and select the optimal model from the saved ones.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/incremental_operator_build.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Incremental Operator Build</span>
+										</div>
+										<div class="doc-article-desc">
+										When a network model is executed, MindSpore builds the used operators. The time consumed in this stage increases with the scale of the network model. To improve the performance of secondary model execution, an incremental operator build mechanism is provided.
+										Currently, the incremental operator build function can be used only on the Ascend AI chips.
 										</div>
 									</div>
 								</a>
