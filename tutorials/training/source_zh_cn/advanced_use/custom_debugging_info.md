@@ -454,6 +454,11 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
     其中被指定子模块的日志级别将覆盖`GLOG_v`在此模块内的设置，此处子模块的日志级别`LogLevel`与`GLOG_v`的日志级别含义相同，MindSpore子模块的划分如下表。  
     例如可以通过`GLOG_v=1 MS_SUBMODULE_LOG_v="{PARSER:2,ANALYZER:2}"`把`PARSER`和`ANALYZER`模块的日志级别设为WARNING，其他模块的日志级别设为INFO。
 
+- `GLOG_stderrthreshold`
+
+    日志模块在将日志输出到文件的同时也会将日志打印到屏幕，该环境变量用于控制此种场景下打印到屏幕的日志级别。
+    该环境变量默认值为2，即WARNING级别，对应关系如下：0-DEBUG、1-INFO、2-WARNING、3-ERROR。
+
 MindSpore子模块按照目录划分如下：
 
 | Source Files | Sub Module Name |
