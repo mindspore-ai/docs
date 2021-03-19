@@ -1075,7 +1075,7 @@ The interface of the VAE-based anomaly detection toolbox is as follows:
 Use Encoder and Decoder, set hidden_size and latent_size, initialize the class, and then pass the dataset to detect abnormal points.
 
 ```python
-from mindspore.nn.probability.toolbox.vae_anomaly_detection import VAEAnomalyDetection
+from mindspore.nn.probability.toolbox import VAEAnomalyDetection
 
 if __name__ == '__main__':
     encoder = Encoder()
