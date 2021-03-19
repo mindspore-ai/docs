@@ -4,6 +4,18 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.1/docs/faq/source_en/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
+
+A: In terms of efficiency, operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. The network execution performance varies according to the execution mechanism. Theoretically, operators provided by MindSpore support both the PyNative and Graph modes.
+
+In terms of application scenarios, Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
+
+The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
+
+In terms of code debugging, operators are executed line by line. Therefore, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. The output can be viewed only after the network execution is complete.
+
+<br/>
+
 <font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
 A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/tutorial/training/en/r1.1/advanced_use/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
