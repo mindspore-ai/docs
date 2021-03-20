@@ -44,7 +44,7 @@ Eager模式执行接口。
     返回一个状态码指示执行变换是否成功。
 
 ```cpp
-std::string Execute::AippCfgGenerator()
+std::string Execute::AippCfgGenerator();
 ```
 
 与Dvpp相关的Aipp配置文件生成器。
