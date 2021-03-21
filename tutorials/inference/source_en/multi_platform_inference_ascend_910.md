@@ -171,18 +171,21 @@ namespace ds = mindspore::dataset;
 Set global context, device target is `Ascend910` and evice id is `0`:
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend910);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend910_info = std::make_shared<ms::Ascend910DeviceInfo>();
+ascend910_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend910_info);
 ```
 
 Load mindir file:
 
 ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50((ms::GraphCell(graph)));
-ms::Status ret = resnet50.Build({});
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
 Get informance of this model:
@@ -246,13 +249,6 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 ### Introduce to Building Script
 
 The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>.
-
-Since MindSpore uses the [old C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html), applications must be the same with MindSpore, otherwise the building will fail.
-
-```cmake
-add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
-set(CMAKE_CXX_STANDARD 17)
-```
 
 Add head files to gcc search path:
 

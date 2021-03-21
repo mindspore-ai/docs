@@ -170,18 +170,21 @@ namespace ds = mindspore::dataset;
 环境初始化，指定硬件为Ascend 910，DeviceID为0：
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend910);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend910_info = std::make_shared<ms::Ascend910DeviceInfo>();
+ascend910_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend910_info);
 ```
 
 加载模型文件:
 
 ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50((ms::GraphCell(graph)));
-ms::Status ret = resnet50.Build({});
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
 获取模型所需输入信息：
@@ -245,13 +248,6 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 ### 构建脚本介绍
 
 构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
-
-由于MindSpore使用[旧版的C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)，因此用户程序需与MindSpore一致，否则编译链接会失败。
-
-```cmake
-add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
-set(CMAKE_CXX_STANDARD 17)
-```
 
 为编译器添加头文件搜索路径：
 

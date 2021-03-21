@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.14.1)
 project (ResNet50Sample[CXX])
-add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fPIE -Wl,--allow-shlib-undefined")
 option(MINDSPORE_PATH "mindspore install path" "")
 include_directories(${MINDSPORE_PATH})

@@ -40,15 +40,22 @@ size_t GetMax(ms::MSTensor data);
 
 int main() {
   // set context
-  ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend910);
-  ms::GlobalContext::SetGlobalDeviceID(0);
+  auto context = std::make_shared<ms::Context>();
+  auto ascend910_info = std::make_shared<ms::Ascend910DeviceInfo>();
+  ascend910_info->SetDeviceID(0);
+  context->MutableDeviceInfo().push_back(ascend910_info);
 
   // define model
-  auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
-  ms::Model resnet50((ms::GraphCell(graph)));
+  ms::Graph graph;
+  ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
+  if (ret != ms::kSuccess) {
+    std::cout << "Load model failed." << std::endl;
+    return 1;
+  }
+  ms::Model resnet50;
 
   // build model
-  ms::Status ret = resnet50.Build();
+  ret = resnet50.Build(ms::GraphCell(graph), context);
   if (ret != ms::kSuccess) {
     std::cout << "Build model failed." << std::endl;
     return 1;
