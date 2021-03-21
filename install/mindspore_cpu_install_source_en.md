@@ -11,6 +11,7 @@
     - [Version Update](#version-update)
     - [Installing MindArmour](#installing-mindarmour)
     - [Installing MindSpore Hub](#installing-mindspore-hub)
+    - [Installing MindQuantum](#installing-mindquantum)
 
 <!-- /TOC -->
 
@@ -112,3 +113,9 @@ For more details, please refer to [MindArmour](https://gitee.com/mindspore/minda
 If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
 
 For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README.md).
+
+## Installing MindQuantum
+
+If you need to build and train quantum neural network, you can install MindQuantum.
+
+For more details, please refer to [MindQuantum](https://gitee.com/mindspore/mindquantum/blob/master/README.md).

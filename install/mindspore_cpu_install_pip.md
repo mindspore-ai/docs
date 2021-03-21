@@ -9,6 +9,7 @@
     - [升级MindSpore版本](#升级mindspore版本)
     - [安装MindArmour](#安装mindarmour)
     - [安装MindSpore Hub](#安装mindspore-hub)
+    - [安装MindQuantum](#安装mindquantum)
 
 <!-- /TOC -->
 
@@ -63,3 +64,9 @@ pip install --upgrade mindspore
 当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
 
 具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
+
+## 安装MindQuantum
+
+当您想要搭建并训练量子神经网络，可以选装MindQuantum。
+
+具体安装步骤参见[MindQuantum](https://gitee.com/mindspore/mindquantum/blob/master/README_CN.md)。
