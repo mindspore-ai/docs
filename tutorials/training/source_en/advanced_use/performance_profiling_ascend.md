@@ -9,12 +9,14 @@
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launch MindInsight](#launch-mindinsight)
-        - [Performance Analysis](#performance-analysis)
-            - [Step Trace Analysis](#step-trace-analysis)
-            - [Operator Performance Analysis](#operator-performance-analysis)
-            - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
-            - [Timeline Analysis](#timeline-analysis)
-            - [Memory Analysis](#memory-analysis)
+    - [Training Performance](#training-performanece)
+        - [Step Trace Analysis](#step-trace-analysis)
+        - [Operator Performance Analysis](#operator-performance-analysis)
+        - [Data Preparation Performance Analysis](#data-preparation-performance-analysis)
+        - [Timeline Analysis](#timeline-analysis)
+    - [Resource Utilization](#resource-utilization)
+        - [CPU Utilization Analysis](#cpu-utilization-analysis)
+        - [Memory Analysis](#memory-analysis)
     - [Specifications](#specifications)
     - [Notices](#notices)
 
@@ -65,9 +67,9 @@ profiler.analyse()
 
 The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
-### Performance Analysis
+## Training Performance
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link.
+Users can access the Training Performance by selecting a specific training from the training list, and click the performance profiling link.
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -82,7 +84,7 @@ Figure 1 displays the overall performance of the training, including the overall
 
 Users can click the detail link to see the details of each components. Besides, MindInsight Profiler will try to analyse the performance data, the assistant on the left will show performance tuning suggestions for this training.
 
-#### Step Trace Analysis
+### Step Trace Analysis
 
 The Step Trace Component is used to show the general performance of the stages in the training. Step Trace will divide the training into several stages:  
 Step Gap (The time between the end of one step and the computation of next step), Forward/Backward Propagation, All Reduce and Parameter Update. It will show the execution time for each stage, and help to find the bottleneck stage quickly.
@@ -99,7 +101,7 @@ In order to divide the stages, the Step Trace Component need to figure out the f
 - Set environment variable `PROFILING_FP_START` to configure the forward start operator, for example, `export PROFILING_FP_START=fp32_vars/conv2d/BatchNorm`.
 - Set environment variable `PROFILING_BP_END` to configure the backward end operator, for example, `export PROFILING_BP_END=loss_scale/gradients/AddN_70`.
 
-#### Operator Performance Analysis
+### Operator Performance Analysis
 
 The operator performance analysis component is used to display the execution time of the operators(AICORE/AICPU/HOSTCPU) during MindSpore run.
 
@@ -122,7 +124,7 @@ Figure 4 displays the statistics table for the operators, including:
 - Choose Type: Display statistics for the operator types, including operator type name, execution time, execution frequency and proportion of total time. Users can click on each line, querying for all the operators belonging to this type.
 - Search: There is a search box on the right, which can support fuzzy search for operators/operator types.
 
-#### Data Preparation Performance Analysis
+### Data Preparation Performance Analysis
 
 The Data preparation performance analysis component is used to analyse the execution of data input pipeline for the training. The data input pipeline can be divided into three stages:  
 the data process pipeline, data transfer from host to device and data fetch on device. The component will analyse the performance of each stage in detail and display the results.
@@ -131,7 +133,7 @@ the data process pipeline, data transfer from host to device and data fetch on d
 
 Figure 5: Data Preparation Performance Analysis
 
-Figure 5 displays the page of data preparation performance analysis component. It consists of three tabs: The step gap, the data process, and the CPU utilization.
+Figure 5 displays the page of data preparation performance analysis component. It consists of two tabs: the step gap and the data process.
 
 The step gap page is used to analyse whether there is performance bottleneck in the three stages. We can get our conclusion from the data queue graphs:  
 
@@ -156,33 +158,7 @@ To optimize the performance of data processing operators, there are some suggest
 - If a MapOp type operator is the bottleneck, try to increase the `num_parallel_workers`. If it is a python operator, try to optimize the training script.
 - If a BatchOp type operator is the bottleneck, try to adjust the size of `prefetch_size`.
 
-CPU utilization, which is mainly used to assist performance debugging. After the performance bottleneck is determined according to the queue size, the performance can be debugged according to the CPU utilization (if the user utilization is too low, increase the number of threads; if the system utilization is too high, decrease the number of threads).
-CPU utilization includes CPU utilization of the whole machine, process and Data pipeline operator.
-
-![device_utilization.png](./images/device_cpu_utilization.png)
-
-Figure 7: CPU utilization of the whole machine
-
-CPU utilization of the whole machine: Show the overall CPU usage of the device in the training process, including user utilization, system utilization, idle utilization, IO utilization, current number of active processes, and context switching times. If the user utilization is low, you can try to increase the number of operator threads to increase the CPU utilization; if the system utilization is high, and the number of context switching and CPU waiting for processing is large, it indicates that the number of threads needs to be reduced accordingly.
-
-![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
-
-Figure 8: Process utilization
-
-Process utilization: Show the CPU usage of a single process. The combination of whole machine utilization and process utilization can determine whether other processes affect the training process.
-
-![data_op_utilization.png](./images/data_op_utilization.png)
-
-Figure 9: Operator utilization
-
-Operator utilization: Show the CPU utilization of Data pipeline single operator. We can adjust the number of threads of the corresponding operator according to the actual situation. If the number of threads is small and takes up a lot of CPU, you can consider whether you need to optimize the code.
-
-Common scenarios of CPU utilization:
-
-- According to the queue size, the network debugging personnel can judge that the performance of MindData has a bottleneck. They can adjust the number of threads by combining the utilization rate of the whole machine and the utilization rate of the operator.
-- Developers can check the utilization of operators. If an operator consumes CPU utilization, they can confirm whether the code needs to be optimized.
-
-#### Timeline Analysis
+### Timeline Analysis
 
 The Timeline component can display:
 
@@ -211,7 +187,45 @@ The Timeline consists of the following parts:
 
 W/A/S/D can be applied to zoom in and out of the Timeline graph.
 
-#### Memory Analysis
+## Resource Utilization
+
+Resource utilization includes cpu usage analysis and memory usage analysis.
+
+![resource_visibility.png](./images/resource_visibility.png)
+
+Figure 11：Overview of resource utilization
+
+Overview of resource utilization：Including CPU utilization analysis and memory usage analysis. You can view the details by clicking the View Details button in the upper right corner.
+
+### CPU Utilization Analysis
+
+CPU utilization, which is mainly used to assist performance debugging. After the performance bottleneck is determined according to the queue size, the performance can be debugged according to the CPU utilization (if the user utilization is too low, increase the number of threads; if the system utilization is too high, decrease the number of threads).
+CPU utilization includes CPU utilization of the whole machine, process and Data pipeline operator.
+
+![device_utilization.png](./images/device_cpu_utilization.png)
+
+Figure 7: CPU utilization of the whole machine
+
+CPU utilization of the whole machine: Show the overall CPU usage of the device in the training process, including user utilization, system utilization, idle utilization, IO utilization, current number of active processes, and context switching times. If the user utilization is low, you can try to increase the number of operator threads to increase the CPU utilization; if the system utilization is high, and the number of context switching and CPU waiting for processing is large, it indicates that the number of threads needs to be reduced accordingly.
+
+![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
+
+Figure 8: Process utilization
+
+Process utilization: Show the CPU usage of a single process. The combination of whole machine utilization and process utilization can determine whether other processes affect the training process.
+
+![data_op_utilization.png](./images/data_op_utilization.png)
+
+Figure 9: Operator utilization
+
+Operator utilization: Show the CPU utilization of Data pipeline single operator. We can adjust the number of threads of the corresponding operator according to the actual situation. If the number of threads is small and takes up a lot of CPU, you can consider whether you need to optimize the code.
+
+Common scenarios of CPU utilization:
+
+- According to the queue size, the network debugging personnel can judge that the performance of MindData has a bottleneck. They can adjust the number of threads by combining the utilization rate of the whole machine and the utilization rate of the operator.
+- Developers can check the utilization of operators. If an operator consumes CPU utilization, they can confirm whether the code needs to be optimized.
+
+### Memory Analysis
 
 This page is used to show the memory usage of the neural network model on the **device**, which is an **ideal prediction** based on the theoretical calculation results. The content of the page includes:
 
@@ -239,8 +253,8 @@ Figure 9：Memory Statistics
 
 - To limit the data size generated by the Profiler, MindInsight suggests that for large neural network, the profiled steps should be less than 10.
 
-  > How to limit step count, Please refer to data preparation tutorial:
-  > <https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html>
+  > The number of steps can be controlled by controlling the size of training data set. For example, the `num_samples` parameter in `mindspore.dataset.MindDataset` can control the size of the data set. For details, please refer to:
+  > <https://www.mindspore.cn/doc/api_python/en/master/mindspore/dataset/mindspore.dataset.MindDataset.html>
 
 - The parse of Timeline data is time consuming, and usually the data of a few steps is enough to analyze the results. In order to speed up the data parse and UI display, Profiler will show at most 20M data (Contain 10+ step information for large networks).
 

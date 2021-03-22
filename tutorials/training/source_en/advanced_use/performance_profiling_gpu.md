@@ -9,11 +9,13 @@
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launching MindInsight](#launching-mindinsight)
-        - [Performance Analysis](#performance-analysis)
-            - [Operator Performance Analysis](#operator-performance-analysis)
-            - [Timeline Analysis](#timeline-analysis)
-            - [Timeline Analysis](#timeline-analysis-1)
-            - [Data Preparation Analysis](#data-preparation-analysis)
+    - [Training Performance](#training-performanece)
+        - [Operator Performance Analysis](#operator-performance-analysis)
+        - [Timeline Analysis](#timeline-analysis)
+        - [Step Trace Analysis](#step-trace-analysis)
+        - [Data Preparation Analysis](#data-preparation-analysis)
+    - [Resource Utilization](#resource-utilization)
+        - [CPU Utilization Analysis](#cpu-utilization-analysis)
     - [Notices](#notices)
 
 <!-- /TOC -->
@@ -82,9 +84,9 @@ The code above is just an example. Users should implement callback by themselves
 
 The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
-### Performance Analysis
+## Training Performance
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. And the Performance Profiler only supports operation analysis, Timeline Analysis, and Data Preparation Analysis now, other modules will be published soon.
+Users can access the Training Performance by selecting a specific training from the training list, and click the performance profiling link. And the Training Performance only supports operation analysis, Timeline Analysis, Step Trace Analysis and Data Preparation Analysis now, other modules will be published soon.
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -94,11 +96,12 @@ Figure 1 displays the overall performance of the training, including the overall
 
 - Operator Performance: It will collect the average execution time of operators and operator types. The overall performance page will show the pie graph for different operator types.
 - Timeline: It will collect execution time for operations and CUDA activity. The tasks will be shown on the time axis. The overall performance page will show the statistics for tasks.
+- Step Trace: It will divide the training steps into several stages and collect execution time for each stage. The overall performance page will show the step trace graph.
 - Data Preparation Performance: It will analyse the performance of the data input stages. The overall performance page will show the number of steps that may be the bottleneck for these stages.
 
 Users can click the detail link to see the details of each components.
 
-#### Operator Performance Analysis
+### Operator Performance Analysis
 
 The operator performance analysis component is used to display the execution time of the operators when running MindSpore(include GPU operator,CUDA kernel,HOSTCPU operator).
 
@@ -127,7 +130,7 @@ Figure 3 displays the statistics for the Kernel, including:
 - The statistical table's column includes activity name, operation name, execution frequency, total time and average time.
 - The search box on the right, which supports fuzzy search for the activity name/operator full name.
 
-#### Timeline Analysis
+### Timeline Analysis
 
 The usage is almost the same as that in Ascend. The difference is GPU Timeline displays the operation information and CUDA activity.
 
@@ -135,7 +138,7 @@ The usage is described as follows:
 
 <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#timeline-analysis>
 
-#### Timeline Analysis
+### Step Trace Analysis
 
 The usage is almost the same as that in Ascend.
 
@@ -143,13 +146,31 @@ The usage is described as follows:
 
 <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#step-trace-analysis>
 
-#### Data Preparation Analysis
+### Data Preparation Analysis
 
 The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
 <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#minddata-performance-analysis>
+
+## Resource Utilization
+
+Resource utilization includes cpu usage analysis.
+
+![resource_visibility_gpu.png](./images/resource_visibility_gpu.png)
+
+Figure 4：Overview of resource utilization
+
+Overview of resource utilization：Including CPU utilization analysis. You can view the details by clicking the View Details button in the upper right corner.
+
+### CPU Utilization Analysis
+
+The usage is almost the same as that in Ascend.
+
+The usage is described as follows:
+
+<https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html#cpu-utilization-analysis>
 
 ## Notices
 

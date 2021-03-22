@@ -8,13 +8,15 @@
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [准备训练脚本](#准备训练脚本)
-    - [启动MindInsight](#启动mindinsight)
-        - [性能分析](#性能分析)
-            - [迭代轨迹分析](#迭代轨迹分析)
-            - [算子性能分析](#算子性能分析)
-            - [数据准备性能分析](#数据准备性能分析)
-            - [Timeline分析](#timeline分析)
-            - [内存使用情况分析](#内存使用情况分析)
+    - [启动MindInsight](#启动MindInsight)
+    - [训练性能](#训练性能)
+        - [迭代轨迹分析](#迭代轨迹分析)
+        - [算子性能分析](#算子性能分析)
+        - [数据准备性能分析](#数据准备性能分析)
+        - [Timeline分析](#Timeline分析)
+    - [资源利用](#资源利用)
+        - [CPU利用率分析](#CPU利用率分析)
+        - [内存使用情况分析](#内存使用情况分析)
     - [规格](#规格)
     - [注意事项](#注意事项)
 
@@ -69,7 +71,7 @@ profiler.analyse()
 
 启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
-### 性能分析
+## 训练性能
 
 用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据。
 
@@ -86,7 +88,7 @@ profiler.analyse()
 
 用户可以点击查看详情链接，进入某个组件页面进行详细分析。MindInsight也会对性能数据进行分析，在左侧的智能小助手中给出性能调试的建议。
 
-#### 迭代轨迹分析
+### 迭代轨迹分析
 
 使用迭代轨迹分析组件可以快速了解训练各阶段在总时长中的占比情况。迭代轨迹将训练的一个step划分为迭代间隙 (两次step执行的间隔时间)、前向与反向执行、all reduce、参数更新等几个阶段，并显示出每个阶段的时长，帮助用户定界出性能瓶颈所在的执行阶段。
 
@@ -103,7 +105,7 @@ profiler.analyse()
 - 设置`PROFILING_FP_START`环境变量指定前向计算开始的算子，如`export PROFILING_FP_START=fp32_vars/conv2d/BatchNorm`。
 - 设置`PROFILING_BP_END`环境变量指定反向计算结束的算子，如`export PROFILING_BP_END=loss_scale/gradients/AddN_70`。
 
-#### 算子性能分析
+### 算子性能分析
 
 使用算子性能分析组件可以对MindSpore运行过程中的各个算子的执行时间进行统计展示(包括AICORE、AICPU、HOSTCPU算子)。
 
@@ -126,15 +128,15 @@ profiler.analyse()
 - 选择分类：按算子类别的统计结果进行排序展示，展示维度包括算子分类名称、算子类别执行时间、执行频次、占总时间的比例等。点击每个算子类别，可以进一步查看该类别下所有单个算子的统计信息。
 - 搜索：在右侧搜索框中输入字符串，支持对算子名称/类别进行模糊搜索。
 
-#### 数据准备性能分析
+### 数据准备性能分析
 
-使用数据准备性能分析组件可以对训练数据准备过程进行性能分析。数据准备过程可以分为三个阶段：数据处理pipeline、数据发送至Device以及Device侧读取训练数据，数据准备性能分析组件会对每个阶段的处理性能进行详细分析，并将分析结果进行展示。
+使用数据准备性能分析组件可以对训练数据准备过程进行性能分析。数据准备过程可以分为三个阶段：数据处理pipeline、数据发送至Device以及Device侧读取训练数据。数据准备性能分析组件会对每个阶段的处理性能进行详细分析，并将分析结果进行展示。
 
 ![minddata_profile.png](images/data_profile.png)
 
 图5：数据准备性能分析
 
-图5展示了数据准备性能分析页面，包含迭代间隙、数据处理、CPU利用率三个TAB页面。
+图5展示了数据准备性能分析页面，包含迭代间隙、数据处理两个TAB页面。
 
 迭代间隙TAB页主要用来分析数据准备三个阶段是否存在性能瓶颈，数据队列图是分析判断的重要依据：  
 
@@ -161,33 +163,7 @@ profiler.analyse()
 - 如果MapOp类型的算子是性能瓶颈，建议增加`num_parallel_workers`，如果该算子为Python算子，可以尝试优化脚本。
 - 如果BatchOp类型的算子是性能瓶颈，建议调整`prefetch_size`的大小。
 
-CPU利用率分析，主要起到辅助性能调试的作用。根据Queue size确定了性能瓶颈后，可以根据CPU利用率辅助对性能进行调试（用户利用率过低，增加线程数；系统利用率过大，减小线程数）。
-CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子CPU利用率。
-
-![device_cpu_utilization.png](./images/device_cpu_utilization.png)
-
-图7: 整机CPU利用率
-
-整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
-
-![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
-
-图8: 进程利用率
-
-进程利用率：展示单个进程的CPU占用情况。整机利用率和进程利用率结合，可以确定训练过程中是否有其他进程影响训练。
-
-![data_op_cpu_utilization.png](./images/data_op_utilization.png)
-
-图9: 算子利用率
-
-算子利用率：展示Data pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
-
-CPU利用率常用场景:
-
-- 网络调试人员根据Queue size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
-- 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
-
-#### Timeline分析
+### Timeline分析
 
 Timeline组件可以展示：  
 
@@ -204,7 +180,7 @@ Timeline组件可以展示：
 
 ![timeline.png](./images/timeline.png)
 
-图10：Timeline分析
+图7：Timeline分析
 
 Timeline主要包含如下几个部分：  
 
@@ -213,7 +189,45 @@ Timeline主要包含如下几个部分：
 
 可以使用W/A/S/D来放大、缩小地查看Timeline图信息。
 
-#### 内存使用情况分析
+## 资源利用
+
+资源利用包括CPU利用率和内存使用情况分析。
+
+![resource_visibility.png](./images/resource_visibility.png)
+
+图8：资源利用总览
+
+图8展示了资源利用总览页面，包括CPU利用率分析与内存使用情况分析。通过点击右上角的`查看详情`按钮可以查看详细信息。
+
+### CPU利用率分析
+
+CPU利用率分析，主要起到辅助性能调试的作用。根据Queue size确定了性能瓶颈后，可以根据CPU利用率辅助对性能进行调试（用户利用率过低，增加线程数；系统利用率过大，减小线程数）。
+CPU利用率包含整机CPU利用率、进程CPU利用率、Data pipeline算子CPU利用率。
+
+![device_cpu_utilization.png](./images/device_cpu_utilization.png)
+
+图9: 整机CPU利用率
+
+整机CPU利用率：展示设备在训练过程中整体的CPU使用情况，包含用户利用率、系统利用率空闲利用率、IO利用率、当前活跃进程数、上下文切换次数。如果用户利用率较低，可以尝试增大算子线程数，增加CPU使用情况；如果系统利用率较大，同时上下文切换次数、CPU等待处理的进程较大，说明需要相应减少线程个数。
+
+![process_cpu_utilization.png](./images/process_cpu_utilizaton.png)
+
+图10: 进程利用率
+
+进程利用率：展示单个进程的CPU占用情况。整机利用率和进程利用率结合，可以确定训练过程中是否有其他进程影响训练。
+
+![data_op_cpu_utilization.png](./images/data_op_utilization.png)
+
+图11: 算子利用率
+
+算子利用率：展示Data pipeline单个算子占用的CPU利用率。可以根据实际情况，调整对应算子的线程数。如果线程数不大，占用CPU较多，可以考虑优化代码。
+
+CPU利用率常用场景:
+
+- 网络调试人员根据Queue size判断是Data性能有瓶颈，可以结合整机利用率和算子利用率作为辅助尝试调整线程数。
+- 开发人员可以查看算子利用率，如果某一个算子比较耗CPU利用率，可以考虑优化该算子。
+
+### 内存使用情况分析
 
 该页面用于展示模型在**Device侧**的内存使用情况，是**基于理论值的理想预估**。页面内容包括：
 
@@ -223,7 +237,7 @@ Timeline主要包含如下几个部分：
 
 ![memory.png](./images/memory.png)
 
-图8：内存使用情况页面
+图12：内存使用情况页面
 
 用户可以结合```内存分配概览```提供的信息以及折线图的变化趋势来了解内存使用的大致情况，除此之外，从折线图里还可以获得更多细节信息，包括：
 
@@ -234,15 +248,15 @@ Timeline主要包含如下几个部分：
 
 ![memory_graphics.png](./images/memory_graphics.png)
 
-图9：内存使用折线图
+图13：内存使用折线图
 
 ## 规格
 
 - 为了控制性能测试时生成数据的大小，大型网络建议性能调试的step数目限制在10以内。
 
-  > 如何控制step数目请参考数据准备教程：
+  > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/tutorial/training/zh-CN/master/use/data_preparation.html>
+  > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.MindDataset.html>
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
 
