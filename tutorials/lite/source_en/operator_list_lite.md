@@ -168,7 +168,7 @@ This article lists the operators supported by MindSpore Lite.
 | Unstack               |              | Supported    |              |               |              |              |           | Unstack                         |                          |                                                 |                                                 |
 | Where                 |              | Supported    |              |               |              |              |           | Where                           |                          |                                                 | Where                                           |
 | ZerosLike             |              | Supported    |              |               |              |              |           | ZerosLike                       |                          |                                                 | ZerosLike                                       |
-| Operators supported by conversion tools but do not require specific implementation.<sup>[4]</sup> |   |   |    |        |            |            |         |          |          | Loop, Dropout, If    | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
+| Other operators supported by the converter.<sup>[4]</sup> |   |   |    |        |            |            |         |          |          | Loop, Dropout, If    | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
 
 [1] Clip: Only support converting clip(0, 6) to Relu6.
 
@@ -176,4 +176,4 @@ This article lists the operators supported by MindSpore Lite.
 
 [3] Sum and Max: Only support 2 inputs.
 
-[4] Operators supported by conversion tools but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
+[4] Operators supported by [converter](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
