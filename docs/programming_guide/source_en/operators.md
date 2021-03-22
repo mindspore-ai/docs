@@ -265,7 +265,7 @@ print(res)
  The following information is displayed:
 
 ```text
-[4. 10. 18]
+[4. 10. 18.]
 ```
 
 #### Trigonometric Function
@@ -408,8 +408,25 @@ The following information is displayed:
    ...
    [288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]]]
+
+  ...
+
+  [[288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   ...
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]]
 
+
+ ...
+
+
+  [[288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
+   [288. 288. 288. ... 288. 288. 288.]
    ...
    [288. 288. 288. ... 288. 288. 288.]
    [288. 288. 288. ... 288. 288. 288.]
@@ -438,21 +455,23 @@ print(res)
 The following information is displayed:
 
 ```text
-[[[[ 32. 64. 96. ... 96. 64. 32.]
-   [ 64. 128. 192. ... 192. 128. 64.]
-   [ 96. 192. 288. ... 288. 192. 96.]
+[[[[ 32.  64.  96. ...  96.  64.  32.]
+   [ 64. 128. 192. ... 192. 128.  64.]
+   [ 96. 192. 288. ... 288. 192.  96.]
    ...
-   [ 96. 192. 288. ... 288. 192. 96.]
-   [ 64. 128. 192. ... 192. 128. 64.]
-   [ 32. 64. 96. ... 96. 64. 32.]]
+   [ 96. 192. 288. ... 288. 192.  96.]
+   [ 64. 128. 192. ... 192. 128.  64.]
+   [ 32.  64.  96. ...  96.  64.  32.]]
 
-  [[ 32. 64. 96. ... 96. 64. 32.]
-   [ 64. 128. 192. ... 192. 128. 64.]
-   [ 96. 192. 288. ... 288. 192. 96.]
+  ...
+
+  [[ 32.  64.  96. ...  96.  64.  32.]
+   [ 64. 128. 192. ... 192. 128.  64.]
+   [ 96. 192. 288. ... 288. 192.  96.]
    ...
-   [ 96. 192. 288. ... 288. 192. 96.]
-   [ 64. 128. 192. ... 192. 128. 64.]
-   [ 32. 64. 96. ... 96. 64. 32.]]]]
+   [ 96. 192. 288. ... 288. 192.  96.]
+   [ 64. 128. 192. ... 192. 128.  64.]
+   [ 32.  64.  96. ...  96.  64.  32.]]]]
 ```
 
 #### Activation Function
@@ -475,7 +494,7 @@ print(res)
 The following information is displayed:
 
 ```text
-[0.01165623 0.03168492 0.08612854 0.23412167 0.6364086]
+[0.01165623 0.03168492 0.08612853 0.23412164 0.63640857]
 ```
 
 #### Loss Function
@@ -505,8 +524,6 @@ print(res)
 
 #### Optimization Algorithm
 
- SGD
-
  The following code implements the stochastic gradient descent (SGD) algorithm. The output is stored in result.
 
 ```python
@@ -530,7 +547,7 @@ print(result)
  The following information is displayed:
 
 ```text
-(Tensor(shape=[4], dtype=Float32, value= [ 1.98989999e+00, -4.90300000e-01,  1.69520009e+00,  3.98009992e+00]),)
+(Tensor(shape=[4], dtype=Float32, value= [ 1.99000001e+00, -4.90300000e-01,  1.69500005e+00,  3.98009992e+00]),)
 ```
 
 ### Array Operations
@@ -678,8 +695,8 @@ from mindspore import Tensor
 import mindspore.ops as ops
 import mindspore
 
-anchor_box = Tensor([[2, 2, 2, 3], [2, 2, 2, 3]],mindspore.float32)
-groundtruth_box = Tensor([[1, 2, 1, 4], [1, 2, 1, 4]],mindspore.float32)
+anchor_box = Tensor([[2,2,2,3],[2,2,2,3]],mindspore.float32)
+groundtruth_box = Tensor([[1,2,1,4],[1,2,1,4]],mindspore.float32)
 boundingbox_encode = ops.BoundingBoxEncode(means=(0.0, 0.0, 0.0, 0.0), stds=(1.0, 1.0, 1.0, 1.0))
 res = boundingbox_encode(anchor_box, groundtruth_box)
 print(res)
@@ -688,8 +705,8 @@ print(res)
  The following information is displayed:
 
 ```text
-[[ -1.  0.25  0.  0.40551758]
- [ -1.  0.25  0.  0.40551758]]
+[[-1.          0.25        0.          0.40546513]
+ [-1.          0.25        0.          0.40546513]]
 ```
 
 #### BoundingBoxDecode
@@ -713,15 +730,15 @@ print(res)
  The following information is displayed:
 
 ```text
-[[4.1953125  0.  0.  5.1953125]
- [2.140625  0.  3.859375  60.59375]]
+[[ 4.194528   0.         0.         5.194528 ]
+ [ 2.1408591  0.         3.8591409 60.59815  ]]
 ```
 
 #### IOU Computing
 
 Computes the proportion of the intersection area and union area of the box where the predicted object is located and the box where the real object is located. It is often used as a loss function to optimize the model.
 
- The following code implements the IOU computing between anchor_boxes and gt_boxes. The output is stored in out:
+The following code implements the IOU computing between `anchor_boxes` and `gt_boxes`. The output is stored in out:
 
 ```python
 from mindspore import Tensor
@@ -739,9 +756,9 @@ print(out)
  The following information is displayed:
 
 ```text
-[[0.  -0.  0.]
- [0.  -0.  0.]
- [0.   0.  0.]]
+[[ 0. -0.  0.]
+ [ 0. -0.  0.]
+ [ 0.  0.  0.]]
 ```
 
 ### Debugging Operations
@@ -752,7 +769,7 @@ The debugging operations refer to some common operators and operations used to d
 
 Displays the gradient of intermediate variables. It is a common operator. Currently, only the PyNative mode is supported.
 
- The following code implements the function of printing the gradient of the intermediate variable (x,y in this example):
+The following code implements the function of printing the gradient of the intermediate variable (x,y in this example):
 
 ```python
 from mindspore import Tensor
@@ -775,11 +792,12 @@ def hook_test(x, y):
 def backward(x, y):
     return grad_all(hook_test)(Tensor(x, mstype.float32), Tensor(y, mstype.float32))
 
-backward(1, 2)
+print(backward(1, 2))
 ```
 
 The following information is displayed:
 
 ```text
-(Tensor(shape=[], dtype=Float32, value=2),)
+(Tensor(shape=[], dtype=Float32, value= 2),)
+(Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```

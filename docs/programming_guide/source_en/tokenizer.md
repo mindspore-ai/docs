@@ -103,6 +103,24 @@ I am making small mistakes during working hours
 
 `JiebaTokenizer` performs Chinese tokenization based on Jieba.
 
+Download the dictionary files `hmm_model.utf8` and `jieba.dict.utf8` and put them in the specified location.
+
+```bash
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/hmm_model.utf8
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/jieba.dict.utf8
+!mkdir -p ./datasets/tokenizer/
+!mv hmm_model.utf8 jieba.dict.utf8 -t ./datasets/tokenizer/
+!tree ./datasets/tokenizer/
+```
+
+```text
+./datasets/tokenizer/
+├── hmm_model.utf8
+└── jieba.dict.utf8
+
+0 directories, 2 files
+```
+
 The following example builds a text dataset, uses the HMM and MP dictionary files to create a `JiebaTokenizer` object, performs tokenization on the dataset, and displays the text results before and after tokenization.
 
 ```python
@@ -118,8 +136,8 @@ for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 # files from open source repository https://github.com/yanyiwu/cppjieba/tree/master/dict
-HMM_FILE = "hmm_model.utf8"
-MP_FILE = "jieba.dict.utf8"
+HMM_FILE = "./datasets/tokenizer/hmm_model.utf8"
+MP_FILE = "./datasets/tokenizer/jieba.dict.utf8"
 jieba_op = text.JiebaTokenizer(HMM_FILE, MP_FILE)
 dataset = dataset.map(operations=jieba_op, input_columns=["text"], num_parallel_workers=1)
 
@@ -142,6 +160,22 @@ The output is as follows:
 
 `SentencePieceTokenizer` performs tokenization based on an open-source natural language processing tool package [SentencePiece](https://github.com/google/sentencepiece).
 
+Download the text dataset file `botchan.txt` and place it in the specified location.
+
+```bash
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/botchan.txt
+!mkdir -p ./datasets/tokenizer/
+!mv botchan.txt ./datasets/tokenizer/
+!tree ./datasets/tokenizer/
+```
+
+```text
+./datasets/tokenizer/
+└── botchan.txt
+
+0 directories, 1 files
+```
+
 The following example builds a text dataset, creates a `vocab` object from the `vocab_file` file, uses `SentencePieceTokenizer` to perform tokenization on the dataset, and displays the text results before and after tokenization.
 
 ```python
@@ -158,7 +192,7 @@ for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
 # file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/master/tests/ut/data/dataset/test_sentencepiece/botchan.txt
-vocab_file = "botchan.txt"
+vocab_file = "./datasets/tokenizer/botchan.txt"
 vocab = text.SentencePieceVocab.from_file([vocab_file], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)
 dataset = dataset.map(operations=tokenizer_op)
@@ -188,7 +222,7 @@ The following example builds a text dataset, uses `UnicodeCharTokenizer` to perf
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
-input_list = ["Welcome to Beijing!", "北京欢迎您！ ", "我喜欢English!"]
+input_list = ["Welcome to Beijing!", "北京欢迎您！", "我喜欢English!"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
 print("------------------------before tokenization----------------------------")
@@ -214,7 +248,7 @@ Welcome to Beijing!
 我喜欢English!
 ------------------------after tokenization-----------------------------
 ['W', 'e', 'l', 'c', 'o', 'm', 'e', ' ', 't', 'o', ' ', 'B', 'e', 'i', 'j', 'i', 'n', 'g', '!']
-['北', '京', '欢', '迎', '您', '！ ']
+['北', '京', '欢', '迎', '您', '！']
 ['我', '喜', '欢', 'E', 'n', 'g', 'l', 'i', 's', 'h', '!']
 ```
 
@@ -228,7 +262,7 @@ The following example builds a text dataset, uses `WhitespaceTokenizer` to perfo
 import mindspore.dataset as ds
 import mindspore.dataset.text as text
 
-input_list = ["Welcome to Beijing!", "北京欢迎您！ ", "我喜欢English!"]
+input_list = ["Welcome to Beijing!", "北京欢迎您！", "我喜欢English!"]
 dataset = ds.NumpySlicesDataset(input_list, column_names=["text"], shuffle=False)
 
 print("------------------------before tokenization----------------------------")
@@ -254,7 +288,7 @@ Welcome to Beijing!
 我喜欢English!
 ------------------------after tokenization-----------------------------
 ['Welcome', 'to', 'Beijing!']
-['北京欢迎您！ ']
+['北京欢迎您！']
 ['我喜欢English!']
 ```
 

@@ -56,11 +56,11 @@
 
 ### 生成代码
 
-> 以LeNet网络为例
+以LeNet网络为例:
 
-````bash
+```bash
 ./codegen --modelPath=./lenet.ms --moduleName=lenet --codePath=./
-````
+```
 
 执行成功后，会在codePath指定的目录下，生成名为moduleName的文件夹，内容如下：
 
@@ -79,9 +79,8 @@ mnist/
     └── weight.h
 ```
 
-> 详细接口使用说明，请[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+> 详细接口使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
 
 ### 执行推理
 
-生成代码之后，即可以编译执行推理，详细步骤请参考[quick_start](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html)。
-
+生成代码之后，即可以编译执行推理，详细步骤请参考[编译一个MNIST分类模型](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html)。

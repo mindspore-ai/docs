@@ -30,15 +30,14 @@ import numpy as np
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
 from mindspore import dtype as mstype
-from mindspore.ops import composite as C
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.matmul = P.MatMul()
-        self.z = Parameter(Tensor(np.array([1.0], np.float32)))
+        self.matmul = ops.MatMul()
+        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
     def construct(self, x, y):
         x = x * self.z
         out = self.matmul(x, y)
@@ -48,7 +47,7 @@ class GradNetWrtX(nn.Cell):
     def __init__(self, net):
         super(GradNetWrtX, self).__init__()
         self.net = net
-        self.grad_op = C.GradOperation()
+        self.grad_op = ops.GradOperation()
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, y)
@@ -58,14 +57,13 @@ y = Tensor([[0.01, 0.3, 1.1], [0.1, 0.2, 1.3], [2.1, 1.2, 3.3]], dtype=mstype.fl
 GradNetWrtX(Net())(x, y)
 ```
 
-The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.
-
-The following information is displayed:
-
 ```text
-[[1.4100001 1.5999999 6.6      ]
- [1.4100001 1.5999999 6.6      ]]
+Tensor(shape=[2, 3], dtype=Float32, value=
+[[1.41000009e+000, 1.60000002e+000, 6.59999943e+000],
+ [1.41000009e+000, 1.60000002e+000, 6.59999943e+000]])
 ```
+
+The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.
 
 All other components, such as `WithGradCell` and `TrainOneStepCell`, involved in gradient calculation use `GradOperation`.
 You can view the internal implementation of these APIs.
@@ -78,26 +76,27 @@ The following uses an example to describe how to use this function. First, you n
 
 ```python
 import numpy as np
+
 import mindspore.context as context
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore.nn import TrainOneStepCell, WithLossCell
 from mindspore.nn.optim import Momentum
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
 
 
 class LeNet(nn.Cell):
     def __init__(self):
         super(LeNet, self).__init__()
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.batch_size = 32
 
         self.conv1 = nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0, has_bias=False, pad_mode='valid')
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
         self.fc1 = nn.Dense(400, 120)
         self.fc2 = nn.Dense(120, 84)
         self.fc3 = nn.Dense(84, 10)
@@ -162,22 +161,20 @@ for i in range(5):
     print(res)
 ```
 
-In the case, an optimizer and a `WithLossCell` instance are built, and then a training network is initialized in `TrainOneStepCell`. The case is repeated for five times, that is, the network is trained for five times, and the loss result of each time is output, the result shows that the loss value gradually decreases after each training.
-
-The following information is displayed:
-
 ```text
 +++++++++result:0++++++++++++
 2.302585
 +++++++++result:1++++++++++++
-2.2935824
+2.2935712
 +++++++++result:2++++++++++++
-2.2765071
+2.2764661
 +++++++++result:3++++++++++++
-2.2522228
+2.2521412
 +++++++++result:4++++++++++++
-2.2215357
+2.2214084
 ```
+
+In the case, an optimizer and a `WithLossCell` instance are built, and then a training network is initialized in `TrainOneStepCell`. The case is repeated for five times, that is, the network is trained for five times, and the loss result of each time is output, the result shows that the loss value gradually decreases after each training.
 
 The following content will describe how MindSpore uses more advanced encapsulation APIs, that is, the `train` method in the `Model` class to train a model. Many network components, such as `TrainOneStepCell` and `WithLossCell`, will be used in the internal implementation.
 You can view the internal implementation of these components.

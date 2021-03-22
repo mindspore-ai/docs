@@ -81,6 +81,10 @@ Create a MindRecord file containing 100 records, whose samples include the `file
     writer.commit()
     ```
 
+    ```text
+    MSRStatus.SUCCESS
+    ```
+
     **Parameter description:**
     - `MINDRECORD_FILE`: path of the output MindRecord file.
 
@@ -94,6 +98,10 @@ Create a MindRecord file containing 100 records, whose samples include the `file
     for item in data_set.create_dict_iterator(output_numpy=True):
         count += 1
     print("Got {} samples".format(count))
+    ```
+
+    ```text
+    Got 100 samples
     ```
 
 ### Converting NLP Dataset
@@ -123,13 +131,13 @@ Create a MindRecord file containing 100 records, whose samples include eight fie
     writer = FileWriter(file_name=MINDRECORD_FILE, shard_num=1)
 
     nlp_schema = {"source_sos_ids": {"type": "int64", "shape": [-1]},
-                  "source_sos_mask": {"type": "int64", "shape": [-1]},
-                  "source_eos_ids": {"type": "int64", "shape": [-1]},
-                  "source_eos_mask": {"type": "int64", "shape": [-1]},
-                  "target_sos_ids": {"type": "int64", "shape": [-1]},
-                  "target_sos_mask": {"type": "int64", "shape": [-1]},
-                  "target_eos_ids": {"type": "int64", "shape": [-1]},
-                  "target_eos_mask": {"type": "int64", "shape": [-1]}}
+                "source_sos_mask": {"type": "int64", "shape": [-1]},
+                "source_eos_ids": {"type": "int64", "shape": [-1]},
+                "source_eos_mask": {"type": "int64", "shape": [-1]},
+                "target_sos_ids": {"type": "int64", "shape": [-1]},
+                "target_sos_mask": {"type": "int64", "shape": [-1]},
+                "target_eos_ids": {"type": "int64", "shape": [-1]},
+                "target_eos_mask": {"type": "int64", "shape": [-1]}}
     writer.add_schema(nlp_schema, "it is a preprocessed nlp dataset")
 
     data = []
@@ -137,13 +145,13 @@ Create a MindRecord file containing 100 records, whose samples include eight fie
         i += 1
 
         sample = {"source_sos_ids": np.array([i, i + 1, i + 2, i + 3, i + 4], dtype=np.int64),
-                  "source_sos_mask": np.array([i * 1, i * 2, i * 3, i * 4, i * 5, i * 6, i * 7], dtype=np.int64),
-                  "source_eos_ids": np.array([i + 5, i + 6, i + 7, i + 8, i + 9, i + 10], dtype=np.int64),
-                  "source_eos_mask": np.array([19, 20, 21, 22, 23, 24, 25, 26, 27], dtype=np.int64),
-                  "target_sos_ids": np.array([28, 29, 30, 31, 32], dtype=np.int64),
-                  "target_sos_mask": np.array([33, 34, 35, 36, 37, 38], dtype=np.int64),
-                  "target_eos_ids": np.array([39, 40, 41, 42, 43, 44, 45, 46, 47], dtype=np.int64),
-                  "target_eos_mask": np.array([48, 49, 50, 51], dtype=np.int64)}
+                "source_sos_mask": np.array([i * 1, i * 2, i * 3, i * 4, i * 5, i * 6, i * 7], dtype=np.int64),
+                "source_eos_ids": np.array([i + 5, i + 6, i + 7, i + 8, i + 9, i + 10], dtype=np.int64),
+                "source_eos_mask": np.array([19, 20, 21, 22, 23, 24, 25, 26, 27], dtype=np.int64),
+                "target_sos_ids": np.array([28, 29, 30, 31, 32], dtype=np.int64),
+                "target_sos_mask": np.array([33, 34, 35, 36, 37, 38], dtype=np.int64),
+                "target_eos_ids": np.array([39, 40, 41, 42, 43, 44, 45, 46, 47], dtype=np.int64),
+                "target_eos_mask": np.array([48, 49, 50, 51], dtype=np.int64)}
 
         data.append(sample)
         if i % 10 == 0:
@@ -154,6 +162,10 @@ Create a MindRecord file containing 100 records, whose samples include eight fie
         writer.write_raw_data(data)
 
     writer.commit()
+    ```
+
+    ```text
+    MSRStatus.SUCCESS
     ```
 
     **Parameter description:**
@@ -167,6 +179,10 @@ Create a MindRecord file containing 100 records, whose samples include eight fie
     for item in data_set.create_dict_iterator():
         count += 1
     print("Got {} samples".format(count))
+    ```
+
+    ```text
+    Got 100 samples
     ```
 
 ## Converting Common Dataset to MindRecord
@@ -186,23 +202,33 @@ For details about dataset conversion, see [MindSpore API](https://www.mindspore.
 
 You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to MindRecord and use `MindDataset` to load the data.
 
-1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). The directory structure is as follows:
+1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Execute the following command:
+
+    ```bash
+    !wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-python.tar.gz
+    !mkdir -p datasets
+    !tar -xzf cifar-10-python.tar.gz -C datasets
+    !tree ./datasets/cifar-10-batches-py
+    ```
 
     ```text
-    └─cifar-10-batches-py
-        ├─batches.meta
-        ├─data_batch_1
-        ├─data_batch_2
-        ├─data_batch_3
-        ├─data_batch_4
-        ├─data_batch_5
-        ├─readme.html
-        └─test_batch
+    ./datasets/cifar-10-batches-py
+    ├── batches.meta
+    ├── data_batch_1
+    ├── data_batch_2
+    ├── data_batch_3
+    ├── data_batch_4
+    ├── data_batch_5
+    ├── readme.html
+    └── test_batch
+
+    0 directories, 8 files
     ```
 
 2. Import related modules.
 
     ```python
+    import os
     import mindspore.dataset as ds
     import mindspore.dataset.vision.c_transforms as vision
     from mindspore.mindrecord import Cifar10ToMR
@@ -211,10 +237,19 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
 3. Create the `Cifar10ToMR` object and call the `transform` API to convert the CIFAR-10 dataset to MindRecord.
 
     ```python
-    CIFAR10_DIR = "./cifar-10-batches-py"
-    MINDRECORD_FILE = "./cifar10.mindrecord"
+    ds_target_path = "./datasets/mindspore_dataset_conversion/"
+    # clean old run files
+    os.system("rm -f {}*".format(ds_target_path))
+    os.system("mkdir -p {}".format(ds_target_path))
+
+    CIFAR10_DIR = "./datasets/cifar-10-batches-py"
+    MINDRECORD_FILE = "./datasets/mindspore_dataset_conversion/cifar10.mindrecord"
     cifar10_transformer = Cifar10ToMR(CIFAR10_DIR, MINDRECORD_FILE)
     cifar10_transformer.transform(['label'])
+    ```
+
+    ```text
+    MSRStatus.SUCCESS
     ```
 
      **Parameter description:**
@@ -231,6 +266,10 @@ You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to Min
     for item in data_set.create_dict_iterator(output_numpy=True):
         count += 1
     print("Got {} samples".format(count))
+    ```
+
+    ```text
+    Got 50000 samples
     ```
 
 ### Converting the ImageNet Dataset
@@ -268,7 +307,7 @@ You can use the `ImageNetToMR` class to convert the original ImageNet data (imag
 
     ```python
     IMAGENET_MAP_FILE = "./labels_map.txt"
-    IMAGENET_IMAGE_DIR = "./images/"
+    IMAGENET_IMAGE_DIR = "./images"
     MINDRECORD_FILE = "./imagenet.mindrecord"
     imagenet_transformer = ImageNetToMR(IMAGENET_MAP_FILE, IMAGENET_IMAGE_DIR, MINDRECORD_FILE, partition_number=1)
     imagenet_transformer.transform()
@@ -350,9 +389,23 @@ Create a CSV file containing 5 records, convert the CSV file to MindRecord using
     print("Got {} samples".format(count))
     ```
 
+    ```text
+    Got 5 samples
+    ```
+
 ### Converting TFRecord Dataset
 
 > Currently, only TensorFlow 1.13.0-rc1 and later versions are supported.
+
+In this part of the example, TensorFlow needs to be installed in advance. If it is not installed, execute the following command to install it. For example, when this document is running as a Notebook, after the installation is complete, you need to restart the kernel to execute the subsequent code.
+
+```python
+os.system('pip install tensorflow') if os.system('python -c "import tensorflow"') else print("TensorFlow installed")
+```
+
+```text
+0
+```
 
 Use TensorFlow to create a TFRecord file and convert the file to MindRecord using the `TFRecordToMR` tool class. Read the file using `MindDataset` and decode the `image_bytes` field using the `Decode` operator.
 
@@ -429,6 +482,10 @@ Use TensorFlow to create a TFRecord file and convert the file to MindRecord usin
     generate_tfrecord()
     ```
 
+    ```text
+    Write 10 rows in tfrecord.
+    ```
+
     **Parameter description:**
    - `TFRECORD_FILE`: path of the TFRecord file.
    - `MINDRECORD_FILE`: path of the output MindRecord file.
@@ -465,4 +522,8 @@ Use TensorFlow to create a TFRecord file and convert the file to MindRecord usin
     for item in data_set.create_dict_iterator(output_numpy=True):
         count += 1
     print("Got {} samples".format(count))
+    ```
+
+    ```text
+    Got 10 samples
     ```

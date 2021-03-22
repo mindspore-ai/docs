@@ -1,4 +1,4 @@
-# Operator List
+# Lite Operator List
 
 `Linux` `On Device` `Inference Application` `Beginner` `Intermediate` `Expert`
 

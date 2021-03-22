@@ -58,16 +58,19 @@ The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixel
 > Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are required for data training, and the last two links are required for data test.
 
 ```bash
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
-!unzip -o MNIST_Data.zip -d ./datasets
-!tree ./datasets/MNIST_Data/
+!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+!tree ./datasets/MNIST_Data
 ```
 
 ```text
-./datasets/MNIST_Data/
+./datasets/MNIST_Data
 ├── test
-│   ├── t10k-images-idx3-ubyte
-│   └── t10k-labels-idx1-ubyte
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
 └── train
     ├── train-images-idx3-ubyte
     └── train-labels-idx1-ubyte
