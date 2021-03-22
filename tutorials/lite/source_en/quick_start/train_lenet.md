@@ -12,9 +12,14 @@
     - [Connect Android Device](#connect-android-device)
 - [Train and Eval](#train-and-eval)
 - [Details](#details)
+    - [Folder Structure](#folder-structure)
     - [Model Exporting](#model-exporting)
     - [Model Transferring](#model-transferring)
     - [Model Training](#model-training)
+        - [Loading Model](#loading-model)
+        - [Dataset Processing](#dataset-processing)
+        - [Execute Training](#execute-training)
+        - [Execute Evaluating](#execute-evaluating)
 
 <!-- /TOC -->
 
@@ -22,7 +27,7 @@
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [MindSpore gitee](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
 
 The completed training procedure is as follows:
 
@@ -34,15 +39,15 @@ Details will be told after environment deployed and model training by running pr
 
 ## Environment Preparing
 
-All the following operations are under PC, the Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
+Ubuntu 18.04 64-bit operating system on x86 platform is recommended.
 
 ### DataSet
 
 The `MNIST` dataset used in this example consists of 10 classes of 28 x 28 pixels grayscale images. It has a training set of 60,000 examples, and a test set of 10,000 examples.
 
-> Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are for data training, and the last two links are for data test.
+> Download the MNIST dataset at <http://yann.lecun.com/exdb/mnist/>. This page provides four download links of dataset files. The first two links are training dataset and training label, while the last two links are test dataset and test label.
 
-Download the files, decompress them, and store them in the workspace directories `/PATH/MNIST_Data/train` and `/PATH/MNIST_Data/test`.
+Download and decompress the files to `/PATH/MNIST_Data/train` and `/PATH/MNIST_Data/test` separately.
 
 The directory structure is as follows:
 
@@ -59,7 +64,7 @@ The directory structure is as follows:
 
 ### Install MindSpore
 
-Please referring MindSpore [installation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) to install MindSpore CPU environment.
+MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Converter and Runtime Tool
 
@@ -81,15 +86,30 @@ Turning on the 'USB debugging' mode of your Android device and connect it with y
 
 ## Train and Eval
 
-Executing the bash command below under `./mindspore/lite/example/train_lenet` directory.
+You can get the source code of MindSpore by `git` clone or manually, the `Linux` command of git installation is:
 
 ```bash
+sudo apt-get install git
+```
+
+Clone the source, enter the target directory and run the training bash script. The `Linux` command are as follows:
+
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+cd ./mindspore/mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
 `/PATH/MNIST_Data` is the absolute mnist dataset path in your machine, `-t arm64` represents that we will train and run the model on an Android device.
 
-The model will be trained on your device and print training loss and accuracy value every 100 epochs. The trained model will be saved as 'lenet_tod.ms' file. The classification accuracy varies in devices.
+The script `prepare_and_run.sh` has done the following works:
+
+1. Export the `lenet_tod.mindir` model file.
+2. Calling the converter tool in the last section and convert the `MINDIR` file to the `ms` file.
+3. Push the `lenet.ms` model file, MNIST dataset and the related library files to your `Android` device.
+4. Train, save and infer the model.
+
+The model will be trained on your device and print training loss and accuracy value every epoch. The trained model will be saved as 'lenet_tod.ms' file. The 10 epochs training result of lenet is shown below (the classification accuracy varies in devices):
 
 ```bash
 ======Training Locally=========
@@ -154,6 +174,8 @@ Eval Accuracy is 0.965244
 
 ## Details
 
+### Folder Structure
+
 The demo project folder structure:
 
 ```bash
@@ -184,14 +206,12 @@ Whether it is an off-the-shelf prepared model, or a custom written model, the mo
 Import and instantiate a LeNet5 model and set the model to train mode:
 
 ```python
-import sys
-from mindspore import context, Tensor, export
-from mindspore import dtype as mstype
-from lenet import LeNet5
 import numpy as np
+from mindspore import context, Tensor
+import mindspore.common.dtype as mstype
+from mindspore.train.serialization import export
+from lenet import LeNet5
 from train_utils import TrainWrap
-
-sys.path.append('./mindspore/model_zoo/official/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()
@@ -203,9 +223,9 @@ Set MindSpore context and initialize the data and label tensors. In this case we
 The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
-batch_size = 32
-x = Tensor(np.ones((batch_size, 1, 32, 32)), mstype.float32)
-label = Tensor(np.zeros([batch_size, 10]).astype(np.float32))
+BATCH_SIZE = 32
+x = Tensor(np.ones((BATCH_SIZE, 1, 32, 32)), mstype.float32)
+label = Tensor(np.zeros([BATCH_SIZE]).astype(np.int32))
 net = TrainWrap(n)
 ```
 
@@ -216,15 +236,19 @@ import mindspore.nn as nn
 from mindspore.common.parameter import ParameterTuple
 
 def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
-  if loss_fn == None:
-    loss_fn = nn.SoftmaxCrossEntropyWithLogits()
-  loss_net = nn.WithLossCell(net, loss_fn)
-  loss_net.set_train()
-  if weights == None:
-    weights = ParameterTuple(net.trainable_params())
-  if optimizer == None:
-     optimizer = nn.Adam(weights, learning_rate=1e-3, beta1=0.9, beta2=0.999, eps=1e-8, use_locking=False, use_nesterov=False, weight_decay=0.0, loss_scale=1.0)
-  train_net = nn.TrainOneStepCell(loss_net, optimizer)
+    """
+    TrainWrap
+    """
+    if loss_fn is None:
+        loss_fn = nn.SoftmaxCrossEntropyWithLogits(reduction='mean', sparse=True)
+    loss_net = nn.WithLossCell(net, loss_fn)
+    loss_net.set_train()
+    if weights is None:
+        weights = ParameterTuple(net.trainable_params())
+    if optimizer is None:
+        optimizer = nn.Adam(weights, learning_rate=1e-2, beta1=0.9, beta2=0.999, eps=1e-8, use_locking=False, use_nesterov=False, weight_decay=0.0, loss_scale=1.0)
+    train_net = nn.TrainOneStepCell(loss_net, optimizer)
+    return train_net
 ```
 
 Finally, exporting the defined model.
@@ -236,31 +260,20 @@ print("finished exporting")
 
 ### Model Transferring
 
-To run this python code one must have an installed [MindSpore environment](https://gitee.com/mindspore/mindspore/blob/master/README.md#installation). In the example below we use a CPU-supported MindSpore environment installed on a docker with image name `${DOCKER_IMG}`. Please refer to [MindSpore Docker Image Installation instructions](https://gitee.com/mindspore/mindspore/blob/master/README.md#docker-image).
-
-> MindSpore environment allows the developer to run MindSpore python code on server or PC. It differs from MindSpore Lite framework that allows to compile and run code on embedded devices.
-
-```bash
-DOCKER_IMG=$1
-echo "============Exporting=========="
-docker run -w $PWD --runtime=nvidia -v /home/$USER:/home/$USER --privileged=true ${DOCKER_IMG} /bin/bash -c "python transfer_learning_export.py; chmod 444 transfer_learning_tod.mindir"
-```
-
-If you don't have docker environment, it will run locally.
-
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models)
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models), the command is:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
 ```
+
+The exported file `lenet_tod.ms` is under the folder `./train_lenet/model`.
 
 ### Model Training
 
 In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src) the executable has the following API:
 
 ```bash
-Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>]
-                 [-v (verbose mode)] [-s <save checkpoint every X iterations>]
+Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
 ```
 
 After parsing the input parameters the main code continues as follows:
@@ -283,7 +296,7 @@ int NetRunner::Main() {
 }
 ```
 
-#### Load Model
+#### Loading Model
 
 `InitAndFigureInputs` creates the TrainSession instance from the `.ms` file, then sets the input tensors indices for the `.ms` model.
 
@@ -356,12 +369,7 @@ int NetRunner::TrainLoop() {
 }
 ```
 
-Within this section of code the session is switched to train mode using the `Train()` method, then the main loop over all the training cycles takes place. In each cycle, the data and label are read from the training dataset and loaded into the input tensors. Following the train cycle, the loss is [extracted from the Output Tensors](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#obtaining-output-tensors).
-It is advised to periodically save intermediate training results, i.e., checkpoint files. These files might be handy if the application or device crashes during the training process. The checkpoint files are practically `.ms` files that contain the updated weights, and the program may be relaunched with the checkpoint file as the `.ms` model file. The user could also save checkpoints manually by calling the `SaveToFile` API, like this:
-
-```cpp
-session_->SaveToFile(cpkt_file);
-```
+#### Execute Evaluating
 
 To eval the model accuracy, the `CalculateAccuracy` method is being called. Within which, the model is switched to `Eval` mode, and the method runs a cycle of test tensors through the trained network to measure the current accuracy rate.
 

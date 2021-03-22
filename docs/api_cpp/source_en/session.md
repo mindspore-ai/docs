@@ -218,7 +218,7 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
 ## TrainSession
 
-\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train_session.h)&gt;
+\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_session.h)&gt;
 
 Inherited from LiteSession, TrainSession defines the class that allows training the MindSpore model.
 

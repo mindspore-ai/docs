@@ -24,11 +24,11 @@
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示MindSpore Lite训练功能的使用。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
 
-整个端侧训练流程分为以下三步：
+端侧训练流程如下：
 
-1. 基于MindSpore构建训练模型，并导出`MindIR`格式文件。
+1. 基于MindSpore构建训练模型，并导出`MindIR`模型文件。
 2. 使用MindSpore Lite `Converter`工具，将`MindIR`模型转为端侧`MS`模型。
 3. 调用MindSpore Lite训练API，加载端侧`MS`模型，执行训练。
 
@@ -36,15 +36,15 @@
 
 ## 准备
 
-以下操作均在PC上完成，推荐使用x86平台的Ubuntu 18.04 64位操作系统。
+推荐使用Ubuntu 18.04 64位操作系统。
 
 ### 下载数据集
 
-我们示例中用到的`MNIST`数据集是由10类28*28的灰度图片组成，训练数据集包含60000张图片，测试数据集包含10000张图片。
+示例中的`MNIST`数据集由10类28*28的灰度图片组成，训练数据集包含60000张图片，测试数据集包含10000张图片。
 
-> MNIST数据集下载页面：<http://yann.lecun.com/exdb/mnist/>。页面提供4个数据集下载链接，其中前2个文件是训练数据需要，后2个文件是测试结果需要。
+> MNIST数据集官网下载地址：<http://yann.lecun.com/exdb/mnist/>，共4个下载链接，分别是训练数据、训练标签、测试数据和测试标签。
 
-将数据集下载并解压到本地路径下，这里将数据集解压分别存放到`/PATH/MNIST_Data/train`、`/PATH/MNIST_Data/test`路径下。
+下载并解压到本地，解压后的训练和测试集分别存放于`/PATH/MNIST_Data/train`和`/PATH/MNIST_Data/test`路径下。
 
 目录结构如下：
 
@@ -60,11 +60,11 @@ MNIST_Data/
 
 ### 安装MindSpore
 
-安装MindSpore CPU环境，具体请参考[MindSpore安装](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
+你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
 
 ### 获取Converter和Runtime
 
-可以通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`train-conveter-linux-x64`以及`train-android-aarch64`包。编译命令如下：
+通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`train-conveter-linux-x64`以及`train-android-aarch64`包。编译命令如下：
 
 ```shell
 # 生成converter工具以及x86平台的runtime包
@@ -80,19 +80,34 @@ bash build.sh -I arm64 -T on -e cpu -j8
 
 准备好一台Android设备，并通过USB与工作电脑正确连接。手机需开启“USB调试模式”，华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
-本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程执行各类设备操作；如果没有安装`adb`工具，可以执行`apt install adb`安装。
+本示例使用[`adb`](https://developer.android.google.cn/studio/command-line/adb)工具与Android设备进行通信，在工作电脑上远程操控移动设备；如果没有安装`adb`工具，可以执行`apt install adb`安装。
 
 ## 模型训练和验证
 
-示例代码在MindSpore[源码](https://gitee.com/mindspore/mindspore)下的`mindspore/lite/examples/train_lenet`目录。本地克隆MindSpore源码后，进入`mindspore/lite/examples/train_lenet`目录，执行如下命令后，脚本会导出`lenet_tod.mindir`模型，然后利用`converter`工具将`MindIR`模型转换为MindSpore Lite可以识别的`lenet_tod.ms`模型；最后，将`lenet_tod.ms`模型文件、MNIST数据集以及MindSpore Lite训练runtime包推送到Andorid设备上，执行训练。
+你可以使用`git`克隆或手动方式下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，使用`Linux`指令安装`git`：
 
 ```bash
+sudo apt-get install git
+```
+
+克隆源码，进入示例代码目录并执行训练脚本，`Linux`指令如下：
+
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+cd ./mindspore/mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
-其中，`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`表示我们将在Android设备上执行训练和推理。
+其中`/PATH/MNIST_Data`是你工作电脑上存放MNIST数据集的绝对路径，`-t arm64`为执行训练和推理的设备类型。
 
-在Android设备上训练LeNet模型每100轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。在端侧训练的LeNet模型能够达到97%的识别率，结果如下所示（测试准确率会受设备差异的影响）：
+`prepare_and_run.sh`脚本做了以下工作：
+
+1. 导出`lenet_tod.mindir`模型文件；
+2. 调用上节的模型转换工具将`lenet_tod.mindir`转换为`lenet_tod.ms`文件；
+3. 将`lenet_tod.ms`、MNIST数据集和相关依赖库文件推送至你的`Android`设备；
+4. 执行训练、保存并推理模型。
+
+Android设备上训练LeNet模型每轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。端侧训练LeNet模型10个epoch的结果如下所示（测试准确率会受设备差异的影响）：
 
 ```bash
 ======Training Locally=========
@@ -182,19 +197,17 @@ Eval Accuracy is 0.965244
 
 ### 定义并导出模型
 
-首先我们基于MindSpore框架创建一个LeNet5模型，你也可以直接用MindSpore model_zoo的现有[LeNet5模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
 
-> 本小节完全使用MindSpore云侧功能，进一步了解MindSpore请参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
+> 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
 
 ```python
-import sys
-from mindspore import context, Tensor, export
-from mindspore import dtype as mstype
-from lenet import LeNet5
 import numpy as np
+from mindspore import context, Tensor
+import mindspore.common.dtype as mstype
+from mindspore.train.serialization import export
+from lenet import LeNet5
 from train_utils import TrainWrap
-
-sys.path.append('./mindspore/model_zoo/official/cv/lenet/src/')
 
 n = LeNet5()
 n.set_train()
@@ -204,9 +217,9 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs
 然后定义输入和标签张量大小：
 
 ```python
-batch_size = 32
-x = Tensor(np.ones((batch_size, 1, 32, 32)), mstype.float32)
-label = Tensor(np.zeros([batch_size, 10]).astype(np.float32))
+BATCH_SIZE = 32
+x = Tensor(np.ones((BATCH_SIZE, 1, 32, 32)), mstype.float32)
+label = Tensor(np.zeros([BATCH_SIZE]).astype(np.int32))
 net = TrainWrap(n)
 ```
 
@@ -214,17 +227,22 @@ net = TrainWrap(n)
 
 ```python
 import mindspore.nn as nn
-from mindspore import ParameterTuple
+from mindspore.common.parameter import ParameterTuple
+
 def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
-    if loss_fn == None:
-        loss_fn = nn.SoftMaxCrossEntropyWithLogits()
+    """
+    TrainWrap
+    """
+    if loss_fn is None:
+        loss_fn = nn.SoftmaxCrossEntropyWithLogits(reduction='mean', sparse=True)
     loss_net = nn.WithLossCell(net, loss_fn)
     loss_net.set_train()
-    if weights == None:
+    if weights is None:
         weights = ParameterTuple(net.trainable_params())
-    if optimizer == None:
-        optimizer = nn.Adam(weights, learning_rate=1e-3, beta1=0.9 beta2=0.999, eps=1e-8, use_locking=False, use_nesterov=False, weight_decay=0.0, loss_scale=1.0)
+    if optimizer is None:
+        optimizer = nn.Adam(weights, learning_rate=1e-2, beta1=0.9, beta2=0.999, eps=1e-8, use_locking=False, use_nesterov=False, weight_decay=0.0, loss_scale=1.0)
     train_net = nn.TrainOneStepCell(loss_net, optimizer)
+    return train_net
 ```
 
 最后调用`export`接口将模型导出为`MindIR`文件保存（目前端侧训练仅支持`MindIR`格式）。
@@ -234,30 +252,29 @@ export(net, x, label, file_name="lenet_tod", file_format='MINDIR')
 print("finished exporting")
 ```
 
-如果输出`finished exporting`表示导出成功，生成的`lenet_tod.mindir`文件在当前目录下。完整代码参见`lenet_export.py`和`train_utils.py`。
+如果输出`finished exporting`表示导出成功，生成的`lenet_tod.mindir`文件在`../train_lenet/model`目录下。完整代码参见`lenet_export.py`和`train_utils.py`。
 
 ### 转换模型
 
-得到`lenet_tod.mindir`文件后，使用MindSpore Lite `converter`工具将其转还为可用于端侧训练的模型文件，执行指令如下：
+使用MindSpore Lite `converter_lite`工具将`lenet_tod.mindir`转换为`ms`模型文件，执行指令如下：
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
 ```
 
-转换成功后，当前目录下会生成`lenet_tod.ms`模型。
+转换成功后，当前目录下会生成`lenet_tod.ms`模型文件。
 
-> 详细的`converter`工具使用，可以参考[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)。
+> 更多用法参见[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)。
 
 ### 训练模型
 
-源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)使用MindSpore Lite训练API完成模型训练，执行训练脚本指令如下：
+调用源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)进行模型训练的指令如下：
 
 ```bash
-Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>]
-                 [-v (verbose mode)] [-s <save checkpoint every X iterations>]
+Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
 ```
 
-模型训练的主函数如下：
+模型训练的主函数为：
 
 ```cpp
 int NetRunner::Main() {
