@@ -168,7 +168,7 @@
 | Unstack               |              | Supported    |              |               |              |              |           | Unstack                         |                          |                                                 |                                                 |
 | Where                 |              | Supported    |              |               |              |              |           | Where                           |                          |                                                 | Where                                           |
 | ZerosLike             |              | Supported    |              |               |              |              |           | ZerosLike                       |                          |                                                 | ZerosLike                                       |
-| 转换工具支持，但是不需要具体实现的算子<sup>[4]</sup> |     |              |              |               |              |              |           |       |     | Loop, Dropout, If      | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
+| 转换工具支持的其他算子<sup>[4]</sup> |     |              |              |               |              |              |           |       |     | Loop, Dropout, If      | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
 
 [1] Clip：仅支持将clip(0, 6)转换为Relu6。
 
@@ -176,4 +176,4 @@
 
 [3] Sum与Max：仅支持输入个数为2。
 
-[4] 转换工具支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
+[4] [转换工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)支持，但不需要具体实现的算子，一般这类算子在转化工具中被优化而消失，如被融合掉或者使用其他算子代替。
