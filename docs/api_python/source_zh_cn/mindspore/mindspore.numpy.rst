@@ -20,6 +20,7 @@ Array Generation
     mindspore.numpy.array
     mindspore.numpy.asarray
     mindspore.numpy.asfarray
+    mindspore.numpy.copy
     mindspore.numpy.empty
     mindspore.numpy.empty_like
     mindspore.numpy.eye
