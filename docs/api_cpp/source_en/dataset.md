@@ -13,14 +13,14 @@ Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDev
 
 // normal pointer
 Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType)
+Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType);
 
 // reference_wrapper
 Execute::Execute(TensorTransform *op, MapTargetDevice deviceType);
 Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType);
 ```
 
-Transform（image, text）Transform operators in eager mode executor class。Multiple constructors are supported，include shared_ptr, normal pointer and reference_wrapper.
+Transform（image, text）Transform operators in eager mode executor class. Multiple constructors are supported，include shared_ptr, normal pointer and reference_wrapper.
 
 - Parameters
 
