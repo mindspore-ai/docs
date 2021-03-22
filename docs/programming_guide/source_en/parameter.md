@@ -55,11 +55,11 @@ print(x, "\n\n", y, "\n\n", z)
 The following information is displayed:
 
 ```text
-Parameter (name=x, shape=(2, 3), dtype=Int64, requires_grad=True)
+Parameter (name=x)
 
-Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True)
+Parameter (name=y)
 
-Parameter (name=z, shape=(), dtype=Float32, requires_grad=True)
+Parameter (name=z)
 ```
 
 ## Attributes
@@ -177,7 +177,7 @@ print(params_copy)
 The following information is displayed:
 
 ```text
-(Parameter (name=x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=z, shape=(), dtype=Float32, requires_grad=True))
+(Parameter (name=x), Parameter (name=y), Parameter (name=z))
 
-(Parameter (name=params_copy.x, shape=(2, 3), dtype=Int64, requires_grad=True), Parameter (name=params_copy.y, shape=(1, 2, 3), dtype=Float32, requires_grad=True), Parameter (name=params_copy.z, shape=(), dtype=Float32, requires_grad=True))
+(Parameter (name=params_copy.x), Parameter (name=params_copy.y), Parameter (name=params_copy.z))
 ```

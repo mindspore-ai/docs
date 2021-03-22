@@ -112,13 +112,16 @@ You can transfer the initialized Model APIs such as the network, loss function, 
 Before executing the network, download and unzip the required dataset to the specified directory:
 
 ```bash
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
-!unzip -o MNIST_Data.zip -d ./datasets
-!tree ./datasets/MNIST_Data/
+!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+!tree ./datasets/MNIST_Data
 ```
 
 ```text
-./datasets/MNIST_Data/
+./datasets/MNIST_Data
 ├── test
 │   ├── t10k-images-idx3-ubyte
 │   └── t10k-labels-idx1-ubyte
