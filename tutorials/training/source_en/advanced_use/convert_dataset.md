@@ -59,7 +59,9 @@ A data file consists of the following key parts:
 
 ## Converting Dataset to MindRecord
 
-The following tutorial demonstrates how to convert image data and its annotations to MindRecord.
+The following tutorial demonstrates how to convert image data and its annotations to MindRecord. For more instructions on MindSpore data format conversion, please refer to the [MindSpore Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html) chapter in the programming guide.
+
+Example 1: Show how to convert data into a MindRecord data file according to the defined dataset structure.
 
 1. Import the `FileWriter` class for file writing.
 
@@ -105,6 +107,10 @@ The following tutorial demonstrates how to convert image data and its annotation
     writer.commit()
     ```
 
+    ```text
+    MSRStatus.SUCCESS
+    ```
+
     This example will generate `test.mindrecord0`, `test.mindrecord0.db`, `test.mindrecord1`, `test.mindrecord1.db`, `test.mindrecord2`, `test.mindrecord2.db`, `test.mindrecord3`, `test.mindrecord3.db`, totally eight files, called MindRecord datasets. `test.mindrecord0` and `test.mindrecord0.db` are collectively referred to as a MindRecord file, where `test.mindrecord0` is the data file and `test.mindrecord0.db` is the index file.
 
     **Interface Description:**
@@ -118,6 +124,91 @@ The following tutorial demonstrates how to convert image data and its annotation
     writer.write_raw_data(data)
     writer.commit()
     ```
+
+    ```text
+    MSRStatus.SUCCESS
+    ```
+
+Example 2: Convert a picture in `jpg` format into a MindRecord dataset according to the method in Example 1.
+
+Download the image data `transform.jpg` that needs to be processed as the raw data to be processed.
+
+Create a folder directory `./datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/` to store all the converted datasets in this experience.
+
+Create a folder directory `./datasets/convert_dataset_to_mindrecord/images/` to store the downloaded image data.
+
+```bash
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/transform.jpg
+!mkdir -p ./datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/
+!mkdir -p ./datasets/convert_dataset_to_mindrecord/images/
+!mv -f ./transform.jpg ./datasets/convert_dataset_to_mindrecord/images/
+!tree ./datasets/convert_dataset_to_mindrecord/images/
+```
+
+```text
+./datasets/convert_dataset_to_mindrecord/images/
+└── transform.jpg
+
+0 directories, 1 file
+```
+
+Execute the following code to convert the downloaded `transform.jpg` into a MindRecord dataset.
+
+```python
+# step 1 import class FileWriter
+import os
+from mindspore.mindrecord import FileWriter
+
+# clean up old run files before in Linux
+data_path = './datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/'
+os.system('rm -f {}test.*'.format(data_path))
+
+# import FileWriter class ready to write data
+data_record_path = './datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/test.mindrecord'
+writer = FileWriter(file_name=data_record_path,shard_num=4)
+
+# define the data type
+data_schema = {"file_name":{"type":"string"},"label":{"type":"int32"},"data":{"type":"bytes"}}
+writer.add_schema(data_schema,"test_schema")
+
+# prepeare the data contents
+file_name = "./datasets/convert_dataset_to_mindrecord/images/transform.jpg"
+with open(file_name, "rb") as f:
+    bytes_data = f.read()
+data = [{"file_name":"transform.jpg", "label":1, "data":bytes_data}]
+
+# add index field
+indexes = ["file_name","label"]
+writer.add_index(indexes)
+
+# save data to the files
+writer.write_raw_data(data)
+writer.commit()
+```
+
+```text
+MSRStatus.SUCCESS
+```
+
+This example will generate 8 files, which become the MindRecord dataset. `test.mindrecord0` and `test.mindrecord0.db` are called 1 MindRecord files, where `test.mindrecord0` is the data file, and `test.mindrecord0.db` is the index file. The generated files are as follows:
+
+```bash
+!tree ./datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/
+```
+
+```text
+./datasets/convert_dataset_to_mindrecord/datas_to_mindrecord/
+├── test.mindrecord0
+├── test.mindrecord0.db
+├── test.mindrecord1
+├── test.mindrecord1.db
+├── test.mindrecord2
+├── test.mindrecord2.db
+├── test.mindrecord3
+└── test.mindrecord3.db
+
+0 directories, 8 files
+```
 
 ## Loading MindRecord Dataset
 

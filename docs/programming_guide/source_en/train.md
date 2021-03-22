@@ -19,13 +19,15 @@
 
 MindSpore provides a large number of network models such as object detection and natural language processing in ModelZoo for users to directly use. However, some senior users may want to design networks or customize training cycles. The following describes how to customize a training network, how to customize a training cycle, and how to conduct inference while training. In addition, the on-device execution mode is also described in detail.
 
+> Note: This document is applicable to GPU and Ascend environments.
+
 ## Customizing a Training Network
 
 Before customizing a training network, you need to understand the network support of MindSpore, constraints on network construction using Python, and operator support.
 
 - Network support: Currently, MindSpore supports multiple types of networks, including computer vision, natural language processing, recommender, and graph neural network. For details, see [Network List](https://www.mindspore.cn/doc/note/en/master/network_list.html). If the existing networks cannot meet your requirements, you can define your own network as required.
 
-- Constraints on network construction using Python: MindSpore does not support the conversion of any Python source code into computational graphs. Therefore, the source code has the syntax and network definition constraints. These constraints may change as MindSpore evolves.
+- Constraints on network construction using Python: MindSpore does not support the conversion of any Python source code into computational graphs. Therefore, the source code has the syntax and network definition constraints. For details, please refer to [Static Graph Syntax Support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html). These constraints may change as MindSpore evolves.
 
 - Operator support: As the name implies, the network is based on operators. Therefore, before customizing a training network, you need to understand the operators supported by MindSpore. For details about operator implementation on different backends (Ascend, GPU, and CPU), see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
 
@@ -38,14 +40,14 @@ import numpy as np
 
 from mindspore import Tensor
 from mindspore.nn import Cell, Dense, SoftmaxCrossEntropyWithLogits, Momentum, TrainOneStepCell, WithLossCell
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 
 class ReLUReduceMeanDense(Cell):
     def __init__(self, kernel, bias, in_channel, num_class):
         super().__init__()
-        self.relu = P.ReLU()
-        self.mean = P.ReduceMean(keep_dims=False)
+        self.relu = ops.ReLU()
+        self.mean = ops.ReduceMean(keep_dims=False)
         self.dense = Dense(in_channel, num_class, kernel, bias)
 
     def construct(self, x):
@@ -85,7 +87,30 @@ The output is as follows:
 
 ## Customizing a Training Cycle
 
-If you do not want to use the `Model` interface provided by MindSpore, you can also refer to the following examples to freely control the number of iterations, traverse the data set, and so on.
+Before performing a custom training cycle, download the MNIST dataset that needs to be used, and decompress and place it at the specified location:
+
+```bash
+!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+!tree ./datasets/MNIST_Data
+```
+
+```text
+./datasets/MNIST_Data
+├── test
+│   ├── t10k-images-idx3-ubyte
+│   └── t10k-labels-idx1-ubyte
+└── train
+    ├── train-images-idx3-ubyte
+    └── train-labels-idx1-ubyte
+
+2 directories, 4 files
+```
+
+If you do not want to use the `Model` interface provided by MindSpore, you can also refer to the following examples to freely control the number of iterations, traverse the dataset, and so on.
 
 The following is a code example:
 
@@ -102,9 +127,7 @@ from mindspore.common.initializer import TruncatedNormal
 from mindspore import ParameterTuple
 from mindspore.dataset.vision import Inter
 from mindspore.nn import WithLossCell
-from mindspore.ops import composite as C
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 
 def create_dataset(data_path, batch_size=32, repeat_size=1,
@@ -188,7 +211,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -212,7 +235,7 @@ class TrainOneStepCell(nn.Cell):
         self.network = network
         self.weights = ParameterTuple(network.trainable_params())
         self.optimizer = optimizer
-        self.grad = C.GradOperation(get_by_list=True, sens_param=True)
+        self.grad = ops.GradOperation(get_by_list=True, sens_param=True)
         self.sens = sens
 
     def set_sens(self, value):
@@ -221,22 +244,22 @@ class TrainOneStepCell(nn.Cell):
     def construct(self, data, label):
         weights = self.weights
         loss = self.network(data, label)
-        sens = P.Fill()(P.DType()(loss), P.Shape()(loss), self.sens)
+        sens = ops.Fill()(ops.DType()(loss), ops.Shape()(loss), self.sens)
         grads = self.grad(self.network, weights)(data, label, sens)
-        return F.depend(loss, self.optimizer(grads))
+        return ops.depend(loss, self.optimizer(grads))
 
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
-    ds_train = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data/", "train"), 32)
+
+    ds_data_path = "./datasets/MNIST_Data/train/"
+    ds_train = create_dataset(ds_data_path, 32)
 
     network = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
     net_opt = nn.Momentum(network.trainable_params(), 0.01, 0.9)
     net = WithLossCell(network, net_loss)
     net = TrainOneStepCell(net, net_opt)
-    dataset_helper = DatasetHelper(ds_train, dataset_sink_mode=True, sink_size=100, epoch_num=10)
-    net = connect_network_with_dataset(net, dataset_helper)
     network.set_train()
     print("============== Starting Training ==============")
     epoch = 10
@@ -245,8 +268,6 @@ if __name__ == "__main__":
             output = net(*inputs)
             print("epoch: {0}/{1}, losses: {2}".format(step + 1, epoch, output.asnumpy(), flush=True))
 ```
-
-> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#downloading-the-dataset).
 
 The output is as follows:
 
@@ -272,6 +293,7 @@ epoch: 10/10, losses: 0.026364721357822418
 epoch: 10/10, losses: 0.0003102901973761618
 ```
 
+> For details about how to obtain the MNIST dataset used in the example, see [Downloading the Dataset](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html#downloading-the-dataset).
 > The typical application scenario is gradient accumulation. For details, see [Applying Gradient Accumulation Algorithm](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_gradient_accumulation.html).
 
 ## Conducting Inference While Training
@@ -324,7 +346,7 @@ from mindspore import dtype as mstype
 from mindspore.common.initializer import TruncatedNormal
 from mindspore.dataset.vision import Inter
 from mindspore.nn import Accuracy
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore.train.callback import LossMonitor
 
 
@@ -409,7 +431,7 @@ class LeNet5(nn.Cell):
         self.fc3 = fc_with_initialize(84, self.num_class)
         self.relu = nn.ReLU()
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
 
     def construct(self, x):
         x = self.conv1(x)
@@ -429,7 +451,8 @@ class LeNet5(nn.Cell):
 
 if __name__ == "__main__":
     context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
-    ds_train = create_dataset(os.path.join("/home/workspace/mindspore_dataset/MNIST_Data/", "train"), 32)
+    ds_train_path = "./datasets/MNIST_Data/train/"
+    ds_train = create_dataset(ds_train_path, 32)
 
     network = LeNet5(10)
     net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
@@ -440,21 +463,22 @@ if __name__ == "__main__":
     model.train(epoch=10, train_dataset=ds_train, callbacks=[LossMonitor()], dataset_sink_mode=True, sink_size=1000)
 ```
 
-When `batch_size` is 32, the size of the dataset is 1875. When `sink_size` is set to 1000, each `epoch` sinks 1000 batches of data, the number of sinks is `epoch` (=10), and the total sunk data volume is `epoch` x `sink_size` = 10000.
-
 The output is as follows:
 
 ```python
-epoch: 1 step: 1000, loss is 0.5399815
-epoch: 2 step: 1000, loss is 0.033433747
-epoch: 3 step: 1000, loss is 0.054761313
-epoch: 4 step: 1000, loss is 0.007882872
-epoch: 5 step: 1000, loss is 0.00658499
-epoch: 6 step: 1000, loss is 0.0413095
-epoch: 7 step: 1000, loss is 0.13373856
-epoch: 8 step: 1000, loss is 0.015793817
-epoch: 9 step: 1000, loss is 0.00017951085
-epoch: 10 step: 1000, loss is 0.01490275
+============== Starting Training ==============
+epoch: 1 step: 1000, loss is 0.110185064
+epoch: 2 step: 1000, loss is 0.12088283
+epoch: 3 step: 1000, loss is 0.15903473
+epoch: 4 step: 1000, loss is 0.030054657
+epoch: 5 step: 1000, loss is 0.013846226
+epoch: 6 step: 1000, loss is 0.052161213
+epoch: 7 step: 1000, loss is 0.0050197737
+epoch: 8 step: 1000, loss is 0.17207858
+epoch: 9 step: 1000, loss is 0.010310417
+epoch: 10 step: 1000, loss is 0.000672762
 ```
+
+When `batch_size` is 32, the size of the dataset is 1875. When `sink_size` is set to 1000, each `epoch` sinks 1000 batches of data, the number of sinks is `epoch` (=10), and the total sunk data volume is `epoch` x `sink_size` = 10000.
 
 > When `dataset_sink_mode` is set to False, the `sink_size` parameter is invalid.
