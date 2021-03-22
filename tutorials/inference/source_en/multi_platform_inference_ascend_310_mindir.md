@@ -77,18 +77,21 @@ namespace ds = mindspore::dataset;
 Set global context, device target is `Ascend 310` and device id is `0`:
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
 Load mindir file:
 
 ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50((ms::GraphCell(graph)));
-ms::Status ret = resnet50.Build({});
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
 Get informance of this model:
@@ -163,8 +166,10 @@ namespace ds = mindspore::dataset;
 Set global context, device target is `Ascend 310` and device id is `0`:
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
 Load image file:
@@ -196,8 +201,8 @@ Image preprocess (Ascend 310 operators, 130% performance increasing compare to C
 Explicitly specify the computing hardware as Ascend 310.
 
 ```c++
-// Define a MindData preprocessor,  set deviceType = kAscend310
-ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310);
+// Define a MindData preprocessor, set deviceType = kAscend310, device id = 0
+ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310, 0);
 
 // Call the function object to get the processed image
 ret = preprocessor(image, &image);
@@ -207,15 +212,12 @@ Load mindir file: Ascend 310 operators must bind with Aipp module, insert Aipp m
 
  ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
-
-auto model_context = std::make_shared<ms::ModelContext>();
-
-ms::ModelContext::SetInsertOpConfigPath(model_context, preprocessor.AippCfgGenerator());
-
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50(ms::GraphCell(graph), model_context);
-ms::Status ret = resnet50.Build();
+ascend310_info->SetInsertOpConfigPath(preprocessor.AippCfgGenerator());
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
  ```
 
 Get input information of this model:
@@ -247,13 +249,6 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 ## Introduce to Building Script
 
 The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
-
-Since MindSpore uses the [old C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html), applications must be the same with MindSpore, otherwise the building will fail.
-
-```cmake
-add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
-set(CMAKE_CXX_STANDARD 17)
-```
 
 Add head files to gcc search path:
 

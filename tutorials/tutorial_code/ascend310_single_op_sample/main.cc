@@ -24,11 +24,23 @@ static const std::vector<float> input_data_1 = {1, 2, 3, 4};
 static const std::vector<float> input_data_2 = {2, 3, 4, 5};
 
 int main() {
-  ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
-  ms::GlobalContext::SetGlobalDeviceID(0);
-  auto graph = ms::Serialization::LoadModel(tensor_add_file, ms::ModelType::kMindIR);
-  ms::Model tensor_add((ms::GraphCell(graph)));
-  ms::Status ret = tensor_add.Build();
+  // set context
+  auto context = std::make_shared<ms::Context>();
+  auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+  ascend310_info->SetDeviceID(0);
+  context->MutableDeviceInfo().push_back(ascend310_info);
+
+  // define model
+  ms::Graph graph;
+  ms::Status ret = ms::Serialization::Load(tensor_add_file, ms::ModelType::kMindIR, &graph);
+  if (ret != ms::kSuccess) {
+    std::cout << "Load model failed." << std::endl;
+    return 1;
+  }
+  ms::Model tensor_add;
+
+  // build model
+  ret = tensor_add.Build(ms::GraphCell(graph), context);
   if (ret != ms::kSuccess) {
     std::cout << "Build model failed." << std::endl;
     return 1;

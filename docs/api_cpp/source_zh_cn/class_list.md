@@ -21,8 +21,7 @@ MindSpore中的类定义及其所属命名空间和描述：
 
 | 命名空间 | 类 | 描述 |
 | --- | --- | --- |
-| mindspore::api | [Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#context) | Context用于保存执行期间的环境变量。 |
-| mindspore::api | [Serialization](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#serialization) | Serialization汇总了模型文件读写的方法。 |
-| mindspore::api | [Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#model) | Model定义了MindSpore中的模型，便于计算图管理。 |
-| mindspore::api | [Tensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#tensor) | Tensor定义了MindSpore中的张量。 |
-| mindspore::api | [Buffer](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#buffer) | Buffer管理了一段内存空间。 |
+| mindspore | [Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#context) | Context用于保存执行期间的环境变量。 |
+| mindspore | [Serialization](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#serialization) | Serialization汇总了模型文件读写的方法。 |
+| mindspore | [Model](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#model) | Model定义了MindSpore中的模型，便于计算图管理。 |
+| mindspore | [MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/api.html#tensor) | MSTensor定义了MindSpore中的张量。 |

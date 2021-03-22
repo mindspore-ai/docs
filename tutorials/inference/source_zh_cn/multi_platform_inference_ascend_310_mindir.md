@@ -77,18 +77,21 @@ namespace ds = mindspore::dataset;
 环境初始化，指定硬件为Ascend 310，DeviceID为0：
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
 加载模型文件:
 
 ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50((ms::GraphCell(graph)));
-ms::Status ret = resnet50.Build({});
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
 获取模型所需输入信息：
@@ -163,8 +166,10 @@ namespace ds = mindspore::dataset;
 环境初始化，指定硬件为Ascend 310，DeviceID为0：
 
 ```c++
-ms::GlobalContext::SetGlobalDeviceTarget(ms::kDeviceTypeAscend310);
-ms::GlobalContext::SetGlobalDeviceID(0);
+auto context = std::make_shared<ms::Context>();
+auto ascend310_info = std::make_shared<ms::Ascend310DeviceInfo>();
+ascend310_info->SetDeviceID(0);
+context->MutableDeviceInfo().push_back(ascend310_info);
 ```
 
 加载图片文件:
@@ -194,8 +199,8 @@ std::shared_ptr<ds::TensorTransform> center_crop(new ds::vision::CenterCrop({224
 图片预处理（使用Ascend 310算子， 性能为CPU算子的2.3倍），需显式指定计算硬件为Ascend 310。
 
 ```c++
-// Define a MindData preprocessor, set deviceType = kAscend310
-ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310);
+// Define a MindData preprocessor, set deviceType = kAscend310， device id = 0
+ds::Execute preprocessor({decode, resize, center_crop, normalize}, MapTargetDevice::kAscend310, 0);
 
 // Call the function object to get the processed image
 ret = preprocessor(image, &image);
@@ -205,15 +210,12 @@ ret = preprocessor(image, &image);
 
 ```c++
 // Load MindIR model
-auto graph = ms::Serialization::LoadModel(resnet_file, ms::ModelType::kMindIR);
-
-auto model_context = std::make_shared<ms::ModelContext>();
-
-ms::ModelContext::SetInsertOpConfigPath(model_context, preprocessor.AippCfgGenerator());
-
+ms::Graph graph;
+ms::Status ret = ms::Serialization::Load(resnet_file, ms::ModelType::kMindIR, &graph);
 // Build model with graph object
-ms::Model resnet50(ms::GraphCell(graph), model_context);
-ms::Status ret = resnet50.Build();
+ascend310_info->SetInsertOpConfigPath(preprocessor.AippCfgGenerator());
+ms::Model resnet50;
+ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
 获取模型所需输入信息：
@@ -245,13 +247,6 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 ## 构建脚本介绍
 
 构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
-
-由于MindSpore使用[旧版的C++ ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)，因此用户程序需与MindSpore一致，否则编译链接会失败。
-
-```cmake
-add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
-set(CMAKE_CXX_STANDARD 17)
-```
 
 为编译器添加头文件搜索路径：
 
