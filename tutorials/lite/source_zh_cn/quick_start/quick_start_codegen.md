@@ -1,10 +1,10 @@
-# "编译"一个MNIST分类模型
+# 编译一个MNIST分类模型
 
  `Linux` `IoT` `C++` `全流程` `模型编译` `模型代码生成` `模型部署` `推理应用` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- ["编译"一个MNIST分类模型](#编译一个MNIST分类模型)
+- [编译一个MNIST分类模型](#编译一个MNIST分类模型)
     - [概述](#概述)
     - [生成代码](#生成代码)
     - [部署应用](#部署应用)
@@ -61,9 +61,9 @@
 
 ### 构建与运行
 
-#### 使用脚本一键生成代码、执行
+#### 使用脚本一键生成代码并执行
 
-下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，进入`mindspore/mindspore/lite/micro/examples/mnist`目录并执行脚本`mnist.sh`自动生成模型推理代码并编译工程目录。
+下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，进入`mindspore/mindspore/lite/micro/examples/mnist`目录，执行脚本`mnist.sh`自动生成模型推理代码并编译工程目录。
 
 ```bash
 bash mnist.sh
@@ -72,10 +72,13 @@ bash mnist.sh
 推理结果如下：
 
 ```text
+...
 start run benchmark
 input 0: mnist_input.bin
 output size: 1
-name: Softmax-7, size: 10
+uint8:
+Name: Softmax-7, DataType: 43, Size: 40, Shape: 1 10, Data:
+0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000,
 run benchmark success
 ```
 
@@ -85,14 +88,25 @@ run benchmark success
 
 1. 算子静态库目录说明
 
-    在编译此工程之前需要预先获取x86平台对应的算子库[codegen](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到operator_library，将其拷贝到当前目录下。
+    在编译此工程之前需要预先获取x86平台对应的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到`mindspore-lite-{version}-inference-linux-x64`，将其拷贝到当前目录下。
 
-    以本教程为例，预置x86平台算子静态库的目录如下：
+    > `{version}` 为版本号字符串，如`1.2.0`。
+
+    以本教程为例，预置x86平台的Release包目录如下：
 
     ```text
-    ├── operator_library    # 对应平台算子库目录
-        ├── include         # 对应平台算子库头文件目录
-        └── lib             # 对应平台算子库静态库目录
+    mindspore-lite-{version}-inference-linux-x64/
+    ├── inference
+    │   ├── include
+    │   │   └── ...
+    │   └── ...
+    └── tools
+        ├── codegen
+        │   └── operator_library                            # 对应平台算子库目录
+        │       ├── include                                 # 对应平台算子库头文件目录
+        │       │   └── ...
+        │       └── lib                                     # 对应平台算子库静态库目录
+        └── ...
     ```
 
 2. 生成代码工程目录说明
@@ -100,107 +114,91 @@ run benchmark success
     当前目录下预置了MNIST分类网络生成的代码。
 
     ```text
-    ├── mnist               # 生成代码的根目录
-        ├── benchmark       # 生成代码的benchmark目录
-        └── src             # 模型推理代码目录
+    mnist/                                                  # 生成代码的根目录
+    ├── benchmark                                           # 生成代码的benchmark目录
+    └── src                                                 # 模型推理代码目录
     ```
 
 #### 代码编译
 
-1. 编译生成模型静态库
+1. 编译生成benchmark可执行文件
 
     组织模型生成的推理代码以及算子静态库，编译生成模型推理静态库。
 
-    进入代码工程src目录下并新建build目录：
+    进入代码工程目录下，新建并进入build目录：
 
     ```bash
-    cd mnist/src && mkdir build
-    ```
-
-    进入build目录：
-
-    ```bash
-    cd build
+    mkdir mnist/build && cd mnist/build
     ```
 
     开始编译：
 
     ```bash
-    cmake -DOP_LIB={path to}/operator_library/lib/liboplib.a    \
-        -DOP_HEADER_PATH={path to}/operator_library/include/    \
-        ..
+    cmake -DPKG_PATH={path to}/mindspore-lite-{version}-inference-linux-x64 ..
     make
     ```
 
-    > {path to}需要用户根据实际情况填写。
+    > `{path to}`和`{version}`需要用户根据实际情况填写。
 
     代码工程编译成功结果：
 
     ```text
-    [100%] Linking C static library libmnist.a
-    unzip raw static library libmnist.a
-    raw static library libmnist.a size:
-    -rw-r--r-- 1 root root 356K Mar  4 16:48 libmnist.a
-    generate specified static library libmnist.a
-    new static library libmnist.a size:
-    -rw-r--r-- 1 root root 735K Mar  4 16:48 libmnist.a
-    ```
-
-    此时在mnist/src/build目录下生成了libmnist.a，推理执行库。
-
-2. 编译生成可执行文件
-
-    组织模型推理静态库以及benchmark代码，编译生成二进制可执行文件文件，进入mnist/benchmark目录并新建build目录：
-
-    ```bash
-    cd mnist/benchmark && mkdir build
-    ```
-
-    进入build目录并编译：
-
-    ```bash
-    cd build
-    cmake -DMODEL_LIB=../../src/build/libmnist.a  ..
-    make
-    ```
-
-    代码工程编译成功结果：
-
-    ```text
-    [100%] Linking C executable benchmark
+    ...
+    Scanning dependencies of target net
+    [ 12%] Building C object src/CMakeFiles/net.dir/net.c.o
+    [ 25%] Building CXX object src/CMakeFiles/net.dir/session.cc.o
+    [ 37%] Building CXX object src/CMakeFiles/net.dir/tensor.cc.o
+    [ 50%] Building C object src/CMakeFiles/net.dir/weight.c.o
+    [ 62%] Linking CXX static library libnet.a
+    unzip raw static library libnet.a
+    raw static library libnet.a size:
+    -rw-r--r-- 1 user user 58K Mar 22 10:09 libnet.a
+    generate specified static library libnet.a
+    new static library libnet.a size:
+    -rw-r--r-- 1 user user 162K Mar 22 10:09 libnet.a
+    [ 62%] Built target net
+    Scanning dependencies of target benchmark
+    [ 75%] Building CXX object CMakeFiles/benchmark.dir/benchmark/benchmark.cc.o
+    [ 87%] Building C object CMakeFiles/benchmark.dir/benchmark/load_input.c.o
+    [100%] Linking CXX executable benchmark
     [100%] Built target benchmark
     ```
 
-    此时在mnist/benchmark/build目录下生成了benchmark可执行文件。
+    此时在`mnist/build/src/`目录下生成了`libnet.a`，推理执行库，在`mnist/build`目录下生成了`benchmark`可执行文件。
 
 #### 代码部署
 
-本示例部署于x86平台。由代码工程编译成功以后的产物为`benchmark`可执行文件，将其拷贝到用户的目标Linux服务器中即可执行。在目标Linux服务上执行编译成功的二进制文件:
+本示例部署于x86平台。由代码工程编译成功以后的产物为`benchmark`可执行文件，将其拷贝到用户的目标Linux服务器中即可执行。
+
+在目标Linux服务上执行编译成功的二进制文件：
 
 ```bash
-./benchmark mnist_input.bin mnist.net
+./benchmark mnist_input.bin net.bin
 ```
 
-> mnist_input.bin在example/mnist目录下，mnist.net为模型参数文件，在example/mnist/src目录下。
+> mnist_input.bin在`example/mnist`目录下，`net.bin`为模型参数文件，在`example/mnist/src`目录下。
+
 生成结果如下：
 
-```text
+```bash
 start run benchmark
 input 0: mnist_input.bin
 output size: 1
-name: Softmax-7, size: 10
+uint8:
+Name: Softmax-7, DataType: 43, Size: 40, Shape: 1 10, Data:
+0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000,
 run benchmark success
 ```
 
 ### 编写推理代码示例
 
-本教程中的`benchmark`内部实现主要用于指导用户如何编写以及调用Codegen"编译"的模型推理代码接口。
+本教程中的`benchmark`内部实现主要用于指导用户如何编写以及调用Codegen编译的模型推理代码接口。
 
 以下为接口调用的详细介绍，详情代码可以参见[examples/mnist](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist)下的示例代码示例：
 
 #### 构建推理的上下文以及会话
 
-本教程生成的代码为非并行代码，无需上下文context,可直接设为空。
+本教程生成的代码为非并行代码，无需上下文context，可直接设为空。
 
 ```cpp
   size_t model_size = 0;
