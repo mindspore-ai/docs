@@ -800,6 +800,8 @@ def generate_tensor():
 
 - 当即有`if`又有`else`时，`if`分支变量更新后数据类型和`shape`，与`else`分支更新后数据类型和`shape`必须一致。
 
+- `if`条件控制语句太多会导致`Ascend`下编译时间变长，尽量减少冗余`if`的使用。
+
 示例1：
 
 ```python

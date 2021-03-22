@@ -798,6 +798,8 @@ Restrictions:
 
 - When both `if` and `else` are available, the updated data type and `shape` of the `if` branch variable must be the same as those of the `else` branch.
 
+- Too many `if` statements will prolong the compilation time in `Ascend`, so minimize the use of redundant `if`.
+
 Example 1:
 
 ```python
