@@ -63,13 +63,18 @@ The following example uses a sequential sampler to load the CIFAR-10 dataset [1]
 Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
 
 ```bash
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/cifar10.zip
-!unzip -o cifar10.zip -d ./datasets
-!tree ./datasets/cifar10
+!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
+!mkdir -p datasets
+!tar -xzf cifar-10-binary.tar.gz -C datasets
+!mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
+!tree ./datasets/cifar-10-batches-bin
 ```
 
 ```text
-./datasets/cifar10
+./datasets/cifar-10-batches-bin
+├── readme.html
 ├── test
 │   └── test_batch.bin
 └── train
@@ -80,7 +85,7 @@ Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar
     ├── data_batch_4.bin
     └── data_batch_5.bin
 
-2 directories, 7 files
+2 directories, 8 files
 ```
 
 ```python
@@ -91,7 +96,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 ds.config.set_seed(5)
 ds.config.set_num_parallel_workers(1)
 
-DATA_DIR = "./datasets/cifar10/train/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 sampler = ds.SequentialSampler(num_samples=3)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -161,7 +166,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 ds.config.set_seed(6)
 ds.config.set_num_parallel_workers(1)
 
-DATA_DIR = "./datasets/cifar10/train/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 sampler = ds.RandomSampler(num_samples=4)
 dataset1 = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -199,8 +204,8 @@ The output is as follows:
 Source image Shape : (32, 32, 3) , Source label : 3
 Flipped image Shape: (32, 32, 3) , Flipped label: 3
 ------
-Source image Shape : (32, 32, 3) , Source label : 6
-Flipped image Shape: (32, 32, 3) , Flipped label: 6
+Source image Shape : (32, 32, 3) , Source label : 3
+Flipped image Shape: (32, 32, 3) , Flipped label: 3
 ------
 Source image Shape : (32, 32, 3) , Source label : 6
 Flipped image Shape: (32, 32, 3) , Flipped label: 6
@@ -228,13 +233,16 @@ The following example loads the MNIST dataset [2], resizes the loaded image to (
 Download and decompress the MNIST dataset, store it in the `./datasets/MNIST_data/` path, execute the following command:
 
 ```bash
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
-!unzip -o MNIST_Data.zip -d ./datasets
-!tree ./datasets/MNIST_Data/
+!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+!tree ./datasets/MNIST_Data
 ```
 
 ```text
-./datasets/MNIST_Data/
+./datasets/MNIST_Data
 ├── test
 │   ├── t10k-images-idx3-ubyte
 │   └── t10k-labels-idx1-ubyte
@@ -317,7 +325,7 @@ import mindspore.dataset.vision.c_transforms as c_trans
 
 ds.config.set_seed(8)
 
-DATA_DIR = "./datasets/cifar10/train/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=4, shuffle=True)
 
@@ -352,17 +360,17 @@ plt.show()
 The output is as follows:
 
 ```text
-Source image Shape : (32, 32, 3) , Source label : 4
-Flipped image Shape: (32, 32, 3) , Flipped label: 4
+Source image Shape : (32, 32, 3) , Source label : 7
+Flipped image Shape: (101, 101, 3) , Flipped label: 7
 ------
-Source image Shape : (32, 32, 3) , Source label : 9
-Flipped image Shape: (32, 32, 3) , Flipped label: 9
+Source image Shape : (32, 32, 3) , Source label : 0
+Flipped image Shape: (101, 101, 3) , Flipped label: 0
 ------
-Source image Shape : (32, 32, 3) , Source label : 6
-Flipped image Shape: (32, 32, 3) , Flipped label: 6
+Source image Shape : (32, 32, 3) , Source label : 2
+Flipped image Shape: (101, 101, 3) , Flipped label: 2
 ------
-Source image Shape : (32, 32, 3) , Source label : 5
-Flipped image Shape: (32, 32, 3) , Flipped label: 5
+Source image Shape : (32, 32, 3) , Source label : 1
+Flipped image Shape: (101, 101, 3) , Flipped label: 1
 ------
 ```
 
@@ -391,9 +399,10 @@ from PIL import Image
 
 ds.config.set_seed(8)
 
-DATA_DIR = "./datasets/cifar10/train/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 dataset1 = ds.Cifar10Dataset(DATA_DIR, num_samples=5, shuffle=True)
+
 def decode(image):
     return Image.fromarray(image)
 
@@ -422,11 +431,11 @@ plt.show()
 The output is as follows:
 
 ```text
-Transformed image Shape: (3, 200, 200) , Transformed label: 4
-Transformed image Shape: (3, 200, 200) , Transformed label: 9
-Transformed image Shape: (3, 200, 200) , Transformed label: 6
-Transformed image Shape: (3, 200, 200) , Transformed label: 5
 Transformed image Shape: (3, 200, 200) , Transformed label: 7
+Transformed image Shape: (3, 200, 200) , Transformed label: 0
+Transformed image Shape: (3, 200, 200) , Transformed label: 2
+Transformed image Shape: (3, 200, 200) , Transformed label: 1
+Transformed image Shape: (3, 200, 200) , Transformed label: 6
 ```
 
 The following shows the processed image.
@@ -435,8 +444,8 @@ The following shows the processed image.
 
 ## Eager Mode
 
-All data augmentation operators we introduced above need to be run under pipeline mode. That is, we have to
-define a `map` operator which helps us to apply these augmentations, for example:
+All data augmentation operators `c_transform` and `py_transform` we introduced above need to be run under pipeline mode. That is, we have to
+define a `map` operator which helps us to start and execute the given data augmentation operator, and to map and transfor the data of the data pipeline, for example:
 
 ```python
 random_crop = c_trans.RandomCrop([10, 10])
@@ -446,19 +455,18 @@ dataset = dataset.map(operations=random_crop, input_columns=["image"])
 However, the pipeline code seems heavy while we sometime just want to do a little experiment (e.g. model inference).
 Thus, MindSpore provides a simple way to execute these augmentation operators, calls `Eager Mode`.
 
-To achieve the augmented result, you can write code easily as following:
+To use Eager mode, you only need to use the data enhancement operator itself as an executable function, you can write code easily as following:
 
 ```python
-import os
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.vision.py_transforms as P
 
-os.system("wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg")
-img = Image.open("banana.jpg").convert("RGB")
-print("Image.type: {}, Image.shape: {}".format(type(img), img.size))
+!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg
+img_ori = Image.open("banana.jpg").convert("RGB")
+print("Image.type: {}, Image.shape: {}".format(type(img_ori), img_ori.size))
 
 # Define a Resize op from c_transform and execute it immediately
 op1 = C.Resize(size=(320))
@@ -510,6 +518,8 @@ The following shows the processed image.
 ## Usage Instructions
 
 Do not use `c_transforms` and `py_transforms` together because they apply to images in different ways and using them together will reduce the processing performance (Except for Eager Mode).
+
+(Note: The mixed use of `c_transforms` and `py_transforms` in Eager mode is not affected by differences in operating modes.)
 
 ![map](./images/map.png)
 

@@ -41,13 +41,16 @@ This module provides APIs to load and process data sets.
 Run the following command to download the training images and labels of the MNIST dataset and unzip them, put them in the path `./datasets/MNIST_Data`, the directory structure is as follows:
 
 ```text
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/MNIST_Data.zip
-!unzip -o MNIST_Data.zip -d ./datasets
-!tree ./datasets/MNIST_Data/
+!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+!tree ./datasets/MNIST_Data
 ```
 
 ```text
-./datasets/MNIST_Data/
+./datasets/MNIST_Data
 ├── test
 │   ├── t10k-images-idx3-ubyte
 │   └── t10k-labels-idx1-ubyte

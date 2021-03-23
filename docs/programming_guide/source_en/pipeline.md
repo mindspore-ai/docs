@@ -65,16 +65,16 @@ for data in dataset1.create_dict_iterator():
 The output is as follows:
 
 ```text
-{'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[3, 4, 5])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 ```
 
 ### map
 
-Applies a specified function or operator to specified columns in a dataset to implement data mapping. You can customize the mapping function or use operators in c_transforms or py_transforms to augment image and text data.
+Applies a specified function or operator to specified columns in a dataset to implement data mapping. You can customize the mapping function or use operators in `c_transforms` or `py_transforms` to augment image and text data.
 
 > For details about how to use data augmentation, see [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html) in the Programming Guide.
 
@@ -109,17 +109,17 @@ for data in dataset.create_dict_iterator():
 The output is as follows:
 
 ```text
-{'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[3, 4, 5])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 ------ after processing ------
-{'data': Tensor(shape=[3], dtype=Int64, value=[0, 2, 4])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[2, 4, 6])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[4, 6, 8])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[ 6,  8, 10])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[ 8, 10, 12])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 2, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 4, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 6, 8])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [ 6,  8, 10])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [ 8, 10, 12])}
 ```
 
 ### batch
@@ -156,12 +156,21 @@ for data in dataset2.create_dict_iterator():
 The output is as follows:
 
 ```text
-{'data': Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [1, 2, 3]])}
-{'data': Tensor(shape=[2, 3], dtype=Int64, value=[[2, 3, 4], [3, 4, 5]])}
-{'data': Tensor(shape=[1, 3], dtype=Int64, value=[[4, 5, 6]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value=
+[[0, 1, 2],
+ [1, 2, 3]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value=
+[[2, 3, 4],
+ [3, 4, 5]])}
+{'data': Tensor(shape=[1, 3], dtype=Int64, value=
+[[4, 5, 6]])}
 ------ drop remainder ------
-{'data': Tensor(shape=[2, 3], dtype=Int64, value=[[0, 1, 2], [1, 2, 3]])}
-{'data': Tensor(shape=[2, 3], dtype=Int64, value=[[2, 3, 4], [3, 4, 5]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value=
+[[0, 1, 2],
+ [1, 2, 3]])}
+{'data': Tensor(shape=[2, 3], dtype=Int64, value=
+[[2, 3, 4],
+ [3, 4, 5]])}
 ```
 
 ### repeat
@@ -192,16 +201,16 @@ for data in dataset1.create_dict_iterator():
 The output is as follows:
 
 ```text
-{'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[3, 4, 5])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[0, 1, 2])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[1, 2, 3])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[2, 3, 4])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[3, 4, 5])}
-{'data': Tensor(shape=[3], dtype=Int64, value=[4, 5, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [0, 1, 2])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [1, 2, 3])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [2, 3, 4])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [3, 4, 5])}
+{'data': Tensor(shape=[3], dtype=Int64, value= [4, 5, 6])}
 ```
 
 ### zip

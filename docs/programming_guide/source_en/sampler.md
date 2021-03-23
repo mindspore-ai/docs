@@ -32,18 +32,34 @@ The following table lists part of the common samplers supported by MindSpore. In
 
 ## MindSpore Samplers
 
-The following uses the CIFAR-10 as an example to introduce several common MindSpore samplers. Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it. The directory structure is as follows:
+The following uses the CIFAR-10 as an example to introduce several common MindSpore samplers.
+
+Download the CIFAR-10 data set and unzip it to the specified path, execute the following command:
+
+```bash
+!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
+!mkdir -p datasets
+!tar -xzf cifar-10-binary.tar.gz -C datasets
+!mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
+!tree ./datasets/cifar-10-batches-bin
+```
 
 ```text
-└─cifar-10-batches-bin
+./datasets/cifar-10-batches-bin
+├── readme.html
+├── test
+│   └── test_batch.bin
+└── train
     ├── batches.meta.txt
     ├── data_batch_1.bin
     ├── data_batch_2.bin
     ├── data_batch_3.bin
     ├── data_batch_4.bin
-    ├── data_batch_5.bin
-    ├── readme.html
-    └── test_batch.bin
+    └── data_batch_5.bin
+
+2 directories, 8 files
 ```
 
 ### RandomSampler
@@ -57,7 +73,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(0)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 print("------ Without Replacement ------")
 
@@ -82,15 +98,15 @@ The output is as follows:
 ------ Without Replacement ------
 Image shape: (32, 32, 3) , Label: 1
 Image shape: (32, 32, 3) , Label: 6
-Image shape: (32, 32, 3) , Label: 7
+Image shape: (32, 32, 3) , Label: 6
 Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 4
 ------ With Replacement ------
-Image shape: (32, 32, 3) , Label: 4
-Image shape: (32, 32, 3) , Label: 6
+Image shape: (32, 32, 3) , Label: 0
 Image shape: (32, 32, 3) , Label: 9
-Image shape: (32, 32, 3) , Label: 1
-Image shape: (32, 32, 3) , Label: 5
+Image shape: (32, 32, 3) , Label: 3
+Image shape: (32, 32, 3) , Label: 9
+Image shape: (32, 32, 3) , Label: 6
 ```
 
 ### WeightedRandomSampler
@@ -104,7 +120,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(1)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 weights = [1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
 sampler = ds.WeightedRandomSampler(weights, num_samples=6)
@@ -136,7 +152,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(2)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 indices = [0, 1, 2, 3, 4, 5]
 sampler = ds.SubsetRandomSampler(indices, num_samples=3)
@@ -165,7 +181,7 @@ import mindspore.dataset as ds
 
 ds.config.set_seed(3)
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 sampler = ds.PKSampler(num_val=2, class_column='label', num_samples=20)
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=sampler)
@@ -240,7 +256,7 @@ class MySampler(ds.Sampler):
         for i in range(0, 10, 2):
             yield i
 
-DATA_DIR = "cifar-10-batches-bin/"
+DATA_DIR = "./datasets/cifar-10-batches-bin/train/"
 
 dataset = ds.Cifar10Dataset(DATA_DIR, sampler=MySampler())
 
