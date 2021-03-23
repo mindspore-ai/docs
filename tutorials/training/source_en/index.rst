@@ -518,6 +518,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend_of_cluster.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Cluster Performance Profiling (Ascend)</span>
+										</div>
+										<div class="doc-article-desc">
+										This article describes how to use MindSpore Profiler for cluster performance debugging on Ascend AI processors.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU  stage-Model-Optimization user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger.html" class="article-link">
 									<div>

@@ -26,7 +26,7 @@
 
 MindSpore版的SPONGE是北大和深圳湾实验室高毅勤课题组与华为MindSpore团队联合开发的分子模拟库，具有高性能、模块化等特性。基于MindSpore自动并行、图算融合等特性，SPONGE可高效地完成传统分子模拟过程。SPONGE利用MindSpore自动微分的特性，可以将神经网络等AI方法与传统分子模拟进行结合。
 
-本篇教程将主要介绍如何GPU上，使用MindSpore内置的SPONGE进行高性能分子模拟。
+本篇教程将主要介绍如何在GPU上，使用MindSpore内置的SPONGE进行高性能分子模拟。
 
 > 你可以在这里下载完整的示例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>。
 

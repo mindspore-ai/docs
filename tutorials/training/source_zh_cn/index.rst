@@ -427,6 +427,30 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/parameterized_quantum_circuit.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">参数化量子线路</span>
+										</div>
+										<div class="doc-article-desc">
+										参数化量子线路（Parameterized quantum circuit, PQC）是进行量子机器学习的一种途径，量子-经典混合机器学习架构MindQuantum能够处理带参数的量子线路，并利用量子神经网络的可逆性来对线路进行自动微分，得到观测值对各参数的导数。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/qnn_for_nlp.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">量子神经网络在自然语言处理中的应用</span>
+										</div>
+										<div class="doc-article-desc">
+										本教程将介绍如何简单地搭建一个量子经典混合神经网络来完成一个词嵌入任务。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html" class="article-link">
 									<div>
@@ -531,6 +555,18 @@
 										</div>
 										<div class="doc-article-desc">
 											将训练过程中的算子耗时等信息记录到文件中，通过可视化界面供用户查看分析，帮助用户更高效地调试神经网络性能。本教程适用于GPU硬件平台。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend_of_cluster.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">集群性能调试（Ascend）</span>
+										</div>
+										<div class="doc-article-desc">
+										本教程介绍如何在Ascend AI处理器上使用MindSpore Profiler进行集群训练性能调试。
 										</div>
 									</div>
 								</a>
@@ -868,6 +904,18 @@
 										</div>
 										<div class="doc-article-desc">
 											本篇教程将主要介绍如何在GPU上，使用MindSpore构建并运行三维海洋模型GOMO。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/hpc_sponge.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">SPONGE分子模拟实践</span>
+										</div>
+										<div class="doc-article-desc">
+										本篇教程将主要介绍如何在GPU上，使用MindSpore内置的SPONGE进行高性能分子模拟。
 										</div>
 									</div>
 								</a>
