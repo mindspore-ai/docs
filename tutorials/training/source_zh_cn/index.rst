@@ -58,7 +58,7 @@
    :hidden:
 
    advanced_use/debug_in_pynative_mode
-   advanced_use/dump_data_from_ir_files
+   advanced_use/dump_in_graph_mode
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
