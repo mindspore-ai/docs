@@ -24,4 +24,4 @@ The definitions and namespaces of classes in MindSpore are as follows:
 | mindspore | [Context](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#context)             | The Context class is used to store environment variables during execution.                        |
 | mindspore | [Serialization](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#serialization) | The Serialization class is used to summarize methods for reading and writing model files.         |
 | mindspore | [Model](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#model)                 | The Model class is used to define a MindSpore model, facilitating computational graph management. |
-| mindspore | [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/mindspore.html#mstensor)           | The MSTensor class defines a tensor in MindSpore.                                                 |
+| mindspore | [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor)           | The MSTensor class defines a tensor in MindSpore.                                                 |
