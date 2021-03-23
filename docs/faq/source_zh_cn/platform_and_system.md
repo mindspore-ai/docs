@@ -34,6 +34,12 @@ A：Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <br/>
 
+<font size=3>**Q：MindSpore导出AIR模型对单个Tensor输入大小有什么限制？**</font>
+
+A：对于单个Tensor的输入，Tensor大小不能超过2GB，否则导出AIR模型会产生错误。
+
+<br/>
+
 <font size=3>**Q：我用MindSpore在GPU上训练的网络脚本可以不做修改直接在NPU上进行训练么？**</font>
 
 A：可以的，MindSpore面向NPU/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。

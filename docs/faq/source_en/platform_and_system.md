@@ -34,6 +34,12 @@ A: An AIR model cannot be exported from the Ascend 310. You need to load a train
 
 <br/>
 
+<font size=3>**Q: What is the limitation on the input size of a single tensor when exporting an AIR model from MindSpore?**</font>
+
+A: For the input of a single tensor, the size of tensor should not exceed 2GB, otherwise it will be wrong when converting to air model.
+
+<br/>
+
 <font size=3>**Q: Can a network script trained by MindSpore on a GPU be directly trained on an NPU without modification?**</font>
 
 A: Yes. MindSpore provides unified APIs for NPUs, GPUs, and CPUs. With the support of operators, network scripts can run across platforms without modification.
