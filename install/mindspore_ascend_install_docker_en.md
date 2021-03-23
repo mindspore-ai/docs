@@ -29,9 +29,9 @@ The current support for containerized build options is as follows:
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04/CentOS 8.2 is installed with the 64-bit operating system.
+- Confirm that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
 - Confirm that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
-- Confirm that the Ascend 910 AI processor software package ([Atlas Data Center Solution V100R020C20](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251826872)) are installed.
+- Confirm that the Ascend 910 AI processor software package ([Atlas Data Center Solution V100R001C77]()) are installed.
     - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - After installing basic driver and corresponding software packages, confirm that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
