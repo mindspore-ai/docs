@@ -189,7 +189,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Windows os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -206,7 +206,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">"编译"一个MNIST分类模型</span>
+											<span class="doc-head-content">编译一个MNIST分类模型</span>
 										</div>
 							
 										<div class="doc-article-desc">
