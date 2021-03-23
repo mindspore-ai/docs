@@ -240,7 +240,7 @@ def TrainWrap(net, loss_fn=None, optimizer=None, weights=None):
     if weights is None:
         weights = ParameterTuple(net.trainable_params())
     if optimizer is None:
-        optimizer = nn.Adam(weights, learning_rate=1e-2, beta1=0.9, beta2=0.999, eps=1e-8, use_locking=False, use_nesterov=False, weight_decay=0.0, loss_scale=1.0)
+        optimizer = nn.Adam(weights, learning_rate=0.003, beta1=0.9, beta2=0.999, eps=1e-5, use_locking=False, use_nesterov=False, weight_decay=4e-5, loss_scale=1.0)
     train_net = nn.TrainOneStepCell(loss_net, optimizer)
     return train_net
 ```
@@ -308,7 +308,7 @@ int NetRunner::Main() {
 
       session_ = mindspore::session::TrainSession::CreateSession(ms_file_, &context);
       MS_ASSERT(nullptr != session_);
-      loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_, &context);
+      loop_ = mindspore::session::TrainLoop::CreateTrainLoop(session_);
 
       acc_metrics_ = std::shared_ptr<AccuracyMetrics>(new AccuracyMetrics);
 
@@ -316,6 +316,11 @@ int NetRunner::Main() {
 
       auto inputs = session_->GetInputs();
       MS_ASSERT(inputs.size() > 1);
+      auto nhwc_input_dims = inputs.at(0)->shape();
+      MS_ASSERT(nhwc_input_dims.size() == 4);
+      batch_size_ = nhwc_input_dims.at(0);
+      h_ = nhwc_input_dims.at(1);
+      w_ = nhwc_input_dims.at(2);
     }
     ```
 
@@ -354,8 +359,8 @@ int NetRunner::Main() {
 
     ```cpp
     int NetRunner::TrainLoop() {
-      struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.9);
-      mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 100);
+      struct mindspore::lite::StepLRLambda step_lr_lambda(1, 0.7);
+      mindspore::lite::LRScheduler step_lr_sched(mindspore::lite::StepLRLambda, static_cast<void *>(&step_lr_lambda), 1);
 
       mindspore::lite::LossMonitor lm(100);
       mindspore::lite::ClassificationTrainAccuracyMonitor am(1);
@@ -375,12 +380,12 @@ int NetRunner::Main() {
     float NetRunner::CalculateAccuracy(int max_tests) {
       test_ds_ = Mnist(data_dir_ + "/test", "all");
       TypeCast typecast_f("float32");
-      Resize resize({32, 32});
+      Resize resize({h_, w_});
       test_ds_ = test_ds_->Map({&resize, &typecast_f}, {"image"});
 
       TypeCast typecast("int32");
       test_ds_ = test_ds_->Map({&typecast}, {"label"});
-      test_ds_ = test_ds_->Batch(32, true);
+      test_ds_ = test_ds_->Batch(batch_size_, true);
 
       Rescaler rescale(255.0);
 
