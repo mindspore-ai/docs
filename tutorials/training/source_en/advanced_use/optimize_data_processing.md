@@ -46,39 +46,57 @@ import numpy as np
 
 ### Downloading the Required Dataset
 
-1. Create the `./dataset/Cifar10Data` directory in the current working directory. The dataset used for this practice is stored in this directory.
-2. Create the `./transform` directory in the current working directory. The dataset generated during the practice is stored in this directory.
-3. Download [the CIFAR-10 dataset in binary format](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress the dataset file to the `./dataset/Cifar10Data/cifar-10-batches-bin` directory. The dataset will be used during data loading.
-4. Download [the CIFAR-10 Python dataset in file-format](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz) and decompress the dataset file to the `./dataset/Cifar10Data/cifar-10-batches-py` directory. The dataset will be used for data conversion.
+Run the following command to download the dataset:
+Download the CIFAR-10 Binary format dataset, decompress them and store them in the `./datasets` path, use this dataset when loading data.
 
-The directory structure is as follows:
-
-```text
-dataset/Cifar10Data
-├── cifar-10-batches-bin
-│   ├── batches.meta.txt
-│   ├── data_batch_1.bin
-│   ├── data_batch_2.bin
-│   ├── data_batch_3.bin
-│   ├── data_batch_4.bin
-│   ├── data_batch_5.bin
-│   ├── readme.html
-│   └── test_batch.bin
-└── cifar-10-batches-py
-    ├── batches.meta
-    ├── data_batch_1
-    ├── data_batch_2
-    ├── data_batch_3
-    ├── data_batch_4
-    ├── data_batch_5
-    ├── readme.html
-    └── test_batch
+```bash
+!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
+!mkdir -p datasets
+!tar -xzf cifar-10-binary.tar.gz -C datasets
+!mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
+!mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
+!tree ./datasets/cifar-10-batches-bin
 ```
 
-In the preceding information:
+```text
+./datasets/cifar-10-batches-bin
+├── readme.html
+├── test
+│   └── test_batch.bin
+└── train
+    ├── batches.meta.txt
+    ├── data_batch_1.bin
+    ├── data_batch_2.bin
+    ├── data_batch_3.bin
+    ├── data_batch_4.bin
+    └── data_batch_5.bin
 
-- The `cifar-10-batches-bin` directory is the directory for storing the CIFAR-10 dataset in binary format.
-- The `cifar-10-batches-py` directory is the directory for storing the CIFAR-10 dataset in Python file format.
+2 directories, 8 files
+```
+
+Download cifar-10 Python file format dataset, decompress them in the `./datasets/cifar-10-batches-py` path, use this dataset when converting data.
+
+```bash
+!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-python.tar.gz
+!mkdir -p datasets
+!tar -xzf cifar-10-python.tar.gz -C datasets
+!tree ./datasets/cifar-10-batches-py
+```
+
+```text
+./datasets/cifar-10-batches-py
+├── batches.meta
+├── data_batch_1
+├── data_batch_2
+├── data_batch_3
+├── data_batch_4
+├── data_batch_5
+├── readme.html
+└── test_batch
+
+0 directories, 8 files
+```
 
 ## Optimizing the Data Loading Performance
 
@@ -95,9 +113,9 @@ MindSpore provides multiple data loading methods, including common dataset loadi
 
 Suggestions on data loading performance optimization are as follows:
 
-- Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html). If the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
-- For a dataset format that is not supported, convert the format to the MindSpore data format and then use the `MindDataset` class to load the dataset. If the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
-- For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification. If the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-process-optimization-solution).
+- Built-in loading operators are preferred for supported dataset formats. For details, see [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html), if the performance cannot meet the requirements, use the multi-thread concurrency solution. For details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
+- For a dataset format that is not supported, convert the format to the MindSpore data format and then use the `MindDataset` class to load the dataset. Please refer to [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/convert_dataset.html), if the performance cannot meet the requirements, use the multi-thread concurrency solution, for details, see [Multi-thread Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-thread-optimization-solution).
+- For dataset formats that are not supported, the user-defined `GeneratorDataset` class is preferred for implementing fast algorithm verification, if the performance cannot meet the requirements, the multi-process concurrency solution can be used. For details, see [Multi-process Optimization Solution](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html#multi-process-optimization-solution).
 
 ### Code Example
 
@@ -106,9 +124,9 @@ Based on the preceding suggestions of data loading performance optimization, the
 1. Use the `Cifar10Dataset` class of built-in operators to load the CIFAR-10 dataset in binary format. The multi-thread optimization solution is used for data loading. Four threads are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data and a data record is read through the iterator.
 
     ```python
-    cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
+    cifar10_path = "./datasets/cifar-10-batches-bin/train"
 
-    # create a Cifar10Dataset object for reading data
+    # create Cifar10Dataset for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
@@ -118,32 +136,72 @@ Based on the preceding suggestions of data loading performance optimization, the
 
     ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
-          [[[235, 235, 235],
-            [230, 230, 230],
-            [234, 234, 234],
-            ...,
-            [248, 248, 248],
-            [248, 248, 248],
-            [249, 249, 249]],
-            ...,
-            [120, 120, 119],
-            [146, 146, 146],
-            [177, 174, 190]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
+        [[[181, 185, 194],
+        [184, 187, 196],
+        [189, 192, 201],
+        ...
+        [178, 181, 191],
+        [171, 174, 183],
+        [166, 170, 179]],
+        [[182, 185, 194],
+        [184, 187, 196],
+        [189, 192, 201],
+        ...
+        [180, 183, 192],
+        [173, 176, 185],
+        [167, 170, 179]],
+        [[185, 188, 197],
+        [187, 190, 199],
+        [193, 196, 205],
+        ...
+        [182, 185, 194],
+        [176, 179, 188],
+        [170, 173, 182]],
+        ...
+        [[176, 174, 185],
+        [172, 171, 181],
+        [174, 172, 183],
+        ...
+        [168, 171, 180],
+        [164, 167, 176],
+        [160, 163, 172]],
+        [[172, 170, 181],
+        [171, 169, 180],
+        [173, 171, 182],
+        ...
+        [164, 167, 176],
+        [160, 163, 172],
+        [156, 159, 168]],
+        [[171, 169, 180],
+        [173, 171, 182],
+        [177, 175, 186],
+        ...
+        [162, 165, 174],
+        [158, 161, 170],
+        [152, 155, 164]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 6)}
     ```
 
 2. Use the `Cifar10ToMR` class to convert the CIFAR-10 dataset into the MindSpore data format. In this example, the CIFAR-10 dataset in Python file format is used. Then use the `MindDataset` class to load the dataset in the MindSpore data format. The multi-thread optimization solution is used for data loading. Four threads are enabled to concurrently complete the task. Finally, a dictionary iterator is created for data and a data record is read through the iterator.
 
     ```python
+    import os
     from mindspore.mindrecord import Cifar10ToMR
 
-    cifar10_path = './dataset/Cifar10Data/cifar-10-batches-py'
+    trans_path = "./transform/"
+
+    if not os.path.exists(trans_path):
+        os.mkdir(trans_path)
+
+    os.system("rm -f {}cifar10*".format(trans_path))
+
+    cifar10_path = './datasets/cifar-10-batches-py'
     cifar10_mindrecord_path = './transform/cifar10.record'
 
     cifar10_transformer = Cifar10ToMR(cifar10_path, cifar10_mindrecord_path)
     # execute transformation from CIFAR-10 to MindRecord
     cifar10_transformer.transform(['label'])
 
-    # create a MindDataset object for reading data
+    # create MindDataset for reading data
     cifar10_mind_dataset = ds.MindDataset(dataset_file=cifar10_mindrecord_path, num_parallel_workers=4)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_mind_dataset.create_dict_iterator()))
@@ -152,9 +210,16 @@ Based on the preceding suggestions of data loading performance optimization, the
     The output is as follows:
 
     ```text
-    {'data': Tensor(shape=[1431], dtype=UInt8, value= [255, 216, 255, ...,  63, 255, 217]),
-        'id': Tensor(shape=[], dtype=Int64, value= 30474),
-        'label': Tensor(shape=[], dtype=Int64, value= 2)}
+    {'data': Tensor(shape=[1289], dtype=UInt8, value= [255, 216, 255, 224,   0,  16,  74,  70,  73,  70,   0,   1,   1,   0,   0,   1,   0,   1,   0,   0, 255, 219,   0,  67,
+    0,   2,   1,   1,   1,   1,   1,   2,   1,   1,   1,   2,   2,   2,   2,   2,   4,   3,   2,   2,   2,   2,   5,   4,
+    4,   3,   4,   6,   5,   6,   6,   6,   5,   6,   6,   6,   7,   9,   8,   6,   7,   9,   7,   6,   6,   8,  11,   8,
+    9,  10,  10,  10,  10,  10,   6,   8,  11,  12,  11,  10,  12,   9,  10,  10,  10, 255, 219,   0,  67,   1,   2,   2,
+    ...
+    ...
+    ...
+    39, 227, 206, 143, 241,  91, 196, 154, 230, 189, 125, 165, 105, 218,  94, 163, 124, 146,  11, 187,  29,  34, 217, 210,
+    23, 186,  56,  14, 192,  19, 181,   1,  57,  36,  14,  51, 211, 173, 105,   9, 191, 100, 212, 174, 122,  25, 110,  39,
+    11, 133, 193, 226, 169,  73,  36, 234,  69,  90, 222,  93,  31, 223, 115, 255, 217]), 'id': Tensor(shape=[], dtype=Int64, value= 46084), 'label': Tensor(shape=[], dtype=Int64, value= 5)}
     ```
 
 3. The `GeneratorDataset` class is used to load the user-defined dataset, and the multi-process optimization solution is used. Four processes are enabled to concurrently complete the task. Finally, a dictionary iterator is created for the data, and a data record is read through the iterator.
@@ -178,7 +243,7 @@ Based on the preceding suggestions of data loading performance optimization, the
 
 ## Optimizing the Shuffle Performance
 
-The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process. However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+The shuffle operation is used to shuffle ordered datasets or repeated datasets. MindSpore provides the `shuffle` function for users.  A larger value of `buffer_size` indicates a higher shuffling degree, consuming more time and computing resources. This API allows users to shuffle the data at any time during the entire pipeline process.Please refer to [shuffle](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html#shuffle). However, because the underlying implementation methods are different, the performance of this method is not as good as that of setting the `shuffle` parameter to directly shuffle data by referring to the [Built-in Loading Operators](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
 
 ### Performance Optimization Solution
 
@@ -196,9 +261,9 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 1. Use the `Cifar10Dataset` class of built-in operators to load the CIFAR-10 dataset. In this example, the CIFAR-10 dataset in binary format is used, and the `shuffle` parameter is set to True to perform data shuffle. Finally, a dictionary iterator is created for the data and a data record is read through the iterator.
 
     ```python
-    cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
+    cifar10_path = "./datasets/cifar-10-batches-bin/train"
 
-    # create a Cifar10Dataset object for reading data
+    # create Cifar10Dataset for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, shuffle=True)
     # create a dictionary iterator and read a data record through the iterator
     print(next(cifar10_dataset.create_dict_iterator()))
@@ -208,17 +273,49 @@ Based on the preceding shuffle performance optimization suggestions, the `shuffl
 
     ```text
     {'image': Tensor(shape=[32, 32, 3], dtype=UInt8, value=
-          [[[235, 235, 235],
-            [230, 230, 230],
-            [234, 234, 234],
-            ...,
-            [248, 248, 248],
-            [248, 248, 248],
-            [249, 249, 249]],
-            ...,
-            [120, 120, 119],
-            [146, 146, 146],
-            [177, 174, 190]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 9)}
+    [[[213, 205, 194],
+    [215, 207, 196],
+    [219, 210, 200],
+    ...
+    [253, 254, 249],
+    [253, 254, 249],
+    [253, 254, 249]],
+    [[218, 208, 198],
+    [220, 210, 200],
+    [222, 212, 202],
+    ...
+    [253, 254, 249],
+    [253, 254, 249],
+    [253, 254, 249]],
+    [[219, 209, 198],
+    [222, 211, 200],
+    [224, 214, 202],
+    ...
+    [254, 253, 248],
+    [254, 253, 248],
+    [254, 253, 248]],
+    ...
+    [[135, 141, 139],
+    [135, 141, 139],
+    [146, 152, 150],
+    ...
+    [172, 174, 172],
+    [181, 182, 182],
+    [168, 168, 167]],
+    [[113, 119, 117],
+    [109, 115, 113],
+    [117, 123, 121],
+    ...
+    [155, 159, 156],
+    [150, 155, 155],
+    [135, 140, 140]],
+    [[121, 127, 125],
+    [117, 123, 121],
+    [121, 127, 125],
+    ...
+    [180, 184, 180],
+    [141, 146, 144],
+    [125, 130, 129]]]), 'label': Tensor(shape=[], dtype=UInt32, value= 8)}
     ```
 
 2. Use the `shuffle` function to shuffle data. Set `buffer_size` to 3 and use the `GeneratorDataset` class to generate data.
@@ -264,7 +361,7 @@ During image classification training, especially when the dataset is small, user
 - Use the built-in Python operator (`py_transforms` module) to perform data augmentation.
 - Users can define Python functions as needed to perform data augmentation.
 
-The performance varies according to the underlying implementation methods.
+Please refer to [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html). The performance varies according to the underlying implementation methods.
 
 | Module | Underlying API | Description |
 | :----: | :----: | :----: |
@@ -292,12 +389,13 @@ Based on the preceding suggestions of data augmentation performance optimization
     import mindspore.dataset.transforms.c_transforms as c_transforms
     import mindspore.dataset.vision.c_transforms as C
     import matplotlib.pyplot as plt
-    cifar10_path = "./dataset/Cifar10Data/cifar-10-batches-bin/"
 
-    # create a Cifar10Dataset object for reading data
+    cifar10_path = "./datasets/cifar-10-batches-bin/train"
+
+    # create Cifar10Dataset for reading data
     cifar10_dataset = ds.Cifar10Dataset(cifar10_path, num_parallel_workers=4)
     transforms = C.RandomResizedCrop((800, 800))
-    # apply the transformation to the dataset through dataset.map()
+    # apply the transform to the dataset through dataset.map()
     cifar10_dataset = cifar10_dataset.map(operations=transforms, input_columns="image", num_parallel_workers=4)
 
     data = next(cifar10_dataset.create_dict_iterator())
