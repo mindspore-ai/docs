@@ -465,7 +465,7 @@ input_tensor = preprocess(input_image)
 input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the model
 ```
 
-通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html?highlight=data%20generator#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于 MindData 数据处理的介绍，可参考 [MindData API](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/data_pipeline.html) 介绍。
+通过观察以上代码，我们发现 ResNet50 的数据预处理主要做了 Resize、CenterCrop、Normalize 操作，在 MindSpore 中实现这些操作有两种方式，一是使用 MindSpore 的数据处理模块 MindData 来调用已封装好的数据预处理接口，二是通过 [自定义数据集](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8A%A0%E8%BD%BD) 进行加载。这里更建议开发者选择第一种方式，这样不仅可以减少重复代码的开发，减少错误的引入，还可以得到更好的数据处理性能。更多关于 MindData 数据处理的介绍，可参考 [MindData API](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/data_pipeline.html) 介绍。
 
 以下是基于 MindData 开发的数据处理函数：
 
@@ -552,7 +552,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 基于以上子网划分，我们结合 MindSpore 语法，重新完成上述开发。
 
-重新开发权重初始化（也可以直接使用 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.common.initializer.html?highlight=common%20initializer#)）：
+重新开发权重初始化（也可以直接使用 [MindSpore 已定义的权重初始化方法](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.common.initializer.html)）：
 
 ```python
 def _conv_variance_scaling_initializer(in_channel, out_channel, kernel_size):

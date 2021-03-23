@@ -286,7 +286,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 ### 定义并行训练流程
 
-通常情况下，定义了正向网络后会使用[`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.TrainOneStepCell.html?highlight=trainonestepcell)将网络正反向及优化器关联到一起。但是梯度累积时存在累积和更新两种情况，所以我们要基于原有类定义做一些改造。样例代码如下：
+通常情况下，定义了正向网络后会使用[`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.TrainOneStepCell.html)将网络正反向及优化器关联到一起。但是梯度累积时存在累积和更新两种情况，所以我们要基于原有类定义做一些改造。样例代码如下：
 
 ```python
 import numpy as np
@@ -432,7 +432,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### 定义并行训练模型
 
-经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=model#mindspore.Model)接口实现上述功能。
+经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model)接口实现上述功能。
 
 ```python
 import math
