@@ -444,7 +444,7 @@
            return out
    ```
 
-   PyTorch和MindSpore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.SequentialCell.html?highlight=sequentialcell#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html?highlight=sequential#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[算子列表](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api)。
+   PyTorch和MindSpore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[算子列表](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api)。
 
    |              PyTorch              |                     MindSpore                      |
    | :-------------------------------: | :------------------------------------------------: |

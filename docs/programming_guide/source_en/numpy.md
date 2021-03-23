@@ -362,7 +362,7 @@ from mindspore import ms_function
 forward_compiled = ms_function(forward)
 ```
 
-> Currently, static graph cannot run in command line mode and not all python types can be passed into functions decorated with `ms_function`. For details about the static graph syntax support, see [Syntax Support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html). For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function).
+> Currently, static graph cannot run in command line mode and not all python types can be passed into functions decorated with `ms_function`. For details about the static graph syntax support, see [Syntax Support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html). For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function).
 
 ### Use GradOperation to compute deratives
 
