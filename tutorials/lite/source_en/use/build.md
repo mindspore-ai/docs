@@ -247,14 +247,13 @@ The Codegen executable program is only available under the `-I x86_64` compilati
                 │   ├── nnacl # nnacl operator header file
                 │   └── wrapper
                 └── lib      # Inference framework library
-                    └── x86
-                        └── libops.a # MindSpore Lite Codegen generates code dependent x86 operator static library
+                    └── libops.a # MindSpore Lite Codegen generates code dependent operator static library
     ```
 
-- When the compilation option is `-I arm64`:
+- When the compilation option is `-I arm64` or `-I arm32`:
 
     ```text
-    mindspore-lite-{version}-inference-android-aarch64
+    mindspore-lite-{version}-inference-android-{arch}
     └── tools
         └── codegen # Code generation tool
             └── operator_library # Operator library
@@ -263,24 +262,7 @@ The Codegen executable program is only available under the `-I x86_64` compilati
                 │   ├── nnacl # nnacl operator header file
                 │   └── wrapper
                 └── lib       # Inference framework library
-                    └── arm64
-                        └── libops.a # MindSpore Lite Codegen generates code dependent x86 operator static library
-    ```
-
-- When the compilation option is `-I arm32`:
-
-     ```text
-    mindspore-lite-{version}-inference-android-aarch32
-    └── tools
-        └── codegen # Code generation tool
-            └── operator_library # Operator library
-                ├── include   # Header files of inference framework
-                │   ├── CMSIS # cmsis operator header file [CMSIS_5](https://github.com/ARM-software/CMSIS_5)
-                │   ├── nnacl # nnacl operator header file
-                │   └── wrapper
-                └── lib       # Inference framework library
-                    └── arm32a
-                        └── libops.a # MindSpore Lite Codegen generates code dependent x86 operator static library
+                    └── libops.a # MindSpore Lite Codegen generates code dependent operator static library
     ```
 
 #### Description of Runtime and Other tools' Directory Structure
@@ -540,6 +522,20 @@ mindspore-lite-{version}-inference-win-x64
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
+```
+
+> Before running the tools in the converter and the benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
+
+Configure converter:
+
+```bash
+set PATH=./output/mindspore-lite-{version}-inference-win-x64/tools/converter/lib:%PATH%
+```
+
+Configure benchmark:
+
+```bash
+set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH%
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.
