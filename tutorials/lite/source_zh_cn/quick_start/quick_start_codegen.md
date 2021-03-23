@@ -273,4 +273,5 @@ run benchmark success
 
 ### [Android平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mobilenetv2/README.md)
 
-### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist/README.md)
+### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746/README.md)
+
