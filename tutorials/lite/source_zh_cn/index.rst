@@ -150,7 +150,33 @@
 						</div>
 
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">体验MindSpore Lite C++ 极简Demo</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了C++进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关API的使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">体验MindSpore Lite Java极简Demo</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										本教程提供了MindSpore Lite执行推理的示例程序，通过随机输入、执行推理、打印推理结果的方式，演示了利用MindSpore Lite Java API进行端侧推理的基本流程，用户能够快速了解MindSpore Lite执行推理相关Java API的使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
@@ -340,10 +366,10 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用net_train进行端侧训练基准测试</span>
+											<span class="doc-head-content">使用benchmark_train进行基准测试</span>
 										</div>
 										<div class="doc-article-desc">
-											MindSpore端侧训练为你提供了net_train工具对训练后的模型进行基准测试。它不仅可以对模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
+										与benchmark工具类似，MindSpore端侧训练为你提供了benchmark_train工具对训练后的模型进行基准测试。它不仅可以对模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
 										</div>
 									</div>
 								</a>

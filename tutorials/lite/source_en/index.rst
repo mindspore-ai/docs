@@ -147,7 +147,7 @@ Using MindSpore on Mobile and IoT
 						</div>
 
 						<div class="doc-article-list">
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
