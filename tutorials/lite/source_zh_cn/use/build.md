@@ -248,13 +248,13 @@ mindspore-lite-{version}-inference-linux-x64
                 │   ├── nnacl # nnacl 算子头文件
                 │   └── wrapper
                 └── lib      # 推理框架库
-                    └── libops.a # MindSpore Lite Codegen生成代码依赖的x86算子静态库
+                    └── libops.a # MindSpore Lite Codegen生成代码依赖的算子静态库
     ```
 
-- `-I arm64`编译选项下获得Codegen，内容如下：
+- `-I arm64`或`-I arm32`编译选项下获得Codegen，内容如下：
 
     ```text
-    mindspore-lite-{version}-inference-android-aarch64
+    mindspore-lite-{version}-inference-android-{arch}
     └── tools
         └── codegen # 代码生成工具
             └── operator_library # 算子库
@@ -263,22 +263,7 @@ mindspore-lite-{version}-inference-linux-x64
                 │   ├── nnacl # nnacl 算子头文件
                 │   └── wrapper
                 └── lib       # 推理框架库
-                    └── libops.a # MindSpore Lite Codegen生成代码依赖的arm64算子静态库
-    ```
-
-- `-I arm32`编译选项下获得Codegen，内容如下：
-
-    ```text
-    mindspore-lite-{version}-inference-android-aarch32
-    └── tools
-        └── codegen # 代码生成工具
-            └── operator_library # 算子库
-                ├── include   # 推理框架头文件
-                │   ├── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
-                │   ├── nnacl # nnacl 算子头文件
-                │   └── wrapper
-                └── lib       # 推理框架库
-                    └── libops.a # MindSpore Lite Codegen生成代码依赖的arm32算子静态库
+                    └── libops.a # MindSpore Lite Codegen生成代码依赖的算子静态库
     ```
 
 #### Runtime及其他工具目录结构说明
@@ -538,6 +523,20 @@ mindspore-lite-{version}-inference-win-x64
             ├── libssp-0.dll          # MinGW动态库
             ├── libstdc++-6.dll       # MinGW动态库
             └── libwinpthread-1.dll   # MinGW动态库
+```
+
+> 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
+
+配置converter：
+
+```bash
+set PATH=./output/mindspore-lite-{version}-inference-win-x64/tools/converter/lib:%PATH%
+```
+
+配置benchmark：
+
+```bash
+set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH%
 ```
 
 > 暂不支持在Windows进行端侧训练。
