@@ -1,4 +1,4 @@
-# 使用benchmark_train进行端侧训练基准测试
+# 使用benchmark_train进行基准测试
 
 `Linux` `环境准备` `基准测试` `中级` `高级`
 

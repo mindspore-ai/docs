@@ -1,6 +1,6 @@
 ﻿# Implementing an Image Classification Application (C++)
 
-`Windows` `Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
+`Android` `C++` `Whole Process` `Model Converting` `Model Loading` `Inference` `Data Preparation` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 

@@ -1,4 +1,4 @@
-# "Compile" a MNIST Classification Model
+# Compile a MNIST Classification Model
 
 This tutorial is being translated, please stay tuned...
 
