@@ -21,12 +21,12 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04/CentOS 8.2/EulerOS 2.8 is installed with the 64-bit operating system.
-- Ensure that right version [GCC](http://ftp.gnu.org/gnu/gcc/) is installed, for Ubuntu 18.04, EulerOS 2.8 users, GCC>=7.3.0; for CentOS 8.2 users, GCC>=8.3.1 .
+- Confirm that Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 is installed with the 64-bit operating system.
+- Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that Python 3.7.5 is installed.
     - If you didn't install Python or you have installed other versions, please download the Python 3.7.5 64-bit from [Python](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [Huaweicloud](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) to install.
-- Confirm that the Ascend 910 AI processor software package ([Atlas Data Center Solution V100R020C20](https://support.huawei.com/enterprise/zh/ascend-computing/atlas-data-center-solution-pid-251167910/software/251826872)) are installed.
+- Confirm that the Ascend 910 AI processor software package ([Atlas Data Center Solution V100R001C77]()) are installed.
 - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package, If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - Install the .whl package provided in Ascend 910 AI processor software package. The .whl package is released with the software package. After software package is upgraded, reinstall the .whl package.
 
