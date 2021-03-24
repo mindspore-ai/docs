@@ -236,3 +236,4 @@ Figure 2 shows the performance information of a single device in the cluster. Pl
 ## Notices
 
 - Currently running in PyNative mode is not supported.
+- Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
