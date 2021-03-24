@@ -139,7 +139,7 @@ if __name__ == '__main__':
 ```
 
 > 1. When using summary, it is recommended that you set `dataset_sink_mode` argument of `model.train` to `False`. Please see notices for more information.
-> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html?highlight=multiprocess#multiprocessing-programming)
+> 2. When using summary, you need to run the code in `if __name__ == "__main__"`. For more detail, refer to [Python tutorial](https://docs.python.org/3.7/library/multiprocessing.html#multiprocessing-programming)
 
 ### Method two: Custom collection of network data with summary operators and SummaryCollector
 
@@ -315,7 +315,7 @@ In the saved files, `ms_output_after_hwopt.pb` is the computational graph after 
 
 If you are not using the `Model` interface provided by MindSpore, you can implement a method by imitating `train` method of `Model` interface to control the number of iterations. You can imitate the `SummaryCollector` and record the summary operator data in the following manner. For a detailed custom training cycle tutorial, please [refer to the tutorial on the official website](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle).
 
-The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html?highlight=summaryrecord#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
+The following example demonstrates how to record data in a custom training cycle using the summary operator and the `add_value` interface of `SummaryRecord`. For more tutorials about `SummaryRecord`, [refer to the Python API documentation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord). Please note that `SummaryRecord` will not record computational graph automatically. If you need to record the computational graph, please manually pass the instance of network that inherits from Cell. The recorded computational graph only includes the code and functions used in the construct method.
 
 ```python
 from mindspore import nn
