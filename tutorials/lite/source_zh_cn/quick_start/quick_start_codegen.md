@@ -63,7 +63,7 @@
 
 #### 使用脚本一键生成代码并执行
 
-下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，进入`mindspore/mindspore/lite/micro/examples/mnist`目录，执行脚本`mnist.sh`自动生成模型推理代码并编译工程目录。
+下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，进入`mindspore/mindspore/lite/micro/examples/mnist_x86`目录，执行脚本`mnist.sh`自动生成模型推理代码并编译工程目录。
 
 ```bash
 bash mnist.sh
@@ -84,7 +84,7 @@ run benchmark success
 
 #### 生成代码工程说明
 
-进入`mindspore/mindspore/lite/micro/example/mnist`目录中。
+进入`mindspore/mindspore/lite/micro/example/mnist_x86`目录中。
 
 1. 算子静态库目录说明
 
@@ -114,7 +114,7 @@ run benchmark success
     当前目录下预置了MNIST分类网络生成的代码。
 
     ```text
-    mnist/                                                  # 生成代码的根目录
+    mnist_x86/                                                  # 生成代码的根目录
     ├── benchmark                                           # 生成代码的benchmark目录
     └── src                                                 # 模型推理代码目录
     ```
@@ -128,7 +128,7 @@ run benchmark success
     进入代码工程目录下，新建并进入build目录：
 
     ```bash
-    mkdir mnist/build && cd mnist/build
+    mkdir mnist_x86/build && cd mnist_x86/build
     ```
 
     开始编译：
@@ -164,7 +164,7 @@ run benchmark success
     [100%] Built target benchmark
     ```
 
-    此时在`mnist/build/src/`目录下生成了`libnet.a`，推理执行库，在`mnist/build`目录下生成了`benchmark`可执行文件。
+    此时在`mnist_x86/build/src/`目录下生成了`libnet.a`，推理执行库，在`mnist_x86/build`目录下生成了`benchmark`可执行文件。
 
 #### 代码部署
 
@@ -176,7 +176,7 @@ run benchmark success
 ./benchmark mnist_input.bin net.bin
 ```
 
-> mnist_input.bin在`example/mnist`目录下，`net.bin`为模型参数文件，在`example/mnist/src`目录下。
+> mnist_input.bin在`example/mnist_x86`目录下，`net.bin`为模型参数文件，在`example/mnist_x86/src`目录下。
 
 生成结果如下：
 
@@ -194,7 +194,7 @@ run benchmark success
 
 本教程中的`benchmark`内部实现主要用于指导用户如何编写以及调用Codegen编译的模型推理代码接口。
 
-以下为接口调用的详细介绍，详情代码可以参见[examples/mnist](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist)下的示例代码示例：
+以下为接口调用的详细介绍，详情代码可以参见[examples/mnist_x86](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86)下的示例代码示例：
 
 #### 构建推理的上下文以及会话
 
@@ -273,5 +273,5 @@ run benchmark success
 
 ### [Android平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mobilenetv2/README.md)
 
-### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746/README.md)
+### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_stm32f746/README.md)
 
