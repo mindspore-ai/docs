@@ -300,16 +300,6 @@ Common Operators
     mindspore.ops.ReduceOp
     mindspore.ops.ReduceScatter
 
-Control Flows
-^^^^^^^^^^^^^
-
-.. msplatformautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.ControlDepend
-
 Debug Operators
 ^^^^^^^^^^^^^^^
 
