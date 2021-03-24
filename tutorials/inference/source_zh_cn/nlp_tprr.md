@@ -18,7 +18,7 @@
     - [引用](#引用)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/nlp_tprr.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/nlp_tprr.md" target="_blank"><img src="./_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -150,7 +150,7 @@ def ThinkRetrieverConfig():
     parser.add_argument("--topk", type=int, default=8, help="top num")
     parser.add_argument("--onehop_num", type=int, default=8, help="onehop num")
     parser.add_argument("--batch_size", type=int, default=1, help="batch size")
-    parser.add_argument("--device_id", type=int, default=0, help="device id")
+    parser.add_argument("--device_num", type=int, default=8, help="device num")
     parser.add_argument("--vocab_path", type=str, default='../vocab.txt', help="vocab path")
     parser.add_argument("--wiki_path", type=str, default='../db_docs_bidirection_new.pkl', help="wiki path")
     parser.add_argument("--dev_path", type=str, default='../hotpot_dev_fullwiki_v1_for_retriever.json',
