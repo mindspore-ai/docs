@@ -25,14 +25,17 @@
         - [身份运算符](#身份运算符)
     - [表达式](#表达式)
         - [条件控制语句](#条件控制语句)
-            - [if](#if)
+            - [单if](#单if)
+            - [并列if](#并列if)
+            - [嵌套if](#嵌套if)
         - [循环语句](#循环语句)
             - [for](#for)
             - [while](#while)
-        - [流程控制语句](#流程控制语句)
-            - [break](#break)
-            - [continue](#continue)
-            - [pass](#pass)
+            - [并列while](#并列while)
+            - [嵌套while](#嵌套while)
+        - [循环嵌套条件控制语句](#循环嵌套条件控制语句)
+            - [if in for](#if-in-for)
+            - [if in while](#if-in-while)
         - [函数定义语句](#函数定义语句)
             - [def关键字](#def关键字)
             - [lambda表达式](#lambda表达式)
@@ -782,7 +785,7 @@ def generate_tensor():
 
 ### 条件控制语句
 
-#### if
+#### 单if
 
 使用方式：
 
@@ -794,13 +797,15 @@ def generate_tensor():
 
 限制：
 
-- 在构图时，如果`if`未能消除，则`if`分支`return`的数据类型和`shape`，与`if`分支外`return`的数据类型和`shape`必须一致。
+- 在构图时，如果`if`未能消除，则`if`分支`return`的数据类型和shape，与`if`分支外`return`的数据类型和shape必须一致。
 
-- 当只有`if`时，`if`分支变量更新后数据类型和`shape`，与更新前数据类型和`shape`必须一致。
+- 当只有`if`时，`if`分支变量更新后数据类型和shape，与更新前数据类型和shape必须一致。
 
-- 当即有`if`又有`else`时，`if`分支变量更新后数据类型和`shape`，与`else`分支更新后数据类型和`shape`必须一致。
+- 当即有`if`又有`else`时，`if`分支变量更新后数据类型和shape，与`else`分支更新后数据类型和shape必须一致。
 
-- `if`条件控制语句太多会导致`Ascend`下编译时间变长，尽量减少冗余`if`的使用。
+- 不支持高阶微分场景。
+
+- 不支持`elif`语句。
 
 示例1：
 
@@ -811,7 +816,7 @@ else:
   return n
 ```
 
-`if`分支返回的`m`和`else`分支返回的`n`，二者数据类型和`shape`必须一致。
+`if`分支返回的`m`和`else`分支返回的`n`，二者数据类型和shape必须一致。
 
 示例2：
 
@@ -823,15 +828,78 @@ else:
 return out
 ```
 
-`if`分支更新后`out`和`else`分支更新后`out`，二者数据类型和`shape`必须一致。
+`if`分支更新后`out`和`else`分支更新后`out`，二者数据类型和shape必须一致。
+
+#### 并列if
+
+使用方式：
+
+- `if (cond1):statements else:statements...if (cond2):statements...`
+
+参数：`cond1`、 `cond2`-- 与`单if`一致。
+
+限制：
+
+- 继承`单if`所有限制。
+
+- 计算图总`if`数量不超过50个。
+
+- `if`数量过多会导致编译时间过长，减少`if`数量有助于提升编译效率。
+
+示例：
+
+```python
+if x > y:
+  out = x
+else:
+  out = y
+if z > x:
+  out = out + 1
+return out
+```
+
+#### 嵌套if
+
+使用方式：
+
+- `if (cond1):if (cond2):statements...`
+
+参数：`cond1`、 `cond2`-- 与`单if`一致。
+
+限制：
+
+- 继承`单if`所有限制。
+
+- 计算图`if`数量不超过50个。
+
+- `if`数量过多会导致编译时间过长，减少`if`数量有助于提升编译效率。
+
+示例：
+
+```python
+if x > y:
+  z = z + 1
+  if z > x:
+    return m
+else:
+  return n
+```
 
 ### 循环语句
 
 #### for
 
-使用方式：`for i in sequence`
+使用方式：
 
-示例如下：
+- `for i in sequence`
+
+参数：`sequence` -- 遍历序列(`Tuple`、`List`)
+
+限制：
+
+- 图的算子数量和`for`循环的迭代次数成倍数关系，`for`循环迭代次数过大可能会导致图占用内存超过使用限制。
+
+示例：
 
 ```python
 z = Tensor(np.ones((2, 3)))
@@ -847,82 +915,166 @@ return z
 z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
 ```
 
-参数：`sequence` -- 遍历序列(`Tuple`、`List`)
+#### 单while
 
-#### while
+使用方式：
 
-使用方式：`while(cond)`
+- `while (cond)`
 
-参数：`cond` -- 与`if`一致。
+参数：`cond` -- 与`单if`一致。
 
 限制：
 
-- 在构图时，如果`while`未能消除，则`while`内`return`的数据类型和`shape`，与`while`外`return`的数据类型和`shape`必须一致。
+- 在构图时，如果`while`未能消除，则`while`内`return`的数据类型和shape，与`while`外`return`的数据类型和shape必须一致。
 
-- `while`内变量更新后数据类型和`shape`，与更新前数据类型和`shape`必须一致。
+- `while`内变量更新后数据类型和shape，与更新前数据类型和shape必须一致。
+
+- 不支持训练场景。
 
 示例1：
 
 ```python
-while x > y:
+while x < y:
   x += 1
   return m
 return n
 ```
 
-`while`内返回的`m`和`while`外返回的`n`数据类型必须和`shape`一致。
+`while`内返回的`m`和`while`外返回的`n`数据类型必须和shape一致。
 
 示例2：
 
 ```python
 out = m
-while x > y:
+while x < y:
   x += 1
-  out = n
+  out = out + 1
 return out
 ```
 
-`while`内，`out`更新后和更新前的数据类型和`shape`必须一致。
+`while`内，`out`更新后和更新前的数据类型和shape必须一致。
 
-### 流程控制语句
+#### 并列while
 
-当前流程控制语句支持了`break`、`continue`和`pass`。
+使用方式：
 
-#### break
+- `while (cond1):statements while (cond2):statemetns...`
 
-可用于`for`和`while`代码块里，用于终止整个循环。
+参数：`cond1`、 `cond2`-- 与`单if`一致。
 
-示例如下：
+限制：
+
+- 继承`单while`所有限制。
+
+- 并列`while`总数不超过50个。
+
+- `while`数量过多会导致编译时间过长，减少`while`数量有助于提升编译效率。
+
+示例：
 
 ```python
-for i in x:
-  if i == 2:
-      break
-  statement_a
-statement_b
+out = m
+while x < y:
+  x += 1
+  out = out + 1
+while out > 10:
+  out -= 10
+return out
 ```
 
-当 `i == 2`时，循环终止，执行`statement_b`。
+#### 嵌套while
 
-#### continue
+使用方式：
 
-可用于`for`和`while`语句块里，用于终止本轮循环，直接进入下一轮循环。
+- `while (cond1):while (cond2):statements...`
+
+参数：`cond1`、 `cond2`-- 与`单if`一致。
+
+限制：
+
+- 继承`单while`所有限制。
+
+- 嵌套`while`总数不超过50个。
+
+- `while`数量过多会导致编译时间过长，减少`while`数量有助于提升编译效率。
+
+示例：
+
+```python
+out = m
+while x < y:
+  while z < y:
+    z += 1
+    out = out + 1
+  x += 1
+return out
+```
+
+### 循环嵌套条件控制语句
+
+#### if in for
+
+使用方式：
+
+- `for i in sequence:if (cond)`
+
+参数：
+
+`cond` -- 与`单if`一致。
+
+`sequence` -- 遍历序列(`Tuple`、`List`)
+
+限制：
+
+- 继承`单if`所有限制。
+
+- 继承`for`所有限制。
+
+- `cond`为变量时，不能有`if (cond):return`、`if (cond):continue`、`if (cond):break`语句。
+
+- `if`数量和`for`循环的迭代次数成倍数关系，`for`循环迭代次数过大可能会导致编译时间过长。
 
 示例如下：
 
 ```python
+z = Tensor(np.ones((2, 3)))
+x = (1, 2, 3)
 for i in x:
-  if i == 2:
-      continue
-  statement_a
-statement_b
-  ```
+  if i < 3:
+    z += i
+return z
+```
 
-当 `i == 2`时，本轮循环终止，不会往下执行`statement_a`，进入下一轮循环。
+结果如下：
 
-#### pass
+```text
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[4, 4], [4, 4], [4, 4]])
+```
 
-不做任何事情，占位语句。
+#### if in while
+
+使用方式：
+
+- `while (cond1):if (cond2)`
+
+参数：`cond1`、 `cond2`-- 与`单if`一致。
+
+限制：
+
+- 继承`单if`、`单while`所有限制。
+
+- `cond2`为变量时，不能有`if (cond2):return`、`if (cond2):continue`、`if (cond2):break`语句。
+
+示例：
+
+```python
+out = m
+while x < y:
+  if z > 2*x:
+    out = out + 1
+  x += 1
+return out
+```
 
 ### 函数定义语句
 
