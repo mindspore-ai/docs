@@ -36,7 +36,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 ## 开发环境准备
 
-参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_air.html#id2)
+参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_air.html#id2)安装设备环境，然后参考[安装指导](https://www.mindspore.cn/install)安装MindSpore。
 
 ## 导出MindIR模型文件
 
