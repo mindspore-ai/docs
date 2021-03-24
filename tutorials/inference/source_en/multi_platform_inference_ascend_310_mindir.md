@@ -36,7 +36,7 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 ## Preparing the Development Environment
 
-For details, see [Inference on the Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_air.html#preparing-the-development-environment).
+Refer to [Inference on the Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_air.html#preparing-the-development-environment) to install the device, and then refer to [Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
 
 ## Exporting the MindIR Model
 
