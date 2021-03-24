@@ -272,3 +272,4 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 3. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
 4. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
 5. 脚本文件、权重文件和权重映射表输出于同一个目录下。
+6. 模型文件的安全性与一致性请用户自行保证。
