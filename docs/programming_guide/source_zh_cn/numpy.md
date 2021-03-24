@@ -366,7 +366,7 @@ from mindspore import ms_function
 forward_compiled = ms_function(forward)
 ```
 
-> 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=ms_function#mindspore.ms_function)。
+> 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.ms_function)。
 
 ### GradOperation使用示例
 
