@@ -70,8 +70,6 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.Primitive` ('bool_or')               
    * - mindspore.ops.cast
      - :class:`mindspore.ops.Cast`
-   * - mindspore.ops.control_depend
-     - :class:`mindspore.ops.ControlDepend`
    * - mindspore.ops.distribute
      - :class:`mindspore.ops.Primitive` ('distribute')               
    * - mindspore.ops.dtype
