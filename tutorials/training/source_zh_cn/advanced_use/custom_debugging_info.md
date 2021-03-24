@@ -10,12 +10,15 @@
         - [MindSpore的Callback能力](#mindspore的callback能力)
         - [自定义Callback](#自定义callback)
     - [MindSpore metrics功能介绍](#mindspore-metrics功能介绍)
-    - [print算子功能介绍](#print算子功能介绍)
+    - [Print算子功能介绍](#print算子功能介绍)
     - [数据Dump功能介绍](#数据dump功能介绍)
-        - [同步Dump功能介绍](#同步dump功能介绍)
-        - [异步Dump功能介绍](#异步dump功能介绍)
-    - [Running Data Recorder](#Running-Data-Recorder)
+        - [同步Dump功能使用方法](#同步dump功能使用方法)
+        - [异步Dump功能使用方法](#异步dump功能使用方法)
+    - [Running Data Recorder](#running-data-recorder)
         - [使用方法](#使用方法)
+            - [通过配置文件配置RDR](#通过配置文件配置rdr)
+            - [通过环境变量配置RDR](#通过环境变量配置rdr)
+            - [异常处理](#异常处理)
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
@@ -262,136 +265,15 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ## 数据Dump功能介绍
 
-训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。
+训练网络时，若训练结果和预期有偏差，可以通过数据Dump功能保存算子的输入输出进行调试。详细Dump功能介绍参考[Dump模式](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode.html#id4)。
 
 ### 同步Dump功能使用方法
 
-同步Dump同时支持GPU和Ascend上的图模式，暂不支持PyNative模式。在Ascend上面开启Dump的时候，待Dump的算子会自动关闭内存复用。在网络占用内存不大的情况下，请优先使用同步Dump。若开启同步Dump后出现设备内存不足的报错，请使用下一节里面的异步Dump。
-
-1. 创建配置文件`data_dump.json`。
-
-    JSON文件的名称和位置可以自定义设置。
-
-    ```json
-    {
-        "common_dump_settings": {
-            "dump_mode": 0,
-            "path": "/absolute_path",
-            "net_name": "ResNet50",
-            "iteration": 0,
-            "input_output": 0,
-            "kernels": ["Default/Conv-op12"],
-            "support_device": [0,1,2,3,4,5,6,7]
-        },
-        "e2e_dump_settings": {
-            "enable": true,
-            "trans_flag": true
-        }
-    }
-    ```
-
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面制定的算子。
-    - `path`：Dump保存数据的绝对路径。
-    - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
-    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数仅支持Ascend，GPU只能Dump算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件获取算子名称。例如，`device_target`为`Ascend`时，可以从`trace_code_graph_{graph_id}`中获取算子名称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。详细说明可以参照教程：[借助IR图进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html)
-    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `enable`：开启E2E Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
-    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。
-
-2. 指定Dump的json配置文件。
-
-    ```bash
-    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
-    ```
-
-    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
-
-3. 执行用例Dump数据。
-
-    可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-
-4. 解析Dump数据。
-
-    同步Dump生成的数据文件是以`.bin`结尾的二进制文件，可以通过`numpy.fromfile`读取解析。
-
-    - Dump路径的命名规则为：`{path}/{net_name}/device_{device_id}/iteration_{iteration}/`。
-    - Dump文件的命名规则为：`{算子名称}_{input_output_index}_{shape}_{data_type}_{format}.bin`。
-
-    下面以一个简单网络的Dump为例，Dump生成的文件：`/absolute_path/ResNet50/device_0/iteration_0/Default--Add-op1_input_0_shape_1_3_3_4_Float32_DefaultFormat.bin`。
-    其中`Default--Add-op1`是算子名称，`input_0`是`{input_output_index}`，`shape_1_3_3_4`是`{shape}`，`Float32`是`{data_type}`，`DefaultFormat`是`{format}`。
+同步Dump功能使用参考[同步Dump操作步骤](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode.html#id6)。
 
 ### 异步Dump功能使用方法
 
-异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
-
-1. 创建配置文件`data_dump.json`。
-
-    JSON文件的名称和位置可以自定义设置。
-
-    ```json
-    {
-        "common_dump_settings": {
-            "dump_mode": 0,
-            "path": "/absolute_path",
-            "net_name": "ResNet50",
-            "iteration": 0,
-            "input_output": 0,
-            "kernels": ["Default/Conv-op12"],
-            "support_device": [0,1,2,3,4,5,6,7]
-        },
-        "async_dump_settings": {
-            "enable": true,
-            "op_debug_mode": 0
-        }
-    }
-    ```
-
-    - `dump_mode`：设置成0，表示Dump出改网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
-    - `path`：Dump保存数据的绝对路径。
-    - `net_name`：自定义的网络名称，例如："ResNet50"。
-    - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
-    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[借助IR图进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html)
-    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
-    - `enable`：开启异步Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
-    - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
-
-2. 设置数据Dump的环境变量。
-
-    ```bash
-    export MINDSPORE_DUMP_CONFIG={Absolute path of data_dump.json}
-    ```
-
-    - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
-
-3. 执行用例Dump数据。
-
-    可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
-
-4. 解析文件。
-
-    - Dump路径的命名规则为：`{path}/{device_id}/{net_name}_graph_{graph_id}/{graph_id}/{iteration}`。
-    - Dump文件的命名规则为：`{op_type}.{op_name}.{task_id}.{timestamp}`。
-
-    以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
-
-    使用run包中提供的`msaccucmp.pyc`解析Dump出来的文件。不同的环境上`msaccucmp.pyc`文件所在的路径可能不同，可以通过find命令进行查找：
-
-    ```bash
-    find ${run包安装路径} -name "msaccucmp.pyc"
-    ```
-
-    找到`msaccucmp.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
-
-    ```bash
-    python ${msaccucmp.pyc的绝对路径} convert -d {原始的dump文件路径} -out {解析生成的文件路径}
-    ```
-
-    若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+同步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode#id11)。
 
 ## Running Data Recorder
 
