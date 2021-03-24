@@ -123,20 +123,32 @@ To facilitate maintenance and fault locating, the context provides a large numbe
 
 The system can collect profiling data during training and use the profiling tool for performance analysis. Currently, the following profiling data can be collected:
 
-- `enable_profiling`: indicates whether to enable the profiling function. If this parameter is set to True, the profiling function is enabled, and profiling options are read from enable_options. If this parameter is set to False, the profiling function is disabled and only training_trace is collected.
+- `enable_profiling`: indicates whether to enable the profiling function. If this parameter is set to True, the profiling function is enabled, and profiling options are read from `enable_options`. If this parameter is set to False, the profiling function is disabled and only training_trace is collected.
 
 - `profiling_options`: profiling collection options. The values are as follows. Multiple data items can be collected.
-    - result_path: saving the path of the profiling collection result file. The directory spectified by this parameter needs to be created in advance on the training environment (container or host side) and ensure that the running user configured during installation has read and write permissions. It supports the configuration of absolute or relative paths(relative to the current path when executing the command line). The absolute path configuration starts with '/', for example:/home/data/output. The relative path configuration directly starts with the directory name, for example:output;
-    - training_trace: collect iterative trajectory data, that is, the training task and software information of the AI software stack, to achieve performance analysis of the training task, focusing on data enhancement, forward and backward calculation, gradient aggregation update and other related data. The value is on/off;
-    - task_trace: collect task trajectory data, that is, the hardware information of the HWTS/AICore of the Ascend 910 processor, and analyze the information of beginning and ending of the task. The value is on/off;
-    - aicpu_trace: collect profiling data enhanced by aicpu data. The value is on/off;
-    - fp_point: specify the start position of the forward operator of the training network iteration trajectory, which is used to record the start timestamp of the forward calculation. The configuration value is the name of the first operator specified in the forward direction. when the value is empty, the system will automatically obtain the forward operator name;
-    - bp_point: specify the end position of the iteration trajectory reversal operator of the training network, record the end timestamp of the backward calculation. The configuration value is the name of the operator after the specified reverse. when the value is empty, the system will automatically obtain the backward operator name;
-    - ai_core_metrics: the values are as follows:
+
+    - `result_path`: saving the path of the profiling collection result file. The directory spectified by this parameter needs to be created in advance on the training environment (container or host side) and ensure that the running user configured during installation has read and write permissions. It supports the configuration of absolute or relative paths(relative to the current path when executing the command line). The absolute path configuration starts with '/', for example:/home/data/output. The relative path configuration directly starts with the directory name, for example:output;
+
+    - `training_trace`: collect iterative trajectory data, that is, the training task and software information of the AI software stack, to achieve performance analysis of the training task, focusing on data enhancement, forward and backward calculation, gradient aggregation update and other related data. The value is on/off;
+
+    - `task_trace`: collect task trajectory data, that is, the hardware information of the HWTS/AICore of the Ascend 910 processor, and analyze the information of beginning and ending of the task. The value is on/off;
+
+    - `aicpu_trace`: collect profiling data enhanced by aicpu data. The value is on/off;
+
+    - `fp_point`: specify the start position of the forward operator of the training network iteration trajectory, which is used to record the start timestamp of the forward calculation. The configuration value is the name of the first operator specified in the forward direction. when the value is empty, the system will automatically obtain the forward operator name;
+
+    - `bp_point`: specify the end position of the iteration trajectory reversal operator of the training network, record the end timestamp of the backward calculation. The configuration value is the name of the operator after the specified reverse. when the value is empty, the system will automatically obtain the backward operator name;
+
+    - `ai_core_metrics` the values are as follows:
+
         - ArithmeticUtilization: percentage statistics of various calculation indicators;
+
         - PipeUtilization: the time-consuming ratio of calculation unit and handling unit, this item is the default value;
+
         - Memory: percentage of external memory read and write instructions;
+
         - MemoryL0: percentage of internal memory read and write instructions;
+
         - ResourceConflictRatio: proportion of pipline queue instructions.
 
 A code example is as follows:
