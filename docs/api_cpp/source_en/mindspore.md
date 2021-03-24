@@ -64,7 +64,7 @@ Get the current Allocator setting.
 std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 ```
 
-Get a mutable reference of DeviceInfoContext vector in this context. Only MindSpore Lite supports heterogeneous scenarios with multiple members in the vector.
+Get a mutable reference of [DeviceInfoContext](#deviceinfocontext) vector in this context. Only MindSpore Lite supports heterogeneous scenarios with multiple members in the vector.
 
 - Returns
 
@@ -278,11 +278,13 @@ Builds a model so that it can run on a device.
 - Parameters
 
     - `graph`: `GraphCell` is a derivative of `Cell`. `Cell` is not available currently. `GraphCell` can be constructed from `Graph`, for example, `model.Build(GraphCell(graph), context)`.
-    - `model_context`: used to store the during execution.
+    - `model_context`: a [context](#context) used to store options during execution.
 
 - Returns
 
   Status code.
+
+> Modifications to `model_context` after `Build` will no longer take effect.
 
 #### Predict
 
