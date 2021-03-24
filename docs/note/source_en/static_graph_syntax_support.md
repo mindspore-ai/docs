@@ -25,14 +25,17 @@
         - [Identity Operators](#identity-operators)
     - [Expressions](#expressions)
         - [Conditional Control Statements](#conditional-control-statements)
-            - [if](#if)
+            - [single if](#single-if)
+            - [side-by-side if](#side-by-side-if)
+            - [if in if](#if-in-if)
         - [Loop Statements](#loop-statements)
             - [for](#for)
             - [while](#while)
-        - [Process Control Statements](#process-control-statements)
-            - [break](#break)
-            - [continue](#continue)
-            - [pass](#pass)
+            - [side-by-side while](#side-by-side-while)
+            - [while in while](#while-in-while)
+        - [Conditional Control Statements in Loop Statements](#conditional-control-statements-in-loop-statements)
+            - [if in for](#if-in-for)
+            - [if in while](#if-in-while)
         - [Function Definition Statements](#function-definition-statements)
             - [def Keyword](#def-keyword)
             - [lambda Expression](#lambda-expression)
@@ -780,7 +783,7 @@ For details about the rules, click <https://www.mindspore.cn/doc/note/en/master/
 
 ### Conditional Control Statements
 
-#### if
+#### single if
 
 Usage:
 
@@ -792,13 +795,15 @@ Parameter: `cond` -- The supported types are `Number`, `Tuple`, `List`, `String`
 
 Restrictions:
 
-- During graph building, if `if` is not eliminated, the data type and `shape` of `return` inside the `if` branch must be the same as those outside the `if` branch.
+- During graph building, if `if` is not eliminated, the data type and shape of `return` inside the `if` branch must be the same as those outside the `if` branch.
 
-- When only `if` is available, the data type and `shape` of the `if` branch variable after the update must be the same as those before the update.
+- When only `if` is available, the data type and shape of the `if` branch variable after the update must be the same as those before the update.
 
-- When both `if` and `else` are available, the updated data type and `shape` of the `if` branch variable must be the same as those of the `else` branch.
+- When both `if` and `else` are available, the updated data type and shape of the `if` branch variable must be the same as those of the `else` branch.
 
-- Too many `if` statements will prolong the compilation time in `Ascend`, so minimize the use of redundant `if`.
+- Does not support higher-order differential.
+
+- Does not support `elif` statements.
 
 Example 1:
 
@@ -809,7 +814,7 @@ else:
   return n
 ```
 
-The data types of `m` returned by the `if` branch and `n` returned by the `else` branch must be the same as those of `shape`.
+The data types of `m` returned by the `if` branch and `n` returned by the `else` branch must be the same as those of shape.
 
 Example 2:
 
@@ -821,15 +826,78 @@ else:
 return out
 ```
 
-The data types of `out` after the `if` branch is updated and `else` after the `out` branch is updated must be the same as those of `shape`.
+The data types of `out` after the `if` branch is updated and `else` after the `out` branch is updated must be the same as those of shape.
+
+#### side-by-side if
+
+Usage:
+
+- `if (cond1):statements else:statements...if (cond2):statements...`
+
+Parameters: `cond1` and `cond2` -- Consistent with `single if`.
+
+Restrictions:
+
+- Inherit all restrictions of `single if`.
+
+- The total number of `if` in calculating graph can not exceed 50.
+
+- Too many `if` will cause the compilation time to be too long. Reducing the number of `if` will help improve compilation efficiency.
+
+Example:
+
+```python
+if x > y:
+  out = x
+else:
+  out = y
+if z > x:
+  out = out + 1
+return out
+```
+
+#### if in if
+
+Usage:
+
+- `if (cond1):if (cond2):statements...`
+
+Parameters: `cond1` and `cond2` -- Consistent with `single if`.
+
+Restrictions:
+
+- Inherit all restrictions of `single if`.
+
+- The total number of `if` in calculating graph can not exceed 50.
+
+- Too many `if` will cause the compilation time to be too long. Reducing the number of `if` will help improve compilation efficiency.
+
+Example:
+
+```python
+if x > y:
+  z = z + 1
+  if z > x:
+    return m
+else:
+  return n
+```
 
 ### Loop Statements
 
 #### for
 
-Usage: `for i in sequence`
+Usage:
 
-For example:
+- `for i in sequence`
+
+Parameter: `sequence` --Iterative sequences (`Tuple` and `List`).
+
+Restrictions:
+
+- The total number of graph operations is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the graph to occupy more memory than usage limit.
+
+Example:
 
 ```python
 z = Tensor(np.ones((2, 3)))
@@ -845,82 +913,166 @@ The result is as follows:
 z: Tensor(shape=[2, 3], dtype=Int64, value=[[7, 7], [7, 7], [7, 7]])
 ```
 
-Parameter: `sequence` --Traverses sequences (`Tuple` and `List`).
+#### single while
 
-#### while
+Usage:
 
-Usage: `while(cond)`
+- `while (cond)`
 
-Parameter: `cond` -- Consistent with `if`.
+Parameter: `cond` -- Consistent with `single if`.
 
 Restrictions:
 
 - During graph building, if `while` is not eliminated, the data type and `shape` of `return` inside `while` must be the same as those outside `while`.
 
-- The data type and `shape` of the updated variables in `while` must be the same as those before the update.
+- The data type and shape of the updated variables in `while` must be the same as those before the update.
+
+- Does not support training scenarios.
 
 Example 1:
 
 ```python
-while x > y:
+while x < y:
   x += 1
   return m
 return n
 ```
 
-The `m` data type returned inside `while` inside and `n` data type returned outside `while` must be the same as those of `shape`.
+The `m` data type returned inside `while` inside and `n` data type returned outside `while` must be the same as those of shape.
 
 Example 2:
 
 ```python
 out = m
-while x > y:
+while x < y:
   x += 1
-  out = n
+  out = out + 1
 return out
 ```
 
-In `while`, the data types of `out` before and after update must be the same as those of `shape`.
+In `while`, the data types of `out` before and after update must be the same as those of shape.
 
-### Process Control Statements
+#### side-by-side while
 
-The current process control statements support `break`, `continue`, and `pass`.
+Usage:
 
-#### break
+- `while (cond1):statements while (cond2):statemetns...`
 
-It can be used in the `for` and `while` code blocks to terminate the entire loop.
+Parameters: `cond1` and `cond2` -- Consistent with `single if`.
 
-For example:
+Restrictions:
+
+- Inherit all restrictions of `single while`.
+
+- The total number of `while` in calculating graph can not exceed 50.
+
+- Too many `while` will cause the compilation time to be too long. Reducing the number of `while` will help improve compilation efficiency.
+
+Example:
 
 ```python
-for i in x:
-  if i == 2:
-      break
-  statement_a
-statement_b
+out = m
+while x < y:
+  x += 1
+  out = out + 1
+while out > 10:
+  out -= 10
+return out
 ```
 
-When `i == 2`, the loop ends and `statement_b` is executed.
+#### while in while
 
-#### continue
+Usage:
 
-It can be used in the `for` and `while` statement blocks to terminate the current loop and directly enter the next loop.
+-`while (cond1):while (cond2):statements...`
 
-For example:
+Parameters: `cond1` and `cond2` -- Consistent with `single if`.
+
+Restrictions:
+
+- Inherit all restrictions of `single while`.
+
+- The total number of `while` in calculating graph can not exceed 50.
+
+- Too many `while` will cause the compilation time to be too long. Reducing the number of `while` will help improve compilation efficiency.
+
+Example:
 
 ```python
+out = m
+while x < y:
+  while z < y:
+    z += 1
+    out = out + 1
+  x += 1
+return out
+```
+
+### Conditional Control Statements in Loop Statements
+
+#### if in for
+
+Usage:
+
+- for i in sequence:if (cond)`
+
+Parameters:
+
+- `cond` -- Consistent with `single if`.
+
+- `sequence` -- Iterative sequence(`Tuple`、`List`)
+
+Restrictions:
+
+- Inherit all restrictions of `single if`.
+
+- Inherit all restrictions of `for`.
+
+- If `cond` is variable, it is forbidden to use `if (cond):return`,`if (cond):continue`,`if (cond):break` statements.
+
+- The total number of `if` is a multiple of number of iterations of the `for` loop. Excessive number of iterations of the `for` loop may cause the compilation time to be too long.
+
+Example:
+
+```python
+z = Tensor(np.ones((2, 3)))
+x = (1, 2, 3)
 for i in x:
-  if i == 2:
-      continue
-  statement_a
-statement_b
-  ```
+  if i < 3:
+    z += i
+return z
+```
 
-When `i == 2`, the current loop ends and the `statement_a` statement is not executed. The next loop starts.
+The result is as follows:
 
-#### pass
+```text
+z: Tensor(shape=[2, 3], dtype=Int64, value=[[4, 4], [4, 4], [4, 4]])
+```
 
-It is used as a placeholder statement.
+#### if in while
+
+Usage:
+
+- `while (cond1):if (cond2)`
+
+Parameters: `cond1` and `cond2` -- Consistent with `single if`.
+
+Restrictions:
+
+- Inherit all restrictions of `single if` and `single while`.
+
+- If `cond2` is variable, it is forbidden to use `if (cond2):return`,`if (cond2):continue`,`if (cond2):break` statements.
+
+Example:
+
+```python
+out = m
+while x < y:
+  if z > 2*x:
+    out = out + 1
+  x += 1
+return out
+```
 
 ### Function Definition Statements
 
