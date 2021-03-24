@@ -64,7 +64,7 @@ std::shared_ptr<Allocator> GetAllocator() const;
 std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 ```
 
-修改该context下的DeviceInfoContext数组，仅mindspore lite支持数组中有多个成员是异构场景。
+修改该context下的[DeviceInfoContext](#deviceinfocontext)数组，仅mindspore lite支持数组中有多个成员是异构场景。
 
 - 返回值
 
@@ -278,11 +278,13 @@ Status Build(GraphCell graph, const std::shared_ptr<Context> &model_context);
 - 参数
 
     - `graph`: `GraphCell`是`Cell`的一个派生，`Cell`目前没有开放使用。`GraphCell`可以由`Graph`构造，如`model.Build(GraphCell(graph), context)`。
-    - `model_context`: 模型context。
+    - `model_context`: 模型[Context](#context)。
 
 - 返回值
 
   状态码类`Status`对象，可以使用其公有函数`StatusCode`或`ToString`函数来获取具体错误码及错误信息。
+
+> `Build`之后对`model_context`的其他修改不再生效。
 
 #### Predict
 
