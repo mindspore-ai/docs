@@ -56,7 +56,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 ## 1.2.0
 
@@ -538,6 +538,6 @@
 
 | 类别 | 网址 |
 | --- | --- |
-|安装 | <https://gitee.com/mindspore/docs/tree/master/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/master/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/master/index.html> |
+|安装 | <https://gitee.com/mindspore/docs/tree/r1.2/install> |
+| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html> |
+| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html> |

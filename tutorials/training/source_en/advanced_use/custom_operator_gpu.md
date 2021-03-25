@@ -17,7 +17,7 @@ Translator: [Leon_02](https://gitee.com/Leon_02)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/custom_operator_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/custom_operator_gpu.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -227,7 +227,7 @@ MS_REG_GPU_KERNEL_ONE(TensorAddV2, KernelAttr()
 
 ## Compiling Mindspore
 
-After writing the custom GPU operator, you need to recompile and install MindSpore, see [Installation Documentation](https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source_en.md#).
+After writing the custom GPU operator, you need to recompile and install MindSpore, see [Installation Documentation](https://gitee.com/mindspore/docs/blob/r1.2/install/mindspore_gpu_install_source_en.md#).
 
 ## Operator verification
 

@@ -16,13 +16,13 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/use/load_dataset_image.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
 In computer vision training tasks, it is often difficult to read the entire dataset directly into memory due to memory capacity. The `mindspore.dataset` module provided by MindSpore enables users to customize their data fetching strategy from disk. At the same time, data processing and data augmentation operators are applied to the data. Pipelined data processing produces a continuous flow of data to the training network, improving overall performance.
 
-In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
+In addition, MindSpore supports data loading in distributed scenarios. Users can define the number of shards while loading. For more details, see [Loading the Dataset in Data Parallel Mode](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/distributed_training_ascend.html#loading-the-dataset-in-data-parallel-mode).
 
 This tutorial uses the MNIST dataset [1] as an example to demonstrate how to load and process image data using MindSpore.
 
@@ -63,7 +63,7 @@ Run the following command to download the training images and labels of the MNIS
 
 ## Loading Dataset
 
-MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data. For the detailed loading method of various datasets, please refer to the [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html) in the programming guide.
+MindSpore supports loading common datasets in the field of image processing that come in a variety of on-disk formats. Users can also implement custom dataset class to load customized data. For the detailed loading method of various datasets, please refer to the [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_loading.html) in the programming guide.
 
 The following tutorial shows how to load the MNIST dataset using the `MnistDataset` in the `mindspore.dataset` module.
 
@@ -90,11 +90,11 @@ The following tutorial shows how to load the MNIST dataset using the `MnistDatas
 
     ![mnist_5](./images/mnist_5.png)
 
-In addition, users can pass in a `sampler` parameter to specify the sampling process during dataset loading. For the data samplers supported by MindSpore and their detailed usage methods, please refer to the programming guide [sampler](https://www.mindspore.cn/doc/programming_guide/en/master/sampler.html).
+In addition, users can pass in a `sampler` parameter to specify the sampling process during dataset loading. For the data samplers supported by MindSpore and their detailed usage methods, please refer to the programming guide [sampler](https://www.mindspore.cn/doc/programming_guide/en/r1.2/sampler.html).
 
 ## Processing Data
 
-For the data processing operators currently supported by MindSpore and their detailed usage methods, please refer to the [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html) in the programming guide.
+For the data processing operators currently supported by MindSpore and their detailed usage methods, please refer to the [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/r1.2/pipeline.html) in the programming guide.
 
 The following tutorial demonstrates how to construct a pipeline and perform operations such as `shuffle`, `batch` and `repeat` on the MNIST dataset.
 
@@ -184,7 +184,7 @@ The output is as follows:
 
 ## Augmentation
 
-For the data augmentation operators supported by MindSpore and their detailed usage methods, please refer to the programming guide [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
+For the data augmentation operators supported by MindSpore and their detailed usage methods, please refer to the programming guide [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.2/augmentation.html).
 
 The following tutorial demonstrates how to use the `c_transforms` module to augment data in the MNIST dataset.
 

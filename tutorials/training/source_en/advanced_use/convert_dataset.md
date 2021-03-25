@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/convert_dataset.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -59,7 +59,7 @@ A data file consists of the following key parts:
 
 ## Converting Dataset to MindRecord
 
-The following tutorial demonstrates how to convert image data and its annotations to MindRecord. For more instructions on MindSpore data format conversion, please refer to the [MindSpore Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html) chapter in the programming guide.
+The following tutorial demonstrates how to convert image data and its annotations to MindRecord. For more instructions on MindSpore data format conversion, please refer to the [MindSpore Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_conversion.html) chapter in the programming guide.
 
 Example 1: Show how to convert data into a MindRecord data file according to the defined dataset structure.
 

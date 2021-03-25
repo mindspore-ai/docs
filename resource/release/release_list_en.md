@@ -56,7 +56,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 ## 1.2.0
 
@@ -538,6 +538,6 @@
 
 | Category | URL |
 | --- | --- |
-| Installation | <https://gitee.com/mindspore/docs/tree/master/install> |
-| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/master/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/master/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/master/index.html> |
-| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/master/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/master/index.html> |
+| Installation | <https://gitee.com/mindspore/docs/tree/r1.2/install> |
+| Tutorials | Training <https://www.mindspore.cn/tutorial/training/en/r1.2/index.html><br>Inference <https://www.mindspore.cn/tutorial/inference/en/r1.2/index.html><br>Mobile Phone&IoT <https://www.mindspore.cn/tutorial/lite/en/r1.2/index.html> |
+| Docs | Python API <https://www.mindspore.cn/doc/api_python/en/r1.2/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/en/r1.2/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/en/r1.2/index.html><br>Other Note <https://www.mindspore.cn/doc/note/en/r1.2/index.html> |
