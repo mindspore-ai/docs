@@ -61,6 +61,7 @@
 | Computer Vision (CV) | Text Recognition  | [CNN+CTC](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/cnnctc)                |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Semantic Segmentation  | [DeepLabV3](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/deeplabv3)     |  Supported |  Doing |  Doing |  Doing | Supported | Doing
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net2D (Medical)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/unet)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV) | Semantic Segmentation  | [U-Net3D (Medical)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/unet3d)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Keypoint Detection  | [OpenPose](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/openpose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Keypoint Detection  | [SimplePoseNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/simple_pose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Optical Character Recognition  | [CRNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/crnn)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
