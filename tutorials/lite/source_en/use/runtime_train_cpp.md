@@ -195,6 +195,7 @@ float Eval() {
 ```
 
 > With TrainSessions, a network can be used for both inference and training. These two modes differ in several aspects:
+>
 > - The input of the network: Running inference requires only the data, while running training requires both data and labels.
 > - The output of the network: Running inference returns the predicted values in the output, while running in training mode returns the loss.
 > - In training mode, the weights of the layers are updated in each Run, while in inference mode they are static.
@@ -239,102 +240,102 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 1. Use the `GetInputsByTensorName` method to obtain model input tensors that are connected to the model input node based on the tensor name.
 
-```cpp
-/// \brief  Get MindSpore input Tensors of model by the tensor name.
-///
-/// \param[in] tensor_name  Define tensor name.
-///
-/// \return  MindSpore Lite MSTensor.
-virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
-```
+    ```cpp
+    /// \brief  Get MindSpore input Tensors of model by the tensor name.
+    ///
+    /// \param[in] tensor_name  Define tensor name.
+    ///
+    /// \return  MindSpore Lite MSTensor.
+    virtual mindspore::tensor::MSTensor *GetInputsByTensorName(const std::string &tensor_name) const = 0;
+    ```
 
 2. Use the `GetInputs` method to directly obtain the vectors of all model input tensors.
 
-```cpp
-/// \brief  Get input MindSpore Lite MSTensors of model.
-///
-/// \return  The vector of MindSpore Lite MSTensor.
-virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
-```
+    ```cpp
+    /// \brief  Get input MindSpore Lite MSTensors of model.
+    ///
+    /// \return  The vector of MindSpore Lite MSTensor.
+    virtual std::vector<tensor::MSTensor *> GetInputs() const = 0;
+    ```
 
-If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
-Alternatively, one can deduce this information from the sizes of the input tensors.
+    If the model requires more than one input tensor (this is certainly the case during training, where both data and labels serve as inputs of the network) it is the user's responsibility to know the inputs order or their tensorName. This can be obtained from the Python model.
+    Alternatively, one can deduce this information from the sizes of the input tensors.
 
 3. Copying Data
 
-After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) API documentation.
 
-```cpp
-/// \brief  Get byte size of data in MSTensor.
-///
-/// \return  Byte size of data in MSTensor.
-virtual size_t Size() const = 0;
+    ```cpp
+    /// \brief  Get byte size of data in MSTensor.
+    ///
+    /// \return  Byte size of data in MSTensor.
+    virtual size_t Size() const = 0;
 
-/// \brief Get shape of the MindSpore Lite MSTensor.
-///
-/// \return A vector of int as the shape of the MindSpore Lite MSTensor.
-virtual std::vector<int> shape() const = 0;
+    /// \brief Get shape of the MindSpore Lite MSTensor.
+    ///
+    /// \return A vector of int as the shape of the MindSpore Lite MSTensor.
+    virtual std::vector<int> shape() const = 0;
 
-/// \brief Get number of element in MSTensor.
-///
-/// \return Number of element in MSTensor.
-virtual int ElementsNum() const = 0;
+    /// \brief Get number of element in MSTensor.
+    ///
+    /// \return Number of element in MSTensor.
+    virtual int ElementsNum() const = 0;
 
-/// \brief Get data type of the MindSpore Lite MSTensor.
-///
-/// \note TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-/// suitable for MSTensor.
-///
-/// \return MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-virtual TypeId data_type() const = 0;
+    /// \brief Get data type of the MindSpore Lite MSTensor.
+    ///
+    /// \note TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
+    /// suitable for MSTensor.
+    ///
+    /// \return MindSpore Lite TypeId of the MindSpore Lite MSTensor.
+    virtual TypeId data_type() const = 0;
 
-/// \brief  Get the pointer of data in MSTensor.
-///
-/// \note  The data pointer can be used to both write and read data in MSTensor.
-///
-/// \return  The pointer points to data in MSTensor.
-virtual void *MutableData() const = 0;
-```
+    /// \brief  Get the pointer of data in MSTensor.
+    ///
+    /// \note  The data pointer can be used to both write and read data in MSTensor.
+    ///
+    /// \return  The pointer points to data in MSTensor.
+    virtual void *MutableData() const = 0;
+    ```
 
 4. Example
 
-The following sample code shows how to obtain the entire graph input `MSTensor` from `LiteSession` and enter the model input data to `MSTensor`.
+    The following sample code shows how to obtain the entire graph input `MSTensor` from `LiteSession` and enter the model input data to `MSTensor`.
 
-```cpp
-// Assuming session is a valid instance of TrainSession
-auto inputs = session->GetInputs();
+    ```cpp
+    // Assuming session is a valid instance of TrainSession
+    auto inputs = session->GetInputs();
 
-// Assuming the model has two input tensors, the first is for data and the second for labels
-int data_index = 0;
-int label_index = 1;
+    // Assuming the model has two input tensors, the first is for data and the second for labels
+    int data_index = 0;
+    int label_index = 1;
 
-if (inputs.size() != 2) {
-    std::cerr << "Unexpected amount of input tensors. Expected 2, model requires " << inputs.size() << std::endl;
-    return -1;
-}
+    if (inputs.size() != 2) {
+        std::cerr << "Unexpected amount of input tensors. Expected 2, model requires " << inputs.size() << std::endl;
+        return -1;
+    }
 
-// Assuming batch_size and data_size variables holds the Batch size and the size of a single data tensor, respectively:
-// And assuming sparse labels are used
-if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
-    (inputs.at(label_index)->ElementsNum() != batch_size)) {
-    std::cerr << "Input data size does not match model input" << std::endl;
-    return -1;
-}
+    // Assuming batch_size and data_size variables holds the Batch size and the size of a single data tensor, respectively:
+    // And assuming sparse labels are used
+    if ((inputs.at(data_index)->Size() != batch_size*data_size) ||
+        (inputs.at(label_index)->ElementsNum() != batch_size)) {
+        std::cerr << "Input data size does not match model input" << std::endl;
+        return -1;
+    }
 
-// Assuming data_ptr is the pointer to a batch of data tensors
-// and iassuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
-auto *in_data = inputs.at(data_index)->MutableData();
-auto *in_labels = inputs.at(label_index)->MutableData();
-if ((in_data == nullptr)|| (in_labels == nullptr)) {
-    std::cerr << "Model's input tensor is nullptr" << std::endl;
-    return -1;
-}
+    // Assuming data_ptr is the pointer to a batch of data tensors
+    // and iassuming label_ptr is a pointer to a batch of label indices (obtained by the DataLoder)
+    auto *in_data = inputs.at(data_index)->MutableData();
+    auto *in_labels = inputs.at(label_index)->MutableData();
+    if ((in_data == nullptr)|| (in_labels == nullptr)) {
+        std::cerr << "Model's input tensor is nullptr" << std::endl;
+        return -1;
+    }
 
-memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
-memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
-// After filling the input tensors the data_ptr and label_ptr may be freed
-// The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
-```
+    memcpy(in_data, data_ptr, inputs.at(data_index)->Size());
+    memcpy(in_labels, label_ptr, inputs.at(label_index)->Size());
+    // After filling the input tensors the data_ptr and label_ptr may be freed
+    // The input tensors themselves are managed by MindSpore Lite and users are not allowed to access them or delete them
+    ```
 
 Note:  
 
@@ -349,121 +350,121 @@ MindSpore Lite provides the following methods to obtain the model's output `MSTe
 
 1. Use the `GetOutputsByNodeName` method to obtain the output tensors that belong to a certain node:
 
-```cpp
-/// \brief  Get output MindSpore Lite MSTensors of model by node name.
-///
-/// \param[in] node_name Define node name.
-///
-/// \return  The vector of MindSpore Lite MSTensor.
-virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
-```
+    ```cpp
+    /// \brief  Get output MindSpore Lite MSTensors of model by node name.
+    ///
+    /// \param[in] node_name Define node name.
+    ///
+    /// \return  The vector of MindSpore Lite MSTensor.
+    virtual std::vector<tensor::MSTensor *> GetOutputsByNodeName(const std::string &node_name) const = 0;
+    ```
 
-The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputsByNodeName` method.
+    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputsByNodeName` method.
 
-```cpp
-// Assume that session is a vlaid TrainSession instance
-// Assume that model has a output node named output_node_name_0.
-auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
-// Assume that output node named output_node_name_0 has only one output tensor.
-auto out_tensor = output_vec.front();
-if (out_tensor == nullptr) {
-    std::cerr << "Output tensor is nullptr" << std::endl;
-    return -1;
-}
-```
-
-2. Use the `GetOutputByTensorName` method to obtain an output tensor, based on the tensor name.
-
-```cpp
-/// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
-///
-/// \param[in] tensor_name  Define tensor name.
-///
-/// \return  Pointer of MindSpore Lite MSTensor.
-virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
-```
-
-The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputByTensorName` method.
-
-```cpp
-// Assume that session is a vlaid TrainSession instance
-// We can use GetOutputTensorNames method to get the names of all the output tensors of the model
-auto tensor_names = session->GetOutputTensorNames();
-// Use output tensor name returned by GetOutputTensorNames as key
-for (auto tensor_name : tensor_names) {
-    auto out_tensor = session->GetOutputByTensorName(tensor_name);
+    ```cpp
+    // Assume that session is a vlaid TrainSession instance
+    // Assume that model has a output node named output_node_name_0.
+    auto output_vec = session->GetOutputsByNodeName("output_node_name_0");
+    // Assume that output node named output_node_name_0 has only one output tensor.
+    auto out_tensor = output_vec.front();
     if (out_tensor == nullptr) {
         std::cerr << "Output tensor is nullptr" << std::endl;
         return -1;
     }
-}
-```
+    ```
+
+2. Use the `GetOutputByTensorName` method to obtain an output tensor, based on the tensor name.
+
+    ```cpp
+    /// \brief  Get output MindSpore Lite MSTensors of model by tensor name.
+    ///
+    /// \param[in] tensor_name  Define tensor name.
+    ///
+    /// \return  Pointer of MindSpore Lite MSTensor.
+    virtual mindspore::tensor::MSTensor *GetOutputByTensorName(const std::string &tensor_name) const = 0;
+    ```
+
+    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputByTensorName` method.
+
+    ```cpp
+    // Assume that session is a vlaid TrainSession instance
+    // We can use GetOutputTensorNames method to get the names of all the output tensors of the model
+    auto tensor_names = session->GetOutputTensorNames();
+    // Use output tensor name returned by GetOutputTensorNames as key
+    for (auto tensor_name : tensor_names) {
+        auto out_tensor = session->GetOutputByTensorName(tensor_name);
+        if (out_tensor == nullptr) {
+            std::cerr << "Output tensor is nullptr" << std::endl;
+            return -1;
+        }
+    }
+    ```
 
 3. Use the `GetOutputs` method to obtain all the output tensors, ordered by their tensor name:
 
-```cpp
-/// \brief  Get output MindSpore Lite MSTensors of model mapped by the tensor name.
-///
-/// \return  The map of output tensor name and MindSpore Lite MSTensor.
-virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
-```
+    ```cpp
+    /// \brief  Get output MindSpore Lite MSTensors of model mapped by the tensor name.
+    ///
+    /// \return  The map of output tensor name and MindSpore Lite MSTensor.
+    virtual std::unordered_map<std::string, mindspore::tensor::MSTensor *> GetOutputs() const = 0;
+    ```
 
-After model output tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of `MSTensor`, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
+    After model output tensors are obtained, you need to enter data into the tensors. Use the `Size` method of `MSTensor` to obtain the size of the data to be entered into tensors, use the `data_type` method to obtain the data type of `MSTensor`, and use the `MutableData` method of `MSTensor` to obtain the writable pointer.
 
-```cpp
-/// \brief  Get byte size of data in MSTensor.
-///
-/// \return  Byte size of data in MSTensor.
-virtual size_t Size() const = 0;
+    ```cpp
+    /// \brief  Get byte size of data in MSTensor.
+    ///
+    /// \return  Byte size of data in MSTensor.
+    virtual size_t Size() const = 0;
 
-/// \brief  Get data type of the MindSpore Lite MSTensor.
-///
-/// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
-/// suitable for MSTensor.
-///
-/// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
-virtual TypeId data_type() const = 0;
+    /// \brief  Get data type of the MindSpore Lite MSTensor.
+    ///
+    /// \note  TypeId is defined in mindspore/mindspore/core/ir/dtype/type_id.h. Only number types in TypeId enum are
+    /// suitable for MSTensor.
+    ///
+    /// \return  MindSpore Lite TypeId of the MindSpore Lite MSTensor.
+    virtual TypeId data_type() const = 0;
 
-/// \brief  Get the pointer of data in MSTensor.
-///
-/// \note The data pointer can be used to both write and read data in MSTensor.
-///
-/// \return  The pointer points to data in MSTensor.
-virtual void *MutableData() const = 0;
-```
+    /// \brief  Get the pointer of data in MSTensor.
+    ///
+    /// \note The data pointer can be used to both write and read data in MSTensor.
+    ///
+    /// \return  The pointer points to data in MSTensor.
+    virtual void *MutableData() const = 0;
+    ```
 
-The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
+    The following sample code shows how to obtain the output `MSTensor` from `LiteSession` using the `GetOutputs` method and print the first ten data or all data records of each output `MSTensor`.
 
-```cpp
-// Assume that session is a vlaid TrainSession object
-auto output_map = session->GetOutputs();
-// Assume that the model has only one output node.
-auto out_node_iter = output_map.begin();
-std::string name = out_node_iter->first;
-// Assume that the unique output node has only one output tensor.
-auto out_tensor = out_node_iter->second;
-if (out_tensor == nullptr) {
-    std::cerr << "Output tensor is nullptr" << std::endl;
-    return -1;
-}
-// Assume that the data format of output data is float 32.
-if (out_tensor->data_type() != mindspore::TypeId::kNumberTypeFloat32) {
-    std::cerr << "Output of lenet should in float32" << std::endl;
-    return -1;
-}
-auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
-if (out_data == nullptr) {
-    std::cerr << "Data of out_tensor is nullptr" << std::endl;
-    return -1;
-}
-// Print the first 10 float data or all output data of the output tensor.
-std::cout << "Output data: ";
-for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
-    std::cout << " " << out_data[i];
-}
-std::cout << std::endl;
-// The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
-```
+    ```cpp
+    // Assume that session is a vlaid TrainSession object
+    auto output_map = session->GetOutputs();
+    // Assume that the model has only one output node.
+    auto out_node_iter = output_map.begin();
+    std::string name = out_node_iter->first;
+    // Assume that the unique output node has only one output tensor.
+    auto out_tensor = out_node_iter->second;
+    if (out_tensor == nullptr) {
+        std::cerr << "Output tensor is nullptr" << std::endl;
+        return -1;
+    }
+    // Assume that the data format of output data is float 32.
+    if (out_tensor->data_type() != mindspore::TypeId::kNumberTypeFloat32) {
+        std::cerr << "Output of lenet should in float32" << std::endl;
+        return -1;
+    }
+    auto *out_data = reinterpret_cast<float *>(out_tensor->MutableData());
+    if (out_data == nullptr) {
+        std::cerr << "Data of out_tensor is nullptr" << std::endl;
+        return -1;
+    }
+    // Print the first 10 float data or all output data of the output tensor.
+    std::cout << "Output data: ";
+    for (size_t i = 0; i < 10 && i < out_tensor->ElementsNum(); i++) {
+        std::cout << " " << out_data[i];
+    }
+    std::cout << std::endl;
+    // The elements in outputs do not need to be free by users, because outputs are managed by the MindSpore Lite.
+    ```
 
 Note that the vectors or map returned by the `GetOutputsByNodeName`, `GetOutputByTensorName` and `GetOutputs` methods do not need to be released by users.
 
