@@ -61,6 +61,7 @@
 | 计算机视觉（CV） | 文本识别（Text Recognition）  | [CNN+CTC](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/cnnctc)                |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeepLabV3](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/deeplabv3)   |  Supported |  Doing |  Doing |  Doing | Supported | Doing
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net2D (Medical)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/unet)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net3D (Medical)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/unet3d)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 关键点检测（Keypoint Detection）  |[OpenPose](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/openpose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 关键点检测（Keypoint Detection）  |[SimplePoseNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/simple_pose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | 计算机视觉（CV） | 光学字符识别（Optical Character Recognition）  |[CRNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/crnn)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
