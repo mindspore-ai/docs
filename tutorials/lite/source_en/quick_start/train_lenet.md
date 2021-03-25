@@ -23,11 +23,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
-Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/).
+Here we will demonstrate the code that trains a LeNet model using MindSpore Training-on-Device infrastructure. The code segments that are given below are provided fully in [train_lenet](https://gitee.com/mindspore/mindspore/tree/r1.2/mindspore/lite/examples/train_lenet/).
 
 The completed training procedure is as follows:
 
@@ -64,11 +64,11 @@ The directory structure is as follows:
 
 ### Install MindSpore
 
-MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip_en.md#) for more details.
+MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r1.2/install/mindspore_cpu_install_pip_en.md#) for more details.
 
 ### Converter and Runtime Tool
 
-Acquire `train-converter-linux-x64` and `train-android-aarch64` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) chapter, the command is shown below:
+Acquire `train-converter-linux-x64` and `train-android-aarch64` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/build.html) chapter, the command is shown below:
 
 ```shell
 # generate converter tools and runtime package on x86
@@ -78,7 +78,7 @@ bash build.sh -I x86_64 -T on -e cpu -j8
 bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
-You could also directly [download MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
+You could also directly [download MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
 
 ### Connect Android Device
 
@@ -201,7 +201,7 @@ train_lenet/
 
 ### Model Exporting
 
-Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet).
+Whether it is an off-the-shelf prepared model, or a custom written model, the model needs to be exported to a `.mindir` file. Here we use the already-implemented [LeNet model](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/lenet).
 
 Import and instantiate a LeNet5 model and set the model to train mode:
 
@@ -220,7 +220,7 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs
 
 Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
 
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
+The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
 BATCH_SIZE = 32
@@ -260,7 +260,7 @@ print("finished exporting")
 
 ### Model Transferring
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models), the command is:
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/converter_train.html#creating-mindspore-tod-models), the command is:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
@@ -270,7 +270,7 @@ The exported file `lenet_tod.ms` is under the folder `./train_lenet/model`.
 
 ### Model Training
 
-In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet/src) the executable has the following API:
+In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/r1.2/mindspore/lite/examples/train_lenet/src) the executable has the following API:
 
 ```bash
 Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
@@ -328,7 +328,7 @@ void NetRunner::InitAndFigureInputs() {
 
 #### Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/doc/api_cpp/en/master/session.html) for more details.
+`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/doc/api_cpp/en/r1.2/session.html) for more details.
 
 ```cpp
 int NetRunner::InitDB() {

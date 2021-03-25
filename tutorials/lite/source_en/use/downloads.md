@@ -9,7 +9,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
@@ -35,4 +35,4 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 
 Android-aarch32 does not support GPU and NPU.
 
-MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.

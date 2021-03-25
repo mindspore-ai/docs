@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/code_generator.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/code_generator.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -20,7 +20,7 @@
 
 代码生成工具Codegen的使用流程如下：
 
-1. 通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)，将训练好的模型文件转换为`*.ms`格式；
+1. 通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/converter_tool.html)，将训练好的模型文件转换为`*.ms`格式；
 
 2. 通过自动代码生成工具codegen，输入`*.ms`模型自动生成源代码。
 
@@ -30,8 +30,8 @@
 
 自动代码生成工具，可以通过两种方式获取：
 
-1. MindSpore官网下载[Release版本](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)
-2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)
+1. MindSpore官网下载[Release版本](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)
+2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)
 
 > 目前模型生成工具仅支持在Linux x86_64架构下运行。
 
@@ -79,8 +79,8 @@ mnist/
     └── weight.h
 ```
 
-> 详细接口使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+> 详细接口使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html)。
 
 ### 执行推理
 
-生成代码之后，即可以编译执行推理，详细步骤请参考[编译一个MNIST分类模型](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html)。
+生成代码之后，即可以编译执行推理，详细步骤请参考[编译一个MNIST分类模型](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start_codegen.html)。

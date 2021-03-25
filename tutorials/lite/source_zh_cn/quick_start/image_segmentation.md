@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/quick_start/image_segmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/quick_start/image_segmentation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -80,9 +80,9 @@
 
     <table>
       <tr>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/tutorials/lite/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/tutorials/lite/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/master/tutorials/lite/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.2/tutorials/lite/source_zh_cn/images/segmentation3.png"><br>图1  白色背景</br> </center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.2/tutorials/lite/source_zh_cn/images/segmentation4.png"><br>图2  蓝色背景</br> </center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.2/tutorials/lite/source_zh_cn/images/segmentation5.png"><br>图3  油画背景</br> </center></td>
       </tr>
     </table>
 
@@ -119,13 +119,13 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android调用MindSpore Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成`mindspore-lite-{version}-inference-android.tar.gz`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
+Android调用MindSpore Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)生成`mindspore-lite-{version}-inference-android.tar.gz`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/libs`目录下。
 
-注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将其放在对应位置。
+注： 若自动下载失败，请手动下载相关库文件[mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，解压后将其放在对应位置。
 
 ### 下载及部署模型文件
 
@@ -135,7 +135,7 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
 ### 编写端侧推理代码
 
-推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
+推理代码流程如下，完整代码请参见 [src/java/com/mindspore/imagesegmentation/TrackingMobile](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/lite/image_segmentation/app/src/main/java/com/mindspore/imagesegmentation/help/TrackingMobile.java)。
 
 1. 加载MindSpore Lite模型文件，构建上下文、会话以及用于推理的计算图。  
 
@@ -294,8 +294,8 @@ Android调用MindSpore Android AAR时，需要相关库文件支持。可通过M
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/tutorials/lite/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/master/tutorials/lite/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.2/tutorials/lite/source_zh_cn/images/segmentation6.png"><br>图1  推理前</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.2/tutorials/lite/source_zh_cn/images/segmentation7.png"><br>图2  推理后</br></center></td>
           </tr>
         </table>
 
