@@ -121,50 +121,50 @@ run benchmark success
 
 #### 代码编译
 
-1. 编译生成benchmark可执行文件
+编译生成benchmark可执行文件
 
-    组织模型生成的推理代码以及算子静态库，编译生成模型推理静态库。
+组织模型生成的推理代码以及算子静态库，编译生成模型推理静态库。
 
-    进入代码工程目录下，新建并进入build目录：
+进入代码工程目录下，新建并进入build目录：
 
-    ```bash
-    mkdir mnist_x86/build && cd mnist_x86/build
-    ```
+```bash
+mkdir mnist_x86/build && cd mnist_x86/build
+```
 
-    开始编译：
+开始编译：
 
-    ```bash
-    cmake -DPKG_PATH={path to}/mindspore-lite-{version}-inference-linux-x64 ..
-    make
-    ```
+```bash
+cmake -DPKG_PATH={path to}/mindspore-lite-{version}-inference-linux-x64 ..
+make
+```
 
-    > `{path to}`和`{version}`需要用户根据实际情况填写。
+> `{path to}`和`{version}`需要用户根据实际情况填写。
 
-    代码工程编译成功结果：
+代码工程编译成功结果：
 
-    ```text
-    ...
-    Scanning dependencies of target net
-    [ 12%] Building C object src/CMakeFiles/net.dir/net.c.o
-    [ 25%] Building CXX object src/CMakeFiles/net.dir/session.cc.o
-    [ 37%] Building CXX object src/CMakeFiles/net.dir/tensor.cc.o
-    [ 50%] Building C object src/CMakeFiles/net.dir/weight.c.o
-    [ 62%] Linking CXX static library libnet.a
-    unzip raw static library libnet.a
-    raw static library libnet.a size:
-    -rw-r--r-- 1 user user 58K Mar 22 10:09 libnet.a
-    generate specified static library libnet.a
-    new static library libnet.a size:
-    -rw-r--r-- 1 user user 162K Mar 22 10:09 libnet.a
-    [ 62%] Built target net
-    Scanning dependencies of target benchmark
-    [ 75%] Building CXX object CMakeFiles/benchmark.dir/benchmark/benchmark.cc.o
-    [ 87%] Building C object CMakeFiles/benchmark.dir/benchmark/load_input.c.o
-    [100%] Linking CXX executable benchmark
-    [100%] Built target benchmark
-    ```
+```text
+...
+Scanning dependencies of target net
+[ 12%] Building C object src/CMakeFiles/net.dir/net.c.o
+[ 25%] Building CXX object src/CMakeFiles/net.dir/session.cc.o
+[ 37%] Building CXX object src/CMakeFiles/net.dir/tensor.cc.o
+[ 50%] Building C object src/CMakeFiles/net.dir/weight.c.o
+[ 62%] Linking CXX static library libnet.a
+unzip raw static library libnet.a
+raw static library libnet.a size:
+-rw-r--r-- 1 user user 58K Mar 22 10:09 libnet.a
+generate specified static library libnet.a
+new static library libnet.a size:
+-rw-r--r-- 1 user user 162K Mar 22 10:09 libnet.a
+[ 62%] Built target net
+Scanning dependencies of target benchmark
+[ 75%] Building CXX object CMakeFiles/benchmark.dir/benchmark/benchmark.cc.o
+[ 87%] Building C object CMakeFiles/benchmark.dir/benchmark/load_input.c.o
+[100%] Linking CXX executable benchmark
+[100%] Built target benchmark
+```
 
-    此时在`mnist_x86/build/src/`目录下生成了`libnet.a`，推理执行库，在`mnist_x86/build`目录下生成了`benchmark`可执行文件。
+此时在`mnist_x86/build/src/`目录下生成了`libnet.a`，推理执行库，在`mnist_x86/build`目录下生成了`benchmark`可执行文件。
 
 #### 代码部署
 
