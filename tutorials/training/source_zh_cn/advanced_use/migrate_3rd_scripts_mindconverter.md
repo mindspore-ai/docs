@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -29,7 +29,7 @@ MindConverter是一款用于将PyTorch（ONNX）、TensorFlow（PB）模型转�
 
 ## 安装
 
-此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md#)。
+此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/r1.2/README_CN.md#)。
 
 ## 用法
 
@@ -127,7 +127,7 @@ mindconverter --in_file /home/user/model.py \
               --report /home/user/output/report
 ```
 
-转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
+转换报告中，对于未转换的代码行形式为如下，其中x, y指明的是原PyTorch脚本中代码的行、列号。对于未成功转换的算子，可参考[MindSporeAPI映射查询功能](https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html#operator_api) 手动对代码进行迁移。对于工具无法迁移的算子，会保留原脚本中的代码。
 
 ```text
 line x:y: [UnConvert] 'operator' didn't convert. ...
@@ -151,7 +151,7 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 
 #### TensorFlow模型脚本生成示例
 
-使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称。TensorFlow pb模型导出可参考[TensorFlow Pb模型导出教程](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/tensorflow_model_exporting_cn.md#)。
+使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称。TensorFlow pb模型导出可参考[TensorFlow Pb模型导出教程](https://gitee.com/mindspore/mindinsight/blob/r1.2/mindinsight/mindconverter/docs/tensorflow_model_exporting_cn.md#)。
 
 假设输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，模型绝对路径为`xxx/frozen_model.pb`，希望将脚本、权重文件、权重映射表输出至`/home/user/output`，转换报告输出至`/home/user/output/report`，则脚本生成命令为：
 
