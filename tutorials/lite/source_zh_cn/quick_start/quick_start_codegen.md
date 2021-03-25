@@ -194,7 +194,7 @@ run benchmark success
 
 本教程中的`benchmark`内部实现主要用于指导用户如何编写以及调用Codegen编译的模型推理代码接口。
 
-以下为接口调用的详细介绍，详情代码可以参见[examples/mnist_x86](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86)下的示例代码示例：
+以下为接口调用的详细介绍，详情代码可以参见[examples/mnist_x86](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)下的示例代码示例：
 
 #### 构建推理的上下文以及会话
 
@@ -274,4 +274,3 @@ run benchmark success
 ### [Android平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mobilenetv2/README.md)
 
 ### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_stm32f746/README.md)
-

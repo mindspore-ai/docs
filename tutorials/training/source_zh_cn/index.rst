@@ -463,8 +463,8 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_data_from_ir_files.html" class="article-link">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">借助IR文件进行调试</span>
