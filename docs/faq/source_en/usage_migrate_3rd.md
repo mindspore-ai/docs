@@ -1,11 +1,11 @@
 ﻿# Migration from a Third-party Framework
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/usage_migrate_3rd.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/usage_migrate_3rd.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 
 A：Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
-Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/advanced_usage_of_checkpoint.html).
+Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/advanced_usage_of_checkpoint.html).
 
 <br/>
 

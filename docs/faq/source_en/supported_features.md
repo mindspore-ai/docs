@@ -2,7 +2,7 @@
 
 `Characteristic Advantages` `On-device Inference` `Functional Module` `Reasoning Tools`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q: Does MindSpore Serving support hot loading to avoid inference service interruption?**</font>
 
@@ -12,7 +12,7 @@ A: MindSpore does not support hot loading. It is recommended that you run multip
 
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
 
 <br/>
 
@@ -24,7 +24,7 @@ A: Sorry, this function is not available yet. You can find the optimal hyperpara
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/optimize_data_processing.html).
 
 <br/>
 
@@ -66,7 +66,7 @@ A: In addition to data parallelism, MindSpore distributed training also supports
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_operator.html).
 
 <br/>
 
@@ -102,7 +102,7 @@ A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Mo
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/migrate_3rd_scripts.html).
 
 <br/>
 

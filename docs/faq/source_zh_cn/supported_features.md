@@ -2,7 +2,7 @@
 
 `特性优势` `端侧推理` `功能模块` `推理工具`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：MindSpore serving是否支持热加载，避免推理服务中断？**</font>
 
@@ -12,7 +12,7 @@ A：很抱歉，MindSpore当前还不支持热加载，需要重启。建议您�
 
 <font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
 
-A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 
@@ -24,7 +24,7 @@ A：您好，很抱歉暂时还未有这样的功能。目前只能通过训练-
 
 <font size=3>**Q：第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html)。
+A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/optimize_data_processing.html)。
 
 <br/>
 
@@ -66,7 +66,7 @@ A：MindSpore分布式训练除了支持数据并行，还支持算子级模型�
 
 <font size=3>**Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
+A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/custom_operator.html)。
 
 <br/>
 
@@ -102,7 +102,7 @@ A：TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待Min
 
 <font size=3>**Q：其他框架的脚本或者模型怎么迁移到MindSpore？**</font>
 
-A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_3rd_scripts.html)的介绍。
+A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/migrate_3rd_scripts.html)的介绍。
 
 <br/>
 

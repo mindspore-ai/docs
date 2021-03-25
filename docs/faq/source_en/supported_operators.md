@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
@@ -40,19 +40,19 @@ If the function contains a `group` parameter, the parameter will be transferred 
 
 <font size=3>**Q: Does MindSpore provide 3D convolutional layers?**</font>
 
-A: 3D convolutional layers on Ascend are coming soon. Go to the [Operator List](https://www.mindspore.cn/doc/programming_guide/en/master/operator_list.html) on the official website to view the operators that are supported.
+A: 3D convolutional layers on Ascend are coming soon. Go to the [Operator List](https://www.mindspore.cn/doc/programming_guide/en/r1.2/operator_list.html) on the official website to view the operators that are supported.
 
 <br/>
 
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
-A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 <br/>
 
 <font size=3>**Q: Can MindSpore calculate the variance of any tensor?**</font>
 
-A: Currently, MindSpore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/doc/api_python/en/master/_modules/mindspore/nn/layer/math.html#Moments).
+A: Currently, MindSpore does not have APIs or operators similar to variance which can directly calculate the variance of a `tensor`. However, MindSpore has sufficient small operators to support such operations. For details, see [class Moments(Cell)](https://www.mindspore.cn/doc/api_python/en/r1.2/_modules/mindspore/nn/layer/math.html#Moments).
 
 <br/>
 
@@ -90,7 +90,7 @@ In MindSpore, you can manually initialize the weight corresponding to the `paddi
 
 <font size=3>**Q: What can I do if the LSTM example on the official website cannot run on Ascend?**</font>
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/doc/note/en/r1.2/operator_list_ms.html) to view the supported operators.
 
 <br/>
 

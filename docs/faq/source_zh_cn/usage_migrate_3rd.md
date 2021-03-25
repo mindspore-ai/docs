@@ -1,11 +1,11 @@
 ﻿# 第三方框架迁移使用类
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/usage_migrate_3rd.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/usage_migrate_3rd.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**</font>
 
 A：需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义的灵活性，所以没办法提供统一的转化脚本。
-需要根据场景书写定制化脚本，可参考[checkpoint高级用法](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/advanced_usage_of_checkpoint.html)
+需要根据场景书写定制化脚本，可参考[checkpoint高级用法](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/advanced_usage_of_checkpoint.html)
 
 <br/>
 

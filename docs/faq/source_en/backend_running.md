@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `Environmental Setup` `Operation Mode` `Model Training` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q: How do I view the number of model parameters?**</font>
 
@@ -23,7 +23,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py).
+[Script Link](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/research/cv/tinynet/src/utils.py).
 
 <br/>
 
@@ -32,7 +32,7 @@ def count_params(net):
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/convert_dataset.html#id3).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/convert_dataset.html#id3).
 
 <br/>
 
@@ -61,7 +61,7 @@ A: `ut` cases are usually based on the MindSpore package of the debug version, w
 
 <font size=3>**Q: How do I obtain the expected `feature map` when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d.) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d.) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 
@@ -169,7 +169,7 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
-You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
+You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/debug_in_pynative_mode.html).
 
 <br/>
 

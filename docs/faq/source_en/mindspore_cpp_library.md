@@ -1,10 +1,10 @@
 # MindSpore C++ Library Use
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/mindspore_cpp_library.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/mindspore_cpp_library.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
+A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorial/inference/en/r1.2/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <font size=3>**Q：What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 

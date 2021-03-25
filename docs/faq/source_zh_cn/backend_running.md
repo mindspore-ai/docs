@@ -2,7 +2,7 @@
 
 `Ascend` `GPU` `CPU` `环境准备` `运行模式` `模型训练` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：如何查看模型参数量？**</font>
 
@@ -23,7 +23,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -32,7 +32,7 @@ def count_params(net):
 A：数据Schema可以按如下方式定义：`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明：label是一个数组，numpy类型，这里面可以存你说的 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即：同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/convert_dataset.html#将数据集转换为MindRecord)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/convert_dataset.html#将数据集转换为MindRecord)教程。
 
 <br/>
 
@@ -61,7 +61,7 @@ A：`ut`用例通常需要基于debug版本的MindSpore包，官网并没有提�
 
 <font size=3>**Q：使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A：`Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A：`Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
@@ -171,7 +171,7 @@ A：这边的问题是选择了Graph模式却使用了PyNative的写法，所以
 
 - Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
 
-用户可以参考[官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
+用户可以参考[官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。
 
 <br/>
 

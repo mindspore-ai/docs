@@ -1,10 +1,10 @@
 # mindspore::session
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/api_cpp/source_zh_cn/session.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## LiteSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/lite_session.h)&gt;
 
 LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和前向推理。
 
@@ -56,7 +56,7 @@ virtual int CompileGraph(lite::Model *model)
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### GetInputs
 
@@ -97,13 +97,13 @@ virtual int RunGraph(const KernelCallBack &before = nullptr, const KernelCallBac
 
 - 参数
 
-    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
+    - `before`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之前调用的回调函数。
 
-    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
+    - `after`: 一个[**KernelCallBack**](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/mindspore.html#kernelcallback) 结构体。定义了运行每个节点之后调用的回调函数。
 
 - 返回值
 
-    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS ，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### GetOutputsByNodeName
 
@@ -176,7 +176,7 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 ### 静态公有成员函数
 
@@ -216,7 +216,7 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-\#include &lt;[ltrain_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_session.h)&gt;
+\#include &lt;[ltrain_session.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/train/train_session.h)&gt;
 
 继承于类 LiteSession，用于训练模型。
 
@@ -336,7 +336,7 @@ virtual int SaveToFile(const std::string &filename) const = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### Train
 
@@ -348,7 +348,7 @@ virtual int Train() = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### IsTrain
 
@@ -372,7 +372,7 @@ virtual int Eval() = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### IsEval
 
@@ -396,7 +396,7 @@ virtual int SetLearningRate(float learning_rate) = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### GetLearningRate
 
@@ -426,7 +426,7 @@ virtual int SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, fl
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### GetPredictions
 
@@ -454,7 +454,7 @@ void SetLossName(std::string loss_name) { loss_name_ = loss_name; }
 
 ## TrainLoop
 
-\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;
+\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/train/train_loop.h)&gt;
 
 继承于Session，可设置训练参数和数据预处理函数，用于减少模型训练的资源消耗。
 
@@ -498,7 +498,7 @@ virtual int Reset() = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### train_session
 
@@ -526,7 +526,7 @@ virtual int Init(std::vector<mindspore::session::Metrics *> metrics) = 0;
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### GetMetrics
 
@@ -555,7 +555,7 @@ virtual int SetKernelCallBack(const KernelCallBack &before, const KernelCallBack
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### Train
 
@@ -574,7 +574,7 @@ virtual int Train(int epochs, mindspore::dataset::Dataset *dataset, std::vector<
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### Eval
 
@@ -593,11 +593,11 @@ virtual int Eval(mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCall
 
 - 返回值
 
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 ## TrainLoopCallback
 
-\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop_callback.h)&gt;
+\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/train/train_loop_callback.h)&gt;
 
 在模型训练中执行回调函数。
 
@@ -662,7 +662,7 @@ virtual int EpochEnd(const TrainLoopCallBackData &cb_data) { return RET_CONTINUE
     - `cb_data`: 回调函数对象。
 
 - 返回
-    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/errorcode.h。
 
 #### StepBegin
 
@@ -690,7 +690,7 @@ virtual void StepEnd(const TrainLoopCallBackData &cb_data) {}
 
 ## Metrics
 
-\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/metrics.h)&gt;
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/train/metrics.h)&gt;
 
 训练模型评估矩阵类
 
