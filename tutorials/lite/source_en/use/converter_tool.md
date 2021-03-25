@@ -33,9 +33,9 @@ The ms model converted by the conversion tool supports the conversion tool and t
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- Compilation: Install basic and additional build dependencies and perform build. The build version is x86_64. The code of the model conversion tool is stored in the `mindspore/lite/tools/converter` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document.
+- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
 
-- Run: Obtain the `converter` tool and configure environment variables by referring to [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
+- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
 
 ### Parameter Description
 
@@ -132,7 +132,9 @@ The following describes how to use the conversion command by using several commo
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- Get the toolkit: To obtain the 'Converter' tool, download the [zip package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) of windows conversion tool and unzip it to the local directory.
+- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
+
+- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
 
 ### Parameter Description
 
