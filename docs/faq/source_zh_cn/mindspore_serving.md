@@ -1,6 +1,6 @@
 # MindSpore Serving类
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/mindspore_serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/mindspore_serving.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
 

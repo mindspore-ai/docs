@@ -2,7 +2,7 @@
 
 `Ascend` `CPU` `GPU` `环境准备` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q：`TransData`算子的功能是什么，能否优化性能？**</font>
 
@@ -40,19 +40,19 @@ def __init__(self,
 
 <font size=3>**Q：Convolution Layers有没有提供3D卷积？**</font>
 
-A：目前MindSpore在Ascend上有支持3D卷积的计划。您可以关注官网的[支持列表](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operator_list.html)，等到算子支持后会在表中展示。
+A：目前MindSpore在Ascend上有支持3D卷积的计划。您可以关注官网的[支持列表](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/operator_list.html)，等到算子支持后会在表中展示。
 
 <br/>
 
 <font size=3>**Q：MindSpore支持矩阵转置吗？**</font>
 
-A：支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A：支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
 <font size=3>**Q：请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A：MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/doc/api_python/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A：MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/_modules/mindspore/nn/layer/math.html#Moments)来实现。
 
 <br/>
 
@@ -84,13 +84,13 @@ A：在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位�
 <font size=3>**Q：Operations中`Tile`算子执行到`__infer__`时`value`值为`None`，丢失了数值是怎么回事？**</font>
 
 A：`Tile`算子的`multiples input`必须是一个常量（该值不能直接或间接来自于图的输入）。否则构图的时候会拿到一个`None`的数据，因为图的输入是在图执行的时候才传下去的，构图的时候拿不到图的输入数据。
-相关的资料可以看[静态图语法支持](https://www.mindspore.cn/doc/note/zh-CN/master/static_graph_syntax_support.html)。
+相关的资料可以看[静态图语法支持](https://www.mindspore.cn/doc/note/zh-CN/r1.2/static_graph_syntax_support.html)。
 
 <br/>
 
 <font size=3>**Q：官网的LSTM示例在Ascend上跑不通。**</font>
 
-A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以通过[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)查看算子支持情况。
+A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以通过[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/r1.2/operator_list_ms.html)查看算子支持情况。
 
 <br/>
 

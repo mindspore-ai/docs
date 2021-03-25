@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `硬件支持` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/platform_and_system.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 <font size=3>**Q:PyNative模式和Graph模式的区别？**</font>
 
@@ -18,7 +18,7 @@ A: 在使用效率上，两个模式使用的算子是一致的，因此相同�
 
 <font size=3>**Q:使用PyNative模式能够进行迁移学习？**</font>
 
-A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_mobilenetv2_fine_tune.html#id7)。
+A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/cv_mobilenetv2_fine_tune.html#id7)。
 
 <br/>
 
@@ -54,7 +54,7 @@ A：Ascend 310只能用作推理，MindSpore支持在Ascend 910训练，训练�
 
 <font size=3>**Q：安装运行MindSpore时，是否要求平台有GPU、NPU等计算单元？需要什么硬件支持？**</font>
 
-A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/master/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
+A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/r1.2/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md。
 
 <br/>
 
@@ -66,7 +66,7 @@ A：MindSpore提供了可插拔式的设备管理接口，其他计算单元（�
 
 <font size=3>**Q：MindSpore与ModelArts是什么关系，在ModelArts中能使用MindSpore吗？**</font>
 
-A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
+A：ModelArts是华为公有云线上训练及推理平台，MindSpore是华为深度学习框架，可以查阅[MindSpore官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/use_on_the_cloud.html)，教程中详细展示了用户如何使用ModelArts来做MindSpore的模型训练。
 
 <br/>
 
