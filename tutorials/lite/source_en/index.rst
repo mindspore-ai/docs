@@ -148,7 +148,7 @@ Using MindSpore on Mobile and IoT
 
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing an Image Classification Application (C++)</span>
@@ -161,7 +161,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Training a LeNet Model</span>
@@ -174,7 +174,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Downloading MindSpore Lite</span>
@@ -187,7 +187,7 @@ Using MindSpore on Mobile and IoT
 							</div>
 							
 							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Building MindSpore Lite</span>
@@ -200,7 +200,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Converting Models for Inference</span>
@@ -212,7 +212,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/post_training_quantization.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Optimizing the Model (Quantization After Training)</span>
@@ -225,7 +225,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/image_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Preprocessing Image Data</span>
@@ -237,7 +237,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Runtime for Model Inference (C++)</span>
@@ -249,7 +249,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Runtime for Model Inference (Java)</span>
@@ -261,7 +261,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performing Benchmark Testing</span>
@@ -274,7 +274,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Use Cropper Tool To Reduce Library File Size</span>
@@ -286,7 +286,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Converting MindSpore ToD Models</span>
@@ -298,7 +298,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using runtime for Model Training and Inference (C++)</span>
@@ -310,7 +310,7 @@ Using MindSpore on Mobile and IoT
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performing Benchmark Testing of MindSpore ToD</span>

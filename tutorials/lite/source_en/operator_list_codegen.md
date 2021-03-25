@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `Device` `Inference` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/operator_list_codegen.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/operator_list_codegen.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This article lists the operators supported by MindSpore Lite Codegen.
 

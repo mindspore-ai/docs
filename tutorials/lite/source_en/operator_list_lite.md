@@ -2,7 +2,7 @@
 
 `Linux` `On Device` `Inference Application` `Beginner` `Intermediate` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/operator_list_lite.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 This article lists the operators supported by MindSpore Lite.
 
@@ -176,4 +176,4 @@ This article lists the operators supported by MindSpore Lite.
 
 [3] Sum and Max: Only support 2 inputs.
 
-[4] Operators supported by [converter](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.
+[4] Operators supported by [converter](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/converter_tool.html) but do not require specific implementation. Generally, such operators are optimized by the conversion tool, such as being merged or replaced by other operators.

@@ -151,7 +151,7 @@
 
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验MindSpore Lite C++ 极简Demo</span>
@@ -164,7 +164,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">体验MindSpore Lite Java极简Demo</span>
@@ -177,7 +177,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">实现一个图像分类应用（C++）</span>
@@ -190,7 +190,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">实现一个图像分割应用（Java）</span>
@@ -203,7 +203,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Whole-Process stage-Model-Compiling stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">编译一个MNIST分类模型</span>
@@ -216,7 +216,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">训练一个LeNet模型</span>
@@ -229,7 +229,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">下载MindSpore Lite</span>
@@ -242,7 +242,7 @@
 							</div>
 							
 							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">编译MindSpore Lite</span>
@@ -255,7 +255,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/converter_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">推理模型转换</span>
@@ -267,7 +267,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">优化模型(训练后量化)</span>
@@ -279,7 +279,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/image_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/image_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">预处理图像数据</span>
@@ -291,7 +291,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Runtime执行推理（C++）</span>
@@ -303,7 +303,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Android language-java stage-Inference stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_java.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Runtime执行推理（Java）</span>
@@ -315,7 +315,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/benchmark_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Benchmark进行基准测试</span>
@@ -327,7 +327,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Static-Library-Cropping user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用裁剪工具降低库文件大小</span>
@@ -339,7 +339,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Environment-Preparation stage-Model-Export stage-Model-Converting user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/converter_train.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">训练模型转换</span>
@@ -351,7 +351,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Model-Training stage-Model-Loading stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_train_cpp.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用Runtime执行训练 (C++)</span>
@@ -363,7 +363,7 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Data-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_train_tool.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/benchmark_train_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">使用benchmark_train进行基准测试</span>

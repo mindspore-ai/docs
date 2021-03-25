@@ -30,7 +30,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_en/use/runtime_train_cpp.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -62,17 +62,17 @@ In this diagram the drawn objects represents:
 
 ## Session Creation
 
-[TrainSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#trainsession) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `TrainSession` class.
+[TrainSession](https://www.mindspore.cn/doc/api_cpp/en/r1.2/session.html#trainsession) is the main entrance of the MindSpore Lite framework. We can compile and execute graph models through `TrainSession` class.
 
 ### Reading Models
 
-A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`TrainModel`](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#trainmodel) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
+A Model file is flatbuffer-serialized file which was converted using the [MindSpore Model Converter Tool](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/converter_tool.html). These files have a `.ms` extension. Before model training and/or inference, the model needs to be loaded from the file system and parsed. Related operations are mainly implemented in the [`TrainModel`](https://www.mindspore.cn/doc/api_cpp/en/r1.2/lite.html#trainmodel) class which holds the model data such as the network structure, tensors sizes, weights data and operators attributes.
 
 > In MindSpore Lite the user is not allowed to access the training model object, since it is being used by `TrainSession` during training. All interactions with training model object including instantiation, compilation and deletion are handled within `TrainSession`.
 
 ### Creating Contexts
 
-[`Context`](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#context) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
+[`Context`](https://www.mindspore.cn/doc/api_cpp/en/r1.2/lite.html#context) is a MindSpore Lite Object which contains basic configuration parameters required by the sessions to guide graph compilation and execution. It allows to define the device to run the model, e.g., CPU or GPU, the number of threads used for training and inference and the memory allocation scheme.
 Currently, only single threaded CPU device is supported by `TrainSession`.
 
 Once the `TrainSession` is created with the `Context` object, it is no longer needed and can be deleted.
@@ -113,17 +113,17 @@ int CreateSession() {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/train_lenet/src/net_runner.cc) for more details.
 
 ## Data Processing
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/doc/api_cpp/en/r1.2/dataset.html) for more detials.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/doc/api_cpp/en/master/vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/doc/api_cpp/en/r1.2/vision.html) for more detials.
 
 ### Example
 
@@ -263,7 +263,7 @@ MindSpore Lite provides the following methods to obtain model input tensors:
 
 3. Copying Data
 
-    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) API documentation.
+    After model input tensors are obtained, the data must be copied into the tensors. The following methods allows to access the size of the data, it's shape, the number of elements, the data type and the writable pointer. See also detailed description in the [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/r1.2/tensor.html#mstensor) API documentation.
 
     ```cpp
     /// \brief  Get byte size of data in MSTensor.
@@ -554,4 +554,4 @@ The function `CkptSaver` calls the function `SaveToFile` actually. The user can 
 
 You can load the saved model to do re-training or inference.
 
-> Please use [benchmark_train](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.
+> Please use [benchmark_train](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/benchmark_train_tool.html) to measure the performance and accuarcy of the trained models.

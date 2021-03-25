@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/use/converter_tool.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,8 +33,8 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
-- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
+- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)模型转换工具。
+- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)，配置环境变量。
 
 ### 参数说明
 
@@ -122,9 +122,9 @@ bash build.sh -I x86_64
    CONVERTER RESULT SUCCESS:0
    ```
 
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)。
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/errorcode_and_metatype.html)。
 
-> 训练后量化示例请参考<https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html>。
+> 训练后量化示例请参考<https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/post_training_quantization.html>。
 
 ## Windows环境使用说明
 
@@ -132,12 +132,12 @@ bash build.sh -I x86_64
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
-- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
+- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)模型转换工具。
+- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)，配置环境变量。
 
 ### 参数说明
 
-参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id3)。
+参考Linux环境模型转换工具的[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/converter_tool.html#id3)。
 
 ### 使用示例
 
@@ -201,4 +201,4 @@ set GLOG_v=1
    CONVERTER RESULT SUCCESS:0
    ```
 
-- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)。
+- 如果转换命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/errorcode_and_metatype.html)。

@@ -20,11 +20,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/r1.2/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -60,11 +60,11 @@ MNIST_Data/
 
 ### 安装MindSpore
 
-你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
+你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/r1.2/install/mindspore_cpu_install_pip.md#)。
 
 ### 获取Converter和Runtime
 
-通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`train-conveter-linux-x64`以及`train-android-aarch64`包。编译命令如下：
+通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html)生成模型训练所需的`train-conveter-linux-x64`以及`train-android-aarch64`包。编译命令如下：
 
 ```shell
 # 生成converter工具以及x86平台的runtime包
@@ -74,7 +74,7 @@ bash build.sh -I x86_64 -T on -e cpu -j8
 bash build.sh -I arm64 -T on -e cpu -j8
 ```
 
-你也可以在[下载MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)直接下载所需要的转换工具以及模型训练框架，并将它们放在MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+你也可以在[下载MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)直接下载所需要的转换工具以及模型训练框架，并将它们放在MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
 
 ### 连接安卓设备
 
@@ -197,9 +197,9 @@ Eval Accuracy is 0.965244
 
 ### 定义并导出模型
 
-首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/lenet)。
 
-> 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
+> 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html)。
 
 ```python
 import numpy as np
@@ -264,11 +264,11 @@ print("finished exporting")
 
 转换成功后，当前目录下会生成`lenet_tod.ms`模型文件。
 
-> 更多用法参见[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)。
+> 更多用法参见[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/converter_train.html)。
 
 ### 训练模型
 
-调用源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)进行模型训练的指令如下：
+调用源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/train_lenet/src/net_runner.cc)进行模型训练的指令如下：
 
 ```bash
 Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
@@ -326,7 +326,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html) 获取更多详细信息。
+    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/session.html) 获取更多详细信息。
 
     ```cpp
     int NetRunner::InitDB() {
