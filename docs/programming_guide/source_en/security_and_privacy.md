@@ -8,10 +8,12 @@
         - [Attack](#attack)
         - [Defense](#defense)
         - [Detector](#detector)
-- [Model Security Test](#model-security-test)
+    - [Model Security Test](#model-security-test)
         - [Fuzzer](#fuzzer)
     - [Differential Privacy Training](#differential-privacy-training)
         - [DPModel](#dpmodel)
+    - [Suppress Privacy Training](#suppress-privacy-training)
+        - [SuppressModel](#suppressmodel)
     - [Privacy Breach Risk Assessment](#privacy-breach-risk-assessment)
         - [Membership Inference](#membership-inference)
 
