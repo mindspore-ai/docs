@@ -37,7 +37,7 @@
 
 1. 静态图算子结果分析。
 
-   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#id2)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
+   通过Dump功能获得的IR图，可以了解脚本代码与执行算子的映射关系（详情见[MindSpore IR简介](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#id1)）。结合执行算子的输入和输出数据，可以分析训练过程中可能存在的溢出、梯度爆炸与消失等问题，反向跟踪到脚本中可能存在问题的代码。
 
 2. 特征图分析。
 
@@ -64,22 +64,22 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
 Dump功能需要使用到最终执行图的IR文件，IR文件可以用`vi`命令查看。IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息：
 
-- 使用Dump功能将根据json配置文件里的配置自动生成最终执行图的IR文件，Dump功能的配置见[同步Dump操作步骤](#id6)和[异步Dump操作步骤](#id11)，最终执行图IR文件命名和目录结构见[同步Dump数据对象目录](#id7)和[异步Dump数据对象目录](#id12)。
+- 使用Dump功能将根据json配置文件里的配置自动生成最终执行图的IR文件，Dump功能的配置见[同步Dump操作步骤](#id4)和[异步Dump操作步骤](#id8)，最终执行图IR文件命名和目录结构见[同步Dump数据对象目录](#id7)和[异步Dump数据对象目录](#id9)。
 - 也可以在运行MindSpore脚本时，配置`context.set_context(save_graphs=True, save_graphs_path=“xxx”)`，会在指定路径"xxx"下（默认为脚本执行目录）保存图编译过程中生成的一些中间文件（IR文件），通过这些IR文件可以查看分析整个计算图的变换优化过程。`set_context`的详情可参考[mindspore.context API](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html#mindspore.context.set_context) 。
 
 Dump整体过程：
 
 1. 从脚本找到对应的算子
 
-    首先利用Dump功能获取相关的IR图文件，参考[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#id5)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id9)。
+    首先利用Dump功能获取相关的IR图文件，参考[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#ir)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id7)。
 
 2. 从算子到Dump数据
 
-    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id7)和[异步Dump数据对象目录](#id12)。
+    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id5)和[异步Dump数据对象目录](#id9)。
 
 3. 分析Dump数据
 
-    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id8)，异步Dump数据格式参考[异步Dump数据格文件介绍](#id13)。
+    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id6)，异步Dump数据格式参考[异步Dump数据文件介绍](#id10)。
 
 ## 同步Dump
 
@@ -110,7 +110,7 @@ Dump整体过程：
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数仅支持Ascend，GPU只能Dump算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件获取算子名称。例如，`device_target`为`Ascend`时，可以从`trace_code_graph_{graph_id}`中获取算子名称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#id5)。
+    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件获取算子名称。例如，`device_target`为`Ascend`时，可以从`trace_code_graph_{graph_id}`中获取算子名称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#ir)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `enable`：开启E2E Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。
@@ -395,7 +395,7 @@ numpy.reshape(array, (32,12,13,13,16))
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代。非数据下沉模式下，`iteration`需要设置成0，并且会Dump出每个迭代的数据。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#id5)。
+    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的`trace_code_graph_{graph_id}`IR文件中获取算子名称。`kernels`仅支持TBE算子、AiCPU算子、通信算子，若设置成通信算子的名称，将会Dump出通信算子的输入算子的数据。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#ir)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `enable`：开启异步Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
     - `op_debug_mode`：该属性用于算子溢出调试，设置成0，表示不开启溢出；设置成1，表示开启AiCore溢出检测；设置成2，表示开启Atomic溢出检测；设置成3，表示开启全部溢出检测功能。在Dump数据的时候请设置成0，若设置成其他值，则只会Dump溢出算子的数据。
@@ -407,7 +407,7 @@ numpy.reshape(array, (32,12,13,13,16))
     ```
 
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.management.init`之前配置。
 
 3. 执行用例Dump数据。
 
@@ -491,7 +491,7 @@ numpy.reshape(array, (32,12,13,13,16))
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id7)。
+异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id6)。
 
 ### 异步Dump数据样例
 
