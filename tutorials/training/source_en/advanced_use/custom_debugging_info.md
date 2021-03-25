@@ -454,7 +454,7 @@ MindSpore uses glog to output logs. The following environment variables are comm
     The environment variable specifies the log output path.  
     If `GLOG_logtostderr` is set to 0, value of this variable must be specified.  
     If `GLOG_log_dir` is specified and the value of `GLOG_logtostderr` is 1, logs are output to the screen but not to a file.  
-    Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp`. The file name of Python log is `mindspore.log`.
+    Logs of C++ and Python will be output to different files. The file name of C++ log complies with the naming rule of `GLOG` log file. Here, the name is `mindspore.MachineName.UserName.log.LogLevel.Timestamp.PID`. The file name of Python log is `mindspore.log.PID`.
 
 - `MS_SUBMODULE_LOG_v`
 
