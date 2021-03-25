@@ -38,7 +38,7 @@ pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 
 ### 使用源码安装
 
-访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
+访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git -b r1.2`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
 
 ```python
 cd mindspore
