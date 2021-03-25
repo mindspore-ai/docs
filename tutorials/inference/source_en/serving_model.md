@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_model.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_model.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## Overview
 
@@ -27,7 +27,7 @@ MindSpore Serving Servable provides the inference services of the following type
 
 The following describes how to configure a single model to provide Servable. All Servable configurations are for single-model Servables and the Serving client is referred to as the client.
 
-ResNet-50 is used as an example to describe how to configure a model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/master/example/resnet/).
+ResNet-50 is used as an example to describe how to configure a model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/r1.2/example/resnet/).
 
 ## Concepts
 
@@ -136,7 +136,7 @@ def postprocess_top5(score):
 
 The preprocessing and post-processing are defined in the same format. The input parameters are the input data of each instance. If the input data is a text, the input parameter is a str object. If the input data is of other types, such as Tensor, Scalar number, Boolean, and Bytes, the input parameter is a **numpy object**. The instance processing result is returned through `return`, which can be **numpy**, or a single data object or a tuple consisting of **bool, int, float, str, or bytes of Python**.
 
-The input sources and output usage of preprocessing and post-processing are determined by the [Method Definition](https://www.mindspore.cn/tutorial/inference/en/master/serving_model.html#id9).
+The input sources and output usage of preprocessing and post-processing are determined by the [Method Definition](https://www.mindspore.cn/tutorial/inference/en/r1.2/serving_model.html#id9).
 
 ### Model Declaration
 
@@ -246,4 +246,4 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides `call_preprocess_pipeline` and `call_postprocess_pipeline` for registering such preprocessing and post-processing. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py).
+In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides `call_preprocess_pipeline` and `call_postprocess_pipeline` for registering such preprocessing and post-processing. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/r1.2/example/resnet/resnet50/servable_config.py).

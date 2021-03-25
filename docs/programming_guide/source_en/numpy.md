@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -35,7 +35,7 @@ MindSpore Numpy package contains a set of Numpy-like interfaces, which allows de
 
 ## Operator Functions
 
-Mindspore Numpy operators can be classified into four functional modules: `array generation`, `array operation`, `logic operation` and `math operation`. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Numpy Interface List](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.numpy.html).
+Mindspore Numpy operators can be classified into four functional modules: `array generation`, `array operation`, `logic operation` and `math operation`. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Numpy Interface List](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.numpy.html).
 
 ### Array Generations
 
@@ -362,7 +362,7 @@ from mindspore import ms_function
 forward_compiled = ms_function(forward)
 ```
 
-> Currently, static graph cannot run in command line mode and not all python types can be passed into functions decorated with `ms_function`. For details about the static graph syntax support, see [Syntax Support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html). For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function).
+> Currently, static graph cannot run in command line mode and not all python types can be passed into functions decorated with `ms_function`. For details about the static graph syntax support, see [Syntax Support](https://www.mindspore.cn/doc/note/en/r1.2/static_graph_syntax_support.html). For details about how to use `ms_function`, see [API: ms_function](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.html#mindspore.ms_function).
 
 ### Use GradOperation to compute deratives
 
@@ -386,7 +386,7 @@ grad_all = ops.composite.GradOperation(get_all=True)
 grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3)
 ```
 
- For more details, see [API: GradOperation](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html).
+ For more details, see [API: GradOperation](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/ops/mindspore.ops.GradOperation.html).
 
 ### Use mindspore.context to control execution mode
 
@@ -413,7 +413,7 @@ context.set_context(device_target="Ascend")
 ...
 ```
 
- For more details, see [API: mindspore.context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).
+ For more details, see [API: mindspore.context](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.context.html).
 
 ### Use mindspore.numpy in MindSpore Deep Learning Models
 
@@ -455,4 +455,4 @@ The output is:
  [2816. 2816. 2816. 2816.]]
 ```
 
-For more details on building Neural Network with MindSpore, see [MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/en/master/index.html).
+For more details on building Neural Network with MindSpore, see [MindSpore Training Guide](https://www.mindspore.cn/tutorial/training/en/r1.2/index.html).

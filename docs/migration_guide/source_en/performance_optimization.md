@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/migration_guide/source_en/performance_optimization.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 Profiler provides performance tuning ability for MindSpore, and provides easy-to-use and rich debugging functions in operator performance, iteration performance, data processing performance, etc., helping users quickly locate and solve performance problems.
 
@@ -20,9 +20,9 @@ This chapter introduces the common methods and cases of performance tuning in ne
 
 Please refer to the tutorials for the function introduction and instructions of MindSpore Profiler.
 
-[Performance Profiling（Ascend）](https://mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html)
+[Performance Profiling（Ascend）](https://mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html)
 
-[Performance Profiling（GPU）](https://mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_gpu.html)
+[Performance Profiling（GPU）](https://mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_gpu.html)
 
 This section will introduce the common use of MindSpore Profiler through three typical cases.
 

@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/serving_restful.md" target="_blank"><img src="_static/logo_source.png"></a>
 
 ## Overview
 
@@ -21,7 +21,7 @@ MindSpore Serving supports both `gPRC` and `RESTful` request modes. The followin
 
 `RESTful` is an API designed and developed based on `HTTP`. It manages and accesses resources through `URI` and features high scalability and clear structure. The lightweight `RESTful` can directly transmit data through `HTTP`, and has become the most popular `Web` service access mode. Users can directly interact with services in `RESTful` mode.
 
-For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html).
+For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/r1.2/serving_example.html).
 
 Use the `master.start_restful_server` API to start the `RESTful` service. Alternatively, you can use `master.start_grpc_server` to start the `gRPC` service.
 
