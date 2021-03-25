@@ -28,9 +28,9 @@ Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
 MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
-- Compile or download the compiled model transfer tool.
+- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
 
-- Set the environment variables of the model transfer tool.
+- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
 
 ### Parameters Description
 
