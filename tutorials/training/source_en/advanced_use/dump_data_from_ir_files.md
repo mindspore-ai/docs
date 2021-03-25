@@ -14,7 +14,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/dump_data_from_ir_files.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/dump_data_from_ir_files.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,9 +24,9 @@ When a model compiled using MindSpore runs in the graph mode `context.set_contex
 
 - .dat file: An IR file that describes the model structure more strictly than the .ir file. It contains more contents and can be directly viewed using any text editors.
 
-- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dashboard.html#computational-graph-visualization) to visualize computing graphs.
+- .dot file: An IR file that describes the topology relationships between different nodes. You can use this file by [graphviz](http://graphviz.org/) as the input to generate images for users to view the model structure. For models with multiple operators, it is recommended using the visualization component [MindInsight](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/dashboard.html#computational-graph-visualization) to visualize computing graphs.
 
-In this tutorial, we use LeNet from ModelZoo as a demonstration in the Ascend environment. The related scripts can be found in [ModelZoo/LeNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet).
+In this tutorial, we use LeNet from ModelZoo as a demonstration in the Ascend environment. The related scripts can be found in [ModelZoo/LeNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/lenet).
 
 ## Generating IR Files
 
@@ -215,7 +215,7 @@ Generally, graph 0, `hwopt_d_end_graph_0_[xxxx].ir`, indicates the data subgraph
 
 After obtaining the op name, we can execute the dump process to save the input and output of the operator for debugging. Here, we will introduce a method called synchronous dump.
 
-1.Create the configuration file `data_dump.json`, this file stores the operators information to be dumped, copy the op name obtained from previous step to the `kernels` key. For details about this file, see the [custom debugging info](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#asynchronous-dump).
+1.Create the configuration file `data_dump.json`, this file stores the operators information to be dumped, copy the op name obtained from previous step to the `kernels` key. For details about this file, see the [custom debugging info](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_debugging_info.html#asynchronous-dump).
 
 ```text
 {

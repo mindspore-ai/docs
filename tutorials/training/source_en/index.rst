@@ -196,7 +196,7 @@ Train with MindSpore
 
 						<div class="doc-article-list">
 							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing an Image Classification Application</span>
@@ -209,7 +209,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-Windows hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/quick_start/linear_regression.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/quick_start/linear_regression.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Simple Linear Function Fitting</span>
@@ -222,7 +222,7 @@ Train with MindSpore
 							</div>
 							
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/load_dataset_image.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/load_dataset_image.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Loading Image Dataset</span>
@@ -235,7 +235,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/load_dataset_text.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/load_dataset_text.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Loading Text Dataset</span>
@@ -247,7 +247,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/defining_the_network.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/defining_the_network.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Defining the Network</span>
@@ -259,7 +259,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/save_model.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Saving Models</span>
@@ -271,7 +271,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Loading user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/load_model_for_inference_and_transfer.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/load_model_for_inference_and_transfer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Loading a Model for Inference and Transfer Learning</span>
@@ -283,7 +283,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Publishing  user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/use/publish_model.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/use/publish_model.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Publishing Models</span>
@@ -295,7 +295,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/convert_dataset.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/convert_dataset.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Converting Dataset to MindRecord</span>
@@ -308,7 +308,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/optimize_data_processing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Optimize the Data Processing</span>
@@ -321,7 +321,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Development user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_operator_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Custom Operators (Ascend)</span>
@@ -333,7 +333,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_gpu.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_operator_gpu.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Custom Operators (GPU)</span>
@@ -345,7 +345,7 @@ Train with MindSpore
 								</a>
 							</div>							
 							<div class="doc-article-item all os-Linux hardware-CPU stage-Model-Development user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_cpu.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_operator_cpu.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Custom Operators (CPU)</span>
@@ -357,7 +357,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Development user-Beginner hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts_mindconverter.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/migrate_3rd_scripts_mindconverter.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Migrating from Third Party Frameworks with Tools</span>
@@ -369,7 +369,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/migrate_3rd_scripts.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Migrating Training Scripts from Third Party Frameworks</span>
@@ -382,7 +382,7 @@ Train with MindSpore
 							</div>
 
 							<div class="doc-article-item all hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_deep_probability_programming.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/apply_deep_probability_programming.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Deep Probabilistic Programming</span>
@@ -395,7 +395,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all hardware-Ascend hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/implement_high_order_differentiation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/implement_high_order_differentiation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing High-order Automatic Differentiation</span>
@@ -407,7 +407,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/debug_in_pynative_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Debugging in PyNative Mode</span>
@@ -419,7 +419,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dump_data_from_ir_files.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/dump_data_from_ir_files.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Debugging with IR Diagrams</span>
@@ -431,7 +431,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_debugging_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Customized Debugging Information</span>
@@ -443,7 +443,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/summary_record.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/summary_record.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Collecting Summary Data</span>
@@ -455,7 +455,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dashboard.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/dashboard.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Viewing Dashboard</span>
@@ -467,7 +467,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/lineage_and_scalars_comparison.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/lineage_and_scalars_comparison.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Viewing Lineage and Scalars Comparison</span>
@@ -480,7 +480,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/hyper_parameters_auto_tuning.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/hyper_parameters_auto_tuning.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Use Mindoptimizer to Tune Hyperparameters</span>
@@ -493,7 +493,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performance Profiling (Ascend)</span>
@@ -506,7 +506,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_gpu.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_gpu.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Performance Profiling (GPU)</span>
@@ -519,7 +519,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend_of_cluster.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend_of_cluster.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Cluster Performance Profiling (Ascend)</span>
@@ -531,7 +531,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU  stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/debugger.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Use Debugger</span>
@@ -543,7 +543,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/model_explanation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/model_explanation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Explain Models</span>
@@ -556,7 +556,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/mindinsight_commands.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">MindInsight Commands</span>
@@ -568,7 +568,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_auto_augmentation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/enable_auto_augmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Data Augmentation</span>
@@ -581,7 +581,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Export stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/evaluate_the_model_during_training.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/evaluate_the_model_during_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Evaluating the Model during Training</span>
@@ -593,7 +593,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Beginner user-Intermediate user-Expert experience-Online-Experience experience-Local-Experience hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/incremental_operator_build.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/incremental_operator_build.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Incremental Operator Build</span>
@@ -606,7 +606,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/distributed_training_ascend.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Parallel Distributed Training (Ascend)</span>
@@ -618,7 +618,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_gpu.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/distributed_training_gpu.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Parallel Distributed Training (GPU)</span>
@@ -630,7 +630,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-CPU stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_host_device_training.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/apply_host_device_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Adopt Host&Device for Hybrid Training</span>
@@ -643,7 +643,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/apply_parameter_server_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Training with Parameter Server</span>
@@ -656,7 +656,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/save_load_model_hybrid_parallel.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Saving and Loading Models in Hybrid Parallel Mode</span>
@@ -669,7 +669,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Training user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_mixed_precision.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/enable_mixed_precision.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Enabling Mixed Precision</span>
@@ -682,7 +682,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_graph_kernel_fusion.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/enable_graph_kernel_fusion.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Enabling Graph Kernel Fusion</span>
@@ -694,7 +694,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_gradient_accumulation.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/apply_gradient_accumulation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Applying Gradient Accumulation Algorithm</span>
@@ -706,7 +706,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Data-Preparation user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_cache.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/enable_cache.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Application of Single-Node Tensor Cache</span>
@@ -718,7 +718,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_quantization_aware_training.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/apply_quantization_aware_training.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Applying Quantization Aware Training</span>
@@ -731,7 +731,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Training stage-Model-Optimization user-Enterprise user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/improve_model_security_nad.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/improve_model_security_nad.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Applying NAD algorithm to Improve the Security of a Model</span>
@@ -743,7 +743,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Model-Optimization user-Enterprise user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/protect_user_privacy_with_differential_privacy.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/protect_user_privacy_with_differential_privacy.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Protecting User Privacy with Differential Privacy Mechanism</span>
@@ -757,7 +757,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Evaluation user-Enterprise user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/test_model_security_fuzzing.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/test_model_security_fuzzing.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Applying the fuzz_testing Module to Test Security of a Model</span>
@@ -769,7 +769,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Evaluation user-Enterprise user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/test_model_security_membership_inference.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/test_model_security_membership_inference.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using Membership Inference to Test Model Security</span>
@@ -782,7 +782,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_resnet50.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/cv_resnet50.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Image Classification Using ResNet-50 Network</span>
@@ -795,7 +795,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development stage-Model-Optimization user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_resnet50_second_order_optimizer.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/cv_resnet50_second_order_optimizer.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">ResNet-50 Second-Order Optimization Practice</span>
@@ -807,7 +807,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Windows os-Linux hardware-CPU hardware-Ascend hardware-GPU stage-Model-Development user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_mobilenetv2_fine_tune.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/cv_mobilenetv2_fine_tune.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using MobileNetV2 to Implement Fine-Tuning</span>
@@ -819,7 +819,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU hardware-CPU stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/nlp_sentimentnet.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/nlp_sentimentnet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Realizing Sentiment Classification with SentimentNet</span>
@@ -831,7 +831,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Training stage-Inference user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/nlp_bert_poetry.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/nlp_bert_poetry.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Using the BERT Network to Implement Intelligent Poem Writing</span>
@@ -843,7 +843,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-GPU stage-Model-Development user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/hpc_gomo.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/hpc_gomo.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Implementing Regional Ocean Model GOMO</span>
@@ -855,7 +855,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Whole-Process user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/use_on_the_cloud.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/use_on_the_cloud.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Use MindSpore on the Cloud</span>

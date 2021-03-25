@@ -41,7 +41,7 @@ This is a simple and basic application process. Other advanced and complex appli
 
 > This document is applicable to CPU, GPU and Ascend environments.
 >
-> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/lenet>.
+> You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/lenet>.
 
 ## Preparations
 
@@ -88,7 +88,7 @@ Currently, only the `os` library is required. Other libraries are not described 
 import os
 ```
 
-For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/api_python/en/master/index.html).
+For details about MindSpore modules, search on the [MindSpore API Page](https://www.mindspore.cn/doc/api_python/en/r1.2/index.html).
 
 ### Configuring the Running Information
 
@@ -245,7 +245,7 @@ In the preceding augmentation process:
 
 Perform the `shuffle` and `batch` operations, and then perform the `repeat` operation to ensure that data is unique during one `epoch`.
 
-> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html) and [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html) in the MindSpore tutorials.
+> MindSpore supports multiple data processing and augmentation operations, which are usually used in combined. For details, see section [Data Processing](https://www.mindspore.cn/tutorial/training/en/r1.2/use/data_preparation.html) and [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/r1.2/augmentation.html) in the MindSpore tutorials.
 
 ### Viewing Enhanced Data
 
@@ -493,7 +493,7 @@ After training, multiple model files will be generated and saved under the pre-s
 
 The meaning of the file name: `{Customized name configured in ModelCheckpoint}-{The number of epoch}-{The number of step}`.
 
-> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the official website programming guide "[Training](https://www.mindspore.cn/doc/programming_guide/en/master/train.html#customizing-a-training-cycle)".
+> To use free control loop iterations, traversing data sets, etc., you can refer to the "Customizing a Training Cycle" part of the official website programming guide "[Training](https://www.mindspore.cn/doc/programming_guide/en/r1.2/train.html#customizing-a-training-cycle)".
 
 ### Checking the Loss Value of the Model with the Change of Training Steps
 

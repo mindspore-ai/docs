@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/enable_cache.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -75,7 +75,7 @@ some_cache = ds.DatasetCache(session_id=1493732251, size=0, spilling=False)
 
 ## Inserting a Cache Instance
 
-The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
+The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
 
 ```text
 ├─my_training_script.py

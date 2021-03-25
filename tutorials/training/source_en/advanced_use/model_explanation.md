@@ -23,7 +23,7 @@
 
 <!--/ TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/model_explanation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/advanced_use/model_explanation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Overview
 
@@ -172,7 +172,7 @@ The classification assessment page provides two types of comparison. One is to c
 
 ## Uncertainty
 
-The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
+The model predictions come with uncertainty, which is called [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation). It inserts a dropout layer to the network and inferences multiple times. The results are standard deviation and 95% confidence interval of the model output predictions:
 
 ![xai_saliency_map](./images/xai_uncertainty.png)
 
