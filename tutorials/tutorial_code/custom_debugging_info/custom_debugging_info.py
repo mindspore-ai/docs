@@ -16,7 +16,6 @@
 """Custom Debugging Info Tutorial
 This sample code is applicable to CPU, GPU and Ascend.
 """
-
 import os
 import json
 from mindspore import log as logger

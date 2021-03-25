@@ -13,7 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """custom callback
-This sample code is applicable to CPU, GPU and Ascend.
+This sample code is applicable to Ascend, CPU and GPU.
 """
 import time
 import mindspore.nn as nn
