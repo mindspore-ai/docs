@@ -88,8 +88,8 @@ if (!ret) {
 
 ```java
 private static boolean compile() {
-    MSConfig msConfig = new MSConfig(DeviceType.DT_CPU, 2);
-    boolean ret = msConfig.init();
+    MSConfig msConfig = new MSConfig();
+    boolean ret = msConfig.init(DeviceType.DT_CPU, 2);
     if (!ret) {
         System.err.println("Init context failed");
         return false;
@@ -176,8 +176,8 @@ private static boolean run() {
 无需使用MindSpore Lite推理框架时，需要释放已经创建的`LiteSession`和`Model`。
 
 ```java
-// Delete model buffer.
-session.free();
 // Delete session buffer.
+session.free();
+// Delete model buffer.
 model.free();
 ```
