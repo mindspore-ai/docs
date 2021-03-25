@@ -28,8 +28,8 @@
 
 MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
 
-- 编译或下载已编译好的模型转换工具。
-- 配置模型转换工具的环境变量。
+- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
+- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
 
 ### 参数说明
 
