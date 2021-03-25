@@ -1,6 +1,6 @@
 # MindSpore IR（MindIR）
 
-`Linux` `Windows` `框架开发` `中级` `高级` `贡献者`
+`Linux` `Windows` `Ascend` `GPU` `框架开发` `中级` `模型开发` `高级` `贡献者`
 
 <!-- TOC -->
 
@@ -9,6 +9,7 @@
     - [文法定义](#文法定义)
     - [示例](#示例)
     - [如何保存IR](#如何保存ir)
+    - [IR文件内容介绍](#ir文件内容介绍)
     - [函数式语义](#函数式语义)
         - [高阶函数](#高阶函数)
         - [控制流](#控制流)
@@ -17,13 +18,19 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/mindir.md" target="_blank"><img src="../../_static/logo_source.png"></a>
 
 ## 简介
 
 中间表示（IR）是程序编译过程中介于源语言和目标语言之间的程序表示，以方便编译器进行程序分析和优化，因此IR的设计需要考虑从源语言到目标语言的转换难度，同时考虑程序分析和优化的易用性和性能。
 
-MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。
+MindIR是一种基于图表示的函数式IR，其最核心的目的是服务于自动微分变换。自动微分采用的是基于函数式编程框架的变换方法，因此IR采用了接近于ANF函数式的语义。此外，借鉴Sea of Nodes[1]和Thorin[2]的优秀设计，采用了一种基于显性依赖图的表示方式。关于ANF-IR的具体介绍，可以参考[MindSpore IR文法定义](#id2)。
+
+在图模式`context.set_context(mode=context.GRAPH_MODE)`下运行用MindSpore编写的模型时，若配置中设置了`context.set_context(save_graphs=True)`，运行时会输出一些图编译过程中生成的一些中间文件，我们称为IR文件。当前主要有三种格式的IR文件：
+
+- ir后缀结尾的IR文件：一种比较直观易懂的以文本格式描述模型结构的文件，可以直接用文本编辑软件查看。在下文中我们也将介绍此文件的查看方式。
+- dat后缀结尾的IR文件：一种相对于ir后缀结尾的文件格式定义更为严谨的描述模型结构的文件，包含的内容更为丰富，可以直接用文本编辑软件查看。
+- dot后缀结尾的IR文件：描述了不同节点间的拓扑关系，可以用[graphviz](http://graphviz.org)将此文件作为输入生成图片，方便用户直观地查看模型结构。对于算子比较多的模型，推荐使用可视化组件[MindInsight](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/dashboard.html#id5)对计算图进行可视化。
 
 ## 文法定义
 
@@ -87,7 +94,7 @@ lambda (x, y)
     c end
 ```
 
-对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/images/ir/ir.dot)：
+对应的MindIR为[ir.dot](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/images/ir/ir.dot)：
 
 ![image](./images/ir/ir.png)
 
@@ -100,6 +107,136 @@ lambda (x, y)
 通过`context.set_context(save_graphs=True)`来保存各个编译阶段的中间代码。被保存的中间代码有两种格式，一个是后缀名为`.ir`的文本格式，一个是后缀名为`.dot`的图形化格式。当网络规模不大时，建议使用更直观的图形化格式来查看，当网络规模较大时建议使用更高效的文本格式来查看。
 
 DOT文件可以通过graphviz转换为图片格式来查看，例如将dot转换为png的命令是`dot -Tpng *.dot -o *.png`。
+
+在训练脚本`train.py`中，我们在`set_context`函数中添加如下代码，运行训练脚本时，MindSpore会自动将编译过程中产生的IR文件存放到指定路径。
+
+```python
+if __name__ == "__main__":
+    context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files")
+```
+
+此处为单机版本的训练脚本。当运行的脚本使用多个计算设备时，MindSpore会为每一个计算设备生成一个独立的进程。因此我们建议用户在多卡版本的训练脚本中读取当前的计算设id，从而为每个设备设置独立的`save_graphs_path`实现将每个设备的IR文件保存在不同的路径下。例如：
+
+```python
+device_id = os.getenv("DEVICE_ID")
+context.set_context(save_graphs=True, save_graphs_path="path/to/ir/files"+device_id)
+```
+
+执行训练命令后，在指定的目录生成如下文件。其中以数字下划线开头的IR文件是在ME编译图过程中输出的，`pipeline`各阶段分别会保存一次计算图。下面介绍比较重要的阶段，例如`parse`阶段会解析入口的`construct`函数；`symbol_resolve`阶段会递归解析入口函数直接或间接引用到的其他函数和对象；`abstract_specialize`阶段会做类型推导和`shape`推导；`optimize`阶段主要是进行和硬件无关的优化，自动微分与自动并行功能也是在该阶段展开；`validate`阶段会校验编译出来的计算图；`task_emit`阶段将计算图传给后端进一步处理；`execute`阶段会执行该计算图。
+
+```bash
+.
+├── 00_parse_[xxxx].ir
+├── 00_parse.dat
+├── 00_parse.dot
+├── 01_symbol_resolve_[xxxx].ir
+├── 01_symbol_resolve.dat
+├── 01_symbol_resolve.dot
+├── 02_combine_like_graphs_[xxxx].ir
+├── 02_combine_like_graphs.dat
+├── 02_combine_like_graphs.dot
+├── 03_inference_opt_prepare_[xxxx].ir
+├── 03_inference_opt_prepare.dat
+├── 03_inference_opt_prepare.dot
+├── 04_abstract_specialize_[xxxx].ir
+├── 04_abstract_specialize.dat
+├── 04_abstract_specialize.dot
+├── 05_inline_[xxxx].ir
+├── 05_inline.dat
+├── 05_inline.dot
+├── 06_py_pre_ad_[xxxx].ir
+├── 06_py_pre_ad.dat
+├── 06_py_pre_ad.dot
+├── 07_pipeline_split_[xxxx].ir
+├── 07_pipeline_split.dat
+├── 07_pipeline_split.dot
+├── 08_optimize_[xxxx].ir
+├── 08_optimize.dat
+├── 08_optimize.dot
+├── 09_py_opt_[xxxx].ir
+├── 09_py_opt.dat
+├── 09_py_opt.dot
+├── 10_validate_[xxxx].ir
+├── 10_validate.dat
+├── 10_validate.dot
+├── 11_task_emit_[xxxx].ir
+├── 11_task_emit.dat
+├── 11_task_emit.dot
+├── 12_execute_[xxxx].ir
+├── 12_execute.dat
+├── 12_execute.dot
+...
+```
+
+## IR文件内容介绍
+
+下面以一个简单的例子来说明IR文件的内容，执行以下一段训练代码：
+
+```python
+import mindspore.context as context
+import mindspore.nn as nn
+from mindspore import Tensor
+from mindspore import dtype as mstype
+
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
+context.set_context(save_graphs=True, save_graphs_path="./ir_files")
+
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+
+    def construct(self, x, y):
+        x = x + y
+        x = x * y
+        return x
+
+x = Tensor(3, mstype.float32)
+y = Tensor(2, mstype.float32)
+net = Net()
+out = net(x, y)
+print(out)
+```
+
+使用文本编辑软件（例如`vi`）打开执行完后输出的IR文件`12_execute_[xxxx].ir`，内容如下所示：
+
+```text
+ 1 #IR entry      : @6_5_1_construct_wrapper.15
+ 2 #attrs         :
+ 3 check_set_strategy_valid_once_only : 1
+ 4 #Total params  : 2
+ 5
+ 6 %para1_x : <Tensor[Float32]x[const vector][]>
+ 7 %para2_y : <Tensor[Float32]x[const vector][]>
+ 8
+ 9 #Total subgraph : 1
+10
+11 subgraph attr:
+12 check_set_strategy_valid_once_only : 1
+13 subgraph @6_5_1_construct_wrapper.15() {
+14   %0([CNode]8) = Add(%para1_x, %para2_y) primitive_attrs: {output_names: [output], input_names: [x, y]}
+15       : (<Tensor[Float32]x[const vector][]>, <Tensor[Float32]x[const vector][]>) -> (<Tensor[Float32]x[const vector][]>)
+16       # In file /home/workspace/mindspore/mindspore/ops/composite/multitype_ops/add_impl.py(129)/    return F.add(x, y)/
+17       # In file demo.py(14)/        x = x + y/
+18   %1([CNode]10) = Mul(%0, %para2_y) primitive_attrs: {output_names: [output], input_names: [x, y]}
+19       : (<Tensor[Float32]x[const vector][]>, <Tensor[Float32]x[const vector][]>) -> (<Tensor[Float32]x[const vector][]>)
+20       # In file /home/workspace/mindspore/mindspore/ops/composite/multitype_ops/mul_impl.py(48)/    return F.tensor_mul(x, y)/
+21       # In file demo.py(15)/        x = x * y/
+22   return(%1)
+23       : (<Tensor[Float32]x[const vector][]>)
+24 }
+```
+
+以上内容可分为两个部分，第一部分为输入列表，第二部分为图结构。 其中第1行告诉了我们该网络的顶图名称`@6_5_1_construct_wrapper.15`，也就是入口图。 第4行告诉了我们该网络有多少个输入。 第6-7行为输入列表，遵循`%para[序号]_[name] : <[data_type]x[shape]>`的格式。 第9行告诉我们该网络解析出来的子图数量。 第11-24行为图结构，含有若干节点，即`CNode`。该示例中只有2个节点,分别为14行的`Add`和18行的`Mul`。
+
+`CNode`的信息遵循如下格式，包含节点名称、属性、输入节点、输出信息、格式、源码解析调用栈等信息，由于ANF图为单向无环图，所以这里仅根据输入关系体现节点与节点的连接关系。源码解析调用栈则体现了`CNode`与脚本源码之间的关系，例如第20行由第21行解析而来，而第21行能对应到脚本的`x = x * y`。
+
+```text
+%[序号]([debug_name]) = [OpName]([arg], ...) primitive_attrs: {[key]: [value], ...}
+    : (<[输入data_type]x[输入shape]>, ...) -> (<[输出data_type]x[输出shape]>, ...)
+    # 源码解析调用栈
+```
+
+> 需要注意的是经过编译器的若干优化处理后，节点可能经过了若干变幻（如算子拆分、算子融合等），节点的源码解析调用栈信息与脚本可能无法完全一一对应，这里仅作为辅助手段。
 
 ## 函数式语义
 
@@ -121,7 +258,7 @@ def hof(x):
     return res
 ```
 
-对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/images/ir/hof.dot)：
+对应的MindIR为[hof.dot](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/images/ir/hof.dot)：
 
 ![image](./images/ir/hof.png)
 
@@ -144,7 +281,7 @@ def fibonacci(n):
         return fibonacci(n-1) + fibonacci(n-2)
 ```
 
-对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/images/ir/cf.dot)：
+对应的MindIR为[cf.dot](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/images/ir/cf.dot)：
 
 ![image](./images/ir/cf.png)
 
@@ -171,7 +308,7 @@ def ms_closure():
     return out1, out2
 ```
 
-对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/images/ir/closure.dot)：
+对应的MindIR为[closure.dot](https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/images/ir/closure.dot)：
 
 ![image](./images/ir/closure.png)
 
