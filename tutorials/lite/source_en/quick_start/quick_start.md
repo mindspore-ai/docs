@@ -138,9 +138,13 @@ app
 
 When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
-In this example, the build process automatically downloads the `mindspore-lite-{version}-inference-android` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+In this example, the build process automatically downloads the `mindspore-lite-{version}-inference-android-{arch}.tar.gz` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-inference-android` folder to the directory of `src/main/cpp`.
+> version: Version number of the .tar package, which is the same as the version of the compiled branch code.
+>
+> arch: Operating system arm64 or arm32.
+
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android-{arch}.tar.gz](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-inference-android-{arch}` folder to the directory of `src/main/cpp`.
 
 ```text
 android{
@@ -163,43 +167,34 @@ Create a link to the `.so` library file in the `app/CMakeLists.txt` file:
 ```text
 # ============== Set MindSpore Dependencies. =============
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/flatbuffers/include)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION})
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/ir/dtype)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/include/schema)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/minddata/include)
 
 add_library(mindspore-lite SHARED IMPORTED)
 add_library(minddata-lite SHARED IMPORTED)
-add_library(hiai SHARED IMPORTED)
-add_library(hiai_ir SHARED IMPORTED)
-add_library(hiai_ir_build SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/lib/aarch64/libmindspore-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/lib/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/minddata/lib/aarch64/libminddata-lite.so)
-set_target_properties(hiai PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai.so)
-set_target_properties(hiai_ir PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai_ir.so)
-set_target_properties(hiai_ir_build PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/third_party/hiai_ddk/lib/aarch64/libhiai_ir_build.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/minddata/lib/libminddata-lite.so)
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.
-target_link_libraries(
-    ...
-     # --- mindspore ---
-         minddata-lite
-         mindspore-lite
-         hiai
-         hiai_ir
-         hiai_ir_build
-    ...
-)
+target_link_libraries( # Specifies the target library.
+        mlkit-label-MS
+
+        # --- mindspore ---
+        minddata-lite
+        mindspore-lite
+
+        # --- other dependencies.---
+        -ljnigraphics
+        android
+
+        # Links the target library to the log library
+        ${log-lib}
+        )
 ```
 
 ### Downloading and Deploying a Model File
