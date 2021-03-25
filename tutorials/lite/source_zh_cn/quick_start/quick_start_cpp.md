@@ -155,14 +155,14 @@ size_t size = 0;
 char *model_buf = ReadFile(model_path, &size);
 if (model_buf == nullptr) {
   std::cerr << "Read model file failed." << std::endl;
-  return RET_ERROR;
+  return -1;
 }
 // Load the .ms model.
 auto model = mindspore::lite::Model::Import(model_buf, size);
 delete[](model_buf);
 if (model == nullptr) {
   std::cerr << "Import model file failed." << std::endl;
-  return RET_ERROR;
+  return -1;
 }
 ```
 
