@@ -57,7 +57,7 @@ Train with MindSpore
    :hidden:
 
    advanced_use/debug_in_pynative_mode
-   advanced_use/dump_data_from_ir_files
+   advanced_use/dump_in_graph_mode
    advanced_use/custom_debugging_info
    advanced_use/visualization_tutorials
    advanced_use/enable_auto_augmentation
@@ -418,14 +418,14 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Development user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/dump_data_from_ir_files.html" class="article-link">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/dump_in_graph_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Debugging with IR Diagrams</span>
+											<span class="doc-head-content">Using Dump in the Graph Mode</span>
 										</div>
 										<div class="doc-article-desc">
-											In the Graph mode, IR files will be generated during training, and dump specific operators based on this file for debugging. This tutorial will introduce the usage and precautions in detail.
+										The input and output of the operator can be saved for debugging through the data dump when the training result deviates from the expectation.
 										</div>
 									</div>
 								</a>

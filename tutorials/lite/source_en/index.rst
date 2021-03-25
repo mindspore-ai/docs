@@ -147,6 +147,32 @@ Using MindSpore on Mobile and IoT
 						</div>
 
 						<div class="doc-article-list">
+						<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/quick_start/quick_start_cpp.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Experience a MindSpore Lite C++ Simple Demo</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This tutorial provides a MindSpore Lite inference demo. It demonstrates the basic on-device inference process using C++ by inputting random data, executing inference, and printing the inference result.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux language-java stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/quick_start/quick_start_java.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Experience a MindSpore Lite Java Simple Demo</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This tutorial provides an example program for MindSpore Lite to perform inference. It demonstrates the basic process of performing inference on the device side using MindSpore Lite Java API by random inputting data, executing inference, and printing the inference result. 
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/r1.2/quick_start/quick_start.html" class="article-link">
 									<div>
