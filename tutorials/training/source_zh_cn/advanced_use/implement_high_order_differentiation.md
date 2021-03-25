@@ -72,7 +72,8 @@ print(output)
 输出结果如下：
 
 ```python
-[[4.5099998 2.7 3.6000001] [4.5099998 2.7 3.6000001]]
+[[4.5099998 2.7 3.6000001]
+ [4.5099998 2.7 3.6000001]]
 ```
 
 为便于分析，输入`x`、`y`以及权重`z`可以表示成如下形式:
@@ -121,7 +122,9 @@ class GradNetWrtX(nn.Cell):
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net, self.params)
         return gradient_function(x, y)
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)
 print(output)
 ```
@@ -129,7 +132,7 @@ print(output)
 输出结果如下：
 
 ```python
-[2.15359993e+01]
+(Tensor(shape=[1], dtype=Float32, value= [ 2.15359993e+01]),)
 ```
 
 求导公式变为：
@@ -156,7 +159,9 @@ class GradNetWrtX(nn.Cell):
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, y, self.grad_wrt_output)
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)  
 print(output)
 ```
@@ -164,7 +169,8 @@ print(output)
 输出结果如下：
 
 ```python
-[[2.211 0.51 1.49] [5.588 2.68 4.07]]
+[[2.211 0.51 1.49 ]
+ [5.588 2.68 4.07 ]]
 ```
 
 `self.grad_wrt_output`可以记作如下形式：
@@ -197,7 +203,9 @@ class Net(nn.Cell):
         x = x * self.z
         out = self.matmul(x, y)
         return out[0][0]
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)  
 print(output)
 ```
@@ -205,7 +213,8 @@ print(output)
 输出结果如下：
 
 ```python
-[[0.11 1.1 1.1] [0. 0. 0.]]
+[[0.11 1.1 1.1]
+ [0.   0.  0. ]]
 ```
 
 ## 高阶求导
@@ -311,7 +320,7 @@ print(output)
 输出结果如下：
 
 ```python
-[2.00000000e+00, 2.00000000e+00, 2.00000000e+00]
+[2. 2. 2.]
 ```
 
 ### 多输入多输出高阶导数
