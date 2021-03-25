@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/cache.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -170,7 +170,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Note that you need to create a cache instance for each of the two examples according to step 4, and use the created `test_cache` as the `cache` parameter in the dataset loading operator or map operator.
 
-    CIFAR-10 dataset is used in the following two examples. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100).
+    CIFAR-10 dataset is used in the following two examples. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_loading.html#cifar-10-100).
 
     - Cache the original loaded dataset.
 
@@ -329,11 +329,11 @@ During the single-node multi-device distributed training, the cache operator all
     done
     ```
 
-    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/cache.sh)
+    > Complete sample code: [cache.sh](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/tutorial_code/cache/cache.sh)
 
 4. Create and apply a cache instance.
 
-    CIFAR-10 dataset is used in the following example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100). The directory structure is as follows:
+    CIFAR-10 dataset is used in the following example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_loading.html#cifar-10-100). The directory structure is as follows:
 
     ```text
     ├─cache.sh
@@ -372,7 +372,7 @@ During the single-node multi-device distributed training, the cache operator all
     print("Got {} samples on device {}".format(num_iter, args_opt.device))
     ```
 
-    > Complete sample code: [my_training_script.py](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/my_training_script.py)
+    > Complete sample code: [my_training_script.py](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/tutorial_code/cache/my_training_script.py)
 
 5. Execute the training script.
 

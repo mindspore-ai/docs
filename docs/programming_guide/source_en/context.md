@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_en/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_en/context.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -113,7 +113,7 @@ context.set_context(device_target="Ascend", device_id=6)
 
 The context contains the context.set_auto_parallel_context API that is used to configure parallel training parameters. This API must be called before the network is initialized.
 
-> For details about distributed management, see [Parallel Distributed Training](https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html).
+> For details about distributed management, see [Parallel Distributed Training](https://www.mindspore.cn/doc/programming_guide/en/r1.2/auto_parallel.html).
 
 ## Maintenance and Test Management
 
@@ -173,13 +173,13 @@ from mindspore import context
 context.set_context(save_graphs=True)
 ```
 
-> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/doc/note/en/master/design/mindspore/mindir.html).
+> For a detailed introduction of MindIR, please refer to [MindSpore IR(MindIR)](https://www.mindspore.cn/doc/note/en/r1.2/design/mindspore/mindir.html).
 
 ### Print Operator Disk Flushing
 
 By default, the MindSpore self-developed print operator can output the tensor or character string information entered by users. Multiple character string inputs, multiple tensor inputs, and hybrid inputs of character strings and tensors are supported. The input parameters are separated by commas (,).
 
-> For details about the print function, see [MindSpore Print Operator](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#mindspore-print-operator).
+> For details about the print function, see [MindSpore Print Operator](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/custom_debugging_info.html#mindspore-print-operator).
 
 - `print_file_path`: saves the print operator data to a file and disables the screen printing function. If the file to be saved exists, a timestamp suffix is added to the file. Saving data to a file can solve the problem that the data displayed on the screen is lost when the data volume is large.
 
@@ -190,4 +190,4 @@ from mindspore import context
 context.set_context(print_file_path="print.pb")
 ```
 
-> For details about the context API, see [mindspore.context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).
+> For details about the context API, see [mindspore.context](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.context.html).

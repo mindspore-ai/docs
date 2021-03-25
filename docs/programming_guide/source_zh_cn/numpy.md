@@ -27,7 +27,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/numpy.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## 概述
 
@@ -35,7 +35,7 @@ MindSpore NumPy工具包提供了一系列类NumPy接口。用户可以使用类
 
 ## 算子介绍
 
-MindSpore Numpy具有四大功能模块：张量生成、张量操作、逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[NumPy接口列表](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.numpy.html)。
+MindSpore Numpy具有四大功能模块：张量生成、张量操作、逻辑运算和其他常用数学运算。算子的具体相关信息可以参考[NumPy接口列表](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.numpy.html)。
 
 ### 张量生成
 
@@ -366,7 +366,7 @@ from mindspore import ms_function
 forward_compiled = ms_function(forward)
 ```
 
-> 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.ms_function)。
+> 目前静态图不支持在命令行模式中运行，并且有部分语法限制。`ms_function`的更多信息可参考[API: ms_function](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.html#mindspore.ms_function)。
 
 ### GradOperation使用示例
 
@@ -390,7 +390,7 @@ grad_all = ops.composite.GradOperation(get_all=True)
 grad_all(ms_function(forward))(x, w1, b1, w2, b2, w3, b3)
 ```
 
- 更多细节可参考[API: GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GradOperation.html)。
+ 更多细节可参考[API: GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GradOperation.html)。
 
 ### mindspore.context使用示例
 
@@ -416,7 +416,7 @@ context.set_context(device_target="Ascend")
 ...
 ```
 
- 更多细节可参考[API: mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html)。
+ 更多细节可参考[API: mindspore.context](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.context.html)。
 
 ### mindspore.numpy使用示例
 
@@ -461,4 +461,4 @@ print(net(x, w1, b1, w2, b2, w3, b3))
  [2816. 2816. 2816. 2816.]]
 ```
 
-更多构建网络的细节可以参考[MindSpore训练指导](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
+更多构建网络的细节可以参考[MindSpore训练指导](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html)。

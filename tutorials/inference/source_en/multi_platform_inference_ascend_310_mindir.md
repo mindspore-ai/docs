@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/inference/source_en/multi_platform_inference_ascend_310_mindir.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## Overview
 
@@ -32,21 +32,21 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 4. Load the saved MindIR model, perform inference, and view the result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample>.
 
 ## Preparing the Development Environment
 
-Refer to [Inference on the Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_air.html#preparing-the-development-environment) to install the device, and then refer to [Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
+Refer to [Inference on the Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/r1.2/multi_platform_inference_ascend_310_air.html#preparing-the-development-environment) to install the device, and then refer to [Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
 
 ## Exporting the MindIR Model
 
-Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model).
+Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorial/training/en/r1.2/use/save_model.html#export-mindir-model).
 
 > The [resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) is a sample MindIR file exported using the ResNet-50 model.
 
 ## Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` model files and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` model files and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
 
 ```text
 └─ascend310_resnet50_preprocess_sample
@@ -65,7 +65,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ### Data-preprocessing by CPU operators
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> .
+Inference sample code: <https://gitee.com/mindspore/docs/blob/r1.2/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -248,7 +248,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## Introduce to Building Script
 
-The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/r1.2/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
 
 Add head files to gcc search path:
 
