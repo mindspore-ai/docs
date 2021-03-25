@@ -21,11 +21,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/quick_start/quick_start_codegen.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/lite/source_zh_cn/quick_start/quick_start_codegen.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
-本教程介绍如何使用MindSpore Lite代码生成工具Codegen，快速生成以及部署轻量化推理代码。converter、codegen等工具的获取可以参考MindSpore团队构建文档中提供的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)。
+本教程介绍如何使用MindSpore Lite代码生成工具Codegen，快速生成以及部署轻量化推理代码。converter、codegen等工具的获取可以参考MindSpore团队构建文档中提供的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html#id4)。
 
 其主要流程如下图流程图所示：
 
@@ -48,7 +48,7 @@
 ./codegen --codePath=. --modelPath=mnist.ms --target=x86
 ```
 
-关于Codegen的更多使用命令说明，可参见[Codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/code_generator.html)。
+关于Codegen的更多使用命令说明，可参见[Codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/code_generator.html)。
 
 ## 部署应用
 
@@ -88,7 +88,7 @@ run benchmark success
 
 1. 算子静态库目录说明
 
-    在编译此工程之前需要预先获取x86平台对应的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到`mindspore-lite-{version}-inference-linux-x64`，将其拷贝到当前目录下。
+    在编译此工程之前需要预先获取x86平台对应的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，解压后得到`mindspore-lite-{version}-inference-linux-x64`，将其拷贝到当前目录下。
 
     > `{version}` 为版本号字符串，如`1.2.0`。
 
@@ -194,7 +194,7 @@ run benchmark success
 
 本教程中的`benchmark`内部实现主要用于指导用户如何编写以及调用Codegen编译的模型推理代码接口。
 
-以下为接口调用的详细介绍，详情代码可以参见[examples/mnist_x86](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_x86)下的示例代码示例：
+以下为接口调用的详细介绍，详情代码可以参见[examples/mnist_x86](https://gitee.com/mindspore/mindspore/tree/r1.2/mindspore/lite/micro/example/mnist_x86)下的示例代码示例：
 
 #### 构建推理的上下文以及会话
 
@@ -271,7 +271,6 @@ run benchmark success
 
 ## 更多详情
 
-### [Android平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mobilenetv2/README.md)
+### [Android平台编译部署](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/micro/example/mobilenetv2/README.md)
 
-### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/micro/example/mnist_stm32f746/README.md)
-
+### [Arm&nbsp;Cortex-M平台编译部署](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/micro/example/mnist_stm32f746/README.md)
