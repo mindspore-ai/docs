@@ -23,7 +23,7 @@
 
 <!--/ TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/model_explanation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/model_explanation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -172,7 +172,7 @@ runner2.run()
 
 ## 不确定性
 
-模型决策结果存有不确定性, 名为 [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
+模型决策结果存有不确定性, 名为 [Epistemic Uncertainty](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn_probability/mindspore.nn.probability.toolbox.UncertaintyEvaluation.html#mindspore.nn.probability.toolbox.UncertaintyEvaluation) 。计算方法是在模型中插入dropout层再多次重复推理，最后得出输出概率的标准偏差和95%置信区间：
 
 ![xai_saliency_map](./images/xai_uncertainty.png)
 

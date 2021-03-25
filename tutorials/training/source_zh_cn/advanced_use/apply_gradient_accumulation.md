@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/apply_gradient_accumulation.md" target="_blank"><img src="../_static/logo_source.png"></a>
 &nbsp;&nbsp;
 <a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_apply_gradient_accumulation.ipynb"><img src="../_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
@@ -41,7 +41,7 @@
 
 在单机模式下，主要通过将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分实现梯度累积。这里以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/gradient_accumulation>
 
 ### 导入需要的库文件
 
@@ -63,11 +63,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### 加载数据集
 
-利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>)导入。
+利用MindSpore的`dataset`提供的`MnistDataset`接口加载MNIST数据集，此部分代码由`model_zoo`中`lenet`目录下的[dataset.py](<https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/lenet/src/dataset.py>)导入。
 
 ### 定义网络
 
-这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>)导入。
+这里以LeNet网络为例进行介绍，当然也可以使用其它的网络，如ResNet-50、BERT等, 此部分代码由`model_zoo`中`lenet`目录下的[lenet.py](<https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/lenet/src/lenet.py>)导入。
 
 ### 定义训练流程
 
@@ -265,7 +265,7 @@ if __name__ == "__main__":
 
 **验证模型:**
 
-通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
+通过`model_zoo`中`lenet`目录下的[eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/lenet/train.py>)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```shell
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
@@ -280,13 +280,13 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 ## 并行模式
 
-在`SEMI_AUTO_PARALLEL`和`AUTO_PARALLEL`模式下使用梯度累积，主要是将累积迭代和更新迭代作为两张图下发并且交替执行。在累积迭代图上，只执行正反向运算及梯度累加。在更新迭代图上，执行正反向运算和参数更新。本小节将以[分布式并行训练教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html)中的样例为基础进行介绍，具体分为如下几个步骤。
+在`SEMI_AUTO_PARALLEL`和`AUTO_PARALLEL`模式下使用梯度累积，主要是将累积迭代和更新迭代作为两张图下发并且交替执行。在累积迭代图上，只执行正反向运算及梯度累加。在更新迭代图上，执行正反向运算和参数更新。本小节将以[分布式并行训练教程](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/distributed_training_ascend.html)中的样例为基础进行介绍，具体分为如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/distributed_training>
 
 ### 定义并行训练流程
 
-通常情况下，定义了正向网络后会使用[`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.TrainOneStepCell.html)将网络正反向及优化器关联到一起。但是梯度累积时存在累积和更新两种情况，所以我们要基于原有类定义做一些改造。样例代码如下：
+通常情况下，定义了正向网络后会使用[`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.TrainOneStepCell.html)将网络正反向及优化器关联到一起。但是梯度累积时存在累积和更新两种情况，所以我们要基于原有类定义做一些改造。样例代码如下：
 
 ```python
 import numpy as np
@@ -344,7 +344,7 @@ class TrainAccuStepsCell(TrainOneStepCell):
 
 > 由于并行模式下的梯度累积实现需要结合框架内部的图优化完成，所以网络中定义的`accumulation`和`accu_grads`为特定字符，不能修改。
 
-在动态loss scale场景下，除了梯度需要累积外，溢出标志位也需要累积判断，可以基于[`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell)改造，实现代码如下：
+在动态loss scale场景下，除了梯度需要累积外，溢出标志位也需要累积判断，可以基于[`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell)改造，实现代码如下：
 
 ```python
 import numpy as np
@@ -432,7 +432,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### 定义并行训练模型
 
-经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.Model)接口实现上述功能。
+经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.html#mindspore.Model)接口实现上述功能。
 
 ```python
 import math

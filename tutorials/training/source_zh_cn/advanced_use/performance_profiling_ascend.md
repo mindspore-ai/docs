@@ -22,7 +22,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/performance_profiling_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/performance_profiling_ascend.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## 概述
 
@@ -42,7 +42,7 @@
 
   > Profiler支持的参数可以参考：
   >
-  > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.profiler.html>
+  > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.profiler.html>
 
 - 在训练结束后，调用`Profiler.analyse()`停止性能数据收集并生成性能分析结果。
 
@@ -69,7 +69,7 @@ profiler.analyse()
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/mindinsight_commands.html)。
 
 ## 训练性能
 
@@ -256,7 +256,7 @@ CPU利用率常用场景:
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/dataset/mindspore.dataset.MindDataset.html>
 
 - Timeline数据的解析比较耗时，且一般几个step的数据即足够分析出结果。出于数据解析和UI展示性能的考虑，Profiler最多展示20M数据（对大型网络20M可以显示10+条step的信息）。
 
