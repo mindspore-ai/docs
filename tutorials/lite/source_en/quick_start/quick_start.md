@@ -113,7 +113,7 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-{version}-inference-android #MindSpore Lite version
+|   |   ├── mindspore-lite-{version}-inference-android-{arch} #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
