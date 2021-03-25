@@ -11,7 +11,7 @@
     - [Distributed Management](#distributed-management)
     - [Maintenance and Test Management](#maintenance-and-test-management)
         - [Profiling Data Collection](#profiling-data-collection)
-        - [Saving MindIR](#saving mindir)
+        - [Saving MindIR](#saving-mindir)
         - [Print Operator Disk Flushing](#print-operator-disk-flushing)
 
 <!-- /TOC -->
