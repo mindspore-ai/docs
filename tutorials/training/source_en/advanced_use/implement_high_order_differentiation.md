@@ -72,7 +72,8 @@ print(output)
 The output is as follows:
 
 ```python
-[[4.5099998 2.7 3.6000001] [4.5099998 2.7 3.6000001]]
+[[4.5099998 2.7 3.6000001]
+ [4.5099998 2.7 3.6000001]]
 ```
 
 To facilitate analysis, inputs `x`, `y`, and `z` can be expressed as follows:
@@ -121,7 +122,9 @@ class GradNetWrtX(nn.Cell):
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net, self.params)
         return gradient_function(x, y)
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)
 print(output)
 ```
@@ -129,7 +132,7 @@ print(output)
 The output is as follows:
 
 ```python
-[2.15359993e+01]
+(Tensor(shape=[1], dtype=Float32, value= [ 2.15359993e+01]),)
 ```
 
 The derivation formula is changed to:
@@ -156,7 +159,9 @@ class GradNetWrtX(nn.Cell):
     def construct(self, x, y):
         gradient_function = self.grad_op(self.net)
         return gradient_function(x, y, self.grad_wrt_output)
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)  
 print(output)
 ```
@@ -164,7 +169,8 @@ print(output)
 The output is as follows:
 
 ```python
-[[2.211 0.51 1.49] [5.588 2.68 4.07]]
+[[2.211 0.51 1.49 ]
+ [5.588 2.68 4.07 ]]
 ```
 
 `self.grad_wrt_output` may be denoted as the following form:
@@ -197,7 +203,9 @@ class Net(nn.Cell):
         x = x * self.z
         out = self.matmul(x, y)
         return out[0][0]
+```
 
+```python
 output = GradNetWrtX(Net())(x, y)  
 print(output)
 ```
@@ -205,7 +213,8 @@ print(output)
 The output is as follows:
 
 ```python
-[[0.11 1.1 1.1] [0. 0. 0.]]
+[[0.11 1.1 1.1]
+ [0.   0.  0. ]]
 ```
 
 ## High-order Derivation
@@ -311,7 +320,7 @@ print(output)
 The output is as follows:
 
 ```python
-[2.00000000e+00, 2.00000000e+00, 2.00000000e+00]
+[2. 2. 2.]
 ```
 
 ### Multiple-Input Multiple-Output High-Order Derivative
