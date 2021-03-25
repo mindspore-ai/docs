@@ -425,10 +425,12 @@ During the single-node multi-device distributed training, the cache operator all
 
 The cache service performance can be significantly improved in following scenarios:
 
-- Cache the data processed by argumentation. In this scenario, you do not need to perform the data augmentation operation repeatedly on each epoch, which saves a lot of time.
+- Cache the data processed by augmentation, especially when the data processing pipeline contains high complexity operations such as decode. In this scenario, you do not need to perform the data augmentation operation repeatedly on each epoch, which saves a lot of time.
 - Use cache services during simple network training and inference. Compared with complex networks, simple networks require less training time. Therefore, the time performance is significantly improved when cache services are used in this scenario.
 
-However, the performance may be poor in the following scenarios:
+However, we may not benefit from cache in the following scenarios:
 
 - The system memory is insufficient or the cache is not hit, resulting in poor cache service time performance. You can check whether the available system memory is sufficient and set a proper cache size before using the cache.
 - Too much cache spilling will deteriorate the time performance. Therefore, try not to spill cache to disks when datasets that support random access (such as `ImageFolderDataset`) are used for data loading.
+- Using cache on NLP network such as Bert does not perform. In the NLP scenarios, there are usually no high complexity data augmentation operations like decode.
+- There is expectable startup overhead when using cache in non-mappable datasets like `TFRecordDataset`. According to the current design, it is required to cache all rows to the cache server before the first epoch of training. So the first epoch time can be longer than the non-cache case.
