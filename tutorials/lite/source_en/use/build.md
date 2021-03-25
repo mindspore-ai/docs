@@ -115,7 +115,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 First, download source code from the MindSpore code repository.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.2
 ```
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
@@ -460,7 +460,7 @@ The compilation options of MindSpore Lite are as follows:
 First, use the git tool to download the source code from the MindSpore code repository.
 
 ```bat
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.2
 ```
 
 Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.

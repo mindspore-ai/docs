@@ -95,7 +95,7 @@ sudo apt-get install git
 Clone the source, enter the target directory and run the training bash script. The `Linux` command are as follows:
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.2
 cd ./mindspore/mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```

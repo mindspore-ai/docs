@@ -30,7 +30,7 @@ np.save("output.npy", out.asnumpy())
 
 <font size=3>**Q：使用MindSpore做分割训练，必须将数据转为MindRecords吗？**</font>
 
-A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.2/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
 [GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/dataset_loading.html#id5)
 

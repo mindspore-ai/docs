@@ -93,7 +93,7 @@ sudo apt-get install git
 克隆源码，进入示例代码目录并执行训练脚本，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.2
 cd ./mindspore/mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
