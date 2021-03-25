@@ -261,3 +261,4 @@ Figure 9：Memory Statistics
 ## Notices
 
 - Currently running in PyNative mode is not supported.
+- Currently the training and inference process does not support performance debugging, only individual training or inference is supported.
