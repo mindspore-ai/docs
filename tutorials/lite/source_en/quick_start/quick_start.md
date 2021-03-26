@@ -113,7 +113,7 @@ app
 │   |
 │   ├── cpp # main logic encapsulation classes for model loading and prediction
 |   |   |── ...
-|   |   ├── mindspore-lite-{version}-inference-android-{arch} #MindSpore Lite version
+|   |   ├── mindspore-lite-{version}-android-{arch} #MindSpore Lite version
 |   |   ├── MindSporeNetnative.cpp # JNI methods related to MindSpore calling
 │   |   └── MindSporeNetnative.h # header file
 │   |
@@ -138,13 +138,13 @@ app
 
 When MindSpore C++ APIs are called at the Android JNI layer, related library files are required. You can use MindSpore Lite [source code compilation](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/build.html) to generate the MindSpore Lite version. In this case, you need to use the compile command of generate with image preprocessing module.
 
-In this example, the build process automatically downloads the `mindspore-lite-{version}-inference-android-{arch}.tar.gz` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
+In this example, the build process automatically downloads the `mindspore-lite-{version}-android-{arch}.tar.gz` by the `app/download.gradle` file and saves in the `app/src/main/cpp` directory.
 
 > version: Version number of the .tar package, which is the same as the version of the compiled branch code.
 >
 > arch: Operating system arm64 or arm32.
 
-Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-inference-android-{arch}.tar.gz](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-inference-android-{arch}` folder to the directory of `src/main/cpp`.
+Note: if the automatic download fails, please manually download the relevant library files [mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html). After decompression, copy the `mindspore-lite-{version}-android-{arch}` folder to the directory of `src/main/cpp`.
 
 ```text
 android{
