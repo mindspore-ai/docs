@@ -37,6 +37,8 @@ Neural Network Operators
     mindspore.ops.ComputeAccidentalHits
     mindspore.ops.Conv2D
     mindspore.ops.Conv2DBackpropInput
+    mindspore.ops.Conv3D
+    mindspore.ops.Conv3DTranspose
     mindspore.ops.CTCGreedyDecoder
     mindspore.ops.CTCLoss
     mindspore.ops.DataFormatDimMap
@@ -67,6 +69,7 @@ Neural Network Operators
     mindspore.ops.LRN
     mindspore.ops.LSTM
     mindspore.ops.MaxPool
+    mindspore.ops.MaxPool3D
     mindspore.ops.MaxPoolWithArgmax
     mindspore.ops.MirrorPad
     mindspore.ops.Mish
