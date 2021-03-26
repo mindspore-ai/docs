@@ -392,7 +392,7 @@ Check mode of model.
 
 - Returns
 
-    boolean indication if model is in eval mode.
+    Boolean indication if model is in eval mode.
 
 #### SetLearningRate
 

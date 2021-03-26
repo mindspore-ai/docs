@@ -42,11 +42,11 @@ The noise mechanism is a basis for building a differential privacy training capa
 
 Monitor provides callback functions such as Rényi differential privacy (RDP) and zero-concentrated differential privacy (ZCDP) to monitor the differential privacy budget of the model.
 
-- ZCDP<sup>[2]</sup>
+- ZCDP<sup>[1]</sup>
 
     ZCDP is a loose differential privacy definition. It uses the Rényi divergence to measure the distribution difference of random functions on adjacent datasets.
 
-- RDP<sup>[3]</sup>
+- RDP<sup>[2]</sup>
 
     RDP is a more general differential privacy definition based on the Rényi divergence. It uses the Rényi divergence to measure the distribution difference between two adjacent datasets.
 
@@ -61,8 +61,6 @@ Compared with traditional differential privacy, ZCDP and RDP provide stricter pr
 
 ## References
 
-[1] Dwork, Cynthia, and Jing Lei. "Differential privacy and robust statistics." *Proceedings of the forty-first annual ACM symposium on Theory of computing*. 2009.
+[1] Lee, Jaewoo, and Daniel Kifer. "Concentrated differentially private gradient descent with adaptive per-iteration privacy budget." *Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*. 2018.
 
-[2] Lee, Jaewoo, and Daniel Kifer. "Concentrated differentially private gradient descent with adaptive per-iteration privacy budget." *Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*. 2018.
-
-[3] Mironov, Ilya. "Rényi differential privacy." *2017 IEEE 30th Computer Security Foundations Symposium (CSF)*. IEEE, 2017.
+[2] Mironov, Ilya. "Rényi differential privacy." *2017 IEEE 30th Computer Security Foundations Symposium (CSF)*. IEEE, 2017.

@@ -105,6 +105,7 @@ public void setData(byte[] data)
 设定MSTensor的输入数据。
 
 - 参数
+
     - `data`: byte[]类型的输入数据。
 
 ```java
@@ -114,6 +115,7 @@ public void setData(ByteBuffer data)
 设定MSTensor的输入数据。
 
 - 参数
+
     - `data`: ByteBuffer类型的输入数据。
 
 ## size
