@@ -140,7 +140,7 @@ The usage is described as follows:
 
 ### Step Trace Analysis
 
-The usage is almost the same as that in Ascend.
+The usage is almost the same as that in Ascend. (**Note that step trace do not support heterogeneous training scene.**)
 
 The usage is described as follows:
 
