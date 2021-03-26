@@ -44,7 +44,6 @@
 | help            | 否       | 打印使用说明信息                 | -                          | -         |
 | codePath        | 是       | 生成代码的路径                   | -                          | ./(当前目录)|
 | target          | 是       | 生成代码针对的平台               | x86, ARM32M, ARM32A, ARM64 | x86       |
-| moduleName      | 是       | 生成代码的文件名、目录名          | -                          |  -        |
 | modelPath       | 是       | 输入模型文件路径                 | -                          | -         |
 | supportParallel | 否       | 是否生成支持多线程的代码          | true, false                | false     |
 | debugMode       | 否       | 是否以生成调试模式的代码          | true, false                | false     |
@@ -59,22 +58,31 @@
 以LeNet网络为例:
 
 ```bash
-./codegen --modelPath=./lenet.ms --moduleName=lenet --codePath=./
+./codegen --modelPath=./lenet.ms --codePath=./
 ```
 
-执行成功后，会在codePath指定的目录下，生成名为moduleName的文件夹，内容如下：
+执行成功后，会在codePath指定的目录下，生成名为lenet的文件夹，内容如下：
 
 ```text
 mnist/
 ├── benchmark                       # 集成调试相关的例程
-│   ├── CMakeLists.txt
-│   └── benchmark.cc
+│   ├── benchmark.cc
+│   ├── load_input.c
+│   ├── load_input.c
+│   └── load_input.h
+├── CMakeLists.txt
 └── src                             # 源文件
     ├── CMakeLists.txt
+    ├── model.h
+    ├── net.bin
     ├── net.c
-    ├── net.cmake
+    ├── net.cmake                   # 二进制形式的模型权重
     ├── net.h
-    ├── net.bin                     # 二进制形式的模型权重
+    ├── session.cc
+    ├── session.h
+    ├── string.cc
+    ├── tensor.cc
+    ├── tensor.h
     ├── weight.c
     └── weight.h
 ```
