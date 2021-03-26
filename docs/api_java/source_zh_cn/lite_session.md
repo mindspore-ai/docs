@@ -50,6 +50,7 @@ public void bindThread(boolean if_bind)
 尝试将线程池中的线程绑定到指定的CPU内核，或从指定的CPU内核进行解绑。
 
 - 参数
+
     - `if_bind`: 是否对线程进行绑定或解绑。
 
 ## compileGraph
@@ -62,7 +63,7 @@ public boolean compileGraph(Model model)
 
 - 参数
 
-  - `Model`: 需要被编译的模型。
+    - `Model`: 需要被编译的模型。
 
 - 返回值
 
@@ -102,7 +103,7 @@ public MSTensor getInputByTensorName(String tensorName)
 
 - 参数
 
-  - `tensorName`: 张量名。
+    - `tensorName`: 张量名。
 
 - 返回值
 
@@ -118,7 +119,7 @@ public List<MSTensor> getOutputsByNodeName(String nodeName)
 
 - 参数
 
-  - `nodeName`: 节点名。
+    - `nodeName`: 节点名。
 
 - 返回值
 

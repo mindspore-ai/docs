@@ -105,6 +105,7 @@ public void setData(byte[] data)
 Set the input data of MSTensor.
 
 - Parameters
+
     - `data`: Input data of byte[] type.
 
 ```java
@@ -114,6 +115,7 @@ public void setData(ByteBuffer data)
 Set the input data of MSTensor.
 
 - Parameters
+
     - `data`: Input data of ByteBuffer type.
 
 ## size
