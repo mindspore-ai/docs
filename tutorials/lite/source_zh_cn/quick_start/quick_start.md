@@ -116,7 +116,7 @@ app
 │   |
 │   ├── cpp # 模型加载和预测主要逻辑封装类
 |   |   ├── ..
-|   |   ├── mindspore-lite-{version}-inference-android-{arch} # MindSpore Lite版本
+|   |   ├── mindspore-lite-{version}-android-{arch} # MindSpore Lite版本
 |   |   ├── MindSporeNetnative.cpp # MindSpore调用相关的JNI方法
 │   |   └── MindSporeNetnative.h # 头文件
 |   |   └── MsNetWork.cpp # MindSpore接口封装
@@ -140,7 +140,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成`mindspore-lite-{version}-inference-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
+Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成`mindspore-lite-{version}-android-{arch}.tar.gz`库文件包并解压缩（包含`libmindspore-lite.so`库文件和相关头文件），在本例中需使用生成带图像预处理模块的编译命令。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 >
@@ -148,7 +148,7 @@ Android JNI层调用MindSpore C++ API时，需要相关库文件支持。可通�
 
 本示例中，build过程由`app/download.gradle`文件自动下载MindSpore Lite版本文件，并放置在`app/src/main/cpp/`目录下。
 
-注： 若自动下载失败，请手动下载操作系统为Android-aarch64/Android-aarch32的MindSpore Lite 模型推理框架相关库文件[mindspore-lite-{version}-inference-android.tar-{arch}.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`mindspore-lite-{version}-inference-android.tar-{arch}`的文件夹拷贝到`src/main/cpp`目录下。
+注： 若自动下载失败，请手动下载操作系统为Android-aarch64/Android-aarch32的MindSpore Lite 模型推理框架相关库文件[mindspore-lite-{version}-android-{arch}.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`mindspore-lite-{version}-android-{arch}`的文件夹拷贝到`src/main/cpp`目录下。
 
 ```text
 android{
