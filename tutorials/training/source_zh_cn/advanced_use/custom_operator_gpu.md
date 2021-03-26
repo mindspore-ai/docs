@@ -176,6 +176,7 @@ class TensorAddV2GpuKernel : public GpuKernel {
 ```c++
 // mindspore/ccsrc/backend/kernel_compiler/gpu/math/tensor_add_v2_gpu_kernel.h
 
+ template <typename T>
  __global__ void TensorAddV2Kernel(const size_t element_num, const T* x1, const T* x2, T* y) {
   for (size_t i = blockIdx.x * blockDim.x + threadIdx.x; i < element_num; i += blockDim.x * gridDim.x) {
     y[i] = x1[i] + x2[i];
