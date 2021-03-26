@@ -147,6 +147,7 @@ args_opt = parser.parse_args()
 使用SPONGE中定义的计算力模块和计算能量模块，通过多次迭代进行分子动力学过程演化，使得体系达到我们所需要的平衡态，并记录每一个模拟步骤中得到的能量等数据。为了方便起见，本教程的计算迭代次数设置为`1`，其模拟流程构建代码如下：
 
 ```python
+import time
 from src.simulation_initial import Simulation
 
 if __name__ == "__main__":
@@ -173,13 +174,15 @@ if __name__ == "__main__":
 执行以下命令，启动训练脚本`main.py`进行训练：
 
 ```text
-python main.py --i NVT_290_10ns.in --amber_parm ala.parm7 --c ala_350_cool_290.rst7 --o ala_NVT_290_10ns.out
+python main.py --i /path/NVT_290_10ns.in --amber_parm /path/ala.parm7 --c /path/ala_350_cool_290.rst7 \
+               --o /path/ala_NVT_290_10ns.out
 ```
 
 - -`i` 为MD模拟的属性文件，控制模拟过程
 - -`amber_parm` 为MD模拟体系的拓扑文件
 - -`c` 为我们输入的初始坐标文件
 - -`o` 为我们模拟输出的记录文件，其记录了输出每步的能量等信息
+- -`path` 为文件所在的路径，在本教程中为`sponge_in`
 
 训练过程中，使用属性文件（后缀为`.in`的文件）、拓扑文件（后缀为`.param7`的文件）以及坐标文件（后缀为`.rst7`的文件），通过在指定温度下进行模拟，计算力和能量，进行分子动力学过程演化。
 
