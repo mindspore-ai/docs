@@ -63,13 +63,13 @@ The following example uses a sequential sampler to load the CIFAR-10 dataset [1]
 Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
 
 ```bash
-!wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
-!mkdir -p datasets
-!tar -xzf cifar-10-binary.tar.gz -C datasets
-!mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
-!mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
-!mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
-!tree ./datasets/cifar-10-batches-bin
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
+mkdir -p datasets
+tar -xzf cifar-10-binary.tar.gz -C datasets
+mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
+mv -f datasets/cifar-10-batches-bin/test_batch.bin datasets/cifar-10-batches-bin/test
+mv -f datasets/cifar-10-batches-bin/data_batch*.bin datasets/cifar-10-batches-bin/batches.meta.txt datasets/cifar-10-batches-bin/train
+tree ./datasets/cifar-10-batches-bin
 ```
 
 ```text
@@ -233,12 +233,12 @@ The following example loads the MNIST dataset [2], resizes the loaded image to (
 Download and decompress the MNIST dataset, store it in the `./datasets/MNIST_data/` path, execute the following command:
 
 ```bash
-!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
-!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
-!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
-!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
-!tree ./datasets/MNIST_Data
+mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte
+wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte
+wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte
+wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte
+tree ./datasets/MNIST_Data
 ```
 
 ```text
@@ -463,8 +463,13 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.vision.py_transforms as P
+```
 
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg
+```bash
+wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg
+```
+
+```python
 img_ori = Image.open("banana.jpg").convert("RGB")
 print("Image.type: {}, Image.shape: {}".format(type(img_ori), img_ori.size))
 
