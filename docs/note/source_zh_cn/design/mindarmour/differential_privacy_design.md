@@ -42,11 +42,11 @@ MindArmour的Differential-Privacy模块实现了差分隐私训练的能力。�
 
 Monitor提供RDP、ZCDP等回调函数，用于监测模型的差分隐私预算。
 
-- ZCDP<sup>[2]</sup>
+- ZCDP<sup>[1]</sup>
 
     ZCDP，zero-concentrated differential privacy，是一种宽松的差分隐私定义，利用Rényi散度来度量随机函数在相邻数据集上的分布差异。
 
-- RDP<sup>[3]</sup>
+- RDP<sup>[2]</sup>
 
     RDP，Rényi Differential Privacy，是一种更通用的基于R'enyi散度的差分隐私定义，利用Rényi散度来度量两个相邻数据集的分布差异。
 
@@ -61,8 +61,6 @@ Monitor提供RDP、ZCDP等回调函数，用于监测模型的差分隐私预算
 
 ## 参考文献
 
-[1] Dwork, Cynthia, and Jing Lei. "Differential privacy and robust statistics." *Proceedings of the forty-first annual ACM symposium on Theory of computing*. 2009.
+[1] Lee, Jaewoo, and Daniel Kifer. "Concentrated differentially private gradient descent with adaptive per-iteration privacy budget." *Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*. 2018.
 
-[2] Lee, Jaewoo, and Daniel Kifer. "Concentrated differentially private gradient descent with adaptive per-iteration privacy budget." *Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*. 2018.
-
-[3] Mironov, Ilya. "Rényi differential privacy." *2017 IEEE 30th Computer Security Foundations Symposium (CSF)*. IEEE, 2017.
+[2] Mironov, Ilya. "Rényi differential privacy." *2017 IEEE 30th Computer Security Foundations Symposium (CSF)*. IEEE, 2017.

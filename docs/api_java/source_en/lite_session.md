@@ -50,6 +50,7 @@ public void bindThread(boolean if_bind)
 Attempt to bind or unbind threads in the thread pool to or from the specified cpu core.
 
 - Parameters
+
     - `if_bind`: Define whether to bind or unbind threads.
 
 ## compileGraph

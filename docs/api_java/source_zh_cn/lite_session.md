@@ -50,6 +50,7 @@ public void bindThread(boolean if_bind)
 尝试将线程池中的线程绑定到指定的CPU内核，或从指定的CPU内核进行解绑。
 
 - 参数
+
     - `if_bind`: 是否对线程进行绑定或解绑。
 
 ## compileGraph
