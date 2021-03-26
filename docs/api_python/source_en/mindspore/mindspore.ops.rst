@@ -106,9 +106,9 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.make_row_tensor
      - :class:`mindspore.ops.Primitive` ('MakeRowTensor')               
    * - mindspore.ops.make_sparse_tensor
-     - :class:`mindspore.ops.Primitive` ('MakeSparseTensor')               
+     - :class:`mindspore.ops.Primitive` ('MakeSparseTensor')
    * - mindspore.ops.mixed_precision_cast
-     - :class:`mindspore.ops.Primitive` ('mixed_precision_cast')               
+     - :class:`mindspore.ops.Primitive` ('mixed_precision_cast')
    * - mindspore.ops.neg_tensor
      - :class:`mindspore.ops.Neg`
    * - mindspore.ops.not_equal

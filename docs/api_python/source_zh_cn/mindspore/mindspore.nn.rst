@@ -37,6 +37,8 @@ Convolution Layers
     mindspore.nn.Conv1dTranspose
     mindspore.nn.Conv2d
     mindspore.nn.Conv2dTranspose
+    mindspore.nn.Conv3d
+    mindspore.nn.Conv3dTranspose
 
 Recurrent Layers
 ----------------
@@ -131,6 +133,7 @@ Normalization Layers
 
     mindspore.nn.BatchNorm1d
     mindspore.nn.BatchNorm2d
+    mindspore.nn.BatchNorm3d
     mindspore.nn.GlobalBatchNorm
     mindspore.nn.GroupNorm
     mindspore.nn.InstanceNorm2d
