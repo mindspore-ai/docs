@@ -49,7 +49,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 | `--outputFile=<OUTPUTFILE>`           | 否       | 裁剪完成的`libmindspore-lite.a`库的保存路径，默认覆盖源文件。 | String   | -      | -        |
 | `--help`                              | 否       | 打印全部帮助信息。                                           | -        | -      | -        |
 
-> 配置文件`cropper_mapping_cpu.cfg`存在于`mindspore-lite-{version}-inference-linux-x64`包中的`cropper`目录。
+> 配置文件`cropper_mapping_cpu.cfg`存在于`mindspore-lite-{version}-linux-x64`包中的`tools/cropper`目录。
 
 ## 使用示例
 
@@ -58,7 +58,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 - 通过文件夹的方式传入`ms`模型，将模型文件所在的文件夹路径传递给`modelFolderPath`参数，对arm64-cpu的`libmindspore-lite.a`静态库进行裁剪。
 
 ```bash
-./cropper --packageFile=/mindspore-lite-{version}-inference-android-aarch64/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFolderPath=/model --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFolderPath=/model --outputFile=/mindspore-lite/lib/libmindspore-lite.a
 ```
 
 本例将读取`/model`文件夹中包含的所有`ms`模型，对arm64-cpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
@@ -66,7 +66,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 - 通过文件的方式传入`ms`模型，将模型文件所在的路径传递给`modelFile`参数，对arm64-cpu的`libmindspore-lite.a`静态库进行裁剪。
 
 ```bash
-./cropper --packageFile=/mindspore-lite-{version}-inference-android-aarch64/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFile=/model/lenet.ms,/model/retinaface.ms  --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_cpu.cfg --modelFile=/model/lenet.ms,/model/retinaface.ms  --outputFile=/mindspore-lite/lib/libmindspore-lite.a
 ```
 
 本例将根据`modelFile`传入的`ms`模型，对arm64-cpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
