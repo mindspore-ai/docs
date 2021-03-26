@@ -73,13 +73,13 @@ bash mnist.sh
 
 ```text
 ...
-start run benchmark
+======run benchmark======
 input 0: mnist_input.bin
-output size: 1
-uint8:
-Name: Softmax-7, DataType: 43, Size: 40, Shape: 1 10, Data:
+
+outputs:
+name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000,
-run benchmark success
+======run success=======
 ```
 
 #### 生成代码工程说明
