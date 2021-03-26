@@ -395,7 +395,7 @@ Checks whether the type of device supports the type of model.
 
 - Returns
 
-  a bool value.
+  A bool value.
 
 ## MSTensor
 

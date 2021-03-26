@@ -69,7 +69,7 @@ std::string GetErrorInfo(STATUS error_code)
 
 - 返回值
 
-    - 错误码描述信息字符串。
+    错误码描述信息字符串。
 
 ## master
 
@@ -138,4 +138,4 @@ std::string GetErrorInfo(STATUS error_code)
 
 - 返回值
 
-    - 错误码描述信息字符串。
+    错误码描述信息字符串。
