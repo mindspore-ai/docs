@@ -64,7 +64,7 @@
 执行成功后，会在codePath指定的目录下，生成名为lenet的文件夹，内容如下：
 
 ```text
-mnist/
+lenet/
 ├── benchmark                       # 集成调试相关的例程
 │   ├── benchmark.cc
 │   ├── load_input.c
@@ -88,6 +88,10 @@ mnist/
 ```
 
 > 详细接口使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+> 以下三个接口暂不支持：
+> 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
+> 2. `virtual Vector<String> GetOutputTensorNames() const = 0;`
+> 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
 
 ### 执行推理
 
