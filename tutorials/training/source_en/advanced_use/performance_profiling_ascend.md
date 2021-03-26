@@ -87,7 +87,7 @@ Users can click the detail link to see the details of each components. Besides, 
 ### Step Trace Analysis
 
 The Step Trace Component is used to show the general performance of the stages in the training. Step Trace will divide the training into several stages:  
-Step Gap (The time between the end of one step and the computation of next step), Forward/Backward Propagation, All Reduce and Parameter Update. It will show the execution time for each stage, and help to find the bottleneck stage quickly.
+Step Gap (The time between the end of one step and the computation of next step), Forward/Backward Propagation, All Reduce and Parameter Update. It will show the execution time for each stage, and help to find the bottleneck stage quickly. (**Note that step trace do not support heterogeneous training scene.**)
 
 ![step_trace.png](./images/step_trace.png)
 
