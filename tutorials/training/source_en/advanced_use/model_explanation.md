@@ -107,7 +107,7 @@ gradcam = GradCAM(net, layer='layer4')
 guidedbackprop = GuidedBackprop(net)
 
 runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
-runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.register_saliency(explainers=[gradcam, guidedbackprop])
 runner.run()
 
 # generate another summary with GradCAM only
@@ -180,7 +180,7 @@ The restrictions, preparation of network and data is the same as the saliency ex
 
 ```python
 runner = ImageClassificationRunner(summary_dir='./summary_dir_1', network=net, activation_fn=activation_fn, data=data)
-runner.register_saliency(expaliners=[gradcam, guidedbackprop])
+runner.register_saliency(explainers=[gradcam, guidedbackprop])
 runner.register_uncertainty()
 runner.run()
 ```
