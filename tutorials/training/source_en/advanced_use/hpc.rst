@@ -5,3 +5,4 @@ High Performance Computing
   :maxdepth: 1
 
   hpc_gomo
+  hpc_sponge
