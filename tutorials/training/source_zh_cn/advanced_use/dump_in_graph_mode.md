@@ -17,7 +17,7 @@
         - [异步Dump操作步骤](#异步dump操作步骤)
         - [异步Dump数据对象目录](#异步dump数据对象目录)
         - [异步Dump数据文件介绍](#异步dump数据文件介绍)
-        - [异步Dump数据样例](#异步dump数据样例)
+        - [异步Dump数据分析样例](#异步dump数据分析样例)
 
 <!-- /TOC -->
 
@@ -32,6 +32,20 @@
 - 对于静态图模式，MindSpore提供了Dump功能，用来将模型训练中的图以及算子的输入输出数据保存到磁盘文件。
 
 本文针对静态图模式，介绍如何基于Dump功能对网络数据进行分析对比。
+
+调试过程：
+
+1. 从脚本找到对应的算子
+
+    使用Dump功能将自动生成最终执行图的IR文件（IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息)，IR文件可以用`vi`命令查看，Dump功能的配置见[同步Dump操作步骤](#id4)和[异步Dump操作步骤](#id9)，Dump输出的目录结构见[同步Dump数据对象目录](#id5)和[异步Dump数据对象目录](#id10)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id7)和[异步Dump数据数据分析样例](#id12)。
+
+2. 从算子到Dump数据
+
+    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id5)和[异步Dump数据对象目录](#id10)。
+
+3. 分析Dump数据
+
+    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id6)，异步Dump数据格式参考[异步Dump数据文件介绍](#id11)。
 
 ### 适用场景
 
@@ -61,25 +75,6 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - 在Ascend上开启同步Dump的时候，待Dump的算子会自动关闭内存复用。
 - 同步Dump目前支持Ascend和GPU上的图模式，暂不支持CPU和PyNative模式。
 - 异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
-
-Dump功能需要使用到最终执行图的IR文件，IR文件可以用`vi`命令查看。IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息：
-
-- 使用Dump功能将根据json配置文件里的配置自动生成最终执行图的IR文件，Dump功能的配置见[同步Dump操作步骤](#id4)和[异步Dump操作步骤](#id8)，最终执行图IR文件命名和目录结构见[同步Dump数据对象目录](#id7)和[异步Dump数据对象目录](#id9)。
-- 也可以在运行MindSpore脚本时，配置`context.set_context(save_graphs=True, save_graphs_path=“xxx”)`，会在指定路径"xxx"下（默认为脚本执行目录）保存图编译过程中生成的一些中间文件（IR文件），通过这些IR文件可以查看分析整个计算图的变换优化过程。`set_context`的详情可参考[mindspore.context API](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html#mindspore.context.set_context) 。
-
-Dump整体过程：
-
-1. 从脚本找到对应的算子
-
-    首先利用Dump功能获取相关的IR图文件，参考[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#ir)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id7)。
-
-2. 从算子到Dump数据
-
-    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id5)和[异步Dump数据对象目录](#id9)。
-
-3. 分析Dump数据
-
-    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id6)，异步Dump数据格式参考[异步Dump数据文件介绍](#id10)。
 
 ## 同步Dump
 
@@ -493,7 +488,7 @@ numpy.reshape(array, (32,12,13,13,16))
 
 异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id6)。
 
-### 异步Dump数据样例
+### 异步Dump数据分析样例
 
 通过异步Dump的功能，获取到算子异步Dump生成的数据文件，如：
 
