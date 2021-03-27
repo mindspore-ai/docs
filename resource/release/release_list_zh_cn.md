@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
-    - [1.2.0](#120)
+    - [1.2.0-rc1](#120-rc1)
         - [版本说明和接口变更](#版本说明和接口变更)
         - [下载地址](#下载地址)
         - [配套资料](#配套资料)
@@ -58,7 +58,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-## 1.2.0
+## 1.2.0-rc1
 
 ### 版本说明和接口变更
 

@@ -3,7 +3,7 @@
 <!-- TOC -->
 
 - [Release List](#release-list)
-    - [1.2.0](#120)
+    - [1.2.0-rc1](#120-rc1)
         - [Releasenotes and API Updates](#releasenotes-and-api-updates)
         - [Downloads](#downloads)
         - [Related Documents](#related-documents)
@@ -58,7 +58,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/resource/release/release_list_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-## 1.2.0
+## 1.2.0-rc1
 
 ### Releasenotes and API Updates
 
