@@ -21,6 +21,7 @@
 | Computer Vision (CV)  | Image Classification  | [CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/cnn_direction_model)  |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [DenseNet100](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/densenet) |  Doing |  Doing |  Doing |  Doing | Supported | Supported
 | Computer Vision (CV)  | Image Classification  | [DenseNet121](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/densenet) |  Supported |  Supported |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [DPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/dpn) |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [EfficientNet-B0](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/efficientnet) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [GoogLeNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/googlenet)    |  Supported  |  Supported | Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [InceptionV3](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/inceptionv3)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
@@ -32,6 +33,7 @@
 | Computer Vision (CV)  | Image Classification  | [MobileNetV2 (Quantization)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/mobilenetv2_quant)   |  Supported |  Doing |  Supported |  Doing | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [MobileNetV3](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/mobilenetv3)  |  Doing |  Doing |  Supported |  Supported | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [NASNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/nasnet) |  Doing |  Doing |  Supported |  Supported | Doing | Doing
+| Computer Vision (CV)  | Image Classification  | [ResNet-18](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/resnet)          |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/resnet)          |  Supported |  Supported |  Supported |  Supported | Supported | Doing
 | Computer Vision (CV)  | Image Classification  | [ResNet-50 (Quantization)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/resnet50_quant)          |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 |Computer Vision (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/resnet)       |  Supported |  Supported | Supported |  Supported | Doing | Doing
@@ -45,12 +47,14 @@
 | Computer Vision (CV)  | Image Classification  | [Xception](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/xception)             |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Object Detection  | [CenterFace](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/centerface)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Object Detection  | [CTPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ctpn)     |  Supported |  Doing |  Doing |  Doing | Doing | Doing
-| Computer Vision (CV)  | Object Detection  | [Faster R-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/faster_rcnn)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Object Detection  | [Faster R-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/faster_rcnn)   |  Supported |  Doing |  Supported |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [Mask R-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/maskrcnn)         |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [Mask R-CNN (MobileNetV1)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/maskrcnn_mobilenetv1)    |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Object Detection  | [RetinaFace-ResNet50](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/retinaface_resnet50)     |  Doing |  Doing |  Supported |  Supported | Doing | Doing
-|Computer Vision (CV)  | Object Detection  | [SSD](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  Supported |  Doing | Supported | Supported | Supported | Doing
-| Computer Vision (CV)  | Object Detection  | [SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Object Detection  | [SSD](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  Supported |  Doing | Supported | Supported | Supported | Doing
+| Computer Vision (CV)  | Object Detection  | [SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)         |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV)  | Object Detection  | [SSD-Resnet50-FPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  Supported |  Doing | Doing | Doing | Doing | Doing
+| Computer Vision (CV)  | Object Detection  | [SSD-VGG16](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  Supported |  Doing | Doing | Doing | Doing | Doing
 | Computer Vision (CV) | Object Detection  | [WarpCTC](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/warpctc)                    |  Supported |  Doing |  Supported |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [YOLOv3-ResNet18](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/yolov3_resnet18)    | Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV)  | Object Detection  | [YOLOv3-DarkNet53](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/yolov3_darknet53)         |  Supported |  Supported |  Supported |  Supported | Doing | Doing
@@ -62,6 +66,7 @@
 | Computer Vision (CV) | Semantic Segmentation  | [DeepLabV3](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/deeplabv3)     |  Supported |  Doing |  Doing |  Doing | Supported | Doing
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net2D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net3D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet3d)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
+| Computer Vision (CV) | Semantic Segmentation  | [U-Net++](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Keypoint Detection  | [OpenPose](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/openpose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Keypoint Detection  | [SimplePoseNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/simple_pose)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Computer Vision (CV) | Optical Character Recognition  | [CRNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/crnn)                |  Supported |  Doing |  Doing |  Doing | Doing | Doing
@@ -76,6 +81,7 @@
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TextCNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/nlp/textcnn)                |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Recommender | Recommender System, CTR prediction  | [DeepFM](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/recommend/deepfm)                               |  Supported |  Supported |  Supported | Supported | Supported | Doing
 | Recommender | Recommender System, Search, Ranking  | [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/recommend/wide_and_deep)             |  Supported |  Supported |  Supported | Supported | Doing | Doing
+| Recommender | Recommender System  | [NAML](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/recommend/naml)             |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Recommender | Recommender System  | [NCF](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/recommend/ncf)             |  Supported |  Doing |  Supported | Doing | Doing | Doing
 | Graph Neural Networks (GNN) | Text Classification  | [GCN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/gnn/gcn)  |  Supported |  Supported |  Doing |  Doing | Doing | Doing
 | Graph Neural Networks (GNN) | Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/gnn/gat)  |  Supported |  Supported |  Doing |  Doing | Doing | Doing
@@ -95,6 +101,7 @@
 | Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/cycle_gan)             |  Doing     |  Doing | Doing |  Supported | Supported | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [DS-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/dscnn)      |  Supported |  Supported |  Doing | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TextRCNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/textrcnn)  |  Supported |  Doing |  Doing | Doing | Doing | Doing
+| Natural Language Processing (NLP) | Natural Language Understanding  | [TPRR](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/tprr)  |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Recommender | Recommender System, CTR prediction | [AutoDis](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/recommend/autodis)          |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | Audio | Audio Tagging | [FCN-4](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/audio/fcn-4)   |  Supported |  Doing |  Doing |  Doing | Doing | Doing
 | High Performance Computing | Molecular Dynamics | [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/hpc/molecular_dynamics)   |  Supported |  Supported |  Doing |  Doing | Doing | Doing
