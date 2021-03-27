@@ -109,7 +109,7 @@ print(output.asnumpy())
  [3. 3. 3.]]
 ```
 
-> PyNative不支持并行执行和summary功能，图模式的并行和summary相关算子不能使用。
+> PyNative不支持summary功能，图模式summary相关算子不能使用。
 
 ### 提升PyNative性能
 
