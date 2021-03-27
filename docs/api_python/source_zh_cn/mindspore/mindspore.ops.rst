@@ -196,7 +196,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
      - :class:`mindspore.ops.Sqrt`
    * - mindspore.ops.square
      - :class:`mindspore.ops.Square`
-   * - mindspore.ops.Stack
+   * - mindspore.ops.stack
      - :class:`mindspore.ops.Stack`
    * - mindspore.ops.stop_gradient
      - :class:`mindspore.ops.Primitive` ('stop_gradient')               
