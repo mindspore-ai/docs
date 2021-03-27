@@ -6,13 +6,12 @@
     - [基于模型推理服务](#基于模型推理服务)
         - [总览](#总览)
         - [不同硬件平台执行推理](#不同硬件平台执行推理)
-    - [基于MindSpore Serving部署在线推理服务](#基于mindspore-serving部署在线推理服务)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/migration_guide/source_zh_cn/inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
-MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务，还可以基于MindSpore Serving部署在线推理服务。
+MindSpore可以基于训练好的模型，在不同的硬件平台上执行推理任务。
 
 ## 基于模型推理服务
 
@@ -22,7 +21,7 @@ MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mind
 
 参考[执行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/multi_platform_inference.html#id3)，不仅可以直接通过`mindspore.model.predict`接口执行本机推理，还可以通过`mindspore.export`导出MindIR、AIR、ONNX格式的网络模型文件，以便于跨平台执行推理。
 
-使用[MindIR格式](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/multi_platform_inference.html#id3)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署到云端Serving和端侧Lite平台。
+使用[MindIR格式](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/multi_platform_inference.html#id3)的模型文件消除了不同后端模型的差异，可以用于执行跨硬件平台推理，支持部署端侧Lite平台。
 
 ### 不同硬件平台执行推理
 
@@ -32,15 +31,3 @@ MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mind
 - Lite端侧推理的相关应用参考[端侧推理](https://www.mindspore.cn/lite/docs?master)。
 
 > Ascend硬件平台推理的接口使用问题参考[C++接口使用类](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/mindspore_cpp_library.html)解决。
-
-## 基于MindSpore Serving部署在线推理服务
-
-MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助MindSpore开发者在生产环境中高效部署在线推理服务。当用户使用MindSpore完成模型训练后，导出MindSpore模型，即可使用MindSpore Serving创建该模型的推理服务。参考以下几个样例进行部署：
-
-- [基于MindSpore Serving部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_example.html)。
-- [基于gRPC接口访问MindSpore Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_grpc.html)。
-- [基于RESTful接口访问MindSpore Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_restful.html)。
-- [通过配置模型提供Servable](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_model.html)。
-- [基于MindSpore Serving部署分布式推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_distributed_example.html)。
-
-> MindSpore Serving部署在线推理服务的问题可以参考[MindSpore Serving类](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/mindspore_serving.html)解决。

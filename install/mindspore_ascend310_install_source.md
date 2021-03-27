@@ -9,7 +9,6 @@
     - [安装MindSpore](#安装mindspore)
     - [配置环境变量](#配置环境变量)
     - [验证是否成功安装](#验证是否成功安装)
-    - [安装MindSpore Serving](#安装mindspore-serving)
 
 <!-- /TOC -->
 
@@ -145,9 +144,3 @@ make
 ```
 
 说明MindSpore安装成功了。
-
-## 安装MindSpore Serving
-
-当您想要快速体验MindSpore在线推理服务时，可以选装MindSpore Serving。
-
-具体安装步骤参见[MindSpore Serving](https://gitee.com/mindspore/serving/blob/r1.2/README_CN.md)。

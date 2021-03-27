@@ -56,16 +56,13 @@ MindSpore defines logical network structures and operator attributes through a u
 
 1. Overview
 
-    As a unified model file of MindSpore, MindIR stores network structures and weight parameter values. In addition, it can be deployed on the on-cloud Serving and the on-device Lite platforms to execute inference tasks.
+    As a unified model file of MindSpore, MindIR stores network structures and weight parameter values. It can be deployed on the on-device Lite platforms to execute inference tasks.
 
-    A MindIR file supports the deployment of multiple hardware forms.
-
-    - On-cloud deployment and inference on Serving: After MindSpore trains and generates a MindIR model file, the file can be directly sent to MindSpore Serving for loading and inference. No additional model conversion is required. This ensures that models on different hardware such as Ascend, GPU, and CPU are unified.
     - On-device inference and deployment on Lite: MindIR can be directly used for Lite deployment. In addition, to meet the lightweight requirements on devices, the model miniaturization and conversion functions are provided. An original MindIR model file can be converted from the Protocol Buffers format to the FlatBuffers format for storage, and the network structure is lightweight to better meet the performance and memory requirements on devices.
 
 2. Application Scenarios
 
-    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorial/inference/en/r1.2/multi_platform_inference_ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/r1.2/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en?master).
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorial/inference/en/r1.2/multi_platform_inference_ascend_310_mindir.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en?master).
 
 ### Networks Supported by MindIR
 
