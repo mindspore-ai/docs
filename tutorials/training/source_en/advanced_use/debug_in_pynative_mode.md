@@ -105,7 +105,7 @@ Output:
  [3. 3. 3.]]
 ```
 
-> Parallel execution and summary are not supported in PyNative mode, so parallel and summary related operators cannot be used.
+> Summary is not supported in PyNative mode, so summary related operators cannot be used.
 
 ### Improving PyNative Performance
 
