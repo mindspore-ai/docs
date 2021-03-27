@@ -5,6 +5,7 @@
 <!-- TOC -->
 
 - [Downloading MindSpore Lite](#downloading-mindspore-lite)
+    - [1.2.0](#120)
     - [1.1.0](#110)
 
 <!-- /TOC -->
@@ -12,6 +13,15 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/downloads.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
+
+## 1.2.0
+
+|   Module Name   |   Hardware Platform   |   Operating System   |   Download Links   |   SHA-256   |
+|       ---       |          ---          |          ---         |         ---        |     ---     |
+| MindSpore Lite | CPU         | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz.sha256> |
+|                | CPU/GPU/NPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch64.tar.gz.sha256> |
+|                | CPU         |  Ubuntu-x64     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz.sha256> |
+|                | CPU         |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip.sha256> |
 
 ## 1.1.0
 
