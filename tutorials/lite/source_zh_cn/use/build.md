@@ -101,6 +101,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -o | 设置该参数，则编译基准测试工具、静态库裁剪工具，默认为on | on、off | 否 |
 | -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
 | -T | 是否编译训练版本工具，默认为off | on、off | 否 |
+| -W | 启用x86_64 SSE或AVX指令集，默认为off | sse、avx、off | 否 |
 
 > 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
 >
