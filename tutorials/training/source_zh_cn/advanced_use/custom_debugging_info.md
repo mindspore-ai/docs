@@ -273,7 +273,7 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 
 ### 异步Dump功能使用方法
 
-异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/dump_in_graph_mode.html#id8)。
+异步Dump功能使用参考[异步Dump操作步骤](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/dump_in_graph_mode.html#id9)。
 
 ## Running Data Recorder
 
