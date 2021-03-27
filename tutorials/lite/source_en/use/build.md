@@ -101,6 +101,7 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -o | If this parameter is set, the benchmark and static library crop tool are compiled, default on. | on, off | No |
 | -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
 | -T | If this parameter is set, MindSpore Lite training version is compiled, i.e., this option is required when compiling, default off. | on, off | No |
+| -W | Enable x86_64 SSE or AVX instruction set, default off. | sse, avx, off | No |
 
 > When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
 >
