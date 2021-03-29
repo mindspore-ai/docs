@@ -153,7 +153,7 @@ For non-transformed operators, suggestions are provided in the report. For insta
 
 #### TensorFlow Model Scripts Conversion
 
-To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [Tutorial of exporting TensorFlow Pb model](https://gitee.com/mindspore/mindinsight/blob/r1.2/mindinsight/mindconverter/docs/tensorflow_model_exporting.md) for details.
+To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [Tutorial of exporting TensorFlow Pb model](https://gitee.com/mindspore/mindinsight/blob/r1.2/mindinsight/mindconverter/docs/tensorflow_model_exporting.md#) for details.
 
 Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`. Output the transformed MindSpore script to `/home/user/output`, with the conversion report to `/home/user/output/report`. Use the following command:
 
