@@ -67,7 +67,7 @@ PyTorch 官方实现脚本可参考 [torchvision model](https://github.com/pytor
 
 ### 脚本开发前分析
 
-在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/script_analysis.md)。
+在开始真正的开发脚本前，需要进行对标脚本分析。脚本分析的目的是识别出 MindSpore 与对标框架相比缺失的算子或功能。具体方法可以参考[脚本评估教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/script_analysis.md#)。
 
 MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html) 和 [算子](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operator_list.html)。MindSpore 既支持动态图（PyNative）模式，又支持静态图（Graph）模式，动态图模式灵活、易于调试，因此动态图模式主要用于网络调试，静态图模式性能好，主要用于整网训练，在分析缺失算子和功能时，要分别分析这两种模式。
 
@@ -1255,11 +1255,11 @@ if __name__ == '__main__':
 
 ### 问题定位
 
-在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/neural_network_debug.md) 定位和解决。
+在流程打通中可能会遇到一些中断训练的问题，可以参考 [网络训练调试教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/neural_network_debug.md#) 定位和解决。
 
 ## 精度调优
 
-在打通流程后，就可以通过训练和推理两个步骤获得网络训练的精度。通常情况下，我们很难一次就复现对标脚本的精度，需要通过精度调优来逐渐提高精度，精度调优相比性能调优不够直观，效率低，工作量大。开发者可将我们提供的 [精度调优教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/accuracy_optimization.md) 作为参考。
+在打通流程后，就可以通过训练和推理两个步骤获得网络训练的精度。通常情况下，我们很难一次就复现对标脚本的精度，需要通过精度调优来逐渐提高精度，精度调优相比性能调优不够直观，效率低，工作量大。开发者可将我们提供的 [精度调优教程](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/accuracy_optimization.md#) 作为参考。
 
 ## 性能调优
 
@@ -1290,7 +1290,7 @@ profiler.analyse()
 
 关于Profiling更详细的使用方法，可以参考 [Profiling 性能分析方法](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html)。
 
-获取到 Profiling 数据后，我们可以分析出性能瓶颈阶段和算子，然后进行性能优化，可以参考 [性能调优指导](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/performance_optimization.md)。
+获取到 Profiling 数据后，我们可以分析出性能瓶颈阶段和算子，然后进行性能优化，可以参考 [性能调优指导](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/performance_optimization.md#)。
 
 ### 常见问题及相应优化方法
 
