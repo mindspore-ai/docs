@@ -1,6 +1,6 @@
-# Training a LeNet Model
+# Training a LeNet Model (C++)
 
-`Linux` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
+`Linux` `C++` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 
 <!-- TOC -->
 
