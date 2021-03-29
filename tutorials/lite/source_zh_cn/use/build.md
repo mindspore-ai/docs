@@ -24,7 +24,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/use/build.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本章节介绍如何快速编译出MindSpore Lite。
 

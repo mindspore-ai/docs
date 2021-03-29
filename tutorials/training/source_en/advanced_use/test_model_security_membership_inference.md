@@ -15,7 +15,7 @@
     - [References](#references)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="../_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/test_model_security_membership_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
