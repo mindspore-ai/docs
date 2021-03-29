@@ -42,7 +42,7 @@ public int[] getShape()
 public int getDataType()
 ```
 
-DataType在[com.mindspore.lite.DataType](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java。
+DataType在[com.mindspore.lite.DataType](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/java/java/common/src/main/java/com/mindspore/lite/DataType.java)中定义。
 
 - 返回值
 
