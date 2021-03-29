@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/benchmark.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/benchmark.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 This document describes the MindSpore benchmarks.
 For details about the MindSpore networks, see [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).

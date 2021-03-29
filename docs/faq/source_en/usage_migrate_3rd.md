@@ -1,6 +1,6 @@
 ﻿# Migration from a Third-party Framework
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/usage_migrate_3rd.md" target="_blank"><img src="./_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/usage_migrate_3rd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 

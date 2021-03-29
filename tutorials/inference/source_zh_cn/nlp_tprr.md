@@ -18,7 +18,7 @@
     - [引用](#引用)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/nlp_tprr.md" target="_blank"><img src="./_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_zh_cn/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
