@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_zh_cn/design/mindspore/distributed_training_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 背景
 
