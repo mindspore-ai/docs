@@ -56,9 +56,11 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.log1p                                          | mindspore.ops.Log1p                                            | same |
 | torch.logsumexp                                      | mindspore.nn.ReduceLogSumExp                                   | same |
 | torch.matmul                                         | mindspore.nn.MatMul                                            | same |
-| torch.max                                            | mindspore.ops.Maximum                                          | same |
+| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  | diff |
+| torch.maximum                                        | mindspore.ops.Maximum                                          | same |
 | torch.mean                                           | mindspore.ops.ReduceMean                                       | same |
-| torch.min                                            | mindspore.ops.Minimum                                          | same |
+| torch.min                                            | mindspore.ops.ArgMinWithValue                                  | diff |
+| torch.minimum                                        | mindspore.ops.Minimum                                          | same |
 | torch.mm                                             | mindspore.ops.MatMul                                           | same |
 | torch.mul                                            | mindspore.ops.Mul                                              | same |
 | torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.ReduceMean                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean_en.md)|

@@ -56,9 +56,11 @@
 | torch.log1p                                          | mindspore.ops.Log1p                                            | 功能一致 |
 | torch.logsumexp                                      | mindspore.nn.ReduceLogSumExp                                   | 功能一致 |
 | torch.matmul                                         | mindspore.nn.MatMul                                            | 功能一致 |
-| torch.max                                            | mindspore.ops.Maximum                                          | 功能一致 |
+| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  | 差异对比 |
+| torch.maximum                                        | mindspore.ops.Maximum                                          | 功能一致 |
 | torch.mean                                           | mindspore.ops.ReduceMean                                       | 功能一致 |
-| torch.min                                            | mindspore.ops.Minimum                                          | 功能一致 |
+| torch.min                                            | mindspore.ops.ArgMinWithValue                                  | 差异对比 |
+| torch.minimum                                        | mindspore.ops.Minimum                                          | 功能一致 |
 | torch.mm                                             | mindspore.ops.MatMul                                           | 功能一致 |
 | torch.mul                                            | mindspore.ops.Mul                                              | 功能一致 |
 | torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.ReduceMean                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean.md)|
