@@ -155,7 +155,7 @@ For non-transformed operators, suggestions are provided in the report. For insta
 
 To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [Tutorial of exporting TensorFlow Pb model](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/tensorflow_model_exporting.md#) for details.
 
-Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`. Output the transformed MindSpore script to `/home/user/output`, with the conversion report to `/home/user/output/report`. Use the following command:
+Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`. Output the transformed MindSpore script and MindSpore checkpoint file to `/home/user/output`, with the conversion report and weight map file to `/home/user/output/report`. Use the following command:
 
 ```bash
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
@@ -271,5 +271,5 @@ The example of weight map refers to that in **TensorFlow Model Scripts Conversio
 2. ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2), ONNXOPTIMIZER(>=0.1.2) are not explicitly stated dependency libraries in MindInsight, if the user want to use graph based MindConverter, above three-party libraries must be installed. If the user want to migrate TensorFlow model to MindSpore, TF2ONNX(>=1.7.1) must be installed additionally.
 3. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
 4. MindConverter converts dynamic input shape to constant one based on `--shape` while using grpah based scheme, as a result, it is required that inputs' shape used to retrain or inference in MindSpore are the same as that used to convert using MindConverter. If the input shape has changed, please re-running MindConverter with new `--shape` or fixing shape related parameters in the old script.
-5. MindSpore script, MindSpore checkpoint file and weight map file are saved in the same file folder path.
+5. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
 6. The security and consistency of the model file should be guaranteed by the user.
