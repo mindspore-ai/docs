@@ -43,6 +43,7 @@ class Grad(nn.Cell):
         return gout
 
 class GradSec(nn.Cell):
+    """construct secend grad"""
     def __init__(self, network):
         super(GradSec, self).__init__()
         self.grad = ops.GradOperation(get_all=True, sens_param=True)
@@ -59,5 +60,5 @@ firstgrad = Grad(net) # first order
 secondgrad = GradSec(firstgrad) # second order
 x_train = Tensor(np.array([4], dtype=np.float32))
 y_train = Tensor(np.array([5], dtype=np.float32))
-dxdx, dxdy, dydx, dydy = secondgrad(x_train, y_train)
-print(dxdx, dxdy, dydx, dydy)
+input_dxdx, input_dxdy, input_dydx, input_dydy = secondgrad(x_train, y_train)
+print(input_dxdx, input_dxdy, input_dydx, input_dydy)

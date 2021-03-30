@@ -42,6 +42,7 @@ def _update_accu_grads(accu_grad, grad):
 
 
 class TrainAccuStepsCell(TrainOneStepCell):
+    """construct train accu step cell"""
     def __init__(self, network, optimizer, sens=1.0):
         super(TrainAccuStepsCell, self).__init__(network, optimizer, sens)
         self.accumulation = False
@@ -70,6 +71,7 @@ class TrainAccuStepsCell(TrainOneStepCell):
 
 
 class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
+    """construct train accu step with loss scale cell"""
     def __init__(self, network, optimizer, scale_sense):
         super(TrainAccuStepsWithLossScaleCell, self).__init__(network, optimizer, scale_sense)
         self.accumulation = False
@@ -134,4 +136,3 @@ class VirtualDatasetCell(Cell):
     def construct(self, *inputs):
         output = self._virtual_dataset(*inputs)
         return self._backbone(*output)
-

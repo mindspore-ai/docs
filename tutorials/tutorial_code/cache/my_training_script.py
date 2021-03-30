@@ -1,3 +1,6 @@
+"""
+Training script
+"""
 import argparse
 import mindspore.dataset as ds
 

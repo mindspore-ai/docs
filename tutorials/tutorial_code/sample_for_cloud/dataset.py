@@ -52,7 +52,6 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32):
 
     resize_height = 224
     resize_width = 224
-    buffer_size = 100
     rescale = 1.0 / 255.0
     shift = 0.0
 
