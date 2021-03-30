@@ -1,6 +1,6 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/save_load_model.md" target="_blank"><img src="./_static/logo_source.png"></a>
-
 # 保存及加载模型
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/save_load_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 上一节我们训练完网络，本节将会学习如何保存模型和加载模型，以及如何将保存的模型导出成特定格式到不同平台进行推理。
 
@@ -8,7 +8,7 @@
 
 在模型训练的过程中，使用`Callback`回调机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成`CheckPoint`文件。
 
-> 上面我们也曾提到过Callback机制，其设计的理念不是针对下沉式，而是针对流程进行设计的，其支持网络计算前后、epoch执行前后、step执行前后的回调处理机制；下沉的目的是为了提升训练执行效率，由于下沉在加速硬件上执行，所以callback需要等下沉执行完毕后才能回调执行，在设计上两者解耦。
+> 上面我们也曾提到过Callback机制，其设计的理念不是针对下沉式，而是针对流程进行设计的，其支持网络计算前后、epoch执行前后、step执行前后的回调处理机制；下沉的目的是为了提升训练执行效率，由于下沉在加速硬件上执行，所以Callback需要等下沉执行完毕后才能回调执行，在设计上两者解耦。
 
 ```python
 from mindspore.train.callback import ModelCheckpoint
