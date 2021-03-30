@@ -216,15 +216,28 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">训练一个LeNet模型</span>
+											<span class="doc-head-content">训练一个LeNet模型(C++)</span>
 										</div>
 							
 										<div class="doc-article-desc"> 
 											本教程基于LeNet训练示例代码，演示MindSpore Lite训练功能的使用。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Loading stage-Model-Training stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet_java.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">训练一个LeNet模型（Java）</span>
+										</div>
+							
+										<div class="doc-article-desc"> 
+										本教程通过构建并部署Java版本的LeNet网络的训练，演示MindSpore Lite端侧训练Java接口的使用。 首先指导您在本地成功训练LeNet模型，然后讲解示例代码。
 										</div>
 									</div>
 								</a>
