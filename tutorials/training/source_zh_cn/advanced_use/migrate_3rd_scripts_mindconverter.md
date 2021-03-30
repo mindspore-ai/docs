@@ -153,7 +153,7 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 
 使用TensorFlow模型脚本迁移，需要先将TensorFlow模型导出为pb格式，并且获取模型输入节点、输出节点名称。TensorFlow pb模型导出可参考[TensorFlow Pb模型导出教程](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/tensorflow_model_exporting_cn.md#)。
 
-假设输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，模型绝对路径为`xxx/frozen_model.pb`，希望将脚本、权重文件、权重映射表输出至`/home/user/output`，转换报告输出至`/home/user/output/report`，则脚本生成命令为：
+假设输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，模型绝对路径为`xxx/frozen_model.pb`，希望将脚本、权重文件输出至`/home/user/output`，转换报告以及权重映射表输出至`/home/user/output/report`，则脚本生成命令为：
 
 ```bash
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
@@ -271,5 +271,5 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 2. ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（>=0.1.2）不作为MindInsight明确声明的依赖库，若想使用基于图结构的脚本生成工具，必须安装上述三方库。若想使用TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）模型脚本迁移需要额外安装TF2ONNX（>=1.7.1）。
 3. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
 4. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
-5. 脚本文件、权重文件和权重映射表输出于同一个目录下。
+5. 脚本文件和权重文件输出于同一个目录下，转换报告和权重映射表输出于同一目录下。
 6. 模型文件的安全性与一致性请用户自行保证。
