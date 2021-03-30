@@ -6,6 +6,7 @@
 
 - [Using Dump in the Graph Mode](#using-dump-in-the-graph-mode)
     - [Overview](#overview)
+        - [Debugging Process](#debugging-process)
         - [Applicable Scene](#applicable-scene)
     - [Dump Introduction](#dump-introduction)
     - [Synchronous Dump](#synchronous-dump)
@@ -32,6 +33,20 @@ The input and output of the operator can be saved for debugging through the data
 - For the static graph mode, MindSpore provides the Dump function to save the graph and the input and output data of the operator during model training to a disk file.
 
 Aiming at the static graph mode, this tutorial introduces how to analyze and compare network data based on the Dump function.
+
+### Debugging Process
+
+1. Find the corresponding operator from the script.
+
+    The Dump function needs to use the IR file of the final execution graph. The IR file can be viewed with the `vi` command. The IR file contains the full name of the operator, and the dependency of the operator on the input and output of the computational graph, and also contains the trace information from the operator to the corresponding script code. For the configuration of the Dump function, see [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step). For the final implementation of the image IR file naming and directory structure, see [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory) and [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory). Then find the operator corresponding to the code in the script through the graph file, refer to [Synchronous Dump Data Analysis Sample](#synchronous-dump-data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample).
+
+2. From operator to dump data.
+
+    After understanding the mapping relationship between the script and the operator, you can determine the name of the operator you want to analyze and find the dump file corresponding to the operator. Please refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory) and [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory).
+
+3. Analyze Dump data.
+
+    By analyzing Dump data, it can be compared with other third-party frameworks. For the synchronous dump data format, please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file). For the asynchronous Dump data format, please refer to [Introduction to Asynchronous Dump Data File](#introduction-to-asynchronous-dump-data-file).
 
 ### Applicable Scene
 
@@ -61,25 +76,6 @@ The configuration files required for different modes and the data format of dump
 - When Dump is enabled on Ascend, the operator to Dump will automatically close memory reuse.
 - Synchronous Dump supports the graphics mode both on GPU and Ascend, and currently does not support PyNative mode.
 - Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory reuse will not be turned off when asynchronous dump is enabled.
-
-The Dump function needs to use the IR file of the final execution graph. The IR file can be viewed with the `vi` command. The IR file contains the full name of the operator, and the dependency of the operator on the input and output of the computational graph, and also contains the trace information from the operator to the corresponding script code:
-
-- Using the Dump function will automatically generate the IR file of the final execution graph according to the configuration in the json configuration file. For the configuration of the Dump function, see [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step). For the final implementation of the image IR file naming and directory structure, see [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory) and [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory).
-- You can also configure `context.set_context(save_graphs=True, save_graphs_path=“xxx”)` when running the MindSpore script, and some intermediate files (IR files) generated during graph compilation will be saved under the specified path "xxx" (default is the script execution directory). Through these IR files, you can view and analyze the transformation and optimization process of the entire computational graph. For details of `set_context`, please refer to [mindspore.context API](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.context.html#mindspore.context.set_context).
-
-Dump overall process:
-
-1. Find the corresponding operator from the script.
-
-    First use the Dump function to obtain the relevant IR graph files, refer to [Saving IR](https://www.mindspore.cn/doc/note/en/r1.2/design/mindspore/mindir.html#saving-ir). Then find the operator corresponding to the code in the script through the graph file, refer to [Synchronous Dump Data Analysis Sample](#synchronous-dump-data-analysis-sample).
-
-2. From operator to dump data.
-
-    After understanding the mapping relationship between the script and the operator, you can determine the name of the operator you want to analyze and find the dump file corresponding to the operator. Please refer to [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory) and [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory).
-
-3. Analyze Dump data.
-
-    By analyzing Dump data, it can be compared with other third-party frameworks. For the synchronous dump data format, please refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file). For the asynchronous Dump data format, please refer to [Introduction to Asynchronous Dump Data File](#introduction-to-asynchronous-dump-data-file).
 
 ## Synchronous Dump
 
@@ -473,9 +469,9 @@ The data objects saved by asynchronous Dump include the final execution graph (`
 - `taskid`: the id of the task.
 - `timestamp`: the time stamp.
 
-### Introduction to Asynchronous Dump Data Files
+### Introduction to Asynchronous Dump Data File
 
-After the training is started, the original data file generated by asynchronous Dump is in protobuf format. It needs to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [Usage Document](https://support.huaweicloud.com/intl/en-us/usermanual-mindstudioc73/atlasmindstudioaccuracy_16_0022.html) 。
+After the training is started, the original data file generated by asynchronous Dump is in protobuf format. It needs to be parsed using the data analysis tool that comes with the HiSilicon Run package. For details, please refer to [Usage Document](https://support.huaweicloud.com/intl/en-us/usermanual-mindstudioc73/atlasmindstudioaccuracy_16_0022.html).
 
 The data format on the Device side may be different from the definition in the calculation diagram on the Host side. The data format of the asynchronous dump is the Device side format. If you want to convert to the Host side format, you can refer to [Usage Document](https://support.huaweicloud.com/intl/en-us/usermanual-mindstudioc73/atlasmindstudioaccuracy_16_0021.html).
 
