@@ -19,11 +19,11 @@ class TensorAddNet(nn.Cell):
         res = self.add(x, y)
         return res
 
-x = Tensor(np.ones([4, 4]).astype(np.float32))
-y = Tensor(np.ones([4, 4]).astype(np.float32))
+input_x = Tensor(np.ones([4, 4]).astype(np.float32))
+input_y = Tensor(np.ones([4, 4]).astype(np.float32))
 net = TensorAddNet()
 
-z = net(x, y) # Staging mode
+z = net(input_x, input_y) # Staging mode
 tensor_add = ops.Add()
-res = tensor_add(x, z) # PyNative mode
-print(res.asnumpy())
+result = tensor_add(input_x, z) # PyNative mode
+print(result.asnumpy())

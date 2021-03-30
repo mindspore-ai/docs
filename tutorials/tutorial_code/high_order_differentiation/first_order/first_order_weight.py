@@ -45,7 +45,7 @@ class GradNetWrtX(nn.Cell):
         gradient_function = self.grad_op(self.net, self.params)
         return gradient_function(x, y)
 
-x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
-y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
-output = GradNetWrtX(Net())(x, y)
+input_x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
+input_y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
+output = GradNetWrtX(Net())(input_x, input_y)
 print(output)

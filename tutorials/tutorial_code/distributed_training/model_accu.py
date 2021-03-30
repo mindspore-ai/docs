@@ -1,3 +1,6 @@
+"""model accu
+Construct model accu
+"""
 import math
 from mindspore.train.callback import RunContext
 from mindspore import context
@@ -50,6 +53,7 @@ def _exec_datagraph(exec_dataset, dataset_size, phase='dataset'):
 
 
 class Model_ACCU(Model):
+    """"Construct Model_ACCU"""
     def __init__(self, network, loss_fn=None, optimizer=None, metrics=None, eval_network=None,
                  eval_indexes=None, amp_level="O0", **kwargs):
         super(Model_ACCU, self).__init__(network, loss_fn, optimizer, metrics, eval_network,
@@ -116,7 +120,6 @@ class Model_ACCU(Model):
         # used to stop training for early stop, such as stopAtTIme or stopATStep
         should_stop = False
         switch_branch_one = True
-        index_first_order = 0
         train_network_init_flag = True
         has_do_dataset_init = False
 

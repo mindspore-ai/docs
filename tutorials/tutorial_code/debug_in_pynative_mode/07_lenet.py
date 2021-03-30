@@ -4,10 +4,9 @@ This sample code is applicable to Ascend.
 import numpy as np
 import mindspore.nn as nn
 import mindspore.ops as ops
-from mindspore import dtype as mstype
 from mindspore import context, Tensor, ParameterTuple
 from mindspore.common.initializer import TruncatedNormal
-from mindspore.nn import Dense, WithLossCell, SoftmaxCrossEntropyWithLogits, Momentum
+from mindspore.nn import WithLossCell, Momentum
 
 context.set_context(mode=context.PYNATIVE_MODE, device_target="Ascend")
 
@@ -55,6 +54,7 @@ class LeNet5(nn.Cell):
         self.reshape = ops.Reshape()
 
     def construct(self, x):
+        """ construct LeNet5 """
         x = self.conv1(x)
         x = self.relu(x)
         x = self.max_pool2d(x)
@@ -89,10 +89,10 @@ train_network = GradWrap(net_with_criterion)
 train_network.set_train()
 
 input_data = Tensor(np.ones([net.batch_size, 1, 32, 32]).astype(np.float32) * 0.01)
-label = Tensor(np.ones([net.batch_size]).astype(np.int32))
+input_label = Tensor(np.ones([net.batch_size]).astype(np.int32))
 output = net(Tensor(input_data))
-loss_output = criterion(output, label)
-grads = train_network(input_data, label)
+loss_output = criterion(output, input_label)
+grads = train_network(input_data, input_label)
 success = optimizer(grads)
 loss = loss_output.asnumpy()
 print(loss)

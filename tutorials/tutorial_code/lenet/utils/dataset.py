@@ -15,9 +15,9 @@
 """download MNIST dataset"""
 import os
 import sys
-import requests
-from urllib.parse import urlparse
 import gzip
+from urllib.parse import urlparse
+import requests
 
 def unzipfile(gzip_path):
     """unzip dataset file
@@ -73,6 +73,6 @@ def download_dataset():
     for url in test_url:
         url_parse = urlparse(url)
         # split the file name from url
-        file_name = os.path.join(test_path,url_parse.path.split('/')[-1])
+        file_name = os.path.join(test_path, url_parse.path.split('/')[-1])
         if not os.path.exists(file_name.replace('.gz', '')):
             download_progress(url, file_name)
