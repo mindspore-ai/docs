@@ -45,7 +45,7 @@ This tutorial describes how to use MindSpore to perform inference on the Atlas 2
 
 ### Hardware Preparation
 
-- A server with the Ubuntu ARM OS is used to prepare a bootable SD card for the Atlas 200 DK and deploy the development environment.
+- A server or PC with the Ubuntu OS is used to prepare a bootable SD card for the Atlas 200 DK and deploy the development environment.
 - An SD card with a capacity of at least 16 GB.
 
 ### Software Package Preparation
