@@ -186,11 +186,11 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-Android stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Training a LeNet Model</span>
+											<span class="doc-head-content">Training a LeNet Model (C++)</span>
 										</div>
 							
 										<div class="doc-article-desc">
