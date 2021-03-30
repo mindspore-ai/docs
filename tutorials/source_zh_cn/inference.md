@@ -1,12 +1,10 @@
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/inference.md" target="_blank"><img src="./_static/logo_source.png"></a>
-
 # 推理
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本节是初级教程的最后一节，为了更好地适配不同推理设备，因此推理分为 1）昇腾AI处理器推理和 2）移动设备推理。
 
 ## 昇腾AI处理器推理
-
-### 概述
 
 昇腾（Ascend）AI处理器是面向边缘场景的高能效高集成度AI处理器。可以实现图像、视频等多种数据分析与推理计算，可广泛用于智能监控、机器人、无人机、视频服务器等场景。本节我们来学习如何在昇腾AI处理器上使用MindSpore执行推理。
 
@@ -202,8 +200,6 @@ Image: ./test_data/ILSVRC2012_val_00003014.JPEG infer result: 0
 
 ## 移动设备推理
 
-### MindSpore Lite 概述
-
 MindSpore Lite可完成在手机等端侧设备中的模型推理过程。当前支持Android、Ubuntu-x64、Windows-x64操作系统下的模型推理，支持端侧ARM CPU、ARM GPU、NPU多种硬件平台，支持C++、Java两种API。
 
 下面通过C++ API演示端侧推理的基本流程。Demo通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。
@@ -279,13 +275,13 @@ MindSpore Lite可完成在手机等端侧设备中的模型推理过程。当前
 
     - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
-    > 可选择使用模型转换小节所获得的mobilenetv2.ms模型文件。
+        > 可选择使用模型转换小节所获得的mobilenetv2.ms模型文件。
 
     - 编译：在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
 
-      ```bash
-      call build.bat
-      ```
+        ```bash
+        call build.bat
+        ```
 
 - 执行推理
 
