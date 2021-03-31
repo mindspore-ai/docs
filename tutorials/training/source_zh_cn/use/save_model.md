@@ -96,7 +96,7 @@ MindSpore提供了两种保存CheckPoint策略：迭代策略和时间策略，�
 
 ## 导出MindIR格式文件
 
-如果想跨平台或硬件执行推理(GPU、Lite、Ascend 310)，可以通过网络定义和CheckPoint生成MindIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
+如果想跨平台或硬件执行推理（如昇腾AI处理器、MindSpore端侧、GPU等），可以通过网络定义和CheckPoint生成MindIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
 
 ```python
 import numpy as np
