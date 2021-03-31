@@ -10,10 +10,10 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
-└─主目录
+└─ascend910_resnet50_preprocess_sample
     ├── CMakeLists.txt                    // 构建脚本
     ├── README.md                         // 使用说明
     ├── main.cc                           // 主函数
