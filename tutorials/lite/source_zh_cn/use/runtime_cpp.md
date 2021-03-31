@@ -374,11 +374,11 @@ session->BindThread(false);
 
 > 绑核参数有三种选择：大核优先、中核优先以及不绑核。
 >
-> 判定大核和中核的规则其实是根据CPU核的频率而不是根据CPU的架构，对于没有大中小核之分的CPU架构，在该规则下也可以区分大核和中核。
+> 判定大核和中核的规则其实是根据CPU核的频率进行区分。
 >
 > 绑定大核优先是指线程池中的线程从频率最高的核开始绑定，第一个线程绑定在频率最高的核上，第二个线程绑定在频率第二高的核上，以此类推。
 >
-> 对于中核优先，中核的定义是根据经验来定义的，默认设定中核是第三和第四高频率的核，当绑定策略为中核优先时，会优先绑定到中核上，当中核不够用时，会往小核上进行绑定。
+> 对于中核优先，中核的定义是根据经验来定义的，默认设定中核是第三和第四高频率的核，当绑定策略为中核优先时，会优先绑定到中核上，当中核不够用时，会往大核上进行绑定。
 
 ### 输入维度Resize
 
@@ -554,7 +554,7 @@ if (ret != mindspore::lite::RET_OK) {
 
 ### CreateSession简化版接口调用流程
 
-通过创建得到的[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)，以及读入的模型buffer和buffer的size，通过调用[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的静态方法[static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)来创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)。使用该接口来创建会话会在内部进行模型加载和图编译，无需再次调用[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#import)接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#compilegraph)接口。
+CreateSession简化版接口[static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context)](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#createsession)是基于[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)以及读入的模型buffer和buffer的size来创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)。使用该接口来创建会话会在内部进行模型加载和图编译，无需再次调用[Import](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#import)接口和[CompileGraph](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#compilegraph)接口。
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L425)演示如何调用CreateSession简化版接口创建[LiteSession](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#litesession)的流程：
 
