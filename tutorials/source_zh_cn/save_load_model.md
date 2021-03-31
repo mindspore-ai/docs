@@ -6,7 +6,7 @@
 
 ## 保存模型
 
-在模型训练的过程中，使用`Callback`回调机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成`CheckPoint`文件。
+在模型训练的过程中，使用Callback回调机制传入回调函数`ModelCheckpoint`对象，可以保存模型参数，生成CheckPoint文件。
 
 > 上面我们也曾提到过Callback机制，其设计的理念不是针对下沉式，而是针对流程进行设计的，其支持网络计算前后、epoch执行前后、step执行前后的回调处理机制；下沉的目的是为了提升训练执行效率，由于下沉在加速硬件上执行，所以Callback需要等下沉执行完毕后才能回调执行，在设计上两者解耦。
 
@@ -17,7 +17,7 @@ ckpt_cb = ModelCheckpoint()
 model.train(epoch_num, dataset, callbacks=ckpt_cb)
 ```
 
-用户可以根据具体需求对`CheckPoint`策略进行配置。具体用法如下：
+用户可以根据具体需求对CheckPoint策略进行配置。具体用法如下：
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -34,7 +34,7 @@ model.train(epoch_num, dataset, callbacks= ckpt_cb)
 - `prefix`表示生成CheckPoint文件的前缀名。
 - `directory`表示存放文件的目录。
 
-创建一个`ModelCheckpoint`对象把它传递给model.train方法，就可以在训练过程中使用CheckPoint功能了。
+创建一个`ModelCheckpoint`对象把它传递给`model.train`方法，就可以在训练过程中使用CheckPoint功能了。
 
 生成的CheckPoint文件如下：
 
@@ -100,7 +100,7 @@ model.train(epoch, dataset)
 
 ## 导出模型
 
-在模型训练过程中，可以添加检查点（CheckPoint）用于保存模型的参数，以便执行推理及再训练使用。如果想继续在不同硬件平台上做推理，可通过网络和CheckPoint格式文件生成对应的MindIR、AIR或ONNX格式格式文件。
+在模型训练过程中，可以添加检查点（CheckPoint）用于保存模型的参数，以便执行推理及再训练使用。如果想继续在不同硬件平台上做推理，可通过网络和CheckPoint格式文件生成对应的MindIR、AIR或ONNX格式文件。
 
 以下通过示例来介绍保存CheckPoint格式文件和导出MindIR、AIR或ONNX格式文件的方法。
 
