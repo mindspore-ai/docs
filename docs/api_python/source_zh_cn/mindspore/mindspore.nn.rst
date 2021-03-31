@@ -3,6 +3,8 @@ mindspore.nn
 
 .. automodule:: mindspore.nn
 
+Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.nn` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/nn_api_updates.md>`_.
+
 Cell
 ----
 
