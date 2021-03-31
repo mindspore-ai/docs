@@ -50,9 +50,6 @@ resnet50-3_32.ckpt  # 表示保存的是第3个epoch的第32个step的模型参�
 
 例：`resnet50_3-2_32.ckpt` 表示运行第3次脚本生成的第2个epoch的第32个step的CheckPoint文件。
 
-> - 当保存的单个模型参数较大时(超过64M)，会因为Protobuf自身对数据大小的限制，导致保存失败。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
-> - 当执行分布式并行训练任务时，每个进程需要设置不同`directory`参数，用以保存CheckPoint文件到不同的目录，以防文件发生读写错乱。
-
 ## 加载模型
 
 要加载模型权重，需要先创建相同模型的实例，然后使用`load_checkpoint`和`load_param_into_net`方法加载参数。
@@ -125,7 +122,7 @@ input = np.random.uniform(0.0, 1.0, size=[32, 3, 224, 224]).astype(np.float32)
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 ```
 
-> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
+> - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='MINDIR')`
 > - 导出的文件名称会自动添加".mindir"后缀。
 
 ### 其他格式导出
@@ -138,11 +135,7 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='MINDIR')
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 ```
 
-使用`export`接口之前，需要先从`mindspore`导入`export`。
-
-`input`用来指定导出模型的输入shape以及数据类型。
-
-> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
+> - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='AIR')`
 > - 导出的文件名称会自动添加".air"后缀。
 
 #### 导出ONNX格式文件
@@ -153,5 +146,5 @@ export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='AIR')
 export(resnet, Tensor(input), file_name='resnet50-2_32', file_format='ONNX')
 ```
 
-> - `input`为`export`方法的入参，代表网络的输入，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
+> - `input`用来指定导出模型的输入shape以及数据类型，如果网络有多个输入，需要一同传进`export`方法。 例如：`export(network, Tensor(input1), Tensor(input2), file_name='network', file_format='ONNX')`
 > - 导出的文件名称会自动添加".onnx"后缀。
