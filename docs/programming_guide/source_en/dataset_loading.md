@@ -347,9 +347,9 @@ Download the `tfrecord` test data `test_tftext.zip` and unzip it to the specifie
 
         Write the dataset format and features to the schema file in JSON format. The following is an example:
 
-    - `columns`: column information field, which needs to be defined based on the actual column name of the dataset. In the preceding example, the dataset columns are `image`, `label`, and `id`.
+        - `columns`: column information field, which needs to be defined based on the actual column name of the dataset. In the preceding example, the dataset columns are `image`, `label`, and `id`.
 
-        When creating `TFRecordDataset`, transfer the path of the schema file.
+            When creating `TFRecordDataset`, transfer the path of the schema file.
 
         ```python
         import os
@@ -395,39 +395,39 @@ Download the `tfrecord` test data `test_tftext.zip` and unzip it to the specifie
          ]), Tensor(shape=[20], dtype=Int8, value= [ 84, 104, 105, 115,  32, 105, 115,  32,  97,  32, 116, 101, 120, 116,  32, 102, 105, 108, 101,  46]), Tensor(shape=[16], dtype=UInt8, value= [ 84, 104, 105, 115, 116, 101, 120, 116, 102, 105, 108, 101,  97,  32,  32,  32])])
         ```
 
-3. Create a schema object.
+    - Create a schema object.
 
-    Create a schema object, add user-defined fields to the schema object, and pass the schema object when creating a dataset object.
+        Create a schema object, add user-defined fields to the schema object, and pass the schema object when creating a dataset object.
 
-    ```python
-    from mindspore import dtype as mstype
-    schema = ds.Schema()
-    schema.add_column('chinese', de_type=mstype.uint8)
-    schema.add_column('line', de_type=mstype.uint8)
-    tfrecord_dataset = ds.TFRecordDataset(DATA_FILE, schema=schema)
+        ```python
+        from mindspore import dtype as mstype
+        schema = ds.Schema()
+        schema.add_column('chinese', de_type=mstype.uint8)
+        schema.add_column('line', de_type=mstype.uint8)
+        tfrecord_dataset = ds.TFRecordDataset(DATA_FILE, schema=schema)
 
-    for tf_data in tfrecord_dataset.create_dict_iterator():
-    print(tf_data)
-    ```
+        for tf_data in tfrecord_dataset.create_dict_iterator():
+        print(tf_data)
+        ```
 
-    ```text
-    {'chinese': Tensor(shape=[12], dtype=UInt8, value= [231, 148, 183, 233, 187, 152, 229, 165, 179, 230, 179, 170]), 'line': Tensor(shape=[19], dtype=UInt8, value= [ 66, 101,  32, 104,  97, 112, 112, 121,  32, 101, 118, 101, 114, 121,  32, 100,  97, 121,  46])}
-    {'chinese': Tensor(shape=[48], dtype=UInt8, value= [228, 187, 138, 229, 164, 169, 229, 164, 169, 230, 176, 148, 229, 164, 170, 229, 165, 189, 228, 186, 134, 230, 136, 145,
-    228, 187, 172, 228, 184, 128, 232, 181, 183, 229, 142, 187, 229, 164, 150, 233, 157, 162, 231, 142, 169, 229, 144, 167
-    ]), 'line': Tensor(shape=[20], dtype=UInt8, value= [ 84, 104, 105, 115,  32, 105, 115,  32,  97,  32, 116, 101, 120, 116,  32, 102, 105, 108, 101,  46])}
-    {'chinese': Tensor(shape=[57], dtype=UInt8, value= [230, 177, 159, 229, 183, 158, 229, 184, 130, 233, 149, 191, 230, 177, 159, 229, 164, 167, 230, 161, 165, 229, 143, 130,
-    229, 138, 160, 228, 186, 134, 233, 149, 191, 230, 177, 159, 229, 164, 167, 230, 161, 165, 231, 154, 132, 233, 128, 154,
-    232, 189, 166, 228, 187, 170, 229, 188, 143]), 'line': Tensor(shape=[22], dtype=UInt8, value= [ 71, 111, 111, 100,  32, 108, 117,  99, 107,  32, 116, 111,  32, 101, 118, 101, 114, 121, 111, 110, 101,  46])}
-    ```
+        ```text
+        {'chinese': Tensor(shape=[12], dtype=UInt8, value= [231, 148, 183, 233, 187, 152, 229, 165, 179, 230, 179, 170]), 'line': Tensor(shape=[19], dtype=UInt8, value= [ 66, 101,  32, 104,  97, 112, 112, 121,  32, 101, 118, 101, 114, 121,  32, 100,  97, 121,  46])}
+        {'chinese': Tensor(shape=[48], dtype=UInt8, value= [228, 187, 138, 229, 164, 169, 229, 164, 169, 230, 176, 148, 229, 164, 170, 229, 165, 189, 228, 186, 134, 230, 136, 145,
+        228, 187, 172, 228, 184, 128, 232, 181, 183, 229, 142, 187, 229, 164, 150, 233, 157, 162, 231, 142, 169, 229, 144, 167
+        ]), 'line': Tensor(shape=[20], dtype=UInt8, value= [ 84, 104, 105, 115,  32, 105, 115,  32,  97,  32, 116, 101, 120, 116,  32, 102, 105, 108, 101,  46])}
+        {'chinese': Tensor(shape=[57], dtype=UInt8, value= [230, 177, 159, 229, 183, 158, 229, 184, 130, 233, 149, 191, 230, 177, 159, 229, 164, 167, 230, 161, 165, 229, 143, 130,
+        229, 138, 160, 228, 186, 134, 233, 149, 191, 230, 177, 159, 229, 164, 167, 230, 161, 165, 231, 154, 132, 233, 128, 154,
+        232, 189, 166, 228, 187, 170, 229, 188, 143]), 'line': Tensor(shape=[22], dtype=UInt8, value= [ 71, 111, 111, 100,  32, 108, 117,  99, 107,  32, 116, 111,  32, 101, 118, 101, 114, 121, 111, 110, 101,  46])}
+        ```
 
-Comparing step 2 and step 3 above, we can see:
+Comparing step compile and step create above, we can see:
 
 |step|chinese|line|words
 |:---|:---|:---|:---
-| 2|UInt8 |Int8|UInt8
-| 3|UInt8 |UInt8|
+| compile|UInt8 |Int8|UInt8
+| create|UInt8 |UInt8|
 
-The data in the columns in the example step 2 has changed from chinese (UInt8), line (Int8) and words (UInt8) to the chinese (UInt8) and line (UInt8) in the example step 3. Through the Schema object, set the data type and characteristics of the dataset, so that the data type and characteristics in the column are changed accordingly.
+The data in the columns in the example step compile has changed from chinese (UInt8), line (Int8) and words (UInt8) to the chinese (UInt8) and line (UInt8) in the example step create. Through the Schema object, set the data type and characteristics of the dataset, so that the data type and characteristics in the column are changed accordingly.
 
 ### NumPy
 
