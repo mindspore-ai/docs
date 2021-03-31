@@ -10,7 +10,7 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.2/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -34,7 +34,7 @@ namespace ds = mindspore::dataset;
 
 初始化环境，指定推理使用的硬件平台，设置DeviceID。
 
-这里设置硬件为Ascend 910，DeviceID为0，示例代码如下:
+这里设置硬件为Ascend 910，DeviceID为0，示例代码如下：
 
 ```c++
 auto context = std::make_shared<ms::Context>();
@@ -43,7 +43,7 @@ ascend910_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend910_info);
 ```
 
-加载模型文件:
+加载模型文件：
 
 ```c++
 // 加载MindIR模型
@@ -54,21 +54,21 @@ ms::Model resnet50;
 ret = resnet50.Build(ms::GraphCell(graph), context);
 ```
 
-获取模型所需输入信息：
+获取模型所需的输入信息：
 
 ```c++
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
-加载图片文件:
+加载图片文件：
 
 ```c++
-// Readfile是读取图像的函数
+// ReadFile是读取图像的函数
 ms::MSTensor ReadFile(const std::string &file);
 auto image = ReadFile(image_file);
 ```
 
-图片预处理:
+图片预处理：
 
 ```c++
 // 使用MindData提供的CPU算子进行图片预处理
@@ -92,7 +92,7 @@ ds::Execute preprocessor({decode, resize, normalize, center_crop, hwc2chw});
 ret = preprocessor(image, &image);
 ```
 
-执行推理:
+执行推理：
 
 ```c++
 // 创建输出vector
@@ -105,7 +105,7 @@ inputs.emplace_back(model_inputs[0].Name(), model_inputs[0].DataType(), model_in
 ret = resnet50.Predict(inputs, &outputs);
 ```
 
-获取推理结果:
+获取推理结果：
 
 ```c++
 // 输出概率最大值
@@ -185,7 +185,7 @@ make
 
 首先，登录Ascend 910环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/model`。
 创建`test_data`目录放置图片，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/test_data`。
-就可以开始执行推理了:
+就可以开始执行推理了：
 
 ```bash
 ./resnet50_sample
@@ -200,9 +200,11 @@ Image: ./test_data/ILSVRC2012_val_00003014.JPEG infer result: 0
 
 ## 移动设备推理
 
-MindSpore Lite可完成在手机等端侧设备中的模型推理过程。当前支持Android、Ubuntu-x64、Windows-x64操作系统下的模型推理，支持端侧ARM CPU、ARM GPU、NPU多种硬件平台，支持C++、Java两种API。
+MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在手机等移动设备上实现智能应用。MindSpore Lite提供高性能推理引擎和超轻量的解决方案，支持iOS、Android等手机操作系统以及LiteOS嵌入式操作系统，支持手机、大屏、平板、IoT等各种智能设备，支持MindSpore/TensorFlow Lite/Caffe/Onnx模型的应用。
 
-下面通过C++ API演示端侧推理的基本流程。Demo通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，打印获得输出数据。
+在本环节中，提供了运行在Windows和Linux操作系统下，基于C++ API编写的Demo，帮助用户熟悉端侧推理流程。Demo通过随机生成的数据作为输入数据，执行MobileNetV2模型的推理，直接在电脑中打印获得输出数据。
+
+> 运行在手机中的完整实例可以参考官网示例：[实现一个图像分类应用（C++）]( https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start.html)。
 
 ### 模型转换
 
@@ -222,23 +224,23 @@ MindSpore Lite可完成在手机等端侧设备中的模型推理过程。当前
 
     - Linux使用说明
 
-    进入`converter_lite`可执行文件所在的目录，将下载的`mobilenetv2.mindir`模型放入同一路径下，在电脑终端中输入命令完成转换：
+        进入`converter_lite`可执行文件所在的目录，将下载的`mobilenetv2.mindir`模型放入同一路径下，在电脑终端中输入命令完成转换：
 
-    ```cpp
-    ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
-    ```
+        ```cpp
+        ./converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
+        ```
 
     - Windows使用说明
 
-    进入`converter_lite`可执行文件所在的目录，将下载的`mobilenetv2.mindir`模型放入同一路径下，在电脑终端中输入命令完成转换：
+        进入`converter_lite`可执行文件所在的目录，将下载的`mobilenetv2.mindir`模型放入同一路径下，在电脑终端中输入命令完成转换：
 
-    ```cpp
-    call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
-    ```
+        ```cpp
+        call converter_lite --fmk=MINDIR --modelFile=mobilenetv2.mindir --outputFile=mobilenetv2
+        ```
 
     - 参数说明
 
-    在执行命令的过程中设置了三个参数，`--fmk`代表输入模型的原始格式，这里设置为`MINDIR`，即MindSpore框架训练模型的导出格式；`--modelFile`指输入模型的路径；`--outputFile`设定了模型的输出路径，这里自动将转换后的模型添加了`.ms`后缀。
+        在执行命令的过程中设置了三个参数，`--fmk`代表输入模型的原始格式，这里设置为`MINDIR`，即MindSpore框架训练模型的导出格式；`--modelFile`指输入模型的路径；`--outputFile`设定了模型的输出路径，这里自动将转换后的模型添加了`.ms`后缀。
 
 ### 构建环境与运行
 
@@ -336,7 +338,7 @@ mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
     return nullptr;
   }
 
-  // 创建session.
+  // 创建session
   mindspore::session::LiteSession *session = mindspore::session::LiteSession::CreateSession(context.get());
   if (session == nullptr) {
     std::cerr << "CreateSession failed while running." << std::endl;
