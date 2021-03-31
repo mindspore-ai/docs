@@ -10,7 +10,7 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -43,7 +43,7 @@ ascend910_info->SetDeviceID(0);
 context->MutableDeviceInfo().push_back(ascend910_info);
 ```
 
-加载模型文件:
+加载模型文件：
 
 ```c++
 // 加载MindIR模型
@@ -60,7 +60,7 @@ ret = resnet50.Build(ms::GraphCell(graph), context);
 std::vector<ms::MSTensor> model_inputs = resnet50.GetInputs();
 ```
 
-加载图片文件:
+加载图片文件：
 
 ```c++
 // ReadFile是读取图像的函数
