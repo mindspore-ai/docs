@@ -367,6 +367,7 @@ mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
 
 ```c++
 int Run(mindspore::session::LiteSession *session) {
+  // 获取输入数据
   auto inputs = session->GetInputs();
   auto ret = GenerateInputDataWithRandom(inputs);
   if (ret != mindspore::lite::RET_OK) {
@@ -374,12 +375,14 @@ int Run(mindspore::session::LiteSession *session) {
     return ret;
   }
 
+  // 运行
   ret = session->RunGraph();
   if (ret != mindspore::lite::RET_OK) {
     std::cerr << "Inference error " << ret << std::endl;
     return ret;
   }
 
+  // 获取输出数据
   auto out_tensors = session->GetOutputs();
   for (auto tensor : out_tensors) {
     std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
