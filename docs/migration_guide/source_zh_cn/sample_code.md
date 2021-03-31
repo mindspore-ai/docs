@@ -1028,7 +1028,7 @@ loss = CrossEntropySmooth(sparse=True, reduction="mean",smooth_factor=label_smoo
 
 为了更好的阅读代码，建议按照以下结构组织脚本：
 
-```txt
+```text
 .
 └──resnet
   ├── README.md
