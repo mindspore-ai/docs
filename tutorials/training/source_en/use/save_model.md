@@ -94,7 +94,7 @@ After the training script is normally executed, the CheckPoint file generated du
 
 ## Export MindIR Model
 
-If you want to perform inference across platforms or hardware (GPU, Lite, Ascend 310), you can generate the corresponding MindIR format model file through the network definition and CheckPoint. MindIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
+If you want to perform inference across platforms or hardware (Ascend AI processor, MindSpore on-device, GPU, etc.), you can generate the corresponding MindIR format model file through the network definition and CheckPoint. MindIR format file can be applied to MindSpore Lite. Currently, it supports inference network based on static graph without controlling flow semantics.
 
 If you want to perform inference on the device, then you need to generate corresponding MindIR models based on the network and CheckPoint.
 Currently we support the export of MindIR models for inference based on the graph mode, which do not contain control flow. Taking the export of MindIR model as an example to illustrate the implementation of model export,
