@@ -105,7 +105,7 @@ model.train(epoch, dataset)
 
 ### 导出MindIR格式
 
-当有了CheckPoint文件后，如果想继续在MindSpore Lite端侧做推理，需要通过网络和CheckPoint生成对应的MINDIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
+当有了CheckPoint文件后，如果想跨平台或者硬件执行推理(如昇腾AI处理器、MindSpore端侧、GPU等)，可以通过定义网络和CheckPoint生成MINDIR格式模型文件。当前支持基于静态图，且不包含控制流语义的推理网络导出。导出该格式文件的代码样例如下：
 
 ```python
 from mindspore import export, load_checkpoint, load_param_into_net
