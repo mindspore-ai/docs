@@ -1,4 +1,4 @@
-# 体验MindSpore Lite C++ 极简Demo
+# 体验MindSpore Lite C++极简Demo
 
 `Linux` `Windows` `X86` `C++` `全流程` `推理应用` `数据准备` `初级`
 

@@ -54,14 +54,15 @@
 
   > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`inference/lib/jar`目录下的`libmindspore-lite.so`、`libmindspore-lite-jni.so`以及`libmindspore-lite-java.jar`拷贝到`mindspore/lite/examples/quick_start_java/lib`目录。
   >
-  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/src/main/resources/model/`目录。
+  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/model/`目录。
 
 - 执行推理
 
   编译构建后，进入`mindspore/lite/examples/quick_start_java/target`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
-  java -Djava.library.path=../lib/ -classpath .:./quick_start_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../src/main/resources/model/mobilenetv2.ms
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:../lib/
+  java -Djava.library.path=../lib/ -classpath .:./quick_start_java.jar:../lib/mindspore-lite-java.jar  com.mindspore.lite.demo.Main ../model/mobilenetv2.ms
   ```
 
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
