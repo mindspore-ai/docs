@@ -126,7 +126,6 @@ Compared with the previous version, the added, deleted and supported platforms c
 |mindspore.ops.count_nonzero| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|composite
 |mindspore.ops.poisson| Changed |r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
 |mindspore.ops.GradOperation| Changed |r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.Broadcast| Changed |r1.1: , /GPU => r1.2: Ascend/GPU|operations--Common Operators
 |mindspore.ops.TensorScatterUpdate| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Array Operators
 |mindspore.ops.Squeeze| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
 |mindspore.ops.GatherNd| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
