@@ -44,7 +44,7 @@
 
 - `set_context`之后，需要初始化MindSpore `Profiler`对象。
 
-    > GPU多卡场景需要在初始化NCCL和`set_auto_parallel_context`之后初始化`Profiler`对象。
+    > GPU多卡场景需要在`set_auto_parallel_context`之后初始化`Profiler`对象。
     >
     > GPU场景下初始化Profiler对象时只有output_path参数有效。
 
