@@ -94,6 +94,24 @@ A: At the moment some software might need manual upgrade. (**Note**: MindSpore r
 
 A: Please install the software manually if there is any suggestion of certain `software not found`.
 
+<br/>
+
+<font size=3>**Q: what should I do when I have installed Python 3.7.5 and set environment variables accordingly, but still failed compiling MindSpore, with error message `Python3 not found`?**</font>
+
+A:　It's probably due to the lack of shared libraries in current Python environment. Compiling MindSpore requires linking Python shared libraries, hence you may need to compile and install Python 3.7.5 from source, using command `./configure --enable-shared`.
+
+<br/>
+
+<font size=3>**Q: What are the directories to be cleaned if the previous compilation failed, so as to prevent the following compilation being affected by previous remains?**</font>
+
+A: While compiling MindSpore, if:
+
+1. Failed while downloading or compiling third-party software. e.g. Failed applying patch on icu4c, with error message `Cmake Error at cmake/utils.cmake:301 (message): Failed patch:`. In this case, go to `build/mindspore/.mslib` or directories specified by environment vairiable `MSLIBS_CACHE_PATH` where third-party software are installed, and delete affected software respectively.
+
+2. Failed in other stages of compilation, or if you wish to clean all previous build results, simply delete `build` directory.
+
+<br/>
+
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
@@ -105,6 +123,18 @@ A: Using `pip uninstall mindspore` to uninstall MindSpore.
 <font size=3>**Q: Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?**</font>
 
 A: You can write the frequently-used environment settings to `~/.bash_profile` or `~/.bashrc` so that the settings can take effect immediately when you start a new terminal window.
+
+<br/>
+
+<font size=3>**Q: Ascend AI processor software package and other prerequisites have been installed, but executing MindSpore failed with error message `Cannot open shared objectfile: No such file or directory`, what should I do?**</font>
+
+A: There are 2 common reasons: an incorrect version of Ascend AI processor software package is installed, or the packages are installed in customized paths, yet the environment varialbes are not set accordingly.
+
+1. Go to directory where Ascend AI processor software package is installed, being `/usr/local/Ascend` by default, open `version.info` files which are located under directories of subpackages, and check if the version number matches the requirement of MindSpore. Please refer to [Install](https://www.mindspore.cn/install/en) for the detailed version required by MindSpore versions. If the version number does not match, please update the packages accordingly.
+
+2. Check if Ascend AI processor software package is installed in the default directory. MindSpore attempts to load packages from default directory `/usr/local/Ascend`, if the packages are installed in a customized directory, please follow the instructions from `Configuring Environment Variables` section of [Install](https://www.mindspore.cn/install/en) and set environment variables to match the changes. If other dependencies are installed in customized directies, then please set `LD_LIBRARY_PATH` environment variable accordingly.
+
+<br/>
 
 ## Verifying the Installation
 
