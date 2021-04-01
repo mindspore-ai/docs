@@ -43,7 +43,6 @@ Modules in training version:
 | --------------- | ---------------- | ------------------------------------------------ |
 | converter       | Linux            | Model Conversion Tool                            |
 | runtime(cpp)    | Linux, Android   | Model Train Framework(java is not support)       |
-| benchmark       | Linux, Android   | Benchmarking Tool                                |
 | cropper         | Linux            | Static library crop tool for libmindspore-lite.a |
 | minddata        | Linux, Android   | Image Processing Library                         |
 | benchmark_train | Linux, Android   | Performance and Accuracy Validation              |
@@ -378,7 +377,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     ```text
     mindspore-lite-{version}-train-linux-x64
     ├── tools
-    │   ├── benchmark       # Benchmarking tool
     │   ├── benchmark_train # Training model benchmark tool
     │   ├── codegen         # Code generation tool
     │   │   ├── codegen          # Executable program
@@ -390,8 +388,8 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     └── train
         ├── include  # Header files of training framework
         ├── lib      # Inference framework library
-        │   ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
-        │   └── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+        │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
+        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
         └── minddata # Image processing dynamic library
             ├── include
             ├── lib
@@ -411,8 +409,8 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     └── train
         ├── include # Header files of training framework
         ├── lib     # Training framework library
-        │   ├── libmindspore-lite.a  # Static library of training framework in MindSpore Lite
-        │   └── libmindspore-lite.so # Dynamic library of training framework in MindSpore Lite
+        │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
+        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
         ├── minddata # Image processing dynamic library
         │   ├── include
         │   ├── lib

@@ -45,7 +45,6 @@
 | --------------- | -------------- | --------------------------------- |
 | converter       | Linux          | 模型转换工具                      |
 | runtime(cpp)    | Linux, Android | 模型训练框架(暂不支持java)        |
-| benchmark       | Linux, Android | 基准测试工具                      |
 | cropper         | Linux          | libmindspore-lite.a静态库裁剪工具 |
 | minddata        | Linux, Android | 图像处理库                        |
 | benchmark_train | Linux, Android | 性能测试和精度校验工具            |
@@ -379,7 +378,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     ```text
     mindspore-lite-{version}-train-linux-x64
     ├── tools
-    │   ├── benchmark       # 基准测试工具
     │   ├── benchmark_train # 训练模型性能与精度调测工具
     │   ├── codegen         # 代码生成工具
     │   │   ├── codegen          # 可执行程序
@@ -391,8 +389,8 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     └── train
         ├── include  # 训练框架头文件
         ├── lib      # 训练框架库
-        │   ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite.so # MindSpore Lite训练框架的动态库
+        │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
+        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
         └── minddata # 图像处理库
             ├── include
             ├── lib
@@ -412,8 +410,8 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     └── train
         ├── include # 训练框架头文件
         ├── lib     # 训练框架库
-        │   ├── libmindspore-lite.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite.so # MindSpore Lite训练框架的动态库
+        │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
+        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
         ├── minddata # 图像处理库
         │   ├── include
         │   ├── lib
