@@ -307,6 +307,10 @@ All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefo
 
   `CosineEmbeddingLoss` is used to measure the similarity between two inputs and is used for classification models. The default value of `margin` is 0.0. The `reduction` parameter is the same as the `L1Loss` parameter.
 
+- BCELoss
+
+  Binary cross entropy loss is used for binary classification. `weight` is a rescaling weight applied to the loss of each batch element. The default value of `weight` is None, which means the weight values are all 1. The default value of `reduction` parameter is none. The `reduction` parameter is the same as the `L1Loss` parameter.
+
 ### Application Cases
 
 All loss functions of MindSpore are stored in mindspore.nn. The usage method is as follows:
