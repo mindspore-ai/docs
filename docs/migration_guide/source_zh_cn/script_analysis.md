@@ -1,8 +1,8 @@
-# 脚本评估
+# 网络脚本分析
 
 <!-- TOC -->
 
-- [脚本评估](#脚本评估)
+- [网络脚本分析](#网络脚本分析)
     - [算子评估](#算子评估)
         - [MindSpore算子设计](#mindspore算子设计)
         - [查询算子映射表](#查询算子映射表)
@@ -41,7 +41,7 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 
 ### 查询算子映射表
 
-在代码库找到网络结构及实现训练功能的Python文件（名称一般为train.py model.py等等），在脚本文件中查找所有相关算子（含数据框架类、数据预处理、网络结构算子），并与[MindSpore算子API](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)对比，查找`mindspore.nn`或者`mindspore.ops.operations`下算子的平台支持情况，目前支持Ascend、CPU与GPU。
+在代码库找到网络结构及实现训练功能的Python文件（名称一般为train.py model.py等等），在脚本文件中查找所有相关算子（含数据框架类、数据预处理、网络结构算子），并与[MindSpore算子API](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)对比，查找`mindspore.nn`或者`mindspore.ops`下算子的平台支持情况。
 
 若该网页均未能找到对应的ME算子，则可继续在[MindSpore API列表](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html)中搜索算子名称。
 
@@ -55,9 +55,11 @@ MindSpore API由各种Python/C++ API算子组成，可以大致分为：
 
 ## 语法评估
 
-MindSpore提供`GRAPH_MODE`和`PYNATIVE_MODE`两种模式。语法限制仅出现在GRAPH_MODE中，PyNative模式下网络的执行办法与一般Python代码无异。
+MindSpore提供`GRAPH_MODE`和`PYNATIVE_MODE`两种模式。
 
-语法限制问题通常出现在GRAPH_MODE和PYNATIVE_MODE的反向构图中。在这两种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/doc/note/zh-CN/master/static_graph_syntax_support.html)。
+PyNative模式下模型进行**推理**的行为与一般Python代码无异。
+
+而在使用GRAPH_MODE时，或使用PYNATIVE_MODE进行**训练**时，通常会出现语法限制。在这两种情况下，需要对Python代码进行图编译操作，而这一步操作中MindSpore目前还未能支持完整的Python语法全集，所以`construct`函数的编写会存在部分限制。具体限制内容可以参考[MindSpore静态图语法](https://www.mindspore.cn/doc/note/zh-CN/master/static_graph_syntax_support.html)。
 
 ### 常见限制原则
 
