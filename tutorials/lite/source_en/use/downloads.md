@@ -43,6 +43,6 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 | MindSpore Lite Runtime (include image processing) | CPU | Android-aarch64/Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-train-android.tar.gz>             | a6d8152f4e2d674c52af2c379f7d07858d30bc0dceef1dbc366e6fa16a5948b5 |
 |                                                   | CPU         | Ubuntu-x64                      | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/linux/mindspore-lite-1.1.0-train-linux-x64.tar.gz>           | 1290f0adc790adc9edce654b9a629a9a323cfcb8453eb6bc19b779ef726282bf |
 
-Android-aarch32 does not support GPU and NPU.
-
-MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
+> - Ubuntu-x64 Package is compiled in an environment where the GCC version is greater than or equal to 7.3.0, so the deployment environment requires the GLIBC version to be greater than or equal to 2.27.
+> - Android-aarch32 does not support GPU and NPU.
+> - MindSpore Lite also provides `libmindspore-lite.a` static library [cropper tool](https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html#) for Runtime, which can crop the static library files, and effectively reduce the size of the library files.
