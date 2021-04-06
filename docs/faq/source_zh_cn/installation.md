@@ -117,6 +117,22 @@ A：当有此提示时说明要用户安装`tclsh`；如果仍提示缺少其他
 
 <br/>
 
+<font size=3>**Q：环境上安装了Python3.7.5，环境变量设置正确，编译MindSpore时仍然报错`Python3 not found`，应该怎么办？**</font>
+
+A：可能是因为当前环境上的Python未包含动态库。编译MindSpore需要动态链接Python库，因此需要使用开启动态库编译选项的Python3.7.5，即在源码编译Python时使用`./configure --enable-shared`命令。
+
+<br/>
+
+<font size=3>**Q：编译失败后，应该清理哪些路径以确保上次失败的编译结果不会影响到下一次编译？**</font>
+
+A：在编译MindSpore时，如果：
+
+1. 第三方组件下载或编译失败，例如icu4c的patch动作失败返回错误信息`Cmake Error at cmake/utils.cmake:301 (message): Failed patch:`，则进入编译目录下的`build/mindspore/.mslib`目录，或由`MSLIBS_CACHE_PATH`环境变量指定的第三方软件安装目录，并删除其中的对应软件。
+
+2. 其他阶段编译失败，或打算删除上一次编译结果，完全重新编译时，直接删除`build`目录即可。
+
+<br/>
+
 ## 卸载
 
 <font size=3>**Q：如何卸载MindSpore？**</font>
@@ -130,6 +146,16 @@ A：执行命令`pip uninstall mindspore`可卸载MindSpore。
 <font size=3>**Q：一些常用的环境变量设置，在新启动的终端窗口中需要重新设置，容易忘记应该怎么办？**</font>
 
 A：常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，可让环境变量设置在新启动的终端窗口中立即生效。
+
+<br/>
+
+<font size=3>**Q：Ascend AI处理器软件配套包与其他依赖软件已安装，但是执行MindSpore时提示`Cannot open shared objectfile: No such file or directory`该怎么办？**</font>
+
+A：常见原因有两种：Ascend AI处理器软件配套包或固件/驱动包版本不正确，或没有安装在默认位置且未配置相应的环境变量。
+
+1. 打开Ascend AI处理器软件配套包安装目录，默认`/usr/local/Ascend`下，各个子目录中的`version.info`文件，观察其版本号是否与当前使用的MindSpore版本一直，参照[安装页面](https://www.mindspore.cn/install/)中关于Ascend AI处理器软件配套包版本的描述。如果版本不配套，请更换软件包或MindSpore版本。
+
+2. 检查Ascend AI处理器软件配套包与其他依赖软件是否安装在默认位置，MindSpore会尝试从默认安装位置`/usr/local/Ascend`自动加载，如果将Ascend软件包安装在自定义位置，请参照[安装页面](https://www.mindspore.cn/install/)页面的安装指南一栏设置环境变量。如果将其他依赖软件安装在自定义位置，请根据其位置关系设置`LD_LIBRARY_PATH`环境变量。
 
 <br/>
 
