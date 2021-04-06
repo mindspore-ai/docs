@@ -1,4 +1,4 @@
-# Tensor 索引支持
+# Tensor索引支持
 
 `Linux` `Ascend` `GPU` `模型开发` `初级` `中级` `高级`
 
