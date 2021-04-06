@@ -43,6 +43,6 @@
 | MindSpore Lite 模型训练框架（Runtime，含图像处理） | CPU | Android-aarch64/Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/android/mindspore-lite-1.1.0-train-android.tar.gz> | a6d8152f4e2d674c52af2c379f7d07858d30bc0dceef1dbc366e6fa16a5948b5 |
 |                                               | CPU         |  Ubuntu-x64                     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/MindSpore/lite/release/linux/mindspore-lite-1.1.0-train-linux-x64.tar.gz> | 1290f0adc790adc9edce654b9a629a9a323cfcb8453eb6bc19b779ef726282bf |
 
-Android-aarch32不支持GPU和NPU。
-
-MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html#)，用于剪裁静态库文件，有效降低库文件大小。
+> - Ubuntu-x64版本包是在GCC版本大于等于7.3.0的环境编译得到的，所以该版本包的部署环境要求GLIBC版本大于等于2.27。
+> - Android-aarch32的版本包不支持GPU和NPU。
+> - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html#)，用于剪裁静态库文件，有效降低库文件大小。
