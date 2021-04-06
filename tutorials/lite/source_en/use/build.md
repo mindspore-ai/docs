@@ -20,6 +20,14 @@
         - [Compilation Example](#compilation-example-1)
         - [Output Description](#output-description)
             - [Description of Runtime and Related Tools' Directory Structure](#description-of-runtime-and-related-tools-directory-structure)
+    - [Docker Environment Compilation](#docker-environment-compilation)
+        - [Environmental Preparation](#environmental-preparation)
+            - [Download the docker image](#download-the-docker-image)
+            - [Create a container](#create-a-container)
+            - [Enter the container](#enter-the-container)
+        - [Compilation Options](#compilation-options-2)
+        - [Compilation Example](#compilation-example-2)
+        - [Output Description](#output-description-1)
 
 <!-- /TOC -->
 
@@ -537,3 +545,40 @@ set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.
+
+## Docker Environment Compilation
+
+### Environmental Preparation
+
+#### Download the docker image
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+```
+
+> Before downloading the image, please make sure docker has been installed.
+> Docker image does not currently support Windows version compilation.
+
+#### Create a container
+
+```bash
+docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+```
+
+#### Enter the container
+
+```bash
+docker exec -ti -u 0 docker01 bash
+```
+
+### Compilation Options
+
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
+
+### Compilation Example
+
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
+
+### Output Description
+
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
