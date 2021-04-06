@@ -21,6 +21,17 @@ Inference Using MindSpore
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Inference Service
+
+   serving_example
+   serving_distributed_example
+   serving_grpc
+   serving_restful
+   serving_model
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: Application Practice
 
    nlp_tprr
