@@ -40,6 +40,7 @@
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
+   use/asic
    use/tools
 
 .. toctree::
