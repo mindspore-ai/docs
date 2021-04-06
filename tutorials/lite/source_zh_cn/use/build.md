@@ -21,6 +21,14 @@
         - [编译示例](#编译示例-1)
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [Runtime及配套工具目录结构说明](#Runtime及配套工具目录结构说明-1)
+    - [Docker环境编译](#docker环境编译)
+        - [环境准备](#环境准备)
+            - [下载镜像](#下载镜像)
+            - [创建容器](#创建容器)
+            - [进入容器](#进入容器)
+        - [编译选项](#编译选项-2)
+        - [编译示例](#编译示例-2)
+        - [编译输出](#编译输出)
 
 <!-- /TOC -->
 
@@ -539,3 +547,40 @@ set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH
 ```
 
 > 暂不支持在Windows进行端侧训练。
+
+## Docker环境编译
+
+### 环境准备
+
+#### 下载镜像
+
+```bash
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+```
+
+> 下载镜像前，请确保已经安装docker。
+> docker镜像暂不支持Windows版本编译。
+
+#### 创建容器
+
+```bash
+docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+```
+
+#### 进入容器
+
+```bash
+docker exec -ti -u 0 docker01 bash
+```
+
+### 编译选项
+
+参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html#linux)
+
+### 编译示例
+
+参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html#linux)
+
+### 编译输出
+
+参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html#linux)
