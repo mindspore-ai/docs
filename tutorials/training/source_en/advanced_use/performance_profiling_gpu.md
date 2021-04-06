@@ -42,9 +42,13 @@ This article describes how to use MindSpore Profiler for performance debugging o
 
 To enable the performance profiling of neural networks, MindSpore Profiler APIs should be added into the script.
 
-> Only the output_path in parameters is working in GPU now.
+- The MindSpore `Profiler` object needs to be initialized after `set_context` is set.
 
-`Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
+    > In multi-card training scene, `Profiler` object needs to be initialized after `set_auto_parallel_context`.
+    >
+    > Only the output_path in parameters is working in GPU now.
+
+- At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
 
 The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#preparing-the-training-script>.
 
