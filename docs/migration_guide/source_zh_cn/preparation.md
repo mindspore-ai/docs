@@ -24,7 +24,7 @@
 
 ## 安装MindSpore
 
-MindSpore支持在Ascend、CPU、GPU环境安装并使用，支持EulerOS-arm、CentOS-arm、CentOS-x86、Ubuntu-arm、Ubuntu-x86操作系统，可访问[MindSpore安装页面](https://www.mindspore.cn/install)下载MindSpore安装包，并参考该网站指导完成安装。
+MindSpore支持在Ascend、CPU、GPU环境安装并使用，支持EulerOS-arm、CentOS-arm、CentOS-x86、Ubuntu-arm、Ubuntu-x86、Windows-X86操作系统，可访问[MindSpore安装页面](https://www.mindspore.cn/install)下载MindSpore安装包，并参考该网站指导完成安装。
 
 ### 使用pip安装
 
@@ -126,7 +126,7 @@ print(ops.add(x, y))
 
 ### ModelZoo和Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音等多个领域的主流模型。
+[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
 
 [MindSpore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://mindspore.cn/tutorial/training/zh-CN/master/use/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
 
