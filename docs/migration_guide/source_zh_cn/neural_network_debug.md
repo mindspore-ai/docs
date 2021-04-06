@@ -206,8 +206,8 @@
            ## define the operators
            self.warmup_steps = warmup_steps
            self.learning_rate = learning_rate
-           self.min = P.Minimum()
-           self.cast = P.Cast()
+           self.min = ops.Minimum()
+           self.cast = ops.Cast()
 
        def construct(self, global_step):
            ## calculate the lr

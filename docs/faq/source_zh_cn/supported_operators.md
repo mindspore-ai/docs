@@ -58,16 +58,16 @@ A：MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。�
 
 <font size=3>**Q：使用MindSpore-1.0.1版本在图数据下沉模式加载数据异常是什么原因？**</font>
 
-A：应该是`construct`中直接使用了带有`axis`属性的算子，比如`P.Concat(axis=1)((x1, x2))`这种，建议把算子在`__init__`中初始化 像这样
+A：应该是`construct`中直接使用了带有`axis`属性的算子，比如`ops.Concat(axis=1)((x1, x2))`这种，建议把算子在`__init__`中初始化 像这样
 
 ```python
 from mindspore import nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.concat = P.Concat(axis=1)
+        self.concat = ops.Concat(axis=1)
     def construct(self, x, y):
         out = self.concat((x, y))
         return out

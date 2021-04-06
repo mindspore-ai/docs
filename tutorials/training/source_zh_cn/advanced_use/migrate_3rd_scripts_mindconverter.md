@@ -137,7 +137,7 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 
 ```text
  [Start Convert]
- [Insert] 'import mindspore.ops.operations as P' is inserted to the converted file.
+ [Insert] 'import mindspore.ops as ops' is inserted to the converted file.
  line 1:0: [Convert] 'import torch' is converted to 'import mindspore'.
  ...
  line 157:23: [UnConvert] 'nn.AdaptiveAvgPool2d' didn't convert. Maybe could convert to mindspore.ops.operations.ReduceMean.

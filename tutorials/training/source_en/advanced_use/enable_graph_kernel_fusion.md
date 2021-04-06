@@ -101,7 +101,7 @@ import numpy as np
 import mindspore.context as context
 from mindspore import Tensor
 from mindspore.nn import Cell
-import mindspore.ops.operations as P
+import mindspore.ops as ops
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
 # enable graph kernel optimization.
@@ -111,8 +111,8 @@ class MyOp(Cell):
     """ my first custom OP composited by basic OPs """
     def __init__(self):
         super(MyOp, self).__init__()
-        self.sub = P.Sub()
-        self.mul = P.Mul()
+        self.sub = ops.Sub()
+        self.mul = ops.Mul()
 
     def construct(self, x, y):
         a = self.sub(x, y)
@@ -121,8 +121,8 @@ class MyOp(Cell):
 class MyNet(Cell):
     def __init__(self):
         super(MyNet, self).__init__()
-        self.mul = P.Mul()
-        self.pow = P.Pow()
+        self.mul = ops.Mul()
+        self.pow = ops.Pow()
         self.my_op = MyOp()
 
     def construct(self, x, y):
