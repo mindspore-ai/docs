@@ -311,6 +311,10 @@ All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefo
 
   Binary cross entropy loss is used for binary classification. `weight` is a rescaling weight applied to the loss of each batch element. The default value of `weight` is None, which means the weight values are all 1. The default value of `reduction` parameter is none. The `reduction` parameter is the same as the `L1Loss` parameter.
 
+- SampledSoftmaxLoss
+
+  Sampled softmax loss function, which is used for classification model when the number of class is large. `num_sampled` is the number of classes to randomly sample. `num_class` is the number of possible classes. `num_true` is the number of target classes per training example. `sampled_values` is the sampled candidate. The default value of `sampled_values` is None, which means UniformCandidateSampler is applied. `remove_accidental_hits` is the switch of whether to remove "accidental hits". The default value of `remove_accidental_hits` is True. `seed` is the random seed for candidate sampling with the default value of 0. The default value of reduction parameter is none. The `reduction` parameter is the same as the L1Loss parameter.
+
 ### Application Cases
 
 All loss functions of MindSpore are stored in mindspore.nn. The usage method is as follows:
