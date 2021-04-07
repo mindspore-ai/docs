@@ -8,16 +8,16 @@
 
 ```cpp
 // shared_ptr
-Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType);
+Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType, uint32_t device_id);
 
 // normal pointer
-Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType);
+Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType, uint32_t device_id);
 
 // reference_wrapper
-Execute::Execute(TensorTransform *op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType);
+Execute::Execute(TensorTransform *op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType, uint32_t device_id);
 ```
 
 Transform（image, text）Transform operators in eager mode executor class. Multiple constructors are supported，include shared_ptr, normal pointer and reference_wrapper.
@@ -27,6 +27,7 @@ Transform（image, text）Transform operators in eager mode executor class. Mult
     - `op`: Single transform operator.
     - `ops`: A list of transform operators.
     - `deviceType`: Runtime hardware. Options are: CPU, GPU and Ascend310.
+    - `device_id`: Device id of runtime hardware, only valid when `deviceType = MapTargetDevice::kAscend310`.
 
 ```cpp
 Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
