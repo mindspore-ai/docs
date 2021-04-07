@@ -48,15 +48,17 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/quick_start_cpp/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
   ```
 
-  > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+  > 若使用该build脚本下载MindSpore Lite推理框架失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 模型推理框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`文件拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
+  >
+  > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 
 - 执行推理
 
@@ -84,10 +86,11 @@
 
 - 编译构建
 
-  - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录。
+  - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下。
+
   - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
-  - 编译：在`mindspore/lite/examples/quick_start_cpp`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
+  - 编译：在`mindspore/lite/examples/quick_start_cpp`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/quick_start_cpp/build.bat)，将能够自动下载相关文件并编译Demo。
 
   ```bash
   call build.bat
@@ -108,9 +111,13 @@
   output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
   ```
 
-## CMake集成
+## 配置CMake
 
-CMake集成`libmindspore-lite.a`静态库时，需要将`-Wl,--whole-archive`的选项传递给链接器，另外由于在编译MindSpore Lite的时候增加了`-fstack-protector-strong`栈保护的编译选项，所以在Windows平台上还需要链接MinGW中的`ssp`库。
+以下是通过CMake集成`libmindspore-lite.a`静态库时的示例代码。
+
+> 集成`libmindspore-lite.a`静态库时需要将`-Wl,--whole-archive`的选项传递给链接器。
+>
+> 由于在编译MindSpore Lite的时候增加了`-fstack-protector-strong`栈保护的编译选项，所以在Windows平台上还需要链接MinGW中的`ssp`库。
 
 ```cmake
 cmake_minimum_required(VERSION 3.14)
@@ -123,7 +130,7 @@ endif()
 # Add directory to include search path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Add directory to include search path
+# Add directory to link search path
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 file(GLOB_RECURSE QUICK_START_CXX ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
@@ -147,7 +154,7 @@ endif()
 
 ## 模型加载
 
-首先从文件系统中读取MindSpore Lite模型，并通过`mindspore::lite::Model::Import`函数导入模型进行解析。
+模型加载需要从文件系统中读取MindSpore Lite模型，并通过`mindspore::lite::Model::Import`函数导入模型进行解析。
 
 ```c++
 // Read model file.
@@ -209,18 +216,22 @@ mindspore::session::LiteSession *Compile(mindspore::lite::Model *model) {
 ```c++
 int Run(mindspore::session::LiteSession *session) {
   auto inputs = session->GetInputs();
+
+  // Generate random data as input data.
   auto ret = GenerateInputDataWithRandom(inputs);
   if (ret != mindspore::lite::RET_OK) {
     std::cerr << "Generate Random Input Data failed." << std::endl;
     return ret;
   }
 
+  // Run Inference.
   ret = session->RunGraph();
   if (ret != mindspore::lite::RET_OK) {
     std::cerr << "Inference error " << ret << std::endl;
     return ret;
   }
 
+  // Get Output Tensor Data.
   auto out_tensors = session->GetOutputs();
   for (auto tensor : out_tensors) {
     std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()

@@ -51,15 +51,17 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the build script in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/quick_start_cpp/build.sh) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download the MindSpore Lite inference framework library and model files and build the demo.
 
   ```bash
   bash build.sh
   ```
 
-  > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.a` file in the decompressed lib directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
+  > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.a` file in the decompressed lib directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
+  >
+  > After manually downloading and placing the file in the specified location, you need to execute the build.sh script again to complete the compilation.
 
 - Inference
 
@@ -90,7 +92,7 @@ The MindSpore Lite inference steps are as follows:
     - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `benchmark` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
     - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 
-    - Build the demo: Run the build script in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the demo.
+    - Build the demo: Run the [build script](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/quick_start_cpp/build.bat) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the Demo.
 
   ```bash
   call build.bat
@@ -111,9 +113,13 @@ The MindSpore Lite inference steps are as follows:
   output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 8.02107e-05 0.000212864 0.000422286 0.000273189 0.000234105 0.00099807 0.0042331 0.00204993 0.00124968 0.00294458 0.00139795 0.00111545 0.000656357 0.000809457 0.00153731 0.000621049 0.00224637 0.00127045 0.00187557 0.000420144 0.000150638 0.000266477 0.000438628 0.000187773 0.00054668 0.000212853 0.000921661 0.000127179 0.000565873 0.00100394 0.000300159 0.000282677 0.000358067 0.00215288 0.000477845 0.00107596 0.00065134 0.000722132 0.000807501 0.000631415 0.00043247 0.00125898 0.000255094 8.2606e-05 9.91917e-05 0.000794512
   ```
 
-## CMake Integration
+## Configure CMake
 
-When CMake integrates the `libmindspore-lite.a` static library, the `-Wl,--whole-archive` option needs to be passed to the linker. In addition, the build option for stack protection `-fstack-protector-strong` is added during the build of MindSpore Lite. Therefore, the `ssp` library in MinGW needs to be linked on the Windows platform.
+The following is the sample code when integrating `libmindspore-lite.a` static library through CMake.
+
+> When CMake integrates the `libmindspore-lite.a` static library, the `-Wl,--whole-archive` option needs to be passed to the linker.
+>
+> In addition, the build option for stack protection `-fstack-protector-strong` is added during the build of MindSpore Lite. Therefore, the `ssp` library in MinGW needs to be linked on the Windows platform.
 
 ```cmake
 cmake_minimum_required(VERSION 3.14)
@@ -126,7 +132,7 @@ endif()
 # Add the directory to include search path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Add the directory to include search path
+# Add the directory to link search path
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 file(GLOB_RECURSE QUICK_START_CXX ${CMAKE_CURRENT_SOURCE_DIR}/*.cc)
@@ -212,18 +218,22 @@ Model inference includes data input, inference execution, and output obtaining. 
 ```c++
 int Run(mindspore::session::LiteSession *session) {
   auto inputs = session->GetInputs();
+
+  // Generate random data as input data.
   auto ret = GenerateInputDataWithRandom(inputs);
   if (ret != mindspore::lite::RET_OK) {
     std::cerr << "Generate Random Input Data failed." << std::endl;
     return ret;
   }
 
+  // Run Inference.
   ret = session->RunGraph();
   if (ret != mindspore::lite::RET_OK) {
     std::cerr << "Inference error " << ret << std::endl;
     return ret;
   }
 
+  // Get Output Tensor Data.
   auto out_tensors = session->GetOutputs();
   for (auto tensor : out_tensors) {
     std::cout << "tensor name is:" << tensor.first << " tensor size is:" << tensor.second->Size()
