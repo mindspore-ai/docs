@@ -123,9 +123,9 @@ class ReduceLogSumExp(Cell):
         validator.check_value_type('axis', axis, [int, list, tuple], self.cls_name)
         validator.check_value_type('keep_dims', keep_dims, [bool], self.cls_name)
         self.axis = axis
-        self.exp = P.Exp()
-        self.sum = P.ReduceSum(keep_dims)
-        self.log = P.Log()
+        self.exp = ops.Exp()
+        self.sum = ops.ReduceSum(keep_dims)
+        self.log = ops.Log()
 
     def construct(self, x):
         exp = self.exp(x)
@@ -546,7 +546,7 @@ class ResNet(nn.Cell):
 
         self.conv1 = _conv7x7(3, 64, stride=2)
         self.bn1 = _bn(64)
-        self.relu = P.ReLU()
+        self.relu = ops.ReLU()
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
 
         self.layer1 = self._make_layer(block,
@@ -570,7 +570,7 @@ class ResNet(nn.Cell):
                                        out_channel=out_channels[3],
                                        stride=strides[3])
 
-        self.mean = P.ReduceMean(keep_dims=True)
+        self.mean = ops.ReduceMean(keep_dims=True)
         self.flatten = nn.Flatten()
         self.end_point = _fc(out_channels[3], num_classes)
 
@@ -719,15 +719,15 @@ import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
 from mindspore.nn.loss.loss import _Loss
-from mindspore.ops import functional as F
-from mindspore.ops import operations as P
+import mindspore.ops as ops
+
 
 # define cross entropy loss
 class CrossEntropySmooth(_Loss):
     """CrossEntropy"""
     def __init__(self, sparse=True, reduction='mean', smooth_factor=0., num_classes=1000):
         super(CrossEntropySmooth, self).__init__()
-        self.onehot = P.OneHot()
+        self.onehot = ops.OneHot()
         self.sparse = sparse
         self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
         self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
@@ -735,7 +735,7 @@ class CrossEntropySmooth(_Loss):
 
     def construct(self, logit, label):
         if self.sparse:
-            label = self.onehot(label, F.shape(logit)[1], self.on_value, self.off_value)
+            label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
         loss = self.ce(logit, label)
         return loss
 

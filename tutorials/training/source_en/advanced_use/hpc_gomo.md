@@ -158,8 +158,8 @@ def construct(self, etf, ua, uab, va, vab, el, elb, d, u, v, w, kq, km, kh, q2, 
         w = self.internal_w(x_d, y_d, dt, u, v, etf, etb, vfluxb)
         # internal_q
         dhf, a, c, gg, ee, kq, km, kh, q2b_, q2, q2lb_, q2l = self.internal_q(x_d, y_d, z_d, etf, aam, q2b, q2lb, q2, q2l, kq, km, kh, u, v, w, dt, dhb, rho, wubot, wvbot, t, s)
-        q2b = P.Assign()(self.q2b, q2b_)
-        q2lb = P.Assign()(self.q2lb, q2lb_)
+        q2b = ops.Assign()(self.q2b, q2b_)
+        q2lb = ops.Assign()(self.q2lb, q2lb_)
         # internal_t_t
         a, c, ee, gg, tb, t = self.internal_t_(t, tb, self.wtsurf, self.tsurf, self.swrad, self.tclim, self.tbe, self.tbw, self.tbn, self.tbs, x_d, y_d, z_d, dt, u, aam, self.h,  self.dum, v, self.dvm, w, dhf, etf, a, kh, self.dzz, c, self.dzz1, ee, gg, dx, self.dz, dy, self.fsm, dhb)
         # internal_t_s
@@ -174,7 +174,7 @@ def construct(self, etf, ua, uab, va, vab, el, elb, d, u, v, w, kq, km, kh, q2, 
         u, v, ub, vb = self.adjust_ufvf(u, v, uf, vf, ub, vb)
     # internal_update
     egb, etb, dt, dhb, utb, vtb, vfluxb, et = self.internal_update(egf, etb, utf, vtf, etf, et)
-    steps = P.AssignAdd()(self.global_step, 1)
+    steps = ops.AssignAdd()(self.global_step, 1)
 
     return elf, etf, ua, uab, va, vab, el, elb, d, u, v, w, kq, km, kh, q2, q2l, tb, t, sb, s, rho, wubot, wvbot, \
            ub, vb, egb, etb, dt, dhb, utb, vtb, vfluxb, et, steps, vamax, q2b, q2lb

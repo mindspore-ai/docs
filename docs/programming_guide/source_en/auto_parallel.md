@@ -108,10 +108,10 @@ The following is a code example:
 
 ```python
 from mindspore import context
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 context.set_auto_parallel_context(parallel_mode="semi_auto_parallel")
-mul = P.Mul().shard(((2, 1), (2, 1)))
+mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
@@ -316,9 +316,9 @@ In specific scenarios, the calculation logic of `data_parallel` is different fro
 The following is a code example:
 
 ```python
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
-mul = P.Mul().add_prim_attr("cross_batch", True)
+mul = ops.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
@@ -347,8 +347,8 @@ class Net(nn.Cell):
     """Net definition"""
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = P.MatMul()
-        self.fc2 = P.MatMul()
+        self.fc1 = ops.MatMul()
+        self.fc2 = ops.MatMul()
         self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1")
         self.p1.comm_fusion = 2
         self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")

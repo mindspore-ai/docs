@@ -45,10 +45,10 @@ Here is an example to generate an array:
 
 ```python
 import mindspore.numpy as np
-from mindspore.ops import functional as F
+import mindspore.ops as ops
 input_x = np.array([1, 2, 3], np.float32)
 print("input_x =", input_x)
-print("type of input_x =", F.typeof(input_x))
+print("type of input_x =", ops.typeof(input_x))
 ```
 
 The output is:

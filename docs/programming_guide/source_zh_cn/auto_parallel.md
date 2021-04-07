@@ -348,8 +348,8 @@ class Net(nn.Cell):
     """Net definition"""
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = P.MatMul()
-        self.fc2 = P.MatMul()
+        self.fc1 = ops.MatMul()
+        self.fc2 = ops.MatMul()
         self.p1 = Parameter(Tensor(np.ones([48, 64]).astype(np.float32)), name="weight1")
         self.p1.comm_fusion = 2
         self.p2 = Parameter(Tensor(np.ones([64, 16]).astype(np.float32)), name="weight2")

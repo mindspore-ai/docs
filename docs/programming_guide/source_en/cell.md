@@ -43,15 +43,15 @@ In the `construct` method, `x` is the input data, and `output` is the result obt
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]))
 
     def construct(self, x):
@@ -151,19 +151,19 @@ The nn module of MindSpore is a model component implemented by Python. It encaps
 
 In addition, nn provides some APIs with the same name as the `Primitive` operator to further encapsulate the `Primitive` operator and provide more friendly APIs.
 
-Reanalyze the case of the `construct` method described above. This case is the simplified content of the `nn.Conv2d` source code of MindSpore, and `P.Conv2D` is internally called. The `nn.Conv2d` convolution API adds the input parameter validation function and determines whether `bias` is used. It is an advanced encapsulated model layer.
+Reanalyze the case of the `construct` method described above. This case is the simplified content of the `nn.Conv2d` source code of MindSpore, and `ops.Conv2D` is internally called. The `nn.Conv2d` convolution API adds the input parameter validation function and determines whether `bias` is used. It is an advanced encapsulated model layer.
 
 ```python
 import mindspore.nn as nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 from mindspore import Parameter
 from mindspore.common.initializer import initializer
 
 class Net(nn.Cell):
     def __init__(self, in_channels=10, out_channels=20, kernel_size=3):
         super(Net, self).__init__()
-        self.conv2d = P.Conv2D(out_channels, kernel_size)
-        self.bias_add = P.BiasAdd()
+        self.conv2d = ops.Conv2D(out_channels, kernel_size)
+        self.bias_add = ops.BiasAdd()
         self.weight = Parameter(initializer('normal', [out_channels, in_channels, kernel_size, kernel_size]))
 
     def construct(self, x):
