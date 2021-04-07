@@ -46,7 +46,7 @@
 
 - 编译构建
 
-  在`mindspore/lite/examples/quick_start_java`目录下执行build脚本，将能够自动下载相关文件并编译Demo。
+  在`mindspore/lite/examples/quick_start_java`目录下执行[build脚本](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_java/build.sh)，将自动下载MindSpore Lite推理框架库以及文模型文件并编译Demo。
 
   ```bash
   bash build.sh
@@ -55,6 +55,8 @@
   > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`inference/lib/jar`目录下的`libmindspore-lite.so`、`libmindspore-lite-jni.so`以及`libmindspore-lite-java.jar`拷贝到`mindspore/lite/examples/quick_start_java/lib`目录。
   >
   > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/model/`目录。
+  >
+  > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 
 - 执行推理
 
@@ -90,6 +92,8 @@ if (!ret) {
 ```java
 private static boolean compile() {
     MSConfig msConfig = new MSConfig();
+    // You can set config through Init Api or use the default parameters directly.
+    // The default parameter is that the backend type is DeviceType.DT_CPU, and the number of threads is 2.
     boolean ret = msConfig.init(DeviceType.DT_CPU, 2);
     if (!ret) {
         System.err.println("Init context failed");
