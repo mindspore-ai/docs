@@ -239,7 +239,7 @@ At the end of the tutorial, we construct a single operator network to validate t
 
 import mindspore.context as context
 from mindspore import Tensor
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 context.set_context(device_target='GPU')
 
@@ -249,7 +249,7 @@ context.set_context(device_target='GPU')
 def test_TensroAdd():
     x1 = Tensor(np.ones((3, 4), np.float32))
     x2 = Tensor(np.ones((3, 4), np.float32))
-    y = P.TensorAddV2()(x1, x2)
+    y = ops.TensorAddV2()(x1, x2)
     print('result: ', y)
 ```
 

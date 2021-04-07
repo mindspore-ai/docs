@@ -58,16 +58,16 @@ A: Currently, MindSpore does not have APIs or operators similar to variance whic
 
 <font size=3>**Q: Why is data loading abnormal when MindSpore1.0.1 is used in graph data offload mode?**</font>
 
-A: An operator with the `axis` attribute, for example, `P.Concat(axis=1)((x1, x2))`, is directly used in `construct`. You are advised to initialize the operator in `__init__` as follows:
+A: An operator with the `axis` attribute, for example, `ops.Concat(axis=1)((x1, x2))`, is directly used in `construct`. You are advised to initialize the operator in `__init__` as follows:
 
 ```python
 from mindspore import nn
-from mindspore.ops import operations as P
+import mindspore.ops as ops
 
 class Net(nn.Cell):
     def __init__(self):
         super(Net, self).__init__()
-        self.concat = P.Concat(axis=1)
+        self.concat = ops.Concat(axis=1)
     def construct(self, x, y):
         out = self.concat((x, y))
         return out
