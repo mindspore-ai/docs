@@ -148,6 +148,7 @@ Math Operators
     mindspore.ops.Greater
     mindspore.ops.GreaterEqual
     mindspore.ops.HistogramFixedWidth
+    mindspore.ops.IndexAdd
     mindspore.ops.InplaceAdd
     mindspore.ops.InplaceSub
     mindspore.ops.Inv
