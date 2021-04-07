@@ -46,7 +46,7 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-  Run the build script in the `mindspore/lite/examples/quick_start_java` directory to automatically download related files and build the demo.
+  Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_java/build.sh) in the `mindspore/lite/examples/quick_start_java` directory to automatically download the MindSpore Lite inference framework library and model files and build the Demo.
 
   ```bash
   bash build.sh
@@ -55,6 +55,8 @@ The MindSpore Lite inference steps are as follows:
   > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and obtain the `libmindspore-lite.so` file in the `lib\jar` directory. Copy `libmindspore-lite-jni.so` and `libmindspore-lite-java.jar` to the `mindspore/lite/examples/quick_start_java/lib` directory.
   >
   > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_java/model/` directory.
+  >
+  > After manually downloading and placing the file in the specified location, you need to execute the build.sh script again to complete the compilation.
 
 - Inference
 
@@ -90,6 +92,8 @@ Model build includes context configuration creation, session creation, and graph
 ```java
 private static boolean compile() {
     MSConfig msConfig = new MSConfig();
+    // You can set config through Init Api or use the default parameters directly.
+    // The default parameter is that the backend type is DeviceType.DT_CPU, and the number of threads is 2.
     boolean ret = msConfig.init(DeviceType.DT_CPU, 2);
     if (!ret) {
         System.err.println("Init context failed");
