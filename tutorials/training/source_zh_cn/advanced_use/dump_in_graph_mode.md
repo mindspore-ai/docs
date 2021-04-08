@@ -22,7 +22,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/dump_in_graph_mode.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_zh_cn/advanced_use/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -101,12 +101,12 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     }
     ```
 
-    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面制定的算子。
+    - `dump_mode`：设置成0，表示Dump出该网络中的所有算子；设置成1，表示Dump`"kernels"`里面指定的算子。
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
     - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数仅支持Ascend，GPU只能Dump算子的输出。
-    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件获取算子名称。例如，`device_target`为`Ascend`时，可以从`trace_code_graph_{graph_id}`中获取算子名称，`device_target`为`GPU`时，可以从`hwopt_pm_7_getitem_tuple.ir`中获取算子全称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/r1.2/design/mindspore/mindir.html#ir)。
+    - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/r1.2/design/mindspore/mindir.html#ir)。
     - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
     - `enable`：开启E2E Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
     - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。
@@ -126,7 +126,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     注意：
 
     - 在网络脚本执行前，设置好环境变量；网络脚本执行过程中设置将会不生效。
-    - 在分布式场景下，Dump环境变量需要调用`mindspore.communication.management.init`之前配置。
+    - 在分布式场景下，Dump环境变量需要在调用`mindspore.communication.management.init`之前配置。
 
 3. 启动网络训练脚本。
 
@@ -136,15 +136,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 解析Dump数据。
-
-    同步Dump生成的数据文件是以`.bin`结尾的二进制文件，可以通过`numpy.fromfile`读取解析。
-
-    - Dump路径的命名规则为：`{path}/{net_name}/device_{device_id}/iteration_{iteration}/`。
-    - Dump文件的命名规则为：`{算子名称}_{input_output_index}_{shape}_{data_type}_{format}.bin`。
-
-    下面以一个简单网络的Dump为例，Dump生成的文件：`/absolute_path/ResNet50/device_0/iteration_0/Default--Add-op1_input_0_shape_1_3_3_4_Float32_DefaultFormat.bin`。
-    其中`Default--Add-op1`是算子名称，`input_0`是`{input_output_index}`，`shape_1_3_3_4`是`{shape}`，`Float32`是`{data_type}`，`DefaultFormat`是`{format}`。
+4. 通过`numpy.fromfile`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id7)。
 
 ### 同步Dump数据对象目录
 
@@ -409,30 +401,7 @@ numpy.reshape(array, (32,12,13,13,16))
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 解析Dump文件。
-
-    1. 解读命名规则。
-
-        - Dump路径的命名规则为：`{path}/{device_id}/{net_name}_graph_{graph_id}/{graph_id}/{iteration}`。
-        - Dump文件的命名规则为：`{op_type}.{op_name}.{task_id}.{timestamp}`。
-
-        以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
-
-    2. 使用run包中提供的`msaccucmp.pyc`解析Dump出来的文件。不同的环境上`msaccucmp.pyc`文件所在的路径可能不同，可以通过`find`命令进行查找：
-
-        ```bash
-        find ${run_path} -name "msaccucmp.pyc"
-        ```
-
-        - `run_path`：run包的安装路径。
-
-    3. 找到`msaccucmp.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
-
-        ```bash
-        python ${The  absolute path of msaccucmp.pyc} convert -d {file path of dump} -out {file path of output}
-        ```
-
-        若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+4. 参考[异步Dump数据分析样例](#id13)解析Dump数据文件。
 
 注意：
 
@@ -475,15 +444,16 @@ numpy.reshape(array, (32,12,13,13,16))
 
 ### 异步Dump数据文件介绍
 
-启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[使用文档](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0014.html) 。
+启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0014.html) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[使用文档](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html) 。
 
 异步Dump生成的数据文件命名规则如下：
 
-```text
-{op_type}.{op_name}.{taskid}.{timestamp}
-```
+- Dump路径的命名规则为：`{path}/{device_id}/{net_name}_graph_{graph_id}/{graph_id}/{iteration}`。
+- Dump文件的命名规则为：`{op_type}.{op_name}.{task_id}.{timestamp}`。
+
+以一个简单网络的Dump结果为例：`Add.Default_Add-op1.2.161243956333802`，其中`Add`是`{op_type}`，`Default_Add-op1`是`{op_name}`，`2`是`{task_id}`，`161243956333802`是`{timestamp}`。
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
@@ -491,47 +461,64 @@ numpy.reshape(array, (32,12,13,13,16))
 
 ### 异步Dump数据分析样例
 
-通过异步Dump的功能，获取到算子异步Dump生成的数据文件，如：
+通过异步Dump的功能，获取到算子异步Dump生成的数据文件。
 
-```text
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491
-```
+1. 使用run包中提供的`msaccucmp.pyc`解析Dump出来的文件。不同的环境上`msaccucmp.pyc`文件所在的路径可能不同，可以通过`find`命令进行查找：
 
-执行：
+    ```bash
+    find ${run_path} -name "msaccucmp.pyc"
+    ```
 
-```bash
-python3.7.5 msaccucmp.pyc convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
-```
+    - `run_path`：run包的安装路径。
 
-则可以在`./output`下生成该算子的所有输入输出数据。每个数据以`.npy`后缀的文件保存，数据格式为`NCHW`。
-在生成结果如下：
+2. 找到`msaccucmp.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
 
-```text
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.1.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.2.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.3.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.4.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.5.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.6.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.0.30x1024x17x17.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.1.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.2.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.3.1x1024x1x1.npy
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.4.1x1024x1x1.npy
-```
+    ```bash
+    python ${The absolute path of msaccucmp.pyc} convert -d {file path of dump} -out {file path of output}
+    ```
 
-在文件名的末尾可以看到该文件是算子的第几个输入或输出，以及数据的维度信息。例如，通过第一个`.npy`文件名
+    若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
 
-```text
-BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
-```
+    如Dump生成的数据文件为：
 
-可知该文件是算子的第0个输入，数据的维度信息是`30x1024x17x17`。
+    ```text
+    BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491
+    ```
 
-通过`numpy.load("file_name")`可以读取到对应数据。例：
+    则执行：
 
-```python
-import numpy
-numpy.load("BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy")
-```
+    ```bash
+    python3.7.5 msaccucmp.pyc convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
+    ```
+
+    则可以在`./output`下生成该算子的所有输入输出数据。每个数据以`.npy`后缀的文件保存，数据格式为`NCHW`。生成结果如下：
+
+    ```text
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.1.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.2.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.3.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.4.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.5.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.6.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.0.30x1024x17x17.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.1.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.2.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.3.1x1024x1x1.npy
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.output.4.1x1024x1x1.npy
+    ```
+
+    在文件名的末尾可以看到该文件是算子的第几个输入或输出，以及数据的维度信息。例如，通过第一个`.npy`文件名
+
+    ```text
+    BNTrainingUpdate.   Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell _1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy
+    ```
+
+    可知该文件是算子的第0个输入，数据的维度信息是`30x1024x17x17`。
+
+3. 通过`numpy.load("file_name")`可以读取到对应数据。例：
+
+    ```python
+    import numpy
+    numpy.load("BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491.input.0.30x1024x17x17.npy")
+    ```
