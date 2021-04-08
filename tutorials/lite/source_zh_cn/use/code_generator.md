@@ -67,7 +67,6 @@
 lenet/
 ├── benchmark                       # 集成调试相关的例程
 │   ├── benchmark.cc
-│   ├── load_input.c
 │   ├── load_input.c
 │   └── load_input.h
 ├── CMakeLists.txt

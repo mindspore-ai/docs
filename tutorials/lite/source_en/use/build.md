@@ -249,13 +249,16 @@ The Codegen executable program is only available under the `-I x86_64` compilati
     └── tools
         └── codegen # Code generation tool
             ├── codegen          # Executable program
-            └── operator_library # Operator library
-                ├── include  # Header files of inference framework
-                │   ├── CMSIS # cmsis operator header file [CMSIS_5](https://github.com/ARM-software/CMSIS_5)
-                │   ├── nnacl # nnacl operator header file
-                │   └── wrapper
-                └── lib      # Inference framework library
-                    └── libops.a # MindSpore Lite Codegen generates code dependent operator static library
+            ├── include          # Header files of inference framework
+            │   ├── nnacl        # nnacl operator header file
+            │   └── wrapper
+            ├── lib
+            │   └── libwrapper.a # MindSpore Lite Codegen generates code dependent operator static library
+            └── third_party
+                ├── include
+                │   └── CMSIS    # ARM CMSIS NN operator header files
+                └── lib
+                    └── libcmsis_nn.a # ARM CMSIS NN operator static library
     ```
 
 - When the compilation option is `-I arm64` or `-I arm32`:
@@ -266,11 +269,10 @@ The Codegen executable program is only available under the `-I x86_64` compilati
         └── codegen # Code generation tool
             └── operator_library # Operator library
                 ├── include   # Header files of inference framework
-                │   ├── CMSIS # cmsis operator header file [CMSIS_5](https://github.com/ARM-software/CMSIS_5)
                 │   ├── nnacl # nnacl operator header file
                 │   └── wrapper
                 └── lib       # Inference framework library
-                    └── libops.a # MindSpore Lite Codegen generates code dependent operator static library
+                    └── libwrapper.a # MindSpore Lite Codegen generates code dependent static library
     ```
 
 #### Description of Runtime and Other tools' Directory Structure
@@ -295,7 +297,9 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
         │   └── benchmark # Executable program
         ├── codegen   # Code generation tool
         │   ├── codegen   # Executable program
-        │   └── operator_library # Operator library
+        │   ├── include   # operator header file
+        │   ├── lib       # operator static library
+        │   └── third_party # ARM CMSIS NN static library
         ├── converter # Model conversion tool
         └── cropper   # Static library crop tool
             ├── cropper                 # Executable file of static library crop tool
@@ -320,8 +324,10 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     └── tools
         ├── benchmark # Benchmarking tool
         │   └── benchmark
+        │   └── benchmark
         └── codegen   # Code generation tool
-            └── operator_library # Operator library
+            ├── include  # operator header file
+            └── lib      # operator static library
     ```
 
 - When the compilation option is `-A java`:
@@ -386,9 +392,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     mindspore-lite-{version}-train-linux-x64
     ├── tools
     │   ├── benchmark_train # Training model benchmark tool
-    │   ├── codegen         # Code generation tool
-    │   │   ├── codegen          # Executable program
-    │   │   └── operator_library # Operator library
     │   ├── converter       # Model conversion tool
     │   └── cropper         # Static library crop tool
     │       ├── cropper                 # Executable file of static library crop tool
@@ -412,8 +415,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     ├── tools
     │   ├── benchmark       # Benchmarking tool
     │   ├── benchmark_train # Training model benchmark tool
-    │   └── codegen         # Code generation tool
-    │       └── operator_library # Operator library
     └── train
         ├── include # Header files of training framework
         ├── lib     # Training framework library
@@ -517,8 +518,6 @@ mindspore-lite-{version}-inference-win-x64
 └── tools
     ├── benchmark # Benchmarking tool
     │   └── benchmark.exe # Executable program
-    ├── codegen   # Code generation tool
-    │   └── codegen.exe   # Executable program
     └── converter # Model conversion tool
         ├── converter
         │   └── converter_lite.exe    # Executable program

@@ -250,13 +250,16 @@ mindspore-lite-{version}-inference-linux-x64
     └── tools
         └── codegen # 代码生成工具
             ├── codegen          # 可执行程序
-            └── operator_library # 算子库
-                ├── include  # 推理框架头文件
-                │   ├── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
-                │   ├── nnacl # nnacl 算子头文件
-                │   └── wrapper
-                └── lib      # 推理框架库
-                    └── libops.a # MindSpore Lite Codegen生成代码依赖的算子静态库
+            ├── include          # 推理框架头文件
+            │   ├── nnacl        # nnacl 算子头文件
+            │   └── wrapper
+            ├── lib
+            │   └── libwrapper.a # MindSpore Lite Codegen生成代码依赖的部分算子静态库
+            └── third_party
+                ├── include
+                │   └── CMSIS    # ARM CMSIS NN 算子头文件
+                └── lib
+                    └── libcmsis_nn.a # ARM CMSIS NN 算子静态库
     ```
 
 - `-I arm64`或`-I arm32`编译选项下获得Codegen，内容如下：
@@ -265,13 +268,11 @@ mindspore-lite-{version}-inference-linux-x64
     mindspore-lite-{version}-inference-android-{arch}
     └── tools
         └── codegen # 代码生成工具
-            └── operator_library # 算子库
-                ├── include   # 推理框架头文件
-                │   ├── CMSIS # cmsis 算子头文件[CMSIS_5](https://github.com/ARM-software/CMSIS_5)
-                │   ├── nnacl # nnacl 算子头文件
-                │   └── wrapper
-                └── lib       # 推理框架库
-                    └── libops.a # MindSpore Lite Codegen生成代码依赖的算子静态库
+            ├── include   # 推理框架头文件
+            │   ├── nnacl # nnacl 算子头文件
+            │   └── wrapper
+            └── lib       # 推理框架库
+                └── libwrapper.a # MindSpore Lite Codegen生成代码依赖的部分算子静态库
     ```
 
 #### Runtime及其他工具目录结构说明
@@ -296,7 +297,9 @@ mindspore-lite-{version}-inference-linux-x64
         │   └── benchmark # 可执行程序
         ├── codegen   # 代码生成工具
         │   ├── codegen   # 可执行程序
-        │   └── operator_library # 算子库
+        │   ├── include   # 算子头文件
+        │   ├── lib       # 算子静态库
+        │   └── third_party # ARM CMSIS NN算子库
         ├── converter # 模型转换工具
         └── cropper   # 库裁剪工具
             ├── cropper                 # 库裁剪工具可执行文件
@@ -322,7 +325,8 @@ mindspore-lite-{version}-inference-linux-x64
         ├── benchmark # 基准测试工具
         │   └── benchmark
         └── codegen   # 代码生成工具
-            └── operator_library # 算子库
+            ├── include  # 算子头文件
+            └── lib      # 算子静态库
     ```
 
 - 当编译选项为`-A java`时：
@@ -387,9 +391,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     mindspore-lite-{version}-train-linux-x64
     ├── tools
     │   ├── benchmark_train # 训练模型性能与精度调测工具
-    │   ├── codegen         # 代码生成工具
-    │   │   ├── codegen          # 可执行程序
-    │   │   └── operator_library # 算子库
     │   ├── converter       # 模型转换工具
     │   └── cropper         # 库裁剪工具
     │       ├── cropper                 # 库裁剪工具可执行文件
@@ -413,8 +414,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     ├── tools
     │   ├── benchmark       # 基准测试工具
     │   ├── benchmark_train # 训练模型性能与精度调测工具
-    │   └── codegen         # 代码生成工具
-    │       └── operator_library # 算子库
     └── train
         ├── include # 训练框架头文件
         ├── lib     # 训练框架库
@@ -518,8 +517,6 @@ mindspore-lite-{version}-inference-win-x64
 └── tools
     ├── benchmark # 基准测试工具
     │   └── benchmark.exe # 可执行程序
-    ├── codegen   # 代码生成工具
-    │   └── codegen.exe   # 可执行程序
     └── converter # 模型转换工具
         ├── converter
         │   └── converter_lite.exe    # 可执行程序
