@@ -242,6 +242,7 @@ Array Operators
     mindspore.ops.OnesLike
     mindspore.ops.Padding
     mindspore.ops.ParallelConcat
+    mindspore.ops.Randperm
     mindspore.ops.Rank
     mindspore.ops.Reshape
     mindspore.ops.ResizeNearestNeighbor
@@ -249,6 +250,7 @@ Array Operators
     mindspore.ops.ReverseV2
     mindspore.ops.Rint
     mindspore.ops.SameTypeShape
+    mindspore.ops.ScalarCast
     mindspore.ops.ScalarToArray
     mindspore.ops.ScalarToTensor
     mindspore.ops.ScatterAdd
@@ -376,18 +378,6 @@ Sponge Operators
     mindspore.ops.PMEExcludedForce
     mindspore.ops.PMEReciprocalForce
 
-Inner Operators
-^^^^^^^^^^^^^^^^
-
-.. msplatformautosummary::
-    :toctree: ops
-    :nosignatures:
-    :template: classtemplate.rst
-
-    mindspore.ops.NoRepeatNGram
-    mindspore.ops.Randperm
-    mindspore.ops.ScalarCast
-
 Image Operators
 ^^^^^^^^^^^^^^^
 
@@ -413,4 +403,5 @@ Other Operators
     mindspore.ops.Depend
     mindspore.ops.InTopK
     mindspore.ops.IOU
+    mindspore.ops.NoRepeatNGram
     mindspore.ops.PopulationCount
