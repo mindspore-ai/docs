@@ -331,15 +331,16 @@ int NetRunner::Main() {
     ```cpp
     int NetRunner::InitDB() {
       train_ds_ = Mnist(data_dir_ + "/train", "all");
+
       TypeCast typecast_f("float32");
-      Resize resize({32, 32});
+      Resize resize({h_, w_});
       train_ds_ = train_ds_->Map({&resize, &typecast_f}, {"image"});
 
       TypeCast typecast("int32");
       train_ds_ = train_ds_->Map({&typecast}, {"label"});
 
       train_ds_ = train_ds_->Shuffle(2);
-      train_ds_ = train_ds_->Batch(32, true);
+      train_ds_ = train_ds_->Batch(batch_size_, true);
 
       if (verbose_) {
         std::cout << "DatasetSize is " << train_ds_->GetDatasetSize() << std::endl;
@@ -348,7 +349,6 @@ int NetRunner::Main() {
         std::cout << "No relevant data was found in " << data_dir_ << std::endl;
         MS_ASSERT(train_ds_->GetDatasetSize() != 0);
       }
-
       return 0;
     }
     ```
