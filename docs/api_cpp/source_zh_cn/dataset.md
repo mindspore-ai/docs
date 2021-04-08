@@ -8,16 +8,16 @@
 
 ```cpp
 // shared_ptr
-Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType);
+Execute::Execute(std::shared_ptr<TensorTransform> op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<std::shared_ptr<TensorTransform>> ops, MapTargetDevice deviceType, uint32_t device_id);
 
 // normal pointer
-Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType)
+Execute::Execute(std::reference_wrapper<TensorTransform> op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<std::reference_wrapper<TensorTransform>> ops, MapTargetDevice deviceType, uint32_t device_id);
 
 // reference_wrapper
-Execute::Execute(TensorTransform *op, MapTargetDevice deviceType);
-Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType);
+Execute::Execute(TensorTransform *op, MapTargetDevice deviceType, uint32_t device_id);
+Execute::Execute(std::vector<TensorTransform *> ops, MapTargetDevice deviceType, uint32_t device_id);
 ```
 
 Transform（图像、文本）变换算子Eager模式执行类。支持多种构造函数形式，包括智能指针，普通指针以及引用封装。
@@ -27,6 +27,7 @@ Transform（图像、文本）变换算子Eager模式执行类。支持多种构
     - `op`: 指定单个使用的变换算子。
     - `ops`: 指定一个列表，包含多个使用的变换算子。
     - `deviceType`:  指定运行硬件设备，选项为CPU，GPU以及Ascend 310。
+    - `device_id`: 指定运行硬件设备的设备号，仅当`deviceType = MapTargetDevice::kAscend310`时生效。
 
 ```cpp
 Status operator()(const mindspore::MSTensor &input, mindspore::MSTensor *output);
