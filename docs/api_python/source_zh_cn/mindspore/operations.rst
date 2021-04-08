@@ -290,8 +290,8 @@ Array Operators
     mindspore.ops.Zeros
     mindspore.ops.ZerosLike
 
-Common Operators
-^^^^^^^^^^^^^^^^
+Communication Operators
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
