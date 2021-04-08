@@ -239,11 +239,11 @@ mindspore-lite-{version}-inference-linux-x64
                     └── libglog.so.0 # Glog的动态库
 ```
 
-#### 代码生成工具Codegen目录结构说明
+#### 代码生成工具CodeGen目录结构说明
 
-仅在`-I x86_64`编译选项下获得Codegen可执行程序，在`-I arm64`和`-I arm32`编译选项下只生成Codegen生成的推理代码所需要的算子库。
+仅在`-I x86_64`编译选项下获得codegen可执行程序，在`-I arm64`和`-I arm32`编译选项下只生成codegen生成的推理代码所需要的算子库。
 
-- `-I x86_64`编译选项下获得Codegen，内容如下：
+- `-I x86_64`编译选项下获得codegen，内容如下：
 
     ```text
     mindspore-lite-{version}-inference-linux-x64
@@ -254,7 +254,7 @@ mindspore-lite-{version}-inference-linux-x64
             │   ├── nnacl        # nnacl 算子头文件
             │   └── wrapper
             ├── lib
-            │   └── libwrapper.a # MindSpore Lite Codegen生成代码依赖的部分算子静态库
+            │   └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
             └── third_party
                 ├── include
                 │   └── CMSIS    # ARM CMSIS NN 算子头文件
@@ -262,7 +262,7 @@ mindspore-lite-{version}-inference-linux-x64
                     └── libcmsis_nn.a # ARM CMSIS NN 算子静态库
     ```
 
-- `-I arm64`或`-I arm32`编译选项下获得Codegen，内容如下：
+- `-I arm64`或`-I arm32`编译选项下获得codegen，内容如下：
 
     ```text
     mindspore-lite-{version}-inference-android-{arch}
@@ -272,7 +272,7 @@ mindspore-lite-{version}-inference-linux-x64
             │   ├── nnacl # nnacl 算子头文件
             │   └── wrapper
             └── lib       # 推理框架库
-                └── libwrapper.a # MindSpore Lite Codegen生成代码依赖的部分算子静态库
+                └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
     ```
 
 #### Runtime及其他工具目录结构说明
