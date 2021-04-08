@@ -8,7 +8,7 @@
 - [Environment Preparing](#environment-preparing)
     - [Dataset](#dataset)
     - [Install MindSpore](#install-mindspore)
-    - [Converter and Runtime Tool](#converter-and-runtime-tool)
+    - [Download and Install MindSpore Lite](#download-and-install-mindspore-lite)
     - [Connect Android Device](#connect-android-device)
 - [Train and Eval](#train-and-eval)
 - [Details](#details)
@@ -66,19 +66,28 @@ The directory structure is as follows:
 
 MindSpore can be installed by source code or using `pip`. Refer [MindSpore installation guide](https://gitee.com/mindspore/docs/blob/r1.2/install/mindspore_cpu_install_pip_en.md#) for more details.
 
-### Converter and Runtime Tool
+### Download and Install MindSpore Lite
 
-Acquire `train-converter-linux-x64` and `train-android-aarch64` tool-package based on MindSpore Lite architecture, refer to [source building](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/build.html) chapter, the command is shown below:
+Use `git` to clone the source code, the command in `Linux` is as follows:
 
 ```shell
-# generate converter tools and runtime package on x86
-bash build.sh -I x86_64 -T on -e cpu -j8
-
-# generate runtime package on arm64
-bash build.sh -I arm64 -T on -e cpu -j8
+git clone https://gitee.com/mindspore/mindspore.git -b r1.2
+cd ./mindspore
 ```
 
-You could also directly [download MindSpore Lite](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) and store them in the `output` directory related to the MindSpore source code (if no `output` directory exists, please create it).
+The `mindspore/lite/examples/train_lenet` directory relative to the MindSpore Lite source code contains this demo's source code.
+
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. After download these two files, you need rename the mindspore-lite-{version}-linux-x64.tar.gz to mindspore-lite-{version}-train-linux-x64.tar.gz and rename the mindspore-lite-{version}-android-aarch64.tar.gz to mindspore-lite-{version}-train-android-aarch64.tar.gz. Then put the renamed files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
+
+Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
+
+```bash
+mkdir output
+cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{version}-train-linux-x64.tar.gz
+cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-lite-{version}-train-android-aarch64.tar.gz
+```
+
+You can also [compile from source](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-train-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-train-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
 ### Connect Android Device
 
@@ -86,17 +95,10 @@ Turning on the 'USB debugging' mode of your Android device and connect it with y
 
 ## Train and Eval
 
-You can get the source code of MindSpore by `git` clone or manually, the `Linux` command of git installation is:
+Enter the target directory and run the training bash script. The `Linux` command is as follows:
 
 ```bash
-sudo apt-get install git
-```
-
-Clone the source, enter the target directory and run the training bash script. The `Linux` command are as follows:
-
-```bash
-git clone https://gitee.com/mindspore/mindspore.git -b r1.2
-cd ./mindspore/mindspore/lite/examples/train_lenet
+cd /mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -270,26 +272,24 @@ The exported file `lenet_tod.ms` is under the folder `./train_lenet/model`.
 
 ### Model Training
 
-In the [example c++ code](https://gitee.com/mindspore/mindspore/tree/r1.2/mindspore/lite/examples/train_lenet/src) the executable has the following API:
+The model training progress is in [net_runner.cc](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/train_lenet/src/net_runner.cc).
 
-```bash
-Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
-```
-
-After parsing the input parameters the main code continues as follows:
+The main code continues as follows:
 
 ```cpp
 int NetRunner::Main() {
+  // Load model and create session
   InitAndFigureInputs();
-
+  // initialize the dataset
   InitDB();
-
+  // Execute the training
   TrainLoop();
-
+  // Evaluate the trained model
   CalculateAccuracy();
 
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
+    // Save the trained model to file
     session_->SaveToFile(trained_fn);
   }
   return 0;
