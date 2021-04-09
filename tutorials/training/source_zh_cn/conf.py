@@ -53,10 +53,6 @@ exclude_patterns = []
 
 highlight_language = 'none'
 
-suppress_warnings = [
-    'nbsphinx',
-]
-
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
