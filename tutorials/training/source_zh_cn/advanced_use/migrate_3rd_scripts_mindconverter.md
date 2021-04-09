@@ -265,6 +265,10 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 
 另外，对于未成功转换的算子，在代码中会相应的标识该节点输入、输出Tensor的shape（以`input_shape`、`output_shape`标识），便于用户手动修改，示例见**TensorFlow模型脚本生成示例**。
 
+## MindConverter错误码速查表
+
+MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition_cn.md# )。
+
 ## 注意事项
 
 1. TensorFlow不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）。
