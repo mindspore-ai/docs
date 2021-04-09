@@ -11,7 +11,9 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-
+import IPython
+import re
+import nbsphinx as nbs
 
 # -- Project information -----------------------------------------------------
 
