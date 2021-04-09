@@ -164,6 +164,7 @@ Math Operators
     mindspore.ops.LogicalNot
     mindspore.ops.LogicalOr
     mindspore.ops.MatMul
+    mindspore.ops.MatrixInverse
     mindspore.ops.Maximum
     mindspore.ops.Minimum
     mindspore.ops.Mod
