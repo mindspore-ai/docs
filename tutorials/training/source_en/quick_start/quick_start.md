@@ -23,6 +23,8 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/tutorials/training/source_en/quick_start/quick_start.md" target="_blank"><img src="../_static/logo_source.png"></a>
+
 ## Overview
 
 This document uses a practice example to demonstrate the basic functions of MindSpore. For common users, it takes 20 to 30 minutes to complete the practice.
