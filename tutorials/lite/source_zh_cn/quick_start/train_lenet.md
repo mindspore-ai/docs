@@ -9,7 +9,7 @@
     - [准备](#准备)
         - [下载数据集](#下载数据集)
         - [安装MindSpore](#安装MindSpore)
-        - [获取Converter和Runtime](#获取Converter和Runtime)
+        - [下载并安装MindSpore Lite](#下载并安装MindSpore-Lite)
         - [连接安卓设备](#连接安卓设备)
     - [模型训练和验证](#模型训练和验证)
     - [示例程序详解](#示例程序详解)
@@ -62,19 +62,28 @@ MNIST_Data/
 
 你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
 
-### 获取Converter和Runtime
+### 下载并安装MindSpore Lite
 
-通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成模型训练所需的`train-conveter-linux-x64`以及`train-android-aarch64`包。编译命令如下：
+通过`git`克隆源码，进入源码目录，`Linux`指令如下：
 
-```shell
-# 生成converter工具以及x86平台的runtime包
-bash build.sh -I x86_64 -T on -e cpu -j8
-
-# 生成arm64平台的runtime包
-bash build.sh -I arm64 -T on -e cpu -j8
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+cd ./mindspore
 ```
 
-你也可以在[下载MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)直接下载所需要的转换工具以及模型训练框架，并将它们放在MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+源码路径下的`mindspore/lite/examples/train_lenet`目录包含了本示例程序的源码。
+
+请到[MindSpore Lite下载页面](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。下载完成后，需要将mindspore-lite-{version}-linux-x64.tar.gz重命名为mindspore-lite-{version}-train-linux-x64.tar.gz，将mindspore-lite-{version}-android-aarch64.tar.gz重命名为mindspore-lite-{version}-train-android-aarch64.tar.gz，最后将重命名后的文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+
+假设下载的安装包存放在`/Downloads`目录，上述操作对应的`Linux`指令如下：
+
+```bash
+mkdir output
+cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{version}-train-linux-x64.tar.gz
+cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-lite-{version}-train-android-aarch64.tar.gz
+```
+
+您也可以通过[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)直接生成端侧训练框架对应的x86平台安装包mindspore-lite-{version}-train-linux-x64.tar.gz以及Android平台安装包mindspore-lite-{version}-train-android-aarch64.tar.gz，源码编译的安装包会自动生成在`output`目录下，请确保`output`目录下同时存在这两个安装包。
 
 ### 连接安卓设备
 
@@ -84,17 +93,10 @@ bash build.sh -I arm64 -T on -e cpu -j8
 
 ## 模型训练和验证
 
-你可以使用`git`克隆或手动方式下载[MindSpore源码](https://gitee.com/mindspore/mindspore)，使用`Linux`指令安装`git`：
+进入示例代码目录并执行训练脚本，`Linux`指令如下：
 
 ```bash
-sudo apt-get install git
-```
-
-克隆源码，进入示例代码目录并执行训练脚本，`Linux`指令如下：
-
-```bash
-git clone https://gitee.com/mindspore/mindspore.git
-cd ./mindspore/mindspore/lite/examples/train_lenet
+cd mindspore/lite/examples/train_lenet
 bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 ```
 
@@ -256,7 +258,7 @@ print("finished exporting")
 
 ### 转换模型
 
-使用MindSpore Lite `converter_lite`工具将`lenet_tod.mindir`转换为`ms`模型文件，执行指令如下：
+在`prepare_model.sh`中使用MindSpore Lite `converter_lite`工具将`lenet_tod.mindir`转换为`ms`模型文件，执行指令如下：
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
@@ -268,26 +270,24 @@ print("finished exporting")
 
 ### 训练模型
 
-调用源码[`src/net_runner.cc`](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)进行模型训练的指令如下：
-
-```bash
-Usage: net_runner -f <.ms model file> -d <data_dir> [-e <num of training epochs>] [-v (verbose mode)] [-s <save checkpoint every X iterations>]
-```
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)。
 
 模型训练的主函数为：
 
 ```cpp
 int NetRunner::Main() {
+  // Load model and create session
   InitAndFigureInputs();
-
+  // initialize the dataset
   InitDB();
-
+  // Execute the training
   TrainLoop();
-
+  // Evaluate the trained model
   CalculateAccuracy();
 
   if (epochs_ > 0) {
     auto trained_fn = ms_file_.substr(0, ms_file_.find_last_of('.')) + "_trained.ms";
+    // Save the trained model to file
     session_->SaveToFile(trained_fn);
   }
   return 0;
