@@ -416,10 +416,10 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
 
         Take the Dump result of a simple network as an example: `Add.Default_Add-op1.2.161243956333802`, where `Add` is `{op_type}`, `Default_Add-op1` is `{op_name}`, and `2` is `{task_id' }`, `161243956333802` is `{timestamp}`.
 
-    2. Parse the dumped file using `msaccucmp.pyc` provied in the run package. You can find it through the find command:
+    2. Parse the dumped file using `msaccucmp.py` provied in the run package. You can find it through the find command:
 
         ```bash
-        find ${run_path} -name "msaccucmp.pyc"
+        find ${run_path} -name "msaccucmp.py"
         ```
 
         - `run_path`: The installation path of the run package.
@@ -427,10 +427,10 @@ Large networks (such as Bert Large) will cause memory overflow when using synchr
     3. Change directory to `/absolute_path` after training, execute the following commands to parse Dump data file:
 
         ```bash
-        python ${The  absolute path of msaccucmp.pyc} convert -d {file path of dump} -out {file path of output}
+        python ${The  absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
         ```
 
-        Or you can use `msaccucmp.pyc` to convert the format of dump file. Please see <https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html>.
+        Or you can use `msaccucmp.py` to convert the format of dump file. Please see <https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html>.
 
 - If you need to dump all or part of the operator, you can modify the `dump_mode` option in the json configuration file to 0 or 1.
 - If the data sink function is enabled (set the `dataset_sink_mode` parameter in `model.train` or `DatasetHelper` to `True`), only the data of one step specified in the configuration file can be dumped (in this case, `iteration 0` means The 0th step), and save it to the specified directory.
@@ -496,7 +496,7 @@ BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_f
 Execute:
 
 ```bash
-python3.7.5 msaccucmp.pyc convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
+python3.7.5 msaccucmp.py convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
 ```
 
 Then all input and output data of the operator can be generated under `./output`. Each data is saved as a file with the suffix of `.npy`, and the data format is `NCHW`.
