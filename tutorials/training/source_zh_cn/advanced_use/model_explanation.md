@@ -53,53 +53,54 @@ from mindspore.explainer.explanation import GradCAM, GuidedBackprop
 from mindspore.explainer.benchmark import Faithfulness, Localization
 from mindspore.explainer import ImageClassificationRunner
 
-num_classes = 20
-# please refer to model_zoo for the model architecture of resnet50
-net = resnet50(num_classes)
-param_dict = load_checkpoint("resnet50.ckpt")
-load_param_into_net(net, param_dict)
+if __name__ == "__main__":
+    num_classes = 20
+    # please refer to model_zoo.cv.official.resnet.src.resnet50.py for the model architecture of resnet50
+    net = resnet50(num_classes)
+    param_dict = load_checkpoint("resnet50.ckpt")
+    load_param_into_net(net, param_dict)
 
 
-# initialize explainers with the loaded black-box model
-gradcam = GradCAM(net, layer='layer4')
-guidedbackprop = GuidedBackprop(net)
+    # initialize explainers with the loaded black-box model
+    gradcam = GradCAM(net, layer='layer4')
+    guidedbackprop = GuidedBackprop(net)
 
-# initialize benchmarkers to evaluate the chosen explainers
-# for Faithfulness, the initialization needs a activation function that transforms the output of the network to a probability is also needed.
-activation_fn = nn.Sigmoid()  # for multi-label classification
-faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
-localization = Localization(num_labels=num_classes, metric='PointingGame')
+    # initialize benchmarkers to evaluate the chosen explainers
+    # for Faithfulness, the initialization needs an activation function that transforms the output of the network to a probability is also needed
+    activation_fn = nn.Sigmoid()  # for multi-label classification
+    faithfulness = Faithfulness(num_labels=num_classes, metric='InsertionAUC', activation_fn=activation_fn)
+    localization = Localization(num_labels=num_classes, metric='PointingGame')
 
-# returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box
-# the columns of the dataset should be in [image], [image, labels], or [image, labels, bbox] (order matters).
-# You may refer to 'mindspore.dataset.project' for columns managements.
-dataset_path = "dataset_dir"
-dataset = get_dataset(dataset_path)
+    # returns the dataset to be explained, when localization is chosen, the dataset is required to provide bounding box
+    # the columns of the dataset should be in [image], [image, labels], or [image, labels, bbox] (order matters)
+    # You may refer to 'mindspore.dataset.project' for columns managements
+    dataset_path = "dataset_dir"
+    dataset = get_dataset(dataset_path)
 
-# specify the class names of the dataset
-classes = [
- 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
- 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
- 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
-]
+    # specify the class names of the dataset
+    classes = [
+     'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat',
+     'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person',
+     'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor',
+    ]
 
-data = (dataset, classes)
-explainers = [gradcam, guidedbackprop]
-benchmarkers = [faithfulness, localization]
+    data = (dataset, classes)
+    explainers = [gradcam, guidedbackprop]
+    benchmarkers = [faithfulness, localization]
 
-# initialize runner with specified summary_dir
-runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
-runner.register_saliency(explainers, benchmarkers)
+    # initialize runner with specified summary_dir
+    runner = ImageClassificationRunner(summary_dir='./summary_dir', network=net, activation_fn=activation_fn, data=data)
+    runner.register_saliency(explainers, benchmarkers)
 
-# execute runner.run to generate explanation and evaluation results to save it to summary_dir
-runner.run()
+    # execute runner.run to generate explanation and evaluation results to save it to summary_dir
+    runner.run()
 ```
 
 ### 使用限制
 
 - 当前只支持图片分类下的CNN网络模型，比如：Lenet、Resnet、Alexnet。
 - 输入的图片数据必须为单通道、三通道或四通道格式。
-- 仅支持PyNative运行模式。
+- 仅支持GPU和Ascend设备下的PyNative运行模式。
 - 不同的 `ImageClassificationRunner` 对象需要使用不同的解释方法及度量方法对象，所以用户必须针对每个 `ImageClassificationRunner` 对象实例化独占的解释方法及度量方法对象，否则可能会产生错误。下方是一个正确的实例化示例。
 
 ```python
