@@ -101,7 +101,7 @@
   编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
-  call ./mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
+  call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
   ```
 
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
