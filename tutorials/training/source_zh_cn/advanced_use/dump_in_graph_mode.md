@@ -463,18 +463,18 @@ numpy.reshape(array, (32,12,13,13,16))
 
 通过异步Dump的功能，获取到算子异步Dump生成的数据文件。
 
-1. 使用run包中提供的`msaccucmp.pyc`解析Dump出来的文件。不同的环境上`msaccucmp.pyc`文件所在的路径可能不同，可以通过`find`命令进行查找：
+1. 使用run包中提供的`msaccucmp.py`解析Dump出来的文件。不同的环境上`msaccucmp.py`文件所在的路径可能不同，可以通过`find`命令进行查找：
 
     ```bash
-    find ${run_path} -name "msaccucmp.pyc"
+    find ${run_path} -name "msaccucmp.py"
     ```
 
     - `run_path`：run包的安装路径。
 
-2. 找到`msaccucmp.pyc`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
+2. 找到`msaccucmp.py`后，到`/absolute_path`目录下，运行如下命令解析Dump数据：
 
     ```bash
-    python ${The absolute path of msaccucmp.pyc} convert -d {file path of dump} -out {file path of output}
+    python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
     若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
@@ -488,7 +488,7 @@ numpy.reshape(array, (32,12,13,13,16))
     则执行：
 
     ```bash
-    python3.7.5 msaccucmp.pyc convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
+    python3.7.5 msaccucmp.py convert -d BNTrainingUpdate.Default_network-YoloWithLossCell_yolo_network-YOLOV3DarkNet53_feature_map-YOLOv3_backblock0-YoloBlock_conv3-SequentialCell_1-BatchNorm2d_BNTrainingUpdate-op5489.137.1608983934774491 -out ./output -f NCHW -t npy
     ```
 
     则可以在`./output`下生成该算子的所有输入输出数据。每个数据以`.npy`后缀的文件保存，数据格式为`NCHW`。生成结果如下：
