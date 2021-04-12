@@ -1,6 +1,6 @@
 ﻿# 使用Dump功能在Graph模式调试
 
-`Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
+`Linux` `Ascend` `GPU` `CPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
@@ -74,7 +74,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - 同步模式较异步模式会占用更多内存，但易用性更好。
 - 一般对于中小型网络（如ResNet）等，推荐优先使用同步Dump模式。在网络占用内存不大的情况下，请优先使用同步Dump。若开启同步Dump后，因为模型过大导致需要的内存超过系统限制，再使用异步Dump。
 - 在Ascend上开启同步Dump的时候，待Dump的算子会自动关闭内存复用。
-- 同步Dump目前支持Ascend和GPU上的图模式，暂不支持CPU和PyNative模式。
+- 同步Dump目前支持Ascend、GPU和CPU上的图模式，暂不支持PyNative模式。
 - 异步Dump仅支持Ascend上的图模式，不支持PyNative模式。开启异步Dump的时候不会关闭内存复用。
 
 ## 同步Dump
@@ -105,11 +105,11 @@ MindSpore提供了同步Dump与异步Dump两种模式：
     - `path`：Dump保存数据的绝对路径。
     - `net_name`：自定义的网络名称，例如："ResNet50"。
     - `iteration`：指定需要Dump的迭代，若设置成0，表示Dump所有的迭代。
-    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该参数仅支持Ascend，GPU只能Dump算子的输出。
+    - `input_output`：设置成0，表示Dump出算子的输入和算子的输出；设置成1，表示Dump出算子的输入；设置成2，表示Dump出算子的输出。该配置参数仅支持Ascend和CPU，GPU只能Dump算子的输出。
     - `kernels`：算子的名称列表。开启IR保存开关`context.set_context(save_graphs=True)`并执行用例，从生成的IR文件`trace_code_graph_{graph_id}`中获取算子名称。详细说明可以参照教程：[如何保存IR](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/mindir.html#ir)。
-    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。
+    - `support_device`：支持的设备，默认设置成0到7即可；在分布式训练场景下，需要dump个别设备上的数据，可以只在`support_device`中指定需要Dump的设备Id。该配置参数在CPU上无效，因为CPU下没有device这个概念。
     - `enable`：开启E2E Dump，如果同时开启同步Dump和异步Dump，那么只有同步Dump会生效。
-    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。
+    - `trans_flag`：开启格式转换。将设备上的数据格式转换成NCHW格式。若为`True`，则数据会以Host侧的4D格式（NCHW）格式保存；若为`False`，则保留Device侧的数据格式。该配置参数在CPU上无效，因为CPU上没有format转换。
 
 2. 设置Dump环境变量，指定Dump的json配置文件。
 
@@ -169,6 +169,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - `shape`: 张量维度信息。
 - `data_type`: 数据类型。
 - `format`: 数据格式。
+
+在CPU上进行数据dump时，没有`device_id`这个目录层级，因为CPU上没有device这个概念，也没有`graphs`和`execution_order`目录。
 
 ### 同步Dump数据文件介绍
 
