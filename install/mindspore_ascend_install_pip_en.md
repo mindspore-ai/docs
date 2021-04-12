@@ -11,6 +11,7 @@
     - [Installing MindInsight](#installing-mindinsight)
     - [Installing MindArmour](#installing-mindarmour)
     - [Installing MindSpore Hub](#installing-mindspore-hub)
+    - [Installing MindSpore Serving](#installing-mindspore-serving)
 
 <!-- /TOC -->
 
@@ -135,3 +136,9 @@ For more details, please refer to [MindArmour](https://gitee.com/mindspore/minda
 If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
 
 For more details, please refer to [MindSpore Hub](https://gitee.com/mindspore/hub/blob/r1.2/README.md).
+
+## Installing MindSpore Serving
+
+If you need to access and experience MindSpore online inference services quickly, you can install MindSpore Serving.
+
+For more details, please refer to [MindSpore Serving](https://gitee.com/mindspore/serving/blob/r1.2/README.md).

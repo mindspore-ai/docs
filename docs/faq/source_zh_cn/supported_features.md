@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/supported_features.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q：MindSpore serving是否支持热加载，避免推理服务中断？**</font>
+
+A：很抱歉，MindSpore当前还不支持热加载，需要重启。建议您可以跑多个Serving服务，切换版本时，重启部分。
+
+<br/>
+
 <font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
 
 A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。

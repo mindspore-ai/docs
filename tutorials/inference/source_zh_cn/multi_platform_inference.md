@@ -56,13 +56,16 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 1. 基本介绍
 
-    MindIR作为MindSpore的统一模型文件，同时存储了网络结构和权重参数值。支持部署到端侧Lite平台执行推理任务。
+    MindIR作为MindSpore的统一模型文件，同时存储了网络结构和权重参数值。同时支持部署到云端Serving和端侧Lite平台执行推理任务。
 
+    同一个MindIR文件支持多种硬件形态的部署：
+
+    - 云端Serving部署推理：MindSpore训练生成MindIR模型文件后，可直接发给MindSpore Serving加载，执行推理任务，而无需额外的模型转化，做到Ascend、GPU、CPU等多硬件的模型统一。
     - 端侧Lite推理部署：MindIR可直接供Lite部署使用。同时由于端侧轻量化需求，提供了模型小型化和转换功能，支持将原始MindIR模型文件由Protocol Buffers格式转化为FlatBuffers格式存储，以及网络结构轻量化，以更好的满足端侧性能、内存等要求。
 
 2. 使用场景
 
-    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/multi_platform_inference_ascend_310_mindir.html)、[端侧推理](https://www.mindspore.cn/lite/docs?master)。
+    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/multi_platform_inference_ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs?master)。
 
 ### MindIR支持的网络列表
 
