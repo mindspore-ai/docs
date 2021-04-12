@@ -1,6 +1,6 @@
 ﻿# Using Dump in the Graph Mode
 
-`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+`Linux` `Ascend` `GPU` `CPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -74,7 +74,7 @@ The configuration files required for different modes and the data format of dump
 - Synchronous mode takes up more memory than asynchronous mode, but it is easier to use.
 - Generally, for small and medium-sized networks (such as ResNet), it is recommended to use the synchronous dump mode first. When the network does not occupy much memory, please use synchronous dump first.If an error of insufficient device memory occurs after enabling synchronous dump, please use asynchronous dump in the next section.
 - When Dump is enabled on Ascend, the operator to Dump will automatically close memory reuse.
-- Synchronous Dump supports the graphics mode both on GPU and Ascend, and currently does not support PyNative mode.
+- Synchronous Dump supports the graphics mode both on Ascend, GPU and CPU, and currently does not support PyNative mode.
 - Asynchronous Dump only supports graph mode on Ascend, not PyNative mode. Memory reuse will not be turned off when asynchronous dump is enabled.
 
 ## Synchronous Dump
@@ -105,11 +105,11 @@ The configuration files required for different modes and the data format of dump
     - `path`: The absolute path to save dump data.
     - `net_name`: The net name eg:ResNet50.
     - `iteration`: Specify the iterations to dump. Iteration should be set to 0 when dataset_sink_mode is False and data of every iteration will be dumped.
-    - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This parameter does not take effect on the GPU and only the output of operator will be dumped.
+    - `input_output`: 0: dump input and output of kernel, 1:dump input of kernel, 2:dump output of kernel. This configuration parameter only supports Ascend and CPU, and GPU can only dump the output of operator.
     - `kernels`: List of operator names. Turn on the IR save switch `context.set_context(save_graphs=True)` and execute the network to obtain the operator name from the generated `trace_code_graph_{graph_id}`IR file. For details, please refer to [Saving IR](https://www.mindspore.cn/doc/note/en/master/design/mindspore/mindir.html#saving-ir).
-    - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data.
+    - `support_device`: Supported devices, default setting is `[0,1,2,3,4,5,6,7]`. You can specify specific device ids to dump specific device data. This configuration parameter is invalid on the CPU, because there is no concept of device on the CPU.
     - `enable`: Enable Asynchronous Dump. If synchronous dump and asynchronous dump are enabled at the same time, only synchronous dump will take effect.
-    - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained.
+    - `trans_flag`: Enable trans flag. Transform the device data format into NCHW. If it is `True`, the data will be saved in the 4D format (NCHW) format on the Host side; if it is `False`, the data format on the Device side will be retained. This configuration parameter is invalid on the CPU, because there is no format conversion on the CPU.
 
 2. Specify the json configuration file of Dump.
 
@@ -167,6 +167,8 @@ After starting the training, the data objects saved by the synchronous Dump incl
 - `shape`: Tensor dimension information.
 - `data_type`: the type of the data.
 - `format`: the format of the data.
+
+When data dump is performed on the CPU, there is no directory level of `device_id`, because there is no concept of device on the CPU, and there is no `graphs` and `execution_order` directories.
 
 ### Introduction to Synchronous Dump Data File
 
