@@ -463,7 +463,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU stage-Model-Optimization user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Optimization user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/dump_in_graph_mode.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
