@@ -1,15 +1,13 @@
-# 脚本开发指南
+# 迁移脚本
 
 <!-- TOC -->
 
-- [脚本开发指南](#脚本开发指南)
+- [迁移脚本](#迁移脚本)
     - [概述](#概述)
-    - [TensorFlow脚本移植MindSpore](#tensorflow脚本移植mindspore)
-        - [读TensorBoard图，进行脚本移植](#读tensorboard图进行脚本移植)
-            - [TensorFlow 迁移实例](#tensorflow-迁移实例)
-    - [PyTorch脚本移植MindSpore](#pytorch脚本移植mindspore)
-        - [读PyTorch脚本，直接进行移植](#读pytorch脚本直接进行移植)
-            - [PyTorch迁移实例](#pytorch迁移实例)
+    - [TensorFlow脚本迁移MindSpore](#tensorflow脚本迁移mindspore)
+        - [TensorFlow 迁移实例](#tensorflow-迁移实例)
+    - [PyTorch脚本迁移MindSpore](#pytorch脚本迁移mindspore)
+        - [PyTorch迁移实例](#pytorch迁移实例)
 
 <!-- /TOC -->
 
@@ -19,9 +17,9 @@
 
 ## TensorFlow脚本迁移MindSpore
 
-### 读TensorBoard图，进行脚本迁移
+通过读TensorBoard图，进行脚本迁移。
 
-#### TensorFlow 迁移实例
+### TensorFlow 迁移实例
 
 1. 以TensorFlow实现的[PoseNet](https://arxiv.org/pdf/1505.07427v4.pdf)为例，演示如何利用TensorBoard读图，编写MindSpore代码，将[TensorFlow模型](https://github.com/kentsommer/tensorflow-posenet)迁移到MindSpore上。
 
@@ -302,11 +300,11 @@
 
    这样，就基本完成了模型脚本从TensorFlow到MindSpore的迁移，接下来就是利用丰富的MindSpore工具和计算策略，对精度进行调优，在此不予详述。
 
-## PyTorch脚本移植MindSpore
+## PyTorch脚本迁移MindSpore
 
-### 读PyTorch脚本，直接进行移植
+通过读PyTorch脚本，直接进行迁移。
 
-#### PyTorch迁移实例
+### PyTorch迁移实例
 
 1. PyTorch子网模块通常继承``torch.nn.Module``，MindSpore通常继承``mindspore.nn.Cell``；PyTorch子网模块正向计算逻辑需要重写forward方法，MindSpore子网模块正向计算逻辑需要重写construct方法。
 
@@ -481,4 +479,3 @@
    model = Model(net_with_grad)
    model.train(epoch_size, dataset)
    ```
-

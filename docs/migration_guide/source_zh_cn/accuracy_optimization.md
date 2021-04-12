@@ -1,8 +1,8 @@
-# 模型精度调优
+# 精度调优
 
 <!-- TOC -->
 
-- [模型精度调优](#模型精度调优)
+- [精度调优](#精度调优)
     - [MindSpore的实战调优](#mindspore的实战调优)
     - [参考文档](#参考文档)
         - [可视化工具](#可视化工具)
@@ -25,6 +25,8 @@ MindSpore团队总结了在AI训练过程中，遇到的造成模型精度无法
 [MindSpore模型精度调优实战（一）](https://www.mindspore.cn/news/newschildren?id=381)
 
 [MindSpore模型精度调优实战（二）](https://www.mindspore.cn/news/newschildren?id=394)
+
+[MindSpore模型精度调优实战（三）](https://www.mindspore.cn/news/newschildren?id=433)
 
 ## 参考文档
 
