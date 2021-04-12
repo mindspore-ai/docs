@@ -5,11 +5,11 @@
 - [迁移脚本](#迁移脚本)
     - [概述](#概述)
     - [TensorFlow脚本迁移MindSpore](#tensorflow脚本迁移mindspore)
-        - [TensorFlow 迁移实例](#tensorflow-迁移实例)
     - [PyTorch脚本迁移MindSpore](#pytorch脚本迁移mindspore)
-        - [PyTorch迁移实例](#pytorch迁移实例)
 
 <!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/migration_script.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -19,13 +19,11 @@
 
 通过读TensorBoard图，进行脚本迁移。
 
-### TensorFlow 迁移实例
-
 1. 以TensorFlow实现的[PoseNet](https://arxiv.org/pdf/1505.07427v4.pdf)为例，演示如何利用TensorBoard读图，编写MindSpore代码，将[TensorFlow模型](https://github.com/kentsommer/tensorflow-posenet)迁移到MindSpore上。
 
    > 此处提到的PoseNet代码为基于Python2的代码，需要对Python3做一些语法更改才能在Python3上运行，具体修改内容不予赘述。
 
-2. 改写代码，利用``tf.summary``接口，保存TensorBoard需要的log，并启动TensorBoard。
+2. 改写代码，利用`tf.summary`接口，保存TensorBoard需要的log，并启动TensorBoard。
 
 3. 打开的TensorBoard如图所示，图例仅供参考，可能因log生成方式的差异，TensorBoard展示的图也有所差异。
 
@@ -45,7 +43,7 @@
 
    第二步，上一步结果与第二、第三个输入在loss子网中计算loss；
 
-   第三步，利用``TrainOneStepCell``自动微分构造反向网络；利用TensorFlow工程中提供的Adam优化器及属性，写出对应的MindSpore优化器来更新参数，网络脚本骨干可写作：
+   第三步，利用`TrainOneStepCell`自动微分构造反向网络；利用TensorFlow工程中提供的Adam优化器及属性，写出对应的MindSpore优化器来更新参数，网络脚本骨干可写作：
 
    ```python
    import mindspore
@@ -304,9 +302,7 @@
 
 通过读PyTorch脚本，直接进行迁移。
 
-### PyTorch迁移实例
-
-1. PyTorch子网模块通常继承``torch.nn.Module``，MindSpore通常继承``mindspore.nn.Cell``；PyTorch子网模块正向计算逻辑需要重写forward方法，MindSpore子网模块正向计算逻辑需要重写construct方法。
+1. PyTorch子网模块通常继承`torch.nn.Module`，MindSpore通常继承`mindspore.nn.Cell`；PyTorch子网模块正向计算逻辑需要重写forward方法，MindSpore子网模块正向计算逻辑需要重写construct方法。
 
 2. 以常见的Bottleneck类在MindSpore下的迁移为例。
 
@@ -442,21 +438,7 @@
            return out
    ```
 
-   PyTorch和MindSpore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[算子列表](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api)。
-
-   |              PyTorch              |                     MindSpore                      |
-   | :-------------------------------: | :------------------------------------------------: |
-   |           tensor.view()           |     mindspore.ops.operations.Reshape()(tensor)     |
-   |           tensor.size()           |      mindspore.ops.operations.Shape()(tensor)      |
-   |         tensor.sum(axis)          | mindspore.ops.operations.ReduceSum()(tensor, axis) |
-   | torch.nn.Upsample[mode: nearest]  |   mindspore.ops.operations.ResizeNearestNeighbor   |
-   | torch.nn.Upsample[mode: bilinear] |      mindspore.ops.operations.ResizeBilinear       |
-   |          torch.nn.Linear          |                 mindspore.nn.Dense                 |
-   |       torch.nn.PixelShuffle       |       mindspore.ops.operations.DepthToSpace        |
-
-   值得注意的是，尽管``torch.nn.MaxPool2d``和``mindspore.nn.MaxPool2d``在接口定义上较为相似，但在Ascend上的训练过程中，MindSpore实际调用了``MaxPoolWithArgMax``算子，该算子与TensorFlow的同名算子功能相同，在迁移过程中MaxPool层后的输出MindSpore与PyTorch不一致是正常现象，理论上不影响最终训练结果。
-
-3. PyTorch的反向传播通常使用``loss.backward()``实现，参数更新通过``optimizer.step()``实现，在MindSpore中，这些不需要用户显式调用执行，可以交给``TrainOneStepCell``类进行反向传播和梯度更新。最后，训练脚本结构应如下所示：
+3. PyTorch的反向传播通常使用`loss.backward()`实现，参数更新通过`optimizer.step()`实现，在MindSpore中，这些不需要用户显式调用执行，可以交给`TrainOneStepCell`类进行反向传播和梯度更新。最后，训练脚本结构应如下所示：
 
    ```python
    # define dataset
@@ -479,3 +461,17 @@
    model = Model(net_with_grad)
    model.train(epoch_size, dataset)
    ```
+
+PyTorch和MindSpore在一些基础API的定义上比较相似，比如[mindspore.nn.SequentialCell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.SequentialCell.html#mindspore.nn.SequentialCell)和[torch.nn.Sequential](https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html#torch.nn.Sequential)，另外，一些算子API可能不尽相同，此处列举一些常见的API对照，更多信息可以参考MindSpore官网的[算子列表](https://www.mindspore.cn/doc/note/zh-CN/master/index.html#operator_api)。
+
+|              PyTorch              |                     MindSpore                      |
+| :-------------------------------: | :------------------------------------------------: |
+|           tensor.view()           |     mindspore.ops.operations.Reshape()(tensor)     |
+|           tensor.size()           |      mindspore.ops.operations.Shape()(tensor)      |
+|         tensor.sum(axis)          | mindspore.ops.operations.ReduceSum()(tensor, axis) |
+| torch.nn.Upsample[mode: nearest]  |   mindspore.ops.operations.ResizeNearestNeighbor   |
+| torch.nn.Upsample[mode: bilinear] |      mindspore.ops.operations.ResizeBilinear       |
+|          torch.nn.Linear          |                 mindspore.nn.Dense                 |
+|       torch.nn.PixelShuffle       |       mindspore.ops.operations.DepthToSpace        |
+
+值得注意的是，尽管`torch.nn.MaxPool2d`和`mindspore.nn.MaxPool2d`在接口定义上较为相似，但在Ascend上的训练过程中，MindSpore实际调用了`MaxPoolWithArgMax`算子，该算子与TensorFlow的同名算子功能相同，在迁移过程中MaxPool层后的输出MindSpore与PyTorch不一致是正常现象，理论上不影响最终训练结果。
