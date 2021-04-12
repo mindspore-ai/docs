@@ -267,7 +267,7 @@ mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
 
 ## MindConverter错误码速查表
 
-MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition_cn.md# )。
+MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/mindinsight/blob/r1.2/mindinsight/mindconverter/docs/error_code_definition_cn.md# )。
 
 ## 注意事项
 

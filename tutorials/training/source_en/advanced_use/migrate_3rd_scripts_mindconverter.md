@@ -267,7 +267,7 @@ The example of weight map refers to that in **TensorFlow Model Scripts Conversio
 
 ## MindConverter Error Code Definition
 
-Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition.md# ).
+Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/r1.2/mindinsight/mindconverter/docs/error_code_definition.md# ).
 
 ## Caution
 
