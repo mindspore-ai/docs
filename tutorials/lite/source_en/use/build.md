@@ -66,12 +66,16 @@ Modules in training version:
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
+- Compilation dependencies of converter:
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
     - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
     - [LibreSSL](http://www.libressl.org/) >= 3.1.3
     - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
     - [Libevent](https://libevent.org) >= 2.0
-    - [M4](https://www.gnu.org/software/m4/m4.html) >= 1.4.18
     - [OpenSSL](https://www.openssl.org/) >= 1.1.1
 
 - Compilation dependencies of runtime(java)
