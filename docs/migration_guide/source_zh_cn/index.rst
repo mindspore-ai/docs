@@ -13,7 +13,6 @@ MindSpore迁移指南
    preparation
    script_analysis
    script_development
-   operator_development_and_debug
    neural_network_debug
    accuracy_optimization
    performance_optimization

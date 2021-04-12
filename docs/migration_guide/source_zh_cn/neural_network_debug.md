@@ -15,7 +15,7 @@
         - [精度调试工具](#精度调试工具)
             - [自定义调试信息](#自定义调试信息)
             - [使用MindOptimizer进行超参调优](#使用mindoptimizer进行超参调优)
-            - [loss异常定位](#loss异常定位)
+            - [loss值异常定位](#loss值异常定位)
 
 <!-- /TOC -->
 
@@ -219,7 +219,7 @@
 
 MindSpore提供了MindOptimizer工具帮助用户进行更便捷的超参调优，详细示例和使用方法可参考[使用MindOptimizer进行超参调优](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/hyper_parameters_auto_tuning.html)。
 
-#### loss异常定位
+#### loss值异常定位
 
 对loss值为INF、NAN，或者loss值不收敛的情况，可从以下几种情况进行排查：
 

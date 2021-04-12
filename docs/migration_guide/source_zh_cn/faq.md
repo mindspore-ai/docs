@@ -2,34 +2,40 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-从其他框架迁移到MindSpore框架过程中，在准备工作、迁移脚本分析、迁移脚本开发、网络调试、精度调试、迁移工具等过程，难免会遇到各种各样的问题，下面将迁移过程中可能遇到的几类问题及其解决方法汇总如下：
+从其他框架迁移到MindSpore框架的过程中，可能会遇到各种各样的问题，下面将迁移过程中的常见问题及其解决方法汇总如下：
+
+- 准备工作
+
+    [安装MindSpore常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/installation.html)
 
 - 网络脚本分析
 
-    [缺失算子常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/script_analysis.html#id4)。
+    [算子映射及缺失算子处理策略](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/script_analysis.html#id3)
 
-    [常见的语法限制问题](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/script_analysis.html#id6)。
+    [常见语法限制及处理策略](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/script_analysis.html#id6)
 
 - 网络脚本开发
 
-    [网络迁移调试中性能调优常见问题及相应的优化方法](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/sample_code.html#id26)。
+    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README_CN.md#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 - 网络调试
 
-    [流程调试相关的常见问题](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id6)。
+    [流程调试常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id6)
 
-    [loss值对比检查相关的常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id8)。
+    [loss值对比检查常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id8)
 
-    [精度调试工具常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id11)。
+    [loss值异常常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/neural_network_debug.html#id11)
 
-- 性能调试工具
+- 性能调试
 
-    [性能调试的常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/performance_optimization.html#id6)。
+    [性能调试常见问题及优化方法](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/sample_code.html#id26)
 
-- 推理服务
+    [Profiler工具常见问题处理](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/performance_optimization.html#id6)
 
-    [端侧使用类常见问题](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_lite.html)。
+- 执行推理
 
-    [部署C++接口的推理服务常见问题](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_cpp_library.html)。
+    [端侧使用类常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_lite.html)
 
-    [在MindSpore中创建推理服务常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_serving.html)。
+    [使用C++接口推理常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_cpp_library.html)
+
+    [使用推理服务常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_serving.html)
