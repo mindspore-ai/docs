@@ -28,7 +28,7 @@ MindSpore支持在Ascend、CPU、GPU环境安装并使用，支持EulerOS-arm、
 
 ### 使用pip安装
 
-从官网下载MindSpore安装包后，得到`mindspore_\{device\}-\{version\}-cp37-cp37m-linux_\{arch\}.whl`文件，请使用pip安装。
+从官网下载MindSpore安装包后，得到`mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl`文件，请使用pip安装。
 
 ```python
 pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
@@ -76,7 +76,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 
 若以下命令能正常执行成功并退出，说明安装成功。
 
-对于CPU环境:
+对于CPU环境：
 
 ```python
 import numpy as np
@@ -90,7 +90,7 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))
 ```
 
-对于Ascend环境:
+对于Ascend环境：
 
 ```python
 import numpy as np
@@ -104,7 +104,7 @@ y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
 print(ops.add(x, y))
 ```
 
-对于GPU环境:
+对于GPU环境：
 
 ```python
 import numpy as np
