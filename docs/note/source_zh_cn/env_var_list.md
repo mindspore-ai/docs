@@ -13,6 +13,7 @@
 |MS_CACHE_PORT|MindData|开启cache时，cache服务所在的端口|String|Cache Server所在机器的端口|与MS_ENABLE_CACHE=TRUE、MS_CACHE_HOST一起使用|可选|
 |PROFILING_MODE|MindData|是否开启dataset profiling数据处理性能分析，用于与MindInsight一起配合使用，可以在网页中展示各个阶段的耗时|String|true: 开启profiling功能<br>false: 关闭profiling功能|与MINDDATA_PROFILING_DIR配合使用|可选|
 |MINDDATA_PROFILING_DIR|MindData|系统路径，保存dataset profiling结果路径|String|系统路径，支持相对路径|与PROFILING_MODE=true配合使用|可选|
+|DATASET_ENABLE_NUMA|MindData|是否开启numa绑核功能，在大多数分布式场景下numa绑核都能提升数据处理效率和端到端性能|String|True: 开启numa绑核功能|与libnuma.so配合使用|可选|
 |OPTIMIZE|MindData|是否执行dataset数据处理 pipeline 树优化，在适合数据处理算子融合的场景下，可以提升数据处理效率|String|true: 开启pipeline树优化<br>false: 关闭pipeline树优化|无|可选|
 |ENABLE_MS_DEBUGGER|Debugger|是否在训练中启动Debugger|Boolean|1：开启Debugger<br>0：关闭Debugger|无|可选|
 |MS_DEBUGGER_PORT|Debugger|连接MindInsight Debugger Server的端口|Integer|1~65536，连接MindInsight Debugger Server的端口|无|可选
