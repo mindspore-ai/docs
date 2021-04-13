@@ -595,7 +595,7 @@ class Model_ACCU(Model):
 
 ### 训练模型
 
-完成上述定义后，即可利用训练接口完成模型训练。首先需要在`context.set_auto_parallel_context`配置`grad_accumulation_step`参数，使能梯度累积。其次利用改造的`cell_warapper`封装网络结构，传入`Model_ACCU`中初始化模型。
+完成上述定义后，即可利用训练接口完成模型训练。首先需要在`context.set_auto_parallel_context`配置`grad_accumulation_step`参数，使能梯度累积。其次利用改造的`cell_wrapper`封装网络结构，传入`Model_ACCU`中初始化模型。
 
 ```python
 context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True, grad_accumulation_step=6)
