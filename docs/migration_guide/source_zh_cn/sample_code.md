@@ -77,47 +77,6 @@ MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/doc/prog
 
 ```python
 class ReduceLogSumExp(Cell):
-    r"""
-    Reduces a dimension of a tensor by calculating exponential for all elements in the dimension,
-    then calculate logarithm of the sum.
-
-    The dtype of the tensor to be reduced is number.
-
-    .. math::
-
-        ReduceLogSumExp(x) = \log(\sum(e^x))
-
-    Args:
-        axis (Union[int, tuple(int), list(int)]) - The dimensions to reduce. Default: (), reduce all dimensions.
-            Only constant value is allowed.
-        keep_dims (bool): If True, keep these reduced dimensions and the length is 1.
-            If False, don't keep these dimensions.
-            Default : False.
-
-    Inputs:
-        - **x** (Tensor) - The input tensor. With float16 or float32 data type.
-
-    Outputs:
-        Tensor, has the same dtype as the `x`.
-
-        - If axis is (), and keep_dims is False,
-          the output is a 0-D tensor representing the sum of all elements in the input tensor.
-        - If axis is int, set as 2, and keep_dims is False,
-          the shape of output is :math:`(x_1, x_3, ..., x_R)`.
-        - If axis is tuple(int), set as (2, 3), and keep_dims is False,
-          the shape of output is :math:`(x_1, x_4, ..., x_R)`.
-
-    Supported Platforms:
-        ``Ascend`` ``GPU``
-
-    Examples:
-        >>> input_x = Tensor(np.random.randn(3, 4, 5, 6).astype(np.float32))
-        >>> op = nn.ReduceLogSumExp(1, keep_dims=True)
-        >>> output = op(input_x)
-        >>> print(output.shape)
-        (3, 1, 5, 6)
-    """
-
     def __init__(self, axis, keep_dims=False):
         super(ReduceLogSumExp, self).__init__()
         validator.check_value_type('axis', axis, [int, list, tuple], self.cls_name)
@@ -217,18 +176,6 @@ input_batch = input_tensor.unsqueeze(0) # create a mini-batch as expected by the
 
 ```python
 def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend", distribute=False):
-    """
-    create a train or evaluate cifar10 dataset for resnet50
-    Args:
-        dataset_path(string): the path of dataset.
-        do_train(bool): whether dataset is used for train or eval.
-        repeat_num(int): the repeat times of dataset. Default: 1
-        batch_size(int): the batch size of dataset. Default: 32
-        distribute(bool): data for distribute or not. Default: False
-
-    Returns:
-        dataset
-    """
     # device number: total number of devices of training
     # rank_id: the sequence of current device of training
     device_num, rank_id = _get_rank_info()
@@ -398,20 +345,6 @@ def _conv1x1(in_channel, out_channel, stride=1):
 
 ```python
 class BasicBlock(nn.Cell):
-    """
-    ResNet V1 residual block definition.
-
-    Args:
-        in_channel (int): Input channel.
-        out_channel (int): Output channel.
-        stride (int): Stride size for the first convolutional layer. Default: 1.
-    Returns:
-        Tensor, output tensor.
-
-    Examples:
-        >>> BasicBlock(3, 256, stride=2)
-    """
-
     def __init__(self,
                  in_channel,
                  out_channel,
@@ -451,20 +384,6 @@ class BasicBlock(nn.Cell):
 
 
 class BottleNeck(nn.Cell):
-    """
-    ResNet V1.5 residual block definition.
-
-    Args:
-        in_channel (int): Input channel.
-        out_channel (int): Output channel.
-        stride (int): Stride size for the first convolutional layer. Default: 1.
-
-    Returns:
-        Tensor, output tensor.
-
-    Examples:
-        >>> ResidualBlock(3, 256, stride=2)
-    """
     expansion = 4
 
     def __init__(self,
@@ -509,29 +428,6 @@ class BottleNeck(nn.Cell):
 
 ```python
 class ResNet(nn.Cell):
-    """
-    ResNet architecture.
-
-    Args:
-        block (Cell): Block for network.
-        layer_nums (list): Numbers of block in different layers.
-        in_channels (list): Input channel in each layer.
-        out_channels (list): Output channel in each layer.
-        strides (list):  Stride size in each layer.
-        num_classes (int): The number of classes that the training images are belonging to.
-
-    Returns:
-        Tensor, output tensor.
-
-    Examples:
-        >>> ResNet(ResidualBlock,
-        >>>        [3, 4, 6, 3],
-        >>>        [64, 256, 512, 1024],
-        >>>        [256, 512, 1024, 2048],
-        >>>        [1, 2, 2, 2],
-        >>>        10)
-    """
-
     def __init__(self,
                  block,
                  layer_nums,
@@ -575,21 +471,6 @@ class ResNet(nn.Cell):
         self.end_point = _fc(out_channels[3], num_classes)
 
     def _make_layer(self, block, layer_num, in_channel, out_channel, stride):
-        """
-        Make stage network of ResNet.
-
-        Args:
-            block (Cell): Resnet block.
-            layer_num (int): Layer number.
-            in_channel (int): Input channel.
-            out_channel (int): Output channel.
-            stride (int): Stride size for the first convolutional layer.
-        Returns:
-            SequentialCell, the output layer.
-
-        Examples:
-            >>> _make_layer(ResidualBlock, 3, 128, 256, 2)
-        """
         layers = []
 
         resnet_block = block(in_channel, out_channel, stride=stride)
@@ -621,18 +502,6 @@ class ResNet(nn.Cell):
 
 ```python
 def resnet50(class_num=1000):
-    """
-    Get ResNet50 neural network.
-
-    Args:
-        class_num (int): Class number.
-
-    Returns:
-        Cell, cell instance of ResNet50 neural network.
-
-    Examples:
-        >>> net = resnet50(10)
-    """
     return ResNet(ResidualBlock,
                   [3, 4, 6, 3],
                   [64, 256, 512, 1024],
