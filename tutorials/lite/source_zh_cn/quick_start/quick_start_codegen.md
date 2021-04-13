@@ -60,9 +60,32 @@ name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
 
 ## 详细步骤
 
+在编译此工程之前需要预先获取Ubuntu-x64 CPU平台的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到`mindspore-lite-{version}-linux-x64`，将其拷贝到当前目录下。
+
+> `{version}`为版本号字符串，如`1.2.0`。
+
+以本教程为例，预置x86平台的Release包目录如下：
+
+```text
+  mindspore-lite-{version}-linux-x64
+ └── tools
+     └── codegen # 代码生成工具
+         ├── codegen                # 可执行程序
+         ├── include                # 推理框架头文件
+         │   ├── nnacl              # nnacl 算子头文件
+         │   └── wrapper
+         ├── lib
+         │   └── libwrapper.a       # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
+         └── third_party
+             ├── include
+             │   └── CMSIS          # ARM CMSIS NN 算子头文件
+             └── lib
+                 └── libcmsis_nn.a  # ARM CMSIS NN 算子静态库
+```
+
 ### 生成代码
 
-首先下载[MNIST分类网络](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)。使用codegen编译MNIST分类模型，生成对应的x86平台推理代码。生成代码的具体命令如下：
+下载[MNIST分类网络](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)。使用Release包中的codegen编译MNIST分类模型，生成对应的x86平台推理代码。生成代码的具体命令如下：
 
 ```bash
 ./codegen --codePath=. --modelPath=mnist.ms --target=x86
@@ -85,29 +108,6 @@ codegen在当前目录下将生成mnist目录，其中包含了可编译构建�
 1. **生成代码工程说明**
 
    进入`mindspore/mindspore/lite/micro/example/mnist_x86`目录中。
-
-   在编译此工程之前需要预先获取Ubuntu-x64 CPU平台的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后得到`mindspore-lite-{version}-linux-x64`，将其拷贝到当前目录下。
-
-   > `{version}` 为版本号字符串，如`1.2.0`。
-
-   以本教程为例，预置x86平台的Release包目录如下：
-
-   ```text
-     mindspore-lite-{version}-linux-x64
-    └── tools
-        └── codegen # 代码生成工具
-            ├── codegen                # 可执行程序
-            ├── include                # 推理框架头文件
-            │   ├── nnacl              # nnacl 算子头文件
-            │   └── wrapper
-            ├── lib
-            │   └── libwrapper.a       # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
-            └── third_party
-                ├── include
-                │   └── CMSIS          # ARM CMSIS NN 算子头文件
-                └── lib
-                    └── libcmsis_nn.a  # ARM CMSIS NN 算子静态库
-   ```
 
    生成代码工程目录说明：
 
