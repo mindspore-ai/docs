@@ -29,7 +29,7 @@
 
 1. 网络流程调试成功，网络执行整体不报错，正确输出loss值，且正常完成参数更新。
 
-   一般情况下，使用`model.train`接口完整执行一个step并且不报错，即正常执行并完成了参数更新；如果需要精确确认，可以通过`mindspore.train.callback.CheckpointConfig`中的参数`save_checkpoint_steps=1`保存连续两个step的Checkpoint文件，然后通过以下代码打印Checkpoint文件中的权重值，查看两个step的权重是否发生改变，并完成更新。
+   一般情况下，使用`model.train`接口完整执行一个step并且不报错，即正常执行并完成了参数更新；如果需要精确确认，可以通过`mindspore.train.callback.CheckpointConfig`中的参数`save_checkpoint_steps=1`保存连续两个step的Checkpoint文件，或者使用`save_checkpoint`接口直接保存Checkpoint文件，然后通过以下代码打印Checkpoint文件中的权重值，查看两个step的权重是否发生改变，并完成更新。
 
    ```python
    import mindspore
@@ -95,7 +95,7 @@
     - 使用numpy自行构造输入数据，保证网络输入相同，MindSpore支持Tensor和numpy的自由转换。构造输入数据可以参考以下脚本：
 
       ```python
-      input = Tensor(np.ones([3, 5, 10]).astype(np.float32))
+      input = Tensor(np.random.randint(0, 10, size=(3, 5, 10)).astype(np.float32))
       ```
 
     - 使用相同数据集进行计算，MindSpore支持使用TFRecord数据集，可使用`mindspore.dataset.TFRecordDataset`接口读取。
@@ -164,38 +164,6 @@
 
    ```python
    class WarmUpLR(LearningRateSchedule):
-       r"""
-       Gets learning rate warming up.
-
-       For the i-th step, the formula of computing warmup_learning_rate[i] is:
-
-       .. math::
-           warmup\_learning\_rate[i] = learning\_rate * tmp\_step / warmup\_steps
-
-       Where :
-
-       .. math:
-           tmp\_step=min(current\_step, warmup\_steps)
-
-       Args:
-           learning_rate (float): The initial value of learning rate.
-           warmup_steps (int): The warm up steps of learning rate.
-
-       Inputs:
-           Tensor. The current step number.
-
-       Outputs:
-           Tensor. The learning rate value for the current step.
-
-       Examples:
-           >>> learning_rate = 0.1
-           >>> warmup_steps = 2
-           >>> global_step = Tensor(2, mstype.int32)
-           >>> warmup_lr = nn.WarmUpLR(learning_rate, warmup_steps)
-           >>> result = warmup_lr(global_step)
-           >>> print(result)
-           0.1
-       """
        def __init__(self, learning_rate, warmup_steps):
            super(WarmUpLR, self).__init__()
            ## check the input
