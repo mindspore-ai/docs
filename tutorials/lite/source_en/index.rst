@@ -79,7 +79,7 @@ Using MindSpore on Mobile and IoT
 							<div class="doc-label-choice">
 								<div class="row">
 									<div class="col-sm-2">
-										<div class="doc-os">Operation System</div>
+										<div class="doc-os">Environment</div>
 									</div>
 									<div class="col-sm-10 col-sm-pull-1">
 										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
@@ -88,6 +88,16 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</div>
 			
+							</div>
+							<div class="doc-label-choice">
+								<div class="row">
+								<div class="col-sm-2">
+									<div class="doc-hardware">Application Specific Integrated Circuit</div>
+								</div>
+								<div class="col-sm-10 col-sm-pull-1">
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+								</div>
+							</div>
 							</div>
 							
 							<div class="doc-label-choice">
@@ -283,6 +293,18 @@ Using MindSpore on Mobile and IoT
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java API to write inference code.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Android os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/npu_info.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">NPU Integration Information</span>
+										</div>
+										<div class="doc-article-desc">
+										This tutorial introduces the instructions for using the integrated NPU, including steps to use, supported chips, and supported operators.
 										</div>
 									</div>
 								</a>

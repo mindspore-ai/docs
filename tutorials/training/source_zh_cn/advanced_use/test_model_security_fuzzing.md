@@ -60,7 +60,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
 ### 运用Fuzz Testing
 
-1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html>)
+1. 建立LeNet模型，加载MNIST数据集，操作同[模型安全](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/improve_model_security_nad.html)
 
    ```python
    ...
