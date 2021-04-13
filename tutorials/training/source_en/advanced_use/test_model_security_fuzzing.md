@@ -60,7 +60,7 @@ For details about the API configuration, see the `context.set_context`.
 
 ### Fuzz Testing Application
 
-1. Create a LeNet model and load the MNIST dataset. The operation is the same as that for [Model Security](<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/improve_model_security_nad.html>).
+1. Create a LeNet model and load the MNIST dataset. The operation is the same as that for [Model Security](https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/improve_model_security_nad.html).
 
    ```python
    ...
