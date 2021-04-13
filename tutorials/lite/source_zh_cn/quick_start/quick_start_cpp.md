@@ -86,7 +86,7 @@
 
 - 编译构建
 
-  - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`目录、`inference/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`目录下。
+  - 库下载：请手动下载硬件平台为CPU、操作系统为Windows-x64的MindSpore Lite模型推理框架[mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，将解压后`inference/lib`目录下的`libmindspore-lite.a`拷贝到`mindspore/lite/examples/quick_start_cpp/lib`工程目录、`inference/include`目录里的文件拷贝到`mindspore/lite/examples/quick_start_cpp/include`工程目录下。（注意：工程项目下的`lib`、`include`目录需手工创建）
 
   - 模型下载：请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_cpp/model`目录。
 
@@ -101,7 +101,7 @@
   编译构建后，进入`mindspore/lite/examples/quick_start_cpp/build`目录，并执行以下命令，体验MindSpore Lite推理MobileNetV2模型。
 
   ```bash
-  call ./mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
+  call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
   ```
 
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：

@@ -89,7 +89,8 @@ The MindSpore Lite inference steps are as follows:
 
 - Build
 
-    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `benchmark` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
+    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/en/r1.2/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` project directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` project directory. (Note: The `lib` and `include` directories under the project need to be created manually)
+
     - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 
     - Build the demo: Run the [build script](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/examples/quick_start_cpp/build.bat) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the Demo.
@@ -103,7 +104,7 @@ The MindSpore Lite inference steps are as follows:
   After the build, go to the `mindspore/lite/examples/quick_start_cpp/build` directory and run the following command to experience MindSpore Lite inference on the MobileNetV2 model:
 
   ```bash
-  call ./mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
+  call mindspore_quick_start_cpp.exe ../model/mobilenetv2.ms
   ```
 
   After the execution, the following information is displayed, including the tensor name, tensor size, number of output tensors, and the first 50 pieces of data.
