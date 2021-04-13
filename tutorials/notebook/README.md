@@ -1,4 +1,4 @@
-﻿# MindSpore的教程体验
+# MindSpore的教程体验
 
 ## 环境配置
 
@@ -76,7 +76,7 @@
 | 调试网络          | 应用自动数据增强         | [mindspore_enable_auto_augmentation.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/notebook/mindspore_enable_auto_augmentation.ipynb)       | - 了解自动数据增强原理 <br/> - 在CIFAR-10数据集上实现自动数据增强
 | 优化训练性能           | 混合精度         | [mindspore_mixed_precision.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/notebook/mindspore_mixed_precision.ipynb)       | - 了解混合精度训练的原理  <br/> - 学习在MindSpore中使用混合精度训练 <br/> - 对比单精度训练和混合精度训练的对模型训练的影响
 | 优化训练性能           | 应用梯度累积算法         | [mindspore_apply_gradient_accumulation.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/notebook/mindspore_apply_gradient_accumulation.ipynb)       | - 了解梯度累积训练算法的原理  <br/> - 学习在MindSpore中自定义训练函数，并在其中实现前向传播和反向传播的计算过程构建，实现梯度累积计算 <br/> - 了解梯度累积训练对模型训练的影响
-| 模型安全和隐私        | 模型安全         | [mindspore_improve_model_sercurity_nad.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/notebook/mindspore_improve_model_sercurity_nad.ipynb)       | - 了解AI算法的安全威胁的概念和影响<br/> - 介绍MindArmour提供的模型安全防护手段<br/> - 学习如何模拟攻击训练模型<br/> - 学习针对被攻击模型进行对抗性防御
+| 模型安全和隐私        | 模型安全         | [mindspore_improve_model_security_nad.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/tutorials/notebook/mindspore_improve_model_security_nad.ipynb)       | - 了解AI算法的安全威胁的概念和影响<br/> - 介绍MindArmour提供的模型安全防护手段<br/> - 学习如何模拟攻击训练模型<br/> - 学习针对被攻击模型进行对抗性防御
 | 编程指南        | MindSpore API概述     | [mindspore_api_structure.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/api_structure.ipynb)       | - 了解MindSpore的总体架构<br/> - 介绍MindSpore的设计理念<br/> - 介绍MindSpore的层次结构
 | 编程指南        | dtype                 | [mindspore_dtype.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/dtype.ipynb)       | - 了解MindSpore支持的数据类型<br/> - 介绍MindSpore数据类型转换的接口
 | 编程指南        | Tensor     | [mindspore_tensor.ipynb](https://gitee.com/mindspore/docs/blob/r1.2/docs/programming_guide/source_zh_cn/tensor.ipynb)       | - 了解tensor的构造<br/> - 介绍tensor的属性
