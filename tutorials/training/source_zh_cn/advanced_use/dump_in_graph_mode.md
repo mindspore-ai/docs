@@ -170,7 +170,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - `data_type`: 数据类型。
 - `format`: 数据格式。
 
-在CPU上进行数据dump时，没有`device_id`这个目录层级，因为CPU上没有device这个概念，也没有`graphs`和`execution_order`目录。
+在CPU上进行数据dump时，没有`device_id`这个目录层级，因为CPU上没有device这个概念，也没有`graphs`、`execution_order`和`.metadata`目录。
 
 ### 同步Dump数据文件介绍
 
