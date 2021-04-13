@@ -90,7 +90,7 @@ SPONGE具有高性能及易用的优势，本教程使用SPONGE模拟多肽水�
     > saveamberparm ala ala.parm7 ala_350_cool_290.rst7
     ```
 
-通过tleap构建了所需要的拓扑文件（`ala.parm7`）和坐标文件（`ala_350_cool_290.rst7`）后，需要通过属性文件声明模拟的基本条件，对整个模拟过程进行参数控制。以本教程中的属性文件`NVT_290_10ns.in`为例，其文件内容如下：
+通过tleap构建了所需要的拓扑文件（`WATER_ALA.parm7`）和坐标文件（`WATER_ALA_350_cool_290.rst7`）后，需要通过属性文件声明模拟的基本条件，对整个模拟过程进行参数控制。以本教程中的属性文件`NVT_290_10ns.in`为例，其文件内容如下：
 
 ```text
 NVT 290k
@@ -122,8 +122,8 @@ NVT 290k
 └─sponge
     ├─sponge_in
     │      NVT_290_10ns.in                 # specific MD simulation setting
-    │      ala.parm7                       # topology file include atom & residue & bond & nonbond information
-    │      ala_350_cool_290.rst7           # restart file record atom coordinate & velocity and box information
+    │      WATER_ALA.parm7                 # topology file include atom & residue & bond & nonbond information
+    │      WATER_ALA_350_cool_290.rst7     # restart file record atom coordinate & velocity and box information
 ```
 
 从三个输入文件中，读取模拟体系需要的参数，用于MindSpore的计算。加载代码如下：
@@ -132,14 +132,18 @@ NVT 290k
 import argparse
 from mindspore import context
 
-context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU", device_id=0, save_graphs=True)
-
 parser = argparse.ArgumentParser(description='Sponge Controller')
 parser.add_argument('--i', type=str, default=None, help='input file')
 parser.add_argument('--amber_parm', type=str, default=None, help='paramter file in AMBER type')
 parser.add_argument('--c', type=str, default=None, help='initial coordinates file')
+parser.add_argument('--r', type=str, default="restrt", help='')
+parser.add_argument('--x', type=str, default="mdcrd", help='')
 parser.add_argument('--o', type=str, default="mdout", help="")
+parser.add_argument('--box', type=str, default="mdbox", help='')
+parser.add_argument('--device_id', type=int, default=0, help='')
 args_opt = parser.parse_args()
+
+context.set_context(mode=context.GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
 ```
 
 ### 构建模拟流程
@@ -147,26 +151,19 @@ args_opt = parser.parse_args()
 使用SPONGE中定义的计算力模块和计算能量模块，通过多次迭代进行分子动力学过程演化，使得体系达到我们所需要的平衡态，并记录每一个模拟步骤中得到的能量等数据。为了方便起见，本教程的计算迭代次数设置为`1`，其模拟流程构建代码如下：
 
 ```python
-import time
 from src.simulation_initial import Simulation
+from mindspore import Tensor
 
 if __name__ == "__main__":
-    simulation = Simulation(args_opt)              # Initialize simulation
-    simulation.Main_Initial()
-    res = simulation.Initial_Neighbor_List_Update(not_first_time=0) # Update the neighbour lists
-    md_info = simulation.md_info
-    md_info.step_limit = 1
-    for i in range(1, md_info.step_limit + 1):
-        print("steps: ", i)
-        md_info.steps = i
-        simulation.Main_Before_Calculate_Force()
-        simulation.Main_Calculate_Force()          # Calculate the MD force
-        simulation.Main_Calculate_Energy()         # Calculate the MD energy
-        simulation.Main_After_Calculate_Energy()
-        temperature = simulation.Main_Print()      # Print ths system information
-        simulation.Main_Iteration_2()              # Iteration
-    end = time.time()
-    simulation.Main_Destroy()
+    simulation = Simulation(args_opt)
+    save_path = args_opt.o
+    for steps in range(simulation.md_info.step_limit):
+        print_step = steps % simulation.ntwx
+        if steps == simulation.md_info.step_limit - 1:
+            print_step = 0
+        temperature, total_potential_energy, sigma_of_bond_ene, sigma_of_angle_ene, sigma_of_dihedral_ene, \
+        nb14_lj_energy_sum, nb14_cf_energy_sum, LJ_energy_sum, ee_ene, _ = simulation(Tensor(steps), Tensor(print_step))
+        # compute energy and temperature
 ```
 
 ### 运行脚本
@@ -174,7 +171,9 @@ if __name__ == "__main__":
 执行以下命令，启动训练脚本`main.py`进行训练：
 
 ```text
-python main.py --i /path/NVT_290_10ns.in --amber_parm /path/ala.parm7 --c /path/ala_350_cool_290.rst7 \
+python main.py --i /path/NVT_290_10ns.in \
+               --amber_parm /path/WATER_ALA.parm7 \
+               --c /path/WATER_ALA_350_cool_290.rst7 \
                --o /path/ala_NVT_290_10ns.out
 ```
 
