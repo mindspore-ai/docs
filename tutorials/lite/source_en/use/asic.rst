@@ -1,5 +1,5 @@
-Application Specific Integrated Circuit
-=======================================
+Application Specific Integrated Circuit Integration Instructions
+================================================================
 
 .. toctree::
    :maxdepth: 1
