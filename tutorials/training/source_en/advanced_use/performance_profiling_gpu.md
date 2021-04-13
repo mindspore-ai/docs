@@ -9,7 +9,7 @@
     - [Operation Process](#operation-process)
     - [Preparing the Training Script](#preparing-the-training-script)
     - [Launching MindInsight](#launching-mindinsight)
-    - [Training Performance](#training-performanece)
+    - [Training Performance](#training-performance)
         - [Operator Performance Analysis](#operator-performance-analysis)
         - [Timeline Analysis](#timeline-analysis)
         - [Step Trace Analysis](#step-trace-analysis)
@@ -50,7 +50,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 - At the end of the training, `Profiler.analyse` should be called to finish profiling and generate the performance analysis results.
 
-The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#preparing-the-training-script>.
+The sample code is the same as that in the Ascend chip: <https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html#preparing-the-training-script>.
 
 In GPU scenarios, users can customize the callback mode to collect performance data. Data preparation stage and data sinking mode do not support this mode.
 
@@ -140,7 +140,7 @@ The usage is almost the same as that in Ascend. The difference is GPU Timeline d
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#timeline-analysis>
+<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html#timeline-analysis>
 
 ### Step Trace Analysis
 
@@ -148,7 +148,7 @@ The usage is almost the same as that in Ascend. (**Note that step trace do not s
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#step-trace-analysis>
+<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html#step-trace-analysis>
 
 ### Data Preparation Analysis
 
@@ -156,7 +156,7 @@ The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#minddata-performance-analysis>
+<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html#minddata-performance-analysis>
 
 ## Resource Utilization
 
@@ -174,7 +174,7 @@ The usage is almost the same as that in Ascend.
 
 The usage is described as follows:
 
-<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling.html#cpu-utilization-analysis>
+<https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/performance_profiling_ascend.html#cpu-utilization-analysis>
 
 ## Notices
 
