@@ -106,6 +106,17 @@
 							
 							<div class="doc-label-choice">
 								<div class="row">
+								<div class="col-sm-2">
+									<div class="doc-hardware">专用芯片</div>
+								</div>
+								<div class="col-sm-10 col-sm-pull-1">
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+								</div>
+							</div>
+							</div>
+							
+							<div class="doc-label-choice">
+								<div class="row">
 									<div class="col-sm-2 ">
 										<div class="doc-stage">阶段</div>
 									</div>							
@@ -207,7 +218,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/quick_start/quick_start_codegen.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">编译一个MNIST分类模型</span>
+											<span class="doc-head-content">使用CodeGen编译一个MNIST分类模型</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -267,6 +278,18 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/code_generator.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">代码生成工具</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite提供代码生成工具codegen，将运行时编译、解释计算图，移至离线编译阶段。仅保留推理所必须的信息，生成极简的推理代码。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux stage-Model-Converting stage-Model-Optimization user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/post_training_quantization.html" class="article-link">
 									<div>
@@ -311,6 +334,18 @@
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Android os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/npu_info.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">集成NPU使用说明</span>
+										</div>
+										<div class="doc-article-desc">
+											该教程介绍了集成NPU的使用说明，包含了使用步骤、芯片支持和算子支持。
 										</div>
 									</div>
 								</a>

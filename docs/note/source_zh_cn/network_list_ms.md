@@ -107,4 +107,4 @@
 |高性能计算（HPC） | 分子动力学（Molecular Dynamics）  |  [DeepPotentialH2O](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/hpc/molecular_dynamics)   |  Supported | Supported|  Doing |  Doing | Doing | Doing
 |高性能计算（HPC） | 海洋模型（Ocean Model）  |  [GOMO](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/hpc/ocean_model)   |  Doing |  Doing |  Supported |  Doing | Doing | Doing
 
-> 你也可以使用 [MindWizard工具](<https://gitee.com/mindspore/mindinsight/tree/r1.2/mindinsight/wizard>。
+> 你也可以使用 [MindWizard工具](https://gitee.com/mindspore/mindinsight/tree/r1.2/mindinsight/wizard)。

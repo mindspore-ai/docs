@@ -148,7 +148,7 @@ If the script file `run_train.sh` is used, it runs `launch.py` and inputs parame
 
 ### Preparing a Pre-Trained Model
 
-Download a [CPU/GPU pre-trained model](<https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt>) or [Ascend pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt) to the following directories based on the processor type:  
+Download a [CPU/GPU pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt) or [Ascend pre-trained model](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt) to the following directories based on the processor type:  
 `./pretrain_checkpoint/`
 
 - CPU/GPU

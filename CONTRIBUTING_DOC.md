@@ -160,7 +160,7 @@ MindSpore CI uses the Pylint check tool.
 
 ### Confirming the Content
 
-On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](<https://www.mindspore.cn/doc/api_python/en/master/index.html>) page.
+On the next day after the PR is merged, you can view the new content on the [MindSpore Python API](https://www.mindspore.cn/doc/api_python/en/master/index.html) page.
 
 By default, APIs of the latest version are displayed. To view the newly merged content, switch to the master version.
 

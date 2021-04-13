@@ -256,7 +256,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Model Validation:**
 
-Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
+Use the saved checkpoint file to load the validation dataset through [eval.py](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/lenet/train.py) in the lenet directory of model_zoo.
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
