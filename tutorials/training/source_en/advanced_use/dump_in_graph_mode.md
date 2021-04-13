@@ -168,7 +168,7 @@ After starting the training, the data objects saved by the synchronous Dump incl
 - `data_type`: the type of the data.
 - `format`: the format of the data.
 
-When data dump is performed on the CPU, there is no directory level of `device_id`, because there is no concept of device on the CPU, and there is no `graphs` and `execution_order` directories.
+When data dump is performed on the CPU, there is no directory level of `device_id`, because there is no concept of device on the CPU, and there are no `graphs`, `execution_order` and `.metadata` directories.
 
 ### Introduction to Synchronous Dump Data File
 
