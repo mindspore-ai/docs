@@ -68,11 +68,12 @@ name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
 ./codegen --codePath=. --modelPath=mnist.ms --target=x86
 ```
 
+codegen在当前目录下将生成mnist目录，其中包含了可编译构建的mnist分类模型的代码。
 > 关于codegen的更多使用命令说明，可参见[codegen工具的详细介绍](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/code_generator.html)。
 
 ### 部署应用
 
-接下来介绍如何构建MindSpore Lite Codegen生成的模型推理代码工程，并在x86平台完成部署。
+接下来介绍如何构建MindSpore Lite CodeGen生成的模型推理代码工程，并在x86平台完成部署。上文中codegen生成的代码与`mindspore/mindspore/lite/micro/example/mnist_x86`相同，本章节编译、构建步骤将对该目录展开，用户也可参照相同操作，编译上文codegen生成mnist目录代码。
 
 #### 编译依赖
 
@@ -85,16 +86,14 @@ name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
 
    进入`mindspore/mindspore/lite/micro/example/mnist_x86`目录中。
 
-   算子静态库目录说明：
+   在编译此工程之前需要预先获取Ubuntu-x64 CPU平台的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，解压后得到`mindspore-lite-{version}-linux-x64`，将其拷贝到当前目录下。
 
-   在编译此工程之前需要预先获取Ubuntu-x64 CPU平台的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/downloads.html)，解压后得到`mindspore-lite-{version}-inference-linux-x64`，将其拷贝到当前目录下。
-
-   > `{version}` 为版本号字符串，如`1.2.0`。
+   > `{version}`为版本号字符串，如`1.2.0`。
 
    以本教程为例，预置x86平台的Release包目录如下：
 
    ```text
-     mindspore-lite-{version}-inference-linux-x64
+     mindspore-lite-{version}-linux-x64
     └── tools
         └── codegen # 代码生成工具
             ├── codegen                # 可执行程序
@@ -102,7 +101,7 @@ name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
             │   ├── nnacl              # nnacl 算子头文件
             │   └── wrapper
             ├── lib
-            │   └── libwrapper.a       # MindSpore Lite Codegen生成代码依赖的部分算子静态库
+            │   └── libwrapper.a       # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
             └── third_party
                 ├── include
                 │   └── CMSIS          # ARM CMSIS NN 算子头文件
@@ -127,13 +126,13 @@ name: Softmax-7, DataType: 43, Size: 40, Shape: [1 10], Data:
    进入代码工程目录下，新建并进入build目录：
 
    ```bash
-   mkdir mnist_x86/build && cd mnist_x86/build
+   mkdir build && cd build
    ```
 
    开始编译：
 
    ```bash
-   cmake -DPKG_PATH={path to}/mindspore-lite-{version}-inference-linux-x64 ..
+   cmake -DPKG_PATH={path to}/mindspore-lite-{version}-linux-x64 ..
    make
    ```
 
