@@ -47,13 +47,22 @@ For more information about compilation, see [Linux Environment Compilation](http
     - [Configure the NPU backend](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#configuring-the-npu-backend).
      For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html).
 
-    - Compile and execute the binary (If you use dynamic linking, you need to link libmindspore-lite.so, libhiai.so, libhiai_ir.so, and libhiai_ir_build.so).
+    - Compile and execute the binary. If you use dynamic linking, please set environment variables to dynamically link libhiai.so, libhiai_ir.so, and libhiai_ir_build.so.
+    For example,
+
+        ```bash
+        export LD_LIBRARY_PATH=mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
+        ```
+
+      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
+    with compilation option `-I arm64` or `-I arm32`.
 
 - Using Benchmark testing NPU inference
 
     Users can also test NPU inference using MindSpore Lite's Benchmark tool.
 For the Benchmark tool location, see [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure).
-Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips and test NPU inference using the Benchmark tool
+Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips
+(For supported NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versions](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718).)and test NPU inference using the Benchmark tool
 on the phone, as shown in the example below:
 
     - Test performance
@@ -69,8 +78,12 @@ on the phone, as shown in the example below:
     ```
 
 For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html).
-For environment variable settings, you can set the directory where the libmindspore-lite.so and NPU libraries are located, to `${LD_LIBRARY_PATH}`.
-The directory is specified in [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure).
+
+For environment variable settings, you need to set the directory where the libmindspore-lite.so
+(under the directory `mindspore-lite-{version}-inference-android-{arch}/inference/lib`) and NPU libraries
+(under the directory `mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
+The directory is specified in [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
+with compilation option `-I arm64` or `-I arm32`.
 
 ## Supported Chips
 
