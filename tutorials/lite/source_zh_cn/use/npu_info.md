@@ -43,13 +43,19 @@ bash build.sh -I arm64 -e npu
     开发者需要集成使用NPU功能时，需要注意：
     - 在代码中[配置NPU后端](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#npu)，
     有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
-    - 编译执行可执行程序（如采用动态加载方式，需要动态加载： libmindspore-lite.so, libhiai.so, libhiai_ir.so, libhiai_ir_build.so)。
+    - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)中编译选项为`-I arm64`或`-I arm32`时的内容，
+    配置好环境变量，将会动态加载libhiai.so, libhiai_ir.so, libhiai_ir_build.so。例如：
+
+    ```bash
+    export LD_LIBRARY_PATH=mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
+    ```
 
 - Benchmark测试NPU推理
 
     用户也可以使用MindSpore Lite的Benchmark工具测试NPU推理。
 编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)。
-将构建包传到具有NPU芯片的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具测试NPU推理，示例如下：
+将构建包传到具有NPU芯片（支持的芯片详情见[芯片与HUAWEI HiAI Version版本映射关系](https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718)）
+的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具测试NPU推理，示例如下：
 
     - 测性能
 
@@ -64,8 +70,10 @@ bash build.sh -I arm64 -e npu
     ```
 
 有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
-有关环境变量设置，可以根据[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)提供的目录结构，
-将libmindspore-lite.so和NPU库所在的目录加入`${LD_LIBRARY_PATH}`。
+
+有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)中编译选项为`-I arm64`或`-I arm32`时的目录结构，
+将libmindspore-lite.so（目录为`mindspore-lite-{version}-inference-android-{arch}/inference/lib`）和
+NPU库（目录为`mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
 
 ## 芯片支持
 
