@@ -160,7 +160,7 @@ MindSpore CI采用了Pylint检查工具。
 
 ### 确认内容
 
-PR合入后次日，即可在MindSpore官网[Python API页面](<https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html>)中查看到新增内容。
+PR合入后次日，即可在MindSpore官网[Python API页面](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html)中查看到新增内容。
 
 官网API默认展示最新发布版本，如需查看新合入的内容，如下图所示切换至master分支版本。
 
