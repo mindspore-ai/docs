@@ -88,7 +88,6 @@ Modules in training version:
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
 > - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`.
-> - In the `build.sh` script, run the `git clone` command to obtain the code in the third-party dependency library. Ensure that the network settings of Git are correct.
 > - After Gradle is installed, you need to add its installation path to the PATH: `export PATH=${GRADLE_PATH}/bin:$PATH`.
 > - To install the Android SDK via `Android command line tools`, you need to create a new directory first and configure its path to the environment variable in `${ANDROID_SDK_ROOT}`, then create SDK via `sdkmanager`: `./sdkmanager --sdk_root=$ {ANDROID_SDK_ROOT} "cmdline-tools;latest"`, and finally accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 > - Compiling AAR relies on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
@@ -114,13 +113,10 @@ MindSpore Lite provides a compilation script `build.sh` for one-click compilatio
 | -T | If this parameter is set, MindSpore Lite training version is compiled, i.e., this option is required when compiling, default off. | on, off | No |
 | -W | Enable x86_64 SSE or AVX instruction set, default off. | sse, avx, off | No |
 
-> When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
->
-> When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter. By default, the built-in CPU and GPU operators are compiled at the same time.
->
-> The compiler will only generate training packages when `-T` is opened.
->
-> Any `-e` compilation option, the CPU operators will be compiled into it.
+> - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
+> - When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter. By default, the built-in CPU and GPU operators are compiled at the same time.
+> - The compiler will only generate training packages when `-T` is opened.
+> - Any `-e` compilation option, the CPU operators will be compiled into it.
 
 ### Compilation Example
 
@@ -211,11 +207,9 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 - `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`: Contains model inference framework runtime (cpp), and related tools.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
-> version: Version of the output, consistent with that of the MindSpore.
->
-> os: Operating system on which the output will be deployed.
->
-> arch: System architecture on which the output will be deployed.
+> - version: Version of the output, consistent with that of the MindSpore.
+> - os: Operating system on which the output will be deployed.
+> - arch: System architecture on which the output will be deployed.
 
 Execute the decompression command to obtain the compiled output:
 
@@ -352,9 +346,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
         └── mindspore-lite-java.jar  # MindSpore Lite inference framework jar package
     ```
 
-> 1. Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
->
-> 2. Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
+> - Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
+> - Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
 
 Configure converter:
 
@@ -374,11 +367,9 @@ If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` dire
 
 - `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
 
-> version: Version of the output, consistent with that of the MindSpore.
->
-> os: Operating system on which the output will be deployed.
->
-> arch: System architecture on which the output will be deployed.
+> - version: Version of the output, consistent with that of the MindSpore.
+> - os: Operating system on which the output will be deployed.
+> - arch: System architecture on which the output will be deployed.
 
 Execute the decompression command to obtain the compiled output:
 
@@ -560,8 +551,8 @@ set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
 ```
 
-> Before downloading the image, please make sure docker has been installed.
-> Docker image does not currently support Windows version compilation.
+> - Before downloading the image, please make sure docker has been installed.
+> - Docker image does not currently support Windows version compilation.
 
 #### Create a container
 
