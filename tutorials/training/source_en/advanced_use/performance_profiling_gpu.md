@@ -130,7 +130,7 @@ Figure 3: Statistics for Kernel Activities
 
 Figure 3 displays the statistics for the Kernel, including:  
 
-- A pie graph to show the proportion time occupied by each kernel activity and the top 15 kernel activities with the longest execution time.
+- A pie graph to show the proportion time occupied by each kernel activity and the execution time of each kernel activity.
 - The statistical table's column includes activity name, operation name, execution frequency, total time and average time.
 - The search box on the right, which supports fuzzy search for the activity name/operator full name.
 
