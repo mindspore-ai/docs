@@ -18,7 +18,7 @@ config settings, will be used in finetune.py
 """
 
 from easydict import EasyDict as edict
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from .bert_model import BertConfig
 
 bs = 16

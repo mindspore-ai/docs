@@ -17,14 +17,11 @@
 import math
 import copy
 import numpy as np
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 import mindspore.nn as nn
-import mindspore.ops.functional as F
+import mindspore.op as ops
 from mindspore.common.initializer import TruncatedNormal, initializer
-from mindspore.ops import operations as P
-from mindspore.ops import composite as C
-from mindspore.common.tensor import Tensor
-from mindspore.common.parameter import Parameter
+from mindspore import Tensor, Parameter
 from .fused_layer_norm import FusedLayerNorm
 
 
@@ -126,14 +123,14 @@ class EmbeddingLookup(nn.Cell):
                                          (TruncatedNormal(initializer_range),
                                           [vocab_size, embedding_size]),
                                          name='embedding_table')
-        self.expand = P.ExpandDims()
+        self.expand = ops.ExpandDims()
         self.shape_flat = (-1,)
-        self.gather = P.GatherV2()
-        self.one_hot = P.OneHot()
+        self.gather = ops.GatherV2()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.array_mul = P.MatMul()
-        self.reshape = P.Reshape()
+        self.array_mul = ops.MatMul()
+        self.reshape = ops.Reshape()
         self.shape = tuple(embedding_shape)
 
     def construct(self, input_ids):
@@ -187,17 +184,17 @@ class EmbeddingPostprocessor(nn.Cell):
                                          name='embedding_table')
 
         self.shape_flat = (-1,)
-        self.one_hot = P.OneHot()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.1, mstype.float32)
-        self.array_mul = P.MatMul()
-        self.reshape = P.Reshape()
+        self.array_mul = ops.MatMul()
+        self.reshape = ops.Reshape()
         self.shape = tuple(embedding_shape)
         self.layernorm = nn.LayerNorm((embedding_size,))
         self.dropout = nn.Dropout(1 - dropout_prob)
-        self.gather = P.GatherV2()
+        self.gather = ops.GatherV2()
         self.use_relative_positions = use_relative_positions
-        self.slice = P.StridedSlice()
+        self.slice = ops.StridedSlice()
         self.full_position_embeddings = Parameter(initializer
                                                   (TruncatedNormal(initializer_range),
                                                    [max_position_embeddings,
@@ -250,13 +247,13 @@ class BertOutput(nn.Cell):
                               weight_init=TruncatedNormal(initializer_range)).to_float(compute_type)
         self.dropout = nn.Dropout(1 - dropout_prob)
         self.dropout_prob = dropout_prob
-        self.add = P.TensorAdd()
+        self.add = ops.TensorAdd()
         if compute_type == mstype.float16:
             self.layernorm = FusedLayerNorm((out_channels,),
                                             use_batch_norm=enable_fused_layernorm).to_float(compute_type)
         else:
             self.layernorm = nn.LayerNorm((out_channels,)).to_float(compute_type)
-        self.cast = P.Cast()
+        self.cast = ops.Cast()
 
     def construct(self, hidden_status, input_tensor):
         output = self.dense(hidden_status)
@@ -281,14 +278,14 @@ class RelaPosMatrixGenerator(nn.Cell):
         self._min_relative_position = Tensor(-max_relative_position, dtype=mstype.int32)
         self.range_length = -length + 1
 
-        self.tile = P.Tile()
-        self.range_mat = P.Reshape()
-        self.sub = P.Sub()
-        self.expanddims = P.ExpandDims()
-        self.cast = P.Cast()
+        self.tile = ops.Tile()
+        self.range_mat = ops.Reshape()
+        self.sub = ops.Sub()
+        self.expanddims = ops.ExpandDims()
+        self.cast = ops.Cast()
 
     def construct(self):
-        range_vec_row_out = self.cast(F.tuple_to_array(F.make_range(self._length)), mstype.int32)
+        range_vec_row_out = self.cast(ops.tuple_to_array(ops.make_range(self._length)), mstype.int32)
         range_vec_col_out = self.range_mat(range_vec_row_out, (self._length, -1))
         tile_row_out = self.tile(range_vec_row_out, (self._length,))
         tile_col_out = self.tile(range_vec_col_out, (1, self._length))
@@ -296,7 +293,7 @@ class RelaPosMatrixGenerator(nn.Cell):
         transpose_out = self.range_mat(tile_col_out, (self._length, self._length))
         distance_mat = self.sub(range_mat_out, transpose_out)
 
-        distance_mat_clipped = C.clip_by_value(distance_mat,
+        distance_mat_clipped = ops.clip_by_value(distance_mat,
                                                self._min_relative_position,
                                                self._max_relative_position)
 
@@ -335,13 +332,13 @@ class RelaPosEmbeddingsGenerator(nn.Cell):
 
         self.relative_positions_matrix = RelaPosMatrixGenerator(length=length,
                                                                 max_relative_position=max_relative_position)
-        self.reshape = P.Reshape()
-        self.one_hot = P.OneHot()
+        self.reshape = ops.Reshape()
+        self.one_hot = ops.OneHot()
         self.on_value = Tensor(1.0, mstype.float32)
         self.off_value = Tensor(0.0, mstype.float32)
-        self.shape = P.Shape()
-        self.gather = P.GatherV2()  # index_select
-        self.matmul = P.BatchMatMul()
+        self.shape = ops.Shape()
+        self.gather = ops.GatherV2()  # index_select
+        self.matmul = ops.BatchMatMul()
 
     def construct(self):
         relative_positions_matrix_out = self.relative_positions_matrix()
@@ -378,9 +375,9 @@ class SaturateCast(nn.Cell):
         self.tensor_min_type = Tensor([min_type], dtype=src_type)
         self.tensor_max_type = Tensor([max_type], dtype=src_type)
 
-        self.min_op = P.Minimum()
-        self.max_op = P.Maximum()
-        self.cast = P.Cast()
+        self.min_op = ops.Minimum()
+        self.max_op = ops.Maximum()
+        self.cast = ops.Cast()
         self.dst_type = dst_type
 
     def construct(self, x):
@@ -443,7 +440,7 @@ class BertAttention(nn.Cell):
         self.use_relative_positions = use_relative_positions
 
         self.scores_mul = Tensor([1.0 / math.sqrt(float(self.size_per_head))], dtype=compute_type)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
         self.shape_from_2d = (-1, from_tensor_width)
         self.shape_to_2d = (-1, to_tensor_width)
         weight = TruncatedNormal(initializer_range)
@@ -465,26 +462,26 @@ class BertAttention(nn.Cell):
         self.shape_to = (
             batch_size, to_seq_length, num_attention_heads, size_per_head)
 
-        self.matmul_trans_b = P.BatchMatMul(transpose_b=True)
-        self.multiply = P.Mul()
-        self.transpose = P.Transpose()
+        self.matmul_trans_b = ops.BatchMatMul(transpose_b=True)
+        self.multiply = ops.Mul()
+        self.transpose = ops.Transpose()
         self.trans_shape = (0, 2, 1, 3)
         self.trans_shape_relative = (2, 0, 1, 3)
         self.trans_shape_position = (1, 2, 0, 3)
         #self.multiply_data = Tensor([-10000.0,], dtype=compute_type)
         self.multiply_data = Tensor([-10000.0,], dtype=mstype.float32)
         self.batch_num = batch_size * num_attention_heads
-        self.matmul = P.BatchMatMul()
+        self.matmul = ops.BatchMatMul()
 
         self.softmax = nn.Softmax()
         self.dropout = nn.Dropout(1 - attention_probs_dropout_prob)
 
         if self.has_attention_mask:
-            self.expand_dims = P.ExpandDims()
-            self.sub = P.Sub()
-            self.add = P.TensorAdd()
-            self.cast = P.Cast()
-            self.get_dtype = P.DType()
+            self.expand_dims = ops.ExpandDims()
+            self.sub = ops.Sub()
+            self.add = ops.TensorAdd()
+            self.cast = ops.Cast()
+            self.get_dtype = ops.DType()
         if do_return_2d_tensor:
             self.shape_return = (batch_size * from_seq_length, num_attention_heads * size_per_head)
         else:
@@ -546,9 +543,9 @@ class BertAttention(nn.Cell):
             attention_mask = self.expand_dims(attention_mask, 1)
 
             attention_scores = self.cast(attention_scores, mstype.float32)
-            #P.Print()(attention_scores)
+            #ops.Print()(attention_scores)
 
-            multiply_out = self.sub(self.cast(F.tuple_to_array((1.0,)), self.get_dtype(attention_scores)),
+            multiply_out = self.sub(self.cast(ops.tuple_to_array((1.0,)), self.get_dtype(attention_scores)),
                                     self.cast(attention_mask, self.get_dtype(attention_scores)))
 
             adder = self.multiply(multiply_out, self.multiply_data)
@@ -654,7 +651,7 @@ class BertSelfAttention(nn.Cell):
                                  dropout_prob=hidden_dropout_prob,
                                  compute_type=compute_type,
                                  enable_fused_layernorm=enable_fused_layernorm)
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
         self.shape = (-1, hidden_size)
 
     def construct(self, input_tensor, attention_mask):
@@ -790,7 +787,7 @@ class BertTransformer(nn.Cell):
 
         self.layers = nn.CellList(layers)
 
-        self.reshape = P.Reshape()
+        self.reshape = ops.Reshape()
         self.shape = (-1, hidden_size)
         self.out_shape = (batch_size, seq_length, hidden_size)
 
@@ -828,12 +825,12 @@ class CreateAttentionMaskFromInputMask(nn.Cell):
             self.input_mask = initializer(
                 "ones", [config.batch_size, config.seq_length], mstype.int32).to_tensor()
 
-        self.cast = P.Cast()
-        self.reshape = P.Reshape()
+        self.cast = ops.Cast()
+        self.reshape = ops.Reshape()
         self.shape = (config.batch_size, 1, config.seq_length)
         self.broadcast_ones = initializer(
             "ones", [config.batch_size, config.seq_length, 1], mstype.float32).to_tensor()
-        self.batch_matmul = P.BatchMatMul()
+        self.batch_matmul = ops.BatchMatMul()
 
     def construct(self, input_mask):
         if not self.input_mask_from_dataset:
@@ -917,12 +914,12 @@ class BertModel(nn.Cell):
             return_all_encoders=True,
             enable_fused_layernorm=config.enable_fused_layernorm)
 
-        self.cast = P.Cast()
+        self.cast = ops.Cast()
         self.dtype = config.dtype
         self.cast_compute_type = SaturateCast(dst_type=config.compute_type)
-        self.slice = P.StridedSlice()
+        self.slice = ops.StridedSlice()
 
-        self.squeeze_1 = P.Squeeze(axis=1)
+        self.squeeze_1 = ops.Squeeze(axis=1)
         self.dense = nn.Dense(self.hidden_size, self.hidden_size,
                               activation="tanh",
                               weight_init=TruncatedNormal(config.initializer_range)).to_float(config.compute_type)

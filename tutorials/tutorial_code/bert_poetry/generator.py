@@ -1,7 +1,7 @@
 import numpy as np
 from src.finetune_config import cfg as settings
 from mindspore import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from src.poetry_dataset import padding
 from src.poetry_dataset import create_tokenizer
 

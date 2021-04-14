@@ -2,7 +2,7 @@ import numpy as np
 from collections import defaultdict
 import mindspore.dataset as de
 import mindspore.dataset.transforms.c_transforms as C
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from .finetune_config import cfg
 from .poetry_utils import Tokenizer
 
