@@ -90,7 +90,7 @@ class StopAtStep(Callback):
 
 ## 训练性能
 
-用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景支持算子耗时统计排名、Timeline、迭代轨迹分析以及数准备性能分析，其他功能敬请期待）。
+用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据（目前GPU场景支持算子耗时统计排名、Timeline、迭代轨迹分析以及数据准备性能分析，其他功能敬请期待）。
 
 ![performance_overall.png](./images/performance_overall.png)
 
@@ -130,7 +130,7 @@ class StopAtStep(Callback):
 
 图3展示了CUDA activity信息统计，包含以下内容：
 
-- 统计图表：展示了各个kernel activity的占比以及前15个算子的耗时信息。
+- 统计图表：展示了各个kernel activity的占比以及算子的耗时信息。
 - 内核信息列表：信息列表展示activity的名称、所属算子名称、执行次数、总时间、平均时间等信息。
 - 搜索：可以通过name(activity名称)以及`op_full_name`（所属算子名称）进行部分匹配的搜索。
 
