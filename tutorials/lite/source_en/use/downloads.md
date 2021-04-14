@@ -6,6 +6,7 @@
 
 - [Downloading MindSpore Lite](#downloading-mindspore-lite)
     - [1.2.0](#120)
+    - [1.2.0-rc1](#120-rc1)
     - [1.1.0](#110)
 
 <!-- /TOC -->
@@ -15,6 +16,15 @@
 Welcome to MindSpore Lite. We provide functions such as model conversion, model inference, image processing, etc. that support multiple operating systems and hardware platforms. You can download the version package suitable for the local environment and use it directly.
 
 ## 1.2.0
+
+| Hardware Platform |   Operating System   |   Download Links   |   SHA-256   |  Contains Module  |
+|        ---        |          ---         |         ---        |     ---     |        ---        |
+| CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz.sha256> | Inference runtime (cpp), training runtime (cpp), inference AAR package, and benchmark/benchmark_train/codegen tools. |
+| CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz.sha256> | Inference runtime (cpp), training runtime (cpp), inference AAR package, and benchmark/benchmark_train/codegen tools. |
+| CPU     |  Ubuntu-x64     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz.sha256> | Inference runtime (cpp), training runtime (cpp), inference runtime (java), and benchmark/benchmark_train/codegen/converter/cropper tools. |
+| CPU     |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip.sha256> | Inference runtime (cpp) and benchmark/codegen/converter tools. |
+
+## 1.2.0-rc1
 
 |   Module Name   |   Hardware Platform   |   Operating System   |   Download Links   |   SHA-256   |
 |       ---       |          ---          |          ---         |         ---        |     ---     |
