@@ -88,7 +88,6 @@
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
 
 > - 当安装完依赖项`Android_NDK`后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
-> - 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
 > - 当安装完依赖项Gradle后，需将其安装路径增加到PATH当中：`export PATH=${GRADLE_PATH}/bin:$PATH`。
 > - 通过`Android command line tools`安装Android SDK，首先需要创建一个新目录，并将其路径配置到环境变量`${ANDROID_SDK_ROOT}`中，然后通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`，最后通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`。
 > - 编译AAR需要依赖Android SDK Build-Tools、Android SDK Platform-Tools等Android SDK相关组件，如果环境中的Android SDK不存在相关组件，编译时会自动下载所需依赖。
@@ -114,13 +113,10 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -T | 是否编译训练版本工具，默认为off | on、off | 否 |
 | -W | 启用x86_64 SSE或AVX指令集，默认为off | sse、avx、off | 否 |
 
-> 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
->
-> 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数，默认同时编译内置的CPU和GPU算子。
->
-> 开启编译选项`-T`只生成训练版本。
->
-> 任何`-e`编译选项，CPU都会编译进去。
+> - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
+> - 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数，默认同时编译内置的CPU和GPU算子。
+> - 开启编译选项`-T`只生成训练版本。
+> - 任何`-e`编译选项，CPU都会编译进去。
 
 ### 编译示例
 
@@ -212,11 +208,9 @@ git clone https://gitee.com/mindspore/mindspore.git -b r1.2
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
-> version: 输出件版本号，与所编译的分支代码对应的版本一致。
->
-> os: 输出件应部署的操作系统。
->
-> arch: 输出件应部署的系统架构。
+> - version: 输出件版本号，与所编译的分支代码对应的版本一致。
+> - os: 输出件应部署的操作系统。
+> - arch: 输出件应部署的系统架构。
 
 执行解压缩命令，获取编译后的输出件：
 
@@ -351,9 +345,8 @@ mindspore-lite-{version}-inference-linux-x64
         └── mindspore-lite-java.jar  # MindSpore Lite推理框架jar包
     ```
 
-> 1. 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
->
-> 2. 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
+> - 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
+> - 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
 
 配置converter：
 
@@ -373,11 +366,9 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/i
 
 `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
 
-> version: 输出件版本号，与所编译的分支代码对应的版本一致。
->
-> os: 输出件应部署的操作系统。
->
-> arch: 输出件应部署的系统架构。
+> - version: 输出件版本号，与所编译的分支代码对应的版本一致。
+> - os: 输出件应部署的操作系统。
+> - arch: 输出件应部署的系统架构。
 
 执行解压缩命令，获取编译后的输出件：
 
@@ -559,8 +550,8 @@ set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH
 docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
 ```
 
-> 下载镜像前，请确保已经安装docker。
-> docker镜像暂不支持Windows版本编译。
+> - 下载镜像前，请确保已经安装docker。
+> - docker镜像暂不支持Windows版本编译。
 
 #### 创建容器
 
