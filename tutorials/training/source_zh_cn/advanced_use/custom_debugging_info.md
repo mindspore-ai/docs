@@ -19,6 +19,8 @@
             - [通过配置文件配置RDR](#通过配置文件配置rdr)
             - [通过环境变量配置RDR](#通过环境变量配置rdr)
             - [异常处理](#异常处理)
+    - [内存复用](#内存复用)
+        - [使用方法](#使用方法-1)
     - [日志相关的环境变量和配置](#日志相关的环境变量和配置)
 
 <!-- /TOC -->
@@ -317,6 +319,31 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 这时我们到`/home/mindspore/rdr`目录中，可以看到有几个文件出现在该目录中，每一个文件都代表着一种数据。比如 `hwopt_d_before_graph_0.ir` 该文件为计算图文件。可以使用文本工具打开该文件，用以查看计算图，分析计算图是否符合预期。
 
+## 内存复用
+
+内存复用功能(Mem Reuse)是让不同的Tensor共用同样的一部分内存，以降低内存开销，支撑更大的网络，关闭后每个Tensor有自己独立的内存空间，Tensor间无共享内存。
+MindSpore内存复用功能默认开启，可以通过以下方式手动控制该功能的关闭和开启。
+
+### 使用方法
+
+1. 创建配置文件`mindspore_config.json`。
+
+    ```json
+    {
+        "sys": {
+            "mem_reuse": true
+        }
+    }
+    ```
+
+    > mem_reuse: 控制内存复用功能是否开启，当设置为true时，控制内存复用功能开启，为false时，内存复用功能关闭。
+
+2. 通过 `context` 配置内存复用功能。
+
+    ```python3
+    context.set_context(env_config_path="./mindspore_config.json")
+    ```
+
 ## 日志相关的环境变量和配置
 
 MindSpore采用glog来输出日志，常用的几个环境变量如下：
@@ -352,31 +379,31 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
 
 MindSpore子模块按照目录划分如下：
 
-| Source Files | Sub Module Name |
-| ------------ | --------------- |
-| mindspore/ccsrc/backend/kernel_compiler | KERNEL |
-| mindspore/ccsrc/backend/optimizer | PRE_ACT |
-| mindspore/ccsrc/backend/session | SESSION |
-| mindspore/ccsrc/common | COMMON |
-| mindspore/ccsrc/debug | DEBUG |
-| mindspore/ccsrc/frontend/operator | ANALYZER |
-| mindspore/ccsrc/frontend/optimizer | OPTIMIZER |
-| mindspore/ccsrc/frontend/parallel | PARALLEL |
-| mindspore/ccsrc/minddata/dataset | MD |
-| mindspore/ccsrc/minddata/mindrecord | MD |
-| mindspore/ccsrc/pipeline/jit/*.cc | PIPELINE |
-| mindspore/ccsrc/pipeline/jit/parse | PARSER |
-| mindspore/ccsrc/pipeline/jit/static_analysis | ANALYZER |
-| mindspore/ccsrc/pipeline/pynative | PYNATIVE |
-| mindspore/ccsrc/profiler | PROFILER |
-| mindspore/ccsrc/pybind_api | COMMON |
-| mindspore/ccsrc/runtime/device | DEVICE |
-| mindspore/ccsrc/transform/graph_ir | GE_ADPT |
-| mindspore/ccsrc/transform/express_ir | EXPRESS |
-| mindspore/ccsrc/utils | UTILS |
-| mindspore/ccsrc/vm | VM |
-| mindspore/ccsrc | ME |
-| mindspore/core/gvar | COMMON |
-| mindspore/core/ | CORE |
+| Source Files                                 | Sub Module Name |
+| -------------------------------------------- | --------------- |
+| mindspore/ccsrc/backend/kernel_compiler      | KERNEL          |
+| mindspore/ccsrc/backend/optimizer            | PRE_ACT         |
+| mindspore/ccsrc/backend/session              | SESSION         |
+| mindspore/ccsrc/common                       | COMMON          |
+| mindspore/ccsrc/debug                        | DEBUG           |
+| mindspore/ccsrc/frontend/operator            | ANALYZER        |
+| mindspore/ccsrc/frontend/optimizer           | OPTIMIZER       |
+| mindspore/ccsrc/frontend/parallel            | PARALLEL        |
+| mindspore/ccsrc/minddata/dataset             | MD              |
+| mindspore/ccsrc/minddata/mindrecord          | MD              |
+| mindspore/ccsrc/pipeline/jit/*.cc            | PIPELINE        |
+| mindspore/ccsrc/pipeline/jit/parse           | PARSER          |
+| mindspore/ccsrc/pipeline/jit/static_analysis | ANALYZER        |
+| mindspore/ccsrc/pipeline/pynative            | PYNATIVE        |
+| mindspore/ccsrc/profiler                     | PROFILER        |
+| mindspore/ccsrc/pybind_api                   | COMMON          |
+| mindspore/ccsrc/runtime/device               | DEVICE          |
+| mindspore/ccsrc/transform/graph_ir           | GE_ADPT         |
+| mindspore/ccsrc/transform/express_ir         | EXPRESS         |
+| mindspore/ccsrc/utils                        | UTILS           |
+| mindspore/ccsrc/vm                           | VM              |
+| mindspore/ccsrc                              | ME              |
+| mindspore/core/gvar                          | COMMON          |
+| mindspore/core/                              | CORE            |
 
 > glog不支持日志文件的绕接，如果需要控制日志文件对磁盘空间的占用，可选用操作系统提供的日志文件管理工具，例如：Linux的logrotate。  
