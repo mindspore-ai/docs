@@ -19,7 +19,7 @@ import copy
 import numpy as np
 from mindspore import dtype as mstype
 import mindspore.nn as nn
-import mindspore.op as ops
+import mindspore.ops as ops
 from mindspore.common.initializer import TruncatedNormal, initializer
 from mindspore import Tensor, Parameter
 from .fused_layer_norm import FusedLayerNorm

@@ -30,7 +30,8 @@ from mindspore import context
 from .bert_model import BertModel
 from .bert_for_pre_training import clip_grad
 import numpy as np
-from mindspore.nn import LearningRateSchedule, PolynomialDecayLR, WarmUpLR
+from mindspore.nn.learning_rate_schedule import LearningRateSchedule
+from mindspore.nn import PolynomialDecayLR, WarmUpLR
 
 GRADIENT_CLIP_TYPE = 1
 GRADIENT_CLIP_VALUE = 1.0
