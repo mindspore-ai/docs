@@ -21,23 +21,19 @@ import os
 import argparse
 from src.utils import BertPoetry, BertPoetryCell, BertLearningRate, BertPoetryModel
 from src.finetune_config import cfg, bert_net_cfg
-import mindspore.common.dtype as mstype
-from mindspore import context
+from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore import log as logger
 import mindspore.dataset as de
 import mindspore.dataset.transforms.c_transforms as C
-from mindspore.nn.wrap.loss_scale import DynamicLossScaleUpdateCell
-from mindspore.nn.optim import AdamWeightDecay, Lamb, Momentum
-from mindspore.train.model import Model
+from mindspore.nn import DynamicLossScaleUpdateCell
+from mindspore.nn import AdamWeightDecay, Lamb, Momentum
+from mindspore import Model
 from mindspore.train.callback import Callback
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
 from src.poetry_dataset import create_poetry_dataset, create_tokenizer
 from generator import generate_random_poetry, generate_hidden
-from mindspore.common.tensor import Tensor
-from mindspore.common.parameter import Parameter
-import mindspore.common.dtype as mstype
-from mindspore.train.serialization import export
+from mindspore import Tensor, Parameter, export
+from mindspore import dtype as mstype
 import numpy as np
 import time
 import re

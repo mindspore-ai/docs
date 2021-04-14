@@ -10,8 +10,8 @@ import ms_service_pb2
 import ms_service_pb2_grpc
 import time
 import numpy as np
-from mindspore.common.tensor import Tensor
-import mindspore.common.dtype as mstype
+from mindspore import Tensor
+from mindspore import dtype as mstype
 from src.poetry_dataset import sequence_padding
 from src.poetry_dataset import create_tokenizer
 
