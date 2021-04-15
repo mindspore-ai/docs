@@ -66,7 +66,7 @@
 
 3. 在Android设备上，点击“继续安装”，安装完即可查看到本地相册以及设备摄像头拍照的头像图片进行分割推理的结果。
 
-    ![install](../images/lite_quick_start_install.png)
+    ![install](../images/lite_segmentation_quick_start_install.png)
 
     运行结果如下图所示（以选取相册某张头像图片为例）。
 
