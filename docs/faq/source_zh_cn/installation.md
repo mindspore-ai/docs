@@ -186,6 +186,8 @@ A：遇到类似的问题，大多是由于Python的环境问题，可以通过�
 - 在终端窗口中输入`python`，检查以下进入Python交互环境中的版本信息，如果直接报错则是没有Python的软连接；如果进入的是非Python3.7版本的环境，则当前Python环境不是MindSpore运行所需要的。
 - 执行`sudo ln -sf /usr/bin/python3.7.x /usr/bin/python`创建Python的软连接，然后再检查执行。
 
+<br/>
+
 <font size=3>**Q: 在脚本中`import mindspore`之前import了其他三方库，提示如下错误(`/your_path/libgomp.so.1: cannot allocate memory in static TLS block`)该怎么解决?**</font>
 
 A: 上述问题较为常见，当前有两种可行的解决方法，可任选其一：
