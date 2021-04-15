@@ -152,6 +152,7 @@ A：使用msnpureport工具设置device侧日志级别，工具位置在：`/usr
 假设deviceID的取值范围是[0-7]，`device0`-`device3`和`device4`-`device7`分别在一个os上。其中`device0`-`device3`共用一个日志配置文件；`device4`-`device7`共用一个配置文件。如果修改了`device0`-`device3`中的任意一个日志级别，其他`device`的日志级别也会被修改。如果修改了`device4`-`device7`中的任意一个日志级别，其他device的日志级别也会被修改。
 
 `Driver`包安装以后（假设安装路径为/usr/local/HiAI，在Windows环境下，`msnpureport.exe`执行文件在C:\ProgramFiles\Huawei\Ascend\Driver\tools\目录下），假设用户在/home/shihangbo/目录下直接执行命令行，则Device侧日志被导出到当前目录下，并以时间戳命名文件夹进行存放。
+
 <br/>
 
 <font size=3>**Q：使用ExpandDims算子报错：`Pynative run op ExpandDims failed`。具体代码：**</font>
@@ -253,6 +254,8 @@ A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 - 删除溢出到磁盘空间的数据文件。
 
     进入启用缓存服务器时指定的溢出数据路径。通常，默认溢出路径为`/tmp/mindspore/cache`。找到路径下对应的数据文件夹并逐一删除。
+
+<br/>
 
 <font size=3>**Q：使用GPU版本MindSpore时，如何设置`DEVICE_ID`环境变量**</font>
 

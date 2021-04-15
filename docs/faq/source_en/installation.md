@@ -58,6 +58,8 @@ use `python3.7 -m pip install` instead of `pip install` command.
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
 
+<br/>
+
 ## Source Code Compilation Installation
 
 <font size=3>**Q: A cross compiler has been installed on Linux, but how do I write compilation commands?**</font>
@@ -118,6 +120,8 @@ A: While compiling MindSpore, if:
 
 A: Using `pip uninstall mindspore` to uninstall MindSpore.
 
+<br/>
+
 ## Environment Variables
 
 <font size=3>**Q: Some frequently-used environment settings need to be reset in the newly started terminal window, which is easy to be forgotten, What should I do?**</font>
@@ -162,6 +166,8 @@ A: Use the following command to check whether the current Python environment mee
 
 - Text `python` in terminal window, check whether the version of Python interactive environment is `3.7.x`
 - If not, execute the `sudo ln -sf /usr/bin/python3.7.x /usr/bin/python` command to create Python's soft connection.
+
+<br/>
 
 <font size=3>**Q: Here in script when we import other python lib before `import mindspore`, error raised like follows (`/your_path/libgomp.so.1: cannot allocate memory in static TLS block`), how can we solve it?**</font>
 
