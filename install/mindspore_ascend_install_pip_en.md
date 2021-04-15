@@ -21,7 +21,7 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04/CentOS 7.6/EulerOS 2.8 is installed with the 64-bit operating system.
+- Confirm that Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/KylinV10 SP1 is installed with the 64-bit operating system.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that Python 3.7.5 is installed.
@@ -53,7 +53,7 @@ Of which,
 - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.2/requirements.txt)). In other cases, you need to manually install dependency items.  
 - `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.1.0, `{version}` should be 1.1.0.  
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.  
-- `{system}` denotes the system version. For example, if you are using EulerOS ARM architecture, `{system}` should be `euleros_aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`.
+- `{system}` denotes the system version. For example, if you are using EulerOS ARM architecture, `{system}` should be `euleros_aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`/`kylin_aarch64`.
 
 ## Configuring Environment Variables
 
