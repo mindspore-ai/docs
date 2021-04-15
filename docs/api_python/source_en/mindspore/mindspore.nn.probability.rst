@@ -6,7 +6,7 @@ mindspore.nn.probability
 Bijectors
 ---------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -22,7 +22,7 @@ Bijectors
 Bayesian Layers
 ---------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -34,7 +34,7 @@ Bayesian Layers
 Prior and Posterior Distributions
 ----------------------------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -45,7 +45,7 @@ Prior and Posterior Distributions
 Bayesian Wrapper Functions
 ---------------------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -55,7 +55,7 @@ Bayesian Wrapper Functions
 Distributions
 --------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -79,7 +79,7 @@ Distributions
 Deep Probability Networks
 --------------------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -90,7 +90,7 @@ Deep Probability Networks
 Infer
 ------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -101,7 +101,7 @@ Infer
 ToolBox
 ---------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
@@ -112,7 +112,7 @@ ToolBox
 Model Transformer
 ------------------
 
-.. autosummary::
+.. msplatformautosummary::
     :toctree: nn_probability
     :nosignatures:
     :template: classtemplate_probability.rst
