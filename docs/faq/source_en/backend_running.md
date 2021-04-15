@@ -187,10 +187,11 @@ A: This message means that MindSpore failed to load library `libgpu_collective.s
 - OpenMPI or NCCL is not installed in this environment.
 - NCCL version is not updated to `v2.7.6`: MindSpore `v1.1.0` supports GPU P2P communication operator which relies on NCCL `v2.7.6`. `libgpu_collective.so` can't be loaded successfully if NCCL is not updated to this version.
 
+<br/>
+
 <font size=3>**Q：How to set environment variable `DEVICE_ID` when using GPU version of MindSpore**</font>
 
 A：Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpore automatically chooses visible GPU devices according to the cuda environment variable `CUDA_VISIBLE_DEVICES`. After setting `CUDA_VISIBLE_DEVICES`, `DEVICE_ID` refers to the ordinal of the GPU device:
 
 - After `export CUDA_VISIBLE_DEVICES=1,3,5`, `DEVICE_ID` should be exported as `0`, `1` or `2`. If `3` is exported, MindSpore will fail to execute because of the invalid device ordinal.
 
-<br/>
