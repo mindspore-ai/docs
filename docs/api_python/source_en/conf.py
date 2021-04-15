@@ -104,7 +104,7 @@ from sphinx.ext.autodoc.directive import DocumenterBridge, Options
 
 class MsAutosummary(Autosummary):
     """
-    Inherited from sphinx's autosummary, added titles and a column for the generated table.
+    Inherited from sphinx's autosummary, add titles and a column for the generated table.
     """
 
     def init(self):
@@ -296,7 +296,7 @@ class MsAutosummary(Autosummary):
 
 class MsNoteAutoSummary(MsAutosummary):
     """
-    Inherited from MsAutosummary. Add a third column abort `Note` to the table.
+    Inherited from MsAutosummary. Add a third column about `Note` to the table.
     """
 
     def init(self):
@@ -318,7 +318,7 @@ class MsNoteAutoSummary(MsAutosummary):
 
 class MsPlatformAutoSummary(MsAutosummary):
     """
-    Inherited from MsAutosummary. Add a third column abort `Supported Platforms` to the table.
+    Inherited from MsAutosummary. Add a third column about `Supported Platforms` to the table.
     """
     def init(self):
         """
