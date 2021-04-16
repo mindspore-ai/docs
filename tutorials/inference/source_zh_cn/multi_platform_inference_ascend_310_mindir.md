@@ -22,7 +22,7 @@
 
 Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200开发者套件又称Atlas 200 Developer Kit（以下简称Atlas 200 DK），是以Atlas 200 AI加速模块为核心的开发者板形态的终端类产品，集成了海思Ascend 310 AI处理器，可以实现图像、视频等多种数据分析与推理计算，可广泛用于智能监控、机器人、无人机、视频服务器等场景。
 
-本教程介绍如何在Atlas 200 DK上使用MindSpore执行推理，主要包括以下流程：
+本教程介绍如何在Atlas 200 DK上使用MindSpore基于MindIR模型文件执行推理，主要包括以下流程：
 
 1. 开发环境准备，包括制作Atlas 200 DK的SD卡 、配置Python环境和刷配套开发软件包。
 
