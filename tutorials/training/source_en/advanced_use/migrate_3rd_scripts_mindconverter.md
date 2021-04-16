@@ -269,6 +269,10 @@ The example of weight map refers to that in **TensorFlow Model Scripts Conversio
 
 Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition.md# ).
 
+## Model List Supported by MindConverter
+
+[List of supported models (Models in below table have been tested based on PyTorch 1.5.0 and TensorFlow 1.15.0, X86 Ubuntu released version)](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/supported_model_list.md# ).
+
 ## Caution
 
 1. TensorFlow is not a dependency library explicitly declared by MindInsight. If the user want to use graph based MindConverter, please install TensorFlow(MindConverter recommends TensorFlow 1.15.x).
