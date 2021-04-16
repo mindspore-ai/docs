@@ -4,6 +4,34 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/backend_running.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q：请问`c_transforms`和`py_transforms`有什么区别，比较推荐使用哪个？**</font>
+
+A：推荐使用`c_transforms`，因为纯C层执行，所以性能会更好。
+
+原理:`c_transform`底层使用的是C版本`opencv/jpeg-turbo`进行的数据处理，`py_transform`使用的是Python版本的`Pillow`进行数据处理。
+
+<br/>
+
+<font size=3>**Q：MindSpore在NPU硬件平台进行多卡训练，自定义数据集如何给不同NPU传递不同数据？**</font>
+
+A：使用`GeneratorDataset`的时候，可以使用`num_shards=num_shards`,`shard_id=device_id`参数来控制不同卡读取哪个分片的数据，`__getitem__`和`__len__`按全量数据集处理即可。
+
+举例：
+
+```python
+# 卡0：
+ds.GeneratorDataset(..., num_shards=8, shard_id=0, ...)
+# 卡1：
+ds.GeneratorDataset(..., num_shards=8, shard_id=1, ...)
+# 卡2：
+ds.GeneratorDataset(..., num_shards=8, shard_id=2, ...)
+...
+# 卡7：
+ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
+```
+
+<br/>
+
 <font size=3>**Q：如何查看模型参数量？**</font>
 
 A：可以直接加载CheckPoint统计，可能额外统计了动量和optimizer中的变量，需要过滤下相关变量。
