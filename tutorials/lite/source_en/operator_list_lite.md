@@ -6,7 +6,7 @@
 
 This article lists the operators supported by MindSpore Lite.
 
-| Operation<br/>&nbsp;              | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;       | TensorFlow<br/>Lite operators supported   | Caffe<br/>Lite operators supported | Onnx<br/>Lite operators supported | TensorFlow<br/>operators supported |
+| Operation<br/>&nbsp;              | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;       | TensorFlow Lite<br/>operators supported   | Caffe Lite<br/>operators supported | Onnx Lite<br/>operators supported | TensorFlow<br/>operators supported |
 |-----------------------|:----------:|:----------:|:----------:|:-----------:|:----------:|:-------------------:|:----------:|----------|---------|---------|---------|
 | Abs                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Abs                             |                          | Abs                                             | Abs                                             |
 | Add                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |
@@ -15,19 +15,19 @@ This article lists the operators supported by MindSpore Lite.
 | Assert                |              | ✅    |              |               |              |              |           |                                 |                          |                                                 | Assert                                          |
 | Argmax                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    |           | Argmax                          | ArgMax                   | ArgMax                                          | Argmax                                          |
 | Argmin                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    |           | Argmin                          |                          |                                                 | ArgMin                                          |
-| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MeanPooling                     | Pooling                  | AveragePool, GlobalAveragePool, Int8AveragePool | AvgPool                                         |
+| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool | AvgPool                                         |
 | AvgPoolGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
 | BatchNorm             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |                                 | BatchNorm                | BatchNormalization                              |                                                 |
 | BatchNormGrad |  | ✅ |  |  |  |  | | |  |  | |
-| BatchToSpace          |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | BatchToSpace, BatchToSpaceND    |                          |                                                 | BatchToSpace, BatchToSpaceND                    |
+| BatchToSpace          |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | BatchToSpace,<br/>BatchToSpaceND    |                          |                                                 | BatchToSpace,<br/>BatchToSpaceND                    |
 | BiasAdd               | ✅ | ✅    | ✅    | ✅     | ✅    | ✅    |           |                                 |                          | BiasAdd                                         | BiasAdd                                         |
 | BiasAddGrad | | ✅ |  |  |  |  | | | |  |  |
 | Broadcast             |              | ✅    |              |               |              |              |           | BroadcastTo                     |                          | Expand                                          |                                                 |
-| Cast                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Cast, QUANTIZE, DEQUANTIZE      |                          | Cast                                            | Cast                                            |
+| Cast                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Cast,<br/>QUANTIZE,<br/>DEQUANTIZE      |                          | Cast                                            | Cast                                            |
 | Ceil                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Ceil                            |                          | Ceil                                            | Ceil                                            |
 | Concat                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Concat                          | Concat                   | Concat                                          | ConcatV2                                        |
 | ConstantOfShape       |              | ✅    |              |               |              |              |           |                                 |                          | ConstantOfShape                                 |                                                 |
-| Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Conv2D                          | Convolution              | Conv, Int8Conv, ConvRelu, Int8ConvRelu          | Conv2D                                          |
+| Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Conv2D                          | Convolution              | Conv,<br/>Int8Conv,<br/>ConvRelu,<br/>Int8ConvRelu          | Conv2D                                          |
 | Conv2dGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
 | Conv2dTranspose       | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | DeConv2D                        | Deconvolution            | ConvTranspose                                   | Conv2DBackpropInput                             |
 | Conv2dTransposeGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
@@ -44,7 +44,7 @@ This article lists the operators supported by MindSpore Lite.
 | Div                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Div, RealDiv                    |                          | Div                                             | Div, RealDiv                                    |
 | DivGrad |  | ✅ |  |  |  |  |  |  | |  |  |
 | Eltwise               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 | Eltwise                  | Sum, Max<sup>[3]</sup>                          |                                                 |
-| Elu                   |              | ✅    |              |               |              |              |           |                                 | Elu                      | Elu, NonMaxSuppression                          | NonMaxSuppressionV3                             |
+| Elu                   |              | ✅    |              |               |              |              |           |                                 | Elu                      | Elu,<br/>NonMaxSuppression                          | NonMaxSuppressionV3                             |
 | EluGrad | | ✅ | | | | | | |  |  |  |
 | Equal                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Equal                           |                          | Equal                                           | Equal                                           |
 | Exp                   |              | ✅    |              |               | ✅    | ✅    |           | Exp                             | Exp                      | Exp                                             | Exp                                             |
@@ -55,7 +55,7 @@ This article lists the operators supported by MindSpore Lite.
 | FloorDiv              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | FloorDiv                        |                          |                                                 | FloorDiv                                        |
 | FloorMod              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | FloorMod                        |                          |                                                 | FloorMod                                        |
 | FullConnection        | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |  ✅ | FullyConnected                  | InnerProduct             |                                                 |                                                 |
-| FusedBatchNorm        | ✅    | ✅    | ✅    | ✅     |              |              | ✅ | FusedBatchNorm                  |                          |                                                 | FusedBatchNorm, FusedBatchNormV3                |
+| FusedBatchNorm        | ✅    | ✅    | ✅    | ✅     |              |              | ✅ | FusedBatchNorm                  |                          |                                                 | FusedBatchNorm,<br/>FusedBatchNormV3                |
 | GatherNd              |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | GatherND                        |                          |                                                 | GatherNd                                        |
 | Gather                |   ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |  ✅  | Gather                          |                          | Gather                                          | GatherV2                                        |
 | Greater               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Greater                         |                          | Greater                                         | Greater                                         |
@@ -82,11 +82,11 @@ This article lists the operators supported by MindSpore Lite.
 | LogicalOr             | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | LogicalOr                       |                          | Or                                              | LogicalOr                                       |
 | LshProjection         |              | ✅    |              |               |              |              |           | LshProjection                   |                          |                                                 |                                                 |
 | LSTM                  |    ✅   | ✅    |              |               |              |              |           |                                 |                          | LSTM                                            |                                                 |
-| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 |                          | MatMul                                          | MatMul, BatchMatMul                             |
+| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 |                          | MatMul                                          | MatMul,<br/>BatchMatMul                             |
 | MatMulGrad |  | ✅ |  |  |  |  |  | | |  |  |
 | Maximum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | Maximum                         |                          |                                                 | Maximum                                         |
 | MaximumGrad |  | ✅ | | |  |  |  |  | | |  |
-| MaxPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MaxPooling                      | Pooling                  | MaxPool, GlobalMaxPool                          | MaxPool                                         |
+| MaxPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MaxPooling                      | Pooling                  | MaxPool,<br/>GlobalMaxPool                          | MaxPool                                         |
 | MaxPoolGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
 | Merge                 | ✅ | ✅    |              |               |              |              |           |                                 |                          |                                                 | Merge                                           |
 | Minimum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | Minimum                         |                          | Min                                             | Minimum                                         |
@@ -97,7 +97,7 @@ This article lists the operators supported by MindSpore Lite.
 | NegGrad |  | ✅ | | |  |  |  |  | |  | |
 | NotEqual              | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | NotEqual                        |                          |                                                 | NotEqual                                        |
 | OneHot                |              | ✅    |              |               | ✅    | ✅    |           | OneHot                          |                          | OneHot                                          | OneHot                                          |
-| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Pad, MirrorPad                  |                          | Pad                                             | MirrorPad, Pad                                  |
+| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Pad,<br/>MirrorPad                  |                          | Pad                                             | MirrorPad,<br/>Pad                                  |
 | Pow                   |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | ✅ |  |  |  |  | |  |  |  |  |
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | PRELU                           | PReLU                    | PRelu                                           |                                                 |
@@ -119,7 +119,7 @@ This article lists the operators supported by MindSpore Lite.
 | ReLU6                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Relu6                           | ReLU6                    | Clip<sup>[1]</sup>                              | Relu6                                           |
 | ReLU6Grad | ✅ | ✅ |  |  |  |  |  |  |  |  |  |
 | Reshape               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Reshape                         | Reshape                  | Reshape,Flatten                                 | Reshape                                         |
-| Resize                |              | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ResizeBilinear, NearestNeighbor | Interp                   |                                                 | ResizeBilinear, ResizeBicubic, ResizeNearestNeighbor |
+| Resize                |              | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ResizeBilinear,<br/>NearestNeighbor | Interp                   |                                                 | ResizeBilinear,<br/>ResizeBicubic,<br/>ResizeNearestNeighbor |
 | ResizeGrad | | ✅ |  |  |  |  |  |  |  | |  |
 | Reverse               |              | ✅    |              |               |              |              |           | reverse                         |                          |                                                 | ReverseV2                                       |
 | ReverseSequence       |              | ✅    |              |               |              |              |           | ReverseSequence                 |                          |                                                 | ReverseSequence                                 |
@@ -168,7 +168,7 @@ This article lists the operators supported by MindSpore Lite.
 | Unstack               |              | ✅    |              |               |              |              |           | Unstack                         |                          |                                                 |                                                 |
 | Where                 |              | ✅    |              |               |              |              |           | Where                           |                          |                                                 | Where                                           |
 | ZerosLike             |              | ✅    |              |               |              |              |           | ZerosLike                       |                          |                                                 | ZerosLike                                       |
-| Other operators supported by the converter.<sup>[4]</sup> |   |   |    |        |            |            |         |          |          | Loop, Dropout, If    | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
+| Other operators supported by the converter.<sup>[4]</sup> |   |   |    |        |            |            |         |          |          | Loop,<br/>Dropout,<br/>If    | Dropout, Enter,<br/>Exit, If,<br/>IsFinite,<br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>While |
 
 [1] Clip: Only support converting clip(0, 6) to Relu6.
 
