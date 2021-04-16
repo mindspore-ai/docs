@@ -22,7 +22,7 @@
 
 Ascend 310 is a highly efficient and integrated AI processor oriented to edge scenarios. The Atlas 200 Developer Kit (Atlas 200 DK) is a developer board that uses the Atlas 200 AI accelerator module. Integrated with the HiSilicon Ascend 310 AI processor, the Atlas 200 allows data analysis, inference, and computing for various data such as images and videos, and can be widely used in scenarios such as intelligent surveillance, robots, drones, and video servers.
 
-This tutorial describes how to use MindSpore to perform inference on the Atlas 200 DK. The process is as follows:
+This tutorial describes how to use MindSpore to perform inference on the Atlas 200 DK based on the MindIR model file. The process is as follows:
 
 1. Prepare the development environment, including creating an SD card for the Atlas 200 DK, configuring the Python environment, and updating the development software package.
 
