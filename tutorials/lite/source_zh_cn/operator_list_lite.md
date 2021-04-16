@@ -6,7 +6,7 @@
 
 本文列举MindSpore Lite支持的算子。
 
-| 操作名 <br/>&nbsp;            | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;  | 支持的TensorFlow<br/>Lite算子 | 支持的Caffe<br/>Lite算子 | 支持的Onnx<br/>Lite算子 |支持的TensorFlow<br/>算子 |
+| 操作名 <br/>&nbsp; | CPU<br/>FP16 | CPU<br/>FP32 | CPU<br/>Int8 | CPU<br/>UInt8 | GPU<br/>FP16 | GPU<br/>FP32 | NPU<br/>&nbsp;  | 支持的TensorFlow Lite算子 | 支持的Caffe Lite算子 | 支持的Onnx Lite算子 |支持的TensorFlow算子 |
 | --------------------- | :------------: | :------------: | :------------: | :-------------: | :------------: | :------------: | :---------: | ------------------------------- | ------------------------ | ----------------------------------------------- | ----------------------------------------------- |
 | Abs                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Abs                             |                          | Abs                                             | Abs                                             |
 | Add                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |
@@ -15,19 +15,19 @@
 | Assert                |              | ✅    |              |               |              |              |           |                                 |                          |                                                 | Assert                                          |
 | Argmax                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Argmax                          | ArgMax                   | ArgMax                                          | Argmax                                          |
 | Argmin                |  ✅   | ✅    | ✅    | ✅     | ✅    | ✅    |           | Argmin                          |                          |                                                 | ArgMin                                          |
-| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MeanPooling                     | Pooling                  | AveragePool, GlobalAveragePool, Int8AveragePool | AvgPool                                         |
+| AvgPool               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool | AvgPool                                         |
 | AvgPoolGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
 | BatchNorm             | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |           |                                 | BatchNorm                | BatchNormalization                              |                                                 |
 | BatchNormGrad |  | ✅ |  |  |  |  | | |  |  | |
-| BatchToSpace          |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | BatchToSpace, BatchToSpaceND    |                          |                                                 | BatchToSpace, BatchToSpaceND                    |
+| BatchToSpace          |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | BatchToSpace, <br/>BatchToSpaceND    |                          |                                                 | BatchToSpace,<br/>BatchToSpaceND                    |
 | BiasAdd               | ✅ | ✅    | ✅    | ✅     | ✅    | ✅    |           |                                 |                          | BiasAdd                                         | BiasAdd                                         |
 | BiasAddGrad | | ✅ |  |  |  |  | | | |  |  |
 | Broadcast             |              | ✅    |              |               |              |              |           | BroadcastTo                     |                          | Expand                                          |                                                 |
-| Cast                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Cast, QUANTIZE, DEQUANTIZE      |                          | Cast                                            | Cast                                            |
+| Cast                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Cast, QUANTIZE, <br/>DEQUANTIZE      |                          | Cast                                            | Cast                                            |
 | Ceil                  | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Ceil                            |                          | Ceil                                            | Ceil                                            |
 | Concat                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Concat                          | Concat                   | Concat                                          | ConcatV2                                        |
 | ConstantOfShape       |              | ✅    |              |               |              |              |           |                                 |                          | ConstantOfShape                                 |                                                 |
-| Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Conv2D                          | Convolution              | Conv, Int8Conv, ConvRelu, Int8ConvRelu          | Conv2D                                          |
+| Conv2d                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Conv2D                          | Convolution              | Conv, Int8Conv,<br/>ConvRelu,<br/>Int8ConvRelu          | Conv2D                                          |
 | Conv2dGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
 | Conv2dTranspose       | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | DeConv2D                        | Deconvolution            | ConvTranspose                                   | Conv2DBackpropInput                             |
 | Conv2dTransposeGrad |  | ✅ |  |  |  |  |  |  |  |  |  |
@@ -44,7 +44,7 @@
 | Div                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Div, RealDiv                    |                          | Div                                             | Div, RealDiv                                    |
 | DivGrad |  | ✅ |  |  |  |  |  |  | |  |  |
 | Eltwise               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 | Eltwise                  | Sum, Max<sup>[3]</sup>                          |                                                 |
-| Elu                   |              | ✅    |              |               |              |              |           |                                 | Elu                      | Elu, NonMaxSuppression                          | NonMaxSuppressionV3                             |
+| Elu                   |              | ✅    |              |               |              |              |           |                                 | Elu                      | Elu,<br/>NonMaxSuppression                          | NonMaxSuppressionV3                             |
 | EluGrad | | ✅ | | | | | | |  |  |  |
 | Equal                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Equal                           |                          | Equal                                           | Equal                                           |
 | Exp                   |              | ✅    |              |               | ✅    | ✅    |           | Exp                             | Exp                      | Exp                                             | Exp                                             |
@@ -55,7 +55,7 @@
 | FloorDiv              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | FloorDiv                        |                          |                                                 | FloorDiv                                        |
 | FloorMod              | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | FloorMod                        |                          |                                                 | FloorMod                                        |
 | FullConnection        | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |  ✅ | FullyConnected                  | InnerProduct             |                                                 |                                                 |
-| FusedBatchNorm        | ✅    | ✅    | ✅    | ✅     |              |              | ✅ | FusedBatchNorm                  |                          |                                                 | FusedBatchNorm, FusedBatchNormV3                |
+| FusedBatchNorm        | ✅    | ✅    | ✅    | ✅     |              |              | ✅ | FusedBatchNorm                  |                          |                                                 | FusedBatchNorm,<br/>FusedBatchNormV3                |
 | GatherNd              |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | GatherND                        |                          |                                                 | GatherNd                                        |
 | Gather                |   ✅    | ✅    | ✅    | ✅     | ✅    | ✅    |  ✅  | Gather                          |                          | Gather                                          | GatherV2                                        |
 | Greater               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Greater                         |                          | Greater                                         | Greater                                         |
@@ -82,7 +82,7 @@
 | LogicalOr             | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | LogicalOr                       |                          | Or                                              | LogicalOr                                       |
 | LshProjection         |              | ✅    |              |               |              |              |           | LshProjection                   |                          |                                                 |                                                 |
 | LSTM                  |    ✅   | ✅    |              |               |              |              |           |                                 |                          | LSTM                                            |                                                 |
-| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 |                          | MatMul                                          | MatMul, BatchMatMul                             |
+| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 |                          | MatMul                                          | MatMul,<br/>BatchMatMul                             |
 | MatMulGrad |  | ✅ |  |  |  |  |  | | |  |  |
 | Maximum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | Maximum                         |                          |                                                 | Maximum                                         |
 | MaximumGrad |  | ✅ | | |  |  |  |  | | |  |
@@ -103,7 +103,7 @@
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | PRELU                           | PReLU                    | PRelu                                           |                                                 |
 | RandomStandardNormal  |              | ✅    |              |               |              |              |           |                                 |                          |                                                 | RandomStandardNormal                            |
 | RandomUniform         |              | ✅    |              |               |              |              |           |                                 |                          |                                                 | RandomUniform                                   |
-| Range                 |              | ✅    |              |               |              |              |           | Range                           |                          |                                                 | Range, RaggedRange                              |
+| Range                 |              | ✅    |              |               |              |              |           | Range                           |                          |                                                 | Range,<br/>RaggedRange                              |
 | Rank                  |              | ✅    |              |               |              |              |           | Rank                            |                          |                                                 | Rank                                            |
 | Reciprocal            | ✅    | ✅    | ✅    |               |              |              | ✅ |                                 |                          |                                                 |                                                 |
 | ReduceAll             |              | ✅    |              |               |              |              |           |                                 |                          |                                                 | All                                             |
@@ -119,7 +119,7 @@
 | ReLU6                 | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Relu6                           | ReLU6                    | Clip<sup>[1]</sup>                              | Relu6                                           |
 | ReLU6Grad | ✅ | ✅ |  |  |  |  |  |  |  |  |  |
 | Reshape               | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Reshape                         | Reshape                  | Reshape,Flatten                                 | Reshape                                         |
-| Resize                |              | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ResizeBilinear, NearestNeighbor | Interp                   |                                                 | ResizeBilinear, ResizeBicubic, ResizeNearestNeighbor |
+| Resize                |              | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | ResizeBilinear,<br/>NearestNeighbor | Interp                   |                                                 | ResizeBilinear,<br/>ResizeBicubic,<br/>ResizeNearestNeighbor |
 | ResizeGrad | | ✅ |  |  |  |  |  |  |  | |  |
 | Reverse               |              | ✅    |              |               |              |              |           | reverse                         |                          |                                                 | ReverseV2                                       |
 | ReverseSequence       |              | ✅    |              |               |              |              |           | ReverseSequence                 |                          |                                                 | ReverseSequence                                 |
@@ -168,7 +168,7 @@
 | Unstack               |              | ✅    |              |               |              |              |           | Unstack                         |                          |                                                 |                                                 |
 | Where                 |              | ✅    |              |               |              |              |           | Where                           |                          |                                                 | Where                                           |
 | ZerosLike             |              | ✅    |              |               |              |              |           | ZerosLike                       |                          |                                                 | ZerosLike                                       |
-| 转换工具支持的其他算子<sup>[4]</sup> |     |              |              |               |              |              |           |       |     | Loop, Dropout, If      | Dropout, Enter, Exit, If, IsFinite, LinSpace, LoopCond, NextIteration, StatelessIf, StatelessWhile, While |
+| 转换工具支持的其他算子<sup>[4]</sup> |     |              |              |               |              |              |           |       |     | Loop, Dropout, If      | Dropout, Enter,<br/>Exit, If, <br/>IsFinite,<br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>While |
 
 [1] Clip：仅支持将clip(0, 6)转换为Relu6。
 

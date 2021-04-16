@@ -6,18 +6,18 @@
 
 本文列举MindSpore Lite Codegen支持的算子。
 
-| 操作名 <br/>&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | 支持的TensorFlow<br/>Lite算子    | 支持的Caffe<br/>Lite算子  | 支持的Onnx<br/>Lite算子                          |支持的TensorFlow<br/>算子                         |
+| 操作名 <br/>&nbsp;   | CPU<br/>FP32 | CPU<br/>Int8 | CMSIS<br/>Int8  | 支持的TensorFlow Lite算子    | 支持的Caffe Lite算子  | 支持的Onnx Lite算子                          |支持的TensorFlow算子                         |
 |-----------------------|:--------------:|:--------------:|:-----------------:|---------------------------------|--------------------------|-------------------------------------------------|-------------------------------------------------|
 | Abs                   | ✅    |              |                 | Abs                             |                          | Abs                                             |                                                 |
-| Add                   | ✅    | ✅    | ✅       | Add                             |                          | Add, Int8Add                                    | Add, AddV2                                      |
+| Add                   | ✅    | ✅    | ✅       | Add                             |                          | Add,<br/>Int8Add                                    | Add, AddV2                                      |
 | AddN                  | ✅    |              |                 | AddN                            |                          |                                                 |                                                 |
-| AvgPool               | ✅    | ✅    | ✅       | MeanPooling                     | Pooling                  | AveragePool, GlobalAveragePool, Int8AveragePool |                                                 |
+| AvgPool               | ✅    | ✅    | ✅       | MeanPooling                     | Pooling                  | AveragePool,<br/>GlobalAveragePool,<br/>Int8AveragePool |                                                 |
 | BatchNorm             |              | ✅    | ✅       |                                 | BatchNorm                | BatchNormalization                              |                                                 |
 | BiasAdd               | ✅    |              |                 |                                 |                          | BiasAdd                                         | BiasAdd                                         |
-| Cast                  | ✅    | ✅    | ✅       | Cast, QUANTIZE, DEQUANTIZE      |                          | Cast                                            | Cast                                            |
+| Cast                  | ✅    | ✅    | ✅       | Cast, QUANTIZE,<br/>DEQUANTIZE      |                          | Cast                                            | Cast                                            |
 | Ceil                  | ✅    |              |                 | Ceil                            |                          | Ceil                                            |                                                 |
 | Concat                | ✅    | ✅    | ✅       | Concat                          | Concat                   | Concat                                          | ConcatV2                                        |
-| Conv2d                | ✅    | ✅    | ✅       | Conv2D                          | Convolution              | Conv, Int8Conv, ConvRelu, Int8ConvRelu          | Conv2D                                          |
+| Conv2d                | ✅    | ✅    | ✅       | Conv2D                          | Convolution              | Conv, Int8Conv,<br/>ConvRelu,<br/>Int8ConvRelu          | Conv2D                                          |
 | Cos                   | ✅    |              |                 | Cos                             |                          | Cos                                             |                                                 |
 | DetectionPostProcess  |              | ✅    |                 | Custom                          |                          |                                                 |                                                 |
 | Div                   | ✅    | ✅    | ✅       | Div, RealDiv                    |                          | Div                                             | Div, RealDiv                                    |
@@ -38,7 +38,7 @@
 | LogicalOr             | ✅    |              |                 | LogicalOr                       |                          | Or                                              |                                                 |
 | MatMul                | ✅    | ✅    |                 |                                 |                          | MatMul                                          | MatMul                                          |
 | Maximum               | ✅    |              |                 | Maximum                         |                          |                                                 | Maximum                                         |
-| MaxPool               | ✅    | ✅    | ✅       | MaxPooling                      | Pooling                  | MaxPool, GlobalMaxPool                          |                                                 |
+| MaxPool               | ✅    | ✅    | ✅       | MaxPooling                      | Pooling                  | MaxPool,<br/>GlobalMaxPool                          |                                                 |
 | Minimum               | ✅    |              |                 | Minimum                         |                          | Min                                             | Minimum                                         |
 | Mul                   | ✅    | ✅    | ✅       | Mul                             |                          | Mul                                             | Mul                                             |
 | Neg                   | ✅    |              |                 | Neg                             |                          | Neg                                             |                                                 |
@@ -46,7 +46,7 @@
 | ReLU                  | ✅    | ✅    | ✅       | Relu                            | ReLU                     | Relu                                            | Relu                                            |
 | ReLU6                 | ✅    | ✅    | ✅       | Relu6                           | ReLU6                    | Clip<sup>[1]</sup>                              | Relu6                                           |
 | Reshape               | ✅    | ✅    | ✅       | Reshape                         | Reshape                  | Reshape,Flatten                                 | Reshape                                         |
-| Resize                |              | ✅    |                 | ResizeBilinear, NearestNeighbor | Interp                   |                                                 |                                                 |
+| Resize                |              | ✅    |                 | ResizeBilinear,<br/>NearestNeighbor | Interp                   |                                                 |                                                 |
 | Round                 | ✅    |              |                 | Round                           |                          | Round                                           | Round                                           |
 | Rsqrt                 | ✅    |              |                 | Rsqrt                           |                          |                                                 |                                                 |
 | Sigmoid               | ✅    | ✅    | ✅       | Logistic                        | Sigmoid                  | Sigmoid                                         | Sigmoid                                         |
