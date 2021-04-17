@@ -91,9 +91,9 @@ MindSpore defines logical network structures and operator attributes through a u
   <td>LeNet</td>
 </tr>
 <tr>
-  <td>Mask R-CNN</td>
-  <td>MASS</td>
+    <td>MASS</td>
   <td>MobileNetV2</td>
+    <td></td>
 </tr>
 <tr>
   <td>NCF</td>
