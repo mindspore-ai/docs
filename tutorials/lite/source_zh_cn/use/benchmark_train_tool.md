@@ -1,4 +1,4 @@
-# 使用benchmark_train进行基准测试
+# benchmark_train
 
 `Linux` `环境准备` `基准测试` `中级` `高级`
 
@@ -29,7 +29,15 @@
 
 - 编译：`benchmark_train`工具代码在MindSpore源码的`mindspore/lite/tools/benchmark_train`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)编译端侧训练框架。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id5)，获得`benchmark_train`工具，并配置环境变量。
+- 配置环境变量：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id5)，获得`benchmark_train`工具，并配置环境变量。假设您编译出的端侧训练框架压缩包所在完整路径为`/path/mindspore-lite-{version}-train-{os}-{arch}.tar.gz`，解压并配置环境变量的命令如下：
+
+    ```bash
+    cd /path
+    tar xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
+    export LD_LIBRARY_PATH=/path/mindspore-lite-{version}-train-{os}-{arch}/train/lib:/path/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/lib:/path/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/third_party:${LD_LIBRARY_PATH}
+    ```
+
+benchmark_train工具所在完整路径为`/path/mindspore-lite-{version}-train-{os}-{arch}/tools/benchmark_train/benchmark_train`。
 
 ### 参数说明
 
