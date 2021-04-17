@@ -16,7 +16,6 @@
    quick_start/quick_start_java
    quick_start/quick_start
    quick_start/image_segmentation
-   quick_start/quick_start_codegen
    quick_start/train_lenet
    quick_start/train_lenet_java
 
@@ -36,10 +35,10 @@
    :hidden:
 
    use/converter_tool
-   use/code_generator
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
+   use/micro
    use/asic
    use/tools
 
@@ -213,19 +212,6 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Whole-Process stage-Model-Compiling stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_codegen.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">使用CodeGen编译一个MNIST分类模型</span>
-										</div>
-							
-										<div class="doc-article-desc">
-										本教程介绍如何使用MindSpore Lite代码生成工具Codegen，快速生成以及部署轻量化推理代码。
-										</div>
-									</div>
-								</a>
-							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
 									<div>
@@ -291,10 +277,10 @@
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux os-iot language-cpp stage-Model-Code-Generation stage-Inference user-Beginner user-Intermediate hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/code_generator.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/micro.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">代码生成工具</span>
+											<span class="doc-head-content">在微控制器上执行推理</span>
 										</div>
 										<div class="doc-article-desc">
 										MindSpore Lite提供代码生成工具codegen，将运行时编译、解释计算图，移至离线编译阶段。仅保留推理所必须的信息，生成极简的推理代码。
