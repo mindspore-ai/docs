@@ -1,8 +1,60 @@
-# 网络模型类
+﻿# 网络模型类
 
 `数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
+
+<font size=3>**Q：MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？**</font>
+
+A：当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline方式，即：数据处理在逐步处理数据时，处理完一个`batch`的数据，会把数据放到一个队列里，这个队列用于缓存已经处理好的数据，然后网络计算从这个队列里面取数据用于训练，那么此时数据处理与网络计算就`Pipeline`起来了，整个训练耗时就是数据处理/网络计算耗时最长的那个。
+
+当`dataset_sink_mode=False`时，数据处理会和网络计算构成串行的过程，即：数据处理在处理完一个`batch`后，把这个`batch`的数据传递给网络用于计算，在计算完成后，数据处理再处理下一个`batch`，然后把这个新的`batch`数据传递给网络用于计算，如此的循环往复，直到训练完。该方法的总耗时是数据处理的耗时+网络计算的耗时=训练总耗时。
+
+<br/>
+
+<font size=3>**Q：MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
+
+A：你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
+
+<br/>
+
+<font size=3>**Q：通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
+
+A：请手动修改规避，修改如下两点即可：
+
+```python
+# 增加**kwargs参数：如下
+def vgg16(num_classes=1000, args=None, phase="train", **kwargs):
+```
+
+```python
+# 增加**kwargs参数：如下
+net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_norm, phase=phase, **kwargs)
+```
+
+<br/>
+
+<font size=3>**Q：如何得到VGG模型中间层特征？**</font>
+
+A：你好，获取网络中间层的特征，其实跟具体框架没有太大关系了。`torchvison`里定义的`vgg`模型，可以通过`features`字段获取"中间层特征"，`torchvison`的`vgg`源码如下：
+
+```python
+class VGG(nn.Module):
+
+    def __init__(self, features, num_classes=1000, init_weights=True):
+        super(VGG, self).__init__()
+        self.features = features
+        self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
+```
+
+在MindSpore的ModelZoo里定义的`vgg16`，可以通过`layers`字段获取，如下：
+
+```python
+network = vgg16()
+print(network.layers)
+```
+
+<br/>
 
 <font size=3>**Q：使用MindSpore进行模型训练时，`CTCLoss`的输入参数有四个：`inputs`, `labels_indices`, `labels_values`, `sequence_length`，如何使用`CTCLoss`进行训练？**</font>
 
