@@ -434,7 +434,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/tools
 Configure benchmark_train:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/third_party:${LD_LIBRARY_PATH}
 ```
 
 ## Windows Environment Compilation
