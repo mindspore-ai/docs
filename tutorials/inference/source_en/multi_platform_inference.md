@@ -91,12 +91,7 @@ MindSpore defines logical network structures and operator attributes through a u
   <td>LeNet</td>
 </tr>
 <tr>
-    <td>MASS</td>
   <td>MobileNetV2</td>
-    <td></td>
-</tr>
-<tr>
-  <td>NCF</td>
   <td>PSENet</td>
   <td>ResNet</td>
 </tr>
@@ -107,8 +102,8 @@ MindSpore defines logical network structures and operator attributes through a u
 </tr>
 <tr>
   <td>SSD</td>
-  <td>Transformer</td>
   <td>TinyBert</td>
+  <td></td>
 </tr>
 <tr>
   <td>UNet2D</td>
