@@ -75,9 +75,9 @@ lenet/
 └── src                             # 源文件
     ├── CMakeLists.txt
     ├── model.h
-    ├── net.bin
+    ├── net.bin                     # 二进制形式的模型权重
     ├── net.c
-    ├── net.cmake                   # 二进制形式的模型权重
+    ├── net.cmake
     ├── net.h
     ├── session.cc
     ├── session.h
