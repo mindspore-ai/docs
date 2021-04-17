@@ -66,18 +66,20 @@
 执行成功后，会在codePath指定的目录下，生成名为lenet的文件夹，内容如下：
 
 ```text
-lenet/
-├── benchmark                       # 集成调试相关的例程
+lenet
+├── benchmark                  # 集成调试相关的例程
 │   ├── benchmark.cc
-│   ├── load_input.c
-│   └── load_input.h
+│   ├── calib_output.cc
+│   ├── calib_output.h
+│   ├── load_input.c
+│   └── load_input.h
 ├── CMakeLists.txt
-└── src                             # 源文件
+└── src                        # 源文件
     ├── CMakeLists.txt
     ├── model.h
-    ├── net.bin
+    ├── net.bin                # 二进制形式的模型权重
     ├── net.c
-    ├── net.cmake                   # 二进制形式的模型权重
+    ├── net.cmake
     ├── net.h
     ├── session.cc
     ├── session.h
