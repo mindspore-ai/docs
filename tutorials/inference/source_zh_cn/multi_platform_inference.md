@@ -91,12 +91,7 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
   <td>LeNet</td>
 </tr>
 <tr>
-    <td>MASS</td>
   <td>MobileNetV2</td>
-    <td></td>
-</tr>
-<tr>
-  <td>NCF</td>
   <td>PSENet</td>
   <td>ResNet</td>
 </tr>
@@ -107,8 +102,8 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 </tr>
 <tr>
   <td>SSD</td>
-  <td>Transformer</td>
   <td>TinyBert</td>
+  <td></td>
 </tr>
 <tr>
   <td>UNet2D</td>
