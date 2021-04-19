@@ -18,6 +18,7 @@ sys.path.append(os.path.abspath('./_ext'))
 import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 from sphinx.util import inspect as sphinx_inspect
+from sphinx.domains import python as sphinx_domain_python
 from textwrap import dedent
 # sys.path.insert(0, os.path.abspath('.'))
 
@@ -383,3 +384,15 @@ with open(inspect_source_path, "r+", encoding="utf8") as g:
         g.seek(0)
         g.truncate()
         g.write(code_str)
+
+# remove extra space for default params for autodoc.
+sphinx_domain_python_source_path = os.path.abspath(sphinx_domain_python.__file__)
+python_code_source = """for argument in arglist.split(','):"""
+python_code_target = """for argument in [" " + i if num > 1 else i for num,i in enumerate(arglist.split(", "))]:"""
+with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    if python_code_target not in code_str:
+        code_str = code_str.replace(python_code_source, python_code_target)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)

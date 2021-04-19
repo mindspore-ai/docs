@@ -51,7 +51,7 @@
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [Mask R-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn)  |  ✅ |  ✅ |   |   |  |  |
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[Mask R-CNN (MobileNetV1)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/maskrcnn_mobilenetv1)         |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV） | 目标检测（Object Detection）  | [RetinaFace-ResNet50](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/retinaface_resnet50)   |   |   |  ✅ |  ✅ |  |  |
-| 计算机视觉（CV）  | 目标检测（Object Detection  | [SSD](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ssd)                   |  ✅ |   | ✅ | ✅ | ✅ |  |
+| 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ssd)                   |  ✅ |   | ✅ | ✅ | ✅ |  |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ssd)         |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-Resnet50-FPN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ssd)                   |  ✅ |   |  |  |  |  |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-VGG16](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/ssd)                   |  ✅ |   |  |  |  |  |
