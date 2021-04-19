@@ -2,25 +2,15 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `端侧` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/architecture.md" target="_blank"><img src="../../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/note/source_zh_cn/design/mindspore/architecture.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
-MindSpore框架架构总体分为MindSpore前端表示层、MindSpore计算图引擎和MindSpore后端运行时三层。
+MindSpore是一个全场景深度学习框架，旨在实现易开发、高效执行、全场景覆盖三大目标，其中易开发表现为API友好、调试难度低，高效执行包括计算效率、数据预处理效率和分布式训练效率，全场景则指框架同时支持云、边缘以及端侧场景。
 
-![architecture](./images/architecture.png)
+MindSpore总体架构如下图所示，下面介绍主要的扩展层（MindSpore Extend）、前端表达层（MindExpress，ME）、编译优化层（MindCompiler）和全场景运行时（MindRE）四个部分。
 
-- MindSpore前端表示层（MindExpression，简称ME）
+- **MindSpore Extend（扩展层）**：MindSpore的扩展包，期待更多开发者来一起贡献和构建。
+- **MindExpress（表达层）**：基于Python的前端表达，未来计划陆续提供C/C++、Java等不同的前端；MindSpore也在考虑支持华为自研编程语言前端-仓颉，目前还处于预研阶段；同时也在做与Julia等第三方前端的对接工作，引入更多的第三方生态。
+- **MindCompiler（编译优化层）**：图层的核心编译器，主要基于端云统一的MindIR实现三大功能，包括硬件无关的优化（类型推导、自动微分、表达式化简等）、硬件相关优化（自动并行、内存优化、图算融合、流水线执行等）、部署推理相关的优化（量化、剪枝等）；其中，MindAKG是MindSpore的自动算子生成编译器，目前还在持续完善中。
+- **MindRE（全场景运行时）**：这里含云侧、端侧以及更小的IoT。
 
-  该部分包含Python API、MindSpore IR（Intermediate representation，简称IR）、计算图高级别优化（Graph High Level Optimization，简称GHLO）三部分。
-    - Python API向用户提供统一的模型训练、推理、导出接口，以及统一的数据处理、增强、格式转换接口。
-    - GHLO包含硬件无关的优化（如死代码消除等）、自动并行和自动微分等功能。
-    - MindSpore IR提供统一的中间表示，MindSpore基于此IR进行pass优化。
-
-- MindSpore计算图引擎（GraphEngine，简称GE）
-
-  该部分包含计算图低级别优化（Graph Low Level Optimization，简称GLLO）、图执行。
-    - GLLO包含硬件相关的优化，以及算子融合、Buffer融合等软硬件结合相关的深度优化。
-    - 图执行提供离线图执行、分布式训练所需要的通信接口等功能。
-
-- MindSpore后端运行时
-
-  该部分包含云、边、端上不同环境中的高效运行环境。
+![MindSpore](images/architecture.png)
