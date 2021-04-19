@@ -31,6 +31,11 @@ MindConverter is a migration tool to transform the model scripts and weights fro
 
 Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://gitee.com/mindspore/mindinsight/blob/master/README.md#) here to install MindInsight.
 
+Third party libraries below are required after installing MindInsight:
+
+1. TensorFlow is not a dependency library explicitly declared by MindInsight. If the user want to use graph based MindConverter, please install TensorFlow(MindConverter recommends TensorFlow 1.15.x).
+2. ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2), ONNXOPTIMIZER(>=0.1.2) are not explicitly stated dependency libraries in MindInsight, if the user want to use graph based MindConverter, above three-party libraries must be installed. If the user want to migrate TensorFlow model to MindSpore, TF2ONNX(>=1.7.1) must be installed additionally.
+
 ## Usage
 
 MindConverter currently only provides command-line interface. Here is the manual page.
@@ -53,19 +58,22 @@ optional arguments:
                         schema. When `--in_file` and `--model_file` are both
                         provided, use AST schema as default.
   --shape SHAPE [SHAPE ...]
-                        Optional, expected input tensor shape of
-                        `--model_file`. It is required when use graph based
-                        schema. Both order and number should be consistent
-                        with `--input_nodes`. Usage: --shape 1,512 1,512
-  --input_nodes INPUT_NODES [INPUT_NODES ...]
-                        Optional, input node(s) name of `--model_file`. It is
+                        Expected input tensor shape of `--model_file`. It is
                         required when use graph based schema. Both order and
-                        number should be consistent with `--shape`. Usage:
-                        --input_nodes input_1:0 input_2:0
+                        number should be consistent with `--input_nodes`.
+                        Given that (1,128) and (1,512) are shapes of input_1
+                        and input_2 separately. Usage: --shape 1,128 1,512
+  --input_nodes INPUT_NODES [INPUT_NODES ...]
+                        Input node(s) name of `--model_file`. It is required
+                        when use graph based schema. Both order and number
+                        should be consistent with `--shape`. Given that both
+                        input_1 and input_2 are inputs of model. Usage:
+                        --input_nodes input_1 input_2
   --output_nodes OUTPUT_NODES [OUTPUT_NODES ...]
-                        Optional, output node(s) name of `--model_file`. It is
-                        required when use graph based schema. Usage:
-                        --output_nodes output_1:0 output_2:0
+                        Output node(s) name of `--model_file`. It is required
+                        when use graph based schema. Given that both output_1
+                        and output_2 are outputs of model. Usage:
+                        --output_nodes output_1 output_2
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -275,9 +283,7 @@ Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mi
 
 ## Caution
 
-1. TensorFlow is not a dependency library explicitly declared by MindInsight. If the user want to use graph based MindConverter, please install TensorFlow(MindConverter recommends TensorFlow 1.15.x).
-2. ONNX(>=1.8.0), ONNXRUNTIME(>=1.5.2), ONNXOPTIMIZER(>=0.1.2) are not explicitly stated dependency libraries in MindInsight, if the user want to use graph based MindConverter, above three-party libraries must be installed. If the user want to migrate TensorFlow model to MindSpore, TF2ONNX(>=1.7.1) must be installed additionally.
-3. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
-4. MindConverter converts dynamic input shape to constant one based on `--shape` while using grpah based scheme, as a result, it is required that inputs' shape used to retrain or inference in MindSpore are the same as that used to convert using MindConverter. If the input shape has changed, please re-running MindConverter with new `--shape` or fixing shape related parameters in the old script.
-5. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
-6. The security and consistency of the model file should be guaranteed by the user.
+1. This script conversion tool relies on operators which supported by MindConverter and MindSpore. Unsupported operators may not be successfully mapped to MindSpore operators. You can manually edit, or implement the mapping based on MindConverter, and contribute to our MindInsight repository. We appreciate your support for the MindSpore community.
+2. MindConverter converts dynamic input shape to constant one based on `--shape` while using grpah based scheme, as a result, it is required that inputs' shape used to retrain or inference in MindSpore are the same as that used to convert using MindConverter. If the input shape has changed, please re-running MindConverter with new `--shape` or fixing shape related parameters in the old script.
+3. MindSpore script and MindSpore checkpoint file are saved in the one file folder path, while report file and weight map file are saved in the other one.
+4. The security and consistency of the model file should be guaranteed by the user.
