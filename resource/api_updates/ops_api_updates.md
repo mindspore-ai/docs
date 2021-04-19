@@ -3,136 +3,148 @@
 Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, is shown in the following table.
 
 |API|Status|Support Platform|Class
-|:----|:----|:--------------|:-------
-|mindspore.ops.Dihedral14LJEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.PMEExcludedForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.AngleAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.DihedralForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.AngleForceWithAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14LJForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.BondForceWithAtomVirial|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.DihedralAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14CFAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.LJForceWithPMEDirectForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14CFEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.AngleEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.BondEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.MDIterationLeapFrog|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.NeighborListUpdate|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.DihedralEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14LJAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.PMEEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.LJEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.BondForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.DihedralForceWithAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.PMEReciprocalForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.BondAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14LJForceWithDirectCF|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.LJForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dihedral14LJCFForceWithAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.BondForceWithAtomEnergy|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.AngleForce|New|r1.2: GPU|operations--Sponge Operators
-|mindspore.ops.Dropout2D|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.BCEWithLogitsLoss|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.Dropout3D|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.Conv3D|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.Conv3DTranspose|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.SeLU|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.Mish|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.NLLLoss|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.MaxPool3D|New|r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.MulNoNan|New|r1.2: Ascend|operations--Math Operators
-|mindspore.ops.Randperm|New|r1.2: Ascend|operations--Math Operators
-|mindspore.ops.NoRepeatNGram|New|r1.2: Ascend|operations--Math Operators
-|mindspore.ops.stack|New|r1.2: same as mindspore.ops.Stack|functional
-|mindspore.ops.add|New|r1.2: same as mindspore.ops.Add|functional
-|mindspore.ops.batch_dot|New|r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.matmul|New|r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.dot|New|r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.MakeRefKey|Deleted|r1.1: Ascend/GPU/CPU|operations--Other Operators
-|mindspore.ops.Unpack|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
-|mindspore.ops.FastGelu|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
-|mindspore.ops.FusedBatchNorm|Deleted|r1.1: CPU|operations--Neural Network Operators
-|mindspore.ops.Pack|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
-|mindspore.ops.FusedBatchNormEx|Deleted|r1.1: GPU|operations--Neural Network Operators
-|mindspore.ops.Gelu|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
-|mindspore.ops.TensorAdd|Deleted|r1.1: To Be Developed|operations--Math Operators
-|mindspore.ops.GatherV2|Deleted|r1.1: To Be Developed|operations--Array Operators
-|mindspore.ops.control_depend|Deleted|r1.1: same as mindspore.ops.ControlDepend|functional
-|mindspore.ops.tensor_add|Deleted|r1.1: same as mindspore.ops.Add|functional
-|mindspore.ops.pack|Deleted|r1.1: same as mindspore.ops.Pack|functional
-|mindspore.ops.ControlDepend|Deleted|r1.1: Ascend/GPU/CPU|operations--Control Flows
-|mindspore.ops.add_flags|Deleted|r1.1: To Be Developed|composite
-|mindspore.ops.Acosh| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Tanh| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.SmoothL1Loss| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.MirrorPad| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.ApplyCenteredRMSProp| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Pad| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.BinaryCrossEntropy| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.TopK| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.GeLU| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.CTCGreedyDecoder| Changed |r1.1: To Be Developed => r1.2: Ascend|operations--Neural Network Operators
-|mindspore.ops.HSigmoid| Changed |r1.1: GPU => r1.2: GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.L2Normalize| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Neural Network Operators
-|mindspore.ops.ResizeBilinear| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Neural Network Operators
-|mindspore.ops.Stack| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Elu| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Unstack| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Sigmoid| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.LayerNorm| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.LogSoftmax| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Conv2DBackpropInput| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.HSwish| Changed |r1.1: GPU => r1.2: GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.ApplyRMSProp| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.CTCLoss| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.BatchNorm| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Neural Network Operators
-|mindspore.ops.Adam| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
-|mindspore.ops.Minimum| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.LogicalNot| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Sin| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Floor| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Mod| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.SquareSumAll| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
-|mindspore.ops.Asin| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Asinh| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Tan| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.Reciprocal| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Greater| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Expm1| Changed |r1.1: Ascend => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.CumSum| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.LogicalOr| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Div| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.ReduceAny| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.BatchMatMul| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Sinh| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.Atan2| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.ACos| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Cosh| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.FloorDiv| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Cos| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Atan| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Erfc| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
-|mindspore.ops.Atanh| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
-|mindspore.ops.Log1p| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
-|mindspore.ops.LogicalAnd| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.ReduceAll| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.SquaredDifference| Changed |r1.1: Ascend => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.GreaterEqual| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
-|mindspore.ops.Print| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Debug Operators
-|mindspore.ops.HyperMap| Changed |r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.gamma| Changed |r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
-|mindspore.ops.MultitypeFuncGraph| Changed |r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.count_nonzero| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.poisson| Changed |r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
-|mindspore.ops.GradOperation| Changed |r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
-|mindspore.ops.TensorScatterUpdate| Changed |r1.1: Ascend => r1.2: Ascend/GPU|operations--Array Operators
-|mindspore.ops.Squeeze| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
-|mindspore.ops.GatherNd| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
-|mindspore.ops.Gather| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
-|mindspore.ops.ArgMinWithValue| Changed |r1.1: Ascend => r1.2: Ascend/CPU|operations--Array Operators
-|mindspore.ops.GatherD| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
-|mindspore.ops.UnsortedSegmentSum| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
-|mindspore.ops.ResizeNearestNeighbor| Changed |r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|:----|:----|:----|:----
+|[mindspore.ops.PMEExcludedForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.PMEExcludedForce.html#mindspore.ops.PMEExcludedForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.PMEReciprocalForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.PMEReciprocalForce.html#mindspore.ops.PMEReciprocalForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.DihedralForceWithAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.DihedralForceWithAtomEnergy.html#mindspore.ops.DihedralForceWithAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.BondForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BondForce.html#mindspore.ops.BondForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14CFEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14CFEnergy.html#mindspore.ops.Dihedral14CFEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.AngleEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AngleEnergy.html#mindspore.ops.AngleEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14LJAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJAtomEnergy.html#mindspore.ops.Dihedral14LJAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14LJForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJForce.html#mindspore.ops.Dihedral14LJForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14LJEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJEnergy.html#mindspore.ops.Dihedral14LJEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.AngleForceWithAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AngleForceWithAtomEnergy.html#mindspore.ops.AngleForceWithAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14CFAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14CFAtomEnergy.html#mindspore.ops.Dihedral14CFAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14LJForceWithDirectCF](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJForceWithDirectCF.html#mindspore.ops.Dihedral14LJForceWithDirectCF)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.BondForceWithAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BondForceWithAtomEnergy.html#mindspore.ops.BondForceWithAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.LJEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LJEnergy.html#mindspore.ops.LJEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.PMEEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.PMEEnergy.html#mindspore.ops.PMEEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.LJForceWithPMEDirectForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LJForceWithPMEDirectForce.html#mindspore.ops.LJForceWithPMEDirectForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.BondEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BondEnergy.html#mindspore.ops.BondEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.LJForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LJForce.html#mindspore.ops.LJForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.BondAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BondAtomEnergy.html#mindspore.ops.BondAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.BondForceWithAtomVirial](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BondForceWithAtomVirial.html#mindspore.ops.BondForceWithAtomVirial)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.NeighborListUpdate](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.NeighborListUpdate.html#mindspore.ops.NeighborListUpdate)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.DihedralEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.DihedralEnergy.html#mindspore.ops.DihedralEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.DihedralForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.DihedralForce.html#mindspore.ops.DihedralForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.DihedralAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.DihedralAtomEnergy.html#mindspore.ops.DihedralAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.MDIterationLeapFrog](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MDIterationLeapFrog.html#mindspore.ops.MDIterationLeapFrog)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.AngleForce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AngleForce.html#mindspore.ops.AngleForce)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.Dihedral14LJCFForceWithAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJCFForceWithAtomEnergy.html#mindspore.ops.Dihedral14LJCFForceWithAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.AngleAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AngleAtomEnergy.html#mindspore.ops.AngleAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
+|[mindspore.ops.NoRepeatNGram](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.NoRepeatNGram.html#mindspore.ops.NoRepeatNGram)|New|r1.2: Ascend|operations--Other Operators
+|[mindspore.ops.Conv3DTranspose](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Conv3DTranspose.html#mindspore.ops.Conv3DTranspose)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.SeLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.SeLU.html#mindspore.ops.SeLU)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.Dropout2D](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dropout2D.html#mindspore.ops.Dropout2D)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.BCEWithLogitsLoss](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BCEWithLogitsLoss.html#mindspore.ops.BCEWithLogitsLoss)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.NLLLoss](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.NLLLoss.html#mindspore.ops.NLLLoss)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.Conv3D](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Conv3D.html#mindspore.ops.Conv3D)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.MaxPool3D](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MaxPool3D.html#mindspore.ops.MaxPool3D)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.Dropout3D](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dropout3D.html#mindspore.ops.Dropout3D)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.Mish](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Mish.html#mindspore.ops.Mish)|New|r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.MatrixInverse](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MatrixInverse.html#mindspore.ops.MatrixInverse)|New|r1.2: GPU|operations--Math Operators
+|[mindspore.ops.MulNoNan](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MulNoNan.html#mindspore.ops.MulNoNan)|New|r1.2: Ascend|operations--Math Operators
+|[mindspore.ops.IndexAdd](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.IndexAdd.html#mindspore.ops.IndexAdd)|New|r1.2: GPU|operations--Math Operators
+|[mindspore.ops.Randperm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Randperm.html#mindspore.ops.Randperm)|New|r1.2: Ascend|operations--Array Operators
+|[mindspore.ops.add](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Add.html#mindspore.ops.Add)|New|r1.2: same as mindspore.ops.Add|functional
+|[mindspore.ops.stack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Stack.html#mindspore.ops.Stack)|New|r1.2: mindspore.ops.Stack|functional
+|[mindspore.ops.dot](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.dot.html#mindspore.ops.dot)|New|r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.batch_dot](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.batch_dot.html#mindspore.ops.batch_dot)|New|r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.matmul](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.matmul.html#mindspore.ops.matmul)|New|r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.MakeRefKey](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.MakeRefKey.html#mindspore.ops.MakeRefKey)|Deleted|r1.1: Ascend/GPU/CPU|operations--Other Operators
+|[mindspore.ops.FusedBatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.FusedBatchNorm.html#mindspore.ops.FusedBatchNorm)|Deleted|r1.1: CPU|operations--Neural Network Operators
+|[mindspore.ops.Unpack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.Unpack.html#mindspore.ops.Unpack)|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
+|[mindspore.ops.FusedBatchNormEx](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.FusedBatchNormEx.html#mindspore.ops.FusedBatchNormEx)|Deleted|r1.1: GPU|operations--Neural Network Operators
+|[mindspore.ops.Gelu](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.Gelu.html#mindspore.ops.Gelu)|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
+|[mindspore.ops.FastGelu](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.FastGelu.html#mindspore.ops.FastGelu)|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
+|[mindspore.ops.Pack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.Pack.html#mindspore.ops.Pack)|Deleted|r1.1: To Be Developed|operations--Neural Network Operators
+|[mindspore.ops.TensorAdd](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.TensorAdd.html#mindspore.ops.TensorAdd)|Deleted|r1.1: To Be Developed|operations--Math Operators
+|[mindspore.ops.ControlDepend](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.ControlDepend.html#mindspore.ops.ControlDepend)|Deleted|r1.1: Ascend/GPU/CPU|operations--Control Flowscontrol
+|[mindspore.ops.GatherV2](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.GatherV2.html#mindspore.ops.GatherV2)|Deleted|r1.1: To Be Developed|operations--Array Operators
+|[mindspore.ops.control_depend](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.ControlDepend.html#mindspore.ops.ControlDepend)|Deleted|r1.1: same as mindspore.ops.ControlDepend|functional
+|[mindspore.ops.tensor_add](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.Add.html#mindspore.ops.Add)|Deleted|r1.1: same as mindspore.ops.Add|functional
+|[mindspore.ops.pack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.Pack.html#mindspore.ops.Pack)|Deleted|r1.1: same as mindspore.ops.Pack|functional
+|[mindspore.ops.add_flags](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/mindspore/ops/mindspore.ops.add_flags.html#mindspore.ops.add_flags)|Deleted|r1.1: To Be Developed|composite
+|[mindspore.ops.BasicLSTMCell](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BasicLSTMCell.html#mindspore.ops.BasicLSTMCell)|Changed|r1.1: Ascend => r1.2: Deprecated|operations--Neural Network Operators
+|[mindspore.ops.Tanh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Tanh.html#mindspore.ops.Tanh)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.HSwish](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.HSwish.html#mindspore.ops.HSwish)|Changed|r1.1: GPU => r1.2: GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.CTCLoss](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.CTCLoss.html#mindspore.ops.CTCLoss)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.L2Normalize](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.L2Normalize.html#mindspore.ops.L2Normalize)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Neural Network Operators
+|[mindspore.ops.BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BatchNorm.html#mindspore.ops.BatchNorm)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Neural Network Operators
+|[mindspore.ops.BinaryCrossEntropy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BinaryCrossEntropy.html#mindspore.ops.BinaryCrossEntropy)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.HSigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.HSigmoid.html#mindspore.ops.HSigmoid)|Changed|r1.1: GPU => r1.2: GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.ResizeBilinear](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ResizeBilinear.html#mindspore.ops.ResizeBilinear)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Neural Network Operators
+|[mindspore.ops.Elu](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Elu.html#mindspore.ops.Elu)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Conv2DBackpropInput](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Conv2DBackpropInput.html#mindspore.ops.Conv2DBackpropInput)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Sigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Sigmoid.html#mindspore.ops.Sigmoid)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.SmoothL1Loss](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.SmoothL1Loss.html#mindspore.ops.SmoothL1Loss)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.FusedSparseLazyAdam](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.FusedSparseLazyAdam.html#mindspore.ops.FusedSparseLazyAdam)|Changed|r1.1: CPU => r1.2: Ascend/CPU|operations--Neural Network Operators
+|[mindspore.ops.ApplyCenteredRMSProp](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ApplyCenteredRMSProp.html#mindspore.ops.ApplyCenteredRMSProp)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.CTCGreedyDecoder](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.CTCGreedyDecoder.html#mindspore.ops.CTCGreedyDecoder)|Changed|r1.1: To Be Developed => r1.2: Ascend|operations--Neural Network Operators
+|[mindspore.ops.Acosh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Acosh.html#mindspore.ops.Acosh)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Pad](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Pad.html#mindspore.ops.Pad)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Stack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Stack.html#mindspore.ops.Stack)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.MirrorPad](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MirrorPad.html#mindspore.ops.MirrorPad)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Adam](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Adam.html#mindspore.ops.Adam)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.GeLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GeLU.html#mindspore.ops.GeLU)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.TopK](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.TopK.html#mindspore.ops.TopK)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.ApplyRMSProp](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ApplyRMSProp.html#mindspore.ops.ApplyRMSProp)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.FusedSparseAdam](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.FusedSparseAdam.html#mindspore.ops.FusedSparseAdam)|Changed|r1.1: CPU => r1.2: Ascend/CPU|operations--Neural Network Operators
+|[mindspore.ops.LayerNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LayerNorm.html#mindspore.ops.LayerNorm)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.LogSoftmax](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LogSoftmax.html#mindspore.ops.LogSoftmax)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.Unstack](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Unstack.html#mindspore.ops.Unstack)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
+|[mindspore.ops.BatchMatMul](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.BatchMatMul.html#mindspore.ops.BatchMatMul)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Floor](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Floor.html#mindspore.ops.Floor)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Sinh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Sinh.html#mindspore.ops.Sinh)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.ReduceAny](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ReduceAny.html#mindspore.ops.ReduceAny)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.ACos](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ACos.html#mindspore.ops.ACos)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.FloorDiv.html#mindspore.ops.FloorDiv)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.LogicalOr](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LogicalOr.html#mindspore.ops.LogicalOr)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Sin](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Sin.html#mindspore.ops.Sin)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.LogicalNot](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LogicalNot.html#mindspore.ops.LogicalNot)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.LogicalAnd](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.LogicalAnd.html#mindspore.ops.LogicalAnd)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Atanh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Atanh.html#mindspore.ops.Atanh)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.Cos](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Cos.html#mindspore.ops.Cos)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.SquareSumAll](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.SquareSumAll.html#mindspore.ops.SquareSumAll)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
+|[mindspore.ops.CumSum](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.CumSum.html#mindspore.ops.CumSum)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Cosh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Cosh.html#mindspore.ops.Cosh)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.Erfc](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Erfc.html#mindspore.ops.Erfc)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
+|[mindspore.ops.GreaterEqual](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GreaterEqual.html#mindspore.ops.GreaterEqual)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Tan](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Tan.html#mindspore.ops.Tan)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.Asinh](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Asinh.html#mindspore.ops.Asinh)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.SquaredDifference](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.SquaredDifference.html#mindspore.ops.SquaredDifference)|Changed|r1.1: Ascend => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Asin](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Asin.html#mindspore.ops.Asin)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Atan](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Atan.html#mindspore.ops.Atan)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Expm1](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Expm1.html#mindspore.ops.Expm1)|Changed|r1.1: Ascend => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Reciprocal](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Reciprocal.html#mindspore.ops.Reciprocal)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Minimum](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Minimum.html#mindspore.ops.Minimum)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.ReduceAll](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ReduceAll.html#mindspore.ops.ReduceAll)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Greater](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Greater.html#mindspore.ops.Greater)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Mod](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Mod.html#mindspore.ops.Mod)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.Atan2](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Atan2.html#mindspore.ops.Atan2)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Math Operators
+|[mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Div.html#mindspore.ops.Div)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Math Operators
+|[mindspore.ops.Log1p](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Log1p.html#mindspore.ops.Log1p)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Math Operators
+|[mindspore.ops.Print](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Print.html#mindspore.ops.Print)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Debug Operators
+|[mindspore.ops.TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.TensorScatterUpdate.html#mindspore.ops.TensorScatterUpdate)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|operations--Array Operators
+|[mindspore.ops.ArgMinWithValue](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ArgMinWithValue.html#mindspore.ops.ArgMinWithValue)|Changed|r1.1: Ascend => r1.2: Ascend/CPU|operations--Array Operators
+|[mindspore.ops.ResizeNearestNeighbor](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ResizeNearestNeighbor.html#mindspore.ops.ResizeNearestNeighbor)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.Squeeze](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Squeeze.html#mindspore.ops.Squeeze)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.GatherD](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GatherD.html#mindspore.ops.GatherD)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.Gather](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Gather.html#mindspore.ops.Gather)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.UnsortedSegmentSum](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.UnsortedSegmentSum.html#mindspore.ops.UnsortedSegmentSum)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.GatherNd](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GatherNd.html#mindspore.ops.GatherNd)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|operations--Array Operators
+|[mindspore.ops.count_nonzero](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.count_nonzero.html#mindspore.ops.count_nonzero)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.HyperMap](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.HyperMap.html#mindspore.ops.HyperMap)|Changed|r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.gamma](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.gamma.html#mindspore.ops.gamma)|Changed|r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
+|[mindspore.ops.MultitypeFuncGraph](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.MultitypeFuncGraph.html#mindspore.ops.MultitypeFuncGraph)|Changed|r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.poisson](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.poisson.html#mindspore.ops.poisson)|Changed|r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
+|[mindspore.ops.laplace](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.laplace.html#mindspore.ops.laplace)|Changed|r1.1: Ascend/GPU/CPU => r1.2: Ascend|composite
+|[mindspore.ops.GradOperation](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.GradOperation.html#mindspore.ops.GradOperation)|Changed|r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|composite
+|[mindspore.ops.Broadcast](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Broadcast.html#mindspore.ops.Broadcast)|Changed|Ascend/GPU|r1.1: operations--Common Operators => r1.2: operations--Communication Operators
+|[mindspore.ops.ScalarCast](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ScalarCast.html#mindspore.ops.ScalarCast)|Changed|Ascend/GPU/CPU|r1.1: operations--Inner Operators => r1.2: operations--Array Operators
+|[mindspore.ops.ReduceScatter](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ReduceScatter.html#mindspore.ops.ReduceScatter)|Changed|Ascend/GPU|r1.1: operations--Common Operators => r1.2: operations--Communication Operators
+|[mindspore.ops.ReduceOp](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.ReduceOp.html#mindspore.ops.ReduceOp)|Changed|Ascend/GPU|r1.1: operations--Common Operators => r1.2: operations--Communication Operators
+|[mindspore.ops.AllReduce](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AllReduce.html#mindspore.ops.AllReduce)|Changed|Ascend/GPU|r1.1: operations--Common Operators => r1.2: operations--Communication Operators
+|[mindspore.ops.AllGather](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AllGather.html#mindspore.ops.AllGather)|Changed|Ascend/GPU|r1.1: operations--Common Operators => r1.2: operations--Communication Operators
 
 >
