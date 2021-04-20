@@ -51,7 +51,7 @@
 | 计算机视觉（CV） | 目标检测（Object Detection）  |[Mask R-CNN (MobileNetV1)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/maskrcnn_mobilenetv1)         |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV） | 目标检测（Object Detection）  | [RetinaFace-ResNet50](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/retinaface_resnet50)   |    |    |  ✅ |  ✅ |    |   |
 | 计算机视觉（CV） | 目标检测（Object Detection）  | [RetinaNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/retinanet)     |  ✅  |    |   |   |   |   |
-| 计算机视觉（CV）  | 目标检测（Object Detection  | [SSD](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  ✅ |    | ✅ | ✅ | ✅  |   |
+| 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  ✅ |    | ✅ | ✅ | ✅  |   |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-MobileNetV1-FPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)         |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-Resnet50-FPN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  ✅ |    |   |   |    |   |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-VGG16](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/ssd)                   |  ✅ |    |   |   |    |   |
@@ -65,6 +65,7 @@
 | 计算机视觉（CV） | 文本识别（Text Recognition）  | [CNN+CTC](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/cnnctc)                |  ✅ |  ✅ |    |    |    |   |
 | 计算机视觉（CV） | 文本识别（Text Recognition）  | [CRNN-Seq2Seq-OCR](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/crnn_seq2seq_ocr)                |  ✅ |   |    |    |    |   |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [DeepLabV3](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/deeplabv3)   |  ✅ |    |    |    | ✅  |   |
+| 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [FCN8s](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/FCN8s)                |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net2D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)   |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net3D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet3d)   |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV） | 语义分割（Semantic Segmentation）  | [U-Net++](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)                |  ✅ |    |    |    |    |   |

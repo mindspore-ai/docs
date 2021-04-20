@@ -65,6 +65,7 @@
 | Computer Vision (CV) | Text Recognition  | [CNN+CTC](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/cnnctc)                |  ✅ |  ✅ |    |    |   |   |
 | Computer Vision (CV) | Text Recognition  | [CRNN-Seq2Seq-OCR](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/crnn_seq2seq_ocr)                |  ✅ |   |    |    |   |   |
 | Computer Vision (CV) | Semantic Segmentation  | [DeepLabV3](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/deeplabv3)     |  ✅ |    |    |    | ✅ |   |
+| Computer Vision (CV) | Semantic Segmentation  | [FCN8s](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/FCN8s)                |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net2D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)                |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net3D (Medical)](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet3d)                |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Semantic Segmentation  | [U-Net++](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/official/cv/unet)                |  ✅ |    |    |    |   |   |
