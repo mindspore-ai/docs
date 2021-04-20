@@ -4,23 +4,13 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/note/source_en/design/mindspore/architecture.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-The MindSpore framework consists of the Frontend Expression layer, Graph Engine layer, and Backend Runtime layer.
+MindSpore is a deep learning framework in all scenarios, aiming to achieve easy development, efficient execution, and all-scenario coverage. Easy development features include API friendliness and low debugging difficulty. Efficient execution includes computing efficiency, data preprocessing efficiency, and distributed training efficiency. All-scenario coverage means that the framework supports cloud, edge, and device scenarios.
 
-![architecture](./images/architecture.png)
+The overall architecture of MindSpore is shown in the figure below, The following describes the main four parts: extension layer (MindSpore Extend), Front-end expression layer (MindExpress, ME), Compile optimization layer (MindCompiler) and Full-senario runtime (MindRE).
 
-- MindSpore Frontend Expression layer
+- **MindSpore Extend (extension layer)**: MindSpore's expansion package, we look forward to more developers to contribute and build together.
+- **MindExpress (expression layer)**: Based on the front-end expression of Python, we plan to provide different front-ends such as C/C++ and Java in the future; MindSpore is also considering supporting Huawei's self-developed programming language front-endCangjie, which is still in the pre-research stage; at the same time, it is also working with third parties such as Julia. The front-end docking work introduces more third-party ecosystems.
+- **MindCompiler (Compile optimization layer)**: The core compiler of the layer is mainly based on the unified MindIR of the end cloud to achieve three major functions, including hardware-independent optimization (type inference, automatic differentiation, expression simplification, etc.), hardware-related optimization (automatic parallelism, memory optimization, graph kernel fusion, pipeline execution, etc.), deployment and inference-related optimizations (quantization, pruning, etc.); among them, MindAKG is MindSpore's automatic operator generation compiler, which is still being continuously improved.
+- **MindRE (full-senario runtime)**: This includes cloud side, device side and smaller IoT.
 
-  This layer contains Python APIs, MindSpore intermediate representation (IR), and graph high level optimization (GHLO).
-  - Python APIs provide users with a unified API for model training, inference, and export, and a unified API for data processing and format transformation.
-  - GHLO includes optimization irrelevant to hardware (such as dead code elimination), auto parallel, and auto differentiation.
-  - MindSpore IR provides unified intermediate representations, based on which MindSpore performs pass optimization.
-
-- MindSpore Graph Engine layer
-
-  This layer contains graph low level optimization (GLLO) and graph execution.
-  - GLLO includes hardware-related optimization and in-depth optimization related to the combination of hardware and software, such as operator fusion and buffer fusion.
-  - Graph execution provides communication APIs required for offline graph execution and distributed training.
-
-- MindSpore Backend Runtime layer
-
-  This layer contains the efficient running environments on the cloud, edge and device.
+![MindSpore](images/architecture.png)
