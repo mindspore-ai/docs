@@ -31,6 +31,11 @@ MindConverter是一款用于将PyTorch（ONNX）、TensorFlow（PB）模型转�
 
 此工具为MindInsight的子模块，安装MindInsight后，即可使用MindConverter，MindInsight安装请参考该[安装文档](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md#)。
 
+除安装MindInsight之外，还需要安装下列依赖库：
+
+1. TensorFlow不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）。
+2. ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（>=0.1.2）不作为MindInsight明确声明的依赖库，若想使用基于图结构的脚本生成工具，必须安装上述三方库。若想使用TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）模型脚本迁移需要额外安装TF2ONNX（>=1.7.1）。
+
 ## 用法
 
 MindConverter提供命令行（Command-line interface, CLI）的使用方式，命令如下。
@@ -53,19 +58,22 @@ optional arguments:
                         schema. When `--in_file` and `--model_file` are both
                         provided, use AST schema as default.
   --shape SHAPE [SHAPE ...]
-                        Optional, expected input tensor shape of
-                        `--model_file`. It is required when use graph based
-                        schema. Both order and number should be consistent
-                        with `--input_nodes`. Usage: --shape 1,512 1,512
-  --input_nodes INPUT_NODES [INPUT_NODES ...]
-                        Optional, input node(s) name of `--model_file`. It is
+                        Expected input tensor shape of `--model_file`. It is
                         required when use graph based schema. Both order and
-                        number should be consistent with `--shape`. Usage:
-                        --input_nodes input_1:0 input_2:0
+                        number should be consistent with `--input_nodes`.
+                        Given that (1,128) and (1,512) are shapes of input_1
+                        and input_2 separately. Usage: --shape 1,128 1,512
+  --input_nodes INPUT_NODES [INPUT_NODES ...]
+                        Input node(s) name of `--model_file`. It is required
+                        when use graph based schema. Both order and number
+                        should be consistent with `--shape`. Given that both
+                        input_1 and input_2 are inputs of model. Usage:
+                        --input_nodes input_1 input_2
   --output_nodes OUTPUT_NODES [OUTPUT_NODES ...]
-                        Optional, output node(s) name of `--model_file`. It is
-                        required when use graph based schema. Usage:
-                        --output_nodes output_1:0 output_2:0
+                        Output node(s) name of `--model_file`. It is required
+                        when use graph based schema. Given that both output_1
+                        and output_2 are outputs of model. Usage:
+                        --output_nodes output_1 output_2
   --output OUTPUT       Optional, specify path for converted script file
                         directory. Default output directory is `output` folder
                         in the current working directory.
@@ -275,9 +283,7 @@ MindConverter错误码定义，请参考[链接](https://gitee.com/mindspore/min
 
 ## 注意事项
 
-1. TensorFlow不作为MindInsight明确声明的依赖库。若想使用基于图结构的脚本生成工具，需要用户手动安装TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）。
-2. ONNX（>=1.8.0）、ONNXRUNTIME（>=1.5.2）、ONNXOPTIMIZER（>=0.1.2）不作为MindInsight明确声明的依赖库，若想使用基于图结构的脚本生成工具，必须安装上述三方库。若想使用TensorFlow（MindConverter推荐使用TensorFlow 1.15.x版本）模型脚本迁移需要额外安装TF2ONNX（>=1.7.1）。
-3. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
-4. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
-5. 脚本文件和权重文件输出于同一个目录下，转换报告和权重映射表输出于同一目录下。
-6. 模型文件的安全性与一致性请用户自行保证。
+1. 脚本转换工具本质上为算子驱动，对于MindConverter未维护的ONNX算子与MindSpore算子映射，将会出现相应的算子无法转换的问题，对于该类算子，用户可手动修改，或基于MindConverter实现映射关系，向MindInsight仓库贡献。
+2. 在使用基于计算图的迁移时，MindConverter会根据`--shape`参数将模型输入的批次大小（batch size）、句子长度（sequence length）、图片尺寸（image shape）等尺寸相关参数固定下来，用户需要保证基于MindSpore重训练、推理时输入shape与转换时一致；若需要调整输入尺寸，请重新指定`--shape`进行转换或修改转换后脚本中涉及张量尺寸变更操作相应的操作数。
+3. 脚本文件和权重文件输出于同一个目录下，转换报告和权重映射表输出于同一目录下。
+4. 模型文件的安全性与一致性请用户自行保证。
