@@ -4,6 +4,58 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/docs/faq/source_en/network_models.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
+<font size=3>**Q: How do I understand the `dataset_sink_mode` parameter in `model.train` of MindSpore?**</font>
+
+A: When `dataset_sink_mode` is set to `True`, data processing and network computing are performed in pipeline mode. That is, when data processing is performed step by step, after a `batch` of data is processed, the data is placed in a queue which is used to cache the processed data. Then, network computing obtains data from the queue for training. In this case, data processing and network computing are performed in pipeline mode. The entire training duration is the longest data processing/network computing duration.
+
+When `dataset_sink_mode` is set to `False`, data processing and network computing are performed in serial mode. That is, after a `batch` of data is processed, it is transferred to the network for computation. After the computation is complete, the next `batch` of data is processed and transferred to the network for computation. This process repeats until the training is complete. The total time consumed is the time consumed for data processing plus the time consumed for network computing.
+
+<br/>
+
+<font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
+
+A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/mindspore/blob/r1.2/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py).
+
+<br/>
+
+<font size=3>**Q: Can the `vgg16` model be loaded and transferred on a GPU using the Hub?**</font>
+
+A: Yes, but you need to manually modify the following two arguments:
+
+```python
+# Add the **kwargs argument as follows:
+def vgg16(num_classes=1000, args=None, phase="train", **kwargs):
+```
+
+```python
+# Add the **kwargs argument as follows:
+net = Vgg(cfg['16'], num_classes=num_classes, args=args, batch_norm=args.batch_norm, phase=phase, **kwargs)
+```
+
+<br/>
+
+<font size=3>**Q: How to obtain middle-layer features of a VGG model?**</font>
+
+A: Obtaining the middle-layer features of a network is not closely related to the specific framework. For the `vgg` model defined in `torchvison`, the `features` field can be used to obtain the middle-layer features. The `vgg` source code of `torchvison` is as follows:
+
+```python
+class VGG(nn.Module):
+
+    def __init__(self, features, num_classes=1000, init_weights=True):
+        super(VGG, self).__init__()
+        self.features = features
+        self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
+```
+
+The `vgg16` defined in ModelZoo of MindSpore can be obtained through the `layers` field as follows:
+
+```python
+network = vgg16()
+print(network.layers)
+```
+
+<br/>
+
 <font size=3>**Q: When MindSpore is used for model training, there are four input parameters for `CTCLoss`: `inputs`, `labels_indices`, `labels_values`, and `sequence_length`. How do I use `CTCLoss` for model training?**</font>
 
 A: The `dataset` received by the defined `model.train` API can consist of multiple pieces of data, for example, (`data1`, `data2`, `data3`, ...). Therefore, the `dataset` can contain `inputs`, `labels_indices`, `labels_values`, and `sequence_length` information. You only need to define the dataset in the corresponding format and transfer it to `model.train`. For details, see [Data Processing API](https://www.mindspore.cn/doc/programming_guide/en/r1.2/dataset_loading.html).
