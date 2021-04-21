@@ -79,6 +79,7 @@ To facilitate subsequent training job creation, you need to create a training ou
 └─Object storage/resnet50-train
     ├─resnet50_cifar10_train
     │      dataset.py
+    │      resnet.py
     │      resnet50_train.py
     │
     ├─output
