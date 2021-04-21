@@ -79,6 +79,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 └─对象存储/resnet50-train
     ├─resnet50_cifar10_train
     │      dataset.py
+    │      resnet.py
     │      resnet50_train.py
     │
     ├─output
