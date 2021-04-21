@@ -55,7 +55,7 @@ The sample code is as follows:
 # return a parameter dict for model
 param_dict = load_checkpoint("resnet50-2_32.ckpt")
 resnet = ResNet50()
-opt = Momentum()
+opt = Momentum(resnet.trainable_params(), 0.01, 0.9)
 # load the parameter into net
 load_param_into_net(resnet, param_dict)
 # load the parameter into optimizer
