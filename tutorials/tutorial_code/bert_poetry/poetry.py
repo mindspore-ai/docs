@@ -16,31 +16,23 @@
 '''
 Bert finetune script.
 '''
-
 import os
+import re
+import time
 import argparse
 from src.utils import BertPoetry, BertPoetryCell, BertLearningRate, BertPoetryModel
 from src.finetune_config import cfg, bert_net_cfg
-import mindspore.common.dtype as mstype
-from mindspore import context
-from mindspore import log as logger
-import mindspore.dataset as de
-import mindspore.dataset.transforms.c_transforms as C
-from mindspore.nn.wrap.loss_scale import DynamicLossScaleUpdateCell
-from mindspore.nn.optim import AdamWeightDecay, Lamb, Momentum
-from mindspore.train.model import Model
+from src.poetry_dataset import create_poetry_dataset, create_tokenizer
+from mindspore import context, load_checkpoint, load_param_into_net
+from mindspore.nn import DynamicLossScaleUpdateCell
+from mindspore.nn import AdamWeightDecay
+from mindspore import Model
 from mindspore.train.callback import Callback
 from mindspore.train.callback import CheckpointConfig, ModelCheckpoint
-from mindspore.train.serialization import load_checkpoint, load_param_into_net
-from src.poetry_dataset import create_poetry_dataset, create_tokenizer
+from mindspore import Tensor, Parameter, export
+from mindspore import dtype as mstype
 from generator import generate_random_poetry, generate_hidden
-from mindspore.common.tensor import Tensor
-from mindspore.common.parameter import Parameter
-import mindspore.common.dtype as mstype
-from mindspore.train.serialization import export
 import numpy as np
-import time
-import re
 
 class LossCallBack(Callback):
     '''
@@ -89,10 +81,10 @@ def test_train():
     steps_per_epoch = dataset.get_dataset_size()
     print("============ steps_per_epoch is {}".format(steps_per_epoch))
     lr_schedule = BertLearningRate(learning_rate=cfg.AdamWeightDecay.learning_rate,
-                                       end_learning_rate=cfg.AdamWeightDecay.end_learning_rate,
-                                       warmup_steps=1000,
-                                       decay_steps=cfg.epoch_num*steps_per_epoch,
-                                       power=cfg.AdamWeightDecay.power)
+                                   end_learning_rate=cfg.AdamWeightDecay.end_learning_rate,
+                                   warmup_steps=1000,
+                                   decay_steps=cfg.epoch_num*steps_per_epoch,
+                                   power=cfg.AdamWeightDecay.power)
     optimizer = AdamWeightDecay(netwithloss.trainable_params(), lr_schedule)
     # load checkpoint into network
     ckpt_config = CheckpointConfig(save_checkpoint_steps=steps_per_epoch, keep_checkpoint_max=1)
@@ -101,7 +93,7 @@ def test_train():
     param_dict = load_checkpoint(cfg.pre_training_ckpt)
     new_dict = {}
 
-    
+
 
     # load corresponding rows of embedding_lookup
     for key in param_dict:
@@ -122,7 +114,8 @@ def test_train():
     model = Model(netwithgrads)
     model.train(cfg.epoch_num, dataset, callbacks=[callback, ckpoint_cb], dataset_sink_mode=True)
 
-def test_eval(ckpt_path):
+def test_eval(model_ckpt_path):
+    '''eval model'''
     target = args_opt.device_target
     if target == "Ascend":
         devid = int(os.getenv('DEVICE_ID'))
@@ -130,19 +123,19 @@ def test_eval(ckpt_path):
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
     poetrymodel.set_train(False)
-    param_dict = load_checkpoint(ckpt_path)
+    param_dict = load_checkpoint(model_ckpt_path)
     load_param_into_net(poetrymodel, param_dict)
-    
-    #random generation/continue 
+
+    # random generation/continue
     start_time = time.time()
     output = generate_random_poetry(poetrymodel, s='')
     end_to_end_delay = (time.time()-start_time)*1000
     a = re.findall(r'[\u4e00-\u9fa5]*[\uff0c\u3002]', output)
-      
+
     print("\n**********************************")
     print("随机生成: \n")
     for poem in a:
-      print(poem)
+        print(poem)
     print("\ncost time: {:.1f} ms".format(end_to_end_delay))
     print("\n")
 
@@ -155,14 +148,14 @@ def test_eval(ckpt_path):
     print("\n**********************************")
     print("续写 【{}】: \n".format(start))
     for poem in a:
-      print(poem)
+        print(poem)
     print("\ncost time: {:.1f} ms".format(end_to_end_delay))
     print("\n")
 
 
 
-    #hidden poetry
-    s="人工智能"
+    # hidden poetry
+    s = "人工智能"
     start_time = time.time()
     output = generate_hidden(poetrymodel, head=s)
     end_to_end_delay = (time.time()-start_time)*1000
@@ -170,21 +163,23 @@ def test_eval(ckpt_path):
     print("\n**********************************")
     print("藏头诗 【{}】: \n".format(s))
     for poem in a:
-      print(poem)
+        print(poem)
     print("\ncost time: {:.1f} ms".format(end_to_end_delay))
     print("\n")
 
 
-def export_net(ckpt_path):
+def export_net(model_ckpt_path):
     bert_net_cfg.batch_size = 1
     poetrymodel = BertPoetryModel(bert_net_cfg, False, 3191, dropout_prob=0.0)
     poetrymodel.set_train(False)
-    param_dict = load_checkpoint(ckpt_path)
+    param_dict = load_checkpoint(model_ckpt_path)
     load_param_into_net(poetrymodel, param_dict)
-    input_id = np.ones(shape=(1,128))
-    token_type_id = np.ones(shape=(1,128))
-    pad_mask = np.ones(shape=(1,128))
-    export(poetrymodel, Tensor(input_id, mstype.int32), Tensor(token_type_id, mstype.int32), Tensor(pad_mask, mstype.float32),\
+    input_id = np.ones(shape=(1, 128))
+    token_type_id = np.ones(shape=(1, 128))
+    pad_mask = np.ones(shape=(1, 128))
+    export(poetrymodel, Tensor(input_id, mstype.int32),\
+            Tensor(token_type_id, mstype.int32),\
+            Tensor(pad_mask, mstype.float32),\
             file_name='poetry.pb', file_format='MINDIR')
 
 parser = argparse.ArgumentParser(description='Bert finetune')
