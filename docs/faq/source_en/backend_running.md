@@ -4,6 +4,34 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/backend_running.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: What is the difference between `c_transforms` and `py_transforms`? Which one is recommended?**</font>
+
+A: `c_transforms` is recommended. Its performance is better because it is executed only at the C layer.
+
+Principle: The underlying layer of `c_transform` uses `opencv/jpeg-turbo` of the C version for data processing, and `py_transform` uses `Pillow` of the Python version for data processing.
+
+<br/>
+
+<font size=3>**Q: When MindSpore performs multi-device training on the NPU hardware platform, how does the user-defined dataset transfer data to different NPUs?**</font>
+
+A: When `GeneratorDataset` is used, the `num_shards=num_shards` and `shard_id=device_id` parameters can be used to control which shard of data is read by different devices. `__getitem__` and `__len__` are processed as full datasets.
+
+An example is as follows:
+
+```python
+# Device 0:
+ds.GeneratorDataset(..., num_shards=8, shard_id=0, ...)
+# Device 1:
+ds.GeneratorDataset(..., num_shards=8, shard_id=1, ...)
+# Device 2:
+ds.GeneratorDataset(..., num_shards=8, shard_id=2, ...)
+...
+# Device 7:
+ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
+```
+
+<br/>
+
 <font size=3>**Q: How do I view the number of model parameters?**</font>
 
 A: You can load the checkpoint to count the parameter number. Variables in the momentum and optimizer may be counted, so you need to filter them out.

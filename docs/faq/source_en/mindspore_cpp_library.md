@@ -1,4 +1,4 @@
-# MindSpore C++ Library Use
+﻿# MindSpore C++ Library Use
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/mindspore_cpp_library.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
