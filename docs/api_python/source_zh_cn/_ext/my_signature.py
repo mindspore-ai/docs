@@ -40,9 +40,9 @@ def get_default_params(func):
 
     re_defaults_param = re.compile(r"(.*?)".join(all_param_names) + r"(.*)")
     defaults_params = re_defaults_param.findall(all_params)
-    defaults_params = [i for i in defaults_params if "=" in i]
-    # defaults_params = [list(i) if isinstance(i, tuple) else i for i in defaults_params]
     if defaults_params:
+        if isinstance(defaults_params[0], tuple):
+            defaults_params = list(defaults_params[0])
         defaults_params_list = []
         for i in defaults_params:
             if "=" in i and i:
