@@ -1,6 +1,6 @@
 # Saving, Loading and Converting Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/advanced_usage_of_checkpoint.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/advanced_usage_of_checkpoint.md" target="_blank"><img src="./_static/logo_source.png"></a>
 
 ## [Summary](#Summary)
 
