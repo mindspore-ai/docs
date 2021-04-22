@@ -1,7 +1,6 @@
-# Saving,Loading and Converting Model
+# Saving, Loading and Converting Model
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/advanced_usage_of_checkpoint.md" target="_blank">
-<img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/programming_guide/source_zh_cn/advanced_usage_of_checkpoint.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## [Summary](#Summary)
 
@@ -71,7 +70,7 @@ class LeNet5(nn.Cell):
 
 ### [Saving](#Saving)
 
-#### Save CheckPoint Manually
+#### [Save CheckPoint Manually](#Save-CheckPoint-Manually)
 
 use `save_checkpoint` to save CheckPoint files manually.
 
