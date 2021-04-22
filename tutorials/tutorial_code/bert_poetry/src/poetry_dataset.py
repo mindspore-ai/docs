@@ -1,8 +1,11 @@
-import numpy as np
+"""
+poetry dataset processing method
+"""
 from collections import defaultdict
+import numpy as np
 import mindspore.dataset as de
 import mindspore.dataset.transforms.c_transforms as C
-import mindspore.common.dtype as mstype
+from mindspore import dtype as mstype
 from .finetune_config import cfg
 from .poetry_utils import Tokenizer
 
@@ -16,11 +19,11 @@ def load_vocab(vacab_path):
     return token_to_id
 
 def create_tokenizer(length=128):
+    """tokenizer processing method"""
     dict_path = cfg.dict_path
     forbidden_words = cfg.disallowed_words
     max_len = cfg.max_len
     frequency_threshold = cfg.min_word_frequency
-    batch_size = cfg.batch_size
 
     poetry_src = []
     with open(cfg.dataset_path) as f:
@@ -60,7 +63,7 @@ def create_tokenizer(length=128):
     for i, token in enumerate(['[PAD]', '[UNK]', '[CLS]', '[SEP]']):
         tokens_id_dict[token] = i
         kept_token_id.append(token_to_id[token])
-    
+
 
     for i, token in enumerate(kept_token):
         if token in token_to_id and token not in tokens_id_dict:
@@ -72,13 +75,14 @@ def create_tokenizer(length=128):
     return poetry_src, tokenizer, kept_token_id
 
 
-def padding(input, length=None):
-    input = np.array(input)
-    padding_length = length - input.shape[-1]
-    output = np.pad(input, ((0, padding_length)), 'constant', constant_values=0)
+def padding(input_data, length=None):
+    input_data = np.array(input_data)
+    padding_length = length - input_data.shape[-1]
+    output = np.pad(input_data, ((0, padding_length)), 'constant', constant_values=0)
     return output
 
-class PoetryDataGenerator(object):
+class PoetryDataGenerator():
+    """Reconstructing the PoetryDataGenerator processing method"""
     def __init__(self, batch_size, poetry, tokenizer, length=128):
         self.data = poetry
         self.batch_size = batch_size
@@ -100,6 +104,7 @@ class PoetryDataGenerator(object):
 
 
 def create_poetry_dataset(batch_size, poetry, tokenizer):
+    """create poetry dataset method"""
     dt = PoetryDataGenerator(batch_size, poetry, tokenizer)
     ds = de.GeneratorDataset(dt, ["input_ids", "token_type_id", "pad_mask"])
     #ds.set_dataset_size(dt.__len__())

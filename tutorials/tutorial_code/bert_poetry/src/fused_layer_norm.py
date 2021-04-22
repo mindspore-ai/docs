@@ -13,13 +13,12 @@
 # limitations under the License.
 # ============================================================================
 """fused layernorm"""
-from mindspore.ops import operations as P
-from mindspore.ops import functional as F
-from mindspore.common.parameter import Parameter
+import mindspore.ops as ops
+from mindspore import Parameter
 from mindspore.common.initializer import initializer
-from mindspore.ops.primitive import constexpr
-import mindspore.common.dtype as mstype
-from mindspore.nn.cell import Cell
+from mindspore.ops import constexpr
+from mindspore import dtype as mstype
+from mindspore.nn import Cell
 
 import numpy as np
 
@@ -95,20 +94,21 @@ class FusedLayerNorm(Cell):
             gamma_init, normalized_shape), name="gamma")
         self.beta = Parameter(initializer(
             beta_init, normalized_shape), name="beta")
-        self.layer_norm = P.LayerNorm(begin_norm_axis=self.begin_norm_axis, begin_params_axis=self.begin_params_axis)
+        self.layer_norm = ops.LayerNorm(begin_norm_axis=self.begin_norm_axis, begin_params_axis=self.begin_params_axis)
 
-        self.batch_norm = P.BatchNorm(is_training=True, epsilon=1e-5)
+        self.batch_norm = ops.BatchNorm(is_training=True, epsilon=1e-5)
         self.use_batch_norm = use_batch_norm
 
     def construct(self, input_x):
+        """construct FusedLayerNorm cell"""
         if self.use_batch_norm and self.training:
-            ones = P.Fill()(mstype.float32, F.shape(input_x)[:self.begin_norm_axis], 1.0)
-            zeros = P.Fill()(mstype.float32, F.shape(input_x)[:self.begin_norm_axis], 0.0)
-            shape_x = F.shape(input_x)
+            ones = ops.Fill()(mstype.float32, ops.shape(input_x)[:self.begin_norm_axis], 1.0)
+            zeros = ops.Fill()(mstype.float32, ops.shape(input_x)[:self.begin_norm_axis], 0.0)
+            shape_x = ops.shape(input_x)
             norm_shape = get_shape_for_norm(shape_x, self.begin_norm_axis)
-            input_x = F.reshape(input_x, norm_shape)
+            input_x = ops.reshape(input_x, norm_shape)
             output, _, _, _, _, _ = self.batch_norm(input_x, ones, zeros, None, None)
-            output = F.reshape(output, shape_x)
+            output = ops.reshape(output, shape_x)
             y = output * self.gamma + self.beta
         else:
             y, _, _ = self.layer_norm(input_x, self.gamma, self.beta)
