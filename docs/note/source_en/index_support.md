@@ -7,6 +7,7 @@
 - [Tensor Index Support](#tensor-index-support)
     - [Index values](#index-values)
     - [Index value assignment](#index-value-assignment)
+    - [Index value augmented-assignment](#index-value-augmented-assignment)
 
 <!-- /TOC -->
 
@@ -16,7 +17,7 @@ Single-level and multi-level Tensor indexing is supported on both PyNative and G
 
 ## Index values
 
-The index value can be `int`, `bool`, `None`, `slice`, `Tensor`, `List`, or `Tuple`.
+The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `List`, or `Tuple`.
 
 - `int` index value
 
@@ -45,11 +46,11 @@ The index value can be `int`, `bool`, `None`, `slice`, `Tensor`, `List`, or `Tup
 
 - `bool` index value
 
-    Single-level and multi-level `bool` index values are supported. The single-level `bool` index value is `tensor_x[True]`, and the multi-level `True` index value is `tensor_x[True][False]...`.
+    Single-level and multi-level `bool` index values are supported. The single-level `bool` index value is `tensor_x[True]`, and the multi-level `True` index value is `tensor_x[True][True]...`.
 
-    The `True` index value operation is obtained on dimension 0. After all data is obtained, a dimension is extended on the `axis=0` axis. The length of the dimension is 1.
+    The `True` index value operation is obtained on dimension 0. After all data is obtained, a dimension is extended on the `axis=0` axis. The length of the dimension is 1. `False` will introduce `0` in the shape, thus only `Ture` is supported now.
 
-    For example, if a single-level `True` index value is obtained from a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(1, 3, 4, 5)`, if a single-level `False` index value is obtained from a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(0, 3, 4, 5)`.
+    For example, if a single-level `True` index value is obtained from a tensor whose `shape` is `(3, 4, 5)`, the obtained `shape` is `(1, 3, 4, 5)`.
 
     The multi-level index value can be understood as obtaining the current-level `bool` index value based on the previous-level index value.
 
@@ -58,14 +59,14 @@ The index value can be `int`, `bool`, `None`, `slice`, `Tensor`, `List`, or `Tup
     ```python
     tensor_x = Tensor(np.arange(2 * 3 ).reshape((2, 3)))
     data_single = tensor_x[True]
-    data_multi = tensor_x[True][False]
+    data_multi = tensor_x[True][True]
     ```
 
     The result is as follows:
 
     ```text
     data_single: Tensor(shape=[1, 2, 3], dtype=Int64, value=[[[0, 1, 2], [3, 4, 5]]])
-    data_multi: Tensor(shape=[1, 0, 2, 3], dtype=Int64, value=[[[[], []]]])
+    data_multi: Tensor(shape=[1, 0, 2, 3], dtype=Int64, value=[[[[0, 1, 2], [3  , 4, 5]]]])
     ```
 
 - `None` index value
@@ -218,70 +219,89 @@ The index value can be `int`, `bool`, `None`, `slice`, `Tensor`, `List`, or `Tup
 
 ## Index value assignment
 
-The index value can be `int`, `ellipsis`, `slice`, `Tensor`, or `Tuple`.
+The index value can be `int`, `bool`, `ellipsis`, `slice`, `None`, `Tensor`, `List`, or`Tuple`.
 
 Index value assignment can be understood as assigning values to indexed position elements based on certain rules. All index value assignment does not change the original `shape` of `Tensor`.
 
-In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, `*=`, `/=`, `%=`, `**=`, and `//=` are supported.
-
 - `int` index value assignment
 
-    Single-level and multi-level `int` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[int_index] = u`, and the multi-level `int` index value assignment is `tensor_x[int_index0][int_index1]... = u`.
+    Single-level `int` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[int_index] = u`.
 
-    The assigned values support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
+    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
 
-    When an assigned value is `Number`, all position elements obtained from the `int` index are updated to `Number`.
+    When `u` is `Number`, all position elements obtained from the `tensor_x[int_index]` index will be updated to `Number`.
 
-    When an assigned value is an array, which can be one of `Tuple`, `List`, or `Tensor`, the `shape` of the sequence must be equal or can be broadcast to the `shape` of the slice obtained by the `int` index. After the `shape` of the sequence and `shape` of the slice are consistent, the sequence is then updated into the original positions of the slice.
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[int_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[int_index]` will be updated with the value `Tensor(broadcast(u))`.
 
-    When the assigned value is `Tuple` or `List`, and the elements contain mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional assigned value are currently supported.
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-    When all assigned values are `Number`, the number of elements must be the same as the last dimension of the obtained index result `shape`. Then, the index result `shape` is obtained through broadcast.
-
-    When all assigned values are `Tensor`, these `Tensor` values are packaged on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
-    For example, if the value of `Tensor` of `shape = (2, 3, 4)` is set to 100 by using the `int` index 1, the updated `Tensor` shape is still `(2, 3, 4)`, but the values of all elements whose position is 1 on dimension 0 are updated to 100.
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
     For example:
 
     ```python
-
     tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
     tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
     tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
-    tensor_k = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
     tensor_x[1] = 88.0
-    tensor_y[1][1] = 88.0
-    tensor_z[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
-    tensor_k[1] = (66, np.array(88), 99)
+    tensor_y[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
+    tensor_z[1] = (66, np.array(88), 99)
     ```
 
     The result is as follows:
 
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 88.0]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 5.0]])
+    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
     tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
-    tensor_k: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
+    ```
+
+- `bool` index value assignment
+
+    Single-level `bool` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[bool_index] = u`.
+
+    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
+
+    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
+
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[bool_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[bool_index]` will be updated with the value `Tensor(broadcast(u))`.
+
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
+
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+
+    For example:
+
+    ```python
+    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
+    tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+    tensor_x[True] = 88.0
+    tensor_y[True]= Tensor(np.array([66, 88, 99]).astype(np.float32))
+    tensor_z[True] = (66, np.array(88), 99)
+    ```
+
+    The result is as follows:
+
+    ```text
+    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
+    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
     ```
 
 - `ellipsis` index value assignment
 
-    Single-level and multi-level `ellipsis` index value assignments are supported. The single-level `ellipsis` index value assignment is `tensor_x[...] = u`, and the multi-level `ellipsis` index value assignment is `tensor_x[...][...]... = u`.
+    Single-level `ellipsis` index value assignments are supported. The single-level `ellipsis` index value assignment is `tensor_x[...] = u`.
 
-    The assigned values support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
+    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will be casted to `Tensor`.
 
-    When an assigned value is `Number`, all elements are updated to `Number`.
+    When `u` is `Number`, all elements are updated to `Number`.
 
-    When an assigned value is a sequence, which can be one of `Tuple`, `List`, or `Tensor`, the number of elements in the sequence must be 1 or equal to the number of elements in the `Tensor` obtained by the `slice` index. Broadcast when the element is 1, and `reshape` when the number is equal but the `shape` is inconsistent. After ensuring that the two `shape` are the same, update the assigned value to the original `Tensor` according to their positions.
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x.shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x` will be updated with the value `Tensor(broadcast(u))`.
 
-    When the assigned value is `Tuple` or `List`, and the elements contain mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional assigned value are currently supported.
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-    When all assigned values are `Number`,the number of elements must be the same as the last dimension of the obtained index result `shape`. Then, the index result `shape` is obtained through broadcast.
-
-    When all assigned values are `Tensor`, these `Tensor` values are packaged on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
-    For example, if the value of `Tensor` of `shape = (2, 3, 4)` is set to 100 by using the `...` index, the updated `Tensor` shape is still `(2, 3, 4)`, and all elements are changed to 100.
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
     For example:
 
@@ -304,21 +324,17 @@ In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, 
 
 - `slice` index value assignment
 
-    Single-level and multi-level `slice` index value assignments are supported. The single-level `slice` index value assignment is `tensor_x[slice_index] = u`, and the multi-level `slice` index value assignment is `tensor_x[slice_index0][slice_index1]... = u`.
+    Single-level `slice` index value assignments are supported. The single-level `slice` index value assignment is `tensor_x[slice_index] = u`.
 
-    The assigned values support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
+    The `u` support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
 
-    When an assigned value is `Number`, all position elements obtained from the `slice` index are updated to `Number`.
+    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
 
-    When an assigned value is a sequence, which can be one of `Tuple`, `List`, or `Tensor`, the `shape` of the sequence must be equal or can be broadcast to the `shape` of the slice obtained by the `slice` index. After the `shape` of the sequence and `shape` of the slice are consistent, the sequence is then updated into the original positions of the slice.
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[slice_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[slice_index]` will be updated with the value `Tensor(broadcast(u))`.
 
-    When the assigned value is `Tuple` or `List`, and the elements contain mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional assigned value are currently supported.
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-    When all assigned values are `Number`, the type of `Number` is cast to the original `Tensor` data type, and the number of elements must be the same as the last dimension of the obtained index result `shape`. Then, the index result `shape` is obtained through broadcast.
-
-    When all assigned values are `Tensor`, these `Tensor` values are packaged on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
-    For example, if the value of `Tensor` of `shape = (2, 3, 4)` is set to 100 by using the `0:1:1` index, the updated `Tensor` shape is still `(2, 3, 4)`, but the values of all elements whose position is 0 on dimension 0 are updated to 100.
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
     For example:
 
@@ -329,7 +345,7 @@ In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, 
     tensor_k = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
     tensor_x[0:1] = 88.0
     tensor_y[0:2][0:2] = 88.0
-    tensor_z[0:2] = Tensor(np.array([11, 12, 13, 11, 12, 13]).astype(np.float32))
+    tensor_z[0:2] = Tensor(np.array([11, 12, 13], [11, 12, 13]).astype(np.float32))
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
     ```
 
@@ -342,26 +358,54 @@ In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, 
     tensor_k: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [14.0, 15.0, 16.0], [6.0, 7.0, 8.0]])
     ```
 
+- `None` index value assignment
+
+    Single-level `None` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[none_index] = u`.
+
+    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
+
+    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
+
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[none_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[none_index]` will be updated with the value `Tensor(broadcast(u))`.
+
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
+
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+
+    For example:
+
+    ```python
+    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
+    tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+    tensor_x[None] = 88.0
+    tensor_y[None]= Tensor(np.array([66, 88, 99]).astype(np.float32))
+    tensor_z[None] = (66, np.array(88), 99)
+    ```
+
+    The result is as follows:
+
+    ```text
+    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
+    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
+    ```
+
 - `Tensor` index value assignment
 
-    Only the single-level Tensor index can be assigned with a value, that is, `tensor_x[tensor_index] = u`.
+    Single-level `Tensor` index value assignments are supported. The single-level `Tensor` index value assignment is `tensor_x[tensor_index] = u`.
 
-    Boolean `Tensor` index is not currently supported.
+    Boolean `Tensor` index is not currently supported, only `mstype.int*` type is supported.
 
-    The assigned values support `Number`, `Tuple`, `List` and `Tensor`.
+    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
 
-    When an assigned value is `Number`, all position elements obtained from the `Tensor` index are updated to `Number`.
+    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
 
-    When an assigned value is a sequence, which can be one of `Tuple`, `List`, or `Tensor`, the `shape` of the sequence must be equal or can be broadcast to the `shape` of the slice obtained by the `Tensor` index. After the `shape` of the sequence and `shape` of the slice are consistent, the sequence is then updated into the original positions of the `Tensor`.
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[tensor_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[tensor_index]` will be updated with the value `Tensor(broadcast(u))`.
 
-    When the assigned value is `Tuple` or `List`, and the elements contain mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional assigned value are currently supported.
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-    When all assigned values are `Number`, the type of `Number` must be the same as that of the original `Tensor` data type, and the number of elements must be the same as the last dimension of the obtained index result `shape`. Then, the index result `shape` is obtained through broadcast.
-
-    When all assigned values are `Tensor`, these `Tensor` values are packaged on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
-    For example, assign an index value to a tensor whose `shape` is `(6, 4, 5)` and `dtype` is `float32` by using a tensor whose `shape` is set to `(2, 3)`. If the assigned value is `Number`, in this case, `Number` must be `float`.
-    If the assigned value is `Tuple`, all elements in `tuple` must be `float` and the number of elements must be 5. If the assigned value is `Tensor`, `dtype` of `Tensor` must be `float32`, and `shape` can be broadcast as `(2, 3, 4, 5)`.
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
     For example:
 
@@ -383,23 +427,54 @@ In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, 
     tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [11.0, 12.0, 13.0]])
     ```
 
+- `List` index value assignment
+
+    single-level `List` index value assignments are supported. The single-level `List` index value assignment is `tensor_x[list_index] = u`.
+
+    The `List` index value assignment is the same as that of the `List` index value.
+
+    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
+
+    When `u` is `Number`, all position elements obtained from the `tensor_x[list_index]` index are updated to `Number`.
+
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[list_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[list_index]` will be updated with the value `Tensor(broadcast(u))`.
+
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
+
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+
+    For example:
+
+    ```python
+    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+    tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+    tensor_x[[0,1]] = 88.0
+    tensor_y[[True, False, False]] = Tensor(np.array([11, 12, 13]).astype(np.float32))
+    ```
+
+    The result is as follows:
+
+    ```text
+    tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
+    tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[11.0, 12.0, 13.0], [3.0, 4.0, 5.0], [6.0, 7.0, 8.0]])
+    ```
+
 - `Tuple` index value assignment
 
-    single-level and multi-level `Tuple` index value assignments are supported. The single-level `Tuple` index value assignment is `tensor_x[tuple_index] = u`, and the multi-level `Tuple` index value assignment is `tensor_x[tuple_index0][tuple_index1]... = u`.
+    single-level `Tuple` index value assignments are supported. The single-level `Tuple` index value assignment is `tensor_x[tuple_index] = u`.
 
-    The `Tuple` index value assignment is the same as that of the `Tuple` index value. However, multi-level `Tuple` index value assignment does not support `Tuple` containing `Tensor`.
+    The `Tuple` index value assignment is the same as that of the `Tuple` index value, but `None` type is not supported now..
 
-    The assigned values support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
+    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
 
-    When an assigned value is `Number`, all position elements obtained from the `Tensor` index are updated to `Number`.
+    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
 
-    When an assigned value is a sequence, which can be one of `Tuple`, `List`, or `Tensor`, the `shape` of the sequence must be equal or can be broadcast to the `shape` of the slice obtained by the `tuple` index. After the `shape` of the sequence and `shape` of the slice are consistent, the sequence is then updated into the original positions of the slice.
+    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[tuple_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[tuple_index]` will be updated with the value `Tensor(broadcast(u))`.
 
-    WWhen the assigned value is `Tuple` or `List`, and the elements contain mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional assigned value are currently supported.
+    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-    When all assigned values are `Number`, the type of `Number` is cast to the original `Tensor` data type, and the number of elements must be the same as the last dimension of the obtained index result `shape`. Then, the index result `shape` is obtained through broadcast.
-
-    When all assigned values are `Tensor`, these `Tensor` values are packaged on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
     For example:
 
@@ -423,3 +498,32 @@ In addition, enhanced index value assignment is supported, that is, `+=`, `-=`, 
     tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
     tensor_k: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 6.0], [3.0, 4.0, 6.0], [6.0, 7.0, 6.0]])
     ```
+
+## Index value augmented-assignment
+
+Index value augmented-assignment supports seven augmented_assignment operations:  `+=`, `-=`, `*=`, `/=`, `%=`, `**=`, and `//=`. The rules and constraints of `index` and `value` are the same as index assignment. The index value supports eight types: `int`, `bool`, `ellipsis`, `slice`, `None`, `tensor`, `list` and `tuple`. The assignment value supports four types: `Number`, `Tensor`, `Tuple` and `List`.
+
+Index assignment can be regarded as taking the value of the position elements to be indexed according to certain rules, and then performing operator operation with `value`. Finally, assign the operation result to the origin `Tensor`. All index augmented-assignments will not change the `shape` of the original `Tensor`.
+
+- Rules and constraints:
+
+    Compared with index assignment, the process of value and operation is increased. The constraint rules of `index` are the same as `index` in Index Value, and support 'Int', `Bool`, `Tensor`, `Slice`, `Ellipse`, `None`, `List` and `Tuple`. The values of `Int` contained in the above types of data should be in `[-dim_size, dim_size-1]` within the closed range.
+
+    The constraint rules of `value` in the operation process are the same as those of `value` in index assignment. The type of `value` needs to be one of (`Number`, `Tensor`, `List`, `Tuple`). And if `value`'s type is not `number`, `value.shape`  need to be able to be broadcasted to `tensor_x[index].shape`.
+
+    For example:
+
+    ```python
+    tensor_x = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_y = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    tensor_x[[0, 1], 1:3] += 2
+    tensor_y[[1], ...] -= [4, 3, 2, 1]
+    ```
+
+    The result is as follows:
+
+    ```text
+    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 9.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
+    tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
+    ```
+
