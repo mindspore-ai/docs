@@ -26,14 +26,14 @@
 
 2. 通过自动代码生成工具codegen，输入`*.ms`模型自动生成源代码。
 
-![img](../images/lite_codegen.png)"
+![img](../images/lite_codegen.png)
 
 ## 获取codegen
 
 自动代码生成工具，可以通过两种方式获取：
 
-1. MindSpore官网下载[Release版本](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)
-2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)
+1. MindSpore官网下载[Release版本](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)。
+2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
 
 > 目前模型生成工具仅支持在Linux x86_64架构下运行。
 
@@ -51,8 +51,11 @@
 | debugMode       | 否       | 是否以生成调试模式的代码          | true, false                | false     |
 
 > 输入模型文件，需要经过MindSpore Lite Converter工具转换成.ms格式。
+>
 > os不支持文件系统时，debugMode不可用。
+>
 > 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+>
 > 以下三个接口暂不支持：
 > 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
 > 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
@@ -60,7 +63,7 @@
 
 ## 使用说明
 
-以MNIST分类网络为例:
+以MNIST分类网络为例：
 
 ```bash
 ./codegen --modelPath=./mnist.ms --codePath=./
@@ -120,6 +123,8 @@ mnist
     ```
 
 > 模型推理对外API头文件可由MindSpore团队发布的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)中获取。
+>
+> 在编译此工程之前需要预先获取对应平台所需要的算子文件，由于Cortex-M平台工程编译一般涉及到较复杂的交叉编译，此处不提供直接预编译的算子库静态库，而是用户根据模型自行组织文件，自主编译Cortex-M7 、Coretex-M4、Cortex-M3等工程(对应工程目录结构已在示例代码中给出，用户可自主将对应ARM官方的CMSIS源码放置其中即可)。
 
 - 使用codegen编译[MNIST手写数字识别模型](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)，生成对应的STM32F46推理代码。具体命令如下：
 
@@ -135,9 +140,7 @@ mnist
         └── src             # 模型推理代码目录
     ```
 
-> 在编译此工程之前需要预先获取对应平台所需要的算子文件，由于Cortex-M平台工程编译一般涉及到较复杂的交叉编译，此处不提供直接预编译的算子库静态库，而是用户根据模型自行组织文件，自主编译Cortex-M7 、Coretex-M4、Cortex-M3等工程(对应工程目录结构已在示例代码中给出，用户可自主将对应ARM官方的CMSIS源码放置其中即可)。
-
-- 预置算子静态库的目录如下:
+- 预置算子静态库的目录如下：
 
     ```bash
     ├── operator_library    # 平台算子库目录
@@ -147,7 +150,7 @@ mnist
         └── CMSIS           # Arm官方提供的CMSIS平台算子库源文件
     ```
 
-> 在使用过程中，引入CMSIS v5.7.0 Softmax相关的CMSIS算子文件时，头文件中需要加入`arm_nnfunctions.h`。
+    > 在使用过程中，引入CMSIS v5.7.0 Softmax相关的CMSIS算子文件时，头文件中需要加入`arm_nnfunctions.h`。
 
 #### 代码工程编译
 
@@ -162,12 +165,12 @@ mnist
     make -v              # 查看Make版本
     ```
 
-    以上命令均成功返回值时，表明环境准备ok，可以继续进入下一步，否则先安装上述环境！！！
+    以上命令均成功返回值时，表明环境准备已完成，可以继续进入下一步，否则请务必先安装上述环境。
 
-2. 生成STM32F746单板初始化代码([详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746))
+2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)）
 
     - 启动 STM32CubeMX，新建project，选择单板STM32F746IG。
-    - 成功以后，选择`Makefile` ，`generator code`
+    - 成功以后，选择`Makefile` ，`generator code`。
     - 在生成的工程目录下打开`cmd`，执行`make`，测试初始代码是否成功编译。
 
     ```bash
