@@ -1,4 +1,4 @@
-# 体验MindSpore Lite Java极简Demo
+# 体验Java极简推理Demo
 
 `Linux` `X86` `Java` `全流程` `推理应用` `数据准备` `初级`
 

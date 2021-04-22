@@ -1,4 +1,4 @@
-# Training a LeNet Model (C++)
+# Implement Device Training Based On C++ Interface
 
 `Linux` `C++` `Android` `Whole Process` `Model Export` `Model Converting` `Model Training` `Beginner` `Intermediate` `Expert`
 

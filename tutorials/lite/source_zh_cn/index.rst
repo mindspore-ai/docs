@@ -55,12 +55,25 @@
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: 其他工具
+   :hidden:
+
+   use/benchmark
+   use/crop_tool
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: 参考文档
    :hidden:
 
+   MindSpore Lite总体架构 <https://www.mindspore.cn/tutorial/lite/zh-CN/master/architecture_lite.html>
    operator_list_lite
    operator_list_codegen
    model_lite
+   C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html>
+   Java API <https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html>
+   faq
 
 .. raw:: html
 
@@ -90,16 +103,7 @@
 								</div>
 			
 							</div>
-							<div class="doc-label-choice">
-								<div class="row">
-								<div class="col-sm-2">
-									<div class="doc-hardware">专用芯片</div>
-								</div>
-								<div class="col-sm-10 col-sm-pull-1">
-									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
-								</div>
-							</div>
-							</div>
+							
 							<div class="doc-label-choice">
 								<div class="row">
 									<div class="col-sm-2">
@@ -138,6 +142,16 @@
 
 							<div class="doc-label-choice">
 								<div class="row">
+								<div class="col-sm-2">
+									<div class="doc-hardware">专用芯片</div>
+								</div>
+								<div class="col-sm-10 col-sm-pull-1">
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+								</div>
+							</div>
+							</div>
+							<div class="doc-label-choice">
+								<div class="row">
 									<div class="col-sm-2">
 										<div class="doc-language">编程语言</div>
 									</div>
@@ -164,7 +178,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">体验MindSpore Lite C++ 极简Demo</span>
+											<span class="doc-head-content">体验C++ 极简推理Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -177,7 +191,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">体验MindSpore Lite Java极简Demo</span>
+											<span class="doc-head-content">体验Java极简推理Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -190,7 +204,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">实现一个图像分类应用（C++）</span>
+											<span class="doc-head-content">基于JNI接口的Android应用开发</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -203,7 +217,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">实现一个图像分割应用（Java）</span>
+											<span class="doc-head-content">基于Java接口的Android应用开发</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -216,7 +230,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">训练一个LeNet模型(C++)</span>
+											<span class="doc-head-content">基于C++接口实现端侧训练</span>
 										</div>
 							
 										<div class="doc-article-desc"> 
@@ -229,7 +243,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/train_lenet_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">训练一个LeNet模型（Java）</span>
+											<span class="doc-head-content">基于Java接口实现端侧训练</span>
 										</div>
 							
 										<div class="doc-article-desc"> 
@@ -364,7 +378,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用裁剪工具降低库文件大小</span>
+											<span class="doc-head-content">静态库剪裁工具</span>
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite提供对Runtime的libmindspore-lite.a静态库裁剪工具，能够筛选出ms模型中存在的算子，对静态库文件进行裁剪，有效降低库文件大小。

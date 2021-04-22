@@ -1,4 +1,4 @@
-# Simplified MindSpore Lite C++ Demo
+# Experience C++ Simple Inference Demo
 
 `Linux` `Windows` `x86` `C++` `Whole Process``Inference Application` `Data Preparation` `Beginner`
 

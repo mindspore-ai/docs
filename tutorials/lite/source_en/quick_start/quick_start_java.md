@@ -1,4 +1,4 @@
-# Simplified MindSpore Lite Java Demo
+# Experience Java Simple Inference Demo
 
 `Linux` `x86` `Java` `Whole Process` `Inference Application` `Data Preparation` `Beginner`
 
