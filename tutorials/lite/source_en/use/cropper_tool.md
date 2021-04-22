@@ -1,4 +1,4 @@
-# Use Cropper Tool To Reduce Library File Size
+# Static Library Cropper Tool
 
 `Linux` `Environment Preparation` `Static Library Cropping` `Intermediate` `Expert`
 

@@ -1,4 +1,4 @@
-# 特性支持类
+﻿# 特性支持类
 
 `特性优势` `端侧推理` `功能模块` `推理工具`
 
@@ -46,18 +46,6 @@ A：当前如果与MindSpore展开论文、科研合作是可以获得免费云�
 
 <br/>
 
-<font size=3>**Q：MindSpore Lite的离线模型MS文件如何进行可视化，看到网络结构？**</font>
-
-A：模型可视化开源仓库`Netron`已经支持查看MindSpore Lite模型（MindSpore版本 >= r1.2），请到Netron官网下载安装包[Netron](https://github.com/lutzroeder/netron)。
-
-<br/>
-
-<font size=3>**Q：MindSpore有量化推理工具么？**</font>
-
-A：[MindSpore Lite](https://www.mindspore.cn/lite)支持云侧量化感知训练的量化模型的推理，MindSpore Lite converter工具提供训练后量化以及权重量化功能，且功能在持续加强完善中。
-
-<br/>
-
 <font size=3>**Q：MindSpore并行模型训练的优势和特色有哪些？**</font>
 
 A：MindSpore分布式训练除了支持数据并行，还支持算子级模型并行，可以对算子输入tensor进行切分并行。在此基础上支持自动并行，用户只需要写单卡脚本，就能自动切分到多个节点并行执行。
@@ -67,12 +55,6 @@ A：MindSpore分布式训练除了支持数据并行，还支持算子级模型�
 <font size=3>**Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
 A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
-
-<br/>
-
-<font size=3>**Q：MindSpore有轻量的端侧推理引擎么？**</font>
-
-A：MindSpore轻量化推理框架MindSpore Lite已于r0.7版本正式上线，欢迎试用并提出宝贵意见，概述、教程和文档等请参考[MindSpore Lite](https://www.mindspore.cn/lite)
 
 <br/>
 

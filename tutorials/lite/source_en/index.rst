@@ -55,12 +55,25 @@ Using MindSpore on Mobile and IoT
 .. toctree::
    :glob:
    :maxdepth: 1
+   :caption: Other Tools
+   :hidden:
+
+   use/benchmark
+   use/crop_tool
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
    :caption: References
    :hidden:
 
+   MindSpore Lite Architecture <https://www.mindspore.cn/tutorial/lite/en/master/architecture_lite.html>
    operator_list_lite
    operator_list_codegen
    model_lite
+   C++ API <https://www.mindspore.cn/doc/api_cpp/en/master/index.html>
+   Java API <https://www.mindspore.cn/doc/api_java/en/master/index.html>
+   faq
 
 .. raw:: html
 
@@ -89,16 +102,7 @@ Using MindSpore on Mobile and IoT
 								</div>
 			
 							</div>
-							<div class="doc-label-choice">
-								<div class="row">
-								<div class="col-sm-2">
-									<div class="doc-hardware">Application Specific Integrated Circuit</div>
-								</div>
-								<div class="col-sm-10 col-sm-pull-1">
-									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
-								</div>
-							</div>
-							</div>
+							
 							
 							<div class="doc-label-choice">
 								<div class="row">
@@ -136,6 +140,16 @@ Using MindSpore on Mobile and IoT
 
 							<div class="doc-label-choice">
 								<div class="row">
+								<div class="col-sm-2">
+									<div class="doc-hardware">Application Specific Integrated Circuit</div>
+								</div>
+								<div class="col-sm-10 col-sm-pull-1">
+									<button class="doc-filter-btn doc-btn" id="hardware-GPU">GPU</button>
+								</div>
+							</div>
+							</div>
+							<div class="doc-label-choice">
+								<div class="row">
 									<div class="col-sm-2">
 										<div class="doc-language">Programming Language</div>
 									</div>
@@ -162,7 +176,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience a MindSpore Lite C++ Simple Demo</span>
+											<span class="doc-head-content">Experience C++ Simple Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -175,7 +189,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Experience a MindSpore Lite Java Simple Demo</span>
+											<span class="doc-head-content">Experience Java Simple Inference Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -188,7 +202,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Implementing an Image Classification Application (C++)</span>
+											<span class="doc-head-content">Android Application Development Based on JNI Interface</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -201,7 +215,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Training a LeNet Model (C++)</span>
+											<span class="doc-head-content">Implement Device Training Based On C++ Interface</span>
 										</div>
 							
 										<div class="doc-article-desc">
@@ -326,7 +340,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/cropper_tool.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Use Cropper Tool To Reduce Library File Size</span>
+											<span class="doc-head-content">Static Library Cropper Tool</span>
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite provides the libmindspore-lite.a static library cropping tool for runtime, which can filter out the operators in the ms model, crop the static library files, and effectively reduce the size of the library files.

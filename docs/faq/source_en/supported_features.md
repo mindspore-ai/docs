@@ -46,18 +46,6 @@ A: If you cooperate with MindSpore in papers and scientific research, you can ob
 
 <br/>
 
-<font size=3>**Q: How do I visualize the MindSpore Lite offline model (.ms file) to view the network structure?**</font>
-
-A: Model visualization open-source repository `Netron` supports viewing MindSpore Lite models (MindSpore >= r1.2), which can be downloaded in the [Netron](https://github.com/lutzroeder/netron).
-
-<br/>
-
-<font size=3>**Q: Does MindSpore have a quantized inference tool?**</font>
-
-A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of the quantization aware training model on the cloud. The MindSpore Lite converter tool provides the quantization after training and weight quantization functions which are being continuously improved.
-
-<br/>
-
 <font size=3>**Q: What are the advantages and features of MindSpore parallel model training?**</font>
 
 A: In addition to data parallelism, MindSpore distributed training also supports operator-level model parallelism. The operator input tensor can be tiled and parallelized. On this basis, automatic parallelism is supported. You only need to write a single-device script to automatically tile the script to multiple nodes for parallel execution.
@@ -67,12 +55,6 @@ A: In addition to data parallelism, MindSpore distributed training also supports
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
 A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator.html).
-
-<br/>
-
-<font size=3>**Q: Does MindSpore have a lightweight on-device inference engine?**</font>
-
-A:The MindSpore lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
 
 <br/>
 
