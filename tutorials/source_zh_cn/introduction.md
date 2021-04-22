@@ -21,7 +21,7 @@
 - **MindSpore（AI框架）**：全场景AI框架（[了解更多](https://www.mindspore.cn/)）。
 - **MindX SDK（昇腾SDK）**：行业SDK和应用解决方案（[了解更多](https://ascend.huawei.com/zh/#/software/mindx-sdk)）。
 - **ModelArts（AI开发平台）**：华为云AI开发平台（[了解更多](https://www.huaweicloud.com/product/modelarts.html)）。
-- **MindStudio（全流程开发工具链）**：AI全流程开发IDE（[了解更多](https://developer.huaweicloud.com/exhibition/mindstudio.html)）。
+- **MindStudio（全流程开发工具链）**：AI全流程开发IDE（[了解更多](https://www.hiascend.com/software/mindstudio)）。
 
 详细信息请点击[华为昇腾官网](https://e.huawei.com/cn/products/servers/ascend)。
 
