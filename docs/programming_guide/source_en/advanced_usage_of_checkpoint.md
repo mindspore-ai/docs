@@ -4,11 +4,10 @@
 
 ## [Summary](#Summary)
 
-In the process of model training or model loading, sometimes it is necessary to replace some optimizers or other super
-parameters in the model file and the full connection layer changes in the classification function, but it does not want
-to change too much, or start training the model from the beginning. In view of this situation, mindspore provides the
-checkpoint advanced usage of only adjusting part of the weight of the model, and applies the method to the process of
-the model tuning.
+In the process of model training or model loading, sometimes it is necessary to replace some optimizers or other hyperparameter
+in the model file and the fully-connected layer changes in the classification function, but you don't want
+to change too much, or start training the model from the beginning. In view of this situation, MindSpore provides advanced usage
+of CheckPoint that only adjusting parts of the weight of the model, and applies the method to the model tuning process.
 
 For basic usage, please refer to:[Saving Models](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint)
 
@@ -17,13 +16,13 @@ For basic usage, please refer to:[Saving Models](https://www.mindspore.cn/tutori
 This article takes LeNet network as an example to introduce the operation methods of saving, loading and converting
 models in mindspore.
 
-Before operation, the following documents should be prepared:  
+Firstly, the following documents should be prepared:  
 
 - MNIST dataset.
 
 - Pretrained model file of LeNet network:`checkpoint-lenet_1-1875.ckpt`.
 
-- Data augmentation files`dataset_process.py`, use data augmentation method`create_dataset`, which can refer to the data agumentation method`create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
+- Data augmentation files`dataset_process.py`, use the data augmentation method`create_dataset`, which can refer to the data agumentation method`create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
 
 - Define the LeNet network.  
 
@@ -158,7 +157,7 @@ model.train(epoch_size, ds_train, callbacks=[ckpoint, LossMonitor(625)])
 epoch: 1 step: 1250, loss is 0.09527888  
 epoch: 1 step: 1875, loss is 0.23090823
 
-After the model is trained, save the model file`lenet-1_1875.ckpt`. Next, compare the size and specific weight of the cell of the specified saved model and the original model.  
+After the model is trained, save the model file`lenet-1_1875.ckpt`. Next, what is the difference after comparing the size and specific weight of the cell of the specified saved model with the original model.  
 
 ```python
 model_with_opt = os.path.getsize("./checkpoint_lenet-1_1875.ckpt") // 1024
@@ -189,16 +188,16 @@ without_opt size: 241 kB
 'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight),
 'fc2.bias': Parameter (name=fc2.bias), 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}
 
-After training, the saved model`lenet-1_1875.ckpt`, the model weight file size is 241kB, compared with the size 482kB of the original full model, the overall reduction is nearly half;
+After training, the weight file size of the saved model`lenet-1_1875.ckpt` is 241kB, compared with the size 482kB of the original full model, the overall reduction is nearly half;
 
-A specific comparison of the parameters in the model shows that learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameter in `checkpoint_lenet-1_1875.ckpt`,
+A specific comparison of the parameters in the model shows that the learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameters in `checkpoint_lenet-1_1875.ckpt`,
 and only the weight parameters of the forward propagation network LeNet are retained. It meets the expected result.
 
 #### [Save CheckPoint Asynchronously](#Save-CheckPoint-Asynchronously)
 
 Usage:The parameters`async_save` of the Class`CheckpointConfig`.
 
-Application Scenarios:The trained model has a large amount of parameters, and it can be saved while training, which saves the writing time when saving the CheckPoint file.  
+Application Scenarios: The trained model has a large amount of parameters, and it can be saved during training, which saves the writing time when saving the CheckPoint file.  
 
 ```python
 config_ck = CheckpointConfig(async_save=True)
