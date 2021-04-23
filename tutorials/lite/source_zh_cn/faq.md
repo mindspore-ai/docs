@@ -1,4 +1,4 @@
-﻿# 端侧使用类
+﻿# FAQ
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 

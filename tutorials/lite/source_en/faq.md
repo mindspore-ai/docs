@@ -1,4 +1,4 @@
-﻿# MindSpore Lite Use
+﻿# FAQ
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
@@ -37,5 +37,3 @@ A: [MindSpore Lite](https://www.mindspore.cn/lite/en) supports the inference of 
 A:The MindSpore lightweight inference framework MindSpore Lite has been officially launched in r0.7. You are welcome to try it and give your comments. For details about the overview, tutorials, and documents, see [MindSpore Lite](https://www.mindspore.cn/lite/en).
 
 <br/>
-
-
