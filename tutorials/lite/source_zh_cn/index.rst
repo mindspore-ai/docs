@@ -176,7 +176,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">体验C++ 极简推理Demo</span>
+											<span class="doc-head-content">体验C++极简推理Demo</span>
 										</div>
 							
 										<div class="doc-article-desc">

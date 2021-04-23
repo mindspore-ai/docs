@@ -16,8 +16,8 @@ Using MindSpore on Mobile and IoT
    quick_start/quick_start_java
    quick_start/quick_start
    quick_start/image_segmentation
-   quick_start/quick_start_codegen
    quick_start/train_lenet
+   quick_start/train_lenet_java
 
 .. toctree::
    :glob:
@@ -35,10 +35,10 @@ Using MindSpore on Mobile and IoT
    :hidden:
 
    use/converter_tool
-   use/code_generator
    use/post_training_quantization
    use/data_preprocessing
    use/runtime
+   use/micro
    use/asic
 
 .. toctree::
