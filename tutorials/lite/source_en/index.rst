@@ -40,7 +40,6 @@ Using MindSpore on Mobile and IoT
    use/data_preprocessing
    use/runtime
    use/asic
-   use/tools
 
 .. toctree::
    :glob:
@@ -50,7 +49,6 @@ Using MindSpore on Mobile and IoT
 
    use/converter_train
    use/runtime_train
-   use/tools_train
 
 .. toctree::
    :glob:
@@ -59,7 +57,7 @@ Using MindSpore on Mobile and IoT
    :hidden:
 
    use/benchmark
-   use/crop_tool
+   use/cropper_tool
 
 .. toctree::
    :glob:
@@ -67,7 +65,7 @@ Using MindSpore on Mobile and IoT
    :caption: References
    :hidden:
 
-   MindSpore Lite Architecture <https://www.mindspore.cn/tutorial/lite/en/master/architecture_lite.html>
+   architecture_lite
    operator_list_lite
    operator_list_codegen
    model_lite
