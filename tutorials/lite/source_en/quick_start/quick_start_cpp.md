@@ -121,6 +121,8 @@ The following is the sample code when integrating `libmindspore-lite.a` static l
 > When CMake integrates the `libmindspore-lite.a` static library, the `-Wl,--whole-archive` option needs to be passed to the linker.
 >
 > In addition, the build option for stack protection `-fstack-protector-strong` is added during the build of MindSpore Lite. Therefore, the `ssp` library in MinGW needs to be linked on the Windows platform.
+>
+> In addition, the support of processing .so file is added during the build of MindSpore Lite. Therefore, the `dl` library needs to be linked on the Linux platform.
 
 ```cmake
 cmake_minimum_required(VERSION 3.14)
@@ -151,6 +153,11 @@ if(WIN32)
     target_link_libraries(
             mindspore_quick_start_cpp
             ssp
+    )
+else()
+    target_link_libraries(
+            mindspore_quick_start_cpp
+            dl
     )
 endif()
 ```
