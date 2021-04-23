@@ -6,4 +6,4 @@ Overall Design
    
    technical_white_paper
    mindspore/architecture
-   mindspore/architecture_lite
+   MindSpore Lite Architecture <https://www.mindspore.cn/tutorial/lite/en/master/architecture_lite.html>

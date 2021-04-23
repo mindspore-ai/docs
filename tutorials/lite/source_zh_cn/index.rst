@@ -40,7 +40,6 @@
    use/runtime
    use/micro
    use/asic
-   use/tools
 
 .. toctree::
    :glob:
@@ -50,7 +49,6 @@
 
    use/converter_train
    use/runtime_train
-   use/tools_train
 
 .. toctree::
    :glob:
@@ -59,7 +57,7 @@
    :hidden:
 
    use/benchmark
-   use/crop_tool
+   use/cropper_tool
 
 .. toctree::
    :glob:
@@ -67,7 +65,7 @@
    :caption: 参考文档
    :hidden:
 
-   MindSpore Lite总体架构 <https://www.mindspore.cn/tutorial/lite/zh-CN/master/architecture_lite.html>
+   architecture_lite
    operator_list_lite
    operator_list_codegen
    model_lite
