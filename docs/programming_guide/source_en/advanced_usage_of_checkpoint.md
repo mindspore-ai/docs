@@ -129,7 +129,7 @@ Usage: The parameters`saved_network` of the Class`CheckpointConfig`.
 
 Application Scenarios:
 
-- Only save the parameters of the inference network model (Not saving the optimizer's parameters halfs the size of the
+- Only save the parameters of the inference network model (Not saving the optimizer's parameters halves the size of the
 generated CheckPoint file)
 - Save subnet parameters to be used to Fine-tune tasks.
 
