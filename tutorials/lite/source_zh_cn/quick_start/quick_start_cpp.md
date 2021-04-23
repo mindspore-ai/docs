@@ -117,6 +117,8 @@
 > 集成`libmindspore-lite.a`静态库时需要将`-Wl,--whole-archive`的选项传递给链接器。
 >
 > 由于在编译MindSpore Lite的时候增加了`-fstack-protector-strong`栈保护的编译选项，所以在Windows平台上还需要链接MinGW中的`ssp`库。
+>
+> 由于在编译MindSpore Lite的时候增加了对so库文件处理的支持，所以在Linux平台上还需要链接`dl`库。
 
 ```cmake
 cmake_minimum_required(VERSION 3.14)
@@ -147,6 +149,11 @@ if(WIN32)
     target_link_libraries(
             mindspore_quick_start_cpp
             ssp
+    )
+else()
+    target_link_libraries(
+            mindspore_quick_start_cpp
+            dl
     )
 endif()
 ```
