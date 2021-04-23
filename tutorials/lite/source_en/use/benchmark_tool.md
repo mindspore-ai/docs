@@ -1,4 +1,4 @@
-# Performing Benchmark Testing
+# benchmark
 
 `Windows` `Linux` `Environment Preparation` `Benchmark Testing` `Intermediate` `Expert`
 

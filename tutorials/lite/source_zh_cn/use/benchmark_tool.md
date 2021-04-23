@@ -1,4 +1,4 @@
-# 使用Benchmark进行基准测试
+# benchmark
 
 `Windows` `Linux` `环境准备` `基准测试` `中级` `高级`
 
