@@ -23,9 +23,7 @@ Before operation, the following documents should be prepared:
 
 - Pretrained model file of LeNet network:`checkpoint-lenet_1-1875.ckpt`.
 
-- Data augmentation files`dataset_process.py`,use data augmentation method`create_dataset`,
-which can refer to the data agumentation method`create_dataset` defined in the official website
-[Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
+- Data augmentation files`dataset_process.py`, use data augmentation method`create_dataset`, which can refer to the data agumentation method`create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
 
 - Define the LeNet network.  
 
@@ -122,11 +120,11 @@ for item in ds_train.create_dict_iterator():
 ```
 
 > [Parameter (name=conv1.weight), Parameter (name=conv2.weight), Parameter (name=fc1.weight), Parameter (name=fc1.bias),
- Parameter (name=fc2.weight), Parameter (name=fc2.bias), Parameter (name=fc3.weight), Parameter (name=fc3.bias),
- Parameter (name=learning_rate), Parameter (name=momentum), Parameter (name=moments.conv1.weight),
- Parameter (name=moments.conv2.weight), Parameter (name=moments.fc1.weight), Parameter (name=moments.fc1.bias),
- Parameter (name=moments.fc2.weight), Parameter (name=moments.fc2.bias), Parameter (name=moments.fc3.weight),
- Parameter (name=moments.fc3.bias)]
+Parameter (name=fc2.weight), Parameter (name=fc2.bias), Parameter (name=fc3.weight), Parameter (name=fc3.bias),
+Parameter (name=learning_rate), Parameter (name=momentum), Parameter (name=moments.conv1.weight),
+Parameter (name=moments.conv2.weight), Parameter (name=moments.fc1.weight), Parameter (name=moments.fc1.bias),
+Parameter (name=moments.fc2.weight), Parameter (name=moments.fc2.bias), Parameter (name=moments.fc3.weight),
+Parameter (name=moments.fc3.bias)]
 
 The weight parameters of `mindspore_lenet.ckpt` can be seen from the above printed information, which includes the weight
 parameters of each hidden layer, learning rate, optimization rate in the process of forward propagation and the weight of optimizer function
@@ -138,8 +136,7 @@ Usage: The parameters`saved_network` of the Class`CheckpointConfig`.
 
 Application Scenarios:  
 
-- Only save the parameters of the inference network model (Not saving the optimizer's parameters halves the size of the
-generated CheckPoint file)
+- Only save the parameters of the inference network model (Not saving the optimizer's parameters halves the size of the generated CheckPoint file)
 
 - Save subnet parameters to be used to Fine-tune tasks.  
 
@@ -158,8 +155,8 @@ model.train(epoch_size, ds_train, callbacks=[ckpoint, LossMonitor(625)])
 ```
 
 > epoch: 1 step: 625, loss is 0.116291314  
- epoch: 1 step: 1250, loss is 0.09527888  
- epoch: 1 step: 1875, loss is 0.23090823
+epoch: 1 step: 1250, loss is 0.09527888  
+epoch: 1 step: 1875, loss is 0.23090823
 
 After the model is trained, save the model file`lenet-1_1875.ckpt`. Next, compare the size and specific weight of the cell of the specified saved model and the original model.  
 
@@ -177,20 +174,20 @@ print(params_with_change)
 ```
 
 > with_opt size: 482 kB  
- {'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight),
- 'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias),
- 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
- 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias),
- 'learning_rate': Parameter (name=learning_rate), 'momentum': Parameter (name=momentum),
- 'moments.conv1.weight': Parameter (name=moments.conv1.weight), 'moments.conv2.weight': Parameter (name=moments.conv2.weight),
- 'moments.fc1.weight': Parameter (name=moments.fc1.weight), 'moments.fc1.bias': Parameter (name=moments.fc1.bias),
- 'moments.fc2.weight': Parameter (name=moments.fc2.weight), 'moments.fc2.bias': Parameter (name=moments.fc2.bias),
- 'moments.fc3.weight': Parameter (name=moments.fc3.weight), 'moments.fc3.bias': Parameter (name=moments.fc3.bias)}  
- =========after train===========  
- without_opt size: 241 kB  
- {'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight),
- 'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight),
- 'fc2.bias': Parameter (name=fc2.bias), 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}
+{'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight),
+'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias),
+'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
+'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias),
+'learning_rate': Parameter (name=learning_rate), 'momentum': Parameter (name=momentum),
+'moments.conv1.weight': Parameter (name=moments.conv1.weight), 'moments.conv2.weight': Parameter (name=moments.conv2.weight),
+'moments.fc1.weight': Parameter (name=moments.fc1.weight), 'moments.fc1.bias': Parameter (name=moments.fc1.bias),
+'moments.fc2.weight': Parameter (name=moments.fc2.weight), 'moments.fc2.bias': Parameter (name=moments.fc2.bias),
+'moments.fc3.weight': Parameter (name=moments.fc3.weight), 'moments.fc3.bias': Parameter (name=moments.fc3.bias)}  
+=========after train===========  
+without_opt size: 241 kB  
+{'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight),
+'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight),
+'fc2.bias': Parameter (name=fc2.bias), 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}
 
 After training, the saved model`lenet-1_1875.ckpt`, the model weight file size is 241kB, compared with the size 482kB of the original full model, the overall reduction is nearly half;
 
@@ -255,25 +252,25 @@ Divided into two situations according to specific scenarios:
     ```
 
     > ==========param_list===========  
-    [{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
-    {'name': 'fc1.weight', 'data': Parameter (name=fc1.weight)}, {'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)},
-    {'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)}, {'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)},
-    {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)}, {'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}]
-    ==========after delete param_list[2]===========  
-    [{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
-    {'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)},
-    {'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
-    {'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}]  
-    ==========after add element===========  
-    [{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
-    {'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)},
-    {'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
-    {'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}, {'name': 'epoch_size', 'data': Tensor(shape=[], dtype=Int64, value= 10)}]  
-    ==========after modify element===========  
-    [{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
-    {'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Tensor(shape=[], dtype=Int64, value= 66)},
-    {'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
-    {'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}, {'name': 'epoch_size', 'data': Tensor(shape=[], dtype=Int64, value= 10)}]
+[{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
+{'name': 'fc1.weight', 'data': Parameter (name=fc1.weight)}, {'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)},
+{'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)}, {'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)},
+{'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)}, {'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}]  
+==========after delete param_list[2]===========  
+[{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
+{'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)},
+{'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
+{'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}]  
+==========after add element===========  
+[{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
+{'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Parameter (name=fc2.weight)},
+{'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
+{'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}, {'name': 'epoch_size', 'data': Tensor(shape=[], dtype=Int64, value= 10)}]  
+==========after modify element===========  
+[{'name': 'conv1.weight', 'data': Parameter (name=conv1.weight)}, {'name': 'conv2.weight', 'data': Parameter (name=conv2.weight)},
+{'name': 'fc1.bias', 'data': Parameter (name=fc1.bias)}, {'name': 'fc2.weight', 'data': Tensor(shape=[], dtype=Int64, value= 66)},
+{'name': 'fc2.bias', 'data': Parameter (name=fc2.bias)}, {'name': 'fc3.weight', 'data': Parameter (name=fc3.weight)},
+{'name': 'fc3.bias', 'data': Parameter (name=fc3.bias)}, {'name': 'epoch_size', 'data': Tensor(shape=[], dtype=Int64, value= 10)}]  
 
     After the loaded model file is converted to the list type, the model parameters can be deleted, added, modified, etc.,
     and manually saved with `save_checkpoint` to complete the modification of the content of the model weight file.
@@ -298,7 +295,7 @@ Divided into two situations according to specific scenarios:
     ```
 
     > [{'name': 'epoch_size', 'data': Tensor(shape=[], dtype=Int64, value= 10)}, {'name': 'learning_rate',
-     'data': Tensor(shape=[], dtype=Float64, value= 0.01)}]
+'data': Tensor(shape=[], dtype=Float64, value= 0.01)}]
 
 ### [Loading](#Loading)
 
@@ -320,14 +317,15 @@ print(params)
 
 > ==========strict load mode===========  
 {'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight), 'fc1.weight': Parameter (name=fc1.weight),
- 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
- 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}  
+'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
+'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}  
 
-#### [Filter specified prefix](#Filter-specified-prefix) 
- 
+#### [Filter specified prefix](#Filter-specified-prefix)
+
 Usage:The parameter `filter_prefix` of `load_checkpoint`.  
 
 Application Scenarios:When loading CheckPoint, you want to filter certain parameters that contain the specific prefix.  
+
 - When loading CheckPoint, do not load the parameter in the optimizer (eg：filter_prefix=’moments’).  
 - Do not load the parameters of the convolutional layer (eg：filter_prefix=’conv1’).  
 
@@ -347,16 +345,16 @@ print(params)
 
 > =============net params=============  
 {'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight), 'fc1.weight': Parameter (name=fc1.weight),
- 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
- 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias), 'learning_rate': Parameter (name=learning_rate),
- 'momentum': Parameter (name=momentum), 'moments.conv1.weight': Parameter (name=moments.conv1.weight), 'moments.conv2.weight':
- Parameter (name=moments.conv2.weight), 'moments.fc1.weight': Parameter (name=moments.fc1.weight), 'moments.fc1.bias':
- Parameter (name=moments.fc1.bias), 'moments.fc2.weight': Parameter (name=moments.fc2.weight), 'moments.fc2.bias':
- Parameter (name=moments.fc2.bias), 'moments.fc3.weight': Parameter (name=moments.fc3.weight), 'moments.fc3.bias': Parameter (name=moments.fc3.bias)}  
+'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
+'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias), 'learning_rate': Parameter (name=learning_rate),
+'momentum': Parameter (name=momentum), 'moments.conv1.weight': Parameter (name=moments.conv1.weight), 'moments.conv2.weight':
+Parameter (name=moments.conv2.weight), 'moments.fc1.weight': Parameter (name=moments.fc1.weight), 'moments.fc1.bias':
+Parameter (name=moments.fc1.bias), 'moments.fc2.weight': Parameter (name=moments.fc2.weight), 'moments.fc2.bias':
+Parameter (name=moments.fc2.bias), 'moments.fc3.weight': Parameter (name=moments.fc3.weight), 'moments.fc3.bias': Parameter (name=moments.fc3.bias)}  
 =============after filter_prefix moments=============  
 {'conv1.weight': Parameter (name=conv1.weight), 'conv2.weight': Parameter (name=conv2.weight), 'fc1.weight': Parameter (name=fc1.weight),
- 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
- 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias), 'learning_rate': Parameter (name=learning_rate), 'momentum': Parameter (name=momentum)}  
+'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight), 'fc2.bias': Parameter (name=fc2.bias),
+'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias), 'learning_rate': Parameter (name=learning_rate), 'momentum': Parameter (name=momentum)}  
 
 Using the mechanism of filtering prefixes, you can filter out the parameters that you don’t want to load (in this case, it is the optimizer weight parameter). When performing Fine-tune, you can use other optimizers to optimize.  
 
