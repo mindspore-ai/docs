@@ -1,4 +1,4 @@
-# Implementing an Image Segmentation Application (Java)
+# Android Application Development Based on Java Interface
 
  This tutorial is being translated, please stay tuned...
 
