@@ -24,6 +24,7 @@
         - [Data Parallel Mode](#data-parallel-mode)
         - [Semi Auto Parallel Mode](#semi-auto-parallel-mode)
         - [Hybrid Parallel Mode](#hybrid-parallel-mode)
+    - [Multi-machine Training](#multi-machine-training)
 
 <!-- /TOC -->
 
@@ -39,16 +40,22 @@ The directory structure is as follow:
 ```text
 └─tutorial_code
     ├─distributed_training
+    │      rank_table_16pcs.json
     │      rank_table_8pcs.json
     │      rank_table_2pcs.json
+    │      cell_wrapper.py
+    │      model_accu.py
     │      resnet.py
     │      resnet50_distributed_training.py
     │      resnet50_distributed_training_gpu.py
+    │      resnet50_distributed_training_grad_accu.py
     │      run.sh
     │      run_gpu.sh
+    │      run_grad_accu.sh
+    │      run_cluster.sh
 ```
 
-`rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` and `resnet50_distributed_training_gpu.py` are the network structure files. `run.sh` and `run_gpu.sh` are the execute scripts。
+`rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execute scripts.
 
 Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
@@ -543,3 +550,97 @@ It should be noted that if users choose this checkpoint saving policy, users nee
 ### Hybrid Parallel Mode
 
 For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html).
+
+## Multi-machine Training
+
+The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single machine with 8 cards. Using multiple machines for distributed training can greatly improve the training speed.
+In the Ascend environment, the communication between NPU units across machines is the same as the communication between each NPU unit in a single machine. It is still communicated through HCCL. The difference is that the NPU units in a single machine are naturally interoperable, while cross-machine communication needs to be guaranteed that the networks of the two machines are interoperable.
+After confirming that the network of the NPU unit between the machines is smooth, configure the json configuration file of multiple machines. This tutorial takes the configuration file of 16 cards as an example. It should be noted that in the json file configuration of multiple machines, the order of rank_id is required to be consistent with the lexicographic order of server_id.
+
+```json
+{
+    "version": "1.0",
+    "server_count": "2",
+    "server_list": [
+        {
+            "server_id": "10.155.111.140",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.6","rank_id": "0"},
+                {"device_id": "1","device_ip": "192.2.27.6","rank_id": "1"},
+                {"device_id": "2","device_ip": "192.3.27.6","rank_id": "2"},
+                {"device_id": "3","device_ip": "192.4.27.6","rank_id": "3"},
+                {"device_id": "4","device_ip": "192.1.27.7","rank_id": "4"},
+                {"device_id": "5","device_ip": "192.2.27.7","rank_id": "5"},
+                {"device_id": "6","device_ip": "192.3.27.7","rank_id": "6"},
+                {"device_id": "7","device_ip": "192.4.27.7","rank_id": "7"}],
+             "host_nic_ip": "reserve"
+        },
+        {
+            "server_id": "10.155.111.141",
+            "device": [
+                {"device_id": "0","device_ip": "192.1.27.8","rank_id": "8"},
+                {"device_id": "1","device_ip": "192.2.27.8","rank_id": "9"},
+                {"device_id": "2","device_ip": "192.3.27.8","rank_id": "10"},
+                {"device_id": "3","device_ip": "192.4.27.8","rank_id": "11"},
+                {"device_id": "4","device_ip": "192.1.27.9","rank_id": "12"},
+                {"device_id": "5","device_ip": "192.2.27.9","rank_id": "13"},
+                {"device_id": "6","device_ip": "192.3.27.9","rank_id": "14"},
+                {"device_id": "7","device_ip": "192.4.27.9","rank_id": "15"}],
+            "host_nic_ip": "reserve"
+        }
+    ],
+    "status": "completed"
+}
+```
+
+After preparing the configuration file, you can organize distributed multi-machine training scripts. Taking 2 machines with 16 cards as an example, the scripts written on the two machines are similar to the running scripts of a single machine with 8 cards. The difference is that different rank_id variables are specified.
+
+```bash
+#!/bin/bash
+
+echo "=============================================================================================================="
+echo "Please run the script as: "
+echo "bash run.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run.sh /path/dataset /path/rank_table.json 16 0"
+echo "It is better to use the absolute path."
+echo "=============================================================================================================="
+
+execute_path=$(pwd)
+echo ${execute_path}
+script_self=$(readlink -f "$0")
+self_path=$(dirname "${script_self}")
+echo ${self_path}
+
+export DATA_PATH=$1
+export RANK_TABLE_FILE=$2
+export RANK_SIZE=$3
+RANK_START=$4
+DEVICE_START=0
+for((i=0;i<=7;i++));
+do
+  export RANK_ID=$[i+RANK_START]
+  export DEVICE_ID=$[i+DEVICE_START]
+  rm -rf ${execute_path}/device_$RANK_ID
+  mkdir ${execute_path}/device_$RANK_ID
+  cd ${execute_path}/device_$RANK_ID || exit
+  pytest -s ${self_path}/resnet50_distributed_training.py >train$RANK_ID.log 2>&1 &
+done
+```
+
+For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution.
+
+```text
+└─tutorial_code
+    ├─distributed_training
+    │      resnet50_distributed_training.py
+    │      run_cluster.sh
+```
+
+When executing, the two machines execute the following commands respectively, among which rank_table.json is configured according to the 16-card distributed json file reference configuration shown in this chapter.
+
+```bash
+# server0
+bash run.sh /path/dataset /path/rank_table.json 16 0
+# server1
+bash run.sh /path/dataset /path/rank_table.json 16 8
+```
