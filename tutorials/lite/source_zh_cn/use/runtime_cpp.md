@@ -246,7 +246,7 @@ MindSpore Lite提供两种方法来获取模型的输入Tensor。
    // Users need to free input_buf.
    ```
 
-> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考[实现一个图像分类应用对输入数据进行处理部分](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html#id11)。
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考基于JNI接口的Android应用开发中[编写端侧推理代码](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start.html#id10)的第2步，将输入图片转换为传入MindSpore模型的Tensor格式。。
 >
 > [GetInputs](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputs)和[GetInputsByTensorName](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html#getinputsbyname)方法返回的vector不需要用户释放。
 

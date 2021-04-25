@@ -246,7 +246,7 @@ MindSpore Lite provides two methods to obtain the input tensor of a model.
    // Users need to free input_buf.
    ```
 
-> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`. For more information about data pre-processing, see [Implementing an Image Classification Application (C++)](https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html#id11).
+> The data layout in the input tensor of the MindSpore Lite model must be `NHWC`. For more information about data pre-processing, see step 2 in [Writing On-Device Inference Code](https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html#writing-on-device-inference-code) in Android Application Development Based on JNI Interface to convert the input image into the Tensor format of the MindSpore model.
 >
 > [GetInputs](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#getinputs) and [GetInputsByTensorName](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#getinputsbyname) methods return vectors that do not need to be released by users.
 
