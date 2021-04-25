@@ -79,9 +79,10 @@ def _my_signature_from_function(cls, func):
     annotations = func.__annotations__
     defaults = get_default_params(func)
     kwdefaults = func.__kwdefaults__
+    pos_defaults = func.__defaults__
 
-    if defaults:
-        pos_default_count = len(defaults)
+    if pos_defaults:
+        pos_default_count = len(pos_defaults)
     else:
         pos_default_count = 0
 
