@@ -48,7 +48,7 @@ If MindSpore Lite is used in an Android project, you can use [C++ API](https://w
 
 ![img](../images/lite_runtime.png)
 
-> For details about the calling process of MindSpore Lite inference, see [Simplified MindSpore Lite Java Demo](https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_cpp.html).
+> For details about the calling process of MindSpore Lite inference, see [Experience Java Simple Inference Demo](https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_cpp.html).
 
 ## Referencing the MindSpore Lite Java Library
 

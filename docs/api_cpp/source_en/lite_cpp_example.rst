@@ -5,5 +5,5 @@ Example
   :maxdepth: 1
 
   Simple Demo <https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start_cpp.html>
-  Implementing an Image Classification Application <https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html#writing-on-device-inference-code>
+  Android Application Development Based on JNI Interface <https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html#writing-on-device-inference-code>
   High-level Usage <https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html>

@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [体验MindSpore Lite C++ 极简Demo](#体验mindspore-lite-c-极简demo)
+- [体验C++极简推理Demo](#体验c极简推理demo)
     - [概述](#概述)
     - [构建与运行](#构建与运行)
     - [模型加载](#模型加载)

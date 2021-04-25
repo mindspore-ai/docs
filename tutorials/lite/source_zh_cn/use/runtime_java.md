@@ -48,7 +48,7 @@ Android项目中使用MindSpore Lite，可以选择采用[C++ API](https://www.m
 
 ![img](../images/lite_runtime.png)
 
-快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验MindSpore Lite Java极简Demo](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html)。
+快速了解MindSpore Lite执行推理的完整调用流程，请参考[体验Java极简推理Demo](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_java.html)。
 
 ## 引用MindSpore Lite Java库
 
@@ -189,7 +189,7 @@ MindSpore Lite Java接口提供`getInputsByTensorName`以及`getInputs`两种方
     inputTensor.setData(inputData);
     ```
 
-> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考[实现一个图像分割应用对输入数据进行处理部分](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html#id10)。
+> MindSpore Lite的模型输入Tensor中的数据排布必须是`NHWC`。如果需要了解更多数据前处理过程，可参考[基于Java接口的Android应用开发](https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/image_segmentation.html#id9)的对输入数据进行处理部分。
 
 ## 执行推理
 
@@ -368,4 +368,3 @@ MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_java/zh-CN/mas
 import com.mindspore.lite.Version;
 String version = Version.version();
 ```
-

@@ -4,18 +4,36 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/architecture_lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-The overall architecture of MindSpore Lite is as follows:
+MindSpore Lite is an ultra-fast, intelligent, and simplified AI engine that enables intelligent applications in all scenarios, provides E2E solutions for users, and helps users enable AI capabilities.
+
+MindSpore Lite is divided into two parts: offline module and online module. The overall architecture of MindSpore Lite is as follows:
 
 ![architecture](./images/MindSpore-Lite-architecture.png)
 
-- **Frontend:** generates models. You can use the model building API to build models and convert third-party models and models trained by MindSpore to MindSpore Lite models. Third-party models include TensorFlow Lite, Caffe 1.0, and ONNX models.
+- Offline module:
 
-- **IR:** defines the tensors, operators, and graphs of MindSpore.
+    - **3rd Model Parsers:** converts third-party models to a unified MindIR. Third-party models include TensorFlow, TensorFlow Lite, Caffe 1.0, and ONNX models.
 
-- **Backend:** optimizes graphs based on IR, including graph high level optimization (GHLO), graph low level optimization (GLLO), and quantization. GHLO is responsible for hardware-independent optimization, such as operator fusion and constant folding. GLLO is responsible for hardware-related optimization. Quantizer supports quantization methods after training, such as weight quantization and activation value quantization.
+    - **MindIR:** MindSpore device-cloud unified IR.
 
-- **Runtime:** inference runtime of intelligent devices. Sessions are responsible for session management and provide external APIs. The thread pool and parallel primitives are responsible for managing the thread pool used for graph execution. Memory allocation is responsible for memory overcommitment of each operator during graph execution. The operator library provides the CPU, GPU and NPU operators.
+    - **Optimizer:** optimizes graphs based on IR, such as operator fusion and constant folding.
 
-- **Micro:** runtime of IoT devices, including the model generation .c file, thread pool, memory overcommitment, and operator library.
+    - **Quantizer:** quantization module after training. Quantizer supports quantization methods after training, such as weight quantization and activation value quantization.
 
-Runtime and Micro share the underlying infrastructure layers, such as the operator library, memory allocation, thread pool, and parallel primitives.
+    - **benchmark:** a tool set for testing performance and debugging accuracy.
+
+    - **Micro CodeGen:** a tool to directly compile models into executable files for IoT scenarios.
+
+- Online module:
+
+    - **Training/Inference APIs:** the unified C++/Java training inference interface for the device and cloud.
+
+    - **MindRT Lite:** lightweight online runtime, it supports asynchronous execution.
+
+    - **MindData Lite:** used for the device-side data processing.
+
+    - **Delegate:** agent for docking professional AI hardware engine.
+
+    - **Kernels:** the built-in high-performance operator library which provides CPU, GPU and NPU operators.
+
+    - **Learning Strategies:** device-side learning strategies, such as transfer learning.
