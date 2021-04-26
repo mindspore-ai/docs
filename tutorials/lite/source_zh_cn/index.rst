@@ -58,6 +58,7 @@
 
    use/benchmark
    use/cropper_tool
+   use/visual_tool
 
 .. toctree::
    :glob:
