@@ -1,6 +1,6 @@
 # 可视化工具
 
-`Windows` `Linux` `Mac` `浏览器` `可视化`
+`Windows` `Linux` `Mac` `可视化`
 
 <!-- TOC -->
 
@@ -32,7 +32,7 @@
 
 ## 使用方式
 
-ms模型的支持代码已经合入官方库。`Netron`的下载地址为 https://github.com/lutzroeder/netron/releases/latest, 作者不定期更新并发布Release版本。用户按照以下方式安装`Netron`，将模型拖入窗口即可打开。
+ms模型的支持代码已经合入官方库。`Netron`的下载地址为 <https://github.com/lutzroeder/netron/releases/latest>, 作者不定期更新并发布Release版本。用户按照以下方式安装`Netron`，将模型拖入窗口即可打开。
 
 - macOS: 下载`.dmg`文件或者执行`brew cask install netron`
 
@@ -42,7 +42,7 @@ ms模型的支持代码已经合入官方库。`Netron`的下载地址为 https:
 
 - Python服务器：执行`pip install netron`安装Netron，然后通过`netron [FILE]`或`netron.start('[FILE]')`加载模型
 
-- 浏览器：打开 https://netron.app/
+- 浏览器：打开 <https://netron.app/>
 
 ## 开发调试
 

@@ -98,6 +98,7 @@
 										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
 										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
 										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
+										<button class="doc-filter-btn doc-btn" id="os-mac">Mac</button>
 									</div>
 								</div>
 			
@@ -135,6 +136,7 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Visualization">可视化</button>
 									</div>
 								</div>
 							</div>
@@ -417,6 +419,18 @@
 										</div>
 										<div class="doc-article-desc">
 										与benchmark工具类似，MindSpore端侧训练为你提供了benchmark_train工具对训练后的模型进行基准测试。它不仅可以对模型前向推理执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Mac stage-Visualization">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/visual_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">可视化工具</span>
+										</div>
+										<div class="doc-article-desc">
+										Netron是一个基于Electron平台开发的神经网络模型可视化工具，支持MindSpore Lite模型，可以方便地查看模型信息。
 										</div>
 									</div>
 								</a>
