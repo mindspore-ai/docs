@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [Simplified MindSpore Lite Java Demo](#simplified-mindspore-lite-java-demo)
+- [Experience Java Simple Inference Demo](#experience-java-simple-inference-demo)
     - [Overview](#overview)
     - [Building and Running](#building-and-running)
     - [Model Loading](#model-loading)

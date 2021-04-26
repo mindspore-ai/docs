@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [体验MindSpore Lite Java极简Demo](#体验mindspore-lite-java极简demo)
+- [体验Java极简推理Demo](#体验java极简推理demo)
     - [概述](#概述)
     - [构建与运行](#构建与运行)
     - [模型加载](#模型加载)

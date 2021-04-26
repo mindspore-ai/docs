@@ -4,7 +4,7 @@
 
 <!-- TOC -->
 
-- [Simplified MindSpore Lite C++ Demo](#simplified-mindspore-lite-c-demo)
+- [Experience C++ Simple Inference Demo](#experience-c-simple-inference-demo)
     - [Overview](#overview)
     - [Building and Running](#building-and-running)
         - [Linux x86](#linux-x86)
