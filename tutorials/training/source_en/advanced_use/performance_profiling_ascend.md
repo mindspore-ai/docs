@@ -173,6 +173,8 @@ The Timeline component can display:
 - The operators (AICORE/AICPU/HOSTCPU operators) are executed on which device.
 - The MindSpore stream split strategy for this neural network.
 - The execution sequence and execution time of the operator on the device.
+- The step number of training (Currently dynamic shape scene, multi-graph scene and heterogeneous training scene are not supported, steps data may be inaccurate in these scene.).
+- `Scope Name` of the operator, the number of each operator's `Scope Name` could be selected and download corresponding timeline file. For example, the full name of one operator is `Default/network/lenet5/Conv2D-op11`, thus the first `Scope Name` of this operator is `Default`, the second `Scope Name` is `network`. If two `Scope Name` for each operator is selected, then the `Default` and `network` will be displayed.
 
 Users can get the most detailed information from the Timeline:  
 

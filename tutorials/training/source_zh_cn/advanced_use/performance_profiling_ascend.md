@@ -177,6 +177,8 @@ Timeline组件可以展示：
 - 算子分配到哪个设备（AICPU、AICORE、HOSTCPU）执行。
 - MindSpore对该网络的流切分策略。
 - 算子在Device上的执行序列和执行时长。
+- 训练的Step数（暂不支持动态Shape场景、多图场景和异构训练场景，这些场景下Step数据可能不准确）。
+- 算子的`Scope Name`信息，可以选择展示多少层`Scope Name`信息并下载对应的timeline文件。例如某算子的全名为：`Default/network/lenet5/Conv2D-op11`，则该算子的第一层Scope Name为`Default`、第二层为`network`。如果选择展示两层`Scope Name`信息，则会展示`Default`和`network`。
 
 通过分析Timeline，用户可以对训练过程进行细粒度分析：从High Level层面，可以分析流切分方法是否合理、迭代间隙和拖尾时间是否过长等；从Low Level层面，可以分析算子执行时间等。
 
