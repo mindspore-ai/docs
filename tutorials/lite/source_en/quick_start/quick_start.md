@@ -63,7 +63,7 @@ The following section describes how to build and execute an on-device image clas
 
 - Android Studio 3.2 or later and Android 4.0 or later is recommended.
 - Native development kit (NDK) 21.3
-- [CMake](https://cmake.org/download) 3.10.2  
+- [CMake](https://cmake.org/download) >= 3.18.3  
 - Android software development kit (SDK) 26 or later
 - JDK 1.8 or later
 

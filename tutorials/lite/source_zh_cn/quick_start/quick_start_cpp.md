@@ -43,7 +43,7 @@
 
     - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
     - 编译依赖：
-        - [CMake](https://cmake.org/download/) >= 3.14
+        - [CMake](https://cmake.org/download/) >= 3.18.3
         - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
 
 - 编译构建
@@ -81,7 +81,7 @@
 
     - 系统环境：Windows 7，Windows 10；64位。
     - 编译依赖：
-        - [CMake](https://cmake.org/download/) >= 3.14
+        - [CMake](https://cmake.org/download/) >= 3.18.3
         - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/ToolchainstargettingWin64/PersonalBuilds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
 
 - 编译构建
@@ -121,7 +121,7 @@
 > 由于在编译MindSpore Lite的时候增加了对so库文件处理的支持，所以在Linux平台上还需要链接`dl`库。
 
 ```cmake
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.18.3)
 project(QuickStartCpp)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3.0)
