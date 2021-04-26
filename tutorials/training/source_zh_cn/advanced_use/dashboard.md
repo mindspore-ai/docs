@@ -25,6 +25,8 @@
 
 用户从训练列表中选择指定的训练，进入训练看板。
 
+> 收集可视化数据及进入训练看板方法可参考《[收集Summary数据](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/summary_record.html)》。
+
 ## 标量可视化
 
 标量可视化用于展示训练过程中，标量的变化趋势情况。
