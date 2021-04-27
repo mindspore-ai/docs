@@ -4,29 +4,33 @@
 
 ## [Summary](#Summary)
 
-In the process of model training or model loading, sometimes it is necessary to replace some optimizers or other hyperparameter
+In the process of model training or model loading, sometimes it is necessary to replace some optimizers or other hyperparameters
 in the model file and the fully-connected layer changes in the classification function, but you don't want
-to change too much, or start training the model from the beginning. In view of this situation, MindSpore provides advanced usage
-of CheckPoint that only adjusting parts of the weight of the model, and applies the method to the model tuning process.
+to change too much, or start training the model from the beginning. In view of this situation, MindSpore provides advanced usages
+of CheckPoint that only adjusts parts of the weight of the model, and applies the method to the model tuning process.
 
 For basic usage, please refer to:[Saving Models](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint)
 
 ## [Preparation](#Preparation)
 
-This article takes LeNet network as an example to introduce the operation methods of saving, loading and converting
-models in mindspore.
+This article takes the LeNet network as an example to introduce the operation methods of saving, loading and converting
+models in Mindspore.
 
 Firstly, the following documents should be prepared:  
 
 - MNIST dataset.
 
-- Pretrained model file of LeNet network:`checkpoint-lenet_1-1875.ckpt`.
+- The pretrained model file of the LeNet network: `checkpoint-lenet_1-1875.ckpt`.
 
+<<<<<<< HEAD
 - Data augmentation files`dataset_process.py`, use the data augmentation method`create_dataset`, which can refer to the data agumentation method`create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
+=======
+- The data augmentation files `dataset_process.py`. For using the data augmentation method `create_dataset`, you can refer to the data agumentation method `create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
+>>>>>>> task
 
 - Define the LeNet network.  
 
-Execute the following code to complete the first three preparations.
+Execute the following codes to complete the first three preparations.
 
 ```shell script
 !mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
@@ -76,15 +80,15 @@ class LeNet5(nn.Cell):
 
 #### [Save CheckPoint Manually](#Save-CheckPoint-Manually)
 
-use `save_checkpoint` to save CheckPoint files manually.
+Use `save_checkpoint` to save CheckPoint files manually.
 
 Application Scenarios:
 
 1. Saving the initial values of the network.
 2. Saving the specified network manually.
 
-Execute the following code, after training 100 batches of the dataset for the pretrained model`checkpoint_lenet-1_1875.ckpt`,
-use`save_checkpoint` to save the model`mindspore_lenet.ckpt` manually.  
+Execute the following code, after training 100 batches of the dataset for the pretrained model `checkpoint_lenet-1_1875.ckpt`,
+use `save_checkpoint` to save the model `mindspore_lenet.ckpt` manually.  
 
 ```python
 from mindspore import Model, load_checkpoint, save_checkpoint, load_param_into_net
@@ -125,21 +129,21 @@ Parameter (name=moments.conv2.weight), Parameter (name=moments.fc1.weight), Para
 Parameter (name=moments.fc2.weight), Parameter (name=moments.fc2.bias), Parameter (name=moments.fc3.weight),
 Parameter (name=moments.fc3.bias)]
 
-The weight parameters of `mindspore_lenet.ckpt` can be seen from the above printed information, which includes the weight
+The weight parameters of `mindspore_lenet.ckpt` can be seen from the above printed information, including the weight
 parameters of each hidden layer, learning rate, optimization rate in the process of forward propagation and the weight of optimizer function
 in back propagation.
 
 #### [Saving the Specified Cell](#Saving-the-Specified-Cell)
 
-Usage: The parameters`saved_network` of the Class`CheckpointConfig`.
+Usage: The parameter `saved_network` of the Class `CheckpointConfig`.
 
 Application Scenarios:  
 
 - Only save the parameters of the inference network model (Not saving the optimizer's parameters halves the size of the generated CheckPoint file)
 
-- Save subnet parameters to be used to Fine-tune tasks.  
+- Save subnet parameters to be used to the Fine-tune tasks.  
 
-Use method`CheckpointConfig` in the callback function and specify the cell of the saved model as network, that is, the forward propagation LeNet network.  
+Use the method `CheckpointConfig` in the callback function and specify the cell of the saved model as `network`, that is, the forward propagation LeNet network.  
 
 ```python
 import os
@@ -157,7 +161,11 @@ model.train(epoch_size, ds_train, callbacks=[ckpoint, LossMonitor(625)])
 epoch: 1 step: 1250, loss is 0.09527888  
 epoch: 1 step: 1875, loss is 0.23090823
 
+<<<<<<< HEAD
 After the model is trained, save the model file`lenet-1_1875.ckpt`. Next, what is the difference after comparing the size and specific weight of the cell of the specified saved model with the original model.  
+=======
+The model is saved to the model file`lenet-1_1875.ckpt` after training. Next, compare the size and specific weight between the cell of the specified saved model and the original model.  
+>>>>>>> task
 
 ```python
 model_with_opt = os.path.getsize("./checkpoint_lenet-1_1875.ckpt") // 1024
@@ -188,16 +196,26 @@ without_opt size: 241 kB
 'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight),
 'fc2.bias': Parameter (name=fc2.bias), 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}
 
+<<<<<<< HEAD
 After training, the weight file size of the saved model`lenet-1_1875.ckpt` is 241kB, compared with the size 482kB of the original full model, the overall reduction is nearly half;
 
 A specific comparison of the parameters in the model shows that the learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameters in `checkpoint_lenet-1_1875.ckpt`,
+=======
+The weight file size of the saved model`lenet-1_1875.ckpt` is 241kB after training. Compared with the size 482kB of the original full model, the overall reduction is nearly half;
+
+The specific comparison of the parameters in the model shows that the learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameters in `checkpoint_lenet-1_1875.ckpt`,
+>>>>>>> task
 and only the weight parameters of the forward propagation network LeNet are retained. It meets the expected result.
 
 #### [Save CheckPoint Asynchronously](#Save-CheckPoint-Asynchronously)
 
 Usage:The parameters`async_save` of the Class`CheckpointConfig`.
 
+<<<<<<< HEAD
 Application Scenarios: The trained model has a large amount of parameters, and it can be saved during training, which saves the writing time when saving the CheckPoint file.  
+=======
+Application Scenarios: The trained model has a large amount of parameters, and it can be saved during training, including the writing time that saves the CheckPoint file.  
+>>>>>>> task
 
 ```python
 config_ck = CheckpointConfig(async_save=True)
@@ -207,18 +225,18 @@ model.train(epoch_size, ds_train, callbacks=ckpoint)
 
 #### [Save Custom Parameter Dictionary](#Save-Custom-Parameter-Dictionary)
 
-Usage:Construct an `obj_dict` and pass it to `save_checkpoint` method.  
+Usage:Construct an object `obj_dict` and pass it to the method `save_checkpoint`.  
 Application Scenarios:  
 
 - During the training process, additional parameters (`lr`, `epoch_size`, etc.) need to be saved to CheckPoint files.
 
-- Resave after modifying the parameter value in CheckPoint.
+- Resave after modifying the parameters values in CheckPoint.
 
-- Convert CheckPoint files of PyTorch and TensorFlow into CheckPoint files of MindSpore.  
+- Convert the CheckPoint files of PyTorch and TensorFlow into the CheckPoint files of MindSpore.  
 
-Divided into two situations according to specific scenarios:  
+There is two situations according to specific scenarios:  
 
-1. When the CheckPoint file existing, save it after modifying the content.  
+1. When the CheckPoint file exists, resave it after modifying the content.  
 
     ```python
     params = load_checkpoint("./lenet-1_1875.ckpt")
@@ -274,7 +292,7 @@ Divided into two situations according to specific scenarios:
     After the loaded model file is converted to the list type, the model parameters can be deleted, added, modified, etc.,
     and manually saved with `save_checkpoint` to complete the modification of the content of the model weight file.
 
-2. Save the custom parameter list as a CheckPoint file.  
+2. Save the custom parameters list as a CheckPoint file.  
 
     ```python
     param_list = []
@@ -300,7 +318,7 @@ Divided into two situations according to specific scenarios:
 
 #### [Strictly match the parameter name](#Strictly-match-the-parameter-name)
 
-When the weight parameters in the CheckPoint file are loaded into the net, the parameter with the same name in net and CheckPoint will be matched firstly.
+When the weight parameters in the CheckPoint file are loaded into the `net`, the parameters with the same name in `net` and CheckPoint will be matched firstly.
 After the matching is completed, it is found that there are some parameters that are not loaded in the net, and it will match the parameters with the same suffix name in ckpt and net.  
 For example:The parameter value named `conv.0.weight` in CheckPoint will be loaded into the parameter named `net.conv.0.weight` in net.  
 If you want to cancel this kind of fuzzy matching, only adopt the strict matching mechanism, you can set it by the parameter `strict_load` in the method `load_param_into_net`.
@@ -323,10 +341,10 @@ print(params)
 
 Usage:The parameter `filter_prefix` of `load_checkpoint`.  
 
-Application Scenarios:When loading CheckPoint, you want to filter certain parameters that contain the specific prefix.  
+Application Scenarios: When loading the CheckPoint, you want to filter certain parameters that contain the specific prefix.  
 
-- When loading CheckPoint, do not load the parameter in the optimizer (eg：filter_prefix=’moments’).  
-- Do not load the parameters of the convolutional layer (eg：filter_prefix=’conv1’).  
+- When loading the CheckPoint, do not load the parameters in the optimizer (eg：filter_prefix=’moments’).  
+- Do not load the parameters of the convolutional layers (eg：filter_prefix=’conv1’).  
 
 ```python
 net = LeNet5()
@@ -361,7 +379,7 @@ Using the mechanism of filtering prefixes, you can filter out the parameters tha
 
 ### [Convert CheckPoints of other frameworks to MindSpore format](#Convert-CheckPoints-of-other-frameworks-to-MindSpore-format)  
 
-Convert CheckPoint files of other frameworks to MindSpore format.  
+Convert CheckPoint files of other frameworks to the MindSpore format.  
 
 In general, the parameters names and parameters values are saved in the CheckPoint file. After invoking the loading interface
 of the corresponding framework and obtaining the parameter names and values, construct the object according to the MindSpore format,
