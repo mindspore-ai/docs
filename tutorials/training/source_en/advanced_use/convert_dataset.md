@@ -25,7 +25,7 @@ The MindSpore data format has the following features:
 3. Data encoding and decoding are efficient and transparent to users.
 4. The partition size is flexibly controlled to implement distributed training.
 
-The MindSpore data format aims to normalize the datasets of users to MindRecord, which can be further loaded through the `MindDataset` and used in the training procedure.
+The MindSpore data format aims to normalize the datasets of users to MindRecord, which can be further loaded through the `MindDataset` and used in the training procedure (Please refer to the [API](https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/dataset/mindspore.dataset.MindDataset.html) for detailed use).
 
 ![data_conversion_concept](./images/data_conversion_concept.png)
 
