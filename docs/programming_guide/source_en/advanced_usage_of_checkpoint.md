@@ -22,11 +22,7 @@ Firstly, the following documents should be prepared:
 
 - The pretrained model file of the LeNet network: `checkpoint-lenet_1-1875.ckpt`.
 
-<<<<<<< HEAD
-- Data augmentation files`dataset_process.py`, use the data augmentation method`create_dataset`, which can refer to the data agumentation method`create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
-=======
 - The data augmentation files `dataset_process.py`. For using the data augmentation method `create_dataset`, you can refer to the data agumentation method `create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
->>>>>>> task
 
 - Define the LeNet network.  
 
@@ -161,11 +157,7 @@ model.train(epoch_size, ds_train, callbacks=[ckpoint, LossMonitor(625)])
 epoch: 1 step: 1250, loss is 0.09527888  
 epoch: 1 step: 1875, loss is 0.23090823
 
-<<<<<<< HEAD
-After the model is trained, save the model file`lenet-1_1875.ckpt`. Next, what is the difference after comparing the size and specific weight of the cell of the specified saved model with the original model.  
-=======
 The model is saved to the model file`lenet-1_1875.ckpt` after training. Next, compare the size and specific weight between the cell of the specified saved model and the original model.  
->>>>>>> task
 
 ```python
 model_with_opt = os.path.getsize("./checkpoint_lenet-1_1875.ckpt") // 1024
@@ -196,26 +188,16 @@ without_opt size: 241 kB
 'fc1.weight': Parameter (name=fc1.weight), 'fc1.bias': Parameter (name=fc1.bias), 'fc2.weight': Parameter (name=fc2.weight),
 'fc2.bias': Parameter (name=fc2.bias), 'fc3.weight': Parameter (name=fc3.weight), 'fc3.bias': Parameter (name=fc3.bias)}
 
-<<<<<<< HEAD
-After training, the weight file size of the saved model`lenet-1_1875.ckpt` is 241kB, compared with the size 482kB of the original full model, the overall reduction is nearly half;
-
-A specific comparison of the parameters in the model shows that the learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameters in `checkpoint_lenet-1_1875.ckpt`,
-=======
 The weight file size of the saved model`lenet-1_1875.ckpt` is 241kB after training. Compared with the size 482kB of the original full model, the overall reduction is nearly half;
 
 The specific comparison of the parameters in the model shows that the learning rate, optimization rate and the weight parameters related to reverse optimization are reduced in `lenet-1_1875.ckpt` compared with the parameters in `checkpoint_lenet-1_1875.ckpt`,
->>>>>>> task
 and only the weight parameters of the forward propagation network LeNet are retained. It meets the expected result.
 
 #### [Save CheckPoint Asynchronously](#Save-CheckPoint-Asynchronously)
 
 Usage:The parameters`async_save` of the Class`CheckpointConfig`.
 
-<<<<<<< HEAD
-Application Scenarios: The trained model has a large amount of parameters, and it can be saved during training, which saves the writing time when saving the CheckPoint file.  
-=======
 Application Scenarios: The trained model has a large amount of parameters, and it can be saved during training, including the writing time that saves the CheckPoint file.  
->>>>>>> task
 
 ```python
 config_ck = CheckpointConfig(async_save=True)
