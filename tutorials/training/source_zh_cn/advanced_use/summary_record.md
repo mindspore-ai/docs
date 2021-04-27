@@ -30,7 +30,7 @@
 
 - 准备训练脚本，并在训练脚本中指定标量、图像、计算图、模型超参等信息记录到summary日志文件，接着运行训练脚本。
 - 启动MindInsight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
-- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html)。
+- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html)。
 
 > 在ModelArts中查看可视数据，可参考[ModelArts上管理可视化作业](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0050.html)。
 
