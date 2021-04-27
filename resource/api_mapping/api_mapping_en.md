@@ -56,10 +56,10 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.log1p                                          | mindspore.ops.Log1p                                            | same |
 | torch.logsumexp                                      | mindspore.nn.ReduceLogSumExp                                   | same |
 | torch.matmul                                         | mindspore.nn.MatMul                                            | same |
-| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  | diff |
+| torch.max                                            | mindspore.ops.ArgMaxWithValue                                  |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ArgMaxWithValue_en.md)|
 | torch.maximum                                        | mindspore.ops.Maximum                                          | same |
 | torch.mean                                           | mindspore.ops.ReduceMean                                       | same |
-| torch.min                                            | mindspore.ops.ArgMinWithValue                                  | diff |
+| torch.min                                            | mindspore.ops.ArgMinWithValue                                  |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ArgMinWithValue_en.md)|
 | torch.minimum                                        | mindspore.ops.Minimum                                          | same |
 | torch.mm                                             | mindspore.ops.MatMul                                           | same |
 | torch.mul                                            | mindspore.ops.Mul                                              | same |
@@ -92,13 +92,13 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.GELU                                        | mindspore.nn.GELU                                              | same |
 | torch.nn.GELU                                        | mindspore.nn.FastGelu                                          |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/FastGelu_en.md)|
 | torch.nn.GroupNorm                                   | mindspore.nn.GroupNorm                                         | same |
-| torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          | diff |
+| torch.nn.init.constant_                              | mindspore.common.initializer.Constant                          |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Constant_en.md)|
 | torch.nn.init.uniform_                               | mindspore.common.initializer.Uniform                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Uniform_en.md)|
 | torch.nn.KLDivLoss                                   | mindspore.ops.KLDivLoss                                        | same |
 | torch.nn.L1Loss                                      | mindspore.nn.L1Loss                                            | same |
 | torch.nn.LayerNorm                                   | mindspore.nn.LayerNorm                                         | same |
 | torch.nn.LeakyReLU                                   | mindspore.nn.LeakyReLU                                         | same |
-| torch.nn.Linear                                      | mindspore.nn.Dense                                             | diff |
+| torch.nn.Linear                                      | mindspore.nn.Dense                                             |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Dense_en.md)|
 | torch.nn.LSTM                                        | mindspore.nn.LSTM                                              | same |
 | torch.nn.LSTMCell                                    | mindspore.nn.LSTMCell                                          | same |
 | torch.nn.MaxPool2d                                   | mindspore.nn.MaxPool2d                                         | same |
@@ -107,7 +107,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.ModuleList                                  | mindspore.nn.CellList                                          | same |
 | torch.nn.MSELoss                                     | mindspore.nn.MSELoss                                           | same |
 | torch.nn.Parameter                                   | mindspore.Parameter                                            | same |
-| torch.nn.ParameterList                               | mindspore.ParameterTuple                                       | diff |
+| torch.nn.ParameterList                               | mindspore.ParameterTuple                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ParameterTuple_en.md)|
 | torch.nn.PixelShuffle                                | mindspore.ops.DepthToSpace                                     | same |
 | torch.nn.PReLU                                       | mindspore.nn.PReLU                                             | same |
 | torch.nn.ReLU                                        | mindspore.nn.ReLU                                              | same |
@@ -119,19 +119,19 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.SyncBatchNorm.convert_sync_batchnorm        | mindspore.nn.GlobalBatchNorm                                   | same |
 | torch.nn.Tanh                                        | mindspore.nn.Tanh                                              | same |
 | torch.nn.Unfold                                      | mindspore.nn.Unfold                                            | same |
-| torch.nn.Upsample                                    | mindspore.ops.ResizeBilinear                                   | diff |
-| torch.norm                                           | mindspore.nn.Norm                                              | diff |
+| torch.nn.Upsample                                    | mindspore.ops.ResizeBilinear                                   |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ResizeBilinear_en.md)|
+| torch.norm                                           | mindspore.nn.Norm                                              |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Norm_en.md)|
 | torch.numel                                          | mindspore.ops.Size                                             | same |
 | torch.ones                                           | mindspore.ops.Ones                                             | same |
 | torch.ones_like                                      | mindspore.ops.OnesLike                                         | same |
-| torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    | diff |
-| torch.optim.Adagrad                                  | mindspore.ops.ApplyAdagrad                                     | diff |
+| torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdadelta_en.md)|
+| torch.optim.Adagrad                                  | mindspore.nn.ApplyAdagrad                                      |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdagrad_en.md)|
 | torch.optim.Adam                                     | mindspore.nn.Adam                                              | same |
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | same |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | same |
 | torch.optim.lr_scheduler.CosineAnnealingWarmRestarts | mindspore.nn.cosine_decay_lr                                   | same |
 | torch.optim.lr_scheduler.StepLR                      | mindspore.nn.piecewise_constant_lr                             | same |
-| torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  | diff |
+| torch.optim.Optimizer.step                           | mindspore.nn.TrainOneStepCell                                  |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/TrainOneStepCell_en.md)|
 | torch.optim.RMSprop                                  | mindspore.nn.RMSProp                                           | same |
 | torch.optim.SGD                                      | mindspore.nn.SGD                                               | same |
 | torch.pow                                            | mindspore.ops.Pow                                              | same |
@@ -150,7 +150,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | same |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | same |
 | torch.stack                                          | mindspore.ops.Stack                                            | same |
-| torch.std_mean                                       | mindspore.ops.ReduceMean                                       | diff |
+| torch.std_mean                                       | mindspore.ops.ReduceMean                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean&std_mean_en.md)|
 | torch.sum                                            | mindspore.ops.ReduceSum                                        | same |
 | torch.tan                                            | mindspore.ops.Tan                                              | same |
 | torch.tanh                                           | mindspore.ops.Tanh                                             | same |
@@ -169,13 +169,13 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.Tensor.requires_grad_                          | mindspore.Parameter.requires_grad                              | same |
 | torch.Tensor.round                                   | mindspore.ops.Round                                            | same |
 | torch.Tensor.scatter                                 | mindspore.ops.ScatterNd                                        | same |
-| torch.Tensor.scatter_add_                            | mindspore.ops.ScatterNdAdd                                     | diff |
+| torch.Tensor.scatter_add_                            | mindspore.ops.ScatterNdAdd                                     |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ScatterNdAdd_en.md)|
 | torch.Tensor.sigmoid                                 | mindspore.nn.Sigmoid                                           | same |
 | torch.Tensor.sign                                    | mindspore.ops.Sign                                             | same |
 | torch.Tensor.size                                    | mindspore.ops.Shape                                            | same |
 | torch.Tensor.sqrt                                    | mindspore.ops.Sqrt                                             | same |
 | torch.Tensor.sub                                     | mindspore.ops.Sub                                              | same |
-| torch.Tensor.t                                       | mindspore.ops.Transpose                                        | diff |
+| torch.Tensor.t                                       | mindspore.ops.Transpose                                        |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Transpose_en.md)|
 | torch.Tensor.transpose                               | mindspore.ops.Transpose                                        | same |
 | torch.Tensor.unsqueeze                               | mindspore.ops.ExpandDims                                       | same |
 | torch.Tensor.view                                    | mindspore.ops.Reshape                                          | same |
@@ -184,7 +184,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.tril                                           | mindspore.nn.Tril                                              | same |
 | torch.triu                                           | mindspore.nn.Triu                                              | same |
 | torch.unbind                                         | mindspore.ops.Unstack                                          | same |
-| torch.unique                                         | mindspore.ops.Unique                                           | diff |
+| torch.unique                                         | mindspore.ops.Unique                                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Unique_en.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | same |
 | torch.utils.data.DataLoader                          | mindspore.DatasetHelper                                        | same |
 | torch.utils.data.Dataset                             | mindspore.dataset.MindDataset                                  | same |

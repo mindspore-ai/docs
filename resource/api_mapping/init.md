@@ -1,5 +1,27 @@
-﻿# init功能差异
+﻿# 比较与torch.distributed.init_process_group的功能差异
 
-PyTorch: 该接口支持的集合通信有3种：MPI、Gloo、NCCL。该接口在初始化backend的同时，还提供`world_size`、`rank`和`timeout`等内容的配置。
+## torch.distributed.init_process_group
+
+```python
+torch.distributed.init_process_group(
+    backend,
+    init_method=None,
+    timeout=datetime.timedelta(0, 1800),
+    world_size=-1,
+    rank=-1,
+    store=None,
+    group_name=''
+)
+```
+
+## mindspore.communication.init
+
+```python
+mindspore.communication.init(backend_name=None)
+```
+
+## 使用方式
+
+PyTorch: 该接口支持的集合通信有3种：MPI、Gloo、NCCL。该接口在初始化`backend`的同时，还提供`world_size`、`rank`和`timeout`等内容的配置。
 
 MindSpore：该接口当前仅支持2种集合通信：HCCL、NCCL。而`world_size`、`rank`和`timeout`等内容的配置并不在该接口中设置，调用该接口之前，需设置相应的环境变量。
