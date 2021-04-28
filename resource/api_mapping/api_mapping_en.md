@@ -63,7 +63,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.minimum                                        | mindspore.ops.Minimum                                          | same |
 | torch.mm                                             | mindspore.ops.MatMul                                           | same |
 | torch.mul                                            | mindspore.ops.Mul                                              | same |
-| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.ReduceMean                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean_en.md)|
+| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.ReduceMean                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean&AdaptiveAvgPool2d_en.md)|
 | torch.nn.AvgPool1d                                   | mindspore.nn.AvgPool1d                                         | same |
 | torch.nn.AvgPool2d                                   | mindspore.nn.AvgPool2d                                         | same |
 | torch.nn.BatchNorm1d                                 | mindspore.nn.BatchNorm1d                                       | same |
