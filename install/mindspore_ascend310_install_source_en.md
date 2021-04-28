@@ -30,7 +30,7 @@ The following describes how to quickly install MindSpore by compiling the source
 - Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
     - After installation, add the patch path to the system environment variables.
 - Ensure that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Ensure that the Ascend 310 AI Processor software packages ([Atlas Intelligent Edge Solution 21.0.1]) are installed.
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
     - Ensure that the Ascend 310 AI Processor software package that matches GCC 7.3 is installed.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.

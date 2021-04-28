@@ -22,6 +22,8 @@ This document describes how to quickly install MindSpore by pip in a macOS syste
 
 ## Installing MindSpore
 
+It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 initialization verification, and then execute the following command to install MindSpore.
+
 ```bash
 ```
 
