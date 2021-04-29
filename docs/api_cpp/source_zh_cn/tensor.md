@@ -58,22 +58,6 @@ virtual std::vector<int> shape() const
 
     一个包含MindSpore Lite MSTensor形状数值的整型向量。
 
-#### DimensionSize
-
-```cpp
-virtual int DimensionSize(size_t index) const
-```
-
-通过参数索引获取MindSpore Lite MSTensor的维度的大小。
-
-- 参数
-
-    - `index`: 定义了返回的维度的索引。
-
-- 返回值
-
-    MindSpore Lite MSTensor的维度的大小。
-
 #### ElementsNum
 
 ```cpp
