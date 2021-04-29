@@ -36,7 +36,15 @@
 
 - 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)执行编译。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`benchmark`工具，并配置环境变量。
+- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id4)，获得`benchmark`工具。
+
+- 将推理需要的动态链接库加入环境变量LD_LIBRARY_PATH。
+
+    ```bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/inference/lib:${LD_LIBRARY_PATH}
+    ```
+
+    其中${PACKAGE_ROOT_PATH}是编译得到的包解压后的根目录。
 
 ### 参数说明
 
@@ -213,8 +221,13 @@ Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTim
 使用Benchmark工具，需要进行如下环境准备工作。
 
 - 编译：Benchmark工具代码在MindSpore源码的`mindspore/lite/tools/benchmark`目录中，参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id9)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id11)执行编译。
+- 将推理需要的动态链接库加入环境变量PATH。
 
-- 运行：参考构建文档中的[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id12)，获得`benchmark`工具，并配置环境变量。
+    ```bash
+    set PATH=%PACKAGE_ROOT_PATH%\inference\lib;%PATH%
+    ```
+
+    其中%PACKAGE_ROOT_PATH%是编译得到的包解压后的根目录。
 
 ### 参数说明
 

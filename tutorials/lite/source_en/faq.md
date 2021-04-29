@@ -4,6 +4,11 @@
 
 <br/>
 
+<font size=3>**Q：How many log levels are supported by MindSpore Lite? How can I set the log level?**</font>
+
+A：Currently MindSpore Lite supports 4 log levels, including DEBUG, INFO, WARNING and ERROR. Users can set log level by set environment parameter GLOG_v. This environment parameter ranges from 0 to 3, which represents DEBUG, INFO, WARNING and ERROR. The default log level is WARNING or ERROR. For example, if the user sets GLOG_v to 1, MindSpore Lite will print the log of INFO level or higher.
+<br/>
+
 <font size=3>**Q： What are the limitations of NPU?**</font>
 
 A： Currently NPU only supports system ROM version EMUI>=11. Chip support includes Kirin 9000, Kirin 9000E, Kirin 990, Kirin 985, Kirin 820, Kirin 810, etc. For specific constraints and chip support, please see: <https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/mapping-relationship-0000001052830507#EN-US_TOPIC_0000001052830507__section94427279718>

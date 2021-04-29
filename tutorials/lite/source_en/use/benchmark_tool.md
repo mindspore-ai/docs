@@ -38,6 +38,14 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
 
+- Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
+
+    ````bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/inference/lib:${LD_LIBRARY_PATH}
+    ````
+
+    ${PACKAGE_ROOT_PATH} is the compiled inference package path after decompressing.
+
 ### Parameter Description
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
@@ -213,8 +221,13 @@ When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache re
 To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id1) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id3) in the build document.
+- Add the path of dynamic library required by the benchmark to the environment variables PATH.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id4) in the build document.
+    ````bash
+    set PATH=%PACKAGE_ROOT_PATH%\inference\lib;%PATH%
+    ````
+
+    %PACKAGE_ROOT_PATH% is the decompressed package path obtained by compiling.
 
 ### Parameter Description
 

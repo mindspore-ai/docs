@@ -340,19 +340,6 @@ mindspore-lite-{version}-inference-linux-x64
     ```
 
 > - 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
-> - 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
-
-配置converter：
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/tools/converter/lib:./output/mindspore-lite-{version}-inference-{os}-{arch}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
-```
-
-配置benchmark：
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/inference/lib:${LD_LIBRARY_PATH}
-```
 
 ### 端侧训练框架编译输出
 
@@ -410,20 +397,6 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
             ├── hiai_ddk  # NPU库，只存在于arm64包
             └── libjpeg-turbo
     ```
-
-> 运行converter、benchmark_train目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
-
-配置converter：
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/tools/converter/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
-```
-
-配置benchmark_train：
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
-```
 
 ## Windows环境编译
 
@@ -512,20 +485,6 @@ mindspore-lite-{version}-inference-win-x64
             ├── libssp-0.dll          # MinGW动态库
             ├── libstdc++-6.dll       # MinGW动态库
             └── libwinpthread-1.dll   # MinGW动态库
-```
-
-> 运行converter、benchmark目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
-
-配置converter：
-
-```bash
-set PATH=.\output\mindspore-lite-{version}-inference-win-x64\tools\converter\lib;%PATH%
-```
-
-配置benchmark：
-
-```bash
-set PATH=.\output\mindspore-lite-{version}-inference-win-x64\inference\lib;%PATH%
 ```
 
 > 暂不支持在Windows进行端侧训练。
