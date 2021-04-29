@@ -24,9 +24,9 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
     - After installation, add the path of CMake to the system environment variables.
 - Ensure that Python 3.7.5 is installed.
     - If Python 3.7.5 (64-bit) is not installed, download it from the [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) and install it.
-- Ensure that the Ascend 310 AI Processor software packages ([Atlas Intelligent Edge Solution 21.0.1]) are installed.
+- Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
+    - The software packages include [Driver and Firmware A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) and [CANN 5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373).
     - Ensure that you have permissions to access the installation path `/usr/local/Ascend` of the Ascend 310 AI Processor software package. If not, ask the user root to add you to a user group to which `/usr/local/Ascend` belongs. For details about the configuration, see the description document in the software package.
-    - Ensure that the Ascend 310 AI Processor software package that matches GCC 7.3 is installed.
     - Install the .whl package provided with the Ascend 310 AI Processor software package. The .whl package is released with the software package. After the software package is upgraded, you need to reinstall the .whl package.
 
         ```bash
@@ -35,6 +35,8 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
         ```
 
 ## Installing MindSpore
+
+It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
 
 ```bash
 pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/ascend310/{system}/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple

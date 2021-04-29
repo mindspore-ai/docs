@@ -18,10 +18,10 @@
 
 |   组件   | 硬件平台 |   操作系统   |   链接   |   SHA-256   |
 |   ---   |   ---   |     ---     |   ---   |     ---     |
-| 推理runtime(cpp)、训练runtime(cpp)、推理aar包、以及benchmark/benchmark_train工具。 | CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz.sha256> |
-| 推理runtime(cpp)、训练runtime(cpp)、推理aar包、以及benchmark/benchmark_train工具。 | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz.sha256> |
-| 推理runtime(cpp)、训练runtime(cpp)、推理jar包、以及benchmark/benchmark_train/codegen/converter/cropper工具。 | CPU     |  Ubuntu-x64     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz.sha256> |
-| 推理runtime(cpp)以及benchmark/codegen/converter工具。 | CPU     |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip> | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip.sha256> |
+| 推理runtime(cpp)、训练runtime(cpp)、推理aar包、以及benchmark/benchmark_train工具。 | CPU     | Android-aarch32 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/mindspore-lite-1.2.0-android-aarch32.tar.gz> | 7d073573385a69bff53542c395d106393da241682cd6053703ce21f1de23bac6 |
+| 推理runtime(cpp)、训练runtime(cpp)、推理aar包、以及benchmark/benchmark_train工具。 | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz> | 7f8400f0b97fa3e7cbf0d266c73b43a2410905244b04d0202fab39d9267346e0 |
+| 推理runtime(cpp)、训练runtime(cpp)、推理jar包、以及benchmark/benchmark_train/codegen/converter/cropper工具。 | CPU     |  Ubuntu-x64     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz> | 3b609ed8be9e3ae70987d6e00421ad4720776d797133e72f6952ba6b93059062 |
+| 推理runtime(cpp)以及benchmark/codegen/converter工具。 | CPU     |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip> | bf01851d7e2cde416502dce11bd2a86ef63e559f6dabba090405755a87ce14ae |
 
 ## 1.1.0
 
@@ -46,3 +46,4 @@
 > - Ubuntu-x64版本包是在GCC版本大于等于7.3.0的环境编译得到的，所以该版本包的部署环境要求GLIBC版本大于等于2.27。
 > - Android-aarch32的版本包不支持GPU和NPU。
 > - MindSpore Lite还提供对Runtime的`libmindspore-lite.a`[静态库裁剪工具](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/use/cropper_tool.html#)，用于剪裁静态库文件，有效降低库文件大小。
+> - MindSpore Lite下载完成后，需要进行SHA-256完整性校验。
