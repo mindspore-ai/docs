@@ -66,7 +66,7 @@ The following describes how to build and execute an on-device image segmentation
 
 3. On the Android device, click Continue. After the installation is complete, you can view the local album and the segmentation result of the image taken by the camera.
 
-    ![install](../images/lite_quick_start_install.png)
+    ![install](../images/lite_segmentation_quick_start_install.png)
 
     The running result is shown in the following figure. (A portrait in the album is used as an example.)
 
