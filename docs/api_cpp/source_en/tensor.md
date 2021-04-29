@@ -58,22 +58,6 @@ Get shape of the MindSpore Lite MSTensor.
 
     A vector of int as the shape of the MindSpore Lite MSTensor.
 
-#### DimensionSize
-
-```cpp
-virtual int DimensionSize(size_t index) const
-```
-
-Get size of the dimension of the MindSpore Lite MSTensor index by the parameter index.
-
-- Parameters
-
-    - `index`: Define index of dimension returned.
-
-- Returns
-
-    Size of dimension of the MindSpore Lite MSTensor.
-
 #### ElementsNum
 
 ```cpp
