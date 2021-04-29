@@ -209,6 +209,19 @@ Using MindSpore on Mobile and IoT
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Android language-java stage-Whole-Process stage-Model-Converting stage-Model-Loading stage-Inference stage-Data-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/image_segmentation.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Android Application Development Based on Java Interface</span>
+										</div>
+							
+										<div class="doc-article-desc">
+										This tutorial demonstrates the on-device deployment process based on the image segmentation demo on the Android device provided by the MindSpore team.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux os-Android language-cpp stage-Whole-Process stage-Model-Export stage-Model-Converting stage-Model-Training user-Beginner user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/quick_start/train_lenet.html" class="article-link">
 									<div>

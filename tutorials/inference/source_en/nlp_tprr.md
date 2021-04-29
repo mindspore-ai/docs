@@ -1,21 +1,23 @@
 # Multi-hop Knowledge Reasoning Question-answering Model TPRR
 
-`Linux`  `Ascend` `Model development`  `Senior`
+Translator: [longvoyage](https://gitee.com/yuanyanglv)
+
+`Linux` `Ascend` `Model Development` `Expert`
 
 <!-- TOC -->
 
 - [Multi-hop Knowledge Reasoning Question-answering Model TPRR](#multi-hop-knowledge-reasoning-question-answering-model-tprr)
     - [Overview](#overview)
     - [Preparation](#preparation)
-        - [Install dependent software](#install-dependent-software)
-        - [Prepare data](#prepare-data)
-    - [Load data](#load-data)
-    - [Define the network](#define-the-network)
-        - [Set model parameters](#set-model-parameters)
-        - [Define the model](#define-the-model)
-    - [Inference network](#inference-network)
-        - [Run script](#run-script)
-    - [References](#references)
+        - [Installing Dependent Software](#installing-dependent-software)
+        - [Preparing Data](#preparing-data)
+    - [Loading Data](#loading-data)
+    - [Defining the Network](#defining-the-network)
+        - [Setting Model Parameters](#setting-model-parameters)
+        - [Defining the Model](#defining-the-model)
+    - [Inference Network](#inference-network)
+        - [Running Script](#running-script)
+    - [Reference](#reference)
 
 <!-- /TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
@@ -25,8 +27,9 @@
 TPRR(Thinking Path Re-Ranker) is an open-domain knowledge based multi-hop question-answering model proposed by Huawei, which is used to realize multi-hop knowledge reasoning question-answering. In traditional question-answering, as long as the sentences related to the original question is found by the model, the answer can be found. It requires multiple "jumps" to find the answer for multi-hop knowledge reasoning question. Specifically, the model needs to use knowledge from multiple related documents to infer the correct answer for the given question. There are three modules in TPRR model: Retriever, Reranker and Reader. According to the given multi hop question, Retriever selects the candidate document sequence containing the answer from millions of Wiki documents, Reranker selects the best document sequence from the candidate document sequence, and finally Reader parses the answer from multiple sentences of the best document to complete the multi-hop knowledge reasoning question-answering. TPRR model uses conditional probability to model the complete reasoning path, and introduces the negative sample selection strategy of "thinking" in the training. It ranks first in Fullwiki Setting of international authoritative HotpotQA evaluation, and ranks first in the joint accuracy, clue accuracy and other two indicators. Compared with the traditional multi-hop question-answering model, TPRR only uses pure text information and does not need additional entity extraction technology. MindSpore hybrid precision feature is used to speed up TPRR model from framework. Combined with Ascend, it can achieve significant performance improvement.
 
 This tutorial will mainly introduce how to build and run a multi-hop knowledge reasoning question-answering model TPRR with MindSpore on Ascend.
+
 > You can download the complete sample code here:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/tprr> 。
+<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/tprr>.
 
 The sample code directory structure is as follows:
 
@@ -72,11 +75,11 @@ The overall execution process is as follows:
 
 ## Preparation
 
-### Install dependent software
+### Installing Dependent Software
 
 1. Install MindSpore
 
-    Before practicing, make sure that MindSpore has been installed correctly.If not, you can install it through [the MindSpore installation page](https://www.mindspore.cn/install).
+    Before practicing, make sure that MindSpore has been installed correctly.If not, you can install it through [the MindSpore installation page](https://www.mindspore.cn/install/en).
 
 2. Install transformers
 
@@ -84,11 +87,11 @@ The overall execution process is as follows:
     pip install transformers
     ```
 
-### Prepare data
+### Preparing Data
 
-The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download [the preprocessed data](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip) first.
+The data used in this tutorial is the preprocessed [en-Wikipedia](https://github.com/AkariAsai/learning_to_retrieve_reasoning_paths/tree/master/retriever) and [HotpotQA Development datasets](https://hotpotqa.github.io/). Please download the [preprocessed data](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/tprr/data.zip) first.
 
-## Load data
+## Loading Data
 
 Store the downloaded data in the scripts directory. The Retriever module loads the data files preprocessed by wiki and HotpotQA, and retrieves relevant documents from the data according to the given multi-hop question. The source code of data loading is in the file `src/process_data.py`.
 
@@ -131,9 +134,9 @@ class DataGenerator:
         self.features = self.padding_feature(self.features, self.bsz)
 ```
 
-## Define the network
+## Defining the Network
 
-### Set model parameters
+### Setting Model Parameters
 
 The user can customize parameters such as topk and onehop_num in the model. Topk represents the number of candidate one-hop documents after Retriever sorting. The larger the topk, the more candidate documents. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease; Onehop_num represents the number of one-hop candidate documents as two-hop candidate documents. The larger onehop_num, the more documents to be selected for the second hop. The recall rate will increase and more noise will be introduced, the accuracy rate will decrease.
 
@@ -164,7 +167,7 @@ def ThinkRetrieverConfig():
     return parser.parse_args()
 ```
 
-### Define the model
+### Defining the Model
 
 Define the Retriever module and load the model parameters.
 
@@ -196,9 +199,9 @@ Define the Reader module and load the model parameters.
                     downstream_ck_file=downstream_ck_file)
 ```
 
-## Inference network
+## Inference Network
 
-### Run script
+### Running Script
 
 Run the shell script in the scripts directory to start the inference process. Run the script with the following command:
 
@@ -207,7 +210,7 @@ sh run_eval_ascend.sh
 sh run_eval_ascend_reranker_reader.sh
 ```
 
-After the inference is completed, the result is saved to the log file in scripts/eval/ directory, and the evaluation result can be checked in the corresponding log file.
+After the inference is completed, the result is saved to the log file in `scripts/eval/` directory, and the evaluation result can be checked in the corresponding log file.
 
 Evaluation results of the Retriever module: val represents the number of questions found in the correct answer document, count represents the total number of questions, and PEM represents the accuracy of the top-8 documents after the problem-related documents are sorted.
 
@@ -259,7 +262,7 @@ joint_prec: 0.7540052057184267
 joint_recall: 0.7250240424067661
 ```
 
-## References
+## Reference
 
 1. Yang Z , Qi P , Zhang S , et al. HotpotQA: A Dataset for Diverse, Explainable Multi-hop Question Answering[C]// Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing. 2018.
 2. Asai A , Hashimoto K , Hajishirzi H , et al. Learning to Retrieve Reasoning Paths over Wikipedia Graph for Question Answering[J]. 2019.
