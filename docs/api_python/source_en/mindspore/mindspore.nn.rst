@@ -107,6 +107,7 @@ Utilities
     mindspore.nn.Pad
     mindspore.nn.Range
     mindspore.nn.ResizeBilinear
+    mindspore.nn.SparseToDense
     mindspore.nn.Tril
     mindspore.nn.Triu
     mindspore.nn.Unfold
