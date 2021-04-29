@@ -283,13 +283,10 @@ mindspore-lite-{version}-inference-linux-x64
     mindspore-lite-{version}-inference-linux-x64
     ├── inference
     │   ├── include  # 推理框架头文件
-    │   ├── lib      # 推理框架库
-    │   │   ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
-    │   │   └── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
-    │   └── minddata # 图像处理库
-    │       ├── include
-    │       └── lib
-    │           └── libminddata-lite.so # 图像处理动态库文件
+    │   └── lib      # 推理框架库
+    │       ├── libminddata-lite.so     # 图像处理动态库文件
+    │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
+    │       └── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
     └── tools
         ├── benchmark # 基准测试工具
         │   └── benchmark # 可执行程序
@@ -311,14 +308,11 @@ mindspore-lite-{version}-inference-linux-x64
     ├── inference
     │   ├── include     # 推理框架头文件
     │   ├── lib         # 推理框架库
+    │   │   ├── libminddata-lite.so  # 图像处理动态库文件
     │   │   ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │   │   └── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-    │   ├── minddata    # 图像处理库
-    │   │   ├── include
-    │   │   └── lib
-    │   │       └── libminddata-lite.so # 图像处理动态库文件
-    │   └── third_party # NPU库
-    │       └── hiai_ddk
+    │   └── third_party
+    │       └── hiai_ddk # NPU库，只存在于arm64包
     └── tools
         ├── benchmark # 基准测试工具
         │   └── benchmark
@@ -393,13 +387,11 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     └── train
         ├── include  # 训练框架头文件
         ├── lib      # 训练框架库
+        │   ├── libminddata-lite.so        # 图像处理动态库文件
         │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
         │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-        └── minddata # 图像处理库
-            ├── include
-            ├── lib
-            │   └── libminddata-lite.so # 图像处理动态库文件
-            └── third_party
+        └── third_party
+            └── libjpeg-turbo
     ```
 
 - 当编译选项为`-I arm64`或`-I arm32`时：
@@ -407,19 +399,16 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
     ```text
     mindspore-lite-{version}-train-android-{arch}
     ├── tools
-    │   ├── benchmark       # 基准测试工具
-    │   ├── benchmark_train # 训练模型性能与精度调测工具
+    │   └── benchmark_train # 训练模型性能与精度调测工具
     └── train
         ├── include # 训练框架头文件
         ├── lib     # 训练框架库
+        │   ├── libminddata-lite.so        # 图像处理动态库文件
         │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
         │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-        ├── minddata # 图像处理库
-        │   ├── include
-        │   ├── lib
-        │   │   └── libminddata-lite.so # 图像处理动态库文件
-        │   └── third_party
         └── third_party
+            ├── hiai_ddk  # NPU库，只存在于arm64包
+            └── libjpeg-turbo
     ```
 
 > 运行converter、benchmark_train目录下的工具前，都需配置环境变量，将MindSpore Lite的动态库所在的路径配置到系统搜索动态库的路径中。
@@ -433,7 +422,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/tools
 配置benchmark_train：
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/third_party:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
 ```
 
 ## Windows环境编译
@@ -446,7 +435,8 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
 
-> 编译脚本中会执行`git clone`获取第三方依赖库的代码，请提前确保git的网络设置正确可用。
+> - 编译脚本中会执行`git clone`获取第三方依赖库的代码。
+> - 如果要编译32位Mindspore Lite，请使用32位[MinGW](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z)编译。
 
 ### 编译选项
 

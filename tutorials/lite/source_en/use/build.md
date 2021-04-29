@@ -283,13 +283,10 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     mindspore-lite-{version}-inference-linux-x64
     ├── inference
     │   ├── include  # Header files of inference framework
-    │   ├── lib      # Inference framework library
-    │   │   ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
-    │   │   └── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
-    │   └── minddata # Image processing dynamic library
-    │       ├── include
-    │       └── lib
-    │           └── libminddata-lite.so # The files of image processing dynamic library
+    │   └── lib      # Inference framework library
+    │       ├── libminddata-lite.so     # The files of image processing dynamic library
+    │       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
+    │       └── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
     └── tools
         ├── benchmark # Benchmarking tool
         │   └── benchmark # Executable program
@@ -311,17 +308,13 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     ├── inference
     │   ├── include     # Header files of inference framework
     │   ├── lib         # Inference framework library
+    │   │   ├── libminddata-lite.so  # The files of image processing dynamic library
     │   │   ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │   │   └── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │   ├── minddata    # Image processing dynamic library
-    │   │   ├── include
-    │   │   └── lib
-    │   │       └── libminddata-lite.so # The files of image processing dynamic library
-    │   └── third_party # NPU library
-    │       └── hiai_ddk
+    │   └── third_party
+    │       └── hiai_ddk # NPU library, only exists in arm64 package
     └── tools
         ├── benchmark # Benchmarking tool
-        │   └── benchmark
         │   └── benchmark
         └── codegen   # Code generation tool
             ├── include  # operator header file
@@ -394,13 +387,11 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     └── train
         ├── include  # Header files of training framework
         ├── lib      # Inference framework library
+        │   ├── libminddata-lite.so        # The files of image processing dynamic library
         │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
         │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        └── minddata # Image processing dynamic library
-            ├── include
-            ├── lib
-            │   └── libminddata-lite.so # The files of image processing dynamic library
-            └── third_party
+        └── third_party
+            └── libjpeg-turbo
     ```
 
 - When the compilation option is `-I arm64` or `-I arm32`:  
@@ -413,14 +404,12 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     └── train
         ├── include # Header files of training framework
         ├── lib     # Training framework library
+        │   ├── libminddata-lite.so # The files of image processing dynamic library
         │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
         │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        ├── minddata # Image processing dynamic library
-        │   ├── include
-        │   ├── lib
-        │   │   └── libminddata-lite.so # The files of image processing dynamic library
-        │   └── third_party
         └── third_party
+            ├── hiai_ddk  # NPU library, only exists in arm64 package
+            └── libjpeg-turbo
     ```
 
 > Before running the tools in the converter and the benchmark_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
@@ -434,7 +423,7 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/tools
 Configure benchmark_train:
 
 ```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/third_party:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
 ```
 
 ## Windows Environment Compilation
@@ -447,7 +436,8 @@ export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [MinGW GCC](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download) = 7.3.0
 
-> The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries. Please make sure that the git network settings are correct and available in advance.
+> - The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries.
+> - If you want to compile 32-bit Mindspore Lite, please use 32-bit [MinGW](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z) to compile.
 
 ### Compilation Options
 
