@@ -244,7 +244,7 @@ load_nonquant_param_into_quant_net(network, param_dict)
 
 1. 定义量化网络。该步骤的量化网络和感知量化训练时的量化网络相同。
 2. 加载感知量化训练时保存的CheckPoint格式文件。
-3. 导出量化模型。设置`export`接口的`quant_mode`参数。
+3. 导出量化模型。设置`export`接口的`quant_mode`、`mean`和`std_dev`参数。
 
 ```python
 from mindspore import Tensor, context, load_checkpoint, load_param_into_net, export
@@ -264,7 +264,7 @@ if __name__ == "__main__":
 
     # export network
     inputs = Tensor(np.ones([1, 1, cfg.image_height, cfg.image_width]), mindspore.float32)
-    export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='AUTO')
+    export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='QUANT', mean=127.5, std_dev=127.5)
 ```
 
 导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
