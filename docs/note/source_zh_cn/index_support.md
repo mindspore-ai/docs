@@ -501,12 +501,12 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 ## 索引增强赋值
 
-增强索引赋值，支持`+=`、`-=`、`*=`、`/=`、`%=`、`**=`、`//=`六种类型，`index`与`value`的规则约束与索引赋值相同。索引值支持`int`、`bool` `ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`八种类型，赋值支持`Number`、`Tensor`、`Tuple`、`List`四种类型。  
+增强索引赋值，支持`+=`、`-=`、`*=`、`/=`、`%=`、`**=`、`//=`七种类型，`index`与`value`的规则约束与索引赋值相同。索引值支持`int`、`bool`、`ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`八种类型，赋值支持`Number`、`Tensor`、`Tuple`、`List`四种类型。  
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
 
 - 规则与约束
-    与索引赋值相比，增加了取值与运算的过程。取值过程中`index`的约束规则与索引取值中`index`相同，支持`int`、`bool`，`Tensor`，`Slice`，`Ellipsis`、`None`、`List`与`Tuple`。上述几种类型的数据中所包含`int`值，需在`[-dim_size, dim_size-1]`闭合区间内。
+    与索引赋值相比，增加了取值与运算的过程。取值过程中`index`的约束规则与索引取值中`index`相同，支持`int`、`bool`、`Tensor`、`Slice`、`Ellipsis`、`None`、`List`与`Tuple`。上述几种类型的数据中所包含`int`值，需在`[-dim_size, dim_size-1]`闭合区间内。
     运算过程中`value`的约束规则与索引赋值中`value`的约束规则相同，`value`类型需为(`Number`、`Tensor`、`List`、`Tuple`)之一，且`value`类型不是`Number`时， `value.shape`需可以与`tensor_x[index].shape`可广播。
 
     示例如下：

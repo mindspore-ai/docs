@@ -507,7 +507,7 @@ Index assignment can be regarded as taking the value of the position elements to
 
 - Rules and constraints:
 
-    Compared with index assignment, the process of value and operation is increased. The constraint rules of `index` are the same as `index` in Index Value, and support 'Int', `Bool`, `Tensor`, `Slice`, `Ellipse`, `None`, `List` and `Tuple`. The values of `Int` contained in the above types of data should be in `[-dim_size, dim_size-1]` within the closed range.
+    Compared with index assignment, the process of value and operation is increased. The constraint rules of `index` are the same as `index` in Index Value, and support `Int`, `Bool`, `Tensor`, `Slice`, `Ellipse`, `None`, `List` and `Tuple`. The values of `Int` contained in the above types of data should be in `[-dim_size, dim_size-1]` within the closed range.
 
     The constraint rules of `value` in the operation process are the same as those of `value` in index assignment. The type of `value` needs to be one of (`Number`, `Tensor`, `List`, `Tuple`). And if `value`'s type is not `number`, `value.shape`  need to be able to be broadcasted to `tensor_x[index].shape`.
 
