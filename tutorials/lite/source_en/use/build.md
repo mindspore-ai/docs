@@ -520,13 +520,13 @@ mindspore-lite-{version}-inference-win-x64
 Configure converter:
 
 ```bash
-set PATH=./output/mindspore-lite-{version}-inference-win-x64/tools/converter/lib:%PATH%
+set PATH=.\output\mindspore-lite-{version}-inference-win-x64\tools\converter\lib;%PATH%
 ```
 
 Configure benchmark:
 
 ```bash
-set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH%
+set PATH=.\output\mindspore-lite-{version}-inference-win-x64\inference\lib;%PATH%
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.
