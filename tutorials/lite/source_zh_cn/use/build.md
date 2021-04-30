@@ -519,13 +519,13 @@ mindspore-lite-{version}-inference-win-x64
 配置converter：
 
 ```bash
-set PATH=./output/mindspore-lite-{version}-inference-win-x64/tools/converter/lib:%PATH%
+set PATH=.\output\mindspore-lite-{version}-inference-win-x64\tools\converter\lib;%PATH%
 ```
 
 配置benchmark：
 
 ```bash
-set PATH=./output/mindspore-lite-{version}-inference-win-x64/inference/lib:%PATH%
+set PATH=.\output\mindspore-lite-{version}-inference-win-x64\inference\lib;%PATH%
 ```
 
 > 暂不支持在Windows进行端侧训练。
