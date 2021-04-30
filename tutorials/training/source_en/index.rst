@@ -320,6 +320,18 @@ Train with MindSpore
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all os-Linux hardware-Ascend hardware-GPU hardware-CPU stage-Model-Development user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_loss_function.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Customizing and Using Loss Function</span>
+										</div>
+										<div class="doc-article-desc">
+										Loss function, also known as object function, is used for measuring the difference between predicted and true value. In deep learning, training a model is a process of decrease the loss value by iteration.
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux hardware-Ascend stage-Model-Development user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator_ascend.html" class="article-link">
 									<div>
@@ -726,6 +738,18 @@ Train with MindSpore
 										<div class="doc-article-desc">
 											MindSpore quantization aware training is to replace high-accuracy data with low-accuracy data to simplify the model training process. In this process, the accuracy loss is inevitable. 
 											Therefore, a fake quantization node is used to simulate the accuracy loss, and backward propagation learning is used to reduce the accuracy loss.
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Optimization user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/apply_post_training_quantization.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">Applying Post Training Quantization</span>
+										</div>
+										<div class="doc-article-desc">
+										Post training quantization refers to perform weights quantization or full quantization on a pre-trained model. It can reduce model size while also speed up the inference.
 										</div>
 									</div>
 								</a>
