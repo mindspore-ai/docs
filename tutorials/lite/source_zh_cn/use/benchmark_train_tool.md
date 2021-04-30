@@ -34,7 +34,7 @@
     ```bash
     cd /path
     tar xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
-    export LD_LIBRARY_PATH=/path/mindspore-lite-{version}-train-{os}-{arch}/train/lib:/path/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/lib:/path/mindspore-lite-{version}-train-{os}-{arch}/train/minddata/third_party:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=/path/mindspore-lite-{version}-train-{os}-{arch}/train/lib:/path/mindspore-lite-{version}-train-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
     ```
 
 benchmark_train工具所在完整路径为`/path/mindspore-lite-{version}-train-{os}-{arch}/tools/benchmark_train/benchmark_train`。
