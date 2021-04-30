@@ -48,15 +48,15 @@ Firstly, the following resources should be prepared:
 
 Execute the following codes to complete the first three preparations.
 
-```shell script
-!mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
-!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
-!wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
-!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
-!wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-!wget https://mindspore-website.obs.myhuaweicloud.com/notebook/source-codes/dataset_process.py -N
-!wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/checkpoint_lenet-1_1875.zip
-!unzip -o checkpoint_lenet-1_1875.zip
+```bash
+mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
+wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-labels-idx1-ubyte --no-check-certificate
+wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
+wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
+wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
+wget https://mindspore-website.obs.myhuaweicloud.com/notebook/source-codes/dataset_process.py -N
+wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/checkpoint_lenet-1_1875.zip
+unzip -o checkpoint_lenet-1_1875.zip
 ```
 
 Define the LeNet network, the specific definition process is as follows.  
