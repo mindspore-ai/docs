@@ -1,5 +1,7 @@
 ﻿# Applying Post Training Quantization
 
+Translator: [unseeme](https://gitee.com/unseenme)
+
 `Linux` `Model Optimization` `Expert`
 
 <!-- TOC -->
