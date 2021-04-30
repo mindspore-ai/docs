@@ -35,7 +35,13 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
 - [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
 
-- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
+- Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
+
+    ````bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
+    ````
+
+    Dynamic libraries can be divided into two parts, the first one stores some global variables for converter runtime, and the second one is the third-party dynamic library for glog. In addition, ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
 ### Parameter Description
 
@@ -62,16 +68,6 @@ The following describes the parameters in detail.
 > - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
 > - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
 
-### Example
-
-First, in the root directory of the source code, run the following command to perform compilation.
-
-```bash
-bash build.sh -I x86_64
-```
-
-> Currently, the model conversion tool supports only the x86_64 architecture.
-
 The following describes how to use the conversion command by using several common examples.
 
 - Take the Caffe model LeNet as an example. Run the following conversion command:
@@ -90,7 +86,7 @@ The following describes how to use the conversion command by using several commo
 
    This indicates that the Caffe model is successfully converted into the MindSpore Lite model and the new file `lenet.ms` is generated.
 
-- The following uses the MindSpore, TensorFlow Lite, ONNX models as examples to describe how to run the conversion command.
+- The following uses the MindSpore, TensorFlow Lite, TensorFlow and ONNX models as examples to describe how to run the conversion command.
 
     - MindSpore model `model.mindir`
 
@@ -135,6 +131,14 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
 - [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
 
 - Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
+
+- Add the path of dynamic library required by the conversion tool to the environment variables PATH.
+
+    ````bash
+    set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
+    ````
+
+    %PACKAGE_ROOT_PATH% is the decompressed package path obtained by compiling or downloading.
 
 ### Parameter Description
 

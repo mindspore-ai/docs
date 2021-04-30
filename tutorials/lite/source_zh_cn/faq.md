@@ -4,6 +4,12 @@
 
 <br/>
 
+<font size=3>**Q：MindSpore Lite支持的日志级别有几种？怎么设置日志级别？**</font>
+
+A：目前支持DEBUG、INFO、WARNING、ERROR四种日志级别，用户可以通过设置环境变量GLOG_v为0~3选择打印的日志级别，0~3分别对应DEBUG、INFO、WARNING和ERROR，默认打印WARNING和ERROR级别的日志。例如设置GLOG_v为1即可打印INFO及以上级别的日志。
+
+<br/>
+
 <font size=3>**Q：NPU推理存在什么限制？**</font>
 
 A：目前NPU仅支持在系统ROM版本EMUI>=11、芯片支持包括Kirin 9000、Kirin 9000E、Kirin 990、Kirin 985、Kirin 820、Kirin 810等，具体约束和芯片支持请查看：<https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718>

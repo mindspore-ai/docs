@@ -340,19 +340,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     ```
 
 > - Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
-> - Before running the tools in the converter, benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
-
-Configure converter:
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/tools/converter/lib:./output/mindspore-lite-{version}-inference-{os}-{arch}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
-```
-
-Configure benchmark:
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-inference-{os}-{arch}/inference/lib:${LD_LIBRARY_PATH}
-```
 
 ### Training Output Description
 
@@ -411,20 +398,6 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
             ├── hiai_ddk  # NPU library, only exists in arm64 package
             └── libjpeg-turbo
     ```
-
-> Before running the tools in the converter and the benchmark_train directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
-
-Configure converter:
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/tools/converter/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
-```
-
-Configure benchmark_train:
-
-```bash
-export LD_LIBRARY_PATH=./output/mindspore-lite-{version}-train-{os}-{arch}/train/lib:./output/mindspore-lite-{version}-train-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
-```
 
 ## Windows Environment Compilation
 
@@ -513,20 +486,6 @@ mindspore-lite-{version}-inference-win-x64
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
-```
-
-> Before running the tools in the converter and the benchmark directory, you need to configure environment variables, and configure the path where the dynamic libraries of MindSpore Lite are located to the path where the system searches for dynamic libraries.
-
-Configure converter:
-
-```bash
-set PATH=.\output\mindspore-lite-{version}-inference-win-x64\tools\converter\lib;%PATH%
-```
-
-Configure benchmark:
-
-```bash
-set PATH=.\output\mindspore-lite-{version}-inference-win-x64\inference\lib;%PATH%
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.

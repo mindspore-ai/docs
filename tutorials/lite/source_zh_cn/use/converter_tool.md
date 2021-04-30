@@ -34,7 +34,13 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
 - [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
-- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
+- 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
+
+    ```bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
+    ```
+
+    其中第一项是转换工具存储某些全局变量的动态库，第二项是第三方glog的动态库，${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
 
 ### 参数说明
 
@@ -60,16 +66,6 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - 为保证权重量化的精度，建议`--bitNum`参数设定范围为8bit～16bit。
 > - 全量化目前仅支持激活值8bit、权重8bit的量化方式。
 
-### 使用示例
-
-首先，在源码根目录下，输入命令进行编译。
-
-```bash
-bash build.sh -I x86_64
-```
-
-> 目前模型转换工具仅支持x86_64架构。
-
 下面选取了几个常用示例，说明转换命令的使用方法。
 
 - 以Caffe模型LeNet为例，执行转换命令。
@@ -88,7 +84,7 @@ bash build.sh -I x86_64
 
    这表示已经成功将Caffe模型转化为MindSpore Lite模型，获得新文件`lenet.ms`。
 
-- 以MindSpore、TensorFlow Lite、ONNX模型为例，执行转换命令。
+- 以MindSpore、TensorFlow Lite、TensorFlow和ONNX模型为例，执行转换命令。
 
     - MindSpore模型`model.mindir`
 
@@ -134,6 +130,13 @@ bash build.sh -I x86_64
 
 - [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
 - 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
+- 将转换工具需要的动态链接库加入环境变量PATH。
+
+  ```bash
+  set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
+  ```
+
+  ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
 
 ### 参数说明
 
