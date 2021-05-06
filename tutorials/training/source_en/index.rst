@@ -743,7 +743,7 @@ Train with MindSpore
 								</a>
 							</div>
 							<div class="doc-article-item all os-Linux stage-Model-Optimization user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/training/en/master/apply_post_training_quantization.html" class="article-link">
+								<a href="https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_post_training_quantization.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">Applying Post Training Quantization</span>
