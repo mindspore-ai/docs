@@ -1,10 +1,10 @@
-# 使用Runtime执行推理（Java）
+# 使用Java接口执行推理
 
 `Android` `Java` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用Runtime执行推理（Java）](#使用runtime执行推理java)
+- [使用Java接口执行推理](#使用java接口执行推理)
     - [概述](#概述)
     - [引用MindSpore Lite Java库](#引用mindspore-lite-java库)
         - [Linux X86项目引用JAR库](#linux-x86项目引用jar库)

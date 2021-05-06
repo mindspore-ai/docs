@@ -331,7 +331,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Runtime执行推理（C++）</span>
+											<span class="doc-head-content">使用C++接口执行推理</span>
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用Java接口编写推理代码。
@@ -343,7 +343,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Runtime执行推理（Java）</span>
+											<span class="doc-head-content">使用Java接口执行推理</span>
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的推理执行流程。本教程介绍如何使用C++接口编写推理代码。
@@ -403,7 +403,7 @@
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用Runtime执行训练 (C++)</span>
+											<span class="doc-head-content">使用C++接口执行训练</span>
 										</div>
 										<div class="doc-article-desc">
 											通过MindSpore Lite模型转换后，需在Runtime中完成模型的训练执行流程。本教程介绍如何使用C++接口编写训练代码。

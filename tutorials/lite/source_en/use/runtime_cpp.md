@@ -1,10 +1,10 @@
-# Using Runtime to Perform Inference (C++)
+# Using C++ Interface to Perform Inference
 
 `Windows` `Linux` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Using Runtime to Perform Inference (C++)](#using-runtime-to-perform-inference-c)
+- [Using C++ Interface to Perform Inference](#using-c-interface-to-perform-inference)
     - [Overview](#overview)
     - [Loading a Model](#loading-a-model)
     - [Creating a Configuration Context](#creating-a-configuration-context)

@@ -302,7 +302,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using Runtime for Model Inference (C++)</span>
+											<span class="doc-head-content">Using C++ Interface to Perform Inference</span>
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write inference code.
@@ -314,7 +314,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_java.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using Runtime for Model Inference (Java)</span>
+											<span class="doc-head-content">Using Java Interface to Perform Inference</span>
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model inference process needs to be completed in Runtime. This tutorial introduces how to use Java API to write inference code.
@@ -375,7 +375,7 @@ Using MindSpore on Mobile and IoT
 								<a href="https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">Using runtime for Model Training and Inference (C++)</span>
+											<span class="doc-head-content">Using C++ Interface to Perform Training</span>
 										</div>
 										<div class="doc-article-desc">
 											After model conversion using MindSpore Lite, the model training process needs to be completed in Runtime. This tutorial introduces how to use C++ API to write training code.
