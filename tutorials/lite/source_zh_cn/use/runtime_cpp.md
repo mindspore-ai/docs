@@ -1,10 +1,10 @@
-# 使用Runtime执行推理（C++）
+# 使用C++接口执行推理
 
 `Windows` `Linux` `Android` `C++` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用Runtime执行推理（C++）](#使用runtime执行推理c)
+- [使用C++接口执行推理](#使用c接口执行推理)
     - [概述](#概述)
     - [模型加载](#模型加载)
     - [创建配置上下文](#创建配置上下文)
@@ -590,4 +590,3 @@ MindSpore Lite提供了[Version](https://www.mindspore.cn/doc/api_cpp/zh-CN/mast
 #include "include/version.h"
 std::string version = mindspore::lite::Version();
 ```
-

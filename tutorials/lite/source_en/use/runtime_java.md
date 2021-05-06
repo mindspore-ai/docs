@@ -1,10 +1,10 @@
-# Using Runtime to Perform Inference (Java)
+# Using Java Interface to Perform Inference
 
 `Android` `Java` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Using Runtime to Perform Inference (Java)](#using-runtime-to-perform-inference-java)
+- [Using Java Interface to Perform Inference](#using-java-interface-to-perform-inference)
     - [Overview](#overview)
     - [Referencing the MindSpore Lite Java Library](#referencing-the-mindspore-lite-java-library)
         - [Linux X86 Project Referencing the JAR Library](#linux-x86-project-referencing-the-jar-library)

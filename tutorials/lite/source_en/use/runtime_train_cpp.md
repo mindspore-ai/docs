@@ -1,10 +1,10 @@
-# Using Runtime for Model Training (C++)
+# Using C++ Interface to Perform Training
 
 `Linux` `Android` `C++` `Model Training` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Using runtime for Model Training (C++)](#using-runtime-for-model-training-c)
+- [Using C++ Interface to Perform Training](#using-c-interface-to-perform-training)
     - [Overview](#overview)
     - [Session Creation](#session-creation)
         - [Reading Models](#reading-models)
