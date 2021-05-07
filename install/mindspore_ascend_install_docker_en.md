@@ -17,7 +17,7 @@
 
 This document describes how to quickly install MindSpore in a Linux system with an Ascend 910 environment by Docker.
 
-The Ascend 910 image of MindSpore is hosted on the [Ascend Hub](https://ascendhub.huawei.com/#/home).
+The Ascend 910 image of MindSpore is hosted on the [Ascend Hub](https://ascend.huawei.com/ascendhub/#/main).
 
 The current support for containerized build options is as follows:
 

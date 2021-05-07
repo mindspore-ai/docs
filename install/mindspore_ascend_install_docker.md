@@ -17,7 +17,7 @@
 
 本文档介绍如何在Ascend 910环境的Linux系统上，使用Docker方式快速安装MindSpore。
 
-MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascendhub.huawei.com/#/home)上。
+MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/ascendhub/#/main)上。
 
 目前容器化构建选项支持情况如下：
 
