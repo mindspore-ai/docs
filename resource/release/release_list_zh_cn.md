@@ -3,72 +3,46 @@
 <!-- TOC -->
 
 - [发布版本列表](#发布版本列表)
-    - [1.2.0](#120)
-        - [版本说明和接口变更](#版本说明和接口变更)
-        - [下载地址](#下载地址)
-        - [配套资料](#配套资料)
-    - [1.2.0-rc1](#120-rc1)
-        - [版本说明和接口变更](#版本说明和接口变更)
-        - [下载地址](#下载地址)
-        - [配套资料](#配套资料)
-    - [1.1.1](#111)
-        - [版本说明和接口变更](#版本说明和接口变更)
-        - [下载地址](#下载地址)
-        - [配套资料](#配套资料)
-    - [1.1.0](#110)
-        - [版本说明和接口变更](#版本说明和接口变更-1)
-        - [下载地址](#下载地址-1)
-        - [配套资料](#配套资料-1)
-    - [1.0.1](#101)
-        - [版本说明和接口变更](#版本说明和接口变更-2)
-        - [下载地址](#下载地址-2)
-        - [配套资料](#配套资料-2)
-    - [1.0.0](#100)
-        - [版本说明和接口变更](#版本说明和接口变更-3)
-        - [下载地址](#下载地址-3)
-        - [配套资料](#配套资料-3)
-    - [0.7.0-beta](#070-beta)
-        - [版本说明和接口变更](#版本说明和接口变更-4)
-        - [下载地址](#下载地址-4)
-        - [配套资料](#配套资料-4)
-    - [0.6.0-beta](#060-beta)
-        - [版本说明和接口变更](#版本说明和接口变更-5)
-        - [下载地址](#下载地址-5)
-        - [配套资料](#配套资料-5)
-    - [0.5.2-beta](#052-beta)
-        - [版本说明和接口变更](#版本说明和接口变更-6)
-        - [下载地址](#下载地址-6)
-        - [配套资料](#配套资料-6)
-    - [0.5.0-beta](#050-beta)
-        - [版本说明和接口变更](#版本说明和接口变更-7)
-        - [下载地址](#下载地址-7)
-        - [配套资料](#配套资料-7)
-    - [0.3.0-alpha](#030-alpha)
-        - [版本说明和接口变更](#版本说明和接口变更-8)
-        - [下载地址](#下载地址-8)
-        - [配套资料](#配套资料-8)
-    - [0.2.0-alpha](#020-alpha)
-        - [版本说明和接口变更](#版本说明和接口变更-9)
-        - [下载地址](#下载地址-9)
-        - [配套资料](#配套资料-9)
-    - [0.1.0-alpha](#010-alpha)
-        - [版本说明](#版本说明)
-        - [下载地址](#下载地址-10)
-        - [配套资料](#配套资料-10)
-    - [master(unstable)](#masterunstable)
-        - [配套资料](#配套资料-11)
+    - [配套资料](#配套资料)
+    - [下载地址](#下载地址)
+        - [1.2.0](#120)
+        - [1.2.0-rc1](#120-rc1)
+        - [1.1.1](#111)
+        - [1.1.0](#110)
+        - [1.0.1](#101)
+        - [1.0.0](#100)
+        - [0.7.0-beta](#070-beta)
+        - [0.6.0-beta](#060-beta)
+        - [0.5.2-beta](#052-beta)
+        - [0.5.0-beta](#050-beta)
+        - [0.3.0-alpha](#030-alpha)
+        - [0.2.0-alpha](#020-alpha)
+        - [0.1.0-alpha](#010-alpha)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.2/resource/release/release_list_zh_cn.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.2/resource/_static/logo_source.png"></a>
 
-## 1.2.0
+## 配套资料
 
-### 版本说明和接口变更
+|   类别   |   子类别   |      版本      |
+|    ---   |    ---   |       ---      |
+| 版本说明和接口变更 | | [`1.2.0`](https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md) [`1.1.1`](https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md) [`1.0.1`](https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md) [`0.7.0-beta`](https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md) [`0.6.0-beta`](https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md) <br> [`0.5.2-beta`](https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md) [`0.3.0-alpha`](https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md) [`0.2.0-alpha`](https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md) [`0.1.0-alpha`](https://gitee.com/mindspore/mindspore/blob/r0.1/RELEASE.md) |
+| 安装 | | [`1.2.0`](https://gitee.com/mindspore/docs/tree/r1.2/install) [`1.1.1`](https://gitee.com/mindspore/docs/tree/r1.1/install) [`1.0.1`](https://gitee.com/mindspore/docs/tree/r1.0/install) [`0.7.0-beta`](https://gitee.com/mindspore/docs/tree/r0.7/install) [`0.6.0-beta`](https://gitee.com/mindspore/docs/tree/r0.6/install) <br> [`0.5.2-beta`](https://gitee.com/mindspore/docs/tree/r0.5/install) [`0.3.0-alpha`](https://gitee.com/mindspore/docs/tree/r0.3/install) [`0.2.0-alpha`](https://gitee.com/mindspore/docs/tree/r0.2/install) [`0.1.0-alpha`](https://gitee.com/mindspore/docs/tree/r0.1/install) |
+| 教程 | 训练 | [`1.2.0`](https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html) [`0.6.0-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html) <br> [`0.5.2-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html) [`0.3.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html) [`0.2.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html) [`0.1.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html) [`master`](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html) |
+| | 推理 | [`1.2.0`](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html) [`0.6.0-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html) <br> [`0.5.2-beta`](https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html) [`0.3.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html) [`0.2.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html) [`0.1.0-alpha`](https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html) [`master`](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html) |
+| | 手机&IoT | [`1.2.0`](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html) [`1.0.0`](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/index.html) [`master`](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html) |
+| 文档 | Python API | [`1.2.0`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/api/zh-CN/r0.7/index.html) [`0.6.0-beta`](https://www.mindspore.cn/api/zh-CN/r0.6/index.html) <br> [`0.5.2-beta`](https://www.mindspore.cn/api/zh-CN/r0.5/index.html) [`0.3.0-alpha`](https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html) [`0.2.0-alpha`](https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/index.html) [`0.1.0-alpha`](https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/index.html) [`master`](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html) |
+| | C++ API | [`1.2.0`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html) [`1.0.0`](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/lite/apic/zh-CN/r0.7/lite/namespacemembers.html) [`master`](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html) |
+| | Java API | [`1.2.0`](https://www.mindspore.cn/doc/api_java/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html) [`master`](https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html) |
+| | 编程指南 | [`1.2.0`](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html) [`master`](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html) |
+| | 迁移指南 | [`master`](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/index.html) |
+| | 设计和规格 | [`1.2.0`](https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html) [`0.7.0-beta`](https://www.mindspore.cn/docs/zh-CN/r0.7/index.html) [`0.7.0-beta (Lite)`](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html) <br> [`0.6.0-beta`](https://www.mindspore.cn/docs/zh-CN/r0.6/index.html) [`0.5.2-beta`](https://www.mindspore.cn/docs/zh-CN/r0.5/index.html) [`0.3.0-alpha`](https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html) [`0.2.0-alpha`](https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html) [`0.1.0-alpha`](https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html) [`master`](https://www.mindspore.cn/doc/note/zh-CN/master/index.html) |
+| | FAQ | [`1.2.0`](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html) [`1.1.1`](https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html) [`1.0.1`](https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html) [`master`](https://www.mindspore.cn/doc/faq/zh-CN/master/index.html) |
 
-<https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md>
+## 下载地址
 
-### 下载地址
+### 1.2.0
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -104,21 +78,7 @@
 |      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/centos_x86/mindspore_serving-1.2.0-cp37-cp37m-linux_x86_64.whl>   | 68ecc2233302acb27b6aa5c6e79b532c89303d388b1432566bf12ec7985fd523 |
 |      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/Serving/centos_aarch64/mindspore_serving-1.2.0-cp37-cp37m-linux_aarch64.whl>   | 377e791bd463ff192b51cbe41bab83db533d7f79723663a8562436211d417ac7 |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-| 安装 | <https://gitee.com/mindspore/docs/tree/r1.2/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.2/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html> |
-
-## 1.2.0-rc1
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r1.2/RELEASE.md>
-
-### 下载地址
+### 1.2.0-rc1
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -148,21 +108,7 @@
 |   MindSpore<br>Hub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/Hub/any/mindspore_hub-1.2.0-py3-none-any.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/Hub/any/mindspore_hub-1.2.0-py3-none-any.whl.sha256> |
 |   MindQuantum   |   CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/MindQuantum/ubuntu_x86/mindquantum-0.1.0-py3-none-any.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0-rc1/MindQuantum/ubuntu_x86/mindquantum-0.1.0-py3-none-any.whl.sha256> |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-| 安装 | <https://gitee.com/mindspore/docs/tree/r1.2/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.2/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.2/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.2/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.2/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html> |
-
-## 1.1.1
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md>
-
-### 下载地址
+### 1.1.1
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -196,21 +142,7 @@
 |      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_x86/mindspore_serving-1.1.1-cp37-cp37m-linux_x86_64.whl.sha256> |
 |      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl>   | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.1/Serving/ascend/centos_aarch64/mindspore_serving-1.1.1-cp37-cp37m-linux_aarch64.whl.sha256> |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-|安装 | <https://gitee.com/mindspore/docs/tree/r1.1/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html> |
-
-## 1.1.0
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r1.1/RELEASE.md>
-
-### 下载地址
+### 1.1.0
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -244,21 +176,7 @@
 |      |      |   CentOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/Serving/ascend/centos_x86/mindspore_serving-1.1.0-cp37-cp37m-linux_x86_64.whl>   |   ed0cc466efad7fb717527a511611c1fb2d72db4caf0f66e6fcbde0ecf7d6e525   |
 |      |      |   CentOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.1.0/Serving/ascend/centos_aarch64/mindspore_serving-1.1.0-cp37-cp37m-linux_aarch64.whl>   |e6ed84cfe0ff9b51b94cd2575f62238c95a73ac386e2d09adf75d3ea74177420   |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-|安装 | <https://gitee.com/mindspore/docs/tree/r1.1/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.1/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.1/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.1/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.1/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.1/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.1/index.html><br>Java API <https://www.mindspore.cn/doc/api_java/zh-CN/r1.1/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html><br>设计和规格 <https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html> |
-
-## 1.0.1
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
-
-### 下载地址
+### 1.0.1
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -282,21 +200,7 @@
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/MindArmour/x86_64/mindarmour-1.0.1-cp37-cp37m-linux_x86_64.whl>   |   5f6cee4c36e009bc7cf0cb65d8c5d9a01d87b00dd9e4c48fb9c836fdd4be38ab   |
 |   MindSpore<br>Hub   |      |   any   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.1/Hub/any/mindspore_hub-1.0.1-py3-none-any.whl>   |   5a0dc560c86aa35a54f4d8e20ba6e9b2b6084a5143fb4d6d73c2f6f3e55ab49e   |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-| 安装 | <https://gitee.com/mindspore/docs/tree/r1.0/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
-
-## 1.0.0
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r1.0/RELEASE.md>
-
-### 下载地址
+### 1.0.0
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -329,21 +233,7 @@
 |   MindSpore<br>Lite Minddata   |   CPU   |   Android-aarch32   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch32/mindspore-lite-1.0.0-minddata-arm32-cpu.tar.gz>   |d998c5eba81b254c057eae61aeacd72cee24ad75eb01be89321133e6e035a330   |
 |      |      |   Android-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.0.0/lite/android_aarch64/mindspore-lite-1.0.0-minddata-arm64-cpu.tar.gz>   |9f6bd53663d029b7638274fca94e47efbfa33ff7dab5dbe1cf328379e3cbbc18   |
 
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-| 安装 | <https://gitee.com/mindspore/docs/tree/r1.0/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/r1.0/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/r1.0/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/r1.0/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.0/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/r1.0/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.0/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html> |
-
-## 0.7.0-beta
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.7/RELEASE.md>
-
-### 下载地址
+### 0.7.0-beta
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -364,22 +254,7 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/aarch64/mindarmour-0.7.0-cp37-cp37m-linux_aarch64.whl>   |   928754efcde8c2106e1af4fb883899d8f66aa864e0ac1ba7358a291792d898a2   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.7.0-beta/MindArmour/x86_64/mindarmour-0.7.0-cp37-cp37m-linux_x86_64.whl>   |   bd3725991f227dde57afb1d11baf694a6ae0591d68355de18465a05b161bab14   |
 
-### 配套资料
-
-| 类别 | MindSpore | MindSpore Lite |
-| --- | --- | --- |
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.7/install> |   |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/tutorial/zh-CN/r0.7/index.html> |
-| API | <https://www.mindspore.cn/api/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/apic/zh-CN/r0.7/lite/namespacemembers.html> |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.7/index.html> | <https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html> |
-
-## 0.6.0-beta
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.6/RELEASE.md>
-
-### 下载地址
+### 0.6.0-beta
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -399,22 +274,7 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/aarch64/mindarmour-0.6.0-cp37-cp37m-linux_aarch64.whl>   |   8da35bbf7e909bdce7972f7cd11aa495de2c18b9334052e60609dadd82649922   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.6.0-beta/MindArmour/x86_64/mindarmour-0.6.0-cp37-cp37m-linux_x86_64.whl>   |   18f245bdff972414010c9f53de402d790cdef9a74f94ac41e5b6341e778e93b3   |
 
-### 配套资料
-
-| 类别 | 网址                                                      |
-|------|-----------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.6/install>      |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/r0.6/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/r0.6/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.6/index.html>     |
-
-## 0.5.2-beta
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
-
-### 下载地址
+### 0.5.2-beta
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -434,22 +294,7 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl>   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### 配套资料
-
-| 类别 | 网址                                                      |
-|------|-----------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.5/install>      |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/r0.5/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.5/index.html>     |
-
-## 0.5.0-beta
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.5/RELEASE.md>
-
-### 下载地址
+### 0.5.0-beta
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -469,22 +314,7 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/aarch64/mindarmour-0.5.0-cp37-cp37m-linux_aarch64.whl>   |   51d2dfd9e65d6d919da36c29fa9420b68c3fb71aa33b54ec35aa5d6bb011c1a8   |
 |      |   GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.5.0-beta/MindArmour/x86_64/mindarmour-0.5.0-cp37-cp37m-linux_x86_64.whl>   |   09aa2887b0acbe9b31d07fb8d740c0bceefd6b8751aebdddd533f752f7564efc   |
 
-### 配套资料
-
-| 类别 | 网址                                                      |
-|------|-----------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.5/install>      |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/r0.5/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/r0.5/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/r0.5/index.html>     |
-
-## 0.3.0-alpha
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.3/RELEASE.md>
-
-### 下载地址
+### 0.3.0-alpha
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -505,22 +335,7 @@
 |      |      |   Ubuntu-aarch64<br>EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/aarch64/mindarmour-0.3.0-cp37-cp37m-linux_aarch64.whl>   |   6d5f96cc004579d98664d018dca860d3b7f935df5b479f1192161f18a091d9c9   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.3.0-alpha/MindArmour/x86_64/mindarmour-0.3.0-cp37-cp37m-linux_x86_64.whl>   |   7a2bd6174be9e5a47e8ae6bcdd592ecdafc6e53e6f1cd5f0261fcb8337b5b337   |
 
-### 配套资料
-
-| 类别 | 网址                                                             |
-|------|------------------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.3/install>             |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/0.3.0-alpha/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/0.3.0-alpha/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html>     |
-
-## 0.2.0-alpha
-
-### 版本说明和接口变更
-
-<https://gitee.com/mindspore/mindspore/blob/r0.2/RELEASE.md>
-
-### 下载地址
+### 0.2.0-alpha
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -540,22 +355,7 @@
 |      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/aarch64/mindarmour-0.2.0-cp37-cp37m-linux_aarch64.whl>   |   5d5e532b9c4e466d89cf503f07c2d530b42216a14f193f685b9a81e190c8db44   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.2.0-alpha/MindArmour/x86_64/mindarmour-0.2.0-cp37-cp37m-linux_x86_64.whl>   |   4146790bc73a5846e92b943dfd3febb6c62052b217eeb45b6c48aa82b51e7cc3   |
 
-### 配套资料
-
-| 类别 | 网址                                                             |
-|------|------------------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.2/install>             |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/0.2.0-alpha/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/0.2.0-alpha/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html>     |
-
-## 0.1.0-alpha
-
-### 版本说明
-
-<https://gitee.com/mindspore/mindspore/blob/r0.1/RELEASE.md>
-
-### 下载地址
+### 0.1.0-alpha
 
 |   组件   |   硬件平台   |   操作系统   |      链接      |        SHA-256     |
 |    ---   |    ---   |    ---   |       ---      |    ---      |
@@ -572,22 +372,3 @@
 |      |      |   EulerOS-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
 |      |      |   EulerOS-aarch64   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/aarch64/mindarmour-0.1.0-cp37-cp37m-linux_aarch64.whl>   |   f354fcdbb3d8b4022fda5a6636e763f8091aca2167dc23e60b7f7b6d710523cb   |
 |      |   GPU CUDA 9.2<br>GPU CUDA 10.1<br>CPU   |   Ubuntu-x86   |   <https://ms-release.obs.cn-north-4.myhuaweicloud.com/0.1.0-alpha/MindArmour/x86_64/mindarmour-0.1.0-cp37-cp37m-linux_x86_64.whl>   |   7796b6c114ee4962ce605da59a9bc47390c8910acbac318ecc0598829aad6e8c   |
-
-### 配套资料
-
-| 类别 | 网址                                                             |
-|------|------------------------------------------------------------------|
-| 安装 | <https://gitee.com/mindspore/docs/tree/r0.1/install>             |
-| 教程 | <https://www.mindspore.cn/tutorial/zh-CN/0.1.0-alpha/index.html> |
-| API  | <https://www.mindspore.cn/api/zh-CN/0.1.0-alpha/index.html>      |
-| 文档 | <https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html>     |
-
-## master(unstable)
-
-### 配套资料
-
-| 类别 | 网址 |
-| --- | --- |
-|安装 | <https://gitee.com/mindspore/docs/tree/master/install> |
-| 教程 | 训练 <https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html><br>推理 <https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html><br>手机&IoT <https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html> |
-| 文档 | 编程指南 <https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html><br>Python API <https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html><br>C++ API <https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html><br>FAQ <https://www.mindspore.cn/doc/faq/zh-CN/master/index.html><br>其他说明 <https://www.mindspore.cn/doc/note/zh-CN/master/index.html> |
