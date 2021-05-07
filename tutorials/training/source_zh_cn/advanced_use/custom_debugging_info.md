@@ -282,6 +282,8 @@ Tensor(shape=[2, 2], dtype=Int32, value=
 Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的功能。要记录的数据将会在MindSpore中进行预设，运行训练脚本时，如果MindSpore出现了运行异常，则会自动地导出MindSpore中预先记录的数据以辅助定位运行异常的原因。不同的运行异常将会导出不同的数据，比如出现`Run task error`异常，将会导出计算图、图执行顺序、内存分配等信息以辅助定位异常的原因。
 
 > 并非所有运行异常都会导出数据，目前仅支持部分异常导出数据。
+>
+> 目前仅支持图模式训练场景下，收集CPU/Ascend/GPU的相关数据。
 
 ### 使用方法
 
@@ -298,7 +300,8 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
     }
     ```
 
-    > enable: 控制RDR功能是否开启
+    > enable: 控制RDR功能是否开启。
+    >
     > path: 设置RDR保存数据的路径。当前必须为绝对路径。
 
 2. 通过 `context` 配置RDR。

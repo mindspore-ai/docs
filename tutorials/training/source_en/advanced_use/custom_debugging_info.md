@@ -278,6 +278,8 @@ Asynchronous Dump function usage reference [Asynchronous Dump Step](https://www.
 Running Data Recorder(RDR) is the feature MindSpore provides to record data while training program is running. If a running exception occurs in MindSpore, the pre-recorded data in MindSpore is automatically exported to assist in locating the cause of the running exception. Different exceptions will export different data, for instance, the occurrence of `Run task error` exception, the computational graph, execution sequence of the graph, memory allocation and other information will be exported to assist in locating the cause of the exception.
 
 > Not all run exceptions export data, and only partial exception exports are currently supported.
+>
+> Only supports the data collection of CPU/Ascend/GPU in the training scenario with the graph mode.
 
 ### Usage
 
@@ -294,8 +296,9 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
     }
     ```
 
-    > enable: Controls whether the RDR is enabled
-    > path: Set the path to which RDR stores data.The current path must be absolute.
+    > enable: Controls whether the RDR is enabled.
+    >
+    > path: Set the path to which RDR stores data. The current path must be absolute.
 
 2. Configure RDR via `context`.
 
