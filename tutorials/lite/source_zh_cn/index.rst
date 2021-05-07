@@ -351,7 +351,7 @@
 									</div>
 								</a>
 							</div>
-							<div class="doc-article-item all os-Android os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+							<div class="doc-article-item all hardware-NPU os-Android os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/npu_info.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
