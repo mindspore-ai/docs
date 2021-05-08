@@ -50,7 +50,8 @@
    │               ├── 0.7
    │                   ├── googlenet_v1_cifar10.md
    │   ├── tools
-   │       ├── md_validator.py
+   │       ├── get_sha256.py
+   │       ├── load_markdown.py
    │       └── md_validator.py
    ```
 
@@ -72,13 +73,13 @@
 
    ```python
    cd /hub/mshub_res/tools
-   python get_sha256.py ../googlenet.ckpt
+   python get_sha256.py --file ../googlenet.ckpt
    ```
 
 4. 使用`hub/mshub_res/tools/md_validator.py`在本地核对`.md`文件的格式，执行以下命令，输出结果为`All Passed`，表示`.md`文件的格式和内容均符合要求。
 
    ```python
-   python md_validator.py ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
+   python md_validator.py --check_path ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
    ```
 
 5. 在`mindspore/hub`仓创建PR，详细创建方式可以参考[贡献者Wiki](https://gitee.com/mindspore/mindspore/blob/r1.2/CONTRIBUTING.md#)。
