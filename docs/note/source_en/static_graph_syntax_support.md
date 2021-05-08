@@ -63,20 +63,18 @@
 
 ## Overview
 
-  In graph mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
+In graph mode, Python code is not executed by the Python interpreter. Instead, the code is compiled into a static computation graph, and then the static computation graph is executed.
 
-  For details about the graph mode and computation graph, click <https://www.mindspore.cn/tutorial/training/en/r1.2/advanced_use/debug_in_pynative_mode.html>.
+Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
+For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-  Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
-  For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
+For details about how to use `ms_function`, click <https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.html#mindspore.ms_function>.
 
-  For details about how to use `ms_function`, click <https://www.mindspore.cn/doc/api_python/en/r1.2/mindspore/mindspore.html#mindspore.ms_function>.
+For details about the definition of `Cell`, click <https://www.mindspore.cn/doc/programming_guide/en/r1.2/cell.html>.
 
-  For details about the definition of `Cell`, click <https://www.mindspore.cn/doc/programming_guide/en/r1.2/cell.html>.
+Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted.
 
-  Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted.
-
-  The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
+The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
 
 > All the following examples run on the network in graph mode. The network definition is not described.
 

@@ -64,20 +64,18 @@
 
 ## 概述
 
-  在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
+在Graph模式下，Python代码并不是由Python解释器去执行，而是将代码编译成静态计算图，然后执行静态计算图。
 
-  关于Graph模式和计算图，可参考文档：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.2/advanced_use/debug_in_pynative_mode.html>
+当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
+对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
 
-  当前仅支持编译`@ms_function`装饰器修饰的函数、Cell及其子类的实例。
-  对于函数，则编译函数定义；对于网络，则编译`construct`方法及其调用的其他方法或者函数。
+`ms_function`使用规则可参考文档：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.html#mindspore.ms_function>
 
-  `ms_function`使用规则可参考文档：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/mindspore.html#mindspore.ms_function>
+`Cell`定义可参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/cell.html>
 
-  `Cell`定义可参考文档：<https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.2/cell.html>
+由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
 
-  由于语法解析的限制，当前在编译构图时，支持的数据类型、语法以及相关操作并没有完全与Python语法保持一致，部分使用受限。
-
-  本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
+本文主要介绍，在编译静态图时，支持的数据类型、语法以及相关操作，这些规则仅适用于Graph模式。
 
 > 以下所有示例都运行在Graph模式下的网络中，为了简洁，并未将网络的定义都写出来。
 
