@@ -136,18 +136,19 @@ class LeNet5(nn.Cell):
         super(LeNet5, self).__init__()
         self.num_class = num_class
 
-        self.conv1 = nn.Conv2dBnAct(1, 6, kernel_size=5, activation='relu')
-        self.conv2 = nn.Conv2dBnAct(6, 16, kernel_size=5, activation='relu')
+        self.conv1 = nn.Conv2dBnAct(1, 6, kernel_size=5, pad_mode='valid', activation='relu')
+        self.conv2 = nn.Conv2dBnAct(6, 16, kernel_size=5, pad_mode='valid', activation='relu')
 
         self.fc1 = nn.DenseBnAct(16 * 5 * 5, 120, activation='relu')
         self.fc2 = nn.DenseBnAct(120, 84, activation='relu')
         self.fc3 = nn.DenseBnAct(84, self.num_class)
         self.max_pool2d = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.flatten = nn.Flatten()
 
     def construct(self, x):
         x = self.max_pool2d(self.conv1(x))
         x = self.max_pool2d(self.conv2(x))
-        x = self.flattern(x)
+        x = self.flatten(x)
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
