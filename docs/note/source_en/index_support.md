@@ -219,32 +219,37 @@ The index value can be `int`, `bool`, `None`, `ellipsis`, `slice`, `Tensor`, `Li
 
 ## Index value assignment
 
-The index value can be `int`, `bool`, `ellipsis`, `slice`, `None`, `Tensor`, `List`, or`Tuple`.
+For a case like: `tensor_x[index] = value`, the type of the index can be `int`, `bool`, `ellipsis`, `slice`, `None`, `Tensor`, `List`, or`Tuple`.
+
+The type of the assigned `value` can be `Number`, `Tuple`, `List`, or `Tensor`, the `value` will be converted to `Tensor` and casted to the same dtype as the original tensor (`tensor_x`) before being assigned.
+
+When `value` is `Number`, all position elements obtained from the `tensor_x[index]` will be updated to `Number`.
+
+When `value` is a tensor whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `value.shape` needs to be able to be broadcasted to `tensor_x[index].shape`. After the `value`' is broadcasted and casted to `Tensor`, the elements with the position `tensor_x[index]` will be updated with the value `broadcast(Tensor(value))`.
+
+When `value` is `Tuple/List`, and contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
+
+When `value` is `Tuple` or `List`, and only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
 
 Index value assignment can be understood as assigning values to indexed position elements based on certain rules. All index value assignment does not change the original `shape` of `Tensor`.
+
+> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorScatterUpdate.html)
+>
+> Only single-bracket indexing is supported (`tensor_x[index] = value`)， multi-bracket(`tensor_x[index1][index2]... = value`) is not supported.
 
 - `int` index value assignment
 
     Single-level `int` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[int_index] = u`.
 
-    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[int_index]` index will be updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[int_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[int_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 *3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2* 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
-    tensor_y[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
+    tensor_y[1]= np.array([66, 88, 99]).astype(np.float32)
     tensor_z[1] = (66, np.array(88), 99)
     ```
 
@@ -260,25 +265,16 @@ Index value assignment can be understood as assigning values to indexed position
 
     Single-level `bool` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[bool_index] = u`.
 
-    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[bool_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[bool_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[True] = 88.0
-    tensor_y[True]= Tensor(np.array([66, 88, 99]).astype(np.float32))
-    tensor_z[True] = (66, np.array(88), 99)
+    tensor_y[True]= np.array([66, 88, 99]).astype(np.float32)
+    tensor_z[True] = (66, 88, 99)
     ```
 
     The result is as follows:
@@ -286,66 +282,48 @@ Index value assignment can be understood as assigning values to indexed position
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
     ```
 
 - `ellipsis` index value assignment
 
     Single-level `ellipsis` index value assignments are supported. The single-level `ellipsis` index value assignment is `tensor_x[...] = u`.
 
-    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will be casted to `Tensor`.
-
-    When `u` is `Number`, all elements are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x.shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)))
-    tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)))
-    tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[...] = 88
-    tensor_y[...]= Tensor(np.array([22, 44, 55]))
+    tensor_y[...]= np.array([[22, 44, 55], [22, 44, 55]])
     tensor_z[...] = ([11, 22, 33], [44, 55, 66])
     ```
 
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[2, 3], dtype=Int64, value=[[88, 88, 88], [88, 88, 88]])
-    tensor_y: Tensor(shape=[2, 3], dtype=Int64, value=[[22, 44, 55], [22, 44, 55]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Int64, value=[[11, 22, 33], [44, 55, 66]])
+    tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
+    tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[22.0, 44.0, 55.0], [22.0, 44.0, 55.0]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[11.0, 22.0, 33.0], [44.0, 55.0, 66.0]])
     ```
 
 - `slice` index value assignment
 
     Single-level `slice` index value assignments are supported. The single-level `slice` index value assignment is `tensor_x[slice_index] = u`.
 
-    The `u` support `Number`, `Tuple`, `List`, and `Tensor`. The assigned values are converted into the data type of the updated `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[slice_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[slice_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_k = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_x[0:1] = 88.0
     tensor_y[0:2][0:2] = 88.0
-    tensor_z[0:2] = Tensor(np.array([11, 12, 13], [11, 12, 13]).astype(np.float32))
+    tensor_z[0:2] = np.array([[11, 12, 13], [11, 12, 13]]).astype(np.float32)
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
     ```
 
@@ -362,25 +340,16 @@ Index value assignment can be understood as assigning values to indexed position
 
     Single-level `None` index value assignments are supported. The single-level `int` index value assignment is `tensor_x[none_index] = u`.
 
-    The type of `u` can be one of `Number`, `Tuple`, `List`, or `Tensor`. `u` will  be converted to `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[none_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[none_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 *3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2* 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[None] = 88.0
-    tensor_y[None]= Tensor(np.array([66, 88, 99]).astype(np.float32))
-    tensor_z[None] = (66, np.array(88), 99)
+    tensor_y[None]= np.array([66, 88, 99]).astype(np.float32)
+    tensor_z[None] = (66, 88, 99)
     ```
 
     The result is as follows:
@@ -388,7 +357,7 @@ Index value assignment can be understood as assigning values to indexed position
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [66.0, 88.0, 99.0]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[66.0, 88.0, 99.0], [66.0, 88.0, 99.0]])
     ```
 
 - `Tensor` index value assignment
@@ -397,25 +366,16 @@ Index value assignment can be understood as assigning values to indexed position
 
     Boolean `Tensor` index is not currently supported, only `mstype.int*` type is supported.
 
-    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[tensor_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[tensor_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32)
     tensor_x[tensor_index] = 88.0
-    tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]).astype(np.float32))
+    tensor_y[tensor_index] = np.array([11.0, 12.0, 13.0]).astype(np.float32)
     tensor_z[tensor_index] = [11, 12, 13]
     ```
 
@@ -433,24 +393,15 @@ Index value assignment can be understood as assigning values to indexed position
 
     The `List` index value assignment is the same as that of the `List` index value.
 
-    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[list_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[list_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[list_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
-
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
     tensor_x[[0,1]] = 88.0
-    tensor_y[[True, False, False]] = Tensor(np.array([11, 12, 13]).astype(np.float32))
+    tensor_y[[True, False, False]] = np.array([11, 12, 13]).astype(np.float32)
     ```
 
     The result is as follows:
@@ -464,30 +415,20 @@ Index value assignment can be understood as assigning values to indexed position
 
     single-level `Tuple` index value assignments are supported. The single-level `Tuple` index value assignment is `tensor_x[tuple_index] = u`.
 
-    The `Tuple` index value assignment is the same as that of the `Tuple` index value, but `None` type is not supported now..
-
-    The `u` support `Number`,`Tuple`,`List` and `Tensor`.
-
-    When `u` is `Number`, all position elements obtained from the `tensor_x[bool_index]` index are updated to `Number`.
-
-    When `u` is an array whose type is `Tuple`, `List` or `Tensor` and only contains `Number`, the `u.shape` needs to be able to be broadcasted to `tensor_x[tuple_index].shape`. After the `u`' is broadcasted and casted  to `Tensor`,  the elements with the position `tensor_x[tuple_index]` will be updated with the value `Tensor(broadcast(u))`.
-
-    When `u` is `Tuple/List`, and `u` contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
-
-    When `u` only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+    The `Tuple` index value assignment is the same as that of the `Tuple` index value, but `None` type is not supported now.
 
     For example:
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_k = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
     tensor_x[1, 1:3] = 88.0
     tensor_y[1:3, tensor_index] = 88.0
-    tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]).astype(np.float32))
-    tensor_k[..., [2]] = [6, 6, 6]
+    tensor_z[1:3, tensor_index] = np.array([11, 12]).astype(np.float32)
     ```
 
     The result is as follows:
@@ -496,20 +437,23 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
     tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
     tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
-    tensor_k: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 6.0], [3.0, 4.0, 6.0], [6.0, 7.0, 6.0]])
     ```
 
 ## Index value augmented-assignment
 
 Index value augmented-assignment supports seven augmented_assignment operations:  `+=`, `-=`, `*=`, `/=`, `%=`, `**=`, and `//=`. The rules and constraints of `index` and `value` are the same as index assignment. The index value supports eight types: `int`, `bool`, `ellipsis`, `slice`, `None`, `tensor`, `list` and `tuple`. The assignment value supports four types: `Number`, `Tensor`, `Tuple` and `List`.
 
-Index assignment can be regarded as taking the value of the position elements to be indexed according to certain rules, and then performing operator operation with `value`. Finally, assign the operation result to the origin `Tensor`. All index augmented-assignments will not change the `shape` of the original `Tensor`.
+Index value augmented-assignment can be regarded as taking the value of the position elements to be indexed according to certain rules, and then performing operator operation with `value`. Finally, assign the operation result to the origin `Tensor`. All index augmented-assignments will not change the `shape` of the original `Tensor`.
+
+> If there are multiple index elements in indices that correspond to the same position, the value of that position in the output will be nondeterministic. For more details, please see:[TensorScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorScatterUpdate.html)
+>
+> Currently indices that contain `True`, `False` and `None` are not supported.
 
 - Rules and constraints:
 
     Compared with index assignment, the process of value and operation is increased. The constraint rules of `index` are the same as `index` in Index Value, and support `Int`, `Bool`, `Tensor`, `Slice`, `Ellipse`, `None`, `List` and `Tuple`. The values of `Int` contained in the above types of data should be in `[-dim_size, dim_size-1]` within the closed range.
 
-    The constraint rules of `value` in the operation process are the same as those of `value` in index assignment. The type of `value` needs to be one of (`Number`, `Tensor`, `List`, `Tuple`). And if `value`'s type is not `number`, `value.shape`  need to be able to be broadcasted to `tensor_x[index].shape`.
+    The constraint rules of `value` in the operation process are the same as those of `value` in index assignment. The type of `value` needs to be one of (`Number`, `Tensor`, `List`, `Tuple`). And if `value`'s type is not `number`, `value.shape` should be able to broadcast to `tensor_x[index].shape`.
 
     For example:
 
@@ -523,7 +467,7 @@ Index assignment can be regarded as taking the value of the position elements to
     The result is as follows:
 
     ```text
-    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 9.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
+    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 8.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
     tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
     ```
 
