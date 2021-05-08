@@ -6,6 +6,8 @@
 
 - [MindSpore网络支持](#mindspore网络支持)
     - [Model Zoo](#model-zoo)
+        - [标准网络](#标准网络)
+        - [研究网络](#研究网络)
 
 <!-- /TOC -->
 
@@ -70,7 +72,7 @@
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [GNMT v2](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/gnmt_v2/src/gnmt_model/gnmt.py)    |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [GRU](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/gru/src/seq2seq.py)            |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [MASS](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)    |  Supported |  Supported |  Supported |  Supported | Doing | Doing
-| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/lstm.py)    |  Supported |  Doing |  Supported |  Supported | Supported | Supported
+| 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [SentimentNet (LSTM)](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/lstm.py)    |  Supported |  Doing |  Supported |  Supported | Supported | Supported
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [Transformer](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/transformer/src/transformer_model.py)  |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TinyBERT](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/tinybert/src/tinybert_model.py)   |  Supported |  Supported |  Supported | Doing | Doing | Doing
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TextCNN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/textcnn/src/textcnn.py)            |  Supported |  Doing |  Doing | Doing | Doing | Doing
