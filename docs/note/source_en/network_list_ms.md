@@ -6,6 +6,8 @@
 
 - [MindSpore Network List](#mindspore-network-list)
     - [Model Zoo](#model-zoo)
+        - [Official](#official)
+        - [Research](#research)
 
 <!-- /TOC -->
 
@@ -70,7 +72,7 @@
 | Natural Language Processing (NLP) | Natural Language Understanding  | [GNMT v2](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/gnmt_v2/src/gnmt_model/gnmt.py)        |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [GRU](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/gru/src/seq2seq.py)                |  Supported |  Doing |  Doing | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [MASS](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/mass/src/transformer/transformer_for_train.py)   |  Supported |  Supported |  Supported |  Supported | Doing | Doing
-| Natural Language Processing (NLP) | Natural Language Understanding  | [SentimentNet](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/lstm.py)      |  Supported |  Doing |  Supported |  Supported | Supported | Supported
+| Natural Language Processing (NLP) | Natural Language Understanding  | [SentimentNet (LSTM)](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/lstm/src/lstm.py)      |  Supported |  Doing |  Supported |  Supported | Supported | Supported
 | Natural Language Processing (NLP) | Natural Language Understanding  | [Transformer](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/transformer/src/transformer_model.py)   |  Supported |  Supported |  Supported |  Supported | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TinyBERT](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/tinybert/src/tinybert_model.py)       |  Supported |  Supported |  Supported | Doing | Doing | Doing
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TextCNN](https://gitee.com/mindspore/mindspore/blob/r1.1/model_zoo/official/nlp/textcnn/src/textcnn.py)                |  Supported |  Doing |  Doing | Doing | Doing | Doing
