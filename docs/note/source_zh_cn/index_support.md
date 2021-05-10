@@ -219,32 +219,37 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 ## 索引赋值
 
-索引值支持`int`、`bool`、`ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`。
+对于形如: `tensor_x[index] = value`， `index`的类型支持`int`、`bool`、`ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`。
+
+`value`的类型支持`Number`、`Tuple`、`List`和`Tensor`。被赋的值会首先被转换为张量，数据类型与原张量(`tensor_x`)相符。
+
+当`value`为`Number`时，可以理解为将`tensor_x[index]`索引对应元素都更新为`Number`。
+
+当`value`为数组，即只包含`Number`的`Tuple`、`List`或`Tensor`时，`value.shape`需要可以与`tensor_x[index].shape`做广播，将`value`广播到`tensor_x[index].shape`后，更新`tensor_x[index]`对应的值。
+
+当`value`为`Tuple`或`List`时，若`value`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型，该`Tuple` 和 `List` 目前只支持1维。
+
+当`value`为`Tuple`或`List`，且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`value`为`Tensor`的规则进行赋值。
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行赋值，所有索引赋值都不会改变原`Tensor`的`shape`。
+
+> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.TensorScatterUpdate.html)
+>
+> 当前只支持单层索引(`tensor_x[index] = value`)， 多层索引(`tensor_x[index1][index2]... = value`)暂不支持。
 
 - `int`索引赋值
 
     支持单层`int`索引赋值：`tensor_x[int_index] = u`。
 
-    `u`支持`Number`，`Tuple`，`List`和`Tensor`四种类型，`u`将会被转为`tensor_x`的数据类型。
-
-    当`u`为`Number`时，可以理解为将`tensor_x[int_index]`索引对应元素都更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，`u.shape`需要可以与`tensor_x[int_index].shape`做广播，将`u`broadcast到`tensor_x[int_index].shape`后，且转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[int_index]`。
-
-    当`u`为`Tuple/List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型，该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 *3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2* 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
-    tensor_y[1]= Tensor(np.array([66, 88, 99]).astype(np.float32))
+    tensor_y[1]= np.array([66, 88, 99]).astype(np.float32)
     tensor_z[1] = (66, np.array(88), 99)
     ```
 
@@ -260,25 +265,16 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层`bool`索引赋值：`tensor_x[bool_index] = u`。
 
-    `u`支持`Number`，`Tuple`，`List`和`Tensor`四种类型，`u`将会被转为`tensor_x`的数据类型。
-
-    当`u`为`Number`时，可以理解为将`tensor_x[bool_index]`索引对应元素都更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，`u.shape`需要可以与`tensor_x.shape`做广播，将`u`broadcast到`tensor_x[bool].shape`后，且转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[bool_index]`。
-
-    当`u`为`Tuple/List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[True] = 88.0
-    tensor_y[True]= Tensor(np.array([66, 88, 99]).astype(np.float32))
-    tensor_z[True] = (66, np.array(88), 99)
+    tensor_y[True]= np.array([66, 88, 99]).astype(np.float32)
+    tensor_z[True] = (66, 88, 99)
     ```
 
     结果如下：
@@ -293,24 +289,15 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层`ellipsis`索引赋值，单层`ellipsis`索引赋值：`tensor_x[...] = u`。
 
-    所赋值支持`Number`，`Tuple`，`List`，和`Tensor`，所赋值都会被转为与被更新`Tensor`数据类型一致。
-
-    当`u`为`Number`时，可以理解为将所有元素都更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，`u.shape`需要可以与`tensor_x.shape`做广播，将`u`broadcast到`tensor_x.shape`后，且转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x`。
-
-    当`u`为`Tuple`或`List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[...] = 88.0
-    tensor_y[...] = Tensor(np.array([[22, 44, 55], [22, 44, 55]]).astype(np.float32))
+    tensor_y[...] = np.array([[22, 44, 55], [22, 44, 55]])
     tensor_z[...] = ([11, 22, 33], [44, 55, 66])
     ```
 
@@ -319,33 +306,24 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     ```text
     tensor_x: Tensor(shape=[2, 3], dtype=Float32, value=[[88.0, 88.0, 88.0], [88.0, 88.0, 88.0]])
     tensor_y: Tensor(shape=[2, 3], dtype=Float32, value=[[22.0, 44.0, 55.0], [22.0, 44.0, 55.0]])
-    tensor_z: Tensor(shape=[2, 3], dtype=Int64, value=[[11, 22, 33], [44, 55, 66]])
+    tensor_z: Tensor(shape=[2, 3], dtype=Float32, value=[[11., 22., 33.], [44., 55., 66.]])
     ```
 
 - `slice`索引赋值
 
     支持单层`slice`索引赋值：`tensor_x[slice_index] = u`。
 
-    `u`支持类型`Number`，`Tuple`，`List`，和`Tensor`，`u`都会被转为与被更新`tensor_x`数据类型一致。
-
-    `u`为类型`Number`时，可以理解为将`tensor_x[slice_index]`索引位置数值都更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，`u.shape`需要可以与`tensor_x.shape`做广播，将`u`broadcast到`tensor_x.shape`后，且转为`Tensor`，，使用`Tensor(broadcast(u))`更新`tensor_x`。
-
-    当`u`为`Tuple`或`List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_k = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_x[0:1] = 88.0
-    tensor_y[0:2] = 88.0
-    tensor_z[0:2] = Tensor(np.array([11, 12, 13], [11, 12, 13]).astype(np.float32))
+    tensor_y[0:2][0:2] = 88.0
+    tensor_z[0:2] = np.array([[11, 12, 13], [11, 12, 13]]).astype(np.float32)
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
     ```
 
@@ -362,25 +340,16 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     支持单层`None`索引赋值：`tensor_x[none_index] = u`。
 
-    `u`支持`Number`，`Tuple`，`List`和`Tensor`四种类型，`u`将会被转为`tensor_x`的数据类型。
-
-    当`u`为`Number`时，可以理解为将`tensor_x[none_index]`索引对应元素都更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，`u.shape`需要可以与`tensor_x.shape`做广播，将`u`broadcast到`tensor_x[none_index].shape`后，且转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[bool_index]`。
-
-    当`u`为`Tuple/List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(2 * 3).reshape((2, 3)).astype(np.float32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_y = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
+    tensor_z = np.arange(2 * 3).reshape((2, 3)).astype(np.float32)
     tensor_x[None] = 88.0
-    tensor_y[None]= Tensor(np.array([66, 88, 99]).astype(np.float32))
-    tensor_z[None] = (66, np.array(88), 99)
+    tensor_y[None]= np.array([66, 88, 99]).astype(np.float32)
+    tensor_z[None] = (66, 88, 99)
     ```
 
     结果如下：
@@ -397,25 +366,16 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     当前不支持索引Tensor为`bool`类型，只能为`mstype.int*`型。
 
-    `u`支持`Number`，`Tuple`，`List`，和`Tensor`，`u`会被转为与被更新`Tensor`数据类型一致。
-
-    `u`为`Number`时，可以理解为将`tensor_x[tensor_index]`索引元素更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，数组的`shape`必须等于或者可广播为`tensor_x[tensor_index]`的`shape`，将`u`broadcast到`tensor_x[tensor_index].shape`后，转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[tensor_index]`。
-
-    当`u`为`Tuple`或`List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[2, 0, 2], [0, 2, 0], [0, 2, 0]], np.int32)
     tensor_x[tensor_index] = 88.0
-    tensor_y[tensor_index] = Tensor(np.array([11.0, 12.0, 13.0]).astype(np.float32))
+    tensor_y[tensor_index] = np.array([11.0, 12.0, 13.0]).astype(np.float32)
     tensor_z[tensor_index] = [11, 12, 13]
     ```
 
@@ -433,24 +393,15 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     `List`索引赋值和`List`索引取值对索引的支持一致。
 
-    `u`支持`Number`，`Tuple`，`List`，和`Tensor`，所赋值都会被转为与被更新`Tensor`数据类型一致。
-
-    当`u`为`Number`时，可以理解为将`tensor_x[list_index]`索引元素更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，数组的`shape`必须等于或者可广播为`tensor_x[list_index]`的`shape`，将`u`broadcast到`tensor_x[list_index].shape`后，转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[list_index]`。
-
-    当`u`为`Tuple`或`List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
     tensor_x[[0,1]] = 88.0
-    tensor_y[[True, False, False]] = Tensor(np.array([11, 12, 13]).astype(np.float32))
+    tensor_y[[True, False, False]] = np.array([11, 12, 13]).astype(np.float32)
     ```
 
     结果如下：
@@ -466,28 +417,18 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
     `Tuple`索引赋值和`Tuple`索引取值对索引的支持一致，但不支持`Tuple`中包含`None`。
 
-    `u`支持`Number`，`Tuple`，`List`，和`Tensor`，所赋值都会被转为与被更新`Tensor`数据类型一致。
-
-    当`u`为`Number`时，可以理解为将`tensor_x[tuple_index]`索引元素更新为`Number`。
-
-    当`u`为数组，即只包含`Number`的`Tuple`/`List`或`Tensor`时，数组的`shape`必须等于或者可广播为`tensor_x[tuple_index]`的`shape`，将`u`broadcast到`tensor_x[tuple_index].shape`后，转为`Tensor`，使用`Tensor(broadcast(u))`更新`tensor_x[tuple_index]`。
-
-    当`u`为`Tuple`或`List`时，若`u`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型， 该`Tuple` 和 `List` 目前只支持1维。
-
-    当`u`为`Tuple/List`且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`u`为`Tensor`的规则进行赋值。
-
     示例如下：
 
     ```python
-    tensor_x = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_y = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_z = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_k = Tensor(np.arange(3 * 3).reshape((3, 3)).astype(np.float32))
-    tensor_index = Tensor(np.array([[0, 1], [1, 0]]).astype(np.int32))
+    import mindspore.numpy as np
+    tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
+    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
     tensor_x[1, 1:3] = 88.0
     tensor_y[1:3, tensor_index] = 88.0
-    tensor_z[1:3, tensor_index] = Tensor(np.array([11, 12]).astype(np.float32))
-    tensor_k[..., [2]] = [6, 6, 6]
+    tensor_z[1:3, tensor_index] = np.array([11, 12]).astype(np.float32)
     ```
 
     结果如下：
@@ -496,18 +437,22 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
     tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
     tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
-    tensor_k: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 6.0], [3.0, 4.0, 6.0], [6.0, 7.0, 6.0]])
     ```
 
 ## 索引增强赋值
 
 增强索引赋值，支持`+=`、`-=`、`*=`、`/=`、`%=`、`**=`、`//=`七种类型，`index`与`value`的规则约束与索引赋值相同。索引值支持`int`、`bool`、`ellipsis`、`slice`、`None`、`Tensor`、`List`、`Tuple`八种类型，赋值支持`Number`、`Tensor`、`Tuple`、`List`四种类型。  
 
-索引赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
+索引增强赋值可以理解为对索引到的位置元素按照一定规则进行取值，取值所得再与`value`进行操作符运算，最终将运算结果进行赋值，所有索引增强赋值都不会改变原`Tensor`的`shape`。
+
+> 当索引中有多个元素指向原张量的同一个位置时，该值的更新受底层算子限制，可能出现随机的情况。因此暂不支持索引中重复对张量中一个位置的值反复更新。详情请见:[TensorScatterUpdate 算子介绍](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.TensorScatterUpdate.html)
+>
+> 目前索引中包含 `True`、`False` 和 `None`的情况暂不支持.
 
 - 规则与约束
+
     与索引赋值相比，增加了取值与运算的过程。取值过程中`index`的约束规则与索引取值中`index`相同，支持`int`、`bool`、`Tensor`、`Slice`、`Ellipsis`、`None`、`List`与`Tuple`。上述几种类型的数据中所包含`int`值，需在`[-dim_size, dim_size-1]`闭合区间内。
-    运算过程中`value`的约束规则与索引赋值中`value`的约束规则相同，`value`类型需为(`Number`、`Tensor`、`List`、`Tuple`)之一，且`value`类型不是`Number`时， `value.shape`需可以与`tensor_x[index].shape`可广播。
+    运算过程中`value`的约束规则与索引赋值中`value`的约束规则相同，`value`类型需为(`Number`、`Tensor`、`List`、`Tuple`)之一，且`value`类型不是`Number`时， `value`的形状需要可以广播到`tensor_x[index]`的形状。
 
     示例如下：
 
@@ -521,7 +466,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     结果如下：
 
     ```text
-    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 9.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
+    tensor_x: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 3.0, 4.0, 3.0], [4.0, 7.0, 8.0, 7.0], [8.0, 9.0, 10.0, 11.0]])
     tensor_y: Tensor(shape=[3, 4], dtype=Float32, value=[[0.0, 1.0, 2.0, 3.0], [0.0, 2.0, 4.0, 6.0], [8.0, 9.0, 10.0, 11.0]])
     ```
 
