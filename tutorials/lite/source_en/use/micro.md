@@ -1,5 +1,289 @@
 ﻿# Perform Inference on the Microcontroller
 
-No English version right now, welcome to contribute.
+ `Linux` `IoT` `C++` `CodeGen` `Beginner` `Intermediate`
+
+<!-- TOC -->
+
+- [Perform Inference on the Microcontroller](#perform-inference-on-the-microcontroller)
+    - [Overview](#overview)
+    - [Obtaining CodeGen](#obtaining-codeGen)
+    - [Parameter Description](#parameter-description)
+    - [Instructions](#instructions)
+    - [Using CodeGen to Perform inference on STM Boards](#perform-inference-on-the-stm-microcontroller)
+    - [More Details](#more-details)
+
+<!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/lite/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## Overview
+
+MindSpore Lite provides a code generator tool, namely CodeGen, which could have runtime compiling and computational graphs building done offline. Only necessary codes and information are kept in the generated program, thereby minimizing the size of the generated inference program. CodeGen supports operators in NNACL and CMSIS, and generates inference programs running on x86/ARM64/ARM32A/ARM32M platforms.
+
+Here is the process of using CodeGen:
+
+1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
+
+2. Use CodeGen and input the `*.ms` file to automatically generate the inference code.
+
+![img](../images/lite_codegen.png)
+
+## Obtaining CodeGen
+
+You can obtain CodeGen by any of the following ways:
+
+1. Download pre-compiled [Release Package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) from MindSpore.
+2. [Build](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) from the source.
+
+> Currently the code generator is only available on Linux x86_64.
+
+## Parameter Description
+
+Here is the detailed description of parameters:
+
+| Parameter       | Mandatory or Not | Parameter Description                  | Value Range                | Default value  |
+| --------------- | ---------------- | -------------------------------------- | -------------------------- | -------------- |
+| help            | No               | print help information                 | -                          | -              |
+| codePath        | Yes              | path of the generated code             | -                          | ./(current dir)|
+| target          | Yes              | target platform for the generated code | x86, ARM32M, ARM32A, ARM64 | x86            |
+| modelPath       | Yes              | the path to the input model            | -                          | -              |
+| supportParallel | No               | generate parallel codes or not         | true, false                | false          |
+| debugMode       | No               | generate debug codes or not            | true, false                | false          |
+
+> The input model should be converted into .ms file using MindSpore Lite Converter.
+>
+> debugMode is not available when the filesystem is not supported.
+>
+> Please check the [API Document](https://www.mindspore.cn/doc/api_cpp/en/master/index.html) to get the detailed API description.
+>
+> The following 3 interfaces are currently not supported：
+> 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
+> 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
+> 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
+
+## Instructions
+
+The example starts with a pre-trained classification model for the MNIST dataset.
+
+```bash
+./codegen --modelPath=./mnist.ms --codePath=./
+```
+
+After successful execution, CodeGen would generate a folder named mnist at the specified path. The structure of the project file is shown as follows:
+
+```text
+mnist
+├── benchmark                  # Benchmark model for debugging
+│   ├── benchmark.cc
+│   ├── calib_output.cc
+│   ├── calib_output.h
+│   ├── load_input.c
+│   └── load_input.h
+├── CMakeLists.txt
+└── src                        # source files
+    ├── CMakeLists.txt
+    ├── model.h
+    ├── net.bin                # binary model weights
+    ├── net.c
+    ├── net.cmake
+    ├── net.h
+    ├── session.cc
+    ├── session.h
+    ├── string.cc
+    ├── tensor.cc
+    ├── tensor.h
+    ├── weight.c
+    └── weight.h
+```
+
+## Using CodeGen to Perform inference on STM Boards
+
+This guide takes the deployment on STM32F746 as an example to show how the pre-complied model is built and deployed on Cortex-M platform. More information about Arm Cortex-M could be found in their [Official Web Site](https://developer.arm.com/ip-products/processors/cortex-m).
+
+### STM32F746 Compile Dependencies
+
+The generated program compilation and deployment need to install the following tools on Windows: [J-Link](https://www.segger.com/), [STM32CubeMX](https://www.st.com/content/st_com/en.html) and [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) to perform Cross-compilation.
+
+- [STM32CubeMX Windows Version](https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/0b/05/f0/25/c7/2b/42/9d/stm32cubemx_v6-1-1/files/stm32cubemx_v6-1-1.zip/jcr:content/translations/en.stm32cubemx_v6-1-1.zip) >= 6.0.1
+
+- [GNU Arm Embedded Toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)  >= 9-2019-q4-major-win32
+
+- [J-Link Windows Version](https://www.segger.com/downloads/jlink/) >= 6.56
+- [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
+- [CMake](https://cmake.org/download/) >= 3.18.3
+
+### STM32F746 Project Construction
+
+- The structure of the project files that needs to be managed as follows:
+
+    ```bash
+    ├── mnist              # generated inference code by CodeGen
+    ├── include            # API header files (needs to be managed)
+    └── operator_library   # operator source code (needs to be managed)
+    ```
+
+> API header files could be found in the [Release Package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) provided by the MindSpore team.
+>
+> You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
+
+- Use Codegen to compile [MNIST handwriting number identification model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms), generate corresponding inference codes for STM32F46. The command is as follows:
+
+    ```bash
+    ./codegen --codePath=. --modelPath=mnist.ms --target=ARM32M
+    ```
+
+- The generated project file structure is shown below:
+
+    ```bash
+    ├── mnist               # root of the generated code
+        ├── benchmark       # generated benchmark code
+        └── src             # generated model inference code
+    ```
+
+- The file structure of the prepared static operator library is shown below:
+
+    ```bash
+    ├── operator_library    # operator library
+        ├── include         # header files of operator library
+        └── nnacl           # operator source code provided by MindSpore team
+        └── wrapper         # operator source code provided by MindSpore team
+        └── CMSIS           # CMSIS source code provided by Arm
+    ```
+
+    > `arm_nnfunctions.h` needs to be added when using CMSIS v5.7.0 Softmax operator.
+
+#### Project Compiling
+
+1. Environment testing
+
+    When programs needed for Cross-compilation are installed, add them to the Windows PATH one by one, and test them with the following instructions:
+
+    ```bash
+    gcc -v               # Check GCC
+    arm-none-eabi-gdb -v # Check Cross compiler
+    jlink -v             # Check J-Link
+    make -v              # Check Make
+    ```
+
+    If all success, the environment preparation is done.
+
+2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746))
+
+    - start STM32CubeMX, new project and choose STM32F746IG.
+    - Choose `Makefile` and `generator code`.
+    - Launch `cmd` on the generated project root, execute `make` to test whether the initialization code compilation is successful.
+
+    ```bash
+    # make success result
+    arm-none-eabi-size build/test_stm32f746.elf
+      text    data     bss     dec     hex filename
+      3660      20    1572    5252    1484 build/test_stm32f746.elf
+    arm-none-eabi-objcopy -O ihex build/test_stm32f746.elf build/test_stm32f746.hex
+    arm-none-eabi-objcopy -O binary -S build/test_stm32f746.elf build/test_stm32f746.bin
+    ```
+
+#### Compiling Model
+
+1. Copy operator library source code and header files provided by MindSpore team to the project folder generated by STM32CubeMX.
+
+2. Copy model inference code generated by CodeGen to the project folder generated by STM32CubeMX.
+
+    ```bash
+    ├── .mxproject
+    ├── build             # compile output folder
+    ├── Core
+    ├── Drivers
+    ├── mnist             # cortex-m7 model inference code generated by CodeGen
+    ├── Makefile          # modify makefile to organize mnist && operator_library source code
+    ├── startup_stm32f746xx.s
+    ├── STM32F746IGKx_FLASH.ld
+    └── test_stm32f746.ioc
+    ```
+
+3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
+
+    ```bash
+    # C includes
+    C_INCLUDES =  \
+    -ICore/Inc \
+    -IDrivers/STM32F7xx_HAL_Driver/Inc \
+    -IDrivers/STM32F7xx_HAL_Driver/Inc/Legacy \
+    -IDrivers/CMSIS/Device/ST/STM32F7xx/Include \
+    -Imnist/operator_library/include \                # Added, header files for operator library
+    -Imnist/include \                                 # Added, header files of model inference code
+    -Imnist/src                                       # Added, source code of model inference code
+    ......
+    ```
+
+4. Add code in `Core/Src/main.c` to call inference API. The code to be added is shown below:
+
+    ```cpp
+    while (1) {
+        /* USER CODE END WHILE */
+        SEGGER_RTT_printf(0, "***********mnist test start***********\n");
+        const char *model_buffer = nullptr;
+        int model_size = 0;
+        session::LiteSession *session = mindspore::session::LiteSession::CreateSession(model_buffer, model_size, nullptr);
+        Vector<tensor::MSTensor *> inputs = session->GetInputs();
+        size_t inputs_num = inputs.size();
+        void *inputs_binbuf[inputs_num];
+        int inputs_size[inputs_num];
+        for (size_t i = 0; i < inputs_num; ++i) {
+          inputs_size[i] = inputs[i]->Size();
+        }
+        // here mnist only have one input data,just hard code to it's array;
+        inputs_binbuf[0] = mnist_inputs_data;
+        for (size_t i = 0; i < inputs_num; ++i) {
+          void *input_data = inputs[i]->MutableData();
+          memcpy(input_data, inputs_binbuf[i], inputs_size[i]);
+        }
+        int ret = session->RunGraph();
+        if (ret != lite::RET_OK) {
+          return lite::RET_ERROR;
+        }
+        Vector<String> outputs_name = session->GetOutputTensorNames();
+        for (int i = 0; i < outputs_name.size(); ++i) {
+          tensor::MSTensor *output_tensor = session->GetOutputByTensorName(outputs_name[i]);
+          if (output_tensor == nullptr) {
+            return -1;
+          }
+          float *casted_data = static_cast<float *>(output_tensor->MutableData());
+          if (casted_data == nullptr) {
+            return -1;
+          }
+          for (size_t j = 0; j < 10 && j < output_tensor->ElementsNum(); j++) {
+            SEGGER_RTT_printf(0, "output: [%d] is : [%d]/100\n", i, casted_data[i] * 100);
+          }
+        }
+        delete session;
+        SEGGER_RTT_printf(0, "***********mnist test end***********\n");
+    ```
+
+5. Launch `cmd` as admin and run `make` to compile.
+
+    ```bash
+    make
+    ```
+
+### STM32F746 Project Deployment
+
+Deploy executable files to the board using J-Link and perform inference.
+
+```bash
+jlinkgdbserver           # start jlinkgdbserver set target device as STM32F746IG
+jlinkRTTViewer           # start jlinkRTTViewer set target devices as STM32F746IG
+arm-none-eabi-gdb        # start arm-gcc gdb service
+file build/target.elf    # open debugging file
+target remote 127.0.0.1  # connect jlink server
+monitor reset            # reset board
+monitor halt             # halt board
+load                     # load executable to board
+c                        # perform model inference
+```
+
+## More Details
+
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+
+### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+
