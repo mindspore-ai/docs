@@ -54,8 +54,8 @@ wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud
 wget -NP ./datasets/MNIST_Data/train https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/train-images-idx3-ubyte --no-check-certificate
 wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-labels-idx1-ubyte --no-check-certificate
 wget -NP ./datasets/MNIST_Data/test https://mindspore-website.obs.myhuaweicloud.com/notebook/datasets/mnist/t10k-images-idx3-ubyte --no-check-certificate
-wget https://mindspore-website.obs.myhuaweicloud.com/notebook/source-codes/dataset_process.py -N
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/checkpoint_lenet-1_1875.zip
+wget https://mindspore-website.obs.myhuaweicloud.com/notebook/source-codes/dataset_process.py -N --no-check-certificate
+wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/checkpoint_lenet-1_1875.zip --no-check-certificate
 unzip -o checkpoint_lenet-1_1875.zip
 ```
 
