@@ -38,7 +38,7 @@ def classify(image):
 
 The key point is to select a proper model. The model generally refers to a deep convolutional neural network (CNN), such as AlexNet, VGG, GoogleNet, and ResNet.
 
-MindSpore presets a typical CNN, developer can visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official) to get more details.
+MindSpore presets a typical CNN. For more details, visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official) to get more details.
 
 MindSpore supports the following image classification networks: LeNet, AlexNet, and ResNet.
 
@@ -52,7 +52,7 @@ The CIFAR-10 dataset contains 10 classes of 60,000 images. Each class contains 6
 
 Generally, a training indicator of image classification is accuracy, that is, a ratio of the quantity of accurately predicted examples to the total quantity of predicted examples.
 
-Next, let's use MindSpore to solve the image classification task. The overall process is as follows:
+To use MindSpore to classify images, do as follows:
 
 1. Download the CIFAR-10 dataset.
 2. Load and preprocess data.
@@ -168,13 +168,13 @@ ls = SoftmaxCrossEntropyWithLogits(sparse=True, reduction="mean")
 opt = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), 0.01, 0.9)
 ```
 
-### Calling the High-level `Model` API To Train and Save the Model File
+### Calling the High-level `Model` API to Train and Save the Model File
 
 After data preprocessing, network definition, and loss function and optimizer definition are complete, model training can be performed. Model training involves two iterations: multi-round iteration (`epoch`) of datasets and single-step iteration based on the batch size of datasets. The single-step iteration refers to extracting data from a dataset by `batch`, inputting the data to a network to calculate a loss function, and then calculating and updating a gradient of training parameters by using an optimizer.
 
 To simplify the training process, MindSpore encapsulates the high-level `Model` API. You can enter the network, loss function, and optimizer to complete the `Model` initialization, and then call the `train` API for training. The `train` API parameters include the number of iterations (`epoch`) and dataset (`dataset`).
 
-Model saving is a process of persisting training parameters. In the `Model` class, the model is saved using the `callback` function, as shown in the following code: You can set the parameters of the `callback` function by using `CheckpointConfig`. `save_checkpoint_steps` indicates that the model is saved once every fixed number of single-step iterations, and `keep_checkpoint_max` indicates the maximum number of saved models.
+Model saving is a process of persisting training parameters. In the `Model` class, the model is saved using the `callback` function, as shown in the following code. You can set the parameters of the `callback` function by using `CheckpointConfig`. `save_checkpoint_steps` indicates that the model is saved once every fixed number of single-step iterations, and `keep_checkpoint_max` indicates the maximum number of saved models.
 
 ```python
 '''
