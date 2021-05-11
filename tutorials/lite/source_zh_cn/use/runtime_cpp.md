@@ -153,7 +153,7 @@ context->device_list_.push_back(gpu_device_ctx);
 
 当需要执行的后端为CPU和NPU的异构推理时，需要同时设置CPU和NPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)，配置后将会优先使用NPU推理，其中[NpuDeviceInfo](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo)包含`frequency_`公有属性用来设置NPU频率。
 
-下面示例[代码演示](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3：
+下面示例[代码演示](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137)如何创建CPU与NPU异构推理后端，同时NPU频率设置为3，频率值默认为3，可设置为1（低功耗）、2（均衡）、3（高性能）、4（极致性能），设置其他值将被改为3：
 
 ```cpp
 auto context = std::make_shared<mindspore::lite::Context>();

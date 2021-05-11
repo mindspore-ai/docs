@@ -153,7 +153,7 @@ context->device_list_.push_back(gpu_device_ctx);
 
 When the backend to be exed is heterogeneous inference based on CPUs and GPUs, you need to set the CPU's and NPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext). After the configuration, the NPU's inference is preferentially used. The [NpuDeviceInfo](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo) contains the public attribute `frequency_`, which is used to set the NPU's frequency.
 
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3.
+The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L137) shows how to create the CPU and NPU heterogeneous inference backend and set the NPU frequency to 3. It can be set to 1 (low power consumption), 2 (balanced), 3 (high performance), 4 (extreme performance) and other values will be changed to 3.
 
 ```cpp
 auto context = std::make_shared<mindspore::lite::Context>();
