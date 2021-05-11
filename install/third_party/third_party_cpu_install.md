@@ -370,14 +370,17 @@ success building mindspore project!
 ms-sd@mssd:~/mindspore$ sudo pip3 install /mindspore/build/package/mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl
 ```
 
-（6）导入测试
+（6）验证安装是否成功
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+如果输出：
 
 ```text
-ms-sd@mssd:~/mindspore$ sudo python3
-Python 3.7.5 (default, Dec 19 2020, 13:04:49)
-[GCC 7.3.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import mindspore
->>> mindspore.__version__
-'1.1.0'
+mindspore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
 ```
+
+说明MindSpore安装成功了。

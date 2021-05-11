@@ -85,6 +85,23 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 
 按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请运行下面的Python代码并检查输出：
 
+方法一：
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+如果输出：
+
+```text
+mindspore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
+
+方法二：
+
 ```python
 import numpy as np
 from mindspore import Tensor

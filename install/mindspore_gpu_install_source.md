@@ -90,6 +90,23 @@ pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i
 
 ## 验证是否成功安装
 
+方法一：
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+如果输出：
+
+```text
+mindspore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+说明MindSpore安装成功了。
+
+方法二：
+
 ```python
 import numpy as np
 from mindspore import Tensor
