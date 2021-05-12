@@ -80,6 +80,28 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
 - `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
 
+如需使用MindInsight，需设置--network参数为”host”模式, 例如:
+
+```bash
+docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               --network host
+               --device=/dev/davinci0 \
+               --device=/dev/davinci1 \
+               --device=/dev/davinci2 \
+               --device=/dev/davinci3 \
+               --device=/dev/davinci4 \
+               --device=/dev/davinci5 \
+               --device=/dev/davinci6 \
+               --device=/dev/davinci7 \
+               --device=/dev/davinci_manager \
+               --device=/dev/devmm_svm \
+               --device=/dev/hisi_hdc \
+               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               /bin/bash
+```
+
 ## 验证是否安装成功
 
 按照上述步骤进入MindSpore容器后，测试Docker容器是否正常工作，请运行下面的Python代码并检查输出：
@@ -113,6 +135,12 @@ print(ops.add(x, y))
 ```
 
 至此，你已经成功通过Docker方式安装了MindSpore Ascend 910版本。
+
+验证MindInsight安装：
+
+1. 执行命令：```export PATH=/usr/local/python-3.7.5/bin:$PATH```。
+
+2. 输入```mindinsight start –port 8080```, 如提示启动status为success，则安装成功。
 
 ## 升级MindSpore版本
 
