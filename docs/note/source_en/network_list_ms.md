@@ -98,7 +98,7 @@
 | Computer Vision (CV) | Image Classification  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/FaceRecognitionForTracking)     |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Object Detection  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/ssd_ghostnet)               |  ✅ |    |    |    |   |   |
 | Computer Vision (CV)  | Key Point Detection  | [CenterNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/centernet)               |  ✅ |    |   |    | ✅ |   |
-| Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/cycle_gan)             |        |    |   |  ✅ | ✅ |   |
+| Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/cv/CycleGAN)             |        |    |   |  ✅ | ✅ |   |
 | Natural Language Processing (NLP) | Natural Language Understanding  | [DS-CNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/dscnn)      |  ✅ |  ✅ |    |   |   |   |
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TextRCNN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/textrcnn)  |  ✅ |    |    |   |   |   |
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TPRR](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/nlp/tprr)  |  ✅ |    |    |   |   |   |
