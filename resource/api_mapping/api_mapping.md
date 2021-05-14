@@ -34,6 +34,7 @@
 | torch.distributions.gamma.Gamma                      | mindspore.ops.Gamma                                            | 功能一致 |
 | torch.distributed.get_rank                           | mindspore.communication.get_rank                               | 功能一致 |
 | torch.distributed.init_process_group                 | mindspore.communication.init                                   |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/init.md)|
+| torch.distributed.new_group                          | mindspore.communication.create_group                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/create_group.md)|
 | torch.div                                            | mindspore.ops.Div                                              | 功能一致 |
 | torch.dot                                            | mindspore.ops.tensor_dot                                       |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/tensor_dot.md)|
 | torch.eq                                             | mindspore.ops.Equal                                            | 功能一致 |

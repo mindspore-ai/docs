@@ -34,6 +34,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.distributions.gamma.Gamma                      | mindspore.ops.Gamma                                            | same |
 | torch.distributed.get_rank                           | mindspore.communication.get_rank                               | same |
 | torch.distributed.init_process_group                 | mindspore.communication.init                                   |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/init_en.md)|
+| torch.distributed.new_group                          | mindspore.communication.create_group                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/create_group_en.md)|
 | torch.div                                            | mindspore.ops.Div                                              | same |
 | torch.dot                                            | mindspore.ops.tensor_dot                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/tensor_dot_en.md)|
 | torch.eq                                             | mindspore.ops.Equal                                            | same |
