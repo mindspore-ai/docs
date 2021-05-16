@@ -97,28 +97,42 @@
 
 ### 编译选项
 
-MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。下面对MindSpore Lite的编译选项进行说明。
+MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。
 
-| 选项  |  参数说明  | 取值范围 | 是否必选 |
+下面对`build.sh`的编译参数和`mindspore/lite/CMakeLists.txt`的选项进行说明。
+
+#### `build.sh`的编译参数
+
+| 参数  |  参数说明  | 取值范围 | 是否必选 |
 | -------- | ----- | ---- | ---- |
-| -I | 选择适用架构，若编译MindSpore Lite c++版本，则此选项必选 | arm64、arm32、x86_64 | 否 |
+| -I | 选择目标架构 | arm64、arm32、x86_64 | 否 |
+| -A | 编译AAR包(包含arm32和arm64) | on、off | 否 |
 | -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 否 |
 | -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 否 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
-| -e | 编译某种类型的内置算子，仅在ARM架构下适用，否则默认全部编译 | cpu、gpu、npu | 否 |
 | -h | 显示编译帮助信息 | 无 | 否 |
 | -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
-| -A | 指定编译语言，默认cpp。设置为java时，则编译AAR包和Linux X86的JAR包。 | cpp、java | 否 |
-| -C | 设置该参数，则编译模型转换工具，默认为on | on、off | 否 |
-| -o | 设置该参数，则编译基准测试工具、静态库裁剪工具，默认为on | on、off | 否 |
-| -t | 设置该参数，则编译测试用例，默认为off | on、off | 否 |
-| -T | 是否编译训练版本工具，默认为off | on、off | 否 |
-| -W | 启用x86_64 SSE或AVX指令集，默认为off | sse、avx、off | 否 |
 
+> - 编译x86_64版本时，若配置了JAVA_HOME环境变量并安装了Gradle，则同时编译JAR包。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
-> - 编译AAR包时，必须添加`-A java`参数，且无需添加`-I`参数，默认同时编译内置的CPU和GPU算子。
-> - 开启编译选项`-T`只生成训练版本。
-> - 任何`-e`编译选项，CPU都会编译进去。
+> - 编译AAR包时，必须添加`-A on`参数，且无需添加`-I`参数。
+
+#### `mindspore/lite/CMakeLists.txt`的选项
+
+| 选项  |  参数说明  | 取值范围 | 默认值 |
+| -------- | ----- | ---- | ---- |
+| MSLITE_GPU_BACKEND | 设置GPU后端，仅在ARM64下有效 | opencl、vulkan、cuda、off | opencl |
+| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在ARM下有效 | on、off | on |
+| MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | off |
+| MSLITE_ENABLE_SSE | 是否启用x86_64 SSE指令集 | on、off | off |
+| MSLITE_ENABLE_AVX | 是否启用x86_64 AVX指令集 | on、off | off |
+| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在X86_64下有效 | on、off | on |
+| MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
+| MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
+
+> - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
+> - 开启MSLITE_ENABLE_TRAIN只生成训练版本。
+> - 修改选项后，添加`-i`参数进行增量编译不生效。
 
 ### 编译示例
 
@@ -130,76 +144,28 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 然后，在源码根目录下执行如下命令，可编译不同版本的MindSpore Lite。
 
-- 编译x86_64架构Debug版本。
-
-    ```bash
-    bash build.sh -I x86_64 -d
-    ```
-
-- 编译x86_64架构Release版本，同时设定线程数。
+- 编译x86_64架构版本，同时设定线程数。
 
     ```bash
     bash build.sh -I x86_64 -j32
     ```
 
-- 编译x86_64架构Release版本，同时编译测试用例。
+- 编译ARM64架构版本，不编译NPU算子。
 
     ```bash
-    bash build.sh -I x86_64 -t on
+    MSLITE_ENABLE_NPU=off && bash build.sh -I arm64 -j32
     ```
 
-- 增量编译ARM64架构Release版本，同时设定线程数。
+    或者修改CMakeLists.txt将MSLITE_ENABLE_NPU设置为off后，执行命令:
 
     ```bash
-    bash build.sh -I arm64 -i -j32
+    bash build.sh -I arm64 -j32
     ```
 
-- 编译ARM64架构Release版本，只编译内置的CPU算子。
+- 编译包含aarch64和aarch32的AAR包。
 
     ```bash
-    bash build.sh -I arm64 -e cpu
-    ```
-
-- 编译ARM64架构Release版本，同时编译内置的CPU和GPU算子。
-
-    ```bash
-    bash build.sh -I arm64 -e gpu
-    ```
-
-- 编译ARM64架构Release版本，同时编译内置的CPU和NPU算子。
-
-    ```bash
-    bash build.sh -I arm64 -e npu
-    ```
-
-- 编译ARM64带图像预处理模块。
-
-    ```bash
-    bash build.sh -I arm64 -n lite_cv
-    ```
-
-- 编译MindSpore Lite AAR和Linux X86_64 JAR版本，MindSpore Lite AAR同时编译内置的CPU和GPU算子，JAR只编译内置的的CPU算子。
-
-    ```bash
-    bash build.sh -A java
-    ```
-
-- 编译MindSpore Lite AAR和Linux X86_64 JAR版本，只编译内置的CPU算子。
-
-    ```bash
-    bash build.sh -A java -e cpu
-    ```
-
-- 编译x86_64架构Release版本，编译模型转换、基准测试和库裁剪工具。
-
-    ```bash
-    bash build.sh -I x86_64
-    ```
-
-- 编译x86_64架构Release版本，模型转换、基准测试、库裁剪工具和端侧运行时 (Runtime) 训练版本工具。
-
-    ```bash
-    bash build.sh -I x86_64 -T on
+    bash build.sh -A on -j32
     ```
 
 ### 端侧推理框架编译输出
@@ -297,10 +263,12 @@ mindspore-lite-{version}-inference-linux-x64
     │   ├── include  # 推理框架头文件
     │   │   └── registry # 自定义算子注册头文件
     │   └── lib      # 推理框架库
-    │       ├── libminddata-lite.so     # 图像处理动态库文件
-    │       ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件
-    │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
-    │       └── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
+    │       ├── libminddata-lite.so       # 图像处理动态库文件
+    │       ├── libmindspore-lite.a       # MindSpore Lite推理框架的静态库
+    │       ├── libmindspore-lite-jni.so  # MindSpore Lite推理框架的jni动态库
+    │       ├── libmindspore-lite.so      # MindSpore Lite推理框架的动态库
+    │       ├── libmsdeobfuscator-lite.so # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
+    │       └── mindspore-lite-java.jar   # MindSpore Lite推理框架jar包
     └── tools
         ├── benchmark # 基准测试工具
         │   └── benchmark # 可执行程序
@@ -325,9 +293,9 @@ mindspore-lite-{version}-inference-linux-x64
     │   │   └── registry # 自定义算子注册头文件
     │   ├── lib         # 推理框架库
     │   │   ├── libminddata-lite.so  # 图像处理动态库文件
-    │   │   ├── libmsdeobfuscator-lite.so # 模混淆模型加载动态库
     │   │   ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
-    │   │   └── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   │   ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   │   └── libmsdeobfuscator-lite.so # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
     │   └── third_party
     │       └── hiai_ddk # NPU库，只存在于arm64包
     └── tools
@@ -338,7 +306,7 @@ mindspore-lite-{version}-inference-linux-x64
             └── lib      # 算子静态库
     ```
 
-- 当编译选项为`-A java`时：
+- 当编译选项为`-A on`时：
 
     ```text
     mindspore-lite-maven-{version}
@@ -347,17 +315,6 @@ mindspore-lite-{version}-inference-linux-x64
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
     ```
-
-    ```text
-    mindspore-lite-{version}-inference-linux-x64-jar
-    └── jar
-        ├── libmindspore-lite-jni.so # MindSpore Lite推理框架的动态库
-        ├── libmindspore-lite.so     # MindSpore Lite JNI的动态库
-        └── mindspore-lite-java.jar  # MindSpore Lite推理框架jar包
-    ```
-
-> - 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
-> - 编译混淆模型加载动态库文件libmsdeobfuscator-lite.so，需要开启`mindspore/mindspore/lite/CMakeLists.txt`中的`ENABLE_MODEL_OBF`选项。
 
 ### 端侧训练框架编译输出
 
@@ -394,8 +351,10 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
         │   └── registry # 自定义算子注册头文件
         ├── lib      # 训练框架库
         │   ├── libminddata-lite.so        # 图像处理动态库文件
+        │   ├── libmindspore-lite-jni.so   # MindSpore Lite训练框架的jni动态库
         │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   └── mindspore-lite-java.jar    # MindSpore Lite训练框架jar包
         └── third_party
             └── libjpeg-turbo
     ```
