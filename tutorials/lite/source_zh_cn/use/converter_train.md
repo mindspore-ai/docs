@@ -29,7 +29,13 @@
 MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
 
 - [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
-- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
+- 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
+
+    ```bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
+    ```
+
+    ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
 
 ### 参数说明
 

@@ -38,10 +38,10 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
     ````bash
-    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
     ````
 
-    Dynamic libraries can be divided into two parts, the first one stores some global variables for converter runtime, and the second one is the third-party dynamic library for glog. In addition, ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
+    ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
 ### Parameter Description
 
@@ -129,8 +129,6 @@ The following describes how to use the conversion command by using several commo
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
 - [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
-
-- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
 
 - Add the path of dynamic library required by the conversion tool to the environment variables PATH.
 

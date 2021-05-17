@@ -37,10 +37,10 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
-    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/tools/converter/third_party/glog/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
     ```
 
-    其中第一项是转换工具存储某些全局变量的动态库，第二项是第三方glog的动态库，${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
+    ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
 
 ### 参数说明
 
@@ -129,7 +129,6 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
 - [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
-- 参考[配置converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)，配置环境变量。
 - 将转换工具需要的动态链接库加入环境变量PATH。
 
   ```bash

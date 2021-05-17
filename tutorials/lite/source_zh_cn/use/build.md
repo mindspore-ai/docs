@@ -229,13 +229,9 @@ mindspore-lite-{version}-inference-linux-x64
     └── converter
         ├── converter                # 模型转换工具
         │   └── converter_lite       # 可执行程序
-        ├── lib                      # 转换工具依赖的动态库
-        │   └── libmindspore_gvar.so # 存储某些全局变量的动态库
-        │   └── libmslite_converter_plugin_reg.so  # 注册插件的动态库
-        └── third_party              # 转换工具依赖的动态库
-            └── glog
-                └── lib
-                    └── libglog.so.0 # Glog的动态库
+        └── lib                      # 转换工具依赖的动态库
+            ├── libglog.so.0         # Glog的动态库
+            └── libmslite_converter_plugin_reg.so  # 注册插件的动态库
 ```
 
 #### 代码生成工具CodeGen目录结构说明
@@ -482,7 +478,7 @@ mindspore-lite-{version}-inference-win-x64
         └── lib
             ├── libgcc_s_seh-1.dll    # MinGW动态库
             ├── libglog.dll           # Glog的动态库
-            ├── libmindspore_gvar.dll # 存储某些全局变量的动态库
+            ├── libmslite_converter_plugin_reg.dll # 注册插件的动态库
             ├── libssp-0.dll          # MinGW动态库
             ├── libstdc++-6.dll       # MinGW动态库
             └── libwinpthread-1.dll   # MinGW动态库
@@ -502,6 +498,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubun
 
 > - 下载镜像前，请确保已经安装docker。
 > - docker镜像暂不支持Windows版本编译。
+> - 镜像里已安装好编译依赖的第三方库并且配置好环境变量。
 
 #### 创建容器
 
