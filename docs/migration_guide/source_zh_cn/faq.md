@@ -36,6 +36,4 @@
 
     [端侧使用类常见问题处理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/faq.html)
 
-    [使用C++接口推理常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_cpp_library.html)
-
-    [使用推理服务常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/mindspore_serving.html)
+    [推理常见问题处理](https://www.mindspore.cn/doc/faq/zh-CN/master/inference.html)

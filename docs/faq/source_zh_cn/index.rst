@@ -19,5 +19,5 @@ MindSpore FAQ
   programming_language_extensions
   supported_features
   mindinsight_use
-  mindspore_cpp_library
-  mindspore_serving
+  distributed_settings
+  inference

@@ -1,8 +1,8 @@
-# Parallel Distributed Training
+# Parallel Distributed Training Usage
 
 <!-- TOC -->
 
-- [Parallel Distributed Training](#parallel-distributed-training)
+- [Parallel Distributed Training Usage](#parallel-distributed-training-usage)
     - [Overview](#overview)
     - [Parallel Distributed Training Configuration](#parallel-distributed-training-configuration)
         - [General Configuration](#general-configuration)

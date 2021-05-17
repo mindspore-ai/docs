@@ -1,4 +1,4 @@
-# 可视化组件MindInsight使用类
+# 训练可视类
 
 `Linux` `Ascend` `GPU` `环境准备`
 

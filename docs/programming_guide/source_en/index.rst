@@ -10,12 +10,70 @@ MindSpore Programming Guide
    :maxdepth: 1
 
    api_structure
-   data_type
-   compute_component
-   data_pipeline
-   execution_management
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Data Type
+
+   dtype
+   tensor
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Compute Component
+
+   operators
+   parameter
+   cell
+   network_component
+   initializer
+   numpy
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Data Pipeline
+
+   dataset_loading
+   sampler
+   pipeline
+   augmentation
+   tokenizer
+   dataset_conversion
+   auto_augmentation
+   cache
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Execution Management
+
+   context
+   run
+   callback
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Distributed Training
+
    auto_parallel
-   advanced_usage
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Advanced Usage
+
+   train
+   infer
+   advanced_usage_of_checkpoint
+   performance_optimization
+   customized
+   security_and_privacy
+   extension
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Specification Note
+
+   Benchmarks <https://www.mindspore.cn/doc/note/en/master/benchmark.html>
    network_list
    operator_list
    syntax_list
+   Environment Variables <https://www.mindspore.cn/doc/note/en/master/env_var_list.html>
