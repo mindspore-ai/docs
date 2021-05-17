@@ -74,14 +74,13 @@ lenet/
 ├── CMakeLists.txt
 └── src                             # 源文件
     ├── CMakeLists.txt
-    ├── model.h
+    ├── mmodel.h
     ├── net.bin                     # 二进制形式的模型权重
     ├── net.c
     ├── net.cmake
     ├── net.h
     ├── session.cc
     ├── session.h
-    ├── string.cc
     ├── tensor.cc
     ├── tensor.h
     ├── weight.c
