@@ -230,6 +230,7 @@ mindspore-lite-{version}-inference-linux-x64
         │   └── converter_lite       # Executable program
         ├── lib                      # The dynamic link library that converter depends
         │   └── libmindspore_gvar.so # A dynamic library that stores some global variables
+        │   └── libmslite_converter_plugin_reg.so  # A dynamic library of plugin registry
         └── third_party              # The dynamic link library that converter depends
             └── glog
                 └── lib

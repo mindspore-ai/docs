@@ -59,7 +59,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前支持1bit～16bit量化 | \[1，16] | 8 |
 | `--quantWeightSize=<QUANTWEIGHTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  \[0，+∞） | 0 |
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | \[0，+∞） | 16 |
-| `--configFile=<CONFIGFILE>` | 否 | 训练后量化（全量化）校准数据集配置文件路径  |  - | -  |
+| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径。2）可作为转换器的配置文件路径，内含参数`plugin_path`与`disable_fusion`，均为非必选，前者为第三方库加载路径，如有多个请用`;`分隔，后者默认值为`off`，当为`on`时会关闭融合优化。  |  - | -  |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
