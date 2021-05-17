@@ -10,12 +10,70 @@ MindSpore编程指南
    :maxdepth: 1
 
    api_structure
-   data_type
-   compute_component
-   data_pipeline
-   execution_management
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 数据类型
+
+   dtype
+   tensor
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 计算组件
+
+   operators
+   parameter
+   cell
+   network_component
+   initializer
+   numpy
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 数据管道
+
+   dataset_loading
+   sampler
+   pipeline
+   augmentation
+   tokenizer
+   dataset_conversion
+   auto_augmentation
+   cache
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 执行管理
+
+   context
+   run
+   callback
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 分布式并行
+
    auto_parallel
-   advanced_usage
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 进阶用法
+
+   train
+   infer
+   advanced_usage_of_checkpoint
+   performance_optimization
+   customized
+   security_and_privacy
+   extension
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 规格说明
+
+   基准性能 <https://www.mindspore.cn/doc/note/zh-CN/master/benchmark.html>
    network_list
    operator_list
    syntax_list
+   环境变量 <https://www.mindspore.cn/doc/note/zh-CN/master/env_var_list.html>

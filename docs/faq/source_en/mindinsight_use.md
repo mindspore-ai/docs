@@ -1,4 +1,4 @@
-# MindInsight use
+# Training Process Visualization
 
 `Linux` `Ascend` `GPU` `Environment Preparation`
 

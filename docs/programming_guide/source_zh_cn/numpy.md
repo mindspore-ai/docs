@@ -1,8 +1,8 @@
-# MindSpore NumPy函数使用介绍
+# MindSpore NumPy函数
 
 <!-- TOC -->
 
-- [MindSpore NumPy函数使用介绍](#mindspore-numpy函数使用介绍)
+- [MindSpore NumPy函数使用](#mindspore-numpy函数使用)
     - [概述](#概述)
     - [算子介绍](#算子介绍)
         - [张量生成](#张量生成)
