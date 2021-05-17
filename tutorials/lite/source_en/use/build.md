@@ -228,13 +228,9 @@ mindspore-lite-{version}-inference-linux-x64
     └── converter
         ├── converter                # Model conversion tool
         │   └── converter_lite       # Executable program
-        ├── lib                      # The dynamic link library that converter depends
-        │   └── libmindspore_gvar.so # A dynamic library that stores some global variables
-        │   └── libmslite_converter_plugin_reg.so  # A dynamic library of plugin registry
-        └── third_party              # The dynamic link library that converter depends
-            └── glog
-                └── lib
-                    └── libglog.so.0 # Dynamic library of Glog
+        └── lib                      # The dynamic link library that converter depends
+            ├── libglog.so.0         # Dynamic library of Glog
+            └── libmslite_converter_plugin_reg.so  # A dynamic library of plugin registry
 ```
 
 #### Description of CodeGen's Directory Structure
@@ -483,7 +479,7 @@ mindspore-lite-{version}-inference-win-x64
         └── lib
             ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
             ├── libglog.dll           # Dynamic library of Glog
-            ├── libmindspore_gvar.dll # A dynamic library that stores some global variables
+            ├── libmslite_converter_plugin_reg.dll # A dynamic library of plugin registry
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
@@ -503,6 +499,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubun
 
 > - Before downloading the image, please make sure docker has been installed.
 > - Docker image does not currently support Windows version compilation.
+> - Third-party libraries that compile dependencies have been installed in the image and environment variables have been configured.
 
 #### Create a container
 

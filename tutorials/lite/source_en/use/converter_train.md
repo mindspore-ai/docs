@@ -30,7 +30,13 @@ MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple 
 
 - [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
 
-- Configure environment variables, refer to [Configure converter](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html).
+- Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
+
+    ````bash
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
+    ````
+
+    ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
 ### Parameters Description
 
