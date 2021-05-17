@@ -82,14 +82,13 @@ mnist
 ├── CMakeLists.txt
 └── src                        # source files
     ├── CMakeLists.txt
-    ├── model.h
+    ├── mmodel.h
     ├── net.bin                # binary model weights
     ├── net.c
     ├── net.cmake
     ├── net.h
     ├── session.cc
     ├── session.h
-    ├── string.cc
     ├── tensor.cc
     ├── tensor.h
     ├── weight.c
