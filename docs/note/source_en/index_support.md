@@ -229,7 +229,7 @@ When `value` is a tensor whose type is `Tuple`, `List` or `Tensor` and only cont
 
 When `value` is `Tuple/List`, and contains mixtures of `Number`, `Tuple`, `List` and `Tensor`, only one-dimensional `Tuple` and `List` are currently supported.
 
-When `value` is `Tuple` or `List`, and only contains the type of `Tensor`, these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the value to `Tensor`.
+When `value` is `Tuple` or `List`, and contains `Tensor`, all the `non-Tensor` elements in `value` will be converted to `Tensor` first, and then these `Tensor` values are packed on the `axis=0` axis and become new `Tensor`. In this case, the value is assigned according to the rule of assigning the `value` to `Tensor`. All `Tensors` must have the same dtype.
 
 Index value assignment can be understood as assigning values to indexed position elements based on certain rules. All index value assignment does not change the original `shape` of `Tensor`.
 
@@ -322,7 +322,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_x[0:1] = 88.0
-    tensor_y[0:2][0:2] = 88.0
+    tensor_y[0:2] = 88.0
     tensor_z[0:2] = np.array([[11, 12, 13], [11, 12, 13]]).astype(np.float32)
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
     ```
@@ -424,8 +424,7 @@ Index value assignment can be understood as assigning values to indexed position
     tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
-    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
-    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
+    tensor_index = np.array([0, 1]).astype(np.int32)
     tensor_x[1, 1:3] = 88.0
     tensor_y[1:3, tensor_index] = 88.0
     tensor_z[1:3, tensor_index] = np.array([11, 12]).astype(np.float32)
@@ -436,7 +435,7 @@ Index value assignment can be understood as assigning values to indexed position
     ```text
     tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
     tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
-    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
+    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [11.0, 12.0, 5.0], [11.0, 12.0, 8.0]])
     ```
 
 ## Index value augmented-assignment

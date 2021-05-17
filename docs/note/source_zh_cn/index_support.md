@@ -229,7 +229,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
 
 当`value`为`Tuple`或`List`时，若`value`中元素包含`Number`，`Tuple`，`List` 和 `Tensor`等多种类型，该`Tuple` 和 `List` 目前只支持1维。
 
-当`value`为`Tuple`或`List`，且只包含`Tensor`时，这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`value`为`Tensor`的规则进行赋值。
+当`value`为`Tuple`或`List`，且存在`Tensor`时，非`Tensor`的元素会首先被转换为`Tensor`，然后这些`Tensor`在`axis=0`轴上打包之后成为一个新的赋值`Tensor`，这时按照`value`为`Tensor`的规则进行赋值。所有`Tensor`的数据类型必须保持一致。
 
 索引赋值可以理解为对索引到的位置元素按照一定规则进行赋值，所有索引赋值都不会改变原`Tensor`的`shape`。
 
@@ -250,7 +250,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     tensor_z = np.arange(2* 3).reshape((2, 3)).astype(np.float32)
     tensor_x[1] = 88.0
     tensor_y[1]= np.array([66, 88, 99]).astype(np.float32)
-    tensor_z[1] = (66, np.array(88), 99)
+    tensor_z[1] = (66, np.array(88).astype(np.int64), 99)
     ```
 
     结果如下：
@@ -322,7 +322,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_x[0:1] = 88.0
-    tensor_y[0:2][0:2] = 88.0
+    tensor_y[0:2] = 88.0
     tensor_z[0:2] = np.array([[11, 12, 13], [11, 12, 13]]).astype(np.float32)
     tensor_k[0:2] = ([11, 12, 13], (14, 15, 16))
     ```
@@ -424,8 +424,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     tensor_x = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_y = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
     tensor_z = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
-    tensor_k = np.arange(3 * 3).reshape((3, 3)).astype(np.float32)
-    tensor_index = np.array([[0, 1], [1, 0]]).astype(np.int32)
+    tensor_index = np.array([0, 1]).astype(np.int32)
     tensor_x[1, 1:3] = 88.0
     tensor_y[1:3, tensor_index] = 88.0
     tensor_z[1:3, tensor_index] = np.array([11, 12]).astype(np.float32)
@@ -436,7 +435,7 @@ Tensor 支持单层与多层索引取值，赋值以及增强赋值，支持动�
     ```text
     tensor_x: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [3.0, 88.0, 88.0], [6.0, 7.0, 8.0]])
     tensor_y: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [88.0, 88.0, 5.0], [88.0, 88.0, 8.0]])
-    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [12.0, 11.0, 5.0], [12.0, 11.0, 8.0]])
+    tensor_z: Tensor(shape=[3, 3], dtype=Float32, value=[[0.0, 1.0, 2.0], [11.0, 12.0, 5.0], [11.0, 12.0, 8.0]])
     ```
 
 ## 索引增强赋值
