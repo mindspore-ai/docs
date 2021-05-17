@@ -61,7 +61,7 @@ The following describes the parameters in detail.
 | `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
 | `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than this, it will trigger weight quantization. | \[0, +∞) | 16 |
-| `--configFile=<CONFIGFILE>` | No | Profile path of calibration dataset when quantType is set as PostTraining. | - | - |
+| `--configFile=<CONFIGFILE>` | No | 1) Profile path of calibration dataset when quantType is set as PostTraining. 2) Profile path of converter. It contains the parameters `plugin_path` and `disable_fusion`, both of which are optional. The former one is the third-party library path. If there are more than one, please use `;` to separate. The default value of the latter one is `off`. Fusion optimization will be turned off when the value is set to `on`. | - | - |
 
 > - The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
