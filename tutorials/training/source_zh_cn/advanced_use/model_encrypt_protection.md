@@ -19,7 +19,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 
 以下通过示例来介绍CheckPoint文件的加密保存和读取的方法。
 
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/model_encrypt_protection/encrypt_checkpoint.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## 安全导出CheckPoint文件
 
