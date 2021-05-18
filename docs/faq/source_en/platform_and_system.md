@@ -46,12 +46,6 @@ A: Yes. MindSpore provides unified APIs for NPUs, GPUs, and CPUs. With the suppo
 
 <br/>
 
-<font size=3>**Q: Can MindSpore be installed on Ascend 310?**</font>
-
-A: Ascend 310 can only be used for inference. MindSpore supports training on Ascend 910. The trained model can be converted into an .om model for inference on Ascend 310.
-
-<br/>
-
 <font size=3>**Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?**</font>
 
 A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/master/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
