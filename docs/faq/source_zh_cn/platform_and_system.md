@@ -30,7 +30,7 @@ A: MindSpore同时支持华为自己的`Ascend NPU`、`GPU`与`CPU`，是支持�
 
 <font size=3>**Q：MindSpore在Ascend 310上是否可以转AIR模型？**</font>
 
-A：Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint后,导出AIR，然后在Ascend 310转成OM模型进行推理。Ascend 910的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
+A：Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint后，导出AIR，然后在Ascend 310转成OM模型进行推理。Ascend 910的安装方法可以参考官网MindSpore[安装指南](https://www.mindspore.cn/install)。
 
 <br/>
 
@@ -43,12 +43,6 @@ A：对于单个Tensor的输入，Tensor大小不能超过2GB，否则导出AIR�
 <font size=3>**Q：我用MindSpore在GPU上训练的网络脚本可以不做修改直接在NPU上进行训练么？**</font>
 
 A：可以的，MindSpore面向NPU/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
-
-<br/>
-
-<font size=3>**Q：Ascend 310 不能安装MindSpore么？**</font>
-
-A：Ascend 310只能用作推理，MindSpore支持在Ascend 910训练，训练出的模型转化为OM模型可用于Ascend 310上推理。
 
 <br/>
 
