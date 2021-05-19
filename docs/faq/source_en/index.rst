@@ -19,4 +19,5 @@ MindSpore FAQ
   programming_language_extensions
   supported_features
   mindinsight_use
+  distributed_settings
   inference
