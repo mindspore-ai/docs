@@ -10,6 +10,13 @@ A：需要在命令行中使用”export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH”
 
 <br />
 
+<font size=3>**Q：MindInsight启动失败并且提示:`bash: mindinsight: command not found` 如何处理？**</font>
+
+A：当使用Python源码编译安装在自定义路径下会出现该问题，pip安装MindInsight时可执行文件会安装在该路径下，若使用`echo $PATH`查询到的bash环境变量中没有该安装目录会导致系统找不到安装的可执行文件。需要在命令行中使用`export PATH=$PATH:$YourPythonPath$/bin`来导入PATH变量。
+(`$YourPythonPath$`请更换为你的安装路径)。注：该命令只在当前终端有效，若想永久有效请在`~/.bashrc`文件中加入该命令。
+
+<br />
+
 <font size=3>**Q：卸载MindInsight后，在MindInsight的运行日志中出现：`No module named 'mindinsight'` 如何处理？**</font>
 
 A：MindInsight启动后，会变成一个后台服务。卸载MindInsight后，已启动的MindInsight后台服务不会自行停止。

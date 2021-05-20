@@ -10,6 +10,14 @@ A: You can use "export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH" command to export L
 
 <br />
 
+<font size=3>**Q: What can I do if the error message `bash: mindinsight: command not found` is displayed in the MindInsight running logs after MindInsight failed to start?**</font>
+
+A: This problem occurs when using Python source codes to compile and install in the user-defined path. When install MindInsight by using `pip`, the executable file will be installed in this path. If the installation directory is not found in the bash environment variable queried by using 'echo $PATH', the system will not find the installed executable file. You need to use `export PATH=$PATH: $YourPythonPath$/bin` on the command line to import the path variable.
+
+(Please change `$YourPythonPath$` to your installation path). Note: this command is only valid at the current terminal. If you want to make it permanent, please add it to the file `~/.bashrc`.
+
+<br />
+
 <font size=3>**Q: What can I do if the error message `No module named 'mindinsight'` is displayed in the MindInsight running logs after MindInsight is uninstalled?**</font>
 
 A: After MindInsight is started, it becomes a background service. After MindInsight package is uninstalled, the started MindInsight background service will not automatically stop. When the MindInsight background service starts a new process to load data or performs other operations, it will trigger the error message of `No module named 'mindinsight'` and record it to a log file.
