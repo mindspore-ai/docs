@@ -22,6 +22,7 @@ Welcome to MindSpore Lite. We provide functions such as model conversion, model 
 | Inference runtime (cpp), training runtime (cpp), inference aar package, and benchmark/benchmark_train tools. | CPU/GPU | Android-aarch64 | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/android/gpu/mindspore-lite-1.2.0-android-aarch64.tar.gz> | 7f8400f0b97fa3e7cbf0d266c73b43a2410905244b04d0202fab39d9267346e0 |
 | Inference runtime (cpp), training runtime (cpp), inference jar package, and benchmark/benchmark_train/codegen/converter/cropper tools. | CPU     |  Ubuntu-x64     | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/linux/mindspore-lite-1.2.0-linux-x64.tar.gz> | 3b609ed8be9e3ae70987d6e00421ad4720776d797133e72f6952ba6b93059062 |
 | Inference runtime (cpp) and benchmark/codegen/converter tools. | CPU     |  Windows-x64    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/windows/mindspore-lite-1.2.0-win-x64.zip> | bf01851d7e2cde416502dce11bd2a86ef63e559f6dabba090405755a87ce14ae |
+| Inference runtime(cpp) | CPU     |  OpenHarmony    | <https://ms-release.obs.cn-north-4.myhuaweicloud.com/1.2.0/MindSpore/lite/release/openharmony/mindspore-lite-1.2.0-ohos-aarch32.tar.gz> | a9987b25815cb69e0f630be1388486e8d727a19815a67851089b7d633bd2f3f2 |
 
 ## 1.1.0
 
