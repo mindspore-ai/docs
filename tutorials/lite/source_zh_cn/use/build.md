@@ -231,7 +231,8 @@ mindspore-lite-{version}-inference-linux-x64
         │   └── converter_lite       # 可执行程序
         └── lib                      # 转换工具依赖的动态库
             ├── libglog.so.0         # Glog的动态库
-            └── libmslite_converter_plugin_reg.so  # 注册插件的动态库
+            ├── libmslite_converter_plugin_reg.so  # 注册插件的动态库
+            └── libmslite_kernel_reg.so            # 注册用户自定义算子的动态库
 ```
 
 #### 代码生成工具CodeGen目录结构说明
@@ -283,7 +284,8 @@ mindspore-lite-{version}-inference-linux-x64
     │   └── lib      # 推理框架库
     │       ├── libminddata-lite.so     # 图像处理动态库文件
     │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
-    │       └── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
+    │       ├── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
+    │       └── libmslite_kernel_reg.so # 注册用户自定义算子的动态库
     └── tools
         ├── benchmark # 基准测试工具
         │   └── benchmark # 可执行程序
@@ -307,7 +309,8 @@ mindspore-lite-{version}-inference-linux-x64
     │   ├── lib         # 推理框架库
     │   │   ├── libminddata-lite.so  # 图像处理动态库文件
     │   │   ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
-    │   │   └── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   │   ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
+    │   │   └── libmslite_kernel_reg.so # 注册用户自定义算子的动态库
     │   └── third_party
     │       └── hiai_ddk # NPU库，只存在于arm64包
     └── tools
@@ -333,6 +336,7 @@ mindspore-lite-{version}-inference-linux-x64
     └── jar
         ├── libmindspore-lite-jni.so # MindSpore Lite推理框架的动态库
         ├── libmindspore-lite.so     # MindSpore Lite JNI的动态库
+        ├── libmslite_kernel_reg.so  # 注册用户自定义算子 JNI的动态库
         └── mindspore-lite-java.jar  # MindSpore Lite推理框架jar包
     ```
 
@@ -373,7 +377,8 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
         ├── lib      # 训练框架库
         │   ├── libminddata-lite.so        # 图像处理动态库文件
         │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   └── libmslite_kernel_reg.so    # 注册用户自定义算子的动态库
         └── third_party
             └── libjpeg-turbo
     ```
@@ -389,7 +394,8 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
         ├── lib     # 训练框架库
         │   ├── libminddata-lite.so        # 图像处理动态库文件
         │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+        │   └── libmslite_kernel_reg.so    # 注册用户自定义算子的动态库
         └── third_party
             ├── hiai_ddk  # NPU库，只存在于arm64包
             └── libjpeg-turbo
@@ -466,6 +472,8 @@ mindspore-lite-{version}-inference-win-x64
 │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
 │       ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
 │       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
+│       ├── libmslite_kernel_reg.dll   # 注册用户自定义算子的动态库
+│       ├── libmslite_kernel_reg.dll.a # 注册用户自定义算子的动态库的链接文件
 │       ├── libssp-0.dll            # MinGW动态库
 │       ├── libstdc++-6.dll         # MinGW动态库
 │       └── libwinpthread-1.dll     # MinGW动态库
@@ -478,7 +486,10 @@ mindspore-lite-{version}-inference-win-x64
         └── lib
             ├── libgcc_s_seh-1.dll    # MinGW动态库
             ├── libglog.dll           # Glog的动态库
-            ├── libmslite_converter_plugin_reg.dll # 注册插件的动态库
+            ├── libmslite_converter_plugin_reg.dll   # 注册插件的动态库
+            ├── libmslite_converter_plugin_reg.dll.a # 注册插件的动态库的链接文件
+            ├── libmslite_kernel_reg.dll   # 注册用户自定义算子的动态库
+            ├── libmslite_kernel_reg.dll.a # 注册用户自定义算子的动态库的链接文件
             ├── libssp-0.dll          # MinGW动态库
             ├── libstdc++-6.dll       # MinGW动态库
             └── libwinpthread-1.dll   # MinGW动态库
