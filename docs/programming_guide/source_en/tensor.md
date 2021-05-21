@@ -68,10 +68,16 @@ True
 
 ### Attributes
 
-Tensor attributes include shape and data type (dtype).
+Tensor attributes include `shape`，`dtype`, `T`, `itemsize`, `nbytes`, `ndim`, `size`, `strides`.
 
 - shape: a tuple
 - dtype: a data type of MindSpore
+- T: transposed view of original tensor
+- itemsize: an integer, representing the number of bytes consumed by a single element in the `Tensor`
+- nbytes: an integer, representing the total number of bytes consumed by `Tensor`
+- ndim: an integer, representing the rank of the `Tensor`
+- size: an integer, representing the total number of elements in `Tensor`
+- strides: the tuple of bytes to traverse in each dimension in `Tensor`
 
 A code example is as follows:
 
@@ -83,20 +89,39 @@ from mindspore import dtype as mstype
 x = Tensor(np.array([[1, 2], [3, 4]]), mstype.int32)
 x_shape = x.shape
 x_dtype = x.dtype
-
-print(x_shape, x_dtype)
+x_transposed = x.T
+x_itemsize = x.itemsize
+x_nbytes = x.nbytes
+x_ndim = x.ndim
+x_size = x.size
+x_strides = x.strides
+print("x_shape:", x_shape)
+print("x_dtype:", x_dtype)
+print("x_transposed:", x_transposed)
+print("x_itemsize:", x_itemsize)
+print("x_nbytes:", x_nbytes)
+print("x_ndim:", x_ndim)
+print("x_size:", x_size)
+print("x_strides:", x_strides)
 ```
 
 The following information is displayed:
 
 ```text
-(2, 2) Int32
+x_shape: (2, 2)
+x_dtype: Int32
+x_transposed: [[1 3]
+ [2 4]]
+x_itemsize: 4
+x_nbytes: 16
+x_ndim: 2
+x_size: 4
+x_strides: (8, 4)
 ```
 
 ### Methods
 
-Tensor methods include `all`, `any`, and `asnumpy`. Currently, the `all` and `any` methods support only Ascend, and the data type of `Tensor` is required to be `mindspore.bool_`.
-.
+Tensor methods include `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
 
 - `all(axis, keep_dims)`: performs the `and` operation on a specified dimension to reduce the dimension. `axis` indicates the reduced dimension, and `keep_dims` indicates whether to retain the reduced dimension.
 - `any(axis, keep_dims)`: performs the `or` operation on a specified dimension to reduce the dimension. The parameter meaning is the same as that of `all`.
