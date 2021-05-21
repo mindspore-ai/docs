@@ -14,6 +14,8 @@
 
 本文档介绍如何在CPU环境的Windows系统上，使用pip方式快速安装MindSpore。
 
+在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Windows（CPU）上进行源码编译安装MindSpore](https://www.mindspore.cn/news/newschildren?id=364)中的第三方依赖软件安装相关部分，在此感谢社区成员[lvmingfu](https://gitee.com/lvmingfu)的分享。
+
 ## 确认系统环境信息
 
 - 确认安装Windows 10是x86架构64位操作系统。
