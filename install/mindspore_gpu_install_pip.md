@@ -17,6 +17,8 @@
 
 本文档介绍如何在GPU环境的Linux系统上，使用pip方式快速安装MindSpore。
 
+在确认系统环境信息的过程中，如需了解如何安装第三方依赖软件，可以参考社区提供的实践——[在Linux上体验源码编译安装MindSpore GPU版本](https://www.mindspore.cn/news/newschildren?id=401)中的第三方依赖软件安装相关部分，在此感谢社区成员[飞翔的企鹅](https://gitee.com/zhang_yi2020)的分享。
+
 ## 确认系统环境信息
 
 - 确认安装Ubuntu 18.04是64位操作系统。
