@@ -1,5 +1,7 @@
 # Preparation
 
+Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
+
 <!-- TOC -->
 
 - [Preparation](#preparation)
@@ -43,11 +45,11 @@ You can visit [Repository of Mindspore](https://gitee.com/mindspore/mindspore) a
 ```python
 cd mindspore
 bash build.sh -e cpu -j{thread_num} # cpu
-bash build.sh -e ascend -j{thread_num} # Ascend
+bash build.sh -e ascend -j{thread_num} # ascend
 bash build.sh -e gpu -j{thread_num} # gpu
 ```
 
-After successfully compilation, MindSpore install package will be created in `output`  directory. Then you can **install it by pip** or **add current directory to PYTHONPATH** to use this package.
+After successfully compilation, MindSpore install package will be created in `output` directory. Then you can **install it by pip** or **add current directory to PYTHONPATH** to use this package.
 
 > Installing by pip is fast and convenient to start.
 >
@@ -133,4 +135,3 @@ Users can read [MindSpore Tutorial](https://www.mindspore.cn/tutorial/training/e
 ### Training on the Cloud
 
 ModelArts is a one-stop development platform for AI developers, which contains Ascend resource pool. Users can experience MindSpore in this platform and read related document [MindSpore use_on_the_cloud](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/use_on_the_cloud.html) and [AI Platform ModelArts](https://support.huaweicloud.com/intl/en-us/wtsnew-modelarts/index.html).
-
