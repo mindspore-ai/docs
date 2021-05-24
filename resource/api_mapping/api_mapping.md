@@ -146,7 +146,6 @@
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                          | 功能一致 |
 | torch.sin                                            | mindspore.ops.Sin                                              | 功能一致 |
 | torch.sinh                                           | mindspore.ops.Sinh                                             | 功能一致 |
-| torch.sparse.FloatTensor                             | mindspore.Tensor                                               | 差异对比 |
 | torch.split                                          | mindspore.ops.Split                                            | 功能一致 |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | 功能一致 |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | 功能一致 |
