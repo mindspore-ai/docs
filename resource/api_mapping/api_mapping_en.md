@@ -146,7 +146,6 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.sigmoid                                        | mindspore.ops.Sigmoid                                          | same |
 | torch.sin                                            | mindspore.ops.Sin                                              | same |
 | torch.sinh                                           | mindspore.ops.Sinh                                             | same |
-| torch.sparse.FloatTensor                             | mindspore.Tensor                                               | diff |
 | torch.split                                          | mindspore.ops.Split                                            | same |
 | torch.sqrt                                           | mindspore.ops.Sqrt                                             | same |
 | torch.squeeze                                        | mindspore.ops.Squeeze                                          | same |
