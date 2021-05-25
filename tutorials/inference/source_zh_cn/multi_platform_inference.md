@@ -65,7 +65,7 @@ MindSpore通过统一IR定义了网络的逻辑结构和算子的属性，将Min
 
 2. 使用场景
 
-    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html)、[端侧推理](https://www.mindspore.cn/lite/docs?master)。
+    先使用网络定义和Checkpoint文件导出MindIR模型文件，再根据不同需求执行推理任务，如[在Ascend 310上执行推理任务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html)、[基于MindSpore Serving部署推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html)、[端侧推理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html)。
 
 ### MindIR支持的网络列表
 

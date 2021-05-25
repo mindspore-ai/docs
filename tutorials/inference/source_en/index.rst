@@ -16,7 +16,7 @@ Inference Using MindSpore
    multi_platform_inference_ascend_310
    multi_platform_inference_gpu
    multi_platform_inference_cpu
-   On-Device Inference <https://www.mindspore.cn/lite/docs/en?master>
+   On-Device Inference <https://www.mindspore.cn/tutorial/lite/en/master/index.html>
 
 .. toctree::
    :glob:

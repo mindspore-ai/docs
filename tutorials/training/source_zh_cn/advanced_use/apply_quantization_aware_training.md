@@ -271,7 +271,7 @@ if __name__ == "__main__":
 导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
 
 > - 导出的模型格式支持MindIR和AIR。
-> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs?master)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。
+> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。
 
 ## 参考文献
 

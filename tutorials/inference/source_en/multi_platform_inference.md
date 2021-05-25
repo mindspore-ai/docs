@@ -65,7 +65,7 @@ MindSpore defines logical network structures and operator attributes through a u
 
 2. Application Scenarios
 
-    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/lite/docs/en?master).
+    Use a network definition and a checkpoint file to export a MindIR model file, and then execute inference based on different requirements, for example, [Inference Using the MindIR Model on Ascend 310 AI Processors](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html), [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html), and [Inference on Devices](https://www.mindspore.cn/tutorial/lite/en/master/index.html).
 
 ### Networks Supported by MindIR
 
