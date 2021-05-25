@@ -8,3 +8,7 @@ MindSpore Migration Guide
 
 .. toctree::
    :maxdepth: 1
+
+   preparation
+   performance_optimization
+   inference

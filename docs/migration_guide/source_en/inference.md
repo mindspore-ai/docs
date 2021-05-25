@@ -1,5 +1,7 @@
 # Inference Execution
 
+Translator: [Dongdong92](https://gitee.com/zy179280)
+
 <!-- TOC -->
 
 - [Inference Execution](#inference-execution)
@@ -29,7 +31,7 @@ For dominating the difference between backend models, model files in the [MindIR
 - For the Ascend hardware platform, please refer to [Inference on the Ascend 910 AI processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html) and [Inference on Ascend 310](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
 - For the GPU hardware platform, please refer to [Inference on a GPU](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_gpu.html).
 - For the CPU hardware platform, please refer to [Inference on a CPU](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_cpu.html).
-- For inference on the Lite platform on device, please refer to [on-device inference](https://www.mindspore.cn/lite/docs?master)。
+- For inference on the Lite platform on device, please refer to [on-device inference](https://www.mindspore.cn/tutorial/lite/en/master/index.html).
 
 > Please refer to [MindSpore C++ Library Use](https://www.mindspore.cn/doc/faq/en/master/inference.html#c) to solve the interface issues on the Ascend hardware platform.
 

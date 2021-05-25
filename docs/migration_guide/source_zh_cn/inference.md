@@ -29,7 +29,7 @@ MindSpore支持保存为CheckPoint格式的[训练参数文件](https://www.mind
 - Ascend硬件平台参考[Ascend 910 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。
 - GPU硬件平台参考[GPU上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_gpu.html)。
 - CPU硬件平台参考[CPU上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_cpu.html)。
-- Lite端侧推理的相关应用参考[端侧推理](https://www.mindspore.cn/lite/docs?master)。
+- Lite端侧推理的相关应用参考[端侧推理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html)。
 
 > Ascend硬件平台推理的接口使用问题参考[C++接口使用类](https://www.mindspore.cn/doc/faq/zh-CN/master/inference.html#c)解决。
 
