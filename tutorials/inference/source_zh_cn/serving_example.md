@@ -7,6 +7,7 @@
 - [基于MindSpore Serving部署推理服务](#基于mindspore-serving部署推理服务)
     - [概述](#概述)
         - [环境准备](#环境准备)
+        - [下载样例](#下载样例)
         - [导出模型](#导出模型)
         - [部署Serving推理服务](#部署serving推理服务)
             - [轻量级部署](#轻量级部署)
@@ -27,9 +28,13 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
 
+### 下载样例
+
+请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/add/)。
+
 ### 导出模型
 
-使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
+在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
 ```python
 import os
