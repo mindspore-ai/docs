@@ -7,6 +7,7 @@
 - [MindSpore Serving-based Inference Service Deployment](#mindspore-serving-based-inference-service-deployment)
     - [Overview](#overview)
         - [Preparing the Environment](#preparing-the-environment)
+        - [Downloading the Example](#downloading-the-example)
         - [Exporting the Model](#exporting-the-model)
         - [Deploying the Serving Inference Service](#deploying-the-serving-inference-service)
             - [Lightweight Deployment](#lightweight-deployment)
@@ -27,9 +28,13 @@ The following uses a simple `Add` network as an example to describe how to use M
 
 Before running the sample network, ensure that MindSpore Serving has been properly installed. To install MindSpore Serving on your PC, go to the [MindSpore Serving installation page](https://gitee.com/mindspore/serving/blob/master/README.md#installing-serving) and configure environment variables on the [MindSpore Serving environment configuration page](https://gitee.com/mindspore/serving/blob/master/README.md#configuring-environment-variables).
 
+### Downloading the Example
+
+Please download the [add example](https://gitee.com/mindspore/serving/blob/master/example/add/) first.
+
 ### Exporting the Model
 
-Use [add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
+In the directory `export_model`, use [add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py) to build a network with only the Add operator and export the MindSpore inference deployment model.
 
 ```python
 import os
