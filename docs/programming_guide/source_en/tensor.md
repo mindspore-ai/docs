@@ -126,6 +126,7 @@ Tensor methods include `all`, `any`, `asnumpy` and many other functions. Numpy-l
 - `all(axis, keep_dims)`: performs the `and` operation on a specified dimension to reduce the dimension. `axis` indicates the reduced dimension, and `keep_dims` indicates whether to retain the reduced dimension.
 - `any(axis, keep_dims)`: performs the `or` operation on a specified dimension to reduce the dimension. The parameter meaning is the same as that of `all`.
 - `asnumpy()`: converts `Tensor` to an array of NumPy.
+- `sum(axis, dtype, keepdims, initial)`: sums the tensor over the given `axis`, `axis` indicates the reduced dimension, `dtype` specifies the output data type, `keepdims` indicates whether to retain the reduced dimension, and `initial` indicates the starting value for the sum.
 
 A code example is as follows:
 
@@ -138,18 +139,26 @@ x = Tensor(np.array([[True, True], [False, False]]), mstype.bool_)
 x_all = x.all()
 x_any = x.any()
 x_array = x.asnumpy()
+print("x_all:", x_all)
+print("x_any:", x_any)
+print("x_array:", x_array)
 
-print(x_all, "\n\n", x_any, "\n\n", x_array)
+import mindspore.numpy as mnp
+y = Tensor(np.array([[1., 2.], [3., 4.]]), mstype.float32)
+# y.sum() and mindspore.numpy.sum(y) are equivalent methods
+y_sum_tensor = y.sum()
+y_sum_mnp = mnp.sum(y)
+print("y_sum_tensor:", y_sum_tensor)
+print("y_sum_mnp:", y_sum_mnp)
 ```
 
 The following information is displayed:
 
 ```text
-False
-
-True
-
-[[ True  True]
+x_all: False
+x_any: True
+x_array: [[ True  True]
  [False False]]
-
+y_sum_tensor: 10.0
+y_sum_mnp: 10.0
 ```
