@@ -271,7 +271,7 @@ if __name__ == "__main__":
 After the quantization model is exported, use MindSpore for inference. For details, see [Inference Using MindSpore](https://www.mindspore.cn/tutorial/inference/en/master/index.html).
 
 > - The exported model can be in MindIR or AIR format.
-> - Models exported after quantization aware training support [Inference on Devices](https://www.mindspore.cn/lite/docs?master) and [Inference on Ascend 310](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
+> - Models exported after quantization aware training support [Inference on Devices](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html) and [Inference on Ascend 310](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
 
 ## References
 
