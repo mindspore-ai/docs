@@ -42,7 +42,7 @@ def get_default_params(func):
     defaults_params = re_defaults_param.findall(all_params)
     if defaults_params:
         if isinstance(defaults_params[0], tuple):
-            defaults_params = list(defaults_params[0])
+            defaults_params = list([i[:-2] if i[-2:] == "**" else i for i in defaults_params[0]])
         defaults_params_list = []
         for i in defaults_params:
             if "=" in i and i:
@@ -78,7 +78,9 @@ def _my_signature_from_function(cls, func):
     keyword_only = arg_names[pos_count:(pos_count + keyword_only_count)]
     annotations = func.__annotations__
     defaults = get_default_params(func)
-    kwdefaults = func.__kwdefaults__
+    kwdefaults = dict()
+    for num, arg_name in enumerate(keyword_only):
+        kwdefaults[arg_name] = defaults[num]
     pos_defaults = func.__defaults__
 
     if pos_defaults:
