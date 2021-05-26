@@ -155,7 +155,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
     - `hostname`: specifies the IP address for connecting to the cache server. The default value is 127.0.0.1.
     - `port`: specifies the port number for connecting to the cache server. The default value is 50052.
     - `num_connections`: specifies the number of established TCP/IP connections. The default value is 12.
-    - `prefetch_size`: specifies the number of rows obtained for each access. The default value is 20.
+    - `prefetch_size`: specifies the number of prefetched rows. The default value is 20.
 
     > - In actual use, you are advised to run the `cache_admin -g` command to obtain a cache session ID from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
     > - `size=0` indicates that the memory space used by the cache is not limited manually, but cannot exceed 80% of the total system memory. Note that `size=0` may cause the out of memory error. Therefore, you are advised to set `size` to a proper value based on the idle memory of the machine.

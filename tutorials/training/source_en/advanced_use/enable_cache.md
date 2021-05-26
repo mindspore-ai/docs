@@ -8,8 +8,8 @@
     - [Overview](#overview)
     - [Quick Start](#quick-start)
     - [Best Practices](#best-practices)
-        - [Using Cache to Speed Up ResNet Evaluation During Training](#use-cache-to-speed-up-resnet-evaluation-during-training)
-        - [Using Cache to Speed Up Training with Datasets on NFS](#use-cache-to-speed-up-training-with-datasets-on-nfs)
+        - [Using Cache to Speed Up ResNet Evaluation During Training](#using-cache-to-speed-up-resnet-evaluation-during-training)
+        - [Using Cache to Speed Up Training with Datasets on NFS](#using-cache-to-speed-up-training-with-datasets-on-nfs)
 
 <!-- /TOC -->
 
@@ -259,9 +259,11 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
 
    The following table compares the average evaluation time with/without cache:
 
+   ```text
    |                            | without cache | with cache |
    | -------------------------- | ------------- | ---------- |
    | 4p, resnet50, imagenet2012 | 10.59s        | 3.62s      |
+   ```
 
    On Ascend machine with 4 parallel pipelines, it generally takes around 88 seconds for each training epoch and ResNet training usually requires 90 epochs. Therefore, using cache can shorten the total end-to-end time from 8849 seconds to 8101 seconds, thus bringing 348 seconds total time reduction.
 
@@ -391,10 +393,12 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
 
    The following table compares the average epoch time with/without cache:
 
-   | 4p, MobileNetV2, imagenet2012 | without cache | with cache |
-   | -------------------------- | ---------- | -------- |
-   | first epoch time | 1649s | 3384s |
-   | average epoch time (exclude first epoch) | 458s | 421s |
+   ```text
+   | 4p, MobileNetV2, imagenet2012            | without cache | with cache |
+   | ---------------------------------------- | ------------- | ---------- |
+   | first epoch time                         | 1649s         | 3384s      |
+   | average epoch time (exclude first epoch) | 458s          | 421s       |
+   ```
 
    With cache, the first epoch time increases significantly due to cache writing overhead, but all later epochs can benefit from caching the dataset in memory. Therefore, the more epochs, the more cache case shows benefits due to per-step-time savings.
 
