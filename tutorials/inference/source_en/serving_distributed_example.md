@@ -11,14 +11,13 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
         - [Environment Preparation](#environment-preparation)
         - [Exporting a Distributed Model](#exporting-a-distributed-model)
         - [Deploying the Distributed Inference Service](#deploying-the-distributed-inference-service)
-            - [Usage Restrictions](#usage-restrictions)
             - [Starting Master and Distributed Worker](#starting-master-and-distributed-worker)
-            - [Starting Agent](#startup-agent)
+            - [Starting Agent](#starting-agent)
         - [Executing Inference](#executing-inference)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_distributed_example.md" target="_blank"><img src="_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 

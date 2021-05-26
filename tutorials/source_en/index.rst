@@ -3,18 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-快速入门MindSpore
-===================
+Quick Start for MindSpore
+=========================
 
 .. toctree::
    :maxdepth: 1
 
    introduction
-   quick_start
-   tensor
-   dataset
-   model
-   autograd
-   optimization
-   save_load_model
-   inference
