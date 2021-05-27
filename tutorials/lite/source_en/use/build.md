@@ -226,12 +226,13 @@ The conversion tool is only available under the `-I x86_64` compilation option, 
 mindspore-lite-{version}-inference-linux-x64
 └── tools
     └── converter
+        ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
         ├── converter                # Model conversion tool
         │   └── converter_lite       # Executable program
         └── lib                      # The dynamic link library that converter depends
             ├── libglog.so.0         # Dynamic library of Glog
             └── libmslite_converter_plugin_reg.so  # Dynamic library of plugin registry
-            └── libmslite_kernel_reg.so            # Dynamic library of user defined operator registry
 ```
 
 #### Description of CodeGen's Directory Structure
@@ -281,11 +282,11 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     mindspore-lite-{version}-inference-linux-x64
     ├── inference
     │   ├── include  # Header files of inference framework
+    │   │   └── registry # Header files of customized op registration
     │   └── lib      # Inference framework library
     │       ├── libminddata-lite.so     # The files of image processing dynamic library
     │       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
-    │       ├── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
-    │       └── libmslite_kernel_reg.so # Dynamic library of user defined operator registry
+    │       └── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
     └── tools
         ├── benchmark # Benchmarking tool
         │   └── benchmark # Executable program
@@ -306,11 +307,11 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     mindspore-lite-{version}-inference-android-{arch}
     ├── inference
     │   ├── include     # Header files of inference framework
+    │   │   └── registry # Header files of customized op registration
     │   ├── lib         # Inference framework library
     │   │   ├── libminddata-lite.so  # The files of image processing dynamic library
     │   │   ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
-    │   │   ├── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
-    │   │   └── libmslite_kernel_reg.so  # Dynamic library of user defined operator registry
+    │   │   └── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
     │   └── third_party
     │       └── hiai_ddk # NPU library, only exists in arm64 package
     └── tools
@@ -336,7 +337,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     └── jar
         ├── libmindspore-lite-jni.so # Dynamic library of MindSpore Lite inference framework
         ├── libmindspore-lite.so     # MindSpore Lite JNI dynamic library
-        ├── libmslite_kernel_reg.so  # Dynamic library of user defined operator registry
         └── mindspore-lite-java.jar  # MindSpore Lite inference framework jar package
     ```
 
@@ -374,11 +374,11 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │       └── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     └── train
         ├── include  # Header files of training framework
+        │   └── registry # Header files of customized op registration
         ├── lib      # Inference framework library
         │   ├── libminddata-lite.so        # The files of image processing dynamic library
         │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-        │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        │   └── libmslite_kernel_reg.so    # Dynamic library of user defined operator registry
+        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
         └── third_party
             └── libjpeg-turbo
     ```
@@ -392,11 +392,11 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
     │   ├── benchmark_train # Training model benchmark tool
     └── train
         ├── include # Header files of training framework
+        │   └── registry # Header files of customized op registration
         ├── lib     # Training framework library
         │   ├── libminddata-lite.so # The files of image processing dynamic library
         │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-        │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        │   └── libmslite_kernel_reg.so    # Dynamic library of user defined operator registry
+        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
         └── third_party
             ├── hiai_ddk  # NPU library, only exists in arm64 package
             └── libjpeg-turbo
@@ -468,13 +468,12 @@ The content includes the following parts:
 mindspore-lite-{version}-inference-win-x64
 ├── inference
 │   ├── include # Header files of inference framework
+│   │   └── registry     # Header files of customized op registration
 │   └── lib
 │       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
 │       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite.dll   # Dynamic library of infernece framework in MindSpore Lite
 │       ├── libmindspore-lite.dll.a # Link file of dynamic library of infernece framework in MindSpore Lite
-│       ├── libmslite_kernel_reg.dll   # Dynamic library of user defined operator registry
-│       ├── libmslite_kernel_reg.dll.a # Link file of dynamic library of user defined operator registry
 │       ├── libssp-0.dll            # Dynamic library of MinGW
 │       ├── libstdc++-6.dll         # Dynamic library of MinGW
 │       └── libwinpthread-1.dll     # Dynamic library of MinGW
@@ -482,6 +481,8 @@ mindspore-lite-{version}-inference-win-x64
     ├── benchmark # Benchmarking tool
     │   └── benchmark.exe # Executable program
     └── converter # Model conversion tool
+        ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
         ├── converter
         │   └── converter_lite.exe    # Executable program
         └── lib
@@ -489,8 +490,6 @@ mindspore-lite-{version}-inference-win-x64
             ├── libglog.dll           # Dynamic library of Glog
             ├── libmslite_converter_plugin_reg.dll   # Dynamic library of plugin registry
             ├── libmslite_converter_plugin_reg.dll.a # Link file of Dynamic library of plugin registry
-            ├── libmslite_kernel_reg.dll   # Dynamic library of user defined operator registry
-            ├── libmslite_kernel_reg.dll.a # Link file of dynamic library of user defined operator registry
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
