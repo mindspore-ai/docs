@@ -22,6 +22,8 @@
 
 Before initializing the network, configure the context parameter to control the policy executed by the program. For example, you can select an execution mode and backend, and configure distributed parameters. Different context parameter configurations implement different functions, including execution mode management, hardware management, distributed management, and maintenance and test management.
 
+> For details about the context API, see [mindspore.context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).
+
 ## Execution Mode Management
 
 MindSpore supports two running modes: PyNative and Graph.
@@ -32,65 +34,50 @@ MindSpore supports two running modes: PyNative and Graph.
 
 ### Mode Selection
 
-You can set and control the running mode of the program. By default, MindSpore is in PyNative mode.
+You can set and control the running mode of the program. By default, MindSpore is in PyNative mode. The main differences between Graph mode and PyNative mode are:
 
-A code example is as follows:
+- Application scenarios: Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable for scenarios where the network is fixed and high performance is required. PyNative mode executes operators line by line, supporting the execution of single operators, common functions, network inference, and separated gradient calculation.
 
-```python
-from mindspore import context
-context.set_context(mode=context.GRAPH_MODE)
-```
+- Efficiency: Theoretically, operators provided by MindSpore support both the PyNative and Graph modes. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. The network execution performance varies according to the execution mechanism.
 
-### Mode Switching
+- Code debugging: In script development and network debugging, it is recommended to use PyNative mode for debugging. In PyNative mode, you can easily set breakpoints to obtain intermediate results of network execution, and you can also debug the network through pdb. In Graph mode, the constructor only completes the construction of the network, and does not execute it. Therefore, the output of the operator cannot be obtained by setting breakpoints in the `construct` function. You can only print the output of this operator during network execution, and view it after the network execution is complete.
 
-You can switch between the two modes.
-
-When MindSpore is in PyNative mode, you can switch it to the graph mode using `context.set_context(mode=context.GRAPH_MODE)`. Similarly, when MindSpore is in graph mode, you can switch it to PyNative mode using `context.set_context(mode=context.PYNATIVE_MODE)`.
+Both Graph mode and PyNative mode use a function-style IR based on graph representation, namely MindIR, which uses the semantics close to that of the ANF function. When using Graph mode, set the running mode in the context to `GRAPH_MODE`. Then call the `nn.Cell` class and write your code in the `construct` function, or call the `@ms_function` decorator.
 
 A code example is as follows:
 
 ```python
 import numpy as np
 import mindspore.nn as nn
+import mindspore.ops as ops
 from mindspore import context, Tensor
 
-context.set_context(mode=context.GRAPH_MODE, device_target="GPU")
+context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
-conv = nn.Conv2d(3, 4, 3, bias_init='zeros')
-input_data = Tensor(np.ones([1, 3, 5, 5]).astype(np.float32))
-conv(input_data)
-context.set_context(mode=context.PYNATIVE_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul = ops.Mul()
 
-conv(input_data)
+    def construct(self, x, y):
+        return self.mul(x, y)
+
+x = Tensor(np.array([1.0, 2.0, 3.0]).astype(np.float32))
+y = Tensor(np.array([4.0, 5.0, 6.0]).astype(np.float32))
+
+net = Net()
+print(net(x, y))
 ```
 
 ```text
-Tensor(shape=[1, 4, 5, 5], dtype=Float32, value=
-[[[[ 1.64782144e-02,  5.31007685e-02,  5.31007685e-02,  5.31007685e-02,  5.11828624e-02],
-   [ 3.00714076e-02,  6.57572001e-02,  6.57572001e-02,  6.57572001e-02,  4.35083285e-02],
-   [ 3.00714076e-02,  6.57572001e-02,  6.57572001e-02,  6.57572001e-02,  4.35083285e-02]
-   [ 3.00714076e-02,  6.57572001e-02,  6.57572001e-02,  6.57572001e-02,  4.35083285e-02],
-   [ 1.84759758e-02,  4.71352898e-02,  4.71352898e-02,  4.71352898e-02,  3.72093469e-02]],
-  [[-3.36203352e-02, -6.12429380e-02, -6.12429380e-02, -6.12429380e-02, -4.33492810e-02],
-   [-2.67659649e-02, -8.04031491e-02, -8.04031491e-02, -8.04031491e-02, -6.84653893e-02],
-   [-2.67659649e-02, -8.04031491e-02, -8.04031491e-02, -8.04031491e-02, -6.84653893e-02]
-   [-2.67659649e-02, -8.04031491e-02, -8.04031491e-02, -8.04031491e-02, -6.84653893e-02],
-   [-5.57974726e-03, -6.80863336e-02, -6.80863336e-02, -6.80863336e-02, -8.38923305e-02]],
-  [[-1.60222687e-02,  2.26615220e-02,  2.26615220e-02,  2.26615220e-02,  6.03060052e-02],
-   [-6.76476881e-02, -2.96694487e-02, -2.96694487e-02, -2.96694487e-02,  4.86185402e-02],
-   [-6.76476881e-02, -2.96694487e-02, -2.96694487e-02, -2.96694487e-02,  4.86185402e-02]
-   [-6.76476881e-02, -2.96694487e-02, -2.96694487e-02, -2.96694487e-02,  4.86185402e-02],
-   [-6.52819276e-02, -3.50066647e-02, -3.50066647e-02, -3.50066647e-02,  2.85858363e-02]]
-  [[-3.10218725e-02, -3.84682454e-02, -3.84682454e-02, -3.84682454e-02, -8.58424231e-03],
-   [-4.27014455e-02, -7.07850009e-02, -7.07850009e-02, -7.07850009e-02, -5.36267459e-02],
-   [-4.27014455e-02, -7.07850009e-02, -7.07850009e-02, -7.07850009e-02, -5.36267459e-02]
-   [-4.27014455e-02, -7.07850009e-02, -7.07850009e-02, -7.07850009e-02, -5.36267459e-02],
-   [-1.23060495e-02, -4.99926135e-02, -4.99926135e-02, -4.99926135e-02, -4.71802950e-02]]]])
+[ 4. 10. 18.]
 ```
 
-In the preceding example, the running mode is set to `GRAPH_MODE` and then switched to `PYNATIVE_MODE`.
+### Mode Switching
 
-> This code is applicable to GPU environment.
+MindSpore provides an encoding mode that unifies dynamic and static graphs, which greatly improves the compatibility between static and dynamic graphs. Instead of developing multiple sets of code, users can switch between the dynamic and static graph modes by changing only one line of code. When switching modes, please pay attention to the constraints of the target mode. For example, Pynative mode does not support data sinking, etc.
+
+When MindSpore is in Graph mode, you can switch it to the PyNative mode using `context.set_context(mode=context.PYNATIVE_MODE)`. Similarly, when MindSpore is in PyNative mode, you can switch it to Graph mode using `context.set_context(mode=context.GRAPH_MODE)`.
 
 ## Hardware Management
 
@@ -189,5 +176,3 @@ A code example is as follows:
 from mindspore import context
 context.set_context(print_file_path="print.pb")
 ```
-
-> For details about the context API, see [mindspore.context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).

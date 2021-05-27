@@ -5,7 +5,8 @@
 - [Tensor](#tensor)
     - [Overview](#overview)
     - [Tensor Structure](#tensor-structure)
-    - [Tensor Attributes and Methods](#tensor-attributes-and-methods)
+    - [Tensor Operations, Attributes and Methods](#tensor-operations-attributes-and-methods)
+        - [Operations](#operations)
         - [Attributes](#attributes)
         - [Methods](#methods)
     - [Sparse tensor](#Sparse-tensor)
@@ -65,7 +66,73 @@ True
 [4. 5. 6.]
 ```
 
-## Tensor Attributes and Methods
+## Tensor Operations, Attributes and Methods
+
+### Operations
+
+Tensor supports a variety of operations, including arithmetic operations and logical operations. Some commonly used operators are as follows:
+
+- arithmetic operations: add (`+`), subtract (`-`), multiply (`*`), divide (`/`), modulus (`%`), power (`**`), divide (`//`)
+
+- logical operations：equal to (`==`), not equal to (`!=`), greater than (`>`), greater than or equal to (`>=`), less than (`<`), less than or equal to (`<=`)
+
+A code example is as follows:
+
+```python
+import numpy as np
+from mindspore import Tensor
+from mindspore import dtype as mstype
+
+x = Tensor(np.array([1, 2, 3]), mstype.float32)
+y = Tensor(np.array([4, 5, 6]), mstype.float32)
+output_add = x + y
+output_sub = x - y
+output_mul = x * y
+output_div = y / x
+output_mod = x % y
+output_pow = x ** 2
+output_floordiv = y // x
+print("add:", output_add)
+print("sub:", output_sub)
+print("mul:", output_mul)
+print("div:", output_div)
+print("mod:", output_mod)
+print("pow:", output_pow)
+print("floordiv:", output_floordiv)
+
+a = Tensor(np.array([2, 2, 2]), mstype.int32)
+b = Tensor(np.array([1, 2, 3]), mstype.int32)
+output_eq = a == b
+output_ne = a != b
+output_gt = a > b
+output_gq = a >= b
+output_lt = a < b
+output_lq = a <= b
+print("equal:", output_eq)
+print("not equal:", output_ne)
+print("greater than:", output_gt)
+print("greater or equal:", output_gq)
+print("less than:", output_lt)
+print("less or equal:", output_lq)
+```
+
+The following information is displayed:
+
+```text
+add: [5. 7. 9.]
+sub: [-3. -3. -3.]
+mul: [ 4. 10. 18.]
+div: [4. 2.5 2. ]
+mod: [1. 2. 3.]
+pow: [1. 4. 9.]
+floordiv: [4. 2. 2.]
+equal: [False True False]
+not equal: [ True False True]
+greater than: [ True False False]
+greater or equal: [ True True False]
+less than: [False False True]
+less or equal: [False True True]
+```
 
 ### Attributes
 
@@ -122,8 +189,12 @@ x_strides: (8, 4)
 
 ### Methods
 
-Tensor methods include `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
+Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
 
+- `len()`: returns the length of the tensor.
+- `str()`: returns the string representation of the tensor.
+- `repr()`: returns the string representation of the tensor for the interpreter to read.
+- `hash()`: get the hash value of the tensor.
 - `all(axis, keep_dims)`: performs the `and` operation on a specified dimension to reduce the dimension. `axis` indicates the reduced dimension, and `keep_dims` indicates whether to retain the reduced dimension.
 - `any(axis, keep_dims)`: performs the `or` operation on a specified dimension to reduce the dimension. The parameter meaning is the same as that of `all`.
 - `asnumpy()`: converts `Tensor` to an array of NumPy.
@@ -135,6 +206,16 @@ A code example is as follows:
 import numpy as np
 from mindspore import Tensor
 from mindspore import dtype as mstype
+
+t = Tensor(np.array([1, 2, 3]), mstype.int32)
+t_len = len(t)
+t_str = str(t)
+t_repr = repr(t)
+t_hash = hash(t)
+print("t_len:", t_len)
+print("t_str:", t_str)
+print("t_repr:", t_repr)
+print("t_hash:", t_hash)
 
 x = Tensor(np.array([[True, True], [False, False]]), mstype.bool_)
 x_all = x.all()
@@ -156,6 +237,10 @@ print("y_sum_mnp:", y_sum_mnp)
 The following information is displayed:
 
 ```text
+t_len: 3
+t_str: [1 2 3]
+t_repr: Tensor(shape=[3], dtype=Int32, value= [1, 2, 3])
+t_hash: 281470264268272
 x_all: False
 x_any: True
 x_array: [[ True  True]
