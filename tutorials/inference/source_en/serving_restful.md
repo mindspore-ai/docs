@@ -52,7 +52,7 @@ curl -X POST -d '${REQ_JSON_MESSAGE}' http://${HOST}:${PORT}/model/${MODLE_NAME}
 For example, request for the `predict` method of the `LeNet` model to perform digital image inference:
 
 ```text
-curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://127.0.0.1:1500/model/lenet/version/1:predict
+curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}}}' http://127.0.0.1:1500/model/lenet/version/1:predict
 ```
 
 In the preceding information, `babe64-encoded-string` indicates the character string generated after the digital image is encoded using `base64`. The character string is long and is not listed explicitly.

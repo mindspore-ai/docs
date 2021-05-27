@@ -52,7 +52,7 @@ curl -X POST -d '${REQ_JSON_MESSAGE}' http://${HOST}:${PORT}/model/${MODLE_NAME}
 例子：请求`LeNet`模型的`predict`方法进行数字图片的推理，请求如下：
 
 ```text
-curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}' http://127.0.0.1:1500/model/lenet/version/1:predict
+curl -X POST -d '{"instances":{"image":{"b64":"babe64-encoded-string"}}}' http://127.0.0.1:1500/model/lenet/version/1:predict
 ```
 
 其中：`babe64-encoded-string`表示数字图片经过`base64`编码之后的字符串。由于字符串比较长，不显式列出。
