@@ -5,8 +5,8 @@
 <!-- TOC -->
 
 - [Inference](#inference)
-    - [MindSpore C++ Library Use](#mindSpore-c++-library-use)
-    - [MindSpore Serving](#mindSpore-serving)
+    - [MindSpore C++ Library Use](#mindspore-c++-library-use)
+    - [MindSpore Serving](#mindspore-serving)
 
 <!-- /TOC -->
 
