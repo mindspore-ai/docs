@@ -1,4 +1,14 @@
-# 推理类
+﻿# 推理类
+
+`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
+
+<!-- TOC -->
+
+- [推理类](#推理类)
+    - [C++接口使用类](#c++接口使用类)
+    - [MindSpore Serving类](#mindSpore-serving类)
+
+<!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 

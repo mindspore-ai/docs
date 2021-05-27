@@ -1,20 +1,30 @@
-# Training Process Visualization
+﻿# Performance Tuning
 
-`Linux` `Ascend` `GPU` `Environment Preparation`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/mindinsight_use.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [Performance Tuning](#performance-tuning)
+    - [Parameter Tuning](#parameter-tuning)
+    - [MindInsight Using](#mindinsight-using)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_cn/performance_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## Performance Tuning
+
+<font size=3>**Q: What can I do if the network performance is abnormal and weight initialization takes a long time during training after MindSpore is installed?**</font>
+
+A: The `SciPy 1.4` series versions may be used in the environment. Run the `pip list | grep scipy` command to view the `SciPy` version and change the `SciPy` version to that required by MindSpore. You can view the third-party library dependency in the `requirement.txt` file.
+<https://gitee.com/mindspore/mindspore/blob/{version}/requirements.txt>
+> Replace version with the specific version branch of MindSpore.
+
+## MindInsight Using
 
 <font size=3>**Q: What can I do if the error message `ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` is displayed in the MindInsight running logs after MindInsight failed to start?**</font>
 
 A: You can use "export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH" command to export LD_LIBRARY_PATH variable in Linux environment.
-
-<br />
-
-<font size=3>**Q: What can I do if the error message `bash: mindinsight: command not found` is displayed in the MindInsight running logs after MindInsight failed to start?**</font>
-
-A: This problem occurs when using Python source codes to compile and install in the user-defined path. When install MindInsight by using `pip`, the executable file will be installed in this path. If the installation directory is not found in the bash environment variable queried by using 'echo $PATH', the system will not find the installed executable file. You need to use `export PATH=$PATH: $YourPythonPath$/bin` on the command line to import the path variable.
-
-(Please change `$YourPythonPath$` to your installation path). Note: this command is only valid at the current terminal. If you want to make it permanent, please add it to the file `~/.bashrc`.
 
 <br />
 

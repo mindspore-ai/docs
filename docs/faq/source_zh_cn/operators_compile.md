@@ -1,8 +1,8 @@
-# 算子支持类
+﻿# 算子编译
 
-`Ascend` `CPU` `GPU` `环境准备` `初级` `中级` `高级`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/supported_operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：`TransData`算子的功能是什么，能否优化性能？**</font>
 
@@ -35,12 +35,6 @@ def __init__(self,
 ```
 
 函数中带有`group`参数，这个参数默认就会被传到C++层。
-
-<br/>
-
-<font size=3>**Q：Convolution Layers有没有提供3D卷积？**</font>
-
-A：目前MindSpore在Ascend上有支持3D卷积的计划。您可以关注官网的[支持列表](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operator_list.html)，等到算子支持后会在表中展示。
 
 <br/>
 
@@ -97,3 +91,30 @@ A：目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可
 <font size=3>**Q：conv2d设置为(3,10),Tensor[2,2,10,10]，在ModelArts上利用Ascend跑，报错：`FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
 
 A：这是TBE这个算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
+
+<br/>
+
+<font size=3>**Q：请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
+
+A：目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
+
+<br/>
+
+<font size=3>**Q：使用ExpandDims算子报错：`Pynative run op ExpandDims failed`。具体代码：**</font>
+
+```python
+context.set_context(
+mode=cintext.GRAPH_MODE,
+device_target='ascend')
+input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
+expand_dims=ops.ExpandDims()
+output=expand_dims(input_tensor,0)
+```
+
+A：这边的问题是选择了Graph模式却使用了PyNative的写法，所以导致报错，MindSpore支持两种运行模式，在调试或者运行方面做了不同的优化:
+
+- PyNative模式：也称动态图模式，将神经网络中的各个算子逐一下发执行，方便用户编写和调试神经网络模型。
+
+- Graph模式：也称静态图模式或者图模式，将神经网络模型编译成一整张图，然后下发执行。该模式利用图优化等技术提高运行性能，同时有助于规模部署和跨平台运行。
+
+用户可以参考[官网教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html)选择合适、统一的模式和写法来完成训练。

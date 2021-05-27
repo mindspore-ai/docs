@@ -1,22 +1,8 @@
-# 网络模型类
+﻿# 执行问题
 
-`数据处理` `环境准备` `模型导出` `模型训练` `初级` `中级` `高级`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/network_models.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-<font size=3>**Q：MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？**</font>
-
-A：当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline方式，即：数据处理在逐步处理数据时，处理完一个`batch`的数据，会把数据放到一个队列里，这个队列用于缓存已经处理好的数据，然后网络计算从这个队列里面取数据用于训练，那么此时数据处理与网络计算就`Pipeline`起来了，整个训练耗时就是数据处理/网络计算耗时最长的那个。
-
-当`dataset_sink_mode=False`时，数据处理会和网络计算构成串行的过程，即：数据处理在处理完一个`batch`后，把这个`batch`的数据传递给网络用于计算，在计算完成后，数据处理再处理下一个`batch`，然后把这个新的`batch`数据传递给网络用于计算，如此的循环往复，直到训练完。该方法的总耗时是数据处理的耗时+网络计算的耗时=训练总耗时。
-
-<br/>
-
-<font size=3>**Q：MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
-
-A：你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
-
-<br/>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
 
@@ -68,79 +54,9 @@ A：首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网�
 
 <br/>
 
-<font size=3>**Q：模型已经训练好，如何将模型的输出结果保存为文本或者`npy`的格式？**</font>
-
-A：您好，我们网络的输出为`Tensor`，需要使用`asnumpy()`方法将`Tensor`转换为`numpy`，再进行下一步保存。具体可参考：
-
-```python
-out = net(x)
-
-np.save("output.npy", out.asnumpy())
-```
-
-<br/>
-
-<font size=3>**Q：使用MindSpore做分割训练，必须将数据转为MindRecords吗？**</font>
-
-A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
-
-[GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#id5)
-
-[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
-
-<br/>
-
-<font size=3>**Q：MindSpore可以读取TensorFlow的ckpt文件吗？**</font>
-
-A：MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是使用`protobuf`协议，但是`proto`的定义是不同的。当前MindSpore不支持读取TensorFlow或PyTorch的`ckpt`文件。
-
-<br/>
-
-<font size=3>**Q：如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
-
-A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)文档中的自定义数据集加载。
-
-<br/>
-
-<font size=3>**Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？**</font>
-
-A： MindSpore采用protbuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的`save_checkpoint`接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
-
-<br/>
-
-<font size=3>**Q：用MindSpore训练出的模型如何在Ascend 310上使用？可以转换成适用于HiLens Kit用的吗？**</font>
-
-A：Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模型，再转化为Ascend 310支持的OM模型。具体可参考[多平台推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。可以，HiLens Kit是以Ascend 310为推理核心，所以前后两个问题本质上是一样的，需要转换为OM模型.
-
-<br/>
-
-<font size=3>**Q：MindSpore如何进行参数（如dropout值）修改？**</font>
-
-A：在构造网络的时候可以通过 `if self.training: x = dropput(x)`，验证的时候，执行前设置`network.set_train(mode_false)`，就可以不适用dropout，训练时设置为True就可以使用dropout。
-
-<br/>
-
-<font size=3>**Q：从哪里可以查看MindSpore训练及推理的样例代码或者教程？**</font>
-
-A：可以访问[MindSpore官网教程训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)和[MindSpore官网教程推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
-
-<br/>
-
-<font size=3>**Q：MindSpore支持哪些模型的训练？**</font>
-
-A：MindSpore针对典型场景均有模型训练支持，支持情况详见[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)。
-
-<br/>
-
 <font size=3>**Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
 A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
-
-<br/>
-
-<font size=3>**Q：MindSpore模型训练代码能有多简单？**</font>
-
-A：除去网络定义，MindSpore提供了Model类的接口，大多数场景只需几行代码就可完成模型训练。
 
 <br/>
 
@@ -266,6 +182,68 @@ if __name__ == "__main__":
 
 <br/>
 
-<font size=3>**Q：在使用ckpt或导出模型的过程中，报Protobuf内存限制错误，如何处理？**</font>
+<font size=3>**Q：`mindspore/tests`下怎样执行单个`ut`用例？**</font>
 
-A：当单条Protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
+A：`ut`用例通常需要基于debug版本的MindSpore包，官网并没有提供。可以基于源码使用`sh build.sh`编译，然后通过`pytest`指令执行，debug模式编包不依赖后端。编译选项`sh build.sh -t on`，用例执行可以参考`tests/runtest.sh`脚本。
+
+<br/>
+
+<font size=3>**Q：在Ascend平台上，执行用例有时候会报错`run task error`，如何获取更详细的日志帮助问题定位？**</font>
+
+A：使用msnpureport工具设置device侧日志级别，工具位置在：`/usr/local/Ascend/driver/tools/msnpureport`。
+
+- 全局级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -g info
+```
+
+- 模块级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+````
+
+- Event级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+```
+
+- 多device id级别：
+
+```bash
+/usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+```
+
+假设deviceID的取值范围是[0-7]，`device0`-`device3`和`device4`-`device7`分别在一个os上。其中`device0`-`device3`共用一个日志配置文件；`device4`-`device7`共用一个配置文件。如果修改了`device0`-`device3`中的任意一个日志级别，其他`device`的日志级别也会被修改。如果修改了`device4`-`device7`中的任意一个日志级别，其他device的日志级别也会被修改。
+
+`Driver`包安装以后（假设安装路径为/usr/local/HiAI，在Windows环境下，`msnpureport.exe`执行文件在C:\ProgramFiles\Huawei\Ascend\Driver\tools\目录下），假设用户在/home/shihangbo/目录下直接执行命令行，则Device侧日志被导出到当前目录下，并以时间戳命名文件夹进行存放。
+
+<br/>
+
+<font size=3>**Q：使用Ascend平台执行训练过程，出现报错：`Out of Memory!!! total[3212254720] (dynamic[0] memory poll[524288000]) malloc[32611480064] failed!` 如何解决？**</font>
+
+A：此问题属于内存占用过多导致的内存不够问题，可能原因有两种：
+
+- `batch_size`的值设置过大。解决办法：将`batch_size`的值设置减小。
+- 引入了异常大的`Parameter`，例如单个数据shape为[640,1024,80,81]，数据类型为float32，单个数据大小超过15G，这样差不多大小的两个数据相加时，占用内存超过3*15G，容易造成`Out of Memory`。解决办法：检查参数的`shape`，如果异常过大，减少shape。
+- 如果以上操作还是未能解决，可以上[官方论坛](https://bbs.huaweicloud.com/forum/forum-1076-1.html)发帖提出问题，将会有专门的技术人员帮助解决。
+
+<br />
+
+<font size=3>**Q：MindInsight成功启动后，在谷歌浏览器中访问时，提示：`ERR_UNSAFE_PORT` 如何处理？**</font>
+
+A：谷歌浏览器内核禁止将某些端口作为`HTTP`服务，你需要在谷歌浏览器的属性中新增配置`--explicitly-allowed-ports=port`。或者，你可以更换端口或者更换为IE浏览器。
+
+<br/>
+
+<font size=3>**Q：如何在训练神经网络过程中对计算损失的超参数进行改变？**</font>
+
+A：您好，很抱歉暂时还未有这样的功能。目前只能通过训练-->重新定义优化器-->训练，这样的过程寻找较优的超参数。
+
+<br/>
+
+<font size=3>**Q：运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+
+A：安装MindSpore所依赖的Ascend 310 AI处理器软件配套包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。

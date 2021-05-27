@@ -1,4 +1,4 @@
-# 安装类
+﻿# 安装类
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
@@ -79,6 +79,12 @@ A：目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Wi
 
 <br />
 
+<font size=3>**Q：Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
+
+A：出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装：`pip install /usr/local/Ascend/fwkacllib/lib64/{te/topi/hccl}*any.whl`。
+
+<br/>
+
 ## 源码编译安装
 
 <font size=3>**Q：在Linux中已经安装了交叉编译工具，但是编译命令要怎么写呢？**</font>
@@ -146,6 +152,26 @@ A：执行命令`pip uninstall mindspore`可卸载MindSpore。
 <font size=3>**Q：一些常用的环境变量设置，在新启动的终端窗口中需要重新设置，容易忘记应该怎么办？**</font>
 
 A：常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，可让环境变量设置在新启动的终端窗口中立即生效。
+
+<br/>
+
+<font size=3>**Q：使用GPU版本MindSpore时，如何设置`DEVICE_ID`环境变量**</font>
+
+A：MindSpore GPU模式一般无需设置`DEVICE_ID`环境变量，MindSpore会根据cuda环境变量`CUDA_VISIBLE_DEVICES`，自动选择可见的GPU设备。设置`CUDA_VISIBLE_DEVICES`环境变量后，则`DEVICE_ID`环境变量代表可见GPU设备的下标：
+
+- 执行`export CUDA_VISIBLE_DEVICES=1,3,5`后，`DEVICE_ID`应当被设置为`0`，`1`或`2`，若设置为`3`及以上，MindSpore会由于设备ID不合法而运行失败。
+
+<br/>
+
+<font size=3>**Q：编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
+
+A：寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html#id6)。
+
+<br/>
+
+<font size=3>**Q：运行应用时出现`ModuleNotFoundError: No module named 'te'`怎么办？**</font>
+
+A：首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安装。如果用户环境中有多个Python版本，如Conda虚拟环境中，需`ldd name_of_your_executable_app`确认应用所链接的`libpython3.7m.so.1.0`是否与当前Python路径一致，如果不一致需要调整环境变量`LD_LIBRARY_PATH`顺序。
 
 <br/>
 

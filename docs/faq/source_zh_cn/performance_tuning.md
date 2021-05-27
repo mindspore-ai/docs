@@ -1,19 +1,30 @@
-# 训练可视类
+﻿# 性能调优
 
-`Linux` `Ascend` `GPU` `环境准备`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/mindinsight_use.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [性能调优](#性能调优)
+    - [参数调优](#参数调优)
+    - [MindInsight使用](#MindInsight使用)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/performance_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## 参数调优
+
+<font size=3>**Q：MindSpore安装完成，执行训练时发现网络性能异常，权重初始化耗时过长，怎么办？**</font>  
+
+A：可能与环境中使用了`scipy 1.4`系列版本有关，通过`pip list | grep scipy`命令可查看scipy版本，建议改成MindSpore要求的`scipy`版本。版本第三方库依赖可以在`requirement.txt`中查看。
+<https://gitee.com/mindspore/mindspore/blob/{version}/requirements.txt>
+> 其中version替换为MindSpore具体的版本分支。
+
+## MindInsight使用
 
 <font size=3>**Q：MindInsight启动失败并且提示:`ImportError: libcrypto.so.1.0.0: cannot open shared object file: No such file or directory` 如何处理？**</font>
 
 A：需要在命令行中使用”export LD_LIBRARY_PATH=dir:$LD_LIBRARY_PATH”来导入LD_LIBRARY_PATH变量。
-
-<br />
-
-<font size=3>**Q：MindInsight启动失败并且提示:`bash: mindinsight: command not found` 如何处理？**</font>
-
-A：当使用Python源码编译安装在自定义路径下会出现该问题，pip安装MindInsight时可执行文件会安装在该路径下，若使用`echo $PATH`查询到的bash环境变量中没有该安装目录会导致系统找不到安装的可执行文件。需要在命令行中使用`export PATH=$PATH:$YourPythonPath$/bin`来导入PATH变量。
-(`$YourPythonPath$`请更换为你的安装路径)。注：该命令只在当前终端有效，若想永久有效请在`~/.bashrc`文件中加入该命令。
 
 <br />
 
