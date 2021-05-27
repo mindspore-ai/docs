@@ -1,22 +1,8 @@
-﻿# Network Models
+﻿# Script Implement
 
-`Data Processing` `Environmental Setup` `Model Export` `Model Training` `Beginner` `Intermediate` `Expert`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/network_models.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-<font size=3>**Q: How do I understand the `dataset_sink_mode` parameter in `model.train` of MindSpore?**</font>
-
-A: When `dataset_sink_mode` is set to `True`, data processing and network computing are performed in pipeline mode. That is, when data processing is performed step by step, after a `batch` of data is processed, the data is placed in a queue which is used to cache the processed data. Then, network computing obtains data from the queue for training. In this case, data processing and network computing are performed in pipeline mode. The entire training duration is the longest data processing/network computing duration.
-
-When `dataset_sink_mode` is set to `False`, data processing and network computing are performed in serial mode. That is, after a `batch` of data is processed, it is transferred to the network for computation. After the computation is complete, the next `batch` of data is processed and transferred to the network for computation. This process repeats until the training is complete. The total time consumed is the time consumed for data processing plus the time consumed for network computing.
-
-<br/>
-
-<font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
-
-A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py).
-
-<br/>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: Can the `vgg16` model be loaded and transferred on a GPU using the Hub?**</font>
 
@@ -68,79 +54,9 @@ A: First, enter the `PTH` file of PyTorch. Take `ResNet-18` as an example. The n
 
 <br/>
 
-<font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
-
-A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `NumPy` and then save the data. For details, see the following:
-
-```python
-out = net(x)
-
-np.save("output.npy", out.asnumpy())
-```
-
-<br/>
-
-<font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
-
-A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
-
-[GenratorDataset example](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset)
-
-[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
-
-<br/>
-
-<font size=3>**Q: Can MindSpore read a TensorFlow checkpoint?**</font>
-
-A: The checkpoint format of MindSpore is different from that of TensorFlow. Although both use the Protocol Buffers, their definitions are different. Currently, MindSpore cannot read the TensorFlow or Pytorch checkpoints.
-
-<br/>
-
-<font size=3>**Q: How do I perform training without processing data in MindRecord format?**</font>
-
-A: You can use the customized data loading method `GeneratorDataset`. For details, click [here](https://www.mindspore.cn/tutorial/en/r0.7/use/data_preparation/loading_the_datasets.html#id5).
-
-<br/>
-
-<font size=3>**Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?**</font>
-
-A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
-
-<br/>
-
-<font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
-
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
-
-<br/>
-
-<font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
-
-A: When building a network, use `if self.training: x = dropput(x)`. During verification, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
-
-<br/>
-
-<font size=3>**Q: Where can I view the sample code or tutorial of MindSpore training and inference?**</font>
-
-A: Please visit the [MindSpore official website training](https://www.mindspore.cn/tutorial/training/en/master/index.html) and [MindSpore official website inference](https://www.mindspore.cn/tutorial/inference/en/master/index.html).
-
-<br/>
-
-<font size=3>**Q: What types of model is currently supported by MindSpore for training?**</font>
-
-A: MindSpore has basic support for common training scenarios, please refer to [Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#) for detailed information.
-
-<br/>
-
 <font size=3>**Q: What are the available recommendation or text generation networks or models provided by MindSpore?**</font>
 
 A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are under development. In the natural language processing (NLP) field, Bert\_NEZHA is available and models such as MASS are under development. You can rebuild the network into a text generation network based on the scenario requirements. Please stay tuned for updates on the [MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo).
-
-<br/>
-
-<font size=3>**Q: How simple can the MindSpore model training code be?**</font>
-
-A: MindSpore provides Model APIs except for network definitions. In most scenarios, model training can be completed using only a few lines of code.
 
 <br/>
 
@@ -266,6 +182,50 @@ if __name__ == "__main__":
 
 <br/>
 
-<font size=3>**Q：What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
+<font size=3>**Q: How do I execute a single `ut` case in `mindspore/tests`?**</font>
 
-A：When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+A: `ut` cases are usually based on the MindSpore package of the debug version, which is not provided on the official website. You can run `sh build.sh` to compile the source code and then run the `pytest` command. The compilation in debug mode does not depend on the backend. Run the `sh build.sh -t on` command. For details about how to execute cases, see the `tests/runtest.sh` script.
+
+<br/>
+
+<font size=3>**Q: For Ascend users, how to get more detailed logs when the `run task error` is reported?**</font>
+
+A: Use the msnpureport tool to set the on-device log level. The tool is stored in `/usr/local/Ascend/driver/tools/msnpureport`.
+
+```bash
+- Global: /usr/local/Ascend/driver/tools/msnpureport -g info
+```
+
+```bash
+- Module-level: /usr/local/Ascend/driver/tools/msnpureport -m SLOG:error
+```
+
+```bash
+- Event-level: /usr/local/Ascend/driver/tools/msnpureport -e disable/enable
+```
+
+```bash
+- Multi-device ID-level: /usr/local/Ascend/driver/tools/msnpureport -d 1 -g warning
+```
+
+Assume that the value range of deviceID is [0, 7], and `devices 0–3` and `devices 4–7` are on the same OS. `Devices 0–3` share the same log configuration file and `devices 4–7` share the same configuration file. In this way, changing the log level of any device (for example device 0) will change that of other devices (for example `devices 1–3`). This rule also applies to `devices 4–7`.
+
+After the driver package is installed (assuming that the installation path is /usr/local/HiAI and the execution file `msnpureport.exe` is in the C:\ProgramFiles\Huawei\Ascend\Driver\tools\ directory on Windows), run the command in the /home/shihangbo/ directory to export logs on the device to the current directory and store logs in a folder named after the timestamp.
+
+<br/>
+
+<font size=3>**Q: What can I do if the Google's Chrome browser prompts the error message `ERR_UNSAFE_PORT after` MindInsight is successfully started?**</font>
+
+A: Chrome browser's kernel prohibits certain ports from being used as HTTP services. You can add `--explicitly-allowed-ports=port` in Chrome browser's configuration. Otherwise you can change the port or browser like IE browser.
+
+<br/>
+
+<font size=3>**Q: How do I change hyperparameters for calculating loss values during neural network training?**</font>
+
+A: Sorry, this function is not available yet. You can find the optimal hyperparameters by training, redefining an optimizer, and then training.
+
+<br/>
+
+<font size=3>**Q：What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+
+A：While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.

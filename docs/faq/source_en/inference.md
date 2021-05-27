@@ -1,4 +1,14 @@
-# Inference
+﻿# Inference
+
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
+
+<!-- TOC -->
+
+- [Inference](#inference)
+    - [MindSpore C++ Library Use](#mindSpore-c++-library-use)
+    - [MindSpore Serving](#mindSpore-serving)
+
+<!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 

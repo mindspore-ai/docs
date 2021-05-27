@@ -11,13 +11,13 @@ MindSpore FAQ
   :maxdepth: 1
 
   installation
-  supported_operators
-  network_models
-  platform_and_system
-  backend_running
+  frontend_grammar
+  banckend_compile
+  operators_compile
+  data_processing
+  script_implement
   usage_migrate_3rd
-  programming_language_extensions
-  supported_features
-  mindinsight_use
-  distributed_settings
+  performance_tuning
+  distributed_configure
   inference
+  feature_advice

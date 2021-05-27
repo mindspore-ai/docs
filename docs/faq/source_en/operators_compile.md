@@ -1,8 +1,8 @@
-﻿# Supported Operators
+﻿# Operators Compile
 
-`Ascend` `GPU` `CPU` `Environmental Setup` `Beginner` `Intermediate` `Expert`
+`Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/supported_operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
@@ -38,12 +38,6 @@ If the function contains a `group` parameter, the parameter will be transferred 
 
 <br/>
 
-<font size=3>**Q: Does MindSpore provide 3D convolutional layers?**</font>
-
-A: 3D convolutional layers on Ascend are coming soon. Go to the [Operator List](https://www.mindspore.cn/doc/programming_guide/en/master/operator_list.html) on the official website to view the operators that are supported.
-
-<br/>
-
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
 A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
@@ -75,16 +69,16 @@ class Net(nn.Cell):
 
 <br/>
 
-<font size=3>**Q: When the `Tile` module in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
-
-A: The `multiples input` of the `Tile` operator must be a constant. (The value cannot directly or indirectly come from the input of the graph.) Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition.
-
-<br/>
-
 <font size=3>**Q: Compared with PyTorch, the `nn.Embedding` layer lacks the padding operation. Can other operators implement this operation?**</font>
 
 A: In PyTorch, `padding_idx` is used to set the word vector in the `padding_idx` position in the embedding matrix to 0, and the word vector in the `padding_idx` position is not updated during backward propagation.
 In MindSpore, you can manually initialize the weight corresponding to the `padding_idx` position of embedding to 0. In addition, the loss corresponding to `padding_idx` is filtered out through the mask operation during training.
+
+<br/>
+
+<font size=3>**Q: When the `Tile` module in operations executes `__infer__`, the `value` is `None`. Why is the value lost?**</font>
+
+A: The `multiples input` of the `Tile` operator must be a constant. (The value cannot directly or indirectly come from the input of the graph.) Otherwise, the `None` data will be obtained during graph composition because the graph input is transferred only during graph execution and the input data cannot be obtained during graph composition.
 
 <br/>
 
@@ -97,3 +91,29 @@ A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardwa
 <font size=3>**Q: When conv2d is set to (3,10), Tensor[2,2,10,10] and it runs on Ascend on ModelArts, the error message `FM_W+pad_left+pad_right-KW>=strideW` is displayed. However, no error message is displayed when it runs on a CPU. What should I do?**</font>
 
 A: This is a TBE operator restriction that the width of x must be greater than that of the kernel. The CPU does not have this operator restriction. Therefore, no error is reported.
+
+<br/>
+
+<font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
+
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator.html).
+
+<br/>
+
+<font size=3>**Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:**</font>
+
+```python
+context.set_context(
+mode=cintext.GRAPH_MODE,
+device_target='ascend')
+input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
+expand_dims=ops.ExpandDims()
+output=expand_dims(input_tensor,0)
+```
+
+A: The problem is that the Graph mode is selected but the PyNative mode is used. As a result, an error is reported. MindSpore supports the following running modes which are optimized in terms of debugging or running:
+
+- PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
+- Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
+
+You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
