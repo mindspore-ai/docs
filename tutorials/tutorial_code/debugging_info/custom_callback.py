@@ -15,6 +15,7 @@
 """custom callback
 This sample code is applicable to Ascend, CPU and GPU.
 """
+import os
 import time
 import mindspore.nn as nn
 from mindspore.nn import Momentum, SoftmaxCrossEntropyWithLogits

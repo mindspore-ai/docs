@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 The output is as follows:
 
-```python
+```text
 -------loss------ [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
  0. 0. 0. 0. 0. 0. 0. 0.]
 ```
@@ -467,7 +467,7 @@ if __name__ == "__main__":
 
 The output is as follows:
 
-```python
+```text
 ============== Starting Training ==============
 epoch: 1 step: 1000, loss is 0.110185064
 epoch: 2 step: 1000, loss is 0.12088283

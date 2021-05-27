@@ -70,7 +70,7 @@ MindSpore can be installed by source code or using `pip`. Refer [MindSpore insta
 
 Use `git` to clone the source code, the command in `Linux` is as follows:
 
-```shell
+```bash
 git clone https://gitee.com/mindspore/mindspore.git
 cd ./mindspore
 ```
@@ -113,7 +113,7 @@ The script `prepare_and_run.sh` has done the following works:
 
 The model will be trained on your device and print training loss and accuracy value every epoch. The trained model will be saved as 'lenet_tod.ms' file. The 10 epochs training result of lenet is shown below (the classification accuracy varies in devices):
 
-```bash
+```text
 ======Training Locally=========
 1.100:  Loss is 1.19449
 1.200:  Loss is 0.477986
@@ -180,7 +180,7 @@ Eval Accuracy is 0.965244
 
 The demo project folder structure:
 
-```bash
+```text
 train_lenet/
   ├── model
   │   ├── lenet_export.py
