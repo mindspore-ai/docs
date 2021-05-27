@@ -470,6 +470,8 @@ MindInsight可以为用户记录每次训练的精度结果。在`model.train`�
 
 对数据进行标准化、归一化、通道转换等操作，在图片数据处理上，增加随机视野图片，随机旋转度图片等，另外数据混洗、batch和数据倍增等操作，可参考[数据处理](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/pipeline.html)、[数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/augmentation.html)和[自动数据增强](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/auto_augmentation.html)。
 
+> 如何将数据增强增强操作应用到自定义数据集中，可以参考[mindspore.dataset.GeneratorDataset.map](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset.map)算子。
+
 ### 超参问题处理
 
 AI训练中的超参包含全局学习率，epoch和batch等，如果需要在不同的超参下，训练过程进行可视化时，可参考资料：[可视化的超参调优](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/hyper_parameters_auto_tuning.html)；如果需要设置动态学习率超参时，可参考资料：[学习率的优化算法](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/optim.html?#id3)。
