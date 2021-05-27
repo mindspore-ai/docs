@@ -11,7 +11,7 @@ MindSpore FAQ
   :maxdepth: 1
 
   installation
-  frontend_grammar
+  frontend_syntax
   banckend_compile
   operators_compile
   data_processing

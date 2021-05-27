@@ -1,12 +1,12 @@
-﻿# 推理类
+﻿# 推理
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
 <!-- TOC -->
 
-- [推理类](#推理类)
-    - [C++接口使用类](#c++接口使用类)
-    - [MindSpore Serving类](#mindSpore-serving类)
+- [推理](#推理)
+    - [C++接口使用](#c++接口使用)
+    - [MindSpore Serving](#mindspore-serving)
 
 <!-- /TOC -->
 
