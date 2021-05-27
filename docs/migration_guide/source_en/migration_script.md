@@ -1,11 +1,13 @@
 # Migration Script
 
+Translator: [zhangxiaoxiao](https://gitee.com/zhangxiaoxiao16)
+
 <!-- TOC -->
 
 - [Migration Script](#migration-script)
     - [Overview](#overview)
-    - [Migrating the TensorFlow Script to MindSpore](#migrating-the-tensorFlow-script-to-mindSpore)
-    - [Migrating the PyTorch Script to MindSpore](#migrating-the-pytorch-script-to-mindSpore)
+    - [Migrating the TensorFlow Script to MindSpore](#migrating-the-tensorflow-script-to-mindspore)
+    - [Migrating the PyTorch Script to MindSpore](#migrating-the-pytorch-script-to-mindspore)
 
 <!-- /TOC -->
 
@@ -93,7 +95,7 @@ Migrate scripts by reading the TensorBoard graphs。
 
    The first input passes through a subgraph named conv1, the computing logic can be obtained by looking at the following figure:
 
-   ![PoseNet conv1 子图](images/pic5.png)
+   ![PoseNet conv1](images/pic5.png)
 
    input->Conv2D->BiasAdd->ReLU, although the operator name after BiasAdd is conv1, it actually executes ReLU.
 
