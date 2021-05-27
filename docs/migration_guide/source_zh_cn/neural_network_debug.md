@@ -54,7 +54,7 @@
 
 在脚本开发和网络流程调试中，我们推荐使用PyNative模式进行调试。PyNative模式支持执行单算子、普通函数和网络，以及单独求梯度的操作。在PyNative模式下，可以方便地设置断点，获取网络执行的中间结果，也可以通过pdb的方式对网络进行调试。
 
-在默认情况下，MindSpore处于PyNative模式，也可以通过`context.set_context(mode=context.PYNATIVE_MODE)`进行显式定义，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html#pynative)。
+在默认情况下，MindSpore处于Graph模式，可以通过`context.set_context(mode=context.PYNATIVE_MODE)`设置为PyNative模式，相关示例可参考[使用PyNative模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debug_in_pynative_mode.html#pynative)。
 
 #### 获取更多报错信息
 
