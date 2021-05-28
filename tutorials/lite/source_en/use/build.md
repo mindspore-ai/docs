@@ -11,6 +11,7 @@
         - [Compilation Example](#compilation-example)
         - [Inference Output Description](#inference-output-description)
             - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
+            - [Description of Obfuscator's Directory Structure](#description-of-obfuscators-directory-structure)
             - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
         - [Training Output Description](#training-output-description)
             - [Description of Training Runtime and Related Tools' Directory Structure](#description-of-training-runtime-and-related-tools-directory-structure)
@@ -54,6 +55,7 @@ Modules in training version:
 | cropper         | Linux            | Static library crop tool for libmindspore-lite.a |
 | minddata        | Linux, Android   | Image Processing Library                         |
 | benchmark_train | Linux, Android   | Performance and Accuracy Validation              |
+| obfuscator      | Linux            | Model Obfuscation Tool                           |
 
 ## Linux Environment Compilation
 
@@ -272,6 +274,17 @@ The codegen executable program is only available under the `-I x86_64` compilati
                     └── libwrapper.a # MindSpore Lite CodeGen generates code dependent static library
     ```
 
+#### Description of Obfuscator's Directory Structure
+
+The obfuscation tool is only available under the `-I x86_64` compilation option and the `ENABLE_MODEL_OBF` compilation option in `mindspore/mindspore/lite/CMakeLists.txt` is turned on, the content includes the following parts:
+
+```text
+mindspore-lite-{version}-inference-linux-x64
+└── tools
+    └── obfuscator # Model obfuscation tool
+        └── msobfuscator          # Executable program
+```
+
 #### Description of Runtime and Other tools' Directory Structure
 
 The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I arm32` compilation options, and the content includes the following parts:
@@ -285,6 +298,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   │   └── registry # Header files of customized op registration
     │   └── lib      # Inference framework library
     │       ├── libminddata-lite.so     # The files of image processing dynamic library
+    │       ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library
     │       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
     │       └── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
     └── tools
@@ -295,8 +309,9 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
         │   ├── include   # operator header file
         │   ├── lib       # operator static library
         │   └── third_party # ARM CMSIS NN static library
-        ├── converter # Model conversion tool
-        └── cropper   # Static library crop tool
+        ├── converter  # Model conversion tool
+        ├── obfuscator # Model obfuscation tool
+        └── cropper    # Static library crop tool
             ├── cropper                 # Executable file of static library crop tool
             └── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
     ```
@@ -310,6 +325,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   │   └── registry # Header files of customized op registration
     │   ├── lib         # Inference framework library
     │   │   ├── libminddata-lite.so  # The files of image processing dynamic library
+    │   │   ├── libmsdeobfuscator-lite.so # The files of obfuscated model loading dynamic library
     │   │   ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
     │   │   └── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
     │   └── third_party
@@ -341,6 +357,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     ```
 
 > - Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
+> - The dynamic library `libmsdeobfuscator-lite.so` is only available if the `ENABLE_MODEL_OBF` compilation option in `mindspore/mindspore/lite/CMakeLists.txt` is turned on.
 
 ### Training Output Description
 
