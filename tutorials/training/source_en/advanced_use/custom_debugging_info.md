@@ -302,7 +302,7 @@ Running Data Recorder(RDR) is the feature MindSpore provides to record data whil
 
 2. Configure RDR via `context`.
 
-    ```python3
+    ```python
     context.set_context(env_config_path="./mindspore_config.json")
     ```
 

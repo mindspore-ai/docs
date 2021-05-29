@@ -57,6 +57,7 @@
 > 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
 >
 > 以下三个接口暂不支持：
+>
 > 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
 > 2. `virtual Vector<tensor::MSTensor *> GetOutputsByNodeName(const String &node_name) const = 0;`
 > 3. `virtual int Resize(const Vector<tensor::MSTensor *> &inputs, const Vector<Vector<int>> &dims) = 0;`
@@ -115,7 +116,7 @@ mnist
 
 - 需要组织的工程目录如下：
 
-    ```bash
+    ```text
     ├── mnist              # codegen生成的模型推理代码
     ├── include            # 模型推理对外API头文件目录(需要自建)
     └── operator_library   # 模型推理算子相关文件(需要自建)
@@ -133,7 +134,7 @@ mnist
 
 - 生成代码工程目录如下：
 
-    ```bash
+    ```text
     ├── mnist               # 生成代码的根目录
         ├── benchmark       # 生成代码的benchmark目录
         └── src             # 模型推理代码目录
@@ -141,7 +142,7 @@ mnist
 
 - 预置算子静态库的目录如下：
 
-    ```bash
+    ```text
     ├── operator_library    # 平台算子库目录
         ├── include         # 平台算子库头文件目录
         └── nnacl           # MindSpore团队提供的平台算子库源文件
@@ -157,7 +158,7 @@ mnist
 
     安装好交叉编译所需环境后，需要在Windows环境中依次将其加入到环境变量中。
 
-    ```bash
+    ```text
     gcc -v               # 查看GCC版本
     arm-none-eabi-gdb -v # 查看交叉编译环境
     jlink -v             # 查看J-Link版本
@@ -172,7 +173,7 @@ mnist
     - 成功以后，选择`Makefile` ，`generator code`。
     - 在生成的工程目录下打开`cmd`，执行`make`，测试初始代码是否成功编译。
 
-    ```bash
+    ```text
     # make成功结果
     arm-none-eabi-size build/test_stm32f746.elf
       text    data     bss     dec     hex filename
@@ -187,7 +188,7 @@ mnist
 
 2. 拷贝codegen生成模型推理代码到 STM32CubeMX生成的代码工程目录中。
 
-    ```bash
+    ```text
     ├── .mxproject
     ├── build             # 工程编译输出目录
     ├── Core
@@ -201,7 +202,7 @@ mnist
 
 3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)。
 
-    ```bash
+    ```text
     # C includes
     C_INCLUDES =  \
     -ICore/Inc \
@@ -268,7 +269,7 @@ mnist
 
 使用J-Link将可执行文件拷贝到单板上并做推理。
 
-```bash
+```text
 jlinkgdbserver           # 启动jlinkgdbserver 选定target device为STM32F746IG
 jlinkRTTViewer           # 启动jlinkRTTViewer 选定target devices为STM32F746IG
 arm-none-eabi-gdb        # 启动arm-gcc gdb服务
@@ -285,4 +286,3 @@ c                        # 执行模型推理
 ### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
 
 ### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
-

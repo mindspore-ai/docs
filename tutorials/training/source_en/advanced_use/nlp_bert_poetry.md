@@ -126,7 +126,7 @@ Pre-trained checkpoints of a BERT-base model: [Download from MindSpore](http://d
 
 Modify the `pre_training_ckpt` path in `src/finetune_config.py`, load pre-trained checkpoints, set `batch_size` to bs, and set `dataset_path` to the path for storing poems. `BertConfig` is set to the base model by default.
 
-```python
+```text
 'dataset_path': '/your/path/to/poetry.txt',
 'batch_size': bs,
 'pre_training_ckpt': '/your/path/to/pre_training_ckpt',
@@ -235,7 +235,7 @@ Use MindSpore Serving to deploy the trained model as an inference service. Serve
 
     Use a computer as the client. Set the URL request address in `poetry_client.py` to the IP address of the server where the inference service is started, and ensure that the port number is the same as that in `bert_flask.py` on the server. For example:
 
-    ```python
+    ```text
     url = 'http://10.155.170.71:8080/'
     ```
 

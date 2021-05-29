@@ -160,7 +160,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
    结果：
 
-   ```python
+   ```text
     KMNC of this test is : 0.0851
    ```
 
@@ -184,7 +184,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="Ascend")
 
    Fuzz测试后结果如下：
 
-   ```python
+   ```text
    Accuracy: 0.7929
    Attack_success_rate: 0.3939
    Neural_coverage_KMNC: 0.4797

@@ -83,7 +83,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 
 MindSpore reads environment variables to control parameter server training. The environment variables include the following options (all scripts of `MS_SCHED_HOST` and `MS_SCHED_PORT` must be consistent):
 
-```bash
+```text
 export MS_SERVER_NUM=1                # Server number
 export MS_WORKER_NUM=1                # Worker number
 export MS_SCHED_HOST=XXX.XXX.XXX.XXX  # Scheduler IP address

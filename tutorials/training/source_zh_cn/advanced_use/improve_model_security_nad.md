@@ -218,7 +218,7 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
 
     测试结果中分类精度达到了98%。
 
-    ```python
+    ```text
     prediction accuracy before attacking is : 0.9895833333333334
     ```
 

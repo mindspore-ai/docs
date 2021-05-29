@@ -275,7 +275,7 @@ User process:
 
 1. Run the following script to integrate the checkpoint files:
 
-   ```python
+   ```bash
    python  ./integrate_checkpoint.py "Name of the checkpoint file to be integrated" "Path and name of the checkpoint file generated after integration" "Path and name of the strategy file" "Number of nodes"
    ```
 

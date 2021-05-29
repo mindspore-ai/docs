@@ -113,7 +113,7 @@ The calibration dataset configuration file uses the `key=value` mode to define r
 1. Correctly build the `converter_lite` executable file.
 2. Prepare a calibration dataset. Assume that the dataset is stored in the `/dir/images` directory. Configure the `config.cfg` file. The content is as follows:
 
-    ```python
+    ```text
     image_path=/dir/images
     batch_count=100
     method_x=MAX_MIN

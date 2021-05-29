@@ -215,7 +215,7 @@ The LeNet model is used as an example. You can also create and train your own mo
 
     The classification accuracy reaches 98%.
 
-    ```python
+    ```text
     prediction accuracy before attacking is : 0.9895833333333334
     ```
 

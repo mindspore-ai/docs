@@ -351,7 +351,7 @@ sh run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> <DEVICE_NUM>
 
 训练过程中loss打印示例如下：
 
-```bash
+```text
 ...
 epoch: 1 step: 5004, loss is 4.4182425
 epoch: 2 step: 5004, loss is 3.740064
@@ -367,7 +367,7 @@ epoch: 42 step: 5004, loss is 1.6453942
 
 训练完后，每张卡训练产生的checkpoint文件保存在各自训练目录下，`device_0`产生的checkpoint文件示例如下:
 
-```bash
+```text
 └─train_parallel0
     ├─resnet-1_5004.ckpt
     ├─resnet-2_5004.ckpt
@@ -396,7 +396,7 @@ sh run_distribute_train_gpu.sh <DATASET_PATH> <DEVICE_NUM>
 
 训练过程中loss打印示例如下：
 
-```bash
+```text
 ...
 epoch: 1 step: 5004, loss is 4.2546034
 epoch: 2 step: 5004, loss is 4.0819564
@@ -410,7 +410,7 @@ epoch: 36 step: 5004, loss is 1.645802
 
 训练完后，保存的模型文件示例如下:
 
-```bash
+```text
 └─train_parallel
     ├─ckpt_0
         ├─resnet-1_5004.ckpt

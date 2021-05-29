@@ -43,7 +43,7 @@ benchmark_train工具所在完整路径为`/path/mindspore-lite-{version}-train-
 
 使用编译好的`benchmark_train`工具进行模型的基准测试时，其命令格式如下所示。
 
-```bash
+```text
 ./benchmark_train [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--expectedDataFile=<BENCHMARKDATAFILE>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
    [--timeProfiling=<TIMEPROFILING>] [--help]

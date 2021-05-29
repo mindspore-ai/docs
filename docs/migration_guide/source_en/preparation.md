@@ -32,7 +32,7 @@ MindSpore supports installing and running in EulerOS-arm, CentOS-arm, CentOS-x86
 
 After downloading the package `mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl` from the official website, please install it by pip.
 
-```python
+```bash
 pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 ```
 
@@ -42,7 +42,7 @@ If an old version of MindSpore exists in the environment, please uninstall it be
 
 You can visit [Repository of Mindspore](https://gitee.com/mindspore/mindspore) and download the source code by `git clone https://gitee.com/mindspore/mindspore.git`. A file  `build.sh` in root directory provides several optional parameters, to choose and customize the MindSpore service. The following code is for compiling MindSpore.
 
-```python
+```bash
 cd mindspore
 bash build.sh -e cpu -j{thread_num} # cpu
 bash build.sh -e ascend -j{thread_num} # ascend

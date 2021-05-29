@@ -123,7 +123,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 The code structure is as follows:
 
-```bash
+```text
 ├─MobileNetV2
     ├─README.md     # descriptions about MobileNetV2
     ├─scripts
@@ -171,7 +171,7 @@ Prepare the dataset managed in ImageFolder format. Add the `<dataset_path>` para
 
 The dataset structure is as follows:
 
-```bash
+```text
 └─ImageFolder
     ├─train
     │   class1Folder
@@ -349,7 +349,7 @@ The Windows system outputs information to an interactive command line. When runn
 
     - When running the python file, view the output information in the interactive command line. After running the shell script on `Linux`, run the `cat ./train/rank0/log0.log` command to view the output information. The output is as follows:
 
-        ```bash
+        ```text
         train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
         pretrain_ckpt='./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt', freeze_layer='backbone')
         cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
@@ -365,7 +365,7 @@ The Windows system outputs information to an interactive command line. When runn
 
     - On Windows, run the `dir checkpoint` command to view the saved model files.
 
-        ```bash
+        ```text
         dir ckpt_0
         2020//0814 11:20        267,727 mobilenetv2_1.ckpt
         2020//0814 11:21        267,727 mobilenetv2_10.ckpt
@@ -378,7 +378,7 @@ The Windows system outputs information to an interactive command line. When runn
 
     - On Linux, run the `ls ./checkpoint` command to view the saved model files.
 
-        ```bash
+        ```text
         ls ./ckpt_0/
         mobilenetv2_1.ckpt  mobilenetv2_2.ckpt
         mobilenetv2_3.ckpt  mobilenetv2_4.ckpt
@@ -403,7 +403,7 @@ sh run_eval.sh CPU <VAL_DATASET_PATH> ../ckpt_0/mobilenetv2_15.ckpt
 
 When the python file is run, the validation result is output in the interactive command line. The shell script writes the information to `./eval.log`. You need to run the `cat ./eval.log` command to view the information. The result is as follows:
 
-```bash
+```text
 result:{'acc': 0.9466666666666666666667}
 pretrain_ckpt = ./ckpt_0/mobilenetv2_15.ckpt
 ```

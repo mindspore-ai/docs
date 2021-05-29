@@ -111,7 +111,7 @@ bash prepare_and_run.sh -D /PATH/MNIST_Data -t arm64
 
 Android设备上训练LeNet模型每轮会输出损失值和准确率；最后选择训练完成的模型执行推理，验证`MNIST`手写字识别精度。端侧训练LeNet模型10个epoch的结果如下所示（测试准确率会受设备差异的影响）：
 
-```bash
+```text
 ======Training Locally=========
 1.100:  Loss is 1.19449
 1.200:  Loss is 0.477986

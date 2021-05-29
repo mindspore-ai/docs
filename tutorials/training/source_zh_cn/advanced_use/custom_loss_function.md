@@ -62,7 +62,7 @@ print(output)
 
 以`Ascend`后端为例，输出结果如下：
 
-```python
+```text
 0.03333334
 ```
 

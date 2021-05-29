@@ -346,7 +346,7 @@ if (session2Finish && session2Compile) {
 
 MindSpore Lite不支持多线程并行执行单个[LiteSession](https://www.mindspore.cn/doc/api_java/zh-CN/master/lite_session.html)的推理，否则会得到以下错误信息：
 
-```bash
+```text
 ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
 ```
 

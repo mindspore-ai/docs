@@ -376,13 +376,13 @@ if __name__ == '__main__':
 
 由于`SummaryCollector`和`SummaryRecord`写数据是非进程安全的。所以在单机多卡的场景中，需要确保每张卡保存数据的目录不一样。在分布式场景下，我们通过`get_rank`函数设置summary目录。
 
-```python3
+```python
 summary_dir = "summary_dir" + str(get_rank())
 ```
 
 示例代码如下：
 
-```python3
+```python
 from mindspore.communication.management import get_rank
 
 ...

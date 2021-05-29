@@ -113,7 +113,7 @@ MindSpore Lite训练后量化分为两类：
 1. 正确编译出`converter_lite`可执行文件。
 2. 准备校准数据集，假设存放在`/dir/images`目录，编写配置文件`config.cfg`，内容如下：
 
-    ```python
+    ```text
     image_path=/dir/images
     batch_count=100
     method_x=MAX_MIN

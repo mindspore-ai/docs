@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 Export the model, start the Serving server, and run the preceding client code by referring to the [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html). After the code runs properly, the following information is displayed. To facilitate display, the format is adjusted.
 
-```python
+```text
 [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
  {'y': array([[4., 4.], [4., 4.]], dtype=float32)},
  {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]

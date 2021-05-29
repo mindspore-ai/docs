@@ -213,7 +213,7 @@ sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 
 训练完后，训练过程中变量的变化值保存在`train/outputs`目录下，每隔5个时间步保存一次数据，主要保存了4个变量值，分别是东向的风速、北向的风速（单位是m/s），位温度（单位是K），海表面高度（单位是m）。
 
-```bash
+```text
 └─outputs
     ├─u_5.npy
     ├─v_5.npy

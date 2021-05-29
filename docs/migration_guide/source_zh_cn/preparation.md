@@ -30,7 +30,7 @@ MindSpore支持在Ascend、CPU、GPU环境安装并使用，支持EulerOS-arm、
 
 从官网下载MindSpore安装包后，得到`mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl`文件，请使用pip安装。
 
-```python
+```bash
 pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 ```
 
@@ -40,7 +40,7 @@ pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 
 访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
 
-```python
+```bash
 cd mindspore
 bash build.sh -e cpu -j{thread_num} # cpu环境
 bash build.sh -e ascend -j{thread_num} # Ascend环境

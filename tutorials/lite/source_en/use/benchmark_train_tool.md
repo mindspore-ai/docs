@@ -43,7 +43,7 @@ The absolute path of the benchmark_train tool is `/path/mindspore-lite-{version}
 
 The command used for benchmark testing based on the compiled `benchmark_train` tool is as follows:
 
-```bash
+```text
 ./benchmark_train [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--expectedDataFile=<BENCHMARKDATAFILE>] [--warmUpLoopCount=<WARMUPLOOPCOUNT>]
    [--timeProfiling=<TIMEPROFILING>] [--help]
