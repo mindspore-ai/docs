@@ -149,13 +149,13 @@ A：常用的环境变量设置写入到`~/.bash_profile` 或 `~/.bashrc`中，�
 
 <br/>
 
-<font size=3>**Q：Ascend AI处理器软件配套包与其他依赖软件已安装，但是执行MindSpore时提示`Cannot open shared objectfile: No such file or directory`该怎么办？**</font>
+<font size=3>**Q：Ascend AI处理器配套软件包与其他依赖软件已安装，但是执行MindSpore时提示`Cannot open shared objectfile: No such file or directory`该怎么办？**</font>
 
-A：常见原因有两种：Ascend AI处理器软件配套包或固件/驱动包版本不正确，或没有安装在默认位置且未配置相应的环境变量。
+A：常见原因有两种：Ascend AI处理器配套软件包或固件/驱动包版本不正确，或没有安装在默认位置且未配置相应的环境变量。
 
-1. 打开Ascend AI处理器软件配套包安装目录，默认`/usr/local/Ascend`下，各个子目录中的`version.info`文件，观察其版本号是否与当前使用的MindSpore版本一直，参照[安装页面](https://www.mindspore.cn/install/)中关于Ascend AI处理器软件配套包版本的描述。如果版本不配套，请更换软件包或MindSpore版本。
+1. 打开Ascend AI处理器配套软件包安装目录，默认`/usr/local/Ascend`下，各个子目录中的`version.info`文件，观察其版本号是否与当前使用的MindSpore版本一直，参照[安装页面](https://www.mindspore.cn/install/)中关于Ascend AI处理器配套软件包版本的描述。如果版本不配套，请更换软件包或MindSpore版本。
 
-2. 检查Ascend AI处理器软件配套包与其他依赖软件是否安装在默认位置，MindSpore会尝试从默认安装位置`/usr/local/Ascend`自动加载，如果将Ascend软件包安装在自定义位置，请参照[安装页面](https://www.mindspore.cn/install/)页面的安装指南一栏设置环境变量。如果将其他依赖软件安装在自定义位置，请根据其位置关系设置`LD_LIBRARY_PATH`环境变量。
+2. 检查Ascend AI处理器配套软件包与其他依赖软件是否安装在默认位置，MindSpore会尝试从默认安装位置`/usr/local/Ascend`自动加载，如果将Ascend软件包安装在自定义位置，请参照[安装页面](https://www.mindspore.cn/install/)页面的安装指南一栏设置环境变量。如果将其他依赖软件安装在自定义位置，请根据其位置关系设置`LD_LIBRARY_PATH`环境变量。
 
 <br/>
 
