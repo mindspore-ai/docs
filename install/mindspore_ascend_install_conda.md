@@ -25,8 +25,9 @@
 ## 确认系统环境信息
 
 - 确认安装Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/KylinV10 SP1是64位操作系统。
-- 确认安装Ascend 910 AI处理器软件配套包（[Atlas Data Center Solution 21.0.1]）。
-    - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组，具体配置请详见配套软件包的说明文档。
+- 确认安装Ascend 910 AI处理器配套软件包（[Atlas Data Center Solution 21.0.1]）。
+    - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
+    - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 安装Ascend 910 AI处理器配套软件包提供的whl包，whl包随配套软件包发布，参考如下命令完成安装。
 
         ```bash
