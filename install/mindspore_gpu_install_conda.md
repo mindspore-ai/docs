@@ -29,6 +29,7 @@
 - 确认安装[cuDNN 7.6.X版本](https://developer.nvidia.com/rdp/cudnn-archive)。
 - 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
 - 确认安装[NCCL 2.7.6-1版本](https://docs.nvidia.com/deeplearning/sdk/nccl-install-guide/index.html#debian)（可选，单机多卡/多机多卡训练需要）。
+- 确认安装[TensorRT-7.2.2.3](https://developer.nvidia.com/nvidia-tensorrt-download)（可选，Serving推理需要）。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 
 ## 安装Conda
