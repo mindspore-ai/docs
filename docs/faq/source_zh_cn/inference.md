@@ -28,7 +28,7 @@ A：首先确认环境安装是否正确，`te`、`topi`等whl包是否正确安
 
 <font size=3>**Q：运行应用时报错`error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory`怎么办？**</font>
 
-A：安装MindSpore所依赖的Ascend 310 AI处理器软件配套包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
+A：安装MindSpore所依赖的Ascend 310 AI处理器配套软件包时，`CANN`包不能安装`nnrt`版本，而是需要安装功能完整的`toolkit`版本。
 
 ## MindSpore Serving类
 
