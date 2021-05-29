@@ -12,6 +12,7 @@
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
             - [代码生成工具codegen目录结构说明](#代码生成工具codegen目录结构说明)
+            - [模型混淆工具obfuscator目录结构说明](#模型混淆工具obfuscator目录结构说明)
             - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
         - [端侧训练框架编译输出](#端侧训练框架编译输出)
             - [训练Runtime及配套工具目录结构说明](#训练Runtime及配套工具目录结构说明)
@@ -46,6 +47,7 @@
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
 | codegen            | Linux                   | 模型推理代码生成工具               |
+| obfuscator         | Linux                   | 模型混淆工具                      |
 
 训练版本包含模块：
 
@@ -272,6 +274,17 @@ mindspore-lite-{version}-inference-linux-x64
                 └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
     ```
 
+#### 模型混淆工具obfuscator目录结构说明
+
+仅在`-I x86_64`编译选项下且`mindspore/mindspore/lite/CMakeLists.txt`中的`ENABLE_MODEL_OBF`选项开启时，获得msobfuscator可执行程序，内容如下：
+
+```text
+mindspore-lite-{version}-inference-linux-x64
+└── tools
+    └── obfuscator # 模型混淆工具
+        └── msobfuscator          # 可执行程序
+```
+
 #### Runtime及其他工具目录结构说明
 
 推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容如下：
@@ -285,6 +298,7 @@ mindspore-lite-{version}-inference-linux-x64
     │   │   └── registry # 自定义算子注册头文件
     │   └── lib      # 推理框架库
     │       ├── libminddata-lite.so     # 图像处理动态库文件
+    │       ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件
     │       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
     │       └── libmindspore-lite.so    # MindSpore Lite推理框架的动态库
     └── tools
@@ -295,8 +309,9 @@ mindspore-lite-{version}-inference-linux-x64
         │   ├── include   # 算子头文件
         │   ├── lib       # 算子静态库
         │   └── third_party # ARM CMSIS NN算子库
-        ├── converter # 模型转换工具
-        └── cropper   # 库裁剪工具
+        ├── converter  # 模型转换工具
+        ├── obfuscator # 模型混淆工具
+        └── cropper    # 库裁剪工具
             ├── cropper                 # 库裁剪工具可执行文件
             └── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
     ```
@@ -310,6 +325,7 @@ mindspore-lite-{version}-inference-linux-x64
     │   │   └── registry # 自定义算子注册头文件
     │   ├── lib         # 推理框架库
     │   │   ├── libminddata-lite.so  # 图像处理动态库文件
+    │   │   ├── libmsdeobfuscator-lite.so # 模混淆模型加载动态库
     │   │   ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
     │   │   └── libmindspore-lite.so # MindSpore Lite推理框架的动态库
     │   └── third_party
@@ -341,6 +357,7 @@ mindspore-lite-{version}-inference-linux-x64
     ```
 
 > - 编译ARM64默认可获得cpu/gpu/npu的推理框架输出件，若添加`-e gpu`则获得cpu/gpu的推理框架输出件，ARM32仅支持CPU。
+> - 编译混淆模型加载动态库文件libmsdeobfuscator-lite.so，需要开启`mindspore/mindspore/lite/CMakeLists.txt`中的`ENABLE_MODEL_OBF`选项。
 
 ### 端侧训练框架编译输出
 
