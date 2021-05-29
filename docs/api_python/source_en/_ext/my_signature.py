@@ -78,9 +78,12 @@ def _my_signature_from_function(cls, func):
     keyword_only = arg_names[pos_count:(pos_count + keyword_only_count)]
     annotations = func.__annotations__
     defaults = get_default_params(func)
-    kwdefaults = dict()
-    for num, arg_name in enumerate(keyword_only):
-        kwdefaults[arg_name] = defaults[num]
+    if keyword_only_count == len(defaults):
+        kwdefaults = dict()
+        for num, arg_name in enumerate(keyword_only):
+            kwdefaults[arg_name] = defaults[num]
+    else:
+        kwdefaults = func.__kwdefaults__
     pos_defaults = func.__defaults__
 
     if pos_defaults:
