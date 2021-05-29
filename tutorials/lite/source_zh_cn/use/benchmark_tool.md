@@ -50,7 +50,7 @@
 
 使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。
 
-```bash
+```text
 ./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]
@@ -233,7 +233,7 @@ Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTim
 
 使用编译好的Benchmark工具进行模型的基准测试时，其命令格式如下所示。参数与Linux环境下使用一致，此处不再赘述。
 
-```bash
+```text
 call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]

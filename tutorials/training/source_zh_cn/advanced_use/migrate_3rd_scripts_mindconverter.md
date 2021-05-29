@@ -40,7 +40,7 @@ MindConverter是一款用于将PyTorch（ONNX）、TensorFlow（PB）模型转�
 
 MindConverter提供命令行（Command-line interface, CLI）的使用方式，命令如下。
 
-```bash
+```text
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
                      [--model_file MODEL_FILE] [--shape SHAPE [SHAPE ...]]
                      [--input_nodes INPUT_NODES [INPUT_NODES ...]]
@@ -129,7 +129,7 @@ MindConverter提供两种技术方案，以应对不同脚本迁移场景：
 
 若用户希望使用基于AST的方案进行脚本迁移，假设原PyTorch脚本路径为`/home/user/model.py`，希望将脚本输出至`/home/user/output`，转换报告输出至`/home/user/output/report`，则脚本转换命令为：
 
-```bash
+```text
 mindconverter --in_file /home/user/model.py \
               --output /home/user/output \
               --report /home/user/output/report
@@ -163,7 +163,7 @@ line x:y: [UnConvert] 'operator' didn't convert. ...
 
 假设输入节点名称为`input_1:0`，输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,224,224,3`，模型绝对路径为`xxx/frozen_model.pb`，希望将脚本、权重文件输出至`/home/user/output`，转换报告以及权重映射表输出至`/home/user/output/report`，则脚本生成命令为：
 
-```bash
+```text
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
               --input_nodes input_1:0 \
               --output_nodes predictions/Softmax:0 \
@@ -259,7 +259,7 @@ class Classifier(nn.Cell):
 
 假设输入节点名称为`input_1:0`、输出节点名称为`predictions/Softmax:0`，模型输入样本尺寸为`1,3,224,224`，则可使用如下命令进行脚本生成：
 
-```bash
+```text
 mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
               --input_nodes input_1:0 \
               --output_nodes predictions/Softmax:0 \

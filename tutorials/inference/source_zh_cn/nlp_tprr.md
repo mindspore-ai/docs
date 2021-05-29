@@ -211,7 +211,7 @@ sh run_eval_ascend_reranker_reader.sh
 
 Retriever模块测评结果：其中val表示找对答案文档的问题数目，count表示问题总数目，PEM表示问题相关文档排序后top-8文档的精确匹配的准确率。
 
-```python
+```text
 # match query num
 val:6959
 # query num
@@ -228,7 +228,7 @@ evaluation time (h): 1.819070938428243
 
 Reranker和Reader模块测评结果，其中total_top1_pem表示重排序之后top-1路径的精确匹配的准确率，joint_em表示预测的答案和证据的精确匹配的联合准确率，joint_f1表示预测的答案和证据的联合f1 score。
 
-```python
+```text
 # top8 paragraph exact match
 total top1 pem: 0.8803511141120864
 ...

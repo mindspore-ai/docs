@@ -306,7 +306,7 @@ Running Data Recorder(RDR)是MindSpore提供训练程序运行时记录数据的
 
 2. 通过 `context` 配置RDR。
 
-    ```python3
+    ```python
     context.set_context(env_config_path="./mindspore_config.json")
     ```
 
@@ -343,7 +343,7 @@ MindSpore内存复用功能默认开启，可以通过以下方式手动控制�
 
 2. 通过 `context` 配置内存复用功能。
 
-    ```python3
+    ```python
     context.set_context(env_config_path="./mindspore_config.json")
     ```
 

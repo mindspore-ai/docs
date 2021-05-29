@@ -32,7 +32,7 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 
 使用裁剪工具进行静态库的裁剪，其命令格式如下所示。
 
-```bash
+```text
 ./cropper [--packageFile=<PACKAGEFILE>] [--configFile=<CONFIGFILE>]
           [--modelFile=<MODELFILE>] [--modelFolderPath=<MODELFOLDERPATH>]
           [--outputFile=<MODELFILE>] [--help]

@@ -183,7 +183,7 @@ ms-sd@mssd:~/Python-3.7.5$ sudo ln -s /usr/local/python3.7.5/bin/pip3 /usr/bin/p
 
 （10）输入验证，Python已更改为3.7.5版本
 
-```python
+```text
 ms-sd@mssd:~/Python-3.7.5$ python3
 Python 3.7.5 (default, Dec 19 2020, 11:29:09)
 [GCC 7.3.0] on linux
@@ -193,7 +193,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 （11）更新```update-alternatives```python列表
 
-```shell
+```bash
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 150
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 110
@@ -372,7 +372,7 @@ ms-sd@mssd:~/mindspore$ sudo pip3 install /mindspore/build/package/mindspore-1.1
 
 （6）导入测试
 
-```python3
+```text
 ms-sd@mssd:~/mindspore$ sudo python3
 Python 3.7.5 (default, Dec 19 2020, 13:04:49)
 [GCC 7.3.0] on linux

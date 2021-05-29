@@ -71,7 +71,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 [[4.5099998 2.7 3.6000001]
  [4.5099998 2.7 3.6000001]]
 ```
@@ -131,7 +131,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 (Tensor(shape=[1], dtype=Float32, value= [ 2.15359993e+01]),)
 ```
 
@@ -168,7 +168,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 [[2.211 0.51 1.49 ]
  [5.588 2.68 4.07 ]]
 ```
@@ -212,7 +212,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 [[0.11 1.1 1.1]
  [0.   0.  0. ]]
 ```
@@ -268,7 +268,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 [-0.841471]
 ```
 
@@ -319,7 +319,7 @@ print(output)
 
 输出结果如下：
 
-```python
+```text
 [2. 2. 2.]
 ```
 
@@ -377,7 +377,7 @@ print(dxdx, dxdy, dydx, dydy)
 
 输出结果如下：
 
-```python
+```text
 [10] [8.] [8.] [0.]
 ```
 

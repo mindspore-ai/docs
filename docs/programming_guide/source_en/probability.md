@@ -375,7 +375,7 @@ print("dist_arg: ", dist_arg)
 
 The output is as follows:
 
-```python
+```text
 mean:  0.0
 var:  1.0
 entropy:  1.4189385
@@ -418,7 +418,7 @@ print("kl: ", kl)
 
 The output is as follows:
 
-```python
+```text
 pdf:  [0.35206532 0.3989423  0.35206532]
 kl:  0.5
 ```
@@ -483,7 +483,7 @@ print("sample shape:\n", sample.shape)
 
 The output is as follows:
 
-```python
+```text
 TransformedDistribution<
   (_bijector): Exp<exp>
   (_distribution): Normal<mean = 0.0, standard deviation = 1.0>
@@ -510,7 +510,7 @@ print(mean)
 
 The output is as follows:
 
-```python
+```text
 2.0
 ```
 
@@ -552,7 +552,7 @@ print("sample shape: ", sample.shape)
 
 The output is as follows:
 
-```python
+```text
 cdf:  [0.7558914  0.86403143 0.9171715  0.9462397 ]
 sample shape:  (2, 3)
 ```
@@ -695,7 +695,7 @@ print("inverse_log_jacobian: ", inverse_log_jaco)
 
 The output is as follows:
 
-```python
+```text
 PowerTransform<power = 2.0>
 forward:  [2.236068  2.6457515 3.        3.3166249]
 inverse:  [ 1.5       4.        7.5      12.000001]
@@ -741,7 +741,7 @@ print("inverse_log_jaco: ", inverse_log_jaco)
 
 The output is as follows:
 
-```python
+```text
 forward:  [2.236068  2.6457515 3.        3.3166249]
 inverse:  [ 1.5       4.        7.5      12.000001]
 forward_log_jacobian:  [-0.804719  -0.9729551 -1.0986123 -1.1989477]
@@ -887,7 +887,7 @@ print('The shape of the generated sample is ', generated_sample.shape)
 
 The shape of the newly generated sample is as follows:
 
-```python
+```text
 The shape of the generated sample is (64, 1, 32, 32)
 ```
 
@@ -905,7 +905,7 @@ print('The shape of the generated sample is ', generated_sample.shape)
 
 Check the shape of the newly generated sample:
 
-```python
+```text
 The shape of the generated sample is  (64, 1, 32, 32)
 ```
 
@@ -1052,7 +1052,7 @@ if __name__ == '__main__':
 `eval_epistemic_uncertainty` calculates epistemic uncertainty, which is also called model uncertainty. Each estimation label of every sample has an uncertain value. `eval_aleatoric_uncertainty` calculates aleatoric uncertainty, which is also called data uncertainty. Each sample has an uncertain value.
 The output is as follows:
 
-```python
+```text
 The shape of epistemic uncertainty is (32, 10)
 The shape of epistemic uncertainty is (32,)
 ```

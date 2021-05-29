@@ -71,14 +71,14 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
    For each pre-trained model, please run the following command to obtain a hash value required at `asset-sha256` of this `.md` file. Here the pre-trained model `googlenet.ckpt` is accessed from the storage location in step 1 and then saved in `tools` folder. The output hash value is: `114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7`.
 
-   ```python
+   ```bash
    cd ../tools
    python get_sha256.py --file ../googlenet.ckpt
    ```
 
 4. Check the format of the markdown file locally using `hub/mshub_res/tools/md_validator.py` by running the following command. The output is `All Passed`，which indicates that the format and content of the `.md` file meets the requirements.
 
-   ```python
+   ```bash
    python md_validator.py --check_path ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
    ```
 

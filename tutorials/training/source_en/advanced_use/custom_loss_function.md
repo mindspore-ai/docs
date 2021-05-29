@@ -66,7 +66,7 @@ print(output)
 
 Taking `Ascend` backup as an example, the output is as follow:
 
-```python
+```text
 0.03333334
 ```
 

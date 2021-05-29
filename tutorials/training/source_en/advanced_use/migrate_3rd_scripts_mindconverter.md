@@ -40,7 +40,7 @@ Third party libraries below are required after installing MindInsight:
 
 MindConverter currently only provides command-line interface. Here is the manual page.
 
-```bash
+```text
 usage: mindconverter [-h] [--version] [--in_file IN_FILE]
                      [--model_file MODEL_FILE] [--shape SHAPE [SHAPE ...]]
                      [--input_nodes INPUT_NODES [INPUT_NODES ...]]
@@ -129,7 +129,7 @@ Some typical networks in computer vision field have been tested for the Graph mo
 
 Assume the PyTorch script is located at `/home/user/model.py`, and outputs the transformed MindSpore script to `/home/user/output`, with the conversion report to `/home/user/output/report`. Use the following command:
 
-```bash
+```text
 mindconverter --in_file /home/user/model.py \
               --output /home/user/output \
               --report /home/user/output/report
@@ -165,7 +165,7 @@ To use TensorFlow model script migration, you need to export TensorFlow model to
 
 Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`. Output the transformed MindSpore script and MindSpore checkpoint file to `/home/user/output`, with the conversion report and weight map file to `/home/user/output/report`. Use the following command:
 
-```bash
+```text
 mindconverter --model_file /home/user/xxx/frozen_model.pb --shape 1,224,224,3 \
               --input_nodes input_1:0 \
               --output_nodes predictions/Softmax:0 \
@@ -259,7 +259,7 @@ To use ONNX model File migration, you need to obtain the model input node and ou
 
 Suppose the model is saved to `/home/user/xxx/model.onnx`, the corresponding input node name is `input_1:0`, the output node name is `predictions/Softmax:0`, the input shape of model is `1,3,224,224`, the following command can be used to generate the script:
 
-```bash
+```text
 mindconverter --model_file /home/user/xxx/model.onnx --shape 1,3,224,224 \
               --input_nodes input_1:0 \
               --output_nodes predictions/Softmax:0 \

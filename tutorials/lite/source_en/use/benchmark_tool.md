@@ -40,7 +40,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
-    ````bash
+    ```bash
     export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/inference/lib:${LD_LIBRARY_PATH}
     ````
 
@@ -50,7 +50,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows:
 
-```bash
+```text
 ./benchmark [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]

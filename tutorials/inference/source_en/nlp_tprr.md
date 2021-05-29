@@ -214,7 +214,7 @@ After the inference is completed, the result is saved to the log file in `script
 
 Evaluation results of the Retriever module: val represents the number of questions found in the correct answer document, count represents the total number of questions, and PEM represents the accuracy of the top-8 documents after the problem-related documents are sorted.
 
-```python
+```text
 # match query num
 val:6959
 # query num
@@ -231,7 +231,7 @@ evaluation time (h): 1.819070938428243
 
 The following is Reranker and Reader module evaluation results, total_top1_pem represents the accuracy of the exact matching of the top-1 path after reordering, joint_em represents the joint accuracy of the predicted answer and the exact match of the evidence, joint_f1 represents the combined f1 score of the predicted answer and the evidence.
 
-```python
+```text
 # top8 paragraph exact match
 total top1 pem: 0.8803511141120864
 ...

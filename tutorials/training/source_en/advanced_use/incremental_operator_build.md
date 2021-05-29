@@ -59,7 +59,7 @@ def test_net():
 
 The network model consists of a single operator `Square`, and the output is a square value of the input. The command output is as follows:
 
-```python
+```text
 x: [1. 4. 9.]
 output: [1. 16. 81.]
 ```

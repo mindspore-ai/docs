@@ -213,7 +213,7 @@ Pass the variables `im`, `jm`, `kb`, `step` and `DATASET_PATH` to the script, wh
 
 After the training is complete, the variable change values during the training are saved in the `train/outputs` directory. The following four variable values are saved every five time steps: east wind velocity (unit: m/s), north wind velocity (unit: m/s), position temperature (unit: K), and sea surface elevation (unit: m).
 
-```bash
+```text
 └─outputs
     ├─u_5.npy
     ├─v_5.npy

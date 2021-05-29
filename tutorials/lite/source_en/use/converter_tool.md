@@ -37,7 +37,7 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
-    ````bash
+    ```bash
     export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/tools/converter/lib:${LD_LIBRARY_PATH}
     ````
 
@@ -132,7 +132,7 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
 
 - Add the path of dynamic library required by the conversion tool to the environment variables PATH.
 
-    ````bash
+    ```bash
     set PATH=%PACKAGE_ROOT_PATH%\tools\converter\lib;%PATH%
     ````
 

@@ -281,7 +281,7 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
     其中`lenet5_net.py`为LeNet5的模型定义，`mnist_train.py`为LeNet5的常规训练脚本。在该目录下运行如下命令，即可生成包含模型CheckPoint文件的`trained_ckpt_file`文件夹。
 
-    ```python
+    ```bash
     python mnist_train.py
     ```
 

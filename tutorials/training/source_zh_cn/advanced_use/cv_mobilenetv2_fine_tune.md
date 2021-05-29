@@ -123,7 +123,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 代码结构如下：
 
-```bash
+```text
 ├─MobileNetV2
     ├─README.md     # descriptions about MobileNetV2
     ├─scripts
@@ -171,7 +171,7 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
 数据集结构如下：
 
-```bash
+```text
 └─ImageFolder
     ├─train
     │   class1Folder
@@ -349,7 +349,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     - 运行Python文件时在交互式命令行中查看打印信息，`Linux`上运行Shell脚本运行后使用`cat ./train/rank0/log0.log`中查看打印信息，输出结果如下：
 
-        ```bash
+        ```text
         train args: Namespace(dataset_path='./dataset/train', platform='CPU', \
         pretrain_ckpt='./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt', freeze_layer='backbone')
         cfg: {'num_classes': 26, 'image_height': 224, 'image_width': 224, 'batch_size': 150, \
@@ -365,7 +365,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     - Windows上使用`dir checkpoint`查看保存的模型文件：
 
-        ```bash
+        ```text
         dir ckpt_0
         2020//0814 11:20        267,727 mobilenetv2_1.ckpt
         2020//0814 11:21        267,727 mobilenetv2_10.ckpt
@@ -378,7 +378,7 @@ Windows系统输出信息到交互式命令行，Linux系统环境下运行`run_
 
     - Linux上使用`ls ./checkpoint`查看保存的模型文件：
 
-        ```bash
+        ```text
         ls ./ckpt_0/
         mobilenetv2_1.ckpt  mobilenetv2_2.ckpt
         mobilenetv2_3.ckpt  mobilenetv2_4.ckpt
@@ -403,7 +403,7 @@ sh run_eval.sh CPU <VAL_DATASET_PATH> ../ckpt_0/mobilenetv2_15.ckpt
 
 运行Python文件时在交互式命令行中输出验证结果，Shell脚本将把这些信息写入`./eval.log`中，需要使用`cat ./eval.log`查看，结果如下：
 
-```bash
+```text
 result:{'acc': 0.9466666666666666666667}
 pretrain_ckpt = ./ckpt_0/mobilenetv2_15.ckpt
 ```

@@ -159,7 +159,7 @@ For details about the API configuration, see the `context.set_context`.
 
    Result:
 
-   ```python
+   ```text
     KMNC of this test is : 0.0851
    ```
 
@@ -193,7 +193,7 @@ For details about the API configuration, see the `context.set_context`.
 
    The fuzz testing result is as follows:
 
-   ```python
+   ```text
    Accuracy: 0.7929
    Attack_success_rate: 0.3939
    Neural_coverage_KMNC: 0.4797

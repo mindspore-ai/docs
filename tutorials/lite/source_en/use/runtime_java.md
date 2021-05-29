@@ -346,7 +346,7 @@ if (session2Finish && session2Compile) {
 
 MindSpore Lite does not support multi-thread parallel execution of inference for a single [LiteSession](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html). Otherwise, the following error information is displayed:
 
-```bash
+```text
 ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-threading
 ```
 

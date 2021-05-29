@@ -32,7 +32,7 @@ To use the Cropper tool, you need to prepare the environment as follows:
 
 The command used for crop the static library based on Cropper is as follows:
 
-```bash
+```text
 ./cropper [--packageFile=<PACKAGEFILE>] [--configFile=<CONFIGFILE>]
           [--modelFile=<MODELFILE>] [--modelFolderPath=<MODELFOLDERPATH>]
           [--outputFile=<MODELFILE>] [--help]
