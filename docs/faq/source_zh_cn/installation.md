@@ -23,6 +23,18 @@ A：从报错情况来看，是cublas库没有找到。一般的情况下是cubl
 
 <br/>
 
+<font size=3>**Q：使用pip安装时报错：`ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform`应该怎么办？**</font>
+
+A：pip会通过wheel安装包的文件名来判断该安装包是否与当前Python环境兼容，例如安装mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl时，pip会检查：
+
+1. 当前python环境为3.7.x版本
+2. 当前操作系统为Linux
+3. 操作系统架构为arm64
+
+因此，如果出现is not a supported wheel on this platform问题，请检查当前环境是否满足MindSpore安装要求，以及该MindSpore安装包版本是否正确。
+
+<br/>
+
 <font size=3>**Q：使用pip安装时报错：`SSL:CERTIFICATE_VERIFY_FATLED`应该怎么办？**</font>
 
 A：在pip安装命令后添加参数 `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com`重试即可。
