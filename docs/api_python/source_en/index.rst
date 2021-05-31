@@ -61,3 +61,8 @@ MindSpore Python API
    :caption: MindQuantum Python API
 
    mindquantum/mindquantum
+   mindquantum/mindquantum.parameterresolver
+   mindquantum/mindquantum.ops
+   mindquantum/mindquantum.hiqfermion
+   mindquantum/mindquantum.nn
+   mindquantum/mindquantum.utils
