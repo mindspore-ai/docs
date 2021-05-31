@@ -3,13 +3,13 @@
 <!-- TOC -->
 
 - [Network Script Analysis](#network-script_analysis)
-    - [Operator Evaluation](##operator-evaluation)
-        - [MindSpore Operator Design](##MindSpore-operator-design)
-        - [Query Operator Mapping Table](###query-operator-mapping-table)
-        - [Missing Operator Processing Strategy](###missing-operator-processing-strategy)
-    - [Grammar Assessment](##grammar-assessment)
-        - [Common Restriction Principles](###common-restriction-principles)
-        - [Common Processing Strategies](###common-processing-strategies)
+    - [Operator Evaluation](#operator-evaluation)
+        - [MindSpore Operator Design](#mindspore-operator-design)
+        - [Query Operator Mapping Table](#query-operator-mapping-table)
+        - [Missing Operator Processing Strategy](#missing-operator-processing-strategy)
+    - [Grammar Assessment](#grammar-assessment)
+        - [Common Restriction Principles](#common-restriction-principles)
+        - [Common Processing Strategies](#common-processing-strategies)
 
 <!-- /TOC -->
 
@@ -59,7 +59,7 @@ MindSpore provides two modes: `GRAPH_MODE` and `PYNATIVE_MODE`.
 
 In PyNative mode, the behavior of the model for **Evaluation** is same as that of in the general Python code.
 
-When using `GRAPH_MODE`, or when using `PYNATIVE_MODE` for **Training**, there are usually grammatical restrictions. In these two cases, it is necessary to perform graph compilation operations on the Python code. In this step, MindSpore has not yet been able to support the complete set of Python syntax, so there will be some restrictions on the implementation of the `construct` function. For specific restrictions, please refer to [MindSpore static graph syntax support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html)。
+When using `GRAPH_MODE`, or when using `PYNATIVE_MODE` for **Training**, there are usually grammatical restrictions. In these two cases, it is necessary to perform graph compilation operations on the Python code. In this step, MindSpore has not yet been able to support the complete set of Python syntax, so there will be some restrictions on the implementation of the `construct` function. For specific restrictions, please refer to [MindSpore static graph syntax support](https://www.mindspore.cn/doc/note/en/master/static_graph_syntax_support.html).
 
 ### Common Restriction Principles
 

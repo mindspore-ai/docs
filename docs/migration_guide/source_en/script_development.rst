@@ -3,14 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Migration Guide
-=================================
+Network Script Development
+===========================
 
 .. toctree::
    :maxdepth: 1
 
-   preparation
-   script_analysis
-   script_development
-   performance_optimization
-   inference
+   migration_script
