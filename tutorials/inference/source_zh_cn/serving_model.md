@@ -67,7 +67,7 @@ Servable包含如下内容：
 
 以Resnet50模型为例，模型配置文件目录结果如下图所示：
 
-```shell
+```text
 resnet50
 ├── 1
 │   └── resnet_classify.mindir

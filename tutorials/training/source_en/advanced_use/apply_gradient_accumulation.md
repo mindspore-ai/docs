@@ -244,7 +244,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
     The output is as follows. You can see that the loss value decreases with the training.
 
-    ```shell
+    ```text
     epoch: 1 step: 27 loss is  0.3660637
     epoch: 1 step: 28 loss is  0.25238192
     ...
@@ -269,7 +269,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 The output is as follows. The accuracy of the validation dataset is about 96.31%, which is the same as the result when the value of batch_size is 32.
 
-```shell
+```text
 ============== Starting Testing ==============
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```

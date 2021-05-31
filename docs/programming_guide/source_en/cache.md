@@ -43,7 +43,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Before using the cache service, you need to install MindSpore and set related environment variables. The Conda environment is used as an example. The setting method is as follows:
 
-    ```shell
+    ```text
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
     export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
     ```
@@ -88,7 +88,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     You can also run the `cache_admin --server_info` command to get the full list of configuration of cache server.
 
-    ```shell
+    ```text
     $ cache_admin --server_info
     Cache Server Configuration:
     ----------------------------------------
@@ -113,7 +113,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     If no cache session exists on the cache server, a cache session needs to be created to obtain the cache session ID.
 
-    ```shell
+    ```text
     $ cache_admin -g
     Session created for server on port 50052: 1456416665
     ```
@@ -122,7 +122,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     You can run the `cache_admin --list_sessions` command to view all cache sessions on the current server.
 
-    ```shell
+    ```text
     $ cache_admin --list_sessions
     Listing sessions for server on port 50052
 
@@ -198,7 +198,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
         You can run the `cache_admin --list_sessions` command to check whether there are four data records in the current session. If yes, the data is successfully cached.
 
-        ```shell
+        ```text
         $ cache_admin --list_sessions
         Listing sessions for server on port 50052
 
@@ -239,7 +239,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
         You can run the `cache_admin --list_sessions` command to check whether there are five data records in the current session. If yes, the data is successfully cached.
 
-        ```shell
+        ```text
         $ cache_admin --list_sessions
         Listing sessions for server on port 50052
 
@@ -251,7 +251,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     After the training is complete, you can destroy the current cache and release the memory.
 
-    ```shell
+    ```text
     $ cache_admin --destroy_session 1456416665
     Drop session successfully for server on port 50052
     ```
@@ -264,7 +264,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     After using the cache server, you can stop it. This operation will destroy all cache sessions on the current server and release the memory.
 
-    ```shell
+    ```text
     $ cache_admin --stop
     Cache server on port 50052 has been stopped successfully.
     ```
@@ -279,7 +279,7 @@ During the single-node multi-device distributed training, the cache operator all
 
 1. Start the cache server.
 
-    ```shell
+    ```text
     $ cache_admin --start
     Cache server startup completed successfully!
     The cache server daemon has been created as process id 39337 and listening on port 50052
@@ -378,7 +378,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     Execute the shell script `cache.sh` to enable distributed training.
 
-    ```shell
+    ```text
     $ sh cache.sh cifar-10-batches-bin/
     Got 4 samples on device 0
     Got 4 samples on device 1
@@ -388,7 +388,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     You can run the `cache_admin --list_sessions` command to check whether only one group of data exists in the current session. If yes, cache sharing is successful.
 
-    ```shell
+    ```text
     $ cache_admin --list_sessions
     Listing sessions for server on port 50052
 
@@ -400,7 +400,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     After the training is complete, you can destroy the current cache and release the memory.
 
-    ```shell
+    ```text
     $ cache_admin --destroy_session 3392558708
     Drop session successfully for server on port 50052
     ```
@@ -409,7 +409,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     After using the cache server, you can stop it.
 
-    ```shell
+    ```text
     $ cache_admin --stop
     Cache server on port 50052 has been stopped successfully.
     ```

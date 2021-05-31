@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
    - 所有实例推理正确：
 
-        ```shell
+        ```text
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
          {'y': array([[4., 4.], [4., 4.]], dtype=float32)},
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
@@ -101,13 +101,13 @@ if __name__ == '__main__':
 
    - 针对所有实例共同的错误，返回一个包含`error`的dict。将例子中Client构造时填入的`add_common`改为`add_common2`，将返回结果：
 
-        ```shell
+        ```text
         {'error', 'Request Servable(add) method(add_common2), method is not available'}
         ```
 
    - 部分实例推理错误，出错的推理实例将返回包含`error`的dict。将instance2一个输入的`dtype`改为`np.int32`，将返回结果：
 
-        ```shell
+        ```text
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
          {'error': 'Given model input 1 data type kMSI_Int32 not match ...'},
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 `ResNet-50` Servable提供的`classify_top1`方法需要用户提供输入`image`，上面例子中，每个实例的输入`image`为图像的二进制数据。
 正常结束执行后，预期将会有以下打印：
 
-```shell
+```text
 [{'label': 'tabby, tabby cat'}, {'label': 'ox'}]
 ```
 

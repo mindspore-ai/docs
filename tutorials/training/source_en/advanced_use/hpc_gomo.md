@@ -30,7 +30,7 @@ The following describes how to use MindSpore to build and run the 3D ocean model
 
 The directory structure of the sample code is as follows:
 
-```shell
+```text
 └── ocean_model
     ├── README.md                                  # descriptions about ocean model GOMO
     ├── scripts
@@ -201,7 +201,7 @@ if __name__ == "__main__":
 After the training script is defined, call the shell script in the `scripts` directory to start training.
 Run the following command to execute the script:
 
-```shell
+```text
 sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 ```
 

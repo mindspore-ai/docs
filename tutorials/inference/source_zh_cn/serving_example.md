@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
 启动Serving服务，以Add用例为例，需要如下文件列表：
 
-```shell
+```text
 test_dir
 ├── add/
 │    └── servable_config.py
@@ -256,7 +256,7 @@ if __name__ == '__main__':
 
 使用`mindspore_serving.client`定义的`Client`类，客户端定义两个用例，分别调用模型的两个方法，`run_add_common`用例为三对float32类型数组相加操作，`run_add_cast`用例计算两个int32数组相加操作。执行后显示如下返回值，三对float32类型相加结果合集和一对int32类型的相加结果，说明Serving服务已正确执行Add网络的推理。
 
-```shell
+```text
 [{'y': array([[2. , 2.],
         [2.,  2.]], dtype=float32)},{'y': array([[4. , 4.],
         [4.,  4.]], dtype=float32)},{'y': array([[6. , 6.],

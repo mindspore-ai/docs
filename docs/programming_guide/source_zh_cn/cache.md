@@ -41,7 +41,7 @@
 
     使用缓存服务前，需要安装MindSpore，并设置相关环境变量。以Conda环境为例，设置方法如下：
 
-    ```shell
+    ```text
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
     export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
     ```
@@ -86,7 +86,7 @@
 
     用户也可通过`cache_admin --server_info`命令查看服务器的详细参数列表。
 
-    ```shell
+    ```text
     $ cache_admin --server_info
     Cache Server Configuration:
     ----------------------------------------
@@ -111,7 +111,7 @@
 
     若缓存服务器中不存在缓存会话，则需要创建一个缓存会话，得到缓存会话id：
 
-    ```shell
+    ```text
     $ cache_admin -g
     Session created for server on port 50052: 1456416665
     ```
@@ -120,7 +120,7 @@
 
     通过`cache_admin --list_sessions`命令可以查看当前服务器中现存的所有缓存会话信息。
 
-    ```shell
+    ```text
     $ cache_admin --list_sessions
     Listing sessions for server on port 50052
 
@@ -196,7 +196,7 @@
 
         通过`cache_admin --list_sessions`命令可以查看当前会话有四条数据，说明数据缓存成功。
 
-        ```shell
+        ```text
         $ cache_admin --list_sessions
         Listing sessions for server on port 50052
 
@@ -237,7 +237,7 @@
 
         通过`cache_admin --list_sessions`命令可以查看当前会话有五条数据，说明数据缓存成功。
 
-        ```shell
+        ```text
         $ cache_admin --list_sessions
         Listing sessions for server on port 50052
 
@@ -249,7 +249,7 @@
 
     在训练结束后，可以选择将当前的缓存销毁并释放内存：
 
-    ```shell
+    ```text
     $ cache_admin --destroy_session 1456416665
     Drop session successfully for server on port 50052
     ```
@@ -262,7 +262,7 @@
 
     使用完毕后，可以通过以下命令关闭缓存服务器，该操作将销毁当前服务器中存在的所有缓存会话并释放内存。
 
-    ```shell
+    ```text
     $ cache_admin --stop
     Cache server on port 50052 has been stopped successfully.
     ```
@@ -277,7 +277,7 @@
 
 1. 启动缓存服务器。
 
-    ```shell
+    ```text
     $ cache_admin --start
     Cache server startup completed successfully!
     The cache server daemon has been created as process id 39337 and listening on port 50052
@@ -376,7 +376,7 @@
 
     运行Shell脚本`cache.sh`开启分布式训练：
 
-    ```shell
+    ```text
     $ sh cache.sh cifar-10-batches-bin/
     Got 4 samples on device 0
     Got 4 samples on device 1
@@ -386,7 +386,7 @@
 
     通过`cache_admin --list_sessions`命令可以查看当前会话中只有一组数据，说明缓存共享成功。
 
-    ```shell
+    ```text
     $ cache_admin --list_sessions
     Listing sessions for server on port 50052
 
@@ -398,7 +398,7 @@
 
     在训练结束后，可以选择将当前的缓存销毁并释放内存：
 
-    ```shell
+    ```text
     $ cache_admin --destroy_session 3392558708
     Drop session successfully for server on port 50052
     ```
@@ -407,7 +407,7 @@
 
     使用完毕后，可以选择关闭缓存服务器：
 
-    ```shell
+    ```text
     $ cache_admin --stop
     Cache server on port 50052 has been stopped successfully.
     ```

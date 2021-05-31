@@ -67,7 +67,7 @@ Each request includes one or more independent instances which do not affect each
 
 Take the ResNet-50 model as an example. The model configuration file directory is as follows:
 
-```shell
+```text
 resnet50
 ├── 1
 │   └── resnet_classify.mindir

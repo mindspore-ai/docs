@@ -47,7 +47,7 @@ At first, install MindInsight and launch it in debugger mode. MindSpore will sen
 
 The command to launch MindInsight in debugger mode is as follows:
 
-```shell
+```text
 mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER_PORT}
 ```
 

@@ -43,7 +43,7 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 示例代码目录结构
 
-```shell
+```text
 ├── resnet_thor
     ├── README.md
     ├── scripts

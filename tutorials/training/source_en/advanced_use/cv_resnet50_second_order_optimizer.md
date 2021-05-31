@@ -43,7 +43,7 @@ This tutorial describes how to use the second-order optimizer THOR provided by M
 
 Directory Structure of Code Examples
 
-```shell
+```text
 ├── resnet_thor
     ├── README.md
     ├── scripts

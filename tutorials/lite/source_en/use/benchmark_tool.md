@@ -233,7 +233,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 
 The command used for benchmark testing based on the compiled Benchmark tool is as follows. The parameters are the same as those used in the Linux environment, and will not be repeated here.
 
-```bat
+```text
 call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRESHOLD>]
    [--benchmarkDataFile=<BENCHMARKDATAFILE>] [--benchmarkDataType=<BENCHMARKDATATYPE>]
    [--cpuBindMode=<CPUBINDMODE>] [--device=<DEVICE>] [--help]

@@ -48,7 +48,7 @@ A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 
         一般情况下，系统会为缓存服务分配4GB的共享内存。通过以下命令可以查看系统中的共享内存块使用情况。
 
-        ```shell
+        ```text
         $ ipcs -m
         ------ Shared Memory Segments --------
         key        shmid      owner      perms      bytes      nattch     status
@@ -61,7 +61,7 @@ A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 
         找到对应的共享内存id，并通过以下命令删除。
 
-        ```shell
+        ```text
         ipcrm -m {shmid}
         ```
 
@@ -69,7 +69,7 @@ A：缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 
     一般情况下，socket文件位于`/tmp/mindspore/cache`。进入文件夹，执行以下命令删除socket文件。
 
-    ```shell
+    ```text
     rm cache_server_p{port_number}
     ```
 
