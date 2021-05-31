@@ -23,6 +23,18 @@ A: The error message indicates that the cuBLAS library is not found. Generally, 
 
 <br/>
 
+<font size=3>**Q: What should I do if an error message `ERROR: mindspore_{VERSION}.whl is not a supported wheel on this platform` is displayed when I install MindSpore using pip?**</font>
+
+A: pip checks compatibility of wheel package and current Python environment by verifying the file name. For example, when installing mindspore_ascend-1.2.0-cp37-cp37m-linux_aarch64.whl, pip checks whether:
+
+1. Python version falls in 3.7.x.
+2. Current operating system is a linux distro.
+3. System architecture is arm64.
+
+Hence, if you run into such a problem, please make sure the current environment fulfills the requirements of the MindSpore package you are installing, or a correct version of MindSpore package which matches your environment is being installed.
+
+<br/>
+
 <font size=3>**Q: What should I do if an error message `SSL:CERTIFICATE_VERIFY_FATLED` is displayed when I use pip to install MindSpore?**</font>
 
 A: Add the `--trusted-host=ms-release.obs.cn-north-4.myhuaweicloud.com` parameter to the pip installation command and try again.
