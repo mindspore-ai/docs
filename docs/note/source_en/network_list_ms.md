@@ -99,7 +99,7 @@
 | Computer Vision (CV) | Image Classification  | [FaceRecognition](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/FaceRecognition)     |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Image Classification  | [FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/FaceRecognitionForTracking)     |  ✅ |    |    |    |   |   |
 | Computer Vision (CV) | Object Detection  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/ssd_ghostnet)               |  ✅ |    |    |    |   |   |
-| Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/cycle_gan)             |        |    |   |  ✅ | ✅ |   |
+| Computer Vision (CV)  | Image Style Transfer  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/CycleGAN)             |        |    |   |  ✅ | ✅ |   |
 | Natural Language Processing (NLP) | Natural Language Understanding  | [DS-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/dscnn)      |  ✅ |  ✅ |    |   |   |   |
 | Natural Language Processing (NLP) | Natural Language Understanding  | [TPRR](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/tprr)  |  ✅ |    |    |   |   |   |
 | Recommender | Recommender System, CTR prediction | [AutoDis](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/recommend/autodis)          |  ✅ |    |    |    |   |   |

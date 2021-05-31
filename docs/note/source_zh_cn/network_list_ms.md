@@ -99,7 +99,7 @@
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognition](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/FaceRecognition)     |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV） | 图像分类（Image Classification）  |[FaceRecognitionForTracking](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/FaceRecognitionForTracking)     |  ✅ |    |    |    |    |   |
 | 计算机视觉（CV）  | 目标检测（Object Detection）  | [SSD-GhostNet](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/ssd_ghostnet)           |  ✅ |    |    |    |    |   |
-| 计算机视觉（CV）  | 图像风格迁移（Image Style Transfer）  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/cycle_gan)       |        |    |   |  ✅ | ✅  |   |
+| 计算机视觉（CV）  | 图像风格迁移（Image Style Transfer）  | [CycleGAN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/cv/CycleGAN)       |        |    |   |  ✅ | ✅  |   |
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [DS-CNN](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/dscnn)          |  ✅ |  ✅ |    |   |    |   |
 | 自然语言处理（NLP） | 自然语言理解（Natural Language Understanding）  | [TPRR](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/nlp/tprr)  |  ✅ |    |    |   |    |   |
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction） | [AutoDis](https://gitee.com/mindspore/mindspore/tree/r1.2/model_zoo/research/recommend/autodis)   |  ✅ |    |    |    |    |   |
