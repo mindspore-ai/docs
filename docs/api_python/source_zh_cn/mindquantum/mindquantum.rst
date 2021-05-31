@@ -3,19 +3,6 @@ mindquantum
 
 .. automodule:: mindquantum
 
-mindquantum.circuit
--------------------
-
-.. automodule:: mindquantum.circuit
-    :members:
-
-
-mindquantum.engine
-------------------
-
-.. automodule:: mindquantum.engine
-    :members:
-
 mindquantum.gate
 ----------------
 
@@ -50,33 +37,15 @@ The functional gates are the pre-instantiated quantum gates, which can be used d
    * - mindquantum.gate.Z
      - :class:`mindquantum.gate.ZGate`
 
-mindquantum.nn
---------------
+mindquantum.circuit
+-------------------
 
-.. automodule:: mindquantum.nn
-    :exclude-members:  PQC, MindQuantumLayer, Evolution
+.. automodule:: mindquantum.circuit
     :members:
 
-Operators
-^^^^^^^^^
 
-.. msplatformautosummary::
-    :toctree: nn
-    :nosignatures:
-    :template: classtemplate.rst
+mindquantum.engine
+------------------
 
-    mindquantum.nn.Evolution
-    mindquantum.nn.MindQuantumLayer
-    mindquantum.nn.PQC
-
-mindquantum.parameterresolver
------------------------------
-
-.. automodule:: mindquantum.parameterresolver
-    :members:
-
-mindquantum.utils
------------------
-
-.. automodule:: mindquantum.utils
+.. automodule:: mindquantum.engine
     :members:
