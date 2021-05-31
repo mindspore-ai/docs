@@ -22,7 +22,7 @@ This tutorial provides an example program for MindSpore Lite to perform inferenc
 
 The MindSpore Lite inference steps are as follows:
 
-1. Load the model: Read the `.ms` model converted by the model conversion tool (https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) from the file system and import the model using the [loadModel](https://www.mindspore.cn/doc/api_java/en/master/model.html#loadmodel).
+1. Load the model: Read the `.ms` model converted by the [model conversion tool](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) from the file system and import the model using the [loadModel](https://www.mindspore.cn/doc/api_java/en/master/model.html#loadmodel).
 2. Create and configure context: Create a configuration context [MSConfig](https://www.mindspore.cn/doc/api_java/en/master/msconfig.html#msconfig) to save some basic configuration parameters required by a session to guide graph build and execution. including `deviceType` (device type), `threadNum` (number of threads), `cpuBindMode` (CPU binding mode), and `enable_float16` (whether to preferentially use the float16 operator).
 3. Create a session: Create [LiteSession](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#litesession) and call the [init](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#init) method to configure the [MSConfig](https://www.mindspore.cn/doc/api_java/en/master/msconfig.html#msconfig) obtained in the previous step in the session.
 4. Build a graph: Before building a graph, the [compileGraph](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#compilegraph) interface of [LiteSession](https://www.mindspore.cn/doc/api_java/en/master/lite_session.html#litesession) needs to be called to build the graph, including subgraph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with one [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) created, one graph be built. In this case, the inference will be performed for multiple times.
@@ -54,7 +54,7 @@ The MindSpore Lite inference steps are as follows:
 
   > If the MindSpore Lite inference framework fails to be downloaded, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64. Decompress the package and obtain the `libmindspore-lite.so` file in the `lib\jar` directory. Copy `libmindspore-lite-jni.so` and `libmindspore-lite-java.jar` to the `mindspore/lite/examples/quick_start_java/lib` directory.
   >
-  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_java/model/` directory.
+  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_java/model/` directory.
   >
   > After manually downloading and placing the file in the specified location, you need to execute the build.sh script again to complete the compilation.
 
@@ -127,7 +127,7 @@ Model inference includes data input, inference execution, and output obtaining. 
 
 ```java
 private static boolean run() {
-    MSTensor inputTensor = session.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
+    MSTensor inputTensor = session.getInputsByTensorName("graph_input-173");
     if (inputTensor.getDataType() != DataType.kNumberTypeFloat32) {
         System.err.println("Input tensor shape do not float, the data type is " + inputTensor.getDataType());
         return false;
@@ -148,7 +148,7 @@ private static boolean run() {
     }
 
     // Get Output Tensor Data.
-    MSTensor outTensor = session.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
+    MSTensor outTensor = session.getOutputByTensorName("Softmax-65");
 
     // Print out Tensor Data.
     StringBuilder msgSb = new StringBuilder();

@@ -59,7 +59,7 @@ The MindSpore Lite inference steps are as follows:
 
   > If the MindSpore Lite inference framework fails to be downloaded by using this build script, manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Ubuntu-x64, and copy the `libmindspore-lite.a` file in the decompressed lib directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Also copy the files from `inference/include` to the `mindspore/lite/examples/quick_start_cpp/include` directory.
   >
-  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
+  > If the MobileNetV2 model fails to be downloaded, manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
   >
   > After manually downloading and placing the file in the specified location, you need to execute the build.sh script again to complete the compilation.
 
@@ -91,7 +91,7 @@ The MindSpore Lite inference steps are as follows:
 
     - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` project directory, and change the include directory to the `mindspore/lite/examples/quick_start_cpp/include` project directory. (Note: The `lib` and `include` directories under the project need to be created manually)
 
-    - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
+    - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 
     - Build the demo: Run the [build script](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_cpp/build.bat) in the `mindspore/lite/examples/quick_start_cpp` directory to automatically download related files and build the Demo.
 
