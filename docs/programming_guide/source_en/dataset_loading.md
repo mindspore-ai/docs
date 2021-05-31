@@ -63,7 +63,7 @@ The following describes how to load common datasets.
 
 ### CIFAR-10/100 Dataset
 
-Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it, the directory structure is as follows:
+Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it, the directory structure is as follows, execute the following code in jupyter notebook:
 
 ```bash
 !wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
@@ -226,7 +226,7 @@ MindRecord is a data format defined by MindSpore. Using MindRecord can improve p
 
 > For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html).
 
-Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, execute the following command:
+Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, execute the following command in jupyter notebook:
 
 ```bash
 !wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/test_mindrecord.zip

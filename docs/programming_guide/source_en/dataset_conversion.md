@@ -202,7 +202,7 @@ For details about dataset conversion, see [MindSpore API](https://www.mindspore.
 
 You can use the `Cifar10ToMR` class to convert the original CIFAR-10 data to MindRecord and use `MindDataset` to load the data.
 
-1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Execute the following command:
+1. Download and decompress the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Execute the following command in jupyter notebook:
 
     ```bash
     !wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-python.tar.gz

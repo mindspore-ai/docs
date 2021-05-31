@@ -87,7 +87,7 @@ The output is as follows:
 
 ## Customizing a Training Cycle
 
-Before performing a custom training cycle, download the MNIST dataset that needs to be used, and decompress and place it at the specified location:
+Before performing a custom training cycle, download the MNIST dataset that needs to be used, and decompress and place it at the specified location, execute the following command in jupyter notebook:
 
 ```bash
 !mkdir -p ./datasets/MNIST_Data/train ./datasets/MNIST_Data/test
