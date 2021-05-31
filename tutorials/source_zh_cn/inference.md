@@ -264,7 +264,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
 
-  ```shell
+  ```text
   tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
   output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
   ```
@@ -295,7 +295,7 @@ MindSpore Lite是端边云全场景AI框架MindSpore的端侧部分，可以在�
 
   执行完成后将能得到如下结果，打印输出Tensor的名称、输出Tensor的大小，输出Tensor的数量以及前50个数据：
 
-  ```shell
+  ```text
   tensor name is:Default/head-MobileNetV2Head/Softmax-op204 tensor size is:4000 tensor elements num is:1000
   output data is:5.26823e-05 0.00049752 0.000296722 0.000377607 0.000177048 .......
   ```

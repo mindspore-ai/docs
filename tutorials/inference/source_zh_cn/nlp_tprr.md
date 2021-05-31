@@ -30,7 +30,7 @@ TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的
 
 示例代码目录结构如下：
 
-```shell
+```text
 .
 └─tprr
   ├─README.md

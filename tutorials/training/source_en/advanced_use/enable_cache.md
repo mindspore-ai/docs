@@ -27,7 +27,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    Before using the cache service, you need to install MindSpore and set related environment variables. The Conda environment is used as an example. The setting method is as follows:
 
-   ```shell
+   ```text
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore:{path_to_conda}/envs/{your_env_name}/lib/python3.7/site-packages/mindspore/lib
    export PATH=$PATH:{path_to_conda}/envs/{your_env_name}/bin
    ```
@@ -36,7 +36,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    Before using the single-node cache service, you need to start the cache server.
 
-   ```shell
+   ```text
    $ cache_admin --start
    Cache server startup completed successfully!
    The cache server daemon has been created as process id 10394 and is listening on port 50052
@@ -47,7 +47,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    If the system displays a message indicating that the `libpython3.7m.so.1.0` file cannot be found, search for the file path in the virtual environment and set environment variables.
 
-   ```shell
+   ```text
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
    ```
 
@@ -55,7 +55,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    If no cache session exists on the cache server, a cache session needs to be created to obtain the cache session ID.
 
-   ```shell
+   ```text
    $ cache_admin -g
    Session created for server on port 50052: 1493732251
    ```
@@ -120,7 +120,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    You can run the `cache_admin --list_sessions` command to check whether there are five data records in the current session. If yes, the data is successfully cached.
 
-   ```shell
+   ```text
    $ cache_admin --list_sessions
    Listing sessions for server on port 50052
 
@@ -132,7 +132,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    After the training is complete, you can destroy the current cache and release the memory.
 
-   ```shell
+   ```text
    $ cache_admin --destroy_session 1493732251
    Drop session successfully for server on port 50052
    ```
@@ -143,7 +143,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
    After using the cache server, you can stop the cache server. This operation will destroy all cache sessions on the current server and release the memory.
 
-   ```shell
+   ```text
    $ cache_admin --stop
    Cache server on port 50052 has been stopped successfully.
    ```
@@ -193,7 +193,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
 
 3. Pass the `CACHE_SESSION_ID` as well as other arguments when start the Python training script:
 
-   ```shell
+   ```text
    python train.py \
    --net=$1 \
    --dataset=$2 \
@@ -269,7 +269,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
 
 7. After the training run is completed, you can destroy the current cache and release the memory:
 
-   ```shell
+   ```text
    $ cache_admin --stop
    Cache server on port 50052 has been stopped successfully.
    ```
@@ -314,7 +314,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
 
 3. Pass the `CACHE_SESSION_ID` as well as other arguments when start the Python training script:
 
-   ```shell
+   ```text
    python train.py \
    --platform=$1 \
    --dataset_path=$5 \
@@ -406,10 +406,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
 
 7. After the training run is completed, you can destroy the current cache and release the memory:
 
-   ```shell
+   ```text
    $ cache_admin --stop
    Cache server on port 50052 has been stopped successfully.
    ```
-
-
-

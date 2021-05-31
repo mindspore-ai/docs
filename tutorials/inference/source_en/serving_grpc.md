@@ -93,7 +93,7 @@ Details are described as follows:
 
    - If all instances are correctly inferred, the following result is returned:
 
-        ```shell
+        ```text
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
          {'y': array([[4., 4.], [4., 4.]], dtype=float32)},
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
@@ -101,13 +101,13 @@ Details are described as follows:
 
    - If certain errors occur in all instances , a dict containing `error` is returned. In the example, `add_common` is changed to `add_common2`, and the returned result is as follows:
 
-        ```shell
+        ```text
         {'error', 'Request Servable(add) method(add_common2), method is not available'}
         ```
 
    - If inference errors occur in certain instances, the error instances return a dict containing `error`. In the example, an input `dtype` of instance2 is changed to `np.int32`, and the returned result is as follows:
 
-        ```shell
+        ```text
         [{'y': array([[2., 2.], [2., 2.]], dtype=float32)},
          {'error': 'Given model input 1 data type kMSI_Int32 not match ...'},
          {'y': array([[6., 6.], [6., 6.]], dtype=float32)}]
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 The preceding `classify_top1` method requires users to input `image` (the image binary data) in each instance.
 If the execution is properly completed, the following information is displayed:
 
-```shell
+```text
 [{'label': 'tabby, tabby cat'}, {'label': 'ox'}]
 ```
 

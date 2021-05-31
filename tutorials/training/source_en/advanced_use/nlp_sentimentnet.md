@@ -261,7 +261,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 
     As shown in the following output, the loss value decreases gradually with the training process and reaches about 0.2855.
 
-    ```shell
+    ```text
     ============== Starting Data Pre-processing ==============
     vocab_size:  252192
     ============== Starting Training ==============
@@ -285,7 +285,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 
     The output is as follows:
 
-    ```shell
+    ```text
     lstm-11_390.ckpt  lstm-12_390.ckpt  lstm-13_390.ckpt  lstm-14_390.ckpt  lstm-15_390.ckpt  lstm-16_390.ckpt  lstm-17_390.ckpt  lstm-18_390.ckpt  lstm-19_390.ckpt  lstm-20_390.ckpt
     ```
 
@@ -299,7 +299,7 @@ python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 84.19%, which is basically satisfactory.
 
-```shell
+```text
 ============== Starting Testing ==============
 ============== {'acc': 0.8419471153846154} ==============
 ```

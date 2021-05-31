@@ -33,7 +33,7 @@ This tutorial will mainly introduce how to build and run a multi-hop knowledge r
 
 The sample code directory structure is as follows:
 
-```shell
+```text
 .
 └─tprr
   ├─README.md

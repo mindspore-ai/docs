@@ -248,7 +248,7 @@ if __name__ == "__main__":
 
     输出如下，可以看到loss值随着训练逐步降低：
 
-    ```shell
+    ```text
     epoch: 1 step: 27 loss is  0.3660637
     epoch: 1 step: 28 loss is  0.25238192
     ...
@@ -273,7 +273,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 输出如下，可以看到使用验证的数据集，正确率在96.31%左右，与batch_size为32的验证结果一致。
 
-```shell
+```text
 ============== Starting Testing ==============
 ============== {'Accuracy': 0.9631730769230769} ==============
 ```

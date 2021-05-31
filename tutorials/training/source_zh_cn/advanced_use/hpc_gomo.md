@@ -30,7 +30,7 @@ GOMO（Generalized Operator Modelling of the Ocean）是基于 OpenArray 的三�
 
 示例代码目录结构如下：
 
-```shell
+```text
 └── ocean_model
     ├── README.md                                  # descriptions about ocean model GOMO
     ├── scripts
@@ -201,7 +201,7 @@ if __name__ == "__main__":
 训练脚本定义完成之后，调用`scripts`目录下的shell脚本，启动训练进程。
 使用以下命令运行脚本：
 
-```shell
+```text
 sh run_distribute_train.sh <im> <jm> <kb> <step> <DATASET_PATH>
 ```
 

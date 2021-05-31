@@ -96,7 +96,7 @@ Execute the `add_model.py` script to generate the `tensor_add.mindir` file. The 
 
 Start Serving with the following files:
 
-```shell
+```text
 test_dir
 ├── add/
 │    └── servable_config.py
@@ -256,7 +256,7 @@ if __name__ == '__main__':
 
 Use the `Client` class defined by `mindspore_serving.client`. The client defines two cases to call two model methods. In the `run_add_common` case with three pairs of float32 arrays, each pair of arrays are added up. In the `run_add_cast` case, two int32 arrays are added up. If the results of the two cases are displayed as follows, the Serving has properly executed the `Add` network inference.
 
-```shell
+```text
 [{'y': array([[2. , 2.],
         [2.,  2.]], dtype=float32)},{'y': array([[4. , 4.],
         [4.,  4.]], dtype=float32)},{'y': array([[6. , 6.],

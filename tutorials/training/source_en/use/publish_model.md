@@ -26,7 +26,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
-   ```shell
+   ```text
    googlenet
    ├── src
    │   ├── googlenet.py
@@ -39,7 +39,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 3. Create a `{model_name}_{model_version}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/ascend/0.7` using this [template](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#). Here `ascend` refers to the hardware platform for the pre-trained model, and `0.7` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
 
-   ```shell
+   ```text
    hub
    ├── mshub_res
    │   ├── assets
@@ -57,7 +57,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
    Note that it is required to fill in the `{model_name}_{model_version}_{dataset}.md` template by providing `file-format`、`asset-link` and `asset-sha256` below, which refers to the model file format, model storage location from step 1 and model hash value, respectively.
 
-   ```shell
+   ```text
    file-format: ckpt
    asset-link: https://download.mindspore.cn/model_zoo/official/cv/googlenet/goolenet_ascend_0.2.0_cifar10_official_classification_20200713/googlenet.ckpt
    asset-sha256: 114e5acc31dad444fa8ed2aafa02ca34734419f602b9299f3b53013dfc71b0f7

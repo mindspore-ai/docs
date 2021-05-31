@@ -31,7 +31,7 @@ mindinsight --version
 
 ## Start the Service
 
-```shell
+```text
 mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
                   [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
                   [--reload-interval <RELOAD_INTERVAL>]
@@ -66,19 +66,19 @@ ps -ef | grep mindinsight
 
 Run the following command to access the working directory `WORKSPACE` corresponding to the service process based on the service process ID:
 
-```shell
+```text
 lsof -p <PID> | grep access
 ```
 
 Output the working directory `WORKSPACE` as follows:
 
-```shell
+```text
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
 ```
 
 ## Stop the Service
 
-```shell
+```text
 mindinsight stop [-h] [--port PORT]
 ```
 
@@ -93,7 +93,7 @@ Optional parameters are as follows:
 
 MindInsight provides tools for parsing summary log files. Users can save the scalars in the summary log file into a csv file and the images into a png file through the commands, which is convenient for viewing and further processing.
 
-```shell
+```text
 mindinsight parse_summary [--summary-dir] [--output]
 ```
 
@@ -132,7 +132,7 @@ In which,
 
 MindInsight provides parameters tuning command. The command-line interface (CLI) provides the following commands:
 
-```shell
+```text
 usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
                      [--iter <ITER>]
 

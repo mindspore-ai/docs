@@ -31,7 +31,7 @@ mindinsight --version
 
 ## 启动服务
 
-```shell
+```text
 mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
                   [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
                   [--reload-interval <RELOAD_INTERVAL>]
@@ -66,19 +66,19 @@ ps -ef | grep mindinsight
 
 根据服务进程PID，可通过以下命令，查看当前服务进程对应的工作目录`WORKSPACE`。
 
-```shell
+```text
 lsof -p <PID> | grep access
 ```
 
 输出如下，可查看`WORKSPACE`。
 
-```shell
+```text
 gunicorn  <PID>  <USER>  <FD>  <TYPE>  <DEVICE>  <SIZE/OFF>  <NODE>  <WORKSPACE>/log/gunicorn/access.log
 ```
 
 ## 停止服务
 
-```shell
+```text
 mindinsight stop [-h] [--port PORT]
 ```
 
@@ -93,7 +93,7 @@ mindinsight stop [-h] [--port PORT]
 
 MindInsight中提供解析Summary日志文件的工具，用户可以通过命令行将summary日志文件中的标量存入csv文件，图像存入png文件，从而便于查看和对数据进一步处理。
 
-```shell
+```text
 mindinsight parse_summary [--summary-dir] [--output]
 ```
 
@@ -132,7 +132,7 @@ mindinsight parse_summary --summary-dir ./ --output ./
 
 MindInsight中提供调参命令，命令行（Command-line interface, CLI）的使用方式，命令如下。
 
-```shell
+```text
 usage: mindoptimizer [-h] [--version] [--config <CONFIG>]
                      [--iter <ITER>]
 

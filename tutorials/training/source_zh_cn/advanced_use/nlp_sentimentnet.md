@@ -263,7 +263,7 @@ print("============== {} ==============".format(acc))
 
     输出如下，可以看到loss值随着训练逐步降低，最后达到0.2855左右：
 
-    ```shell
+    ```text
     ============== Starting Data Pre-processing ==============
     vocab_size:  252192
     ============== Starting Training ==============
@@ -287,7 +287,7 @@ print("============== {} ==============".format(acc))
 
     输出如下：
 
-    ```shell
+    ```text
     lstm-11_390.ckpt  lstm-12_390.ckpt  lstm-13_390.ckpt  lstm-14_390.ckpt  lstm-15_390.ckpt  lstm-16_390.ckpt  lstm-17_390.ckpt  lstm-18_390.ckpt  lstm-19_390.ckpt  lstm-20_390.ckpt
     ```
 
@@ -301,7 +301,7 @@ python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 
 输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在84.19%左右，达到一个基本满意的结果。
 
-```shell
+```text
 ============== Starting Testing ==============
 ============== {'acc': 0.8419471153846154} ==============
 ```
