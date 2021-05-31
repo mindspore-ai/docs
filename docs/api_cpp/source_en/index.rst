@@ -12,8 +12,7 @@ MindSpore C++ API
 
   class_list
   mindspore
-  dataset
-  vision
+  api/unabridged_api
   lite
   session
   tensor

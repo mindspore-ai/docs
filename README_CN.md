@@ -74,15 +74,25 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    pip install -r requirements.txt
    ```
 
-    > 生成[训练教程](https://gitee.com/mindspore/docs/tree/master/tutorials/training)和[编程指南](https://gitee.com/mindspore/docs/tree/master/docs/programming_guide)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
-
 3. 在api_python目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
 
    ```shell
    make html
    ```
 
-   > 如仅需生成MindSpore API，请先修改`source_zh_cn/conf.py`文件，注释`import mindspore_hub`和`import mindarmour`语句后，再执行此步骤。
+> - 构建[训练教程](https://gitee.com/mindspore/docs/tree/master/tutorials/training)和[编程指南](https://gitee.com/mindspore/docs/tree/master/docs/programming_guide)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+>
+> - 构建Python API时，如仅需生成MindSpore API，请先修改`source_zh_cn/conf.py`文件，注释`import mindspore_hub`和`import mindarmour`语句后，再执行以上步骤3。
+>
+> - 构建C++ API时，需要先克隆`mindspore`仓并安装doxygen，并加入环境变量`MS_PATH`：
+>
+>   ```bash
+>   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH}
+>   sudo apt install doxygen
+>   export MS_PATH={MS_REPO PATH}
+>   ```
+>
+>   其中`{MS_REPO PATH}`为克隆的`mindspore`仓路径。
 
 ## 版权
 
