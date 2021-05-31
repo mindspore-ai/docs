@@ -54,7 +54,7 @@
 
   > 若MindSpore Lite推理框架下载失败，请手动下载硬件平台为CPU、操作系统为Ubuntu-x64的MindSpore Lite 框架[mindspore-lite-{version}-linux-x64.tar.gz](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)，解压后将`inference/lib/jar`目录下的`libmindspore-lite.so`、`libmindspore-lite-jni.so`以及`libmindspore-lite-java.jar`拷贝到`mindspore/lite/examples/quick_start_java/lib`目录。
   >
-  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/model/`目录。
+  > 若MobileNetV2模型下载失败，请手动下载相关模型文件[mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/quick_start/mobilenetv2.ms)，并将其拷贝到`mindspore/lite/examples/quick_start_java/model/`目录。
   >
   > 通过手动下载并且将文件放到指定位置后，需要再次执行build.sh脚本才能完成编译构建。
 
@@ -127,7 +127,7 @@ private static boolean compile() {
 
 ```java
 private static boolean run() {
-    MSTensor inputTensor = session.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
+    MSTensor inputTensor = session.getInputsByTensorName("graph_input-173");
     if (inputTensor.getDataType() != DataType.kNumberTypeFloat32) {
         System.err.println("Input tensor shape do not float, the data type is " + inputTensor.getDataType());
         return false;
@@ -148,7 +148,7 @@ private static boolean run() {
     }
 
     // Get Output Tensor Data.
-    MSTensor outTensor = session.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
+    MSTensor outTensor = session.getOutputByTensorName("Softmax-65");
 
     // Print out Tensor Data.
     StringBuilder msgSb = new StringBuilder();
