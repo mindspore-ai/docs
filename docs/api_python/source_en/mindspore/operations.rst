@@ -43,6 +43,7 @@ Neural Network Operators
     mindspore.ops.CTCLoss
     mindspore.ops.DataFormatDimMap
     mindspore.ops.DepthwiseConv2dNative
+    mindspore.ops.Dropout
     mindspore.ops.Dropout2D
     mindspore.ops.Dropout3D
     mindspore.ops.DropoutDoMask
