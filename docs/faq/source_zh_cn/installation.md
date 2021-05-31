@@ -65,6 +65,12 @@ A：请执行`pip -V`查看是否绑定了Python3.7+。如果绑定的版本不�
 
 <br/>
 
+<font size=3>**Q：使用pip安装依赖库时提示`No matching distribution found for XXX`错误，应该怎么办？**</font>
+
+A：请执行`pip config list`，查看当前软件库索引路径`index-url`。某些情况下，软件库索引会出现更新滞后，可尝试设置其它软件库索引路径。
+
+<br/>
+
 <font size=3>**Q：MindSpore网站安装页面找不到MindInsight和MindArmour的whl包，无法安装怎么办？**</font>
 
 A：您可以从[MindSpore网站下载地址](https://www.mindspore.cn/versions)下载whl包，通过`pip install`命令进行安装。

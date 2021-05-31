@@ -66,6 +66,12 @@ use `python3.7 -m pip install` instead of `pip install` command.
 
 <br/>
 
+<font size=3>**Q: What should I do when error prompts `No matching distribution found for XXX` during pip install dependencies?**</font>
+
+A: Please execute `pip config list` to check the package index `index-url`. Sometimes package index updates are out of sync. You can try other package index instead.
+
+<br/>
+
 <font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?**</font>
 
 A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
