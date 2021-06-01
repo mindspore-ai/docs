@@ -6,3 +6,4 @@ Other Tools
 
   benchmark_tool
   cropper_tool
+  obfuscator_tool
