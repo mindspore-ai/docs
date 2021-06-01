@@ -106,7 +106,8 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Where, the table of Cache Server Configuration lists five detailed configuration information. Active sessions shows the list of active session ID in current server if any.
 
-    > - Before setting cache_server initialization parameters, check the available memory of the system and the size of the dataset to be loaded. If the memory of cache_server or the dataset size exceeds the available memory of the system, the server may break down or restart, the cache_server may automatically shut down, or the training process fails to be executed.
+    Cache server generates log files with filename "cache_server.\<hostname\>.\<username\>.log.\<severity level\>.\<date-time\>.\<pid\>".
+
     > - To enable data spilling, you need to use `-s` to set spilling path when starting cache server. Otherwise, this feature is default to be disabled and it will bring up a memory-only cache server.
 
 3. Create a cache session.
@@ -158,7 +159,8 @@ Currently, the cache service supports only single-node cache. That is, the clien
     - `prefetch_size`: specifies the number of prefetched rows. The default value is 20.
 
     > - In actual use, you are advised to run the `cache_admin -g` command to obtain a cache session ID from the cache server and use it as the parameter of `session_id` to prevent errors caused by cache session nonexistence.
-    > - `size=0` indicates that the memory space used by the cache is not limited manually, but cannot exceed 80% of the total system memory. Note that `size=0` may cause the out of memory error. Therefore, you are advised to set `size` to a proper value based on the idle memory of the machine.
+    > - `size=0` indicates that the memory space used by the cache is not limited manually, but automically controlled by the cache_server according to system's total memory resources, and cache server's memory usage would be limited to within 80% of the total system memory.
+    > - Users can also manually set `size` to a proper value based on the idle memory of the machine. Note that before setting the `size` parameter, make sure to check the available memory of the system and the size of the dataset to be loaded. If the memory of cache_server or the dataset size exceeds the available memory of the system, the server may break down or restart, it may also automatically shut down, or the training process may fail.
     > - `spilling=True` indicates that the remaining data is written to disks when the memory space is insufficient. Therefore, ensure that you have the write permission on the configured disk path and the disk space is sufficient to store the remaining cache data. Note that if no spilling path is set when cache server starts, setting `spilling=True` will raise an error when calling the API.
     > - `spilling=False` indicates that no data is written once the configured memory space is used up on the cache server.
     > - If a dataset that does not support random access (such as `TFRecordDataset`) is used to load data and the cache service is enabled, ensure that the entire dataset is stored locally. In this scenario, if the local memory space is insufficient to store all data, spilling must be enabled to spill data to disks.
