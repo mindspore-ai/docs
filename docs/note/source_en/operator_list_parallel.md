@@ -42,6 +42,7 @@
 | [mindspore.ops.Cosh](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Cosh.html) | None                                                         |
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Div.html) | None                                                         |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DivNoNan.html) | None                                                         |
+| [mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Dropout.html) | None                                               |
 | [mindspore.ops.DropoutDoMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DropoutDoMask.html) | Need to be used in conjunction with `DropoutGenMask`         |
 | [mindspore.ops.DropoutGenMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DropoutGenMask.html) | Need to be used in conjunction with `DropoutDoMask`, configuring shard strategy is not supported. |
 | [mindspore.ops.Elu](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Elu.html) | None                                                         |
