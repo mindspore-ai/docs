@@ -64,6 +64,8 @@ Sparse Layers
     mindspore.nn.Embedding
     mindspore.nn.EmbeddingLookup
     mindspore.nn.MultiFieldEmbeddingLookup
+    mindspore.nn.SparseToDense
+    mindspore.nn.SparseTensorDenseMatmul
 
 Non-linear Activations
 ----------------------
@@ -107,7 +109,6 @@ Utilities
     mindspore.nn.Pad
     mindspore.nn.Range
     mindspore.nn.ResizeBilinear
-    mindspore.nn.SparseToDense
     mindspore.nn.Tril
     mindspore.nn.Triu
     mindspore.nn.Unfold

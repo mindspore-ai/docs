@@ -390,6 +390,17 @@ Image Operators
 
     mindspore.ops.CropAndResize
 
+Sparse Operators
+^^^^^^^^^^^^^^^
+
+.. msplatformautosummary::
+    :toctree: ops
+    :nosignatures:
+    :template: classtemplate.rst
+
+    mindspore.ops.SparseToDense
+    mindspore.ops.SparseTensorDenseMatmul
+
 Other Operators
 ^^^^^^^^^^^^^^^
 
