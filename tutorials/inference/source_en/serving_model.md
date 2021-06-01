@@ -21,7 +21,7 @@
 
 ## Overview
 
-MindSpore Serving supports only the Ascend 310 and Ascend 910 environments.
+MindSpore Serving supports the Ascend 310, Ascend 910 and Nvidia GPU environments.
 
 MindSpore Serving Servable provides the inference services of the following types: One inference service comes from a single model, and the other one comes from a combination of multiple models (this is being developed). Models need to be configured to provide the Serving inference service.
 
@@ -143,7 +143,7 @@ The input sources and output usage of preprocessing and post-processing are dete
 The sample code for declaring the `resnet50` Servable model is as follows:
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 register.declare_servable(servable_file="resnet50_1b_imagenet.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
@@ -163,20 +163,19 @@ If a model has one data input with `batch` dimension information and one model c
 For example:
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 # Input1 indicates the input shape information of the model, without the batch dimension information.
 # input0: [N,3,416,416], input1: [2]
 register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format="MindIR",
                           with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
-For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `declare_distributed_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline.
+For distributed model, the only difference compared with non-distributed single model configuration is declaration, you need to use `mindspore_serving.server.distributed.declare_servable` method, `rank_size` is the number of devices used in the model, `stage_size` is the number of stages in the pipeline.
 
 ```python
-from mindspore_serving.worker import distributed
-from mindspore_serving.worker import register
+from mindspore_serving.server import distributed
 
-distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 ```
 
 ### Method Definition
@@ -184,7 +183,7 @@ distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_d
 An example of the method definition is as follows:
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 
 @register.register_method(output_names=["label"])
 def classify_top1(image):
@@ -230,7 +229,7 @@ def read_images():
 
 def run_classify_top5():
     """Client for servable resnet50 and method classify_top5"""
-    client = Client("localhost", 5500, "resnet50", "classify_top5")
+    client = Client("localhost:5500", "resnet50", "classify_top5")
     instances = []
     for image in read_images():  # read multi image
         instances.append({"image": image})  # input `image`

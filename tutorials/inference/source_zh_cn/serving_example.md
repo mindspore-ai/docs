@@ -10,8 +10,8 @@
         - [下载样例](#下载样例)
         - [导出模型](#导出模型)
         - [部署Serving推理服务](#部署serving推理服务)
-            - [轻量级部署](#轻量级部署)
-            - [集群部署](#集群部署)
+            - [配置服务](#配置服务)
+            - [启动服务](#启动服务)
         - [执行推理](#执行推理)
 
 <!-- /TOC -->
@@ -94,6 +94,8 @@ if __name__ == "__main__":
 
 ### 部署Serving推理服务
 
+#### 配置服务
+
 启动Serving服务，以Add用例为例，需要如下文件列表：
 
 ```text
@@ -114,7 +116,7 @@ test_dir
 
 ```python
 import numpy as np
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 
 
 def add_trans_datatype(x1, x2):
@@ -145,69 +147,39 @@ def add_cast(x1, x2):
     return y
 ```
 
-MindSpore Serving提供两种部署方式，轻量级部署和集群部署。轻量级部署master和worker在一个进程中，集群部署方式master和worker部署在不同的进程中。当只有一个worker节点时，用户可以考虑轻量级部署，即将master部署在这个worker所在进程中；当worker节点有多个，为了充分利用资源，可以考虑集群部署方式，选取一台机器作为master，管理所有的worker节点。用户可根据需要进行选择部署。
+#### 启动服务
 
-#### 轻量级部署
-
-服务端调用Python接口直接启动推理进程（master和worker共进程），客户端直接连接推理服务后下发推理任务。
-执行[master_with_worker.py](https://gitee.com/mindspore/serving/blob/master/example/add/master_with_worker.py)，完成轻量级部署服务如下：
+执行[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/add/serving_server.py)，完成服务启动：
 
 ```python
 import os
-from mindspore_serving import master
-from mindspore_serving import worker
+import sys
+from mindspore_serving import server
+
 
 def start():
-    servable_dir = os.path.abspath(".")
-    worker.start_servable_in_master(servable_dir, "add", device_id=0)
-    master.start_grpc_server("127.0.0.1", 5500)
+    servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                 device_ids=(0, 1))
+    server.start_servables(servable_configs=servable_config)
+
+    server.start_grpc_server(address="127.0.0.1:5500")
+    server.start_restful_server(address="127.0.0.1:1500")
+
 
 if __name__ == "__main__":
     start()
+
 ```
 
-当服务端打印日志`Serving gRPC start success, listening on 0.0.0.0:5500`时，表示Serving服务已加载推理模型完毕。
+上述启动脚本将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
 
-#### 集群部署
-
-服务端由master进程和worker进程组成，master用来管理集群内所有的worker节点，并进行推理任务的分发。部署方式如下：
-
-部署master：
-
-```python
-import os
-from mindspore_serving import master
-
-def start():
-    servable_dir = os.path.abspath(".")
-    master.start_grpc_server("127.0.0.1", 5500)
-    master.start_master_server("127.0.0.1", 6500)
-if __name__ == "__main__":
-    start()
-```
-
-部署worker：
-
-```python
-import os
-from mindspore_serving import worker
-
-def start():
-    servable_dir = os.path.abspath(".")
-    worker.start_servable(servable_dir, "add", device_id=0,
-                          master_ip="127.0.0.1", master_port=6500,
-                          worker_ip="127.0.0.1", worker_port=6600)
-
-if __name__ == "__main__":
-    start()
-```
-
-轻量级部署和集群部署启动worker所使用的接口存在差异，其中，轻量级部署使用`start_servable_in_master`接口启动worker，集群部署使用`start_servable`接口启动worker。
+当服务端打印日志`Serving gRPC start success, listening on 127.0.0.1:5500`时，表示Serving服务已加载推理模型完毕。
 
 ### 执行推理
 
 客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)，本文以gRPC方式为例。
-使用[client.py](https://gitee.com/mindspore/serving/blob/master/example/add/client.py)，启动Python客户端。
+使用[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/add/serving_client.py)，启动Python客户端。
 
 ```python
 import numpy as np
@@ -216,7 +188,7 @@ from mindspore_serving.client import Client
 
 def run_add_common():
     """invoke servable add method add_common"""
-    client = Client("localhost", 5500, "add", "add_common")
+    client = Client("127.0.0.1:5500", "add", "add_common")
     instances = []
 
     # instance 1
@@ -240,7 +212,7 @@ def run_add_common():
 
 def run_add_cast():
     """invoke servable add method add_cast"""
-    client = Client("localhost", 5500, "add", "add_cast")
+    client = Client("127.0.0.1:5500", "add", "add_cast")
     instances = []
     x1 = np.ones((2, 2), np.int32)
     x2 = np.ones((2, 2), np.int32)

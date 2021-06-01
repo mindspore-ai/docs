@@ -8,6 +8,7 @@
     - [Overview](#overview)
     - [add](#add)
     - [ResNet-50](#resnet-50)
+    - [Accessing Serving Server through Unix Domain Socket](#accessing-serving-server-through-unix-domain-socket)
 
 <!-- /TOC -->
 
@@ -15,11 +16,11 @@
 
 ## Overview
 
-The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The gRPC server (a worker node) supports only the Ascend platform. The client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
+The gRPC API is provided to access the MindSpore Serving. In the Python environment, the [mindspore_serving.client](https://gitee.com/mindspore/serving/blob/master/mindspore_serving/client/python/client.py) module is provided to fill in requests and parse responses. The gRPC server supports the Ascend and Nvidia GPU platform. The client running does not depend on a specific hardware environment. The following uses `add` and `ResNet-50` as examples to describe how to use the gRPC Python API on clients.
 
 ## add
 
-This example comes from [add example](https://gitee.com/mindspore/serving/blob/master/example/add/client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
+This example comes from [add example](https://gitee.com/mindspore/serving/blob/master/example/add/serving_client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
 
 ```python
 from mindspore_serving.client import Client
@@ -28,7 +29,7 @@ import numpy as np
 
 def run_add_common():
     """invoke Servable add method add_common"""
-    client = Client("localhost", 5500, "add", "add_common")
+    client = Client("127.0.0.1:5500", "add", "add_common")
     instances = []
 
     # instance 1
@@ -66,7 +67,7 @@ Details are described as follows:
 
 1. Build `Client`.
 
-   When `Client` is built, the IP address and port number of Serving are indicated, and the Servable's name and method it provides are given. Servable indicates a single model or a combination of multiple models (not supported yet) and provides different services in various methods.
+   When `Client` is built, the network address of Serving are indicated, and the Servable's name and method it provides are given. Servable indicates a single model or a combination of multiple models (not supported yet) and provides different services in various methods.
 
    In the preceding `add` example, Serving runs on the `localhost`, the gRPC port number is set to `5500`, and `add` Servable is run to provide the `add_common` method.
 
@@ -124,7 +125,7 @@ Details are described as follows:
 
 ## ResNet-50
 
-This example comes from [ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/client.py). `ResNet-50` Servable provides the `classify_top1` method to recognize images. In the `classify_top1` method, input the image data to obtain the output character string, perform operations such as decoding and resizing on images, and then perform inference. The classification label with the highest score is returned through post-processing.
+This example comes from [ResNet-50 example](https://gitee.com/mindspore/serving/blob/master/example/resnet/serving_client.py). `ResNet-50` Servable provides the `classify_top1` method to recognize images. In the `classify_top1` method, input the image data to obtain the output character string, perform operations such as decoding and resizing on images, and then perform inference. The classification label with the highest score is returned through post-processing.
 
 ```python
 import os
@@ -132,7 +133,7 @@ from mindspore_serving.client import Client
 
 
 def run_classify_top1():
-    client = Client("localhost", 5500, "resnet50", "classify_top1")
+    client = Client("localhost:5500", "resnet50", "classify_top1")
     instances = []
     for path, _, file_list in os.walk("./test_image/"):
         for file_name in file_list:
@@ -156,3 +157,55 @@ If the execution is properly completed, the following information is displayed:
 ```
 
 If the ResNet-50 model is not trained, there may be other unknown classification results.
+
+## Accessing Serving Server through Unix Domain Socket
+
+MindSpore Serving server and client can communicate through TCP/IP. When they are inside one machine, they can also communicate through Unix domain socket to improve the communication performance.
+
+When the serving server starts the grpc service, the `address` parameter of `mindspore_serving.server.start_grpc_server` should be filled with `'unix:{some_file_path}'` as the access address of the gRPC service, where `{some_file_path}` is a relative or absolute file path, and the directory where the file is located must already exist. After the interface is successfully called, the file will be overwrited. At the same time, the 'address' parameter of `mindspore_serving.client.Client` should be filled with the above address. For example:
+
+The Server:
+
+```python
+import os
+import sys
+from mindspore_serving import server
+
+
+def start():
+    servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                 device_ids=(0, 1))
+    server.start_servables(servable_configs=servable_config)
+
+    server.start_grpc_server(address="unix:add_test_temp_file")
+
+
+if __name__ == "__main__":
+    start()
+```
+
+The Client:
+
+```python
+import os
+from mindspore_serving.client import Client
+
+
+def run_classify_top1():
+    client = Client("unix:add_test_temp_file", "resnet50", "classify_top1")
+    instances = []
+    for path, _, file_list in os.walk("./test_image/"):
+        for file_name in file_list:
+            image_file = os.path.join(path, file_name)
+            print(image_file)
+            with open(image_file, "rb") as fp:
+                instances.append({"image": fp.read()})
+    result = client.infer(instances)
+    print(result)
+
+
+if __name__ == '__main__':
+    run_classify_top1()
+```
