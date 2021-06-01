@@ -211,9 +211,9 @@ replace_str3 = """\
                                 name = curr_name + "::" + child_name
                                 function_counter[name] = function_counter.setdefault(name, 0) + 1
                                 if function_counter[name] == 1:
-                                    child_refid = (name + "_1").replace("::", "_1")
+                                    child_refid = (name + "-1").replace(":", "_1")
                                 else:
-                                    child_refid = (name + f"_{function_counter.get(name)}").replace("::", "_1")
+                                    child_refid = (name + f"-{function_counter.get(name)}").replace(":", "_1")
                                 function_counter[child_refid] = member.attrs["refid"]
                             else:
                                 child_refid = member.attrs["refid"]
@@ -241,11 +241,11 @@ pattern12 = """node.link_name = "exhale_{kind}_{id}".format(kind=node.kind, id=u
             else:
                 node.file_name = "{kind}_{id}.rst".format(kind=node.kind, id=unique_id)
 """
-replace_str6 = """node.link_name = "exhale_{kind}_{id}".format(kind=node.kind, id=unique_id).replace("_1_1", "_")
+replace_str6 = """node.link_name = "exhale_{kind}_{id}".format(kind=node.kind, id=unique_id).replace("_1", "_").replace("__", "_")
             if unique_id.startswith(node.kind):
-                node.file_name = "{id}.rst".format(id=unique_id).replace("_1_1", "_")
+                node.file_name = "{id}.rst".format(id=unique_id).replace("_1", "_").replace("__", "_")
             else:
-                node.file_name = "{kind}_{id}.rst".format(kind=node.kind, id=unique_id).replace("_1_1", "_")
+                node.file_name = "{kind}_{id}.rst".format(kind=node.kind, id=unique_id).replace("_1", "_").replace("__", "_")
 """
 
 

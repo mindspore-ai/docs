@@ -12,7 +12,11 @@ MindSpore C++ API
 
   class_list
   mindspore
-  api/unabridged_api
+  namespace/mindspore_dataset
+  namespace/mindspore_dataset_config
+  namespace/mindspore_dataset_text
+  namespace/mindspore_dataset_transforms
+  namespace/mindspore_dataset_vision
   lite
   session
   tensor
