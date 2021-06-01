@@ -8,6 +8,9 @@
     - [Tensor Attributes and Methods](#tensor-attributes-and-methods)
         - [Attributes](#attributes)
         - [Methods](#methods)
+    - [Sparse tensor](#Sparse-tensor)
+        - [RowTensor](#RowTensor)
+        - [SparseTensor](#SparseTensor)
 
 <!-- /TOC -->
 
@@ -18,8 +21,6 @@
 Tensor is a basic data structure in the MindSpore network computing. For details about data types in tensors, see [dtype](https://www.mindspore.cn/doc/programming_guide/en/master/dtype.html).
 
 Tensors of different dimensions represent different data. For example, a 0-dimensional tensor represents a scalar, a 1-dimensional tensor represents a vector, a 2-dimensional tensor represents a matrix, and a 3-dimensional tensor may represent the three channels of RGB images.
-
-> All examples in this document can be run in the PyNative mode.
 
 ## Tensor Structure
 
@@ -161,4 +162,102 @@ x_array: [[ True  True]
  [False False]]
 y_sum_tensor: 10.0
 y_sum_mnp: 10.0
+```
+
+## Sparse Tensor
+
+Sparse tensor is a special kind of tensor which most of the elements are zero. In some scenario, like in the
+recommendation system, the data is sparse. If we use common dense tensors to represent the data, we may introduce many
+unnecessary calculations, storage and communication costs. In this situation, it is better to use sparse tensor to
+represent the data.
+
+The common structure of sparse tensor is `<indices:Tensor,values:Tensor,dense_shape:Tensor>`. `indices` means index of
+non-zero elements, `values` means the values of these non-zero elements and `dense_shape` means the dense shape of
+the sparse tensor. Using this structure, we define data structure `RowTensor` and `SparseTensor`.
+
+> Now, PyNative mode does not support sparse tensor.
+
+### RowTensor
+
+`RowTensor` is typically used to represent a subset of a larger tensor dense of shape `[L0, D1, ..., DN]`
+where `L0` >> `D0`, and `D0` is the number of non-zero elements.
+
+- `indices`: A 1-D integer tensor of shape `[D0]`. Represents the position of non-zero elements.
+- `values`: A tensor of any data type of shape `[D0, D1, ..., DN]`. Represents the value of non-zero elements.
+- `dense_shape`: An integer tuple which contains the shape of the corresponding dense tensor.
+
+A code example is as follows:
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import RowTensor
+class Net(nn.Cell):
+    def __init__(self, dense_shape):
+        super(Net, self).__init__()
+        self.dense_shape = dense_shape
+    def construct(self, indices, values):
+        x = RowTensor(indices, values, self.dense_shape)
+        return x.values, x.indices, x.dense_shape
+
+indices = Tensor([0])
+values = Tensor([[1, 2]], dtype=ms.float32)
+out = Net((3, 2))(indices, values)
+print(out[0])
+print(out[1])
+print(out[2])
+```
+
+The following information is displayed:
+
+```text
+[[1. 2.]]
+
+[0]
+
+(3, 2)
+
+```
+
+### SparseTensor
+
+`SparseTensor` represents a set of nonzero elememts from a tensor at given indices. If the number of non-zero elements
+is `N` and the dense shape of the sparse tensor is `ndims`：
+
+- `indices`: A 2-D integer Tensor of shape `[N, ndims]`. Each line represents the index of non-zero elements.
+- `values`: A 1-D tensor of any type and shape `[N]`. Represents the value of non-zero elements.
+- `dense_shape`: A integer tuple of size `ndims`, which specifies the dense shape of the sparse tensor.
+
+A code example is as follows:
+
+```python
+import mindspore as ms
+import mindspore.nn as nn
+from mindspore import SparseTensor
+class Net(nn.Cell):
+    def __init__(self, dense_shape):
+       super(Net, self).__init__()
+       self.dense_shape = dense_shape
+    def construct(self, indices, values):
+       x = SparseTensor(indices, values, self.dense_shape)
+       return x.values, x.indices, x.dense_shape
+
+indices = Tensor([[0, 1], [1, 2]])
+values = Tensor([1, 2], dtype=ms.float32)
+out = Net((3, 4))(indices, values)
+print(out[0])
+print(out[1])
+print(out[2])
+```
+
+The following information is displayed:
+
+```text
+[1. 2.]
+
+[[0 1]
+ [1 2]]
+
+(3, 4)
+
 ```
