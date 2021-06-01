@@ -111,7 +111,7 @@ In order to divide the stages, the Step Trace Component need to figure out the f
 
 ### Operator Performance Analysis
 
-The operator performance analysis component is used to display the execution time of the operators(AICORE/AICPU/HOSTCPU) during MindSpore run.
+The operator performance analysis component is used to display the execution time of the operators(AICORE/AICPU/HOSTCPU) during MindSpore run. The AICORE operator contains the information about calculation quantity.
 
 ![op_type_statistics.png](./images/op_type_statistics.PNG)
 
@@ -131,6 +131,12 @@ Figure 4 displays the statistics table for the operators, including:
 - Choose All: Display statistics for the operators, including operator name, type, execution time, full scope time, information, etc. The table will be sorted by execution time by default.
 - Choose Type: Display statistics for the operator types, including operator type name, execution time, execution frequency and proportion of total time. Users can click on each line, querying for all the operators belonging to this type.
 - Search: There is a search box on the right, which can support fuzzy search for operators/operator types.
+
+Statistics for the information related to calculation quantity of AICORE operator, including operator level and model level information. The information about calculation quantity has three indicators:
+
+- FLOPs: the number of floating point operations（the unit is million）.
+- FLOPS: the number of floating point operations per second (the unit is billion).
+- FLOPS utilization: obtained by dividing the FLOPS by the peak FLOPS of the AICORE device.
 
 ### Data Preparation Performance Analysis
 
