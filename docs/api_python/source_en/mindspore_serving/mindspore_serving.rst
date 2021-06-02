@@ -3,28 +3,22 @@ mindspore_serving
 
 .. automodule:: mindspore_serving
 
-mindspore_serving.master
+mindspore_serving.server
 ------------------------
 
-.. automodule:: mindspore_serving.master
+.. automodule:: mindspore_serving.server
     :members:
 
-mindspore_serving.worker
-------------------------
-
-.. automodule:: mindspore_serving.worker
-    :members: start_servable, start_servable_in_master, stop
-
-mindspore_serving.worker.register
+mindspore_serving.server.register
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: mindspore_serving.worker.register
+.. automodule:: mindspore_serving.server.register
     :members:
 
-mindspore_serving.worker.distributed
+mindspore_serving.server.distributed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: mindspore_serving.worker.distributed
+.. automodule:: mindspore_serving.server.distributed
     :members:
 
 mindspore_serving.client
