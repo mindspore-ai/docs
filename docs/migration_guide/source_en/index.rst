@@ -14,3 +14,4 @@ MindSpore Migration Guide
    script_development
    performance_optimization
    inference
+   sample_code

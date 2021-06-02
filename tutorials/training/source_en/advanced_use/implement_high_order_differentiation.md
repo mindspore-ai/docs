@@ -168,7 +168,7 @@ print(output)
 
 The output is as follows:
 
-```python
+```text
 [[2.211 0.51 1.49 ]
  [5.588 2.68 4.07 ]]
 ```
