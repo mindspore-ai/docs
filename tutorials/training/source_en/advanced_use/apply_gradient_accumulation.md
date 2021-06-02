@@ -238,7 +238,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 1. Run the training code and view the running result.
 
-    ```shell
+    ```bash
     python train.py --data_path=./MNIST_Data
     ```
 
@@ -263,7 +263,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
 
-```shell
+```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 

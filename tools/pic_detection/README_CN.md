@@ -10,19 +10,19 @@
 
 1. 打开Git Bash，下载MindSpore Docs仓代码。
 
-   ```shell
+   ```bash
    git clone https://gitee.com/mindspore/docs.git
    ```
 
 2. 进入`tools/pic_detection`目录。
 
-   ```shell
+   ```bash
    cd tools/pic_detection
    ```
 
 3. 在`pic_detection`目录下执行如下命令，在输入需要检测目录的绝对路径后，开始进行检测，最后将没有使用的图片删除。
 
-   ```shell
+   ```bash
    python pic_detection.py
    ```
 

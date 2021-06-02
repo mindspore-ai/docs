@@ -80,7 +80,7 @@ TPRR(Thinking Path Re-Ranker)是由华为提出的基于开放域多跳问答的
 
 2. 安装transformers
 
-    ```shell
+    ```bash
     pip install transformers
     ```
 
@@ -202,7 +202,7 @@ def evaluation():
 
 调用scripts目录下的shell脚本，启动推理进程。使用以下命令运行脚本：
 
-```shell
+```bash
 sh run_eval_ascend.sh
 sh run_eval_ascend_reranker_reader.sh
 ```

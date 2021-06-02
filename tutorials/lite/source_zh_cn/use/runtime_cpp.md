@@ -576,7 +576,7 @@ if (session == nullptr) {
 
 当推理出现异常的时候，可以通过查看日志信息来定位问题。针对Android平台，采用`Logcat`命令行工具查看MindSpore Lite推理的日志信息，并利用`MS_LITE` 进行筛选。
 
-```shell
+```bash
 logcat -s "MS_LITE"
 ```
 

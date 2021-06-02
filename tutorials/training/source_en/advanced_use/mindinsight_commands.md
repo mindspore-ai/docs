@@ -19,13 +19,13 @@
 
 ## View the Command Help Information
 
-```shell
+```bash
 mindinsight --help
 ```
 
 ## View the Version Information
 
-```shell
+```bash
 mindinsight --version
 ```
 
@@ -60,7 +60,7 @@ Optional parameters are as follows:
 
 MindInsight provides user with web services. Run the following command to view the running web service process:
 
-```shell
+```bash
 ps -ef | grep mindinsight
 ```
 
@@ -106,7 +106,7 @@ Optional parameters are as follows:
 
 Execute command:
 
-```shell
+```bash
 mindinsight parse_summary --summary-dir ./ --output ./
 ```
 

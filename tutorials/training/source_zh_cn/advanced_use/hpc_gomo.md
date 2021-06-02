@@ -61,7 +61,7 @@ GOMO（Generalized Operator Modelling of the Ocean）是基于 OpenArray 的三�
 
 2. 安装netCDF4
 
-    ```shell
+    ```bash
     pip install netCDF4
     ```
 

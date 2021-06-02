@@ -19,13 +19,13 @@
 
 ## 查看命令帮助信息
 
-```shell
+```bash
 mindinsight --help
 ```
 
 ## 查看版本信息
 
-```shell
+```bash
 mindinsight --version
 ```
 
@@ -60,7 +60,7 @@ mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
 
 MindInsight向用户提供Web服务，可通过以下命令，查看当前运行的Web服务进程。
 
-```shell
+```bash
 ps -ef | grep mindinsight
 ```
 
@@ -106,7 +106,7 @@ mindinsight parse_summary [--summary-dir] [--output]
 
 执行命令：
 
-```shell
+```bash
 mindinsight parse_summary --summary-dir ./ --output ./
 ```
 

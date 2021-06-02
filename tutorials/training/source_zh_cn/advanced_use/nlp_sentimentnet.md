@@ -257,7 +257,7 @@ print("============== {} ==============".format(acc))
 
 1. 运行训练代码，查看运行结果。
 
-    ```shell
+    ```bash
     python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
     ```
 
@@ -281,7 +281,7 @@ print("============== {} ==============".format(acc))
 
    训练过程中保存了CheckPoint文件，即模型文件，我们可以查看文件保存的路径下的所有保存文件。
 
-    ```shell
+    ```bash
     ls ./*.ckpt
     ```
 
@@ -295,7 +295,7 @@ print("============== {} ==============".format(acc))
 
 使用最后保存的CheckPoint文件，加载验证数据集，进行验证。
 
-```shell
+```bash
 python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 ```
 

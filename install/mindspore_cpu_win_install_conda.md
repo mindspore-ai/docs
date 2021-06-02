@@ -37,7 +37,7 @@
 
 从清华源镜像源下载Conda安装包的可忽略此步操作。
 
-```shell
+```bash
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes

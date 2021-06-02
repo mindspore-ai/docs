@@ -195,7 +195,7 @@ optional arguments:
 
     在进行自动调参前请确保训练脚本可以正确执行。
 
-    ```shell
+    ```bash
     mindoptimizer --config ./config.yaml --iter 10
     ```
 

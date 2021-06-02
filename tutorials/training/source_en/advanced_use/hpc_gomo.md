@@ -61,7 +61,7 @@ The overall execution process is as follows:
 
 2. Install netCDF4.
 
-    ```shell
+    ```bash
     pip install netCDF4
     ```
 

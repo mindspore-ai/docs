@@ -242,7 +242,7 @@ if __name__ == "__main__":
 
 1. 运行训练代码，查看运行结果。
 
-    ```shell
+    ```bash
     python train.py --data_path=./MNIST_Data
     ```
 
@@ -267,7 +267,7 @@ if __name__ == "__main__":
 
 通过`model_zoo`中`lenet`目录下的[eval.py](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py)，使用保存的CheckPoint文件，加载验证数据集，进行验证。
 
-```shell
+```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
 ```
 

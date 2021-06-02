@@ -83,7 +83,7 @@ The overall execution process is as follows:
 
 2. Install transformers
 
-    ```shell
+    ```bash
     pip install transformers
     ```
 
@@ -205,7 +205,7 @@ Define the Reader module and load the model parameters.
 
 Run the shell script in the scripts directory to start the inference process. Run the script with the following command:
 
-```shell
+```bash
 sh run_eval_ascend.sh
 sh run_eval_ascend_reranker_reader.sh
 ```
