@@ -165,9 +165,9 @@ for data in dataset.create_dict_iterator():
 The output is as follows:
 
 ```text
-Image shape: (32, 32, 3) , Label: 1
+Image shape: (32, 32, 3) , Label: 9
 Image shape: (32, 32, 3) , Label: 6
-Image shape: (32, 32, 3) , Label: 4
+Image shape: (32, 32, 3) , Label: 9
 ```
 
 ### PKSampler

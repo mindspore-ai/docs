@@ -14,20 +14,20 @@
 
 1. 打开Git Bash，下载MindSpore Docs仓代码。
 
-   ```shell
+   ```bash
    git clone https://gitee.com/mindspore/docs.git
    ```
 
 2. 进入`tools/link_detection`目录，安装执行所需的第三方库。
 
-   ```shell
+   ```bash
    cd tools/link_detection
    pip install requests
    ```
 
 3. 在`link_detection`目录下执行如下命令，在输入需要检测目录的绝对路径后，开始进行检测，完成后会在当前目录下新建`404.txt`、`exception.txt`、`slow.txt`三个文件。
 
-   ```shell
+   ```bash
    python link_detection.py
    ```
 

@@ -162,7 +162,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
 
 1. Create a Shell script named `cache_util.sh` for cache management:
 
-   ```shell
+   ```bash
    bootup_cache_server()
    {
      echo "Booting up cache server..."
@@ -181,7 +181,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
 
 2. In the Shell script for starting the distributed training i.e., `run_distributed_train.sh`, start a cache server for evaluation during training scenarios and generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 
-   ```shell
+   ```bash
    source cache_util.sh
 
    if [ "x${RUN_EVAL}" == "xTrue" ]
@@ -286,7 +286,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
 
 1. Create a Shell script namely `cache_util.sh` for cache management:
 
-   ```shell
+   ```bash
    bootup_cache_server()
    {
      echo "Booting up cache server..."
@@ -305,7 +305,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
 
 2. In the Shell script for starting the distributed training with NFS dataset i.e., `run_train_nfs_cache.sh`, start a cache server for scenarios where dataset is on NFS. Then generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 
-   ```shell
+   ```bash
    source cache_util.sh
 
    bootup_cache_server

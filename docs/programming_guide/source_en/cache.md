@@ -54,7 +54,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Before using the single-node cache service, run the following command to start the cache server:
 
-    ```shell
+    ```bash
     cache_admin --start
     ```
 
@@ -292,7 +292,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     Create the shell script `cache.sh` for starting Python training and run the following command to generate a cache session ID:
 
-    ```shell
+    ```bash
     #!/bin/bash
     # This shell script will launch parallel pipelines
 
@@ -320,7 +320,7 @@ During the single-node multi-device distributed training, the cache operator all
 
     Continue to write the shell script and add the following command to pass `session_id` and other parameters when the Python training is started:
 
-    ```shell
+    ```bash
     # make the session_id available to the python scripts
     num_devices=4
 

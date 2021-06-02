@@ -71,13 +71,13 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 
 先从[CIFAR-10数据集官网](https://www.cs.toronto.edu/~kriz/cifar.html)上下载CIFAR-10数据集。本例中采用binary格式的数据，Linux环境可以通过下面的命令下载：
 
-```shell
+```bash
 wget https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz
 ```
 
 接下来需要解压数据集，解压命令如下：
 
-```shell
+```bash
 tar -zvxf cifar-10-binary.tar.gz
 ```
 

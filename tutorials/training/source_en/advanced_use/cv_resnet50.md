@@ -69,13 +69,13 @@ The key parts of the task process code are explained below.
 
 CIFAR-10 dataset download address: [the website of Cifar-10 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html). In this example, the data is in binary format. In the Linux environment, run the following command to download the dataset:
 
-```shell
+```bash
 wget https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz
 ```
 
 Run the following command to decompress the dataset:
 
-```shell
+```bash
 tar -zvxf cifar-10-binary.tar.gz
 ```
 

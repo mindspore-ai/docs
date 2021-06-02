@@ -164,7 +164,7 @@
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 
-   ```shell
+   ```bash
    bootup_cache_server()
    {
      echo "Booting up cache server..."
@@ -183,7 +183,7 @@
 
 2. 在启动分布式训练的Shell脚本`run_distribute_train.sh`中，为训练时推理的场景开启缓存服务器并生成一个缓存会话保存在Shell变量`CACHE_SESSION_ID`中：
 
-   ```shell
+   ```bash
    source cache_util.sh
 
    if [ "x${RUN_EVAL}" == "xTrue" ]
@@ -288,7 +288,7 @@
 
 1. 创建管理缓存的Shell脚本`cache_util.sh`：
 
-   ```shell
+   ```bash
    bootup_cache_server()
    {
      echo "Booting up cache server..."
@@ -307,7 +307,7 @@
 
 2. 在启动NFS数据集训练的Shell脚本`run_train_nfs_cache.sh`中，为使用位于NFS上的数据集训练的场景开启缓存服务器并生成一个缓存会话保存在Shell变量`CACHE_SESSION_ID`中：
 
-   ```shell
+   ```bash
    CURPATH="${dirname "$0"}"
    source ${CURPATH}/cache_util.sh
 

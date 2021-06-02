@@ -194,7 +194,7 @@ If you want to optimize the `learning_rate`, `batch_size`, and `momentum`, and t
 
     Please make sure that the training script can be executed correctly before performing automatic tuning.
 
-    ```shell
+    ```bash
     mindoptimizer --config ./config.yaml --iter 10
     ```
 

@@ -255,7 +255,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 
 1. Run the training code and view the running result.
 
-    ```shell
+    ```bash
     python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
     ```
 
@@ -279,7 +279,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 
    CheckPoint files (model files) are saved during the training. You can view all saved files in the file path.
 
-    ```shell
+    ```bash
     ls ./*.ckpt
     ```
 
@@ -293,7 +293,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 
 Use the last saved CheckPoint file to load and validate the dataset.
 
-```shell
+```bash
 python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
 ```
 

@@ -354,7 +354,7 @@ ERROR [mindspore/lite/src/lite_session.cc:297] RunGraph] 10 Not support multi-th
 
 If an exception occurs during inference, you can view logs to locate the fault. For the Android platform, use the `Logcat` command line to view the MindSpore Lite inference log information and use `MS_LITE` to filter the log information.
 
-```shell
+```bash
 logcat -s "MS_LITE"
 ```
 

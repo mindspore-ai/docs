@@ -52,7 +52,7 @@ ms-sd@mssd:~$ sudo apt-get install gcc
 
 （4）解压并进入目录
 
-```shell
+```bash
 tar -xvzf gcc-7.3.0.tar.gz
 cd gcc-7.3.0
 ```
@@ -276,7 +276,7 @@ CMake suite maintained and supported by Kitware (kitware.com/cmake).
 
 修改 ~/.pip/pip.conf (如果没有该文件，创建一个)， 内容如下：
 
-```shell
+```bash
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```

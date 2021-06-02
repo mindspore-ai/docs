@@ -78,7 +78,7 @@ MNIST_Data/
 
 在准备阶段，我们已经成功编译出MindSpore Lite端侧训练Java包。假设您的MindSpore源码路径为`/codes/mindspore`，对应编译出的Java包在`/codes/mindspore/output`目录。解压Java包并拷贝相关文件到示例程序目录。命令如下：
 
-```shell
+```bash
 cd /codes/mindspore/output
 tar xzf mindspore-lite-${version}-train-linux-x64-jar.tar.gz
 mkdir ../mindspore/lite/examples/train_lenet_java/lib
@@ -89,14 +89,14 @@ cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/example
 
 1. 首先进入示例工程所在目录，使用maven构建本示例。命令如下：
 
-    ```shell
+    ```bash
     cd /codes/mindspore/mindspore/lite/examples/train_lenet_java
     mvn package
     ```
 
 2. 运行示例程序，命令如下：
 
-    ```shell
+    ```bash
     cd /codes/mindspore/mindspore/lite/examples/train_lenet_java/target
     java -Djava.library.path=../lib/ -classpath .:./train_lenet_java.jar:../lib/mindspore-lite-java.jar com.mindspore.lite.train_lenet.Main ../resources/model/lenet_tod.ms /PATH/MNIST_Data/
     ```
