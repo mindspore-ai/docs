@@ -21,7 +21,7 @@
 
 ## 概述
 
-MindSpore Serving当前仅支持Ascend 310和Ascend 910环境。
+MindSpore Serving当前仅支持Ascend 310、Ascend 910和Nvidia GPU环境。
 
 MindSpore Serving的Servable提供推理服务，包含两种类型。一种是推理服务来源于单模型，一种是推理服务来源于多模型组合，多模型组合正在开发中。模型需要进行配置以提供Serving推理服务。
 
@@ -143,7 +143,7 @@ def postprocess_top5(score):
 `resnet50` Servabale模型声明示例代码如下所示：
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 register.declare_servable(servable_file="resnet50_1b_imagenet.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
@@ -163,20 +163,19 @@ register.declare_servable(servable_file="resnet50_1b_imagenet.mindir", model_for
 例如：
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 # Input1 indicates the input shape information of the model, without the batch dimension information.
 # input0: [N,3,416,416], input1: [2]
 register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format="MindIR",
                           with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
-对于分布式模型`distributed_servable`，与非分布式单模型配置相比仅声明方法不同，需要使用`declare_distributed_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_distributed_example.html)。
+对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_distributed_example.html)。
 
 ```python
-from mindspore_serving.worker import distributed
-from mindspore_serving.worker import register
+from mindspore_serving.server import distributed
 
-distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 ```
 
 ### 方法定义
@@ -184,7 +183,7 @@ distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_d
 方法定义的例子如下：
 
 ```python
-from mindspore_serving.worker import register
+from mindspore_serving.server import register
 
 @register.register_method(output_names=["label"])
 def classify_top1(image):
@@ -230,7 +229,7 @@ def read_images():
 
 def run_classify_top5():
     """Client for servable resnet50 and method classify_top5"""
-    client = Client("localhost", 5500, "resnet50", "classify_top5")
+    client = Client("localhost:5500", "resnet50", "classify_top5")
     instances = []
     for image in read_images():  # read multi image
         instances.append({"image": image})  # input `image`

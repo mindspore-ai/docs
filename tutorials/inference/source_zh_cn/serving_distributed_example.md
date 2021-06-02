@@ -4,13 +4,12 @@
 
 <!-- TOC -->
 
-- [基于Mindspore Serving部署分布式推理服务](#基于mindspore-serving部署分布式推理服务)
+- [基于MindSpore Serving部署分布式推理服务](#基于mindspore-serving部署分布式推理服务)
     - [概述](#概述)
         - [环境准备](#环境准备)
         - [导出分布式模型](#导出分布式模型)
         - [部署分布式推理服务](#部署分布式推理服务)
-            - [使用限制](#使用限制)
-            - [启动Master与分布式Worker](#启动master与分布式worker)
+            - [启动Serving服务器](#启动serving服务器)
             - [启动Agent](#启动agent)
         - [执行推理](#执行推理)
 
@@ -26,9 +25,9 @@
 
 ![image](images/distributed_servable.png)
 
-master提供客户端访问的接口，管理分布式worker并进行任务管理与分发；分布式worker根据模型配置自动调度agent完成分布式推理；每一个agent包含一个分布式模型的切片，占用一个device，加载模型执行推理。
+`Main`进程提供客户端访问的接口，管理`Distributed Worker`并进行任务管理与分发；`Distributed Worker`进程根据模型配置自动调度`Agent`完成分布式推理；每一个`Agent`进程包含一个分布式模型的切片，占用一个device，加载模型执行推理。
 
-上图展示了rank_size为16，stage_size为2的场景，每个stage包含8个agent，占用8个device。rank_size表示推理使用的device的个数，stage表示流水线的一段，stage_size表示流水线的段数。分布式worker向agent发送推理请求并从agent获取推理结果。agent之间使用HCCL通信。
+上图展示了rank_size为16，stage_size为2的场景，每个stage包含8个`Agent`，占用8个device。rank_size表示推理使用的device的个数，stage表示流水线的一段，stage_size表示流水线的段数。`Distributed Worker`向`Agent`发送推理请求并从`Agent`获取推理结果。`Agent`之间使用HCCL通信。
 
 当前对分布式模型有以下限制：
 
@@ -137,8 +136,8 @@ model
 
 ```text
 matmul_distributed
-├── agent.py
-├── master_with_worker.py
+├── serving_agent.py
+├── serving_server.py
 ├── matmul
 │   └── servable_config.py
 ├── model
@@ -146,17 +145,17 @@ matmul_distributed
 ```
 
 - `model`为存放模型文件的目录。
-- `master_with_worker.py`为启动服务脚本。
-- `agent.py`为启动agent脚本。
-- `servable_config.py`为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，通过`declare_distributed_servable`声明了一个rank_size为8、stage_size为1的分布式模型，同时定义了一个分布式servable的方法`predict`。
+- `serving_server.py`为启动服务脚本，包括`Main`和`Distributed Worker`进程。
+- `serving_agent.py`为启动`Agent`脚本。
+- `servable_config.py`为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，通过`distributed.declare_servable`声明了一个rank_size为8、stage_size为1的分布式模型，同时定义了一个分布式servable的方法`predict`。
 
 模型配置文件内容如下：
 
 ```python
-from mindspore_serving.worker import distributed
-from mindspore_serving.worker import register
+from mindspore_serving.server import distributed
+from mindspore_serving.server import register
 
-distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
@@ -165,26 +164,26 @@ def predict(x):
     return y
 ```
 
-#### 启动master与分布式worker
+#### 启动Serving服务器
 
-使用[master_with_worker.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/master_with_worker.py)，调用`start_distributed_servable_in_master`方法部署共进程的master和分布式worker。
+使用[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py)，调用`distributed.start_servable`方法部署分布式Serving服务器。
 
 ```python
 import os
 import sys
-from mindspore_serving import master
-from mindspore_serving.worker import distributed
+from mindspore_serving import server
+from mindspore_serving.server import distributed
 
 
 def start():
     servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    distributed.start_distributed_servable_in_master(servable_dir, "matmul",
-                                                     rank_table_json_file="rank_table_8pcs.json",
-                                                     version_number=1,
-                                                     worker_ip="127.0.0.1", worker_port=6200,
-                                                     wait_agents_time_in_seconds=0)
-    master.start_grpc_server("127.0.0.1", 5500)
-    master.start_restful_server("127.0.0.1", 1500)
+    distributed.start_servable(servable_dir, "matmul",
+                               rank_table_json_file="rank_table_8pcs.json",
+                               version_number=1,
+                               distributed_address="127.0.0.1:6200")
+
+    server.start_grpc_server("127.0.0.1:5500")
+    server.start_restful_server("127.0.0.1:1500")
 
 
 if __name__ == "__main__":
@@ -194,46 +193,44 @@ if __name__ == "__main__":
 - `servable_dir`为servable存放的目录。
 - `servable_name`为servable的名称，对应一个存放模型配置文件的目录。
 - `rank_table_json_file`为配置当前多卡环境的组网信息的json文件。
-- `worker_ip` 为分布式worker的ip地址。
-- `worker_port`为分布式worker的port。
-- `wait_agents_time_in_seconds`设置等待所有agent注册完成的时限，默认为0表示会一直等待。
+- `distributed_address`为`Distributed Worker`的地址。
+- `wait_agents_time_in_seconds`设置等待所有`Agent`注册完成的时限，默认为0表示会一直等待。
 
 #### 启动Agent
 
-使用[agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/agent.py)，调用`startup_worker_agents`方法会在当前机器上启动的8个agent进程。agent会从分布式worker获取rank_table，这样agent之间才能利用HCCL进行通信。
+使用[serving_agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_agent.py)，调用`startup_agents`方法会在当前机器上启动的8个`Agent`进程。`Agent`会从`Distributed Worker`获取rank_table，这样`Agent`之间才能利用HCCL进行通信。
 
 ```python
-from mindspore_serving.worker import distributed
+from mindspore_serving.server import distributed
 
 
 def start_agents():
-    """Start all the worker agents in current machine"""
+    """Start all the agents in current machine"""
     model_files = []
     group_configs = []
     for i in range(8):
         model_files.append(f"model/device{i}/matmul.mindir")
         group_configs.append(f"model/device{i}/group_config.pb")
 
-    distributed.startup_worker_agents(worker_ip="127.0.0.1", worker_port=6200, model_files=model_files,
-                                      group_config_files=group_configs, agent_start_port=7000, agent_ip=None,
-                                      rank_start=None)
+    distributed.startup_agents(distributed_address="127.0.0.1:6200", model_files=model_files,
+                               group_config_files=group_configs)
 
 
 if __name__ == '__main__':
     start_agents()
+
 ```
 
-- `worker_ip`为分布式worker的ip地址。
-- `worker_port`为分布式worker的port。
+- `distributed_address`为`Distributed Worker`的地址。
 - `model_files`为模型文件路径的列表。
 - `group_config_files`为模型分组配置文件路径的列表。
-- `agent_start_port`表示agent占用的起始端口，默认为7000。
-- `agent_ip`为agent的ip地址，默认为None。agent与分布式worker通信的ip默认会从rank_table获取，如果该ip地址不可用，则需要同时设置`agent_ip`与`rank_start`。
+- `agent_start_port`表示`Agent`占用的起始端口，默认为7000。
+- `agent_ip`为`Agent`的ip地址，默认为None。`Agent`与`Distributed Worker`通信的ip默认会从rank_table获取，如果该ip地址不可用，则需要同时设置`agent_ip`与`rank_start`。
 - `rank_start`为当前机器起始的rank_id，默认为None。
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/client.py)，调用matmul分布式模型的`predict`方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
 
 ```python
 import numpy as np
@@ -242,7 +239,7 @@ from mindspore_serving.client import Client
 
 def run_matmul():
     """Run client of distributed matmul"""
-    client = Client("localhost", 5500, "matmul", "predict")
+    client = Client("localhost:5500", "matmul", "predict")
     instance = {"x": np.ones((128, 96), np.float32)}
     result = client.infer(instance)
     print("result:\n", result)
@@ -264,4 +261,3 @@ result:
       [-48., -48., -48., ..., -48., -48., -48.],
       [-48., -48., -48., ..., -48., -48., -48.]], dtype=float32)}]
 ```
-

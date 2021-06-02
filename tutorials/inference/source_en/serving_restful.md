@@ -25,7 +25,7 @@ For details about how to deploy `Serving`, see [MindSpore Serving-based Inferenc
 
 Use the `master.start_restful_server` API to start the `RESTful` service. Alternatively, you can use `master.start_grpc_server` to start the `gRPC` service.
 
-> `RESTful` clients do not depend on specific hardware platforms. Currently, the Serving server supports only `Ascend 310` and `Ascend 910` hardware environments.
+> `RESTful` clients do not depend on specific hardware platforms. Currently, the Serving server supports `Ascend 310`, `Ascend 910` and `Nvidia GPU` hardware environments.
 
 ## Request Method
 

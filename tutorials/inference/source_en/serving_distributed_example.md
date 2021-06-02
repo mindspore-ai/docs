@@ -11,7 +11,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
         - [Environment Preparation](#environment-preparation)
         - [Exporting a Distributed Model](#exporting-a-distributed-model)
         - [Deploying the Distributed Inference Service](#deploying-the-distributed-inference-service)
-            - [Starting Master and Distributed Worker](#starting-master-and-distributed-worker)
+            - [Starting Serving Server](#starting-serving-server)
             - [Starting Agent](#starting-agent)
         - [Executing Inference](#executing-inference)
 
@@ -27,9 +27,9 @@ The architecture of the distributed inference service shows as follows：
 
 ![image](images/distributed_servable.png)
 
-The master provides an interface for client access, manages distributed workers, and performs task management and distribution; Distributed workers automatically schedule agents based on model configurations to complete distributed inference; Each agent contains a slice of the distributed model, occupies a device, and loads the model to performance inference.
+The `Main` process provides an interface for client access, manages `Distributed Worker` process, and performs task management and distribution; `Distributed Worker` automatically schedule `Agent` processes based on model configurations to complete distributed inference; Each `Agent` contains a slice of the distributed model, occupies a device, and loads the model to performance inference.
 
-The preceding figure shows the scenario where rank_size is 16 and stage_size is 2. Each stage contains 8 agents and occupies 8 devices. rank_size indicates the number of devices used in inference, stage indicates a pipeline segment, and stage_size indicates the number of pipeline segments. The distributed worker sends an inference requests to the agent and obtains the inference result from the agent. Agents communicate with each other using HCCL.
+The preceding figure shows the scenario where rank_size is 16 and stage_size is 2. Each stage contains 8 `Agent`s and occupies 8 devices. rank_size indicates the number of devices used in inference, stage indicates a pipeline segment, and stage_size indicates the number of pipeline segments. The `Distributed Worker` sends an inference requests to the `Agent`s and obtains the inference result from the `Agent`s. `Agent`s communicate with each other using HCCL.
 
 Currently, the distributed model has the following restrictions:
 
@@ -138,8 +138,8 @@ For details about how to start the distributed inference service, refer to [matm
 
 ```text
 matmul_distributed
-├── agent.py
-├── master_with_worker.py
+├── serving_agent.py
+├── serving_server.py
 ├── matmul
 │   └── servable_config.py
 ├── model
@@ -147,17 +147,17 @@ matmul_distributed
 ```
 
 - `model` is the directory for storing model files.
-- `master_with_worker.py` is the script for starting services.
-- `agent.py` is the script for starting agents.
+- `serving_server.py` is the script for starting services, including `Main` process and `Distributed Worker` process.
+- `serving_agent.py` is the script for starting `Agent`s.
 - `servable_config.py` is the [Model Configuration File](https://www.mindspore.cn/tutorial/inference/en/master/serving_model.html). It declares a distributed model with rank_size 8 and stage_size 1 through `declare_distributed_servable`, and defines a method `predict` for distributed servable.
 
 The content of the model configuration file is as follows:
 
 ```python
-from mindspore_serving.worker import distributed
-from mindspore_serving.worker import register
+from mindspore_serving.server import distributed
+from mindspore_serving.server import register
 
-distributed.declare_distributed_servable(rank_size=8, stage_size=1, with_batch_dim=False)
+distributed.declare_servable(rank_size=8, stage_size=1, with_batch_dim=False)
 
 
 @register.register_method(output_names=["y"])
@@ -166,26 +166,26 @@ def predict(x):
     return y
 ```
 
-#### Starting Master and Distributed Worker
+#### Starting Serving Server
 
-Use [master_with_worker.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/master_with_worker.py) to call `start_distributed_servable_in_master` method to deploy the co-process master and distributed workers.
+Use [serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py) to call `distributed.start_servable` method to deploy the serving sever, including the `Main` and `Distributed Worker` processes.
 
 ```python
 import os
 import sys
-from mindspore_serving import master
-from mindspore_serving.worker import distributed
+from mindspore_serving import server
+from mindspore_serving.server import distributed
 
 
 def start():
     servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
-    distributed.start_distributed_servable_in_master(servable_dir, "matmul",
-                                                     rank_table_json_file="rank_table_8pcs.json",
-                                                     version_number=1,
-                                                     worker_ip="127.0.0.1", worker_port=6200,
-                                                     wait_agents_time_in_seconds=0)
-    master.start_grpc_server("127.0.0.1", 5500)
-    master.start_restful_server("127.0.0.1", 1500)
+    distributed.start_servable(servable_dir, "matmul",
+                               rank_table_json_file="rank_table_8pcs.json",
+                               version_number=1,
+                               distributed_address="127.0.0.1:6200")
+
+    server.start_grpc_server("127.0.0.1:5500")
+    server.start_restful_server("127.0.0.1:1500")
 
 
 if __name__ == "__main__":
@@ -195,16 +195,15 @@ if __name__ == "__main__":
 - `servable_dir` is the directory for storing a servable.
 - `servable_name` is the name of the servable, which corresponds to a directory for storing model configuration files.
 - `rank_table_json_file` is the JSON file for configuring multi-cards network.
-- `worker_ip` is the IP address of the distributed worker.
-- `worker_port` is the port of the distributed worker.
-- `wait_agents_time_in_seconds` specifies the duration of waiting for all agents to be registered, the default value 0 means it will wait forever.
+- `distributed_address` is the address of the `Distributed Worker`.
+- `wait_agents_time_in_seconds` specifies the duration of waiting for all `Agent`s to be registered, the default value 0 means it will wait forever.
 
 #### Starting Agent
 
-Use [agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/agent.py) to call `startup_worker_agents` method to start 8 agent processes on the current host. Agents obtain rank_tables from distributed workers so that agents can communicate with each other using HCCL.
+Use [serving_agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_agent.py) to call `startup_agents` method to start 8 `Agent` processes on the current host. `Agent`s obtain rank_tables from `Distributed Worker` so that `Agent`s can communicate with each other using HCCL.
 
 ```python
-from mindspore_serving.worker import distributed
+from mindspore_serving.server import distributed
 
 
 def start_agents():
@@ -215,26 +214,24 @@ def start_agents():
         model_files.append(f"model/device{i}/matmul.mindir")
         group_configs.append(f"model/device{i}/group_config.pb")
 
-    distributed.startup_worker_agents(worker_ip="127.0.0.1", worker_port=6200, model_files=model_files,
-                                      group_config_files=group_configs, agent_start_port=7000, agent_ip=None,
-                                      rank_start=None)
+    distributed.startup_agents(distributed_address="127.0.0.1:6200", model_files=model_files,
+                               group_config_files=group_configs)
 
 
 if __name__ == '__main__':
     start_agents()
 ```
 
-- `worker_ip` is the IP address of the distributed worker.
-- `worker_port` is the port of the distributed worker.
+- `distributed_address` is the address of the `Distributed Worker`.
 - `model_files` is a list of model file paths.
 - `group_config_files` is a list of model group configuration file paths.
-- `agent_start_port` is the start port used by the agent. The default value is 7000.
-- `agent_ip` is the IP address of an agent. The default value is None. The IP address used by the agent to communicate with the distributed worker is obtained from rank_table by default. If the IP address is unavailable, you need to set both `agent_ip` and `rank_start`.
+- `agent_start_port` is the start port used by the `Agent`. The default value is 7000.
+- `agent_ip` is the IP address of an `Agent`. The default value is None. The IP address used by the `Agent` to communicate with the `Distributed Worker` is obtained from rank_table by default. If the IP address is unavailable, you need to set both `agent_ip` and `rank_start`.
 - `rank_start` is the start rank_id of the current server, the default value is None.
 
 ### Executing Inference
 
-To access the inference service through gRPC, the client needs to specify the IP address and port of the gRPC server. Run [client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/client.py) to call the `predict` method of matmul distributed model, execute inference.
+To access the inference service through gRPC, the client needs to specify the IP address and port of the gRPC server. Run [serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py) to call the `predict` method of matmul distributed model, execute inference.
 
 ```python
 import numpy as np
@@ -243,7 +240,7 @@ from mindspore_serving.client import Client
 
 def run_matmul():
     """Run client of distributed matmul"""
-    client = Client("localhost", 5500, "matmul", "predict")
+    client = Client("localhost:5500", "matmul", "predict")
     instance = {"x": np.ones((128, 96), np.float32)}
     result = client.infer(instance)
     print("result:\n", result)
