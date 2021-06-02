@@ -207,7 +207,7 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
         C.Resize((256, 256)),
         C.CenterCrop(224),
         C.Rescale(1.0 / 255.0, 0.0),
-        C.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        C.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         C.HWC2CHW()
     ]
 
@@ -578,7 +578,7 @@ for param in net.trainable_params():
 group_params = [{'params': decayed_params, 'weight_decay': weight_decay},
                 {'params': no_decayed_params},
                 {'order_params': net.trainable_params()}]
-opt = Momentum(group_params, lr momentum)
+opt = Momentum(group_params, lr, momentum)
 ```
 
 定义 Loss 函数和实现 Label Smoothing：
