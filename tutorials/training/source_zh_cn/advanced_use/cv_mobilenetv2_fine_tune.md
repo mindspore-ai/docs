@@ -155,14 +155,14 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 
     ```bash
     mkdir pretrain_checkpoint
-    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_cpu_gpu.ckpt --no-check-certificate
     ```
 
 - Ascend AI处理器
 
     ```bash
     mkdir pretrain_checkpoint
-    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt
+    wget -P ./pretrain_checkpoint https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_openimage_lite/mobilenetv2_ascend.ckpt --no-check-certificate
     ```
 
 ### 准备数据

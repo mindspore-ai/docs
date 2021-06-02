@@ -63,7 +63,7 @@ The following example uses a sequential sampler to load the CIFAR-10 dataset [1]
 Download [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz) and decompress it to the specified path, execute the following command:
 
 ```bash
-wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz
+wget -N https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/cifar-10-binary.tar.gz --no-check-certificate
 mkdir -p datasets
 tar -xzf cifar-10-binary.tar.gz -C datasets
 mkdir -p datasets/cifar-10-batches-bin/train datasets/cifar-10-batches-bin/test
@@ -466,7 +466,7 @@ import mindspore.dataset.vision.py_transforms as P
 ```
 
 ```bash
-wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg
+wget -N https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/datasets/banana.jpg --no-check-certificate
 ```
 
 ```python

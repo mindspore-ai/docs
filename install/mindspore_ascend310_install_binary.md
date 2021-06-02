@@ -47,7 +47,7 @@
 参考[版本列表](https://www.mindspore.cn/versions)先进行SHA-256完整性校验，校验一致后再执行如下命令安装MindSpore。
 
 ```bash
-wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/mindspore_ascend-{version}-linux_{arch}.tar.gz --no-check-cerficate
+wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/mindspore_ascend-{version}-linux_{arch}.tar.gz --no-check-certificate
 tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 ```
 

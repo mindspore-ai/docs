@@ -40,7 +40,7 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
 
 ```bash
-wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/mindspore_ascend-{version}-linux_{arch}.tar.gz --no-check-cerficate
+wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/mindspore_ascend-{version}-linux_{arch}.tar.gz --no-check-certificate
 tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 ```
 
