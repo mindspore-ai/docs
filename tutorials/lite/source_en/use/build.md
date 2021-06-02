@@ -97,28 +97,42 @@ Modules in training version:
 
 ### Compilation Options
 
-MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference. The following describes the compilation options of MindSpore Lite.
+MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference.
+
+The following describes the compilation parameter of `build.sh` and the options of `mindspore/lite/CMakeLists.txt`.
+
+#### The compilation parameter of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Mandatory or No |
 | -------- | ----- | ---- | ---- |
-| -I | Selects an applicable architecture. This option is required when compile MindSpore Lite. | arm64, arm32, or x86_64 | No |
+| -I | Selects an applicable architecture. | arm64, arm32, or x86_64 | No |
+| -A | Compile AAR package (including arm32 and arm64). | on, off | No |
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
-| -e | In the ARM architecture, select the backend operator. Otherwise, all operator of the framework is compiled at the same time. | cpu, gpu, npu | No |
 | -h | Displays the compilation help information. | None | No |
 | -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
-| -A | Language used by mindspore lite, default cpp. If the parameter is set to java, the AAR and JAR for Linux x86 are compiled. | cpp, java | No |
-| -C | If this parameter is set, the converter is compiled, default on. | on, off | No |
-| -o | If this parameter is set, the benchmark and static library crop tool are compiled, default on. | on, off | No |
-| -t | If this parameter is set, the testcase is compiled, default off. | on, off | No |
-| -T | If this parameter is set, MindSpore Lite training version is compiled, i.e., this option is required when compiling, default off. | on, off | No |
-| -W | Enable x86_64 SSE or AVX instruction set, default off. | sse, avx, off | No |
 
+> - When compiling the x86_64 version, if the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package will be compiled at the same time.
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
-> - When compiling the AAR package, the `-A java` parameter must be added, and there is no need to add the `-I` parameter. By default, the built-in CPU and GPU operators are compiled at the same time.
-> - The compiler will only generate training packages when `-T` is opened.
-> - Any `-e` compilation option, the CPU operators will be compiled into it.
+> - When compiling the AAR package, the `-A on` parameter must be added, and there is no need to add the `-I` parameter.
+
+#### The options of `mindspore/lite/CMakeLists.txt`
+
+| Option  |  Parameter Description  | Value Range | Defaults |
+| -------- | ----- | ---- | ---- |
+| MSLITE_GPU_BACKEND | Set the GPU backend, only valid under ARM64 | opencl, vulkan, cuda, off | opencl |
+| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid under ARM | on、off | on |
+| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | off |
+| MSLITE_ENABLE_SSE | Whether to enable x86_64 SSE instruction set | on、off | off |
+| MSLITE_ENABLE_AVX | Whether to enable x86_64 AVX instruction set | on、off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid under X86_64 | on、off | on |
+| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on、off | on |
+| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
+
+> - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
+> - Enabling MSLITE_ENABLE_TRAIN only generates the training version.
+> - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
 
 ### Compilation Example
 
@@ -130,76 +144,28 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 Then, run the following commands in the root directory of the source code to compile MindSpore Lite of different versions:
 
-- Debug version of the x86_64 architecture:
-
-    ```bash
-    bash build.sh -I x86_64 -d
-    ```
-
-- Release version of the x86_64 architecture, with the number of threads set:
+- Compile the x86_64 architecture version and set the number of threads at the same time.
 
     ```bash
     bash build.sh -I x86_64 -j32
     ```
 
-- Release version of the x86_64 architecture, with the testcase compiled:
+- Compile the ARM64 architecture version without compiling the NPU operator.
 
     ```bash
-    bash build.sh -I x86_64 -t on
+    MSLITE_ENABLE_NPU=off && bash build.sh -I arm64 -j32
     ```
 
-- Release version of the ARM 64-bit architecture in the incremental compilation mode, with the number of threads set:
+    Or modify CMakeLists.txt to set MSLITE_ENABLE_NPU to off and execute the command:
 
     ```bash
-    bash build.sh -I arm64 -i -j32
+    bash build.sh -I arm64 -j32
     ```
 
-- Release version of the ARM 64-bit architecture, with the built-in CPU operators compiled:
+- Compile the AAR package containing aarch64 and aarch32.
 
     ```bash
-    bash build.sh -I arm64 -e cpu
-    ```
-
-- Release version of the ARM 64-bit architecture, with the built-in CPU and GPU operators compiled:
-
-    ```bash
-    bash build.sh -I arm64 -e gpu
-    ```
-
-- Release version of the ARM 64-bit architecture, with the built-in CPU and NPU operators compiled:
-
-    ```bash
-    bash build.sh -I arm64 -e npu
-    ```
-
-- Compile ARM64 with image preprocessing module:
-
-    ```bash
-    bash build.sh -I arm64 -n lite_cv
-    ```
-
-- Compile MindSpore Lite AAR and JAR for Linux x86, AAR compiles the built-in CPU and GPU operators at the same time, but JAR only compiles the built-in CPU:
-
-    ```bash
-    bash build.sh -A java
-    ```
-
-- Compile MindSpore Lite AAR and JAR for Linux x86, with the built-in CPU operators compiled:
-
-    ```bash
-    bash build.sh -A java -e cpu
-    ```
-
-- Release version of the x86_64 architecture, with the benchmark, cropper and converter compiled:
-
-    ```bash
-    bash build.sh -I x86_64
-    ```
-
-- Release version of the x86_64 architecture, with the converter compiled and train on device enabled:
-
-    ```bash
-    bash build.sh -I x86_64 -T on
+    bash build.sh -A on -j32
     ```
 
 ### Inference Output Description
@@ -297,10 +263,12 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   ├── include  # Header files of inference framework
     │   │   └── registry # Header files of customized op registration
     │   └── lib      # Inference framework library
-    │       ├── libminddata-lite.so     # The files of image processing dynamic library
-    │       ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library
-    │       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
-    │       └── libmindspore-lite.so    # Dynamic library of infernece framework in MindSpore Lite
+    │       ├── libminddata-lite.so        # The files of image processing dynamic library
+    │       ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
+    │       ├── libmindspore-lite-jni.so   # Dynamic library of inference framework jni in MindSpore Lite
+    │       ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
+    │       ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │       └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
     └── tools
         ├── benchmark # Benchmarking tool
         │   └── benchmark # Executable program
@@ -324,10 +292,10 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
     │   ├── include     # Header files of inference framework
     │   │   └── registry # Header files of customized op registration
     │   ├── lib         # Inference framework library
-    │   │   ├── libminddata-lite.so  # The files of image processing dynamic library
-    │   │   ├── libmsdeobfuscator-lite.so # The files of obfuscated model loading dynamic library
-    │   │   ├── libmindspore-lite.a  # Static library of infernece framework in MindSpore Lite
-    │   │   └── libmindspore-lite.so # Dynamic library of infernece framework in MindSpore Lite
+    │   │   ├── libminddata-lite.so       # The files of image processing dynamic library
+    │   │   ├── libmindspore-lite.a       # Static library of inference framework in MindSpore Lite
+    │   │   ├── libmindspore-lite.so      # Dynamic library of inference framework in MindSpore Lite
+    │   │   └── libmsdeobfuscator-lite.so # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
     │   └── third_party
     │       └── hiai_ddk # NPU library, only exists in arm64 package
     └── tools
@@ -338,7 +306,7 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
             └── lib      # operator static library
     ```
 
-- When the compilation option is `-A java`:
+- When the compilation option is `-A on`:
 
     ```text
     mindspore-lite-maven-{version}
@@ -347,17 +315,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
     ```
-
-    ```text
-    mindspore-lite-{version}-inference-linux-x64-jar
-    └── jar
-        ├── libmindspore-lite-jni.so # Dynamic library of MindSpore Lite inference framework
-        ├── libmindspore-lite.so     # MindSpore Lite JNI dynamic library
-        └── mindspore-lite-java.jar  # MindSpore Lite inference framework jar package
-    ```
-
-> - Compile ARM64 to get the inference framework output of cpu/gpu/npu by default, if you add `-e gpu`, you will get the inference framework output of cpu/gpu, ARM32 only supports CPU.
-> - The dynamic library `libmsdeobfuscator-lite.so` is only available if the `ENABLE_MODEL_OBF` compilation option in `mindspore/mindspore/lite/CMakeLists.txt` is turned on.
 
 ### Training Output Description
 
@@ -394,8 +351,10 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
         │   └── registry # Header files of customized op registration
         ├── lib      # Inference framework library
         │   ├── libminddata-lite.so        # The files of image processing dynamic library
+        │   ├── libmindspore-lite-jni.so   # Dynamic library of training framework jni in MindSpore Lite
         │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
+        │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
+        │   └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
         └── third_party
             └── libjpeg-turbo
     ```
@@ -488,9 +447,9 @@ mindspore-lite-{version}-inference-win-x64
 │   │   └── registry     # Header files of customized op registration
 │   └── lib
 │       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
-│       ├── libmindspore-lite.a     # Static library of infernece framework in MindSpore Lite
-│       ├── libmindspore-lite.dll   # Dynamic library of infernece framework in MindSpore Lite
-│       ├── libmindspore-lite.dll.a # Link file of dynamic library of infernece framework in MindSpore Lite
+│       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
+│       ├── libmindspore-lite.dll   # Dynamic library of inference framework in MindSpore Lite
+│       ├── libmindspore-lite.dll.a # Link file of dynamic library of inference framework in MindSpore Lite
 │       ├── libssp-0.dll            # Dynamic library of MinGW
 │       ├── libstdc++-6.dll         # Dynamic library of MinGW
 │       └── libwinpthread-1.dll     # Dynamic library of MinGW
