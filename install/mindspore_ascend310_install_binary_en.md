@@ -1,11 +1,9 @@
-# Installing MindSpore in Ascend 310 by Source Code Compilation
+# Installing MindSpore in Ascend 310 by binary package
 
 <!-- TOC -->
 
-- [Installing MindSpore in Ascend 310 by Source Code Compilation](#installing-mindspore-in-ascend-310-by-source-code-compilation)
+- [Installing MindSpore in Ascend 310 by binary package](#installing-mindspore-in-ascend-310-by-binary-package)
     - [Checking System Environment Information](#checking-system-environment-information)
-    - [Downloading Source Code from the Code Repository](#downloading-source-code-from-the-code-repository)
-    - [Building MindSpore](#building-mindspore)
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Verifying the Installation](#verifying-the-installation)
@@ -13,22 +11,19 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_binary_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
+The following describes how to quickly install MindSpore by pip on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
 ## Checking System Environment Information
 
 - Ensure that the 64-bit Ubuntu 18.04, CentOS 7.6, or EulerOS 2.8 is installed.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Ensure that [GMP 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
-- Ensure that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Ensure that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - After installation, set the environment variable `export OPENSSL_ROOT_DIR= "OpenSSL installation directory"`.
 - Ensure that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - After installation, add the path of CMake to the system environment variables.
-- Ensure that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
-    - After installation, add the patch path to the system environment variables.
+- Ensure that Python 3.7.5 is installed.
+    - If Python 3.7.5 (64-bit) is not installed, download it from the [Python official website](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) or [HUAWEI CLOUD](https://mirrors.huaweicloud.com/python/3.7.5/Python-3.7.5.tgz) and install it.
 - Ensure that the Ascend 310 AI Processor software packages ([Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
     - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
     - The software packages include [Driver and Firmware A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) and [CANN 5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373).
@@ -40,36 +35,13 @@ The following describes how to quickly install MindSpore by compiling the source
         pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/te-{version}-py3-none-any.whl
         ```
 
-- Ensure that the git tool is installed.
-    If not, run the following command to download and install it:
-
-    ```bash
-    apt-get install git # ubuntu and so on
-    yum install git     # centos and so on
-    ```
-
-## Downloading Source Code from the Code Repository
-
-```bash
-git clone https://gitee.com/mindspore/mindspore.git
-```
-
-## Building MindSpore
-
-Run the following command in the root directory of the source code.
-
-```bash
-bash build.sh -e ascend -V 310
-```
-
-In the preceding information:
-
-The default number of build threads is 8 in `build.sh`. If the compiler performance is poor, build errors may occur. You can add -j{Number of threads} to script to reduce the number of threads. For example, `bash build.sh -e ascend -V 310 -j4`.
-
 ## Installing MindSpore
 
+It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
+
 ```bash
-tar -zxf output/mindspore_ascend-{version}-linux_{arch}.tar.gz
+wget https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/mindspore_ascend-{version}-linux_{arch}.tar.gz --no-check-cerficate
+tar -zxf mindspore_ascend-{version}-linux_{arch}.tar.gz
 ```
 
 In the preceding information:
