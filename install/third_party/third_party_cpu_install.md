@@ -146,7 +146,7 @@ ms-sd@mssd:~/Python-3.7.5$ ./configure --prefix=/usr/local/python3.7.5 --with-ss
 （5）安装必要的依赖
 
 ```text
-ms-sd@mssd:~/Python-3.7.5$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl
+ms-sd@mssd:~/Python-3.7.5$ sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl --no-check-certificate
 ```
 
 （6）编译安装
