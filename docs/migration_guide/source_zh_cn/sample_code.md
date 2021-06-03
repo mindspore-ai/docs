@@ -587,12 +587,12 @@ opt = Momentum(group_params, lr, momentum)
 import mindspore.nn as nn
 from mindspore import Tensor
 from mindspore.common import dtype as mstype
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 import mindspore.ops as ops
 
 
 # define cross entropy loss
-class CrossEntropySmooth(_Loss):
+class CrossEntropySmooth(Loss):
     """CrossEntropy"""
     def __init__(self, sparse=True, reduction='mean', smooth_factor=0., num_classes=1000):
         super(CrossEntropySmooth, self).__init__()

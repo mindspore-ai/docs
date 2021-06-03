@@ -194,6 +194,7 @@ Loss Functions
     mindspore.nn.DiceLoss
     mindspore.nn.FocalLoss
     mindspore.nn.L1Loss
+    mindspore.nn.Loss
     mindspore.nn.MAELoss
     mindspore.nn.MSELoss
     mindspore.nn.MultiClassDiceLoss

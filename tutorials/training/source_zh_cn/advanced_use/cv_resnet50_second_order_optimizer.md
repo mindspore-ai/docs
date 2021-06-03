@@ -209,7 +209,7 @@ MindSpore支持的损失函数有`SoftmaxCrossEntropyWithLogits`、`L1Loss`、`M
 损失函数的实现步骤在`src/crossentropy.py`脚本中。这里使用了深度网络模型训练中的一个常用trick：label smoothing，通过对真实标签做平滑处理，提高模型对分类错误标签的容忍度，从而可以增加模型的泛化能力。
 
 ```python
-class CrossEntropy(_Loss):
+class CrossEntropy(Loss):
     """CrossEntropy"""
     def __init__(self, smooth_factor=0., num_classes=1000):
         super(CrossEntropy, self).__init__()

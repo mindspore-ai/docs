@@ -70,13 +70,13 @@ Taking `Ascend` backup as an example, the output is as follow:
 0.03333334
 ```
 
-When the loss function is defined, the base class `_Loss` of the loss function can also be inherited. `_Loss` provides the `get_loss` method, which is used to sum or average the loss values and output a scalar. The definition of L1Loss using `_Loss` as the base class is as follows:
+When the loss function is defined, the base class `Loss` of the loss function can also be inherited. `Loss` provides the `get_loss` method, which is used to sum or average the loss values and output a scalar. The definition of L1Loss using `Loss` as the base class is as follows:
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 
-class L1Loss(_Loss):
+class L1Loss(Loss):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -86,7 +86,7 @@ class L1Loss(_Loss):
         return self.get_loss(x)
 ```
 
-Firstly, we use `_Loss` as the base class of L1Loss, and then add a parameter `reduction` to `__init__`, and then pass to base class by `super`. Finally we call `get_loss` method in `construct`. `reduction` has three legal parameters, `mean`, `sum` and `none`, which represent average, sum and original value.
+Firstly, we use `Loss` as the base class of L1Loss, and then add a parameter `reduction` to `__init__`, and then pass to base class by `super`. Finally we call `get_loss` method in `construct`. `reduction` has three legal parameters, `mean`, `sum` and `none`, which represent average, sum and original value.
 
 ## Loss Function and Model Training
 
@@ -182,7 +182,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -194,7 +194,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1Loss(_Loss):
+class L1Loss(Loss):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -284,9 +284,9 @@ We will define a loss function `L1LossForMultiLabel` according to defined multil
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 
-class L1LossForMultiLabel(_Loss):
+class L1LossForMultiLabel(Loss):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -372,7 +372,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -384,7 +384,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1LossForMultiLabel(_Loss):
+class L1LossForMultiLabel(Loss):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()

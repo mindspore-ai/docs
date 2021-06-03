@@ -66,13 +66,13 @@ print(output)
 0.03333334
 ```
 
-在定义损失函数时还可以继承损失函数的基类`_Loss`。`_Loss`提供了`get_loss`方法，用于对损失值求和或求均值，输出一个标量。L1Loss使用`_Loss`作为基类的定义如下：
+在定义损失函数时还可以继承损失函数的基类`Loss`。`Loss`提供了`get_loss`方法，用于对损失值求和或求均值，输出一个标量。L1Loss使用`Loss`作为基类的定义如下：
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 
-class L1Loss(_Loss):
+class L1Loss(Loss):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -82,7 +82,7 @@ class L1Loss(_Loss):
         return self.get_loss(x)
 ```
 
-首先，使用`_Loss`作为L1Loss的基类，然后给`__init__`增加一个参数`reduction`，并通过`super`传给基类，最后在`construct`中调用基类提供的`get_loss`方法。`reduction`的合法参数有三个，`mean`、`sum`和`none`，分别表示求均值、求和与输出原值。
+首先，使用`Loss`作为L1Loss的基类，然后给`__init__`增加一个参数`reduction`，并通过`super`传给基类，最后在`construct`中调用基类提供的`get_loss`方法。`reduction`的合法参数有三个，`mean`、`sum`和`none`，分别表示求均值、求和与输出原值。
 
 ## 损失函数与模型训练
 
@@ -178,7 +178,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -190,7 +190,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1Loss(_Loss):
+class L1Loss(Loss):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -280,9 +280,9 @@ def create_multilabel_dataset(num_data, batch_size=16):
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 
-class L1LossForMultiLabel(_Loss):
+class L1LossForMultiLabel(Loss):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -368,7 +368,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn.loss.loss import _Loss
+from mindspore.nn import Loss
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -380,7 +380,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1LossForMultiLabel(_Loss):
+class L1LossForMultiLabel(Loss):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()
