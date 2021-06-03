@@ -9,3 +9,5 @@ mindspore/ccsrc/minddata/dataset/include/dataset/transforms.h
 mindspore/ccsrc/minddata/dataset/include/dataset/vision.h
 mindspore/ccsrc/minddata/dataset/include/dataset/vision_ascend.h
 mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h
+mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/image_process.h
+mindspore/ccsrc/minddata/dataset/kernels/image/lite_cv/lite_mat.h
