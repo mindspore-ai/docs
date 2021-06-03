@@ -32,8 +32,8 @@ mindinsight --version
 ## Start the Service
 
 ```text
-mindinsight start [-h] [--config <CONFIG>] [--workspace <WORKSPACE>]
-                  [--port <PORT>] [--url-path-prefix <URL_PATH_PREFIX>]
+mindinsight start [-h] [--workspace <WORKSPACE>] [--port <PORT>]
+                  [--url-path-prefix <URL_PATH_PREFIX>]
                   [--reload-interval <RELOAD_INTERVAL>]
                   [--summary-base-dir <SUMMARY_BASE_DIR>]
                   [--enable-debugger <ENABLE_DEBUGGER>]
@@ -45,7 +45,6 @@ Optional parameters are as follows:
 |Name|Argument|Description|Type|Default|Scope|Specifications|
 |---|---|---|---|---|---|---|
 |`-h, --help`|Optional|Displays the help information about the start command.|-|-|-|-|
-|`--config <CONFIG>`|Optional|Specifies the configuration file or module.|String|Empty string|-|Physical file path (file:/path/to/config.py) or a module path (python:path.to.config.module) that can be identified by Python.|
 |`--workspace <WORKSPACE>`|Optional|Specifies the working directory.|String|$HOME/mindinsight|-|-|
 |`--port <PORT>`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|-|
 |`--url-path-prefix <URL_PATH_PREFIX>`|Optional|Specifies the URL path prefix of the web visualization service.|String|Empty string|-|URL path prefix consists of segments separated by slashes. Each segment supports alphabets / digits / underscores / dashes / dots, but not single dot or double dots.|
@@ -54,7 +53,20 @@ Optional parameters are as follows:
 |`--enable-debugger <ENABLE_DEBUGGER>`|Optional|Whether to launch the MindInsight Debugger.|Boolean|False|True/False/1/0|The debugger entry can be shown on MindInsight UI only when MindInsight Debugger is launched.|
 |`--debugger-port <DEBUGGER_PORT>`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|-|
 
-> When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_CONFIG`, `MINDINSIGHT_WORKSPACE`, and `MINDINSIGHT_PORT`.
+> When the service is started, the parameter values of the command line are saved as the environment variables of the process and start with `MINDINSIGHT_`, for example, `MINDINSIGHT_PORT`, `MINDINSIGHT_WORKSPACE`, etc.
+
+Execute command:
+
+```bash
+mindinsight start --port 8000 --workspace /path/to/workspace/dir --summary-base-dir /path/to/summary/base/dir
+```
+
+The startup is successful if it prompts as follows:
+
+```text
+Web address: http://127.0.0.1:8000
+service start state: success
+```
 
 ## View the Service Process Information
 
@@ -88,6 +100,18 @@ Optional parameters are as follows:
 |---|---|---|---|---|---|---|
 |`-h, --help`|Optional|Displays the help information about the stop command.|-|-|-|-|
 |`--port <PORT>`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1~65535|-|
+
+Execute command:
+
+```bash
+mindinsight stop --port 8000
+```
+
+The shutdown is successful if it prompts as follows:
+
+```text
+Stop mindinsight service successfully
+```
 
 ## Parse summary
 
