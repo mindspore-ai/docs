@@ -9,4 +9,5 @@ Network Script Development
 .. toctree::
    :maxdepth: 1
 
+   migration_case_of_mindconverter
    migration_script

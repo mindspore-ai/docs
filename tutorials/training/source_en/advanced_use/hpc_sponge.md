@@ -1,10 +1,25 @@
 # SPONGE Molecular Simulation Practice
 
+Translator: [LiangRio](https://gitee.com/liangrio)
+
 `Linux` `GPU` `Model Development` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<!-- TOC -->
 
-[TOC]
+- [SPONGE Molecular Simulation Practice](#sponge-molecular-simulation-practice)
+    - [Overview](#overview)
+    - [Overall Execution](#overall-execution)
+    - [Preparation](#preparation)
+    - [Example of Simulated Polypeptide Aqueous Solution System](#example-of-simulated-polypeptide-aqueous-solution-system)
+        - [Preparing Input Files](#preparing-input-files)
+        - [Loading Data](#loading-data)
+        - [Constructing Simulation Process](#constructing-simulation-process)
+        - [Running Script](#running-script)
+        - [Running Result](#running-result)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -16,10 +31,7 @@ SPONGE in MindSpore is molecular simulation library jointly developed by the Gao
 
 This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-<table bgcolor=#fff6e5>
-<tr><td>*TIPs</td></tr>
-<tr><td bgcolor=#fff6e5>Here you can download the complete sample code: https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge</td></tr>
-</table>
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>.
 
 ## Overall Execution
 
@@ -29,69 +41,63 @@ This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, 
 
 ## Preparation
 
-Before practicing, make sure you have MindSpore installed correctly. If not, you can turn to [MindSpore Installation](https://www.mindspore.cn/install).
+Before practicing, make sure you have MindSpore installed correctly. If not, you can turn to [MindSpore Installation](https://www.mindspore.cn/install/en).
 
 ## Example of Simulated Polypeptide Aqueous Solution System
 
 SPONGE has advantages of high-performance and usability, and this tutorial uses SPONGE to simulate polypeptide aqueous solution system. The simulated system is an alanine tripeptide aqueous solution system.
 
-### Preparing input files
+### Preparing Input Files
 
 The simulated system of this tutorial requires 3 input files:
 
-* Property file (file suffix`.in`), declares the basic conditions for the simulation, parameter control to the whole simulation process.
-* Topology file (file suffix`.param7`), describes the topological relations and parameters of the internal molecules in the system.
-* Coordinate file (file suffix`.rst7`), describes the initial coordinates of each atom in the system.
+- Property file (file suffix`.in`), declares the basic conditions for the simulation, parameter control to the whole simulation process.
+- Topology file (file suffix`.param7`), describes the topological relations and parameters of the internal molecules in the system.
+- Coordinate file (file suffix`.rst7`), describes the initial coordinates of each atom in the system.
 
-Topology and Coordinate files can be modeling completed by tleap (download address http://ambermd.org/GetAmber.php, comply with the GPL), which is a built-in tool in AmberTools, through the modeling process.
+Topology and Coordinate files can be modeling completed by tleap (download address <http://ambermd.org/GetAmber.php>, comply with the GPL), which is a built-in tool in AmberTools, through the modeling process.
 
 The modeling process is as follows:
 
-* Open tleap
+- Open tleap
 
-```python
+```bash
 tleap
-
 ```
 
-* Load force field ff14SB that built-in in tleap
+- Load force field ff14SB that built-in in tleap
 
-```python
+```bash
 > source leaprc.protein.ff14SB
-
 ```
 
-* Build model of alanine tripeptide
+- Build model of alanine tripeptide
 
-```python
+```bash
 > ala = sequence {ALA ALA ALA}
-
 ```
 
-* use tleap to load its force field tip3p
+- Use tleap to load its force field tip3p
 
-```python
+```bash
 > source leaprc.water.tip3p
-
 ```
 
-* use `slovatebox` in tleap to dissolve alanine tripeptide chain, complete the system construction. `10.0`, represents the water we add is over 10 Angstrom far away from the border of molecular we dissolve and the system.
+- Use `slovatebox` in tleap to dissolve alanine tripeptide chain, complete the system construction. `10.0`, represents the water we add is over 10 Angstrom far away from the border of molecular we dissolve and the system.
 
-```python
+```bash
 > solvatebox ala TIP3PBOX 10.0
-
 ```
 
-* save constructed system as file suffix `parm7` and `rst7`
+- Save constructed system as file suffix `parm7` and `rst7`
 
-```python
+```bash
 > saveamberparm ala ala.parm7 ala_350_cool_290.rst7
-
 ```
 
 After constructing the Topology file(`WATER_ALA.parm7`) and Coordinate file(`WATER_ALA_350_COOL_290.RST7`) that needed through tleap, it is required to declare basic conditions of simulation by Property file, which executes parameter control to the whole simulation process. Take Property file `NVT_299_10ns.in` in this tutorial as an example, contents are as follows:
 
-```python
+```text
 NVT 290k
    mode = 1,                              # Simulation mode ; mode=1 for NVT ensemble
    dt= 0.001,                             # Time step in picoseconds (ps). The time length of each MD step
@@ -102,23 +108,22 @@ NVT 290k
    write_information_interval=1000,       # Output frequency
    amber_irest=1,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
    cut=10.0,                              # Nonbonded cutoff distance in Angstroms
-
 ```
 
-* `mode`, Molecular Dynamics (MD) mode, `1` represents the simulation uses `NVT` ensemble.
-* `dt`, represents the step size in the simulation.
-* `step_limit`, represents total steps in the simulation.
-* `thermostat`, represents the method of temperature control, `1` represents to use `Liujian-Langevin`.
-* `langevin_gamma`, represents `Gamma_In` parameters in the thermostat.
-* `target_temperature`, represents the target temperature.
-* `amber_irest`, represents the input mode, `1` represents to use the amber mode to input, and files suffix `rst7` includes the attribute `veclocity`.
-* `cut`, represents the distance of non-bonding interaction.
+- `mode`, Molecular Dynamics (MD) mode, `1` represents the simulation uses `NVT` ensemble.
+- `dt`, represents the step size in the simulation.
+- `step_limit`, represents total steps in the simulation.
+- `thermostat`, represents the method of temperature control, `1` represents to use `Liujian-Langevin`.
+- `langevin_gamma`, represents `Gamma_In` parameters in the thermostat.
+- `target_temperature`, represents the target temperature.
+- `amber_irest`, represents the input mode, `1` represents to use the amber mode to input, and files suffix `rst7` includes the attribute `veclocity`.
+- `cut`, represents the distance of non-bonding interaction.
 
-### Loading data
+### Loading Data
 
 After completing the construction of input files, save files under the path `sponge_in` to local workplace, the directory structure is as follows:
 
-```python
+```text
 └─sponge
     ├─sponge_in
     │      NVT_290_10ns.in                 # specific MD simulation setting
@@ -145,10 +150,9 @@ parser.add_argument('--device_id', type=int, default=0, help='')
 args_opt = parser.parse_args()
 
 context.set_context(mode=context.GRAPH_MODE, device_target="GPU", device_id=args_opt.device_id, save_graphs=False)
-
 ```
 
-### Constructing simulation process
+### Constructing Simulation Process
 
 By using computational force module and computational energy module defined in SPONGE, the system reaches the equilibrium state we need through multiple iterations of molecular dynamics process evolves, and energy and other data obtained in each simulation step is recorded. For convenience, this tutorial set `1` as the number of iterations, the code for constructing the simulation process is as follows:
 
@@ -169,11 +173,11 @@ if __name__ == "__main__":
 
 ```
 
-### Running script
+### Running Script
 
 Execute the following command, start `main.py` training script for training:
 
-```python
+```text
 python main.py --i /path/NVT_290_10ns.in \
                --amber_parm /path/WATER_ALA.parm7 \
                --c /path/WATER_ALA_350_cool_290.rst7 \
@@ -181,24 +185,22 @@ python main.py --i /path/NVT_290_10ns.in \
 
 ```
 
-* -`i` is property file of MD simulation, which control simulation process.
-* -`amber_parm` is topology file of MD simulation system.
-* -`c` is initial coordinate file we input.
-* -`o` is log file output after simulation, which records energy and other data obtained in each simulation step.
-* -`path` is the path to the file, this path is denoted as `sponge_in` in this tutorial.
+- `i` is property file of MD simulation, which control simulation process.
+- `amber_parm` is topology file of MD simulation system.
+- `c` is initial coordinate file we input.
+- `o` is log file output after simulation, which records energy and other data obtained in each simulation step.
+- `path` is the path to the file, this path is denoted as `sponge_in` in this tutorial.
 
 During training, property file (file suffix`.in`), topology file (file suffix`.param7`) and coordinate file (file suffix`.rst7`) can be used under specified temperatures to perform simulation, compute force and energy, perform molecular dynamics process evolves.
 
-### Running result
+### Running Result
 
 After training, output file `ala_NVT_290_10ns.out` can be obtained, which records the change of system energy and can be viewed for thermodynamic information of the simulation system. When viewing `ala_NVT_290_10ns.out`, contents are as follows:
 
-```python
+```text
 _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _14CF_ENE_ _LJ_ENE_ _CF_PME_ENE_
       1 293.105   -6117.709   1204.406       7.096          4.491      3.456     44.018 1372.488    -8753.664
    ...
-
 ```
 
 Types of energy output in the simulation process are recorded, namely iterations(steps), temperature(TEMP), total energy(TOT_POT_E), bond length(BOND_ENE), bond angle(ANGLE_ENE), dihedral angle interactions(DIHEDRAL_ENE), and none-bonded interaction that includes electrostatic force and Leonard-Jones interaction.
-
