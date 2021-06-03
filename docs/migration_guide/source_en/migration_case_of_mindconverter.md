@@ -1,16 +1,16 @@
 # Using Mindcoverter to Perform Migration
 
-Translator: [ChanJiatao](https://gitee.com/ChanJiatao/docs/tree/master)
+Translator: [ChanJiatao](https://gitee.com/ChanJiatao)
 
 <!-- TOC -->
 
-- [Using Mindcoverter to Perform Migration](#using-Mindcoverter-to-perform-migration)
+- [Using Mindcoverter to Perform Migration](#using-mindcoverter-to-perform-migration)
     - [Overview](#overview)
     - [Environment Preparation](#environment-preparation)
-    - [ONNX Model Export](#ONNX-model-export)
-    - [ONNX Model Validation](#ONNX-model-validation)
-    - [Using MindConverter to Perform Model Script and Weight Migration](#using-mindConverter-to-perform-model-script-and-weight-migration)
-    - [MindSpore Model Validation](#MindSpore-model-validation)
+    - [ONNX Model Export](#onnx-model-export)
+    - [ONNX Model Validation](#onnx-model-validation)
+    - [Using MindConverter to Perform Model Script and Weight Migration](#using-mindconverter-to-perform-model-script-and-weight-migration)
+    - [MindSpore Model Validation](#mindSpore-model-validation)
     - [Frequently Asked Questions](#frequently-asked-questions)
 
 <!-- /TOC -->
@@ -27,7 +27,7 @@ HuggingFace Transformers is a mainstream natural language processing third-party
 
 In this case, the following third-party Python libraries need to be installed:
 
-```python
+```bash
 pip install torch==1.5.1
 pip install transformers==4.2.2
 pip install mindspore==1.2.0
@@ -161,8 +161,8 @@ When MindConverter performs model conversion, it needs to specify the model path
 
 The generated script output path (`--output`) and conversion report path (`--report`) are optional parameters. The default is the output directory under the current path. If the output directory does not exist, it will be created automatically.
 
-```python
-!mindconverter --model_file ./exported_bert_base_uncased/bert_base_uncased.onnx --shape 1,128 1,128 1,128  \
+```bash
+mindconverter --model_file ./exported_bert_base_uncased/bert_base_uncased.onnx --shape 1,128 1,128 1,128  \
                --input_nodes input_ids token_type_ids attention_mask  \
                --output_nodes output_0  \
                --output ./converted_bert_base_uncased  \
@@ -180,8 +180,8 @@ After the conversion is completed, the following files are generated in this dir
 
 Check the conversion result with the ls command.
 
-```python
-!ls ./converted_bert_base_uncased
+```bash
+ls ./converted_bert_base_uncased
 ```
 
 ```text
