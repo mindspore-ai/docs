@@ -68,12 +68,6 @@ device_list_
 
 > 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
 
-## PrimitiveC
-
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/model.h)&gt;
-
-PrimitiveC定义为算子的原型。
-
 ## Model
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.2/mindspore/lite/include/model.h)&gt;
