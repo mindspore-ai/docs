@@ -103,15 +103,16 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 
 #### `build.sh`的编译参数
 
-| 参数  |  参数说明  | 取值范围 | 是否必选 |
+| 参数  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
-| -I | 选择目标架构 | arm64、arm32、x86_64 | 否 |
-| -A | 编译AAR包(包含arm32和arm64) | on、off | 否 |
-| -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 否 |
-| -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 否 |
-| -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 否 |
-| -h | 显示编译帮助信息 | 无 | 否 |
-| -n | 指定编译轻量级图片处理模块 | lite_cv | 否 |
+| -I | 选择目标架构 | arm64、arm32、x86_64 | 无 |
+| -A | 编译AAR包(包含arm32和arm64) | on、off | off |
+| -d | 设置该参数，则编译Debug版本，否则编译Release版本 | 无 | 无 |
+| -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 无 |
+| -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 8 |
+| -a | 是否启用AddressSanitizer | on、off | off |
+| -h | 显示编译帮助信息 | 无 | 无 |
+| -n | 指定编译轻量级图片处理模块 | lite_cv | 无 |
 
 > - 编译x86_64版本时，若配置了JAVA_HOME环境变量并安装了Gradle，则同时编译JAR包。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
@@ -153,10 +154,11 @@ git clone https://gitee.com/mindspore/mindspore.git
 - 编译ARM64架构版本，不编译NPU算子。
 
     ```bash
-    MSLITE_ENABLE_NPU=off && bash build.sh -I arm64 -j32
+    export MSLITE_ENABLE_NPU=off
+    bash build.sh -I arm64 -j32
     ```
 
-    或者修改CMakeLists.txt将MSLITE_ENABLE_NPU设置为off后，执行命令:
+    或者修改`mindspore/lite/CMakeLists.txt`将 MSLITE_ENABLE_NPU 设置为 off 后，执行命令:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -479,7 +481,7 @@ mindspore-lite-{version}-inference-win-x64
 #### 下载镜像
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
 ```
 
 > - 下载镜像前，请确保已经安装docker。
@@ -489,7 +491,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubun
 #### 创建容器
 
 ```bash
-docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
 ```
 
 #### 进入容器

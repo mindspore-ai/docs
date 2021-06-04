@@ -103,15 +103,16 @@ The following describes the compilation parameter of `build.sh` and the options 
 
 #### The compilation parameter of `build.sh`
 
-| Parameter  |  Parameter Description  | Value Range | Mandatory or No |
+| Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
-| -I | Selects an applicable architecture. | arm64, arm32, or x86_64 | No |
-| -A | Compile AAR package (including arm32 and arm64). | on, off | No |
-| -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | No |
-| -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | No |
-| -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | No |
-| -h | Displays the compilation help information. | None | No |
-| -n | Specifies to compile the lightweight image processing module. | lite_cv | No |
+| -I | Selects an applicable architecture. | arm64, arm32, or x86_64 | None |
+| -A | Compile AAR package (including arm32 and arm64). | on, off | off |
+| -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | None |
+| -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | None |
+| -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
+| -a | Whether to enable AddressSanitizer | on、off | off |
+| -h | Displays the compilation help information. | None | None |
+| -n | Specifies to compile the lightweight image processing module. | lite_cv | None |
 
 > - When compiling the x86_64 version, if the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package will be compiled at the same time.
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
@@ -153,10 +154,11 @@ Then, run the following commands in the root directory of the source code to com
 - Compile the ARM64 architecture version without compiling the NPU operator.
 
     ```bash
-    MSLITE_ENABLE_NPU=off && bash build.sh -I arm64 -j32
+    export MSLITE_ENABLE_NPU=off
+    bash build.sh -I arm64 -j32
     ```
 
-    Or modify CMakeLists.txt to set MSLITE_ENABLE_NPU to off and execute the command:
+    Or modify `mindspore/lite/CMakeLists.txt` to set MSLITE_ENABLE_NPU to off and execute the command:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -480,7 +482,7 @@ mindspore-lite-{version}-inference-win-x64
 #### Download the docker image
 
 ```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
 ```
 
 > - Before downloading the image, please make sure docker has been installed.
@@ -490,7 +492,7 @@ docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubun
 #### Create a container
 
 ```bash
-docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210323
+docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
 ```
 
 #### Enter the container
