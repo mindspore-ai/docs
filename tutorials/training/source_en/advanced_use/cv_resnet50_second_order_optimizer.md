@@ -207,7 +207,7 @@ Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `
 The implementation procedure of the loss function is in the `src/crossentropy.py` script. A common trick in deep network model training, label smoothing, is used to improve the model tolerance to error label classification by smoothing real labels, thereby improving the model generalization capability.
 
 ```python
-class CrossEntropy(_Loss):
+class CrossEntropy(Loss):
     """CrossEntropy"""
     def __init__(self, smooth_factor=0., num_classes=1000):
         super(CrossEntropy, self).__init__()
