@@ -36,8 +36,9 @@ Classes
 - :doc:`../api/classmindspore_dataset_Execute`
 - :doc:`../api/classmindspore_dataset_FilterDataset`
 - :doc:`../api/classmindspore_dataset_ImageFolderDataset`
-- :doc:`../api/classmindspore_dataset_Iterator`
 - :doc:`../api/classmindspore_dataset_Iterator__Iterator`
+- :doc:`../api/classmindspore_dataset_Iterator`
+- :doc:`../api/classmindspore_dataset_LiteMat`
 - :doc:`../api/classmindspore_dataset_ManifestDataset`
 - :doc:`../api/classmindspore_dataset_MapDataset`
 - :doc:`../api/classmindspore_dataset_MindDataDataset`
@@ -90,9 +91,11 @@ Functions
 ---------
 
 
+- :doc:`../api/function_mindspore_dataset_Affine-1`
 - :doc:`../api/function_mindspore_dataset_Album-1`
 - :doc:`../api/function_mindspore_dataset_Album-2`
 - :doc:`../api/function_mindspore_dataset_Album-3`
+- :doc:`../api/function_mindspore_dataset_ApplyNms-1`
 - :doc:`../api/function_mindspore_dataset_BitClear-1`
 - :doc:`../api/function_mindspore_dataset_BitSet-1`
 - :doc:`../api/function_mindspore_dataset_BitTest-1`
@@ -109,15 +112,23 @@ Functions
 - :doc:`../api/function_mindspore_dataset_Coco-1`
 - :doc:`../api/function_mindspore_dataset_Coco-2`
 - :doc:`../api/function_mindspore_dataset_Coco-3`
+- :doc:`../api/function_mindspore_dataset_ConvertBoxes-1`
+- :doc:`../api/function_mindspore_dataset_ConvertTo-1`
 - :doc:`../api/function_mindspore_dataset_CreateDatasetCache-1`
 - :doc:`../api/function_mindspore_dataset_CreateDatasetCacheCharIF-1`
+- :doc:`../api/function_mindspore_dataset_Crop-1`
 - :doc:`../api/function_mindspore_dataset_CSV-1`
+- :doc:`../api/function_mindspore_dataset_Divide-1`
+- :doc:`../api/function_mindspore_dataset_ExtractChannel-1`
+- :doc:`../api/function_mindspore_dataset_GetDefaultBoxes-1`
 - :doc:`../api/function_mindspore_dataset_ImageFolder-1`
 - :doc:`../api/function_mindspore_dataset_ImageFolder-2`
 - :doc:`../api/function_mindspore_dataset_ImageFolder-3`
+- :doc:`../api/function_mindspore_dataset_InitFromPixel-1`
 - :doc:`../api/function_mindspore_dataset_Manifest-1`
 - :doc:`../api/function_mindspore_dataset_Manifest-2`
 - :doc:`../api/function_mindspore_dataset_Manifest-3`
+- :doc:`../api/function_mindspore_dataset_Merge-1`
 - :doc:`../api/function_mindspore_dataset_MindData-1`
 - :doc:`../api/function_mindspore_dataset_MindData-2`
 - :doc:`../api/function_mindspore_dataset_MindData-3`
@@ -127,10 +138,16 @@ Functions
 - :doc:`../api/function_mindspore_dataset_Mnist-1`
 - :doc:`../api/function_mindspore_dataset_Mnist-2`
 - :doc:`../api/function_mindspore_dataset_Mnist-3`
+- :doc:`../api/function_mindspore_dataset_Multiply-1`
 - :doc:`../api/function_mindspore_dataset_operator+-1`
+- :doc:`../api/function_mindspore_dataset_Pad-1`
 - :doc:`../api/function_mindspore_dataset_RandomData-1`
+- :doc:`../api/function_mindspore_dataset_ResizeBilinear-1`
 - :doc:`../api/function_mindspore_dataset_Schema-1`
 - :doc:`../api/function_mindspore_dataset_SchemaCharIF-1`
+- :doc:`../api/function_mindspore_dataset_Split-1`
+- :doc:`../api/function_mindspore_dataset_SubStractMeanNormalize-1`
+- :doc:`../api/function_mindspore_dataset_Subtract-1`
 - :doc:`../api/function_mindspore_dataset_TextFile-1`
 - :doc:`../api/function_mindspore_dataset_TFRecord-1`
 - :doc:`../api/function_mindspore_dataset_VOC-1`

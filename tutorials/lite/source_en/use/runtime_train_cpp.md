@@ -119,11 +119,11 @@ int CreateSession() {
 
 ### Data Reading Pipeline
 
-The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html) for more detials.
+The class `Dataset` and its extension class (e.g., `MnistDataset` and `AlbumDataset`) have provided abundant data procssing API. Users only need to specify the dataset path and set the data processing operations for the model training by using the shared pointers from the related API. Reading pipeline will decode and load dataset during model training. Refer [Dataset](https://www.mindspore.cn/doc/api_cpp/en/master/namespace/mindspore_dataset.html) for more detials.
 
 ### Data Preprocessing Pipeline
 
-The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/doc/api_cpp/en/master/vision.html) for more detials.
+The class `TensorTransform` has provided abundant data preprocssing API and has the same function as the cloud side, (e.g., Dimension reshaping, data type casting and one-hot coding). The users only need to create the objects of the extension classes of `TensorTransform` and transfer them to the function `Map`. Refer [Vision](https://www.mindspore.cn/doc/api_cpp/en/master/namespace/mindspore_dataset_vision.html) for more detials.
 
 ### Example
 

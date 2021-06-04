@@ -15,7 +15,7 @@ Here is a list of all classes with links to the namespace documentation for each
 | mindspore::lite | [ModelBuilder](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#modelbuilder) | ModelBuilder is defined to build the model. |
 | mindspore::session | [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) | LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding model. |
 | mindspore::tensor | [MSTensor](https://www.mindspore.cn/doc/api_cpp/en/master/tensor.html#mstensor) | MSTensor defines tensor in MindSpore Lite. |
-| mindspore::dataset | [LiteMat](https://www.mindspore.cn/doc/api_cpp/en/master/dataset.html#litemat) |LiteMat is a class used to process images. |
+| mindspore::dataset | [LiteMat](https://www.mindspore.cn/doc/api_cpp/en/master/api/classmindspore_dataset_LiteMat.html) |LiteMat is a class used to process images. |
 
 The definitions and namespaces of classes in MindSpore are as follows:
 
