@@ -68,12 +68,6 @@ A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.
 
 > CPU, GPU and NPU are supported now. If GPU device context is set and GPU is supported in the current device, use GPU device first, otherwise use CPU device first. If NPU device context is set and GPU is supported in the current device, use NPU device first, otherwise use CPU device first.
 
-## PrimitiveC
-
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
-
-Primitive is defined as prototype of operator.
-
 ## Model
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
