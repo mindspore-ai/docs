@@ -101,38 +101,55 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 
 - 如果你安装的是指定版本`x.y.z`的容器。
 
-    按照上述步骤进入MindSpore容器后，测试Docker是否正常工作，请运行下面的Python代码并检查输出：
+按照上述步骤进入MindSpore容器后，测试Docker是否正常工作，请运行下面的Python代码并检查输出：
 
-    ```python
-    import numpy as np
-    import mindspore.context as context
-    import mindspore.ops as ops
-    from mindspore import Tensor
+方法一：
 
-    context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
 
-    x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    print(ops.add(x, y))
-    ```
+如果输出：
 
-    代码成功运行时会输出：
+```text
+mindspore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
 
-    ```text
-    [[[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+至此，你已经成功通过Docker方式安装了MindSpore GPU版本。
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+方法二：
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]]]
-    ```
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.ops as ops
+from mindspore import Tensor
 
-    至此，你已经成功通过Docker方式安装了MindSpore GPU版本。
+context.set_context(mode=context.PYNATIVE_MODE, device_target="GPU")
+
+x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+print(ops.add(x, y))
+```
+
+代码成功运行时会输出：
+
+```text
+[[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]],
+
+[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]],
+
+[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]]]
+```
+
+至此，你已经成功通过Docker方式安装了MindSpore GPU版本。
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 

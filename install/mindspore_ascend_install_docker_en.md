@@ -85,6 +85,23 @@ of which,
 
 After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please run the following Python code and check the output:
 
+i:
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+The outputs should be the same as:
+
+```text
+mindspore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+It means MindSpore has been installed by docker successfully.
+
+ii:
+
 ```python
 import numpy as np
 from mindspore import Tensor

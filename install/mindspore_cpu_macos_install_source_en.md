@@ -62,10 +62,17 @@ Of which,
 ## Installation Verification
 
 ```bash
-python -c "import mindspore;print(mindspore.__version__)"
+python -c "import mindspore;mindspore.run_check()"
 ```
 
-If the MindSpore version number is displayed, it means that MindSpore is installed successfully, and if the output is `No module named 'mindspore'`, it means that the installation was not successful.
+The outputs should be the same as:
+
+```text
+mindspore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+It means MindSpore has been installed successfully.
 
 ## Version Update
 

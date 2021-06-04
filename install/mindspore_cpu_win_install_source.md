@@ -61,10 +61,17 @@ pip install build/package/mindspore-{version}-cp37-cp37m-win_amd64.whl -i https:
 ## 验证是否安装成功
 
 ```bash
-python -c "import mindspore;print(mindspore.__version__)"
+python -c "import mindspore;mindspore.run_check()"
 ```
 
-如果输出MindSpore版本号，说明MindSpore安装成功了，如果输出`No module named 'mindspore'`说明未安装成功。
+如果输出：
+
+```text
+mindspore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+说明MindSpore安装成功了。
 
 ## 升级MindSpore版本
 

@@ -63,36 +63,53 @@ of which,
 
     After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please run the following Python code and check the output:
 
-    ```python
-    import numpy as np
-    import mindspore.context as context
-    import mindspore.ops as ops
-    from mindspore import Tensor
+i:
 
-    context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
 
-    x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    print(ops.add(x, y))
-    ```
+- The outputs should be the same as:
 
-    The outputs should be the same as:
+```text
+mindspore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
 
-    ```text
-    [[[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+It means MindSpore has been installed by docker successfully.
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]],
+ii:
 
-    [[ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.],
-    [ 2.  2.  2.  2.]]]
-    ```
+```python
+import numpy as np
+import mindspore.context as context
+import mindspore.ops as ops
+from mindspore import Tensor
 
-    It means MindSpore has been installed by docker successfully.
+context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU")
+
+x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+print(ops.add(x, y))
+```
+
+The outputs should be the same as:
+
+```text
+[[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]],
+
+[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]],
+
+[[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.],
+[ 2.  2.  2.  2.]]]
+```
+
+It means MindSpore has been installed by docker successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 

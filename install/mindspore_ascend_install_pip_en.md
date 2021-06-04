@@ -83,35 +83,50 @@ Of which,
 
 ## Installation Verification
 
-- After configuring the environment variables, execute the following Python script：
+i:
 
-    ```python
-    import numpy as np
-    from mindspore import Tensor
-    import mindspore.ops as ops
-    import mindspore.context as context
-
-    context.set_context(device_target="Ascend")
-    x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
-    print(ops.add(x, y))
-    ```
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
 
 - The outputs should be the same as:
 
-    ```text
-    [[[ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.]],
+```text
+mindspore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
 
-     [[ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.]],
+It means MindSpore has been installed successfully.
 
-     [[ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.],
-      [ 2.  2.  2.  2.]]]
-    ```
+ii:
+
+```python
+import numpy as np
+from mindspore import Tensor
+import mindspore.ops as ops
+import mindspore.context as context
+
+context.set_context(device_target="Ascend")
+x = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+y = Tensor(np.ones([1,3,3,4]).astype(np.float32))
+print(ops.add(x, y))
+```
+
+- The outputs should be the same as:
+
+```text
+[[[ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.]],
+
+ [[ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.]],
+
+ [[ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.],
+ [ 2.  2.  2.  2.]]]
+```
 
 It means MindSpore has been installed successfully.
 

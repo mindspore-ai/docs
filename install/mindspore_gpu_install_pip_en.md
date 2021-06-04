@@ -46,6 +46,23 @@ Of which,
 
 ## Installation Verification
 
+i:
+
+```bash
+python -c "import mindspore;mindspore.run_check()"
+```
+
+The outputs should be the same as:
+
+```text
+mindspore version: __version__
+The result of multiplication calculation is correct, MindSpore has been installed successfully!
+```
+
+It means MindSpore has been installed successfully.
+
+ii:
+
 ```python
 import numpy as np
 from mindspore import Tensor
