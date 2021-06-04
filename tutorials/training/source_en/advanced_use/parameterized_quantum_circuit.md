@@ -1,8 +1,23 @@
 ﻿# Parameterized Quantum Circuit
 
-`Linux` `CPU` `Total Access` `Junior` `Intermediate` `Advanced`
+Translator: [Wei_zz](https://gitee.com/wei-zz)
 
-[![View source Gitee](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png)](https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/parameterized_quantum_circuit.ipynb)&emsp;[![Download](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png)](https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_parameterized_quantum_circuit.ipynb)&emsp;[![Run in ModelArts](https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png)](https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9wYXJhbWV0ZXJpemVkX3F1YW50dW1fY2lyY3VpdC5pcHluYg==&imagename=MindSpore1.1.1)
+`Linux` `CPU` `Whole Process` `Beginner` `Intermediate` `Advanced`
+
+<!-- TOC -->
+
+- [Parameterized Quantum Circuit](#parameterized-quantum-circuit)
+    - [Summary](#summary)
+    - [Preparing Environment](#preparing-environment)
+    - [Quantum Gate](#quantum-gate)
+    - [Quantum Circuit](#quantum-circuit)
+        - [HiQsimulator Compatible Quantum Circuit Building Format](#hiqsimulator-compatible-quantum-circuit-building-format)
+        - [A More Convenient Circuit Generation](#a-more-convenient-circuit-generation)
+    - [Simulate Quantum Circuit by MindSpore Operator](#simulate-quantum-circuit-by-mindspore-operator)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/parameterized_quantum_circuit.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Summary
 
@@ -32,7 +47,7 @@ print('Gate name: ', Y)
 print('Gate matrix: \n', Y.matrix())
 ```
 
-```python
+```text
 Gate name:  Y
 Gate matrix:
 [[ 0.+0.j -0.-1.j]
@@ -52,7 +67,7 @@ ry = RY('a')
 ry.matrix({'a': 0.5})
 ```
 
-```python
+```text
 array([[ 0.96891242, -0.24740396],
        [ 0.24740396,  0.96891242]])
 ```
@@ -60,9 +75,9 @@ array([[ 0.96891242, -0.24740396],
 ## Quantum Circuit
 
 Quantum circuit is a structure used to effectively organize various quantum logic gates. We can initialize the quantum circuit through the list of quantum gates, or expand the quantum circuit by adding a quantum gate or circuit through addition(`+`), and multiplying by an integer through multiplication(`*`). Here we will construct the following quantum circuit and print the relevant information of the quantum circuit. In the following figure, `q0`, `q1` and `q2` represent three qubits respectively. The quantum circuit consists of three quantum gates, namely the Hadamard gate acting on `q0` bit, the $CNOT$ gate acting on `q1` bit  and controlled by `q0`bit, and the $\text{RY}$ revolving gate acting on `q2`bit.
-![quantum circuit](https://gitee.com/mindspore/docs/raw/master/tutorials/training/source_zh_cn/advanced_use/images/quantum_circuit.png)
+![quantum circuit](./images/quantum_circuit.png)
 
-### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible quantum circuit building format
+### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format
 
 1. Constructing a quantum circuit by `CircuitEngine`
 
@@ -79,7 +94,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
     encoder.summary()
     ```
 
-    ```python
+    ```text
     H(0)
     X(1 <-: 0)
     RY(p1|2)
@@ -110,7 +125,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
     encoder.summary()
     ```
 
-    ```python
+    ```text
     H(0)
     X(1 <-: 0)
     RY(p1|2)
@@ -135,7 +150,7 @@ Quantum circuit is a structure used to effectively organize various quantum logi
     encoder.summary()
     ```
 
-    ```python
+    ```text
     H(0)
     X(1 <-: 0)
     RY(encoder_1|2)
@@ -162,7 +177,7 @@ print(encoder)
 encoder.summary()
 ```
 
-```python
+```text
 H(0)
 X(1 <-: 0)
 RY(p1|2)
@@ -174,7 +189,7 @@ RY(p1|2)
 ===============================
 ```
 
-## Simulate quantum circuit by MindSpore operator
+## Simulate Quantum Circuit by MindSpore Operator
 
 A normal quantum neural network usually consists of three part as follow:
 
@@ -183,7 +198,7 @@ A normal quantum neural network usually consists of three part as follow:
 - one(or more) physical quantity to be measured
 
 In the following, we will construct a quantum neural network, whose encoder consists of two $\text{RY}$ gates, and Ansatz circuit consist of a $\text{CNOT}$ gate and two $\text{RX}$ gates, where physical quantity to be measured is operator $\text{Z}$ acting on bit 1.
-![simple qnn](https://gitee.com/mindspore/docs/raw/master/tutorials/training/source_zh_cn/advanced_use/images/simple_qnn.png)
+![simple qnn](./images/simple_qnn.png)
 
 ```python
 from projectq.ops import QubitOperator
@@ -204,7 +219,7 @@ encoder_names = ['a', 'b']
 ansatz_names = ['p1', 'p2']
 ```
 
-We generate an Encoder circuit and an Ansatz circuit through the decorator. We also generate a circuit simulation operator by `generate_pqc_operator` , and get the gradients of the quantum neural network output of each parameter respectively by processing simulation computation of quantum circuit. In `generate_pqc_operator` , we need to provide parameter names of the Encoder circuit and Ansatz circuit, the whole quantum circuit and physical quantity for measurement.
+We generate an Encoder circuit and an Ansatz circuit through the decorator. We also generate a circuit simulation operator by `generate_pqc_operator`, and get the gradients of the quantum neural network output of each parameter respectively by processing simulation computation of quantum circuit. In `generate_pqc_operator`, we need to provide parameter names of the Encoder circuit and Ansatz circuit, the whole quantum circuit and physical quantity for measurement.
 
 ```python
 from mindquantum.nn import generate_pqc_operator
@@ -221,7 +236,7 @@ print('Gradient of encoder parameters: ', encoder_grad.asnumpy())
 print('Gradient of ansatz parameters: ', ansatz_grad.asnumpy())
 ```
 
-```python
+```text
 Measurement result:  [[0.89819133]]
 Gradient of encoder parameters:  [[[-0.09011973 -0.1820724 ]]]
 Gradient of ansatz parameters:  [[[-2.7755576e-17 -3.7974921e-01]]]
@@ -238,7 +253,7 @@ print('Gradient of encoder parameters: ', encoder_grad.asnumpy())
 print('Gradient of ansatz parameters: ', ansatz_grad.asnumpy())
 ```
 
-```python
+```text
 Measurement result:  [[0.89819133]]
 Gradient of encoder parameters:  [[[0. 0.]]]
 Gradient of ansatz parameters:  [[[-2.7755576e-17 -3.7974921e-01]]]

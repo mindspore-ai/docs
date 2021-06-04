@@ -10,9 +10,11 @@ Quick Start for MindSpore
    :maxdepth: 1
 
    introduction
+   quick_start
    tensor
    dataset
    model
    autograd
    optimization
+   save_load_model
    inference
