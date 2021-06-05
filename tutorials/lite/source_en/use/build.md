@@ -200,7 +200,7 @@ mindspore-lite-{version}-inference-linux-x64
         │   └── converter_lite       # Executable program
         └── lib                      # The dynamic link library that converter depends
             ├── libglog.so.0         # Dynamic library of Glog
-            └── libmslite_converter_plugin_reg.so  # Dynamic library of plugin registry
+            └── libmslite_converter_plugin.so  # Dynamic library of plugin registry
 ```
 
 #### Description of CodeGen's Directory Structure
@@ -464,8 +464,8 @@ mindspore-lite-{version}-inference-win-x64
         └── lib
             ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
             ├── libglog.dll           # Dynamic library of Glog
-            ├── libmslite_converter_plugin_reg.dll   # Dynamic library of plugin registry
-            ├── libmslite_converter_plugin_reg.dll.a # Link file of Dynamic library of plugin registry
+            ├── libmslite_converter_plugin.dll   # Dynamic library of plugin registry
+            ├── libmslite_converter_plugin.dll.a # Link file of Dynamic library of plugin registry
             ├── libssp-0.dll          # Dynamic library of MinGW
             ├── libstdc++-6.dll       # Dynamic library of MinGW
             └── libwinpthread-1.dll   # Dynamic library of MinGW
