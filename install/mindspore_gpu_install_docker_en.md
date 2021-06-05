@@ -144,7 +144,7 @@ docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged
 
     1. Execute the command: ```export PATH=/usr/local/python-3.7.5/bin:$PATH```.
 
-    2. Enter ```mindinsight start -port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
+    2. Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
 
 - If you install a container with the label of `runtime`, you need to install MindSpore yourself.
 

@@ -144,7 +144,7 @@ docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged
 
     1. 执行命令：```export PATH=/usr/local/python-3.7.5/bin:$PATH```。
 
-    2. 输入```mindinsight start –port 8080```, 如提示启动status为success，则安装成功。
+    2. 输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
