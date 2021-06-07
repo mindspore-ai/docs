@@ -32,7 +32,10 @@ pip install torch==1.5.1
 pip install transformers==4.2.2
 pip install mindspore==1.2.0
 pip install mindinsight==1.2.0
+pip install onnx
 ```
+
+> When installing 'ONNX' third-party libraries, you need to install 'protobuf-compiler' and 'libprotoc-dev' in advance. If there are no above two libraries, you can use the command 'apt-get install protobuf-compiler libprotoc-dev' to install them.
 
 ## ONNX Model Export
 
