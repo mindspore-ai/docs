@@ -141,6 +141,18 @@ A：当有此提示时说明要用户安装`tclsh`；如果仍提示缺少其他
 
 <br/>
 
+<font size=3>**Q：执行用例报错`No module named 'mindpore.version'`，应该怎么办？**</font>
+
+A: 当有这种报错时，有可能是在创建了和MindSpore安装包相同名字的路径中执行用例，导致Python导入包的时候优先找到了当前目录下，而当前目录没有version.py这个文件。解决方法就是目录重命名或者向上退出一级或者多级目录。
+
+<br/>
+
+<font size=3>**Q：源码编译时，报错`MD5 does not match`，应该怎么办？**</font>
+
+A: 这种报错可能是在编译的时候由于网络问题导致一些第三方库下载中断，之后重新编译的时候，该文件已经存在但是不完整，在校验MD5的时候失败。解决方法是：删除.mslib缓存路径中的相关第三方库，然后重新编译。
+
+<br/>
+
 <font size=3>**Q：环境上安装了Python3.7.5，环境变量设置正确，编译MindSpore时仍然报错`Python3 not found`，应该怎么办？**</font>
 
 A：可能是因为当前环境上的Python未包含动态库。编译MindSpore需要动态链接Python库，因此需要使用开启动态库编译选项的Python3.7.5，即在源码编译Python时使用`./configure --enable-shared`命令。

@@ -138,6 +138,18 @@ A: While compiling MindSpore, if:
 
 <br/>
 
+<font size=3>**Q: what should I do when an error message `No module named 'mindpore.version'` is displayed when I execute the case?
+
+A: Maybe you execute the case in the path with the same name as the MindSpore installation package. Rename the directory or exit one or more levels of directory to solve the problem.
+
+<br/>
+
+<font size=3>**Q: what should I do when an error message `MD5 does not match` is displayed when I execute the case?
+
+A: This kind of error may be caused by internet problem when some third party libraries are downloading. It fails to verify MD5 with a incomplete file when you recompile the project. Remove the related third-party file in .mslib cache path and recompile the project to solve the problem.
+
+<br/>
+
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
