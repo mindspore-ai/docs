@@ -49,7 +49,7 @@
 
    若提示找不到`libpython3.7m.so.1.0`文件，尝试在虚拟环境下查找其路径并设置环境变量：
 
-   ```tet
+   ```text
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{path_to_conda}/envs/{your_env_name}/lib
    ```
 
@@ -413,4 +413,3 @@
    $ cache_admin --stop
    Cache server on port 50052 has been stopped successfully.
    ```
-

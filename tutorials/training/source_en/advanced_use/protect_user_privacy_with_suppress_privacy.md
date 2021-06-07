@@ -1,33 +1,36 @@
 ﻿# Protecting User Privacy with Suppress Privacy
 
-`Linux` `Ascend` `Model Training` `Model Tuning` `Enterprise` `Expert`
+Translator: [翁炜华](https://gitee.com/weng-weihua)
+
+`Linux` `Ascend` `Model Training` `Model Optimization` `Enterprise` `Expert`
 
 <!-- TOC -->
 
 - [Protecting User Privacy with Suppress Privacy](#protecting-user-privacy-with-suppress-privacy)
     - [Overview](#overview)
+        - [MindArmour's Implementation of Privacy Suppression](#mindarmours-implementation-of-privacy-suppression)
     - [Implementation](#implementation)
         - [Importing Library Files](#importing-library-files)
         - [Parameter Configuration](#parameter-configuration)
-        - [Preprocessed Data Sets](#preprocessed-data-sets)
-        - [Building The Model](#building-the-model)
-        - [Introduction Of Privacy Suppression](#introduction-of-privacy-suppression)
+        - [Preprocessed Datasets](#preprocessed-datasets)
+        - [Building the Model](#building-the-model)
+        - [Introduction of Privacy Suppression](#introduction-of-privacy-suppression)
         - [Privacy Protection Effect Test](#privacy-protection-effect-test)
         - [Citation](#citation)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
-Privacy suppression is a mechanism to protect the privacy of user data. Privacy suppression is a way to protect user privacy during AI training. By removing unimportant parameters from the model, the number of its parameters can be significantly reduced, which reduces the input sample information that may be leaked by the model, thus greatly reducing the possibility of obtaining the original samples through model reversal attacks. Experiments show that the privacy suppression technique can achieve a better balance between the training accuracy and the degree of privacy protection for some models compared to differential privacy.
+Privacy suppression is a mechanism to protect the privacy of user dat a. Privacy suppression is a way to protect user privacy when training an AI model. By removing unimportant parameters from the model, the number of its parameters can be significantly reduced, which reduces the input sample information that may be leaked by the model, thus greatly reducing the possibility of obtaining the original samples through model reversal attacks. Experiments show that the privacy suppression technique can achieve a better balance between the training accuracy and the degree of privacy protection for some models compared to differential privacy.
 
-### MindArmour's implementation of privacy suppression
+### MindArmour's Implementation of Privacy Suppression
 
-MindArmour's Suppress-Privacy module, Suppress-Privacy, implements a suppressed privacy optimizer. During the model training process, unimportant parameters are gradually set to 0 in a certain ratio, and eventually only 5-10% of the parameters are retained.
+Suppress-Privacy, a Suppress-Privacy module in MindArmour, implements a suppressed privacy optimizer. During the model training process, unimportant parameters are gradually set to 0 in a certain ratio, and eventually only 5-10% of the parameters are retained.
 
-Here is an example of how to train a neural network model on MindSpore using the LeNet model, MNIST dataset, using the SuppressourPrivacy optimizer.
+Here is an example showing that how to train a neural network model in MindSpore using the LeNet model, MNIST dataset, and the SuppressourPrivacy optimizer.
 
 > This example is for the Ascend 910 AI processor and you can download the full sample code at <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy.py>
 
@@ -35,7 +38,7 @@ Here is an example of how to train a neural network model on MindSpore using the
 
 ### Importing Library Files
 
-The following are the public modules, MindSpore-related modules, and privacy suppression modules that we need.
+The following presents the public modules, MindSpore-related modules, and privacy suppression modules that we need.
 
 ```python
 import os
@@ -69,7 +72,7 @@ TAG = 'Lenet5_Suppress_train'
 
 ### Parameter Configuration
 
-1. Set the runtime environment, model training parameters, checkpoint storage parameters, and the batch_size parameter is recommended not to exceed 64. For more configurations, please refer to <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy_config.py>。
+1. Set the runtime environment, model training parameters, checkpoint storage parameters, and the batch_size parameter is recommended not to exceed 64. For more configurations, please refer to <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/sup_privacy/sup_privacy_config.py>.
 
    ```python
    cfg = edict({
@@ -82,7 +85,7 @@ TAG = 'Lenet5_Suppress_train'
    })
    ```
 
-2. Configure the necessary information, including environment information, mode of execution. PyNative mode on Ascend is currently supported.
+2. Configure the necessary information, including environment information and the execution mode. The PyNative mode on Ascend is currently supported.
 
    ```python
    context.set_context(mode=context.PYNATIVE_MODE, device_target=cfg.device_target)
@@ -90,9 +93,9 @@ TAG = 'Lenet5_Suppress_train'
 
    For detailed interface configuration information, see the `context.set_context` interface description.
 
-### Preprocessed Data Sets
+### Preprocessed Datasets
 
-Load the dataset and process it into MindSpore data format.
+Load the dataset and convert it into MindSpore data format.
 
 ```python
 def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
@@ -139,11 +142,11 @@ def generate_mnist_dataset(data_path, batch_size=32, repeat_size=1,
     return ds1
 ```
 
-### Building The Model
+### Building the Model
 
-Here is the LeNet model as an example, you can also build and train your own model.
+Here is an example of training the LeNet model, you can also build and train your own model.
 
-Load the LeNet network, configure the checkpoint, set the optimizer type, and load the data with the data loading function `generate_mnist_dataset` defined above.
+Load the LeNet network, configure the checkpoint, set the optimizer type, and load the data with the loading function `generate_mnist_dataset` defined above.
 
 ```python
 networks_l5 = LeNet5()
@@ -157,7 +160,7 @@ ckpoint_cb = ModelCheckpoint(prefix="checkpoint_lenet",
 ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 ```
 
-### Introduction Of Privacy Suppression
+### Introduction of Privacy Suppression
 
 1. Configure the parameters of the suppress privacy optimizer
 
@@ -210,10 +213,10 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
     net_opt = nn.SGD(networks_l5.trainable_params(), 0.05)
     ```
 
-2. Packaging LeNet models as suppression privacy models
+2. Packaging the LeNet model as a suppression privacy model
 
-    - Instantiate the suppress privacy model class SuppressModel, which is used to perform the model training process.
-    - Instantiate SuppressMasker, a privacy suppression monitor, for selecting the appropriate time in model training to perform suppress (set to zero) operations on model parameters.
+    - Instantiate the suppress privacy model class SuppressModel, which is used to train the model.
+    - Instantiate SuppressMasker, a privacy suppression monitor, for selecting the appropriate time during training to perform suppress (set to zero) operations on model parameters.
 
    ```python
    # Create the suppress model for training.
@@ -238,17 +241,17 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
    LOGGER.info(TAG, "============== SUPP Accuracy: %s  ==============", acc)
     ```
 
-4. Run command
+4. Executing the command
 
-   To run the script, enter the following command at the command line:
+   To run the script, enter the following command in the command line:
 
    ```bash
    python examples/privacy/sup_privacy/sup_privacy.py
    ```
 
-   其中`sup_privacy.py`替换成你的脚本的名字。
+   Replace `sup_privacy.py` with the name of your script.
 
-5. Results show
+5. Displaying the results
 
    The accuracy of LeNet model without privacy suppression is stable at 99%, and the convergence of LeNet model using privacy suppression is stable at about 97.5%.
 
@@ -264,7 +267,8 @@ ds_train = generate_mnist_dataset('MNIST_unzip/train', cfg.batch_size)
 
 To evaluate the effect of privacy suppression training on the protection of the dataset, we test it using an image reversal attack.
 This inverse attack can restore the original image based on the output of the original image at one layer of the neural network, mainly because the network "remembers" the features of the training set during the training process.
-The principle of this attack method can be found in <https://arxiv.org/pdf/1412.0035.pdf> and the complete code implementation can be found in <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/inversion_attack/mnist_inversion_attack.py>, The following are the detailed test steps:
+
+The principle of this attack method can be found in <https://arxiv.org/pdf/1412.0035.pdf> and the complete code implementation can be found in <https://gitee.com/mindspore/mindarmour/blob/master/examples/privacy/inversion_attack/mnist_inversion_attack.py>, The following describes detailed test steps:
 
 1. Preparation
 
@@ -293,7 +297,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
    ```
 
    Where `prefix` represents the prefix of the generated CheckPoint file name, `directory` represents the path where the CheckPoint file is stored, and then run `mnist_train.py`.
-   then run `mnist_train.py` to get the `new_trained_ckpt_file` folder and the model files contained in it. At this point, the directory structure of `examples/common/networks/lenet5` should look like this:
+   Run `mnist_train.py` to get the `new_trained_ckpt_file` folder and the model files contained in it. At this point, the directory structure of `examples/common/networks/lenet5` should look like this:
 
    ```text
     ├── __init__.py
@@ -343,7 +347,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
     TAG = 'InversionAttack'
     ```
 
-3. Building a reverse test network
+3. Build a reverse test network
 
     For better demonstration, we take the first two convolutional layers conv1 and conv2 of LeNet5 and the first fully connected layer fc1 as the test network, so the attack task is: to restore a certain image based on the feature map output from fc1.
 
@@ -417,9 +421,8 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
 7. Attack result evaluation and presentation
 
     We use matplotlib to draw the original image and the image restored with the inverse attack, and call the `evaluate` method of `inversion_attack` for quantitative evaluation.
-    The `evaluate` method returns `avg_l2_dis`, `avg_ssim` and `avg_confi`, which denote the average L2
-   parametric distance and average structural similarity, as well as the inference result of the reverse-reduced image on a new model (average confidence on its true label).
-    In general, the smaller `avg_l2_dis` and the larger `avg_ssim` represent the closer the inversion_images are to the original_images; and the new neural network model can replace the human eye to make a quantitative assessment of the recognizability of the images (i.e., the higher `avg_confi` indicates that the inversion _image contains semantic information that is closer to the original image).
+    The `evaluate` method returns `avg_l2_dis`, `avg_ssim` and `avg_confi`, which denote the average L2 parametric distance and average structural similarity, as well as the inference result of the reverse-reduced image on a new model (average confidence on its true label).
+    In general, the smaller `avg_l2_dis` and the larger `avg_ssim` represent the closer the inversion_images are to the original_images; and the new neural network model can replace the human vision to make a quantitative assessment of the recognizability of the images (i.e., the higher `avg_confi` indicates that the inversion _image contains semantic information that is closer to the original image).
 
     ```python
     plot_num = min(sample_num, 10)
@@ -478,8 +481,7 @@ The principle of this attack method can be found in <https://arxiv.org/pdf/1412.
     First, the results on the visualization show that the model obtained from the inverse attack based on the suppression of privacy training is very poor; however, the avg_l2_dis and avg_ssim obtained in this case are very close to the previous one.
     This is mainly due to the fact that avg_l2_dis and avg_ssim can only compare low-order information between images based on the mean and standard deviation of image pixels, while avg_confi can compare higher-order semantic information between images.
 
-    The samples used in this experiment are MNIST datasets, which are relatively simple images, with the black background occupying most of the image and the white part containing the main information occupying less of the area. However, it can be seen that the
-    The avg_confi obtained based on the suppressed privacy model is significantly lower than the previous set of experiments, which indicates that the images constructed in reverse have been more difficult to be recognized by the new model, and this result is consistent with the results observed by our human eyes.
+    The samples used in this experiment are MNIST datasets, which are relatively simple images, with the black background occupying most of the image and the white part containing the main information occupying less of the area. However, it can be seen that the avg_confi obtained based on the suppressed privacy model is significantly lower than the previous set of experiments, which indicates that the images constructed in reverse have been more difficult to be recognized by the new model, and this result is consistent with the results observed by our human vision.
 
 ### Citation
 
