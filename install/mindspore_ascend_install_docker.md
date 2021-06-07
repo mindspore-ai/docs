@@ -141,7 +141,7 @@ print(ops.add(x, y))
 
 1. 执行命令：```export PATH=/usr/local/python-3.7.5/bin:$PATH```。
 
-2. 输入```mindinsight start –port 8080```, 如提示启动status为success，则安装成功。
+2. 输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
 
 ## 升级MindSpore版本
 
