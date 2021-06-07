@@ -27,6 +27,7 @@ Neural Network Operators
     mindspore.ops.ApplyProximalGradientDescent
     mindspore.ops.ApplyRMSProp
     mindspore.ops.AvgPool
+    mindspore.ops.AvgPool3D
     mindspore.ops.BasicLSTMCell
     mindspore.ops.BatchNorm
     mindspore.ops.BCEWithLogitsLoss
