@@ -16,6 +16,7 @@ MindSpore FAQ
   operators_compile
   data_processing
   script_implement
+  training_visualization
   usage_migrate_3rd
   performance_tuning
   distributed_configure

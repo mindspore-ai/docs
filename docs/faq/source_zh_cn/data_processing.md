@@ -4,6 +4,67 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q：由于我一条数据包含多个图像，并且每个图像的宽高都不一致，我需要对转成mindrecord的格式进行`map`操作来进行数据处理。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
+
+A：建议你按照如下操作进行：
+
+```python
+#1 The defined schema is as follows: Among them, data1, data2, data3, ... These fields store your image, and only the binary of the image is stored here.
+
+cv_schema_json = {"label": {"type": "int32"}, "data1": {"type": "bytes"}, "data2": {"type": "bytes"}, "data3": {"type": "bytes"}}
+
+#2 The organized data can be as follows, and then this data_list can be written by FileWriter.write_raw_data(...).
+
+data_list = []
+data = {}
+data['label'] = 1
+
+f = open("1.jpg", "rb")
+image_bytes = f.read()
+f.close
+
+data['data1'] = image_bytes
+
+f2 = open("2.jpg", "rb")
+image_bytes2 = f2.read()
+f2.close
+
+data['data2'] = image_bytes2
+
+f3 = open("3.jpg", "rb")
+image_bytes3 = f3.read()
+f3.close
+
+data['data3'] = image_bytes3
+
+data_list.append(data)
+
+#3 Use MindDataset to load, then use the decode operator we provide to decode, and then perform subsequent processing.
+
+data_set = ds.MindDataset("mindrecord_file_name")
+data_set = data_set.map(input_columns=["data1"], operations=vision.Decode(), num_parallel_workers=2)
+data_set = data_set.map(input_columns=["data2"], operations=vision.Decode(), num_parallel_workers=2)
+data_set = data_set.map(input_columns=["data3"], operations=vision.Decode(), num_parallel_workers=2)
+resize_op = vision.Resize((32, 32), interpolation=Inter.LINEAR)
+data_set = data_set.map(operations=resize_op, input_columns=["data1"], num_parallel_workers=2)
+for item in data_set.create_dict_iterator(output_numpy=True):
+    print(item)
+```
+
+<br/>
+
+<font size=3>**Q：我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndaary`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？**</font>
+
+A：应该是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[19800]`刚好相差了8倍，建议将数据中`ndarray`的`dtype`指定为`float64`。
+
+<br/>
+
+<font size=3>**Q：想要保存生成的图片，代码运行完毕以后在相应目录找不到图片。相似的，在JupyterLab中生成数据集用于训练，训练时可以在相应路径读取到数据，但是自己却无法在路径中找到图片或数据集？**</font>
+
+A：应该是JumperLab生成的图片或者数据集都是在Docker内吧，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。 可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
+
+<br/>
+
 <font size=3>**Q：MindSpore中`model.train`的`dataset_sink_mode`参数该如何理解？**</font>
 
 A：当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipeline方式，即：数据处理在逐步处理数据时，处理完一个`batch`的数据，会把数据放到一个队列里，这个队列用于缓存已经处理好的数据，然后网络计算从这个队列里面取数据用于训练，那么此时数据处理与网络计算就`Pipeline`起来了，整个训练耗时就是数据处理/网络计算耗时最长的那个。
