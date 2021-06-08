@@ -7,6 +7,15 @@
 =================================
 
 .. toctree::
+    :glob:
+    :maxdepth: 1
+    :caption: 获取MindSpore Lite
+    :hidden:
+ 
+    use/downloads
+    use/build
+ 
+.. toctree::
    :glob:
    :maxdepth: 1
    :caption: 快速入门
@@ -19,15 +28,6 @@
    quick_start/quick_start_codegen
    quick_start/train_lenet
    
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 获取MindSpore Lite
-   :hidden:
-
-   use/downloads
-   use/build
-
 .. toctree::
    :glob:
    :maxdepth: 1
