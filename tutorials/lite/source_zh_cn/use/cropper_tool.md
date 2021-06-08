@@ -18,7 +18,7 @@
 
 MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，能够筛选出`ms`模型中存在的算子，对静态库文件进行裁剪，有效降低库文件大小。
 
-裁剪工具运行环境是x86_64，目前支持对CPU算子的裁剪，即编译方式为`bash build.sh -I arm64 -e cpu`、`bash build.sh -I arm32 -e cpu`、`bash build.sh -I x86_64 -e cpu`中的`libmindspore-lite.a`静态库。
+裁剪工具运行环境是x86_64，目前支持对CPU、GPU算子的裁剪，其中GPU库支持CMAKE的MSLITE_GPU_BACKEND设置为opencl。
 
 ## 环境准备
 
@@ -43,13 +43,13 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 | 参数                                  | 是否必选 | 参数说明                                                     | 参数类型 | 默认值 | 取值范围 |
 | ------------------------------------- | -------- | ------------------------------------------------------------ | -------- | ------ | -------- |
 | `--packageFile=<PACKAGEFILE>`         | 是       | 需要裁剪的`libmindspore-lite.a`文件路径。                    | String   | -      | -        |
-| `--configFile=<CONFIGFILE>`           | 是       | 裁剪工具配置文件的路径，裁剪CPU库需要设置`cropper_mapping_cpu.cfg`文件路径。 | String   | -      | -        |
+| `--configFile=<CONFIGFILE>`           | 是       | 裁剪工具配置文件的路径，裁剪CPU、GPU库需要分别设置`cropper_mapping_cpu.cfg`、`cropper_mapping_gpu.cfg`文件路径。 | String   | -      | -        |
 | `--modelFolderPath=<MODELFOLDERPATH>` | 否       | 模型文件夹路径，根据文件夹中存在的所有`ms`模型进行库裁剪。`modelFile`和`modelFolderPath`参数必须二选一。 | String   | -      | -        |
 | `--modelFile=<MODELFILE>`             | 否       | 模型文件路径，根据指定的`ms`模型文件进行库裁剪，多个模型文件采用`,`分割。`modelFile`和`modelFolderPath`参数必须二选一。 | String   | -      | -        |
 | `--outputFile=<OUTPUTFILE>`           | 否       | 裁剪完成的`libmindspore-lite.a`库的保存路径，默认覆盖源文件。 | String   | -      | -        |
 | `--help`                              | 否       | 打印全部帮助信息。                                           | -        | -      | -        |
 
-> 配置文件`cropper_mapping_cpu.cfg`存在于`mindspore-lite-{version}-linux-x64`包中的`tools/cropper`目录。
+> 配置文件`cropper_mapping_cpu.cfg` `cropper_mapping_gpu.cfg`存在于`mindspore-lite-{version}-linux-x64`包中的`tools/cropper`目录。
 
 ## 使用示例
 
@@ -70,3 +70,19 @@ MindSpore Lite提供对Runtime的`libmindspore-lite.a`静态库裁剪工具，�
 ```
 
 本例将根据`modelFile`传入的`ms`模型，对arm64-cpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
+
+- 通过文件夹的方式传入`ms`模型，将模型文件所在的文件夹路径传递给`modelFolderPath`参数，对arm64-gpu的`libmindspore-lite.a`静态库进行裁剪。
+
+```bash
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_gpu.cfg --modelFolderPath=/model --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+```
+
+本例将读取`/model`文件夹中包含的所有`ms`模型，对arm64-gpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
+
+- 通过文件的方式传入`ms`模型，将模型文件所在的路径传递给`modelFile`参数，对arm64-gpu的`libmindspore-lite.a`静态库进行裁剪。
+
+```bash
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_gpu.cfg --modelFile=/model/lenet.ms,/model/retinaface.ms  --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+```
+
+本例将根据`modelFile`传入的`ms`模型，对arm64-gpu的`libmindspore-lite.a`静态库进行裁剪，并将裁剪后的`libmindspore-lite.a`静态库保存到`/mindspore-lite/lib/`目录。
