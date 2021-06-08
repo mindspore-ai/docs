@@ -5,4 +5,5 @@ sphinx_rtd_theme
 numpy
 nbsphinx
 IPython
+ipykernel
 jieba
