@@ -91,17 +91,17 @@
 Benchmark工具进行的性能测试主要的测试指标为模型单次前向推理的耗时。在性能测试任务中，不需要设置`benchmarkDataFile`等标杆数据参数。但是，可以设置`timeProfiling`选项参数，控制是否输出在某设备上模型网络层的耗时，`timeProfiling`默认为false，例如：
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms
+./benchmark --modelFile=/path/to/model.ms
 ```
 
 这条命令使用随机输入，其他参数使用默认值。该命令执行后会输出如下统计信息，该信息显示了测试模型在运行指定推理轮数后所统计出的单次推理最短耗时、单次推理最长耗时和平均推理耗时。
 
 ```text
-Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
+Model = model.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --timeProfiling=true
+./benchmark --modelFile=/path/to/model.ms --timeProfiling=true
 ```
 
 这条命令使用随机输入，并且输出模型网络层的耗时信息，其他参数使用默认值。该命令执行后，模型网络层的耗时会输出如下统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`avg`表示该算子的平均单次运行时间，`percent`表示该算子运行耗时占所有算子运行总耗时的比例，`calledTimess`表示该算子的运行次数，`opTotalTime`表示该算子运行指定次数的总耗时。最后，`total time`和`kernel cost`分别显示了该模型单次推理的平均耗时和模型推理中所有算子的平均耗时之和。
@@ -149,7 +149,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 Benchmark工具进行的精度测试主要是通过设置标杆数据来对比验证MindSpore Lite模型输出的精确性。在精确度测试任务中，除了需要设置`modelFile`参数以外，还必须设置`benchmarkDataFile`参数。例如：
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 这条命令指定了测试模型的输入数据、标杆数据（默认的输入及标杆数据类型均为float32），同时指定了模型推理程序在CPU上运行，并指定了准确度阈值为3%。该命令执行后会输出如下统计信息，该信息显示了测试模型的单条输入数据、输出节点的输出结果和平均偏差率以及所有节点的平均偏差率。
@@ -166,7 +166,7 @@ Mean bias of all nodes: 0%
 如果需要指定输入数据的维度（例如输入维度为1，32，32，1），使用如下命令：
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 #### CPU性能测试
@@ -174,7 +174,7 @@ Mean bias of all nodes: 0%
 Benchmark工具进行的CPU性能测试主要的测试指标为模型单次前向推理CPU性能参数(目前只支持aarch64 CPU)，包括周期数和指令数、缓存读取次数和缓存未命中次数、CPU前端和后端等待时间。在CPU性能测试任务中，不需要设置`benchmarkDataFile`等标杆数据参数。但是，可以设置`perfProfiling`与`perfEvent`选项参数，控制输出在某设备上模型网络层的哪些CPU性能参数，`perfProfiling`默认为false，`perfEvent`默认为`CYCLE`(CPU周期数和指令数)。由于多线程的读数波动较大，建议设置线程数为1。使用方法如下：
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1
 ```
 
 这条命令使用随机输入，并且输出模型网络层的周期数/指令数信息，其他参数使用默认值。该命令执行后，会输出如下CPU性能参数统计信息，在该例中，该统计信息按照`opName`和`optype`两种划分方式分别显示，`opName`表示算子名，`optype`表示算子类别，`cycles(k)`表示该算子的平均CPU周期数（以k为单位，受CPU频率影响），`cycles(%)`表示该算子CPU周期数占所有算子CPU周期数的比例，`ins(k)`表示该算子的指令数（以k为单位），`ins(%)`表示该算子的指令数占所有算子指令数的比例。最后会显示当前模型、线程数、最小运行时间、最大运行时间、平均运行时间用做参考。
@@ -199,7 +199,7 @@ Nhwc2nchw       1.77            0.007571        3.25            0.005508
 Pooling         14.87           0.063654        43.87           0.074437
 Reshape         0.91            0.003839        1.58            0.002677
 
-Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
+Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
 
 -----------------------------------------------------------------------------------------
 ```
@@ -207,11 +207,11 @@ Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTim
 当`perfEvent`参数被指定为`CACHE`时，列标题会变为`cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`，分别代表算子缓存读取次数/缓存读取占比/缓存未命中次数/缓存未命中次数占比；当`perfEvent`参数被指定为`STALL`时，列标题会变为`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`，分别代表CPU前端等待时间/CPU前端等待时间占比/CPU后端等待时间/CPU后端等待时间数占比。使用方法如下：
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --perfEvent="CACHE"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="CACHE"
 ```
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --perfEvent="STALL"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --perfEvent="STALL"
 ```
 
 ## Windows环境使用说明
@@ -252,13 +252,13 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
 - 使用随机输入，其他参数使用默认值。
 
   ```bat
-  call benchmark.exe  --modelFile=test_benchmark.ms
+  call benchmark.exe  --modelFile=/path/to/model.ms
   ```
 
 - 使用随机输入，`timeProfiling`设为true，其他参数使用默认值。
 
   ```bat
-  call benchmark.exe --modelFile=test_benchmark.ms --timeProfiling=true
+  call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
   ```
 
 #### 精度测试
@@ -268,17 +268,17 @@ call benchmark.exe [--modelFile=<MODELFILE>] [--accuracyThreshold=<ACCURACYTHRES
 - 指定了准确度阈值为3%。
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=.test_benchmark.bin --benchmarkDataFile=test_benchmark.out --accuracyThreshold=3
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
 ```
 
 - 指定模型推理程序在CPU上运行。
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --device=CPU
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
 ```
 
 - 指定输入数据的维度。
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --inputShapes=1,32,32,1
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
 ```

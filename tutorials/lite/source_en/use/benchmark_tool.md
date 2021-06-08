@@ -91,17 +91,17 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 The main test indicator of the performance test performed by the Benchmark tool is the duration of a single forward inference. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `timeProfiling` as True or False to decide whether to print the running time of the model at the network layer on a certain device. The default value of `timeProfiling` is False. For example:
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms
+./benchmark --modelFile=/path/to/model.ms
 ```
 
 This command uses a random input, and other parameters use default values. After this command is executed, the following statistics are displayed. The statistics include the minimum duration, maximum duration, and average duration of a single inference after the tested model runs for the specified number of inference rounds.
 
 ```text
-Model = test_benchmark.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
+Model = model.ms, numThreads = 2, MinRunTime = 72.228996 ms, MaxRuntime = 73.094002 ms, AvgRunTime = 72.556000 ms
 ```
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --timeProfiling=true
+./benchmark --modelFile=/path/to/model.ms --timeProfiling=true
 ```
 
 This command uses a random input, sets the parameter `timeProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `avg` indicates the average running time of the operator per single run, `percent` indicates the ratio of the operator running time to the total operator running time, `calledTimess` indicates the number of times that the operator is run, and `opTotalTime` indicates the total time that the operator is run for a specified number of times. Finally, `total time` and `kernel cost` show the average time consumed by a single inference operation of the model and the sum of the average time consumed by all operators in the model inference, respectively.
@@ -149,7 +149,7 @@ total time :     2.90800 ms,    kernel cost : 2.74851 ms
 The accuracy test performed by the Benchmark tool aims to verify the accuracy of the MinSpore model output by setting benchmark data (the default input and benchmark data type are float32). In an accuracy test, in addition to the `modelFile` parameter, the `benchmarkDataFile` parameter must be set. For example:
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 This command specifies the input data and benchmark data of the tested model, specifies that the model inference program runs on the CPU, and sets the accuracy threshold to 3%. After this command is executed, the following statistics are displayed, including the single input data of the tested model, output result and average deviation rate of the output node, and average deviation rate of all nodes.
@@ -166,7 +166,7 @@ Mean bias of all nodes: 0%
 To set specified input shapes (such as 1,32,32,1), use the command as follows:
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
+./benchmark --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --inputShapes=1,32,32,1 --device=CPU --accuracyThreshold=3 --benchmarkDataFile=/path/to/output.out
 ```
 
 #### CPU Performance Test
@@ -174,7 +174,7 @@ To set specified input shapes (such as 1,32,32,1), use the command as follows:
 The main test indicator of the CPU performance test performed by the Benchmark tool is the readings of CPU Performance Monitor Unit(PMU) of a single forward inference, including the number of CPU cycles and instructions, cache reference times and cache miss times, front-end stall cycles and back-end stall cycles. In a performance test, you do not need to set benchmark data parameters such as `benchmarkDataFile`. But you can set the parameter `perfProfiling` as True or False to decide whether to print the CPU performance data of the model at the network layer on a certain device, and set `perfEvent` as `CYCLE`/`CACHE`/`STALL` to decide what CPU performance data to measure. The default value of `perfProfiling` is False, the default value of `perfEvent` is `CYCLE`. Due to the fluctuation of PMU readings in multi-thread tests, `numThreads` is suggested to be set as `1`. For example:
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1
 ```
 
 This command uses a random input, sets the parameter `perfProfiling` as true, and other parameters use default values. After this command is executed, the statistics on the running time of the model at the network layer will be displayed as follows. In this case, the statistics are displayed by`opName` and `optype`. `opName` indicates the operator name, `optype` indicates the operator type, and `cycles(k)` indicates the average CPU cycles of the operator per single run (in thousand, affected by CPU frequency), `cycles(%)` indicates the ratio of the operator CPU cycles to the total operator CPU cycles, `ins(k)` indicates the average CPU instructions of the operator per single run (in thousand), and `ins(%)` indicates the ratio of the operator CPU instructions to the total operator CPU instructions. Finally, `Model`/`NumThreads`/`MinRuntime`/`MaxRunTime`/`AvgRunTime` is presented for reference.
@@ -199,7 +199,7 @@ Nhwc2nchw       1.77            0.007571        3.25            0.005508
 Pooling         14.87           0.063654        43.87           0.074437
 Reshape         0.91            0.003839        1.58            0.002677
 
-Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
+Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.179000 ms, AvgRunTime = 0.116000 ms
 
 -----------------------------------------------------------------------------------------
 ```
@@ -207,11 +207,11 @@ Model = test_benchmark_2.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTim
 When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache ref(%)`/`miss(k)`/`miss(%)`, which indicate cache reference times / cache reference ratio / cache miss times / cache miss ratio(to all cache misses, not to cache references); when `perfEvent` is set as `STALL`, the columns will be`frontend(k)`/`frontend(%)`/`backend(k)`/`backend(%)`, which indicate CPU front-end stall cycles / front-end stall cycles ratio / back-end stall cycles / back-end stall cycles ratio. For example:
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1 --perfEvent="CACHE"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1 --perfEvent="CACHE"
 ```
 
 ```bash
-./benchmark --modelFile=./models/test_benchmark_2.ms --perfProfiling=true --numThreads=1 --perfEvent="STALL"
+./benchmark --modelFile=/path/to/model.ms --perfProfiling=true --numThreads=1 --perfEvent="STALL"
 ```
 
 ## Windows Environment Usage
@@ -252,13 +252,13 @@ When using the Benchmark tool to perform benchmark testing on different MindSpor
 - Use a random input and default values for other parameters.
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms
+call benchmark.exe --modelFile=/path/to/model.ms
 ```
 
 - set `timeProfiling=true`, use a random input and default values for other parameters.
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --timeProfiling=true
+call benchmark.exe --modelFile=/path/to/model.ms --timeProfiling=true
 ```
 
 #### Accuracy Test
@@ -268,17 +268,17 @@ call benchmark.exe --modelFile=test_benchmark.ms --timeProfiling=true
 - Set the accuracy threshold to 3%.
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=.test_benchmark.bin --benchmarkDataFile=test_benchmark.out --accuracyThreshold=3
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --accuracyThreshold=3
 ```
 
 - Run on the CPU.
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --device=CPU
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --device=CPU
 ```
 
 - Set specified input shapes.
 
 ```bat
-call benchmark.exe --modelFile=test_benchmark.ms --inDataFile=test_benchmark.bin --benchmarkDataFile=test_benchmark.out --inputShapes=1,32,32,1
+call benchmark.exe --modelFile=/path/to/model.ms --inDataFile=/path/to/input.bin --benchmarkDataFile=/path/to/output.out --inputShapes=1,32,32,1
 ```
