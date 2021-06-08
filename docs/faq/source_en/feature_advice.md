@@ -22,9 +22,9 @@ A: An AIR model cannot be exported from the Ascend 310. You need to load a train
 
 <br/>
 
-<font size=3>**Q: What is the limitation on the input size of a single tensor when exporting an AIR model from MindSpore?**</font>
+<font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: For the input of a single tensor, the size of tensor should not exceed 2GB, otherwise it will be wrong when converting to air model.
+A: Due to hardware limitations of ProtoBuf, when exporting AIR and ONNX models, the size of a single Tensor cannot exceed 2G. When loading the MindIR model, a single Tensor cannot exceed 2G.
 
 <br/>
 

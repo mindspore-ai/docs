@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q：一个环境中如果既安装了MindSpore，又安装了PyTorch，是否在一个python文件中可以混用两个框架的语法呢？**</font>
+
+A：可以在一个python文件中混用两个两个框架的。要注意类型间的区别。例如两个框架创建的Tensor类型是不同的，但对于python的基础类型都是通用的。
+
+<br/>
+
 <font size=3>**Q：MindSpore可以读取TensorFlow的ckpt文件吗？**</font>
 
 A：MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是使用`protobuf`协议，但是`proto`的定义是不同的。当前MindSpore不支持读取TensorFlow或PyTorch的`ckpt`文件。
@@ -28,9 +34,9 @@ A：Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <br/>
 
-<font size=3>**Q：MindSpore导出AIR模型对单个Tensor输入大小有什么限制？**</font>
+<font size=3>**Q：MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A：对于单个Tensor的输入，Tensor大小不能超过2GB，否则导出AIR模型会产生错误。
+A：由于ProtoBuf的硬件限制，导出AIR、ONNX模型时，单个Tensor大小不能超过2G。导入的MindIR模型中，单个Tensor不能超过2G。
 
 <br/>
 

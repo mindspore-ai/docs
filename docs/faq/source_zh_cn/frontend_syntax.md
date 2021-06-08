@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q：导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>
+
+A：不是固定格式的，这一步操作是为了创建一个输入，以便于构建网络结构。`export`里只要传入正确的`shape`即可，使用`np.ones`和`np.zeros`创建都是可以的。
+
+<br/>
+
 <font size=3>**Q：MindSpore如何进行参数（如dropout值）修改？**</font>
 
 A：在构造网络的时候可以通过 `if self.training: x = dropput(x)`，验证的时候，执行前设置`network.set_train(mode_false)`，就可以不适用dropout，训练时设置为True就可以使用dropout。
