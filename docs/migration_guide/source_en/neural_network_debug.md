@@ -1,29 +1,31 @@
 # Network Debugging
 
+Translator: [Soleil](https://gitee.com/deng-zhihua)
+
 <!-- TOC -->
 
-- [Network Debugging](#Network Debugging)
-    - [The Basic Process Of Network Debugging](#The Basic Process Of Network Debugging)
-    - [Common Methods Used In Network Debugging](#Common Methods Used In Network Debugging)
-        - [Process Debugging](#Process Debugging)
-            - [Process Debugging With PyNative Mode](#Process Debugging With PyNative Mode)
-            - [Getting More Error Messages](#Getting More Error Messages)
-            - [Common Errors](#Common Errors)
-        - [Loss Value Comparison](#Loss Value Comparison)
-            - [Main Steps](#Main Steps)
-            - [Related Issues Positioning](#Related Issues Positioning)
-        - [Precision Debugging Tools](#Precision Debugging Tools)
-            - [Customized Debugging Information](#Customized Debugging Information)
-            - [Hyper-Parameter Optimization With MindOptimizer](#Hyper-Parameter Optimization With MindOptimizer)
-            - [Loss Value Anomaly Locating](#Loss Value Anomaly Locating)
+- [Network Debugging](#network-debugging)
+    - [The Basic Process of Network Debugging](#the-basic-process-of-network-debugging)
+    - [Common Methods Used in Network Debugging](#common-methods-used-in-network-debugging)
+        - [Process Debugging](#process-debugging)
+            - [Process Debugging with PyNative Mode](#process-debugging-with-pynative-mode)
+            - [Getting More Error Messages](#getting-more-error-messages)
+            - [Common Errors](#common-errors)
+        - [Loss Value Comparison](#loss-value-comparison)
+            - [Main Steps](#main-steps)
+            - [Related Issues Locating](#related-issues-locating)
+        - [Precision Debugging Tools](#precision-debugging-tools)
+            - [Customized Debugging Information](#customized-debugging-information)
+            - [Hyper-Parameter Optimization with MindOptimizer](#hyper-parameter-optimization-with-mindoptimizer)
+            - [Loss Value Anomaly Locating](#loss-value-anomaly-locating)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/neural_network_debug.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-This chapter will introduce the basic principles and common tools of Network Debugging, as well as some solutions to some common problems.
+This chapter introduces the basic principles and common tools of Network Debugging, as well as some solutions to some common problems.
 
-## The Basic Process Of Network Debugging
+## The Basic Process of Network Debugging
 
 The process of Network Debugging is divided into the following steps：
 
@@ -44,13 +46,13 @@ The process of Network Debugging is divided into the following steps：
 
 3. Network accuracy debugging and hyper-parameter optimization.
 
-## Common Methods Used In Network Debugging
+## Common Methods Used in Network Debugging
 
 ### Process Debugging
 
 This section introduces the problems and solutions during Network Debugging process after the script development is generally completed.
 
-#### Process Debugging With PyNative mode
+#### Process Debugging with PyNative Mode
 
 For script development and network process debugging, we recommend using the PyNative mode for debugging. The PyNative mode supports executing single operators, normal functions and networks, as well as separate operations for computing gradients. In PyNative mode, you can easily set breakpoints and get intermediate results of network execution, and you can also debug the network by means of pdb.
 
@@ -110,7 +112,7 @@ Having a benchmark script, the loss values run by the benchmark script can be co
 
 4. Running the network and comparing the output loss values. Generally, the error of the loss value is about 1%. Because the operator itself has a certain accuracy error. As the number of steps increases, the error will have a certain accumulation.
 
-#### Related Issues Positioning
+#### Related Issues Locating
 
 If the loss errors are large, the problem locating can be done using following ways:
 
@@ -118,7 +120,7 @@ If the loss errors are large, the problem locating can be done using following w
 
   if the loss value differs significantly after multiple executions of the same script, it means that the effect of randomness in the network is not completely removed.
 
-- Overall Judgment
+- Overall judgment.
 
   If there is a large error in the first iteration of loss values, it means that there is a problem with the forward calculation of the network.
 
@@ -183,7 +185,7 @@ If the loss errors are large, the problem locating can be done using following w
            return self.learning_rate * warmup_percent
    ```
 
-#### Hyper-Parameter Optimization With MindOptimizer
+#### Hyper-Parameter Optimization with MindOptimizer
 
 MindSpore provides MindOptimizer tools to help users perform hyper-parameter optimization conveniently, please refer to [Hyper-Parameter Optimization With MindOptimizer](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/hyper_parameters_auto_tuning.html) for detailed examples and usage methods.
 

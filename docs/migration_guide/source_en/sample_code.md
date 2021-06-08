@@ -71,7 +71,7 @@ The main purpose of reproducing the single Step results is for the next script d
 
 ### Pre-script Development Analysis
 
-Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/script_analysis.md#).
+Before starting the actual script development, a benchmark script analysis is performed. The purpose of the script analysis is to identify missing operators or features in MindSpore compared to the benchmark framework. The methodology can be found in the [Script Evaluation Tutorial](https://www.mindspore.cn/doc/migration_guide/en/master/script_analysis.html).
 
 MindSpore already supports most of the common [functions](https://www.mindspore.cn/doc/programming_guide/en/master/index.html) and [operators](https://www.mindspore.cn/doc/programming_guide/en/master/operator_list.html). MindSpore supports both dynamic graph (PyNative) mode and static graph (Graph) mode, dynamic graph mode is flexible and easy to debug, so dynamic graph mode is mainly used for network debugging. Static graph mode has good performance and is mainly used for whole network training. When analyzing missing operators and functions, these two modes should be analyzed separately.
 
@@ -870,11 +870,11 @@ if __name__ == '__main__':
 
 ### Problem Location
 
-You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/neural_network_debug.md#) to locate and solve them.
+You may encounter some interruptions in the training during the process, you can refer to the [Network Training Debug Tutorial](https://www.mindspore.cn/doc/migration_guide/en/master/neural_network_debug.html) to locate and solve them.
 
 ## Precision tuning
 
-After hitting the flow, you can get the accuracy of network training by both training and inference steps. Usually, it is difficult to reproduce the accuracy of the alignment script at once, and we need to gradually improve the accuracy by accuracy tuning, which is less intuitive, less efficient, and more work than performance tuning. Developers can use our [Precision Tuning Tutorial](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_zh_cn/accuracy_optimization.md#) as a reference.
+After hitting the flow, you can get the accuracy of network training by both training and inference steps. Usually, it is difficult to reproduce the accuracy of the alignment script at once, and we need to gradually improve the accuracy by accuracy tuning, which is less intuitive, less efficient, and more work than performance tuning. Developers can use our [Precision Tuning Tutorial](https://www.mindspore.cn/doc/migration_guide/en/master/accuracy_optimization.html) as a reference.
 
 ## Performance Tuning
 
@@ -905,7 +905,7 @@ profiler.analyse()
 
 For more detailed usage of Profiling, you can refer to [Profiling Performance Analysis Methods](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling.html).
 
-After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/performance_optimization.md#).
+After obtaining Profiling data, we can analyze the performance bottleneck stages and operators, and then perform performance optimization, which can be referred to [Performance Tuning Guide](https://www.mindspore.cn/doc/migration_guide/en/master/performance_optimization.html).
 
 ### Common Problems and Corresponding Optimization Methods
 

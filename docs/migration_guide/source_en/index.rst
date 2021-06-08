@@ -12,6 +12,7 @@ MindSpore Migration Guide
    preparation
    script_analysis
    script_development
+   neural_network_debug
    performance_optimization
    inference
    sample_code
