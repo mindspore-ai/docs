@@ -31,6 +31,8 @@ MindSpore支持两种运行模式，在调试或者运行方面做了不同的�
 PyNative模式下，支持执行单算子、普通函数和网络，以及单独求梯度的操作。下面将详细介绍使用方法和注意事项。
 
 > PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。
+>
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.set_seed)。
 
 ## 执行单算子
 
