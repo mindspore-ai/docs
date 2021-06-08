@@ -135,41 +135,6 @@ output = [[2.4911082  0.7941146  1.3117087]
 
 > The preceding code runs on the GPU version of MindSpore.
 
-For functions involving graph transformation, users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
-
-A code example is as follows:
-
-```python
-import numpy as np
-from mindspore.ops.composite import MultitypeFuncGraph
-from mindspore import Tensor
-import mindspore.ops as ops
-
-add = MultitypeFuncGraph('add')
-@add.register("Number", "Number")
-def add_scalar(x, y):
-    return ops.scalar_add(x, y)
-
-@add.register("Tensor", "Tensor")
-def add_tensor(x, y):
-    return ops.add(x, y)
-
-tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
-print('tensor', add(tensor1, tensor2))
-print('scalar', add(1, 2))
-```
-
-The following information is displayed:
-
-```text
-tensor [[2.4 4.2]
- [4.4 6.4]]
-scalar 3
-```
-
-In addition, the high-order function `GradOperation` provides the method of computing the gradient function corresponding to the input function. For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html).
-
 ### Combination usage of operations/functional/composite three types of operators
 
 In order to make it easier to use, in addition to the several usages introduced above, we have encapsulated the three operators of operations/functional/composite into mindspore.ops. It is recommended to directly call the interface in mindspore.ops.
@@ -190,7 +155,7 @@ pow = ops.Pow()
 
 ## Operator Functions
 
-Operators can be classified into seven functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
 
 ### Tensor Operations
 
@@ -801,3 +766,123 @@ The following information is displayed:
 (Tensor(shape=[], dtype=Float32, value= 2),)
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
+
+### Operator combinations related to graph transformation
+
+`mindspore.ops.composite` provide some operator combinations related to graph transformation such as `MultitypeFuncGraph`, `HyperMap` and `GradOperation`.
+
+#### MultitypeFuncGraph
+
+Users can use `MultitypeFuncGraph` to define a group of overloaded functions. The implementation varies according to the function type.
+
+A code example is as follows:
+
+```python
+import numpy as np
+from mindspore.ops import MultitypeFuncGraph
+from mindspore import Tensor
+import mindspore.ops as ops
+
+add = MultitypeFuncGraph('add')
+@add.register("Number", "Number")
+def add_scalar(x, y):
+    return ops.scalar_add(x, y)
+
+@add.register("Tensor", "Tensor")
+def add_tensor(x, y):
+    return ops.add(x, y)
+
+tensor1 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+tensor2 = Tensor(np.array([[1.2, 2.1], [2.2, 3.2]]).astype('float32'))
+print('tensor', add(tensor1, tensor2))
+print('scalar', add(1, 2))
+```
+
+The following information is displayed:
+
+```text
+tensor [[2.4 4.2]
+ [4.4 6.4]]
+scalar 3
+```
+
+#### HyperMap
+
+`HyperMap` can apply an specified operation to one or more input sequences, which can be used with `MultitypeFuncGraph`. For example, after defining a group of overloaded `add` functions, we can apply `add` operation to multiple input groups of different types.
+
+A code example is as follows:
+
+```python
+from mindspore import dtype as mstype
+from mindspore import Tensor
+from mindspore.ops import MultitypeFuncGraph, HyperMap
+import mindspore.ops as ops
+
+add = MultitypeFuncGraph('add')
+@add.register("Number", "Number")
+def add_scalar(x, y):
+    return ops.scalar_add(x, y)
+
+@add.register("Tensor", "Tensor")
+def add_tensor(x, y):
+    return ops.tensor_add(x, y)
+
+add_map = HyperMap(add)
+output = add_map((Tensor(1, mstype.float32), Tensor(2, mstype.float32), 1), (Tensor(3, mstype.float32), Tensor(4, mstype.float32), 2))
+print("output =", output)
+```
+
+The following information is displayed:
+
+```text
+output = (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 6), 3)
+```
+
+In this example, the input of `add_map` contains two sequences. `HyperMap` will get the corresponding elements from the two sequences as `x` and `y` for the inputs of `add` in the form of `operation(args[0][i], args[1][i])`. For example, `add(Tensor(1, mstype.float32), Tensor(3, mstype.float32))`.
+
+#### GradOperation
+
+`GradOperation` provides the ability of computing the gradient function corresponding to the input function.
+
+A code example is as follows:
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import Tensor, Parameter
+from mindspore import dtype as mstype
+import mindspore.ops as ops
+
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.matmul = ops.MatMul()
+        self.z = Parameter(Tensor(np.array([1.0], np.float32)), name='z')
+    def construct(self, x, y):
+        x = x * self.z
+        out = self.matmul(x, y)
+        return out
+
+class GradNetWrtX(nn.Cell):
+    def __init__(self, net):
+        super(GradNetWrtX, self).__init__()
+        self.net = net
+        self.grad_op = ops.GradOperation()
+    def construct(self, x, y):
+        gradient_function = self.grad_op(self.net)
+        return gradient_function(x, y)
+
+x = Tensor([[0.5, 0.6, 0.4], [1.2, 1.3, 1.1]], dtype=mstype.float32)
+y = Tensor([[0.01, 0.3, 1.1], [0.1, 0.2, 1.3], [2.1, 1.2, 3.3]], dtype=mstype.float32)
+print("output =", GradNetWrtX(Net())(x, y))
+```
+
+The following information is displayed:
+
+```text
+output = [[1.4100001 1.5999999 6.6      ]
+ [1.4100001 1.5999999 6.6      ]]
+```
+
+The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/implement_high_order_differentiation.html).
