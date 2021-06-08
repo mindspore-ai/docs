@@ -27,6 +27,8 @@ By default, MindSpore is in PyNative mode. You can switch it to the graph mode b
 In PyNative mode, single operators, common functions, network inference, and separated gradient calculation can be executed. The following describes the usage and precautions.
 
 > In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed.
+>
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.set_seed).
 
 ## Executing a Single Operator
 
