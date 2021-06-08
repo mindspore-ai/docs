@@ -20,7 +20,7 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
+- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04 is verified.
 - Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
@@ -34,8 +34,6 @@ This document describes how to quickly install MindSpore by source code in a Lin
 - Confirm that [cuDNN 7.6 or later](https://developer.nvidia.com/rdp/cudnn-archive) is installed.
 - Confirm that [Flex 2.5.35 or later](https://github.com/westes/flex/) is installed.
 - Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
-- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - ensure that [OpenSSL](https://github.com/openssl/openssl) is installed and set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"`.
 - Confirm that [CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base) is installed as default configuration.
     - If CUDA is installed in a non-default path, after installing CUDA, environment variable `PATH`(e.g. `export PATH=/usr/local/cuda-${version}/bin:$PATH`) and `LD_LIBRARY_PATH`(e.g. `export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`) need to be set. Please refer to [CUDA installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) for detailed post installation actions.
 - Confirm that [OpenMPI 4.0.3](https://www.open-mpi.org/faq/?category=building#easy-build) is installed. (optional, required for single-node/multi-GPU and multi-node/multi-GPU training)
@@ -76,8 +74,7 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl
-pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
@@ -146,7 +143,7 @@ Using the following command if you need to update the MindSpore version.
 
 - Update after source code compilation
 
-     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+     After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl

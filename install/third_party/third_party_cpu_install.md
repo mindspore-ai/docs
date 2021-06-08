@@ -362,12 +362,12 @@ success building mindspore project!
 ---------------- mindspore: build end   ----------------
 ```
 
-同时在```/mindspore/build/package/```文件下生成了```mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl```文件。
+同时在```/mindspore/output/```文件夹下生成了```mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl```文件。
 
 （5）pip3安装MindSpore安装文件
 
 ```text
-ms-sd@mssd:~/mindspore$ sudo pip3 install /mindspore/build/package/mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl
+ms-sd@mssd:~/mindspore$ sudo pip3 install /mindspore/output/mindspore-1.1.0-cp37-cp37m-linux_x86_64.whl
 ```
 
 （6）验证安装是否成功

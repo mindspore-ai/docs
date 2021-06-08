@@ -20,27 +20,23 @@
 
 ## Overview
 
-Ascend 310 is a highly efficient and integrated AI processor oriented to edge scenarios. The Atlas 200 Developer Kit (Atlas 200 DK) is a developer board that uses the Atlas 200 AI accelerator module. Integrated with the HiSilicon Ascend 310 AI processor, the Atlas 200 allows data analysis, inference, and computing for various data such as images and videos, and can be widely used in scenarios such as intelligent surveillance, robots, drones, and video servers.
+Ascend 310 is a highly efficient and integrated AI processor oriented to edge scenarios. This tutorial describes how to use MindSpore to perform inference on the Ascend 310 based on the MindIR model file. The process is as follows:
 
-This tutorial describes how to use MindSpore to perform inference on the Atlas 200 DK based on the MindIR model file. The process is as follows:
+1. Export the MindIR model file. The ResNet-50 model is used as an example.
 
-1. Prepare the development environment, including creating an SD card for the Atlas 200 DK, configuring the Python environment, and updating the development software package.
+2. Build the inference code to generate an executable `main` file.
 
-2. Export the MindIR model file. The ResNet-50 model is used as an example.
-
-3. Build the inference code to generate an executable `main` file.
-
-4. Load the saved MindIR model, perform inference, and view the result.
+3. Load the saved MindIR model, perform inference, and view the result.
 
 > You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample>.
 
 ## Preparing the Development Environment
 
-Refer to [Inference on the Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_air.html#preparing-the-development-environment) to install the device, and then refer to [Installation Guide](https://www.mindspore.cn/install/en) to install MindSpore.
+Refer to [Installation Guide](https://www.mindspore.cn/install/en) to install Ascend environment and MindSpore.
 
 ## Exporting the MindIR Model
 
-Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model).
+Train the target network on the CPU/GPU/Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in MindIR format through the network and checkpoint file. For details about the export process, see [Export MindIR Model](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model).
 
 > The [resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir) is a sample MindIR file exported using the ResNet-50 model, whose BatchSize is 1.
 
@@ -284,15 +280,16 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/acllib/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/atc/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
+# if MindSpore is installed by binary, run "export LD_LIBRARY_PATH=path-to-your-custom-dir:${LD_LIBRARY_PATH}"
 
 # Environment variables that must be configured
 export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/atc/ccec_compiler/bin/:${PATH}                       # TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
@@ -300,6 +297,7 @@ Run the `cmake` command, modify `pip3` according to the actual situation:
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
+# if MindSpore is installed by binary, run "cmake . -DMINDSPORE_PATH=path-to-your-custom-dir"
 ```
 
 Run the `make` command for building.
@@ -312,7 +310,7 @@ After building, the executable `main` file is generated in `ascend310_resnet50_p
 
 ## Performing Inference and Viewing the Result
 
-Log in to the Atlas 200 DK developer board, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`.
+Log in to the Ascend 310 server, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`.
 Create the `test_data` directory to store images, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`.
 Then, perform the inference.
 

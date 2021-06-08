@@ -23,7 +23,7 @@
 
 ## 确认系统环境信息
 
-- 确认安装Ubuntu 18.04是64位操作系统。
+- 确认安装64位操作系统，其中Ubuntu 18.04是经过验证的。
 - 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 - 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)。
@@ -37,8 +37,6 @@
 - 确认安装[cuDNN 7.6及以上版本](https://developer.nvidia.com/rdp/cudnn-archive)。
 - 确认安装[Flex 2.5.35及以上版本](https://github.com/westes/flex/)。
 - 确认安装[wheel 0.32.0及以上版本](https://pypi.org/project/wheel/)。
-- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
-    - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
 - 确认安装[CUDA 10.1](https://developer.nvidia.com/cuda-10.1-download-archive-base)按默认配置安装。  
     - CUDA安装后，若CUDA没有安装在默认位置，需要设置环境变量PATH（如：`export PATH=/usr/local/cuda-${version}/bin:$PATH`）和`LD_LIBRARY_PATH`（如：`export LD_LIBRARY_PATH=/usr/local/cuda-${version}/lib64:$LD_LIBRARY_PATH`），详细安装后的设置可参考[CUDA安装手册](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions)。
 - 确认安装[OpenMPI 4.0.3版本](https://www.open-mpi.org/faq/?category=building#easy-build)（可选，单机多卡/多机多卡训练需要）。
@@ -79,8 +77,7 @@ bash build.sh -e gpu
 ## 安装MindSpore
 
 ```bash
-chmod +x build/package/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl
-pip install build/package/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
@@ -149,7 +146,7 @@ print(ops.add(x, y))
 
 - 本地源码编译升级
 
-    在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
+    在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
     pip install --upgrade mindspore_gpu-{version}-cp37-cp37m-linux_{arch}.whl
