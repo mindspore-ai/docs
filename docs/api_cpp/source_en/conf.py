@@ -224,9 +224,9 @@ pattern10 = "class ExhaleRoot"
 add_str = "function_counter = dict()\n"
 
 # Fix error for add source file when parsing function.
-pattern11 = 'refid_0 = memberdef.attrs["id"]\n'
+pattern11 = '                            refid = memberdef.attrs["id"]\n'
 replace_str5 = """\
-refid_0 = memberdef.attrs["id"]
+                            refid_0 = memberdef.attrs["id"]
                             refid = refid_0
                             if refid_0 in list(function_counter.values()):
                                 for key, value in function_counter.items():
@@ -248,6 +248,19 @@ replace_str6 = """node.link_name = "exhale_{kind}_{id}".format(kind=node.kind, i
                 node.file_name = "{kind}_{id}.rst".format(kind=node.kind, id=unique_id).replace("_1", "_").replace("__", "_")
 """
 
+# Fix error function parameters for mindspore:dataset:Affine.
+pattern13 = """\
+for param in memberdef.find_all("param", recursive=False):
+                    parameters.append(param.type.text)
+"""
+replace_str7 = """\
+for param in memberdef.find_all("param", recursive=False):
+                    if "M\\n[" in param.text and "]" in param.text:
+                        param_name = param.text.replace("\\n", "").replace("M[", "[")
+                    else:
+                        param_name = param.type.text
+                    parameters.append(param_name)
+"""
 
 with open(exh_file, "r+") as f:
     content = f.read()
@@ -278,6 +291,8 @@ with open(exh_file, "r+") as f:
         content_sub = content_sub.replace(pattern11, replace_str5)
     if replace_str6 not in content:
         content_sub = content_sub.replace(pattern12, replace_str6)
+    if replace_str7 not in content:
+        content_sub = content_sub.replace(pattern13, replace_str7)
     if content_sub != content:
         f.seek(0)
         f.truncate()
