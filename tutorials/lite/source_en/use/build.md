@@ -111,8 +111,6 @@ The following describes the compilation parameter of `build.sh` and the options 
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | None |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
 | -a | Whether to enable AddressSanitizer | on、off | off |
-| -h | Displays the compilation help information. | None | None |
-| -n | Specifies to compile the lightweight image processing module. | lite_cv | None |
 
 > - When compiling the x86_64 version, if the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package will be compiled at the same time.
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
@@ -122,12 +120,12 @@ The following describes the compilation parameter of `build.sh` and the options 
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | Set the GPU backend, only valid under ARM64 | opencl, vulkan, cuda, off | opencl |
-| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid under ARM | on、off | on |
+| MSLITE_GPU_BACKEND | Set the GPU backend, only valid when `-I arm64` | opencl, vulkan, cuda, off | opencl |
+| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on、off | on |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | off |
-| MSLITE_ENABLE_SSE | Whether to enable x86_64 SSE instruction set | on、off | off |
-| MSLITE_ENABLE_AVX | Whether to enable x86_64 AVX instruction set | on、off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid under X86_64 | on、off | on |
+| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on、off | off |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on、off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on、off | on |
 | MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on、off | on |
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
 
@@ -320,9 +318,9 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 
 ### Training Output Description
 
-If the `-T on` is added to the MindSpore Lite, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+If the MSLITE_ENABLE_TRAIN option is turned on, the training Runtime and related tools will be generated, as follows:
 
-- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework, performance analysis tool.
+- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework and related tool.
 
 > - version: Version of the output, consistent with that of the MindSpore.
 > - os: Operating system on which the output will be deployed.
