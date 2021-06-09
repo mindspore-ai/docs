@@ -1,36 +1,51 @@
 
 # 自定义评价指标
 
+<!-- TOC -->
+
+- [自定义评价指标](#自定义评价指标)
+    - [概述](#概述)
+    - [Metrics自定义方法](#metrics自定义方法)
+        - [导入Metric模块](#导入metric模块)
+        - [定义Metrics](#定义metrics)
+        - [在框架中导入Metrics](#在框架中导入metrics)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/tree/master/tutorials/source_zh_cn/middleclass/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## 概述
+
 评价指标（Metrics）可以用来评估模型结果的可信度。
 
-MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的Metrics功能可参考[代码仓](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn/metrics)。
+MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`precision`、`recall`、`F1`等，完整的`Metrics`功能可参考[API](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#metrics)。
 
 用户也可根据需求，自行开发并使用Metrics。
 
 ## Metrics自定义方法
 
-通过Class实现一个自定义的Metric功能，其中包含以下四部分：
+通过Class实现一个自定义的 Metric 功能，其中包含以下四部分：
 
-- `init`：初始化，同时进行输入的校验
-- `clear`：变量初始化
-- `update`：进行中间过程的计算
-- `eval`：计算得到最后的输出值
+- `init`：初始化，同时进行输入的校验。
+- `clear`：变量初始化。
+- `update`：进行中间过程的计算。
+- `eval`：计算得到最后的输出值。
 
-下面以相似度计算函数`Dice`为例，讲解Metrics的开发过程。
+下面以相似度计算函数`Dice`为例，讲解 Metrics 的开发过程。
 
 ### 导入Metric模块
 
 ```python
-from .metric import Metric
+from mindspore.nn import Metric
 ```
 
 ### 定义Metrics
 
 `Dice`实际上计算了两个样本间的相似度，数学公式可以表达为：
 
- ![dice](./images/dice.png)
-
-  或 dice = \frac{2 * (pred \bigcap true)}{pred \bigcup true}。
+$$
+dice = \frac{2 \times (pred \bigcap  true)}{pred \bigcup true}
+$$
 
 Dice的输入为两个尺度相同的Tensor, list或numpy，一个为预测值，一个为实际值。最后输出两个Tensor间的相似度计算值。其中为防止计算过程中分母为零，引入参数smooth，默认值为1e-5。
 
@@ -88,7 +103,7 @@ class Dice(Metric):
 
 ### 在框架中导入Metrics
 
-在同级目录中的`__init__.py`文件中，添加已经定义好的`Dice`:
+在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py):
 
 ```python
 __all__ = [
