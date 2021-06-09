@@ -44,7 +44,7 @@ MindSpore supports the following image classification networks: LeNet, AlexNet, 
 
 ## Task Description and Preparation
 
-![cifar10](images/cifar10.jpg)
+![cifar10](images/cifar10.png)
 
 Figure 1: CIFAR-10 dataset [1]
 
