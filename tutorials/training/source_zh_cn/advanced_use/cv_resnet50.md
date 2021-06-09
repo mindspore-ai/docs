@@ -46,7 +46,7 @@ MindSpore当前支持的图像分类网络包括：典型网络LeNet、AlexNet�
 
 ## 任务描述及准备
 
-![cifar10](images/cifar10.jpg)
+![cifar10](images/cifar10.png)
 
 图1：CIFAR-10数据集[1]
 
