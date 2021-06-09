@@ -874,7 +874,7 @@ You may encounter some interruptions in the training during the process, you can
 
 ## Precision tuning
 
-After hitting the flow, you can get the accuracy of network training by both training and inference steps. Usually, it is difficult to reproduce the accuracy of the alignment script at once, and we need to gradually improve the accuracy by accuracy tuning, which is less intuitive, less efficient, and more work than performance tuning. Developers can use our [Precision Tuning Tutorial](https://www.mindspore.cn/doc/migration_guide/en/master/accuracy_optimization.html) as a reference.
+After hitting the flow, you can get the accuracy of network training by both training and inference steps. Usually, it is difficult to reproduce the accuracy of the alignment script at once, and we need to gradually improve the accuracy by accuracy tuning, which is less intuitive, less efficient, and more work than performance tuning.
 
 ## Performance Tuning
 
