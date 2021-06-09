@@ -64,7 +64,7 @@ To support network building, entire graph execution, subgraph execution, and sin
 
 Welcome every developer to the MindSpore community and contribute to this all-scenario AI framework.
 
-- **MindSpore official website**: provides comprehensive MindSpore information, including installation, tutorials, documents, community, resources, and news ([learn more](https://www.mindspore.en/)).
+- **MindSpore official website**: provides comprehensive MindSpore information, including installation, tutorials, documents, community, resources, and news ([learn more](https://www.mindspore.cn/en)).
 - **MindSpore code**:
 
     - [MindSpore Gitee](https://gitee.com/mindspore/mindspore): Top 1 Gitee open-source project in 2020, where you can track the latest progress of MindSpore by clicking Watch, Star, and Fork, discuss issues, and commit code.
