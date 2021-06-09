@@ -111,8 +111,6 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -i | 设置该参数，则进行增量编译，否则进行全量编译 | 无 | 无 |
 | -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 8 |
 | -a | 是否启用AddressSanitizer | on、off | off |
-| -h | 显示编译帮助信息 | 无 | 无 |
-| -n | 指定编译轻量级图片处理模块 | lite_cv | 无 |
 
 > - 编译x86_64版本时，若配置了JAVA_HOME环境变量并安装了Gradle，则同时编译JAR包。
 > - 在`-I`参数变动时，如`-I x86_64`变为`-I arm64`，添加`-i`参数进行增量编译不生效。
@@ -122,12 +120,12 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | 设置GPU后端，仅在ARM64下有效 | opencl、vulkan、cuda、off | opencl |
-| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在ARM下有效 | on、off | on |
+| MSLITE_GPU_BACKEND | 设置GPU后端，仅在`-I arm64`时有效 | opencl、vulkan、cuda、off | opencl |
+| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | on |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | off |
-| MSLITE_ENABLE_SSE | 是否启用x86_64 SSE指令集 | on、off | off |
-| MSLITE_ENABLE_AVX | 是否启用x86_64 AVX指令集 | on、off | off |
-| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在X86_64下有效 | on、off | on |
+| MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
+| MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
+| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
 | MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
@@ -320,9 +318,9 @@ mindspore-lite-{version}-inference-linux-x64
 
 ### 端侧训练框架编译输出
 
-如果添加了`-T on`编译选项，会生成端侧训练转换工具和对应Runtime工具，如下：
+如果开启了MSLITE_ENABLE_TRAIN选项，会生成训练runtime和配套工具，如下：
 
-`mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime。
+`mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime和配套工具。
 
 > - version: 输出件版本号，与所编译的分支代码对应的版本一致。
 > - os: 输出件应部署的操作系统。
