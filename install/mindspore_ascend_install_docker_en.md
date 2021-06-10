@@ -81,6 +81,28 @@ of which,
 - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
+If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:
+
+```bash
+docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+               -v /usr/local/Ascend/add-ons/:/usr/local/Ascend/add-ons/ \
+               -v /var/log/npu/:/usr/slog \
+               --network host
+               --device=/dev/davinci0 \
+               --device=/dev/davinci1 \
+               --device=/dev/davinci2 \
+               --device=/dev/davinci3 \
+               --device=/dev/davinci4 \
+               --device=/dev/davinci5 \
+               --device=/dev/davinci6 \
+               --device=/dev/davinci7 \
+               --device=/dev/davinci_manager \
+               --device=/dev/devmm_svm \
+               --device=/dev/hisi_hdc \
+               swr.cn-south-1.myhuaweicloud.com/public-ascendhub/ascend-mindspore-{arch}:{tag} \
+               /bin/bash
+```
+
 ## Installation Verification
 
 After entering the MindSpore container according to the above steps, to test whether the Docker container is working properly, please run the following Python code and check the output:
@@ -131,6 +153,12 @@ The outputs should be the same as:
 ```
 
 It means MindSpore has been installed by docker successfully.
+
+If you need to verify the MindInsight installation:
+
+1. Execute the command: ```export PATH=/usr/local/python-3.7.5/bin:$PATH```.
+
+2. Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
 
 ## Version Update
 
