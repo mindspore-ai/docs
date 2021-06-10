@@ -10,10 +10,11 @@
     - [Distributed Training](#distributed-training)
     - [Collect Cluster Performance Data](#distributed-training)
     - [Launch MindInsight](#launch-mindinsight)
-        - [Performance Analysis](#performance-analysis)
-            - [Cluster Step Trace Analysis](#cluster-step-trace-analysis)
-        - [Resource Utilization](#resource-utilization)
-            - [Cluster Memory Analysis](#cluster-memory-analysis)
+    - [Training Performance](#training-performance)
+        - [Cluster Iterative Trajectory Analysis](#cluster-iterative-trajectory-analysis)
+        - [Cluster Communication Performance Analysis](#cluster-communication-performance-analysis)
+    - [Resource Utilization](#resource-utilization)
+        - [Cluster Memory Analysis](#cluster-memory-analysis)
     - [Specifications](#specifications)
     - [Notices](#notices)
 
@@ -206,25 +207,81 @@ Cluster performance folder structure description：
 
 The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
-### Cluster Performance Analysis
+## Training Performance
 
-Users can access the Performance Profiler by selecting a specific training from the training list, and click the performance profiling link. Cluster performance analysis includes cluster iteration trajectory analysis.
+Users can select the specified training from the training list and click performance debugging to view the performance data of the training. Cluster training performance includes cluster iterative trajectory analysis and cluster communication performance analysis.
 
-#### Cluster iteration trajectory analysis
+![cluster_summary.png](./images/cluster_summary.png)
+
+Figure 1: overview of cluster training performance
+
+Figure 1 is the overview of cluster training performance, which is the overall presentation of cluster iterative trajectory component and cluster communication performance component. The display contents of each component are as follows:
+
+- Cluster iteration trajectory: The iterative trajectory information of all cards in the cluster is displayed; The overview page shows the cluster iteration trajectory performance.
+- Cluster communication performance: Show the communication performance of all cards in the cluster and the link performance of the whole network; The overview page shows the cluster communication performance.
+
+### Cluster Iterative Trajectory Analysis
 
 Using the cluster iterative trajectory analysis component, we can find out the slow host and slow device in cluster training. Cluster iteration trajectory analysis component shows the iteration information of all devices, including iteration gap, forward and backward, iteration trailing, and supports sorting operation. The iteration gap reflects the speed of the data processing stage, and the iteration gap time of the device can reflect the speed of the corresponding host processing data. The forward and backward time of the device reflects the computing power of the device. Iterative tailing reflects all_reduce time and parallelism.
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
-Figure 1: Cluster iteration trajectory analysis
+Figure 2: cluster iteration trajectory analysis
 
-Figure 1 shows the cluster iteration trajectory analysis page. By default, it shows the average performance of the device. It supports querying the iteration trajectory information of the device under a specific step. By clicking the details link in the single device, you can also jump to the detailed performance display page of the single device to query the detailed performance data of the single device.
+Figure 2 shows the cluster iteration trajectory analysis page. By default, it shows the average performance of the device. It supports querying the iteration trajectory information of the device under a specific step. By clicking the details link in the single device, you can also jump to the detailed performance display page of the single device to query the detailed performance data of the single device.
 
 ![single_car_performance_overall.png](./images/single_car_performance_overall.png)
 
-Figure 2: Single device details
+Figure 3: single device details
 
-Figure 2 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html) for the performance information of a single device.
+Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html) for the performance information of a single device.
+
+### Cluster Communication Performance Analysis
+
+The cluster communication performance component displays the cluster communication performance information from two dimensions: card granularity and whole network link.
+
+![cluster_communication_info.png](./images/cluster_communication_info.png)
+
+Figure 4: cluster communication performance analysis
+
+Figure 4 shows the analysis page of cluster communication performance, including the communication performance of logic card and the link information of the whole network (all logic card link information).
+
+Logic card communication performance tab page is mainly used to show the communication performance of logic card, including communication time, waiting time, logic card link information.
+
+- Communication time: Represents the communication time of the communication operator. If the communication time is too long, there may be a problem with a link, and the specific link can be located through the link bandwidth. The calculation method of communication time is to count the total communication operator time of SDMA link (intra server communication) and RDMA link (inter server communication). If it is the SDMA link, the total time of `Reduce inline` and `Memcpy` operators is taken as the communication time; If it is the RDMA link, the total time of three consecutive operators `RDMASendPayload`, `RDMASendNotify`, `Notify Wait` is taken as the communication time.
+- Waiting time: Also called synchronization time. Before communication between cards, synchronization will be carried out first to ensure that the two cards are synchronized before communication. The waiting time is calculated by counting the total time consumption of all `Notify wait` operators and subtracting the time consumption of `Notify wait` operator in the communication time of RDMA link.
+- Logic card link information: Display the link information of the source card or the destination card. Link information includes communication time, traffic, bandwidth (traffic divided by communication time) and link type. The link types include SDMA link (intra server communication link) and RDMA link (inter server communication link). Click the details and display them by pop-up window.
+
+![rank_id_link_info.png](./images/rank_id_link_info.png)
+
+Figure 5: link information of logic card
+
+The whole network link information tab page displays the link information of all logic cards, and provides the selection of source card, destination card and link type.
+
+![rank_ids_link_info.png](./images/rank_ids_link_info.png)
+
+Figure 6: link information of the whole network
+
+By default, communication performance data is not collected. You need to use the `profile_communication` parameter to turn on the communication performance data switch. The example is as follows:
+
+```python
+from mindspore.profiler import Profiler
+from mindspore import Model, nn, context
+
+# Init context env
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+
+# Init Profiler
+# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
+# 'data' directory should be placed under summary-base-dir.
+profiler = Profiler(profile_communication=True)
+
+# Train Model
+Model.train()
+
+# Profiler end
+profiler.analyse()
+```
 
 ## Resource Utilization
 
