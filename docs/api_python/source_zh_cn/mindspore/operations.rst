@@ -14,6 +14,7 @@ Neural Network Operators
     mindspore.ops.Acosh
     mindspore.ops.Adam
     mindspore.ops.AdamNoUpdateParam
+    mindspore.ops.AdaptiveAvgPool2D
     mindspore.ops.ApplyAdadelta
     mindspore.ops.ApplyAdagrad
     mindspore.ops.ApplyAdagradV2
@@ -282,6 +283,7 @@ Array Operators
     mindspore.ops.Split
     mindspore.ops.Squeeze
     mindspore.ops.StridedSlice
+    mindspore.ops.TensorScatterAdd
     mindspore.ops.TensorScatterUpdate
     mindspore.ops.Tile
     mindspore.ops.Transpose
