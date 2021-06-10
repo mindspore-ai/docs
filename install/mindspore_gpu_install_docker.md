@@ -97,6 +97,12 @@ docker run -it -v /dev/shm:/dev/shm --runtime=nvidia --privileged=true swr.cn-so
 - `--privileged=true` 赋予容器扩展的能力;
 - `{tag}`对应上述表格中的标签。
 
+如需使用MindInsight，需设置--network参数为”host”模式, 例如:
+
+```bash
+docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged=true swr.cn-south-1.myhuaweicloud.com/mindspore/mindspore-gpu:{tag} /bin/bash
+```
+
 ## 验证是否安装成功
 
 - 如果你安装的是指定版本`x.y.z`的容器。
@@ -150,6 +156,12 @@ print(ops.add(x, y))
 ```
 
 至此，你已经成功通过Docker方式安装了MindSpore GPU版本。
+
+- 验证MindInsight安装：
+
+    1. 执行命令：```export PATH=/usr/local/python-3.7.5/bin:$PATH```。
+
+    2. 输入```mindinsight start --port 8080```, 如提示启动status为success，则安装成功。
 
 - 如果你安装的是`runtime`标签的容器，需要自行安装MindSpore。
 
