@@ -3,11 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-快速入门MindSpore
-===================
+MindSpore教程
+=====================
 
 .. toctree::
+   :glob:
    :maxdepth: 1
+   :caption: 快速入门
 
    introduction
    quick_start
@@ -18,3 +20,10 @@
    optimization
    save_load_model
    inference
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 进阶教程
+
+   custom
