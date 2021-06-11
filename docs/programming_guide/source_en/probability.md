@@ -503,7 +503,7 @@ When the `TransformedDistribution` is constructed to map the transformed `is_con
 ```python
 normal = msd.Normal(0.0, 1.0, dtype=dtype.float32)
 scalaraffine = msb.ScalarAffine(1.0, 2.0)
-trans_dist = msd.TransformedDistribution(scalaraffine, normal, dtype=dtype.float32, seed=0)
+trans_dist = msd.TransformedDistribution(scalaraffine, normal, seed=0)
 mean = trans_dist.mean()
 print(mean)
 ```
