@@ -42,7 +42,7 @@
 | [mindspore.ops.Cosh](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Cosh.html) | 无                                                           |
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Div.html) | 无                                                           |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.DivNoNan.html) | 无                                                           |
-| [mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Dropout.html) | 无                                                 |
+| [mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Dropout.html) | 无                                                           |
 | [mindspore.ops.DropoutDoMask](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.DropoutDoMask.html) | 需和`DropoutGenMask`联合使用                                 |
 | [mindspore.ops.DropoutGenMask](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.DropoutGenMask.html) | 需和`DropoutDoMask`联合使用，不支持配置切分策略              |
 | [mindspore.ops.Elu](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Elu.html) | 无                                                           |
@@ -57,6 +57,7 @@
 | [mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.FloorDiv.html) | 无                                                           |
 | [mindspore.ops.FloorMod](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.FloorMod.html) | 无                                                           |
 | [mindspore.ops.Gather](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Gather.html) | 仅支持1维和2维的input_params，并且input_params的最后一维要32字节对齐（出于性能考虑）；不支持标量input_indices；参数在轴（axis）所在维度切分时，不支持重复计算；不支持input_indices和input_params同时进行切分 |
+| [mindspore.ops.GatherNd](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GatherNd.html) | 第一个输入不能切分，第二个输入的最后一维不能切分；在auto_parallel模式下，不支持双递归算法。 |
 | [mindspore.ops.GeLU](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GeLU.html) | 无                                                           |
 | [mindspore.ops.Greater](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Greater.html) | 无                                                           |
 | [mindspore.ops.GreaterEqual](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.GreaterEqual.html) | 无                                                           |
@@ -93,6 +94,8 @@
 | [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Reshape.html) | 不支持配置切分策略，并且，在自动并行模式下，当reshape算子后接有多个算子，不允许对这些算子配置不同的切分策略 |
 | [mindspore.ops.Round](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Round.html) | 无                                                           |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Rsqrt.html) | 无                                                           |
+| [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.ScatterUpdate.html) | 第一个输入的第一维不能切分，第二个输入不能切分，第三个输入的前n维（n为第二个输入的维度）不能切分；在auto_parallel模式下，不支持双递归算法。 |
+| [mindspore.ops.Select](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Select.html) | 在auto_parallel模式下，不支持双递归算法。                    |
 | [mindspore.ops.Sigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Sigmoid.html) | 无                                                           |
 | [mindspore.ops.SigmoidCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.SigmoidCrossEntropyWithLogits.html) | 无                                                           |
 | [mindspore.ops.Sign](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Sign.html) | 无                                                           |

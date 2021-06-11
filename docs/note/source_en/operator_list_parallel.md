@@ -42,7 +42,7 @@
 | [mindspore.ops.Cosh](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Cosh.html) | None                                                         |
 | [mindspore.ops.Div](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Div.html) | None                                                         |
 | [mindspore.ops.DivNoNan](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DivNoNan.html) | None                                                         |
-| [mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Dropout.html) | None                                               |
+| [mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Dropout.html) | None                                                         |
 | [mindspore.ops.DropoutDoMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DropoutDoMask.html) | Need to be used in conjunction with `DropoutGenMask`         |
 | [mindspore.ops.DropoutGenMask](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.DropoutGenMask.html) | Need to be used in conjunction with `DropoutDoMask`, configuring shard strategy is not supported. |
 | [mindspore.ops.Elu](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Elu.html) | None                                                         |
@@ -57,6 +57,7 @@
 | [mindspore.ops.FloorDiv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorDiv.html) | None                                                         |
 | [mindspore.ops.FloorMod](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.FloorMod.html) | None                                                         |
 | [mindspore.ops.Gather](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Gather.html) | Only support 1-dim and 2-dim parameters and the last dimension of the input_params should be 32-byte aligned; Scalar input_indices is not supported; Repeated calculation is not supported when the parameters are split in the dimension of the axis; Split input_indices and input_params at the same time is not supported. |
+| [mindspore.ops.GatherNd](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GatherNd.html) | The first input can't be split, and the last dimension of the second input can't be split; In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.GeLU](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GeLU.html) | None                                                         |
 | [mindspore.ops.Greater](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Greater.html) | None                                                         |
 | [mindspore.ops.GreaterEqual](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GreaterEqual.html) | None                                                         |
@@ -93,6 +94,8 @@
 | [mindspore.ops.Reshape](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Reshape.html) | Configuring shard strategy is not supported. In auto parallel mode, if multiple operators are followed by the reshape operator, different shard strategys are not allowed to be configured for these operators. |
 | [mindspore.ops.Round](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Round.html) | None                                                         |
 | [mindspore.ops.Rsqrt](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Rsqrt.html) | None                                                         |
+| [mindspore.ops.ScatterUpdate](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScatterUpdate.html) | The first dimension of first input can not be split, the second input can not  be split, and the first n dimensions (n is the dimension size of the second input) of the third input can not be split; In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
+| [mindspore.ops.Select](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Select.html) | In auto_parallel mode, the strategy's searching algorithm can not use "recursive_programming". |
 | [mindspore.ops.Sigmoid](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Sigmoid.html) | None                                                         |
 | [mindspore.ops.SigmoidCrossEntropyWithLogits](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.SigmoidCrossEntropyWithLogits.html) | None                                                         |
 | [mindspore.ops.Sign](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.Sign.html) | None                                                         |
@@ -123,4 +126,3 @@
 | [mindspore.ops.ZerosLike](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ZerosLike.html) | None                                                         |
 
 > Repeated calculation means that the device is not fully used. For example, the cluster has 8 devices to run distributed training, the splitting strategy only cuts the input into 4 copies. In this case, double counting will occur.
->
