@@ -26,15 +26,15 @@ Before initializing the network, configure the context parameter to control the 
 
 ## Execution Mode Management
 
-MindSpore supports two running modes: PyNative and Graph.
-
-- `PYNATIVE_MODE`: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
+MindSpore supports two running modes: Graph and PyNative.
 
 - `GRAPH_MODE`: static graph mode or graph mode. In this mode, the neural network model is compiled into an entire graph, and then the graph is delivered for execution. This mode uses graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
+- `PYNATIVE_MODE`: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
+
 ### Mode Selection
 
-You can set and control the running mode of the program. By default, MindSpore is in PyNative mode. The main differences between Graph mode and PyNative mode are:
+You can set and control the running mode of the program. By default, MindSpore is in Graph mode. The main differences between Graph mode and PyNative mode are:
 
 - Application scenarios: Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable for scenarios where the network is fixed and high performance is required. PyNative mode executes operators line by line, supporting the execution of single operators, common functions, network inference, and separated gradient calculation.
 

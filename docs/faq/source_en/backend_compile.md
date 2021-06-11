@@ -24,7 +24,7 @@ In terms of application scenarios, Graph mode requires the network structure to 
 
 The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
 
-In terms of code debugging, operators are executed line by line. Therefore, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. The output can be viewed only after the network execution is complete.
+In terms of code debugging, since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. The output can be viewed only after the network execution is complete.
 
 <br/>
 
