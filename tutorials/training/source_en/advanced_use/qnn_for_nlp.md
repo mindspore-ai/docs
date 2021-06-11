@@ -141,9 +141,7 @@ context.set_context(mode=context.GRAPH_MODE, device_target="CPU")
 # quantum state evolution operator
 evol = generate_evolution_operator(param_names=encoder_para_names, circuit=encoder)
 state = evol(Tensor(label_array))
-state = state.asnumpy()
-quantum_state = state[:, 0] + 1j * state[:, 1]
-amp = np.round(np.abs(quantum_state)**2, 3)
+amp = np.round(np.abs(state)**2, 3)
 
 print("Amplitude of quantum state is: \n", amp)
 print("Label in quantum state is: ", np.argmax(amp))
