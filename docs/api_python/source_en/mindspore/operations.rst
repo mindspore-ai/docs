@@ -394,7 +394,7 @@ Image Operators
     mindspore.ops.CropAndResize
 
 Sparse Operators
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
 
 .. msplatformautosummary::
     :toctree: ops
