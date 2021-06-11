@@ -12,6 +12,8 @@
     - [Launch MindInsight](#launch-mindinsight)
         - [Performance Analysis](#performance-analysis)
             - [Cluster Step Trace Analysis](#cluster-step-trace-analysis)
+        - [Resource Utilization](#resource-utilization)
+            - [Cluster Memory Analysis](#cluster-memory-analysis)
     - [Specifications](#specifications)
     - [Notices](#notices)
 
@@ -223,6 +225,22 @@ Figure 1 shows the cluster iteration trajectory analysis page. By default, it sh
 Figure 2: Single device details
 
 Figure 2 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/performance_profiling_ascend.html) for the performance information of a single device.
+
+## Resource Utilization
+
+### Cluster Memory Analysis
+
+This page shows the memory usage of the model on the **device side** in the parallel mode, which is an ideal prediction **based on the theoretical value**. The content of the page includes:
+
+- The distribution of cluster devices, which servers and which devices are used.
+- The peak memory of cluster devices, which is the ratio of peak memory to available memory.
+- Click a device to jump to the memory details page of the device.
+
+> Memory analysis does not support heterogeneous training currently.
+
+![cluster_memory.png](./images/cluster_memory.png)
+
+Figure 3: The page of cluster memory analysis
 
 ## Specifications
 
