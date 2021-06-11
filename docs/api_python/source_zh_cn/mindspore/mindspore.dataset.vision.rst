@@ -14,14 +14,18 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.AutoContrast
     mindspore.dataset.vision.c_transforms.BoundingBoxAugment
     mindspore.dataset.vision.c_transforms.CenterCrop
+    mindspore.dataset.vision.c_transforms.Crop
     mindspore.dataset.vision.c_transforms.CutMixBatch
     mindspore.dataset.vision.c_transforms.CutOut
     mindspore.dataset.vision.c_transforms.Decode
     mindspore.dataset.vision.c_transforms.Equalize
+    mindspore.dataset.vision.c_transforms.GaussianBlur
+    mindspore.dataset.vision.c_transforms.HorizontalFlip
     mindspore.dataset.vision.c_transforms.HWC2CHW
     mindspore.dataset.vision.c_transforms.Invert
     mindspore.dataset.vision.c_transforms.MixUpBatch
     mindspore.dataset.vision.c_transforms.Normalize
+    mindspore.dataset.vision.c_transforms.NormalizePad
     mindspore.dataset.vision.c_transforms.Pad
     mindspore.dataset.vision.c_transforms.RandomAffine
     mindspore.dataset.vision.c_transforms.RandomColor
@@ -32,9 +36,9 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.RandomHorizontalFlip
     mindspore.dataset.vision.c_transforms.RandomHorizontalFlipWithBBox
     mindspore.dataset.vision.c_transforms.RandomPosterize
-    mindspore.dataset.vision.c_transforms.RandomResize
     mindspore.dataset.vision.c_transforms.RandomResizedCrop
     mindspore.dataset.vision.c_transforms.RandomResizedCropWithBBox
+    mindspore.dataset.vision.c_transforms.RandomResize
     mindspore.dataset.vision.c_transforms.RandomResizeWithBBox
     mindspore.dataset.vision.c_transforms.RandomRotation
     mindspore.dataset.vision.c_transforms.RandomSelectSubpolicy
@@ -45,10 +49,12 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.Rescale
     mindspore.dataset.vision.c_transforms.Resize
     mindspore.dataset.vision.c_transforms.ResizeWithBBox
+    mindspore.dataset.vision.c_transforms.Rotate
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeRandomCropResizeJpeg
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeResizeJpeg
     mindspore.dataset.vision.c_transforms.UniformAugment
-    
+    mindspore.dataset.vision.c_transforms.HorizontalFlip
+
 mindspore.dataset.vision.py_transforms
 -------------------------------------------------
 
