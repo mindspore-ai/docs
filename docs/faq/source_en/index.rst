@@ -19,6 +19,7 @@ MindSpore FAQ
   training_visualization
   usage_migrate_3rd
   performance_tuning
+  precision_tuning
   distributed_configure
   inference
   feature_advice

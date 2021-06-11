@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: If MindSpore and PyTorch are installed in an environment, can the syntax of the two frameworks be used together in a Python file?**</font>
+
+A: You can use the two frameworks in a python file. Pay attention to the differences between types. For example, the tensor types created by the two frameworks are different, but the basic types of Python are general.
+
+<br/>
+
 <font size=3>**Q: Can MindSpore read a TensorFlow checkpoint?**</font>
 
 A: The checkpoint format of MindSpore is different from that of TensorFlow. Although both use the Protocol Buffers, their definitions are different. Currently, MindSpore cannot read the TensorFlow or Pytorch checkpoints.

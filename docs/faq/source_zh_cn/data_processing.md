@@ -53,7 +53,7 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 
 <br/>
 
-<font size=3>**Q：我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndaary`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？**</font>
+<font size=3>**Q：我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndarray`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？**</font>
 
 A：应该是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[19800]`刚好相差了8倍，建议将数据中`ndarray`的`dtype`指定为`float64`。
 

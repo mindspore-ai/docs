@@ -4,6 +4,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?**</font>
+
+A: The format is not fixed. This step is to create an input for constructing the network structure. You only need to input the correct `shape` in `export`. You can use `np.ones` and `np.zeros` to create an input.
+
+<br/>
+
 <font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
 
 A: When building a network, use `if self.training: x = dropput(x)`. During verification, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
