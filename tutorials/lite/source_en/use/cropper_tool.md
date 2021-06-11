@@ -18,7 +18,7 @@
 
 MindSpore Lite provides the `libmindspore-lite.a` static library cropping tool for runtime, which can filter out the operators in the `ms` model, crop the static library files, and effectively reduce the size of the library files.
 
-The operating environment of the library cutting tool is x86_64, and currently supports the cropping of CPU operators, the compilation command is `bash build.sh -I arm64 -e cpu`, `bash build.sh -I arm32 -e cpu`, and `bash build.sh -I x86_64 -e cpu`.
+The operating environment of the library cutting tool is x86_64, and currently supports the cropping of CPU or GPU operators, and the GPU library supports setting CMAKE's MSLITE_GPU_BACKEND to opencl.
 
 ## Environment Preparation
 
@@ -43,13 +43,13 @@ The following describes the parameters in detail.
 | Parameter                                  | Attribute | Function                                                     | Parameter Type | Default Value | Value Range |
 | ------------------------------------- | -------- | ------------------------------------------------------------ | -------- | ------ | -------- |
 | `--packageFile=<PACKAGEFILE>`         | Mandatory       |The path of the `libmindspore-lite.a` to be cropped.                  | String   | -      | -        |
-| `--configFile=<CONFIGFILE>`           | Mandatory       | The path of the configuration file of the cropper tool. The file path of `cropper_mapping_cpu.cfg` needs to be set to crop the CPU library. | String   | -      | -        |
+| `--configFile=<CONFIGFILE>`           | Mandatory       | The path of the configuration file of the cropper tool. The file path of `cropper_mapping_cpu.cfg` or `cropper_mapping_gpu.cfg` needs to be set to crop the CPU or GPU library. | String   | -      | -        |
 | `--modelFolderPath=<MODELFOLDERPATH>` | Optional       | The model folder path, according to all the `ms` models existing in the folder for library cropping. `modelFile` or `modelFolderPath` parameters must be selected. | String   | -      | -        |
 | `--modelFile=<MODELFILE>`             | Optional       | The model file path is cut according to the specified `ms` model file. Multiple model files are divided by `,`. `modelFile` or `modelFolderPath` parameters must be selected. | String   | -      | -        |
 | `--outputFile=<OUTPUTFILE>`           | Optional       | The saved path of the cut library `libmindspore-lite.a`, it overwrites the source file by default. | String   | -      | -        |
 | `--help`                              | Optional       | Displays the help information about the `cropper` command. | -        | -      | -        |
 
-> The configuration file `cropper_mapping_cpu.cfg` exists in the `tools/cropper` directory in the `mindspore-lite-{version}-linux-x64` package.
+> The configuration file `cropper_mapping_cpu.cfg`  `cropper_mapping_gpu.cfg` exists in the `tools/cropper` directory in the `mindspore-lite-{version}-linux-x64` package.
 
 ## Example
 
@@ -70,3 +70,19 @@ This example will read all the `ms` models contained in the `/model` folder, cro
 ```
 
 In this example, the `libmindspore-lite.a` static library of arm64-cpu will be cropped according to the `ms` model passed by `modelFile`, and the cropped `libmindspore-lite.a` static library will be saved to `/mindspore-lite/lib/` directory.
+
+- Pass in the `ms` model through the folder, and pass the folder path where the model file is located to the `modelFolderPath` parameter to crop the `libmindspore-lite.a` static library of arm64-gpu.
+
+```bash
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_gpu.cfg --modelFolderPath=/model --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+```
+
+This example will read all the `ms` models contained in the `/model` folder, crop the `libmindspore-lite.a` static library of arm64-gpu, and the cropped `libmindspore-lite.a` static library will be saved to `/mindspore-lite/lib/` directory.
+
+- Pass in the `ms` model by file, pass the path where the model file is located to the `modelFile` parameter, and crop the `libmindspore-lite.a` static library of arm64-gpu.
+
+```bash
+./cropper --packageFile=/mindspore-lite-{version}-android-aarch64/inference/lib/libmindspore-lite.a --configFile=./cropper_mapping_gpu.cfg --modelFile=/model/lenet.ms,/model/retinaface.ms  --outputFile=/mindspore-lite/lib/libmindspore-lite.a
+```
+
+In this example, the `libmindspore-lite.a` static library of arm64-gpu will be cropped according to the `ms` model passed by `modelFile`, and the cropped `libmindspore-lite.a` static library will be saved to `/mindspore-lite/lib/` directory.
