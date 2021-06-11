@@ -37,7 +37,7 @@ MindSpore支持多种类型的算子，用户可根据[算子支持](https://www
 
 AI Core 算子是昇腾 AI 处理器计算核心的主要构成，负责执行向量和张量相关的计算密集型算子。TBE（Tensor Virtual Machine）是一种在TVM（Tensor Virtual Machine）框架基础上扩展的算子开发工具，用户可使用 TBE 进行 AI Core 算子信息注册。
 
-AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。MindSpore中同一个算子可能会同时拥有 TBE 算子和AI CPU算子，框架会优先选择 TBE 算子，没有 TBE 算子或者不满足选择 TBE 算子的场景下，会调用AI CPU算子。
+AI CPU算子是AI CPU负责执行昇腾处理器中海思 SoC 的CPU类算子（包括控制算子、标量和向量等通用计算）。MindSpore中同一个算子可能会同时拥有 AI Core 算子和AI CPU算子，框架会优先选择 AI Core 算子，没有 AI Core 算子或者不满足选择的场景下，会调用AI CPU算子。
 
 在完成以上算子的开发之后，可参考下文在 MindSpore 中注册自定义算子。对于Ascend、GPU、CPU三种自定义算子，前端注册方式相同，进行同步说明。后端 Ascend 与GPU/CPU算子注册方式不同，将会分开说明。
 
@@ -107,6 +107,22 @@ class Elu(PrimitiveWithInfer):
         validator.check_tensor_dtype_valid('input_x', input_x, mstype.float_type, self.name)
         return input_x
 ```
+
+以`AssignSub`算子为例说明`__mindspore_signature__`的用法：
+
+```python
+class AssignSub(PrimitiveWithInfer):
+    __mindspore_signature__ = (
+        sig.make_sig('variable', sig.sig_rw.RW_WRITE, dtype=sig.sig_dtype.T),
+        sig.make_sig('value', dtype=sig.sig_dtype.T)
+    )
+```
+
+使用`sig.make_sig`进行校验，有几个输入就有几条`sig.make_sig`。
+
+第一个入参是算子输入的名字，如果是要求Parameter类型，则增加`sig.sig_rw.RW_WRITE`入参，普通输入不传参，使用默认值即可。
+
+第二个入参是进行计算的参数值，dtype是MindSpore中支持隐式转换的特性，使低精度类型向高精度类型进行转换。
 
 #### 反向算子定义
 
