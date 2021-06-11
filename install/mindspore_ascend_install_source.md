@@ -23,12 +23,10 @@
 
 ## 确认系统环境信息
 
-- 确认安装Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/KylinV10 SP1是64位操作系统。
+- 确认安装64位操作系统，其中Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1是经过验证的。
 - 确认安装[GCC 7.3.0版本](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz)。
 - 确认安装[gmp 6.1.2版本](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz)。
 - 确认安装[Python 3.7.5版本](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz)。
-- 确认安装[OpenSSL 1.1.1及以上版本](https://github.com/openssl/openssl.git)。
-    - 安装完成后设置环境变量`export OPENSSL_ROOT_DIR=“OpenSSL安装目录”`。
 - 确认安装[CMake 3.18.3及以上版本](https://cmake.org/download/)。
     - 安装完成后将CMake所在路径添加到系统环境变量。
 - 确认安装[patch 2.5及以上版本](http://ftp.gnu.org/gnu/patch/)。
@@ -99,15 +97,14 @@ bash build.sh -e ascend
 ## 安装MindSpore
 
 ```bash
-chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
-pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 其中：
 
 - 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。
 - `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。
-- `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`，目前Ascend版本可支持以下系统`euleros_aarch64`/`centos_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`/`kylin_aarch64`。
+- `{arch}`表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为`x86_64`。如果系统是ARM架构64位，则写为`aarch64`。
 
 ## 配置环境变量
 
@@ -191,7 +188,7 @@ print(ops.add(x, y))
 
 - 本地源码编译升级
 
-    在源码根目录下执行编译脚本`build.sh`成功后，在`build/package`目录下找到编译生成的whl安装包，然后执行命令进行升级。
+    在源码根目录下执行编译脚本`build.sh`成功后，在`output`目录下找到编译生成的whl安装包，然后执行命令进行升级。
 
     ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl

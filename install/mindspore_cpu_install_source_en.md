@@ -21,11 +21,9 @@ This document describes how to quickly install MindSpore by source code in a Lin
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04 is installed with the 64-bit operating system.
+- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04 are verified.
 - Confirm that [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
 - Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
 - Confirm that [wheel 0.32.0 or later](https://pypi.org/project/wheel/) is installed.
@@ -66,8 +64,7 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-chmod +x build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl
-pip install build/package/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
@@ -103,7 +100,7 @@ Using the following command if you need to update the MindSpore version:
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl

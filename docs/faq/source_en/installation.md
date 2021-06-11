@@ -150,6 +150,24 @@ A: This kind of error may be caused by internet problem when some third party li
 
 <br/>
 
+<font size=3>**Q：What should I do if it prompts that `pthread not found` in CMakeError.txt after the compilation fails?**</font>
+
+A：The real reason for the failure will be showed in the stdout log. CMakeError.txt has no reference value. Please look for the first error in the stdout log.
+
+<br/>
+
+<font size=3>**Q：After the compilation is successful, an error `Undefined reference to XXXX` occurs during runtime, what should I do?**</font>
+
+A: The possible reasons are:
+
+1. If the problem occurs after the code is updated by `git pull`, please delete the `build` directory to exclude the impact of the previous build.
+
+2. If the problem occurs after modifying the code, you can use `c++filt XXXX` to view the meaning of the symbol. It may be caused by unimplemented functions, unimplemented virtual functions, and unlinked dependencies, etc.
+
+3. If the problem occurs on the Ascend platform, after excluding the above reasons, it is likely to be caused by a mismatch between the MindSpore version and the CANN version. For the version matching relationship, please refer to [Installation Guide](https://www.mindspore.cn/install/en).
+
+<br/>
+
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>

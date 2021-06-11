@@ -23,12 +23,10 @@ This document describes how to quickly install MindSpore in a Linux system with 
 
 ## System Environment Information Confirmation
 
-- Confirm that Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/KylinV10 SP1 is installed with the 64-bit operating system.
+- Confirm that the 64-bit operating system is installed, where Ubuntu 18.04/CentOS 7.6/EulerOS 2.8/OpenEuler 20.03/KylinV10 SP1 are verified.
 - Ensure that right version [GCC 7.3.0](http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.gz) is installed.
 - Confirm that [gmp 6.1.2](https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz) is installed.
 - Confirm that [Python 3.7.5](https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz) is installed.
-- Confirm that [OpenSSL 1.1.1 or later](https://github.com/openssl/openssl.git) is installed.
-    - Set system variable `export OPENSSL_ROOT_DIR="OpenSSL installation directory"` after installation.
 - Confirm that [CMake 3.18.3 or later](https://cmake.org/download/) is installed.
     - Add the path where the executable file `cmake` stores to the environment variable PATH.
 - Confirm that [patch 2.5 or later](http://ftp.gnu.org/gnu/patch/) is installed.
@@ -101,15 +99,14 @@ Of which,
 ## Installing MindSpore
 
 ```bash
-chmod +x build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
-pip install build/package/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install output/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 Of which,
 
 - When the network is connected, dependency items are automatically downloaded during .whl package installation. (For details about other dependency items, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)). In other cases, you need to manually install dependency items.
 - `{version}` denotes the version of MindSpore. For example, when you are installing MindSpore 1.1.0, `{version}` should be 1.1.0.
-- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`. Currently, the following systems are supported by Ascend: `euleros_aarch64`/`centos_x86`/`ubuntu_aarch64`/`ubuntu_x86`/`kylin_aarch64`.
+- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be `x86_64`. If the system is ARM architecture 64-bit, then it should be `aarch64`.
 
 ## Configuring Environment Variables
 
@@ -195,7 +192,7 @@ Using the following command if you need to update the MindSpore version.
 
 - Update after source code compilation
 
-    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `build/package`, use the following command to update your version.
+    After successfully executing the compile script `build.sh` in the root path of the source code, find the whl package in path `output`, use the following command to update your version.
 
     ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl

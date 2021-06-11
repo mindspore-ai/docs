@@ -20,27 +20,23 @@
 
 ## 概述
 
-Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200开发者套件又称Atlas 200 Developer Kit（以下简称Atlas 200 DK），是以Atlas 200 AI加速模块为核心的开发者板形态的终端类产品，集成了海思Ascend 310 AI处理器，可以实现图像、视频等多种数据分析与推理计算，可广泛用于智能监控、机器人、无人机、视频服务器等场景。
+Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程介绍如何在Ascend 310上使用MindSpore基于MindIR模型文件执行推理，主要包括以下流程：
 
-本教程介绍如何在Atlas 200 DK上使用MindSpore基于MindIR模型文件执行推理，主要包括以下流程：
+1. 导出MindIR模型文件，这里以ResNet-50模型为例。
 
-1. 开发环境准备，包括制作Atlas 200 DK的SD卡 、配置Python环境和刷配套开发软件包。
+2. 编译推理代码，生成可执行`main`文件。
 
-2. 导出MindIR模型文件，这里以ResNet-50模型为例。
-
-3. 编译推理代码，生成可执行`main`文件。
-
-4. 加载保存的MindIR模型，执行推理并查看结果。
+3. 加载保存的MindIR模型，执行推理并查看结果。
 
 > 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample> 。
 
 ## 开发环境准备
 
-参考[Ascend 310 AI处理器上使用AIR进行推理#开发环境准备](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_air.html#id2)安装设备环境，然后参考[安装指导](https://www.mindspore.cn/install)安装MindSpore。
+参考[安装指导](https://www.mindspore.cn/install)准备Ascend环境与MindSpore。
 
 ## 导出MindIR模型文件
 
-在Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+在CPU/GPU/Ascend 910的机器上训练好目标网络，并保存为CheckPoint文件，通过网络和CheckPoint文件导出对应的MindIR格式模型文件，导出流程参见[导出MindIR格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
 
 > 这里提供使用BatchSize为1的ResNet-50模型导出的示例MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。
 
@@ -282,15 +278,16 @@ export GLOG_v=2
 LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
 
 # lib libraries that the run package depends on
-export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/acllib/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/atc/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
 
 # lib libraries that the mindspore depends on, modify "pip3" according to the actual situation
 export LD_LIBRARY_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore/lib"}' | xargs realpath`:${LD_LIBRARY_PATH}
+# if MindSpore is installed by binary, run "export LD_LIBRARY_PATH=path-to-your-custom-dir:${LD_LIBRARY_PATH}"
 
 # Environment variables that must be configured
 export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/op_impl/built-in/ai_core/tbe            # TBE operator implementation tool path
 export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp                                       # OPP path
-export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/atc/ccec_compiler/bin/:${PATH}                       # TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/fwkacllib/ccec_compiler/bin/:${PATH}                 # TBE operator compilation tool path
 export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                                       # Python library that TBE implementation depends on
 ```
 
@@ -298,6 +295,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}                                
 
 ```bash
 cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{print $2"/mindspore"}' | xargs realpath`
+# if MindSpore is installed by binary, run "cmake . -DMINDSPORE_PATH=path-to-your-custom-dir"
 ```
 
 再执行`make`命令编译即可。
@@ -310,7 +308,7 @@ make
 
 ## 执行推理并查看结果
 
-登录Atlas 200 DK开发者板环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`。
+登录Ascend 310环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/model`。
 创建`test_data`目录放置图片，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample/test_data`。
 就可以开始执行推理了:
 

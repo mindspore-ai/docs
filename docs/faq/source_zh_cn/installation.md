@@ -169,6 +169,24 @@ A：在编译MindSpore时，如果：
 
 <br/>
 
+<font size=3>**Q：编译时报错，打开CMakeError.txt提示pthread找不到怎么办？**</font>
+
+A：真正的失败原因会体现在打屏的日志里，CMakeError.txt无参考价值，请寻找打屏日志中的第一个报错。
+
+<br/>
+
+<font size=3>**Q：编译成功后，运行时报错`Undefined reference to XXXX`怎么办？**</font>
+
+A：可能的原因有：
+
+1. 如果问题是`git pull`更新代码后出现，请删除掉`build`文件夹，排除前次构建的影响。
+
+2. 如果问题是修改代码后出现，可以使用`c++filt XXXX`查看该符号的意义，有可能是函数未实现、虚函数未实现、依赖未链接等原因引起。
+
+3. 如果问题发生在Ascend平台，排除上述原因后，很可能是由于MindSpore版本与CANN版本不匹配引起的，版本匹配关系参考[安装说明](https://www.mindspore.cn/install)。
+
+<br/>
+
 ## 卸载
 
 <font size=3>**Q：如何卸载MindSpore？**</font>
