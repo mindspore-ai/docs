@@ -8,6 +8,10 @@
     - [概述](#概述)
     - [安全导出CheckPoint文件](#安全导出CheckPoint文件)
     - [加载密文CheckPoint文件](#加载密文CheckPoint文件)
+    - [安全导出MindIR文件](#安全导出MindIR文件)
+    - [加载密文MindIR文件](#加载密文MindIR文件)
+    - [端侧模型保护](#端侧模型保护)
+        - [模型转换工具](#模型转换工具)
 
 <!-- TOC -->
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
@@ -15,9 +19,9 @@
 ## 概述
 
 MindSpore框架提供通过加密对模型文件进行保护的功能，使用对称加密算法对参数文件或推理模型进行加密，使用时直接加载密文模型完成推理或增量训练。
-目前加密方案支持在Linux平台下对CheckPoint参数文件的保护。
+目前加密方案支持在Linux平台下对CheckPoint和MindIR模型文件的保护。
 
-以下通过示例来介绍CheckPoint文件的加密保存和读取的方法。
+以下通过示例来介绍加密导出和解密加载的方法。
 
 > 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/model_encrypt_protection/encrypt_checkpoint.py>
 
@@ -66,3 +70,35 @@ param_dict = load_checkpoint('lenet_enc.ckpt', dec_key=b'0123456789ABCDEF', dec_
 - `dec_mode`表示使用哪种解密模式。
 
 分布式场景的方式类似，在调用`load_distributed_checkpoint`时指定`dec_key`和`dec_mode`即可。
+
+## 安全导出MindIR文件
+
+MindSpore提供的`export`接口可导出MindIR、AIR、ONNX等格式的模型，在导出MindIR模型时可用如下方式启用加密保护：
+
+```python
+from mindspore import export
+input_arr = Tensor(np.zeros([32, 3, 32, 32], np.float32))
+export(network, input_arr, file_name='lenet_enc', file_format='MINDIR' enc_key=b'0123456789ABCDEF', enc_mode='AES-GCM')
+```
+
+> AIR和ONNX格式暂不支持加密保护。
+
+## 加载密文MindIR文件
+
+在云侧可以调用`load`接口加载MindIR模型，在加载密文MindIR时，通过指定`dec_key`和`dec_mode`对模型进行解密。
+
+```python
+from mindspore import load
+graph = load('lenet_enc.mindir', dec_key=b'0123456789ABCDEF', dec_mode='AES-GCM')
+```
+
+## 端侧模型保护
+
+### 模型转换工具
+
+MindSpoer Lite提供的模型转换工具conveter可以将密文的mindir模型转化为明文ms模型，用户只需在调用该工具时指明密钥和解密模式即可，注意这里的密钥为十六进制表示的字符串，如前面定义的`b'0123456789ABCDEF'`对应的十六进制表示为`30313233343536373839414243444546`，Linux平台用户可以使用`xxd`工具对字节表示的密钥进行十六进制表达转换。具体调用方法如下：
+
+```shell
+./converter_tools --fmk=MINDIR --modelFile=./lenet_enc.mindir --outputFile=lenet --decryptKey=30313233343536373839414243444546 --decryptMode=AES-GCM
+```
+
