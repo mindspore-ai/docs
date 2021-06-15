@@ -171,17 +171,17 @@ android{
 ```text
 # ============== Set MindSpore Dependencies. =============
 include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/include)
-include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/minddata/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/include)
+include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/minddata/dataset)
 
 add_library(mindspore-lite SHARED IMPORTED)
 add_library(minddata-lite SHARED IMPORTED)
 
 set_target_properties(mindspore-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/lib/libmindspore-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/lib/libmindspore-lite.so)
 set_target_properties(minddata-lite PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/inference/minddata/lib/libminddata-lite.so)
+        ${CMAKE_SOURCE_DIR}/src/main/cpp/${MINDSPORELITE_VERSION}/runtime/minddata/lib/libminddata-lite.so)
 # --------------- MindSpore Lite set End. --------------------
 
 # Link target library.

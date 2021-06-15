@@ -80,7 +80,7 @@ MNIST_Data/
 
 ```bash
 cd /codes/mindspore/output
-tar xzf mindspore-lite-${version}-train-linux-x64-jar.tar.gz
+tar xzf mindspore-lite-${version}-linux-x64-jar.tar.gz
 mkdir ../mindspore/lite/examples/train_lenet_java/lib
 cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/examples/train_lenet_java/lib/
 ```

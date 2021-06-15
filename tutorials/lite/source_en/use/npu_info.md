@@ -51,7 +51,7 @@ For more information about compilation, see [Linux Environment Compilation](http
     For example,
 
         ```bash
-        export LD_LIBRARY_PATH=mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
+        export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
         ```
 
       For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
@@ -80,8 +80,8 @@ on the phone, as shown in the example below:
 For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html).
 
 For environment variable settings, you need to set the directory where the libmindspore-lite.so
-(under the directory `mindspore-lite-{version}-inference-android-{arch}/inference/lib`) and NPU libraries
-(under the directory `mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
+(under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries
+(under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
 The directory is specified in [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
 with compilation option `-I arm64` or `-I arm32`.
 

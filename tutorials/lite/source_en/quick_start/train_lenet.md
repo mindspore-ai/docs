@@ -77,17 +77,17 @@ cd ./mindspore
 
 The `mindspore/lite/examples/train_lenet` directory relative to the MindSpore Lite source code contains this demo's source code.
 
-Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. After download these two files, you need rename the mindspore-lite-{version}-linux-x64.tar.gz to mindspore-lite-{version}-train-linux-x64.tar.gz and rename the mindspore-lite-{version}-android-aarch64.tar.gz to mindspore-lite-{version}-train-android-aarch64.tar.gz. Then put the renamed files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. After download these two files, you need rename the mindspore-lite-{version}-linux-x64.tar.gz to mindspore-lite-{version}-linux-x64.tar.gz and rename the mindspore-lite-{version}-android-aarch64.tar.gz to mindspore-lite-{version}-android-aarch64.tar.gz. Then put the renamed files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
 
 Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
 
 ```bash
 mkdir output
-cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{version}-train-linux-x64.tar.gz
-cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-lite-{version}-train-android-aarch64.tar.gz
+cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{version}-linux-x64.tar.gz
+cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
-You can also [compile from source](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-train-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-train-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
+You can also [compile from source](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
 ### Connect Android Device
 

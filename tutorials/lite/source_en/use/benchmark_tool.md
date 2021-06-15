@@ -41,7 +41,7 @@ To use the Benchmark tool, you need to prepare the environment as follows:
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
     ```bash
-    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/inference/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/runtime/lib:${LD_LIBRARY_PATH}
     ````
 
     ${PACKAGE_ROOT_PATH} is the compiled inference package path after decompressing.
