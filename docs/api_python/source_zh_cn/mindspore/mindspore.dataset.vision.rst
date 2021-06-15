@@ -36,9 +36,9 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.RandomHorizontalFlip
     mindspore.dataset.vision.c_transforms.RandomHorizontalFlipWithBBox
     mindspore.dataset.vision.c_transforms.RandomPosterize
+    mindspore.dataset.vision.c_transforms.RandomResize
     mindspore.dataset.vision.c_transforms.RandomResizedCrop
     mindspore.dataset.vision.c_transforms.RandomResizedCropWithBBox
-    mindspore.dataset.vision.c_transforms.RandomResize
     mindspore.dataset.vision.c_transforms.RandomResizeWithBBox
     mindspore.dataset.vision.c_transforms.RandomRotation
     mindspore.dataset.vision.c_transforms.RandomSelectSubpolicy
@@ -53,7 +53,7 @@ mindspore.dataset.vision.c_transforms
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeRandomCropResizeJpeg
     mindspore.dataset.vision.c_transforms.SoftDvppDecodeResizeJpeg
     mindspore.dataset.vision.c_transforms.UniformAugment
-    mindspore.dataset.vision.c_transforms.HorizontalFlip
+    mindspore.dataset.vision.c_transforms.VerticalFlip
 
 mindspore.dataset.vision.py_transforms
 -------------------------------------------------
@@ -76,6 +76,7 @@ mindspore.dataset.vision.py_transforms
     mindspore.dataset.vision.py_transforms.LinearTransformation
     mindspore.dataset.vision.py_transforms.MixUp
     mindspore.dataset.vision.py_transforms.Normalize
+    mindspore.dataset.vision.py_transforms.NormalizePad
     mindspore.dataset.vision.py_transforms.Pad
     mindspore.dataset.vision.py_transforms.RandomAffine
     mindspore.dataset.vision.py_transforms.RandomColor
