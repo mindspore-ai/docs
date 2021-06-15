@@ -6,6 +6,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 |:----|:----|:----|:----
 |[mindspore.nn.ForwardValueAndGrad](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.ForwardValueAndGrad.html#mindspore.nn.ForwardValueAndGrad)|New|r1.2: Ascend/GPU/CPU|Wrapper Functions
 |[mindspore.nn.TimeDistributed](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.TimeDistributed.html#mindspore.nn.TimeDistributed)|New|r1.2: Ascend/GPU/CPU|Wrapper Functions
+|[mindspore.nn.SparseToDense](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.SparseToDense.html#mindspore.nn.SparseToDense)|New|r1.2: CPU|Utilities
 |[mindspore.nn.BatchNorm3d](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.BatchNorm3d.html#mindspore.nn.BatchNorm3d)|New|r1.2: Ascend/GPU/CPU|Normalization Layers
 |[mindspore.nn.InstanceNorm2d](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.InstanceNorm2d.html#mindspore.nn.InstanceNorm2d)|New|r1.2: GPU|Normalization Layers
 |[mindspore.nn.SyncBatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.SyncBatchNorm.html#mindspore.nn.SyncBatchNorm)|New|r1.2: Ascend|Normalization Layers
@@ -33,9 +34,11 @@ Compared with the previous version, the added, deleted and supported platforms c
 |[mindspore.nn.RMSProp](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.RMSProp.html#mindspore.nn.RMSProp)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Optimizer Functions
 |[mindspore.nn.GroupNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.GroupNorm.html#mindspore.nn.GroupNorm)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Normalization Layers
 |[mindspore.nn.BatchNorm1d](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.BatchNorm1d.html#mindspore.nn.BatchNorm1d)|Changed|r1.1: Ascend/GPU => r1.2: Ascend|Normalization Layers
+|[mindspore.nn.LayerNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.LayerNorm.html#mindspore.nn.LayerNorm)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Normalization Layers
 |[mindspore.nn.HSigmoid](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.HSigmoid.html#mindspore.nn.HSigmoid)|Changed|r1.1: GPU => r1.2: GPU/CPU|Non-linear Activations
 |[mindspore.nn.HSwish](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.HSwish.html#mindspore.nn.HSwish)|Changed|r1.1: GPU => r1.2: GPU/CPU|Non-linear Activations
 |[mindspore.nn.LeakyReLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.LeakyReLU.html#mindspore.nn.LeakyReLU)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Non-linear Activations
+|[mindspore.nn.GELU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.GELU.html#mindspore.nn.GELU)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Non-linear Activations
 |[mindspore.nn.ELU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.ELU.html#mindspore.nn.ELU)|Changed|r1.1: Ascend/GPU => r1.2: Ascend/GPU/CPU|Non-linear Activations
 |[mindspore.nn.get_activation](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.get_activation.html#mindspore.nn.get_activation)|Changed|r1.1: To Be Developed => r1.2: Ascend/GPU/CPU|Non-linear Activations
 |[mindspore.nn.Moments](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/nn/mindspore.nn.Moments.html#mindspore.nn.Moments)|Changed|r1.1: Ascend => r1.2: Ascend/GPU|Math Functions
