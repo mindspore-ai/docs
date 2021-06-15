@@ -39,32 +39,26 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
 
 本篇教程将主要介绍如何在Ascend 910 以及GPU上，使用MindSpore提供的二阶优化器THOR训练ResNet50-v1.5网络和ImageNet数据集。
 > 你可以在这里下载完整的示例代码：
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor> 。
+<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet> 。
 
 示例代码目录结构
 
 ```text
-├── resnet_thor
+├── resnet
     ├── README.md
     ├── scripts
         ├── run_distribute_train.sh         # launch distributed training for Ascend 910
-        └── run_eval.sh                     # launch inference for Ascend 910
+        ├── run_eval.sh                     # launch inference for Ascend 910
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
-        └── run_eval_gpu.sh                 # launch inference for GPU
+        ├── run_eval_gpu.sh                 # launch inference for GPU
     ├── src
-        ├── crossentropy.py                 # CrossEntropy loss function
         ├── config.py                       # parameter configuration
-        ├── dataset_helper.py               # dataset helper for minddata dataset
-        ├── grad_reducer_thor.py            # grad reduce for thor
-        ├── model_thor.py                   # model for train
-        ├── resnet_thor.py                  # resnet50_thor backone
-        ├── thor.py                         # thor optimizer
-        ├── thor_layer.py                   # thor layer
-        └── dataset.py                      # data preprocessing
+        ├── dataset.py                      # data preprocessing
+        ├── CrossEntropySmooth.py           # CrossEntropy loss function
+        ├── lr_generator.py                 # generate learning rate for every step
+        ├── resnet.py                       # ResNet50 backbone
     ├── eval.py                             # infer script
     ├── train.py                            # train script
-    ├── export.py                           # export checkpoint file into air file
-    └── mindspore_hub_conf.py               # config file for mindspore hub repository
 
 ```
 
@@ -123,21 +117,40 @@ import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.communication.management import init, get_rank, get_group_size
 
-def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend"):
+
+def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend", distribute=False,
+                    enable_cache=False, cache_session_id=None):
+    """
+    Create a training or evaluation ImageNet2012 dataset for ResNet50.
+
+    Args:
+        dataset_path(string): the path of dataset.
+        do_train(bool): whether the dataset is used for training or evaluation.
+        repeat_num(int): the repeat times of dataset. Default: 1
+        batch_size(int): the batch size of dataset. Default: 32
+        target(str): the device target. Default: Ascend
+        distribute(bool): data for distribute or not. Default: False
+        enable_cache(bool): whether tensor caching service is used for evaluation. Default: False
+        cache_session_id(int): if enable_cache is set, cache session_id need to be provided. Default: None
+
+    Returns:
+        dataset
+    """
     if target == "Ascend":
         device_num, rank_id = _get_rank_info()
-        num_parallels = 8
     else:
-        init()
-        rank_id = get_rank()
-        device_num = get_group_size()
-        num_parallels = 4
+        if distribute:
+            init()
+            rank_id = get_rank()
+            device_num = get_group_size()
+        else:
+            device_num = 1
 
     if device_num == 1:
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True)
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True,
-                                     num_shards=device_num, shard_id=rank_id)
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                                         num_shards=device_num, shard_id=rank_id)
 
     image_size = 224
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
@@ -162,8 +175,18 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
     type_cast_op = C2.TypeCast(mstype.int32)
 
-    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=num_parallels)
-    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallels)
+    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
+    # only enable cache for eval
+    if do_train:
+        enable_cache = False
+    if enable_cache:
+        if not cache_session_id:
+            raise ValueError("A cache session_id must be provided to use cache.")
+        eval_cache = ds.DatasetCache(session_id=int(cache_session_id), size=0)
+        data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8,
+                                cache=eval_cache)
+    else:
+        data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
 
     # apply batch operations
     data_set = data_set.batch(batch_size, drop_remainder=True)
@@ -178,25 +201,18 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 ## 定义网络
 
-本示例中使用的网络模型为ResNet50-v1.5，先定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)，然后使用二阶优化器自定义的算子替换`Conv2d`和
-和`Dense`算子。定义好的网络模型在在源码`src/resnet_thor.py`脚本中，自定义的算子`Conv2d_thor`和`Dense_thor`在`src/thor_layer.py`脚本中。
-
-- 使用`Conv2d_thor`替换原网络模型中的`Conv2d`
-- 使用`Dense_thor`替换原网络模型中的`Dense`
-
-> 使用THOR自定义的算子`Conv2d_thor`和`Dense_thor`是为了保存模型训练中的二阶矩阵信息，新定义的网络与原网络模型的backbone一致。
+本示例中使用的网络模型为ResNet50-v1.5，定义[ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)。
 
 网络构建完成以后，在`__main__`函数中调用定义好的ResNet50：
 
 ```python
 ...
-from src.resnet_thor import resnet50
+from src.resnet import resnet50 as resnet
 ...
 if __name__ == "__main__":
     ...
-    # define the net
-    net = resnet50(class_num=config.class_num, damping=damping, loss_scale=config.loss_scale,
-                   frequency=config.frequency, batch_size=config.batch_size)
+    # define net
+    net = resnet(class_num=config.class_num)
     ...
 ```
 
@@ -206,23 +222,23 @@ if __name__ == "__main__":
 
 MindSpore支持的损失函数有`SoftmaxCrossEntropyWithLogits`、`L1Loss`、`MSELoss`等。THOR优化器需要使用`SoftmaxCrossEntropyWithLogits`损失函数。
 
-损失函数的实现步骤在`src/crossentropy.py`脚本中。这里使用了深度网络模型训练中的一个常用trick：label smoothing，通过对真实标签做平滑处理，提高模型对分类错误标签的容忍度，从而可以增加模型的泛化能力。
+损失函数的实现步骤在`src/CrossEntropySmooth.py`脚本中。这里使用了深度网络模型训练中的一个常用trick：label smoothing，通过对真实标签做平滑处理，提高模型对分类错误标签的容忍度，从而可以增加模型的泛化能力。
 
 ```python
-class CrossEntropy(Loss):
+class CrossEntropySmooth(Loss):
     """CrossEntropy"""
-    def __init__(self, smooth_factor=0., num_classes=1000):
-        super(CrossEntropy, self).__init__()
+    def __init__(self, sparse=True, reduction='mean', smooth_factor=0., num_classes=1000):
+        super(CrossEntropySmooth, self).__init__()
         self.onehot = ops.OneHot()
+        self.sparse = sparse
         self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
         self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
-        self.ce = nn.SoftmaxCrossEntropyWithLogits()
-        self.mean = ops.ReduceMean(False)
+        self.ce = nn.SoftmaxCrossEntropyWithLogits(reduction=reduction)
 
     def construct(self, logit, label):
-        one_hot_label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
-        loss = self.ce(logit, one_hot_label)
-        loss = self.mean(loss, 0)
+        if self.sparse:
+            label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
+        loss = self.ce(logit, label)
         return loss
 ```
 
@@ -230,14 +246,15 @@ class CrossEntropy(Loss):
 
 ```python
 ...
-from src.crossentropy import CrossEntropy
+from src.CrossEntropySmooth import CrossEntropySmooth
 ...
 if __name__ == "__main__":
     ...
     # define the loss function
     if not config.use_label_smooth:
         config.label_smooth_factor = 0.0
-    loss = CrossEntropy(smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
+    loss = CrossEntropySmooth(sparse=True, reduction="mean",
+                              smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
     ...
 ```
 
@@ -255,27 +272,31 @@ $$ \theta^{t+1} = \theta^t + \alpha F^{-1}\nabla E$$
 - $F^{-1}$：FIM矩阵，在网络中计算获得；
 - $\nabla E$：一阶梯度值。
 
-从参数更新公式中可以看出，THOR优化器需要额外计算的是每一层的FIM矩阵，每一层的FIM矩阵就是之前在自定义的网络模型中计算获得的。FIM矩阵可以对每一层参数更新的步长和方向进行自适应的调整，加速收敛的同时可以降低调参的复杂度。
+从参数更新公式中可以看出，THOR优化器需要额外计算的是每一层的FIM矩阵。FIM矩阵可以对每一层参数更新的步长和方向进行自适应的调整，加速收敛的同时可以降低调参的复杂度。
+
+更多THOR优化器的介绍请参考：[THOR论文](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf)
+
+在调用MindSpore封装的二阶优化器THOR时，优化器会自动调用转换接口，把之前定义好的ResNet50网络中的Conv2d层和Dense层分别转换成对应的[Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py)和[DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py)。
+而在Conv2dThor和DenseThor中可以完成二阶信息矩阵的计算和存储。
+
+> THOR优化器转换前后的网络backbone一致，网络参数保持不变。
+
+在训练主脚本中调用THOR优化器：
 
 ```python
 ...
-if args_opt.device_target == "Ascend":
-    from src.thor import THOR
-else:
-    from src.thor import THOR_GPU as THOR
+from mindspore.nn.optim import thor
 ...
-
 if __name__ == "__main__":
     ...
-    # learning rate setting
-    lr = get_model_lr(0, config.lr_init, config.lr_decay, config.lr_end_epoch, step_size, decay_epochs=39)
+    # learning rate setting and damping setting
+    from src.lr_generator import get_thor_lr, get_thor_damping
+    lr = get_thor_lr(0, config.lr_init, config.lr_decay, config.lr_end_epoch, step_size, decay_epochs=39)
+    damping = get_thor_damping(0, config.damping_init, config.damping_decay, 70, step_size)
     # define the optimizer
-    opt = THOR(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum,
-               filter(lambda x: 'matrix_A' in x.name, net.get_parameters()),
-               filter(lambda x: 'matrix_G' in x.name, net.get_parameters()),
-               filter(lambda x: 'A_inv_max' in x.name, net.get_parameters()),
-               filter(lambda x: 'G_inv_max' in x.name, net.get_parameters()),
-               config.weight_decay, config.loss_scale)
+    split_indices = [26, 53]
+    opt = thor(net, Tensor(lr), Tensor(damping), config.momentum, config.weight_decay, config.loss_scale,
+               config.batch_size, split_indices=split_indices, frequency=config.frequency)
     ...
 ```
 
@@ -289,7 +310,7 @@ MindSpore提供了callback机制，可以在训练过程中执行自定义逻辑
 
 ```python
 ...
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, TimeMonitor, LossMonitor
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 ...
 if __name__ == "__main__":
     ...
@@ -307,23 +328,25 @@ if __name__ == "__main__":
 
 ### 配置训练网络
 
-通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个Model_Thor类，继承MindSpore提供的Model类。在Model_Thor类中增加二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
+通过MindSpore提供的`model.train`接口可以方便地进行网络的训练。THOR优化器通过降低二阶矩阵更新频率，来减少计算量，提升计算速度，故重新定义一个[ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/train/train_thor/model_thor.py)类，继承MindSpore提供的Model类。在ModelThor类中获取THOR的二阶矩阵更新频率控制参数，用户可以通过调整该参数，优化整体的性能。
+MindSpore提供Model类向ModelThor类的一键转换接口。
 
 ```python
 ...
 from mindspore import FixedLossScaleManager
-from src.model_thor import Model_Thor as Model
+from mindspore import Model
+from mindspore.train.train_thor import ConvertModelUtils
 ...
 
 if __name__ == "__main__":
     ...
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    if target == "Ascend":
-        model = Model(net, loss_fn=loss, optimizer=opt, amp_level='O2', loss_scale_manager=loss_scale,
-                      keep_batchnorm_fp32=False, metrics={'acc'}, frequency=config.frequency)
-    else:
-        model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'},
-                      amp_level="O2", keep_batchnorm_fp32=True, frequency=config.frequency)
+    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
+                  amp_level="O2", keep_batchnorm_fp32=False, eval_network=dist_eval_network)
+    if cfg.optimizer == "Thor":
+        model = ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
+                                                          loss_scale_manager=loss_scale, metrics={'acc'},
+                                                          amp_level="O2", keep_batchnorm_fp32=False)  
     ...
 ```
 
@@ -333,19 +356,20 @@ if __name__ == "__main__":
 
 #### Ascend 910
 
-目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。进程均放在后台执行，每个进程创建1个目录，目录名称为`train_parallel`+ `device_id`，用来保存日志信息，算子编译信息以及训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。进程均放在后台执行，每个进程创建1个目录，目录名称为`train_parallel`+ `device_id`，用来保存日志信息，算子编译信息以及训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本。
 
-使用以下命令运行脚本：
+首先在`src/config.py`中将优化器配置为'Thor'，然后使用以下命令运行脚本：
 
 ```bash
-sh run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> <DEVICE_NUM>
+bash run_distribute_train.sh <resnet50> <imagenet2012> <RANK_TABLE_FILE> <DATASET_PATH>
 ```
 
-脚本需要传入变量`RANK_TABLE_FILE`、`DATASET_PATH`和`DEVICE_NUM`，其中：
+脚本需要传入变量`resnet50`、`imagenet2012`、`RANK_TABLE_FILE`和`DATASET_PATH`，其中：
 
+- `resnet50`：训练的网络为ResNet50。
+- `imagenet2012`：训练使用的数据集为ImageNet2012数据集。
 - `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
-- `DEVICE_NUM`：实际的运行卡数。
 
 其余环境变量请参考安装教程中的配置项。
 
@@ -369,11 +393,12 @@ epoch: 42 step: 5004, loss is 1.6453942
 
 ```text
 └─train_parallel0
-    ├─resnet-1_5004.ckpt
-    ├─resnet-2_5004.ckpt
-    │      ......
-    ├─resnet-42_5004.ckpt
-    │      ......
+    ├─ckpt_0
+        ├─resnet-1_5004.ckpt
+        ├─resnet-2_5004.ckpt
+        │      ......
+        ├─resnet-42_5004.ckpt
+        │      ......
 ```
 
 其中，
@@ -381,16 +406,19 @@ epoch: 42 step: 5004, loss is 1.6453942
 
 #### GPU
 
-在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本：
+在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本。
+
+首先在`src/config.py`中将优化器配置为'Thor'，然后使用以下命令运行脚本：
 
 ```bash
-sh run_distribute_train_gpu.sh <DATASET_PATH> <DEVICE_NUM>
+bash run_distribute_train_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH>
 ```
 
-脚本需要传入变量`DATASET_PATH`和`DEVICE_NUM`，其中：
+脚本需要传入变量`resnet50`、`imagenet2012`和`DATASET_PATH`，其中：
 
+- `resnet50`：训练的网络为ResNet50。
+- `imagenet2012`：训练使用的数据集为ImageNet2012数据集。
 - `DATASET_PATH`：训练数据集路径。
-- `DEVICE_NUM`：实际的运行卡数。
 
 在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init()`来使能NCCL。
 
@@ -447,16 +475,20 @@ if __name__ == "__main__":
     ...
     # define net
     net = resnet(class_num=config.class_num)
-    net.add_flags_recursive(thor=False)
 
     # load checkpoint
     param_dict = load_checkpoint(args_opt.checkpoint_path)
-    keys = list(param_dict.keys())
-    for key in keys:
-        if "damping" in key:
-            param_dict.pop(key)
     load_param_into_net(net, param_dict)
     net.set_train(False)
+
+    # define loss
+    if args_opt.dataset == "imagenet2012":
+        if not config.use_label_smooth:
+            config.label_smooth_factor = 0.0
+        loss = CrossEntropySmooth(sparse=True, reduction='mean',
+                                  smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
+    else:
+        loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define model
     model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
@@ -464,6 +496,7 @@ if __name__ == "__main__":
     # eval model
     res = model.eval(dataset)
     print("result:", res, "ckpt=", args_opt.checkpoint_path)
+    ...
 ```
 
 ### 执行推理
@@ -475,11 +508,13 @@ if __name__ == "__main__":
 在Ascend 910硬件平台上，推理的执行命令如下：
 
 ```bash
-sh run_eval.sh <DATASET_PATH> <CHECKPOINT_PATH>
+bash run_eval.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+脚本需要传入变量`resnet50`、`imagenet2012`、`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
 
+- `resnet50`： 推理的网络为ResNet50.
+- `imagenet2012`: 推理使用的数据集为ImageNet2012。
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
 
@@ -497,11 +532,13 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
 在GPU硬件平台上，推理的执行命令如下：
 
 ```bash
-sh run_eval_gpu.sh <DATASET_PATH> <CHECKPOINT_PATH>
+  bash run_eval_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-脚本需要传入变量`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+脚本需要传入变量`resnet50`、`imagenet2012`、`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
 
+- `resnet50`： 推理的网络为ResNet50.
+- `imagenet2012`: 推理使用的数据集为ImageNet2012。
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
 
