@@ -106,7 +106,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Where, the table of Cache Server Configuration lists five detailed configuration information. Active sessions shows the list of active session ID in current server if any.
 
-    Cache server generates log files with filename "cache_server.\<hostname\>.\<username\>.log.\<severity level\>.\<date-time\>.\<pid\>".
+    Cache server generates log files with filename "cache_server.\<hostname\>.\<username\>.log.\<severity level\>.\<date-time\>.\<pid\>". Note that there might be masses of DEBUG logs printed to the screen when `GLOG_v=0` is set.
 
     > - To enable data spilling, you need to use `-s` to set spilling path when starting cache server. Otherwise, this feature is default to be disabled and it will bring up a memory-only cache server.
 
