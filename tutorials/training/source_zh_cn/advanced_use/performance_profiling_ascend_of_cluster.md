@@ -10,10 +10,11 @@
     - [分布式训练](#分布式训练)
     - [收集集群性能数据](#收集集群性能数据)
     - [启动MindInsight](#启动mindinsight)
-        - [性能分析](#性能分析)
-            - [集群迭代轨迹性能数据分析](#集群迭代轨迹性能数据分析)
-        - [资源利用](#资源利用)
-            - [集群内存使用情况分析](#集群内存使用情况分析)
+    - [训练性能](#训练性能)
+        - [集群迭代轨迹性能数据分析](#集群迭代轨迹性能数据分析)
+        - [集群通信性能数据分析](#集群通信性能数据分析)
+    - [资源利用](#资源利用)
+        - [集群内存使用情况分析](#集群内存使用情况分析)
     - [规格](#规格)
     - [注意事项](#注意事项)
 
@@ -208,26 +209,82 @@ done
 
 启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
-### 集群性能分析
+## 训练性能
 
-用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据。集群性能分析包括集群迭代轨迹分析。
+用户从训练列表中选择指定的训练，点击性能调试，可以查看该次训练的性能数据。集群训练性能包括集群迭代轨迹分析、集群通信性能分析。
 
-#### 集群迭代轨迹分析
+![cluster_summary.png](./images/cluster_summary.png)
+
+图1：集群训练性能总览
+
+图1为集群训练性能总揽，是对集群迭代轨迹组件、集群通信性能组件的总体呈现。各组件展示内容如下：
+
+- 集群迭代轨迹：展示集群中所有卡的迭代轨迹信息；总览页面展示了集群迭代轨迹性能。
+- 集群通信性能: 展示集群中所有卡的通信性能以及全网链路性能；总览页面展示了集群通信性能。
+
+### 集群迭代轨迹分析
 
 使用集群迭代轨迹分析组件，可以找出集群训练中的慢主机、慢卡。
 集群迭代轨迹分析组件展示所有卡的迭代信息，包括迭代间隙、前反向、迭代拖尾，均支持排序操作。其中迭代间隙反映了数据处理阶段的快慢，通过卡的迭代间隙时间可以反映出对应主机处理数据的快慢。卡的前反向时间反映了卡的计算能力。迭代拖尾反映了all_reduce耗时以及并行情况。
 
 ![cluster_iterative_trajectory.png](./images/cluster_iterative_trajectory.png)
 
-图1：集群迭代轨迹
+图2：集群迭代轨迹
 
-图1展示了集群迭代轨迹分析页面，默认展示卡的性能平均值，支持查询特定step下的卡的迭代轨迹信息。通过点击单卡中的详情连接，也可以跳转到单卡的详细性能展示页面，查询详细的单卡性能数据。
+图2展示了集群迭代轨迹分析页面，默认展示卡的性能平均值，支持查询特定step下的卡的迭代轨迹信息。通过点击单卡中的详情连接，也可以跳转到单卡的详细性能展示页面，查询详细的单卡性能数据。
 
 ![single_car_performance_overall.png](./images/single_car_performance_overall.png)
 
-图2：单卡性能信息
+图3：单卡性能信息
 
-图2展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend.html)。
+
+### 集群通信性能分析
+
+集群通信性能组件从两个维度来展示集群通信性能信息，以卡为粒度展示和全网链路展示。
+
+![cluster_communication_info.png](./images/cluster_communication_info.png)
+
+图4：集群通信性能分析
+
+图4展示了集群通信性能分析页面，包含逻辑卡通信性能以及全网链路信息（所有逻辑卡链路信息）。
+
+逻辑卡通信性能TAB页主要用来展示逻辑卡的通信性能，包括通信时间、等待时间、逻辑卡链路信息。
+
+- 通信时间：表示通信算子的通信耗时。如果通信耗时过长，有可能是某条链路有问题，可以通过链路带宽定位到具体的链路。通信时间计算方式为统计SDMA链路（server内通信）和RDMA链路（server间通信）的通信算子总耗时。如果是SDMA链路，取`Reduce inline`和`Memcpy`算子总时间作为通信时间；如果是RDMA链路，取连续三个算子`RDMASendPayload`、`RDMASendNotify`、`Notify Wait`的总时间为通信时间。
+- 等待时间：也可称为同步时间。卡间进行通信前，首先会进行同步，确保通信的两张卡同步完成，再进行通信。等待时间计算方式为统计所有`Notify Wait`算子总耗时并减去RDMA链路通信时间中的`Notify Wait`算子耗时。
+- 逻辑卡链路信息：显示源卡为该卡或者目的卡为该卡的链路信息。链路信息包括通信时间、通信量、带宽（通信量除以通信时间）、链路类型。其中链路类型包含SDMA链路（server内通信链路）和RDMA链路（server间通信链路）。点击详情后，通过弹窗的方式展示。
+
+![rank_id_link_info.png](./images/rank_id_link_info.png)
+
+图5:逻辑卡链路信息
+
+全网链路信息TAB页面展示所有逻辑卡的链路信息，提供源卡、目的卡、链路类型的选择。
+
+![rank_ids_link_info.png](./images/rank_ids_link_info.png)
+
+图6：全网链路信息
+
+默认不收集通信性能数据，需要通过`profile_communication`参数打开通信性能数据开关，使用示例如下：
+
+```python
+from mindspore.profiler import Profiler
+from mindspore import Model, nn, context
+
+# Init context env
+context.set_context(mode=context.GRAPH_MODE, device_target='Ascend', device_id=int(os.environ["DEVICE_ID"]))
+
+# Init Profiler
+# Note that 'data' directory is created in current path by default. To visualize the profiling data by MindInsight,
+# 'data' directory should be placed under summary-base-dir.
+profiler = Profiler(profile_communication=True)
+
+# Train Model
+Model.train()
+
+# Profiler end
+profiler.analyse()
+```
 
 ## 资源利用
 
