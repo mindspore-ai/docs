@@ -286,6 +286,12 @@ Model.train()
 profiler.analyse()
 ```
 
+使用MindInsight可视化通信性能数据需要安装Ascend 910 AI处理器配套软件包提供的通信性能数据解析whl包，whl包随配套软件包发布，参考如下命令完成安装。
+
+```bash
+pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
+```
+
 ## 资源利用
 
 ### 集群内存使用情况分析
