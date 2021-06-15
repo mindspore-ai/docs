@@ -175,11 +175,11 @@ from mindspore_serving import server
 def start():
     servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="resnet50",
                                                  device_ids=(0, 1))
     server.start_servables(servable_configs=servable_config)
 
-    server.start_grpc_server(address="unix:add_test_temp_file")
+    server.start_grpc_server(address="unix:/tmp/resnet50_test_temp_file")
 
 
 if __name__ == "__main__":
@@ -194,7 +194,7 @@ from mindspore_serving.client import Client
 
 
 def run_classify_top1():
-    client = Client("unix:add_test_temp_file", "resnet50", "classify_top1")
+    client = Client("unix:/tmp/resnet50_test_temp_file", "resnet50", "classify_top1")
     instances = []
     for path, _, file_list in os.walk("./test_image/"):
         for file_name in file_list:

@@ -23,9 +23,7 @@ MindSpore Serving支持`gPRC`和`RESTful`两种请求方式。本章节介绍`RE
 
 部署`Serving`参考[快速入门](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_example.html) 章节。
 
-通过`master.start_restful_server`接口启动`RESTful`服务；另外，可通过`master.start_grpc_server`启动`gRPC`服务。
-
-> `RESTful`客户端不依赖特定硬件平台，Serving服务端当前支持`Ascend310`、`Ascend910`和`Nvidia GPU`硬件环境。
+我们可以通过`mindspore_serving.server.start_restful_server`接口启动`RESTful`服务。
 
 ## 请求方式
 

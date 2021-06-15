@@ -26,15 +26,15 @@ MindSpore Serving是一个轻量级、高性能的服务模块，旨在帮助Min
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以通过[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时通过[MindSpore Serving环境配置页面](https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend_install_pip.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
 
 ### 下载样例
 
-请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/add/)。
+请先[下载样例](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/)。
 
 ### 导出模型
 
-在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
+在`export_model`目录下，使用[add_model.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/export_model/add_model.py)，构造一个只有Add算子的网络，并导出MindSpore推理部署模型。
 
 ```python
 import os
@@ -99,18 +99,18 @@ if __name__ == "__main__":
 启动Serving服务，以Add用例为例，需要如下文件列表：
 
 ```text
-test_dir
+tensor_add
 ├── add/
 │    └── servable_config.py
 │    └── 1/
 │        └── tensor_add.mindir
-└── master_with_worker.py
+└── serving_server.py
 ```
 
-- `master_with_worker.py`为启动服务脚本文件。
+- `serving_server.py`为启动服务脚本文件。
 - `add`为模型文件夹，文件夹名即为模型名。
 - `tensor_add.mindir`为上一步网络生成的模型文件，放置在文件夹1下，1为版本号，不同的版本放置在不同的文件夹下，版本号需以纯数字串命名，默认配置下启动最大数值的版本号的模型文件。
-- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/example/add/add/servable_config.py)为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
+- [servable_config.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/add/servable_config.py)为[模型配置文件](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html)，其定义了模型的处理函数，包括`add_common`和`add_cast`两个方法，`add_common`定义了输入为两个普通float32类型的加法操作，`add_cast`定义输入类型为其他类型，经过输入类型转换float32后的加法操作。
 
 模型配置文件内容如下：
 
@@ -149,7 +149,7 @@ def add_cast(x1, x2):
 
 #### 启动服务
 
-执行[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/add/serving_server.py)，完成服务启动：
+执行[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_server.py)，完成服务启动：
 
 ```python
 import os
@@ -174,12 +174,12 @@ if __name__ == "__main__":
 
 上述启动脚本将在设备0和1上共加载和运行两个`add`推理副本，来自客户端的推理请求将被切割分流到两个推理副本。
 
-当服务端打印日志`Serving gRPC start success, listening on 127.0.0.1:5500`时，表示Serving服务已加载推理模型完毕。
+当服务端打印日志`Serving RESTful server start success, listening on 127.0.0.1:1500`时，表示Serving RESTful服务启动成功，推理模型已成功加载。
 
 ### 执行推理
 
 客户端提供两种方式访问推理服务，一种是通过[gRPC方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html)，一种是通过[RESTful方式](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_restful.html)，本文以gRPC方式为例。
-使用[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/add/serving_client.py)，启动Python客户端。
+使用[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py)，启动Python客户端。
 
 ```python
 import numpy as np

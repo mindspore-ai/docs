@@ -23,9 +23,7 @@ MindSpore Serving supports both `gPRC` and `RESTful` request modes. The followin
 
 For details about how to deploy `Serving`, see [MindSpore Serving-based Inference Service Deployment](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html).
 
-Use the `master.start_restful_server` API to start the `RESTful` service. Alternatively, you can use `master.start_grpc_server` to start the `gRPC` service.
-
-> `RESTful` clients do not depend on specific hardware platforms. Currently, the Serving server supports `Ascend 310`, `Ascend 910` and `Nvidia GPU` hardware environments.
+We can use the `mindspore_serving.server.start_restful_server` API to start the `RESTful` service.
 
 ## Request Method
 
