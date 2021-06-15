@@ -117,6 +117,29 @@ mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
+> 在semi_auto_parallel模式下，如果一个Parameter被多个算子共享，则需要保证该Parameter在每个算子中的排布都一致，否则构图将会失败。比如下面这个例子中，mul1和mul2共享权重weight，但mul1对weight按行切8份，而mul2对weight按列切8份，weight在两个算子中的排布不一致，构图将会失败：
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import Tensor, Parameter
+from mindspore.nn import Cell
+
+class Net(Cell):
+    """Net definition"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul1 = ops.Mul().shard(((8, 1), (8, 1)))
+        self.mul2 = ops.Mul().shard(((1, 8), (1, 8)))
+        self.weight = Parameter(Tensor(np.ones([16, 32]), dtype=ms.float32), "weight1")
+
+    def construct(self, x):
+        out = self.mul1(x, self.weight)
+        out = self.mul2(out, self.weight)
+        return out
+```
+
 #### all_reduce_fusion_config
 
 `all_reduce_fusion_config`可以让用户自定义梯度AllReduce融合切分策略。出于减少资源消耗及算子执行间隙的目的，框架默认将所有反向梯度聚合的AllReduce融合成一个算子运算，但当模型较大时，这会造成迭代拖尾耗时增加。用户可结合具体网络，通过设置该参数，手动调优找到性能最好的融合切分策略。

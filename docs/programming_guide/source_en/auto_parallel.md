@@ -115,6 +115,29 @@ mul = ops.Mul().shard(((2, 1), (2, 1)))
 context.get_auto_parallel_context("parallel_mode")
 ```
 
+> In semi_auto_parallel mode, if a parameter is used by multiple operators, please ensure that the parameter layout in each operator is consistent, otherwise an error will be reported during compilation. In the following example, mul1 and mul2 share the weight, but mul1 splits weight into 8 slices by row, however, mul2 splits the weight into 8 slices by column. The layout of weight in the two operators is inconsistent, compilation will be failed.
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import Tensor, Parameter
+from mindspore.nn import Cell
+
+class Net(Cell):
+    """Net definition"""
+    def __init__(self):
+        super(Net, self).__init__()
+        self.mul1 = ops.Mul().shard(((8, 1), (8, 1)))
+        self.mul2 = ops.Mul().shard(((1, 8), (1, 8)))
+        self.weight = Parameter(Tensor(np.ones([16, 32]), dtype=ms.float32), "weight1")
+
+    def construct(self, x):
+        out = self.mul1(x, self.weight)
+        out = self.mul2(out, self.weight)
+        return out
+```
+
 #### all_reduce_fusion_config
 
 `all_reduce_fusion_config` allows users to customize the AllReduce segmentation policy by gradient aggregation. To reduce resource consumption and operator execution gaps, the framework fusions all the reverse gradient aggregation AllReduce operators into one by default. However, when the model is large, the iteration smearing time increases. You can set this parameter based on the actual network to manually tune and find the optimal segmentation policy by gradient aggregation.
