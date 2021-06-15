@@ -105,7 +105,7 @@ class Dice(Metric):
 
 在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py):
 
-```python
+```text
 __all__ = [
 …
     "Dice",
