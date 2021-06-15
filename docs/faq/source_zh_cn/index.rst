@@ -12,6 +12,7 @@ MindSpore FAQ
 
   installation
   frontend_syntax
+  frontend_compile
   backend_compile
   operators_compile
   data_processing
