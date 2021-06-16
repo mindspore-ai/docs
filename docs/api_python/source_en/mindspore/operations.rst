@@ -241,6 +241,7 @@ Array Operators
     mindspore.ops.IsFinite
     mindspore.ops.IsInstance
     mindspore.ops.IsSubClass
+    mindspore.ops.MaskedSelect
     mindspore.ops.Meshgrid
     mindspore.ops.Ones
     mindspore.ops.OnesLike
