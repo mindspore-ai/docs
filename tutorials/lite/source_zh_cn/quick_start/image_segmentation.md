@@ -119,7 +119,7 @@ app
 
 ### 配置MindSpore Lite依赖项
 
-Android调用MindSpore Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成`mindspore-lite-{version}-inference-android.tar.gz`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
+Android调用MindSpore Android AAR时，需要相关库文件支持。可通过MindSpore Lite[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)生成`mindspore-lite-{version}-android.tar.gz`库文件包并解压缩（包含`mindspore-lite-{version}.aar`库文件）。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 

@@ -47,7 +47,7 @@ bash build.sh -I arm64 -e npu
     配置好环境变量，将会动态加载libhiai.so, libhiai_ir.so, libhiai_ir_build.so。例如：
 
     ```bash
-    export LD_LIBRARY_PATH=mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
     ```
 
 - Benchmark测试NPU推理
@@ -72,8 +72,8 @@ bash build.sh -I arm64 -e npu
 有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
 
 有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)中编译选项为`-I arm64`或`-I arm32`时的目录结构，
-将libmindspore-lite.so（目录为`mindspore-lite-{version}-inference-android-{arch}/inference/lib`）和
-NPU库（目录为`mindspore-lite-{version}-inference-android-{arch}/inference/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
+将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和
+NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
 
 ## 芯片支持
 

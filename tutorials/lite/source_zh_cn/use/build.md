@@ -122,7 +122,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | 设置GPU后端，仅在`-I arm64`时有效 | opencl、vulkan、cuda、off | opencl |
 | MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | on |
-| MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | off |
+| MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具，仅在`-I x86_64`时有效 | on、off | on |
@@ -130,7 +130,6 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 | MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
 
 > - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
-> - 开启MSLITE_ENABLE_TRAIN只生成训练版本。
 > - 修改选项后，添加`-i`参数进行增量编译不生效。
 
 ### 编译示例
@@ -172,7 +171,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 
 执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
 
-- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`：包含模型推理框架runtime(cpp)和配套工具。
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含模型推理框架runtime(cpp)和配套工具。
 
 - `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
 
@@ -183,7 +182,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
-tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
@@ -192,7 +191,7 @@ unzip mindspore-lite-maven-{version}.zip
 仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
 
 ```text
-mindspore-lite-{version}-inference-linux-x64
+mindspore-lite-{version}-linux-x64
 └── tools
     └── converter
         ├── include
@@ -211,7 +210,7 @@ mindspore-lite-{version}-inference-linux-x64
 - `-I x86_64`编译选项下获得codegen，内容如下：
 
     ```text
-    mindspore-lite-{version}-inference-linux-x64
+    mindspore-lite-{version}-linux-x64
     └── tools
         └── codegen # 代码生成工具
             ├── codegen          # 可执行程序
@@ -230,7 +229,7 @@ mindspore-lite-{version}-inference-linux-x64
 - `-I arm64`或`-I arm32`编译选项下获得codegen，内容如下：
 
     ```text
-    mindspore-lite-{version}-inference-android-{arch}
+    mindspore-lite-{version}-android-{arch}
     └── tools
         └── codegen # 代码生成工具
             ├── include   # 推理框架头文件
@@ -245,7 +244,7 @@ mindspore-lite-{version}-inference-linux-x64
 仅在`-I x86_64`编译选项下且`mindspore/mindspore/lite/CMakeLists.txt`中的`ENABLE_MODEL_OBF`选项开启时，获得msobfuscator可执行程序，内容如下：
 
 ```text
-mindspore-lite-{version}-inference-linux-x64
+mindspore-lite-{version}-linux-x64
 └── tools
     └── obfuscator # 模型混淆工具
         └── msobfuscator          # 可执行程序
@@ -258,8 +257,8 @@ mindspore-lite-{version}-inference-linux-x64
 - 当编译选项为`-I x86_64`时：
 
     ```text
-    mindspore-lite-{version}-inference-linux-x64
-    ├── inference
+    mindspore-lite-{version}-linux-x64
+    ├── runtime
     │   ├── include  # 推理框架头文件
     │   │   └── registry # 自定义算子注册头文件
     │   └── lib      # 推理框架库
@@ -287,8 +286,8 @@ mindspore-lite-{version}-inference-linux-x64
 - 当编译选项为`-I arm64`或`-I arm32`时：
 
     ```text
-    mindspore-lite-{version}-inference-android-{arch}
-    ├── inference
+    mindspore-lite-{version}-android-{arch}
+    ├── runtime
     │   ├── include     # 推理框架头文件
     │   │   └── registry # 自定义算子注册头文件
     │   ├── lib         # 推理框架库
@@ -318,9 +317,9 @@ mindspore-lite-{version}-inference-linux-x64
 
 ### 端侧训练框架编译输出
 
-如果开启了MSLITE_ENABLE_TRAIN选项，会生成训练runtime和配套工具，如下：
+如果开启了MSLITE_ENABLE_TRAIN选项，默认开启，会生成训练runtime和配套工具，如下：
 
-`mindspore-lite-{version}-train-{os}-{arch}.tar.gz`：模型训练框架runtime和配套工具。
+`mindspore-lite-{version}-{os}-{arch}.tar.gz`：模型训练框架runtime和配套工具。
 
 > - version: 输出件版本号，与所编译的分支代码对应的版本一致。
 > - os: 输出件应部署的操作系统。
@@ -329,7 +328,7 @@ mindspore-lite-{version}-inference-linux-x64
 执行解压缩命令，获取编译后的输出件：
 
 ```bash
-tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
 ```
 
 #### 训练Runtime及配套工具目录结构说明
@@ -339,14 +338,14 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 - 当编译选项为`-I x86_64`时：
 
     ```text
-    mindspore-lite-{version}-train-linux-x64
+    mindspore-lite-{version}-linux-x64
     ├── tools
     │   ├── benchmark_train # 训练模型性能与精度调测工具
     │   ├── converter       # 模型转换工具
     │   └── cropper         # 库裁剪工具
     │       ├── cropper                 # 库裁剪工具可执行文件
     │       └── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
-    └── train
+    └── runtime
         ├── include  # 训练框架头文件
         │   └── registry # 自定义算子注册头文件
         ├── lib      # 训练框架库
@@ -362,10 +361,10 @@ tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
 - 当编译选项为`-I arm64`或`-I arm32`时：
 
     ```text
-    mindspore-lite-{version}-train-android-{arch}
+    mindspore-lite-{version}-android-{arch}
     ├── tools
     │   └── benchmark_train # 训练模型性能与精度调测工具
-    └── train
+    └── runtime
         ├── include # 训练框架头文件
         │   └── registry # 自定义算子注册头文件
         ├── lib     # 训练框架库
@@ -425,14 +424,14 @@ call build.bat lite 8
 
 编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
 
-- `mindspore-lite-{version}-inference-win-x64.zip`：包含模型推理框架runtime和配套工具。
+- `mindspore-lite-{version}-win-x64.zip`：包含模型推理框架runtime和配套工具。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
 执行解压缩命令，获取编译后的输出件：
 
 ```bat
-unzip mindspore-lite-{version}-inference-win-x64.zip
+unzip mindspore-lite-{version}-win-x64.zip
 ```
 
 #### Runtime及配套工具目录结构说明
@@ -440,8 +439,8 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 Runtime及配套工具包括以下几部分：
 
 ```text
-mindspore-lite-{version}-inference-win-x64
-├── inference
+mindspore-lite-{version}-win-x64
+├── runtime
 │   ├── include # 推理框架头文件
 │   │   └── registry     # 自定义算子注册头文件
 │   └── lib

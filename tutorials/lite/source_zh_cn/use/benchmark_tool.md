@@ -41,7 +41,7 @@
 - 将推理需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
-    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/inference/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=${PACKAGE_ROOT_PATH}/runtime/lib:${LD_LIBRARY_PATH}
     ```
 
     其中${PACKAGE_ROOT_PATH}是编译得到的包解压后的根目录。
@@ -224,7 +224,7 @@ Model = model.ms, NumThreads = 1, MinRunTime = 0.104000 ms, MaxRunTime = 0.17900
 - 将推理需要的动态链接库加入环境变量PATH。
 
     ```bash
-    set PATH=%PACKAGE_ROOT_PATH%\inference\lib;%PATH%
+    set PATH=%PACKAGE_ROOT_PATH%\runtime\lib;%PATH%
     ```
 
     其中%PACKAGE_ROOT_PATH%是编译得到的包解压后的根目录。

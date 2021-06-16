@@ -122,7 +122,7 @@ The following describes the compilation parameter of `build.sh` and the options 
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | Set the GPU backend, only valid when `-I arm64` | opencl, vulkan, cuda, off | opencl |
 | MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on、off | on |
-| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | off |
+| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on、off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on、off | off |
 | MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on、off | on |
@@ -130,7 +130,6 @@ The following describes the compilation parameter of `build.sh` and the options 
 | MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
 
 > - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
-> - Enabling MSLITE_ENABLE_TRAIN only generates the training version.
 > - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
 
 ### Compilation Example
@@ -172,7 +171,7 @@ Then, run the following commands in the root directory of the source code to com
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-inference-{os}-{arch}.tar.gz`: Contains model inference framework runtime (cpp), and related tools.
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model inference framework runtime (cpp), and related tools.
 - `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
 
 > - version: Version of the output, consistent with that of the MindSpore.
@@ -182,7 +181,7 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 Execute the decompression command to obtain the compiled output:
 
 ```bash
-tar -xvf mindspore-lite-{version}-inference-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
 unzip mindspore-lite-maven-{version}.zip
 ```
 
@@ -191,7 +190,7 @@ unzip mindspore-lite-maven-{version}.zip
 The conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
 
 ```text
-mindspore-lite-{version}-inference-linux-x64
+mindspore-lite-{version}-linux-x64
 └── tools
     └── converter
         ├── include
@@ -210,7 +209,7 @@ The codegen executable program is only available under the `-I x86_64` compilati
 - When the compilation option is `-I x86_64`:
 
     ```text
-    mindspore-lite-{version}-inference-linux-x64
+    mindspore-lite-{version}-linux-x64
     └── tools
         └── codegen # Code generation tool
             ├── codegen          # Executable program
@@ -229,7 +228,7 @@ The codegen executable program is only available under the `-I x86_64` compilati
 - When the compilation option is `-I arm64` or `-I arm32`:
 
     ```text
-    mindspore-lite-{version}-inference-android-{arch}
+    mindspore-lite-{version}-android-{arch}
     └── tools
         └── codegen # Code generation tool
             └── operator_library # Operator library
@@ -245,7 +244,7 @@ The codegen executable program is only available under the `-I x86_64` compilati
 The obfuscation tool is only available under the `-I x86_64` compilation option and the `ENABLE_MODEL_OBF` compilation option in `mindspore/mindspore/lite/CMakeLists.txt` is turned on, the content includes the following parts:
 
 ```text
-mindspore-lite-{version}-inference-linux-x64
+mindspore-lite-{version}-linux-x64
 └── tools
     └── obfuscator # Model obfuscation tool
         └── msobfuscator          # Executable program
@@ -258,8 +257,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-I x86_64`:
 
     ```text
-    mindspore-lite-{version}-inference-linux-x64
-    ├── inference
+    mindspore-lite-{version}-linux-x64
+    ├── runtime
     │   ├── include  # Header files of inference framework
     │   │   └── registry # Header files of customized op registration
     │   └── lib      # Inference framework library
@@ -287,8 +286,8 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 - When the compilation option is `-I arm64` or `-I arm32`:
 
     ```text
-    mindspore-lite-{version}-inference-android-{arch}
-    ├── inference
+    mindspore-lite-{version}-android-{arch}
+    ├── runtime
     │   ├── include     # Header files of inference framework
     │   │   └── registry # Header files of customized op registration
     │   ├── lib         # Inference framework library
@@ -318,9 +317,9 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
 
 ### Training Output Description
 
-If the MSLITE_ENABLE_TRAIN option is turned on, the training Runtime and related tools will be generated, as follows:
+If the MSLITE_ENABLE_TRAIN option is turned on, default on, the training Runtime and related tools will be generated, as follows:
 
-- `mindspore-lite-{version}-train-{os}-{arch}.tar.gz`: Contains model training framework and related tool.
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model training framework and related tool.
 
 > - version: Version of the output, consistent with that of the MindSpore.
 > - os: Operating system on which the output will be deployed.
@@ -329,7 +328,7 @@ If the MSLITE_ENABLE_TRAIN option is turned on, the training Runtime and related
 Execute the decompression command to obtain the compiled output:
 
 ```bash
-tar -xvf mindspore-lite-{version}-train-{os}-{arch}.tar.gz
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
 ```
 
 #### Description of Training Runtime and Related Tools' Directory Structure
@@ -339,14 +338,14 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 - When the compilation option is `-I x86_64`:
 
     ```text
-    mindspore-lite-{version}-train-linux-x64
+    mindspore-lite-{version}-linux-x64
     ├── tools
     │   ├── benchmark_train # Training model benchmark tool
     │   ├── converter       # Model conversion tool
     │   └── cropper         # Static library crop tool
     │       ├── cropper                 # Executable file of static library crop tool
     │       └── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
-    └── train
+    └── runtime
         ├── include  # Header files of training framework
         │   └── registry # Header files of customized op registration
         ├── lib      # Inference framework library
@@ -362,11 +361,11 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 - When the compilation option is `-I arm64` or `-I arm32`:  
 
     ```text
-    mindspore-lite-{version}-train-android-{arch}
+    mindspore-lite-{version}-android-{arch}
     ├── tools
     │   ├── benchmark       # Benchmarking tool
     │   ├── benchmark_train # Training model benchmark tool
-    └── train
+    └── runtime
         ├── include # Header files of training framework
         │   └── registry # Header files of customized op registration
         ├── lib     # Training framework library
@@ -426,14 +425,14 @@ call build.bat lite 8
 
 After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
 
-- `mindspore-lite-{version}-inference-win-x64.zip`: Contains model inference framework and related tool.
+- `mindspore-lite-{version}-win-x64.zip`: Contains model inference framework and related tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 
 Execute the decompression command to obtain the compiled output:
 
 ```bat
-unzip mindspore-lite-{version}-inference-win-x64.zip
+unzip mindspore-lite-{version}-win-x64.zip
 ```
 
 #### Description of Runtime and Related Tools' Directory Structure
@@ -441,8 +440,8 @@ unzip mindspore-lite-{version}-inference-win-x64.zip
 The content includes the following parts:
 
 ```text
-mindspore-lite-{version}-inference-win-x64
-├── inference
+mindspore-lite-{version}-win-x64
+├── runtime
 │   ├── include # Header files of inference framework
 │   │   └── registry     # Header files of customized op registration
 │   └── lib

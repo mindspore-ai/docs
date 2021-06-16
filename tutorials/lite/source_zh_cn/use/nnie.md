@@ -22,7 +22,7 @@
 ### 模型转换工具converter目录结构说明
 
 ```text
-mindspore-lite-{version}-inference-linux-x64
+mindspore-lite-{version}-runtime-linux-x64
 └── tools
     └── converter
         └── providers
@@ -58,7 +58,7 @@ mindspore-lite-{version}-linux-aarch32
 1. 进入**版本发布件根路径**。
 
   ```text
-  cd mindspore-lite-{version}-inference-linux-x64
+  cd mindspore-lite-{version}-linux-x64
   ```
 
   若用户未进入**版本发件件根路径**，后续配置用户需按实际情况进行等价设置。
@@ -93,7 +93,7 @@ mindspore-lite-{version}-linux-aarch32
   运行于x86_64系统上的benchmark是用来生成校正集的，以供nnie学习量化参数。用户需设置以下环境变量:
 
    ```shell
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:./inference/lib
+   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:./runtime/lib
    export BENCHMARK_PATH=./tools/benchmark
    ```
 
@@ -104,7 +104,7 @@ mindspore-lite-{version}-linux-aarch32
    ```
 
    参数modelFile、weightFile、configFile、outputFile用户按实际情况进行设置。
-   当用户在mindspore-lite-{version}-inference-linux-x64/tools/converter/converter目录下时，环境变量NNIE_MAPPER_PATH、NNIE_DATA_PROCESS_PATH、BENCHMARK_PATH可不设置。
+   当用户在mindspore-lite-{version}-linux-x64/tools/converter/converter目录下时，环境变量NNIE_MAPPER_PATH、NNIE_DATA_PROCESS_PATH、BENCHMARK_PATH可不设置。
 
 ### 推理工具runtime
 
