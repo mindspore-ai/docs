@@ -142,7 +142,7 @@ docker run -it -v /dev/shm:/dev/shm --network host --runtime=nvidia --privileged
 
 - If you need to verify the MindInsight installation:
 
-    1. Execute the command: ```export PATH=/usr/local/python-3.7.5/bin:$PATH```.
+    1. If you install a container with the label of `1.2.0`, you need execute the command: ```export PATH=/usr/local/python-3.7.5/bin:$PATH```.
 
     2. Enter ```mindinsight start --port 8080```, if it prompts that the startup status is successful, it means MindInsight has been installed successfully.
 
