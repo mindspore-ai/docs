@@ -22,8 +22,15 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | [Map<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames) |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname) |
-| [boolean resize(List<MSTensor\> inputs, int[][] dims](#resize) |
+| [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize) |
 | [void free()](#free)                                         |
+| [boolean export(String modelFilename, int model_type, int quantization_type)](#export) |
+| [boolean train()](#train) |
+| [boolean eval()](#eval) |
+| [boolean isTrain()](#isTrain) |
+| [boolean isEval()](#isEval) |
+| [boolean setLearningRate(float learning_rate)](#setLearningRate) |
+| [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupVirtualBatch)   |
 
 ## init
 
@@ -189,3 +196,87 @@ public void free()
 ```
 
 释放LiteSession。
+
+## export
+
+```java
+public boolean export(String modelFilename, int model_type, int quantization_type)
+```
+
+导出模型。
+
+- 参数
+
+    - `modelFilename`: 模型文件名称。
+    - `model_type`: 训练或者推理类型。
+    - `quantization_type`: 量化类型。
+
+- 返回值
+
+  导出模型是否成功。
+
+## train
+
+```java
+public void train()
+```
+
+切换训练模式。
+
+## eval
+
+```java
+public void eval()
+```
+
+切换推理模式。
+
+## istrain
+
+```java
+public void isTrain()
+```
+
+是否训练模式。
+
+## iseval
+
+```java
+public void isEval()
+```
+
+是否推理模式。
+
+## setLearningRate
+
+```java
+public boolean setLearningRate(float learning_rate)
+```
+
+设置学习率。
+
+- 参数
+
+    - `learning_rate`: 学习率。
+
+- 返回值
+
+  学习率设置是否成功。
+
+## setupVirtualBatch
+
+```java
+public boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)
+```
+
+设置虚批次系数。
+
+- 参数
+
+    - `virtualBatchMultiplier`: 虚批次系数。
+    - `learningRate`: 学习率。
+    - `momentum`: 动量系数。
+
+- 返回值
+
+  虚批次系数设置是否成功。  

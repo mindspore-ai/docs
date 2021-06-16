@@ -34,7 +34,7 @@ To use the `benchmark_train` tool, you need to prepare the environment as follow
     ```bash
     cd /path
     tar xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-    export LD_LIBRARY_PATH=/path/mindspore-lite-{version}-{os}-{arch}/train/lib:/path/mindspore-lite-{version}-{os}-{arch}/train/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
+    export LD_LIBRARY_PATH=/path/mindspore-lite-{version}-{os}-{arch}/runtime/lib:/path/mindspore-lite-{version}-{os}-{arch}/runtime/third_party/libjpeg-turbo/lib:${LD_LIBRARY_PATH}
     ```
 
 The absolute path of the benchmark_train tool is `/path/mindspore-lite-{version}-{os}-{arch}/tools/benchmark_train/benchmark_train`.

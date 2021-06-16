@@ -22,8 +22,15 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 | [Map<String, MSTensor\> getOutputMapByTensor()](#getoutputmapbytensor) |
 | [List<String\> getOutputTensorNames()](#getoutputtensornames) |
 | [MSTensor getOutputByTensorName(String tensorName)](#getoutputbytensorname) |
-| [boolean resize(List<MSTensor\> inputs, int[][] dims](#resize) |
+| [boolean resize(List<MSTensor\> inputs, int[][] dims)](#resize) |
 | [void free()](#free)                                         |
+| [boolean export(String modelFilename, int model_type, int quantization_type)](#export) |
+| [boolean train()](#train) |
+| [boolean eval()](#eval) |
+| [boolean isTrain()](#isTrain) |
+| [boolean isEval()](#isEval) |
+| [boolean setLearningRate(float learning_rate)](#setLearningRate) |
+| [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupVirtualBatch)   |
 
 ## init
 
@@ -189,3 +196,87 @@ public void free()
 ```
 
 Free LiteSession.
+
+## export
+
+```java
+public boolean export(String modelFilename, int model_type, int quantization_type)
+```
+
+export model.
+
+- Parameters
+
+    - `modelFilename`: Model file name.
+    - `model_type`: Train or Inference type.
+    - `quantization_type`: quant type.
+
+- Returns
+
+   Whether the export is successful.
+
+## train
+
+```java
+public void train()
+```
+
+switch train mode
+
+## eval
+
+```java
+public void eval()
+```
+
+switch eval mode.
+
+## istrain
+
+```java
+public void isTrain()
+```
+
+is Train mode.
+
+## iseval
+
+```java
+public void isEval()
+```
+
+is Eval mode.
+
+## setLearningRate
+
+```java
+public boolean setLearningRate(float learning_rate)
+```
+
+set learning rate.
+
+- Parameters
+
+    - `learning_rate`: learning rate.
+
+- Returns
+
+    Whether the set learning rate is successful.
+
+## setupVirtualBatch
+
+```java
+public boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)
+```
+
+set virtual batch.
+
+- Parameters
+
+    - `virtualBatchMultiplier`: virtual batch multuplier.
+    - `learningRate`: learning rate.
+    - `momentum`: monentum.
+
+- Returns
+
+Whether the set  virtual batch is successful.
