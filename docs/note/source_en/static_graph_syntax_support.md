@@ -355,7 +355,7 @@ For details about the rules, click <https://www.mindspore.cn/doc/note/en/master/
 
 | Arithmetic Operator | Supported Type
 | :----------- |:--------
-| `+` |`Number` + `Number`, `Tensor` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tuple`, and `String` + `String`
+| `+` |`Number` + `Number`, `Tensor` + `Tensor`, `Tensor` + `Number`, `Tuple` + `Tuple`, `String` + `String`, and `List` + `List`
 | `-` |`Number` - `Number`, `Tensor` - `Tensor`, and `Tensor` - `Number`
 | `*` |`Number` \* `Number`, `Tensor` \* `Tensor`, and `Tensor` \* `Number`
 | `/` |`Number` / `Number`, `Tensor` / `Tensor`, and `Tensor` / `Number`

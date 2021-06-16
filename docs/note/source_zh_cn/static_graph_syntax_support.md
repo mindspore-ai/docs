@@ -356,7 +356,7 @@ def generate_tensor():
 
 | 算术运算符 | 支持类型                                                                                                |
 | :--------- | :------------------------------------------------------------------------------------------------------ |
-| `+`        | `Number` + `Number`、`Tensor` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tuple`、`String` + `String`。 |
+| `+`        | `Number` + `Number`、`Tensor` + `Tensor`、`Tensor` + `Number`、`Tuple` + `Tuple`、`String` + `String`、`List` + `List`。 |
 | `-`        | `Number` - `Number`、`Tensor` - `Tensor`、`Tensor` - `Number`。                                         |
 | `*`        | `Number` \* `Number`、`Tensor` \* `Tensor`、`Tensor` \* `Number`。                                      |
 | `/`        | `Number` / `Number`、`Tensor` / `Tensor`、`Tensor` / `Number`。                                         |
