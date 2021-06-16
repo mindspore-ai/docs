@@ -10,6 +10,7 @@
     - [请求输入格式](#请求输入格式)
         - [base64数据编码](#base64数据编码)
     - [请求应答格式](#请求应答格式)
+    - [访问开启SSL/TSL的RESTful服务](#访问开启SSL/TLS的RESTful服务)
 
 <!-- /TOC -->
 
@@ -240,10 +241,45 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
 
 **应答数据表示如下:**
 
-   |  Serving输出类型 | RESTful json中数据类型   | 说明  |  举例  |
-   |  ----  | ----  |  ---- | ---- |
-   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | 整型格式的数据表示为json整型 | 1，[1,2,3,4]  |
-   | `float16`, `float32`, `float64` | json float | 浮点格式的数据表示为json浮点数 | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
-   | `bool` | json bool | bool类型数据表示为json bool | true，false，[[true],[false]]  |
-   | `string` | json str | 字符串格式输出表示为json str | "news_car"  |
-   | `bytes` | base64 object | 二进制格式输出转为base64对象 | {"b64":"AQACAAIAAwADAAQA"}  |
+|  Serving输出类型 | RESTful json中数据类型   | 说明  |  举例  |
+|  ----  | ----  |  ---- | ---- |
+| `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | 整型格式的数据表示为json整型 | 1，[1,2,3,4]  |
+| `float16`, `float32`, `float64` | json float | 浮点格式的数据表示为json浮点数 | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
+| `bool` | json bool | bool类型数据表示为json bool | true，false，[[true],[false]]  |
+| `string` | json str | 字符串格式输出表示为json str | "news_car"  |
+| `bytes` | base64 object | 二进制格式输出转为base64对象 | {"b64":"AQACAAIAAwADAAQA"}  |
+
+## 访问开启SSL/TLS的RESTful服务
+
+首先我们启动开启`SSL/TLS`的`RESTful`服务，需要给`start_restful_server`的`ssl_config`参数传入`mindspore_serving.server.SSLConfig`对象。其他内容可以参考[访问开启SSL/TLS的Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html#id6)。
+
+```python
+import os
+import sys
+from mindspore_serving import server
+
+
+def start():
+    servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                 device_ids=(0, 1))
+    server.start_servables(servable_configs=servable_config)
+
+    ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca=None, verify_client=False)
+
+    server.start_restful_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+if __name__ == "__main__":
+    start()
+```
+
+我们可以使用`curl`工具或`python`的`requests`库访问`Serving`的开启`SSL/TLS`的`RESTful`服务。如果使用`curl`工具访问，可以尝试使用下面的请求方式：
+
+```text
+curl -X POST -d '${REQ_JSON_MESSAGE}' --insecure https://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+这里需要将协议设置为`https`，`--insecure`表示不对服务器的证书进行验证。
+

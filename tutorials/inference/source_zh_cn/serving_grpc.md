@@ -9,6 +9,7 @@
     - [add样例](#add样例)
     - [ResNet-50样例](#resnet-50样例)
     - [通过Unix domain socket访问Serving服务器](#通过unix-domain-socket访问serving服务器)
+    - [访问开启SSL/TLS的Serving服务](#访问开启ssltls的serving服务)
 
 <!-- /TOC -->
 
@@ -20,7 +21,7 @@ MindSpore Serving提供gRPC接口访问Serving服务。在Python环境下，我�
 
 ## add样例
 
-样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/add/serving_client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
+样例来源于[add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py) ，`add` Servable提供的`add_common`方法提供两个2x2 Tensor相加功能。其中gRPC Python客户端代码如下所示，一次gRPC请求包括了三对独立的2x2 Tensor：
 
 ```python
 from mindspore_serving.client import Client
@@ -209,3 +210,171 @@ def run_classify_top1():
 if __name__ == '__main__':
     run_classify_top1()
 ```
+
+## 访问开启SSL/TLS的Serving服务
+
+Mindspore Serving的服务器和客户端可以通过`SSL/TLS`协议进行通信。
+
+`SSL/TLS`是一个安全通信协议，可以用来验证客户端或服务器的身份，加密所有的数据，保证通信的安全。数字证书用来标识服务器或客户端的身份，私钥用来解密数据和对信息摘要进行签名。我们可以用openssl来生成服务器与客户端相关的私钥和证书。
+
+下面举个例子展示如何生成证书并进行单双向认证：
+
+### 单向认证
+
+仅客户端验证服务器的身份，所以我们需要服务器的证书和私钥。可以执行下面的openssl命令来生成相关证书。
+
+```shell
+# 生成根证书 用来签发服务器或客户端的证书
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ca.key -out ca.crt -subj "/C=CN/ST=xx/L=xx/OU=gRPC/CN=Root"
+
+# 生成服务器的私钥
+openssl genrsa -out server.key 2048
+# 生成服务器证书签名请求
+# 参数CN可以自定义证书上服务器名，这里我们可以配置成localhost，gRPC客户端访问时地址需要设置为localhost
+openssl req -new -key server.key -out server.csr -subj "/C=XX/ST=MyST/L=XX/O=HW/OU=gRPC/CN=localhost"
+# 使用根证书签发服务器证书
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 365 -sha256
+```
+
+我们得到了`server.key`，`server.crt`和`ca.crt`三个文件。将他们传入对应的`SSLConfig`。
+
+- 服务器：
+
+  ```python
+  import os
+  import sys
+  from mindspore_serving import server
+
+
+  def start():
+      servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+      servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                   device_ids=(0, 1))
+      server.start_servables(servable_configs=servable_config)
+
+      ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca=None, verify_client=False)
+
+      server.start_grpc_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+  if __name__ == "__main__":
+      start()
+  ```
+
+    - `ssl_config`表示服务器的`SSL`配置。该参数默认为`None`，表示不开启`SSL/TLS`。开启`SSL/TLS`则需要传入`mindspore_serving.server.SSLConfig`对象。
+    - `certificate`为服务器证书文件的路径。
+    - `private_key`为服务器私钥文件的路径。
+    - `custom_ca`为服务器的根证书文件的路径，用来验证客户端的身份。当`verify_client` 的为`True`时，需要验证客户端的证书，所以该参数不能为`None`，必须传入对应的路径。
+    - `verify_client`表示是否验证客户端的身份。
+
+  将`verify_client`设为`False`表示单向认证。我们分别传入服务器的证书`server.crt`和私钥`server.key`，由于服务器不需要验证客户端的证书，此时服务器的`custom_ca`参数会被忽略。
+
+- 客户端：
+
+  ```python
+  from mindspore_serving.client import Client
+  from mindspore_serving.client import SSLConfig
+  import numpy as np
+
+
+  def run_add_common():
+      """invoke Servable add method add_common"""
+      ssl_config = SSLConfig(custom_ca="ca.crt")
+      client = Client("localhost:5500", "add", "add_common", ssl_config=ssl_config)
+      instances = []
+
+      # instance 1
+      x1 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      x2 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      instances.append({"x1": x1, "x2": x2})
+
+      result = client.infer(instances)
+      print(result)
+
+
+  if __name__ == '__main__':
+      run_add_common()
+  ```
+
+  - `ssl_config`表示客户端的`SSL`配置。该参数默认为`None`，表示不开启`SSL/TLS`。开启`SSL/TLS`则需要传入`mindspore_serving.client.SSLConfig`对象。
+  - `certificate`为客户端证书文件的路径。
+  - `private_key`为客户端私钥文件的路径。
+  - `custom_ca`为客户端的根证书文件的路径，用来验证服务器的身份。该参数可以为`None`，这个时候gRPC会通过gRPC安装路径下的`grpc/_cpython/_credentials/roots.pem`文件或`GRPC_DEFAULT_SSL_ROOTS_FILE_PATH`环境变量找到对应的根证书。
+
+  由于仅客户端验证服务器证书，所以只需要将`custom_ca`设置为签发服务器证书的`ca.crt`。
+
+### 双向认证
+
+客户端和服务器都需要验证对方的身份，所以除了服务器的证书，我们还需要执行下面的命令生成客户端的证书。
+
+```shell
+# 生成客户端的私钥
+openssl genrsa -out client.key 2048
+# 生成客户端证书签名请求
+openssl req -new -key client.key -out client.csr -subj "/C=XX/ST=MyST/L=XX/O=HW/OU=gRPC/CN=client"
+# 使用根证书签发客户端证书
+openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365 -sha256
+```
+
+我们得到了`client.key`和`cleint.crt`。
+
+- 服务器：
+
+  ```python
+  import os
+  import sys
+  from mindspore_serving import server
+
+
+  def start():
+      servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+      servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                   device_ids=(0, 1))
+      server.start_servables(servable_configs=servable_config)
+
+      ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca="ca.crt", verify_client=True)
+
+      server.start_grpc_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+  if __name__ == "__main__":
+      start()
+  ```
+
+  将`verify_client`设为`True`表示双向认证。同时将`custom_ca`设置为`ca.crt`来验证客户端证书。
+
+- 客户端：
+
+  ```python
+  from mindspore_serving.client import Client
+  from mindspore_serving.client import SSLConfig
+  import numpy as np
+
+
+  def run_add_common():
+      """invoke Servable add method add_common"""
+      ssl_config = SSLConfig(certificate="client.crt", private_key="client.key", custom_ca="ca.crt")
+      client = Client("localhost:5500", "add", "add_common", ssl_config=ssl_config)
+      instances = []
+
+      # instance 1
+      x1 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      x2 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      instances.append({"x1": x1, "x2": x2})
+
+      result = client.infer(instances)
+      print(result)
+
+
+  if __name__ == '__main__':
+      run_add_common()
+  ```
+
+  客户端需要提供自己的证书给服务器验证，我们分别传入客户端的证书`client.crt`和私钥`client.key`。
+
+当gRPC服务器与客户端`SSL/TLS`开启状态不一致的时候，服务器或客户端会出现`ssl3_get_record:wrong version number`的错误，这时需要确认服务器与客户端是否都开启了`SSL/TLS`。
+
+
+

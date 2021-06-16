@@ -10,6 +10,7 @@
     - [Request Format](#request-format)
         - [Base64 Data Encoding](#base64-data-encoding)
     - [Response Format](#response-format)
+    - [Accessing SSL/TLS enabled Serving RESTful service](#accessing-ssltls-enabled-serving-restful-service)
 
 <!-- /TOC -->
 
@@ -247,3 +248,37 @@ The response format is the same as the request format. The information in the `J
    | `bool` | json bool | Bool data is represented as json bool | true，false，[[true],[false]]  |
    | `string` | json str | String data is represented as json string | "news_car"  |
    | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
+
+## Accessing SSL/TLS enabled Serving RESTful service
+
+First, we start `SSL/TLS` enabled `RESTful` service, so we need to set `ssl_config` to `mindspore_serving.server.SSLConfig` object. You can reference [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/source_en/master/#accessing-ssltls-enabled-serving-service).
+
+```python
+import os
+import sys
+from mindspore_serving import server
+
+
+def start():
+    servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+    servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                 device_ids=(0, 1))
+    server.start_servables(servable_configs=servable_config)
+
+    ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca=None, verify_client=False)
+
+    server.start_restful_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+if __name__ == "__main__":
+    start()
+```
+
+We can use `curl` command line or `requests` library accessing `SSL/TLS` enabled `RESTful` service. If you use `curl`, you could try the following command:
+
+```text
+curl -X POST -d '${REQ_JSON_MESSAGE}' --insecure https://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+```
+
+The protocol needs to be set to `https`, `--insecure`represents not verifying server's certificate.
