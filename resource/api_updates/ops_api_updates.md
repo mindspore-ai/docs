@@ -33,6 +33,7 @@ Compared with the previous version, the added, deleted and supported platforms c
 |[mindspore.ops.Dihedral14LJCFForceWithAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dihedral14LJCFForceWithAtomEnergy.html#mindspore.ops.Dihedral14LJCFForceWithAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
 |[mindspore.ops.AngleAtomEnergy](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.AngleAtomEnergy.html#mindspore.ops.AngleAtomEnergy)|New|r1.2: GPU|operations--Sponge Operators
 |[mindspore.ops.NoRepeatNGram](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.NoRepeatNGram.html#mindspore.ops.NoRepeatNGram)|New|r1.2: Ascend|operations--Other Operators
+|[mindspore.ops.Dropout](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dropout.html#mindspore.ops.Dropout)|New|r1.2: Ascend/GPU/CPU|operations--Neural Network Operators
 |[mindspore.ops.Conv3DTranspose](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Conv3DTranspose.html#mindspore.ops.Conv3DTranspose)|New|r1.2: Ascend|operations--Neural Network Operators
 |[mindspore.ops.SeLU](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.SeLU.html#mindspore.ops.SeLU)|New|r1.2: Ascend|operations--Neural Network Operators
 |[mindspore.ops.Dropout2D](https://www.mindspore.cn/doc/api_python/zh-CN/r1.2/mindspore/ops/mindspore.ops.Dropout2D.html#mindspore.ops.Dropout2D)|New|r1.2: Ascend|operations--Neural Network Operators
