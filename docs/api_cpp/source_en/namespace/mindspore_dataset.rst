@@ -237,6 +237,8 @@ Constants
 Others
 ------
 
+This section contains some predefined classes related to Dataset operations, tool functions, and some Typedefs.
+
 Classes
 ^^^^^^^
 
