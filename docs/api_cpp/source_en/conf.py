@@ -90,7 +90,7 @@ def specificationsForKind(kind):
     if kind == "class":
         return [
             ":members:",
-            ":protected-members:",
+            # ":protected-members:",
             ":private-members:"
         ]
     else:
