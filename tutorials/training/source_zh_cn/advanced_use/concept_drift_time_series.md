@@ -1,6 +1,5 @@
 # 实现时序数据概念漂移检测应用
 
-
 <!-- TOC -->
 
 - [实现时序数据概念漂移检测应用](#实现时序数据概念漂移检测应用)
@@ -15,6 +14,7 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/concept_drift_time_series.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -24,13 +24,13 @@
 概念漂移检测本质上是检测数据分布变化，本示例提出一种检测数据变化的方法，对比新窗口数据的特征是否足够偏离历史窗口特征，如若偏离程度大于某一阈值，则数据发生概念漂移。
 
 本例会实现一个简单的时序数据概念漂移检测的功能，整体流程如下：
+
 1. 下载公开数据集或构造数据。
 2. 定义概念漂移类参数。
 3. 调用概念漂移检测函数。
 4. 查看结果。
 
 > 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindarmour/blob/master/examples/reliability/concept_drift_time_series.py> 。
-
 
 ## 准备环节
 
@@ -48,6 +48,7 @@
   ├── individual_stocks_5yr
       ├──individual_stocks_5yr
 ```
+
 数据路径：archive/individual_stocks_5yr/individual_stocks_5yr。文件夹内每一个csv文件为一组数据用例。
 
 ### 导入Python库&模块
@@ -62,6 +63,7 @@ import mindarmour
 ```
 
 ## 数据处理
+
 从数据路径：archive/individual_stocks_5yr/individual_stocks_5yr 中打开一个数据用例。
 
 ```python
@@ -103,16 +105,14 @@ concept = ConceptDriftCheckTimeSeries(window_size=100, rolling_window=10, step=1
 初始化参数含义：
 
 - `window_size(int)`：概念窗口。数值不小于10，如果给定输入数据`data`的长度， `window_size`范围在[10, 1/3*len(`data`)] 之间。一般，如果时序数据为周期性函数，`window_size`的大小可以选择2-5倍的周期长度。举例，`data`的长度为1000，周期为30，那么`window_size`的范围可以在[10, 333]，考虑到数据周期性，`window_size`可以取值90。
-- `rolling_window(int)`：平滑窗口。数值大小 [1, `window_size`]。默认值：10。 
+- `rolling_window(int)`：平滑窗口。数值大小 [1, `window_size`]。默认值：10。
 - `step(int)`: 窗口滑动步长。数值范围在 [1,`window_size`]之间。默认值：10。
 - `threshold_index(float)`：阈值系数。阈值系数越高，阈值越大。默认值: 1.5。
 - `need_label(bool)`：标签需求。False或True。如果为True， 表明需要概念漂移标签。如果为False， 则不需要概念漂移标签。默认值：False。
 
-
 ## 启动概念漂移检测
 
 完成模块初始化后，调用概念漂移检测函数`concept_check`。
-
 
 ```python
 drift_score, threshold, concept_drift_location = concept.concept_check(data)
@@ -132,6 +132,5 @@ drift_score, threshold, concept_drift_location = concept.concept_check(data)
 
 ![概念漂移](./images/concept_drift_timeseries.JPG)
 
-​										
 **子图1**：用户输入的数据`data`。数据中发生概念漂移的位置用蓝色五星标出，红色虚线（竖直方向）表示概念漂移发生最明显的位置。  
 **子图2**：概念漂移置信分数`drift_score`（针对子图1中的数据），分数越高，概念漂移的可能性越大。红色虚线表示判断概念漂移的阈值`threshold`，虚线之上的`drift_score`所对应的横轴位置，判定为发生概念漂移。`threshold`的大小可根据`threshold_index`进行调节。
