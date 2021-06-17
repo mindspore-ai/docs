@@ -216,6 +216,167 @@ Static method to create a LiteSession pointer. The returned LiteSession pointer 
 
     Pointer that points to MindSpore Lite LiteSession.
 
+#### CreateTransferSession
+
+```cpp
+static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+Static method that creates the object pointer that points to the transfer learning training session.
+
+- Parameters
+
+    - `filename_backbone`: File name of the backbone network.
+    - `filename_head`:  File name of the head network.
+    - `context`:  Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize Session.
+    - `cfg`: Config of train session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
+#### CreateTrainSession
+
+```cpp
+static LiteSession *CreateTrainSession(const std::string &filename, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `filename`: Train model file name.
+    - `context`: Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize Session.
+    - `cfg`: Config of train session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
+#### Train
+
+```cpp
+virtual int Train() = 0;
+```
+
+Set model to train mode.
+
+- Returns
+
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)
+
+#### IsTrain
+
+```cpp
+bool IsTrain() { return train_mode_ == true; }
+```
+
+Checks whether the current model is under the train mode.
+
+- Returns
+
+    Boolean indication if model is in train mode.
+
+#### Eval
+
+```cpp
+virtual int Eval() = 0;
+```
+
+Set model to eval mode.
+
+- Returns
+
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+
+#### IsEval
+
+```cpp
+bool IsEval() { return train_mode_ == false; }
+```
+
+Check mode of model.
+
+- Returns
+
+    Boolean indication if model is in eval mode.
+
+#### SetLearningRate
+
+```cpp
+virtual int SetLearningRate(float learning_rate) = 0;
+```
+
+Set the learning rate for the current model.
+
+- Returns
+
+    0 represents success or -1 in case of error.
+
+#### GetLearningRate
+
+```cpp
+virtual float GetLearningRate() = 0;
+```
+
+Get the learning rate of the current model.
+
+- Returns
+
+    The learning rate of the current model, default is 0.0.
+
+#### SetupVirtualBatch
+
+```cpp
+virtual int SetupVirtualBatch(int virtual_batch_multiplier, float lr = -1.0f, float momentum = -1.0f) = 0;
+```
+
+Customize the virtual batch size, in order to reduce memory consumption.
+
+- Parameters
+
+    - `virtual_batch_multiplier`: virtual batch number.
+    - `lr`: learning rate.
+    - `momentum`: momentum.
+
+- Returns
+
+    0 represents success or -1 in case of error.
+
+#### GetPredictions
+
+```cpp
+virtual std::vector<tensor::MSTensor *> GetPredictions() const = 0;
+```
+
+Get the predicting result of the trained model.
+
+- Returns
+
+    Return the pointer vector of prediction results.
+
+#### Export
+
+```cpp
+virtual int (const std::string &file_name, lite::ModelType model_type = lite::MT_TRAIN,
+                     lite::QuantizationType quant_type = lite::QT_DEFAULT, lite::FormatType format= lite::FT_FLATBUFFERS) const = 0;
+```
+
+Save the trained model into a flatbuffer file.
+
+- Parameters
+
+    - `filename`: Filename of the file to save buffer.
+    - `model_type`: Model save Type train or inference.
+    - `quant_type`: Quant type of Model.
+    - `format`: Model save.
+
+- Returns
+
+    0 represents success or -1 in case of error.
+
 ## TrainLoop
 
 \#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;
