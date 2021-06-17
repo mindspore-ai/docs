@@ -49,6 +49,10 @@ The table below shows the parameters used in the MindSpore Lite model training t
 | `--modelFile=<MODELFILE>`   | yes      | Path of the input model.                                     | -           | -             |
 | `--outputFile=<OUTPUTFILE>` | yes      | Path of the output model. The suffix `.ms` can be automatically generated. | -           | -             |
 | `--trainModel=true`         | yes      | Training on Device or not                                    | true, false | false         |
+| `--quantType=<QUANTTYPE>` | No | Sets the quantization type of the model. | WeightQuant: only support this quantType while use litetraining | - |
+| `--bitNum=<BITNUM>` | No | Sets the quantization bitNum when quantType is set as WeightQuant, now supports 1 bit to 16 bit quantization. | \[1, 16] | 8 |
+| `--quantWeightSize=<QUANTWEIGHTSIZE>` | No | Sets a size threshold of convolution filter when quantType is set as WeightQuant. If the size is bigger than this value, it will trigger weight quantization. | \[0, +∞) | 0 |
+| `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | No | Sets a channel number threshold of convolution filter when quantType is set as WeightQuant. If the number is bigger than this, it will trigger weight quantization. | \[0, +∞) | 16 |
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 
