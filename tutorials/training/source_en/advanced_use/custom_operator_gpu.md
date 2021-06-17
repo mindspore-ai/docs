@@ -246,17 +246,78 @@ context.set_context(device_target='GPU')
 @pytest.mark.level0
 @pytest.mark.platform_x86_gpu_training
 @pytest.mark.env_onecard
-def test_TensroAdd():
+def test_TensorAdd():
     x1 = Tensor(np.ones((3, 4), np.float32))
     x2 = Tensor(np.ones((3, 4), np.float32))
     y = P.TensorAddV2()(x1, x2)
     print('result: ', y)
 ```
 
-When the command `pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py` executes, you can see the results meeting expectations：
+When the command `pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py::test_TensorAdd` executes, you can see the results meeting expectations：
 
 ```text
 result: [[2. 2. 2. 2.]
   [2. 2. 2. 2.]
   [2. 2. 2. 2.]]
 ```
+
+## Defining Operators' BProp Functions
+
+If an operator needs to support automatic differentiation, its back-propagation function (bprop) needs to be defined in its primitives. You need to describe the reverse computing logic that uses forward input, forward output, and output gradient to get the input gradient in bprop. Reverse computation logic can be composed of built-in operators or custom reverse operators.
+
+The following points should be paid attention to when defining operators' bprop functions:
+
+- The order of input parameters of bprop function is defined as positive input, positive output and output gradient. If the operator is a multi-output operator, the forward output and output gradient will be provided in the form of tuples.
+- The form of the return values of bprop function is arranged as a tuple composed of input gradient, and the order of elements in the tuple is consistent with that of forward input parameters. Even if there is only one input gradient, the return value must be in the form of tuples.
+
+For example, the bprop primitives of `TensorAddV2` are:
+
+```python
+import mindspore.ops as ops
+@bprop_getters.register(ops.TensorAddV2)
+def get_bprop_tensoraddv2(self):
+    """Generate bprop for TensorAddV2"""
+
+    def bprop(x, y, out, dout):
+        return dout, dout
+
+    return bprop
+```
+
+Define the bprop case in document `test_tensoraddv2_op.py`.
+
+```python
+import mindspore.ops as ops
+class Grad(nn.Cell):
+    def __init__(self, network):
+        super(Grad, self).__init__()
+        self.grad = ops.GradOperation(sens_param=True)
+        self.network = network
+
+    def construct(self, x1, x2, sens):
+        gout = self.grad(self.network)(x1, x2, sens)
+        return gout
+
+def test_grad_net():
+    x1 = Tensor(np.ones((3, 4), np.float32))
+    x2 = Tensor(np.ones((3, 4), np.float32))
+    sens = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    grad = Grad(Net())
+    dx = grad(x1, x2, sense)
+    print("dx[0]: ", dx[0].asnumpy())
+```
+
+Running case:
+
+```bash
+pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py::test_grad_net
+```
+
+Running results:
+
+```text
+dx[0]: [[0. 1. 2. 3.]
+        [4. 5. 6. 7.]
+        [8. 9. 10. 11.]]
+```
+

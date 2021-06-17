@@ -244,17 +244,77 @@ context.set_context(device_target='GPU')
 @pytest.mark.level0
 @pytest.mark.platform_x86_gpu_training
 @pytest.mark.env_onecard
-def test_TensroAdd():
+def test_TensorAdd():
     x1 = Tensor(np.ones((3, 4), np.float32))
     x2 = Tensor(np.ones((3, 4), np.float32))
     y = P.TensorAddV2()(x1, x2)
     print('result: ', y)
 ```
 
-通过`pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py`命令执行后，可以看到结果符合预期:
+通过`pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py::test_TensorAdd`命令执行后，可以看到结果符合预期:
 
 ```text
 result: [[2. 2. 2. 2.]
   [2. 2. 2. 2.]
   [2. 2. 2. 2.]]
+```
+
+## 定义算子反向传播函数
+
+如果算子要支持自动微分，需要在其原语中定义其反向传播函数（bprop）。你需要在bprop中描述利用正向输入、正向输出和输出梯度得到输入梯度的反向计算逻辑。反向计算逻辑可以使用内置算子或自定义反向算子构成。
+
+定义算子反向传播函数时需注意以下几点：
+
+- bprop函数的入参顺序约定为正向的输入、正向的输出、输出梯度。若算子为多输出算子，正向输出和输出梯度将以元组的形式提供。
+- bprop函数的返回值形式约定为输入梯度组成的元组，元组中元素的顺序与正向输入参数顺序一致。即使只有一个输入梯度，返回值也要求是元组的形式。
+
+例如，`TensorAddV2`的反向原语为：
+
+```python
+import mindspore.ops as ops
+@bprop_getters.register(ops.TensorAddV2)
+def get_bprop_tensoraddv2(self):
+    """Generate bprop for TensorAddV2"""
+
+    def bprop(x, y, out, dout):
+        return dout, dout
+
+    return bprop
+```
+
+在`test_tensoraddv2_op.py`文件中定义反向用例。
+
+```python
+import mindspore.ops as ops
+class Grad(nn.Cell):
+    def __init__(self, network):
+        super(Grad, self).__init__()
+        self.grad = ops.GradOperation(sens_param=True)
+        self.network = network
+
+    def construct(self, x1, x2, sens):
+        gout = self.grad(self.network)(x1, x2, sens)
+        return gout
+
+def test_grad_net():
+    x1 = Tensor(np.ones((3, 4), np.float32))
+    x2 = Tensor(np.ones((3, 4), np.float32))
+    sens = Tensor(np.arange(3 * 4).reshape(3, 4).astype(np.float32))
+    grad = Grad(Net())
+    dx = grad(x1, x2, sense)
+    print("dx[0]: ", dx[0].asnumpy())
+```
+
+执行用例:
+
+```bash
+pytest -s tests/st/ops/gpu/test_tensoraddv2_op.py::test_grad_net
+```
+
+执行结果:
+
+```text
+dx[0]: [[0. 1. 2. 3.]
+        [4. 5. 6. 7.]
+        [8. 9. 10. 11.]]
 ```
