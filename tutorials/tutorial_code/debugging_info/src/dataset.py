@@ -44,6 +44,10 @@ class CustomDataSet:
         self.repeat_count = 1
         self.batch_data_size = (self.batch_size,) + image_size
 
+    def get_batch_size(self):
+        """get batch size"""
+        return self.batch_size
+
     def get_dataset_size(self):
         """get dataset size"""
         return int(self.size / self.batch_size)
