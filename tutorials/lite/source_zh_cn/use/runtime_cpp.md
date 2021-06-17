@@ -1,6 +1,6 @@
 # 使用C++接口执行推理
 
-`Windows` `Linux` `Android` `C++` `推理应用` `模型加载` `数据准备` `中级` `高级`
+`Windows` `macOS` `Linux` `iOS` `Android` `C++` `推理应用` `模型加载` `数据准备` `中级` `高级`
 
 <!-- TOC -->
 
@@ -85,6 +85,8 @@ if (model == nullptr) {
 - [device_list_](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#device-list)：MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#id2)中的`device_list_`指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)。在进行图编译时，会根据`device_list_`中不同的后端配置信息进行算子选型调度。目前仅支持两种异构，CPU和GPU异构或者CPU和NPU异构。当配置GPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用GPU推理；当配置NPU的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)时，优先使用NPU推理。
 
 > `device_list_[0]`必须是CPU的`DeviceContext`, `device_list_[1]`是GPU的`DeviceContext`或者NPU的`DeviceContext`。暂时不支持同时设置CPU, GPU和NPU三个`DeviceContext`。
+>
+> 对于iOS设备,暂时只支持`device_list_[0]`为CPU的`DeviceContext`。
 
 ### 配置线程数
 
@@ -119,6 +121,8 @@ cpu_device_info.enable_float16_ = true;
 ```
 
 > Float16需要CPU为ARM v8.2架构的机型才能生效，其他不支持的机型和x86平台会自动回退到Float32执行。
+>
+> 对于iOS设备, 只支持CPU后端运行, 且暂时不支持CPU后端的Float16的执行。
 
 ### 配置使用GPU后端
 
@@ -579,6 +583,8 @@ if (session == nullptr) {
 ```bash
 logcat -s "MS_LITE"
 ```
+
+> 对iOS设备暂不支持日志查看。
 
 ### 获取版本号
 

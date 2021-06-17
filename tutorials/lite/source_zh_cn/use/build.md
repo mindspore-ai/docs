@@ -1,6 +1,6 @@
 # 编译MindSpore Lite
 
-`Windows` `Linux` `Android` `环境准备` `中级` `高级`
+`Windows` `macOS` `Linux` `iOS` `Android` `环境准备` `中级` `高级`
 
 <!-- TOC -->
 
@@ -22,6 +22,12 @@
         - [编译示例](#编译示例-1)
         - [端侧推理框架编译输出](#端侧推理框架编译输出)
             - [Runtime及配套工具目录结构说明](#Runtime及配套工具目录结构说明-1)
+    - [macOS环境编译](#macOS环境编译)
+        - [环境要求](#环境要求)
+        - [编译选项](#编译选项)
+        - [编译示例](#编译示例)
+        - [端侧推理框架编译输出](#端侧推理框架编译输出)
+            - [Runtime目录结构说明](#Runtime目录结构说明)
     - [Docker环境编译](#docker环境编译)
         - [环境准备](#环境准备)
             - [下载镜像](#下载镜像)
@@ -42,7 +48,7 @@
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
 | converter          | Linux, Windows          | 模型转换工具                      |
-| runtime(cpp、java) | Linux, Windows, Android | 模型推理框架（Windows平台不支持java版runtime） |
+| runtime(cpp、java) | Linux, Windows, Android, iOS | 模型推理框架（Windows平台不支持java版runtime） |
 | benchmark          | Linux, Windows, Android | 基准测试工具                      |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
@@ -470,6 +476,82 @@ mindspore-lite-{version}-win-x64
 ```
 
 > 暂不支持在Windows进行端侧训练。
+
+## macOS环境编译
+
+### 环境要求
+
+- 系统环境：macOS 10.15.4及以上；64位。
+
+- 编译依赖
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [Xcode](https://developer.apple.com/xcode/download/cn) == 11.4.1
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+
+> - 编译脚本中会执行`git clone`获取第三方依赖库的代码。
+
+### 编译选项
+
+MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。下面对MindSpore Lite的编译选项进行说明。
+
+#### macOS下的`build.sh`的编译参数
+
+| 参数  |  参数说明  | 取值范围 | 默认值 |
+| -------- | ----- | ---- | ---- |
+| -I | 选择目标架构 | arm64、arm32 | 无 |
+| -j[n] | 设定编译时所用的线程数，否则默认设定为8线程 | Integer | 8 |
+
+### 编译示例
+
+首先，在进行编译之前，需从MindSpore代码仓下载源码。
+
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+```
+
+然后，在源码根目录下执行如下命令即可编译MindSpore Lite。
+
+- 编译ARM64架构版本。
+
+    ```bash
+    bash build.sh -I arm64 -j8
+    ```
+
+- 编译ARM32架构版本。
+
+    ```bash
+    bash build.sh -I arm32 -j8
+    ```
+
+### 端侧推理框架编译输出
+
+编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。
+
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含模型推理框架runtime。
+
+> - version: 输出件版本号，与所编译的分支代码对应的版本一致。
+> - os: 输出件应部署的操作系统。
+> - arch: 输出件应部署的系统架构。
+
+执行解压缩命令，获取编译后的输出件：
+
+```bash
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
+```
+
+#### Runtime目录结构说明
+
+Runtime包括以下几部分：
+
+```text
+mindspore-lite.framework
+└── runtime
+    ├── Headers        # 推理框架头文件
+    ├── Info.plist     # 配置文件
+    └── mindspore-lite # 静态库
+```
+
+> 暂不支持在macOS进行端侧训练与转换工具。
 
 ## Docker环境编译
 
