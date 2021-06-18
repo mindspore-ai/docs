@@ -8,7 +8,7 @@
 
 ### 环境
 
-参考：[服务端环境配置](https://gitee.com/mindspore/docs/tree/master/docs/mind_fl/source_zh_cn/deploy_mind_fl_cluster.md)和[客户端环境配置](https://gitee.com/mindspore/docs/tree/master/docs/mind_fl/source_zh_cn/deploy_FL_Client.md)。
+参考：[服务端环境配置](./deploy_mind_fl_cluster.md)和[客户端环境配置](./deploy_fl_client.md)。
 
 ### 数据
 
@@ -45,7 +45,7 @@ mobile/datasets/memo/
 
 ### 模型相关文件
 
-生成模型需要的起始的[checkpoint](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)和[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/vocab.txt)的目录结构如下：
+生成模型需要的起始的[checkpoint](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)和[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)的目录结构如下：
 
 ```text
 mobile/models/
@@ -86,31 +86,13 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 #### 将MindIR文件转化为联邦学习端侧框架可用的ms文件
 
-参考[实现一个图像分类应用](https://gitee.com/mindspore/docs/tree/master/docs/mind_fl/source_zh_cn/image_classification_application.md)中生成端侧模型文件部分。
+参考[实现一个图像分类应用](./image_classification_application.md)中生成端侧模型文件部分。
 
 ## 启动联邦学习流程
 
-### 模型训练
+首先在服务端启动脚本：参考[云端部署方式](./deploy_mind_fl_cluster.md)
 
-首先在服务端启动脚本：参考[Federated Learning Server集群部署方式](https://gitee.com/mindspore/docs/tree/master/docs/mind_fl/source_zh_cn/deploy_mind_fl_cluster.md)
-
-然后在客户端启动脚本：参考[Android启动联邦学习步骤](#android启动联邦学习步骤)
-
-### 模型验证
-
-在客户端启动脚本：参考[Android启动联邦学习步骤](#android启动联邦学习步骤)
-
-## 实验结果
-
-联邦学习总迭代数为5，客户端本地训练epoch数为10，batchSize设置为16。
-
-|        | Top1精度 | Top5精度 |
-| ------ | -------- | -------- |
-| ALBERT | 24%      | 70%      |
-
-## Android启动联邦学习步骤
-
-该步骤以ALBERT模型的训练与推理任务为基础，整体流程为：
+以ALBERT模型的训练与推理任务为基础，整体流程为：
 
 1. Android新建工程
 
@@ -416,9 +398,9 @@ app
 
 1. 连接Android设备，运行联邦学习训练与推理应用程序。通过USB连接Android设备调试，点击`Run 'app'`即可在你的设备上运行联邦学习任务。
 
-![run_app](./images/start_android_project.png)
+    ![run_app](./images/start_android_project.png)
 
-2. Android Studio连接设备调试操作，可参考https://developer.android.com/studio/run/device?hl=zh-cn。手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
+2. Android Studio连接设备调试操作，可参考<https://developer.android.com/studio/run/device?hl=zh-cn>。手机需开启“USB调试模式”，Android Studio才能识别到手机。 华为手机一般在`设置->系统和更新->开发人员选项->USB调试`中打开“USB调试模式”。
 
 3. 在Android设备上，点击“继续安装”，安装完即可在APP启动之后执行ALBERT模型的联邦学习的训练与推理任务。
 
@@ -429,7 +411,14 @@ app
    I/SyncFLJob: labels = [2, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4]
    ```
 
+## 实验结果
+
+联邦学习总迭代数为5，客户端本地训练epoch数为10，batchSize设置为16。
+
+|        | Top1精度 | Top5精度 |
+| ------ | -------- | -------- |
+| ALBERT | 24%      | 70%      |
+
 ## 参考文献
 
 [1] Lan Z ,  Chen M ,  Goodman S , et al. ALBERT: A Lite BERT for Self-supervised Learning of Language Representations[J].  2019.
-

@@ -5,13 +5,13 @@
 <!-- TOC -->
 
 - [云侧部署](#云侧部署)
-  - [概述](#概述)
-  - [准备环节](#准备环节)
-    - [安装MindSpore](#安装mindspore)
-  - [定义模型](#定义模型)
-  - [参数配置](#参数配置)
-  - [启动集群](#启动集群)
-  - [弹性伸缩](#弹性伸缩)
+    - [概述](#概述)
+    - [准备环节](#准备环节)
+        - [安装MindSpore](#安装mindspore)
+    - [定义模型](#定义模型)
+    - [参数配置](#参数配置)
+    - [启动集群](#启动集群)
+    - [弹性伸缩](#弹性伸缩)
 
 <!-- /TOC -->
 
@@ -23,7 +23,7 @@
 
 MindSpore Federated Learning Server集群物理架构如图所示：
 
-    <img src='./images/MindFL-Networking.png' align='middle'/>
+<img src='./images/MindFL-Networking.png' align='middle'/>
 
 如上图所示，在联邦学习云侧集群中，有两种角色的MindSpore进程：`Federated Learning Scheduler`和`Federated Learning Server`:
 
