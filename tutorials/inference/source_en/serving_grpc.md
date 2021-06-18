@@ -9,6 +9,7 @@
     - [add](#add)
     - [ResNet-50](#resnet-50)
     - [Accessing Serving Server through Unix Domain Socket](#accessing-serving-server-through-unix-domain-socket)
+    - [Accessing SSL/TLS enabled Serving service](#accessing-ssltls-enabled-serving-service)
 
 <!-- /TOC -->
 
@@ -20,7 +21,7 @@ The gRPC API is provided to access the MindSpore Serving. In the Python environm
 
 ## add
 
-This example comes from [add example](https://gitee.com/mindspore/serving/blob/master/example/add/serving_client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
+This example comes from [add example](https://gitee.com/mindspore/serving/blob/master/example/tensor_add/serving_client.py). The `add` Servable provides the `add_common` method to add up two 2x2 tensors. The code of the gRPC Python client is as follows. One gRPC request includes three pairs of independent 2x2 tensors.
 
 ```python
 from mindspore_serving.client import Client
@@ -209,3 +210,180 @@ def run_classify_top1():
 if __name__ == '__main__':
     run_classify_top1()
 ```
+
+## Accessing SSL/TLS enabled Serving Service
+
+Mindspore Serving supports server and client communicating based on `SSL/TLS`.
+
+`SSL/TLS`is a secure communication protocol that can be used to verify the identity of a client or server, encrypt all data, and secure communication.
+Digital certificates are used to identify the server or client, and private keys are used to decrypt data and sign information digests.
+We can use openssl to generate the private keys and certificates related to server and client.
+
+Here's an example of how to generate a certificate and perform single-bidirectional authentication:
+
+### One-way authentication
+
+Only the client verifies the identity of the server, so we need the server's certificate and private key.
+You can execute the following openssl command to generate the relevant certificate.
+
+```shell
+# Generate the root certificate used to issue the certificate of server or client
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ca.key -out ca.crt -subj "/C=CN/ST=xx/L=xx/OU=gRPC/CN=Root"
+
+# Generate server's private key
+openssl genrsa -out server.key 2048
+# Generate server's certificate sign request
+# You can customize the server name on the certificate by setting CN (Common Name). In this case we can set CN to localhost.
+# When the gRPC client accesses the server with this certificate, address needs to be localhost.
+openssl req -new -key server.key -out server.csr -subj "/C=XX/ST=MyST/L=XX/O=HW/OU=gRPC/CN=localhost"
+# Use the root certificate to issue a server certificate
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 365 -sha256
+```
+
+We got `server.key`, `server.crt` and `ca.crt` files. Pass them to the corresponding `SSLConfig`.
+
+- Server:
+
+  ```python
+  import os
+  import sys
+  from mindspore_serving import server
+
+
+  def start():
+      servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+      servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                   device_ids=(0, 1))
+      server.start_servables(servable_configs=servable_config)
+
+      ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca=None, verify_client=False)
+
+      server.start_grpc_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+  if __name__ == "__main__":
+      start()
+  ```
+
+    - `ssl_config` represents the server's `SSL` configuration. This parameter defaults to `None`, which means `SSL/TLS` is not enabled.
+      Enabling `SSL/TLS` requires `mindspore serving.server.SSLConfig` object passed to this parameter.
+    - `certificate` is the path to the server's certificate file.
+    - `private_key` is the path to the server's private key file.
+    - `custom_ca` is the path to the server's root certificate file which is for verifying client certificate. When `verify_client` is `True`,
+      the client's certificate needs to be verified, so this parameter can't be `None`, the corresponding path must be passed in.
+    - `verify_client` indicates whether to verify the identity of the client.
+
+  Setting `verify_client` to `False` represents one-way authentication. We pass in the certificate `server.crt` and the private key `server.key`, respectively.
+  Due to the server does not need to verify the client so `custom_ca` is ignored.
+
+- Client:
+
+  ```python
+  from mindspore_serving.client import Client
+  from mindspore_serving.client import SSLConfig
+  import numpy as np
+
+
+  def run_add_common():
+      """invoke Servable add method add_common"""
+      ssl_config = SSLConfig(custom_ca="ca.crt")
+      client = Client("localhost:5500", "add", "add_common", ssl_config=ssl_config)
+      instances = []
+
+      # instance 1
+      x1 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      x2 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      instances.append({"x1": x1, "x2": x2})
+
+      result = client.infer(instances)
+      print(result)
+
+
+  if __name__ == '__main__':
+      run_add_common()
+  ```
+
+    - `ssl_config` represents the client's `SSL` configuration. This parameter defaults to `None`, which means `SSL/TLS` is not enabled.
+      Enabling `SSL/TLS` requires passing `mindspore_serving.client.SSLConfig` object to `ssl_config`.
+    - `certificate` is the path to the client's certificate file.
+    - `private_key` is the path to the client's private key file.
+    - `custom_ca` is the path to the client's root certificate file, which is used to verify the identity of the server.
+      This parameter can be `None`, at which point gRPC finds the corresponding root certificate through the `grpc/_cpython/_credentials/roots.pem` file under the gRPC installation path or
+      the `GRPC_DEFAULT_SSL_ROOTS_FILE_PATH` environment variable.
+
+  Because only the client verifies the server certificate, you only need to set `custom_ca` to `ca.crt` which issues the server's certificate.
+
+### Mutual authentication
+
+Both the client and the server need to verify each other's identity, so in addition to the server's certificate,
+we need to execute the following command to generate the client's certificate.
+
+```shell
+# Generate client's private key
+openssl genrsa -out client.key 2048
+# Generate client's certificate sign request
+openssl req -new -key client.key -out client.csr -subj "/C=XX/ST=MyST/L=XX/O=HW/OU=gRPC/CN=client"
+# Use root certificate to issue client's certificate
+openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365 -sha256
+```
+
+We got `client.key`and`cleint.crt`.
+
+- Server:
+
+  ```python
+  import os
+  import sys
+  from mindspore_serving import server
+
+
+  def start():
+      servable_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+      servable_config = server.ServableStartConfig(servable_directory=servable_dir, servable_name="add",
+                                                   device_ids=(0, 1))
+      server.start_servables(servable_configs=servable_config)
+
+      ssl_config = server.SSLConfig(certificate="server.crt", private_key="server.key", custom_ca="ca.crt", verify_client=True)
+
+      server.start_grpc_server(address="127.0.0.1:5500", ssl_config=ssl_config)
+
+
+  if __name__ == "__main__":
+      start()
+  ```
+
+  Setting `verify_client` to `True` represents two-way authentication. Also set `custom_ca` to `ca.crt` to verify the client certificate.
+
+- Client:
+
+  ```python
+  from mindspore_serving.client import Client
+  from mindspore_serving.client import SSLConfig
+  import numpy as np
+
+
+  def run_add_common():
+      """invoke Servable add method add_common"""
+      ssl_config = SSLConfig(certificate="client.crt", private_key="client.key", custom_ca="ca.crt")
+      client = Client("localhost:5500", "add", "add_common", ssl_config=ssl_config)
+      instances = []
+
+      # instance 1
+      x1 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      x2 = np.asarray([[1, 1], [1, 1]]).astype(np.float32)
+      instances.append({"x1": x1, "x2": x2})
+
+      result = client.infer(instances)
+      print(result)
+
+
+  if __name__ == '__main__':
+      run_add_common()
+  ```
+
+  The client needs providing its own certificate to the server for authentication, and we pass in the client's certificate `client.crt` and the private key `client.key`, respectively.
+
+When the gRPC server and client are not enabling `SSL/TLS` at the same time, the server side or client side will get `ssl3_get_record:wrong version number` error,
+and you will need to confirm that both the server and the client have enabled `SSL/TLS`.
