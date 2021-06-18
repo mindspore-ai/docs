@@ -398,7 +398,7 @@ net = Net().set_comm_fusion(2)
 代码样例如下：
 
 ```python
-imoprt numpy as np
+import numpy as np
 from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
