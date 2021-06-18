@@ -292,3 +292,8 @@ A：MindSpore GPU模式一般无需设置`DEVICE_ID`环境变量，MindSpore会�
 - 执行`export CUDA_VISIBLE_DEVICES=1,3,5`后，`DEVICE_ID`应当被设置为`0`，`1`或`2`，若设置为`3`及以上，MindSpore会由于设备ID不合法而运行失败。
 
 <br/>
+
+<font size=3>**Q：MindSpore代码里面的model_zoo/official/cv/resnet/train.py中context.set_ps_context(enable_ps=True)为什么一定要在init之前设置**</font>
+
+A：MindSpore Ascend模式下，如果先调用init，那么会为所有的进程都分配卡，但是parameter server训练模式下server是不需要分配卡的，那么worker和server就会去使用同一块卡，导致会报错：Hccl dependent tsd is not open。
+
