@@ -276,8 +276,19 @@ if __name__ == "__main__":
 我们可以使用`curl`工具或`python`的`requests`库访问`Serving`的开启`SSL/TLS`的`RESTful`服务。如果使用`curl`工具访问，可以尝试使用下面的请求方式：
 
 ```text
-curl -X POST -d '${REQ_JSON_MESSAGE}' --insecure https://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+curl -X POST -d '${REQ_JSON_MESSAGE}' --cacert '${PATH_TO_CA_CERT_FILE}' https://${HOST}:${PORT}/model/${MODLE_NAME}/version/${VERSION}]:${METHOD_NAME}
 ```
 
-这里需要将协议设置为`https`，`--insecure`表示不对服务器的证书进行验证。
+例子：请求`add`模型的`add_common`方法，具体如下：
 
+```text
+curl -X POST -d '{"instances":[{"x1":[[1.0, 2.0], [3.0, 4.0]], "x2":[[1.0, 2.0], [3.0, 4.0]]}]}' --cacert ca.crt https://localhost:5500/model/add/version/1:add_common
+```
+
+我们这里需要将协议设置为`https`，设置选项`--cacert`的值为CA证书文件`ca.crt`的路径。
+
+另外由于示例中使用了自签名的证书，也可以设置选项`--insecure`表示忽略对服务器证书的验证，具体如下：
+
+```text
+curl -X POST -d '{"instances":[{"x1":[[1.0, 2.0], [3.0, 4.0]], "x2":[[1.0, 2.0], [3.0, 4.0]]}]}' --insecure https://localhost:5500/model/add/version/1:add_common
+```
