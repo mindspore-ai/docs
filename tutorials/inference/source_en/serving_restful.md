@@ -278,7 +278,20 @@ if __name__ == "__main__":
 We can use `curl` command line or `requests` library accessing `SSL/TLS` enabled `RESTful` service. If you use `curl`, you could try the following command:
 
 ```text
-curl -X POST -d '${REQ_JSON_MESSAGE}' --insecure https://${HOST}:${PORT}/model/${MODLE_NAME}[/version/${VERSION}]:${METHOD_NAME}
+curl -X POST -d '${REQ_JSON_MESSAGE}' --cacert '${PATH_TO_CA_CERT_FILE}' https://${HOST}:${PORT}/model/${MODLE_NAME}/version/${VERSION}]:${METHOD_NAME}
 ```
 
-The protocol needs to be set to `https`, `--insecure`represents not verifying server's certificate.
+The example of accessing the method `add_common` of the `add` model is following:
+
+```text
+curl -X POST -d '{"instances":[{"x1":[[1.0, 2.0], [3.0, 4.0]], "x2":[[1.0, 2.0], [3.0, 4.0]]}]}' --cacert ca.crt https://localhost:5500/model/add/version/1:add_common
+```
+
+The protocol needs to be set to `https`, and set value of the option `--cacert` to the path of `ca.crt`.
+
+By the way, we can set `--insecure` option representing not verifying the server's certificate due to using self-signed server's certificate in this case.
+And here's an example:
+
+```text
+curl -X POST -d '{"instances":[{"x1":[[1.0, 2.0], [3.0, 4.0]], "x2":[[1.0, 2.0], [3.0, 4.0]]}]}' --insecure https://localhost:5500/model/add/version/1:add_common
+```
