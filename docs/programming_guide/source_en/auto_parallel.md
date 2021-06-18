@@ -397,7 +397,7 @@ In `HYBRID_PARALLEL` mode, you need to manually split the model. You need to man
 The following is a code example:
 
 ```python
-imoprt numpy as np
+import numpy as np
 from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
