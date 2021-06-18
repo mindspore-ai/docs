@@ -223,3 +223,8 @@ A：Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpor
 
 - After `export CUDA_VISIBLE_DEVICES=1,3,5`, `DEVICE_ID` should be exported as `0`, `1` or `2`. If `3` is exported, MindSpore will fail to execute because of the invalid device ordinal.
 
+<br/>
+
+<font size=3>**Q：Why does context.set_ps_context(enable_ps=True) in model_zoo/official/cv/resnet/train.py in the MindSpore code have to be set before init?**</font>
+
+A：In MindSpore Ascend mode, if init is called first, then all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, then the worker and server will use the same card, resulting in an error: Hccl dependent tsd is not open.
