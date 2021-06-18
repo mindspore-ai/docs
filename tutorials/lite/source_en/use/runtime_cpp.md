@@ -1,6 +1,6 @@
 # Using C++ Interface to Perform Inference
 
-`Windows` `Linux` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
+`Windows` `macOS` `Linux` `iOS` `Android` `C++` `Inference Application` `Model Loading` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -85,6 +85,8 @@ The context saves some basic configuration parameters required by the session to
 - [device_list_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#device-list): MindSpore Lite supports heterogeneous inference. The backend configuration information for inference is specified by `device_list_` in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2). By default, the [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) of the CPU is stored. During graph build, operator selection and scheduling are performed based on the backend configuration information in `device_list_`. Currently, only CPU and GPU heterogeneity or CPU and NPU heterogeneity is supported. When the GPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, GPU-based inference is preferentially used. When the NPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, NPU-based inference is preferentially used.
 
 > `device_list_[0]` must be `DeviceContext` of the CPU, and `device_list_[1]` must be `DeviceContext` of the GPU or `DeviceContext` of the NPU. Currently, the CPU, GPU, and NPU cannot be set at a time.
+>
+> For the iOS platform, `device_list_[0]` must be `DeviceContext` of the CPU.
 
 ### Configuring the Number of Threads
 
@@ -119,6 +121,8 @@ cpu_device_info.enable_float16_ = true;
 ```
 
 > Float16 takes effect only when the CPU is of the ARM v8.2 architecture. Other models and x86 platforms that are not supported are automatically rolled back to Float32.
+>
+> For the iOS platform, only the CPU is supported, and Float16 is temporarily not supported.
 
 ### Configuring the GPU Backend
 
@@ -579,6 +583,8 @@ If an exception occurs during inference, you can view logs to locate the fault. 
 ```bash
 logcat -s "MS_LITE"
 ```
+
+> For the iOS platform, does not support viewing logs temporarily.
 
 ### Obtaining the Version Number
 

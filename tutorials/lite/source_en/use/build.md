@@ -1,6 +1,6 @@
 # Building MindSpore Lite
 
-`Windows` `Linux` `Android` `Environment Preparation` `Intermediate` `Expert`
+`Windows` `macOS` `Linux` `iOS` `Android` `Environment Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
@@ -21,6 +21,12 @@
         - [Compilation Example](#compilation-example-1)
         - [Output Description](#output-description)
             - [Description of Runtime and Related Tools' Directory Structure](#description-of-runtime-and-related-tools-directory-structure)
+    - [macOS Environment Compilation](#macOS-environment-compilation)
+        - [Environment Requirements](#environment-requirements)
+        - [Compilation Options](#compilation-options)
+        - [Compilation Example](#compilation-example)
+        - [Output Description](#output-description)
+            - [Description of Runtime Directory Structure](#description-of-runtime-directory-structure)
     - [Docker Environment Compilation](#docker-environment-compilation)
         - [Environmental Preparation](#environmental-preparation)
             - [Download the docker image](#download-the-docker-image)
@@ -41,7 +47,7 @@ Modules in inference version:
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
 | converter | Linux, Windows | Model Conversion Tool |
-| runtime(cpp, java) | Linux, Windows, Android | Model Inference Framework(Windows platform does not support java version runtime) |
+| runtime(cpp, java) | Linux, Windows, Android, iOS | Model Inference Framework(Windows platform does not support java version runtime) |
 | benchmark | Linux, Windows, Android | Benchmarking Tool |
 | cropper | Linux | Static library crop tool for libmindspore-lite.a |
 | minddata | Linux, Android | Image Processing Library |
@@ -471,6 +477,82 @@ mindspore-lite-{version}-win-x64
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.
+
+## macOS Environment Compilation
+
+### Environment Requirements
+
+- System environment: macOS 10.15.4 and above ; 64-bit.
+
+- Compilation dependencies are:
+    - [CMake](https://cmake.org/download/) >= 3.18.3
+    - [Xcode](https://developer.apple.com/xcode/download/cn) == 11.4.1
+    - [Git](https://git-scm.com/downloads) >= 2.28.0
+
+> - The compilation script will execute `git clone` to obtain the code of the third-party dependent libraries.
+
+### Compilation Options
+
+MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference.
+
+The compilation options of MindSpore Lite are as follows:
+
+| Parameter  |  Parameter Description  | Value Range | Defaults |
+| -------- | ----- | ---- | ---- |
+| -I | Selects an applicable architecture. | arm64, arm32 | None |
+| -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
+
+### Compilation Example
+
+First, use the git tool to download the source code from the MindSpore code repository.
+
+```bash
+git clone https://gitee.com/mindspore/mindspore.git
+```
+
+Then, use the cmd tool to compile MindSpore Lite in the root directory of the source code and execute the following commands.
+
+- Compile the ARM64 architecture version
+
+    ```bash
+    bash build.sh -I arm64 -j8
+    ```
+
+- Compile the ARM32 architecture version
+
+    ```bash
+    bash build.sh -I arm32 -j8
+    ```
+
+### Output Description
+
+After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation.
+
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model inference framework.
+
+> - version: Version of the output, consistent with that of the MindSpore.
+> - os: Operating system on which the output will be deployed.
+> - arch: System architecture on which the output will be deployed.
+
+Execute the decompression command to obtain the compiled output:
+
+```bash
+tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
+```
+
+#### Description of Runtime and Related Tools' Directory Structure
+
+The content includes the following parts:
+
+```text
+mindspore-lite.framework
+└── runtime
+    ├── Headers        # 推理框架头文件
+    ├── Info.plist     # 配置文件
+    └── mindspore-lite # 静态库
+```
+
+> Currently, MindSpore Lite Train and converter are not supported on macOS.
 
 ## Docker Environment Compilation
 
