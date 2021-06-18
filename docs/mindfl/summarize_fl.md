@@ -38,7 +38,7 @@ MindSpore FL是一款开源联邦学习框架，支持千万级无状态终端�
 
 MindFL采用松耦合组网模式，应对大规模、无状态、不可靠的异构设备的联邦学习任务。
 
-![](./images/MindFL-Networking.png)
+![](./docs/source_zh_cn/images/MindFL-Networking.png)
 
 FL-Scheduler：联邦学习调度器，与FL-Server保持TCP长链接，通过心跳完成FL-Server node的组网结构，并负责管理面任务的下发。
 
@@ -50,7 +50,7 @@ FL-Client：联邦学习客户端，负责本地数据训练以及作为https的
 
 MindSpore FL 分为客户端模块和服务器模块两个部分，其框架的总体架构如下所示：
 
-![architecture](./images/MindFL-architecture.png)
+![architecture](./docs/source_zh_cn/images/MindFL-architecture.png)
 
 - MindFL-Server模块：
 
