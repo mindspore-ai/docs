@@ -1,0 +1,284 @@
+# Federated Learning Server集群部署方式
+
+`Linux` `模型训练` `中级` `高级`
+
+<!-- TOC -->
+
+- [Federated Learning Server集群部署方式](#Federated_Learning_Server集群部署方式)
+    - [概述](#概述)
+    - [准备环节](#准备环节)
+        - [安装MindSpore](#安装MindSpore)
+    - [定义模型](#定义模型)
+    - [参数配置](#参数配置)
+    - [启动集群](#启动集群)
+    - [弹性伸缩](#弹性伸缩)
+
+<!-- /TOC -->
+
+## 概述
+
+本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。
+
+> 可以在[这里](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile)下载本文档中的完整Demo。
+
+MindSpore Federated Learning Server集群物理架构如图所示：
+
+<img src='./images/MindFL-Networking.png' align='middle'/>
+
+如上图所示，在联邦学习云侧集群中，有两种角色的MindSpore进程：`Federated Learning Scheduler`和`Federated Learning Server`:
+
+- Federated Learning Scheduler
+
+    `Scheduler`的作用主要有两点：
+
+    1. 协助集群组网：在集群初始化阶段，由Scheduler负责收集Server信息，并达成集群一致性。
+    2. 开放管理面：支持用户通过`RESTful`接口对集群进行管理。
+
+    在一个联邦学习任务中，只有一个Scheduler，与Server通过TCP私有协议通信。
+
+- Federated Learning Server
+
+    `Server`为执行联邦学习任务的主体，用于接收和解析来自端侧设备的数据，具有执行安全聚合、限时通信、模型存储等能力。在一个联邦学习任务中，`Server`可以有多个(用户可配置)，`Server`间通过TCP私有协议通信，对外开放HTTP端口用于端侧设备连接。
+
+    > 在MindSpore联邦学习框架中，`Server`还支持弹性伸缩以及容灾，能够在训练任务不中断的情况下，动态调配硬件资源。
+
+## 准备环节
+
+### 安装MindSpore
+
+MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版本的MindSpore即可。执行[官网提供的命令](https://www.mindspore.cn/install)安装MindSpore最新`CPU`版本。
+
+## 定义模型
+
+为了便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程能够复用训练脚本，通过[参数配置](#参数配置)选择不同的启动方式。
+
+本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py)。
+
+## 参数配置
+
+MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html#mindspore.context.set_fl_context)。
+
+在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式如下：
+
+```python
+import mindspore.context as context
+...
+
+enable_fl = True
+server_mode = "FEDERATED_LEARNING"
+ms_role = "MS_SERVER"
+server_num = 4
+scheduler_ip = "192.168.216.124"
+scheduler_port = 6667
+fl_server_port = 6668
+fl_name = "LeNet"
+scheduler_manage_port = 11202
+
+fl_ctx = {
+    "enable_fl": enable_fl,
+    "server_mode": server_mode,
+    "ms_role": ms_role,
+    "server_num": server_num,
+    "scheduler_ip": scheduler_ip,
+    "scheduler_port": scheduler_port,
+    "fl_server_port": fl_server_port,
+    "fl_name": fl_name,
+    "scheduler_manage_port": scheduler_manage_port
+}
+context.set_fl_context(**fl_ctx)
+...
+
+Model.train()
+```
+
+本示例设置了本次训练任务的模式为`联邦学习`，此训练进程角色为`Server`，本次任务需要启动`4`个`Server`才能完成集群组网，集群`Scheduler`的IP地址为`192.168.216.124`，集群`Scheduler`端口为`6667`，联邦学习`HTTP服务端口`为`6668`(由端侧设备连接)，任务名为`LeNet`，集群`Scheduler`管理端口为`11202`。
+
+> 部分参数只在Scheduler用到，如scheduler_manage_port，部分参数只在Server用到，如fl_server_port，为了方便部署，可将这些参数配置统一传入，MindSpore会根据进程角色，读取不同的参数配置。
+> 建议将参数配置通过Python `argparse`模块传入：
+
+```python
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--server_mode", type=str, default="FEDERATED_LEARNING")
+parser.add_argument("--ms_role", type=str, default="MS_SERVER")
+parser.add_argument("--server_num", type=int, default=4)
+parser.add_argument("--scheduler_ip", type=str, default="192.168.216.124")
+parser.add_argument("--scheduler_port", type=int, default=6667)
+parser.add_argument("--fl_server_port", type=int, default=6668)
+parser.add_argument("--fl_name", type=str, default="LeNet")
+parser.add_argument("--scheduler_manage_port", type=int, default=11202)
+
+args, t = parser.parse_known_args()
+server_mode = args.server_mode
+ms_role = args.ms_role
+server_num = args.server_num
+scheduler_ip = args.scheduler_ip
+scheduler_port = args.scheduler_port
+fl_server_port = args.fl_server_port
+fl_name = args.fl_name
+scheduler_manage_port = args.scheduler_manage_port
+```
+
+> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别拉起多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)。
+
+## 启动集群
+
+参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)，启动集群。参考示例目录结构如下：
+
+```text
+mobile/
+├── finish_mobile.py
+├── run_mobile_sched.py
+├── run_mobile_server.py
+├── src
+│   └── model.py
+└── test_mobile_lenet.py
+```
+
+1. 启动Scheduler
+
+    `run_mobile_sched.py`是为用户启动`Scheduler`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Scheduler`，其TCP端口为`6667`，联邦学习HTTP服务端口为`6668`，`Server`数量为`4`个，集群`Scheduler`管理端口为`11202`：
+
+    ```sh
+    python run_mobile_sched.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --scheduler_manage_port=11202
+    ```
+
+2. 启动Server
+
+    `run_mobile_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的端侧设备数量为`8`个：
+
+    ```sh
+    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
+    ```
+
+    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)。  
+
+    > 若只想在单机部署`Scheduler`以及`Server`，只需将`scheduler_ip`配置项修改为`127.0.0.1`即可。
+
+    若想让`Server`分布式部署在不同物理节点，可以使用`local_server_num`参数，代表在**本节点**需要执行的`Server`进程数量：
+
+    ```sh
+    #在节点1启动3个Server进程
+    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3
+    ```
+
+    ```sh
+    #在节点2启动1个Server进程
+    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
+    ```
+
+    看到日志打印
+
+    ```sh
+    Server started successfully.
+    ```
+
+    则说明启动成功。
+
+    > 以上分布式部署的指令中，`server_num`都为4，这是因为此参数代表集群全局的`Server`数量，不应随着物理节点的数量而改变。对于不同节点上的`Server`来说，它们无需感知各自的IP地址，集群的一致性和节点发现都由`Scheduler`进行调度。
+
+3. 停止联邦学习
+
+    目前我们采用`finish_mobile.py`用于停止联邦学习服务器，执行如下指令来停止联邦学习集群，其中`scheduler_port`传参和启动服务器时的传参保持一致：
+
+    ```sh
+    python finish_mobile.py --scheduler_port=6667
+    ```
+
+    可看到结果：
+
+    ```sh
+    killed $PID1
+    killed $PID2
+    killed $PID3
+    killed $PID4
+    killed $PID5
+    killed $PID6
+    killed $PID7
+    killed $PID8
+    ```
+
+    说明停止服务成功。
+
+## 弹性伸缩
+
+MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Scheduler`管理端口提供`RESTful`服务，使得用户在不中断训练任务的情况下，对硬件资源进行动态调度。目前MindSpore的弹性伸缩仅支持水平伸缩(Scale Out/In)，暂不支持垂直伸缩(Scale Up/Down)。在弹性伸缩场景下，必然会有Server进程的增加/减少。
+
+这里详细描述用户能如何通过RESTful原生接口，对集群扩容/缩容进行控制。
+
+1. 扩容
+
+    在集群启动后，向`Scheduler`发起扩容请求，这里使用`curl`指令构造`RESTful`扩容请求，代表集群需要扩容2个`Server`节点：
+
+    ```sh
+    curl -i -X POST \
+    -H "Content-Type:application/json" \
+    -d \
+    '{
+    "worker_num":0,
+    "server_num":2
+    }' \
+    'http://192.168.216.124:11202/scaleout'
+    ```
+
+    这里需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`7`，执行指令：
+
+    ```sh
+    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=7 --start_fl_job_threshold=8 --local_server_num=2
+    ```
+
+2. 缩容
+
+    在集群启动后，向`Scheduler`发起缩容请求。由于缩容需要对具体节点进行操作，因此需要获取节点信息：
+
+    ```sh
+    curl -i -X GET \
+    'http://192.168.216.124:11202/nodes'
+    ```
+
+    返回`json`格式的结果：
+
+    ```json
+    {
+        "message": "Get nodes info successful.",
+        "node_ids": [
+            {
+                "node_id": "40d56ffe-f8d1-4960-85fa-fdf88820402a",
+                "rank_id": "3",
+                "role": "SERVER"
+            },
+            {
+                "node_id": "1ba06348-f2e2-4ad2-be83-0d41fcb53228",
+                "rank_id": "2",
+                "role": "SERVER"
+            },
+            {
+                "node_id": "997967bb-c1ab-4916-8697-dcfaaf0354e5",
+                "rank_id": "1",
+                "role": "SERVER"
+            },
+            {
+                "node_id": "4b8d5bdf-eafd-4f5c-8cae-79008f19298a",
+                "rank_id": "0",
+                "role": "SERVER"
+            }
+        ]
+    }
+    ```
+
+    选择`Rank3`和`Rank2`进行缩容:
+
+    ```sh
+    curl -i -X POST \
+    -H "Content-Type:application/json" \
+    -d \
+    '{
+    "node_ids": ["40d56ffe-f8d1-4960-85fa-fdf88820402a", "1ba06348-f2e2-4ad2-be83-0d41fcb53228"]
+    }' \
+    'http://10.113.216.124:11202/scalein'
+    ```
+
+> - 在集群扩容/缩容成功后，训练任务会自动恢复，不需要用户进行额外干预。
+>
+> - 可以通过集群管理工具(如Kubernetes)创建或者释放`Server`资源。
