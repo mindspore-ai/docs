@@ -13,13 +13,6 @@
 - mask：二进制的图像分割蒙版
 - mask_shape：图像分割蒙版shape
 
-在`__getitem__`中，应该返回：
-
-- img：图像
-- annos：图像的bbox、分类和iscrowd信息
-- mask：二进制的图像分割蒙版
-- mask_shape：图像分割蒙版shape
-
 > 运行本案例需要在MindSpore1.2及以上版本的基础上安装以下依赖项：
 >
 > Cython
@@ -27,8 +20,8 @@
 > pycocotools
 >
 > mmcv==0.2.14
-
-可通过运行代码文件夹中的`requirements.txt`完成。
+>
+> 可通过运行代码文件夹中的`requirements.txt`完成。
 
 下面是一个图像分割的示例：
 
