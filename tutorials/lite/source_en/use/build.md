@@ -9,32 +9,22 @@
         - [Environment Requirements](#environment-requirements)
         - [Compilation Options](#compilation-options)
         - [Compilation Example](#compilation-example)
-        - [Inference Output Description](#inference-output-description)
-            - [Description of Converter's Directory Structure](#description-of-converters-directory-structure)
-            - [Description of Obfuscator's Directory Structure](#description-of-obfuscators-directory-structure)
-            - [Description of Runtime and Other tools' Directory Structure](#description-of-runtime-and-other-tools-directory-structure)
-        - [Training Output Description](#training-output-description)
-            - [Description of Training Runtime and Related Tools' Directory Structure](#description-of-training-runtime-and-related-tools-directory-structure)
+        - [Directory Structure](#directory-structure)
     - [Windows Environment Compilation](#windows-environment-compilation)
         - [Environment Requirements](#environment-requirements-1)
         - [Compilation Options](#compilation-options-1)
         - [Compilation Example](#compilation-example-1)
-        - [Output Description](#output-description)
-            - [Description of Runtime and Related Tools' Directory Structure](#description-of-runtime-and-related-tools-directory-structure)
+        - [Directory Structure](#directory-structure-1)
     - [macOS Environment Compilation](#macOS-environment-compilation)
         - [Environment Requirements](#environment-requirements)
-        - [Compilation Options](#compilation-options)
-        - [Compilation Example](#compilation-example)
-        - [Output Description](#output-description)
-            - [Description of Runtime Directory Structure](#description-of-runtime-directory-structure)
-    - [Docker Environment Compilation](#docker-environment-compilation)
-        - [Environmental Preparation](#environmental-preparation)
-            - [Download the docker image](#download-the-docker-image)
-            - [Create a container](#create-a-container)
-            - [Enter the container](#enter-the-container)
         - [Compilation Options](#compilation-options-2)
         - [Compilation Example](#compilation-example-2)
-        - [Output Description](#output-description-1)
+        - [Directory Structure](#directory-structure-2)
+    - [Docker Environment Compilation](#docker-environment-compilation)
+        - [Environmental Preparation](#environmental-preparation)
+        - [Compilation Options](#compilation-options-3)
+        - [Compilation Example](#compilation-example-3)
+        - [Directory Structure](#directory-structure-3)
 
 <!-- /TOC -->
 
@@ -42,70 +32,47 @@
 
 This chapter introduces how to quickly compile MindSpore Lite, which includes the following modules:
 
-Modules in inference version:
+Modules in MindSpore Lite:
 
 | Module | Support Platform | Description |
 | --- | ---- | ---- |
-| converter | Linux, Windows | Model Conversion Tool |
+| converter          | Linux, Windows               | Model Conversion Tool    |
 | runtime(cpp, java) | Linux, Windows, Android, iOS | Model Inference Framework(Windows platform does not support java version runtime) |
-| benchmark | Linux, Windows, Android | Benchmarking Tool |
-| cropper | Linux | Static library crop tool for libmindspore-lite.a |
-| minddata | Linux, Android | Image Processing Library |
-
-Modules in training version:
-
-| Module          | Support Platform | Description                                      |
-| --------------- | ---------------- | ------------------------------------------------ |
-| converter       | Linux            | Model Conversion Tool                            |
-| runtime(cpp)    | Linux, Android   | Model Train Framework(java is not support)       |
-| cropper         | Linux            | Static library crop tool for libmindspore-lite.a |
-| minddata        | Linux, Android   | Image Processing Library                         |
-| benchmark_train | Linux, Android   | Performance and Accuracy Validation              |
-| obfuscator      | Linux            | Model Obfuscation Tool                           |
+| benchmark          | Linux, Windows, Android      | Benchmarking Tool        |
+| benchmark_train    | Linux, Android               | Performance and Accuracy Validation              |
+| cropper            | Linux                        | Static library crop tool for libmindspore-lite.a |
+| minddata           | Linux, Android               | Image Processing Library |
+| codegen            | Linux                        | Model inference code generation tool |
+| obfuscator         | Linux                        | Model Obfuscation Tool   |
 
 ## Linux Environment Compilation
 
 ### Environment Requirements
 
 - The compilation environment supports Linux x86_64 only. Ubuntu 18.04.02 LTS is recommended.
-
-- Compilation dependencies of runtime(cpp):
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+- Compilation dependencies of cpp:
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-    - [Git](https://git-scm.com/downloads) >= 2.28.0
-- Compilation dependencies of converter:
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
-    - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
-    - [LibreSSL](http://www.libressl.org/) >= 3.1.3
-    - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
-    - [Libevent](https://libevent.org) >= 2.0
-    - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-
-- Compilation dependencies of runtime(java)
-    - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-    - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
+        - Configure environment variables: `export ANDROID_NDK=NDK path`
+    - [DDK](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180) = V500.010
+        - Configure environment variables: `export HWHIAI_DDK=DDK path`
+- Additional compilation dependencies of Java:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
+        - Configure environment variables: `export GRADLE_HOME=GRADLE path`
+        - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
-
-> - To install and use `Android_NDK`, you need to configure environment variables. The command example is `export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`.
-> - After Gradle is installed, you need to add its installation path to the PATH: `export PATH=${GRADLE_PATH}/bin:$PATH`.
-> - To install the Android SDK via `Android command line tools`, you need to create a new directory first and configure its path to the environment variable in `${ANDROID_SDK_ROOT}`, then create SDK via `sdkmanager`: `./sdkmanager --sdk_root=$ {ANDROID_SDK_ROOT} "cmdline-tools;latest"`, and finally accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
-> - Compiling AAR relies on Android SDK Build-Tools, Android SDK Platform-Tools and other Android SDK related components. If the Android SDK in the environment does not have related components, the required dependencies will be automatically downloaded during compilation.
-> - When compiling the NPU operator, you need to download [DDK V500.010](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180), the directory where the compressed package is decompressed Set to the environment variable `${HWHIAI_DDK}`.
+        - Configure environment variables: `export JAVA_HOME=JDK path`
+        - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`
+    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
+        - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`
+        - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
+        - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`
 
 ### Compilation Options
 
-MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference.
-
-The following describes the compilation parameter of `build.sh` and the options of `mindspore/lite/CMakeLists.txt`.
+The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
 #### The compilation parameter of `build.sh`
 
@@ -126,7 +93,7 @@ The following describes the compilation parameter of `build.sh` and the options 
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | Set the GPU backend, only valid when `-I arm64` | opencl, vulkan, cuda, off | opencl |
+| MSLITE_GPU_BACKEND | Set the GPU backend, only valid when `-I arm64` | opencl, off | opencl |
 | MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on、off | on |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on、off | off |
@@ -173,142 +140,66 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -A on -j32
     ```
 
-### Inference Output Description
+Finally, the following files will be generated in the `output/` directory:
 
-After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains runtime, and related tools.
 
-- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model inference framework runtime (cpp), and related tools.
-- `mindspore-lite-maven-{version}.zip`: Contains model reasoning framework AAR package.
+- `mindspore-lite-maven-{version}.zip`: The AAR package which contains runtime (java).
 
 > - version: Version of the output, consistent with that of the MindSpore.
 > - os: Operating system on which the output will be deployed.
 > - arch: System architecture on which the output will be deployed.
 
-Execute the decompression command to obtain the compiled output:
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-unzip mindspore-lite-maven-{version}.zip
-```
-
-#### Description of Converter's Directory Structure
-
-The conversion tool is only available under the `-I x86_64` compilation option, and the content includes the following parts:
-
-```text
-mindspore-lite-{version}-linux-x64
-└── tools
-    └── converter
-        ├── include
-        │   └── registry             # Header files of customized op, parser and pass registration
-        ├── converter                # Model conversion tool
-        │   └── converter_lite       # Executable program
-        └── lib                      # The dynamic link library that converter depends
-            ├── libglog.so.0         # Dynamic library of Glog
-            └── libmslite_converter_plugin.so  # Dynamic library of plugin registry
-```
-
-#### Description of CodeGen's Directory Structure
-
-The codegen executable program is only available under the `-I x86_64` compilation option, and only the operator library required by the inference code generated by codegen is generated under the `-I arm64` and `-I arm32` compilation options.
-
-- When the compilation option is `-I x86_64`:
-
-    ```text
-    mindspore-lite-{version}-linux-x64
-    └── tools
-        └── codegen # Code generation tool
-            ├── codegen          # Executable program
-            ├── include          # Header files of inference framework
-            │   ├── nnacl        # nnacl operator header file
-            │   └── wrapper
-            ├── lib
-            │   └── libwrapper.a # MindSpore Lite CodeGen generates code dependent operator static library
-            └── third_party
-                ├── include
-                │   └── CMSIS    # ARM CMSIS NN operator header files
-                └── lib
-                    └── libcmsis_nn.a # ARM CMSIS NN operator static library
-    ```
-
-- When the compilation option is `-I arm64` or `-I arm32`:
-
-    ```text
-    mindspore-lite-{version}-android-{arch}
-    └── tools
-        └── codegen # Code generation tool
-            └── operator_library # Operator library
-                ├── include   # Header files of inference framework
-                │   ├── nnacl # nnacl operator header file
-                │   └── wrapper
-                └── lib       # Inference framework library
-                    └── libwrapper.a # MindSpore Lite CodeGen generates code dependent static library
-    ```
-
-#### Description of Obfuscator's Directory Structure
-
-The obfuscation tool is only available under the `-I x86_64` compilation option and the `ENABLE_MODEL_OBF` compilation option in `mindspore/mindspore/lite/CMakeLists.txt` is turned on, the content includes the following parts:
-
-```text
-mindspore-lite-{version}-linux-x64
-└── tools
-    └── obfuscator # Model obfuscation tool
-        └── msobfuscator          # Executable program
-```
-
-#### Description of Runtime and Other tools' Directory Structure
-
-The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I arm32` compilation options, and the content includes the following parts:
+### Directory Structure
 
 - When the compilation option is `-I x86_64`:
 
     ```text
     mindspore-lite-{version}-linux-x64
     ├── runtime
-    │   ├── include  # Header files of inference framework
-    │   │   └── registry # Header files of customized op registration
-    │   └── lib      # Inference framework library
-    │       ├── libminddata-lite.so        # The files of image processing dynamic library
-    │       ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
-    │       ├── libmindspore-lite-jni.so   # Dynamic library of inference framework jni in MindSpore Lite
-    │       ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
-    │       ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
-    │       └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
-    └── tools
-        ├── benchmark # Benchmarking tool
-        │   └── benchmark # Executable program
-        ├── codegen   # Code generation tool
-        │   ├── codegen   # Executable program
-        │   ├── include   # operator header file
-        │   ├── lib       # operator static library
-        │   └── third_party # ARM CMSIS NN static library
-        ├── converter  # Model conversion tool
-        ├── obfuscator # Model obfuscation tool
-        └── cropper    # Static library crop tool
-            ├── cropper                 # Executable file of static library crop tool
-            └── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
-    ```
-
-- When the compilation option is `-I arm64` or `-I arm32`:
-
-    ```text
-    mindspore-lite-{version}-android-{arch}
-    ├── runtime
-    │   ├── include     # Header files of inference framework
-    │   │   └── registry # Header files of customized op registration
-    │   ├── lib         # Inference framework library
-    │   │   ├── libminddata-lite.so       # The files of image processing dynamic library
-    │   │   ├── libmindspore-lite.a       # Static library of inference framework in MindSpore Lite
-    │   │   ├── libmindspore-lite.so      # Dynamic library of inference framework in MindSpore Lite
-    │   │   └── libmsdeobfuscator-lite.so # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │   ├── include
+    │   ├── lib
+    │   │   ├── libminddata-lite.a         # Static library of image processing
+    │   │   ├── libminddata-lite.so        # Dynamic library of image processing
+    │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
+    │   │   ├── libmindspore-lite-jni.so   # Dynamic library of inference framework jni in MindSpore Lite
+    │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
+    │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
+    │   │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
+    │   │   ├── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │   │   └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
     │   └── third_party
-    │       └── hiai_ddk # NPU library, only exists in arm64 package
+    │       └── libjpeg-turbo
     └── tools
-        ├── benchmark # Benchmarking tool
-        │   └── benchmark
-        └── codegen   # Code generation tool
-            ├── include  # operator header file
-            └── lib      # operator static library
+        ├── benchmark       # Benchmarking tool
+        ├── benchmark_train # Training model benchmark tool
+        ├── codegen         # Code generation tool
+        ├── converter       # Model conversion tool
+        ├── obfuscator      # Model obfuscation tool
+        └── cropper         # Static library crop tool
+    ```
+
+- When the compilation option is `-I arm64` or `-I arm32`:
+
+    ```text
+    mindspore-lite-{version}-android-{arch}
+    ├── runtime
+    │   ├── include
+    │   ├── lib
+    │   │   ├── libminddata-lite.a         # Static library of image processing
+    │   │   ├── libminddata-lite.so        # Dynamic library of image processing
+    │   │   ├── libmindspore-lite.a        # Static library of inference framework in MindSpore Lite
+    │   │   ├── libmindspore-lite.so       # Dynamic library of inference framework in MindSpore Lite
+    │   │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
+    │   │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
+    │   │   └── libmsdeobfuscator-lite.so  # The files of obfuscated model loading dynamic library, need to open the `ENABLE_MODEL_OBF` option.
+    │   └── third_party
+    │       ├── hiai_ddk
+    │       └── libjpeg-turbo
+    └── tools
+        ├── benchmark       # Benchmarking tool
+        ├── benchmark_train # Training model benchmark tool
+        └── codegen         # Code generation tool
     ```
 
 - When the compilation option is `-A on`:
@@ -319,68 +210,6 @@ The inference framework can be obtained under `-I x86_64`, `-I arm64` and `-I ar
         └── mindspore-lite
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite runtime aar
-    ```
-
-### Training Output Description
-
-If the MSLITE_ENABLE_TRAIN option is turned on, default on, the training Runtime and related tools will be generated, as follows:
-
-- `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model training framework and related tool.
-
-> - version: Version of the output, consistent with that of the MindSpore.
-> - os: Operating system on which the output will be deployed.
-> - arch: System architecture on which the output will be deployed.
-
-Execute the decompression command to obtain the compiled output:
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-```
-
-#### Description of Training Runtime and Related Tools' Directory Structure
-
-The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm64` and `-I arm32` compilation options, and the content includes the following parts:
-
-- When the compilation option is `-I x86_64`:
-
-    ```text
-    mindspore-lite-{version}-linux-x64
-    ├── tools
-    │   ├── benchmark_train # Training model benchmark tool
-    │   ├── converter       # Model conversion tool
-    │   └── cropper         # Static library crop tool
-    │       ├── cropper                 # Executable file of static library crop tool
-    │       └── cropper_mapping_cpu.cfg # Crop cpu library related configuration files
-    └── runtime
-        ├── include  # Header files of training framework
-        │   └── registry # Header files of customized op registration
-        ├── lib      # Inference framework library
-        │   ├── libminddata-lite.so        # The files of image processing dynamic library
-        │   ├── libmindspore-lite-jni.so   # Dynamic library of training framework jni in MindSpore Lite
-        │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-        │   ├── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        │   └── mindspore-lite-java.jar    # Jar of inference framework in MindSpore Lite
-        └── third_party
-            └── libjpeg-turbo
-    ```
-
-- When the compilation option is `-I arm64` or `-I arm32`:  
-
-    ```text
-    mindspore-lite-{version}-android-{arch}
-    ├── tools
-    │   ├── benchmark       # Benchmarking tool
-    │   ├── benchmark_train # Training model benchmark tool
-    └── runtime
-        ├── include # Header files of training framework
-        │   └── registry # Header files of customized op registration
-        ├── lib     # Training framework library
-        │   ├── libminddata-lite.so # The files of image processing dynamic library
-        │   ├── libmindspore-lite-train.a  # Static library of training framework in MindSpore Lite
-        │   └── libmindspore-lite-train.so # Dynamic library of training framework in MindSpore Lite
-        └── third_party
-            ├── hiai_ddk  # NPU library, only exists in arm64 package
-            └── libjpeg-turbo
     ```
 
 ## Windows Environment Compilation
@@ -398,12 +227,26 @@ The MindSpore Lite training framework can be obtained under `-I x86_64`, `-I arm
 
 ### Compilation Options
 
-The compilation options of MindSpore Lite are as follows:
+The script `build.bat` in the root directory of MindSpore can be used to compile MindSpore Lite.
+
+#### The compilation parameter of `build.bat`
 
 | Parameter  |  Parameter Description   | Mandatory or Not |
 | -------- | ----- | ---- |
 | lite | Set this parameter to compile the MindSpore Lite project. | Yes |
 | [n] | Set the number of threads used during compilation, otherwise the default is set to 6 threads.  | No |
+
+#### The options of `mindspore/lite/CMakeLists.txt`
+
+| Option  |  Parameter Description  | Value Range | Defaults |
+| -------- | ----- | ---- | ---- |
+| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on、off | off |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set | on、off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool | on、off | on |
+| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on、off | on |
+| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
+
+> - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
 
 ### Compilation Example
 
@@ -427,29 +270,18 @@ call build.bat lite
 call build.bat lite 8
 ```
 
-### Output Description
-
-After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation. The file is divided into the following parts.
+Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-win-x64.zip`: Contains model inference framework and related tool.
 
 > version: Version of the output, consistent with that of the MindSpore.
 
-Execute the decompression command to obtain the compiled output:
-
-```bat
-unzip mindspore-lite-{version}-win-x64.zip
-```
-
-#### Description of Runtime and Related Tools' Directory Structure
-
-The content includes the following parts:
+### Directory Structure
 
 ```text
 mindspore-lite-{version}-win-x64
 ├── runtime
-│   ├── include # Header files of inference framework
-│   │   └── registry     # Header files of customized op registration
+│   ├── include
 │   └── lib
 │       ├── libgcc_s_seh-1.dll      # Dynamic library of MinGW
 │       ├── libmindspore-lite.a     # Static library of inference framework in MindSpore Lite
@@ -460,20 +292,7 @@ mindspore-lite-{version}-win-x64
 │       └── libwinpthread-1.dll     # Dynamic library of MinGW
 └── tools
     ├── benchmark # Benchmarking tool
-    │   └── benchmark.exe # Executable program
     └── converter # Model conversion tool
-        ├── include
-        │   └── registry             # Header files of customized op, parser and pass registration
-        ├── converter
-        │   └── converter_lite.exe    # Executable program
-        └── lib
-            ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
-            ├── libglog.dll           # Dynamic library of Glog
-            ├── libmslite_converter_plugin.dll   # Dynamic library of plugin registry
-            ├── libmslite_converter_plugin.dll.a # Link file of Dynamic library of plugin registry
-            ├── libssp-0.dll          # Dynamic library of MinGW
-            ├── libstdc++-6.dll       # Dynamic library of MinGW
-            └── libwinpthread-1.dll   # Dynamic library of MinGW
 ```
 
 > Currently, MindSpore Lite is not supported on Windows.
@@ -493,9 +312,9 @@ mindspore-lite-{version}-win-x64
 
 ### Compilation Options
 
-MindSpore Lite provides a compilation script `build.sh` for one-click compilation, located in the root directory of MindSpore. This script can be used to compile the code of training and inference.
+The script `build.sh` in the root directory of MindSpore can be used to compile MindSpore Lite.
 
-The compilation options of MindSpore Lite are as follows:
+#### The compilation parameter of `build.sh`
 
 | Parameter  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
@@ -524,9 +343,7 @@ Then, use the cmd tool to compile MindSpore Lite in the root directory of the so
     bash build.sh -I arm32 -j8
     ```
 
-### Output Description
-
-After the compilation is complete, go to the `mindspore/output` directory of the source code to view the file generated after compilation.
+Finally, the following files will be generated in the `output/` directory:
 
 - `mindspore-lite-{version}-{os}-{arch}.tar.gz`: Contains model inference framework.
 
@@ -534,15 +351,7 @@ After the compilation is complete, go to the `mindspore/output` directory of the
 > - os: Operating system on which the output will be deployed.
 > - arch: System architecture on which the output will be deployed.
 
-Execute the decompression command to obtain the compiled output:
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-```
-
-#### Description of Runtime and Related Tools' Directory Structure
-
-The content includes the following parts:
+### Directory Structure
 
 ```text
 mindspore-lite.framework
@@ -558,27 +367,27 @@ mindspore-lite.framework
 
 ### Environmental Preparation
 
-#### Download the docker image
+- Download the docker image
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-```
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
+    ```
 
-> - Before downloading the image, please make sure docker has been installed.
-> - Docker image does not currently support Windows version compilation.
-> - Third-party libraries that compile dependencies have been installed in the image and environment variables have been configured.
+    > - Before downloading the image, please make sure docker has been installed.
+    > - Docker image does not currently support Windows version compilation.
+    > - Third-party libraries that compile dependencies have been installed in the image and environment variables have been configured.
 
-#### Create a container
+- Create a container
 
-```bash
-docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-```
+    ```bash
+    docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
+    ```
 
-#### Enter the container
+- Enter the container
 
-```bash
-docker exec -ti -u 0 docker01 bash
-```
+    ```bash
+    docker exec -ti -u 0 docker01 bash
+    ```
 
 ### Compilation Options
 
@@ -588,6 +397,6 @@ Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/
 
 Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
 
-### Output Description
+### Directory Structure
 
 Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)

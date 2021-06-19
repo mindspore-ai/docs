@@ -7,6 +7,7 @@
 - [在微控制器上执行推理](#在微控制器上执行推理)
     - [概述](#概述)
     - [获取codegen](#获取codegen)
+    - [目录结构](#目录结构)
     - [参数说明](#参数说明)
     - [使用步骤](#使用步骤)
     - [使用CodeGen在STM开发板上执行推理](#使用CodeGen在STM开发板上执行推理)
@@ -36,6 +37,25 @@
 2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
 
 > 目前模型生成工具仅支持在Linux x86_64架构下运行。
+
+## 目录结构
+
+```text
+mindspore-lite-{version}-linux-x64
+└── tools
+    └── codegen # 代码生成工具
+        ├── codegen          # 可执行程序
+        ├── include          # 推理框架头文件
+        │   ├── nnacl        # nnacl 算子头文件
+        │   └── wrapper
+        ├── lib
+        │   └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
+        └── third_party
+            ├── include
+            │   └── CMSIS    # ARM CMSIS NN 算子头文件
+            └── lib
+                └── libcmsis_nn.a # ARM CMSIS NN 算子静态库
+```
 
 ## 参数说明
 

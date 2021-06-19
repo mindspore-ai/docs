@@ -8,10 +8,12 @@
     - [概述](#概述)
     - [Linux环境使用说明](#linux环境使用说明)
         - [环境准备](#环境准备)
+        - [目录结构](#目录结构)
         - [参数说明](#参数说明)
         - [使用示例](#使用示例)
     - [Windows环境使用说明](#windows环境使用说明)
         - [环境准备](#环境准备-1)
+        - [目录结构](#目录结构-1)
         - [参数说明](#参数说明-1)
         - [使用示例](#使用示例-1)
 
@@ -42,6 +44,21 @@ MindSpore Lite提供离线转换模型功能的工具，支持多种类型的模
 
     ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
 
+### 目录结构
+
+```text
+mindspore-lite-{version}-linux-x64
+└── tools
+    └── converter
+        ├── include
+        │   └── registry             # 自定义算子、模型解析、转换优化注册头文件
+        ├── converter                # 模型转换工具
+        │   └── converter_lite       # 可执行程序
+        └── lib                      # 转换工具依赖的动态库
+            ├── libglog.so.0         # Glog的动态库
+            └── libmslite_converter_plugin.so  # 注册插件的动态库
+```
+
 ### 参数说明
 
 MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需要来选择使用。此外，用户可输入`./converter_lite --help`获取实时帮助。
@@ -65,6 +82,8 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - 为保证权重量化的精度，建议`--bitNum`参数设定范围为8bit～16bit。
 > - 全量化目前仅支持激活值8bit、权重8bit的量化方式。
+
+### 使用示例
 
 下面选取了几个常用示例，说明转换命令的使用方法。
 
@@ -136,6 +155,26 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
   ```
 
   ${PACKAGE_ROOT_PATH}是编译或下载得到的包解压后的路径。
+
+### 目录结构
+
+```text
+mindspore-lite-{version}-win-x64
+└── tools
+    └── converter # 模型转换工具
+        ├── include
+        │   └── registry              # 自定义算子、模型解析、转换优化注册头文件
+        ├── converter
+        │   └── converter_lite.exe    # 可执行程序
+        └── lib
+            ├── libgcc_s_seh-1.dll    # MinGW动态库
+            ├── libglog.dll           # Glog的动态库
+            ├── libmslite_converter_plugin.dll   # 注册插件的动态库
+            ├── libmslite_converter_plugin.dll.a # 注册插件的动态库的链接文件
+            ├── libssp-0.dll          # MinGW动态库
+            ├── libstdc++-6.dll       # MinGW动态库
+            └── libwinpthread-1.dll   # MinGW动态库
+```
 
 ### 参数说明
 
