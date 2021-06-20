@@ -69,7 +69,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 
 1. 在调试器环境准备完成后，打开调试器界面，如下图所示：
 
-    ![debugger_waiting](images/debugger_waiting.png)
+    ![debugger_offline_waiting](images/debugger_offline_waiting.png)
 
     图2： 调试器等待训练连接
 
@@ -77,21 +77,25 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 
 2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger.html#id14) 。
 
-3. 与在线调试器相比，离线调试器可以重置训练轮次。点击右边的编辑图标，输入需要重置的轮次，点击对钩符号即可。如下图所示。
+3. 与在线调试器相比，离线调试器可以重置训练轮次。如图3所示，点击右边的编辑图标，就会出现一个编辑框，如图4所示，输入需要重置的轮次，点击对钩符号即可。。
 
    ![debugger_offline_reset](images/debugger_offline_reset.png)
 
    图3： 重置训练轮次
 
+   ![debugger_offline_edit](images/debugger_offline_edit.png)
+
+   图4：重置训练轮次编辑状态
+
 ## 注意事项
 
 - 场景支持：
-    - 调试器暂不支持CPU场景。
+    - 离线调试器暂不支持CPU场景。
     - 离线调试器支持单机多卡场景。若要分析多机多卡的场景。需要自行把多机数据汇总到一起。
+    - 离线调试器暂不支持初始权重的检查。
 
 - GPU场景：
     - 与在线调试器不同，离线调试器不支持逐节点执行。
-    - 由于GPU上一个轮次是一个子图（而非完整的图），GPU上多图做重新检查时，只能重新检查当前的子图。
 
 - 重新检查只检查当前有张量值的监测点。
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。

@@ -10,5 +10,6 @@ Training Process Visualization
    hyper_parameters_auto_tuning
    performance_profiling
    debugger
+   debugger_offline
    model_explanation
    mindinsight_commands
