@@ -33,6 +33,7 @@ In `Graph Mode` training, the computation results of intermediate nodes in the c
 - Visualize the computational graph on the UI and analyze the output of the graph node.
 - Set watchpoints to monitor training exceptions (for example, tensor overflow) and trace error causes.
 - Visualize and analyze the change of parameters, such as weights.
+- Visualize the nodes and code mapping relationship.
 
 ## Operation Process
 
@@ -73,7 +74,7 @@ After the debugger environment is prepared, run the training script.
 
 ## Debugger UI Introduction
 
-After the training is connected, you can view the training meta information such as a computational graph on the MindInsight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, and watchpoint hit list.
+After the training is connected, you can view the training meta information such as a computational graph on the MindInsight Debugger UI which consists of the computational graph, node list, node information, watchpoint list, watchpoint hit list, stack list, and stack information.
 The Debugger UI components are shown as follows.
 
 ![debugger_init_page](./images/debugger_init_page.png)
@@ -104,7 +105,7 @@ You can filter nodes by `Graph File` and `Node Type` under `Node List`, as shown
 
 ### Graph Node Details
 
-After clicking a graph node, you can view its detailed information in the lower part of the UI, including the output and input, training steps (`Step`), as well as data types (`DType`), shapes (`Shape`), and values (`Value`) of a tensor, as shown in Figure 2.
+After clicking a graph node, you can view its detailed information in the lower part of the UI, including the output and input, training steps (`Step`), as well as data types (`DType`), shapes (`Shape`), and values (`Value`) of a tensor, as shown in Figure 2. After clicking the `Download` in the `Value` column, tensor values can be download as `.npy` file, the default directory is `Downloads` folder.
 
 In the GPU environment, select and right-click an executable graph node, and choose `Run to This Node` from the shortcut menu to run the training script to the selected node (no more than one step).
 
@@ -192,6 +193,8 @@ The `node information`, `current step`, and `statistics` are displayed on the to
 
 Based on the tensor relationship diagram, you can analyze which tensors are used to compute the current tensor and which constants are affected by the current tensor. Abbreviations of watchpoint conditions are displayed on the diagram, helping you quickly identify the propagation path of tensor issues. Each condition abbreviation can be found in "Setting Watchpoints".
 
+Tensors can be downloaded in tensor check view. Users can download the desired tensor for in-depth analysis or processing.
+
 ## Debugger Usage Example
 
 1. Prepare the debugger environment, and open the MindInsight Debugger UI.
@@ -219,7 +222,7 @@ Based on the tensor relationship diagram, you can analyze which tensors are used
 
 6. Trigger watchpoints, as shown in Figure 5.
 
-    After watchpoints are hit, you can view the corresponding node information, find the exception cause on the tensor check view, and modify the script to rectify the fault.
+    After watchpoints are hit, you can view the corresponding node information and stack information, find the exception cause on the tensor check view, or download the tensor to analyse the exception, and modify the script to rectify the fault.
 
 ## Notices
 
@@ -236,7 +239,6 @@ Based on the tensor relationship diagram, you can analyze which tensors are used
 
 - GPU Scenario:
     - In the GPU scenario, only the parameter nodes that meet requirements can be compared with the previous step. For example, nodes executed on the `next node`, nodes selected when `Run to This Node` is chosen, and nodes input as `watchpoints` can be compared. In other cases, the `Compare with Previous Step` function cannot be used.
-    - The previous step in the GPU scenario is a subgraph (not a complete graph). Therefore, when multiple graphs are rechecked on a GPU, only the current subgraph can be checked again.
 
 - Recheck only watchpoints that have tensor values.
 - To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#asynchronous-dump).
