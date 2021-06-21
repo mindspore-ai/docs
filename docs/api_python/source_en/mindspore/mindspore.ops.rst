@@ -107,9 +107,9 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.logical_or
      - :class:`mindspore.ops.LogicalOr`
    * - mindspore.ops.make_row_tensor
-     - :class:`mindspore.ops.Primitive` ('MakeRowTensor')               
+     - :Generate row tensor
    * - mindspore.ops.make_sparse_tensor
-     - :class:`mindspore.ops.Primitive` ('MakeSparseTensor')
+     - :Generate sparse tensor
    * - mindspore.ops.mixed_precision_cast
      - :class:`mindspore.ops.Primitive` ('mixed_precision_cast')
    * - mindspore.ops.neg_tensor
@@ -129,11 +129,11 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.reshape
      - :class:`mindspore.ops.Reshape`
    * - mindspore.ops.row_tensor_get_dense_shape
-     - :class:`mindspore.ops.Primitive` ('RowTensorGetDenseShape')               
+     - :Get corresponding dense shape of row tensor
    * - mindspore.ops.row_tensor_get_indices
-     - :class:`mindspore.ops.Primitive` ('RowTensorGetIndices')               
+     - :Get indices of row tensor
    * - mindspore.ops.row_tensor_get_values
-     - :class:`mindspore.ops.Primitive` ('RowTensorGetValues')               
+     - :Get values of row tensor
    * - mindspore.ops.same_type_shape
      - :class:`mindspore.ops.SameTypeShape`
    * - mindspore.ops.scalar_add
@@ -189,11 +189,11 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.size
      - :class:`mindspore.ops.Size`
    * - mindspore.ops.sparse_tensor_get_dense_shape
-     - :class:`mindspore.ops.Primitive` ('SparseTensorGetDenseShape')               
+     - :Get corresponding dense shape of sparse tensor
    * - mindspore.ops.sparse_tensor_get_indices
-     - :class:`mindspore.ops.Primitive` ('SparseTensorGetIndices')               
+     - :Get indices of sparse tensor
    * - mindspore.ops.sparse_tensor_get_values
-     - :class:`mindspore.ops.Primitive` ('SparseTensorGetValues')               
+     - :Get values of sparse tensor
    * - mindspore.ops.sqrt
      - :class:`mindspore.ops.Sqrt`
    * - mindspore.ops.square
@@ -201,7 +201,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.stack
      - :class:`mindspore.ops.Stack`
    * - mindspore.ops.stop_gradient
-     - :class:`mindspore.ops.Primitive` ('stop_gradient')               
+     - :Disable update during back propagation
    * - mindspore.ops.strided_slice
      - :class:`mindspore.ops.StridedSlice`
    * - mindspore.ops.string_concat
