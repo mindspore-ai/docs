@@ -1,20 +1,16 @@
-MindInsight Visualization
-=========================
+MindInsight Visualization Documents
+====================================
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: MindInsight Design
+   :caption: Installation
    :hidden:
 
-   training_visual_design
-   graph_visual_design
-   tensor_visual_design
-
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Training Process Visualization
+   :caption: Guide
    :hidden:
 
    summary_record
@@ -29,9 +25,9 @@ MindInsight Visualization
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Performance Profiling
+   :caption: References
    :hidden:
 
-   performance_profiling_ascend
-   performance_profiling_gpu
-   performance_profiling_ascend_of_cluster
+   training_visual_design
+   graph_visual_design
+   tensor_visual_design   

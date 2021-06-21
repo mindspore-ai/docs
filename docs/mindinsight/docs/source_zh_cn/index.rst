@@ -1,20 +1,18 @@
-MindInsight可视化
+MindInsight 可视化文档
 =========================
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: MindInsight设计
+   :caption: 安装部署
    :hidden:
 
-   training_visual_design
-   graph_visual_design
-   tensor_visual_design
+
 
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 使用可视化组件MindInsight
+   :caption: 使用指南
    :hidden:
 
    summary_record
@@ -31,9 +29,9 @@ MindInsight可视化
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 性能调试
+   :caption: 参考文档
    :hidden:
 
-   performance_profiling_ascend
-   performance_profiling_gpu
-   performance_profiling_ascend_of_cluster
+   training_visual_design
+   graph_visual_design
+   tensor_visual_design
