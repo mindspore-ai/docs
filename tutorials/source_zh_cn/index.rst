@@ -9,7 +9,7 @@ MindSpore教程
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 快速入门
+   :caption: 入门教程
 
    introduction
    quick_start
