@@ -217,6 +217,61 @@ print(output)
  [0.   0.  0. ]]
 ```
 
+## 停止计算梯度
+
+我们可以使用`stop_gradient`来禁止网络内的算子对梯度的影响，例如：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import ParameterTuple, Parameter
+from mindspore import dtype as mstype
+from mindspore.ops.functional import stop_gradient
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x, y):
+        out1 = self.matmul(x, y)
+        out2 = self.matmul(x, y)
+        out2 = stop_gradient(out2)
+        out = out1 + out2
+        return out
+
+class GradNetWrtX(nn.Cell):
+    def __init__(self, net):
+        super(GradNetWrtX, self).__init__()
+        self.net = net
+        self.grad_op = ops.GradOperation()
+
+    def construct(self, x, y):
+        gradient_function = self.grad_op(self.net)
+        return gradient_function(x, y)
+
+x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
+y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
+output = GradNetWrtX(Net())(x, y)
+print(output)
+```
+
+```text
+    [[4.5, 2.7, 3.6],
+     [4.5, 2.7, 3.6]]
+```
+
+在这里我们对`out2`设置了`stop_gradient`, 所以`out2`没有对梯度计算有任何的贡献。 如果我们删除`out2 = stop_gradient(out2)`，那么输出值会变为：
+
+```text
+    [[9.0, 5.4, 7.2],
+     [9.0, 5.4, 7.2]]
+```
+
+在我们不对`out2`设置`stop_gradient`后， `out2`和`out1`会对梯度产生相同的贡献。 所以我们可以看到，结果中每一项的值都变为了原来的两倍。
+
 ## 高阶求导
 
 MindSpore可通过多次求导的方式支持高阶导数，下面通过几类例子展开阐述。
