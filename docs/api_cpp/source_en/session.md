@@ -229,7 +229,7 @@ Static method that creates the object pointer that points to the transfer learni
     - `filename_backbone`: File name of the backbone network.
     - `filename_head`:  File name of the head network.
     - `context`:  Pointer that points to the target session.
-    - `train_mode`: Training mode to initialize Session.
+    - `train_mode`: Training mode to initialize the Session.
     - `cfg`: Config of train session.
 
 - Returns
@@ -265,7 +265,7 @@ Set model to train mode.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
 #### IsTrain
 
@@ -273,7 +273,7 @@ Set model to train mode.
 bool IsTrain() { return train_mode_ == true; }
 ```
 
-Checks whether the current model is under the train mode.
+Check whether the current model is under the train mode.
 
 - Returns
 
