@@ -203,13 +203,13 @@ Free LiteSession.
 public boolean export(String modelFilename, int model_type, int quantization_type)
 ```
 
-export model.
+Export the model.
 
 - Parameters
 
     - `modelFilename`: Model file name.
     - `model_type`: Train or Inference type.
-    - `quantization_type`: quant type.
+    - `quantization_type`: The quant type.
 
 - Returns
 
@@ -221,7 +221,7 @@ export model.
 public void train()
 ```
 
-switch train mode
+Switch to the train mode.
 
 ## eval
 
@@ -229,7 +229,7 @@ switch train mode
 public void eval()
 ```
 
-switch eval mode.
+Switch to the eval mode.
 
 ## istrain
 
@@ -237,7 +237,7 @@ switch eval mode.
 public void isTrain()
 ```
 
-is Train mode.
+It is Train mode.
 
 ## iseval
 
@@ -245,7 +245,7 @@ is Train mode.
 public void isEval()
 ```
 
-is Eval mode.
+It is Eval mode.
 
 ## setLearningRate
 
@@ -253,7 +253,7 @@ is Eval mode.
 public boolean setLearningRate(float learning_rate)
 ```
 
-set learning rate.
+Set learning rate.
 
 - Parameters
 
@@ -269,7 +269,7 @@ set learning rate.
 public boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)
 ```
 
-set virtual batch.
+Set virtual batch.
 
 - Parameters
 
@@ -279,4 +279,4 @@ set virtual batch.
 
 - Returns
 
-Whether the set  virtual batch is successful.
+Whether the virtual batch is successfully set.
