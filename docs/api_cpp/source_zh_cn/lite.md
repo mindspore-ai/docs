@@ -254,6 +254,30 @@ device_info_
 
 **union**类型，包含 [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#cpudeviceinfo) 、 [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#gpudeviceinfo)  和 [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo) 。
 
+#### provider_
+
+``` cpp
+std::string provider_
+```
+
+产商名，要使用南向自定义算子时需要指定。
+
+#### provider_device_
+
+``` cpp
+std::string provider_device_
+```
+
+南向自定义算子要运行的硬件设备。
+
+#### allocator_
+
+``` cpp
+AllocatorPtr allocator_
+```
+
+可选，如果南向自定义算子有自有的内存分配方式则需要自定义[Allocator](https://mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator)。
+
 ## DeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
