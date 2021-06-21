@@ -251,7 +251,7 @@ The response format is the same as the request format. The information in the `J
 
 ## Accessing SSL/TLS enabled Serving RESTful service
 
-First, we start `SSL/TLS` enabled `RESTful` service, so we need to set `ssl_config` to `mindspore_serving.server.SSLConfig` object. You can reference [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/source_en/master/#accessing-ssltls-enabled-serving-service).
+First, we start `SSL/TLS` enabled `RESTful` service, so we need to set `ssl_config` to `mindspore_serving.server.SSLConfig` object. You can reference [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service)
 
 ```python
 import os
