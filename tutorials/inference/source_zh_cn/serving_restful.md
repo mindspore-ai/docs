@@ -251,7 +251,9 @@ RESTful支持`Json`请求格式，`key`固定为`instances`，`value`表示多�
 
 ## 访问开启SSL/TLS的RESTful服务
 
-首先我们启动开启`SSL/TLS`的`RESTful`服务，需要给`start_restful_server`的`ssl_config`参数传入`mindspore_serving.server.SSLConfig`对象。其他内容可以参考[访问开启SSL/TLS的Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html#id6)。
+MindSpore Serving支持开启`SSL/TLS`的`RESTful`服务，下面以单向认证为例展示如何启动并访问开启`SSL/TLS`的`Restful`服务。
+
+`verify_client`设置为`False`表示单向认证，开启`SSL/TLS`需要把`mindspore_serving.server.SSLConfig`对象传入`start_restful_server`的`ssl_config`参数。其他内容可以参考[访问开启SSL/TLS的Serving服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_grpc.html#ssl-tlsserving)。
 
 ```python
 import os
