@@ -27,3 +27,4 @@ MindSpore教程
    :caption: 进阶教程
 
    custom
+   computer_vision
