@@ -309,7 +309,7 @@ We got `server.key`, `server.crt` and `ca.crt` files. Pass them to the correspon
     - `certificate` is the path to the client's certificate file.
     - `private_key` is the path to the client's private key file.
     - `custom_ca` is the path to the client's root certificate file, which is used to verify the identity of the server.
-      This parameter can be `None`, at which point gRPC finds the corresponding root certificate through the `grpc/_cpython/_credentials/roots.pem` file under the gRPC installation path or
+      This parameter can be `None`, at which point gRPC finds the corresponding root certificate through the `grpc/_cython/_credentials/roots.pem` file under the gRPC installation path or
       the `GRPC_DEFAULT_SSL_ROOTS_FILE_PATH` environment variable.
 
   Because only the client verifies the server certificate, you only need to set `custom_ca` to `ca.crt` which issues the server's certificate.
