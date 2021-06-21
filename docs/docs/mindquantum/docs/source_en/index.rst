@@ -2,7 +2,10 @@ Quantum Neural Network
 ========================
 
 .. toctree::
-  :maxdepth: 1
+   :glob:
+   :maxdepth: 1
+   :caption: Quantum Neural Network
+   :hidden:
 
   parameterized_quantum_circuit
   qnn_for_nlp
