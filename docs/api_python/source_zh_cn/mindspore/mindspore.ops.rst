@@ -125,7 +125,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.rank
      - :class:`mindspore.ops.Rank`
    * - mindspore.ops.reduced_shape
-     - :class:`mindspore.ops.Primitive` ('reduced_shape')               
+     - Calculate the shape of the reduction operator.
    * - mindspore.ops.reshape
      - :class:`mindspore.ops.Reshape`
    * - mindspore.ops.row_tensor_get_dense_shape
@@ -185,7 +185,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.shape
      - :class:`mindspore.ops.Shape`
    * - mindspore.ops.shape_mul
-     - :class:`mindspore.ops.Primitive` ('shape_mul')               
+     - The input of shape_mul must be shape multiply elements in tuple(shape).
    * - mindspore.ops.size
      - :class:`mindspore.ops.Size`
    * - mindspore.ops.sparse_tensor_get_dense_shape
@@ -205,9 +205,9 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.strided_slice
      - :class:`mindspore.ops.StridedSlice`
    * - mindspore.ops.string_concat
-     - :class:`mindspore.ops.Primitive` ('string_concat')               
+     - Concatenate two strings.
    * - mindspore.ops.string_eq
-     - :class:`mindspore.ops.Primitive` ('string_equal')               
+     - Determine if two strings are equal.
    * - mindspore.ops.tensor_div
      - :class:`mindspore.ops.RealDiv`
    * - mindspore.ops.tensor_floordiv
@@ -233,7 +233,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.tuple_to_array
      - :class:`mindspore.ops.TupleToArray`
    * - mindspore.ops.typeof
-     - :class:`mindspore.ops.Primitive` ('typeof')               
+     - Get type of object.
    * - mindspore.ops.zeros_like
      - :class:`mindspore.ops.ZerosLike`
 
