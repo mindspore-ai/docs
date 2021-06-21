@@ -217,6 +217,61 @@ The output is as follows:
  [0.   0.  0. ]]
 ```
 
+## Stop Gradient
+
+We can use `stop_gradient` to disable calculation of gradient for certain operators. For example:
+
+```python
+import numpy as np
+import mindspore.nn as nn
+import mindspore.ops as ops
+from mindspore import Tensor
+from mindspore import ParameterTuple, Parameter
+from mindspore import dtype as mstype
+from mindspore.ops.functional import stop_gradient
+
+class Net(nn.Cell):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.matmul = ops.MatMul()
+
+    def construct(self, x, y):
+        out1 = self.matmul(x, y)
+        out2 = self.matmul(x, y)
+        out2 = stop_gradient(out2)
+        out = out1 + out2
+        return out
+
+class GradNetWrtX(nn.Cell):
+    def __init__(self, net):
+        super(GradNetWrtX, self).__init__()
+        self.net = net
+        self.grad_op = ops.GradOperation()
+
+    def construct(self, x, y):
+        gradient_function = self.grad_op(self.net)
+        return gradient_function(x, y)
+
+x = Tensor([[0.8, 0.6, 0.2], [1.8, 1.3, 1.1]], dtype=mstype.float32)
+y = Tensor([[0.11, 3.3, 1.1], [1.1, 0.2, 1.4], [1.1, 2.2, 0.3]], dtype=mstype.float32)
+output = GradNetWrtX(Net())(x, y)
+print(output)
+```
+
+```text
+    [[4.5, 2.7, 3.6],
+     [4.5, 2.7, 3.6]]
+```
+
+Here, we set `stop_gradient` to `out2`, so this operator does not have any contribution to gradient. If we delete `out2 = stop_gradient(out2)`, the result is:
+
+```text
+    [[9.0, 5.4, 7.2],
+     [9.0, 5.4, 7.2]]
+```
+
+After we do not set `stop_gradient` to `out2`, it will make the same contribution to gradient as `out1`. So we can see that each result has doubled.
+
 ## High-order Derivation
 
 MindSpore can support high-order derivatives by computing derivatives for multiple times. The following uses several examples to describe how to compute derivatives.
