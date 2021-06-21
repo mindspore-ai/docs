@@ -7,6 +7,7 @@
 - [Perform Inference on the Microcontroller](#perform-inference-on-the-microcontroller)
     - [Overview](#overview)
     - [Obtaining CodeGen](#obtaining-codeGen)
+    - [Directory Structure](#directory-structure)
     - [Parameter Description](#parameter-description)
     - [Instructions](#instructions)
     - [Using CodeGen to Perform inference on STM Boards](#perform-inference-on-the-stm-microcontroller)
@@ -36,6 +37,25 @@ You can obtain CodeGen by any of the following ways:
 2. [Build](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) from the source.
 
 > Currently the code generator is only available on Linux x86_64.
+
+## Directory Structure
+
+```text
+mindspore-lite-{version}-linux-x64
+└── tools
+    └── codegen # Code generation tool
+        ├── codegen          # Executable program
+        ├── include          # Header files of inference framework
+        │   ├── nnacl        # nnacl operator header file
+        │   └── wrapper
+        ├── lib
+        │   └── libwrapper.a # MindSpore Lite CodeGen generates code dependent operator static library
+        └── third_party
+            ├── include
+            │   └── CMSIS    # ARM CMSIS NN operator header files
+            └── lib
+                └── libcmsis_nn.a # ARM CMSIS NN operator static library
+```
 
 ## Parameter Description
 

@@ -8,10 +8,12 @@
     - [Overview](#overview)
     - [Linux Environment Instructions](#linux-environment-instructions)
         - [Environment Preparation](#environment-preparation)
+        - [Directory Structure](#directory-structure)
         - [Parameter Description](#parameter-description)
         - [Example](#example)
     - [Windows Environment Instructions](#windows-environment-instructions)
         - [Environment Preparation](#environment-preparation-1)
+        - [Directory Structure](#directory-structure-1)
         - [Parameter Description](#parameter-description-1)
         - [Example](#example-1)
 
@@ -43,6 +45,21 @@ To use the MindSpore Lite model conversion tool, you need to prepare the environ
 
     ${PACKAGE_ROOT_PATH} is the decompressed package path obtained by compiling or downloading.
 
+### Directory Structure
+
+```text
+mindspore-lite-{version}-linux-x64
+└── tools
+    └── converter
+        ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
+        ├── converter                # Model conversion tool
+        │   └── converter_lite       # Executable program
+        └── lib                      # The dynamic link library that converter depends
+            ├── libglog.so.0         # Dynamic library of Glog
+            └── libmslite_converter_plugin.so  # Dynamic library of plugin registry
+```
+
 ### Parameter Description
 
 MindSpore Lite model conversion tool provides multiple parameters.
@@ -67,6 +84,8 @@ The following describes the parameters in detail.
 > - The Caffe model is divided into two files: model structure `*.prototxt`, corresponding to the `--modelFile` parameter; model weight `*.caffemodel`, corresponding to the `--weightFile` parameter.
 > - In order to ensure the accuracy of weight quantization, the "--bitNum" parameter should better be set to a range from 8bit to 16bit.
 > - PostTraining method currently only supports activation quantization and weight quantization in 8 bit.
+
+### Example
 
 The following describes how to use the conversion command by using several common examples.
 
@@ -137,6 +156,26 @@ To use the MindSpore Lite model conversion tool, the following environment prepa
     ````
 
     %PACKAGE_ROOT_PATH% is the decompressed package path obtained by compiling or downloading.
+
+### Directory Structure
+
+```text
+mindspore-lite-{version}-win-x64
+└── tools
+    └── converter # Model conversion tool
+        ├── include
+        │   └── registry             # Header files of customized op, parser and pass registration
+        ├── converter
+        │   └── converter_lite.exe    # Executable program
+        └── lib
+            ├── libgcc_s_seh-1.dll    # Dynamic library of MinGW
+            ├── libglog.dll           # Dynamic library of Glog
+            ├── libmslite_converter_plugin.dll   # Dynamic library of plugin registry
+            ├── libmslite_converter_plugin.dll.a # Link file of Dynamic library of plugin registry
+            ├── libssp-0.dll          # Dynamic library of MinGW
+            ├── libstdc++-6.dll       # Dynamic library of MinGW
+            └── libwinpthread-1.dll   # Dynamic library of MinGW
+```
 
 ### Parameter Description
 

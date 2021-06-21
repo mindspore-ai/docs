@@ -9,33 +9,22 @@
         - [环境要求](#环境要求)
         - [编译选项](#编译选项)
         - [编译示例](#编译示例)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [模型转换工具converter目录结构说明](#推理模型转换工具converter目录结构说明)
-            - [代码生成工具codegen目录结构说明](#代码生成工具codegen目录结构说明)
-            - [模型混淆工具obfuscator目录结构说明](#模型混淆工具obfuscator目录结构说明)
-            - [Runtime及其他工具目录结构说明](#推理Runtime及其他工具目录结构说明)
-        - [端侧训练框架编译输出](#端侧训练框架编译输出)
-            - [训练Runtime及配套工具目录结构说明](#训练Runtime及配套工具目录结构说明)
+        - [目录结构](#目录结构)
     - [Windows环境编译](#windows环境编译)
         - [环境要求](#环境要求-1)
         - [编译选项](#编译选项-1)
         - [编译示例](#编译示例-1)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [Runtime及配套工具目录结构说明](#Runtime及配套工具目录结构说明-1)
+        - [目录结构](#目录结构-1)
     - [macOS环境编译](#macOS环境编译)
-        - [环境要求](#环境要求)
-        - [编译选项](#编译选项)
-        - [编译示例](#编译示例)
-        - [端侧推理框架编译输出](#端侧推理框架编译输出)
-            - [Runtime目录结构说明](#Runtime目录结构说明)
-    - [Docker环境编译](#docker环境编译)
-        - [环境准备](#环境准备)
-            - [下载镜像](#下载镜像)
-            - [创建容器](#创建容器)
-            - [进入容器](#进入容器)
+        - [环境要求](#环境要求-2)
         - [编译选项](#编译选项-2)
         - [编译示例](#编译示例-2)
-        - [编译输出](#编译输出)
+        - [目录结构](#目录结构-2)
+    - [Docker环境编译](#docker环境编译)
+        - [环境准备](#环境准备)
+        - [编译选项](#编译选项-3)
+        - [编译示例](#编译示例-3)
+        - [目录结构](#目录结构-3)
 
 <!-- /TOC -->
 
@@ -43,69 +32,47 @@
 
 本章节介绍如何快速编译出MindSpore Lite。
 
-推理版本包含模块：
+MindSpore Lite包含模块：
 
 | 模块               | 支持平台                | 说明                              |
 | ------------------ | ----------------------- | --------------------------------- |
 | converter          | Linux, Windows          | 模型转换工具                      |
 | runtime(cpp、java) | Linux, Windows, Android, iOS | 模型推理框架（Windows平台不支持java版runtime） |
 | benchmark          | Linux, Windows, Android | 基准测试工具                      |
+| benchmark_train    | Linux, Android          | 性能测试和精度校验工具              |
 | cropper            | Linux                   | libmindspore-lite.a静态库裁剪工具 |
 | minddata           | Linux, Android          | 图像处理库                        |
 | codegen            | Linux                   | 模型推理代码生成工具               |
 | obfuscator         | Linux                   | 模型混淆工具                      |
-
-训练版本包含模块：
-
-| 模块            | 支持平台       | 说明                              |
-| --------------- | -------------- | --------------------------------- |
-| converter       | Linux          | 模型转换工具                      |
-| runtime(cpp)    | Linux, Android | 模型训练框架(暂不支持java)        |
-| cropper         | Linux          | libmindspore-lite.a静态库裁剪工具 |
-| minddata        | Linux, Android | 图像处理库                        |
-| benchmark_train | Linux, Android | 性能测试和精度校验工具            |
 
 ## Linux环境编译
 
 ### 环境要求
 
 - 系统环境：Linux x86_64，推荐使用Ubuntu 18.04.02LTS
-- runtime(cpp)编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.18.3
+- C++编译依赖
     - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-    - [Git](https://git-scm.com/downloads) >= 2.28.0
-- converter编译依赖
     - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
-    - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
     - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Autoconf](http://ftp.gnu.org/gnu/autoconf/) >= 2.69
-    - [Libtool](https://www.gnu.org/software/libtool/) >= 2.4.6
-    - [LibreSSL](http://www.libressl.org/) >= 3.1.3
-    - [Automake](https://www.gnu.org/software/automake/) >= 1.11.6
-    - [Libevent](https://libevent.org) >= 2.0
-    - [OpenSSL](https://www.openssl.org/) >= 1.1.1
-- runtime(java)编译依赖
-    - [CMake](https://cmake.org/download/) >= 3.18.3
-    - [GCC](https://gcc.gnu.org/releases.html) >= 7.3.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-    - [Git](https://git-scm.com/downloads) >= 2.28.0
-    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
+        - 配置环境变量：`export ANDROID_NDK=NDK路径`
+    - [DDK](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180) = V500.010
+        - 配置环境变量：`export HWHIAI_DDK=DDK路径`
+- Java编译需要的额外依赖
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
+        - 配置环境变量：`export GRADLE_HOME=GRADLE路径`
+        - 将bin目录添加到PATH中：`export PATH=${GRADLE_HOME}/bin:$PATH`
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
-
-> - 当安装完依赖项`Android_NDK`后，需配置环境变量：`export ANDROID_NDK=${NDK_PATH}/android-ndk-r20b`。
-> - 当安装完依赖项Gradle后，需将其安装路径增加到PATH当中：`export PATH=${GRADLE_PATH}/bin:$PATH`。
-> - 通过`Android command line tools`安装Android SDK，首先需要创建一个新目录，并将其路径配置到环境变量`${ANDROID_SDK_ROOT}`中，然后通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`，最后通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`。
-> - 编译AAR需要依赖Android SDK Build-Tools、Android SDK Platform-Tools等Android SDK相关组件，如果环境中的Android SDK不存在相关组件，编译时会自动下载所需依赖。
-> - 编译NPU算子的时候需要下载[DDK V500.010](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180)，并将压缩包解压后的目录设置为环境变量`${HWHIAI_DDK}`。
+        - 配置环境变量：`export JAVA_HOME=JDK路径`
+        - 将bin目录添加到PATH中：`export PATH=${JAVA_HOME}/bin:$PATH`
+    - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
+        - 创建一个新目录，配置环境变量`export ANDROID_SDK_ROOT=新建的目录`
+        - 下载`SDK Tools`，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
+        - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
 
 ### 编译选项
 
-MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。
-
-下面对`build.sh`的编译参数和`mindspore/lite/CMakeLists.txt`的选项进行说明。
+MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
 #### `build.sh`的编译参数
 
@@ -126,7 +93,7 @@ MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpor
 
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
-| MSLITE_GPU_BACKEND | 设置GPU后端，仅在`-I arm64`时有效 | opencl、vulkan、cuda、off | opencl |
+| MSLITE_GPU_BACKEND | 设置GPU后端，仅在`-I arm64`时有效 | opencl、off | opencl |
 | MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | on |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
@@ -173,120 +140,43 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -A on -j32
     ```
 
-### 端侧推理框架编译输出
+最后，会在`output/`目录中生成如下文件：
 
-执行编译指令后，会在`mindspore/output/`目录中生成如下文件：
+- `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含runtime和配套工具。
 
-- `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含模型推理框架runtime(cpp)和配套工具。
-
-- `mindspore-lite-maven-{version}.zip`：包含模型推理框架runtime(java)的AAR。
+- `mindspore-lite-maven-{version}.zip`：包含runtime(java)的AAR包。
 
 > - version: 输出件版本号，与所编译的分支代码对应的版本一致。
 > - os: 输出件应部署的操作系统。
 > - arch: 输出件应部署的系统架构。
 
-执行解压缩命令，获取编译后的输出件：
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-unzip mindspore-lite-maven-{version}.zip
-```
-
-#### 模型转换工具converter目录结构说明
-
-仅在`-I x86_64`编译选项下获得（推理和训练的目录结构相同）内容如下：
-
-```text
-mindspore-lite-{version}-linux-x64
-└── tools
-    └── converter
-        ├── include
-        │   └── registry             # 自定义算子、模型解析、转换优化注册头文件
-        ├── converter                # 模型转换工具
-        │   └── converter_lite       # 可执行程序
-        └── lib                      # 转换工具依赖的动态库
-            ├── libglog.so.0         # Glog的动态库
-            └── libmslite_converter_plugin.so  # 注册插件的动态库
-```
-
-#### 代码生成工具CodeGen目录结构说明
-
-仅在`-I x86_64`编译选项下获得codegen可执行程序，在`-I arm64`和`-I arm32`编译选项下只生成codegen生成的推理代码所需要的算子库。
-
-- `-I x86_64`编译选项下获得codegen，内容如下：
-
-    ```text
-    mindspore-lite-{version}-linux-x64
-    └── tools
-        └── codegen # 代码生成工具
-            ├── codegen          # 可执行程序
-            ├── include          # 推理框架头文件
-            │   ├── nnacl        # nnacl 算子头文件
-            │   └── wrapper
-            ├── lib
-            │   └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
-            └── third_party
-                ├── include
-                │   └── CMSIS    # ARM CMSIS NN 算子头文件
-                └── lib
-                    └── libcmsis_nn.a # ARM CMSIS NN 算子静态库
-    ```
-
-- `-I arm64`或`-I arm32`编译选项下获得codegen，内容如下：
-
-    ```text
-    mindspore-lite-{version}-android-{arch}
-    └── tools
-        └── codegen # 代码生成工具
-            ├── include   # 推理框架头文件
-            │   ├── nnacl # nnacl 算子头文件
-            │   └── wrapper
-            └── lib       # 推理框架库
-                └── libwrapper.a # MindSpore Lite CodeGen生成代码依赖的部分算子静态库
-    ```
-
-#### 模型混淆工具obfuscator目录结构说明
-
-仅在`-I x86_64`编译选项下且`mindspore/mindspore/lite/CMakeLists.txt`中的`ENABLE_MODEL_OBF`选项开启时，获得msobfuscator可执行程序，内容如下：
-
-```text
-mindspore-lite-{version}-linux-x64
-└── tools
-    └── obfuscator # 模型混淆工具
-        └── msobfuscator          # 可执行程序
-```
-
-#### Runtime及其他工具目录结构说明
-
-推理框架可在`-I x86_64`、`-I arm64`、`-I arm32`和`-A java`编译选项下获得，内容如下：
+### 目录结构
 
 - 当编译选项为`-I x86_64`时：
 
     ```text
     mindspore-lite-{version}-linux-x64
     ├── runtime
-    │   ├── include  # 推理框架头文件
-    │   │   └── registry # 自定义算子注册头文件
-    │   └── lib      # 推理框架库
-    │       ├── libminddata-lite.so       # 图像处理动态库文件
-    │       ├── libmindspore-lite.a       # MindSpore Lite推理框架的静态库
-    │       ├── libmindspore-lite-jni.so  # MindSpore Lite推理框架的jni动态库
-    │       ├── libmindspore-lite.so      # MindSpore Lite推理框架的动态库
-    │       ├── libmsdeobfuscator-lite.so # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
-    │       └── mindspore-lite-java.jar   # MindSpore Lite推理框架jar包
+    │   ├── include
+    │   ├── lib
+    │   │   ├── libminddata-lite.a         # 图像处理静态库
+    │   │   ├── libminddata-lite.so        # 图像处理动态库
+    │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
+    │   │   ├── libmindspore-lite-jni.so   # MindSpore Lite推理框架的jni动态库
+    │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
+    │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
+    │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+    │   │   ├── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
+    │   │   └── mindspore-lite-java.jar    # MindSpore Lite推理框架jar包
+    │   └── third_party
+    │       └── libjpeg-turbo
     └── tools
-        ├── benchmark # 基准测试工具
-        │   └── benchmark # 可执行程序
-        ├── codegen   # 代码生成工具
-        │   ├── codegen   # 可执行程序
-        │   ├── include   # 算子头文件
-        │   ├── lib       # 算子静态库
-        │   └── third_party # ARM CMSIS NN算子库
-        ├── converter  # 模型转换工具
-        ├── obfuscator # 模型混淆工具
-        └── cropper    # 库裁剪工具
-            ├── cropper                 # 库裁剪工具可执行文件
-            └── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
+        ├── benchmark       # 基准测试工具
+        ├── benchmark_train # 训练模型性能与精度调测工具
+        ├── codegen         # 代码生成工具
+        ├── converter       # 模型转换工具
+        ├── obfuscator      # 模型混淆工具
+        └── cropper         # 库裁剪工具
     ```
 
 - 当编译选项为`-I arm64`或`-I arm32`时：
@@ -294,21 +184,22 @@ mindspore-lite-{version}-linux-x64
     ```text
     mindspore-lite-{version}-android-{arch}
     ├── runtime
-    │   ├── include     # 推理框架头文件
-    │   │   └── registry # 自定义算子注册头文件
-    │   ├── lib         # 推理框架库
-    │   │   ├── libminddata-lite.so  # 图像处理动态库文件
-    │   │   ├── libmindspore-lite.a  # MindSpore Lite推理框架的静态库
-    │   │   ├── libmindspore-lite.so # MindSpore Lite推理框架的动态库
-    │   │   └── libmsdeobfuscator-lite.so # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
+    │   ├── include
+    │   ├── lib
+    │   │   ├── libminddata-lite.a         # 图像处理静态库
+    │   │   ├── libminddata-lite.so        # 图像处理动态库
+    │   │   ├── libmindspore-lite.a        # MindSpore Lite推理框架的静态库
+    │   │   ├── libmindspore-lite.so       # MindSpore Lite推理框架的动态库
+    │   │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
+    │   │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
+    │   │   └── libmsdeobfuscator-lite.so  # 混淆模型加载动态库文件，需开启`ENABLE_MODEL_OBF`选项。
     │   └── third_party
-    │       └── hiai_ddk # NPU库，只存在于arm64包
+    │       ├── hiai_ddk
+    │       └── libjpeg-turbo
     └── tools
-        ├── benchmark # 基准测试工具
-        │   └── benchmark
-        └── codegen   # 代码生成工具
-            ├── include  # 算子头文件
-            └── lib      # 算子静态库
+        ├── benchmark       # 基准测试工具
+        ├── benchmark_train # 训练模型性能与精度调测工具
+        └── codegen         # 代码生成工具
     ```
 
 - 当编译选项为`-A on`时：
@@ -319,67 +210,6 @@ mindspore-lite-{version}-linux-x64
         └── mindspore-lite
             └── {version}
                 └── mindspore-lite-{version}.aar # MindSpore Lite推理框架aar包
-    ```
-
-### 端侧训练框架编译输出
-
-如果开启了MSLITE_ENABLE_TRAIN选项，默认开启，会生成训练runtime和配套工具，如下：
-
-`mindspore-lite-{version}-{os}-{arch}.tar.gz`：模型训练框架runtime和配套工具。
-
-> - version: 输出件版本号，与所编译的分支代码对应的版本一致。
-> - os: 输出件应部署的操作系统。
-> - arch: 输出件应部署的系统架构。
-
-执行解压缩命令，获取编译后的输出件：
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-```
-
-#### 训练Runtime及配套工具目录结构说明
-
-训练框架可在`-I x86_64`、`-I arm64`、`-I arm32`编译选项下获得对应不同硬件平台的版本，内容如下：
-
-- 当编译选项为`-I x86_64`时：
-
-    ```text
-    mindspore-lite-{version}-linux-x64
-    ├── tools
-    │   ├── benchmark_train # 训练模型性能与精度调测工具
-    │   ├── converter       # 模型转换工具
-    │   └── cropper         # 库裁剪工具
-    │       ├── cropper                 # 库裁剪工具可执行文件
-    │       └── cropper_mapping_cpu.cfg # 裁剪cpu库所需的配置文件
-    └── runtime
-        ├── include  # 训练框架头文件
-        │   └── registry # 自定义算子注册头文件
-        ├── lib      # 训练框架库
-        │   ├── libminddata-lite.so        # 图像处理动态库文件
-        │   ├── libmindspore-lite-jni.so   # MindSpore Lite训练框架的jni动态库
-        │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-        │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-        │   └── mindspore-lite-java.jar    # MindSpore Lite训练框架jar包
-        └── third_party
-            └── libjpeg-turbo
-    ```
-
-- 当编译选项为`-I arm64`或`-I arm32`时：
-
-    ```text
-    mindspore-lite-{version}-android-{arch}
-    ├── tools
-    │   └── benchmark_train # 训练模型性能与精度调测工具
-    └── runtime
-        ├── include # 训练框架头文件
-        │   └── registry # 自定义算子注册头文件
-        ├── lib     # 训练框架库
-        │   ├── libminddata-lite.so        # 图像处理动态库文件
-        │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
-        │   └── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
-        └── third_party
-            ├── hiai_ddk  # NPU库，只存在于arm64包
-            └── libjpeg-turbo
     ```
 
 ## Windows环境编译
@@ -397,12 +227,26 @@ tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
 
 ### 编译选项
 
-MindSpore Lite提供编译脚本build.bat用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。下面对MindSpore Lite的编译选项进行说明。
+MindSpore根目录下的`build.bat`脚本可用于MindSpore Lite的编译。
+
+#### `build.bat`的编译参数
 
 | 参数  |  参数说明  | 是否必选 |
 | -------- | ----- | ---- |
 | lite | 设置该参数，则对MindSpore Lite工程进行编译 | 是 |
 | [n] | 设定编译时所用的线程数，否则默认设定为6线程  | 否 |
+
+#### `mindspore/lite/CMakeLists.txt`的选项
+
+| 选项  |  参数说明  | 取值范围 | 默认值 |
+| -------- | ----- | ---- | ---- |
+| MSLITE_ENABLE_SSE | 是否启用SSE指令集 | on、off | off |
+| MSLITE_ENABLE_AVX | 是否启用AVX指令集 | on、off | off |
+| MSLITE_ENABLE_CONVERTER | 是否编译模型转换工具 | on、off | on |
+| MSLITE_ENABLE_TOOLS | 是否编译配套工具 | on、off | on |
+| MSLITE_ENABLE_TESTCASES | 是否编译测试用例 | on、off | off |
+
+> - 以上选项可通过设置同名环境变量或者`mindspore/lite/CMakeLists.txt`文件修改。
 
 ### 编译示例
 
@@ -426,53 +270,29 @@ call build.bat lite
 call build.bat lite 8
 ```
 
-### 端侧推理框架编译输出
-
-编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。文件分为以下几种：
+最后，会在`output/`目录中生成如下文件：
 
 - `mindspore-lite-{version}-win-x64.zip`：包含模型推理框架runtime和配套工具。
 
 > version：输出件版本号，与所编译的分支代码对应的版本一致。
 
-执行解压缩命令，获取编译后的输出件：
-
-```bat
-unzip mindspore-lite-{version}-win-x64.zip
-```
-
-#### Runtime及配套工具目录结构说明
-
-Runtime及配套工具包括以下几部分：
+### 目录结构
 
 ```text
 mindspore-lite-{version}-win-x64
 ├── runtime
-│   ├── include # 推理框架头文件
-│   │   └── registry     # 自定义算子注册头文件
-│   └── lib
-│       ├── libgcc_s_seh-1.dll      # MinGW动态库
-│       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
-│       ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
-│       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
-│       ├── libssp-0.dll            # MinGW动态库
-│       ├── libstdc++-6.dll         # MinGW动态库
-│       └── libwinpthread-1.dll     # MinGW动态库
+│   ├── include
+│   └── lib
+│       ├── libgcc_s_seh-1.dll      # MinGW动态库
+│       ├── libmindspore-lite.a     # MindSpore Lite推理框架的静态库
+│       ├── libmindspore-lite.dll   # MindSpore Lite推理框架的动态库
+│       ├── libmindspore-lite.dll.a # MindSpore Lite推理框架的动态库的链接文件
+│       ├── libssp-0.dll            # MinGW动态库
+│       ├── libstdc++-6.dll         # MinGW动态库
+│       └── libwinpthread-1.dll     # MinGW动态库
 └── tools
     ├── benchmark # 基准测试工具
-    │   └── benchmark.exe # 可执行程序
     └── converter # 模型转换工具
-        ├── include
-        │   └── registry             # 自定义算子、模型解析、转换优化注册头文件
-        ├── converter
-        │   └── converter_lite.exe    # 可执行程序
-        └── lib
-            ├── libgcc_s_seh-1.dll    # MinGW动态库
-            ├── libglog.dll           # Glog的动态库
-            ├── libmslite_converter_plugin.dll   # 注册插件的动态库
-            ├── libmslite_converter_plugin.dll.a # 注册插件的动态库的链接文件
-            ├── libssp-0.dll          # MinGW动态库
-            ├── libstdc++-6.dll       # MinGW动态库
-            └── libwinpthread-1.dll   # MinGW动态库
 ```
 
 > 暂不支持在Windows进行端侧训练。
@@ -492,9 +312,9 @@ mindspore-lite-{version}-win-x64
 
 ### 编译选项
 
-MindSpore Lite提供编译脚本`build.sh`用于一键式编译，位于MindSpore根目录下，该脚本可用于MindSpore训练及推理的编译。下面对MindSpore Lite的编译选项进行说明。
+MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 
-#### macOS下的`build.sh`的编译参数
+#### `build.sh`的编译参数
 
 | 参数  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
@@ -523,9 +343,7 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I arm32 -j8
     ```
 
-### 端侧推理框架编译输出
-
-编译完成后，进入`mindspore/output/`目录，可查看编译后生成的文件。
+最后，会在`output/`目录中生成如下文件：
 
 - `mindspore-lite-{version}-{os}-{arch}.tar.gz`：包含模型推理框架runtime。
 
@@ -533,15 +351,7 @@ git clone https://gitee.com/mindspore/mindspore.git
 > - os: 输出件应部署的操作系统。
 > - arch: 输出件应部署的系统架构。
 
-执行解压缩命令，获取编译后的输出件：
-
-```bash
-tar -xvf mindspore-lite-{version}-{os}-{arch}.tar.gz
-```
-
-#### Runtime目录结构说明
-
-Runtime包括以下几部分：
+### 目录结构
 
 ```text
 mindspore-lite.framework
@@ -557,27 +367,27 @@ mindspore-lite.framework
 
 ### 环境准备
 
-#### 下载镜像
+- 下载镜像
 
-```bash
-docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-```
+    ```bash
+    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
+    ```
 
-> - 下载镜像前，请确保已经安装docker。
-> - docker镜像暂不支持Windows版本编译。
-> - 镜像里已安装好编译依赖的第三方库并且配置好环境变量。
+    > - 下载镜像前，请确保已经安装docker。
+    > - docker镜像暂不支持Windows版本编译。
+    > - 镜像里已安装好编译依赖的第三方库并且配置好环境变量。
 
-#### 创建容器
+- 创建容器
 
-```bash
-docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-```
+    ```bash
+    docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
+    ```
 
-#### 进入容器
+- 进入容器
 
-```bash
-docker exec -ti -u 0 docker01 bash
-```
+    ```bash
+    docker exec -ti -u 0 docker01 bash
+    ```
 
 ### 编译选项
 
@@ -587,6 +397,6 @@ docker exec -ti -u 0 docker01 bash
 
 参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
 
-### 编译输出
+### 目录结构
 
 参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
