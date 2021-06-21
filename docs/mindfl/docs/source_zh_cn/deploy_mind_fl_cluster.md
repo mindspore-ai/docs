@@ -12,6 +12,7 @@
     - [参数配置](#参数配置)
     - [启动集群](#启动集群)
     - [弹性伸缩](#弹性伸缩)
+    - [容灾](#容灾)
 
 <!-- /TOC -->
 
@@ -222,11 +223,13 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     'http://192.168.216.124:11202/scaleout'
     ```
 
-    这里需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`7`，执行指令：
+    这里需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`6`，执行指令：
 
     ```sh
-    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=7 --start_fl_job_threshold=8 --local_server_num=2
+    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2
     ```
+
+    此指令代表启动两个`Server`节点，联邦学习服务端口分别为`6672`和`6673`，总`Server`数量为`6`。
 
 2. 缩容
 
@@ -282,3 +285,15 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 > - 在集群扩容/缩容成功后，训练任务会自动恢复，不需要用户进行额外干预。
 >
 > - 可以通过集群管理工具(如Kubernetes)创建或者释放`Server`资源。
+
+## 容灾
+
+在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时支持Server节点的容灾(Server 0除外)。
+
+节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行指令：
+
+```sh
+python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1
+```
+
+此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
