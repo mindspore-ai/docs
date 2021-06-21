@@ -89,19 +89,6 @@
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: 模型安全和隐私
-   :hidden:
-
-   advanced_use/improve_model_security_nad
-   advanced_use/protect_user_privacy_with_differential_privacy
-   advanced_use/protect_user_privacy_with_suppress_privacy
-   advanced_use/test_model_security_fuzzing
-   advanced_use/test_model_security_membership_inference
-   advanced_use/model_encrypt_protection
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
    :caption: 应用实践
    :hidden:
 
