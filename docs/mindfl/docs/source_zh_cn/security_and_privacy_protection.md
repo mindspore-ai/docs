@@ -61,12 +61,12 @@ $$
 ### 使用方式
 
 与开启差分隐私训练相似，我们只需要在`context.set_fl_context()`中设置`encrypt_type='PW_ENCRYPT'`即可。
-此外，与安全聚合训练相关的云侧环境参数还有`cipher_client_num`、`share_client_ratio`和`cipher_t`。
-`cipher_client_num`指代参与安全聚合的用户数量（即参与公钥交换的客户端数量），取值需要小于等于参与联邦学习的客户端数量；
-`share_client_ratio`指代参与密钥碎片分享的客户端数量与`cipher_client_num`的比例，取值需要小于等于1；
-`cipher_t`指代参与密钥碎片恢复的客户端数量，取值需要小于参与密钥碎片分享的客户端数量。
-通常为了保证系统安全，当不考虑server和client合谋的情况下，`cipher_t`需要大于联邦学习客户端数量的一半；
-当考虑Server和Client合谋，`cipher_t`需要大于联邦学习客户端数量的2/3。
+此外，与安全聚合训练相关的云侧环境参数还有`share_secrets_ratio`、`reconstruct_secrets_threshold`和`cipher_time_window`。
+`share_client_ratio`指代参与密钥碎片分享的客户端数量与参与联邦学习的客户端数量的比值，取值需要小于等于1；
+`reconstruct_secrets_threshold`指代参与密钥碎片恢复的客户端数量，取值需要小于参与密钥碎片分享的客户端数量。
+通常为了保证系统安全，当不考虑Server和Client合谋的情况下，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的一半；
+当考虑Server和Client合谋，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的2/3。
+`cipher_time_window`指代安全聚合各通讯轮次的时长限制，主要用来保证某些客户端掉线的情况下，Server可以开始新一轮迭代。
 
 ### 参考文献
 
