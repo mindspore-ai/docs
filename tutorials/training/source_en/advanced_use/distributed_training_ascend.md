@@ -553,9 +553,9 @@ For model parameter saving and loading in Hybrid Parallel Mode, please refer to 
 
 ## Multi-machine Training
 
-The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single machine with 8 cards. Using multiple machines for distributed training can greatly improve the training speed.
+The previous chapters introduced the distributed training of MindSpore, which is based on the Ascend environment of a single machine with multiple cards. Using multiple machines for distributed training can greatly improve the training speed.
 In the Ascend environment, the communication between NPU units across machines is the same as the communication between each NPU unit in a single machine. It is still communicated through HCCL. The difference is that the NPU units in a single machine are naturally interoperable, while cross-machine communication needs to be guaranteed that the networks of the two machines are interoperable.
-After confirming that the network of the NPU unit between the machines is smooth, configure the json configuration file of multiple machines. This tutorial takes the configuration file of 16 cards as an example. It should be noted that in the json file configuration of multiple machines, the order of rank_id is required to be consistent with the lexicographic order of server_id.
+After confirming that the network of the NPU unit between the machines is smooth, configure the json configuration file of multiple machines. This tutorial takes the configuration file of 16 cards as an example， The detailed configuration file description can refer to the introduction of the single-machine multi-card part of this tutorial. It should be noted that in the json file configuration of multiple machines, the order of rank_id is required to be consistent with the lexicographic order of server_id.
 
 ```json
 {
@@ -593,16 +593,17 @@ After confirming that the network of the NPU unit between the machines is smooth
 }
 ```
 
-After preparing the configuration file, you can organize distributed multi-machine training scripts. Taking 2 machines with 16 cards as an example, the scripts written on the two machines are similar to the running scripts of a single machine with 8 cards. The difference is that different rank_id variables are specified.
+After preparing the configuration file, you can organize distributed multi-machine training scripts. Taking 2 machines with 16 cards as an example, the scripts written on the two machines are similar to the running scripts of a single machine with multiple cards. The difference is that different rank_id variables are specified.
 
 ```bash
 #!/bin/bash
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run.sh /path/dataset /path/rank_table.json 16 0"
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
 echo "It is better to use the absolute path."
+echo "The time interval between multiple machines to execute the script should not exceed 120s"
 echo "=============================================================================================================="
 
 execute_path=$(pwd)
@@ -627,7 +628,7 @@ do
 done
 ```
 
-For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution.
+For the reference scripts listed above, the required code organization structure is as follows. The script will get the path of the script and the path of the command execution, and put all tasks in the background for execution, the code link can be obtained at the top of this tutorial.
 
 ```text
 └─tutorial_code
