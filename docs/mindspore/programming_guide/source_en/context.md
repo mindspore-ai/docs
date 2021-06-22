@@ -26,7 +26,7 @@ Before initializing the network, configure the context parameter to control the 
 
 ## Execution Mode Management
 
-MindSpore supports two running modes: Graph and PyNative.
+MindSpore supports two running modes: Graph and PyNative. By default, MindSpore is in Graph mode. Graph mode is the main mode of MindSpore, while PyNative mode is mainly used for debugging.
 
 - `GRAPH_MODE`: static graph mode or graph mode. In this mode, the neural network model is compiled into an entire graph, and then the graph is delivered for execution. This mode uses graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
@@ -34,13 +34,13 @@ MindSpore supports two running modes: Graph and PyNative.
 
 ### Mode Selection
 
-You can set and control the running mode of the program. By default, MindSpore is in Graph mode. The main differences between Graph mode and PyNative mode are:
+You can set and control the running mode of the program. The main differences between Graph mode and PyNative mode are:
 
 - Application scenarios: Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable for scenarios where the network is fixed and high performance is required. PyNative mode executes operators line by line, supporting the execution of single operators, common functions, network inference, and separated gradient calculation.
 
-- Efficiency: Theoretically, operators provided by MindSpore support both the PyNative and Graph modes. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. The network execution performance varies according to the execution mechanism.
+- Network execution: When Graph mode and PyNative mode execute the same network and operator, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
 
-- Code debugging: In script development and network debugging, it is recommended to use PyNative mode for debugging. In PyNative mode, you can easily set breakpoints to obtain intermediate results of network execution, and you can also debug the network through pdb. In Graph mode, the constructor only completes the construction of the network, and does not execute it. Therefore, the output of the operator cannot be obtained by setting breakpoints in the `construct` function. You can only print the output of this operator during network execution, and view it after the network execution is complete.
+- Code debugging: In script development and network debugging, it is recommended to use PyNative mode for debugging. In PyNative mode, you can easily set breakpoints to obtain intermediate results of network execution, and you can also debug the network through pdb. While Graph mode does not support setting breakpoints, you can only specify operators and print their output results, and then view the results after the network execution is completed.
 
 Both Graph mode and PyNative mode use a function-style IR based on graph representation, namely MindIR, which uses the semantics close to that of the ANF function. When using Graph mode, set the running mode in the context to `GRAPH_MODE`. Then call the `nn.Cell` class and write your code in the `construct` function, or call the `@ms_function` decorator.
 
