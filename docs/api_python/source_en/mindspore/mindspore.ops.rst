@@ -49,7 +49,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - functional
      - Description
    * - mindspore.ops.add
-     - Refer to :class:`mndspore.ops.Add`.
+     - Refer to :class:`mindspore.ops.Add`.
    * - mindspore.ops.addn
      - Refer to :class:`mindspore.ops.AddN`.
    * - mindspore.ops.array_reduce
