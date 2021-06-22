@@ -55,20 +55,20 @@ Modules in MindSpore Lite:
     - [CMake](https://cmake.org/download/) >= 3.18.3
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
-        - Configure environment variables: `export ANDROID_NDK=NDK path`
+        - Configure environment variables: `export ANDROID_NDK=NDK path`.
     - [DDK](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180) = V500.010
-        - Configure environment variables: `export HWHIAI_DDK=DDK path`
+        - Configure environment variables: `export HWHIAI_DDK=DDK path`.
 - Additional compilation dependencies of Java:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
-        - Configure environment variables: `export GRADLE_HOME=GRADLE path`
-        - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`
+        - Configure environment variables: `export GRADLE_HOME=GRADLE path`.
+        - Add the bin directory to the PATH: `export PATH=${GRADLE_HOME}/bin:$PATH`.
     - [OpenJDK](https://openjdk.java.net/install/) >= 1.8
-        - Configure environment variables: `export JAVA_HOME=JDK path`
-        - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`
+        - Configure environment variables: `export JAVA_HOME=JDK path`.
+        - Add the bin directory to the PATH: `export PATH=${JAVA_HOME}/bin:$PATH`.
     - [Android SDK](https://developer.android.com/studio?hl=zh-cn#cmdline-tools)
-        - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`
-        - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
-        - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`
+        - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`.
+        - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
+        - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
 
 ### Compilation Options
 
@@ -83,7 +83,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | -d | If this parameter is set, the debug version is compiled. Otherwise, the release version is compiled. | None | None |
 | -i | If this parameter is set, incremental compilation is performed. Otherwise, full compilation is performed. | None | None |
 | -j[n] | Sets the number of threads used during compilation. Otherwise, the number of threads is set to 8 by default. | Integer | 8 |
-| -a | Whether to enable AddressSanitizer | on、off | off |
+| -a | Whether to enable AddressSanitizer | on, off | off |
 
 > - When compiling the x86_64 version, if the JAVA_HOME environment variable is configured and Gradle is installed, the JAR package will be compiled at the same time.
 > - When the `-I` parameter changes, such as `-I x86_64` is converted to `-I arm64`, adding `-i` for parameter compilation does not take effect.
@@ -94,13 +94,13 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | Set the GPU backend, only valid when `-I arm64` | opencl, off | opencl |
-| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on、off | on |
-| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on、off | on |
-| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on、off | off |
-| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on、off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on、off | on |
-| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on、off | on |
-| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
+| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | on |
+| MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
+| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool, only valid when `-I x86_64` | on, off | on |
+| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
+| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
 > - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
 > - After modifying the Option, adding the `-i` parameter for incremental compilation will not take effect.
@@ -240,11 +240,11 @@ The script `build.bat` in the root directory of MindSpore can be used to compile
 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
-| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on、off | off |
-| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set | on、off | off |
-| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool | on、off | on |
-| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on、off | on |
-| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on、off | off |
+| MSLITE_ENABLE_SSE | Whether to enable SSE instruction set | on, off | off |
+| MSLITE_ENABLE_AVX | Whether to enable AVX instruction set | on, off | off |
+| MSLITE_ENABLE_CONVERTER | Whether to compile the model conversion tool | on, off | on |
+| MSLITE_ENABLE_TOOLS | Whether to compile supporting tools | on, off | on |
+| MSLITE_ENABLE_TESTCASES | Whether to compile test cases | on, off | off |
 
 > - The above options can be modified by setting the environment variable with the same name or the file `mindspore/lite/CMakeLists.txt`.
 

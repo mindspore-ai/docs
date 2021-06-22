@@ -47,195 +47,195 @@ The functional operators are the pre-instantiated Primitive operators, which can
    :header-rows: 1
 
    * - functional
-     - operations
+     - Description
    * - mindspore.ops.add
-     - :class:`mindspore.ops.Add`
+     - Refer to :class:`mindspore.ops.Add`.
    * - mindspore.ops.addn
-     - :class:`mindspore.ops.AddN`
+     - Refer to :class:`mindspore.ops.AddN`.
    * - mindspore.ops.array_reduce
-     - :class:`mindspore.ops.Primitive` ('array_reduce')               
+     - :class:`mindspore.ops.Primitive` ('array_reduce')
    * - mindspore.ops.array_to_scalar
-     - :class:`mindspore.ops.Primitive` ('array_to_scalar')               
+     - :class:`mindspore.ops.Primitive` ('array_to_scalar')
    * - mindspore.ops.assign
-     - :class:`mindspore.ops.Assign`
+     - Refer to :class:`mindspore.ops.Assign`.
    * - mindspore.ops.assign_add
-     - :class:`mindspore.ops.AssignAdd`
+     - Refer to :class:`mindspore.ops.AssignAdd`.
    * - mindspore.ops.assign_sub
-     - :class:`mindspore.ops.AssignSub`
+     - Refer to :class:`mindspore.ops.AssignSub`.
    * - mindspore.ops.bool_and
-     - :class:`mindspore.ops.Primitive` ('bool_and')               
+     - :class:`mindspore.ops.Primitive` ('bool_and')
    * - mindspore.ops.bool_eq
-     - :class:`mindspore.ops.Primitive` ('bool_eq')               
+     - :class:`mindspore.ops.Primitive` ('bool_eq')
    * - mindspore.ops.bool_not
-     - :class:`mindspore.ops.Primitive` ('bool_not')               
+     - :class:`mindspore.ops.Primitive` ('bool_not')
    * - mindspore.ops.bool_or
-     - :class:`mindspore.ops.Primitive` ('bool_or')               
+     - :class:`mindspore.ops.Primitive` ('bool_or')
    * - mindspore.ops.cast
-     - :class:`mindspore.ops.Cast`
+     - Refer to :class:`mindspore.ops.Cast`.
    * - mindspore.ops.distribute
-     - :class:`mindspore.ops.Primitive` ('distribute')               
+     - :class:`mindspore.ops.Primitive` ('distribute')
    * - mindspore.ops.dtype
-     - :class:`mindspore.ops.DType`
+     - Refer to :class:`mindspore.ops.DType`.
    * - mindspore.ops.equal
-     - :class:`mindspore.ops.Equal`
+     - Refer to :class:`mindspore.ops.Equal`.
    * - mindspore.ops.expand_dims
-     - :class:`mindspore.ops.ExpandDims`
+     - Refer to :class:`mindspore.ops.ExpandDims`.
    * - mindspore.ops.fill
-     - :class:`mindspore.ops.Fill`
+     - Refer to :class:`mindspore.ops.Fill`.
    * - mindspore.ops.gather
-     - :class:`mindspore.ops.Gather`
+     - Refer to :class:`mindspore.ops.Gather`.
    * - mindspore.ops.gather_nd
-     - :class:`mindspore.ops.GatherNd`
+     - Refer to :class:`mindspore.ops.GatherNd`.
    * - mindspore.ops.hastype
-     - :class:`mindspore.ops.Primitive` ('hastype')               
+     - :class:`mindspore.ops.Primitive` ('hastype')
    * - mindspore.ops.in_dict
-     - :class:`mindspore.ops.Primitive` ('in_dict')               
+     - :class:`mindspore.ops.Primitive` ('in_dict')
    * - mindspore.ops.is_not
-     - :class:`mindspore.ops.Primitive` ('is_not')               
+     - :class:`mindspore.ops.Primitive` ('is_not')
    * - mindspore.ops.is\_
-     - :class:`mindspore.ops.Primitive` ('is\_')               
+     - :class:`mindspore.ops.Primitive` ('is\_')
    * - mindspore.ops.isconstant
-     - :class:`mindspore.ops.Primitive` ('is_constant')               
+     - :class:`mindspore.ops.Primitive` ('is_constant')
    * - mindspore.ops.isinstance\_
-     - :class:`mindspore.ops.IsInstance`
+     - Refer to :class:`mindspore.ops.IsInstance`.
    * - mindspore.ops.issubclass\_
-     - :class:`mindspore.ops.IsSubClass`
+     - Refer to :class:`mindspore.ops.IsSubClass`.
    * - mindspore.ops.logical_and
-     - :class:`mindspore.ops.LogicalAnd`
+     - Refer to :class:`mindspore.ops.LogicalAnd`.
    * - mindspore.ops.logical_not
-     - :class:`mindspore.ops.LogicalNot`
+     - Refer to :class:`mindspore.ops.LogicalNot`.
    * - mindspore.ops.logical_or
-     - :class:`mindspore.ops.LogicalOr`
+     - Refer to :class:`mindspore.ops.LogicalOr`.
    * - mindspore.ops.make_row_tensor
-     - :Generate row tensor
+     - Generate row tensor.
    * - mindspore.ops.make_sparse_tensor
-     - :Generate sparse tensor
+     - Generate sparse tensor.
    * - mindspore.ops.mixed_precision_cast
      - :class:`mindspore.ops.Primitive` ('mixed_precision_cast')
    * - mindspore.ops.neg_tensor
-     - :class:`mindspore.ops.Neg`
+     - Refer to :class:`mindspore.ops.Neg`.
    * - mindspore.ops.not_equal
-     - :class:`mindspore.ops.NotEqual`
+     - Refer to :class:`mindspore.ops.NotEqual`.
    * - mindspore.ops.not_in_dict
-     - :class:`mindspore.ops.Primitive` ('not_in_dict')               
+     - :class:`mindspore.ops.Primitive` ('not_in_dict')
    * - mindspore.ops.ones_like
-     - :class:`mindspore.ops.OnesLike`
+     - Refer to :class:`mindspore.ops.OnesLike`.
    * - mindspore.ops.print\_
-     - :class:`mindspore.ops.Print`
+     - Refer to :class:`mindspore.ops.Print`.
    * - mindspore.ops.rank
-     - :class:`mindspore.ops.Rank`
+     - Refer to :class:`mindspore.ops.Rank`.
    * - mindspore.ops.reduced_shape
      - Calculate the shape of the reduction operator.
    * - mindspore.ops.reshape
-     - :class:`mindspore.ops.Reshape`
+     - Refer to :class:`mindspore.ops.Reshape`.
    * - mindspore.ops.row_tensor_get_dense_shape
-     - :Get corresponding dense shape of row tensor
+     - Get corresponding dense shape of row tensor.
    * - mindspore.ops.row_tensor_get_indices
-     - :Get indices of row tensor
+     - Get indices of row tensor.
    * - mindspore.ops.row_tensor_get_values
-     - :Get values of row tensor
+     - Get values of row tensor.
    * - mindspore.ops.same_type_shape
-     - :class:`mindspore.ops.SameTypeShape`
+     - Refer to :class:`mindspore.ops.SameTypeShape`.
    * - mindspore.ops.scalar_add
      - :class:`mindspore.ops.Primitive` ('scalar_add')
    * - mindspore.ops.scalar_cast
-     - :class:`mindspore.ops.ScalarCast`
+     - Refer to :class:`mindspore.ops.ScalarCast`.
    * - mindspore.ops.scalar_div
-     - :class:`mindspore.ops.Primitive` ('scalar_div')               
+     - :class:`mindspore.ops.Primitive` ('scalar_div')
    * - mindspore.ops.scalar_eq
-     - :class:`mindspore.ops.Primitive` ('scalar_eq')               
+     - Determine whether two numbers are equal.
    * - mindspore.ops.scalar_floordiv
-     - :class:`mindspore.ops.Primitive` ('scalar_floordiv')               
+     - :class:`mindspore.ops.Primitive` ('scalar_floordiv')
    * - mindspore.ops.scalar_ge
-     - :class:`mindspore.ops.Primitive` ('scalar_ge')               
+     - Determine whether the number is greater than or equal to another number.
    * - mindspore.ops.scalar_gt
-     - :class:`mindspore.ops.Primitive` ('scalar_gt')               
+     - Determine whether the number is greater than another number.
    * - mindspore.ops.scalar_le
-     - :class:`mindspore.ops.Primitive` ('scalar_le')               
+     - Determine whether the number is less than or equal to another number.
    * - mindspore.ops.scalar_log
-     - :class:`mindspore.ops.Primitive` ('scalar_log')               
+     - :class:`mindspore.ops.Primitive` ('scalar_log')
    * - mindspore.ops.scalar_lt
-     - :class:`mindspore.ops.Primitive` ('scalar_lt')               
+     - Determine whether the number is less than another number.
    * - mindspore.ops.scalar_mod
-     - :class:`mindspore.ops.Primitive` ('scalar_mod')               
+     - :class:`mindspore.ops.Primitive` ('scalar_mod')
    * - mindspore.ops.scalar_mul
-     - :class:`mindspore.ops.Primitive` ('scalar_mul')               
+     - :class:`mindspore.ops.Primitive` ('scalar_mul')
    * - mindspore.ops.scalar_ne
-     - :class:`mindspore.ops.Primitive` ('scalar_ne')               
+     - Determine whether two numbers are not equal.
    * - mindspore.ops.scalar_pow
-     - :class:`mindspore.ops.Primitive` ('scalar_pow')               
+     - :class:`mindspore.ops.Primitive` ('scalar_pow')
    * - mindspore.ops.scalar_sub
-     - :class:`mindspore.ops.Primitive` ('scalar_sub')               
+     - :class:`mindspore.ops.Primitive` ('scalar_sub')
    * - mindspore.ops.scalar_to_array
-     - :class:`mindspore.ops.ScalarToArray`
+     - Refer to :class:`mindspore.ops.ScalarToArray`.
    * - mindspore.ops.scalar_to_tensor
-     - :class:`mindspore.ops.ScalarToTensor`
+     - Refer to :class:`mindspore.ops.ScalarToTensor`.
    * - mindspore.ops.scalar_uadd
-     - :class:`mindspore.ops.Primitive` ('scalar_uadd')               
+     - :class:`mindspore.ops.Primitive` ('scalar_uadd')
    * - mindspore.ops.scalar_usub
-     - :class:`mindspore.ops.Primitive` ('scalar_usub')               
+     - :class:`mindspore.ops.Primitive` ('scalar_usub')
    * - mindspore.ops.scatter_nd
-     - :class:`mindspore.ops.ScatterNd`
+     - Refer to :class:`mindspore.ops.ScatterNd`.
    * - mindspore.ops.scatter_nd_update
-     - :class:`mindspore.ops.ScatterNdUpdate`
+     - Refer to :class:`mindspore.ops.ScatterNdUpdate`.
    * - mindspore.ops.scatter_update
-     - :class:`mindspore.ops.ScatterUpdate`
+     - Refer to :class:`mindspore.ops.ScatterUpdate`.
    * - mindspore.ops.select
-     - :class:`mindspore.ops.Select`
+     - Refer to :class:`mindspore.ops.Select`.
    * - mindspore.ops.shape
-     - :class:`mindspore.ops.Shape`
+     - Refer to :class:`mindspore.ops.Shape`.
    * - mindspore.ops.shape_mul
      - The input of shape_mul must be shape multiply elements in tuple(shape).
    * - mindspore.ops.size
-     - :class:`mindspore.ops.Size`
+     - Refer to :class:`mindspore.ops.Size`.
    * - mindspore.ops.sparse_tensor_get_dense_shape
-     - :Get corresponding dense shape of sparse tensor
+     - Get corresponding dense shape of sparse tensor.
    * - mindspore.ops.sparse_tensor_get_indices
-     - :Get indices of sparse tensor
+     - Get indices of sparse tensor.
    * - mindspore.ops.sparse_tensor_get_values
-     - :Get values of sparse tensor
+     - Get values of sparse tensor.
    * - mindspore.ops.sqrt
-     - :class:`mindspore.ops.Sqrt`
+     - Refer to :class:`mindspore.ops.Sqrt`.
    * - mindspore.ops.square
-     - :class:`mindspore.ops.Square`
+     - Refer to :class:`mindspore.ops.Square`.
    * - mindspore.ops.stack
-     - :class:`mindspore.ops.Stack`
+     - Refer to :class:`mindspore.ops.Stack`.
    * - mindspore.ops.stop_gradient
-     - :Disable update during back propagation
+     - Disable update during back propagation.
    * - mindspore.ops.strided_slice
-     - :class:`mindspore.ops.StridedSlice`
+     - Refer to :class:`mindspore.ops.StridedSlice`.
    * - mindspore.ops.string_concat
      - Concatenate two strings.
    * - mindspore.ops.string_eq
      - Determine if two strings are equal.
    * - mindspore.ops.tensor_div
-     - :class:`mindspore.ops.RealDiv`
+     - Refer to :class:`mindspore.ops.RealDiv`.
    * - mindspore.ops.tensor_floordiv
-     - :class:`mindspore.ops.FloorDiv`
+     - Refer to :class:`mindspore.ops.FloorDiv`.
    * - mindspore.ops.tensor_ge
-     - :class:`mindspore.ops.GreaterEqual`
+     - Refer to :class:`mindspore.ops.GreaterEqual`.
    * - mindspore.ops.tensor_gt
-     - :class:`mindspore.ops.Greater`
+     - Refer to :class:`mindspore.ops.Greater`.
    * - mindspore.ops.tensor_le
-     - :class:`mindspore.ops.LessEqual`
+     - Refer to :class:`mindspore.ops.LessEqual`.
    * - mindspore.ops.tensor_lt
-     - :class:`mindspore.ops.Less`
+     - Refer to :class:`mindspore.ops.Less`.
    * - mindspore.ops.tensor_mod
-     - :class:`mindspore.ops.FloorMod`
+     - Refer to :class:`mindspore.ops.FloorMod`.
    * - mindspore.ops.tensor_mul
-     - :class:`mindspore.ops.Mul`
+     - Refer to :class:`mindspore.ops.Mul`.
    * - mindspore.ops.tensor_pow
-     - :class:`mindspore.ops.Pow`
+     - Refer to :class:`mindspore.ops.Pow`.
    * - mindspore.ops.tensor_sub
-     - :class:`mindspore.ops.Sub`
+     - Refer to :class:`mindspore.ops.Sub`.
    * - mindspore.ops.tile
-     - :class:`mindspore.ops.Tile`
+     - Refer to :class:`mindspore.ops.Tile`.
    * - mindspore.ops.tuple_to_array
-     - :class:`mindspore.ops.TupleToArray`
+     - Refer to :class:`mindspore.ops.TupleToArray`.
    * - mindspore.ops.typeof
      - Get type of object.
    * - mindspore.ops.zeros_like
-     - :class:`mindspore.ops.ZerosLike`
+     - Refer to :class:`mindspore.ops.ZerosLike`.
 
 primitive
 ---------
