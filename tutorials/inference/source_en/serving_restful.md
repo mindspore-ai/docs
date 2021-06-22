@@ -239,17 +239,19 @@ The response format is the same as the request format. The information in the `J
 
 **The response data is represented as follows:**
 
-   |  Serving Output Type | RESTful json Data Type   | Description  |  Example  |
-   |  ----  | ----  |  ---- | ---- |
-   | `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | All types of integer data are represented as JSON integer | 1，[1,2,3,4]  |
-   | `float16`, `float32`, `float64` | json float | All types of float data are represented as JSON float | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
-   | `bool` | json bool | Bool data is represented as json bool | true，false，[[true],[false]]  |
-   | `string` | json str | String data is represented as json string | "news_car"  |
-   | `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
+|  Serving Output Type | RESTful json Data Type   | Description  |  Example  |
+|  ----  | ----  |  ---- | ---- |
+| `int8`, `int16`, `int32`, `int64`, `uint8`, `uint16`, `uint32`, `uint64` | json integer | All types of integer data are represented as JSON integer | 1，[1,2,3,4]  |
+| `float16`, `float32`, `float64` | json float | All types of float data are represented as JSON float | 1.0，[[1.2, 2.3], [3.0, 4.5]]  |
+| `bool` | json bool | Bool data is represented as json bool | true，false，[[true],[false]]  |
+| `string` | json str | String data is represented as json string | "news_car"  |
+| `bytes` | base64 object | Bytes data is represented as a base64 object | {"b64":"AQACAAIAAwADAAQA"}  |
 
 ## Accessing SSL/TLS enabled Serving RESTful service
 
-First, we start `SSL/TLS` enabled `RESTful` service, so we need to set `ssl_config` to `mindspore_serving.server.SSLConfig` object. You can reference [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service)
+MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
+
+Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service) for other details.
 
 ```python
 import os
