@@ -377,6 +377,34 @@ Save the trained model into a flatbuffer file.
 
     0 represents success or -1 in case of error.
 
+#### GetFeatureMaps
+
+```cpp
+ virtual std::vector<tensor::MSTensor *> GetFeatureMaps() const = 0;
+```
+
+Get the model feature map.
+
+- Returns
+
+    feature map list
+
+#### UpdateFeatureMaps
+
+```cpp
+ virtual int UpdateFeatureMaps(const std::vector<tensor::MSTensor *> &features) = 0;
+```
+
+Update model feature map.
+
+- Parameters
+
+    - `features`: new features.
+
+- Returns
+
+   STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+
 ## TrainLoop
 
 \#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;

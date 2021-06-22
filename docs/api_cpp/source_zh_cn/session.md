@@ -367,9 +367,37 @@ virtual int Export(const std::string &file_name, lite::ModelType model_type = li
 - 参数
 
     - `filename`: 保存模型的文件名。
-    - `model_type`: 保存模型的文件名。
-    - `quant_type`: 保存模型的文件名。
+    - `model_type`: 训练或推理。
+    - `quant_type`: 量化类型。
     - `format`: 保存模型格式。
+
+- 返回值
+
+    STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h)中定义。
+
+#### GetFeatureMaps
+
+```cpp
+ virtual std::vector<tensor::MSTensor *> GetFeatureMaps() const = 0;
+```
+
+获取训练模型权重。
+
+- 返回值
+
+    权重列表。
+
+#### UpdateFeatureMaps
+
+```cpp
+ virtual int UpdateFeatureMaps(const std::vector<tensor::MSTensor *> &features) = 0;
+```
+
+更新训练模型权重。
+
+- 参数
+
+    - `features`: 新的权重列表。
 
 - 返回值
 
