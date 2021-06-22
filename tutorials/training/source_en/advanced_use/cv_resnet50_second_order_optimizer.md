@@ -39,32 +39,26 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 > Download address of the complete code example:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet_thor>
+<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet>
 
 Directory Structure of Code Examples
 
 ```text
-├── resnet_thor
+├── resnet
     ├── README.md
     ├── scripts
         ├── run_distribute_train.sh         # launch distributed training for Ascend 910
-        └── run_eval.sh                     # launch inference for Ascend 910
+        ├── run_eval.sh                     # launch inference for Ascend 910
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
-        └── run_eval_gpu.sh                 # launch inference for GPU
+        ├── run_eval_gpu.sh                 # launch inference for GPU
     ├── src
-        ├── crossentropy.py                 # CrossEntropy loss function
         ├── config.py                       # parameter configuration
-        ├── dataset_helper.py               # dataset helper for minddata dataset
-        ├── grad_reducer_thor.py            # grad reduce for thor
-        ├── model_thor.py                   # model for train
-        ├── resnet_thor.py                  # resnet50_thor backone
-        ├── thor.py                         # thor optimizer
-        ├── thor_layer.py                   # thor layer
-        └── dataset.py                      # data preprocessing
+        ├── dataset.py                      # data preprocessing
+        ├── CrossEntropySmooth.py           # CrossEntropy loss function
+        ├── lr_generator.py                 # generate learning rate for every step
+        ├── resnet.py                       # ResNet50 backbone
     ├── eval.py                             # infer script
     ├── train.py                            # train script
-    ├── export.py                           # export checkpoint file into air file
-    └── mindspore_hub_conf.py               # config file for mindspore hub repository
 ```
 
 The overall execution process is as follows:
@@ -121,21 +115,40 @@ import mindspore.dataset.vision.c_transforms as C
 import mindspore.dataset.transforms.c_transforms as C2
 from mindspore.communication.management import init, get_rank, get_group_size
 
-def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend"):
+
+def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target="Ascend", distribute=False,
+                    enable_cache=False, cache_session_id=None):
+    """
+    Create a training or evaluation ImageNet2012 dataset for ResNet50.
+
+    Args:
+        dataset_path(string): the path of dataset.
+        do_train(bool): whether the dataset is used for training or evaluation.
+        repeat_num(int): the repeat times of dataset. Default: 1
+        batch_size(int): the batch size of dataset. Default: 32
+        target(str): the device target. Default: Ascend
+        distribute(bool): data for distribute or not. Default: False
+        enable_cache(bool): whether tensor caching service is used for evaluation. Default: False
+        cache_session_id(int): if enable_cache is set, cache session_id need to be provided. Default: None
+
+    Returns:
+        dataset
+    """
     if target == "Ascend":
         device_num, rank_id = _get_rank_info()
-        num_parallels = 8
     else:
-        init()
-        rank_id = get_rank()
-        device_num = get_group_size()
-        num_parallels = 4
+        if distribute:
+            init()
+            rank_id = get_rank()
+            device_num = get_group_size()
+        else:
+            device_num = 1
 
     if device_num == 1:
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True)
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True)
     else:
-        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=num_parallels, shuffle=True,
-                                     num_shards=device_num, shard_id=rank_id)
+        data_set = ds.ImageFolderDataset(dataset_path, num_parallel_workers=8, shuffle=True,
+                                         num_shards=device_num, shard_id=rank_id)
 
     image_size = 224
     mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
@@ -160,8 +173,18 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
     type_cast_op = C2.TypeCast(mstype.int32)
 
-    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=num_parallels)
-    data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=num_parallels)
+    data_set = data_set.map(operations=trans, input_columns="image", num_parallel_workers=8)
+    # only enable cache for eval
+    if do_train:
+        enable_cache = False
+    if enable_cache:
+        if not cache_session_id:
+            raise ValueError("A cache session_id must be provided to use cache.")
+        eval_cache = ds.DatasetCache(session_id=int(cache_session_id), size=0)
+        data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8,
+                                cache=eval_cache)
+    else:
+        data_set = data_set.map(operations=type_cast_op, input_columns="label", num_parallel_workers=8)
 
     # apply batch operations
     data_set = data_set.batch(batch_size, drop_remainder=True)
@@ -176,25 +199,18 @@ def create_dataset(dataset_path, do_train, repeat_num=1, batch_size=32, target="
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py), and replace the `Conv2d` and `Dense` operators with the operators customized by the second-order optimizer.
- The defined network model is stored in the `src/resnet_thor.py` script in the source code, and the customized operators `Conv2d_thor` and `Dense_thor` are stored in the `src/thor_layer.py` script.
-
-- Use `Conv2d_thor` to replace `Conv2d` in the original network model.
-- Use `Dense_thor` to replace `Dense` in the original network model.
-
-> The `Conv2d_thor` and `Dense_thor` operators customized by THOR are used to save the second-order matrix information in model training. The backbone of the newly defined network is the same as that of the original network model.
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py).
 
 After the network is built, call the defined ResNet-50 in the `__main__` function.
 
 ```python
 ...
-from src.resnet_thor import resnet50
+from src.resnet import resnet50 as resnet
 ...
 if __name__ == "__main__":
     ...
-    # define the net
-    net = resnet50(class_num=config.class_num, damping=damping, loss_scale=config.loss_scale,
-                   frequency=config.frequency, batch_size=config.batch_size)
+    # define net
+    net = resnet(class_num=config.class_num)
     ...
 ```
 
@@ -204,23 +220,23 @@ if __name__ == "__main__":
 
 Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `L1Loss`, and `MSELoss`. The `SoftmaxCrossEntropyWithLogits` loss function is required by THOR.
 
-The implementation procedure of the loss function is in the `src/crossentropy.py` script. A common trick in deep network model training, label smoothing, is used to improve the model tolerance to error label classification by smoothing real labels, thereby improving the model generalization capability.
+The implementation procedure of the loss function is in the `src/CrossEntropySmooth.py` script. A common trick in deep network model training, label smoothing, is used to improve the model tolerance to error label classification by smoothing real labels, thereby improving the model generalization capability.
 
 ```python
-class CrossEntropy(Loss):
+class CrossEntropySmooth(Loss):
     """CrossEntropy"""
-    def __init__(self, smooth_factor=0., num_classes=1000):
-        super(CrossEntropy, self).__init__()
+    def __init__(self, sparse=True, reduction='mean', smooth_factor=0., num_classes=1000):
+        super(CrossEntropySmooth, self).__init__()
         self.onehot = ops.OneHot()
+        self.sparse = sparse
         self.on_value = Tensor(1.0 - smooth_factor, mstype.float32)
         self.off_value = Tensor(1.0 * smooth_factor / (num_classes - 1), mstype.float32)
-        self.ce = nn.SoftmaxCrossEntropyWithLogits()
-        self.mean = ops.ReduceMean(False)
+        self.ce = nn.SoftmaxCrossEntropyWithLogits(reduction=reduction)
 
     def construct(self, logit, label):
-        one_hot_label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
-        loss = self.ce(logit, one_hot_label)
-        loss = self.mean(loss, 0)
+        if self.sparse:
+            label = self.onehot(label, ops.shape(logit)[1], self.on_value, self.off_value)
+        loss = self.ce(logit, label)
         return loss
 ```
 
@@ -228,14 +244,15 @@ Call the defined loss function in the `__main__` function.
 
 ```python
 ...
-from src.crossentropy import CrossEntropy
+from src.CrossEntropySmooth import CrossEntropySmooth
 ...
 if __name__ == "__main__":
     ...
     # define the loss function
     if not config.use_label_smooth:
         config.label_smooth_factor = 0.0
-    loss = CrossEntropy(smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
+    loss = CrossEntropySmooth(sparse=True, reduction="mean",
+                              smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
     ...
 ```
 
@@ -253,27 +270,29 @@ The meanings of parameters in the formula are as follows:
 - $F^{-1}$: FIM obtained from the network computation.
 - $\nabla E$: the first-order gradient value.
 
-As shown in the parameter update formula, THOR needs to additionally compute an FIM of each layer, and the FIM of each layer is obtained through computation in the customized network model. The FIM can adaptively adjust the parameter update step and direction of each layer, accelerating convergence and reducing parameter optimization complexity.
+As shown in the parameter update formula, THOR needs to additionally compute an FIM of each layer. The FIM can adaptively adjust the parameter update step and direction of each layer, accelerating convergence and reducing parameter optimization complexity.
+
+For more introduction of THOR optimizer, please see [THOR paper](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
+
+When calling the second-order optimizer THOR provided by MindSpore, THOR will automatically call the conversion interface to convert the Conv2d and Dense layers in the original network model into corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py).
+And the FIM of each layer is computed and saved in Conv2dThor and DenseThor.
+
+> Compared to the original network model, conversion network model has the same backbone and weights.
 
 ```python
 ...
-if args_opt.device_target == "Ascend":
-    from src.thor import THOR
-else:
-    from src.thor import THOR_GPU as THOR
+from mindspore.nn.optim import thor
 ...
-
 if __name__ == "__main__":
     ...
-    # learning rate setting
-    lr = get_model_lr(0, config.lr_init, config.lr_decay, config.lr_end_epoch, step_size, decay_epochs=39)
+    # learning rate setting and damping setting
+    from src.lr_generator import get_thor_lr, get_thor_damping
+    lr = get_thor_lr(0, config.lr_init, config.lr_decay, config.lr_end_epoch, step_size, decay_epochs=39)
+    damping = get_thor_damping(0, config.damping_init, config.damping_decay, 70, step_size)
     # define the optimizer
-    opt = THOR(filter(lambda x: x.requires_grad, net.get_parameters()), Tensor(lr), config.momentum,
-               filter(lambda x: 'matrix_A' in x.name, net.get_parameters()),
-               filter(lambda x: 'matrix_G' in x.name, net.get_parameters()),
-               filter(lambda x: 'A_inv_max' in x.name, net.get_parameters()),
-               filter(lambda x: 'G_inv_max' in x.name, net.get_parameters()),
-               config.weight_decay, config.loss_scale)
+    split_indices = [26, 53]
+    opt = thor(net, Tensor(lr), Tensor(damping), config.momentum, config.weight_decay, config.loss_scale,
+               config.batch_size, split_indices=split_indices, frequency=config.frequency)
     ...
 ```
 
@@ -287,7 +306,7 @@ MindSpore provides the callback mechanism to execute customized logic during tra
 
 ```python
 ...
-from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, TimeMonitor, LossMonitor
+from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor, TimeMonitor
 ...
 if __name__ == "__main__":
     ...
@@ -305,23 +324,25 @@ if __name__ == "__main__":
 
 ### Configuring the Network Training
 
-Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the Model_Thor class is redefined to inherit the Model class provided by MindSpore. The parameter for controlling the frequency of updating the second-order matrix is added to the Model_Thor class. You can adjust this parameter to optimize the overall performance.
+Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/train/train_thor/model_thor.py) class is redefined to inherit the Model class provided by MindSpore. The parameter of THOR for controlling the frequency of updating the second-order matrix can be obtained by the ModelThor class. You can adjust this parameter to optimize the overall performance.
+MindSpore provides a one-click conversion interface from Model class to ModelThor class.
 
 ```python
 ...
 from mindspore import FixedLossScaleManager
-from src.model_thor import Model_Thor as Model
+from mindspore import Model
+from mindspore.train.train_thor import ConvertModelUtils
 ...
 
 if __name__ == "__main__":
     ...
     loss_scale = FixedLossScaleManager(config.loss_scale, drop_overflow_update=False)
-    if target == "Ascend":
-        model = Model(net, loss_fn=loss, optimizer=opt, amp_level='O2', loss_scale_manager=loss_scale,
-                      keep_batchnorm_fp32=False, metrics={'acc'}, frequency=config.frequency)
-    else:
-        model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics={'acc'},
-                      amp_level="O2", keep_batchnorm_fp32=True, frequency=config.frequency)
+    model = Model(net, loss_fn=loss, optimizer=opt, loss_scale_manager=loss_scale, metrics=metrics,
+                  amp_level="O2", keep_batchnorm_fp32=False, eval_network=dist_eval_network)
+    if cfg.optimizer == "Thor":
+        model = ConvertModelUtils().convert_to_thor_model(model=model, network=net, loss_fn=loss, optimizer=opt,
+                                                          loss_scale_manager=loss_scale, metrics={'acc'},
+                                                          amp_level="O2", keep_batchnorm_fp32=False)  
     ...
 ```
 
@@ -331,19 +352,20 @@ After the training script is defined, call the shell script in the `scripts` dir
 
 #### Ascend 910
 
-Currently, MindSpore distributed execution on Ascend uses the single-device single-process running mode. That is, one process runs on one device, and the number of total processes is the same as the number of devices that are being used. All processes are executed in the background. Create a directory named `train_parallel`+`device_id` for each process to store log information, operator compilation information, and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script:
+Currently, MindSpore distributed execution on Ascend uses the single-device single-process running mode. That is, one process runs on one device, and the number of total processes is the same as the number of devices that are being used. All processes are executed in the background. Create a directory named `train_parallel`+`device_id` for each process to store log information, operator compilation information, and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script.
 
-Run the script.
+First configure the optimizer as 'Thor' in `src/config.py`, and then run the script:
 
 ```bash
-sh run_distribute_train.sh [RANK_TABLE_FILE] [DATASET_PATH] [DEVICE_NUM]
+bash run_distribute_train.sh <resnet50> <imagenet2012> <RANK_TABLE_FILE> <DATASET_PATH>
 ```
 
-Variables `RANK_TABLE_FILE`, `DATASET_PATH`, and `DEVICE_NUM` need to be transferred to the script. The meanings of variables are as follows:
+Variables `resnet50`, `imagenet2012`, `RANK_TABLE_FILE` and `DATASET_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
+- `resnet50`： training network
+- `imagenet2012`： training dataset
 - `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
-- `DEVICE_NUM`: the actual number of running devices.
 
 For details about other environment variables, see configuration items in the installation guide.
 
@@ -367,11 +389,12 @@ After the training is complete, the checkpoint file generated by each device is 
 
 ```text
 └─train_parallel0
-    ├─resnet-1_5004.ckpt
-    ├─resnet-2_5004.ckpt
-    │      ......
-    ├─resnet-42_5004.ckpt
-    │      ......
+    ├─ckpt_0
+        ├─resnet-1_5004.ckpt
+        ├─resnet-2_5004.ckpt
+        │      ......
+        ├─resnet-42_5004.ckpt
+        │      ......
 ```
 
 In the preceding information,
@@ -379,16 +402,18 @@ In the preceding information,
 
 #### GPU
 
-On the GPU hardware platform, MindSpore uses `mpirun` of OpenMPI to perform distributed training. The process creates a directory named `train_parallel` to store log information and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script:
+On the GPU hardware platform, MindSpore uses `mpirun` of OpenMPI to perform distributed training. The process creates a directory named `train_parallel` to store log information and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script.
+First configure the optimizer as 'Thor' in `src/config.py`, and then run the script:
 
 ```bash
-sh run_distribute_train_gpu.sh [DATASET_PATH] [DEVICE_NUM]
+bash run_distribute_train_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH>
 ```
 
-Variables `DATASET_PATH` and `DEVICE_NUM` need to be transferred to the script. The meanings of variables are as follows:
+Variables `resnet50`, `imagenet2012` and `DATASET_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
+- `resnet50`： training network
+- `imagenet2012`： training dataset
 - `DATASET_PATH`: training dataset path
-- `DEVICE_NUM`: the actual number of running devices
 
 During GPU-based training, the `DEVICE_ID` environment variable is not required. Therefore, you do not need to call `int(os.getenv('DEVICE_ID'))` in the main training script to obtain the device ID or transfer `device_id` to `context`. You need to set `device_target` to `GPU` and call `init()` to enable the NCCL.
 
@@ -444,16 +469,20 @@ if __name__ == "__main__":
     ...
     # define net
     net = resnet(class_num=config.class_num)
-    net.add_flags_recursive(thor=False)
 
     # load checkpoint
     param_dict = load_checkpoint(args_opt.checkpoint_path)
-    keys = list(param_dict.keys())
-    for key in keys:
-        if "damping" in key:
-            param_dict.pop(key)
     load_param_into_net(net, param_dict)
     net.set_train(False)
+
+    # define loss
+    if args_opt.dataset == "imagenet2012":
+        if not config.use_label_smooth:
+            config.label_smooth_factor = 0.0
+        loss = CrossEntropySmooth(sparse=True, reduction='mean',
+                                  smooth_factor=config.label_smooth_factor, num_classes=config.class_num)
+    else:
+        loss = SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 
     # define model
     model = Model(net, loss_fn=loss, metrics={'top_1_accuracy', 'top_5_accuracy'})
@@ -461,6 +490,7 @@ if __name__ == "__main__":
     # eval model
     res = model.eval(dataset)
     print("result:", res, "ckpt=", args_opt.checkpoint_path)
+    ...
 ```
 
 ### Inference
@@ -472,11 +502,13 @@ After the inference network is defined, the shell script in the `scripts` direct
 On the Ascend 910 hardware platform, run the following inference command:
 
 ```bash
-sh run_eval.sh [DATASET_PATH] [CHECKPOINT_PATH]
+bash run_eval.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-Variables `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `resnet50`, `imagenet2012`, `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
+- `resnet50`： inference network
+- `imagenet2012`： inference dataset
 - `DATASET_PATH`: inference dataset path
 - `CHECKPOINT_PATH`: path for storing the checkpoint file
 
@@ -494,11 +526,13 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
 On the GPU hardware platform, run the following inference command:
 
 ```bash
-sh run_eval_gpu.sh [DATASET_PATH] [CHECKPOINT_PATH]
+ bash run_eval_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-Variables `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `resnet50`, `imagenet2012`, `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
+- `resnet50`： inference network
+- `imagenet2012`： inference dataset
 - `DATASET_PATH`: inference dataset path
 - `CHECKPOINT_PATH`: path for storing the checkpoint file
 
