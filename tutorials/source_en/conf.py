@@ -82,5 +82,4 @@ with open(mod_path, "r+", encoding="utf8") as f:
         if "mathjax_config = app.config" in line and "#" not in line:
             contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
             break
-    f.seek(0)
-    f.writelines(contents)
+    exec("".join(contents), nbs.__dict__)

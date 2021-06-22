@@ -1,0 +1,8 @@
+sphinx >= 2.2.1, <= 2.4.4
+recommonmark
+sphinx-markdown-tables
+sphinx_rtd_theme
+exhale == 0.2.3
+breathe
+numpy
+jieba

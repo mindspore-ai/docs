@@ -12,15 +12,15 @@ Classes
 -------
 
 
-- :doc:`../api/classmindspore_dataset_transforms_Compose`
-- :doc:`../api/classmindspore_dataset_transforms_Concatenate`
-- :doc:`../api/classmindspore_dataset_transforms_Duplicate`
-- :doc:`../api/classmindspore_dataset_transforms_Fill`
-- :doc:`../api/classmindspore_dataset_transforms_Mask`
-- :doc:`../api/classmindspore_dataset_transforms_OneHot`
-- :doc:`../api/classmindspore_dataset_transforms_PadEnd`
-- :doc:`../api/classmindspore_dataset_transforms_RandomApply`
-- :doc:`../api/classmindspore_dataset_transforms_RandomChoice`
-- :doc:`../api/classmindspore_dataset_transforms_Slice`
-- :doc:`../api/classmindspore_dataset_transforms_TypeCast`
-- :doc:`../api/classmindspore_dataset_transforms_Unique`
+- :doc:`../../generate/classmindspore_dataset_transforms_Compose`
+- :doc:`../../generate/classmindspore_dataset_transforms_Concatenate`
+- :doc:`../../generate/classmindspore_dataset_transforms_Duplicate`
+- :doc:`../../generate/classmindspore_dataset_transforms_Fill`
+- :doc:`../../generate/classmindspore_dataset_transforms_Mask`
+- :doc:`../../generate/classmindspore_dataset_transforms_OneHot`
+- :doc:`../../generate/classmindspore_dataset_transforms_PadEnd`
+- :doc:`../../generate/classmindspore_dataset_transforms_RandomApply`
+- :doc:`../../generate/classmindspore_dataset_transforms_RandomChoice`
+- :doc:`../../generate/classmindspore_dataset_transforms_Slice`
+- :doc:`../../generate/classmindspore_dataset_transforms_TypeCast`
+- :doc:`../../generate/classmindspore_dataset_transforms_Unique`
