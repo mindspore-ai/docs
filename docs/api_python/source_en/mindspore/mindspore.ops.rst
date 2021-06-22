@@ -143,25 +143,25 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.scalar_div
      - :class:`mindspore.ops.Primitive` ('scalar_div')
    * - mindspore.ops.scalar_eq
-     - :class:`mindspore.ops.Primitive` ('scalar_eq')
+     - Determine whether two numbers are equal.
    * - mindspore.ops.scalar_floordiv
      - :class:`mindspore.ops.Primitive` ('scalar_floordiv')
    * - mindspore.ops.scalar_ge
-     - :class:`mindspore.ops.Primitive` ('scalar_ge')
+     - Determine whether the number is greater than or equal to another number.
    * - mindspore.ops.scalar_gt
-     - :class:`mindspore.ops.Primitive` ('scalar_gt')
+     - Determine whether the number is greater than another number.
    * - mindspore.ops.scalar_le
-     - :class:`mindspore.ops.Primitive` ('scalar_le')
+     - Determine whether the number is less than or equal to another number.
    * - mindspore.ops.scalar_log
      - :class:`mindspore.ops.Primitive` ('scalar_log')
    * - mindspore.ops.scalar_lt
-     - :class:`mindspore.ops.Primitive` ('scalar_lt')
+     - Determine whether the number is less than another number.
    * - mindspore.ops.scalar_mod
      - :class:`mindspore.ops.Primitive` ('scalar_mod')
    * - mindspore.ops.scalar_mul
      - :class:`mindspore.ops.Primitive` ('scalar_mul')
    * - mindspore.ops.scalar_ne
-     - :class:`mindspore.ops.Primitive` ('scalar_ne')
+     - Determine whether two numbers are not equal.
    * - mindspore.ops.scalar_pow
      - :class:`mindspore.ops.Primitive` ('scalar_pow')
    * - mindspore.ops.scalar_sub
