@@ -254,6 +254,30 @@ device_info_
 
 An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo) .
 
+#### provider_
+
+```cpp
+std::string provider_
+```
+
+Provider's name, need to be assigned when using registry kernel.
+
+#### provider_device_
+
+``` cpp
+std::string provider_device_
+```
+
+Provider's device, need to be assigned when using registry kernel.
+
+#### allocator_
+
+``` cpp
+AllocatorPtr allocator_
+```
+
+Optional, when registry kernel is not running on cpu [Allocator](https://mindspore.cn/doc/api_cpp/en/master/lite.html#allocator) is needed.
+
 ## DeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
