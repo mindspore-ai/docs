@@ -249,7 +249,9 @@ The response format is the same as the request format. The information in the `J
 
 ## Accessing SSL/TLS enabled Serving RESTful service
 
-First, we start `SSL/TLS` enabled `RESTful` service, so we need to set `ssl_config` to `mindspore_serving.server.SSLConfig` object. You can reference [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service)
+MindSpore Serving supports `SSL/TLS` enabled `RESTful` service. Here's an example of starting and accessing `RESTful` service with one-way authentication.
+
+Setting `verify_client` to `False` indicates one-way authentication, in order to enable `SSL/TLS`, pass  `mindspore_serving.server.SSLConfig` object to`ssl_config`. You can refer to  [Accessing SSL/TLS enabled Serving service](https://www.mindspore.cn/tutorial/inference/en/master/serving_grpc.html#accessing-ssl-tls-enabled-serving-service) for other details.
 
 ```python
 import os
@@ -279,7 +281,7 @@ We can use `curl` command line or `requests` library accessing `SSL/TLS` enabled
 curl -X POST -d '${REQ_JSON_MESSAGE}' --cacert '${PATH_TO_CA_CERT_FILE}' https://${HOST}:${PORT}/model/${MODLE_NAME}/version/${VERSION}]:${METHOD_NAME}
 ```
 
-The example of accessing the method `add_common` of the `add` model is following:
+The example of accessing the `add_common` method of the `add` model is as follows:
 
 ```text
 curl -X POST -d '{"instances":[{"x1":[[1.0, 2.0], [3.0, 4.0]], "x2":[[1.0, 2.0], [3.0, 4.0]]}]}' --cacert ca.crt https://localhost:5500/model/add/version/1:add_common
