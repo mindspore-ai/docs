@@ -38,3 +38,9 @@ A：谷歌浏览器内核禁止将某些端口作为`HTTP`服务，你需要在�
 <font size=3>**Q：在Ascend机器上启动Mindinsight并开启调试器后，训练脚本连接调试器时，提示：`Exeption calling application: Field number 0 is illegal` 如何处理？**</font>
 
 A：说明安装的protobuf版本错误，需要安装正确版本的protobuf，安装方法请参照[安装python版本的proto](https://support.huaweicloud.com/instg-cli-cann/atlascli_03_0046.html)。
+
+<br />
+
+<font size=3>**Q：MindInsight成功启动后，在谷歌浏览器中访问失败,提示：`ERR_CONNECTION_REFUSED` 如何处理？**</font>
+
+A：检查后台服务器与网络设备的防火墙策略配置，确保浏览器与MindInsight服务间的通讯连接，不受相关设备的配置规则限制。
