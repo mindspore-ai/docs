@@ -53,9 +53,9 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.addn
      - Refer to :class:`mindspore.ops.AddN`.
    * - mindspore.ops.array_reduce
-     - :class:`mindspore.ops.Primitive` ('array_reduce')
+     - Reduce the dimension of the array.
    * - mindspore.ops.array_to_scalar
-     - :class:`mindspore.ops.Primitive` ('array_to_scalar')
+     - Convert the array to a scalar.
    * - mindspore.ops.assign
      - Refer to :class:`mindspore.ops.Assign`.
    * - mindspore.ops.assign_add
@@ -63,17 +63,15 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.assign_sub
      - Refer to :class:`mindspore.ops.AssignSub`.
    * - mindspore.ops.bool_and
-     - :class:`mindspore.ops.Primitive` ('bool_and')
+     - Calculate the result of logical AND operation.
    * - mindspore.ops.bool_eq
-     - :class:`mindspore.ops.Primitive` ('bool_eq')
+     - Determine whether the Boolean values are equal.
    * - mindspore.ops.bool_not
-     - :class:`mindspore.ops.Primitive` ('bool_not')
+     - Calculate the result of logical NOT operation.
    * - mindspore.ops.bool_or
-     - :class:`mindspore.ops.Primitive` ('bool_or')
+     - Calculate the result of logical OR operation.
    * - mindspore.ops.cast
      - Refer to :class:`mindspore.ops.Cast`.
-   * - mindspore.ops.distribute
-     - :class:`mindspore.ops.Primitive` ('distribute')
    * - mindspore.ops.dtype
      - Refer to :class:`mindspore.ops.DType`.
    * - mindspore.ops.equal
@@ -87,7 +85,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.gather_nd
      - Refer to :class:`mindspore.ops.GatherNd`.
    * - mindspore.ops.hastype
-     - :class:`mindspore.ops.Primitive` ('hastype')
+     - Determine whether the object has the specified type.
    * - mindspore.ops.in_dict
      - :class:`mindspore.ops.Primitive` ('in_dict')
    * - mindspore.ops.is_not

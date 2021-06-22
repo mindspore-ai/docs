@@ -79,13 +79,13 @@ A：When a single Protobuf data is too large, because Protobuf itself limits the
 
 <font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
 
-A: In terms of efficiency, operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. The network execution performance varies according to the execution mechanism. Theoretically, operators provided by MindSpore support both the PyNative and Graph modes.
+A: In terms of network execution, operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
 
 In terms of application scenarios, Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
 
 The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
 
-In terms of code debugging, since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. The output can be viewed only after the network execution is complete.
+In terms of code debugging, since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
 <br/>
 
