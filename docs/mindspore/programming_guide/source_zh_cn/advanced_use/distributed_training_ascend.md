@@ -555,9 +555,9 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 
 ## 多机多卡训练
 
-前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机8卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
+前面的章节，对MindSpore的分布式训练进行了介绍，都是基于单机多卡的Ascend环境，使用多机进行分布式训练，可以更大地提升训练速度。
 在Ascend环境下，跨机器的NPU单元的通信与单机内各个NPU单元的通信一样，依旧是通过HCCL进行通信，区别在于，单机内的NPU单元天然的是互通的，而跨机器的则需要保证两台机器的网络是互通的。
-在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
+在确认了机器之间的NPU单元的网络是通畅后，配置多机的json配置文件，本教程以16卡的配置文件为例，详细的配置文件说明可以参照本教程单机多卡部分的介绍。需要注意的是，在多机的json文件配置中，要求rank_id的排序，与server_id的字典序一致。
 
 ```json
 {
@@ -595,16 +595,17 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 }
 ```
 
-准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机8卡的运行脚本类似，区别在于指定不同的rank_id变量。
+准备好配置文件后，可以进行分布式多机训练脚本的组织，在以2机16卡为例，两台机器上编写的脚本与单机多卡的运行脚本类似，区别在于指定不同的rank_id变量。
 
 ```bash
 #!/bin/bash
 
 echo "=============================================================================================================="
 echo "Please run the script as: "
-echo "bash run.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
-echo "For example: bash run.sh /path/dataset /path/rank_table.json 16 0"
+echo "bash run_cluster.sh DATA_PATH RANK_TABLE_FILE RANK_SIZE RANK_START"
+echo "For example: bash run_cluster.sh /path/dataset /path/rank_table.json 16 0"
 echo "It is better to use the absolute path."
+echo "The time interval between multiple machines to execute the script should not exceed 120s"
 echo "=============================================================================================================="
 
 execute_path=$(pwd)
@@ -629,7 +630,7 @@ do
 done
 ```
 
-上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行。
+上面列出的参考脚本，所要求的代码组织结构如下，脚本中会获取脚本所在路径以及命令执行的路径，并且将所有任务都置于后台执行，完整的代码链接请于本教程置顶处获取。
 
 ```text
 └─tutorial_code
@@ -642,7 +643,7 @@ done
 
 ```bash
 # server0
-bash run.sh /path/dataset /path/rank_table.json 16 0
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 0
 # server1
-bash run.sh /path/dataset /path/rank_table.json 16 8
+bash run_cluster.sh /path/dataset /path/rank_table.json 16 8
 ```
