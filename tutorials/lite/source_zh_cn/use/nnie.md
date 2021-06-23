@@ -106,13 +106,9 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     NNIE模型可以使用NNIE硬件以提高模型运行速度，用户需配置以下两点，以使能NNIE模型转换。
 
-    - NNIE环境变量配置
+    - NNIE转换配置文件
 
-        MindSpore Lite所需的NNIE转换配置文件，需参照海思提供的《HiSVP 开发指南》中表格`nnie_mapper 配置选项说明`来进行配置，并设定如下环境变量（以nnie.cfg指代配置文件）：
-
-        ```bash
-        export NNIE_CONFIG_PATH=./nnie.cfg
-        ```
+        MindSpore Lite所需的NNIE转换配置文件，需参照海思提供的《HiSVP 开发指南》中表格`nnie_mapper 配置选项说明`来进行配置，以nnie.cfg指代此配置文件：
 
         nnie.cfg文件的示例参考如下：
 
@@ -135,7 +131,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 1. 进入转换目录
 
     ```bash
-    cd mindspore-lite-{version}-linux-x64/tools/converter/converter
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
     ```
 
 2. 配置环境变量（可选）
@@ -150,7 +146,11 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     ${PACKAGE_ROOT_PATH}是下载得到的包解压后的路径。
 
-2. 将nnie.cfg拷贝到转换目录
+2. 将nnie.cfg拷贝到转换目录并设置如下环境变量
+
+    ```bash
+    export NNIE_CONFIG_PATH=./nnie.cfg
+    ```
 
 3. 执行converter，生成NNIE`ms`模型
 
@@ -202,7 +202,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
    NNIE模型的推理，还依赖海思提供NNIE相关板端动态库，包括：libnnie.so、libmpi.so、libVoiceEngine.so、libupvqe.so、libdnvqe.so。
 
    用户需在板端保存这些so，并将路径传递给LD_LIBRARY_PATH环境变量。
-   在示例中，这些so位于/user/lib下，用户需按实际情况进行配置：
+   在示例中，这些so位于/usr/lib下，用户需按实际情况进行配置：
 
    ```bash
    export LD_LIBRARY_PATH=/user/mindspore/lib:/user/lib:${LD_LIBRARY_PATH}
