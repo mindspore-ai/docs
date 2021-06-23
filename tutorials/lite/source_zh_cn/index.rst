@@ -40,6 +40,7 @@
    use/runtime
    use/micro
    use/asic
+   use/register_kernel
 
 .. toctree::
    :glob:
