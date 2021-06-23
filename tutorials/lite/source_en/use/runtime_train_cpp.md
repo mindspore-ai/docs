@@ -541,15 +541,21 @@ if (ret != RET_OK) {
 
 ### Saving Model
 
-The function `CkptSaver` calls the function `SaveToFile` actually. The user can also call `SaveToFile` directly to save the trained model.
+The function `CkptSaver` calls the function `Export` actually. The user can also call `Export` directly to save the trained model.
 
 ```cpp
   /// \brief Save the trained model into a flatbuffer file
   ///
-  /// \param[in] filename Filename to save flatbuffer to
+  /// \param[in] file_name Filename to save flatbuffer to
+  ///
+  /// \param[in] model_type ModelType to save train or inference
+  ///
+  /// \param[in] quant_type QuantizationType to save
+  ///
+  /// \param[in] format FormatType to save
   ///
   /// \return 0 on success or -1 in case of error
-  virtual int SaveToFile(const std::string &filename) const = 0;
+  virtual int Export(const std::string &file_name, lite::ModelType model_type = lite::MT_TRAIN, lite::QuantizationType quant_type = lite::QT_DEFAULT,lite::FormatType format= lite::FT_FLATBUFFERS) const = 0;
 ```
 
 You can load the saved model to do re-training or inference.
