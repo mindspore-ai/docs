@@ -101,7 +101,7 @@ NVT 290k
    langevin_gamma=1.0,                    # Gamma_ln for Langevin thermostat represents coupling strength between thermostat and system
    target_temperature=290,               # Target temperature
    write_information_interval=1000,       # Output frequency
-   amber_irest=1,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
+   amber_irest=0,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
    cut=10.0,                              # Nonbonded cutoff distance in Angstroms
 ```
 
@@ -111,7 +111,7 @@ NVT 290k
 - `thermostat`，表示控温方法，`1`表示采用的是`Liujian-Langevin`方法。
 - `langevin_gamma`，表示控温器中的`Gamma_ln`参数。
 - `target_temperature`，表示目标温度。
-- `amber_irest`，表示输入方式，`1`表示使用amber方式输入，并且`rst7`文件中包含`veclocity`属性。
+- `amber_irest`，表示输入方式，`0`表示使用amber方式输入，`rst7`文件中不包含`veclocity`属性。
 - `cut`，表示非键相互作用的距离。
 
 ### 加载数据
@@ -191,7 +191,7 @@ python main.py --i /path/NVT_290_10ns.in \
 
 ```text
 _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _14CF_ENE_ _LJ_ENE_ _CF_PME_ENE_
-      1 293.105   -6117.709   1204.406       7.096          4.491      3.456     44.018 1372.488    -8753.664
+      0 0.000   -5713.804         0.037       0.900         14.909      9.072    194.477  765.398    -6698.648
    ...
 ```
 
