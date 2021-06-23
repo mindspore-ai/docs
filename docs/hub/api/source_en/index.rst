@@ -6,8 +6,5 @@
 MindSpore Hub Python API
 =========================
 
-.. toctree::
-   :maxdepth: 1
-   :caption: MindSpore Hub Python API
-
-   mindspore_hub
+.. automodule:: mindspore_hub
+    :members:
