@@ -106,7 +106,7 @@ NVT 290k
    langevin_gamma=1.0,                    # Gamma_ln for Langevin thermostat represents coupling strength between thermostat and system
    target_temperature=290,               # Target temperature
    write_information_interval=1000,       # Output frequency
-   amber_irest=1,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
+   amber_irest=0,                         # Input style ;  amber_irest=1 for using amber style input & rst7 file contains veclocity
    cut=10.0,                              # Nonbonded cutoff distance in Angstroms
 ```
 
@@ -116,7 +116,7 @@ NVT 290k
 - `thermostat`, represents the method of temperature control, `1` represents to use `Liujian-Langevin`.
 - `langevin_gamma`, represents `Gamma_In` parameters in the thermostat.
 - `target_temperature`, represents the target temperature.
-- `amber_irest`, represents the input mode, `1` represents to use the amber mode to input, and files suffix `rst7` includes the attribute `veclocity`.
+- `amber_irest`, represents the input mode, `0` represents to use the amber mode to input, and files suffix `rst7` do not include the attribute `veclocity`.
 - `cut`, represents the distance of non-bonding interaction.
 
 ### Loading Data
@@ -199,7 +199,7 @@ After training, output file `ala_NVT_290_10ns.out` can be obtained, which record
 
 ```text
 _steps_ _TEMP_ _TOT_POT_ENE_ _BOND_ENE_ _ANGLE_ENE_ _DIHEDRAL_ENE_ _14LJ_ENE_ _14CF_ENE_ _LJ_ENE_ _CF_PME_ENE_
-      1 293.105   -6117.709   1204.406       7.096          4.491      3.456     44.018 1372.488    -8753.664
+      0 0.000   -5713.804         0.037       0.900         14.909      9.072    194.477  765.398    -6698.648
    ...
 ```
 
