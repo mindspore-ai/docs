@@ -208,6 +208,8 @@ result = model.eval(ds_eval)
 通过如下代码可以更清楚了解到`Accuracy`是如何运行的：
 
 ```python
+from mindspore import Tensor
+from mindspore.nn import Accuracy
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
 y = Tensor(np.array([1, 0, 1]))
 metric = Accuracy()
