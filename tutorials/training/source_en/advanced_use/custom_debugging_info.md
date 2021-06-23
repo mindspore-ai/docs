@@ -205,6 +205,8 @@ By invoking the `eval` method of `Accuracy`, you will obtain the calculation res
 You can understand how `Accuracy` runs by using the following code:
 
 ```python
+from mindspore import Tensor
+from mindspore.nn import Accuracy
 x = Tensor(np.array([[0.2, 0.5], [0.3, 0.1], [0.9, 0.6]]))
 y = Tensor(np.array([1, 0, 1]))
 metric = Accuracy()
