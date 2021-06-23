@@ -10,59 +10,20 @@ MindSpore Python API
    :maxdepth: 1
    :caption: MindSpore Python API
 
-   mindspore/mindspore
-   mindspore/mindspore.common.initializer
-   mindspore/mindspore.communication
-   mindspore/mindspore.compression
-   mindspore/mindspore.context
-   mindspore/mindspore.dataset
-   mindspore/mindspore.dataset.config
-   mindspore/mindspore.dataset.text
-   mindspore/mindspore.dataset.transforms
-   mindspore/mindspore.dataset.vision
-   mindspore/mindspore.explainer
-   mindspore/mindspore.mindrecord
-   mindspore/mindspore.nn
-   mindspore/mindspore.numpy
-   mindspore/mindspore.nn.probability
-   mindspore/mindspore.ops
-   mindspore/mindspore.profiler
-   mindspore/mindspore.train
-
-.. toctree::
-   :maxdepth: 1
-   :caption: MindArmour Python API
-
-   mindarmour/mindarmour
-   mindarmour/mindarmour.adv_robustness.attacks
-   mindarmour/mindarmour.adv_robustness.defenses
-   mindarmour/mindarmour.adv_robustness.detectors
-   mindarmour/mindarmour.adv_robustness.evaluations
-   mindarmour/mindarmour.fuzz_testing
-   mindarmour/mindarmour.privacy.diff_privacy
-   mindarmour/mindarmour.privacy.evaluation
-   mindarmour/mindarmour.privacy.sup_privacy
-   mindarmour/mindarmour.utils
-
-.. toctree::
-   :maxdepth: 1
-   :caption: MindSpore Hub Python API
-
-   mindspore_hub/mindspore_hub
-
-.. toctree::
-   :maxdepth: 1
-   :caption: MindSpore Serving Python API
-
-   mindspore_serving/mindspore_serving
-
-.. toctree::
-   :maxdepth: 1
-   :caption: MindQuantum Python API
-
-   mindquantum/mindquantum
-   mindquantum/mindquantum.parameterresolver
-   mindquantum/mindquantum.ops
-   mindquantum/mindquantum.hiqfermion
-   mindquantum/mindquantum.nn
-   mindquantum/mindquantum.utils
+   api_python/mindspore
+   api_python/mindspore.common.initializer
+   api_python/mindspore.communication
+   api_python/mindspore.compression
+   api_python/mindspore.context
+   api_python/mindspore.dataset
+   api_python/mindspore.dataset.config
+   api_python/mindspore.dataset.text
+   api_python/mindspore.dataset.transforms
+   api_python/mindspore.dataset.vision
+   api_python/mindspore.explainer
+   api_python/mindspore.mindrecord
+   api_python/mindspore.nn
+   api_python/mindspore.numpy
+   api_python/mindspore.ops
+   api_python/mindspore.profiler
+   api_python/mindspore.train

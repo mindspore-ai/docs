@@ -11,7 +11,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 import IPython
 import re
 import nbsphinx as nbs
@@ -52,12 +51,6 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
-highlight_language = 'none'
-
-suppress_warnings = [
-    'nbsphinx',
-]
-
 pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
@@ -67,11 +60,11 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
+html_static_path = ['_static']
+
 html_search_language = 'zh'
 
-html_search_options = {'dict': '../resource/jieba.txt'}
-
-html_static_path = ['_static']
+html_search_options = {'dict': '../../resource/jieba.txt'}
 
 # Remove extra outputs for nbsphinx extension.
 nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
@@ -86,5 +79,4 @@ with open(mod_path, "r+", encoding="utf8") as f:
         if "mathjax_config = app.config" in line and "#" not in line:
             contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
             break
-    f.seek(0)
-    f.writelines(contents)
+    exec("".join(contents), nbs.__dict__)

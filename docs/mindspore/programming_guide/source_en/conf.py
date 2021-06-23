@@ -11,7 +11,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 import IPython
 import re
 import nbsphinx as nbs
@@ -19,7 +18,7 @@ import nbsphinx as nbs
 # -- Project information -----------------------------------------------------
 
 project = 'MindSpore'
-copyright = '2020, MindSpore'
+copyright = '2021, MindSpore'
 author = 'MindSpore'
 
 # The full version, including alpha/beta/rc tags
@@ -76,5 +75,4 @@ with open(mod_path, "r+", encoding="utf8") as f:
         if "mathjax_config = app.config" in line and "#" not in line:
             contents[num:num+10] = [nbsphinx_math_re.sub(r"# \g<1>", i) for i in contents[num:num+10]]
             break
-    f.seek(0)
-    f.writelines(contents)
+    exec("".join(contents), nbs.__dict__)
