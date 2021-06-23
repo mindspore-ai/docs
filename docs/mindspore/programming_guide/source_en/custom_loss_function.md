@@ -4,7 +4,7 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/custom_loss_function.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/custom_loss_function.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->
 

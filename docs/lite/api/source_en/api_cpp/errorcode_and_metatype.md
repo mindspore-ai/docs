@@ -1,6 +1,6 @@
 # ErrorCode and MetaType
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_en/errorcode_and_metatype.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/errorcode_and_metatype.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## master
 
