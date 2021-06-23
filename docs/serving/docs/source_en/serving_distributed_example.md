@@ -17,7 +17,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 

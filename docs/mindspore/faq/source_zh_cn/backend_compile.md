@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/backend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/backend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？**</font>
 

@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/backend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/backend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: A piece of data contains multiple images which have different widths and heights. I need to perform the `map` operation on the data in mindrecord format for data processing. However, the data I read from `record` is in `np.ndarray` format. My `operations` are for the image format. How can I preprocess the generated data in mindrecord format?**</font>
 

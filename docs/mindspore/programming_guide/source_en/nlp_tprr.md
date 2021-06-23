@@ -20,7 +20,7 @@ Translator: [longvoyage](https://gitee.com/yuanyanglv)
     - [Reference](#reference)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/inference/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/nlp_tprr.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 

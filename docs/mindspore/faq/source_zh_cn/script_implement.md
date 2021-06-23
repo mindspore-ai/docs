@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
 

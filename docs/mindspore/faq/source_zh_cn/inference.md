@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## C++接口使用类
 

@@ -18,7 +18,7 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ## Overview
 
