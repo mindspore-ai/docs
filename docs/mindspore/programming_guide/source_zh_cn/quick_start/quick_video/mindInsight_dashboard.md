@@ -8,4 +8,4 @@
 
 **立即安装**：<https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md#>
 
-**查看更多内容**：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html>
+**查看更多内容**：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/dashboard.html>

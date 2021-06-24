@@ -56,7 +56,7 @@ APIs related to operators include operations, functional, and composite. Operato
 
 ### mindspore.ops.operations
 
-The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+The operations API provides all primitive operator APIs, which are the lowest-order operator APIs open to users. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
 
 Primitive operators directly encapsulate the implementation of operators at bottom layers such as Ascend, GPU, AICPU, and CPU, providing basic operator capabilities for users.
 
@@ -85,7 +85,7 @@ output = [ 1.  8. 64.]
 
 ### mindspore.ops.functional
 
-To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html#mindspore-ops-functional).
+To simplify the calling process of operators without attributes, MindSpore provides the functional version of some operators. For details about the input parameter requirements, see the input and output requirements of the original operator. For details about the supported operators, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list_ms.html#mindspore-ops-functional).
 
 For example, the functional version of the `P.Pow` operator is `F.tensor_pow`.
 
@@ -155,7 +155,7 @@ pow = ops.Pow()
 
 ## Operator Functions
 
-Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list.html).
+Operators can be classified into some functional modules: tensor operations, network operations, array operations, image operations, encoding operations, debugging operations, and quantization operations. And they also involve some operator combinations related to graph transformation. For details about the supported operators on the Ascend AI processors, GPU, and CPU, see [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
 
 ### Tensor Operations
 
@@ -885,4 +885,4 @@ output = [[1.4100001 1.5999999 6.6      ]
  [1.4100001 1.5999999 6.6      ]]
 ```
 
-The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/implement_high_order_differentiation.html).
+The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/docs/programming_guide/en/r1.3/implement_high_order_differentiation.html).

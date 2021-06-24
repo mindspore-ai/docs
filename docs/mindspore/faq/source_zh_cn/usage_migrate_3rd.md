@@ -9,7 +9,7 @@
 <font size=3>**Q：请问想加载PyTorch预训练好的模型用于MindSpore模型finetune有什么方法？**</font>
 
 A：需要把PyTorch和MindSpore的参数进行一一对应，因为网络定义的灵活性，所以没办法提供统一的转化脚本。
-需要根据场景书写定制化脚本，可参考[checkpoint高级用法](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/advanced_usage_of_checkpoint.html)
+需要根据场景书写定制化脚本，可参考[checkpoint高级用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/advanced_usage_of_checkpoint.html)
 
 <br/>
 
@@ -41,7 +41,7 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q：其他框架的脚本或者模型怎么迁移到MindSpore？**</font>
 
-A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_3rd_scripts.html)的介绍。
+A：关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/migrate_3rd_scripts.html)的介绍。
 
 ## MindConverter
 

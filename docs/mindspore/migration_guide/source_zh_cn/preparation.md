@@ -122,7 +122,7 @@ print(ops.add(x, y))
 
 ### MindSpore编程指南
 
-用户可以通过参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)了解如何使用MindSpore进行训练、调试、调优、推理；也可以通过参考[MindSpore编程指南](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/index.html)了解MindSpore的基本组成和常用编程方法；也可以通过参考[MindSpore Python API](https://www.mindspore.cn/doc/api_python/zh-CN/master/index.html)详细了解MindSpore各接口的相关信息，以便于用户能够更好地使用。
+用户可以通过参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)了解如何使用MindSpore进行训练、调试、调优、推理；也可以通过参考[MindSpore编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)了解MindSpore的基本组成和常用编程方法；也可以通过参考[MindSpore Python API](https://www.mindspore.cn/docs/api/zh-CN/r1.3/index.html)详细了解MindSpore各接口的相关信息，以便于用户能够更好地使用。
 
 ### ModelZoo和Hub
 
@@ -132,4 +132,4 @@ print(ops.add(x, y))
 
 ### 云上训练
 
-ModelArts是华为云提供的面向AI开发者的一站式开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。相关文档可参考[云上使用MindSpore](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/use_on_the_cloud.html)和[AI开发平台ModelArts](https://support.huaweicloud.com/wtsnew-modelarts/index.html)。
+ModelArts是华为云提供的面向AI开发者的一站式开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore。相关文档可参考[云上使用MindSpore](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/use_on_the_cloud.html)和[AI开发平台ModelArts](https://support.huaweicloud.com/wtsnew-modelarts/index.html)。

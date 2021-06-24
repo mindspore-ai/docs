@@ -24,7 +24,7 @@ Auto augmentation can be implemented based on probability or callback parameters
 
 MindSpore provides a series of probability-based auto augmentation APIs. You can randomly select and combine various data augmentation operations to make data augmentation more flexible.
 
-For details about APIs, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.transforms.html).
+For details about APIs, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.dataset.transforms.html).
 
 ### RandomApply
 

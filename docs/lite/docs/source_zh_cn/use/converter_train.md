@@ -19,7 +19,7 @@
 
 创建MindSpore端侧模型的步骤：
 
-- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#mindir)。
+- 首先基于MindSpore架构使用Python创建网络模型，并导出为`.mindir`文件，参见云端的[保存模型](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_model.html#mindir)。
 - 然后将`.mindir`模型文件转换成`.ms`文件，`.ms`文件可以导入端侧设备并基于MindSpore端侧框架训练。
 
 ## Linux环境
@@ -28,7 +28,7 @@
 
 MindSpore Lite 模型转换工具提供了多个参数，目前工具仅支持Linux系统，环境准备步骤：
 
-- [编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)或[下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)模型转换工具。
+- [编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)或[下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)模型转换工具。
 - 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH。
 
     ```bash
@@ -75,4 +75,4 @@ CONVERTER RESULT SUCCESS:0
 CONVERT RESULT FAILED:
 ```
 
-程序会返回的[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)和错误信息。
+程序会返回的[错误码](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/errorcode_and_metatype.html)和错误信息。

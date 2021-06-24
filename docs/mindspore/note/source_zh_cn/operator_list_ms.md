@@ -6,5 +6,5 @@
 
 您可根据需要，选择适用于您硬件平台的算子，构建网络模型。
 
-- `mindspore.nn`模块支持的算子列表可在[mindspore.nn模块的API页面](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html)进行查阅。
-- `mindspore.ops`模块支持的算子列表可在[mindspore.ops模块的API页面](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.ops.html)进行查阅。
+- `mindspore.nn`模块支持的算子列表可在[mindspore.nn模块的API页面](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html)进行查阅。
+- `mindspore.ops`模块支持的算子列表可在[mindspore.ops模块的API页面](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)进行查阅。

@@ -30,7 +30,7 @@
 
 - 准备训练脚本，并在训练脚本中指定标量、图像、计算图、模型超参等信息记录到summary日志文件，接着运行训练脚本。
 - 启动MindInsight，并通过启动参数指定summary日志文件目录，启动成功后，根据IP和端口访问可视化界面，默认访问地址为 `http://127.0.0.1:8080`。
-- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dashboard.html)。
+- 在训练过程中，有数据写入summary日志文件时，即可在页面中[查看训练看板中可视的数据](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/dashboard.html)。
 
 > 在ModelArts中查看可视数据，可参考[ModelArts上管理可视化作业](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0050.html)。
 
@@ -126,7 +126,7 @@ def train():
     model = Model(network, loss, opt, metrics={"Accuracy": Accuracy()})
 
     # How to create a valid dataset instance,
-    # for detail, see the https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html document.
+    # for detail, see the https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html document.
     ds_train = create_dataset('./dataset_path')
 
     # Init a SummaryCollector callback instance, and use it in model.train or model.eval
@@ -317,9 +317,9 @@ model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
 
 ### 方式四：进阶用法，自定义训练循环
 
-如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/train.html#自定义训练循环)。
+如果训练时不是使用MindSpore提供的 `Model` 接口，而是模仿 `Model` 的 `train` 接口自由控制循环的迭代次数。则可以模拟 `SummaryCollector`，使用下面的方式记录summary算子数据。详细的自定义训练循环教程，请[参考官网教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/train.html#自定义训练循环)。
 
-下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
+下面的例子，将演示如何使用summary算子以及 `SummaryRecord` 的 `add_value` 接口在自定义训练循环中记录数据。更多 `SummaryRecord` 的教程，请[参考Python API文档](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.train.html#mindspore.train.summary.SummaryRecord)。需要说明的是，`SummaryRecord`不会自动记录计算图，您需要手动传入继承了`Cell`的网络实例以记录计算图。此外，生成计算图的内容仅包含您在`construct`方法中使用到的代码和函数。
 
 ```python
 from mindspore import nn
@@ -477,7 +477,7 @@ mindinsight start --summary-base-dir ./summary
 mindinsight stop
 ```
 
-更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)页面。
+更多参数设置，请点击查看[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/mindinsight_commands.html)页面。
 
 ## 注意事项
 

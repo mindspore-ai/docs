@@ -223,7 +223,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-> - 量化算子：`nn.Conv2dQuant`、`nn.DenseQuant`、`nn.ActQuant`等为含有伪量化节点的算子。更多的量化算子内容请参见<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.nn.html#quantized-functions> 。
+> - 量化算子：`nn.Conv2dQuant`、`nn.DenseQuant`、`nn.ActQuant`等为含有伪量化节点的算子。更多的量化算子内容请参见<https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html#quantized-functions> 。
 > - 在需要量化的网络层后面插入伪量化节点`nn.FakeQuantWithMinMaxObserver`可以实现更多网络层的量化。
 > - 建议优先选择量化网络中靠后的层，因为量化前面的网络层可能会造成更多的精度损失。
 
@@ -268,10 +268,10 @@ if __name__ == "__main__":
     export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='QUANT', mean=127.5, std_dev=127.5)
 ```
 
-导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/index.html)。
+导出量化模型后，请[使用MindSpore进行推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)。
 
 > - 导出的模型格式支持MindIR和AIR。
-> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310.html)。
+> - 感知量化训练后导出的模型支持[端侧推理](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/index.html)和[Ascend 310 AI处理器上推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_310.html)。
 
 ## 参考文献
 

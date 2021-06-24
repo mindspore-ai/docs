@@ -172,7 +172,7 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
     Note that you need to create a cache instance for each of the two examples according to step 4, and use the created `test_cache` as the `cache` parameter in the dataset loading operator or map operator.
 
-    CIFAR-10 dataset is used in the following two examples. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100).
+    CIFAR-10 dataset is used in the following two examples. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#cifar-10-100).
 
     - Cache the original loaded dataset.
 
@@ -335,7 +335,7 @@ During the single-node multi-device distributed training, the cache operator all
 
 4. Create and apply a cache instance.
 
-    CIFAR-10 dataset is used in the following example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100). The directory structure is as follows:
+    CIFAR-10 dataset is used in the following example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#cifar-10-100). The directory structure is as follows:
 
     ```text
     ├─cache.sh

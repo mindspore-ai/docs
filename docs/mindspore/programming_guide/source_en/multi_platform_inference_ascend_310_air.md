@@ -121,7 +121,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ## Exporting the AIR Model
 
-Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-air-model).
+Train the target network on the Ascend 910 AI Processor, save it as a checkpoint file, and export the model file in AIR format through the network and checkpoint file. For details about the export process, see [Export AIR Model](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_model.html#export-air-model).
 
 > The [resnet50_export.air](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com:443/sample_resources/acl_resnet50_sample/resnet50_export.air) is a sample AIR file exported using the ResNet-50 model.
 

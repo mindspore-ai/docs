@@ -8,4 +8,4 @@
 
 **Install now**: <https://gitee.com/mindspore/mindinsight/blob/master/README.md#>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dashboard.html>
+**See more**: <https://www.mindspore.cn/mindinsight/docs/en/r1.3/dashboard.html>

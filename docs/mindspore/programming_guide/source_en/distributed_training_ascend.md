@@ -57,7 +57,7 @@ The directory structure is as follow:
 
 `rank_table_16pcs.json`, `rank_table_8pcs.json` and `rank_table_2pcs.json` are the networking information files. `resnet.py`,`resnet50_distributed_training.py` , `resnet50_distributed_training_gpu.py` and `resnet50_distributed_training_grad_accu.py` are the network structure files. `run.sh` , `run_gpu.sh`, `run_grad_accu.sh` and `run_cluster.sh` are the execute scripts.
 
-Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
+Besides, we describe the usages of hybrid parallel and semi-auto parallel modes in the sections [Defining the Network](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#defining-the-network) and [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
 
 ## Preparations
 
@@ -202,7 +202,7 @@ In this section we focus on how to define a network in hybrid parallel or semi-a
 
 Hybrid parallel mode adds the setting `layerwise_parallel` for `parameter` based on the data parallel mode. The `parameter` with the settig would be saved and computed in slice tensor and would not apply gradients aggregation. In this mode, MindSpore would not infer computation and communication for parallel operators automatically. To ensure the consistency of calculation logic, users are required to manually infer extra operations and insert them to networks. Therefore, this parallel mode is suitable for the users with deep understanding of parallel theory.
 
-In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html).
+In the following example, specify the `self.weight` as the `layerwise_parallel`, that is, the `self.weight` and the output of `MatMul` are sliced on the second dimension. At this time, perform ReduceSum on the second dimension would only get one sliced result. `AllReduce.Sum` is required here to accumulate the results among all devices. More information about the parallel theory please refer to the [design document](https://www.mindspore.cn/docs/note/en/r1.3/design/mindspore/distributed_training_design.html).
 
 ```python
 from mindspore import Tensor
@@ -229,7 +229,7 @@ class HybridParallelNet(nn.Cell):
 
 ### Semi Auto Parallel Mode
 
-Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html).
+Compared with the auto parallel mode, semi auto parallel mode supports manual configuration on shard strategies for network tuning. The definition of shard strategies could be referred by this [design document](https://www.mindspore.cn/docs/note/en/r1.3/design/mindspore/distributed_training_design.html).
 
 In the above example `HybridParallelNet`, the script in semi auto parallel mode is as follows. The shard stratege of `MatMul` is `{(1, 1), (1, 2)}`, which means `self.weight` is sliced at the second dimension.
 
@@ -319,7 +319,7 @@ The `Momentum` optimizer is used as the parameter update tool. The definition is
 - `gradients_mean`: During backward computation, the framework collects gradients of parameters in data parallel mode across multiple hosts, obtains the global gradient value, and transfers the global gradient value to the optimizer for update. The default value is `False`, which indicates that the `allreduce_sum` operation is applied. The value `True` indicates that the `allreduce_mean` operation is applied.
 - You are advised to set `device_num` and `global_rank` to their default values. The framework calls the HCCL API to obtain the values.
 
-> More about the distributed training configurations please refer to the [programming guide](https://www.mindspore.cn/doc/programming_guide/en/master/auto_parallel.html).
+> More about the distributed training configurations please refer to the [programming guide](https://www.mindspore.cn/docs/programming_guide/en/r1.3/auto_parallel.html).
 
 If multiple network cases exist in the script, call `context.reset_auto_parallel_context` to restore all parameters to default values before executing the next case.
 
@@ -484,9 +484,9 @@ param_dict = load_checkpoint('...')
 load_param_into_net(net, param_dict)
 ```
 
-For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint-configuration-policies).
+For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_model.html#checkpoint-configuration-policies).
 
-> By default, sliced parameters would be merged before saving. If the size of parameters is large, we recommend to use sliced parameters to save and infer, which could be referred to [Distributed inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#id1).
+> By default, sliced parameters would be merged before saving. If the size of parameters is large, we recommend to use sliced parameters to save and infer, which could be referred to [Distributed inference](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_910.html#id1).
 
 ### Data Parallel Mode
 
@@ -506,7 +506,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 
 ### Semi Auto Parallel Mode
 
-In semi auto parallel mode, checkpoint is used in the same way as in auto parallel mode and data parallel mode. The difference is in the definition of a network and the definition of network model, you can refer to defining the network [Semi Auto Parallel Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#semi-auto-parallel-mode) in this tutorial.
+In semi auto parallel mode, checkpoint is used in the same way as in auto parallel mode and data parallel mode. The difference is in the definition of a network and the definition of network model, you can refer to defining the network [Semi Auto Parallel Mode](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#semi-auto-parallel-mode) in this tutorial.
 
 To save the model, you can use the following code:
 
@@ -545,11 +545,11 @@ to:
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
+It should be noted that if users choose this checkpoint saving policy, users need to save and load the segmented checkpoint for subsequent reasoning or retraining. Specific usage can refer to [Integrating the Saved Checkpoint Files](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_load_model_hybrid_parallel.html#integrating-the-saved-checkpoint-files).
 
 ### Hybrid Parallel Mode
 
-For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/save_load_model_hybrid_parallel.html).
+For model parameter saving and loading in Hybrid Parallel Mode, please refer to [Saving and Loading Model Parameters in the Hybrid Parallel Scenario](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_load_model_hybrid_parallel.html).
 
 ## Multi-machine Training
 

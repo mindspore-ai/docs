@@ -33,7 +33,7 @@
 
 ## 定义回调函数EvalCallBack
 
-实现思想：每隔n个epoch验证一次模型精度，需要在自定义回调函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.train.html#mindspore.train.callback.Callback)；
+实现思想：每隔n个epoch验证一次模型精度，需要在自定义回调函数中实现，如需了解详细用法，请参考[API说明](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.train.html#mindspore.train.callback.Callback)；
 
 核心实现：回调函数的`epoch_end`内设置验证点，如下：
 

@@ -16,7 +16,7 @@
 
 <font size=3>**Q：What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
+A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <br/>
 
@@ -66,7 +66,7 @@ A: Check whether MindSpore that MindSpore Serving depends on is installed. In Se
 
 <font size=3>**Q：How to control the output of Serving log?**</font>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html?highlight=GLOG#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
+A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html?highlight=GLOG#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
 
 - MS_SUBMODULE_LOG_v
 

@@ -72,8 +72,8 @@ MindSpore Programming Guide
    :maxdepth: 1
    :caption: Specification Note
 
-   Benchmarks <https://www.mindspore.cn/doc/note/en/master/benchmark.html>
+   Benchmarks <https://www.mindspore.cn/docs/note/en/r1.3/benchmark.html>
    network_list
    operator_list
    syntax_list
-   Environment Variables <https://www.mindspore.cn/doc/note/en/master/env_var_list.html>
+   Environment Variables <https://www.mindspore.cn/docs/note/en/r1.3/env_var_list.html>

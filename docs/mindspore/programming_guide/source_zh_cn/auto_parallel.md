@@ -104,7 +104,7 @@ context.get_auto_parallel_context("gradients_mean")
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
-<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。
 
 代码样例如下：
 
@@ -268,7 +268,7 @@ context.get_auto_parallel_context("pipeline_stage")
 
 #### grad_accumulation_step
 
-`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_gradient_accumulation.html)
+`grad_accumulation_step`指梯度累积步数。具体用法请参考[指导教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/apply_gradient_accumulation.html)
 
 代码样例如下：
 
@@ -410,7 +410,7 @@ x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 
 具体用例请参考MindSpore分布式并行训练教程：
 
-<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。
 
 ## 自动并行
 
@@ -418,4 +418,4 @@ x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 
 具体用例请参考MindSpore分布式并行训练教程：
 
-<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。

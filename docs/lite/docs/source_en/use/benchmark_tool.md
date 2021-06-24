@@ -34,9 +34,9 @@ After model conversion and before inference, you can use the Benchmark tool to p
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#compilation-example) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#environment-requirements) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#compilation-example) in the build document.
 
-- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#output-description) in the build document.
+- Run: Obtain the `Benchmark` tool and configure environment variables. For details, see [Output Description](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#output-description) in the build document.
 
 - Add the path of dynamic library required by the inference code to the environment variables LD_LIBRARY_PATH.
 
@@ -220,7 +220,7 @@ When `perfEvent` is set as `CACHE`, the columns will be `cache ref(k)`/`cache re
 
 To use the Benchmark tool, you need to prepare the environment as follows:
 
-- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id1) and [Compilation Example](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#id3) in the build document.
+- Compilation: Install build dependencies and perform build. The code of the Benchmark tool is stored in the `mindspore/lite/tools/benchmark` directory of the MindSpore source code. For details about the build operations, see the [Environment Requirements](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#id1) and [Compilation Example](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#id3) in the build document.
 - Add the path of dynamic library required by the benchmark to the environment variables PATH.
 
     ````bash

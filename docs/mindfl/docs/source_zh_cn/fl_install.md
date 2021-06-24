@@ -12,8 +12,8 @@
 
 ### 获取MindSpore Lite java包
 
-  包括源码和下载发布版两种方式。目前只支持x86和android平台，只支持CPU硬件架构。安装流程可参考MindSpore Lite教程[下载章节](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)和[编译章节](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。详见下文部署FL-Client章节。
+  包括源码和下载发布版两种方式。目前只支持x86和android平台，只支持CPU硬件架构。安装流程可参考MindSpore Lite教程[下载章节](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)和[编译章节](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)。详见下文部署FL-Client章节。
 
 ### Linux环境编译要求
 
-  目前源码编译只支持linux环境，环境要求可参考，[MindSpore源码编译](https://www.mindspore.cn/install) 和[MindSpore Lite源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
+  目前源码编译只支持linux环境，环境要求可参考，[MindSpore源码编译](https://www.mindspore.cn/install) 和[MindSpore Lite源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)。

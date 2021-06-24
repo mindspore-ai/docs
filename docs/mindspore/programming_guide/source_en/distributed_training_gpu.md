@@ -28,7 +28,7 @@ This tutorial describes how to train the ResNet-50 network using MindSpore data 
 
 The `CIFAR-10` dataset is used as an example. The method of downloading and loading the dataset is the same as that for the Ascend 910 AI processor.
 
-The method of downloading and loading the dataset: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>
+The method of downloading and loading the dataset: <https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html>
 
 ### Configuring Distributed Environment
 
@@ -80,7 +80,7 @@ In the preceding information,
 
 On the GPU hardware platform, the network definition is the same as that for the Ascend 910 AI processor.
 
-For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html>.
+For details about the definitions of the network, optimizer, and loss function, see <https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html>.
 
 ## Running the Script
 
@@ -150,4 +150,4 @@ echo "start training"
 mpirun -n 16 --hostfile $HOSTFILE -x DATA_PATH=$DATA_PATH -x PATH -mca pml ob1 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-Run running on GPU, the model parameters can be saved and loaded by referring to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).
+Run running on GPU, the model parameters can be saved and loaded by referring to [Distributed Training Model Parameters Saving and Loading](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#distributed-training-model-parameters-saving-and-loading).

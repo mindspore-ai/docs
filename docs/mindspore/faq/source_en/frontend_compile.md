@@ -26,7 +26,7 @@ def generate_tensor():
 
 <font size=3>**Q：What can I do if an error "'self.xx' should be defined in the class '__init__' function." is reported?**</font>
 
-A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [`Parameter`](<https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=parameter#mindspore.Parameter>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [`Parameter`](<https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html?highlight=parameter#mindspore.Parameter>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
 
 <br/>
 
@@ -53,7 +53,7 @@ Please check your code to make sure they are equal.
 
 A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be joined to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
 
-When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.dat` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/doc/note/en/master/design/mindspore/mindir.html). The code sample is as follows:
+When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.dat` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/docs/note/en/r1.3/design/mindspore/mindir.html). The code sample is as follows:
 
 ```python
 import numpy as np

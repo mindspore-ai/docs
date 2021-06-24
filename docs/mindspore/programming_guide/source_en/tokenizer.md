@@ -36,7 +36,7 @@ MindSpore provides the following tokenizers. In addition, you can customize toke
 | WhitespaceTokenizer | Performs tokenization on scalar text data based on spaces.  |
 | WordpieceTokenizer | Performs tokenization on scalar text data based on the word set.  |
 
-For details about tokenizers, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.text.html).
+For details about tokenizers, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.dataset.text.html).
 
 ## MindSpore Tokenizers
 

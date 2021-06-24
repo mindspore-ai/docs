@@ -8,7 +8,7 @@
 
 - 配置编译环境
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#linux)
 
 - 在mindspore主目录进行编译，编译包含aarch64和aarch32的AAR包
 
@@ -77,7 +77,7 @@ mindspore-lite-{version}
 
 - 配置编译环境
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#linux)
 
 - 在mindspore主目录进行编译，编译x86相关架构包
 

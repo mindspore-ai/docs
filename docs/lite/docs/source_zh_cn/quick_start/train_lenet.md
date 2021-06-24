@@ -73,7 +73,7 @@ cd ./mindspore
 
 源码路径下的`mindspore/lite/examples/train_lenet`目录包含了本示例程序的源码。
 
-请到[MindSpore Lite下载页面](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。下载完成后，需要将mindspore-lite-{version}-linux-x64.tar.gz重命名为mindspore-lite-{version}-linux-x64.tar.gz，将mindspore-lite-{version}-android-aarch64.tar.gz重命名为mindspore-lite-{version}-android-aarch64.tar.gz，最后将重命名后的文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
+请到[MindSpore Lite下载页面](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)下载mindspore-lite-{version}-linux-x64.tar.gz以及mindspore-lite-{version}-android-aarch64.tar.gz。其中，mindspore-lite-{version}-linux-x64.tar.gz是MindSpore Lite在x86平台的安装包，里面包含模型转换工具converter_lite，本示例用它来将MINDIR模型转换成MindSpore Lite支持的`.ms`格式；mindspore-lite-{version}-android-aarch64.tar.gz是MindSpore Lite在Android平台的安装包，里面包含训练运行时库libmindspore-lite.so，本示例用它所提供的接口在Android上训练模型。下载完成后，需要将mindspore-lite-{version}-linux-x64.tar.gz重命名为mindspore-lite-{version}-linux-x64.tar.gz，将mindspore-lite-{version}-android-aarch64.tar.gz重命名为mindspore-lite-{version}-android-aarch64.tar.gz，最后将重命名后的文件放到MindSpore源码下的`output`目录（如果没有`output`目录，请创建它）。
 
 假设下载的安装包存放在`/Downloads`目录，上述操作对应的`Linux`指令如下：
 
@@ -83,7 +83,7 @@ cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{v
 cp /Downloads/mindspore-lite-{version}-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
-您也可以通过[源码编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)直接生成端侧训练框架对应的x86平台安装包mindspore-lite-{version}-linux-x64.tar.gz以及Android平台安装包mindspore-lite-{version}-android-aarch64.tar.gz，源码编译的安装包会自动生成在`output`目录下，请确保`output`目录下同时存在这两个安装包。
+您也可以通过[源码编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)直接生成端侧训练框架对应的x86平台安装包mindspore-lite-{version}-linux-x64.tar.gz以及Android平台安装包mindspore-lite-{version}-android-aarch64.tar.gz，源码编译的安装包会自动生成在`output`目录下，请确保`output`目录下同时存在这两个安装包。
 
 ### 连接安卓设备
 
@@ -201,7 +201,7 @@ Eval Accuracy is 0.965244
 
 首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
 
-> 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/index.html)。
+> 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)。
 
 ```python
 import numpy as np
@@ -266,7 +266,7 @@ print("finished exporting")
 
 转换成功后，当前目录下会生成`lenet_tod.ms`模型文件。
 
-> 更多用法参见[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)。
+> 更多用法参见[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_train.html)。
 
 ### 训练模型
 
@@ -326,7 +326,7 @@ int NetRunner::Main() {
 
 2. 数据集处理
 
-    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/session.html) 获取更多详细信息。
+    `InitDB`函数预处理`MNIST`数据集并加载至内存。MindData提供了数据预处理API，用户可参见[C++ API 说明文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html) 获取更多详细信息。
 
     ```cpp
     int NetRunner::InitDB() {

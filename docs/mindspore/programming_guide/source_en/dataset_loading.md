@@ -55,7 +55,7 @@ MindSpore also supports user-defined dataset loading using `GeneratorDataset`. Y
 | GeneratorDataset | User defined class or function to load and process dataset. |
 | NumpySlicesDataset | User defined data source to construct dataset using NumPy. |
 
-> For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.dataset.html).
+> For details about the API for dataset loading, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.dataset.html).
 
 ## Loading Common Dataset
 
@@ -224,7 +224,7 @@ The following describes how to load dataset files in specific formats.
 
 MindRecord is a data format defined by MindSpore. Using MindRecord can improve performance.
 
-> For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_conversion.html).
+> For details about how to convert a dataset into the MindRecord data format, see [Data Format Conversion](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_conversion.html).
 
 Before executing this example, you need to download the corresponding test data `test_mindrecord.zip` and unzip it to the specified location, execute the following command in jupyter notebook:
 

@@ -276,7 +276,7 @@ The output is as follows. The accuracy of the validation dataset is about 96.31%
 
 ## Parallel Mode
 
-If gradient accumulation is used in `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, the accumulation steps and update steps are delivered as two graphs and executed alternately. In an accumulation step graph, only the forward and backward operations and gradient accumulation are performed. In an update step graph, the forward and backward operations and parameter updates are performed. The example in [Parallel Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html) is used to describe the procedure.
+If gradient accumulation is used in `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, the accumulation steps and update steps are delivered as two graphs and executed alternately. In an accumulation step graph, only the forward and backward operations and gradient accumulation are performed. In an update step graph, the forward and backward operations and parameter updates are performed. The example in [Parallel Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html) is used to describe the procedure.
 
 > Download the main training sample code: <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
 
@@ -428,7 +428,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### Defining the Parallel Training Model
 
-The network encapsulated by `cell_wrapper` contains the forward and backward operations and optimizer implementation. You need to connect the dataset to the network and execute the two graphs alternately. The preceding functions are implemented based on the [`Model`](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=model#mindspore.Model) API in the framework.
+The network encapsulated by `cell_wrapper` contains the forward and backward operations and optimizer implementation. You need to connect the dataset to the network and execute the two graphs alternately. The preceding functions are implemented based on the [`Model`](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html?highlight=model#mindspore.Model) API in the framework.
 
 ```python
 import math

@@ -23,7 +23,7 @@
 
 代码生成工具codegen的使用流程如下：
 
-1. 通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)，将训练好的模型文件转换为`*.ms`格式；
+1. 通过MindSpore Lite转换工具[Converter](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html)，将训练好的模型文件转换为`*.ms`格式；
 
 2. 通过自动代码生成工具codegen，输入`*.ms`模型自动生成源代码。
 
@@ -33,8 +33,8 @@
 
 自动代码生成工具，可以通过两种方式获取：
 
-1. MindSpore官网下载[Release版本](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)。
-2. 从源码开始[编译构建](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)。
+1. MindSpore官网下载[Release版本](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)。
+2. 从源码开始[编译构建](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)。
 
 > 目前模型生成工具仅支持在Linux x86_64架构下运行。
 
@@ -74,7 +74,7 @@ mindspore-lite-{version}-linux-x64
 >
 > os不支持文件系统时，debugMode不可用。
 >
-> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/index.html)。
+> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/index.html)。
 >
 > 以下三个接口暂不支持：
 >
@@ -142,7 +142,7 @@ mnist
     └── operator_library   # 模型推理算子相关文件(需要自建)
     ```
 
-> 模型推理对外API头文件可由MindSpore团队发布的[Release包](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)中获取。
+> 模型推理对外API头文件可由MindSpore团队发布的[Release包](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)中获取。
 >
 > 在编译此工程之前需要预先获取对应平台所需要的算子文件，由于Cortex-M平台工程编译一般涉及到较复杂的交叉编译，此处不提供直接预编译的算子库静态库，而是用户根据模型自行组织文件，自主编译Cortex-M7 、Coretex-M4、Cortex-M3等工程(对应工程目录结构已在示例代码中给出，用户可自主将对应ARM官方的CMSIS源码放置其中即可)。
 

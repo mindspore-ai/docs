@@ -326,7 +326,7 @@
 
 网络定义流程[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
 
-具体网络定义流程可参考[MindSpore官方图片分类任务文档]( https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C )。
+具体网络定义流程可参考[MindSpore官方图片分类任务文档]( https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C )。
 
 ## 定义训练过程
 
@@ -429,7 +429,7 @@ if __name__ == "__main__":
 
 其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其中其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚步中`data`和`label`均采用的模拟数据。
 
-具体优化器损失函数定义可参考[MindSpore官方文档](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
+具体优化器损失函数定义可参考[MindSpore官方文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
 
 ## 生成端侧模型文件
 
@@ -452,11 +452,11 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-    具体可参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html?highlight=mindir#mindir )。
+    具体可参考[这里](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_model.html?highlight=mindir#mindir )。
 
 2. **将MindIR文件转化为联邦学习端侧框架可用的ms文件**
 
-    具体模型转换教程可参考[训练模型转换教程](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html )。
+    具体模型转换教程可参考[训练模型转换教程](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_train.html )。
 
     模型转换示例如下：
 

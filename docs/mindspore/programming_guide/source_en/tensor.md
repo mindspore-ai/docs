@@ -19,7 +19,7 @@
 
 ## Overview
 
-Tensor is a basic data structure in the MindSpore network computing. For details about data types in tensors, see [dtype](https://www.mindspore.cn/doc/programming_guide/en/master/dtype.html).
+Tensor is a basic data structure in the MindSpore network computing. For details about data types in tensors, see [dtype](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dtype.html).
 
 Tensors of different dimensions represent different data. For example, a 0-dimensional tensor represents a scalar, a 1-dimensional tensor represents a vector, a 2-dimensional tensor represents a matrix, and a 3-dimensional tensor may represent the three channels of RGB images.
 
@@ -189,7 +189,7 @@ x_strides: (8, 4)
 
 ### Methods
 
-Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
+Tensor methods include `len`, `str`, `repr`, `hash`, `all`, `any`, `asnumpy` and many other functions. Numpy-like ndarray methods are also provided. For a full description of all tensor methods, please see [API: mindspore.Tensor](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html#mindspore.Tensor). The following is a brief introduction to some of the tensor methods.
 
 - `len()`: returns the length of the tensor.
 - `str()`: returns the string representation of the tensor.

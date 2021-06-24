@@ -56,7 +56,7 @@ An **int** value. Defaults to **2**. Thread number config for thread pool.
 allocator
 ```
 
-A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator).
+A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#allocator).
 
 #### device_list_
 
@@ -64,7 +64,7 @@ A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/e
 device_list_
 ```
 
-A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontextvector) contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variables.
+A [**DeviceContextVector**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#devicecontextvector) contains [**DeviceContext**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#devicecontext) variables.
 
 > CPU, GPU and NPU are supported now. If GPU device context is set and GPU is supported in the current device, use GPU device first, otherwise use CPU device first. If NPU device context is set and GPU is supported in the current device, use NPU device first, otherwise use CPU device first.
 
@@ -228,7 +228,7 @@ Global method to get strings from MSTensor.
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
-A **vector** contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variable.
+A **vector** contains [**DeviceContext**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#devicecontext) variable.
 
 ## DeviceContext
 
@@ -252,7 +252,7 @@ An **enum** type. Defaults to **DT_CPU**. DeviceType is defined for holding 
 device_info_
 ```
 
-An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo) .
+An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#npudeviceinfo) .
 
 ## DeviceInfo
 
@@ -268,7 +268,7 @@ An **union** value. DeviceInfo is defined for backend's configuration informatio
 cpu_device_info_
 ```
 
-[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) is defined for CPU's configuration information.
+[**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#cpudeviceinfo) is defined for CPU's configuration information.
 
 #### gpu_device_info_
 
@@ -276,13 +276,13 @@ cpu_device_info_
 gpu_device_info_
 ```
 
-[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) is defined for GPU's configuration information.
+[**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#gpudeviceinfo) is defined for GPU's configuration information.
 
 ```cpp
 npu_device_info_
 ```
 
-[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) is defined for NPU's configuration information.
+[**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#gpudeviceinfo) is defined for NPU's configuration information.
 
 ## CpuDeviceInfo
 
@@ -308,7 +308,7 @@ A **bool** value. Defaults to **false**. This attribute enables to perform the G
 cpu_bind_mode_
 ```
 
-A [**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.
+A [**CpuBindMode**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#cpubindmode) **enum** variable. Defaults to **MID_CPU**.
 
 ## GpuDeviceInfo
 

@@ -8,6 +8,6 @@
 
 **查看更多内容**：
 
-<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling.html>
+<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling.html>
 
 <https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_gpu.html>

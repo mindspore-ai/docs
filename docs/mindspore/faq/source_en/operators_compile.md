@@ -84,7 +84,7 @@ A: The `multiples input` of the `Tile` operator must be a constant. (The value c
 
 <font size=3>**Q: What can I do if the LSTM example on the official website cannot run on Ascend?**</font>
 
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/doc/note/en/master/operator_list_ms.html) to view the supported operators.
+A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list_ms.html) to view the supported operators.
 
 <br/>
 
@@ -96,7 +96,7 @@ A: This is a TBE operator restriction that the width of x must be greater than t
 
 <font size=3>**Q: Has MindSpore implemented the anti-pooling operation similar to `nn.MaxUnpool2d`?**</font>
 
-A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_operator.html).
+A: Currently, MindSpore does not provide anti-pooling APIs but you can customize the operator to implement the operation. For details, refer to [Custom Operators](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator.html).
 
 <br/>
 
@@ -116,4 +116,4 @@ A: The problem is that the Graph mode is selected but the PyNative mode is used.
 - PyNative mode: dynamic graph mode. In this mode, operators in the neural network are delivered and executed one by one, facilitating the compilation and debugging of the neural network model.
 - Graph mode: static graph mode. In this mode, the neural network model is compiled into an entire graph and then delivered for execution. This mode uses technologies such as graph optimization to improve the running performance and facilitates large-scale deployment and cross-platform running.
 
-You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debug_in_pynative_mode.html).
+You can select a proper mode and writing method to complete the training by referring to the official website [tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/debug_in_pynative_mode.html).

@@ -267,7 +267,7 @@ User process:
 
 3. Execute stage 2 training: There are two devices in stage 2 training environment. The weight shape of the MatMul operator on each device is \[4, 8]. Load the initialized model parameter data from the integrated checkpoint file and then perform training.
 
-> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html).
+> For details about the distributed environment configuration and training code, see [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html).
 >
 > This document provides the example code for integrating checkpoint files and loading checkpoint files before distributed training. The code is for reference only.
 

@@ -57,7 +57,7 @@ mindspore-lite-{version}-runtime-linux-x64
                         └── libprotoc.so
 ```
 
-上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具converter目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#converter)。
+上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具converter目录结构说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#converter)。
 
 ### 模型推理工具runtime目录结构说明
 
@@ -69,7 +69,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[Runtime及其他工具目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[Runtime及其他工具目录结构说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#runtime)。
 
 ## 工具使用
 
@@ -171,7 +171,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 #### 概述
 
 得到转换模型后，可在关联的嵌入式板上，使用板子配套的Runtime推理框架执行推理。MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模型前向推理的执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
-关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
+关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/benchmark_tool.html)。
 
 #### 环境准备
 
@@ -238,13 +238,13 @@ cd /user/mindspore
 
 ${model_path}为转换后ms模型文件路径
 
-执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
+执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/benchmark_tool.html)。
 
 有关模型的输入数据格式要求，见[SVP工具链相关功能支持及注意事项（可选）](#SVP工具链相关功能支持及注意事项（可选）)。
 
 ## 集成使用
 
-有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
+有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。
 
 ## SVP工具链相关功能支持及注意事项（高级选项）
 
@@ -300,7 +300,7 @@ ${model_path}为转换后ms模型文件路径
 
   MindSpore Lite在转换NNIE模型时，会将大部分的算子融合为NNIE运行的二进制文件，用户无法观察到中间算子的输出，通过在top域上添加”_report“后缀，转换构图时会将中间算子的输出添加到融合后的层输出中，若原先该算子便有输出（未被融合），则维持不变。
 
-  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#id15)得到中间算子输出。
+  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html#id15)得到中间算子输出。
 
   MindSpore Lite解析_report的相应规则，及与[inplace机制](#inplace机制)的冲突解决，参照《HiSVP 开发指南》中的定义说明。
 
@@ -316,7 +316,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### 多图片batch运行及多step运行
 
-  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
+  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
 
   对于循环或lstm网络，用户需根据step值，配置TIME_STEP环境变量，同时resize模型输入。
   设一次同时前向推理的数据的个数为input_num，对于序列数据输入的节点resize为input_num * step，非序列数据输入的节点resize为input_num。

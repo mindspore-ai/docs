@@ -92,7 +92,7 @@ class L1Loss(Loss):
 
 这里使用简单的线性拟场景作为样例，数据集和网络结构定义如下：
 
-> 线性拟合详细介绍可参考教程[实现简单线性函数拟合](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/linear_regression.html)
+> 线性拟合详细介绍可参考教程[实现简单线性函数拟合](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/linear_regression.html)
 
 1. 定义数据集
 

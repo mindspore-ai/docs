@@ -8,6 +8,6 @@
 
 **See More**:
 
-<https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html>
+<https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_tool.html>
 
-<https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html>
+<https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_train.html>

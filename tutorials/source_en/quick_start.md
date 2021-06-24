@@ -36,7 +36,7 @@ args = parser.parse_known_args()[0]
 context.set_context(mode=context.GRAPH_MODE, device_target=args.device_target)
 ```
 
-This example runs in graph mode. You can configure hardware information as required. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about the parameters, see [context.set_context](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.context.html).
+This example runs in graph mode. You can configure hardware information as required. For example, if the code runs on the Ascend AI processor, set `--device_target` to `Ascend`. This rule also applies to the code running on the CPU and GPU. For details about the parameters, see [context.set_context](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.context.html).
 
 ## Downloading the Dataset
 
@@ -122,7 +122,7 @@ def create_dataset(data_path, batch_size=32, repeat_size=1,
 
 In the preceding information, `batch_size` indicates the number of data records in each group. Assume that each group contains 32 data records.
 
-> MindSpore supports multiple data processing and argumentation operations. For details, see [Processing Data](https://www.mindspore.cn/doc/programming_guide/en/master/pipeline.html) and [Data Augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
+> MindSpore supports multiple data processing and argumentation operations. For details, see [Processing Data](https://www.mindspore.cn/docs/programming_guide/en/r1.3/pipeline.html) and [Data Augmentation](https://www.mindspore.cn/docs/programming_guide/en/r1.3/augmentation.html).
 
 ## Creating a Model
 
@@ -170,7 +170,7 @@ class LeNet5(nn.Cell):
 net = LeNet5()
 ```
 
-> For more information about building a neural network in MindSpore, see [Defining the Network](https://www.mindspore.cn/tutorial/training/en/master/use/defining_the_network.html).
+> For more information about building a neural network in MindSpore, see [Defining the Network](https://www.mindspore.cn/docs/programming_guide/en/r1.3/defining_the_network.html).
 
 ## Optimizing Model Parameters
 

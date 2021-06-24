@@ -391,12 +391,12 @@ mindspore-lite.framework
 
 ### 编译选项
 
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+参考[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#linux)
 
 ### 编译示例
 
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+参考[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#linux)
 
 ### 目录结构
 
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+参考[Linux环境编译](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#linux)

@@ -23,7 +23,7 @@ MindSpore Lite provides a code generator tool, namely CodeGen, which could have 
 
 Here is the process of using CodeGen:
 
-1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
+1. Use the [MindSpore Lite Converter](https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_tool.html) to convert the pre-trained model into a `*.ms` file.
 
 2. Use CodeGen and input the `*.ms` file to automatically generate the inference code.
 
@@ -33,8 +33,8 @@ Here is the process of using CodeGen:
 
 You can obtain CodeGen by any of the following ways:
 
-1. Download pre-compiled [Release Package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) from MindSpore.
-2. [Build](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) from the source.
+1. Download pre-compiled [Release Package](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) from MindSpore.
+2. [Build](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html) from the source.
 
 > Currently the code generator is only available on Linux x86_64.
 
@@ -74,7 +74,7 @@ Here is the detailed description of parameters:
 >
 > debugMode is not available when the filesystem is not supported.
 >
-> Please check the [API Document](https://www.mindspore.cn/doc/api_cpp/en/master/index.html) to get the detailed API description.
+> Please check the [API Document](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/index.html) to get the detailed API description.
 >
 > The following 3 interfaces are currently not supported：
 > 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`
@@ -141,7 +141,7 @@ The generated program compilation and deployment need to install the following t
     └── operator_library   # operator source code (needs to be managed)
     ```
 
-> API header files could be found in the [Release Package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) provided by the MindSpore team.
+> API header files could be found in the [Release Package](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) provided by the MindSpore team.
 >
 > You need to obtain the source code corresponding to the target platform because the pre-compiled static library is not provided since the Cross compilation on Cortex-M platform is complicated. The corresponding project file structure is provided in the example and you could follow the instructions shown below to copy the source code and finish the compilation.
 
