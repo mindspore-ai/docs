@@ -98,9 +98,9 @@ context.get_auto_parallel_context("gradients_mean")
 
 - `stand_alone`：单机模式。
 - `data_parallel`：数据并行模式。
-- `hybrid_parallel`：混合并行模式。
+- `hybrid_parallel`：混合并行模式，基于通信原语构造并行网络。
 - `semi_auto_parallel`：半自动并行模式，即用户可通过`shard`方法给算子配置切分策略，若不配置策略，则默认是数据并行策略。
-- `auto_parallel`：自动并行模式，即框架会自动建立代价模型，为用户选择最优的切分策略。
+- `auto_parallel`：自动并行模式，即框架会自动建立代价模型，为用户选择最优的切分策略。该模式为实验特性，当前只在部分网络验证。
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
@@ -333,7 +333,23 @@ rank_id = get_rank()
 
 ## 分布式属性配置
 
+### shard
+
+适用于`Primitive`。
+
+在`semi_auto_parallel`及`auto_parallel`模式下，可以通过`shard`方法对算子配置切分策略。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
+
+代码样例如下：
+
+```python
+import mindspore.ops as ops
+
+matmul = ops.MatMul().shard(strategy=((1, 4),(4, 2)))
+```
+
 ### cross_batch
+
+适用于`Primitive`。
 
 在特定场景下，`data_parallel`的计算逻辑和`stand_alone`是不一样的，`auto_parallel`在任何场景下都是和`stand_alone`的计算逻辑保持一致。而`data_parallel`的收敛效果可能更好，因此MindSpore提供了`cross_batch`这个参数，可以使`auto_parallel`的计算逻辑和`data_parallel`保持一致，用户可通过`add_prim_attr`方法进行配置，默认值是False。
 
@@ -346,6 +362,8 @@ mul = ops.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
+
+适用于`Primitive`, `Parameter`和`Cell`。
 
 出于性能考虑，MindSpore提供了`AllGather`和`AllReduce`算子的融合功能，`fusion`值相同的同类算子（算子类型以及通信域相同）会融合在一起，`fusion`的值必须大于等于0，且当`fusion`值为0时，表示不融合。目前只支持`Ascend`后端。
 
@@ -392,6 +410,8 @@ net = Net().set_comm_fusion(2)
 > 当参数被共享时，需要保证连接参数的多个算子混合精度一致，否则融合会失败。
 
 ### layerwise_parallel
+
+适用于`Parameter`。
 
 在`HYBRID_PARALLEL`模式下用户需要手动切分模型，其中对于模型并行的参数用户需要手动打上标记`layerwise_parallel`，框架会根据此标记为模型并行参数过滤掉梯度聚合操作。
 
