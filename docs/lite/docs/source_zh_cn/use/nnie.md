@@ -10,8 +10,27 @@
         - [模型推理工具runtime目录结构说明](#模型推理工具Runtime目录结构说明)
     - [工具使用](#工具使用)
         - [转换工具converter](#转换工具converter)
+            - [概述](#概述)
+            - [环境准备](#环境准备)
+            - [执行converter](#执行converter)
         - [推理工具runtime](#推理工具runtime)
+            - [概述](#概述)
+            - [环境准备](#环境准备)
+            - [执行benchmark](#执行benchmark)
     - [集成使用](#集成使用)
+    - [SVP工具链相关功能支持及注意事项（可选）](#SVP工具链相关功能支持及注意事项（可选）)
+        - [image_list说明](#image_list说明)
+        - [image_type限制](#image_type限制)
+        - [板端运行输入Format须是NHWC](#板端运行输入Format须是NHWC)
+        - [image_list和roi_coordinate_file个数说明](#image_list和roi_coordinate_file个数说明)
+        - [prototxt中节点名_cpu后缀支持](#prototxt中节点名_cpu后缀支持)
+        - [prototxt中Custom算子支持](#prototxt中Custom算子支持)
+        - [prototxt中top域的_report后缀支持](#prototxt中top域的_report后缀支持)
+        - [inplace机制](#inplace机制)
+        - [多图片batch运行及多step运行](#多图片batch运行及多step运行)
+        - [节点名称的变动](#节点名称的变动)
+        - [proposal算子使用说明](#proposal算子使用说明)
+        - [分段机制说明及8段限制](#分段机制说明及8段限制)
 
 <!-- /TOC -->
 
@@ -27,10 +46,10 @@ mindspore-lite-{version}-runtime-linux-x64
     └── converter
         └── providers
             └── 3516D                # 嵌入式板型号
-                ├── libmslite_nnie_converter.so        # 集成nnie的动态库
-                ├── libmslite_nnie_data_process.so     # 处理nnie输入数据的动态库
-                ├── libnnie_mapper.so        # 构建nnie wk文件的动态库
-                └── third_party       # nnie依赖的三方动态库
+                ├── libmslite_nnie_converter.so        # 集成NNIE转换的动态库
+                ├── libmslite_nnie_data_process.so     # 处理NNIE输入数据的动态库
+                ├── libnnie_mapper.so        # 构建NNIE二进制文件的动态库
+                └── third_party       # NNIE依赖的三方动态库
                     ├── opencv-4.2.0
                     │   └── libopencv_xxx.so
                     └── protobuf-3.9.0
@@ -38,7 +57,7 @@ mindspore-lite-{version}-runtime-linux-x64
                         └── libprotoc.so
 ```
 
-上述是nnie的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具converter目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#converter)。
+上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具converter目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#converter)。
 
 ### 模型推理工具runtime目录结构说明
 
@@ -46,106 +65,276 @@ mindspore-lite-{version}-runtime-linux-x64
 mindspore-lite-{version}-linux-aarch32
 └── providers
     └── 3516D        # 嵌入式板型号
-        └── libmslite_nnie.so  # 集成nnie的动态库
+        └── libmslite_nnie.so  # 集成NNIE的动态库
+        └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是nnie的集成目录结构，推理工具runtime的其余目录结构详情，见[Runtime及其他工具目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[Runtime及其他工具目录结构说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)。
 
 ## 工具使用
 
 ### 转换工具converter
 
-1. 进入**版本发布件根路径**。
+#### 概述
 
-  ```text
-  cd mindspore-lite-{version}-linux-x64
-  ```
+MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（当前只支持Caffe）转换为可使用NNIE硬件加速推理的板端专属模型，可运行在Hi3516板上。
+通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html)。
 
-  若用户未进入**版本发件件根路径**，后续配置用户需按实际情况进行等价设置。
+#### 环境准备
 
-2. converter配置文件。
+使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-   用户创建后缀为.cfg的converter配置文件（以converter.cfg指代），文件内容如下：
+1. [下载](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html)发布件（内含模型转换及推理工具）
 
-   ```text
-   plugin_path=./tools/converter/providers/3516D/libmslite_nnie_converter.so    # 用户请设置绝对路径
-   ```
+2. 解压下载的包
 
-3. nnie配置文件。
+     ```bash
+     tar zxvf mindspore-lite-{version}-linux-x64.tar.gz
+     ```
 
-   用户需参照HiSVP开发指南（nnie提供）自行配置（以nnie.cfg指代）。
-   设定如下环境变量：
+     {version}是发布包的版本号。
 
-   ```shell
-   export NNIE_CONFIG_PATH=nnie.cfg
-   ```
+3. 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH
 
-4. converter环境变量设置。
+    ```bash
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/runtime/lib:${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/third_party/opencv-4.2.0:${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/third_party/protobuf-3.9.0
+    ```
 
-   ```shell
-   export NNIE_MAPPER_PATH=./tools/converter/providers/3516D/libnnie_mapper.so
-   export NNIE_DATA_PROCESS_PATH=./tools/converter/providers/3516D/libmslite_nnie_data_process.so
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:./tools/converter/lib:./tools/converter/providers/3516D/third_party/opencv-4.2.0:./tools/converter/providers/3516D/third_party/protobuf-3.9.0
-   ```
+    ${PACKAGE_ROOT_PATH}是解压得到的文件夹路径。
 
-5. benchmark环境变量设置。
+4. 使能NNIE模型转换
 
-  运行于x86_64系统上的benchmark是用来生成校正集的，以供nnie学习量化参数。用户需设置以下环境变量:
+    NNIE模型可以使用NNIE硬件以提高模型运行速度，用户需配置以下两点，以使能NNIE模型转换。
 
-   ```shell
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:./runtime/lib
-   export BENCHMARK_PATH=./tools/benchmark
-   ```
+    - NNIE转换配置文件
 
-6. 执行converter,当前只支持caffe。
+        MindSpore Lite所需的NNIE转换配置文件，需参照海思提供的《HiSVP 开发指南》中表格`nnie_mapper 配置选项说明`来进行配置，以nnie.cfg指代此配置文件：
 
-   ```text
-   ./tools/converter/converter/converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=converter.cfg --outputFile=${model_name}
-   ```
+        nnie.cfg文件的示例参考如下：
 
-   参数modelFile、weightFile、configFile、outputFile用户按实际情况进行设置。
-   当用户在mindspore-lite-{version}-linux-x64/tools/converter/converter目录下时，环境变量NNIE_MAPPER_PATH、NNIE_DATA_PROCESS_PATH、BENCHMARK_PATH可不设置。
+        ```txt
+        [net_type] 0
+        [image_list] ./input_nchw.txt
+        [image_type] 0
+        [norm_type] 0
+        [mean_file] null
+        ```
+
+        `input_nchw.txt`为被转换CAFFE模型的浮点文本格式的输入数据，详情请参照《HiSVP 开发指南》中的`image_list`说明。在配置文件中，配置选项caffemodel_file、prototxt_file、is_simulation、instructions_name不可配置，其他选项功能可正常配置。
+
+    - NNIE动态库路径配置（可选）
+
+        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换， 在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
+
+#### 执行converter
+
+1. 进入转换目录
+
+    ```bash
+    cd ${PACKAGE_ROOT_PATH}/tools/converter/converter
+    ```
+
+2. 配置环境变量（可选）
+
+    若已执行第1步，进入到转换目录，则此步无需配置，默认值将使能。若用户未进入转换目录，则需在环境变量中声明转换工具所依赖的so和benchmark二进制执行程序的路径，如下所示：
+
+    ```bash
+    export NNIE_MAPPER_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/libnnie_mapper.so
+    export NNIE_DATA_PROCESS_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/libmslite_nnie_data_process.so
+    export BENCHMARK_PATH=${PACKAGE_ROOT_PATH}/tools/benchmark
+    ```
+
+    ${PACKAGE_ROOT_PATH}是下载得到的包解压后的路径。
+
+2. 将nnie.cfg拷贝到转换目录并设置如下环境变量
+
+    ```bash
+    export NNIE_CONFIG_PATH=./nnie.cfg
+    ```
+
+3. 执行converter，生成NNIE`ms`模型
+
+    ```bash
+    ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=./converter.cfg --outputFile=${model_name}
+    ```
+
+    ${model_name}为模型文件名称，运行后的结果显示为：
+
+     ```text
+     CONVERTER RESULT SUCCESS:0
+     ```
+
+     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id4)。
 
 ### 推理工具runtime
 
-以下是示例用法，用户可根据实际情况进行等价操作。
+#### 概述
 
-1. 3516D板目录创建。
+得到转换模型后，可在关联的嵌入式板上，使用板子配套的Runtime推理框架执行推理。MindSpore Lite提供benchmark基准测试工具，它可以对MindSpore Lite模型前向推理的执行耗时进行定量分析（性能），还可以通过指定模型输出进行可对比的误差分析（精度）。
+关于推理工具的一般说明，可参考[benchmark](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
 
-   ```text
-   mkdir /user/mindspore          # 存放非库文件
-   mkdir /user/mindspore/lib      # 存放库文件
+#### 环境准备
+
+以下为示例用法，用户可根据实际情况进行等价操作。
+
+1. Hi3516D板目录创建
+
+   登陆板端，创建工作目录
+
+   ```bash
+   mkdir /user/mindspore          # 存放benchmark执行文件及模型
+   mkdir /user/mindspore/lib      # 存放依赖库文件
    ```
 
-2. 传输文件。
+2. 传输文件
 
-   ```text
+   向板端传输benchmark工具、模型、so库。其中libnnie_proposal.so为MindSpore Lite提供的proposal算子实现样例so，若用户模型里含有自定义的proposal算子，用户需参考[proposal算子使用说明](#proposal算子使用说明)生成libnnie_proposal.so替换该so文件，以进行正确推理。
+
+   ```bash
    scp libmindspore-lite.so libmslite_nnie.so libnnie_proposal.so root@${device_ip}:/user/mindspore/lib
-   scp benchmark ${model_name}.ms root@${device_ip}:/user/mindspore
+   scp benchmark ${model_path} root@${device_ip}:/user/mindspore
    ```
 
-3. 设置动态库路径。
+   ${model_path}为转换后ms模型文件路径
 
-   ```shell
-   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/user/mindspore/lib       # 此处未设置nnie依赖的动态库，用户需按实际情况进行配置。
+3. 设置动态库路径
+
+   NNIE模型的推理，还依赖海思提供NNIE相关板端动态库，包括：libnnie.so、libmpi.so、libVoiceEngine.so、libupvqe.so、libdnvqe.so。
+
+   用户需在板端保存这些so，并将路径传递给LD_LIBRARY_PATH环境变量。
+   在示例中，这些so位于/usr/lib下，用户需按实际情况进行配置：
+
+   ```bash
+   export LD_LIBRARY_PATH=/user/mindspore/lib:/user/lib:${LD_LIBRARY_PATH}
    ```
 
-4. 设置配置项（可选）。
+4. 设置配置项（可选）
 
-   ```shell
-   export TIME_STEP=1        # 循环或lstm网络运行的step数，范围：正整数，默认直：1
-   export MAX_ROI_NUM=300    # 单张图片支持roi区域的最大数量，范围：正整数，默认直：300
-   export CORE_IDS=0         # nnie运行内核id，支持多个，逗号分隔，范围：[0,7],默认直：0
+   若用户模型含有proposal算子，需根据proposal算子实现情况，配置MAX_ROI_NUM环境变量：
+
+   ```bash
+   export MAX_ROI_NUM=300    # 单张图片支持roi区域的最大数量，范围：正整数，默认值：300。
    ```
 
-5. 执行benchmark。
+   若用户模型为循环或lstm网络，需根据实际网络运行情况，配置TIME_STEP环境变量，其他要求[见多图片batch运行及多step运行](#多图片batch运行及多step运行)：
 
-   ```text
-   ./benchmark --modelFile=/.../${model_name}
+   ```bash
+   export TIME_STEP=1        # 循环或lstm网络运行的step数，范围：正整数，默认值：1。
    ```
 
-   有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
+   若板端含有多个NNIE硬件，用户可通过CORE_IDS环境变量指定模型运行在哪个NNIE设备上，
+   若模型被分段（用户可用netron打开模型，观察模型被分段情况），可依序分别配置每个分段运行在哪个设备上，未被配置分段运行在最后被配置的NNIE设备上：
+
+   ```bash
+   export CORE_IDS=0         # NNIE运行内核id，支持模型分段独立配置，使用逗号分隔(如export CORE_IDS=1,1)，默认值：0
+   ```
+
+#### 执行benchmark
+
+```text
+cd /user/mindspore
+./benchmark --modelFile=${model_path}
+```
+
+${model_path}为转换后ms模型文件路径
+
+执行该命令，会生成模型的随机输入，并执行前向推理。有关benchmark的其他使用详情，如耗时分析与推理误差分析等，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
+
+有关模型的输入数据格式要求，见[SVP工具链相关功能支持及注意事项（可选）](#SVP工具链相关功能支持及注意事项（可选）)。
 
 ## 集成使用
 
 有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
+
+## SVP工具链相关功能支持及注意事项（高级选项）
+
+在模型转换时，由NNIE_CONFIG_PATH环境变量声明的nnie.cfg文件，提供原先SVP工具链相关功能，支持除caffemodel_file、prototxt_file、is_simulation、instructions_name外其他字段的配置，相关注意实现如下：
+
+### 板端运行输入Format须是NHWC
+
+  转换后的`ms`模型只接受NHWC格式的数据输入，若image_type被声明为0，则接收NHWC格式的float32数据，若image_type被声明为1，则接收NHWC的uint8数据输入。
+
+### image_list说明
+
+  nnie.cfg中image_list字段含义与原先不变，当image_type声明为0时，按行提供chw格式数据，无论原先模型是否是nchw输入。
+
+### image_type限制
+
+  MindSpore Lite不支持image_type为3和5时的网络输入，用户设为0或1。
+
+### image_list和roi_coordinate_file个数说明
+
+  用户只需提供与模型输入个数相同数量的image_list，若模型中含有ROI Pooling或PSROI Pooling层，用户需提供roi_coordinate_file，数量与顺序和prototxt内的ROI Pooling或PSROI Pooling层的个数与顺序对应。
+
+### prototxt中节点名_cpu后缀支持
+
+  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。MindSpore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html)的方式进行注册。
+
+### prototxt中Custom算子支持
+
+  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在MindSpore Lite中，用户需在Custom层中增加type属性，并通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html)的方式进行在线推理代码的注册。
+
+  Custom层的修改样例如下：
+
+  ```text
+  layer {
+    name: "custom1"
+    type: "Custom"
+    bottom: "conv1"
+    top: "custom1_1"
+    custom_param {
+      type: "MY_CUSTOM"
+      shape {
+          dim: 1
+          dim: 256
+          dim: 64
+          dim: 64
+      }
+  }
+  }
+  ```
+
+  在该示例中定义了一个MY_CUSTOM类型的自定义算子，推理时用户需注册一个类型为MY_CUSTOM的自定义算子。
+
+### prototxt中top域的_report后缀支持
+
+  MindSpore Lite在转换NNIE模型时，会将大部分的算子融合为NNIE运行的二进制文件，用户无法观察到中间算子的输出，通过在top域上添加”_report“后缀，转换构图时会将中间算子的输出添加到融合后的层输出中，若原先该算子便有输出（未被融合），则维持不变。
+
+  在推理运行时，用户可通过[回调运行](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#id15)得到中间算子输出。
+
+  MindSpore Lite解析_report的相应规则，及与[inplace机制](#inplace机制)的冲突解决，参照《HiSVP 开发指南》中的定义说明。
+
+### inplace机制
+
+  使用Inplace层写法，可运行芯片高效模式。转换工具默认将Prototxt中符合芯片支持Inplace层的所有层进行改写，用户如需关闭该功能，可通过如下环境声明：
+
+  ```bash
+  export NNIE_DISABLE_INPLACE_FUSION=off         # 设置为on或未设置时，使能Inplace自动改写
+  ```
+
+  当自动改写被关闭时，若需对个别层使能芯片高效模式，可手动改写Prototxt里面的相应层。
+
+### 多图片batch运行及多step运行
+
+  用户若需同时前向推理多个输入数据（多个图片），可通过[输入维度Resize](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#resize)将模型输入的第一维resize为输入数据个数。NNIE模型只支持对第一个维度（'n'维）进行resize，其他维度（'hwc'）不可变。
+
+  对于循环或lstm网络，用户需根据step值，配置TIME_STEP环境变量，同时resize模型输入。
+  设一次同时前向推理的数据的个数为input_num，对于序列数据输入的节点resize为input_num * step，非序列数据输入的节点resize为input_num。
+
+  含有proposal算子的模型，不支持batch运行，不支持resize操作。
+
+### 节点名称的变动
+
+  模型转换为NNIE模型后，各节点名称可能发生变化，用户可通过netron打开模型，得到变化后的节点名。
+
+### proposal算子使用说明
+
+  MindSpore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行[集成使用]（#集成使用）。
+  > 你可以在这里下载完整的样例代码：
+  >
+  > <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/nnie_proposal>
+
+### 分段机制说明及8段限制
+
+  由于NNIE芯片支持的算子限制，在含有NNIE芯片不支持的算子时，需将模型分段为可支持层与不可支持层。
+  板端芯片支持最多8段的可支持层，当分段后的可支持层数量大于8段时，模型将无法运行，用户可通过netron观察Custom算子（其属性中含有type:NNIE），得到转换后的NNIE支持层数量。
