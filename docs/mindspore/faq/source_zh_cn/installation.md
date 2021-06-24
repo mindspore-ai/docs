@@ -269,6 +269,8 @@ A: 上述问题较为常见，当前有两种可行的解决方法，可任选�
 - 交换import的顺序，先`import mindspore`再import其他三方库。
 - 执行程序之前先添加环境变量（`export LD_PRELOAD=/your_path/libgomp.so.1`），其中`your_path`是上述报错提示的路径。
 
+<br/>
+
 <font size=3>**Q: 训练nlp类网络，当使用第三方组件gensim时，可能会报错：ValueError，如何解决？**</font>
 
 A：以下为报错信息：
