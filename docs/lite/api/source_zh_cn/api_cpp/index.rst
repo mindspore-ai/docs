@@ -14,6 +14,8 @@ MindSpore C++ API
   mindspore
   dataset
   vision
+  kernel
+  registry
   lite
   session
   tensor
