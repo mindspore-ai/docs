@@ -84,6 +84,10 @@ The context saves some basic configuration parameters required by the session to
 
 - [device_list_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#device-list): MindSpore Lite supports heterogeneous inference. The backend configuration information for inference is specified by `device_list_` in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2). By default, the [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) of the CPU is stored. During graph build, operator selection and scheduling are performed based on the backend configuration information in `device_list_`. Currently, only CPU and GPU heterogeneity or CPU and NPU heterogeneity is supported. When the GPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, GPU-based inference is preferentially used. When the NPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, NPU-based inference is preferentially used.
 
+- [provider_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider)：The name of the provider, need to be assigned when using registry kernel.
+
+- [provider_device_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider-device)：The device of the provider, need to be assigned when using registry kernel.
+
 > `device_list_[0]` must be `DeviceContext` of the CPU, and `device_list_[1]` must be `DeviceContext` of the GPU or `DeviceContext` of the NPU. Currently, the CPU, GPU, and NPU cannot be set at a time.
 >
 > For the iOS platform, `device_list_[0]` must be `DeviceContext` of the CPU.
