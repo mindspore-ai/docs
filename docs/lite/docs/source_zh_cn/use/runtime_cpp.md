@@ -84,6 +84,10 @@ if (model == nullptr) {
 
 - [device_list_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#device-list)：MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中的`device_list_`指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)。在进行图编译时，会根据`device_list_`中不同的后端配置信息进行算子选型调度。目前仅支持两种异构，CPU和GPU异构或者CPU和NPU异构。当配置GPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)时，优先使用GPU推理；当配置NPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)时，优先使用NPU推理。
 
+- [provider_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider)：产商名，当用户自定义算子时，需指定。
+
+- [provider_device_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider-device)：算子要运行的硬件设备，当用户自定义算子时，需指定。
+
 > `device_list_[0]`必须是CPU的`DeviceContext`, `device_list_[1]`是GPU的`DeviceContext`或者NPU的`DeviceContext`。暂时不支持同时设置CPU, GPU和NPU三个`DeviceContext`。
 >
 > 对于iOS设备,暂时只支持`device_list_[0]`为CPU的`DeviceContext`。
