@@ -76,7 +76,9 @@ Due to syntax parsing restrictions, the supported data types, syntax, and relate
 
 The following describes the data types, syntax, and related operations supported during static graph building. These rules apply only to graph mode.
 
-> All the following examples run on the network in graph mode. The network definition is not described.
+> All the following examples run on the network in graph mode. For brevity, the network definition is not described.
+>
+> The `Tensor` cannot be directly constructed in static graphs. It can be transferred to the network through parameters or constructed in the `__init__` method as a network attribute and then used in the `construct` method of the network.
 
 ## Data Types
 
