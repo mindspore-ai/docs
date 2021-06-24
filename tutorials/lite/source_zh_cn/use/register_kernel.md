@@ -2,6 +2,31 @@
 
 `Windows` `Linux` `Android` `C++` `推理应用` `高级`
 
+<!-- TOC -->
+
+- [自定义南向算子](#自定义南向算子)
+    - [概述](#概述)
+    - [确定算子类型](#确定算子类型)
+    - [通用算子](#通用算子)
+        - [通用算子实现](#通用算子实现)
+            - [样例代码与说明](#样例代码与说明)
+        - [通用算子注册](#通用算子注册)
+            - [样例代码与说明](#样例代码与说明-1)
+        - [通用算子Infershape](#通用算子Infershape)
+            - [样例代码与说明](#样例代码与说明-2)
+    - [Custom算子](#Custom算子)
+        - [Custom算子定义](#Custom算子定义)
+            - [Custom算子创建](#Custom算子创建)
+        - [Custom算子实现](#Custom算子实现)
+            - [样例代码与说明](#样例代码与说明-3)
+            - [Custom算子属性解码样例](#Custom算子属性解码样例)
+        - [Custom算子注册](#Custom算子注册)
+            - [样例代码与说明](#样例代码与说明-4)
+        - [Custom算子Infershape](#Custom算子Infershape)
+            - [样例代码与说明](#样例代码与说明-5)
+
+<!-- /TOC -->
+
 ## 概述
 
 MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
@@ -137,9 +162,9 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ## Custom算子
 
-整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
+Custom算子的解析、创建、操作等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
 
-### Custom 算子定义
+### Custom算子定义
 
 ```css
 table Attribute {
@@ -155,6 +180,69 @@ table Custom {
 
 属性是以字典的形式进行存储：name解释了属性名，data里存储了属性内容的字节流。
 type：Custom算子的类型。
+
+#### Custom算子创建
+
+这里以Add算子转为一个Custom算子为例：
+
+1. 设Custom算子存在“input_num”、“is_custom”属性。
+2. 通过自定义Pass子类，实现Custom算子的转换与创建。
+3. 注册自定义Pass类。
+
+```c++
+namespace mindspore::opt {
+AnfNodePtr CreateCustomOp(const FuncGraphPtr func_graph, const CNodePtr cnode) {
+  auto custom_prim = std::make_shared<ops::Custom>();    // 创建Primitive，存储算子属性
+  if (custom_prim == nullptr) {
+    return nullptr;
+  }
+  custom_prim->set_type("Add");          // 设置Custom算子类型
+  std::map<std::string, std::vector<uint8_t>> attrs;
+  std::string input_num = std::to_string(2);
+  std::vector<uint8_t> input_num_attr(input_num.begin(), input_num.end());
+  attrs["input_num"] = input_num_attr;
+  std::string is_custom = std::to_string(true);
+  std::vector<uint8_t> is_custom_attr(is_custom.begin(), is_custom.end());
+  attrs["is_custom"] = is_custom_attr;
+  custom_prim->set_attr(attrs);          // 设置Custom算子属性
+  auto inputs = cnode->inputs();
+  inputs.erase(inputs.begin());
+  auto custom_node = func_graph->NewCNode(custom_prim, inputs);    // 创建CNode节点
+  custom_node->set_fullname_with_scope(cnode->fullname_with_scope());     // 设置节点名
+  custom_noe->set_abstract(cnode->abstract()->Clone());           // 设置算子输出的基本属性，存储于abstract中
+  return custom_node;
+}
+
+class TestPass : public Pass {
+ public:
+  bool Run(const FuncGraphPtr &func_graph) override {
+    auto manager = Manage(func_graph, true);       // 创建FuncGrap管理器
+    if (manager == nullptr) {
+      return false;
+    }
+    auto node_list = TopoSort(func_graph->get_return());      // 获取所有节点
+    for (auto &node : node_list) {
+      if (!utils::isa<CNode>(node)) {
+        continue;
+      }
+      if (!opt::CheckPrimitiveType(node, prim::kPrimAddFusion)) {     // 判断当前节点是否为Add算子
+        continue;
+      }
+      auto cnode = node->cast<CNodePtr>();
+      auto custom_cnode = CreateCustomOp(func_graph, cnode);    // 创建Custom算子
+      if (custom_cnode == nullptr) {
+        return false;
+      }
+      manager->Replace(node, custom_cnode)        // 通过管理器用新节点替换旧节点
+    }
+    return true;
+  }
+}
+REG_PASS(POSITION_BEGIN, TestPass)         // 注册Pass，置于内置融合之前
+}  // namespace mindspore::opt
+```
+
+整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
 
 ### Custom算子实现
 
