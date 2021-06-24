@@ -98,6 +98,7 @@
    advanced_use/test_model_security_fuzzing
    advanced_use/test_model_security_membership_inference
    advanced_use/model_encrypt_protection
+   advanced_use/concept_drift_time_series
 
 .. toctree::
    :glob:
