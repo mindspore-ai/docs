@@ -22,6 +22,7 @@ MindArmour 文档
    test_model_security_fuzzing
    test_model_security_membership_inference
    model_encrypt_protection
+   concept_drift_time_series
 
 .. toctree::
    :glob:
