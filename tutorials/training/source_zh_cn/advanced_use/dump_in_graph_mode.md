@@ -145,7 +145,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 ```text
 {path}/
     |-- {net_name}/
-        |-- {device_id}/
+        |-- device_{device_id}/
             |-- iteration_{iteration}/
                 -- {op_name}_{input_output_index}_{shape}_{data_type}_{format}.bin
                 …
@@ -479,7 +479,7 @@ numpy.reshape(array, (32,12,13,13,16))
     python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce> 。
 
     如Dump生成的数据文件为：
 
