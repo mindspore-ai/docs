@@ -20,7 +20,7 @@
 
 ### Environment Preparation
 
-Besides basic [Environment Preparation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html), HUAWEI HiAI DDK, which contains
+Besides basic [Environment Preparation](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html), HUAWEI HiAI DDK, which contains
 APIs (including building, loading models and calculation processes) and interfaces implemented to encapsulate dynamic libraries (namely libhiai*.so),
 is required for the use of NPU. Download [DDK](https://developer.huawei.com/consumer/en/doc/development/hiai-Library/ddk-download-0000001053590180)
 and set the directory of extracted files as `${HWHIAI_DDK}`. Our build script uses this environment viriable to seek DDK.
@@ -36,7 +36,7 @@ which contains the NPU's dynamic library, the libmindspore-lite dynamic library,
 bash build.sh -I arm64 -e npu
 ```
 
-For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation).
+For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#linux-environment-compilation).
 
 ### Integration
 
@@ -44,8 +44,8 @@ For more information about compilation, see [Linux Environment Compilation](http
 
     When developers need to integrate the use of NPU features, it is important to note:
 
-    - [Configure the NPU backend](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#configuring-the-npu-backend).
-     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html).
+    - [Configure the NPU backend](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html#configuring-the-npu-backend).
+     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, please set environment variables to dynamically link libhiai.so, libhiai_ir.so, and libhiai_ir_build.so.
     For example,
@@ -54,13 +54,13 @@ For more information about compilation, see [Linux Environment Compilation](http
         export LD_LIBRARY_PATH=mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/:$LD_LIBRARY_PATH
         ```
 
-      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
+      For more information about compilation, please refer to [Compilation Output](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#description-of-runtime-and-other-tools-directory-structure)
     with compilation option `-I arm64` or `-I arm32`.
 
 - Using Benchmark testing NPU inference
 
     Users can also test NPU inference using MindSpore Lite's Benchmark tool.
-For the Benchmark tool location, see [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure).
+For the Benchmark tool location, see [Compilation Output](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#description-of-runtime-and-other-tools-directory-structure).
 Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips
 (For supported NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versions](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718).)and test NPU inference using the Benchmark tool
 on the phone, as shown in the example below:
@@ -77,12 +77,12 @@ on the phone, as shown in the example below:
     ./benchmark --device=NPU --modelFile=./models/test_benchmark.ms --inDataFile=./input/test_benchmark.bin --inputShapes=1,32,32,1 --accuracyThreshold=3 --benchmarkDataFile=./output/test_benchmark.out
     ```
 
-For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/tutorial/lite/en/master/use/benchmark_tool.html).
+For more information about the use of Benchmark, see [Benchmark Use](https://www.mindspore.cn/lite/docs/en/r1.3/use/benchmark_tool.html).
 
 For environment variable settings, you need to set the directory where the libmindspore-lite.so
 (under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries
 (under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
-The directory is specified in [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
+The directory is specified in [Compilation Output](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#description-of-runtime-and-other-tools-directory-structure)
 with compilation option `-I arm64` or `-I arm32`.
 
 ## Supported Chips
@@ -91,4 +91,4 @@ For supported NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versio
 
 ## Supported Operators
 
-For supported NPU operators, see [Lite Operator List](https://www.mindspore.cn/tutorial/lite/en/master/operator_list_lite.html).
+For supported NPU operators, see [Lite Operator List](https://www.mindspore.cn/lite/docs/en/r1.3/operator_list_lite.html).

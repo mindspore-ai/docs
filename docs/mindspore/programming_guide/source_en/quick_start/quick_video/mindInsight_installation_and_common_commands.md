@@ -8,4 +8,4 @@
 
 **Install now**: <https://gitee.com/mindspore/mindinsight/blob/master/README.md#>
 
-**More commands**: <https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html>
+**More commands**: <https://www.mindspore.cn/mindinsight/docs/en/r1.3/mindinsight_commands.html>

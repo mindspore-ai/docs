@@ -54,7 +54,7 @@ BNN is a basic model composed of probabilistic model and neural network. Its wei
 
 ### Processing the Dataset
 
-The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial.
+The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_start.html) in the tutorial.
 
 ### Defining the BNN
 
@@ -253,7 +253,7 @@ net_with_loss = nn.WithLossCell(vae, net_loss)
 
 ### Processing Data
 
-The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial.
+The MNIST dataset is used in this example. The data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_start.html) in the tutorial.
 
 ### Training the Network
 
@@ -631,7 +631,7 @@ One of advantages of BNN is that uncertainty can be obtained. MDP provides a too
 The uncertainty evaluation toolbox is applicable to mainstream deep learning models, such as regression and classification. During inference, developers can use the toolbox to obtain any aleatoric uncertainty and epistemic uncertainty by training models and training datasets and specifying tasks and samples to be evaluated. Developers can understand models and datasets based on uncertainty information.
 > This example is for the GPU or Ascend 910 AI processor platform. You can download the complete sample code from <https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>.
 
-The classification task is used as an example. The model is LeNet, the dataset is MNIST, and the data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html) in the tutorial. To evaluate the uncertainty of the test example, use the toolbox as follows:
+The classification task is used as an example. The model is LeNet, the dataset is MNIST, and the data processing is the same as that of [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_start.html) in the tutorial. To evaluate the uncertainty of the test example, use the toolbox as follows:
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation

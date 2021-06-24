@@ -83,7 +83,7 @@ A：你可以参考yolov3对于此场景的使用，里面有对于图像的不�
 
 A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
-[GenratorDataset 示例](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html#id5)
+[GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html#id5)
 
 [GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
@@ -91,7 +91,7 @@ A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/mo
 
 <font size=3>**Q：如何不将数据处理为MindRecord格式，直接进行训练呢？**</font>
 
-A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/dataset_loading.html)文档中的自定义数据集加载。
+A：可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以参考[数据集加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html)文档中的自定义数据集加载。
 
 <br/>
 
@@ -120,7 +120,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A：数据Schema可以按如下方式定义：`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 说明：label是一个数组，numpy类型，这里面可以存你说的 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即：同一个图像的二进制值。
-可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/convert_dataset.html#将数据集转换为MindRecord)教程。
+可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/convert_dataset.html#将数据集转换为MindRecord)教程。
 
 <br/>
 
@@ -132,7 +132,7 @@ A：首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用�
 
 <font size=3>**Q：第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/optimize_data_processing.html)。
+A：MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/optimize_data_processing.html)。
 
 <br/>
 

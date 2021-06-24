@@ -72,8 +72,8 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 规格说明
 
-   基准性能 <https://www.mindspore.cn/doc/note/zh-CN/master/benchmark.html>
+   基准性能 <https://www.mindspore.cn/docs/note/zh-CN/r1.3/benchmark.html>
    network_list
    operator_list
    syntax_list
-   环境变量 <https://www.mindspore.cn/doc/note/zh-CN/master/env_var_list.html>
+   环境变量 <https://www.mindspore.cn/docs/note/zh-CN/r1.3/env_var_list.html>

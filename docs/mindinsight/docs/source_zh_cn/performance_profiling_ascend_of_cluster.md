@@ -35,7 +35,7 @@
 
 ## 分布式训练
 
-分布式训练请参考[分布式训练教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html)。
+分布式训练请参考[分布式训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html)。
 
 ## 收集集群性能数据
 
@@ -207,7 +207,7 @@ done
 
 ## 启动MindInsight
 
-启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+启动命令请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/mindinsight_commands.html)。
 
 ## 训练性能
 

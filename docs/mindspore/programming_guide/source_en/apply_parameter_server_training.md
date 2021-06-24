@@ -43,7 +43,7 @@ Learn how to train a LeNet using the [MNIST dataset](http://yann.lecun.com/exdb/
 1. First of all, use `mindspore.context.set_ps_context(enable_ps=True)` to enable Parameter Server training mode.
 
     - This method should be called before `mindspore.communication.management.init()`.
-    - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
+    - If you don't call this method, the [Environment Variable Setting](https://www.mindspore.cn/docs/programming_guide/en/r1.3/apply_parameter_server_training.html#environment-variable-setting) below will not take effect.
     - Use `mindspore.context.reset_ps_context()` to disable Parameter Server training mode.
 
 2. In this training mode, you can use either of the following methods to control whether the training parameters are updated by the Parameter Server and whether the training parameters are initialized on Worker or Server:

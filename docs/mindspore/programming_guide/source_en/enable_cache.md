@@ -74,7 +74,7 @@ This tutorial demonstrates how to use the single-node cache service, and shows s
 
 5. Inserting a Cache Instance
 
-   The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
+   The following uses the CIFAR-10 dataset as an example. Before running the sample, download and store the CIFAR-10 dataset by referring to [Loading Dataset](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#cifar-10-100-dataset). The directory structure is as follows:
 
    ```text
    ├─my_training_script.py

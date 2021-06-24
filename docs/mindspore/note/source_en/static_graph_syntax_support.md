@@ -68,9 +68,9 @@ In graph mode, Python code is not executed by the Python interpreter. Instead, t
 Currently, only the function, Cell, and subclass instances modified by the `@ms_function` decorator can be built.
 For a function, build the function definition. For the network, build the `construct` method and other methods or functions called by the `construct` method.
 
-For details about how to use `ms_function`, click <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function>.
+For details about how to use `ms_function`, click <https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html#mindspore.ms_function>.
 
-For details about the definition of `Cell`, click <https://www.mindspore.cn/doc/programming_guide/en/master/cell.html>.
+For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/r1.3/cell.html>.
 
 Due to syntax parsing restrictions, the supported data types, syntax, and related operations during graph building are not completely consistent with the Python syntax. As a result, some usage is restricted.
 
@@ -329,9 +329,9 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Primitive` and its subclasses cannot be called on the network.
 
-For details about the definition of `Primitive`, click <https://www.mindspore.cn/doc/programming_guide/en/master/operators.html>.
+For details about the definition of `Primitive`, click <https://www.mindspore.cn/docs/programming_guide/en/r1.3/operators.html>.
 
-For details about the defined `Primitive`, click <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html>.
+For details about the defined `Primitive`, click <https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.ops.html>.
 
 #### Cell
 
@@ -341,9 +341,9 @@ However, during construction, the parameter can be specified only in position pa
 
 Currently, the attributes and APIs related to `Cell` and its subclasses cannot be called on the network unless they are called through `self` in `contrcut` of `Cell`.
 
-For details about the definition of `Cell`, click <https://www.mindspore.cn/doc/programming_guide/en/master/cell.html>.
+For details about the definition of `Cell`, click <https://www.mindspore.cn/docs/programming_guide/en/r1.3/cell.html>.
 
-For details about the defined `Cell`, click <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html>.
+For details about the defined `Cell`, click <https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.nn.html>.
 
 ## Operators
 
@@ -351,7 +351,7 @@ Arithmetic operators and assignment operators support the `Number` and `Tensor` 
 
 This is because these operators are converted to operators with the same name for computation, and they support implicit type conversion.
 
-For details about the rules, click <https://www.mindspore.cn/doc/note/en/master/operator_list_implicit.html>.
+For details about the rules, click <https://www.mindspore.cn/docs/note/en/r1.3/operator_list_implicit.html>.
 
 ### Arithmetic Operators
 
@@ -1083,7 +1083,7 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 ### Instance Types on the Entire Network
 
-- Common Python function with the [@ms_function](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.ms_function) decorator.
+- Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html#mindspore.ms_function) decorator.
 
 - Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Cell.html).
 
@@ -1091,11 +1091,11 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 | Category                 | Content
 | :-----------             |:--------
-| `Cell` instance |[mindspore/nn/*](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Cell.html).
+| `Cell` instance |[mindspore/nn/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Cell.html).
 | Member function of a `Cell` instance | Member functions of other classes in the construct function of Cell can be called.
 | `dataclass` instance | Class decorated with @dataclass.
-| `Primitive` operator |[mindspore/ops/operations/*](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html)
-| `Composite` operator |[mindspore/ops/composite/*](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.ops.html)
+| `Primitive` operator |[mindspore/ops/operations/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.ops.html)
+| `Composite` operator |[mindspore/ops/composite/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.ops.html)
 | `constexpr` generation operator | Value computation operator generated by [@constexpr](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.constexpr.html).
 | Function                 | User-defined Python functions and system functions listed in the preceding content.
 

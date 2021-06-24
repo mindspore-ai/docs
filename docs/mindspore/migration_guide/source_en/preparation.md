@@ -124,7 +124,7 @@ print(ops.add(x, y))
 
 ### MindSpore Programming Guide
 
-Users can read [MindSpore Tutorial](https://www.mindspore.cn/tutorial/training/en/master/index.html) to learn how to train, debug, optimize and infer by MindSpore, and read [MindSpore Programming Guide](https://www.mindspore.cn/doc/programming_guide/en/master/index.html) to know the fundamental parts and programming methods of MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/doc/api_python/en/master/index.html).
+Users can read [MindSpore Tutorial](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) to learn how to train, debug, optimize and infer by MindSpore, and read [MindSpore Programming Guide](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html) to know the fundamental parts and programming methods of MindSpore. Users can also see detailed MindSpore interfaces by referring to [MindSpore Python API](https://www.mindspore.cn/docs/api/en/r1.3/index.html).
 
 ### ModelZoo and Hub
 
@@ -134,4 +134,4 @@ Users can read [MindSpore Tutorial](https://www.mindspore.cn/tutorial/training/e
 
 ### Training on the Cloud
 
-ModelArts is a one-stop development platform for AI developers, which contains Ascend resource pool. Users can experience MindSpore in this platform and read related document [MindSpore use_on_the_cloud](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/use_on_the_cloud.html) and [AI Platform ModelArts](https://support.huaweicloud.com/intl/en-us/wtsnew-modelarts/index.html).
+ModelArts is a one-stop development platform for AI developers, which contains Ascend resource pool. Users can experience MindSpore in this platform and read related document [MindSpore use_on_the_cloud](https://www.mindspore.cn/docs/programming_guide/en/r1.3/use_on_the_cloud.html) and [AI Platform ModelArts](https://support.huaweicloud.com/intl/en-us/wtsnew-modelarts/index.html).

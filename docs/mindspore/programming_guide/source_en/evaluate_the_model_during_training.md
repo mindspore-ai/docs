@@ -29,7 +29,7 @@ Source code address of this example: <https://gitee.com/mindspore/docs/blob/mast
 
 ## Defining the Callback Function EvalCallBack
 
-Implementation idea: The model accuracy is validated every n epochs. The model accuracy needs to be implemented in the custom callback function. For details about the usage, see [API Description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.train.html#mindspore.train.callback.Callback).
+Implementation idea: The model accuracy is validated every n epochs. The model accuracy needs to be implemented in the custom callback function. For details about the usage, see [API Description](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.train.html#mindspore.train.callback.Callback).
 
 Core implementation: Validation points are set in `epoch_end` of the callback function as follows:
 

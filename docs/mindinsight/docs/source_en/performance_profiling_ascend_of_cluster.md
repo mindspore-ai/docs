@@ -35,7 +35,7 @@ This article describes how to use MindSpore Profiler for cluster performance deb
 
 ## Distributed Training
 
-For distributed training, please refer to [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html).
+For distributed training, please refer to [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html).
 
 ## Collect Cluster Performance Data
 
@@ -205,7 +205,7 @@ Cluster performance folder structure description：
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.3/mindinsight_commands.html).
 
 ## Training Performance
 

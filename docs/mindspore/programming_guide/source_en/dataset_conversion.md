@@ -196,7 +196,7 @@ MindSpore provides tool classes for converting common datasets to MindRecord. Th
 | TFRecord | TFRecordToMR |
 | CSV File | CsvToMR |
 
-For details about dataset conversion, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.mindrecord.html).
+For details about dataset conversion, see [MindSpore API](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.mindrecord.html).
 
 ### Converting the CIFAR-10 Dataset
 

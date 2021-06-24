@@ -280,7 +280,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 ## 并行模式
 
-在`SEMI_AUTO_PARALLEL`和`AUTO_PARALLEL`模式下使用梯度累积，主要是将累积迭代和更新迭代作为两张图下发并且交替执行。在累积迭代图上，只执行正反向运算及梯度累加。在更新迭代图上，执行正反向运算和参数更新。本小节将以[分布式并行训练教程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html)中的样例为基础进行介绍，具体分为如下几个步骤。
+在`SEMI_AUTO_PARALLEL`和`AUTO_PARALLEL`模式下使用梯度累积，主要是将累积迭代和更新迭代作为两张图下发并且交替执行。在累积迭代图上，只执行正反向运算及梯度累加。在更新迭代图上，执行正反向运算和参数更新。本小节将以[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html)中的样例为基础进行介绍，具体分为如下几个步骤。
 
 > 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
 
@@ -432,7 +432,7 @@ class TrainAccuStepsWithLossScaleCell(TrainOneStepWithLossScaleCell):
 
 ### 定义并行训练模型
 
-经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html?highlight=model#mindspore.Model)接口实现上述功能。
+经过`cell_wrapper`封装的网络已经包含了正反向和优化器实现，我们还需要将数据集对接到网络并实现两张图交替执行。这里基于框架中的[`Model`](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html?highlight=model#mindspore.Model)接口实现上述功能。
 
 ```python
 import math

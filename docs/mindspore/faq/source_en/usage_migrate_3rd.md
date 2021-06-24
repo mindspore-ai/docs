@@ -9,7 +9,7 @@
 <font size=3>**Q：How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 
 A：Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
-Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/advanced_usage_of_checkpoint.html).
+Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/advanced_usage_of_checkpoint.html).
 
 <br/>
 
@@ -41,7 +41,7 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/migrate_3rd_scripts.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/docs/programming_guide/en/r1.3/migrate_3rd_scripts.html).
 
 ## MindConverter
 

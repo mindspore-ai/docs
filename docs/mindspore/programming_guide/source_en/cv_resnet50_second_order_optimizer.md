@@ -97,11 +97,11 @@ The directory structure is as follows:
 
 #### Ascend 910
 
-For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment variables of Ascend 910 AI processors, see [Parallel Distributed Training (Ascend)](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#configuring-distributed-environment-variables).
 
 #### GPU
 
-For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_gpu.html#configuring-distributed-environment-variables).
+For details about how to configure the distributed environment of GPUs, see [Parallel Distributed Training (GPU)](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_gpu.html#configuring-distributed-environment-variables).
 
 ## Loading the Dataset
 
@@ -195,7 +195,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/tutorial/training/en/master/use/data_preparation.html).
+> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/data_preparation.html).
 
 ## Defining the Network
 

@@ -20,6 +20,6 @@
 
 与在GPU上进行推理类似，需要以下几个步骤：
 
-1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#onnx)。
+1. 在训练平台上生成ONNX格式模型，具体步骤请参考[导出ONNX格式文件](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_model.html#onnx)。
 
 2. 在CPU上进行推理，具体可以参考推理使用runtime/SDK的文档。如使用ONNX Runtime，可以参考[ONNX Runtime说明文档](https://github.com/microsoft/onnxruntime)。

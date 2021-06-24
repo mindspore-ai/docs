@@ -36,5 +36,5 @@ Choose to use the corresponding post training quantization tool according to the
 
 | Post Training Quantization Tools | Quantization Method Supported | Inference Hardware Platform Supported | Quantization Model Deployment |
 | --- | --- | --- | --- |
-| [MindSpore Post Training Quantization Tools](https://www.mindspore.cn/tutorial/lite/en/master/use/post_training_quantization.html) | Weights Quantization <br> Full Quantization | CPU | [Inference on edge device](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime.html) |
-| Ascend Model Compression Tool | Full Quantization | Ascend 310 AI Processor | [Inference on Ascend 310 AI Processor](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html) |
+| [MindSpore Post Training Quantization Tools](https://www.mindspore.cn/lite/docs/en/r1.3/use/post_training_quantization.html) | Weights Quantization <br> Full Quantization | CPU | [Inference on edge device](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime.html) |
+| Ascend Model Compression Tool | Full Quantization | Ascend 310 AI Processor | [Inference on Ascend 310 AI Processor](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310.html) |

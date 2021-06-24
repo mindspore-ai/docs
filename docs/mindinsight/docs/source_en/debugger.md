@@ -59,7 +59,7 @@ The Debugger related parameters:
 |`--enable-debugger {ENABLE_DEBUGGER}`|Optional|Should be set to `True` or `1`, this will launch the MindInsight debugger server; Default is `False`, not launch.|Boolean|False|True/False/1/0|
 |`--debugger-port {DEBUGGER_PORT}`|Optional|Specifies the port number of the debugger server.|Integer|50051|1~65535|
 
-For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
+For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.3/mindinsight_commands.html).
 
 Then, set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
 `export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
@@ -239,5 +239,5 @@ Based on the tensor relationship diagram, you can analyze which tensors are used
     - The previous step in the GPU scenario is a subgraph (not a complete graph). Therefore, when multiple graphs are rechecked on a GPU, only the current subgraph can be checked again.
 
 - Recheck only watchpoints that have tensor values.
-- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html#asynchronous-dump).
+- To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.

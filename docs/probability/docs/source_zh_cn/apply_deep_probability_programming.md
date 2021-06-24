@@ -54,7 +54,7 @@
 
 ### 处理数据集
 
-本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。
+本例子使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html)一致。
 
 ### 定义贝叶斯神经网络
 
@@ -253,7 +253,7 @@ net_with_loss = nn.WithLossCell(vae, net_loss)
 
 ### 处理数据
 
-本例使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。
+本例使用的是MNIST数据集，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html)一致。
 
 ### 训练网络
 
@@ -631,7 +631,7 @@ LeNet5
 不确定性估计工具箱，适用于主流的深度学习模型，如回归、分类等。在推理阶段，利用不确定性估计工具箱，开发人员只需通过训练模型和训练数据集，指定需要估计的任务和样本，即可得到偶然不确定性和认知不确定性。基于不确定性信息，开发人员可以更好地理解模型和数据集。
 > 本例面向GPU或Ascend 910 AI处理器平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/tests/st/probability/toolbox>
 
-以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
+以分类任务为例，本例中使用的模型是LeNet，数据集为MNIST，数据处理过程与教程中的[实现一个图片分类应用](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html)一致。为了评估测试示例的不确定性，使用工具箱的方法如下:
 
 ```python
 from mindspore.nn.probability.toolbox.uncertainty_evaluation import UncertaintyEvaluation

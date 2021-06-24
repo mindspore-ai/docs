@@ -18,7 +18,7 @@ A: The checkpoint format of MindSpore is different from that of TensorFlow. Alth
 
 <font size=3>**Q: How do I use models trained by MindSpore on Ascend 310? Can they be converted to models used by HiLens Kit?**</font>
 
-A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
+A: Yes. HiLens Kit uses Ascend 310 as the inference core. Therefore, the two questions are essentially the same. Ascend 310 requires a dedicated OM model. Use MindSpore to export the ONNX or AIR model and convert it into an OM model supported by Ascend 310. For details, see [Multi-platform Inference](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310.html).
 
 <br/>
 
@@ -36,7 +36,7 @@ A: Due to hardware limitations of ProtoBuf, when exporting AIR and ONNX models, 
 
 <font size=3>**Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?**</font>
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/master/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
 
 <br/>
 
@@ -114,4 +114,4 @@ A: MindSpore Serving matches MindSpore in the same version. For example, Serving
 
 <font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
-A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
+A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/docs/programming_guide/en/r1.3/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).

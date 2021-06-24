@@ -40,7 +40,7 @@ To enable the performance profiling of neural networks, MindSpore Profiler APIs 
 
 > The parameters of Profiler are as follows:
 >
-> <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.profiler.html>
+> <https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.profiler.html>
 
 The sample code is as follows:
 
@@ -65,7 +65,7 @@ profiler.analyse()
 
 ## Launch MindInsight
 
-The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
+The MindInsight launch command can refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.3/mindinsight_commands.html).
 
 ## Training Performance
 

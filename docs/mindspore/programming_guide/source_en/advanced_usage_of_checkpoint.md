@@ -29,7 +29,7 @@ in the model file and the fully-connected layer changes in the classification fu
 to change too much, or start training the model from the beginning. In view of this situation, MindSpore provides advanced usages
 of CheckPoint that only adjusts parts of the weight of the model, and applies the method to the model tuning process.
 
-For basic usage, please refer to [Saving Models](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint).
+For basic usage, please refer to [Saving Models](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_model.html#checkpoint).
 
 ## Preparation
 
@@ -42,7 +42,7 @@ Firstly, the following resources should be prepared:
 
 - The pretrained model file of the LeNet network: `checkpoint-lenet_1-1875.ckpt`.
 
-- The data augmentation files `dataset_process.py`. For using the data augmentation method `create_dataset`, you can refer to the data agumentation method `create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html).
+- The data augmentation files `dataset_process.py`. For using the data augmentation method `create_dataset`, you can refer to the data agumentation method `create_dataset` defined in the official website [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_start.html).
 
 - Define the LeNet network.  
 

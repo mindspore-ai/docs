@@ -12,8 +12,8 @@ MindSpore提供了多种性能优化方法，用户可根据实际情况，利�
 
 | 优化阶段 | 优化方法 | 支持情况 |
 | --- | --- | --- |
-| 训练 | [分布式并行训练](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html) | Ascend、GPU |
-| | [混合精度](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/enable_mixed_precision.html) | Ascend、GPU |
-| | [图算融合](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/enable_graph_kernel_fusion.html) | Ascend、GPU |
-| | [梯度累积](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_gradient_accumulation.html) | GPU |
-| 推理 | [训练后量化](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/post_training_quantization.html) | Lite |
+| 训练 | [分布式并行训练](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html) | Ascend、GPU |
+| | [混合精度](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/enable_mixed_precision.html) | Ascend、GPU |
+| | [图算融合](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/enable_graph_kernel_fusion.html) | Ascend、GPU |
+| | [梯度累积](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/apply_gradient_accumulation.html) | GPU |
+| 推理 | [训练后量化](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/post_training_quantization.html) | Lite |

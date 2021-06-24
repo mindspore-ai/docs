@@ -16,7 +16,7 @@
 
 <font size=3>**Q：编译应用时报错`/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found`怎么办？**</font>
 
-A：寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_310_mindir.html#id6)。
+A：寻找缺少的动态库文件所在目录，添加该路径到环境变量`LD_LIBRARY_PATH`中，环境变量设置参考[Ascend 310 AI处理器上使用MindIR模型进行推理#编译推理代码](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_310_mindir.html#id6)。
 
 <br/>
 
@@ -66,7 +66,7 @@ A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；�
 
 <font size=3>**Q：如何控制Serving日志输出？**</font>
 
-A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html?highlight=GLOG#id11)，在此基础上，额外补充的内容：
+A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html?highlight=GLOG#id11)，在此基础上，额外补充的内容：
 
 - MS_SUBMODULE_LOG_v
 

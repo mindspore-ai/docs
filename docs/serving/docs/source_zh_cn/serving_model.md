@@ -136,7 +136,7 @@ def postprocess_top5(score):
 
 预处理和后处理定义格式相同，入参为每个实例的输入数据。输入数据为文本时，入参为str对象；输入数据为其他数据类型，包括Tensor、Scalar number、Bool、Bytes时，入参为**numpy对象**。通过`return`返回实例的处理结果，`return`返回的数据可为**numpy、Python的bool、int、float、str、或bytes**单个数据对象或者由它们组成的tuple。
 
-预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_model.html#id9)决定。
+预处理和后处理输入的来源和输出的使用由[方法定义](https://www.mindspore.cn/serving/docs/zh-CN/r1.3/serving_model.html#id9)决定。
 
 ### 模型声明
 
@@ -170,7 +170,7 @@ register.declare_servable(servable_file="yolov3_darknet53.mindir", model_format=
                           with_batch_dim=True, without_batch_dim_inputs=1)
 ```
 
-对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/tutorial/inference/zh-CN/master/serving_distributed_example.html)。
+对于分布式模型，与非分布式单模型配置相比仅声明方法不同，需要使用`mindspore_serving.server.distributed.declare_servable`，其中入参`rank_size`表示模型推理使用的device个数，`stage_size`表示流水线的段数，可以参考[部署分布式推理服务](https://www.mindspore.cn/serving/docs/zh-CN/r1.3/serving_distributed_example.html)。
 
 ```python
 from mindspore_serving.server import distributed

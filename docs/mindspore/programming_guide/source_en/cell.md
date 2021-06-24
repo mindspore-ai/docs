@@ -338,7 +338,7 @@ In this case, two pieces of tensor data are built. The `nn.L1Loss` API is used t
 
 ## Optimization Algorithms
 
-`mindspore.nn.optim` is a module that implements various optimization algorithms in the MindSpore framework. For details, see [Optimization Algorithms](https://www.mindspore.cn/doc/programming_guide/en/master/optim.html)
+`mindspore.nn.optim` is a module that implements various optimization algorithms in the MindSpore framework. For details, see [Optimization Algorithms](https://www.mindspore.cn/docs/programming_guide/en/r1.3/optim.html)
 
 ## Building a Customized Network
 

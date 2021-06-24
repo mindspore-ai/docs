@@ -56,7 +56,7 @@ thread_num_
 allocator
 ```
 
-**pointer**类型，指向内存分配器 [**Allocator**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#allocator) 的指针。
+**pointer**类型，指向内存分配器 [**Allocator**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#allocator) 的指针。
 
 #### device_list_
 
@@ -64,7 +64,7 @@ allocator
 device_list_
 ```
 
-[**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontextvector) 类型, 元素为 [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**.
+[**DeviceContextVector**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontextvector) 类型, 元素为 [**DeviceContext**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext) 的**vector**.
 
 > 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
 
@@ -228,7 +228,7 @@ std::vector<std::string> MSTensorToStrings(const tensor::MSTensor *tensor)
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
-元素为[**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**。
+元素为[**DeviceContext**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext) 的**vector**。
 
 ## DeviceContext
 
@@ -244,7 +244,7 @@ DeviceContext类定义不同硬件设备的环境信息。
 device_type
 ```
 
-[**DeviceType**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicetype) 枚举类型。默认为**DT_CPU**，标明设备信息。
+[**DeviceType**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicetype) 枚举类型。默认为**DT_CPU**，标明设备信息。
 
 #### device_info_
 
@@ -252,7 +252,7 @@ device_type
 device_info_
 ```
 
-**union**类型，包含 [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#cpudeviceinfo) 、 [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#gpudeviceinfo)  和 [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo) 。
+**union**类型，包含 [**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#cpudeviceinfo) 、 [**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#gpudeviceinfo)  和 [**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#npudeviceinfo) 。
 
 ## DeviceInfo
 
@@ -268,7 +268,7 @@ device_info_
 cpu_device_info_
 ```
 
-[**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#cpudeviceinfo) 类型，配置CPU的环境变量。
+[**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#cpudeviceinfo) 类型，配置CPU的环境变量。
 
 #### gpu_device_info_
 
@@ -276,7 +276,7 @@ cpu_device_info_
 gpu_device_info_
 ```
 
-[**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#gpudeviceinfo) 类型，配置GPU的环境变量。
+[**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#gpudeviceinfo) 类型，配置GPU的环境变量。
 
 #### npu_device_info_
 
@@ -284,7 +284,7 @@ gpu_device_info_
 npu_device_info_
 ```
 
-[**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#npudeviceinfo) 类型，配置NPU的环境变量。
+[**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#npudeviceinfo) 类型，配置NPU的环境变量。
 
 ## CpuDeviceInfo
 
@@ -310,7 +310,7 @@ enable_float16_
 cpu_bind_mode_
 ```
 
-[**CpuBindMode**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#cpubindmode) 枚举类型，默认为**MID_CPU**。
+[**CpuBindMode**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#cpubindmode) 枚举类型，默认为**MID_CPU**。
 
 ## GpuDeviceInfo
 

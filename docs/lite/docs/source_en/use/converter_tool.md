@@ -35,7 +35,7 @@ The ms model converted by the conversion tool supports the conversion tool and t
 
 To use the MindSpore Lite model conversion tool, you need to prepare the environment as follows:
 
-- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
@@ -139,7 +139,7 @@ The following describes how to use the conversion command by using several commo
    CONVERTER RESULT SUCCESS:0
    ```
 
-- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/errorcode_and_metatype.html) will be output.
 
 ## Windows Environment Instructions
 
@@ -147,7 +147,7 @@ The following describes how to use the conversion command by using several commo
 
 To use the MindSpore Lite model conversion tool, the following environment preparations are required.
 
-- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables PATH.
 
@@ -179,7 +179,7 @@ mindspore-lite-{version}-win-x64
 
 ### Parameter Description
 
-Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html#parameter-description).
+Refer to the Linux environment model conversion tool [parameter description](https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_tool.html#parameter-description).
 
 ### Example
 
@@ -243,4 +243,4 @@ Several common examples are selected below to illustrate the use of conversion c
    CONVERTER RESULT SUCCESS:0
    ```
 
-- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+- If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/errorcode_and_metatype.html) will be output.

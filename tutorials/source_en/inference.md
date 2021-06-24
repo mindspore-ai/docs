@@ -204,7 +204,7 @@ MindSpore Lite is the device part of the device-edge-cloud AI framework MindSpor
 
 The following provides a demo that runs on the Windows and Linux operating systems and is built based on the C++ API to help users get familiar with the on-device inference process. The demo uses the shuffled data as the input data, performs the inference on the MobileNetV2 model, and directly displays the output data on the computer.
 
-> For details about the complete instance running on the mobile phone, see [Android Application Development Based on JNI](https://www.mindspore.cn/tutorial/lite/en/master/quick_start/quick_start.html).
+> For details about the complete instance running on the mobile phone, see [Android Application Development Based on JNI](https://www.mindspore.cn/lite/docs/en/r1.3/quick_start/quick_start.html).
 
 ### Model Conversion
 
@@ -214,11 +214,11 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
 
 > The following describes the conversion process. Skip it if you only need to run the demo.
 >
-> The following describes only the model used by the demo. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_tool.html#).
+> The following describes only the model used by the demo. For details about how to use the conversion tool, see [Converting Models for Inference](https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_tool.html#).
 
 - Download the conversion tool.
 
-  Download the [conversion tool package](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) based on the OS in use, decompress the package to a local directory, obtain the `converter` tool, and configure environment variables.
+  Download the [conversion tool package](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) based on the OS in use, decompress the package to a local directory, obtain the `converter` tool, and configure environment variables.
 
 - Use the conversion tool.
 
@@ -273,7 +273,7 @@ The following uses the [mobilenetv2.mindir](https://download.mindspore.cn/model_
 
 - Build
 
-    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
+    - Download the library: Manually download the MindSpore Lite model inference framework [mindspore-lite-{version}-win-x64.zip](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) whose hardware platform is CPU and operating system is Windows-x64. Copy the `libmindspore-lite.a` file in the decompressed `inference/lib` directory to the `mindspore/lite/examples/quick_start_cpp/lib` directory. Copy the `inference/include` directory to the `mindspore/lite/examples/quick_start_cpp/include` directory.
 
     - Download the model: Manually download the model file [mobilenetv2.ms](https://download.mindspore.cn/model_zoo/official/lite/mobilenetv2_imagenet/mobilenetv2.ms) and copy it to the `mindspore/lite/examples/quick_start_cpp/model` directory.
 

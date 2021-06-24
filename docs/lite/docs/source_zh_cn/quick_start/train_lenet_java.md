@@ -49,7 +49,7 @@ cd mindspore
 bash build.sh -A java -ecpu -Ton -j8
 ```
 
-更详细的编译说明，请参考[编译MindSpore Lite](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html)章节。
+更详细的编译说明，请参考[编译MindSpore Lite](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)章节。
 本教程使用的示例源码在`mindspore/lite/examples/train_lenet_java`目录。
 
 ### 下载数据集
@@ -101,7 +101,7 @@ cp mindspore-lite-${version}-train-linux-x64-jar/jar/* ../mindspore/lite/example
     java -Djava.library.path=../lib/ -classpath .:./train_lenet_java.jar:../lib/mindspore-lite-java.jar com.mindspore.lite.train_lenet.Main ../resources/model/lenet_tod.ms /PATH/MNIST_Data/
     ```
 
-    > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html)，自行转换出LeNet模型。
+    > ../resources/model/lenet_tod.ms是示例工程中预置的LeNet训练模型，您也可以参考[训练模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_train.html)，自行转换出LeNet模型。
     >
     > /PATH/MNIST_Data/是MNIST数据集所在路径。
 
@@ -153,7 +153,7 @@ train_lenet_java
 
 ### 编写端侧推理代码
 
-详细的Java接口使用请参考<https://www.mindspore.cn/doc/api_java/zh-CN/master/index.html>。
+详细的Java接口使用请参考<https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_java/index.html>。
 
 1. 加载MindSpore Lite模型文件，构建会话。
 

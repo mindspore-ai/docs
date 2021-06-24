@@ -391,12 +391,12 @@ mindspore-lite.framework
 
 ### Compilation Options
 
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#linux-environment-compilation)
 
 ### Compilation Example
 
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#linux-environment-compilation)
 
 ### Directory Structure
 
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
+Refer to [Linux Environment Compilation](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html#linux-environment-compilation)

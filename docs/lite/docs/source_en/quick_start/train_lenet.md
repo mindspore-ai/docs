@@ -77,7 +77,7 @@ cd ./mindspore
 
 The `mindspore/lite/examples/train_lenet` directory relative to the MindSpore Lite source code contains this demo's source code.
 
-Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. After download these two files, you need rename the mindspore-lite-{version}-linux-x64.tar.gz to mindspore-lite-{version}-linux-x64.tar.gz and rename the mindspore-lite-{version}-android-aarch64.tar.gz to mindspore-lite-{version}-android-aarch64.tar.gz. Then put the renamed files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
+Go to the [MindSpore Lite Download Page](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html) to download the mindspore-lite-{version}-linux-x64.tar.gz and mindspore-lite-{version}-android-aarch64.tar.gz. The mindspore-lite-{version}-linux-x64.tar.gz is the MindSpore Lite install package for x86 platform, it contains the converter tool `converter_lite`, this demo uses it to converte `MIDIR` model to `.ms` which is supported by MindSpore Lite; The mindspore-lite-{version}-android-aarch64.tar.gz is the MindSpore Lite install package for Android, it contains training runtime library `libmindspore-lite.so`, this demo uses it to train model. After download these two files, you need rename the mindspore-lite-{version}-linux-x64.tar.gz to mindspore-lite-{version}-linux-x64.tar.gz and rename the mindspore-lite-{version}-android-aarch64.tar.gz to mindspore-lite-{version}-android-aarch64.tar.gz. Then put the renamed files to the `output` directory relative to MindSpore Lite source code（if there is no `output` directory，you should create it).
 
 Suppose these packags are downloaded in `/Downloads` directory, `Linux` commands for operations above is as follows:
 
@@ -87,7 +87,7 @@ cp /Downloads/mindspore-lite-{version}-linux-x64.tar.gz output/mindspore-lite-{v
 cp /Downloads/mindspore-lite-{version}0-android-aarch64.tar.gz output/mindspore-lite-{version}-android-aarch64.tar.gz
 ```
 
-You can also [compile from source](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
+You can also [compile from source](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html) to generate the training package for x86 platform mindspore-lite-{version}-linux-x64.tar.gz and for Andorid platform mindspore-lite-{version}-android-aarch64.tar.gz. These packages will directly generated in `output` directory and you should make sure that in the `output` directory both the two packages exist.
 
 ### Connect Android Device
 
@@ -222,7 +222,7 @@ context.set_context(mode=context.PYNATIVE_MODE, device_target="CPU", save_graphs
 
 Set MindSpore context and initialize the data and label tensors. In this case we use a MindSpore that was compiled for CPU. We define a batch size of 32 and initialize the tensors according to MNIST data -- single channel 32x32 images.
 
-The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_train_cpp.html#creating-contexts)
+The tensors does not need to be loaded with relevant data, but the shape and type must be correct. Note also, that this export code runs on the server, and in this case uses the CPU device. However, the Training on Device will run according to the [context](https://www.mindspore.cn/lite/docs/en/r1.3/use/runtime_train_cpp.html#creating-contexts)
 
 ```python
 BATCH_SIZE = 32
@@ -262,7 +262,7 @@ print("finished exporting")
 
 ### Model Transferring
 
-To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/tutorial/lite/en/master/use/converter_train.html#creating-mindspore-tod-models), the command is:
+To convert the model simply use the converter as explained in the [Convert Section](https://www.mindspore.cn/lite/docs/en/r1.3/use/converter_train.html#creating-mindspore-tod-models), the command is:
 
 ```bash
 ./converter_lite --fmk=MINDIR --trainModel=true --modelFile=lenet_tod.mindir --outputFile=lenet_tod
@@ -328,7 +328,7 @@ void NetRunner::InitAndFigureInputs() {
 
 #### Dataset Processing
 
-`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/doc/api_cpp/en/master/session.html) for more details.
+`InitDB` initializes the MNIST dataset and loads it into the memory. MindData has provided the data preprocessing API, the user could refer to the [C++ API Docs](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/session.html) for more details.
 
 ```cpp
 int NetRunner::InitDB() {

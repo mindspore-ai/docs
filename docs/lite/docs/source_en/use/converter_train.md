@@ -19,7 +19,7 @@
 
 Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
-- In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#export-mindir-model). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
+- In the first step the model is defined and the layers that should be trained must be declared. This is being done on the server, using a MindSpore-based [Python code](https://www.mindspore.cn/docs/programming_guide/en/r1.3/save_model.html#export-mindir-model). The model is then <b>exported</b> into a protobuf format, which is called MINDIR.
 - In the seconde step this `.mindir` model is <b>converted</b> into a `.ms` format that can be loaded onto an embedded device and can be trained using the MindSpore Lite framework. The converted `.ms` models can be used for both training and inference.
 
 ## Linux Environment
@@ -28,7 +28,7 @@ Creating your MindSpore Lite(Train on Device) model is a two step procedure:
 
 MindSpore Lite model transfer tool (only suppot Linux OS) has provided multiple parameters. The procedure is as follows:
 
-- [Compile](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html) or [download](https://www.mindspore.cn/tutorial/lite/en/master/use/downloads.html) model transfer tool.
+- [Compile](https://www.mindspore.cn/lite/docs/en/r1.3/use/build.html) or [download](https://www.mindspore.cn/lite/docs/en/r1.3/use/downloads.html) model transfer tool.
 
 - Add the path of dynamic library required by the conversion tool to the environment variables LD_LIBRARY_PATH.
 
@@ -56,7 +56,7 @@ The table below shows the parameters used in the MindSpore Lite model training t
 
 > The parameter name and parameter value are separated by an equal sign (=) and no space is allowed between them.
 
-If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/errorcode_and_metatype.html) will be output.
 
 ### Example
 
@@ -72,4 +72,4 @@ If the command executes successfully, the `model.ms` target file will be obtaine
 CONVERTER RESULT SUCCESS:0
 ```
 
-If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/doc/api_cpp/en/master/errorcode_and_metatype.html) will be output.
+If running the conversion command is failed, an [errorcode](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/errorcode_and_metatype.html) will be output.

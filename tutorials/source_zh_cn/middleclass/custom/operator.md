@@ -23,15 +23,15 @@
 
 ## 自定义算子开发
 
-MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
+MindSpore支持多种类型的算子，用户可根据[算子支持](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/operator_list.html)列表查询。若已有算子不满足实际需求，用户也可以开发自定义算子。
 
 当前，MindSpore支持如下自定义算子，开发方法可通过链接获取：
 
-- [自定义Ascend（昇腾）算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_ascend.html)
+- [自定义Ascend（昇腾）算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_operator_ascend.html)
     - [AI Core算子](https://support.huaweicloud.com/tbedevg-cann330alpha2training/atlaste_10_0001.html)
     - [AI CPU算子](https://support.huaweicloud.com/aicpudevg-cann330alpha2training/atlasaicpu_10_0001.html)
-- [自定义GPU算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_gpu.html)
-- [自定义CPU算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator_cpu.html)
+- [自定义GPU算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_operator_gpu.html)
+- [自定义CPU算子](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_operator_cpu.html)
 
 在Ascend（昇腾）的两类算子中：
 

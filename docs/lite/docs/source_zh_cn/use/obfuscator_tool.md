@@ -26,7 +26,7 @@ MindSpore Lite提供一个轻量级的离线模型混淆工具，可用于保护
 
 使用MindSpore Lite模型混淆工具，需要进行如下环境准备工作。
 
-- 参考构建文档中的[环境要求](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id1)和[编译示例](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#id3)编译x86_64版本。
+- 参考构建文档中的[环境要求](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#id1)和[编译示例](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#id3)编译x86_64版本。
 
 ### 目录结构
 
@@ -80,5 +80,5 @@ MindSpore Lite模型混淆工具提供了多种参数设置，用户可根据需
 
   这表示已经成功将MindSpore Lite模型混淆，获得新文件`lenet_obf.ms`。
 
-- 如果混淆命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/errorcode_and_metatype.html)。
+- 如果混淆命令执行失败，程序会返回一个[错误码](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/errorcode_and_metatype.html)。
 

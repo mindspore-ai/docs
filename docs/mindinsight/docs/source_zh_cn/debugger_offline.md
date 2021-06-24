@@ -24,13 +24,13 @@ MindSpore离线调试器是基于训练的Dump数据进行可视化调试，可�
 
 ## 操作流程
 
-1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode.html) ；
+1. 准备Dump数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dump_in_graph_mode.html) ；
 2. 启动MindInsight，指定summary-base-dir为dump配置中的{path}路径的上一层或上两层；
 3. 从训练列表中找到离线调试器入口，点击“离线调试器”，进入调试器页面，开始进行调试分析。
 
 ## 离线调试器环境准备
 
-使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/dump_in_graph_mode.html) 。
+使用MindSpore的Dump功能准备离线数据。Dump的使用方式详见[使用Dump功能在Graph模式调试](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dump_in_graph_mode.html) 。
 
 然后，启动MindInsight，指定summary-base-dir为dump配置中的{path}路径的上一层或上两层，即可在UI页面中查询到离线调试器的入口。
 
@@ -53,7 +53,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 |`--port {PORT}`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|
 |`--summary-base-dir /path/to`|必选|mp配置中的{path}路径的上一层或上两层。例如，Dump配置文件中的path为“/home/workspace/data/dump_dir”，summary-base-dir可以设置为“/home/workspace/data”或“/home/workspace”。|String|./|-|
 
-更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
+更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/mindinsight_commands.html)。
 
 然后，打开MindInsight页面，从离线调试器入口进入调试器界面。
 
@@ -63,7 +63,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 
 ## 离线调试器页面介绍
 
-离线调试器界面与在线调试器相同。在线调试器的页面介绍详见[调试器页面介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debugger.html#id5) 。
+离线调试器界面与在线调试器相同。在线调试器的页面介绍详见[调试器页面介绍](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger.html#id5) 。
 
 ## 使用离线调试器进行调试
 
@@ -75,7 +75,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 
     此时，调试器处于加载离线数据的状态。
 
-2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debugger.html#id14) 。
+2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger.html#id14) 。
 
 3. 与在线调试器相比，离线调试器可以重置训练轮次。点击右边的编辑图标，输入需要重置的轮次，点击对钩符号即可。如下图所示。
 

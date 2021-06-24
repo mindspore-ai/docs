@@ -12,8 +12,8 @@ MindSpore provides a variety of performance optimization methods, users can use 
 
 | Optimization Stage | Optimization Method | Supported |
 | --- | --- | --- |
-| Training | [Distributed Training](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_tutorials.html) | Ascend, GPU |
-| | [Mixed Precision](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_mixed_precision.html) | Ascend, GPU |
-| | [Graph Kernel Fusion](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/enable_graph_kernel_fusion.html) | Ascend, GPU |
-| | [Gradient Accumulation](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/apply_gradient_accumulation.html) | GPU |
-| Inference | [Quantization After Training](https://www.mindspore.cn/tutorial/lite/en/master/use/post_training_quantization.html) | Lite |
+| Training | [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_tutorials.html) | Ascend, GPU |
+| | [Mixed Precision](https://www.mindspore.cn/docs/programming_guide/en/r1.3/enable_mixed_precision.html) | Ascend, GPU |
+| | [Graph Kernel Fusion](https://www.mindspore.cn/docs/programming_guide/en/r1.3/enable_graph_kernel_fusion.html) | Ascend, GPU |
+| | [Gradient Accumulation](https://www.mindspore.cn/docs/programming_guide/en/r1.3/apply_gradient_accumulation.html) | GPU |
+| Inference | [Quantization After Training](https://www.mindspore.cn/lite/docs/en/r1.3/use/post_training_quantization.html) | Lite |

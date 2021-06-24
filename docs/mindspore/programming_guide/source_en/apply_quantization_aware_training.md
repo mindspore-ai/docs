@@ -223,7 +223,7 @@ class LeNet5(nn.Cell):
         return x
 ```
 
-> - Quantization operators: `nn.Conv2dQuant`, `nn.DenseQuant` and `nn.ActQuant` are operators that contain fake quantization nodes. For details about quantization operators, see <https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.nn.html#quantized-functions>.
+> - Quantization operators: `nn.Conv2dQuant`, `nn.DenseQuant` and `nn.ActQuant` are operators that contain fake quantization nodes. For details about quantization operators, see <https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.nn.html#quantized-functions>.
 > - The fake quantization node `nn.FakeQuantWithMinMaxObserver` can be inserted after the network layer that needs to be quantized to implement quantization of more network layers.
 > - You are advised to preferentially select the layer at the rear of the quantization network because the network layer at the front of the quantization network may cause more precision loss.
 
@@ -268,10 +268,10 @@ if __name__ == "__main__":
     export(network, inputs, file_name="lenet_quant", file_format='MINDIR', quant_mode='QUANT', mean=127.5, std_dev=127.5)
 ```
 
-After the quantization model is exported, use MindSpore for inference. For details, see [Inference Using MindSpore](https://www.mindspore.cn/tutorial/inference/en/master/index.html).
+After the quantization model is exported, use MindSpore for inference. For details, see [Inference Using MindSpore](https://www.mindspore.cn/docs/programming_guide/en/r1.3/index.html).
 
 > - The exported model can be in MindIR or AIR format.
-> - Models exported after quantization aware training support [Inference on Devices](https://www.mindspore.cn/tutorial/lite/zh-CN/master/index.html) and [Inference on Ascend 310](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310.html).
+> - Models exported after quantization aware training support [Inference on Devices](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/index.html) and [Inference on Ascend 310](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310.html).
 
 ## References
 

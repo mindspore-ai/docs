@@ -7,5 +7,5 @@
 " type="video/mp4">
 </video>
 
-**See More**: <https://www.mindspore.cn/tutorial/lite/en/master/use/post_training_quantization.html>
+**See More**: <https://www.mindspore.cn/lite/docs/en/r1.3/use/post_training_quantization.html>
 

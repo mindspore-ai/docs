@@ -59,7 +59,7 @@
 
 其中，`rank_table_16pcs.json`、`rank_table_8pcs.json`、`rank_table_2pcs.json`是配置当前多卡环境的组网信息文件。`resnet.py`、`resnet50_distributed_training.py`、`resnet50_distributed_training_gpu.py`和`resnet50_distributed_training_grad_accu.py`几个文件是定义网络结构的脚本。`run.sh`、`run_gpu.sh`、`run_grad_accu.sh`、`run_cluster.sh`是执行脚本。
 
-此外在[定义网络](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
+此外在[定义网络](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id7)和[分布式训练模型参数保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id13)小节中我们针对手动混合并行模式和半自动并行模式的使用做了特殊说明。
 
 ## 准备环节
 
@@ -204,7 +204,7 @@ def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=
 
 手动混合并行模式在数据并行模式的基础上，对`parameter`增加了模型并行`layerwise_parallel`配置，包含此配置的`parameter`将以切片的形式保存并参与计算，在优化器计算时不会进行梯度累加。在该模式下，框架不会自动插入并行算子前后需要的计算和通信操作，为了保证计算逻辑的正确性，用户需要手动推导并写在网络结构中，适合对并行原理深入了解的用户使用。
 
-以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
+以下面的代码为例，将`self.weight`指定为模型并行配置，即`self.weight`和`MatMul`的输出在第二维`channel`上存在切分。这时再在第二维上进行`ReduceSum`得到的仅是单卡累加结果，还需要引入`AllReduce.Sum`通信操作对每卡的结果做加和。关于并行算子的推导原理可以参考这篇[设计文档](https://www.mindspore.cn/docs/note/zh-CN/r1.3/design/mindspore/distributed_training_design.html#id10)。
 
 ```python
 from mindspore import Tensor
@@ -231,7 +231,7 @@ class HybridParallelNet(nn.Cell):
 
 ### 半自动并行模式
 
-半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/doc/note/zh-CN/master/design/mindspore/distributed_training_design.html#id10)。
+半自动并行模式相较于自动并行模式需要用户手动配置并行策略进行调优。关于算子并行策略的定义可以参考这篇[设计文档](https://www.mindspore.cn/docs/note/zh-CN/r1.3/design/mindspore/distributed_training_design.html#id10)。
 
 以前述的`HybridParallelNet`为例，在半自动并行模式下的脚本代码如下，`MatMul`的切分策略为`{(1, 1),(1, 2)}`，指定`self.weight`在第二维度上被切分两份。
 
@@ -321,7 +321,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 - `gradients_mean`：反向计算时，框架内部会将数据并行参数分散在多台机器的梯度值进行收集，得到全局梯度值后再传入优化器中更新。默认值为`False`，设置为True对应`allreduce_mean`操作，False对应`allreduce_sum`操作。
 - `device_num`和`global_rank`建议采用默认值，框架内会调用HCCL接口获取。
 
-> 更多分布式并行配置项用户请参考[编程指南](https://www.mindspore.cn/doc/programming_guide/zh-CN/master/auto_parallel.html)。
+> 更多分布式并行配置项用户请参考[编程指南](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/auto_parallel.html)。
 
 如脚本中存在多个网络用例，请在执行下个用例前调用`context.reset_auto_parallel_context`将所有参数还原到默认值。
 
@@ -486,9 +486,9 @@ param_dict = load_checkpoint('...')
 load_param_into_net(net, param_dict)
 ```
 
-checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)。
+checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_model.html#checkpoint)。
 
-> 默认情况下，对于网络中切分的参数将会采用合并保存，对于参数量过大需要采用切片保存及推理的场景可以参考[分布式推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
+> 默认情况下，对于网络中切分的参数将会采用合并保存，对于参数量过大需要采用切片保存及推理的场景可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_910.html#id1)。
 
 ### 数据并行模式
 
@@ -508,7 +508,7 @@ context.set_auto_parallel_context(parallel_mode=ParallelMode.DATA_PARALLEL, grad
 
 ### 半自动并行模式
 
-半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html#id9)。
+半自动并行模式（Semi Auto Parallel）下checkpoint使用方法，与自动并行模式（Auto Parallel）和数据并行模式（Data Parallel）的用法相同，不同之处在于网络的定义，半自动并行模式（Semi Auto Parallel）下网络模型的定义请参考本教程中定义网络部分的[半自动并行模式](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id9)。
 
 保存模型时，可以使用如下代码来实现：
 
@@ -547,11 +547,11 @@ ckpt_config = CheckpointConfig(keep_checkpoint_max=1)
 ckpt_config = CheckpointConfig(keep_checkpoint_max=1, integrated_save=False)
 ```
 
-需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/save_load_model_hybrid_parallel.html#checkpoint)。
+需要注意的是，如果用户选择了这种checkpoint保存方式，那么就需要用户自己对切分的checkpoint进行保存和加载，以便进行后续的推理或再训练。具体用法可参考[对保存的checkpoint文件做合并处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_load_model_hybrid_parallel.html#checkpoint)。
 
 ### 手动混合并行模式
 
-手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/save_load_model_hybrid_parallel.html)。
+手动混合并行模式（Hybrid Parallel）的模型参数保存和加载请参考[手动设置并行场景模型参数的保存和加载](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/save_load_model_hybrid_parallel.html)。
 
 ## 多机多卡训练
 

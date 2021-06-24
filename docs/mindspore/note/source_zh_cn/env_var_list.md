@@ -20,7 +20,7 @@
 |RANK_TABLE_FILE|MindSpore|路径指向文件，包含指定多Ascend AI处理器环境中Ascend AI处理器的"device_id"对应的"device_ip"。|String|文件路径，支持相对路径与绝对路径|与RANK_SIZE配合使用|必选（使用Ascend AI处理器时）|
 |RANK_SIZE|MindSpore|指定深度学习时调用Ascend AI处理器的数量|Integer|1~8，调用Ascend AI处理器的数量|与RANK_TABLE_FILE配合使用|必选（使用Ascend AI处理器时）|
 |RANK_ID|MindSpore|指定深度学习时调用Ascend AI处理器的逻辑ID|Integer|0~7，多机并行时不同server中DEVICE_ID会有重复，使用RANK_ID可以避免这个问题（多机并行时 RANK_ID = SERVER_ID * DEVICE_NUM + DEVICE_ID|无|可选|
-|MS_SUBMODULE_LOG_v|MindSpore|[MS_SUBMODULE_LOG_v功能与用法](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#id9)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选
+|MS_SUBMODULE_LOG_v|MindSpore|[MS_SUBMODULE_LOG_v功能与用法](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html#id9)|Dict{String:Integer...}|LogLevel: 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR<br>SubModual: COMMON, MD, DEBUG, DEVICE, COMMON, IR...|无|可选
 |OPTION_PROTO_LIB_PATH|MindSpore|RPOTO依赖库库路径|String|目录路径，支持相对路径与绝对路径|无|可选|
 |MS_RDR_ENABLE|MindSpore|是否开启程序运行数据记录器（RDR），如果MindSpore出现了运行异常，会自动导出MindSpore中预先记录的数据以辅助定位运行异常的原因|Integer|1：开启RDR功能 <br>0：关闭RDR功能|与MS_RDR_PATH一起使用|可选|
 |MS_RDR_PATH|MindSpore|配置程序运行数据记录器（RDR）的文件导出路径|String|文件路径，仅支持绝对路径|与MS_RDR_ENABLE=1一起使用|可选|

@@ -851,7 +851,7 @@ decoder = Decoder()
 cvae = ConditionalVAE(encoder, decoder, hidden_size=400, latent_size=20, num_classes=10)
 ```
 
-Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Implementing an Image Classification Application](https://www.mindspore.cn/tutorial/training/en/master/quick_start/quick_start.html). The create_dataset function is used to create a data iterator.
+Load a dataset, for example, Mnist. For details about the data loading and preprocessing process, see [Implementing an Image Classification Application](https://www.mindspore.cn/docs/programming_guide/en/r1.3/quick_start/quick_start.html). The create_dataset function is used to create a data iterator.
 
 ```python
 ds_train = create_dataset(image_path, 128, 1)
@@ -915,7 +915,7 @@ If you want the generated sample to be better and clearer, you can define a more
 
 The following uses the APIs in `nn.probability.bnn_layers` of MindSpore to implement the BNN image classification model. The APIs in `nn.probability.bnn_layers` of MindSpore include `NormalPrior`, `NormalPosterior`, `ConvReparam`, `DenseReparam`, `DenseLocalReparam` and `WithBNNLossCell`. The biggest difference between BNN and DNN is that the weight and bias of the BNN layer are not fixed values, but follow a distribution. `NormalPrior` and `NormalPosterior` are respectively used to generate a prior distribution and a posterior distribution that follow a normal distribution. `ConvReparam` and `DenseReparam` are the Bayesian convolutional layer and fully connected layers implemented by using the reparameterization method, respectively. `DenseLocalReparam` is the Bayesian fully connected layers implemented by using the local reparameterization method. `WithBNNLossCell` is used to encapsulate the BNN and loss function.
 
-For details about how to use the APIs in `nn.probability.bnn_layers` to build a Bayesian neural network and classify images, see [Applying the Bayesian Network](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_deep_probability_programming.html#id3).
+For details about how to use the APIs in `nn.probability.bnn_layers` to build a Bayesian neural network and classify images, see [Applying the Bayesian Network](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/apply_deep_probability_programming.html#id3).
 
 ## Bayesian Conversion
 
@@ -997,7 +997,7 @@ The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStep
 
   `Dnn_layer` specifies a DNN layer to be converted into a BNN layer, and `bnn_layer` specifies a BNN layer to be converted into a DNN layer, and `get_args` and `add_args` specify the parameters obtained from the DNN layer and the parameters to be re-assigned to the BNN layer, respectively.
 
-For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conversion with One Click](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/apply_deep_probability_programming.html#dnnbnn).
+For details about how to use `TransformToBNN` in MindSpore, see [DNN-to-BNN Conversion with One Click](https://www.mindspore.cn/probability/docs/zh-CN/r1.3/apply_deep_probability_programming.html#dnnbnn).
 
 ## Bayesian Toolbox
 

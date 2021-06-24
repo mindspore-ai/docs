@@ -21,7 +21,7 @@ Translator: [xiaoxiaozhang](https://gitee.com/xiaoxinniuniu)
 
 ## Overview
 
-Distributed inference means that multiple cards are used in the inference phase, in order to solve the problem that too many parameters are in the very large scale neural network and the model cannot be fully loaded into a single card for inference, multi-cards can be used for distributed inference. This document describes the process of deploying the distributed inference service, which is similar to the process of deploying the [single-card inference service](https://www.mindspore.cn/tutorial/inference/en/master/serving_example.html), and these two can refer to each other.
+Distributed inference means that multiple cards are used in the inference phase, in order to solve the problem that too many parameters are in the very large scale neural network and the model cannot be fully loaded into a single card for inference, multi-cards can be used for distributed inference. This document describes the process of deploying the distributed inference service, which is similar to the process of deploying the [single-card inference service](https://www.mindspore.cn/serving/docs/en/r1.3/serving_example.html), and these two can refer to each other.
 
 The architecture of the distributed inference service shows as follows：
 
@@ -46,7 +46,7 @@ Before running the example, ensure that MindSpore Serving has been correctly ins
 
 ### Exporting a Distributed Model
 
-For details about the files required for exporting distributed models, see the [export_model directory](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#id4), the following files are required:
+For details about the files required for exporting distributed models, see the [export_model directory](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#id4), the following files are required:
 
 ```text
 export_model
@@ -59,7 +59,7 @@ export_model
 - `net.py` contains the definition of MatMul network.
 - `distributed_inference.py` is used to configure distributed parameters.
 - `export_model.sh` creates `device` directory on the current host and exports model files corresponding to `device`.
-- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/distributed_training_ascend.html#id4).
+- `rank_table_8pcs.json` is a json file for configuring the multi-cards network. For details, see [rank_table](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#id4).
 
 Use [net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py) to construct a network that contains the MatMul and Neg operators.
 
@@ -85,7 +85,7 @@ class Net(Cell):
         return x
 ```
 
-Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#id1)。
+Use [distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py) to configure the distributed model. Refer to [Distributed inference](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_910.html#id1)。
 
 ```python
 import numpy as np
@@ -149,7 +149,7 @@ matmul_distributed
 - `model` is the directory for storing model files.
 - `serving_server.py` is the script for starting services, including `Main` process and `Distributed Worker` process.
 - `serving_agent.py` is the script for starting `Agent`s.
-- `servable_config.py` is the [Model Configuration File](https://www.mindspore.cn/tutorial/inference/en/master/serving_model.html). It declares a distributed model with rank_size 8 and stage_size 1 through `declare_distributed_servable`, and defines a method `predict` for distributed servable.
+- `servable_config.py` is the [Model Configuration File](https://www.mindspore.cn/serving/docs/en/r1.3/serving_model.html). It declares a distributed model with rank_size 8 and stage_size 1 through `declare_distributed_servable`, and defines a method `predict` for distributed servable.
 
 The content of the model configuration file is as follows:
 

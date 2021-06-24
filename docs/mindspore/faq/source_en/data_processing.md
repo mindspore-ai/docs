@@ -22,7 +22,7 @@ A: You can refer to the usage of YOLOv3 which contains the resizing of different
 
 A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
-[GenratorDataset example](https://www.mindspore.cn/doc/programming_guide/en/master/dataset_loading.html#loading-user-defined-dataset)
+[GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#loading-user-defined-dataset)
 
 [GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
@@ -59,7 +59,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 A: The data schema can be defined as follows:`cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
 Note: A label is an array of the numpy type, where label values 1, 1, 0, 1, 0, 1 are stored. These label values correspond to the same data, that is, the binary value of the same image.
-For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/convert_dataset.html#id3).
+For details, see [Converting Dataset to MindRecord](https://www.mindspore.cn/docs/programming_guide/en/r1.3/convert_dataset.html#id3).
 
 <br/>
 
@@ -71,7 +71,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/optimize_data_processing.html).
 
 <br/>
 
