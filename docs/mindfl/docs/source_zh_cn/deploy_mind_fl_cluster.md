@@ -297,3 +297,5 @@ python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=666
 ```
 
 此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
+
+> 在弹性伸缩命令下发成功后，在扩缩容业务执行完毕前，MindSpore不支持容灾。
