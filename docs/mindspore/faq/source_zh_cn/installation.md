@@ -175,7 +175,7 @@ A：真正的失败原因会体现在打屏的日志里，CMakeError.txt无参�
 
 <br/>
 
-<font size=3>**Q：编译成功后，运行时报错`undefined reference to XXXX`或`undefined symbol to XXXX`怎么办？**</font>
+<font size=3>**Q：编译成功后，运行时报错`undefined reference to XXXX`或`undefined symbol XXXX`怎么办？**</font>
 
 A：可能的原因有：
 
