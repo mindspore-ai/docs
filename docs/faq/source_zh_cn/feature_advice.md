@@ -127,3 +127,11 @@ A：MindSpore Serving配套相同版本号的MindSpore的版本，比如Serving 
 <font size=3>**Q:使用PyNative模式能够进行迁移学习？**</font>
 
 A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考[预训练模型加载代码详解](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/cv_mobilenetv2_fine_tune.html#id7)。
+
+<br/>
+
+<font size=3>**Q:MindSpore仓库中的[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)和昇腾官网的[ModelZoo](https://www.hiascend.com/software/modelzoo)有什么关系？**</font>
+
+A: MindSpore的ModelZoo主要提供MindSpore框架实现的模型，同时包括了Ascend/GPU/CPU/Mobile多种设备的支持。昇腾的ModelZoo主要提供运行于Ascend加速芯片上的模型，包括了MindSpore/PyTorch/TensorFlow/Caffe等多种框架的支持。可以参考对应的[Gitee仓库](https://gitee.com/ascend/modelzoo)
+
+其中MindSpore+Ascend的组合是有重合的，这部分模型会以MindSpore的ModelZoo为主要版本，定期向昇腾ModelZoo发布。
