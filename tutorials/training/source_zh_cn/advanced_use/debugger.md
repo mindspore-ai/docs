@@ -254,7 +254,6 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 
 - GPU场景：
     - 在GPU场景下，只有满足条件的参数节点可以与自身的上一轮次结果作对比：使用`下一个节点`执行过的节点、使用`运行到该节点`时选中的节点、作为`监测点`输入的参数节点。其他情况均无法使用`上一轮次对比`功能。
-    - 由于GPU上一个轮次是一个子图（而非完整的图），GPU上多图做重新检查时，只能重新检查当前的子图。
 
 - 重新检查只检查当前有张量值的监测点。
 - 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump功能介绍](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_debugging_info.html#id5)
