@@ -533,7 +533,7 @@ virtual int Train(int epochs, mindspore::dataset::Dataset *dataset, std::vector<
 virtual int Eval(mindspore::dataset::Dataset *dataset, std::vector<TrainLoopCallBack *> cbs, LoadDataFunc load_func = nullptr, int max_steps = INT_MAX) = 0;
 ```
 
-执行迭代训练。
+执行推理。
 
 - 参数
 
