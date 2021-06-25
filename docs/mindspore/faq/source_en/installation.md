@@ -156,7 +156,7 @@ A：The real reason for the failure will be showed in the stdout log. CMakeError
 
 <br/>
 
-<font size=3>**Q：After the compilation is successful, an error `undefined reference to XXXX` or `undefined symbol to XXXX` occurs during runtime, what should I do?**</font>
+<font size=3>**Q：After the compilation is successful, an error `undefined reference to XXXX` or `undefined symbol XXXX` occurs during runtime, what should I do?**</font>
 
 A: The possible reasons are:
 
