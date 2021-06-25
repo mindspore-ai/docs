@@ -252,13 +252,13 @@ An **enum** type. Defaults to **DT_CPU**. DeviceType is defined for holding 
 device_info_
 ```
 
-An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#npudeviceinfo) .
+An **strucr** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#cpudeviceinfo), [**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#npudeviceinfo).
 
 ## DeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
-An **union** value. DeviceInfo is defined for backend's configuration information.
+An **struct** value. DeviceInfo is defined for backend's configuration information.
 
 ### Public Attributes
 

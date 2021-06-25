@@ -252,13 +252,13 @@ device_type
 device_info_
 ```
 
-**union**类型，包含 [**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#cpudeviceinfo) 、 [**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#gpudeviceinfo)  和 [**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#npudeviceinfo) 。
+**struct**类型，包含[**CpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#cpudeviceinfo)、[**GpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#gpudeviceinfo)和[**NpuDeviceInfo**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#npudeviceinfo)。
 
 ## DeviceInfo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
-**union**类型，设置不同硬件的环境变量。
+**struct**类型，设置不同硬件的环境变量。
 
 ### 公有属性
 

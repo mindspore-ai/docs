@@ -246,6 +246,10 @@ ${model_path}为转换后ms模型文件路径
 
 有关集成使用详情，见[集成c++接口](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html)。
 
+> 用户设置Context[创建配置上下文](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/runtime_cpp.html#id3)时，需对provider_、provider_device_进行如下设置：
+> provider_ = "NNIE"
+> provider_device_ = "NNIE"
+
 ## SVP工具链相关功能支持及注意事项（高级选项）
 
 在模型转换时，由NNIE_CONFIG_PATH环境变量声明的nnie.cfg文件，提供原先SVP工具链相关功能，支持除caffemodel_file、prototxt_file、is_simulation、instructions_name外其他字段的配置，相关注意实现如下：
