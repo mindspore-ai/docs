@@ -75,6 +75,7 @@ array([[ 0.96891242, -0.24740396],
 ## Quantum Circuit
 
 Quantum circuit is a structure used to effectively organize various quantum logic gates. We can initialize the quantum circuit through the list of quantum gates, or expand the quantum circuit by adding a quantum gate or circuit through addition(`+`), and multiplying by an integer through multiplication(`*`). Here we will construct the following quantum circuit and print the relevant information of the quantum circuit. In the following figure, `q0`, `q1` and `q2` represent three qubits respectively. The quantum circuit consists of three quantum gates, namely the Hadamard gate acting on `q0` bit, the $CNOT$ gate acting on `q1` bit  and controlled by `q0`bit, and the $\text{RY}$ revolving gate acting on `q2`bit.
+
 ![quantum circuit](./images/quantum_circuit.png)
 
 ### [HiQsimulator](https://hiq.huaweicloud.com/doc/index.html) Compatible Quantum Circuit Building Format
@@ -198,6 +199,7 @@ A normal quantum neural network usually consists of three part as follow:
 - one(or more) physical quantity to be measured
 
 In the following, we will construct a quantum neural network, whose encoder consists of two $\text{RY}$ gates, and Ansatz circuit consist of a $\text{CNOT}$ gate and two $\text{RX}$ gates, where physical quantity to be measured is operator $\text{Z}$ acting on bit 1.
+
 ![simple qnn](./images/simple_qnn.png)
 
 ```python
