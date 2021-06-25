@@ -36,6 +36,18 @@
 
 ### 调试过程
 
+使用Dump来帮助调试分为两个步骤：1、数据准备；2、数据分析。
+
+#### 数据准备
+
+数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#id5)和[异步Dump操作步骤](#id10)。
+
+#### 数据分析
+
+如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debugger_offline.html) 。
+
+如果没有安装MindInsight，需要通过以下步骤来分析数据。
+
 1. 从脚本找到对应的算子
 
     使用Dump功能将自动生成最终执行图的IR文件（IR文件中包含了算子全名，和算子在计算图中输入和输出的依赖，也包含从算子到相应脚本代码的Trace信息)，IR文件可以用`vi`命令查看，Dump功能的配置见[同步Dump操作步骤](#id5)和[异步Dump操作步骤](#id10)，Dump输出的目录结构见[同步Dump数据对象目录](#id6)和[异步Dump数据对象目录](#id11)。然后通过图文件找到脚本中代码对应的算子，参考[同步Dump数据分析样例](#id8)和[异步Dump数据数据分析样例](#id13)。
@@ -415,7 +427,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 - `path`：`data_dump.json`配置文件中设置的绝对路径。
 - `rank_id`： 逻辑卡号。
-- `net_name`：`data_dump.json`配置文件中设置的网络称。
+- `net_name`：`data_dump.json`配置文件中设置的网络名称。
 - `graph_id`：训练的图标号。
 - `iteration_id`：训练的轮次。
 - `op_type`：算子类型。
@@ -461,7 +473,7 @@ Dump生成的原始数据文件也可以使用MindInsight的数据解析工具Du
     python ${The absolute path of msaccucmp.py} convert -d {file path of dump} -out {file path of output}
     ```
 
-    若需要转换数据格式，可参考使用说明链接<https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html> 。
+    若需要转换数据格式，可参考使用说明链接<https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce> 。
 
     如Dump生成的数据文件为：
 
