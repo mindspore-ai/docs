@@ -4,6 +4,7 @@
 
 - [发布版本列表](#发布版本列表)
     - [配套资料](#配套资料)
+    - [Ascend配套软件包](#ascend配套软件包)
     - [下载地址](#下载地址)
         - [1.2.1](#121)
         - [1.2.0](#120)
@@ -40,6 +41,15 @@
 | | 迁移指南 | [master](https://www.mindspore.cn/doc/migration_guide/zh-CN/master/index.html) |
 | | 设计和规格 | [1.2.1](https://www.mindspore.cn/doc/note/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/note/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.1](https://www.mindspore.cn/doc/note/zh-CN/r1.0/index.html) &nbsp;&nbsp; [0.7.0-beta](https://www.mindspore.cn/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; [0.7.0-beta (Lite) &nbsp;&nbsp;](https://www.mindspore.cn/lite/docs/zh-CN/r0.7/index.html) &nbsp;&nbsp; <br> [0.6.0-beta](https://www.mindspore.cn/docs/zh-CN/r0.6/index.html) &nbsp;&nbsp; [0.5.2-beta](https://www.mindspore.cn/docs/zh-CN/r0.5/index.html) &nbsp;&nbsp; [0.3.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.3.0-alpha/index.html) &nbsp;&nbsp; [0.2.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.2.0-alpha/index.html) &nbsp;&nbsp; [0.1.0-alpha](https://www.mindspore.cn/docs/zh-CN/0.1.0-alpha/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/doc/note/zh-CN/master/index.html) |
 | | FAQ | [1.2.1](https://www.mindspore.cn/doc/faq/zh-CN/r1.2/index.html) &nbsp;&nbsp; [1.1.1](https://www.mindspore.cn/doc/faq/zh-CN/r1.1/index.html) &nbsp;&nbsp; [1.0.1](https://www.mindspore.cn/doc/faq/zh-CN/r1.0/index.html) &nbsp;&nbsp; [master](https://www.mindspore.cn/doc/faq/zh-CN/master/index.html) |
+
+## Ascend配套软件包
+
+|    MindSpore版本    |    硬件平台    |    配套软件包    |    驱动和固件    |    CANN    |    软件包文档    |
+|    ---    |    ---    |    ---    |    ---    |    ---    |    ---    |
+| 1.2.1  | Ascend 910 | Ascend Data Center Solution | A800-9000 | - | - |
+|| Ascend 310 | Ascend Data Center Solution | A300-3000 | - | - |
+| 1.2.0 | Ascend 910 | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A800-9000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/252727249?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818) | [5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910) |
+|| Ascend 310 | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910) | [A300-3000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a300-3000-pid-250702915/software/252496291?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702915) | [5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373) | [Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910) |
 
 ## 下载地址
 
