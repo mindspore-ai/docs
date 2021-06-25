@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/distributed_training_gpu.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -88,7 +88,7 @@ On the GPU hardware platform, MindSpore uses OpenMPI `mpirun` for distributed tr
 
 > Obtain the running script of the example from:
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/distributed_training/run_gpu.sh>
+> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/distributed_training/run_gpu.sh>
 >
 > If the script is executed by the root user, the `--allow-run-as-root` parameter must be added to `mpirun`.
 

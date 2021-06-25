@@ -19,8 +19,8 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/mindinsight_dashboard.ipynb" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 
 ## 概述
 
@@ -152,10 +152,10 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 
 当前支持的Summary算子:
 
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.TensorSummary.html)：记录张量数据
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.ImageSummary.html)：记录图片数据
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.TensorSummary.html)：记录张量数据
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.ImageSummary.html)：记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
 
 记录方式如下面的步骤所示。
 

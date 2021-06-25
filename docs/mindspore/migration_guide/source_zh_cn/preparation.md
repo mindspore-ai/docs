@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -38,7 +38,7 @@ pip install mindspore_{device}-{version}-cp37-cp37m-linux_{arch}.whl
 
 ### 使用源码安装
 
-访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
+访问[MindSpore代码仓](https://gitee.com/mindspore/mindspore)，使用`git clone https://gitee.com/mindspore/mindspore.git -b r1.3`下载MindSpore源码，源码根目录下的`build.sh`文件提供了多个备选参数，用于选择定制MindSpore服务，一般通过以下命令编译MindSpore。
 
 ```bash
 cd mindspore
@@ -126,9 +126,9 @@ print(ops.add(x, y))
 
 ### ModelZoo和Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
+[ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo)是MindSpore与社区共同提供的深度优化的模型集市，向开发者提供了深度优化的模型，以便于生态中的小伙伴可以方便地基于ModelZoo中的模型进行个性化开发。当前已经覆盖了机器视觉、自然语言处理、语音、推荐系统等多个领域的主流模型。
 
-[MindSpore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://mindspore.cn/tutorial/training/zh-CN/master/use/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
+[mindspore Hub](https://www.mindspore.cn/resources/hub)是存放MindSpore官方或者第三方开发者提供的预训练模型的平台。它向应用开发者提供了简单易用的模型加载和微调API，使得用户可以基于预训练模型进行推理或者微调，并部署到自己的应用中。用户也可以将自己训练好的模型按照指定的步骤[发布模型](https://mindspore.cn/tutorial/training/zh-CN/r1.3/use/publish_model.html)到MindSpore Hub中，供其他用户下载和使用。
 
 ### 云上训练
 

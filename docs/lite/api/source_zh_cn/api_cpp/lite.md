@@ -1,16 +1,16 @@
 # mindspore::lite
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/lite.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Allocator
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 Allocator类定义了一个内存池，用于动态地分配和释放内存。
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -70,7 +70,7 @@ device_list_
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/model.h)&gt;
 
 Model定义了MindSpore Lite中的模型，便于计算图管理。
 
@@ -124,7 +124,7 @@ static Model *Import(const char *model_buf, size_t size)
 
 ## CpuBindMode
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 枚举类型，设置cpu绑定策略。
 
@@ -156,7 +156,7 @@ NO_BIND = 0
 
 ## DeviceType
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 枚举类型，设置设备类型。
 
@@ -188,7 +188,7 @@ DT_NPU = 2
 
 ## Version
 
-\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/version.h)&gt;
+\#include &lt;[version.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/version.h)&gt;
 
 ```cpp
 std::string Version()
@@ -226,13 +226,13 @@ std::vector<std::string> MSTensorToStrings(const tensor::MSTensor *tensor)
 
 ## DeviceContextVector
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 元素为[**DeviceContext**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext) 的**vector**。
 
 ## DeviceContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 DeviceContext类定义不同硬件设备的环境信息。
 
@@ -256,7 +256,7 @@ device_info_
 
 ## DeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 **union**类型，设置不同硬件的环境变量。
 
@@ -288,7 +288,7 @@ npu_device_info_
 
 ## CpuDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 CpuDeviceInfo类，配置CPU的环境变量。
 
@@ -314,7 +314,7 @@ cpu_bind_mode_
 
 ## GpuDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 GpuDeviceInfo类，用来配置GPU的环境变量。
 
@@ -332,7 +332,7 @@ enable_float16_
 
 ## NpuDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/context.h)&gt;
 
 NpuDeviceInfo类，用来配置NPU的环境变量。
 
@@ -348,7 +348,7 @@ frequency_
 
 ## TrainModel
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/model.h)&gt;
 
 继承于结构体Model，用于导入或导出训练模型。
 

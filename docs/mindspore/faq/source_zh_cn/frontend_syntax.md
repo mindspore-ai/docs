@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：导出MindIR格式的时候，`input=np.random.uniform(...)`是不是固定格式？**</font>
 
@@ -35,7 +35,7 @@ def count_params(net):
     return total_params
 ```
 
-具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py)。
+具体[脚本链接](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/research/cv/tinynet/src/utils.py)。
 
 <br/>
 
@@ -58,7 +58,7 @@ def step_end(self, run_context):
 
 <font size=3>**Q：使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A：`Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A：`Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 

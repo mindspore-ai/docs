@@ -324,7 +324,7 @@
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询http://yann.lecun.com/exdb/lenet/。
 
-网络定义流程[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
+网络定义流程[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/src/model.py)。
 
 具体网络定义流程可参考[MindSpore官方图片分类任务文档]( https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C )。
 
@@ -482,7 +482,7 @@ if __name__ == "__main__":
 
 ## 模拟启动多客户端参与联邦学习
 
-之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)) 来模拟启动多客户端联邦学习任务。
+之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)) 来模拟启动多客户端联邦学习任务。
 
 1. **以Lenet网络为例，参考脚本`run.py`如下：**
 
@@ -600,7 +600,7 @@ if __name__ == "__main__":
 
     - **`--jarPath`**
 
-        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)。
+        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)。
 
     - **`--train_dataset`**
 

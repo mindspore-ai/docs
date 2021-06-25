@@ -47,7 +47,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/probability.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/probability.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 MindSpore deep probabilistic programming is to combine Bayesian learning with deep learning, including probability distribution, probability distribution mapping, deep probability network, probability inference algorithm, Bayesian layer, Bayesian conversion, and Bayesian toolkit. For professional Bayesian learning users, it provides probability sampling, inference algorithms, and model build libraries. On the other hand, advanced APIs are provided for users who are unfamiliar with Bayesian deep learning, so that they can use Bayesian models without changing the deep learning programming logic.
 
@@ -971,7 +971,7 @@ The `trainable_bnn` parameter is a trainable DNN model packaged by `TrainOneStep
 
   ```
 
-  `get_dense_args` specifies the parameters to be obtained from the fully connected layer of the DNN model. The default value is the common parameters of the fully connected layers of the DNN and BNN models. For details about the parameters, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Dense.html). `get_conv_args` specifies the parameters to be obtained from the convolutional layer of the DNN model. The default value is the common parameters of the convolutional layers of the DNN and BNN models. For details about the parameters, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html). `add_dense_args` and `add_conv_args` specify the new parameter values to be specified for the BNN layer. Note that the parameters in `add_dense_args` cannot be the same as those in `get_dense_args`. The same rule applies to `add_conv_args` and `get_conv_args`.
+  `get_dense_args` specifies the parameters to be obtained from the fully connected layer of the DNN model. The default value is the common parameters of the fully connected layers of the DNN and BNN models. For details about the parameters, see [mindspore API](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Dense.html). `get_conv_args` specifies the parameters to be obtained from the convolutional layer of the DNN model. The default value is the common parameters of the convolutional layers of the DNN and BNN models. For details about the parameters, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Conv2d.html). `add_dense_args` and `add_conv_args` specify the new parameter values to be specified for the BNN layer. Note that the parameters in `add_dense_args` cannot be the same as those in `get_dense_args`. The same rule applies to `add_conv_args` and `get_conv_args`.
 
 - Function 2: Convert a specific layer.
 

@@ -20,11 +20,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_zh_cn/quick_start/train_lenet.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
-本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
+本教程基于[LeNet训练示例代码](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/examples/train_lenet)，演示在Android设备上训练一个LeNet。
 
 端侧训练流程如下：
 
@@ -60,14 +60,14 @@ MNIST_Data/
 
 ### 安装MindSpore
 
-你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/master/install/mindspore_cpu_install_pip.md#)。
+你可以通过`pip`或是源码的方式安装MindSpore，详见[MindSpore官网安装教程](https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_cpu_install_pip.md#)。
 
 ### 下载并安装MindSpore Lite
 
 通过`git`克隆源码，进入源码目录，`Linux`指令如下：
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.3
 cd ./mindspore
 ```
 
@@ -199,7 +199,7 @@ Eval Accuracy is 0.965244
 
 ### 定义并导出模型
 
-首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet)。
+首先我们需要基于MindSpore框架创建一个LeNet模型，本例中直接用MindSpore model_zoo的现有[LeNet模型](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/lenet)。
 
 > 本小结使用MindSpore云侧功能导出，更多信息请参考[MindSpore教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/index.html)。
 
@@ -270,7 +270,7 @@ print("finished exporting")
 
 ### 训练模型
 
-模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc)。
+模型训练的处理详细流程请参考[net_runner.cc源码](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/train_lenet/src/net_runner.cc)。
 
 模型训练的主函数为：
 

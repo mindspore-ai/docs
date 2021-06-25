@@ -16,7 +16,7 @@
         - [运行结果](#运行结果)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -28,7 +28,7 @@ MindSpore版的SPONGE是北大和深圳湾实验室高毅勤课题组与华为Mi
 
 本篇教程将主要介绍如何在GPU上，使用MindSpore内置的SPONGE进行高性能分子模拟。
 
-> 你可以在这里下载完整的示例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>。
+> 你可以在这里下载完整的示例代码：<https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/research/hpc/sponge>。
 
 ## 整体执行
 

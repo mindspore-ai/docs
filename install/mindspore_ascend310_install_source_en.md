@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend310_install_source_en.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 The following describes how to quickly install MindSpore by compiling the source code on Linux in the Ascend 310 environment, MindSpore in Ascend 310 only supports inference.
 
@@ -49,7 +49,7 @@ The following describes how to quickly install MindSpore by compiling the source
 ## Downloading Source Code from the Code Repository
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.3
 ```
 
 ## Building MindSpore
@@ -150,4 +150,4 @@ The preceding information indicates that MindSpore is successfully installed.
 
 If you want to quickly experience the MindSpore online inference service, you can install MindSpore Serving.
 
-For details, see [MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README.md).
+For details, see [mindspore Serving](https://gitee.com/mindspore/serving/blob/r1.3/README.md).

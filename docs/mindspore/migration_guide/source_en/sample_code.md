@@ -32,7 +32,7 @@ Translator: [AQUA](https://gitee.com/Liu-HongYe)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 This chapter will introduce the basic steps of network migration, common tools, ideas for locating problems and solutions with use cases.
 
@@ -77,7 +77,7 @@ MindSpore already supports most of the common [functions](https://www.mindspore.
 
 If missing operators and functions are found, we can first consider combining the missing operators and functions based on the current operators or functions, and for mainstream CV and NLP networks, new missing operators can generally be solved by combining existing operators.
 
-The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
+The combined operator can be implemented by means of a cell, which is the case in MindSpore for [nn class operator](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/nn). For example, the following `ReduceSumExp` operator is a combination of the existing `Exp`, `ReduceSum`, and `Log` suboperators.
 
 ```python
 class ReduceLogSumExp(Cell):
@@ -751,7 +751,7 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
+Note: For codes in other files in the directory, refer to MindSpore model_zoo's [ResNet50 implementation](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet)(this script incorporates other ResNet family networks and ResNet-SE networks, and the specific implementation may differ from the benchmark script).
 
 ### Distributed training
 
@@ -920,7 +920,7 @@ When the data processing speed is slow, the queue is gradually depleted from the
 When distributed training is performed, after the forward propagation and gradient computation are completed during a Step, each machine starts to synchronize the AllReduce gradient, and the AllReduce synchronization time is mainly affected by the number of weights and machines.
 
 Normally, AllReduce gradient synchronization waits until all the inverse operators are finished, i.e., all the gradients of all weights are computed before synchronizing the gradients of all machines at once, but with AllReduce tangent, we can synchronize the gradients of some weights as soon as they are computed, so that the gradient synchronization and the gradient computation of the remaining operators can be This way, the gradient synchronization and the gradient computation of the remaining operators can be performed in parallel, hiding this part of the AllReduce gradient synchronization time. The slicing strategy is usually a manual attempt to find an optimal solution (supporting slicing greater than two segments).
-As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
+As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/train.py) has 160 weights and [85, 160] means that the gradient synchronization is performed immediately after the gradient is calculated for the 0th to 85th weights, and the gradient synchronization is performed after the gradient is calculated for the 86th to 160th weights. The code implementation is as follows:
 
 ```python
 from mindspore import context

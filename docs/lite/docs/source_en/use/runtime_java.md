@@ -29,7 +29,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/runtime_java.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -92,7 +92,7 @@ dependencies {
 
 Before performing model inference, MindSpore Lite needs to load the `.ms` model converted by the model conversion tool from the file system and parse the model. The [Model](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#model) class of Java provides two [loadModel](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#loadmodel) APIs to load models from `Assets` or other file paths.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L217) reads the `mobilenetv2.ms` model file from `Assets` to load the model.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L217) reads the `mobilenetv2.ms` model file from `Assets` to load the model.
 
 ```java
 // Load the .ms model.
@@ -103,7 +103,7 @@ boolean ret = model.loadModel(this.getApplicationContext(), modelPath);
 
 > Only the `AAR` library supports the API for loading model files from `Assert`.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/quick_start_java/src/main/java/com/mindspore/lite/demo/Main.java#L128) reads the model file from the `modelPath` path to load the model.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/quick_start_java/src/main/java/com/mindspore/lite/demo/Main.java#L128) reads the model file from the `modelPath` path to load the model.
 
 ```java
 Model model = new Model();
@@ -124,7 +124,7 @@ MindSpore Lite supports inference in float16 operator mode. After `enable_float1
 
 If the backend to be performed is a CPU, you need to configure `DeviceType.DT_CPU` in [init](https://www.mindspore.cn/lite/api/en/r1.3/api_java/msconfig.html#init) after `MSConfig` is created. In addition, the CPU supports the setting of the core binding mode and whether to preferentially use the float16 operator.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59) demonstrates how to create a CPU backend, set the CPU core binding mode to large-core priority, and enable float16 inference:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L59) demonstrates how to create a CPU backend, set the CPU core binding mode to large-core priority, and enable float16 inference:
 
 ```java
 MSConfig msConfig = new MSConfig();
@@ -137,7 +137,7 @@ boolean ret = msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.HIGHER_CPU, true);
 
 If the backend to be performed is heterogeneous inference based on CPU and GPU, you need to configure `DeviceType.DT_GPU` in [init](https://www.mindspore.cn/lite/api/en/r1.3/api_java/msconfig.html#init) after `MSConfig` is created. After the configuration, GPU-based inference is preferentially used. In addition, if enable_float16 is set to true, both the GPU and CPU preferentially use the float16 operator.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L69) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable float16 inference for the GPU.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L69) demonstrates how to create the CPU and GPU heterogeneous inference backend and how to enable float16 inference for the GPU.
 
 ```java
 MSConfig msConfig = new MSConfig();
@@ -150,7 +150,7 @@ boolean ret = msConfig.init(DeviceType.DT_GPU, 2, CpuBindMode.MID_CPU, true);
 
 [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) is the main entry for inference. You can use [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) to build and perform graphs. Create [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) and call the [init](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#init) method to configure the [MSConfig](https://www.mindspore.cn/lite/api/en/r1.3/api_java/msconfig.html#msconfig) obtained in the previous step in the session. After the [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) is initialized, the [MSConfig](https://www.mindspore.cn/lite/api/en/r1.3/api_java/msconfig.html#msconfig) can perform the release operation.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L86) demonstrates how to create a `LiteSession`:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L86) demonstrates how to create a `LiteSession`:
 
 ```java
 LiteSession session = new LiteSession();
@@ -162,7 +162,7 @@ msConfig.free();
 
 Before building a graph, the [compileGraph](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#compilegraph) API of [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) needs to be called to build the graph, including graph partition and operator selection and scheduling. This takes a long time. Therefore, it is recommended that with the [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/session.html#litesession) created each time, one graph be built. In this case, the inference will be performed for multiple times.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L87) demonstrates how to call `CompileGraph` to build a graph.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L87) demonstrates how to call `CompileGraph` to build a graph.
 
 ```java
 boolean ret = session.compileGraph(model);
@@ -172,7 +172,7 @@ boolean ret = session.compileGraph(model);
 
 MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` methods to obtain the input tensor. Both the `byte[]` and `ByteBuffer` data types are supported. You can set the data of the input tensor by calling [setData](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#setdata).
 
-1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getinputsbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputsByTensorName` function to obtain the input tensor and fill in data.
+1. Use the [getInputsByTensorName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getinputsbytensorname) method to obtain the tensor connected to the input node from the model input tensor based on the name of the model input tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L151) demonstrates how to call the `getInputsByTensorName` function to obtain the input tensor and fill in data.
 
     ```java
     MSTensor inputTensor = session.getInputsByTensorName("2031_2030_1_construct_wrapper:x");
@@ -180,7 +180,7 @@ MindSpore Lite Java APIs provide the `getInputsByTensorName` and `getInputs` met
     inputTensor.setData(inputData);
     ```
 
-2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113) demonstrates how to call `getInputs` to obtain the input tensors and fill in the data.
+2. Use the [getInputs](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getinputs) method to directly obtain the vectors of all model input tensors. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L113) demonstrates how to call `getInputs` to obtain the input tensors and fill in the data.
 
     ```java
     List<MSTensor> inputs = session.getInputs();
@@ -206,7 +206,7 @@ boolean ret = session.runGraph();
 
 After performing inference, MindSpore Lite can output a tensor to obtain the inference result. MindSpore Lite provides three methods to obtain the output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html) of a model and supports the [getByteData](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#getbytedata), [getFloatData](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#getfloatdata), [getIntData](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#getintdata) and [getLongData](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#getlongdata) methods to obtain the output data.
 
-1. Use the [getOutputMapByTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputmapbytensor) method to directly obtain the names of all model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) and a map of the [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) pointer. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L191) demonstrates how to call `getOutputMapByTensor` to obtain the output tensor.
+1. Use the [getOutputMapByTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputmapbytensor) method to directly obtain the names of all model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) and a map of the [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) pointer. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L191) demonstrates how to call `getOutputMapByTensor` to obtain the output tensor.
 
     ```java
     Map<String, MSTensor> outTensors = session.getOutputMapByTensor();
@@ -219,7 +219,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
     }
     ```
 
-2. Use the [getOutputByNodeName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+2. Use the [getOutputByNodeName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputsbynodename) method to obtain the vector of the tensor connected to the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) based on the name of the model output node. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L175) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = session.getOutputsByNodeName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -227,7 +227,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
     ...
     ```
 
-3. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputbytensorname) method to obtain the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) based on the name of the model output tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L182) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
+3. Use the [getOutputByTensorName](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#getoutputbytensorname) method to obtain the model output [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_java/mstensor.html#mstensor) based on the name of the model output tensor. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L182) demonstrates how to call `getOutputByTensorName` to obtain the output tensor.
 
     ```java
     MSTensor outTensor = session.getOutputByTensorName("Default/head-MobileNetV2Head/Softmax-op204");
@@ -237,7 +237,7 @@ After performing inference, MindSpore Lite can output a tensor to obtain the inf
 
 ## Releasing the Memory
 
-If the MindSpore Lite inference framework is not required, you need to release the created LiteSession and Model. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L204) demonstrates how to release the memory before the program ends.
+If the MindSpore Lite inference framework is not required, you need to release the created LiteSession and Model. The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L204) demonstrates how to release the memory before the program ends.
 
 ```java
 session.free();
@@ -250,7 +250,7 @@ model.free();
 
 If there is a large limit on the running memory, call the [freeBuffer](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#freebuffer) function of [Model](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#model) after the graph build is complete to release the MetaGraph in the MindSpore Lite Model to reduce the running memory. Once the [freeBuffer](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#freebuffer) of a [Model](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#model) is called, the [Model](https://www.mindspore.cn/lite/api/en/r1.3/api_java/model.html#model) cannot be built again.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L241) demonstrates how to call the `freeBuffer` interface of `Model` to release `MetaGraph` to reduce the memory size during running.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L241) demonstrates how to call the `freeBuffer` interface of `Model` to release `MetaGraph` to reduce the memory size during running.
 
 ```java
 // Compile graph.
@@ -266,7 +266,7 @@ The built-in thread pool of MindSpore Lite supports core binding and unbinding. 
 
 Note that core binding is an affinity operation and may not be bound to a specified CPU core. It may be affected by system scheduling. In addition, after the core binding, you need to perform the unbinding operation after the code is performed.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to bind to cores with the highest frequency first when performing inference.
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to bind to cores with the highest frequency first when performing inference.
 
 ```java
 boolean ret = msConfig.init(DeviceType.DT_CPU, 2, CpuBindMode.HIGHER_CPU, true);
@@ -291,7 +291,7 @@ When using MindSpore Lite for inference, if you need to resize the input shape, 
 
 > Some networks do not support variable dimensions. As a result, an error message is displayed and the model exits unexpectedly. For example, the model contains the MatMul operator, one input tensor of the MatMul operator is the weight, and the other input tensor is the input. If a variable dimension API is called, the input tensor does not match the shape of the weight tensor. As a result, the inference fails.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to perform [resize](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#resize) on the input tensor of MindSpore Lite:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L164) demonstrates how to perform [resize](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#resize) on the input tensor of MindSpore Lite:
 
 ```java
 List<MSTensor> inputs = session.getInputs();
@@ -303,7 +303,7 @@ bool ret = session.resize(inputs, dims);
 
 MindSpore Lite supports parallel inference of multiple [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html). The thread pool and memory pool of each [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) are independent. However, multiple threads cannot call the [runGraph](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#rungraph) API of a single [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html#litesession) at the same time.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220) demonstrates how to infer multiple [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html) in parallel:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L220) demonstrates how to infer multiple [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html) in parallel:
 
 ```java
 session1 = createLiteSession(false);
@@ -362,7 +362,7 @@ logcat -s "MS_LITE"
 
 MindSpore Lite provides the [Version](https://www.mindspore.cn/lite/api/en/r1.3/api_java/lite_session.html) method to obtain the version number, which is included in the `com.mindspore.lite.Version` header file. You can call this method to obtain the version number of MindSpore Lite.
 
-The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215) demonstrates how to obtain the version number of MindSpore Lite:
+The following sample code from [MainActivity.java](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_java/app/src/main/java/com/mindspore/lite/demo/MainActivity.java#L215) demonstrates how to obtain the version number of MindSpore Lite:
 
 ```java
 import com.mindspore.lite.Version;

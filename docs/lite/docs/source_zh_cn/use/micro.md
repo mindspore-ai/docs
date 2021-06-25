@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_zh_cn/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -187,7 +187,7 @@ mnist
 
     以上命令均成功返回值时，表明环境准备已完成，可以继续进入下一步，否则请务必先安装上述环境。
 
-2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)）
+2. 生成STM32F746单板初始化代码（[详情示例代码](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_stm32f746)）
 
     - 启动 STM32CubeMX，新建project，选择单板STM32F746IG。
     - 成功以后，选择`Makefile` ，`generator code`。
@@ -220,7 +220,7 @@ mnist
     └── test_stm32f746.ioc
     ```
 
-3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746)。
+3. 修改makefile文件，组织算子静态库以及模型推理代码，具体makefile文件内容参见[示例](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_stm32f746)。
 
     ```text
     # C includes
@@ -303,6 +303,6 @@ c                        # 执行模型推理
 
 ## 更多详情
 
-### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+### [Linux_x86_64平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_x86)
 
-### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+### [Android平台编译部署](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mobilenetv2)

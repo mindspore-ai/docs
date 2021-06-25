@@ -18,7 +18,7 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998/docs/tree/master)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_en/preparation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -40,7 +40,7 @@ If an old version of MindSpore exists in the environment, please uninstall it be
 
 ### Installing by Source Code
 
-You can visit [Repository of Mindspore](https://gitee.com/mindspore/mindspore) and download the source code by `git clone https://gitee.com/mindspore/mindspore.git`. A file  `build.sh` in root directory provides several optional parameters, to choose and customize the MindSpore service. The following code is for compiling MindSpore.
+You can visit [Repository of Mindspore](https://gitee.com/mindspore/mindspore) and download the source code by `git clone https://gitee.com/mindspore/mindspore.git -b r1.3`. A file  `build.sh` in root directory provides several optional parameters, to choose and customize the MindSpore service. The following code is for compiling MindSpore.
 
 ```bash
 cd mindspore
@@ -128,9 +128,9 @@ Users can read [MindSpore Tutorial](https://www.mindspore.cn/docs/programming_gu
 
 ### ModelZoo and Hub
 
-[ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
+[ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
 
-[MindSpore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://mindspore.cn/tutorial/training/en/master/use/publish_model.html) to MindSpore Hub,for other developers to download and use.
+[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://mindspore.cn/tutorial/training/en/r1.3/use/publish_model.html) to MindSpore Hub,for other developers to download and use.
 
 ### Training on the Cloud
 

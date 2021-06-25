@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/apply_quantization_aware_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 背景
 
@@ -51,7 +51,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 | 规格 | 规格说明 |
 | --- | --- |
 | 硬件支持 | GPU、Ascend AI 910处理器的硬件平台 |
-| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/master/model_zoo>。 |
+| 网络支持 | 已实现的网络包括LeNet、ResNet50等网络，具体请参见<https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo>。 |
 | 算法支持 | 支持非对称和对称的量化算法；支持逐层和逐通道的量化算法。|
 | 方案支持 | 支持4、7和8比特的量化方案。 |
 | 数据类型支持 | Ascend平台支持精度为FP32和FP16的网络进行量化训练，GPU平台支持FP32。 |
@@ -70,7 +70,7 @@ MindSpore的感知量化训练是指在训练时使用伪量化节点来模拟�
 
 在上面流程中，步骤2和步骤6是感知量化训练区别普通训练需要额外进行的步骤。接下来，以LeNet网络为例，展开叙述量化相关步骤。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/lenet_quant> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/lenet_quant> 。
 
 ### 定义量化网络
 

@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/migrate_3rd_scripts.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/migrate_3rd_scripts.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -33,7 +33,7 @@
 
 分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/r1.3/operator_list_ms.html)，梳理出MindSpore对这些算子的支持程度。
 
-以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
+以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
 
@@ -59,7 +59,7 @@
 
 MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差别，迁移前需要对原脚本有较为清晰的了解，明确地知道每一层的shape等信息。
 
-> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
+> 你也可以使用[MindConverter工具](https://gitee.com/mindspore/mindinsight/tree/r1.3/mindinsight/mindconverter)实现PyTorch网络定义脚本到MindSpore网络定义脚本的自动转换。
 
 下面，我们以ResNet-50的迁移，并在Ascend 910上训练为例：
 
@@ -81,7 +81,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
                                num_shards=device_num, shard_id=rank_id)
     ```
 
-    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/dataset.py>。
+    然后对数据进行了数据增强、数据清洗和批处理等操作。代码详见<https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/dataset.py>。
 
 3. 构建网络。
 
@@ -215,7 +215,7 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 6. 构造整网。
 
-    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
+    将定义好的多个子网连接起来就是整个[ResNet-50](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/resnet.py)网络的结构了。同样遵循先定义后使用的原则，在`__init__`中定义所有用到的子网，在`construct`中连接子网。
 
 7. 定义损失函数和优化器。
 
@@ -275,4 +275,4 @@ MindSpore与TensorFlow、PyTorch在网络结构组织方式上，存在一定差
 
 1. [常用数据集读取样例](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html)
 
-2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
+2. [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo)

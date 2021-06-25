@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/custom/operator.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/middleclass/custom/operator.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 自定义算子开发
 
@@ -54,7 +54,7 @@ x \qquad\qquad\quad\ \  if \quad x > 0
 \end{cases}
 $$
 
-Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Elu.html)。
+Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.Elu.html)。
 
 ### 算子前端定义
 

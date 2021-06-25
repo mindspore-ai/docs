@@ -2,7 +2,7 @@
 
 `Linux` `Ascend` `GPU` `CPU` `模型开发` `初级` `中级` `高级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/defining_the_network.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/defining_the_network.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 由多个层组成的神经网络模型，是训练过程的重要组成部分。你可以基于MindSpore中的`nn.Cell`基类，通过初始化`__init__`方法和构造`construct`方法构建网络模型。定义网络模型有以下几种方式：
 

@@ -1,10 +1,10 @@
 # mindspore::tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## MSTensor
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 MSTensor defined tensor in MindSpore Lite.
 
@@ -40,7 +40,7 @@ virtual TypeId data_type() const
 
 Get data type of the MindSpore Lite MSTensor.
 
-> TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h). Only number types or kObjectTypeString in TypeId enum are applicable for MSTensor.
+> TypeId is defined in [mindspore/mindspore/core/ir/dtype/type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/core/ir/dtype/type_id.h). Only number types or kObjectTypeString in TypeId enum are applicable for MSTensor.
 
 - Returns
 

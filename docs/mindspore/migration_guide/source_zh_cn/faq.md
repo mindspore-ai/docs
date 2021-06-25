@@ -1,6 +1,6 @@
 # 常见问题
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/faq.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 从其他框架迁移到MindSpore框架的过程中，可能会遇到各种各样的问题，下面将迁移过程中的常见问题及其解决方法汇总如下：
 
@@ -16,7 +16,7 @@
 
 - 网络脚本开发
 
-    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/README_CN.md#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
+    [MindConverter工具常见问题处理](https://gitee.com/mindspore/mindinsight/blob/r1.3/mindinsight/mindconverter/README_CN.md#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 - 网络调试
 
@@ -34,6 +34,6 @@
 
 - 执行推理
 
-    [端侧使用类常见问题处理](https://www.mindspore.cn/tutorial/lite/zh-CN/master/faq.html)
+    [端侧使用类常见问题处理](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/faq.html)
 
     [推理常见问题处理](https://www.mindspore.cn/docs/faq/zh-CN/r1.3/inference.html)

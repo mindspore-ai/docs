@@ -44,11 +44,11 @@ MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可
 
 ## 通用算子
 
-整个算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_test.cc)。
+整个算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/test/ut/src/registry/registry_test.cc)。
 
 ### 通用算子实现
 
-继承[mindspore::kernel::Kernel](https://mindspore.cn/doc/api_cpp/zh-CN/master/kernel.html)，重载实现必要的接口。
+继承[mindspore::kernel::Kernel](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/kernel.html)，重载实现必要的接口。
 
 #### 样例代码与说明
 
@@ -107,7 +107,7 @@ int TestCustomAdd::Execute() {
 
 ### 通用算子注册
 
-当前有提供现成的宏[REGISTER_KERNEL](https://mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#REGISTER_KERNEL)可以进行算子注册，用户也可以仿照宏内对应的代码去调用具体的接口。
+当前有提供现成的宏[REGISTER_KERNEL](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#REGISTER_KERNEL)可以进行算子注册，用户也可以仿照宏内对应的代码去调用具体的接口。
 
 #### 样例代码与说明
 
@@ -128,9 +128,9 @@ REGISTER_KERNEL(CPU, BuiltInTest, kNumberTypeFloat32, PrimitiveType_AddFusion, T
 
 ### 通用算子InferShape
 
-1. 继承[KernelInterface](https://mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#KernelInterface)。
+1. 继承[KernelInterface](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#KernelInterface)。
 2. 重载实现Infer函数，推导出output tensor的shape，format，data_type。
-3. 注册自定义的KernelInterface，可以使用注册宏[REGISTER_KERNEL_INTERFACE](https://mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#REGISTER_KERNEL_INTERFACE)。
+3. 注册自定义的KernelInterface，可以使用注册宏[REGISTER_KERNEL_INTERFACE](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#REGISTER_KERNEL_INTERFACE)。
 
 #### 样例代码与说明
 
@@ -162,7 +162,7 @@ REGISTER_KERNEL_INTERFACE(BuiltInTest, PrimitiveType_AddFusion, CustomAddInferCr
 
 ## Custom算子
 
-Custom算子的解析、创建、操作等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
+Custom算子的解析、创建、操作等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/test/ut/tools/converter/registry/pass_registry_test.cc)。
 
 ### Custom算子定义
 
@@ -242,11 +242,11 @@ REG_PASS(POSITION_BEGIN, TestPass)         // 注册Pass，置于内置融合之
 }  // namespace mindspore::opt
 ```
 
-整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
+整个Custom算子的实现、注册、infershape等相关的代码可以参看代码仓里的[样例](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/test/ut/src/registry/registry_custom_op_test.cc)。
 
 ### Custom算子实现
 
-Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://mindspore.cn/doc/api_cpp/zh-CN/master/kernel.html#Kernel)的具体子类。
+Custom算子的实现整体流程与通用算子的实现是一致的，因为都是[Kernel](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/kernel.html#Kernel)的具体子类。
 如果自定义算子不是运行在CPU平台上，那样需要在运行结束时把结果重新拷回output tensor。
 
 #### 样例代码与说明
@@ -322,7 +322,7 @@ int TestCustomOp::Execute() {
 
 ### Custom算子注册
 
-当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#REGISTER_CUSTOM_KERNEL)可以进行算子注册。
+当前有提供的现成的宏[REGISTER_CUSTOM_KERNEL](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#REGISTER_CUSTOM_KERNEL)可以进行算子注册。
 
 #### 样例代码与说明
 
@@ -344,7 +344,7 @@ REGISTER_CUSTOM_KERNEL(CPU, BuiltInTest, kNumberTypeFloat32, Add, TestCustomAddC
 ### Custom算子InferShape
 
 整体实现与通用算子的InferShape差不多，主要的差异在注册上。
-Custom算子的InferShape采用宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#REGISTER_CUSTOM_KERNEL_INTERFACE)进行注册。
+Custom算子的InferShape采用宏[REGISTER_CUSTOM_KERNEL_INTERFACE](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#REGISTER_CUSTOM_KERNEL_INTERFACE)进行注册。
 
 #### 样例代码与说明
 

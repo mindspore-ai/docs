@@ -60,7 +60,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_zh_cn/static_graph_syntax_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_zh_cn/static_graph_syntax_support.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -265,7 +265,7 @@
 
 可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.constexpr.html>
+关于`@constexpr`的用法可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html>
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`里使用。
 
@@ -1131,18 +1131,18 @@ ret = grad_net(input_x, input_y, input_z)
 
 - 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
 
-- 继承自[nn.Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Cell.html)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络构造组件
 
 | 类别                 | 内容                                                                                                                                                                                                         |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/nn/mindspore.nn.Cell.html)。 |
+| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Cell.html)。 |
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。                                                                                                                                                                    |
 | `dataclass`实例      | 使用@dataclass装饰的类。                                                                                                                                                                                     |
 | `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)                                                                                              |
 | `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)                                                                                               |
-| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
+| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
 | 函数                 | 自定义Python函数、前文中列举的系统函数。                                                                                                                                                                     |
 
 ### 网络使用约束

@@ -6,7 +6,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/infer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/infer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Based on the model trained by MindSpore, it supports the execution of inferences on various platforms such as Ascend 910 AI processor, Ascend 310 AI processor, GPU, CPU, and device side. For more details, please refer to the following tutorials:
 

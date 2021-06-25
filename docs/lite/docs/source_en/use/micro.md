@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/micro.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -186,7 +186,7 @@ The generated program compilation and deployment need to install the following t
 
     If all success, the environment preparation is done.
 
-2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746))
+2. Generate the initialization codes run on the STM32F746 board. ([detailed code example](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_stm32f746))
 
     - start STM32CubeMX, new project and choose STM32F746IG.
     - Choose `Makefile` and `generator code`.
@@ -219,7 +219,7 @@ The generated program compilation and deployment need to install the following t
     └── test_stm32f746.ioc
     ```
 
-3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
+3. Modify makefile, organize operator library source code and generated inference code, check [example](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_stm32f746) to get detailed information about makefile.
 
     ```text
     # C includes
@@ -302,6 +302,6 @@ c                        # perform model inference
 
 ## More Details
 
-### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mnist_x86)
+### [Linux_x86_64 platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mnist_x86)
 
-### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/micro/example/mobilenetv2)
+### [Android platform compile and deploy](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/micro/example/mobilenetv2)

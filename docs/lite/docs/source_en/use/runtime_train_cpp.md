@@ -30,7 +30,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/docs/source_en/use/runtime_train_cpp.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -113,7 +113,7 @@ int CreateSession() {
 }
 ```
 
-> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/train_lenet/src/net_runner.cc) for more details.
+> Refer [Train a LeNet](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/train_lenet/src/net_runner.cc) for more details.
 
 ## Data Processing
 

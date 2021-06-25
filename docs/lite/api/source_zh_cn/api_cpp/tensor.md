@@ -1,10 +1,10 @@
 # mindspore::tensor
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/tensor.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## MSTensor
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 MSTensor定义了MindSpore Lite中的张量。
 
@@ -40,7 +40,7 @@ virtual TypeId data_type() const
 
 获取MindSpore Lite MSTensor的数据类型。
 
-> TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型或kObjectTypeString可用于MSTensor。
+> TypeId在[mindspore/mindspore/core/ir/dtype/type_id\.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/core/ir/dtype/type_id.h)中定义。只有TypeId枚举中的数字类型或kObjectTypeString可用于MSTensor。
 
 - 返回值
 

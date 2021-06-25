@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：一个环境中如果既安装了MindSpore，又安装了PyTorch，是否在一个python文件中可以混用两个框架的语法呢？**</font>
 
@@ -42,7 +42,7 @@ A：由于ProtoBuf的硬件限制，导出AIR、ONNX模型时，单个Tensor大�
 
 <font size=3>**Q：安装运行MindSpore时，是否要求平台有GPU、NPU等计算单元？需要什么硬件支持？**</font>
 
-A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/docs/note/zh-CN/r1.3/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
+A：MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/docs/note/zh-CN/r1.3/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#)获取最新信息。
 
 <br/>
 
@@ -66,7 +66,7 @@ A：MindSpore支持Python原生表达，`import mindspore`相关包即可使用�
 
 <font size=3>**Q：请问MindSpore支持梯度截断吗？**</font>
 
-A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
+A：支持，可以参考[梯度截断的定义和使用](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35)。
 
 <br/>
 

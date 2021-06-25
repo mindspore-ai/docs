@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: If MindSpore and PyTorch are installed in an environment, can the syntax of the two frameworks be used together in a Python file?**</font>
 
@@ -36,7 +36,7 @@ A: Due to hardware limitations of ProtoBuf, when exporting AIR and ONNX models, 
 
 <font size=3>**Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?**</font>
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#).
 
 <br/>
 
@@ -54,7 +54,7 @@ A: MindSpore supports Python native expression via `import mindspore`.
 
 <font size=3>**Q: Does MindSpore support truncated gradient?**</font>
 
-A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
+A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/nlp/transformer/src/transformer_for_train.py#L35).
 
 <br/>
 

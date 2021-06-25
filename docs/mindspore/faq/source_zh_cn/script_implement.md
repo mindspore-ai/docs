@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
 
@@ -56,7 +56,7 @@ A：首先输入PyTorch的`pth`文件，以`ResNet-18`为例，MindSpore的网�
 
 <font size=3>**Q：MindSpore有哪些现成的推荐类或生成类网络或模型可用？**</font>
 
-A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)。
+A：目前正在开发Wide & Deep、DeepFM、NCF等推荐类模型，NLP领域已经支持Bert_NEZHA，正在开发MASS等模型，用户可根据场景需要改造为生成类网络，可以关注[MindSpore Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo)。
 
 <br/>
 
@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q：如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A：以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/linear_regression.py)
+A：以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$：
 

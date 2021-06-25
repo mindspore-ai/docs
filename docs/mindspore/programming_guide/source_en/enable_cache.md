@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/enable_cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/enable_cache.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -158,7 +158,7 @@ Therefore, the performance of evaluation during training will have a great impac
 
 The inference data processing procedure usually does not contain random operations. For example, the dataset processing in ResNet50 evaluation only contains augmentations like `Decode`, `Resize`, `CenterCrop`, `Normalize`, `HWC2CHW`, `TypeCast`. Therefore, it's usually better to inject cache after the last augmentation step and directly cache data that's fully augmented, to minimize repeated computations and to yield the most performance benefits. In this section, we will follow this approach and take ResNet as an example.
 
-For the complete sample code, please refer to [ResNet](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet) in ModelZoo.
+For the complete sample code, please refer to [ResNet](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet) in ModelZoo.
 
 1. Create a Shell script named `cache_util.sh` for cache management:
 
@@ -177,7 +177,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
    }
    ```
 
-   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/cache_util.sh)
+   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
 
 2. In the Shell script for starting the distributed training i.e., `run_distributed_train.sh`, start a cache server for evaluation during training scenarios and generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 
@@ -282,7 +282,7 @@ However, due to the fact that the cost of accessing NFS is usually large, runnin
 
 Note that typically after reading the dataset, certain random operations such as `RandomCropDecodeResize` would be performed in the dataset processing procedure. Caching after these random operations would result in the loss of randomness of the data, and therefore affect the final accuracy. As a result, we choose to directly cache the source dataset. In this section, we will follow this approach and take MobileNetV2 as an example.
 
-For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2)  in ModelZoo.
+For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/mobilenetv2)  in ModelZoo.
 
 1. Create a Shell script namely `cache_util.sh` for cache management:
 
@@ -301,7 +301,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
    }
    ```
 
-   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/cache/cache_util.sh)
+   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
 
 2. In the Shell script for starting the distributed training with NFS dataset i.e., `run_train_nfs_cache.sh`, start a cache server for scenarios where dataset is on NFS. Then generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 

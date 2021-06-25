@@ -1,6 +1,6 @@
 # Class List
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/class_list.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/class_list.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Here is a list of all classes with links to the namespace documentation for each member in MindSpore Lite:
 
@@ -15,7 +15,7 @@ Here is a list of all classes with links to the namespace documentation for each
 | mindspore::lite | [ModelBuilder](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#modelbuilder) | ModelBuilder is defined to build the model. |
 | mindspore::session | [LiteSession](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/session.html#litesession) | LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding model. |
 | mindspore::tensor | [MSTensor](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/tensor.html#mstensor) | MSTensor defines tensor in MindSpore Lite. |
-| mindspore::dataset | [LiteMat](https://www.mindspore.cn/doc/api_cpp/en/master/api/classmindspore_dataset_LiteMat.html) |LiteMat is a class used to process images. |
+| mindspore::dataset | [LiteMat](https://www.mindspore.cn/doc/api_cpp/en/r1.3/api/classmindspore_dataset_LiteMat.html) |LiteMat is a class used to process images. |
 
 The definitions and namespaces of classes in MindSpore are as follows:
 

@@ -1,16 +1,16 @@
 # mindspore::lite（registry）
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/api_cpp/source_zh_cn/registry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/api_cpp/source_zh_cn/registry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## ModelParser
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 ModelParser类定义了解析原始模型的基类。
 
 ## ModelParserCreator
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 ModelParserCreator定义了创建ModelParser的函数指针类型。
 
@@ -24,7 +24,7 @@ typedef ModelParser *(*ModelParserCreator)()
 
 ## ModelParserRegistry
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 ModelParserRegistry类用于注册及获取ModelParserCreator类型的函数指针。
 
@@ -104,7 +104,7 @@ parsers_
 
 ## ModelRegistrar
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 ModelRegistrar类定义了ModelParserCreator类的注册形式，用于程序运行时程序主动注册ModelParserCreator类。
 
@@ -134,7 +134,7 @@ ModelRegistrar的析构函数。
 
 ## REG_MODEL_PARSER
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 REG_MODEL_PARSER定义了ModelParserCreator类的注册宏，便于ModelParserCreator类的注册。
 
@@ -148,12 +148,12 @@ REG_MODEL_PARSER定义了ModelParserCreator类的注册宏，便于ModelParserCr
 
     - `creator`: 定义了ModelParserCreator类型的函数指针。
 
-> fmk只支持设为TF、TFLITE、CAFFE、ONNX，这与模型转换工具[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id5)的fmk参数是一一对应的。
+> fmk只支持设为TF、TFLITE、CAFFE、ONNX，这与模型转换工具[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id5)的fmk参数是一一对应的。
 > 用户自定义的ModelParser，框架类型也必须满足上述设定。
 
 ## Pass
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 前置声明，Pass定义了图优化的基类。以供用户继承，自定义Pass。用户自定义Pass需重载以下虚函数：
 
@@ -163,7 +163,7 @@ virtual bool Run(const FuncGraphPtr &func_graph) = 0;
 
 ## PassPtr
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 PassPtr定义了Pass的共享智能指针。
 
@@ -173,7 +173,7 @@ using PassPtr = std::shared_ptr<Pass>
 
 ## PassPosition
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 PassPosition枚举类定义了用户自定义Pass的放置位置。
 
@@ -188,7 +188,7 @@ enum PassPosition {
 
 ## PassRegistry
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 PassRegistry类用于注册及获取Pass类实例。
 
@@ -234,7 +234,7 @@ void RegPass(int position, const PassPtr &pass)
 
 - 参数
 
-    - `int`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#passposition)。
+    - `int`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
@@ -272,7 +272,7 @@ mutex_
 
 ## PassRegistrar
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 PassRegistrar类定义了Pass类的注册形式，用于程序运行时程序主动注册Pass类。
 
@@ -288,7 +288,7 @@ ModelRegistrar的构造函数。
 
 - 参数
 
-    - `pos`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#passposition)。
+    - `pos`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
@@ -302,7 +302,7 @@ PassRegistrar的析构函数。
 
 ## REG_PASS
 
-\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/pass_registry.h)&gt;
+\#include &lt;[pass_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/pass_registry.h)&gt;
 
 REG_PASS定义了Pass类的注册宏，便于Pass类的注册。
 
@@ -312,13 +312,13 @@ REG_PASS定义了Pass类的注册宏，便于Pass类的注册。
 
 - 参数
 
-    - `pos`: 定义了Pass类实例的放置位置，PassPosition枚举类[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/registry.html#passposition)。
+    - `pos`: 定义了Pass类实例的放置位置，PassPosition枚举类[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
 ## CreateKernel
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/register_kernel.h)>
 
 创建Kernel的函数原型
 
@@ -330,17 +330,17 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 
-    - `ctx`: 上下文配置[lite::Context](https://mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#Context)。
+    - `ctx`: 上下文配置[lite::Context](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html#Context)。
 
 ## REGISTER_KERNEL
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/register_kernel.h)>
 
 注册算子。
 
@@ -354,15 +354,15 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
     - `provider`: 产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h)中。
+    - `data_type`: 算子支持的数据类型，定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/core/ir/dtype/type_id.h)中。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建算子的函数指针，具体见CreateKernel的说明。
 
 ## REGISTER_CUSTOM_KERNEL
 
-\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/register_kernel.h)>
+\#include <[registry/register_kernel.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/register_kernel.h)>
 
 注册Custom算子
 
@@ -376,7 +376,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
     - `provider`: 产商名，由用户自定义。
 
-    - `data_type`: 算子支持的数据类型，定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/core/ir/dtype/type_id.h)中。
+    - `data_type`: 算子支持的数据类型，定义在[type_id.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/core/ir/dtype/type_id.h)中。
 
     - `op_type`: 算子类型，由用户自定义，确保唯一即可。
 
@@ -384,7 +384,7 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 ## KernelInterface
 
-\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/kernel_interface.h)>
+\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/kernel_interface.h)>
 
 算子的统一接口。
 
@@ -401,15 +401,15 @@ virtual int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vect
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/master/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 
 ## KernelInterfaceCreator
 
-\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/kernel_interface.h)>
+\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/kernel_interface.h)>
 
 创建KernelInterface的函数原型
 
@@ -419,7 +419,7 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 
 ## REGISTER_KERNEL_INTERFACE
 
-\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/kernel_interface.h)>
+\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/kernel_interface.h)>
 
 注册KernelInterface的实现。
 
@@ -430,13 +430,13 @@ using KernelInterfaceCreator = std::function<std::shared_ptr<KernelInterface>()>
 - 参数
     - `provider`: 产商，由用户自定义。
 
-    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
+    - `op_type`: 算子类型，定义在[ops.fbs](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/schema/ops.fbs)中，编绎时会生成到ops_generated.h，该文件可以在发布件中获取。
 
     - `creator`: 创建KernelInterface的函数指针，具体见KernelInterfaceCreator的说明。
 
 ## REGISTER_CUSTOM_KERNEL_INTERFACE
 
-\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/kernel_interface.h)>
+\#include <[registry/kernel_interface.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/kernel_interface.h)>
 
 注册Custom算子对应的KernelInterface实现。
 
