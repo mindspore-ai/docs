@@ -28,3 +28,6 @@ MindSpore教程
 
    custom
    computer_vision
+   device_inference
+   middleclass/pynative_mode_and_graph_mode/pynative_mode
+   nlp
