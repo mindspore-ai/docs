@@ -252,7 +252,7 @@ An **enum** type. Defaults to **DT_CPU**. DeviceType is defined for holding 
 device_info_
 ```
 
-An **union** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo) ,  [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo) .
+An **struct** value, contains [**CpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#cpudeviceinfo), [**GpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#gpudeviceinfo) and [**NpuDeviceInfo**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#npudeviceinfo).
 
 #### provider_
 
@@ -282,7 +282,7 @@ Optional, when registry kernel is not running on cpu [Allocator](https://mindspo
 
 \#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/context.h)&gt;
 
-An **union** value. DeviceInfo is defined for backend's configuration information.
+An **struct** value. DeviceInfo is defined for backend's configuration information.
 
 ### Public Attributes
 
