@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_mobilenetv2_fine_tune.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -36,7 +36,7 @@ MindSpore is a diversified machine learning framework. It can run on devices suc
 
 Currently, only the CPU is supported on Windows, and the CPU, GPU, and Ascend AI Processor are supported on Ubuntu and EulerOS.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/mobilenetv2>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/mobilenetv2>.
 
 ## Task Description and Preparations
 
@@ -117,7 +117,7 @@ On the Windows operating system, backslashes `\` are used to separate directorie
 Run the following command to clone [MindSpore open-source project repository](https://gitee.com/mindspore/mindspore.git) in Gitee and go to `./model_zoo/official/cv/mobilenetv2/`.
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.3
 cd ./mindspore/model_zoo/official/cv/mobilenetv2
 ```
 

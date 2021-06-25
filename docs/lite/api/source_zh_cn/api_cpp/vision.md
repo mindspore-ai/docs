@@ -1,10 +1,10 @@
 # mindspore::dataset::vision
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/vision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/vision.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## HWC2CHW
 
-\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision.h)&gt;
+\#include &lt;[vision.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision.h)&gt;
 
 ```cpp
 std::shared_ptr<HwcToChwOperation> HWC2CHW()
@@ -18,7 +18,7 @@ std::shared_ptr<HwcToChwOperation> HWC2CHW()
 
 ## CenterCrop
 
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
 
 ```cpp
 std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
@@ -36,7 +36,7 @@ std::shared_ptr<CenterCropOperation> CenterCrop(std::vector<int32_t> size)
 
 ## Crop
 
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
 
 ```cpp
 std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vector<int32_t> size)
@@ -55,7 +55,7 @@ std::shared_ptr<CropOperation> Crop(std::vector<int32_t> coordinates, std::vecto
 
 ## Decode
 
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
 
 ```cpp
 std::shared_ptr<DecodeOperation> Decode(bool rgb = true)
@@ -73,7 +73,7 @@ std::shared_ptr<DecodeOperation> Decode(bool rgb = true)
 
 ## Normalize
 
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
 
 ```cpp
 std::shared_ptr<NormalizeOperation> Normalize(std::vector<float> mean, std::vector<float> std)
@@ -92,7 +92,7 @@ std::shared_ptr<NormalizeOperation> Normalize(std::vector<float> mean, std::vect
 
 ## Resize
 
-\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
+\#include &lt;[vision_lite.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/ccsrc/minddata/dataset/include/dataset/vision_lite.h)&gt;
 
 ```cpp
 std::shared_ptr<ResizeOperation> Resize(std::vector<int32_t> size, InterpolationMode interpolation = InterpolationMode::kLinear)

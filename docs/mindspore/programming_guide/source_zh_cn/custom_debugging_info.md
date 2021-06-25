@@ -25,11 +25,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/custom_debugging_info.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_custom_debugging_info.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/mindspore_custom_debugging_info.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL21pbmRzcG9yZV9jdXN0b21fZGVidWdnaW5nX2luZm8uaXB5bmI=&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbWFzdGVyL21pbmRzcG9yZV9jdXN0b21fZGVidWdnaW5nX2luZm8uaXB5bmI=&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png"></a>
 
 ## 概述
 
@@ -114,7 +114,7 @@ class Callback():
 
 > 自定义`Callback`样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_callback.py>
 
 - 在规定时间内终止训练。
 
@@ -175,7 +175,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 
 > `metrics`使用样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_metrics.py>
 
 ```python
 metrics = {

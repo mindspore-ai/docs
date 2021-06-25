@@ -19,7 +19,7 @@ Translator: [LiangRio](https://gitee.com/liangrio)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/hpc_sponge.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -31,7 +31,7 @@ SPONGE in MindSpore is molecular simulation library jointly developed by the Gao
 
 This tutorial mainly introduces how to use SPONGE, which is built in MindSpore, to perform high performance molecular simulation on the GPU.
 
-> Here you can download the complete sample code: <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/research/hpc/sponge>.
+> Here you can download the complete sample code: <https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/research/hpc/sponge>.
 
 ## Overall Execution
 

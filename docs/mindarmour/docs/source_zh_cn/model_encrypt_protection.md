@@ -14,7 +14,7 @@
         - [模型转换工具](#模型转换工具)
 
 <!-- TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/training/source_zh_cn/advanced_use/model_encrypt_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## 概述
 
@@ -23,7 +23,7 @@ MindSpore框架提供通过加密对模型文件进行保护的功能，使用�
 
 以下通过示例来介绍加密导出和解密加载的方法。
 
-> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/model_encrypt_protection/encrypt_checkpoint.py>
+> 你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/model_encrypt_protection/encrypt_checkpoint.py>
 
 ## 安全导出CheckPoint文件
 

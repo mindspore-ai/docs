@@ -13,7 +13,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -28,7 +28,7 @@ In PyNative mode, single operators, common functions, network inference, and sep
 
 > In PyNative mode, operators are executed asynchronously on the device to improve performance. Therefore, when an error occurs during operator execution, the error information may be displayed after the program is executed.
 >
-> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html#mindspore.set_seed).
+> In the following example, the parameter initialization uses random values, and the output results in specific execution may be different from the results of local execution; if you need to stabilize the output of a fixed value, you can set a fixed random seed. For the setting method, please refer to [mindspore.set_seed()](https://mindspore.cn/doc/api_python/en/r1.3/mindspore/mindspore.html#mindspore.set_seed).
 
 ## Executing a Single Operator
 

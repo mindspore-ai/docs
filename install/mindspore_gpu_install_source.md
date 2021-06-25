@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_gpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_gpu_install_source.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在GPU环境的Linux系统上，使用源码编译方式快速安装MindSpore。
 
@@ -58,7 +58,7 @@
 ## 从代码仓下载源码
 
 ```bash
-git clone https://gitee.com/mindspore/mindspore.git
+git clone https://gitee.com/mindspore/mindspore.git -b r1.3
 ```
 
 ## 编译MindSpore
@@ -81,7 +81,7 @@ pip install output/mindspore_gpu-{version}-cp37-cp37m-linux_x86_64.whl -i https:
 
 其中：
 
-- 在联网状态下，安装whl包时会自动下载MindSpore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/master/requirements.txt)），其余情况需自行安装。
+- 在联网状态下，安装whl包时会自动下载mindspore安装包的依赖项（依赖项详情参见[requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.3/requirements.txt)），其余情况需自行安装。
 - `{version}`表示MindSpore版本号，例如安装1.1.0版本MindSpore时，`{version}`应写为1.1.0。  
 
 ## 验证是否成功安装
@@ -155,16 +155,16 @@ print(ops.add(x, y))
 
 当您需要查看训练过程中的标量、图像、计算图以及模型超参等信息时，可以选装MindInsight。
 
-具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/master/README_CN.md)。
+具体安装步骤参见[MindInsight](https://gitee.com/mindspore/mindinsight/blob/r1.3/README_CN.md)。
 
 ## 安装MindArmour
 
 当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
 
-具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/master/README_CN.md)。
+具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.3/README_CN.md)。
 
 ## 安装MindSpore Hub
 
 当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
 
-具体安装步骤参见[MindSpore Hub](https://gitee.com/mindspore/hub/blob/master/README_CN.md)。
+具体安装步骤参见[mindspore Hub](https://gitee.com/mindspore/hub/blob/r1.3/README_CN.md)。

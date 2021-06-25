@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/hyper_parameters_auto_tuning.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ MindInsight provides `mindoptimizer`. This tuning command can extract past train
 
 ## Installation
 
-This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://gitee.com/mindspore/mindinsight/blob/master/README.md#).
+This tool is a submodule of MindInsight. After MindInsight is installed, you can use the MindInsight parameter tuning command. For details about how to install MindInsight, see the [installation guide](https://gitee.com/mindspore/mindinsight/blob/r1.3/README.md#).
 
 ## Usage
 

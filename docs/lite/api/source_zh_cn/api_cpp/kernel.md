@@ -2,7 +2,7 @@
 
 ## Kernel
 
-\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel.h)>
+\#include <[kernel.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/kernel.h)>
 
 Kernel是算子实现的基类，定义了几个必须实现的接口。
 
@@ -101,7 +101,7 @@ void set_name(const std::string &name)
 const lite::Context *context() const
 ```
 
-返回算子对应的[Context](https://mindspore.cn/doc/api_cpp/zh-CN/master/lite.html)。
+返回算子对应的[Context](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html)。
 
 ### primitive
 

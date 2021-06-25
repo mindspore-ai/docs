@@ -13,11 +13,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png"></a>
 
 ## 概述
 
@@ -29,7 +29,7 @@
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
 
-完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
+完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
 
 ## 定义回调函数EvalCallBack
 

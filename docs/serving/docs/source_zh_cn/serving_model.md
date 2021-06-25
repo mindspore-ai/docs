@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_zh_cn/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_zh_cn/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -27,7 +27,7 @@ MindSpore Serving的Servable提供推理服务，包含两种类型。一种是�
 
 本文将说明如何对单模型进行配置以提供Servable，以下所有Servable配置说明针对的是单模型Servable，Serving客户端简称客户端。
 
-本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/master/example/resnet/) 。
+本文以ResNet-50作为样例介绍如何配置模型提供Servable。样例代码可参考[ResNet-50样例](https://gitee.com/mindspore/serving/tree/r1.3/example/resnet/) 。
 
 ## 相关概念
 
@@ -245,4 +245,4 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并法方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving提供了`call_preprocess_pipeline`和`call_postprocess_pipeline`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py) 。
+另外，一次请求可包括多个实例，且多个排队处理的请求也将有多个实例，如果需要在自定义的预处理或后处理中通过多线程等并法方式处理多个实例，比如在预处理中使用MindData并发能力处理多个输入图片，MindSpore Serving提供了`call_preprocess_pipeline`和`call_postprocess_pipeline`用于注册此类预处理和后处理。详情可参考[ResNet-50样例的模型配置](https://gitee.com/mindspore/serving/blob/r1.3/example/resnet/resnet50/servable_config.py) 。

@@ -13,11 +13,11 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/debug_in_pynative_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/master/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/mindspore_debugging_in_pynative_mode.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
-<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9kZWJ1Z2dpbmdfaW5fcHluYXRpdmVfbW9kZS5pcHluYg==&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_modelarts.png"></a>
+<a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9kZWJ1Z2dpbmdfaW5fcHluYXRpdmVfbW9kZS5pcHluYg==&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png"></a>
 
 ## 概述
 
@@ -32,7 +32,7 @@ PyNative模式下，支持执行单算子、普通函数和网络，以及单独
 
 > PyNative模式下为了提升性能，算子在device上使用了异步执行方式，因此在算子执行错误的时候，错误信息可能会在程序执行到最后才显示。
 >
-> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.html#mindspore.set_seed)。
+> 下述例子中，参数初始化使用了随机值，在具体执行中输出的结果可能与本地执行输出的结果不同；如果需要稳定输出固定的值，可以设置固定的随机种子，设置方法请参考[mindspore.set_seed()](https://mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/mindspore.html#mindspore.set_seed)。
 
 ## 执行单算子
 

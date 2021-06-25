@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/hub/docs/source_en/publish_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -24,7 +24,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
 
 1. Host your pre-trained model in a storage location where we are able to access.
 
-2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
+2. Add a model generation python file called `mindspore_hub_conf.py` in your own repo using this [template](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/googlenet/mindspore_hub_conf.py). The location of the `mindspore_hub_conf.py` file is shown below:
 
    ```text
    googlenet
@@ -37,7 +37,7 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    ├── mindspore_hub_conf.py
    ```
 
-3. Create a `{model_name}_{model_version}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/ascend/0.7` using this [template](https://gitee.com/mindspore/hub/blob/master/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#). Here `ascend` refers to the hardware platform for the pre-trained model, and `0.7` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
+3. Create a `{model_name}_{model_version}_{dataset}.md` file in `hub/mshub_res/assets/mindspore/ascend/0.7` using this [template](https://gitee.com/mindspore/hub/blob/r1.3/mshub_res/assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md#). Here `ascend` refers to the hardware platform for the pre-trained model, and `0.7` indicates the MindSpore version. The structure of the `hub/mshub_res` folder is as follows:
 
    ```text
    hub
@@ -82,6 +82,6 @@ You can publish models to MindSpore Hub via PR in [hub](https://gitee.com/mindsp
    python md_validator.py --check_path ../assets/mindspore/ascend/0.7/googlenet_v1_cifar10.md
    ```
 
-5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/master/CONTRIBUTING.md#) for more information about creating a PR.
+5. Create a PR in `mindspore/hub` repo. See our [Contributor Wiki](https://gitee.com/mindspore/mindspore/blob/r1.3/CONTRIBUTING.md#) for more information about creating a PR.
 
-Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/master/mshub_res/README.md#) for more information about model submission.
+Once your PR is merged into master branch here, your model will show up in [MindSpore Hub Website](https://www.mindspore.cn/resources/hub) within 24 hours. Please refer to [README](https://gitee.com/mindspore/hub/blob/r1.3/mshub_res/README.md#) for more information about model submission.

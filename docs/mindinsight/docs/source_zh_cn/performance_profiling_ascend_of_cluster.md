@@ -20,7 +20,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_zh_cn/advanced_use/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/training/source_zh_cn/advanced_use/performance_profiling_ascend_of_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -237,7 +237,7 @@ done
 
 图3：单卡性能信息
 
-图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html)。
 
 ### 集群通信性能分析
 
@@ -314,7 +314,7 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
   > 控制step数目可以通过控制训练数据集的大小来实现，如`mindspore.dataset.MindDataset`类中的`num_samples`参数可以控制数据集大小，详情参考：
   >
-  > <https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.MindDataset.html>
+  > <https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/dataset/mindspore.dataset.MindDataset.html>
 
 ## 注意事项
 

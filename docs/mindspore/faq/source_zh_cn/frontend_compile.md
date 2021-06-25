@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/frontend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/frontend_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：运行时报错“Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object.”怎么办？**</font>
 
@@ -10,7 +10,7 @@ A：当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰�
 
 如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.constexpr.html>。
+关于`@constexpr`的用法可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html>。
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
 

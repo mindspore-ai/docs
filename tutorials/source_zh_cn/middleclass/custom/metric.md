@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_zh_cn/middleclass/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -103,7 +103,7 @@ class Dice(Metric):
 
 ### 在框架中导入Metrics
 
-在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py):
+在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/nn/metrics/dice.py):
 
 ```text
 __all__ = [

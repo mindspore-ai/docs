@@ -1,10 +1,10 @@
 # mindspore::session
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/session.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/session.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## LiteSession
 
-\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/lite_session.h)&gt;
+\#include &lt;[lite_session.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/lite_session.h)&gt;
 
 LiteSession defines sessions in MindSpore Lite for compiling Model and forwarding inference.
 
@@ -56,7 +56,7 @@ Compile MindSpore Lite model.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 #### GetInputs
 
@@ -103,7 +103,7 @@ Run session with callback.
 
 - Returns
 
-    STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of running graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 #### GetOutputsByNodeName
 
@@ -178,7 +178,7 @@ Resize inputs shape.
 
 - Returns
 
-    STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 ### Static Public Member Functions
 
@@ -265,7 +265,7 @@ Set model to train mode.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 #### IsTrain
 
@@ -289,7 +289,7 @@ Set model to eval mode.
 
 - Returns
 
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 #### IsEval
 
@@ -403,11 +403,11 @@ Update model feature map.
 
 - Returns
 
-   STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+   STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 ## TrainLoop
 
-\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop.h)&gt;
+\#include &lt;[ltrain_loop.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/train/train_loop.h)&gt;
 
 Inherited from Session and used for reducing the RAM consumption during model training, user can set hyper-parameters and customized data preprocessing function.
 
@@ -550,7 +550,7 @@ Execute evaluating.
 
 ## TrainLoopCallback
 
-\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_loop_callback.h)&gt;
+\#include &lt;[ltrain_loop_callback.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/train/train_loop_callback.h)&gt;
 
 Execute the callback functions during the model training.
 
@@ -615,7 +615,7 @@ The method is called at the end of each epoch.
     - `cb_data`: cb_data info about current execution.
 
 - Returns
-    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h).
 
 #### StepBegin
 
@@ -643,7 +643,7 @@ The method is called after each step has finished.
 
 ## Metrics
 
-\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/metrics.h)&gt;
+\#include &lt;[metrics.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/train/metrics.h)&gt;
 
 Evaluation metrics of the training model.
 

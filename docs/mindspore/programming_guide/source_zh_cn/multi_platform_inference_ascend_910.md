@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/multi_platform_inference_ascend_910.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 使用checkpoint格式文件单卡推理
 
@@ -44,7 +44,7 @@
 
     其中，  
     `model.eval`为模型验证接口，对应接口说明：<https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.Model.eval>。
-    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/eval.py>。
+    > 推理样例代码：<https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/lenet/eval.py>。
 
    1.2 使用MindSpore Hub从华为云加载模型
 
@@ -85,7 +85,7 @@
 
 > 分布式推理样例代码：
 >
-> <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_inference>
+> <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/distributed_inference>
 
 分布式推理流程如下：
 
@@ -141,7 +141,7 @@
 
 ### 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -158,7 +158,7 @@
 
 ### 推理代码介绍
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/main.cc> 。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -247,7 +247,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ### 构建脚本介绍
 
-构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
+构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt> 。
 
 为编译器添加头文件搜索路径：
 

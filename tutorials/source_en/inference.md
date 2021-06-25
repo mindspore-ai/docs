@@ -1,6 +1,6 @@
 # Inference
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 This is the last tutorial. To better adapt to different inference devices, inference is classified into Ascend AI Processor inference and mobile device inference.
 
@@ -10,7 +10,7 @@ An Ascend AI Processor is an energy-efficient and highly integrated AI processor
 
 ### Inference Code
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample) from the official website. The `model` directory is used to store the exported `MindIR` model file, and the `test_data` directory is used to store the images to be classified. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`. You can download the [sample code](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample) from the official website. The `model` directory is used to store the exported `MindIR` model file, and the `test_data` directory is used to store the images to be classified. The directory structure of the inference code project is as follows:
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -137,7 +137,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
 >For details, see
-><https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
 
 ### Building Inference Code
 

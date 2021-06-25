@@ -1,10 +1,10 @@
 # mindspore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_en/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 The Context class is used to store environment variables during execution.
 
@@ -72,7 +72,7 @@ Get a mutable reference of [DeviceInfoContext](#deviceinfocontext) vector in thi
 
 ## DeviceInfoContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 DeviceInfoContext defines different device contexts.
 
@@ -117,7 +117,7 @@ A similar function to RTTI is provided when the `-fno-rtti` compilation option i
 
 ## CPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the CPU. This option is only valid for MindSpore Lite.
 
@@ -132,7 +132,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## MaliGPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the GPU. This option is only valid for MindSpore Lite.
 
@@ -145,7 +145,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## KirinNPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the NPU. This option is only valid for MindSpore Lite.
 
@@ -158,7 +158,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## NvidiaGPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the GPU. This option is invalid for MindSpore Lite.
 
@@ -171,7 +171,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## Ascend910DeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the Ascend910. This option is invalid for MindSpore Lite.
 
@@ -184,7 +184,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## Ascend310DeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the model running on the Ascend310. This option is invalid for MindSpore Lite.
 
@@ -209,7 +209,7 @@ Derived from [DeviceInfoContext](#deviceinfocontext), The configuration of the m
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/serialization.h)&gt;
 
 The Serialization class is used to summarize methods for reading and writing model files.
 
@@ -254,7 +254,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/model.h)&gt;
 
 The Model class is used to define a MindSpore model, facilitating computational graph management.
 
@@ -625,7 +625,7 @@ Gets the boolean value that indicates whether the `MSTensor` is valid.
 
 ## KernelCallBack
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 ```cpp
 using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
@@ -635,7 +635,7 @@ A function wrapper. KernelCallBack defines the pointer for callback function.
 
 ## CallBackParam
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 A **struct**. CallBackParam defines input arguments for callback function.
 

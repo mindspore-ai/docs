@@ -1,6 +1,6 @@
 # Hands-on Installation and Experience
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/quick_start/quick_video.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/quick_start/quick_video.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 [comment]: <> (This document contains Hands-on Tutorial Series. Gitee does not support display. Please check tutorials on the official website)
 

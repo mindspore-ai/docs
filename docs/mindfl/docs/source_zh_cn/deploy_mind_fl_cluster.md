@@ -20,7 +20,7 @@
 
 本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。
 
-> 可以在[这里](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile)下载本文档中的完整Demo。
+> 可以在[这里](https://gitee.com/mindspore/mindspore/tree/r1.3/tests/st/fl/mobile)下载本文档中的完整Demo。
 
 MindSpore Federated Learning Server集群物理架构如图所示：
 
@@ -53,11 +53,11 @@ MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版
 
 为了便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程能够复用训练脚本，通过[参数配置](#参数配置)选择不同的启动方式。
 
-本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py)。
+本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/lenet/lenet.py)。
 
 ## 参数配置
 
-MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://mindspore.cn/doc/api_python/zh-CN/master/mindspore/mindspore.context.html#mindspore.context.set_fl_context)。
+mindspore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/mindspore.context.html#mindspore.context.set_fl_context)。
 
 在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式如下：
 
@@ -121,11 +121,11 @@ fl_name = args.fl_name
 scheduler_manage_port = args.scheduler_manage_port
 ```
 
-> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别拉起多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)。
+> 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别拉起多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考[示例](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile)。
 
 ## 启动集群
 
-参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)，启动集群。参考示例目录结构如下：
+参考[示例](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile)，启动集群。参考示例目录结构如下：
 
 ```text
 mobile/
@@ -153,7 +153,7 @@ mobile/
     python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
     ```
 
-    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)。  
+    以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/run_mobile_server.py)。  
 
     > 若只想在单机部署`Scheduler`以及`Server`，只需将`scheduler_ip`配置项修改为`127.0.0.1`即可。
 

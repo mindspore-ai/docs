@@ -29,7 +29,7 @@
             - [GPU](#gpu-2)
 
 <!-- /TOC -->
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50_second_order_optimizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>&nbsp;&nbsp;
 
 ## Overview
 
@@ -39,7 +39,7 @@ Based on the existing natural gradient algorithm, MindSpore development team use
 
 This tutorial describes how to use the second-order optimizer THOR provided by MindSpore to train the ResNet-50 v1.5 network and ImageNet dataset on Ascend 910 and GPU.
 > Download address of the complete code example:
-<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet>
+<https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet>
 
 Directory Structure of Code Examples
 
@@ -199,7 +199,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
 
 ## Defining the Network
 
-Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py).
+Use the ResNet-50 v1.5 network model as an example. Define the [ResNet-50 network](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/resnet.py).
 
 After the network is built, call the defined ResNet-50 in the `__main__` function.
 
@@ -274,7 +274,7 @@ As shown in the parameter update formula, THOR needs to additionally compute an 
 
 For more introduction of THOR optimizer, please see [THOR paper](https://www.aaai.org/AAAI21Papers/AAAI-6611.ChenM.pdf).
 
-When calling the second-order optimizer THOR provided by MindSpore, THOR will automatically call the conversion interface to convert the Conv2d and Dense layers in the original network model into corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/layer/thor_layer.py).
+When calling the second-order optimizer THOR provided by MindSpore, THOR will automatically call the conversion interface to convert the Conv2d and Dense layers in the original network model into corresponding [Conv2dThor](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/nn/layer/thor_layer.py) and [DenseThor](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/nn/layer/thor_layer.py).
 And the FIM of each layer is computed and saved in Conv2dThor and DenseThor.
 
 > Compared to the original network model, conversion network model has the same backbone and weights.
@@ -324,7 +324,7 @@ if __name__ == "__main__":
 
 ### Configuring the Network Training
 
-Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the [ModelThor](https://gitee.com/mindspore/mindspore/blob/master/mindspore/train/train_thor/model_thor.py) class is redefined to inherit the Model class provided by MindSpore. The parameter of THOR for controlling the frequency of updating the second-order matrix can be obtained by the ModelThor class. You can adjust this parameter to optimize the overall performance.
+Use the `model.train` API provided by MindSpore to easily train the network. THOR reduces the computation workload and improves the computation speed by reducing the frequency of updating the second-order matrix. Therefore, the [ModelThor](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/train/train_thor/model_thor.py) class is redefined to inherit the Model class provided by MindSpore. The parameter of THOR for controlling the frequency of updating the second-order matrix can be obtained by the ModelThor class. You can adjust this parameter to optimize the overall performance.
 MindSpore provides a one-click conversion interface from Model class to ModelThor class.
 
 ```python
@@ -364,7 +364,7 @@ Variables `resnet50`, `imagenet2012`, `RANK_TABLE_FILE` and `DATASET_PATH` need 
 
 - `resnet50`： training network
 - `imagenet2012`： training dataset
-- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
+- `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
 
 For details about other environment variables, see configuration items in the installation guide.

@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/migrate_3rd_scripts_mindconverter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -29,7 +29,7 @@ MindConverter is a migration tool to transform the model scripts and weights fro
 
 ## Installation
 
-Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://gitee.com/mindspore/mindinsight/blob/master/README.md#) here to install MindInsight.
+Mindconverter is a submodule in MindInsight. Please follow the [Guide](https://gitee.com/mindspore/mindinsight/blob/r1.3/README.md#) here to install MindInsight.
 
 Third party libraries below are required after installing MindInsight:
 
@@ -161,7 +161,7 @@ For non-transformed operators, suggestions are provided in the report. For insta
 
 #### TensorFlow Model Scripts Conversion
 
-To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [Tutorial of exporting TensorFlow Pb model](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/tensorflow_model_exporting.md#) for details.
+To use TensorFlow model script migration, you need to export TensorFlow model to Pb format(frozen graph) first, and obtain the model input node and output node name. See [Tutorial of exporting TensorFlow Pb model](https://gitee.com/mindspore/mindinsight/blob/r1.3/mindinsight/mindconverter/docs/tensorflow_model_exporting.md#) for details.
 
 Suppose the model is saved to `/home/user/xxx/frozen_model.pb`, corresponding input node name is `input_1:0`, output node name is `predictions/Softmax:0`, the input shape of model is `1,224,224,3`. Output the transformed MindSpore script and MindSpore checkpoint file to `/home/user/output`, with the conversion report and weight map file to `/home/user/output/report`. Use the following command:
 
@@ -275,11 +275,11 @@ The example of weight map refers to that in **TensorFlow Model Scripts Conversio
 
 ## MindConverter Error Code Definition
 
-Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/error_code_definition.md# ).
+Error code defined in MindConverter, please refer to [LINK](https://gitee.com/mindspore/mindinsight/blob/r1.3/mindinsight/mindconverter/docs/error_code_definition.md# ).
 
 ## Model List Supported by MindConverter
 
-[List of supported models (Models in below table have been tested based on PyTorch 1.5.0 and TensorFlow 1.15.0, X86 Ubuntu released version)](https://gitee.com/mindspore/mindinsight/blob/master/mindinsight/mindconverter/docs/supported_model_list.md# ).
+[List of supported models (Models in below table have been tested based on PyTorch 1.5.0 and TensorFlow 1.15.0, X86 Ubuntu released version)](https://gitee.com/mindspore/mindinsight/blob/r1.3/mindinsight/mindconverter/docs/supported_model_list.md# ).
 
 ## Caution
 

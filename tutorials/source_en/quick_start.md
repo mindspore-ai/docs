@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/quick_start.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 The following describes the basic functions of MindSpore to implement common tasks in deep learning. For details, see links in each section.
 
@@ -183,7 +183,7 @@ Loss functions supported by MindSpore include `SoftmaxCrossEntropyWithLogits`, `
 net_loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
 ```
 
-> For more information about using loss functions in MindSpore, see [Loss Functions](https://www.mindspore.cn/tutorial/en/master/optimization.html#loss-functions).
+> For more information about using loss functions in mindspore, see [Loss Functions](https://www.mindspore.cn/tutorial/en/r1.3/optimization.html#loss-functions).
 
 MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The following uses the `Momentum` optimizer as an example.
 
@@ -192,7 +192,7 @@ MindSpore supports the `Adam`, `AdamWeightDecay`, and `Momentum` optimizers. The
 net_opt = nn.Momentum(net.trainable_params(), learning_rate=0.01, momentum=0.9)
 ```
 
-> For more information about using an optimizer in MindSpore, see [Optimizer](https://www.mindspore.cn/tutorial/en/master/optimization.html#optimizer).
+> For more information about using an optimizer in mindspore, see [Optimizer](https://www.mindspore.cn/tutorial/en/r1.3/optimization.html#optimizer).
 
 ## Training and Saving the Model
 
@@ -288,7 +288,7 @@ param_dict = load_checkpoint("checkpoint_lenet-1_1875.ckpt")
 load_param_into_net(net, param_dict)
 ```
 
-> For more information about loading a model in MindSpore, see [Loading the Model](https://www.mindspore.cn/tutorial/en/master/save_load_model.html#loading-the-model).
+> For more information about loading a model in mindspore, see [Loading the Model](https://www.mindspore.cn/tutorial/en/r1.3/save_load_model.html#loading-the-model).
 
 ## Validating the Model
 

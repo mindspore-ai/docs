@@ -15,7 +15,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_zh_cn/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_zh_cn/serving_distributed_example.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -40,11 +40,11 @@
 
 ### 环境准备
 
-运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以参考[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时参考[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/master/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
+运行示例前，需确保已经正确安装了MindSpore Serving。如果没有，可以参考[MindSpore Serving安装页面](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md#%E5%AE%89%E8%A3%85)，将MindSpore Serving正确地安装到你的电脑当中，同时参考[MindSpore Serving环境配置页面](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)完成环境变量配置。
 
 ### 导出分布式模型
 
-导出分布式模型需要的文件可以参考[export_model目录](https://gitee.com/mindspore/serving/tree/master/example/matmul_distributed/export_model)，需要如下文件列表：
+导出分布式模型需要的文件可以参考[export_model目录](https://gitee.com/mindspore/serving/tree/r1.3/example/matmul_distributed/export_model)，需要如下文件列表：
 
 ```text
 export_model
@@ -59,7 +59,7 @@ export_model
 - `export_model.sh`在当前机器上创建`device`目录并且导出每个`device`对应的模型文件。
 - `rank_table_8pcs.json`为配置当前多卡环境的组网信息的json文件，可以参考[rank_table](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html#id4)。
 
-使用[net.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
+使用[net.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/net.py)，构造一个包含MatMul、Neg算子的网络。
 
 ```python
 import numpy as np
@@ -83,7 +83,7 @@ class Net(Cell):
         return x
 ```
 
-使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/distributed_inference.py)， 配置分布式模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_910.html#id1)。
+使用[distributed_inference.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/distributed_inference.py)， 配置分布式模型。可以参考[分布式推理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/multi_platform_inference_ascend_910.html#id1)。
 
 ```python
 import numpy as np
@@ -112,7 +112,7 @@ def create_predict_data():
     return Tensor(inputs_np)
 ```
 
-使用[export_model.sh](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/export_model/export_model.sh)，导出分布式模型。执行成功后会在上一级目录创建`model`目录，结构如下：
+使用[export_model.sh](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/export_model/export_model.sh)，导出分布式模型。执行成功后会在上一级目录创建`model`目录，结构如下：
 
 ```text
 model
@@ -132,7 +132,7 @@ model
 
 ### 部署分布式推理服务
 
-启动分布式推理服务，可以参考[matmul_distributed](https://gitee.com/mindspore/serving/tree/master/example/matmul_distributed)，需要如下文件列表：
+启动分布式推理服务，可以参考[matmul_distributed](https://gitee.com/mindspore/serving/tree/r1.3/example/matmul_distributed)，需要如下文件列表：
 
 ```text
 matmul_distributed
@@ -166,7 +166,7 @@ def predict(x):
 
 #### 启动Serving服务器
 
-使用[serving_server.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_server.py)，调用`distributed.start_servable`方法部署分布式Serving服务器。
+使用[serving_server.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/serving_server.py)，调用`distributed.start_servable`方法部署分布式Serving服务器。
 
 ```python
 import os
@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 #### 启动Agent
 
-使用[serving_agent.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_agent.py)，调用`startup_agents`方法会在当前机器上启动的8个`Agent`进程。`Agent`会从`Distributed Worker`获取rank_table，这样`Agent`之间才能利用HCCL进行通信。
+使用[serving_agent.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/serving_agent.py)，调用`startup_agents`方法会在当前机器上启动的8个`Agent`进程。`Agent`会从`Distributed Worker`获取rank_table，这样`Agent`之间才能利用HCCL进行通信。
 
 ```python
 from mindspore_serving.server import distributed
@@ -230,7 +230,7 @@ if __name__ == '__main__':
 
 ### 执行推理
 
-通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/master/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
+通过gRPC访问推理服务，client需要指定gRPC服务器的ip地址和port。运行[serving_client.py](https://gitee.com/mindspore/serving/blob/r1.3/example/matmul_distributed/serving_client.py)，调用matmul分布式模型的`predict`方法，执行推理。
 
 ```python
 import numpy as np

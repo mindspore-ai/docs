@@ -14,7 +14,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/tokenizer.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -191,7 +191,7 @@ print("------------------------before tokenization----------------------------")
 for data in dataset.create_dict_iterator(output_numpy=True):
     print(text.to_str(data['text']))
 
-# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/master/tests/ut/data/dataset/test_sentencepiece/botchan.txt
+# file from MindSpore repository https://gitee.com/mindspore/mindspore/blob/r1.3/tests/ut/data/dataset/test_sentencepiece/botchan.txt
 vocab_file = "./datasets/tokenizer/botchan.txt"
 vocab = text.SentencePieceVocab.from_file([vocab_file], 5000, 0.9995, SentencePieceModel.UNIGRAM, {})
 tokenizer_op = text.SentencePieceTokenizer(vocab, out_type=SPieceTokenizerOutType.STRING)

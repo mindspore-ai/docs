@@ -11,7 +11,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/master/install/mindspore_ascend310_install_binary.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/install/mindspore_ascend310_install_binary.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 本文档介绍如何在Ascend 310环境的Linux系统上，使用二进制包方式快速安装MindSpore，Ascend 310版本仅支持推理。
 
@@ -130,4 +130,4 @@ make
 
 当您想要快速体验MindSpore在线推理服务时，可以选装MindSpore Serving。
 
-具体安装步骤参见[MindSpore Serving](https://gitee.com/mindspore/serving/blob/master/README_CN.md)。
+具体安装步骤参见[mindspore Serving](https://gitee.com/mindspore/serving/blob/r1.3/README_CN.md)。

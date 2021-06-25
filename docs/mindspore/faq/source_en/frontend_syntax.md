@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/frontend_syntax.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?**</font>
 
@@ -35,7 +35,7 @@ def count_params(net):
     return total_params
 ```
 
-[Script Link](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py).
+[Script Link](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/research/cv/tinynet/src/utils.py).
 
 <br/>
 
@@ -58,7 +58,7 @@ def step_end(self, run_context):
 
 <font size=3>**Q: How do I obtain the expected `feature map` when `nn.Conv2d` is used?**</font>
 
-A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
 
 <br/>
 

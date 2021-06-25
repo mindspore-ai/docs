@@ -12,7 +12,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/performance_optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 Profiler为MindSpore提供了性能调优能力，在算子性能、迭代性能、数据处理性能等方面提供了易用、丰富的调试功能，帮助用户快速定位、解决性能问题。
 
@@ -22,9 +22,9 @@ Profiler为MindSpore提供了性能调优能力，在算子性能、迭代性能
 
 Profiler的功能介绍及使用说明请参见教程：
 
-[性能调试（Ascend）](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_ascend.html)
+[性能调试（Ascend）](https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html)
 
-[性能调试（GPU）](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/performance_profiling_gpu.html)
+[性能调试（GPU）](https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_gpu.html)
 
 本节将通过三个典型案例介绍Profiler工具的常见使用方式。
 

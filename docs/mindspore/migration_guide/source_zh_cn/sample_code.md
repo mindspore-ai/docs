@@ -28,7 +28,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/migration_guide/source_zh_cn/sample_code.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 本章将结合用例来介绍网络迁移的基本步骤、常用工具、定位问题的思路及解决方法。
 
@@ -73,7 +73,7 @@ MindSpore 已支持绝大多数常用 [功能](https://www.mindspore.cn/docs/pro
 
 如果发现有缺失的算子和功能，首先可考虑基于当前算子或功能来组合出缺失的算子和功能，对于主流的 CV 和 NLP 类网络，新的缺失算子一般都可以通过组合已有算子的方式来解决。
 
-组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/master/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
+组合的算子可以通过 Cell 的方式实现，在 MindSpore 中，[nn类算子](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/nn) 就是通过这种方式实现的。例如下面的 `ReduceSumExp` 算子，它是由已有的`Exp`、`ReduceSum`、`Log`小算子组合而成：
 
 ```python
 class ReduceLogSumExp(Cell):
@@ -748,7 +748,7 @@ if __name__ == '__main__':
                 dataset_sink_mode=dataset_sink_mode)
 ```
 
-注意：关于目录中其他文件的代码，可以参考 MindSpore model_zoo 的 [ResNet50 实现](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
+注意：关于目录中其他文件的代码，可以参考 MindSpore model_zoo 的 [ResNet50 实现](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet)（该脚本融合了其他 ResNet 系列网络及ResNet-SE 网络，具体实现可能和对标脚本有差异）。
 
 ### 分布式训练
 
@@ -917,7 +917,7 @@ profiler.analyse()
 当进行分布式训练时，在一个Step的训练过程中，完成前向传播和梯度计算后，各个机器开始进行AllReduce梯度同步，AllReduce同步时间主要受权重数量、机器数量影响，对于越复杂、机器规模越大的网络，其 AllReduce 梯度更新时间也越久，此时我们可以进行AllReduce 切分来优化这部分耗时。
 
 正常情况下，AllReduce 梯度同步会等所有反向算子执行结束，也就是对所有权重都计算出梯度后再一次性同步所有机器的梯度，而使用AllReduce切分后，我们可以在计算出一部分权重的梯度后，就立刻进行这部分权重的梯度同步，这样梯度同步和剩余算子的梯度计算可以并行执行，也就隐藏了这部分 AllReduce 梯度同步时间。切分策略通常是手动尝试，寻找一个最优的方案（支持切分大于两段）。
-以 [ResNet50网络](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
+以 [ResNet50网络](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/train.py) 为例，该网络共有 160  个 权重，  [85, 160] 表示第 0 至 85个权重计算完梯度后立刻进行梯度同步，第 86 至 160 个 权重计算完后再进行梯度同步，这里共切分两段，因此需要进行两次梯度同步。代码实现如下：
 
 ```python
 from mindspore import context

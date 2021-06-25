@@ -3,7 +3,7 @@ mindspore.ops
 
 .. automodule:: mindspore.ops
 
-Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/master/resource/api_updates/ops_api_updates.md>`_.
+Compared with the previous version, the added, deleted and supported platforms change information of `mindspore.ops` operators in MindSpore, please refer to the link `<https://gitee.com/mindspore/docs/blob/r1.3/resource/api_updates/ops_api_updates.md>`_.
 
 .. include:: operations.rst
 

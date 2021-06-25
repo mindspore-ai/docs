@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：由于我一条数据包含多个图像，并且每个图像的宽高都不一致，我需要对转成mindrecord的格式进行`map`操作来进行数据处理。可是我从`record`读取的数据是`np.ndarray`格式的数据，我的数据处理的`operations`是针对图像格式的。我应该怎么样才能对所生成的mindrecord的格式的数据进行预处理呢？**</font>
 
@@ -75,17 +75,17 @@ A：当`dataset_sink_mode=True`时，数据处理会和网络计算构成Pipelin
 
 <font size=3>**Q：MindSpore能否支持按批次对不同尺寸的图片数据进行训练？**</font>
 
-A：你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
+A：你可以参考yolov3对于此场景的使用，里面有对于图像的不同缩放,脚本见[yolo_dataset](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py)。
 
 <br/>
 
 <font size=3>**Q：使用MindSpore做分割训练，必须将数据转为MindRecords吗？**</font>
 
-A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
+A：[build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.3/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
 [GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html#id5)
 
-[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 

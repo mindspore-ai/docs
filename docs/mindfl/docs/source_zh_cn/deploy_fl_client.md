@@ -144,6 +144,6 @@ mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-设置好依赖环境之后，可参考[这里](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/image_classification_application.md)教程在x86环境中模拟启动多个客户端进行联邦学习。
+设置好依赖环境之后，可参考[这里](https://gitee.com/mindspore/docs/blob/r1.3/docs/mindfl/docs/source_zh_cn/image_classification_application.md)教程在x86环境中模拟启动多个客户端进行联邦学习。
 
 

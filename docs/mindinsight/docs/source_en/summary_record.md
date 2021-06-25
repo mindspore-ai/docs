@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/summary_record.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -147,10 +147,10 @@ In addition to providing the `SummaryCollector` that automatically collects some
 
 The following summary operators are currently supported:
 
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.ImageSummary.html): Record a image data.
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
+- [ScalarSummary](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.ScalarSummary.html): Record a scalar data.
+- [TensorSummary](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.TensorSummary.html): Record a tensor data.
+- [ImageSummary](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.ImageSummary.html): Record a image data.
+- [HistogramSummary](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.HistogramSummary.html): Convert tensor data into histogram data records.
 
 The recording method is shown in the following steps.
 

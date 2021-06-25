@@ -1,10 +1,10 @@
 # mindspore
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/lite/api/source_zh_cn/api_cpp/mindspore.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Context
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 Context类用于保存执行中的环境变量。
 
@@ -72,7 +72,7 @@ std::vector<std::shared_ptr<DeviceInfoContext>> &MutableDeviceInfo();
 
 ## DeviceInfoContext
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 DeviceInfoContext类定义不同硬件设备的环境信息。
 
@@ -117,7 +117,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## CPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在CPU上的配置，仅mindspore lite支持该选项。
 
@@ -132,7 +132,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## MaliGPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，仅mindspore lite支持该选项。
 
@@ -145,7 +145,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## KirinNPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在NPU上的配置，仅mindspore lite支持该选项。
 
@@ -158,7 +158,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## NvidiaGPUDeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在GPU上的配置，mindspore lite不支持该选项。
 
@@ -171,7 +171,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## Ascend910DeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend910上的配置，mindspore lite不支持该选项。
 
@@ -184,7 +184,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## Ascend310DeviceInfo
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/context.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/context.h)&gt;
 
 派生自[DeviceInfoContext](#deviceinfocontext)，模型运行在Ascend310上的配置，mindspore lite不支持该选项。
 
@@ -209,7 +209,7 @@ template <class T> std::shared_ptr<T> Cast();
 
 ## Serialization
 
-\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/serialization.h)&gt;
+\#include &lt;[serialization.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/serialization.h)&gt;
 
 Serialization类汇总了模型文件读写的方法。
 
@@ -254,7 +254,7 @@ Status Load(const void *model_data, size_t data_size, ModelType model_type, Grap
 
 ## Model
 
-\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/master/include/api/model.h)&gt;
+\#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/include/api/model.h)&gt;
 
 Model定义了MindSpore中的模型，便于计算图管理。
 
@@ -625,7 +625,7 @@ bool operator==(std::nullptr_t) const;
 
 ## KernelCallBack
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 ```cpp
 using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs, std::vector<tensor::MSTensor *> outputs, const CallBackParam &opInfo)>
@@ -635,7 +635,7 @@ using KernelCallBack = std::function<bool(std::vector<tensor::MSTensor *> inputs
 
 ## CallBackParam
 
-\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/ms_tensor.h)&gt;
+\#include &lt;[ms_tensor.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/ms_tensor.h)&gt;
 
 一个结构体。CallBackParam定义了回调函数的输入参数。
 

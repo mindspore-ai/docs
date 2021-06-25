@@ -40,7 +40,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/operators.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -885,4 +885,4 @@ output = [[1.4100001 1.5999999 6.6      ]
  [1.4100001 1.5999999 6.6      ]]
 ```
 
-The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/docs/programming_guide/en/r1.3/implement_high_order_differentiation.html).
+The preceding example is used to calculate the gradient value of `Net` to x. You need to define the network `Net` as the input of `GradOperation`. The instance creates `GradNetWrtX` that contains the gradient operation. Calling `GradNetWrtX` transfers the network to `GradOperation` to generate a gradient function, and transfers the input data to the gradient function to return the final result.For details, see [mindspore.ops](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.GradOperation.html) or [advanced_use](https://www.mindspore.cn/docs/programming_guide/en/r1.3/implement_high_order_differentiation.html).

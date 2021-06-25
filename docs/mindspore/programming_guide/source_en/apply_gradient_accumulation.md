@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/apply_gradient_accumulation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/apply_gradient_accumulation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -37,7 +37,7 @@ This tutorial describes how to implement gradient accumulation training in stand
 
 In standalone mode, the training process consists of three parts: forward and backward training, parameter update, and accumulated gradient clearance. MNIST is used as an example dataset. To customize a simple model to implement gradient accumulation, perform the following steps:
 
-> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/gradient_accumulation>
+> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/gradient_accumulation>
 
 ### Importing Library Files
 
@@ -59,11 +59,11 @@ from model_zoo.official.cv.lenet.src.lenet import LeNet5
 
 ### Loading the Dataset
 
-Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/dataset.py>) in the `lenet` directory of `model_zoo`.
+Use the `MnistDataset` API provided by `dataset` of MindSpore to load the MNIST dataset. The code is imported from [dataset.py](<https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/lenet/src/dataset.py>) in the `lenet` directory of `model_zoo`.
 
 ### Defining the Network
 
-LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/src/lenet.py>) in the `lenet` directory of `model_zoo`.
+LeNet is used as an example network. You can also use other networks, such as ResNet-50 and BERT. The code is imported from [lenet.py](<https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/lenet/src/lenet.py>) in the `lenet` directory of `model_zoo`.
 
 ### Defining the Training Process
 
@@ -261,7 +261,7 @@ After 10 epochs, the accuracy on the test set is about 96.31%.
 
 **Validate the model.**
 
-Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
+Use the saved checkpoint file to load the validation dataset through [eval.py](<https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/lenet/train.py>) in the lenet directory of model_zoo.
 
 ```bash
 python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt --device_target=GPU
@@ -278,11 +278,11 @@ The output is as follows. The accuracy of the validation dataset is about 96.31%
 
 If gradient accumulation is used in `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, the accumulation steps and update steps are delivered as two graphs and executed alternately. In an accumulation step graph, only the forward and backward operations and gradient accumulation are performed. In an update step graph, the forward and backward operations and parameter updates are performed. The example in [Parallel Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html) is used to describe the procedure.
 
-> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/distributed_training>
+> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/distributed_training>
 
 ### Defining the Parallel Training Process
 
-Generally, after the forward network is defined, [`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.TrainOneStepCell.html?highlight=trainonestepcell) is used to associate the forward and backward networks with the optimizer. However, two different situations, accumulation and update, exist during gradient accumulation. We need to make some modifications based on the original class definition. The sample code is as follows:
+Generally, after the forward network is defined, [`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.TrainOneStepCell.html?highlight=trainonestepcell) is used to associate the forward and backward networks with the optimizer. However, two different situations, accumulation and update, exist during gradient accumulation. We need to make some modifications based on the original class definition. The sample code is as follows:
 
 ```python
 import numpy as np
@@ -340,7 +340,7 @@ On the basis of `TrainOneStepCell`, definitions of the accumulation flag `accumu
 
 > The gradient accumulation in parallel mode needs to be implemented based on the internal graph optimization of the framework. Therefore, `accumulation` and `accu_grads` defined on the network are specific characters and cannot be modified.
 
-In the dynamic loss scale scenario, in addition to the gradient, the overflow flag status also needs to be accumulated. The code can be modified based on [`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell). The implementation code is as follows:
+In the dynamic loss scale scenario, in addition to the gradient, the overflow flag status also needs to be accumulated. The code can be modified based on [`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell). The implementation code is as follows:
 
 ```python
 import numpy as np

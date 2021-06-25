@@ -21,7 +21,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -64,7 +64,7 @@ class Net(nn.Cell):
 
 The `parameters_dict` method is used to identify all parameters in the network structure and return `OrderedDict` with key as the parameter name and value as the parameter value.
 
-There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [MindSpore API](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Cell.html).
+There are many other methods for returning parameters in the `Cell` class, such as `get_parameters` and `trainable_params`. For details, see [mindspore API](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Cell.html).
 
 A code example is as follows:
 

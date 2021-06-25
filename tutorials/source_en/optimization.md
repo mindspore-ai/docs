@@ -1,6 +1,6 @@
 # Optimizing Model Parameters
 
-<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/source_en/optimization.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 After learning how to create a model and build a dataset in the preceding tutorials, you can start to learn how to set hyperparameters and optimize model parameters.
 
 ## Hyperparameters

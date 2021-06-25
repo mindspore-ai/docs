@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/cv_resnet50.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -38,7 +38,7 @@ def classify(image):
 
 The key point is to select a proper model. The model generally refers to a deep convolutional neural network (CNN), such as AlexNet, VGG, GoogleNet, and ResNet.
 
-MindSpore presets a typical CNN. For more details, visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official) to get more details.
+MindSpore presets a typical CNN. For more details, visit [model_zoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official) to get more details.
 
 MindSpore supports the following image classification networks: LeNet, AlexNet, and ResNet.
 
@@ -61,7 +61,7 @@ To use MindSpore to classify images, do as follows:
 5. Call the high-level `Model` API to train and save the model file.
 6. Load the saved model for inference.
 
-> This example uses the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/resnet>.
+> This example uses the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/resnet>.
 
 The key parts of the task process code are explained below.
 
@@ -142,7 +142,7 @@ CNN is a standard algorithm for image classification tasks. CNN uses a layered s
 
 ResNet is recommended. First, it is deep enough with 34 layers, 50 layers, or 101 layers. The deeper the hierarchy, the stronger the representation capability, and the higher the classification accuracy. Second, it is learnable. The residual structure is used. The lower layer is directly connected to the upper layer through the shortcut connection, which solves the problem of gradient disappearance caused by the network depth during the reverse propagation. In addition, the ResNet network has good performance, including the recognition accuracy, model size, and parameter quantity.
 
-MindSpore Model Zoo has a ResNet [model](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py). The calling method is as follows:
+MindSpore Model Zoo has a ResNet [model](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/resnet.py). The calling method is as follows:
 
 ```python
 network = resnet50(class_num=10)

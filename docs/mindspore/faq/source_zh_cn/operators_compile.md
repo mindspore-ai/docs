@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/operators_compile.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q：`TransData`算子的功能是什么，能否优化性能？**</font>
 
@@ -40,13 +40,13 @@ def __init__(self,
 
 <font size=3>**Q：MindSpore支持矩阵转置吗？**</font>
 
-A：支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/master/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A：支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 
 <font size=3>**Q：请问MindSpore能算给定任意一个`tensor`的方差吗？**</font>
 
-A：MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/doc/api_python/zh-CN/master/_modules/mindspore/nn/layer/math.html#Moments)来实现。
+A：mindspore目前暂无可以直接求出`tensor`方差的算子或接口。不过MindSpore有足够多的小算子可以支持用户实现这样的操作，你可以参考[class Moments(Cell)](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/_modules/mindspore/nn/layer/math.html#Moments)来实现。
 
 <br/>
 

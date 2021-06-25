@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/data_processing.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: How do I understand the `dataset_sink_mode` parameter in `model.train` of MindSpore?**</font>
 
@@ -14,17 +14,17 @@ When `dataset_sink_mode` is set to `False`, data processing and network computin
 
 <font size=3>**Q: Can MindSpore train image data of different sizes by batch?**</font>
 
-A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py).
+A: You can refer to the usage of YOLOv3 which contains the resizing of different images. For details about the script, see [yolo_dataset](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/yolov3_darknet53/src/yolo_dataset.py).
 
 <br/>
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.3/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
 [GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#loading-user-defined-dataset)
 
-[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/master/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 

@@ -17,7 +17,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/serving/docs/source_en/serving_model.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -27,7 +27,7 @@ MindSpore Serving Servable provides the inference services of the following type
 
 The following describes how to configure a single model to provide Servable. All Servable configurations are for single-model Servables and the Serving client is referred to as the client.
 
-ResNet-50 is used as an example to describe how to configure a model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/master/example/resnet/).
+ResNet-50 is used as an example to describe how to configure a model to provide Servable. For details about the sample code, see the [ResNet-50 Example](https://gitee.com/mindspore/serving/tree/r1.3/example/resnet/).
 
 ## Concepts
 
@@ -245,4 +245,4 @@ if __name__ == '__main__':
     run_classify_top5()
 ```
 
-In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides `call_preprocess_pipeline` and `call_postprocess_pipeline` for registering such preprocessing and post-processing. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/master/example/resnet/resnet50/servable_config.py).
+In addition, one request may include multiple instances, and multiple requests in queue for processing also have multiple instances. If multiple instances need to be processed concurrently by using, for example, multiple threads in customized preprocessing or post-processing (for example, the MindData concurrency is used to process multiple input images during preprocessing), MindSpore Serving provides `call_preprocess_pipeline` and `call_postprocess_pipeline` for registering such preprocessing and post-processing. For details, see [ResNet-50 sample model configuration](https://gitee.com/mindspore/serving/blob/r1.3/example/resnet/resnet50/servable_config.py).

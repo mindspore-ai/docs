@@ -22,7 +22,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/dump_in_graph_mode.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 概述
 
@@ -202,7 +202,7 @@ ms_execution_order_graph_{graph_id}.csv
 
 对于Ascend场景，在通过Dump功能将脚本对应的图保存到磁盘上后，会产生最终执行图文件`ms_output_trace_code_graph_{graph_id}.ir`。该文件中保存了对应的图中每个算子的堆栈信息，记录了算子对应的生成脚本。
 
-以[AlexNet脚本](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/alexnet/src/alexnet.py)为例 ：
+以[AlexNet脚本](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/alexnet/src/alexnet.py)为例 ：
 
 ```python
 import mindspore.nn as nn
@@ -439,7 +439,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 如果`op_type`和`op_name`中出现了“.”、“/”、“\”、空格时，会转换为下划线表示。
 
-Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
+Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/r1.3/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
 异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id7)。
 

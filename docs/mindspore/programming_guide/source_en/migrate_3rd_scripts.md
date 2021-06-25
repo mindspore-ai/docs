@@ -19,7 +19,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/migrate_3rd_scripts.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/migrate_3rd_scripts.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
@@ -33,7 +33,7 @@ Before you start working on your scripts, prepare your operator assessment and h
 
 Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
 
-Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.BatchNorm2d.html) exist in the MindSpore Operator List.
+Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Conv2d.html) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.BatchNorm2d.html) exist in the MindSpore Operator List.
 
 If any operator does not exist, you are advised to perform the following operations:
 
@@ -59,7 +59,7 @@ Prepare the hardware environment, find a platform corresponding to your environm
 
 MindSpore differs from TensorFlow and PyTorch in the network structure. Before migration, you need to clearly understand the original script and information of each layer, such as shape.
 
-> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
+> You can also use [MindConverter Tool](https://gitee.com/mindspore/mindinsight/tree/r1.3/mindinsight/mindconverter) to automatically convert the PyTorch network definition script to MindSpore network definition script.
 
 The ResNet-50 network migration and training on the Ascend 910 is used as an example.
 
@@ -81,7 +81,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
                               num_shards=device_num, shard_id=rank_id)
    ```
 
-   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/dataset.py>.
+   Then, perform data augmentation, data cleaning, and batch processing. For details about the code, see <https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/dataset.py>.
 
 3. Build a network.
 
@@ -216,7 +216,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
 6. Build the entire network.
 
-   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/resnet/src/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
+   The [ResNet-50](https://gitee.com/mindspore/mindspore/blob/r1.3/model_zoo/official/cv/resnet/src/resnet.py) network structure is formed by connecting multiple defined subnets. Follow the rule of defining subnets before using them and define all the subnets used in the `__init__` and connect subnets in the `construct`.
 
 7. Define a loss function and an optimizer.
 
@@ -274,4 +274,4 @@ Models trained on the Ascend 910 AI processor can be used for inference on diffe
 
 ## Examples
 
-- [Model Zoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo)
+- [Model Zoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo)
