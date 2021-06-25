@@ -2,6 +2,12 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/api_cpp/source_zh_cn/registry.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+## FmkType
+
+\#include &lt;[framework.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/framework.h)&gt;
+
+FmkType枚举类定义了转换工具支持的框架类型。
+
 ## ModelParser
 
 \#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
@@ -51,14 +57,14 @@ ModelParserRegistry 的析构函数。
 #### GetModelParser
 
 ```c++
-ModelParser *GetModelParser(const std::string &fmk)
+ModelParser *GetModelParser(const FmkType fmk)
 ```
 
 获取ModelParserCreator类型的函数指针。
 
 - 参数
 
-    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型。
+    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#fmktype)。
 
 - 返回值
 
@@ -67,14 +73,14 @@ ModelParser *GetModelParser(const std::string &fmk)
 #### RegParser
 
 ```c++
-void RegParser(const std::string &fmk, ModelParserCreator creator)
+void RegParser(const FmkType fmk, ModelParserCreator creator)
 ```
 
 注册ModelParserCreator类型的函数指针。
 
 - 参数
 
-    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型。
+    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#fmktype)。
 
     - `creator`: 定义了ModelParserCreator类型的函数指针。
 
@@ -100,7 +106,7 @@ static ModelParserRegistry *GetInstance()
 parsers_
 ```
 
-**unordered_map&lt;string, ModelParserCreator&gt;**值，存储ModelParserCreator类的函数指针。
+**unordered_map&lt;FmkType, ModelParserCreator&gt;**值，存储ModelParserCreator类的函数指针。
 
 ## ModelRegistrar
 
@@ -113,14 +119,14 @@ ModelRegistrar类定义了ModelParserCreator类的注册形式，用于程序运
 #### ModelRegistrar
 
 ```c++
-ModelRegistrar(const std::string &fmk, ModelParserCreator creator)
+ModelRegistrar(const FmkType fmk, ModelParserCreator creator)
 ```
 
 ModelRegistrar的构造函数。
 
 - 参数
 
-    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型。
+    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#fmktype)。
 
     - `creator`: 定义了ModelParserCreator类型的函数指针。
 
@@ -144,12 +150,11 @@ REG_MODEL_PARSER定义了ModelParserCreator类的注册宏，便于ModelParserCr
 
 - 参数
 
-    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型。
+    - `fmk`: 定义了ModelParserCreator类型的函数指针的框架类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#fmktype)。
 
     - `creator`: 定义了ModelParserCreator类型的函数指针。
 
-> fmk只支持设为TF、TFLITE、CAFFE、ONNX，这与模型转换工具[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id5)的fmk参数是一一对应的。
-> 用户自定义的ModelParser，框架类型也必须满足上述设定。
+> 用户自定义的ModelParser，框架类型也必须满足设定支持的类型[FmkType](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#fmktype)。
 
 ## Pass
 
@@ -330,13 +335,13 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 
-    - `ctx`: 上下文配置[lite::Context](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html#Context)。
+    - `ctx`: 上下文配置[lite::Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html#Context)。
 
 ## REGISTER_KERNEL
 
@@ -401,9 +406,9 @@ virtual int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vect
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 
