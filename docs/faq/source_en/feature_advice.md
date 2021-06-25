@@ -115,3 +115,11 @@ A: MindSpore Serving matches MindSpore in the same version. For example, Serving
 <font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
 A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
+
+<br/>
+
+<font size=3>**Q:What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>
+
+A: `MindSpore ModelZoo` contains models only implemented by MindSpore. But these models support different devices including Ascend, GPU, CPU and mobile. `Ascend ModelZoo` contains models only running on Ascend which are implemented by different ML platform including MindSpore, PyTorch, TensorFlow and Caffe. You can refer to the corresponding [gitee repository](https://gitee.com/ascend/modelzoo).
+
+As for the models implemented by MindSpore running on Ascend, these are maintained in `MindSpore ModelZoo`, and will be released to `Ascend ModelZoo` regularly.
