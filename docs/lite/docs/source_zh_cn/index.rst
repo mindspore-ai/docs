@@ -40,6 +40,7 @@
    use/runtime
    use/micro
    use/asic
+   use/register_kernel
 
 .. toctree::
    :glob:
@@ -71,9 +72,6 @@
    operator_list_lite
    operator_list_codegen
    model_lite
-   C++ API <https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/index.html>
-   Java API <https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_java/index.html>
-   faq
 
 .. raw:: html
 

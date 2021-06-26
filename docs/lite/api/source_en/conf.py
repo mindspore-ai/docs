@@ -63,8 +63,6 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_static_path = ['_static']
-
 html_search_language = 'en'
 
 # Tell sphinx what the primary language being documented is.
