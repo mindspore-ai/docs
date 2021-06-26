@@ -90,5 +90,11 @@ Others
     :template: classtemplate_inherited.rst
 
     mindspore.dataset.DatasetCache
+    mindspore.dataset.DSCallback
     mindspore.dataset.Schema
+    mindspore.dataset.WaitedDSCallback
+    mindspore.dataset.compare
+    mindspore.dataset.deserialize
+    mindspore.dataset.serialize
+    mindspore.dataset.show
     mindspore.dataset.zip
