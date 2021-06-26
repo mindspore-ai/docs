@@ -54,5 +54,3 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-
-html_static_path = ['_static']
