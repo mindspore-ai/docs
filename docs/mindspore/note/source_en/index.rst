@@ -13,8 +13,6 @@ MindSpore Design And Specification
    
    design/overall
    design/mindspore
-   design/mindinsight
-   design/mindarmour
 
 
 .. toctree::

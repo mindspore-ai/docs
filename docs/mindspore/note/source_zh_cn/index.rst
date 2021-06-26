@@ -13,8 +13,6 @@ MindSpore设计和规格
    
    design/overall
    design/mindspore
-   design/mindinsight
-   design/mindarmour
 
 .. toctree::
    :glob:
