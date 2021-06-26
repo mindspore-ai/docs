@@ -1,5 +1,98 @@
-# Debugger Offline
+﻿# Using the Offline Debugger
 
-No English version available right now, welcome to contribute.
+`Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
+
+<!-- TOC -->
+
+- [Using the Offline Debugger](#use-offline-debugger)
+    - [Overview](#overview)
+    - [Operation Procedure](#operation-procedure)
+    - [Environment Preparation](#environment-preparation)
+    - [UI Introduction](#ui-introduction)
+    - [Usage Example](#usage-example)
+    - [Precautions](#precautions)
+
+<!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/training/source_en/advanced_use/debugger_offline.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+## Overview
+
+MindSpore offline debugger is used to perform visualized debugging based on the trained dump data. It can be used to view and analyze the intermediate results of computational graph nodes.
+
+The offline debugger can connect to offline dump data for visualized analysis. It solves the problem that the online debugger is not supported when memory overcommitment is not enabled.
+
+## Operation Process
+
+1. Prepare dump data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dump_in_graph_mode.html).
+2. Start MindInsight and set summary-base-dir to the upper one or two layers of a path in the dump configuration.
+3. Find the offline debugger entry from the Summary list, and click Offline Debugger. The debugger UI is displayed, and debugging analysis starts.
+
+## Environment Preparation
+
+Use the dump function of MindSpore to prepare offline data. For details about how to use the dump function, see [Using Dump in the Graph Mode](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/dump_in_graph_mode.html).
+
+Start MindInsight and set summary-base-dir to the upper one or two layers of a path in the dump configuration. Then, you can query the offline debugger entry on the UI.
+
+MindInsight startup command:
+
+```text
+mindinsight start --port {PORT} --summary-base-dir /path/to/father/directory/of/dump_dir
+```
+
+Or:
+
+```text
+mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/of/dump_dir
+```
+
+Parameters are described as follows:
+
+|Name|Attribute|Description|Type|Default Value|Range|
+|---|---|---|---|---|---|
+|`--port {PORT}`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1–65535|
+|`--summary-base-dir /path/to`|Mandatory|Specifies the upper one or two layers of a path in the MP configuration. For example, if the path in the dump configuration file is set to `/home/workspace/data/dump_dir`, summary-base-dir can be set to `/home/workspace/data` or `/home/workspace`.|String|./|-|
+
+For details about more startup parameters, see [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
+
+Open MindInsight and access the debugger UI from the offline debugger entry.
+
+![debugger_offline_entry](images/debugger_offline_entry.png)
+
+Figure 1: Offline debugger entry
+
+## UI Introduction
+
+The UI of the offline debugger is the same as that of the online debugger. For details about the online debugger UI, see [Debugger UI Introduction](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger.html#debugger-ui-introduction).
+
+## Usage Example
+
+1. After the debugger environment is prepared, open the debugger UI, as shown in the following figure:
+
+    ![debugger_waiting](images/debugger_waiting.png)
+
+    Figure 2: Debugger waiting for training connection
+
+    At this point, the debugger is in a state of loading offline data.
+
+2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The procedure is the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger.html#debugger-usage-example).
+
+3. Compared with the online debugger, the offline debugger can reset the training epoch. Click the edit icon on the right, enter the epoch to be reset, and click the tick icon, as shown in the following figure.
+
+   ![debugger_offline_reset](images/debugger_offline_reset.png)
+
+   Figure 3: Resetting the training epoch
+
+## Precautions
+
+- Scenarios:
+    - The debugger does not support the CPU scenario currently.
+    - The offline debugger supports the single-node multi-device scenario. To analyze the multi-node multi-device scenario, you need to summarize the data of multiple nodes.
+
+- GPU scenario:
+    - Different from the online debugger, the offline debugger does not support node-by-node execution.
+    - The previous step in the GPU scenario is a subgraph (not a complete graph). Therefore, when multiple graphs are rechecked on a GPU, only the current subgraph can be checked again.
+
+- Only watchpoints that have tensor values are rechecked.
+- The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
+- If the asynchronous dump data in the Ascend scenario is used, you can use the `convert_all_data_to_host` API of MindInsight DumpParser to convert the asynchronous dump data into the `.npy` file to improve the data analysis efficiency. For details about how to use DumpParser, see [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser).
