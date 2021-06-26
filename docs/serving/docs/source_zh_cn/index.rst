@@ -20,6 +20,7 @@ MindSpore Serving 文档
    serving_grpc
    serving_restful
    serving_model
+   serving_pipeline
 
 .. toctree::
    :glob:
