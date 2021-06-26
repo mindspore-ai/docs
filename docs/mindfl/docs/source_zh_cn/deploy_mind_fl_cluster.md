@@ -43,6 +43,8 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
     > 在MindSpore联邦学习框架中，`Server`还支持弹性伸缩以及容灾，能够在训练任务不中断的情况下，动态调配硬件资源。
 
+`Scheduler`和`Server`需部署在单网卡的服务器或者容器中，且处于相同网段。MindSpore自动获取首个可用IP地址作为`Server`地址。
+
 ## 准备环节
 
 ### 安装MindSpore
