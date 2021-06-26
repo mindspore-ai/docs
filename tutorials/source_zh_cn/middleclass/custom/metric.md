@@ -43,9 +43,7 @@ from mindspore.nn import Metric
 
 `Dice`实际上计算了两个样本间的相似度，数学公式可以表达为：
 
-$$
-dice = \frac{2 \times (pred \bigcap  true)}{pred \bigcup true}
-$$
+$$ dice = \frac{2 \times (pred \bigcap  true)}{pred \bigcup true} $$
 
 Dice的输入为两个尺度相同的Tensor, list或numpy，一个为预测值，一个为实际值。最后输出两个Tensor间的相似度计算值。其中为防止计算过程中分母为零，引入参数smooth，默认值为1e-5。
 
