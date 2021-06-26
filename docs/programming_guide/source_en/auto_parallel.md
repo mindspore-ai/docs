@@ -98,9 +98,9 @@ context.get_auto_parallel_context("gradients_mean")
 
 - `stand_alone`: standalone mode.
 - `data_parallel`: data parallel mode.
-- `hybrid_parallel`: hybrid parallel mode.
+- `hybrid_parallel`: hybrid parallel mode, which is based on the communication primitive.
 - `semi_auto_parallel`: semi-automatic parallel mode. In this mode, you can use the `shard` method to configure a segmentation policy for an operator. If no policy is configured, the data parallel policy is used by default.
-- `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users.
+- `auto_parallel`: automatic parallel mode. In this mode, the framework automatically creates a cost model and selects the optimal segmentation policy for users. This mode is under development and only be validated in some specific networks.
 
 The complete examples of `auto_parallel` and `data_parallel` are provided in [Distributed Training](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_tutorials.html).
 
@@ -332,7 +332,23 @@ rank_id = get_rank()
 
 ## Distributed Attribute Configuration
 
+### shard
+
+Applied to `Primitive`.
+
+In `AUTO_PARALLEL` and `SEMI_AUTO_PARALLEL` mode, `shard` can be used to configure the sharding strategies of operators. The definition of shard strategies can be referred to [design document](https://www.mindspore.cn/doc/note/en/master/design/mindspore/distributed_training_design.html).
+
+The following is a code example:
+
+```python
+import mindspore.ops as ops
+
+matmul = ops.MatMul().shard(strategy=((1, 4), (4, 2)))
+```
+
 ### cross_batch
+
+Applied to `Primitive`.
 
 In specific scenarios, the calculation logic of `data_parallel` is different from that of `stand_alone`. The calculation logic of `auto_parallel` is the same as that of `stand_alone` in any scenario. The convergence effect of `data_parallel` may be better. Therefore, MindSpore provides the `cross_batch` parameter to ensure that the calculation logic of `auto_parallel` is consistent with that of `data_parallel`. You can use the `add_prim_attr` method to configure the logic. The default value is False.
 
@@ -345,6 +361,8 @@ mul = ops.Mul().add_prim_attr("cross_batch", True)
 ```
 
 ### fusion
+
+Applied to `Primitive`, `Parameter` and `Cell`.
 
 To ensure performance, MindSpore provides the fusion function for the `AllGather` and `AllReduce` operators. Operators of the same type (of the same operator type and in the same communication domain) with the same `fusion` value will be fused together. The value of `fusion` must be greater than or equal to 0. When the value of `fusion` is 0, operators will not be fused together. Only `Ascend` backend is supported.
 
@@ -391,6 +409,8 @@ Here the `comm_fusion` of parameter `Net.p1` is 2, which means the attribute `fu
 > When a parameter is shared, the operators connected with the parameter should have the same data type. Otherwise, fusion would failed.
 
 ### layerwise_parallel
+
+Applied to `Parameter`.
 
 In `HYBRID_PARALLEL` mode, you need to manually split the model. You need to manually add the `layerwise_parallel` flag to the parallel parameters of the model. The framework filters out the gradient aggregation operation for the parallel parameters of the model based on the flag.
 
