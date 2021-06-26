@@ -4,6 +4,259 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
+
+A: When building a network, use `if self.training: x = dropput(x)`. During verification, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
+
+<br/>
+
+<font size=3>**Q: How do I view the number of model parameters?**</font>
+
+A: You can load the checkpoint to count the parameter number. Variables in the momentum and optimizer may be counted, so you need to filter them out.
+You can refer to the following APIs to collect the number of network parameters:
+
+```python
+def count_params(net):
+    """Count number of parameters in the network
+    Args:
+        net (mindspore.nn.Cell): Mindspore network instance
+    Returns:
+        total_params (int): Total number of trainable params
+    """
+    total_params = 0
+    for param in net.trainable_params():
+        total_params += np.prod(param.shape)
+    return total_params
+```
+
+[Script Link](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/research/cv/tinynet/src/utils.py).
+
+<br/>
+
+<font size=3>**Q: How do I monitor the loss during training and save the training parameters when the `loss` is the lowest?**</font>
+
+A: You can customize a `callback`.For details, see the writing method of `ModelCheckpoint`. In addition, the logic for determining loss is added.
+
+```python
+class EarlyStop(Callback):
+def __init__(self):
+    self.loss = None
+def step_end(self, run_context):
+     loss =  ****(get current loss)
+     if (self.loss == None or loss < self.loss):
+         self.loss = loss
+         # do save ckpt
+```
+
+<br/>
+
+<font size=3>**Q: How do I obtain the expected `feature map` when `nn.Conv2d` is used?**</font>
+
+A: For details about how to derive the `Conv2d shape`, click [here](https://www.mindspore.cn/doc/api_python/en/master/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d) Change `pad_mode` of `Conv2d` to `same`. Alternatively, you can calculate the `pad` based on the Conv2d shape derivation formula to keep the `shape` unchanged. Generally, the pad is `(kernel_size-1)//2`.
+
+<br/>
+
+<font size=3>**Q: Can MindSpore be used to customize a loss function that can return multiple values?**</font>
+
+A: After customizing the `loss function`, you need to customize `TrainOneStepCell`. The number of `sens` for implementing gradient calculation is the same as the number of `network` outputs. For details, see the following:
+
+```python
+net = Net()
+
+loss_fn = MyLoss()
+
+loss_with_net = MyWithLossCell(net, loss_fn)
+
+train_net = MyTrainOneStepCell(loss_with_net, optim)
+
+model = Model(net=train_net, loss_fn=None, optimizer=None)
+```
+
+<br/>
+
+<font size=3>**Q: How does MindSpore implement the early stopping function?**</font>
+
+A: You can customize the `callback` method to implement the early stopping function.
+Example: When the loss value decreases to a certain value, the training stops.
+
+```python
+class EarlyStop(Callback):
+    def __init__(self, control_loss=1):
+        super(EarlyStep, self).__init__()
+        self._control_loss = control_loss
+
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        loss = cb_params.net_outputs
+        if loss.asnumpy() < self._control_loss:
+            # Stop training.
+            run_context._stop_requested = True
+
+stop_cb = EarlyStop(control_loss=1)
+model.train(epoch_size, ds_train, callbacks=[stop_cb])
+```
+
+<br/>
+
+<font size=3>**Q: After a model is trained, how do I save the model output in text or `npy` format?**</font>
+
+A: The network output is `Tensor`. You need to use the `asnumpy()` method to convert the `Tensor` to `NumPy` and then save the data. For details, see the following:
+
+```python
+out = net(x)
+
+np.save("output.npy", out.asnumpy())
+```
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "Create python object \`<class 'mindspore.common.tensor.Tensor'>\` failed, only support create Cell or Primitive object." is reported?**</font>
+
+A: Currently in graph mode, the `construct` function (or the function decorated by the `@ms_function` decorator) only supports the construction of `Cell` and `Primitive object`. The construction of `Tensor` is not supported, that is, the syntax `x = Tensor(args...)` is not supported.
+
+If it is a constant tensor, please define it in the function `__init__`. If not, you can use the `@constexpr` decorator to modify the function and generate the `Tensor` in the function.
+
+Please see the usage of `@constexpr` in <https://www.mindspore.cn/doc/api_python/en/master/mindspore/ops/mindspore.ops.constexpr.html>.
+
+The constant `Tensor` used on the network can be used as a network attribute and defined in `init`, that is, `self.x = Tensor(args...)`. Then the constant can be used in the `construct` function (or the function decorated by the `@ms_function` decorator).
+
+In the following example, `Tensor` of `shape = (3, 4), dtype = int64` is generated by `@constexpr`.
+
+```python
+@constexpr
+def generate_tensor():
+    return Tensor(np.ones((3, 4)))
+```
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "'self.xx' should be defined in the class '__init__' function." is reported?**</font>
+
+A: If you want to assign for a class member such as `self.xx` in the function `construct`, `self.xx` must have been defined to a [`Parameter`](<https://www.mindspore.cn/doc/api_python/en/master/mindspore/mindspore.html?highlight=parameter#mindspore.Parameter>) type firstly while the other types are not supported. But the local variable `xx` is not under the regulation.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "This comparator 'AnyValue' is not supported. For statement 'is', only support compare with 'None', 'False' or 'True'" is reported?**</font>
+
+A: For the syntax `is` or `is not`, currently `MindSpore` only supports comparisons with `True`, `False` and `None`. Other types, such as strings, are not supported.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "MindSpore does not support comparison with operators more than one now, ops size =2" is reported?**</font>
+
+A: For comparison statements, `MindSpore` supports at most one operator. Please modify your code. For example, you can use `1 < x and x < 3` to take the place of `1 < x < 3`.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "TypeError: The function construct need 1 positional argument and 0 default argument, but provided 2" is reported?**</font>
+
+A: When you call the instance of a network, the function `construct` will be executed. And the program will check the number of parameters required by the function `construct` and the number of parameters actually given. If they are not equal, the above exception will be thrown.
+Please check your code to make sure they are equal.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error "Type Join Failed" or "Shape Join Failed" is reported?**</font>
+
+A: In the inference stage of front-end compilation, the abstract types of nodes, including `type` and `shape`, will be inferred. Common abstract types include `AbstractScalar`, `AbstractTensor`, `AbstractFunction`, `AbstractTuple`, `AbstractList`, etc. In some scenarios, such as multi-branch scenarios, the abstract types of the return values of different branches will be joined to infer the abstract type of the returned result. If these abstract types do not match, or `type`/`shape` are inconsistent, the above exception will be thrown.
+
+When an error similar to "Type Join Failed: dtype1 = Float32, dtype2 = Float16" appears, it means that the data types are inconsistent, resulting in an exception when joining abstract. According to the provided data types and code line, the error can be quickly located. In addition, the specific abstract information and node information are provided in the error message. You can view the MindIR information through the `analyze_fail.dat` file to locate and solve the problem. For specific introduction of MindIR, please refer to [MindSpore IR (MindIR)](https://www.mindspore.cn/doc/note/en/master/design/mindspore/mindir.html). The code sample is as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import nn, Tensor, context
+
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.relu = ops.ReLU()
+        self.cast = ops.Cast()
+
+    def construct(self, x, a, b):
+        if a > b:
+            return self.relu(x)
+        else:
+            return self.cast(self.relu(x), ms.float16)
+
+input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = Tensor(2, ms.float32)
+input_b = Tensor(6, ms.float32)
+net = Net()
+out_me = net(input_x, input_a, input_b)
+```
+
+The result is as follows:
+
+```text
+TypeError: The return values of different branches do not match. Type Join Failed: dtype1 = Float32, dtype2 = Float16. The abstract type of the return value of the current branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float16, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x32ed00e0, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
+In file test_join.py(14)/        if a > b:/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_join.py(14)
+        if a > b:
+```
+
+When an error similar to "Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = ()" appears, it means that the shapes are inconsistent, resulting in an exception when joining abstract. The code sample is as follows:
+
+```python
+import numpy as np
+import mindspore as ms
+import mindspore.ops as ops
+from mindspore import nn, Tensor, context
+
+context.set_context(mode=context.GRAPH_MODE)
+class Net(nn.Cell):
+    def __init__(self):
+        super().__init__()
+        self.relu = ops.ReLU()
+        self.reducesum = ops.ReduceSum()
+
+    def construct(self, x, a, b):
+        if a > b:
+            return self.relu(x)
+        else:
+            return self.reducesum(x)
+
+input_x = Tensor(np.random.rand(2, 3, 4, 5).astype(np.float32))
+input_a = Tensor(2, ms.float32)
+input_b = Tensor(6, ms.float32)
+net = Net()
+out = net(input_x, input_a, input_b)
+```
+
+The result is as follows:
+
+```text
+ValueError: The return values of different branches do not match. Shape Join Failed: shape1 = (2, 3, 4, 5), shape2 = (). The abstract type of the return value of the current branch is AbstractTensor(shape: (), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue), and that of the previous branch is AbstractTensor(shape: (2, 3, 4, 5), element: AbstractScalar(Type: Float32, Value: AnyValue, Shape: NoShape), value_ptr: 0x239b5120, value: AnyValue). Please check the node construct.4:[CNode]5{[0]: [CNode]6}, true branch: ✓construct.2, false branch: ✗construct.3. trace:
+In file test_join1.py(14)/        if a > b:/
+
+The function call stack (See file 'analyze_fail.dat' for more details):
+# 0 In file test_join1.py(14)
+        if a > b:
+```
+
+When an error similar to "Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple" appears, it means that the two abstract types are mismatched. You need to review the code and modify it based on the provided code line and other error information.
+
+<br/>
+
+<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
+
+A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
+For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
+
+- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
+- Use the MindSpore build result as the Serving build dependency.
+
+<br/>
+
+<font size=3>**Q: What can I do if an error `libmindspore.so: cannot open shared object file: No such file or directory` is reported during application running?**</font>
+
+A: Check whether MindSpore that MindSpore Serving depends on is installed. In Serving 1.1, `LD_LIBRARY_PATH` needs to be configured to explicitly specify the path of `libmindspore.so`. `libmindspore.so` is in the `lib` directory of the MindSpore Python installation path. In Serving 1.2 or later, the path of `libmindspore.so` does not need to be specified. Serving searches for and adds `LD_LIBRARY_PATH` based on the MindSpore installation path, which does not need to be perceived by users.
+
+<br/>
+
 <font size=3>**Q: Can the `vgg16` model be loaded and transferred on a GPU using the Hub?**</font>
 
 A: Yes, but you need to manually modify the following two arguments:
@@ -65,7 +318,7 @@ A: Currently, recommendation models such as Wide & Deep, DeepFM, and NCF are und
 A: The following is based on the official MindSpore linear fitting case.
 
 ```python
-# The fitting function is：f(x)=2*sin(x)+3.
+# The fitting function is: f(x)=2*sin(x)+3.
 import numpy as np
 from mindspore import dataset as ds
 from mindspore.common.initializer import Normal
@@ -214,24 +467,18 @@ After the driver package is installed (assuming that the installation path is /u
 
 <br/>
 
-<font size=3>**Q: What can I do if the Google's Chrome browser prompts the error message `ERR_UNSAFE_PORT after` MindInsight is successfully started?**</font>
-
-A: Chrome browser's kernel prohibits certain ports from being used as HTTP services. You can add `--explicitly-allowed-ports=port` in Chrome browser's configuration. Otherwise you can change the port or browser like IE browser.
-
-<br/>
-
 <font size=3>**Q: How do I change hyperparameters for calculating loss values during neural network training?**</font>
 
 A: Sorry, this function is not available yet. You can find the optimal hyperparameters by training, redefining an optimizer, and then training.
 
 <br/>
 
-<font size=3>**Q：What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+<font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
 
-A：While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
+A: While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 <br/>
 
-<font size=3>**Q：Why does context.set_ps_context(enable_ps=True) in model_zoo/official/cv/resnet/train.py in the MindSpore code have to be set before init?**</font>
+<font size=3>**Q: Why does context.set_ps_context(enable_ps=True) in model_zoo/official/cv/resnet/train.py in the MindSpore code have to be set before init?**</font>
 
-A：In MindSpore Ascend mode, if init is called first, then all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, then the worker and server will use the same card, resulting in an error: Hccl dependent tsd is not open.
+A: In MindSpore Ascend mode, if init is called first, then all processes will be allocated cards, but in parameter server training mode, the server does not need to allocate cards, then the worker and server will use the same card, resulting in an error: Hccl dependent tsd is not open.
