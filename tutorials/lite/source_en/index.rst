@@ -58,6 +58,8 @@ Using MindSpore on Mobile and IoT
 
    use/benchmark
    use/cropper_tool
+   use/visual_tool
+   use/obfuscator_tool
 
 .. toctree::
    :glob:

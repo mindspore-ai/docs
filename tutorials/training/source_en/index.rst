@@ -96,6 +96,7 @@ Train with MindSpore
    advanced_use/protect_user_privacy_with_suppress_privacy
    advanced_use/test_model_security_fuzzing
    advanced_use/test_model_security_membership_inference
+   advanced_use/model_encrypt_protection
 
 .. toctree::
    :glob:
