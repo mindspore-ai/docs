@@ -68,6 +68,14 @@ device_list_
 
 > 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
 
+#### delegate
+
+```cpp
+delegate
+```
+
+**pointer**类型，指向代理 [**Delegate**](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#delegate) 的指针。
+
 ## Model
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/model.h)&gt;
@@ -417,3 +425,49 @@ size_t buf_size_;
 ```
 
 缓冲区大小。
+
+## Delegate
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/master/mindspore/lite/include/delegate.h)&gt;
+
+Delegate类定义了一个代理接口，用于第三方AI框架快速接入MindSpore Lite。
+
+### 析构函数
+
+#### ~Delegate
+
+```cpp
+virtual ~Delegate();
+```
+
+虚析构函数。
+
+### 公有成员函数
+
+#### Init
+
+```cpp
+virtual int Init() = 0;
+```
+
+初始化Delegate资源。
+
+- 返回值
+
+    STATUS，STATUS在errorcode.h中定义。
+
+#### Build
+
+```cpp
+virtual int Build(DelegateModel *model) = 0;
+```
+
+Delegate在线构图。
+
+- 参数
+
+    - `model`: 指向存储DelegateModel实例的指针。
+
+- 返回值
+
+    STATUS，STATUS在errorcode.h中定义。
