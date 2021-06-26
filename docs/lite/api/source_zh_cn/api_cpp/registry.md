@@ -8,6 +8,22 @@
 
 FmkType枚举类定义了转换工具支持的框架类型。
 
+## ConverterParameters
+
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+
+ConverterParameters结构体定义了模型解析时的转换参数。
+
+```c++
+struct ConverterParameters {
+  FmkType fmk_;                                   // 框架类型
+  schema::QuantType quant_type_;                  // 模型量化类型
+  std::string model_file_;                        // 原始模型文件路径
+  std::string weight_file_;                       // 原始模型权重文件路径，仅在Caffe框架下有效
+  std::map<std::string, std::string> attrs_;      // 预留参数接口，暂未启用
+};
+```
+
 ## ModelParser
 
 \#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
