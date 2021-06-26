@@ -112,7 +112,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
         nnie.cfg文件的示例参考如下：
 
-        ```txt
+        ```text
         [net_type] 0
         [image_list] ./input_nchw.txt
         [image_type] 0
