@@ -1,5 +1,16 @@
 # MindSpore Lite推理流程
 
+<!-- TOC -->
+
+- [MindSpore Lite推理流程](#mindspore-lite推理流程)
+    - [运行依赖](#运行依赖)
+    - [MindSpore Lite推理流程](#mindspore-lite推理流程)
+    - [在Android中部署Demo](#在android中部署demo)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/inference/mindspore_lite_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 本文将会以图像分割Demo为例讲解如何使用MindSpore Lite进行推理。
 
 文章包含以下几方面的说明：
