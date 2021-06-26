@@ -3,7 +3,17 @@
 
 .. currentmodule:: {{ module }}
 
-{% if objname[0].istitle() %}
+{% if objname in "GraphData CelebADataset Cifar100Dataset Cifar10Dataset CocoDataset ImageFolderDataset MnistDataset VOCDataset" %}
+
+{{ fullname | underline }}
+
+.. autoclass:: {{ name }}
+    :inherited-members:
+    :exclude-members: bucket_batch_by_length, build_sentencepiece_vocab, build_vocab
+    :members:
+
+{% elif objname[0].istitle() %}
+
 {{ fullname | underline }}
 
 .. autoclass:: {{ name }}
