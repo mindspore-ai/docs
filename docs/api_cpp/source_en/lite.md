@@ -58,6 +58,14 @@ allocator
 
 A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator).
 
+#### delegate
+
+```cpp
+delegate
+```
+
+**pointer**，pointing to [**Delegate**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#delegate).
+
 #### device_list_
 
 ```cpp
@@ -435,3 +443,47 @@ size_t buf_size_;
 ```
 
 The length of the buffer with exported model.
+
+## Delegate
+
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/master/mindspore/lite/include/delegate.h)&gt;
+
+Delegate defines a proxy interface for the third-party AI framework to quickly access MindSpore Lite.
+
+### Free
+
+#### ~Delegate
+
+```cpp
+virtual ~Delegate();
+```
+
+### Public Member Functions
+
+#### Init
+
+```cpp
+virtual int Init() = 0;
+```
+
+Init Delegate resources.
+
+- Returns
+
+    STATUS，STATUS is defined in errorcode.h.
+
+#### Build
+
+```cpp
+virtual int Build(DelegateModel *model) = 0;
+```
+
+Build graph online.
+
+- Parameters
+
+    - `model`: Pointer to MindSpore Lite DelegateModel.
+
+- Returns
+
+    STATUS，STATUS is defined in errorcode.h.
