@@ -180,81 +180,6 @@ Resize inputs shape.
 
     STATUS as an error code of resize inputs, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
 
-### Static Public Member Functions
-
-#### CreateSession
-
-```cpp
-static LiteSession *CreateSession(const lite::Context *context)
-```
-
-Static method to create a LiteSession pointer.
-
-- Parameters
-
-    - `context`: Define the context of session to be created.
-
-- Returns
-
-    Pointer that points to MindSpore Lite MSTensor.
-
-```cpp
-static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
-```
-
-Static method to create a LiteSession pointer. The returned LiteSession pointer has already read model_buf and completed graph compilation.
-
-- Parameters
-
-    - `model_buf`: Define the buffer read from a model file.
-
-    - `size`: Define the byte number of model buffer.
-
-    - `context`: Define the context of session to be created.
-
-- Returns
-
-    Pointer that points to MindSpore Lite LiteSession.
-
-#### CreateTransferSession
-
-```cpp
-static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
-```
-
-Static method that creates the object pointer that points to the transfer learning training session.
-
-- Parameters
-
-    - `filename_backbone`: File name of the backbone network.
-    - `filename_head`:  File name of the head network.
-    - `context`:  Pointer that points to the target session.
-    - `train_mode`: Training mode to initialize the Session.
-    - `cfg`: Config of train session.
-
-- Returns
-
-    Pointer that points to MindSpore Lite TrainSession.
-
-#### CreateTrainSession
-
-```cpp
-static LiteSession *CreateTrainSession(const std::string &filename, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
-```
-
-Static method to create a TrainSession object.
-
-- Parameters
-
-    - `filename`: Train model file name.
-    - `context`: Pointer that points to the target session.
-    - `train_mode`: Training mode to initialize Session.
-    - `cfg`: Config of train session.
-
-- Returns
-
-    Pointer that points to MindSpore Lite TrainSession.
-
 #### Train
 
 ```cpp
@@ -404,6 +329,81 @@ Update model feature map.
 - Returns
 
    STATUS as an error code of compiling graph, STATUS is defined in [errorcode.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/errorcode.h).
+
+### Static Public Member Functions
+
+#### CreateSession
+
+```cpp
+static LiteSession *CreateSession(const lite::Context *context)
+```
+
+Static method to create a LiteSession pointer.
+
+- Parameters
+
+    - `context`: Define the context of session to be created.
+
+- Returns
+
+    Pointer that points to MindSpore Lite MSTensor.
+
+```cpp
+static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
+```
+
+Static method to create a LiteSession pointer. The returned LiteSession pointer has already read model_buf and completed graph compilation.
+
+- Parameters
+
+    - `model_buf`: Define the buffer read from a model file.
+
+    - `size`: Define the byte number of model buffer.
+
+    - `context`: Define the context of session to be created.
+
+- Returns
+
+    Pointer that points to MindSpore Lite LiteSession.
+
+#### CreateTransferSession
+
+```cpp
+static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+Static method that creates the object pointer that points to the transfer learning training session.
+
+- Parameters
+
+    - `filename_backbone`: File name of the backbone network.
+    - `filename_head`:  File name of the head network.
+    - `context`:  Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize the Session.
+    - `cfg`: Config of train session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
+
+#### CreateTrainSession
+
+```cpp
+static LiteSession *CreateTrainSession(const std::string &filename, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+Static method to create a TrainSession object.
+
+- Parameters
+
+    - `filename`: Train model file name.
+    - `context`: Pointer that points to the target session.
+    - `train_mode`: Training mode to initialize Session.
+    - `cfg`: Config of train session.
+
+- Returns
+
+    Pointer that points to MindSpore Lite TrainSession.
 
 ## TrainLoop
 
