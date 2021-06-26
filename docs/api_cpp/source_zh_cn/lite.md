@@ -66,6 +66,8 @@ device_list_
 
 [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontextvector) 类型, 元素为 [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext) 的**vector**.
 
+> 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
+
 #### delegate
 
 ```cpp
@@ -73,8 +75,6 @@ delegate
 ```
 
 **pointer**类型，指向代理 [**Delegate**](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#delegate) 的指针。
-
-> 现在支持CPU、GPU和NPU。如果设置了GPU设备环境变量并且设备支持GPU，优先使用GPU设备，否则优先使用CPU设备。如果设置了NPU设备环境变量并且设备支持NPU，优先使用NPU设备，否则优先使用CPU设备。
 
 ## Model
 
