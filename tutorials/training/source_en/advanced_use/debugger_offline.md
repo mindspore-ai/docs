@@ -69,7 +69,7 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 
 1. After the debugger environment is prepared, open the debugger UI, as shown in the following figure:
 
-    ![debugger_waiting](images/debugger_waiting.png)
+    ![debugger_waiting](images/debugger_offline_waiting.png)
 
     Figure 2: Debugger waiting for training connection
 
