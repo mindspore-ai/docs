@@ -14,21 +14,21 @@
 
 ## MindSpore C++ Library Use
 
-<font size=3>**Q：What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
+<font size=3>**Q: What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
-
-<br/>
-
-<font size=3>**Q：What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
-
-A：First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <br/>
 
-<font size=3>**Q：What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+<font size=3>**Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 
-A：While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+
+<br/>
+
+<font size=3>**Q: What should I do when error `error while loading shared libraries: libge_compiler.so: cannot open shared object file: No such file or directory` prompts during application running?**</font>
+
+A: While installing Ascend 310 AI Processor software packages，the `CANN` package should install the full-featured `toolkit` version instead of the `nnrt` version.
 
 ## MindSpore Serving
 
@@ -64,9 +64,9 @@ For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follow
 
 A: Check whether MindSpore that MindSpore Serving depends on is installed. In Serving 1.1, `LD_LIBRARY_PATH` needs to be configured to explicitly specify the path of `libmindspore.so`. `libmindspore.so` is in the `lib` directory of the MindSpore Python installation path. In Serving 1.2 or later, the path of `libmindspore.so` does not need to be specified. Serving searches for and adds `LD_LIBRARY_PATH` based on the MindSpore installation path, which does not need to be perceived by users.
 
-<font size=3>**Q：How to control the output of Serving log?**</font>
+<font size=3>**Q: How to control the output of Serving log?**</font>
 
-A：MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html?highlight=GLOG#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
+A: MindSpore Serving uses glog to output logs, for more details, please refer to [Log-related Environment Variables and Configurations](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/custom_debugging_info.html?highlight=GLOG#log-related-environment-variables-and-configurations). On this basis, additional supplementary contents are as follows:
 
 - MS_SUBMODULE_LOG_v
 
