@@ -178,81 +178,6 @@ virtual int Resize(const std::vector <tensor::MSTensor *> &inputs, const std::ve
 
     STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h)中定义。
 
-### 静态公有成员函数
-
-#### CreateSession
-
-```cpp
-static LiteSession *CreateSession(const lite::Context *context)
-```
-
-用于创建一个LiteSession指针的静态方法。
-
-- 参数
-
-    - `context`: 定义了所要创建的session的上下文。
-
-- 返回值
-
-    指向MindSpore Lite LiteSession的指针。
-
-```cpp
-static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
-```
-
-用于创建一个LiteSession指针的静态方法。返回的Lite Session指针已经完成了model_buf的读入和图编译。
-
-- 参数
-
-    - `model_buf`: 定义了读取模型文件的缓存区。
-
-    - `size`: 定义了模型缓存区的字节数。
-
-    - `context`: 定义了所要创建的session的上下文。
-
-- 返回值
-
-    指向MindSpore Lite LiteSession的指针。
-
-#### CreateTransferSession
-
-```cpp
-static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
-```
-
-创建迁移学习训练会话指针的静态方法。
-
-- 参数
-
-    - `filename_backbone`: 主干网络的名称。
-    - `filename_head`: 顶层网络的名称。
-    - `context`: 指向目标会话的指针。
-    - `train_mode`: 是否开启训练模式。
-    - `cfg`: 训练相关配置。
-
-- 返回值
-
-    指向训练会话的指针。
-
-#### CreateTrainSession
-
-```cpp
-static LiteSession *CreateTrainSession(const std::string &filename, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
-```
-
-创建训练会话指针的静态方法。
-
-- 参数
-
-    - `filename`: 指向文件名称。
-    - `context`: 指向会话指针
-    - `train_mode`: 是否开启训练模式。
-    - `cfg`: 训练相关配置。
-
-- 返回值
-
-    指向训练会话的指针。
-
 #### Train
 
 ```cpp
@@ -402,6 +327,81 @@ virtual int Export(const std::string &file_name, lite::ModelType model_type = li
 - 返回值
 
     STATUS，即编译图的错误码。STATUS在[errorcode.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/errorcode.h)中定义。
+
+### 静态公有成员函数
+
+#### CreateSession
+
+```cpp
+static LiteSession *CreateSession(const lite::Context *context)
+```
+
+用于创建一个LiteSession指针的静态方法。
+
+- 参数
+
+    - `context`: 定义了所要创建的session的上下文。
+
+- 返回值
+
+    指向MindSpore Lite LiteSession的指针。
+
+```cpp
+static LiteSession *CreateSession(const char *model_buf, size_t size, const lite::Context *context);
+```
+
+用于创建一个LiteSession指针的静态方法。返回的Lite Session指针已经完成了model_buf的读入和图编译。
+
+- 参数
+
+    - `model_buf`: 定义了读取模型文件的缓存区。
+
+    - `size`: 定义了模型缓存区的字节数。
+
+    - `context`: 定义了所要创建的session的上下文。
+
+- 返回值
+
+    指向MindSpore Lite LiteSession的指针。
+
+#### CreateTransferSession
+
+```cpp
+static TrainSession *CreateTransferSession(const std::string &filename_backbone, const std::string &filename_head, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+创建迁移学习训练会话指针的静态方法。
+
+- 参数
+
+    - `filename_backbone`: 主干网络的名称。
+    - `filename_head`: 顶层网络的名称。
+    - `context`: 指向目标会话的指针。
+    - `train_mode`: 是否开启训练模式。
+    - `cfg`: 训练相关配置。
+
+- 返回值
+
+    指向训练会话的指针。
+
+#### CreateTrainSession
+
+```cpp
+static LiteSession *CreateTrainSession(const std::string &filename, const lite::Context *context, bool train_mode = false, const lite::TrainCfg *cfg = nullptr);
+```
+
+创建训练会话指针的静态方法。
+
+- 参数
+
+    - `filename`: 指向文件名称。
+    - `context`: 指向会话指针
+    - `train_mode`: 是否开启训练模式。
+    - `cfg`: 训练相关配置。
+
+- 返回值
+
+    指向训练会话的指针。
 
 ## TrainLoop
 

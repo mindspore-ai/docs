@@ -31,6 +31,8 @@ LiteSession定义了MindSpore Lite中的会话，用于进行Model的编译和�
 | [boolean isEval()](#isEval) |
 | [boolean setLearningRate(float learning_rate)](#setLearningRate) |
 | [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupVirtualBatch)   |
+| [List<MSTensor> getFeaturesMap()](#getFeaturesMap) |
+| [boolean updateFeatures(List<MSTensor> features)](#updateFeatures) |
 
 ## init
 
@@ -280,3 +282,31 @@ public boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate,
 - 返回值
 
   虚批次系数设置是否成功。  
+
+## getFeaturesMap
+
+```java
+public List<MSTensor> getFeaturesMap()
+```
+
+获取权重参数。
+
+- 返回值
+
+  权重参数列表。
+
+## updateFeatures
+
+```java
+public boolean updateFeatures(List<MSTensor> features)
+```
+
+更新权重参数。
+
+- 参数
+
+    - `features`: 新的权重参数列表。
+
+- 返回值
+
+  权重是否更新成功。
