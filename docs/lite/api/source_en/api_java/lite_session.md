@@ -31,6 +31,8 @@ LiteSession defines session in MindSpore Lite for compiling Model and forwarding
 | [boolean isEval()](#isEval) |
 | [boolean setLearningRate(float learning_rate)](#setLearningRate) |
 | [boolean setupVirtualBatch(int virtualBatchMultiplier, float learningRate, float momentum)](#setupVirtualBatch)   |
+| [List<MSTensor> getFeaturesMap()](#getFeaturesMap) |
+| [boolean updateFeatures(List<MSTensor> features)](#updateFeatures) |
 
 ## init
 
@@ -279,4 +281,32 @@ Set the virtual batch.
 
 - Returns
 
-Whether the virtual batch is successfully set.
+    Whether the virtual batch is successfully set.
+
+## getFeaturesMap
+
+```java
+public List<MSTensor> getFeaturesMap()
+```
+
+Get the FeatureMap.
+
+- Returns
+
+    FeaturesMap Tensor list.
+
+## updateFeatures
+
+```java
+public boolean updateFeatures(List<MSTensor> features)
+```
+
+Update model Features.
+
+- Parameters
+
+    - `features`: new FeatureMap Tensor List.
+
+- Returns
+
+    Whether the model features is successfully update.
