@@ -58,14 +58,6 @@ allocator
 
 A **pointer** pointing to [**Allocator**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator).
 
-#### delegate
-
-```cpp
-delegate
-```
-
-**pointer**，pointing to [**Delegate**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#delegate).
-
 #### device_list_
 
 ```cpp
@@ -75,6 +67,14 @@ device_list_
 A [**DeviceContextVector**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontextvector) contains [**DeviceContext**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) variables.
 
 > CPU, GPU and NPU are supported now. If GPU device context is set and GPU is supported in the current device, use GPU device first, otherwise use CPU device first. If NPU device context is set and GPU is supported in the current device, use NPU device first, otherwise use CPU device first.
+
+#### delegate
+
+```cpp
+delegate
+```
+
+**pointer**，pointing to [**Delegate**](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#delegate).
 
 ## Model
 
