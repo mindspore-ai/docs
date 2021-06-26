@@ -58,8 +58,6 @@ Using MindSpore on Mobile and IoT
 
    use/benchmark
    use/cropper_tool
-   use/visual_tool
-   use/obfuscator_tool
 
 .. toctree::
    :glob:
@@ -71,9 +69,6 @@ Using MindSpore on Mobile and IoT
    operator_list_lite
    operator_list_codegen
    model_lite
-   C++ API <https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/index.html>
-   Java API <https://www.mindspore.cn/lite/api/en/r1.3/api_java/index.html>
-   faq
 
 .. raw:: html
 

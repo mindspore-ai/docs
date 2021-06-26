@@ -14,7 +14,11 @@ Probability Programming Documents
    :caption: Guide
    :hidden:
 
-   apply_deep_probability_programming
+   serving_example
+   serving_distributed_example
+   serving_grpc
+   serving_restful
+   serving_model
 
 .. toctree::
    :glob:
