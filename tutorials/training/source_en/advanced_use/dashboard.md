@@ -186,8 +186,8 @@ Figure 13 shows tensors recorded by a user in a form of a histogram. Click the u
     - MindInsight supports the column of tensor displayed on the front end up to 1000 columns for each query.
     - After the tensor is loaded, in the tensor-visible table view, you can view the maximum of 100,000 values. If the value obtained by the selected dimension query exceeds this limit, it cannot be displayed.
 
-5. Since tensor visualizatioin (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
-   The storage space occupied by the tensor visualizatioin function can be reduced by the following methods:
+5. Since tensor visualization (`TensorSummary`) records raw tensor data, it requires a large amount of storage space. Before using `TensorSummary` and during training, please check that the system storage space is sufficient.
+   The storage space occupied by the tensor visualization function can be reduced by the following methods:
     1) Avoid using `TensorSummary` to record larger tensor.
 
     2) Reduce the number of `TensorSummary` operators in the network.
