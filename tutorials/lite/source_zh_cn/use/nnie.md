@@ -124,7 +124,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     - NNIE动态库路径配置（可选）
 
-        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换， 在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
+        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换，配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_tool.html#id5)。在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
 
 #### 执行converter
 
