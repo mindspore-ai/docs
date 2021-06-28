@@ -11,12 +11,9 @@ MindSpore FAQ
   :maxdepth: 1
 
   installation
-  frontend_syntax
-  frontend_compile
-  backend_compile
-  operators_compile
   data_processing
   script_implement
+  operators_compile
   usage_migrate_3rd
   performance_tuning
   precision_tuning

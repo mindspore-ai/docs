@@ -4,6 +4,42 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/feature_advice.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
+<font size=3>**Q: Is the `input=np.random.uniform(...)` format fixed when the MindIR format is exported?**</font>
+
+A: The format is not fixed. This step is to create an input for constructing the network structure. You only need to input the correct `shape` in `export`. You can use `np.ones` and `np.zeros` to create an input.
+
+<br/>
+
+<font size=3>**Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?**</font>
+
+A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+
+<br/>
+
+<font size=3>**Q: What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
+
+A: When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+
+<br/>
+
+<font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
+
+A: In terms of network execution, operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
+
+In terms of application scenarios, Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
+
+The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
+
+In terms of code debugging, since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
+
+<br/>
+
+<font size=3>**Q: Does MindSpore run only on Huawei `NPUs`?**</font>
+
+A: MindSpore supports Huawei Ascend `NPUs`, `GPUs`, and `CPUs`, and supports heterogeneous computing.
+
+<br/>
+
 <font size=3>**Q: If MindSpore and PyTorch are installed in an environment, can the syntax of the two frameworks be used together in a Python file?**</font>
 
 A: You can use the two frameworks in a python file. Pay attention to the differences between types. For example, the tensor types created by the two frameworks are different, but the basic types of Python are general.
@@ -115,6 +151,7 @@ A: MindSpore Serving matches MindSpore in the same version. For example, Serving
 <font size=3>**Q: How do I perform transfer learning in PyNative mode?**</font>
 
 A: PyNative mode is compatible with transfer learning. For more tutorial information, see [Code for Loading a Pre-Trained Model](https://www.mindspore.cn/docs/programming_guide/en/r1.3/cv_mobilenetv2_fine_tune.html#code-for-loading-a-pre-trained-model).
+
 <br/>
 
 <font size=3>**Q: What is the difference between [MindSpore ModelZoo](https://gitee.com/mindspore/mindspore/tree/master/model_zoo) and [Ascend ModelZoo](https://www.hiascend.com/software/modelzoo)?**</font>

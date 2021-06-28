@@ -4,18 +4,16 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_en/usage_migrate_3rd.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
-## MindSpore
+<font size=3>**Q: How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
 
-<font size=3>**Q：How do I load a pre-trained PyTorch model for fine-tuning on MindSpore?**</font>
-
-A：Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
-Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/advanced_usage_of_checkpoint.html).
+A: Map parameters of PyTorch and MindSpore one by one. No unified conversion script is provided due to flexible network definitions.
+Customize scripts based on scenarios. For details, see [Advanced Usage of Checkpoint](https://www.mindspore.cn/doc/programming_guide/zh-CN/r1.3/advanced_usage_of_checkpoint.html).
 
 <br/>
 
-<font size=3>**Q：How do I convert a PyTorch `dataset` to a MindSpore `dataset`?**</font>
+<font size=3>**Q: How do I convert a PyTorch `dataset` to a MindSpore `dataset`?**</font>
 
-A：The custom dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the custom dataset. MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other custom operations to `map` and start `batch`.
+A: The custom dataset logic of MindSpore is similar to that of PyTorch. You need to define a `dataset` class containing `__init__`, `__getitem__`, and `__len__` to read your dataset, instantiate the class into an object (for example, `dataset/dataset_generator`), and transfer the instantiated object to `GeneratorDataset` (on MindSpore) or `DataLoader` (on PyTorch). Then, you are ready to load the custom dataset. MindSpore provides further `map`->`batch` operations based on `GeneratorDataset`. Users can easily add other custom operations to `map` and start `batch`.
 The custom dataset of MindSpore is loaded as follows:
 
 ```python
@@ -41,17 +39,21 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: How do I migrate scripts or models of other frameworks to MindSpore?**</font>
 
-A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/docs/programming_guide/en/r1.3/migrate_3rd_scripts.html).
+A: For details about script or model migration, please visit the [MindSpore official website](https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/migrate_3rd_scripts.html).
 
-## MindConverter
+<br/>
 
-<font size=3>**Q: `terminate called after throwing an instance of 'std::system_error', what(): Resource temporarily unavailable, Aborted (core dumped)`**</font>
+<font size=3>**Q: MindConverter converts TensorFlow script error prompt`terminate called after throwing an instance of 'std::system_error', what(): Resource temporarily unavailable, Aborted (core dumped)`**</font>
 
 A: This problem is caused by TensorFlow. During script conversion, you need to load the TensorFlow model file through the TensorFlow library. At this time, TensorFlow will apply for relevant resources for initialization. If the resource application fails (maybe because the number of system processes exceeds the maximum number of Linux processes), the TensorFlow C/C++ layer will appear Core Dumped problem. For more information, please refer to the official ISSUE of TensorFlow. The following ISSUE is for reference only: [TF ISSUE 14885](https://github.com/tensorflow/tensorflow/issues/14885), [TF ISSUE 37449](https://github.com/tensorflow/tensorflow/issues/37449)
+
+<br/>
 
 <font size=3>**Q: Can MindConverter run on ARM platform?**</font>
 
 A: MindConverter supports both x86 and ARM platform. Please ensure all required dependencies and environments have been installed in the ARM platform.
+
+<br/>
 
 <font size=3>**Q: Why does the conversion process take a lot of time (more than 10 minutes), but the model is not so large?**</font>
 
@@ -62,9 +64,13 @@ from google.protobuf.internal import api_implementation
 print(api_implementation.Type())
 ```
 
+<br/>
+
 <font size=3>**Q: While converting .pb file to MindSpore script, what may be the cause of error code 1000001 with ensuring `model_file`, `shape`, `iput_nodes` and `output_nodes` set right and third party requirements installed correctly?**</font>
 
 A: Make sure that the TensorFlow version to generate .pb file is no higher than that to convert .pb file, avoiding the conflict which caused by using low version TensorFlow to parse .pb file generated by the high version.
+
+<br/>
 
 <font size=3>**Q: What should I do to deal with Exception `[ERROR] MINDCONVERTER: [BaseConverterError] code: 0000000, msg: {python_home}/lib/libgomp.so.1: cannot allocate memory in static TLS block`?**</font>
 
