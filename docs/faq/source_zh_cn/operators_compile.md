@@ -82,12 +82,6 @@ A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或
 
 <br/>
 
-<font size=3>**Q: 官网的LSTM示例在Ascend上跑不通。**</font>
-
-A: 目前LSTM只支持在GPU和CPU上运行，暂不支持硬件环境，您可以通过[MindSpore算子支持列表](https://www.mindspore.cn/doc/note/zh-CN/master/operator_list_ms.html)查看算子支持情况。
-
-<br/>
-
 <font size=3>**Q: conv2d设置为(3,10),Tensor[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
 
 A: 这是TBE这个算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
@@ -100,7 +94,7 @@ A: 目前 MindSpore 还没有反池化相关的接口。如果用户想自己实
 
 <br/>
 
-<font size=3>**Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码: **</font>
+<font size=3>**Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码:**</font>
 
 ```python
 context.set_context(
