@@ -95,16 +95,7 @@ MindSpore Lite训练后量化分为两类：
 | `--configFile=<CONFIGFILE>` | 必选 | 校准数据集配置文件路径  | String | - | -  |
 | `--bitNum=<BITNUM>` | 可选 | 设定全量化的比特数，目前支持1bit～8bit量化 | Integer | 8 | \[1，8] |
 
-为了计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。
-校准数据集配置文件采用`key=value`的方式定义相关参数，需要配置的`key`如下:
-
-|   参数名  |  属性   |     功能描述    |  参数类型 |   默认值 | 取值范围  |
-| -------- | ------- | -----          | -----    | -----     |  ----- |
-| image_path  | 必选 | 存放校准数据集的目录；如果模型有多个输入，请依次填写对应的数据所在目录，目录路径间请用`,`隔开 |      String                |   -   | 该目录存放可直接用于执行推理的输入数据。由于目前框架还不支持数据预处理，所有数据必须事先完成所需的转换，使得它们满足推理的输入要求 |
-| batch_count | 可选 | 使用的输入数目       | Integer  |  100  | （0，+∞） |
-| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  KL  | KL、MAX_MIN、RemovalOutlier。 <br> KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br> MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br> RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br> 在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者RemovalOutlier      |
-| thread_num | 可选 | 使用校准数据集执行推理流程时的线程数 | Integer  |  1  |  （0，+∞）   |
-| bias_correction | 可选 | 是否对量化误差进行校正 | Boolean  |  false  |  true、flase。使能后，能提升转换后的模型精度，建议设置为true |
+为了计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。`configFile`的配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id5)。
 
 > 对于多输入模型，要求不同输入数据分别存放在各自不同的目录，同时各自目录中的所有文件的文件名按照字典序递增排序后，能够一一对应。例如：模型有两个输入input0、input1，校准数据集共2组（batch_count=2）；input0的对应数据存放在/dir/input0/目录，输入数据文件名为：data_1.bin、data_2.bin；input1的对应数据存放在/dir/input1/目录，输入数据文件名为：data_a.bin、data_b.bin，则认为(data_1.bin, data_a.bin)构成一组输入，（data_2.bin, data_b.bin）构成另一组输入。
 
