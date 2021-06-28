@@ -303,7 +303,7 @@ class ConfusionMatrixCallback(Callback):
 ...
 
 confusion_matrix = ConfusionMatrixCallback(summary_dir='./summary_dir')
-model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
+model.train(epoch=2, train_dataset=ds_train, callbacks=[confusion_matrix])
 ```
 
 The above three ways support the record computational graph, loss value and other data. In addition, MindSpore also supports the saving of computational graph for other phases of training, through
