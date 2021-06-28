@@ -76,12 +76,24 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--bitNum=<BITNUM>` | 否 | 设定训练后量化（权重量化）的比特数，目前支持1bit～16bit量化 | \[1，16] | 8 |
 | `--quantWeightSize=<QUANTWEIGHTSIZE>` | 否 | 设定参与训练后量化（权重量化）的卷积核尺寸阈值，若卷积核尺寸大于该值，则对此权重进行量化 |  \[0，+∞） | 0 |
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | \[0，+∞） | 16 |
-| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径。2）可作为转换器的配置文件路径，内含参数`plugin_path`与`disable_fusion`，均为非必选，前者为第三方库加载路径，如有多个请用`;`分隔，后者默认值为`off`，当为`on`时会关闭融合优化。  |  - | -  |
+| `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
 > - 为保证权重量化的精度，建议`--bitNum`参数设定范围为8bit～16bit。
 > - 全量化目前仅支持激活值8bit、权重8bit的量化方式。
+
+`configFile`配置文件采用`key=value`的方式定义相关参数，可配置的`key`如下:
+
+|   参数名  |  属性   |     功能描述    |  参数类型 |   默认值 | 取值范围  |
+| -------- | ------- | -----          | -----    | -----     |  ----- |
+| image_path  | 全量化时必选 | 存放校准数据集的目录；如果模型有多个输入，请依次填写对应的数据所在目录，目录路径间请用`,`隔开 |      String                |   -   | 该目录存放可直接用于执行推理的输入数据。由于目前框架还不支持数据预处理，所有数据必须事先完成所需的转换，使得它们满足推理的输入要求 |
+| batch_count | 可选 | 使用的输入数目       | Integer  |  100  | （0，+∞） |
+| method_x | 可选 | 网络层输入输出数据量化算法 | String  |  KL  | KL、MAX_MIN、RemovalOutlier。 <br> KL：基于[KL散度](http://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf)对数据范围作量化校准。 <br> MAX_MIN：基于最大值、最小值计算数据的量化参数。 <br> RemovalOutlier：按照一定比例剔除数据的极大极小值，再计算量化参数。 <br> 在校准数据集与实际推理时的输入数据相吻合的情况下，推荐使用MAX_MIN；而在校准数据集噪声比较大的情况下，推荐使用KL或者RemovalOutlier      |
+| thread_num | 可选 | 使用校准数据集执行推理流程时的线程数 | Integer  |  1  |  （0，+∞）   |
+| bias_correction | 可选 | 是否对量化误差进行校正 | Boolean  |  false  |  true、flase。使能后，能提升转换后的模型精度，建议设置为true |
+| plugin_path | 可选 | 第三方库加载路径  | String  |  -  | 如有多个请用`;`分隔   |
+| disable_fusion | 可选 | 是否关闭融合优化 | String  |  off  |  off、on |
 
 ### 使用示例
 
