@@ -182,7 +182,8 @@ def start():
     distributed.start_servable(servable_dir, "matmul",
                                rank_table_json_file="rank_table_8pcs.json",
                                version_number=1,
-                               distributed_address="127.0.0.1:6200")
+                               distributed_address="127.0.0.1:6200",
+                               wait_agents_time_in_seconds=0)
 
     server.start_grpc_server("127.0.0.1:5500")
     server.start_restful_server("127.0.0.1:1500")
@@ -215,7 +216,8 @@ def start_agents():
         group_configs.append(f"model/device{i}/group_config.pb")
 
     distributed.startup_agents(distributed_address="127.0.0.1:6200", model_files=model_files,
-                               group_config_files=group_configs)
+                               group_config_files=group_configs, agent_start_port=7000,
+                               agent_ip=None, rank_start=None)
 
 
 if __name__ == '__main__':
