@@ -216,7 +216,7 @@ app
     }
     ```
 
-2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](./interface_description_fl_client.md)
+2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](https://www.mindspore.cn/mindfl/api/zh-CN/r1.3/interface_description_fl_client.html)。
 
     ```java
     import android.annotation.SuppressLint;

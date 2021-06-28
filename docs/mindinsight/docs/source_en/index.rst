@@ -17,8 +17,10 @@ MindInsight Visualization Documents
    dashboard
    lineage_and_scalars_comparison
    hyper_parameters_auto_tuning
+   migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
+   debugger_offline
    model_explanation
    mindinsight_commands
 

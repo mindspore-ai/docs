@@ -60,8 +60,6 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_static_path = ['_static']
-
 html_search_language = 'zh'
 
 html_search_options = {'dict': '../../../resource/jieba.txt'}
