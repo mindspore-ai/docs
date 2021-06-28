@@ -257,7 +257,7 @@ int NPUDelegate::Init() {
 ### 实现Build接口
 
 Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。
-下面[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/delegate.cc#L157)是NPUDelegate Build接口的实现。
+下面[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L157)是NPUDelegate Build接口的实现。
 
 ```cpp
 int NPUDelegate::Build(DelegateModel *model) {
@@ -346,7 +346,7 @@ class NPUGraph : public kernel::Kernel {
 };
 ```
 
-[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#193)接口主要实现:
+[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L193)接口主要实现:
 
 ```cpp
 int NPUGraph::Prepare() {
@@ -354,7 +354,7 @@ int NPUGraph::Prepare() {
 }
 ```
 
-[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#209)接口主要实现:
+[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L209)接口主要实现:
 
 ```cpp
 int NPUGraph::Execute() {

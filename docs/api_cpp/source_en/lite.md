@@ -446,7 +446,7 @@ The length of the buffer with exported model.
 
 ## Delegate
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/master/mindspore/lite/include/delegate.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/delegate.h)&gt;
 
 Delegate defines a proxy interface for the third-party AI framework to quickly access MindSpore Lite.
 
