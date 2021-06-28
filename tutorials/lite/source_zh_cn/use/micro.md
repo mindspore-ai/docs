@@ -11,6 +11,7 @@
     - [参数说明](#参数说明)
     - [使用步骤](#使用步骤)
     - [使用CodeGen在STM开发板上执行推理](#使用CodeGen在STM开发板上执行推理)
+    - [使用CodeGen在轻鸿蒙上执行推理](#在轻鸿蒙上部署MobileNetV3)
     - [更多详情](#更多详情)
 
 <!-- /TOC -->
@@ -294,12 +295,104 @@ jlinkgdbserver           # 启动jlinkgdbserver 选定target device为STM32F746I
 jlinkRTTViewer           # 启动jlinkRTTViewer 选定target devices为STM32F746IG
 arm-none-eabi-gdb        # 启动arm-gcc gdb服务
 file build/target.elf    # 打开调测文件
-target remote 127.0.0.1  # 连接jlink服务器
+ta
+rget remote 127.0.0.1  # 连接jlink服务器
 monitor reset            # 重置单板
 monitor halt             # 挂起单板
 load                     # 加载可执行文件到单板
 c                        # 执行模型推理
 ```
+
+## 在轻鸿蒙上部署MobileNetV3
+
+1. 轻鸿蒙编译环境准备，需要安装gn/ninja/llvm等编译工具链，详细请参考[轻鸿蒙快速入门](https://device.harmonyos.com/cn/docs/start/introduce/oem_minitinier_environment_lin-0000001105407498)。
+
+2. 开发板环境配置请参考，以Hi3516开发板为例，请参考轻鸿蒙快速入门，[开发步骤章节](https://device.harmonyos.com/cn/docs/start/introduce/oem_development_eq_3516-0000001105829366)。
+
+3. 需要组织的工程目录如下：
+
+    ```text
+    ├── benchmark
+    ├── CMakeLists.txt
+    ├── BUILD.gn        # 编译工程组织文件
+    └── src  
+    ```
+
+4. 使用codegen编译[mobilebetv3模型](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms)，生成对应轻鸿蒙平台的推理代码，命令为:
+
+   ```bash
+   ./codegen --modelPath=./mobilenetv3.ms --codePath=./ --target=ARM32A
+   ```
+
+4. 编写gn文件
+
+   ```text
+   import("//build/lite/config/component/lite_component.gni")
+   import("//build/lite/ndk/ndk.gni")
+
+   lite_component("mobilenetV3_benchmark") {
+       target_type = "executable"
+       sources = [
+            "benchmark/benchmark.cc",
+            "benchmark/load_input.c",
+            "benchmark/calib_output.cc",
+            "src/net.c",
+            "src/weight.c",
+            "src/session.cc",
+            "src/tensor.cc",
+       ]
+
+       features = []
+
+       include_dirs = [
+            "//foundation/ai/engine/test/mindspore_benchmark",
+            "//foundation/ai/engine/test/mindspore_benchmark/include",
+            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/benchmark",
+            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/src",
+       ]
+
+       ldflags = [
+            "-fno-strict-aliasing",
+            "-Wall",
+            "-pedantic",
+            "-std=gnu99",
+       ]
+
+       libs = [
+            "../lib/libmindspore-lite.a",
+            "../lib/libwrapper.a",
+       ]
+
+       defines = [ "NOT_USE_STL" ]
+       defines += [ "ENABLE_NEON" ]
+       defines += [ "ENABLE_ARM" ]
+       defines += [ "ENABLE_ARM32" ]
+
+       cflags = [
+            "-fno-strict-aliasing",
+            "-Wall",
+            "-pedantic",
+            "-std=gnu99",
+       ]
+    }
+    ```
+
+5. 编译benchmark，并执行，结果为：
+
+    ```txt
+    ReadWeightData time: 0.00000ms
+    input 0: mobilenetV3_input.bin
+    ReadInputData time: 0.00000ms
+
+    loop count:3
+    total time: 756.13397ms, per time: 252.04466ms
+
+    outputs:
+    name: Reshape-110, DataType: 43, Elements: 1001, Shape: [1 1001 ], Data:
+    -0.583575, -0.359817, 0.536744, -1.843612, -0.849360, 0.147853, 0.402617, -1.016975, 0.737295, 1.312937
+    ===========run success========
+    total end to end time: 2124.91895ms
+    ```
 
 ## 更多详情
 
