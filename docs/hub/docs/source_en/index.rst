@@ -14,6 +14,7 @@ MindSpore Hub Documents
    :caption: Guide
    :hidden:
 
+   loading_model_from_hub
    publish_model
 
 .. toctree::

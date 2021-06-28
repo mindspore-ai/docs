@@ -15,6 +15,7 @@ MindSpore Hub 文档
    :caption: 使用指南
    :hidden:
 
+   loading_model_from_hub
    publish_model
 
 .. toctree::
