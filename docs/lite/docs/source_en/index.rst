@@ -40,6 +40,7 @@ Using MindSpore on Mobile and IoT
    use/runtime
    use/micro
    use/asic
+   use/delegate
 
 .. toctree::
    :glob:
