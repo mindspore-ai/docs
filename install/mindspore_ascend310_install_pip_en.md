@@ -40,14 +40,14 @@ The following describes how to quickly install MindSpore by pip on Linux in the 
 It is recommended to refer to [Version List](https://www.mindspore.cn/versions/en) to perform SHA-256 integrity verification, and then execute the following command to install MindSpore after the verification is consistent.
 
 ```bash
-pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/ascend310/{arch}/mindspore_ascend-{version}-cp37-cp37m-{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/{version}/MindSpore/ascend/{arch}/mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 In the preceding information:
 
 - When the network is connected, dependencies of the mindspore installation package are automatically downloaded during the .whl package installation. For details about dependencies, see [requirements.txt](https://gitee.com/mindspore/mindspore/blob/r1.3/requirements.txt). In other cases, install the dependencies by yourself.
 - `{version}` specifies the MindSpore version number. For example, when installing MindSpore 1.1.0, set `{version}` to 1.1.0.
-- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `linux_x86_64`. If the system architecture is ARM64, set `{arch}` to `linux_aarch64`.
+- `{arch}` specifies the system architecture. For example, if a Linux OS architecture is x86_64, set `{arch}` to `x86_64`. If the system architecture is ARM64, set `{arch}` to `aarch64`.
 
 ## Configuring Environment Variables
 
