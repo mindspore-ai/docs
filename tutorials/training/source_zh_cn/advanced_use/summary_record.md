@@ -307,7 +307,7 @@ class ConfusionMatrixCallback(Callback):
 ...
 
 confusion_matrix = ConfusionMatrixCallback(summary_dir='./summary_dir')
-model.train(network, train_dataset=ds_train, callbacks=[confusion_matrix])
+model.train(epoch=2, train_dataset=ds_train, callbacks=[confusion_matrix])
 ```
 
 上面的三种方式，支持记录计算图, 损失值等多种数据。除此以外，MindSpore还支持保存训练中其他阶段的计算图，通过
