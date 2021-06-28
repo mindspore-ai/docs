@@ -428,7 +428,7 @@ size_t buf_size_;
 
 ## Delegate
 
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/master/mindspore/lite/include/delegate.h)&gt;
+\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/delegate.h)&gt;
 
 Delegate类定义了一个代理接口，用于第三方AI框架快速接入MindSpore Lite。
 
