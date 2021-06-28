@@ -42,7 +42,7 @@ A: 可以的，MindSpore面向NPU/GPU/CPU提供统一的API，在算子支持的
 
 <font size=3>**Q: 一个环境中如果既安装了MindSpore，又安装了PyTorch，是否在一个python文件中可以混用两个框架的语法呢？**</font>
 
-A: 可以在一个python文件中混用两个两个框架的。要注意类型间的区别。例如两个框架创建的Tensor类型是不同的，但对于python的基础类型都是通用的。
+A: 可以在一个python文件中混用两个框架的。要注意类型间的区别。例如两个框架创建的Tensor类型是不同的，但对于python的基础类型都是通用的。
 
 <br/>
 
