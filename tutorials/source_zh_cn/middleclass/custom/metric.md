@@ -36,7 +36,9 @@ MindSpore提供了多种Metrics评估指标，如：`accuracy`、`loss`、`preci
 ### 导入Metric模块
 
 ```python
-from mindspore.nn import Metric
+import numpy as np
+from mindspore._checkparam import Validator as validator
+from .metric import Metric, rearrange_inputs
 ```
 
 ### 定义Metrics
@@ -65,6 +67,7 @@ class Dice(Metric):
         self._dice_coeff_sum = 0
         self._samples_num = 0
 
+    @rearrange_inputs
     def update(self, *inputs):
         """更新内部计算结果"""
 
@@ -101,7 +104,7 @@ class Dice(Metric):
 
 ### 在框架中导入Metrics
 
-在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py):
+在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py)。可以点击链接查看文件的具体位置，Metrics在框架中位于`mindspore/nn/metrics/`目录下：
 
 ```text
 __all__ = [
