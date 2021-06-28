@@ -165,6 +165,28 @@ Figure 5: Viewing hit watchpoints
 The hit watchpoints are displayed on the left of the UI. The hit nodes and watchpoint conditions are sorted based on the node execution sequence. Each record displays the configured threshold and the actual value.
 In addition, after you click a record, the corresponding node is displayed in the computational graph. You can view the node information to analyze the possible cause. Click `View` to enter the tensor check view. You can view the hit watchpoint information and optimization guide, as shown in Figure 6.
 
+### Stack List
+
+You can click the switch button in the upper left corner on the debugger UI to switch from `Node List` or `Watchpoint Hit List` to `Stack List`.
+
+You can view all stack information in the stack list. After you enter a keyword in the search box, the matched stack information is displayed. The list is displayed on multiple pages. You can click the page number at the bottom to quickly go to the corresponding page.
+
+Click an item in the list to go to the node list where you can view the node related to the code.
+
+![debugger_stack_list](images/debugger_stack_list.png)
+
+Figure 6: Stack list
+
+### Stack Information
+
+When a node is located in the graph, click the `Stack Info` tab page below the graph to view the stack information related to the node.
+
+On the Stack Info tab page, click Search in a row to search for all nodes related to the row. The search result is automatically displayed in the node list.
+
+![debugger_stack_info](images/debugger_stack_info.png)
+
+Figure 7: Stack information
+
 ### Recheck
 
 To perform more detailed monitoring and analysis on a node, you can modify the node to be monitored, add or delete watchpoints, and then check the current step again. The `recheck` icon is in the upper right corner of the watchpoint list as shown in figure 3.
