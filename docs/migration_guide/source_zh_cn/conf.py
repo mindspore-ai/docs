@@ -32,7 +32,7 @@ release = 'master'
 # ones.
 extensions = [
     'sphinx_markdown_tables',
-    'recommonmark',
+    'myst_parser',
     'nbsphinx',
     'sphinx.ext.mathjax',
     'IPython.sphinxext.ipython_console_highlighting'
