@@ -20,7 +20,7 @@ class mindspore.common.initializer.Uniform(scale=0.07)(arr)
 
 PyTorch: 通过入参`a`和`b`分别指定均匀分布的上下界，即U(-a, b)。
 
-MindSpore：仅通过一个入参`scale`指定均匀分布的范围，即U(-scale, scale)。
+MindSpore：仅通过一个入参`scale`指定均匀分布的范围，即U(-scale, scale)，且是原地更新输入值。
 
 ## 代码示例
 
@@ -33,7 +33,7 @@ import numpy as np
 input_x = np.array([1, 1, 1]).astype(np.float32)
 uniform = mindspore.common.initializer.Uniform(scale=1)
 output = uniform(input_x)
-print(output)
+print(input_x)
 # Out：
 # [-0.2333 0.6208 -0.1627]
 

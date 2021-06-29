@@ -42,7 +42,7 @@ print(output.shape)
 # And the final output of the tensor's shape will be determined by these inputs' shapes according to rules mentioned above.
 x = torch.Tensor(np.array([1, 2, 3]).astype(np.float32)).view(1, 3)
 y = torch.Tensor(np.array([4, 5]).astype(np.float32)).view(2, 1)
-m, n = torch.broadcast_tensor(x, y)
+m, n = torch.broadcast_tensors(x, y)
 print(m.shape)
 # Out：
 # torch.Size([2, 3])
