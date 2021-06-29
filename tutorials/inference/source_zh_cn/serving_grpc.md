@@ -375,6 +375,3 @@ openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out c
   客户端需要提供自己的证书给服务器验证，我们分别传入客户端的证书`client.crt`和私钥`client.key`。
 
 当gRPC服务器与客户端`SSL/TLS`开启状态不一致的时候，服务器或客户端会出现`ssl3_get_record:wrong version number`的错误，这时需要确认服务器与客户端是否都开启了`SSL/TLS`。
-
-
-
