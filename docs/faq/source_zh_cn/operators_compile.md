@@ -6,7 +6,7 @@
 
 <font size=3>**Q: `TransData`算子的功能是什么，能否优化性能？**</font>
 
-A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。 可以考虑训练的时候用我们的`amp`做混合精度，这样能减少一些`fp32`的运算，应该能减少一些`transdata`算子的调用。
+A: `TransData`算子出现的场景是: 如果网络中相互连接的算子使用的数据格式不一致（如NC1HWC0），框架就会自动插入`transdata`算子使其转换成一致的数据格式，然后再进行计算。华为Ascend NPU支持5D格式运算，通过`transdata`算子将数据由4D转为5D以提升性能。
 
 <br/>
 
@@ -19,22 +19,6 @@ A: 这个昇腾算子底层规格限制一次拼接的Tensor个数不能超过19
 <font size=3>**Q: 在使用`Conv2D`进行卷积定义的时候使用到了`group`的参数，`group`的值不是只需要保证可以被输入输出的维度整除即可了吗？`group`参数的传递方式是怎样的呢？**</font>
 
 A: `Conv2D`算子是有这个约束条件的: 当`group`大于1 时，其值必须要与输入输出的通道数相等。不要使用`ops.Conv2D`，这个算子目前不支持`group`>1。目前MindSpore只有`nn.Conv2D`接口支持组卷积，但是有`group`要与输入输出的通道数相等的约束。
-`Conv2D`算子的
-
-```python
-def __init__(self,
-                 out_channel,
-                 kernel_size,
-                 mode=1,
-                 pad_mode="valid",
-                 pad=0,
-                 stride=1,
-                 dilation=1,
-                 group=1,
-                 data_format="NCHW"):
-```
-
-函数中带有`group`参数，这个参数默认就会被传到C++层。
 
 <br/>
 
@@ -90,16 +74,14 @@ A: 这是TBE这个算子的限制，x的width必须大于kernel的width。CPU的
 
 <font size=3>**Q: 请问MindSpore实现了反池化操作了吗？类似于`nn.MaxUnpool2d` 这个反池化操作？**</font>
 
-A: 目前 MindSpore 还没有反池化相关的接口。如果用户想自己实现的话，可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
+A: 目前 MindSpore 还没有反池化相关的接口。用户可以通过自定义算子的方式自行开发算子，详情请见[自定义算子](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/custom_operator.html)。
 
 <br/>
 
 <font size=3>**Q: 使用ExpandDims算子报错: `Pynative run op ExpandDims failed`。具体代码:**</font>
 
 ```python
-context.set_context(
-mode=cintext.GRAPH_MODE,
-device_target='ascend')
+context.set_context(mode=intext.GRAPH_MODE,device_target='ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

@@ -1,4 +1,4 @@
-﻿# Script Implement
+﻿# Implement Problem
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
@@ -6,7 +6,7 @@
 
 <font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
 
-A: When building a network, use `if self.training: x = dropput(x)`. During verification, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
+A: When building a network, use `if self.training: x = dropput(x)`. When reasoning, set `network.set_train(mode_false)` before execution to disable the dropout function. During training, set `network.set_train(mode_false)` to True to enable the dropout function.
 
 <br/>
 
@@ -42,10 +42,10 @@ class EarlyStop(Callback):
 def __init__(self):
     self.loss = None
 def step_end(self, run_context):
-     loss =  ****(get current loss)
-     if (self.loss == None or loss < self.loss):
-         self.loss = loss
-         # do save ckpt
+    loss =  ****(get current loss)
+    if (self.loss == None or loss < self.loss):
+        self.loss = loss
+        # do save ckpt
 ```
 
 <br/>
@@ -62,13 +62,9 @@ A: After customizing the `loss function`, you need to customize `TrainOneStepCel
 
 ```python
 net = Net()
-
 loss_fn = MyLoss()
-
 loss_with_net = MyWithLossCell(net, loss_fn)
-
 train_net = MyTrainOneStepCell(loss_with_net, optim)
-
 model = Model(net=train_net, loss_fn=None, optimizer=None)
 ```
 
@@ -104,7 +100,6 @@ A: The network output is `Tensor`. You need to use the `asnumpy()` method to con
 
 ```python
 out = net(x)
-
 np.save("output.npy", out.asnumpy())
 ```
 
@@ -125,7 +120,7 @@ In the following example, `Tensor` of `shape = (3, 4), dtype = int64` is generat
 ```python
 @constexpr
 def generate_tensor():
-    return Tensor(np.ones((3, 4)))
+    return Tensor(np.ones((3, 4).astype(np.int64)))
 ```
 
 <br/>
@@ -238,22 +233,6 @@ The function call stack (See file 'analyze_fail.dat' for more details):
 ```
 
 When an error similar to "Type Join Failed: abstract type AbstractTensor can not join with AbstractTuple" appears, it means that the two abstract types are mismatched. You need to review the code and modify it based on the provided code line and other error information.
-
-<br/>
-
-<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
-
-A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
-For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
-
-- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
-- Use the MindSpore build result as the Serving build dependency.
-
-<br/>
-
-<font size=3>**Q: What can I do if an error `libmindspore.so: cannot open shared object file: No such file or directory` is reported during application running?**</font>
-
-A: Check whether MindSpore that MindSpore Serving depends on is installed. In Serving 1.1, `LD_LIBRARY_PATH` needs to be configured to explicitly specify the path of `libmindspore.so`. `libmindspore.so` is in the `lib` directory of the MindSpore Python installation path. In Serving 1.2 or later, the path of `libmindspore.so` does not need to be specified. Serving searches for and adds `LD_LIBRARY_PATH` based on the MindSpore installation path, which does not need to be perceived by users.
 
 <br/>
 

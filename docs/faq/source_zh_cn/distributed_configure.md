@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/distributed_configure.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-<font size=3>**Q: MindSpore执行GPU分布式训练报错如下，如何解决: **</font>
+<font size=3>**Q: MindSpore执行GPU分布式训练报错如下，如何解决:**</font>
 
 ```text
 Loading libgpu_collective.so failed. Many reasons could cause this:

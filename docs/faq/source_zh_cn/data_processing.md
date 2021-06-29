@@ -63,13 +63,13 @@ for item in data_set.create_dict_iterator(output_numpy=True):
 
 <font size=3>**Q: 我的自定义图像数据集转为mindrecord格式时，我的数据是`numpy.ndarray`格式的，且`shape`为[4,100,132,3]，这个`shape`的含义是四幅三通道的帧，且每个值都在0~255。可是当我查看转化成mindrecord的格式的数据时，发现是`[19800]`的`shape`，我原数据的维度全部展开有`[158400]`，请问这是为什么？**</font>
 
-A: 应该是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[19800]`刚好相差了8倍，建议将数据中`ndarray`的`dtype`指定为`float64`。
+A: 可能是你数据中`ndarray`的`dtype`是`int8`，因为`[158400]`和`[19800]`刚好相差了8倍，建议将数据中`ndarray`的`dtype`指定为`float64`。
 
 <br/>
 
 <font size=3>**Q: 想要保存生成的图片，代码运行完毕以后在相应目录找不到图片。相似的，在JupyterLab中生成数据集用于训练，训练时可以在相应路径读取到数据，但是自己却无法在路径中找到图片或数据集？**</font>
 
-A: 应该是JumperLab生成的图片或者数据集都是在Docker内吧，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。 可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
+A: 可能是JumperLab生成的图片或者数据集都是在Docker内，`moxing`下载的数据只能训练进程的Docker内看见，训练完成后这些数据就随着Docker释放了。 可以试试在训练任务中将需要`download`的数据再通过`moxing`传回`obs`，然后再在`obs`里面下载到你本地。
 
 <br/>
 
@@ -87,7 +87,7 @@ A: 你可以参考yolov3对于此场景的使用，里面有对于图像的不�
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecords吗？**</font>
+<font size=3>**Q: 使用MindSpore做分割训练，必须将数据转为MindRecord吗？**</font>
 
 A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py)是将数据集生成MindRecord的脚本，可以直接使用/适配下你的数据集。或者如果你想尝试自己实现数据集的读取，可以使用`GeneratorDataset`自定义数据集加载。
 
@@ -127,7 +127,7 @@ ds.GeneratorDataset(..., num_shards=8, shard_id=7, ...)
 
 A: 数据Schema可以按如下方式定义: `cv_schema_json = {"label": {"type": "int32", "shape": [-1]}, "data": {"type": "bytes"}}`
 
-说明: label是一个数组，numpy类型，这里面可以存你说的 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
+说明: label是一个数组，numpy类型，这里面可以存 1， 1，0，1， 0， 1 这么多label值，这些label值对应同一个data，即: 同一个图像的二进制值。
 可以参考[将数据集转换为MindRecord](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/convert_dataset.html#将数据集转换为MindRecord)教程。
 
 <br/>
