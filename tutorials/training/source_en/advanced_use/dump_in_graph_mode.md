@@ -36,6 +36,18 @@ Aiming at the static graph mode, this tutorial introduces how to analyze and com
 
 ### Debugging Process
 
+Using dump to help debugging is divided into two steps: 1. Data preparation; 2. Data analysis.
+
+#### Data preparation
+
+The data preparation phase uses synchronous dump or asynchronous dump to generate dump data. See [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step) for details.
+
+#### Data analysis
+
+If you have installed MindInsight, you can use offline debugger of MindInsight to analyze it. See [Using the Offline Debugger](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/debugger_offline.html) for the usage of offline debugger.
+
+If MindInsight is not installed, you need to analyze the data through the following steps.
+
 1. Find the corresponding operator from the script.
 
     The Dump function needs to use the IR file of the final execution graph. The IR file can be viewed with the `vi` command. The IR file contains the full name of the operator, and the dependency of the operator on the input and output of the computational graph, and also contains the trace information from the operator to the corresponding script code. For the configuration of the Dump function, see [Synchronous Dump Step](#synchronous-dump-step) and [Asynchronous Dump Step](#asynchronous-dump-step). For the final implementation of the image IR file naming and directory structure, see [Synchronous Dump Data Object Directory](#synchronous-dump-data-object-directory) and [Asynchronous Dump Data Object Directory](#asynchronous-dump-data-object-directory). Then find the operator corresponding to the code in the script through the graph file, refer to [Synchronous Dump Data Analysis Sample](#synchronous-dump-data-analysis-sample) and [Asynchronous Dump Data Analysis Sample](#asynchronous-dump-data-analysis-sample).
@@ -133,7 +145,7 @@ The configuration files required for different modes and the data format of dump
 
     You can set `context.set_context(reserve_class_name_in_scope=False)` in your training script to avoid dump failure because of file name is too long.
 
-4. Read and parse synchronous dump data through `numpy.fromfile`, refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
+4. Read and parse synchronous dump data through `numpy.load`, refer to [Introduction to Synchronous Dump Data File](#introduction-to-synchronous-dump-data-file).
 
 ### Synchronous Dump Data Object Directory
 
