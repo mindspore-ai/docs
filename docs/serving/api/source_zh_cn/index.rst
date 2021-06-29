@@ -6,5 +6,8 @@
 MindSpore Serving Python API
 =============================
 
+.. toctree::
+   :maxdepth: 1
+
    server
    client
