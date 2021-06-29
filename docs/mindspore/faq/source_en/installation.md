@@ -86,6 +86,16 @@ A: When you encounter the error, you should update the `te/topi/hccl` python too
 
 ## Source Code Compilation Installation
 
+<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
+
+A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
+For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
+
+- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
+- Use the MindSpore build result as the Serving build dependency.
+
+<br/>
+
 <font size=3>**Q: A cross compiler has been installed on Linux, but how do I write compilation commands?**</font>
 
 A: Set environment variables and specify the Android NDK path using `export ANDROID_NDK=/path/to/android-ndk`. To compile the Arm64 version, run `bash build.sh -I arm64`. To compile the Arm32 version, run `bash build.sh -I arm32`. After the compilation is successful, find the compiled package in the output directory.
@@ -150,13 +160,13 @@ A: This kind of error may be caused by internet problem when some third party li
 
 <br/>
 
-<font size=3>**Q：What should I do if it prompts that `pthread not found` in CMakeError.txt after the compilation fails?**</font>
+<font size=3>**Q: What should I do if it prompts that `pthread not found` in CMakeError.txt after the compilation fails?**</font>
 
-A：The real reason for the failure will be showed in the stdout log. CMakeError.txt has no reference value. Please look for the first error in the stdout log.
+A: The real reason for the failure will be showed in the stdout log. CMakeError.txt has no reference value. Please look for the first error in the stdout log.
 
 <br/>
 
-<font size=3>**Q：After the compilation is successful, an error `undefined reference to XXXX` or `undefined symbol XXXX` occurs during runtime, what should I do?**</font>
+<font size=3>**Q: After the compilation is successful, an error `undefined reference to XXXX` or `undefined symbol XXXX` occurs during runtime, what should I do?**</font>
 
 A: The possible reasons are:
 
@@ -184,23 +194,23 @@ A: You can write the frequently-used environment settings to `~/.bash_profile` o
 
 <br/>
 
-<font size=3>**Q：How to set environment variable `DEVICE_ID` when using GPU version of MindSpore**</font>
+<font size=3>**Q: How to set environment variable `DEVICE_ID` when using GPU version of MindSpore**</font>
 
-A：Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpore automatically chooses visible GPU devices according to the cuda environment variable `CUDA_VISIBLE_DEVICES`. After setting `CUDA_VISIBLE_DEVICES`, `DEVICE_ID` refers to the ordinal of the GPU device:
+A: Normally, GPU version of MindSpore doesn't need to set `DEVICE_ID`. MindSpore automatically chooses visible GPU devices according to the cuda environment variable `CUDA_VISIBLE_DEVICES`. After setting `CUDA_VISIBLE_DEVICES`, `DEVICE_ID` refers to the ordinal of the GPU device:
 
 - After `export CUDA_VISIBLE_DEVICES=1,3,5`, `DEVICE_ID` should be exported as `0`, `1` or `2`. If `3` is exported, MindSpore will fail to execute because of the invalid device ordinal.
 
 <br/>
 
-<font size=3>**Q：What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
+<font size=3>**Q: What should I do when error `/usr/bin/ld: warning: libxxx.so, needed by libmindspore.so, not found` prompts during application compiling?**</font>
 
-A：Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
+A: Find the directory where the missing dynamic library file is located, add the path to the environment variable `LD_LIBRARY_PATH`, and refer to [Inference Using the MindIR Model on Ascend 310 AI Processors#Building Inference Code](https://www.mindspore.cn/docs/programming_guide/en/r1.3/multi_platform_inference_ascend_310_mindir.html#building-inference-code) for environment variable settings.
 
 <br/>
 
-<font size=3>**Q：What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
+<font size=3>**Q: What should I do when error `ModuleNotFoundError: No module named 'te'` prompts during application running?**</font>
 
-A：First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
+A: First confirm whether the system environment is installed correctly and whether the whl packages such as `te` and `topi` are installed correctly. If there are multiple Python versions in the user environment, such as Conda virtual environment, you need to execute `ldd name_of_your_executable_app` to confirm whether the application link `libpython3.7m.so.1.0` is consistent with the current Python directory, if not, you need to adjust the order of the environment variable `LD_LIBRARY_PATH` .
 
 <br/>
 
@@ -252,7 +262,7 @@ A: Above question is relatively common, and there are two feasible solutions, yo
 
 <font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do? **</font>
 
-A：The following error information is displayed:
+A: The following error information is displayed:
 
 ```bash
 >>> import gensim

@@ -82,12 +82,6 @@ A: The `multiples input` of the `Tile` operator must be a constant. (The value c
 
 <br/>
 
-<font size=3>**Q: What can I do if the LSTM example on the official website cannot run on Ascend?**</font>
-
-A: Currently, the LSTM runs only on a GPU or CPU and does not support the hardware environment. You can click [MindSpore Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list_ms.html) to view the supported operators.
-
-<br/>
-
 <font size=3>**Q: When conv2d is set to (3,10), Tensor[2,2,10,10] and it runs on Ascend on ModelArts, the error message `FM_W+pad_left+pad_right-KW>=strideW` is displayed. However, no error message is displayed when it runs on a CPU. What should I do?**</font>
 
 A: This is a TBE operator restriction that the width of x must be greater than that of the kernel. The CPU does not have this operator restriction. Therefore, no error is reported.
