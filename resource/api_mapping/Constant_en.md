@@ -19,7 +19,7 @@ class mindspore.common.initializer.Constant(value)(arr)
 
 PyTorch: Fills in the input tensor with constant `val`.
 
-MindSpore：Fills in a constant array with `value`(int or numpy array).
+MindSpore：Fills in a constant array with `value`(int or numpy array) and update-in-place for the input.
 
 ## Code Example
 
@@ -32,7 +32,7 @@ import numpy as np
 input_constant = np.array([1, 2, 3])
 constant_init = mindspore.common.initializer.Constant(value=1)
 out_constant = constant_init(input_constant)
-print(out_constant)
+print(input_constant)
 # Out：
 # [1 1 1]
 

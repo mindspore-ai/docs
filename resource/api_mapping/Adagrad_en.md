@@ -13,7 +13,7 @@ class torch.optim.Adagrad(
 )
 ```
 
-## mindspore.nn.ApplyAdagrad
+## mindspore.nn.Adagrad
 
 ```python
 class mindspore.nn.Adagrad(
@@ -30,7 +30,7 @@ class mindspore.nn.Adagrad(
 
 PyTorch: Parameters to be optimized should be put into an iterable parameter then passed as a whole. The `step` method is also implemented to perform one single step optimization and return loss.
 
-MindSpore: Parameters to be updated: `grads`, `params` should be passed respectively.
+MindSpore: The ways of the same learning rate for all parameters and different values for different parameter groups are supported.
 
 ## Code Example
 
@@ -40,29 +40,28 @@ import numpy as np
 import torch
 import mindspore.nn as nn
 from mindspore import Tensor, Parameter
-import mindspore.ops as ops
+from mindspore.train import Model
 from mindspore import dtype as mstype
 
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.apply_adagrad = ops.ApplyAdagrad()
-        self.var = Parameter(Tensor(np.random.rand(1, 1).astype(np.float32)), name="var")
-        self.accum = Parameter(Tensor(np.random.rand(1, 1).astype(np.float32)), name="accum")
-
-    def construct(self, lr, grad):
-        return self.apply_adagrad(self.var, self.accum, lr, grad)
-
-np.random.seed(0)
 net = Net()
-lr = Tensor(0.001, mstype.float32)
-grad = Tensor(np.random.rand(1, 1).astype(np.float32))
-var, accum = net(lr, grad)
-print(var)
-print(accum)
-# Out:
-# [[0.5482]]
-# [[1.0785]]
+#1) All parameters use the same learning rate and weight decay
+optim = nn.Adagrad(params=net.trainable_params())
+
+#2) Use parameter groups and set different values
+conv_params = list(filter(lambda x: 'conv' in x.name, net.trainable_params()))
+no_conv_params = list(filter(lambda x: 'conv' not in x.name, net.trainable_params()))
+group_params = [{'params': conv_params, 'weight_decay': 0.01, 'grad_centralization':True},
+                {'params': no_conv_params, 'lr': 0.01},
+                {'order_params': net.trainable_params()}]
+optim = nn.Adagrad(group_params, learning_rate=0.1, weight_decay=0.0)
+# The conv_params's parameters will use default learning rate of 0.1 and weight decay of 0.01 and grad
+# centralization of True.
+# The no_conv_params's parameters will use learning rate of 0.01 and default weight decay of 0.0 and grad
+# centralization of False.
+# The final parameters order in which the optimizer will be followed is the value of 'order_params'.
+
+loss = nn.SoftmaxCrossEntropyWithLogits()
+model = Model(net, loss_fn=loss, optimizer=optim)
 
 # The following implements Adagrad with torch.
 input_x = torch.tensor(np.random.rand(1, 20).astype(np.float32))

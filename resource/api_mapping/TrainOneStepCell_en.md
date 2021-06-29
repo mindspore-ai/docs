@@ -3,7 +3,7 @@
 ## torch.optim.Optimizer.step
 
 ```python
-torch.optim.Optimizer.step()
+torch.optim.Optimizer.step(closure)
 ```
 
 ## mindspore.nn.TrainOneStepCell

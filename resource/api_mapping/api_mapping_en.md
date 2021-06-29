@@ -64,7 +64,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.minimum                                        | mindspore.ops.Minimum                                          | same |
 | torch.mm                                             | mindspore.ops.MatMul                                           | same |
 | torch.mul                                            | mindspore.ops.Mul                                              | same |
-| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.ReduceMean                                       |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ReduceMean&AdaptiveAvgPool2d_en.md)|
+| torch.nn.AdaptiveAvgPool2d                           | mindspore.ops.AdaptiveAvgPool2d                                | same |
 | torch.nn.AvgPool1d                                   | mindspore.nn.AvgPool1d                                         | same |
 | torch.nn.AvgPool2d                                   | mindspore.nn.AvgPool2d                                         | same |
 | torch.nn.BatchNorm1d                                 | mindspore.nn.BatchNorm1d                                       | same |
@@ -76,7 +76,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.nn.Dropout                                     | mindspore.nn.Dropout                                           | same |
 | torch.nn.Embedding                                   | mindspore.nn.Embedding                                         | same |
 | torch.nn.Flatten                                     | mindspore.nn.Flatten                                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/nn_Flatten_en.md)|
-| torch.nn.functional.adaptive_avg_pool2d              | mindspore.nn.AvgPool2d                                         |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/AvgPool2d_en.md)|
+| torch.nn.functional.adaptive_avg_pool2d              | mindspore.ops.AdaptiveAvgPool2d                                | same |
 | torch.nn.functional.avg_pool2d                       | mindspore.ops.AvgPool                                          | same |
 | torch.nn.functional.binary_cross_entropy             | mindspore.ops.BinaryCrossEntropy                               | same |
 | torch.nn.functional.conv2d                           | mindspore.ops.Conv2D                                           | same |
