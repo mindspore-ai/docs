@@ -11,4 +11,15 @@ MindSpore Lite API
   :maxdepth: 1
 
   api_cpp/index
-  api_java/index
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: JAVA API
+
+   api_java/class_list
+   api_java/lite_session
+   api_java/model
+   api_java/msconfig
+   api_java/mstensor
+   api_java/lite_java_example
