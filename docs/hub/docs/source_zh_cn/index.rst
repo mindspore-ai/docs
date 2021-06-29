@@ -5,7 +5,6 @@ MindSpore Hub 文档
    :glob:
    :maxdepth: 1
    :caption: 安装部署
-   :hidden:
 
    publish_model
 
@@ -13,15 +12,7 @@ MindSpore Hub 文档
    :glob:
    :maxdepth: 1
    :caption: 使用指南
-   :hidden:
 
    loading_model_from_hub
    publish_model
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 参考文档
-   :hidden:
-
-   publish_model

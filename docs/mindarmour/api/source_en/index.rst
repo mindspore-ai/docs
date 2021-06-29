@@ -4,11 +4,9 @@
    contain the root `toctree` directive.
 
 MindArmour Python API
-=========================
-
+=======================
 .. toctree::
    :maxdepth: 1
-   :caption: MindAmour Python API
 
    mindarmour.adv_robustness.attacks
    mindarmour.adv_robustness.defenses

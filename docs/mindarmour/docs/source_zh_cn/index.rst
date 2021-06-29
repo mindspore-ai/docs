@@ -5,7 +5,6 @@ MindArmour 文档
    :glob:
    :maxdepth: 1
    :caption: 安装部署
-   :hidden:
 
 
 
@@ -13,7 +12,6 @@ MindArmour 文档
    :glob:
    :maxdepth: 1
    :caption: 使用指南
-   :hidden:
 
    security_and_privacy
    improve_model_security_nad
@@ -28,7 +26,6 @@ MindArmour 文档
    :glob:
    :maxdepth: 1
    :caption: 参考文档
-   :hidden:
 
    differential_privacy_design
    fuzzer_design

@@ -5,13 +5,11 @@ MindInsight Visualization Documents
    :glob:
    :maxdepth: 1
    :caption: Installation
-   :hidden:
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Guide
-   :hidden:
 
    summary_record
    dashboard
@@ -28,7 +26,6 @@ MindInsight Visualization Documents
    :glob:
    :maxdepth: 1
    :caption: References
-   :hidden:
 
    training_visual_design
    graph_visual_design

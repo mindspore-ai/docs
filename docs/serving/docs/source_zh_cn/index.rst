@@ -5,7 +5,6 @@ MindSpore Serving 文档
    :glob:
    :maxdepth: 1
    :caption: 安装部署
-   :hidden:
 
 
 
@@ -13,7 +12,6 @@ MindSpore Serving 文档
    :glob:
    :maxdepth: 1
    :caption: 使用指南
-   :hidden:
 
    serving_example
    serving_distributed_example
@@ -22,8 +20,3 @@ MindSpore Serving 文档
    serving_model
    serving_pipeline
 
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: 参考文档
-   :hidden:

@@ -5,7 +5,6 @@ MindInsight 可视化文档
    :glob:
    :maxdepth: 1
    :caption: 安装部署
-   :hidden:
 
 
 
@@ -13,7 +12,6 @@ MindInsight 可视化文档
    :glob:
    :maxdepth: 1
    :caption: 使用指南
-   :hidden:
 
    summary_record
    dashboard
@@ -30,7 +28,6 @@ MindInsight 可视化文档
    :glob:
    :maxdepth: 1
    :caption: 参考文档
-   :hidden:
 
    training_visual_design
    graph_visual_design

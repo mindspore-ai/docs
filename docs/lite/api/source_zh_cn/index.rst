@@ -7,8 +7,30 @@ MindSpore Lite API
 =======================
 
 .. toctree::
-  :glob:
-  :maxdepth: 1
+   :maxdepth: 1
+   :caption: C++ API
 
-  api_cpp/index
-  api_java/index
+   api_cpp/class_list
+   api_cpp/mindspore
+   api_cpp/dataset
+   api_cpp/vision
+   api_cpp/kernel
+   api_cpp/registry
+   api_cpp/lite
+   api_cpp/session
+   api_cpp/tensor
+   api_cpp/errorcode_and_metatype
+   api_cpp/lite_cpp_example
+
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: JAVA API
+
+   api_java/class_list
+   api_java/lite_session
+   api_java/model
+   api_java/msconfig
+   api_java/mstensor
+   api_java/lite_java_example

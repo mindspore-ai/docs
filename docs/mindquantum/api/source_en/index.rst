@@ -4,11 +4,9 @@
    contain the root `toctree` directive.
 
 MindQuantum Python API
-=========================
-
+=======================
 .. toctree::
    :maxdepth: 1
-   :caption: MindQuantum Python API
 
    mindquantum.hiqfermion
    mindquantum.nn

@@ -5,13 +5,11 @@ MindArmour Documents
    :glob:
    :maxdepth: 1
    :caption: Installation
-   :hidden:
 
 .. toctree::
    :glob:
    :maxdepth: 1
    :caption: Guide
-   :hidden:
 
    security_and_privacy
    improve_model_security_nad
@@ -25,7 +23,6 @@ MindArmour Documents
    :glob:
    :maxdepth: 1
    :caption: References
-   :hidden:
 
    differential_privacy_design
    fuzzer_design
