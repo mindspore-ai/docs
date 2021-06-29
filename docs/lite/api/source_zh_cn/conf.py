@@ -55,7 +55,3 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-
-html_search_language = 'zh'
-
-html_search_options = {'dict': '../../resource/jieba.txt'}

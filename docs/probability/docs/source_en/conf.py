@@ -67,10 +67,6 @@ pygments_style = 'sphinx'
 #
 html_theme = 'sphinx_rtd_theme'
 
-html_search_language = 'zh'
-
-html_search_options = {'dict': '../resource/jieba.txt'}
-
 # Remove extra outputs for nbsphinx extension.
 nbsphinx_source_re = re.compile(r"(app\.connect\('html-collect-pages', html_collect_pages\))")
 nbsphinx_math_re = re.compile(r"(\S.*$)")
