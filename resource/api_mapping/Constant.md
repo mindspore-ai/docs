@@ -19,7 +19,7 @@ class mindspore.common.initializer.Constant(value)(arr)
 
 PyTorch: 以常量`val`填充输入的tensor。
 
-MindSpore：以`value`（整型或numpy数组）填充输入的numpy数组。
+MindSpore：以`value`（整型或numpy数组）填充输入的numpy数组，且是原地更新输入值。
 
 ## 代码示例
 
@@ -32,7 +32,7 @@ import numpy as np
 input_constant = np.array([1, 2, 3])
 constant_init = mindspore.common.initializer.Constant(value=1)
 out_constant = constant_init(input_constant)
-print(out_constant)
+print(input_constant)
 # Out：
 # [1 1 1]
 

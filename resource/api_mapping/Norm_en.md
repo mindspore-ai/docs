@@ -45,13 +45,13 @@ print(output)
 # [4.4721 4.1231 9.4868 6.0828]
 
 # In torch, you can set parameter p to implement the desired norm.
-input_x = torch.tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]))
+input_x = torch.tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]), dtype=torch.float)
 output1 = torch.norm(input_x, dim=0, p=2)
 print(output1)
 # Out：
 # tensor([4.4721, 4.1231, 9.4868, 6.0828])
 
-input_x = torch.tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]))
+input_x = torch.tensor(np.array([[4, 4, 9, 1], [2, 1, 3, 6]]), dtype=torch.float)
 output2 = torch.norm(input_x, dim=0, p=1)
 print(output2)
 # Out：

@@ -6,7 +6,8 @@
 torch.distributed.new_group(
     ranks=None,
     timeout=datetime.timedelta(0, 1800),
-    backend=None
+    backend=None,
+    pg_options=None
 )
 ```
 
