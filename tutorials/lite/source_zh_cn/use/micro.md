@@ -379,7 +379,7 @@ c                        # 执行模型推理
 
 5. 编译benchmark，并执行，结果为：
 
-    ```txt
+    ```text
     ReadWeightData time: 0.00000ms
     input 0: mobilenetV3_input.bin
     ReadInputData time: 0.00000ms
