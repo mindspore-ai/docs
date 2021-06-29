@@ -70,9 +70,9 @@ Servable包含如下内容：
 ```text
 resnet50
 ├── 1
-│   └── resnet_classify.mindir
+│   └── resnet50_1b_cifar10.mindir
 ├── 2
-│   └── resnet_classify.mindir
+│   └── resnet50_1b_cifar10.mindir
 └── servable_config.py
 ```
 
@@ -82,7 +82,7 @@ resnet50
 
 - 目录`1`和`2`表示版本`1`和版本`2`的模型，模型版本为正整数，从`1`开始，数字越大表示版本越新。
 
-- `resnet_classify.mindir`为模型文件，Servable启动会加载对应版本的模型文件。
+- `resnet50_1b_cifar10.mindir`为模型文件，Servable启动会加载对应版本的模型文件。
 
 ### 预处理和后处理定义
 
@@ -93,15 +93,20 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as TC
 import mindspore.dataset.vision.c_transforms as VC
 
+# cifar 10
+idx_2_label = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+
+
 def preprocess_eager(image):
     """
     Define preprocess, input is image numpy, return preprocess result.
     Return type can be numpy, str, bytes, int, float, or bool.
-    Use MindData Eager, this image processing can also use other image processing library, likes numpy, PIL or cv2 etc.
+    Use MindData Eager, this image processing can also use other image processing library,
+    likes numpy, PIL or cv2 etc.
     """
     image_size = 224
-    mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
-    std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+    mean = [0.4914 * 255, 0.4822 * 255, 0.4465 * 255]
+    std = [0.2023 * 255, 0.1994 * 255, 0.2010 * 255]
 
     decode = VC.Decode()
     resize = VC.Resize([image_size, image_size])
@@ -144,7 +149,7 @@ def postprocess_top5(score):
 
 ```python
 from mindspore_serving.server import register
-register.declare_servable(servable_file="resnet50_1b_imagenet.mindir", model_format="MindIR", with_batch_dim=True)
+register.declare_servable(servable_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
 其中`declare_servable`入参`servable_file`指示模型的文件名称；`model_format`指示模型的模型类别，当前Ascend310环境支持`OM`和`MindIR`两种模型类型，Ascend910环境仅支持`MindIR`模型类型。
@@ -222,24 +227,38 @@ def classify_top5(image):
 用户在客户端使用Servable某个方法提供的服务时，需要通过入参名称指定对应输入的值，通过出参名称识别各个输出的值。比如客户端访问方法`classify_top5`：
 
 ```python
+import os
 from mindspore_serving.client import Client
 
 def read_images():
-    # read image file and return
+    """Read images for directory test_image"""
+    image_files = []
+    images_buffer = []
+    for path, _, file_list in os.walk("./test_image/"):
+        for file_name in file_list:
+            image_file = os.path.join(path, file_name)
+            image_files.append(image_file)
+    for image_file in image_files:
+        with open(image_file, "rb") as fp:
+            images_buffer.append(fp.read())
+    return image_files, images_buffer
 
 def run_classify_top5():
     """Client for servable resnet50 and method classify_top5"""
     client = Client("localhost:5500", "resnet50", "classify_top5")
     instances = []
-    for image in read_images():  # read multi image
+    image_files, images_buffer = read_images()
+    for image in images_buffer:
         instances.append({"image": image})  # input `image`
+
     result = client.infer(instances)
-    print(result)
-    for result_item in result:  # result for every image
+
+    for file, result_item in zip(image_files, result):  # result for every image
         label = result_item["label"]  # result `label`
         score = result_item["score"]  # result `score`
-        print("label result", label)
-        print("score result", score)
+        print("file:", file)
+        print("label result:", label)
+        print("score result:", score)
 
 if __name__ == '__main__':
     run_classify_top5()

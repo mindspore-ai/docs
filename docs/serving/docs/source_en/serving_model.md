@@ -70,9 +70,9 @@ Take the ResNet-50 model as an example. The model configuration file directory i
 ```text
 resnet50
 ├── 1
-│   └── resnet_classify.mindir
+│   └── resnet50_1b_cifar10.mindir
 ├── 2
-│   └── resnet_classify.mindir
+│   └── resnet50_1b_cifar10.mindir
 └── servable_config.py
 ```
 
@@ -82,7 +82,7 @@ resnet50
 
 - `1` and `2`: directories, which indicate models of the `1` and `2` versions. The model version is a positive integer starting from `1`. A larger number indicates a later version.
 
-- `resnet_classify.mindir`: a model file. When the Servable is started, the model file of the corresponding version is loaded.
+- `resnet50_1b_cifar10.mindir`: a model file. When the Servable is started, the model file of the corresponding version is loaded.
 
 ### Preprocessing and Post-processing Definition
 
@@ -93,15 +93,20 @@ import mindspore.dataset as ds
 import mindspore.dataset.transforms.c_transforms as TC
 import mindspore.dataset.vision.c_transforms as VC
 
+# cifar 10
+idx_2_label = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+
+
 def preprocess_eager(image):
     """
     Define preprocess, input is image numpy, return preprocess result.
     Return type can be numpy, str, bytes, int, float, or bool.
-    Use MindData Eager, this image processing can also use other image processing library, likes numpy, PIL or cv2 etc.
+    Use MindData Eager, this image processing can also use other image processing library,
+    likes numpy, PIL or cv2 etc.
     """
     image_size = 224
-    mean = [0.485 * 255, 0.456 * 255, 0.406 * 255]
-    std = [0.229 * 255, 0.224 * 255, 0.225 * 255]
+    mean = [0.4914 * 255, 0.4822 * 255, 0.4465 * 255]
+    std = [0.2023 * 255, 0.1994 * 255, 0.2010 * 255]
 
     decode = VC.Decode()
     resize = VC.Resize([image_size, image_size])
@@ -144,7 +149,7 @@ The sample code for declaring the `resnet50` Servable model is as follows:
 
 ```python
 from mindspore_serving.server import register
-register.declare_servable(servable_file="resnet50_1b_imagenet.mindir", model_format="MindIR", with_batch_dim=True)
+register.declare_servable(servable_file="resnet50_1b_cifar10.mindir", model_format="MindIR", with_batch_dim=True)
 ```
 
 The input parameter `servable_file` of `declare_servable` indicates the model file name. `model_format` indicates the model type. Currently, the Ascend 310 environment supports both `OM` and `MindIR` model types. The Ascend 910 environment supports only the `MindIR` model type.
@@ -222,24 +227,38 @@ The method definition cannot contain branch structures such as if, for, and whil
 When a user uses a service provided by a Servable method on the client, the user needs to specify the input value based on the input parameter name and identify the output value based on the output parameter name. For example, the method `classify_top5` accessed by the client is as follows:
 
 ```python
+import os
 from mindspore_serving.client import Client
 
 def read_images():
-    # read image file and return
+    """Read images for directory test_image"""
+    image_files = []
+    images_buffer = []
+    for path, _, file_list in os.walk("./test_image/"):
+        for file_name in file_list:
+            image_file = os.path.join(path, file_name)
+            image_files.append(image_file)
+    for image_file in image_files:
+        with open(image_file, "rb") as fp:
+            images_buffer.append(fp.read())
+    return image_files, images_buffer
 
 def run_classify_top5():
     """Client for servable resnet50 and method classify_top5"""
     client = Client("localhost:5500", "resnet50", "classify_top5")
     instances = []
-    for image in read_images():  # read multi image
+    image_files, images_buffer = read_images()
+    for image in images_buffer:
         instances.append({"image": image})  # input `image`
+
     result = client.infer(instances)
-    print(result)
-    for result_item in result:  # result for every image
+
+    for file, result_item in zip(image_files, result):  # result for every image
         label = result_item["label"]  # result `label`
         score = result_item["score"]  # result `score`
-        print("label result", label)
-        print("score result", score)
+        print("file:", file)
+        print("label result:", label)
+        print("score result:", score)
 
 if __name__ == '__main__':
     run_classify_top5()
