@@ -147,7 +147,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 通过`numpy.fromfile`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id7)。
+4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id7)。
 
 ### 同步Dump数据对象目录
 

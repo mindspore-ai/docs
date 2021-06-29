@@ -75,23 +75,27 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 
     At this point, the debugger is in a state of loading offline data.
 
-2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The procedure is the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/debugger.html#debugger-usage-example).
+2. Wait for a moment. A dialog box is displayed on the MindInsight UI, asking you whether to use the recommended watchpoints. The following procedures are the same as that for online debugging. [Debugger Usage Example](https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/debugger.html#debugger-usage-example).
 
-3. Compared with the online debugger, the offline debugger can reset the training epoch. Click the edit icon on the right, enter the epoch to be reset, and click the tick icon, as shown in the following figure.
+3. Compared with the online debugger, the offline debugger can reset the training step. As shown in Figure 3, click the edit icon on the right, and an edit box will appear, as shown in Figure 4. Enter the step id to be reset and click the tick icon.
 
    ![debugger_offline_reset](images/debugger_offline_reset.png)
 
-   Figure 3: Resetting the training epoch
+   Figure 3: Resetting the training step
+
+   ![debugger_offline_edit](images/debugger_offline_edit.png)
+
+   Figure 4: Resetting the trainning step in edit status
 
 ## Precautions
 
 - Scenarios:
-    - The debugger does not support the CPU scenario currently.
+    - The offline debugger does not support the CPU scenario currently.
     - The offline debugger supports the single-node multi-device scenario. To analyze the multi-node multi-device scenario, you need to summarize the data of multiple nodes.
+    - The offline debugger does not support checking the initial weight currently.
 
 - GPU scenario:
     - Different from the online debugger, the offline debugger does not support node-by-node execution.
-    - The previous step in the GPU scenario is a subgraph (not a complete graph). Therefore, when multiple graphs are rechecked on a GPU, only the current subgraph can be checked again.
 
 - Only watchpoints that have tensor values are rechecked.
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.

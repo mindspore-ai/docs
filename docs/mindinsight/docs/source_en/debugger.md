@@ -44,6 +44,8 @@ In `Graph Mode` training, the computation results of intermediate nodes in the c
 
 ## Debugger Environment Preparation
 
+### Launch MindInsight in Debugger Mode
+
 At first, install MindInsight and launch it in debugger mode. MindSpore will send training information to MindInsight Debugger Server in debugger mode, users can analyze the information on MindInsight UI.
 
 The command to launch MindInsight in debugger mode is as follows:
@@ -62,7 +64,9 @@ The Debugger related parameters:
 
 For more launch parameters, please refer to [MindInsight Commands](https://www.mindspore.cn/mindinsight/docs/en/r1.3/mindinsight_commands.html).
 
-Then, set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
+### Run the Training Script in Debug Mode
+
+Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGER=1` or `export ENABLE_MS_DEBUGGER=True` to specify the training is in the debugger mode, and set the debugger host and port to which the training is connected:
 `export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
 `export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
 
@@ -70,7 +74,7 @@ If the memory space of your equipment is limited, you can use the memory reuse m
 
 In addition, do not use data offload mode during training (you need to set `dataset_sink_mode` in `model.train` to `False`) to ensure that the debugger can obtain the training information of each step.
 
-After the debugger environment is prepared, run the training script.
+After the environment and training script are prepared, run the training script.
 
 ## Debugger UI Introduction
 
@@ -262,6 +266,7 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 - GPU Scenario:
     - In the GPU scenario, only the parameter nodes that meet requirements can be compared with the previous step. For example, nodes executed on the `next node`, nodes selected when `Run to This Node` is chosen, and nodes input as `watchpoints` can be compared. In other cases, the `Compare with Previous Step` function cannot be used.
 
+- When using the debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Recheck only watchpoints that have tensor values.
 - To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
