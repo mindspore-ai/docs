@@ -49,7 +49,7 @@ Elu是一类激活函数，数学公式表达如下：
 
 $$ ELU(x)=\begin{cases} \alpha(e^x-1) \qquad if \quad x \leq 0 \\\\x \qquad\qquad\quad\ \  if \quad x > 0\end{cases}$$
 
-Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.Elu.html)。
+Elu 算子的输入为 Tensor，数据类型为 float16 或 float32 ，输出为同种数据类型、同种 shape 的 Tensor。当前系数$\alpha$仅支持设定为 float 类型的“1.0”。详细说明可查看[API](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Elu.html)。
 
 ### 算子前端定义
 

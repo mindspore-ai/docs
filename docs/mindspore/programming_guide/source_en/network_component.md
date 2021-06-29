@@ -22,7 +22,7 @@ The following describes three network components, `GradOperation`, `WithLossCell
 
 ## GradOperation
 
-GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.GradOperation.html)
+GradOperation is used to generate the gradient of the input function. The `get_all`, `get_by_list`, and `sens_param` parameters are used to control the gradient calculation method. For details, see [mindspore API](https://www.mindspore.cn/docs/api/en/r1.3/api_python/ops/mindspore.ops.GradOperation.html)
 The following is an example of using GradOperation:
 
 ```python

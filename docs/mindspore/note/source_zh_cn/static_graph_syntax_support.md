@@ -265,7 +265,7 @@
 
 可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考：<https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html>
+关于`@constexpr`的用法可参考：<https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.constexpr.html>
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`里使用。
 
@@ -1142,7 +1142,7 @@ ret = grad_net(input_x, input_y, input_z)
 | `dataclass`实例      | 使用@dataclass装饰的类。                                                                                                                                                                                     |
 | `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)                                                                                              |
 | `Composite`算子      | [mindspore/ops/composite/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)                                                                                               |
-| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
+| `constexpr`生成算子  | 使用[@constexpr](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.constexpr.html)生成的值计算算子。                                                                          |
 | 函数                 | 自定义Python函数、前文中列举的系统函数。                                                                                                                                                                     |
 
 ### 网络使用约束
