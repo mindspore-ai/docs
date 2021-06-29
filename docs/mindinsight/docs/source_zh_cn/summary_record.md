@@ -152,10 +152,10 @@ MindSpore除了提供 `SummaryCollector` 能够自动收集一些常见数据，
 
 当前支持的Summary算子:
 
-- [ScalarSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
-- [TensorSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.TensorSummary.html)：记录张量数据
-- [ImageSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.ImageSummary.html)：记录图片数据
-- [HistogramSummary](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
+- [ScalarSummary](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.ScalarSummary.html)：记录标量数据
+- [TensorSummary](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.TensorSummary.html)：记录张量数据
+- [ImageSummary](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.ImageSummary.html)：记录图片数据
+- [HistogramSummary](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.HistogramSummary.html)：将张量数据转为直方图数据记录
 
 记录方式如下面的步骤所示。
 

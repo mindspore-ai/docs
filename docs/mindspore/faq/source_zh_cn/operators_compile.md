@@ -40,7 +40,7 @@ def __init__(self,
 
 <font size=3>**Q: MindSpore支持矩阵转置吗？**</font>
 
-A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
+A: 支持，请参考`mindspore.ops.Transpose`的[算子教程](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose)。
 
 <br/>
 

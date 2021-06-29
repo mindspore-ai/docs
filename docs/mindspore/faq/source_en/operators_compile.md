@@ -40,7 +40,7 @@ If the function contains a `group` parameter, the parameter will be transferred 
 
 <font size=3>**Q: Does MindSpore support matrix transposition?**</font>
 
-A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
+A: Yes. For details, see [mindspore.ops.Transpose](https://www.mindspore.cn/docs/api/en/r1.3/api_python/ops/mindspore.ops.Transpose.html#mindspore.ops.Transpose).
 
 <br/>
 
