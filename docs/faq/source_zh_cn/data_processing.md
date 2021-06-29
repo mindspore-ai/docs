@@ -150,28 +150,11 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
 
   1. 通常我们会找到日志中最先抛出的错误（第一个ERROR级别的错误）或报错堆栈（TraceBack)，并尝试从中找到有助于定位错误原因的信息。
 
-  2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss)，请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）
+  2. **在图编译阶段，训练还没开始报错时**（例如日志中还没打印loss)，请先检查下报错（ERROR）日志中是否有网络中涉及的相关算子报错或涉及环境没配置好导致的报错（如hccl.json不对导致多卡通信初始化异常）。
 
-  3. **在中间训练过程中报错时**，通常为host侧下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过`get_dataset_size`接口打印一个epoch中包含的batch数，并检查host下发的数据量和device侧收到的数据量(检查方式如下):
+  3. **在中间训练过程中报错时**，通常为下发的数据量（batch数）与网络训练需要的数据量（step数）不匹配导致的，可以通过`get_dataset_size`接口打印一个epoch中包含的batch数，导致异常的部分可能原因如下：
 
-     ```bash
-      # 注意: 数据量都指的列数，如一个batch包含image, label两列，5个batch则包含10列数据
-      # 注意: 如果开启了环境变量“export ASCEND_SLOG_PRINT_TO_STDOUT=1"则下面plog中的日志将在屏幕上直接打印出来或在重定向的日志文件中。
-
-      # 数据处理队列发给host tdt的数据量，pid为训练任务的进程id
-      # 文件名如: plog-64944-20210531165504682.log，统计数据量可以加`|wc -l`统计has got日志的条数
-      grep -rn "has got" ~/ascend/log/plog/plog-pid_timestamp0.log
-
-      # host tdt发到device tdt的数据量，进行如下搜索，日志中关键字眼如“index is"后面的值即为host发下去的数据量
-      grep -rn "has sent" ~/ascend/log/plog/plog-pid_timestamp0.log
-
-      # 查看device侧队列的数据量，pid为训练任务的进程id，与上述host侧的进程id一致
-      # 进行如下搜索，日志中关键字眼如“index=",等号后面的值即为device侧收到的数据量
-      grep -rn "enqueue data" ~/ascend/log/device-id/device-pid_timestamp1.log
-      ```
-
-      - 如果host侧下发的与device侧收到的数据量相等，且该值小于网络正常训练完成的数据量，则数据下发失败主要为host侧数据处理异常导致供应不上网络训练，有三种可能的定位思路:
-          - 如果数据量刚好为一个epoch中batch数的整数倍，则可能是数据处理部分涉及epoch的处理存在问题，如下面这场景:
+      - 通过查看打印loss次数的等方式判断如果数据量（step数）刚好为一个epoch中batch数的整数倍，则可能是数据处理部分涉及epoch的处理存在问题，如下面这场景:
 
           ```python
           ...
@@ -179,15 +162,10 @@ A: 首先上述报错指的是通过训练数据下发通道（TDT，train data 
           return dataset
           ```
 
-          - 数据处理性能较慢，跟不上网络训练的速度，针对这一场景，可借助profiler工具和MindInsight看一下是否存在明显的迭代间隙，或手动遍历一下dataset，并打印计算下平均单batch的耗时，是否比网络正反向加起来的时间更长，如果是则大概率需要对数据处理部分进行性能优化。
-          - 训练过程中出现异常数据抛出异常导致下发数据失败，同常这种情况会有其他报错（ERROR）日志会提示数据处理哪个环节出现了异常及检查建议。如果不明显，也可以通过遍历dataset每条数据的方式尝试找出异常的数据（如关闭shuffle, 然后进行二分法）。
-      - 如果host侧与device侧的数据量不相等（通常为host发的数据量更多）, 则可能为tdt模块存在一点问题（如反压等）需找模块开发人员协助定位。
+      - 考虑是否是数据处理性能较慢，跟不上网络训练的速度，针对这一场景，可借助profiler工具和MindInsight看一下是否存在明显的迭代间隙，或手动遍历一下dataset，并打印计算下平均单batch的耗时，是否比网络正反向加起来的时间更长，如果是则大概率需要对数据处理部分进行性能优化。
+
+      - 训练过程中出现异常数据抛出异常导致下发数据失败，通常这种情况会有其他报错（ERROR）日志会提示数据处理哪个环节出现了异常及检查建议。如果不明显，也可以通过遍历dataset每条数据的方式尝试找出异常的数据（如关闭shuffle, 然后进行二分法）。
 
   4. 如果**在训练结束后**打印这条日志（大抵是强制释放资源导致），可忽略这个报错。
 
-  5. 如果仍不能定位具体原因，请开启mindspore和CANN的info级别日志，并检查日志看报错位置上下文寻找有帮助的信息，CANN host日志文件路径为: ~/ascend/log/plog/plog-pid-timestamp.log
-
-      ```bash
-      export GLOG_v=1                  # set mindspore log level into info level
-      export GLOBAL_ASCEND_LOG_LEVEL=1 # set CANN log level into info level
-      ```
+  5. 如果仍不能定位具体原因，请通过提issue或论坛提问等方式找模块开发人员协助定位。
