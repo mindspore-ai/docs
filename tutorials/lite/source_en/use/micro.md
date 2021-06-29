@@ -10,7 +10,8 @@
     - [Directory Structure](#directory-structure)
     - [Parameter Description](#parameter-description)
     - [Instructions](#instructions)
-    - [Using CodeGen to Perform inference on STM Boards](#perform-inference-on-the-stm-microcontroller)
+    - [Using CodeGen to Perform inference on STM Boards](#using-codegen-to-perform-inference-on-stm-boards)
+    - [Using CodeGen to Perform inference on Open HarmonyOS](#using-codegen-to-perform-inference-on-stm-boards)
     - [More Details](#more-details)
 
 <!-- /TOC -->
@@ -299,6 +300,97 @@ monitor halt             # halt board
 load                     # load executable to board
 c                        # perform model inference
 ```
+
+## Using CodeGen to Perform inference on Open HarmonyOS
+
+1. For the environment preparation, please refer to [harmonyos quick start](https://device.harmonyos.com/en/docs/start/introduce/oem_minitinier_environment_lin-0000001105407498), including gn/ninja/llvm.
+
+2. For Hardware environment preparation, please refer to the harmonyos quick start [How to Develop](https://device.harmonyos.com/en/docs/start/introduce/oem_development_eq_3516-0000001105829366) of board Hi3516 as example.
+
+3. The project file structure needed to be organized is shown below:
+
+    ```text
+    ├── benchmark
+    ├── CMakeLists.txt
+    ├── BUILD.gn        # project management file
+    └── src
+    ```
+
+4. Use CodeGen and input the `*.ms` file of [mobilebetv3 model](https://download.mindspore.cn/model_zoo/official/lite/mnist_lite/mnist.ms) to automatically generate the inference code on harmonyos.
+
+   ```bash
+   ./codegen --modelPath=./mobilenetv3.ms --codePath=./ --target=ARM32A
+   ```
+
+4. Edit gn file:
+
+   ```text
+   import("//build/lite/config/component/lite_component.gni")
+   import("//build/lite/ndk/ndk.gni")
+
+   lite_component("mobilenetV3_benchmark") {
+       target_type = "executable"
+       sources = [
+            "benchmark/benchmark.cc",
+            "benchmark/load_input.c",
+            "benchmark/calib_output.cc",
+            "src/net.c",
+            "src/weight.c",
+            "src/session.cc",
+            "src/tensor.cc",
+       ]
+
+       features = []
+
+       include_dirs = [
+            "//foundation/ai/engine/test/mindspore_benchmark",
+            "//foundation/ai/engine/test/mindspore_benchmark/include",
+            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/benchmark",
+            "//foundation/ai/engine/test/mindspore_benchmark/mobilenetV3/src",
+       ]
+
+       ldflags = [
+            "-fno-strict-aliasing",
+            "-Wall",
+            "-pedantic",
+            "-std=gnu99",
+       ]
+
+       libs = [
+            "../lib/libmindspore-lite.a",
+            "../lib/libwrapper.a",
+       ]
+
+       defines = [ "NOT_USE_STL" ]
+       defines += [ "ENABLE_NEON" ]
+       defines += [ "ENABLE_ARM" ]
+       defines += [ "ENABLE_ARM32" ]
+
+       cflags = [
+            "-fno-strict-aliasing",
+            "-Wall",
+            "-pedantic",
+            "-std=gnu99",
+       ]
+    }
+    ```
+
+5. Compile benchmark and execute the benchmark, the result is as follows:
+
+    ```txt
+    ReadWeightData time: 0.00000ms
+    input 0: mobilenetV3_input.bin
+    ReadInputData time: 0.00000ms
+
+    loop count:3
+    total time: 756.13397ms, per time: 252.04466ms
+
+    outputs:
+    name: Reshape-110, DataType: 43, Elements: 1001, Shape: [1 1001 ], Data:
+    -0.583575, -0.359817, 0.536744, -1.843612, -0.849360, 0.147853, 0.402617, -1.016975, 0.737295, 1.312937
+    ===========run success========
+    total end to end time: 2124.91895ms
+    ```
 
 ## More Details
 
