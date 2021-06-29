@@ -80,9 +80,9 @@ The following describes how to build and execute an on-device image segmentation
 
     <table>
       <tr>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/tutorials/lite/source_en/images/segmentation3.png"><br>Figure 1 White background</br> </center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/tutorials/lite/source_en/images/segmentation4.png"><br>Figure 2 Blue background</br></center></td>
-        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/tutorials/lite/source_en/images/segmentation5.png"><br>Figure 3 Oil painting background</br></center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_en/images/segmentation3.png"><br>Figure 1 White background</br> </center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_en/images/segmentation4.png"><br>Figure 2 Blue background</br></center></td>
+        <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_en/images/segmentation5.png"><br>Figure 3 Oil painting background</br></center></td>
       </tr>
     </table>
 
@@ -294,8 +294,8 @@ The inference code and process are as follows. For details about the complete co
 
         <table>
            <tr>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/tutorials/lite/source_en/images/segmentation6.png"><br>Figure 1 Before inference</br></center></td>
-            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/tutorials/lite/source_en/images/segmentation7.png"><br>Figure 2 After inference</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_en/images/segmentation6.png"><br>Figure 1 Before inference</br></center></td>
+            <td><center><img src="https://gitee.com/mindspore/docs/raw/r1.3/docs/lite/docs/source_en/images/segmentation7.png"><br>Figure 2 After inference</br></center></td>
           </tr>
         </table>
 
