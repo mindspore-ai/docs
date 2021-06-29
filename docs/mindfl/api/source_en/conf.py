@@ -47,7 +47,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx_markdown_tables',
-    'recommonmark',
+    'myst_parser',
 ]
 
 source_suffix = {
