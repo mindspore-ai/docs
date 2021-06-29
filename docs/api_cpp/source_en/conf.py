@@ -35,7 +35,7 @@ release = 'master'
 # ones.
 extensions = [
     'sphinx_markdown_tables',
-    'myst_parser'',
+    'myst_parser',
     'breathe',
     'exhale',
     'sphinx.ext.mathjax',
