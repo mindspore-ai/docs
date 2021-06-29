@@ -168,7 +168,7 @@ plt.title(data['label'].asnumpy(), fontsize=20)
 plt.show()
 ```
 
-![png](./images/output_13_0.png)
+![png](./images/output_13_0.PNG)
 
 Define the data augmentation operator, perform the `Resize` and `RandomCrop` operations on the dataset, and insert the dataset into the data processing pipeline through `map` mapping.
 
@@ -189,6 +189,6 @@ plt.title(data['label'].asnumpy(), fontsize=20)
 plt.show()
 ```
 
-![png](./images/output_17_0.png)
+![png](./images/output_17_0.PNG)
 
 For more information, see [Data augmentation](https://www.mindspore.cn/doc/programming_guide/en/master/augmentation.html).
