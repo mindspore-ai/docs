@@ -104,7 +104,7 @@ class Dice(Metric):
 
 ### 在框架中导入Metrics
 
-在同级目录中的[__init__.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py)。可以点击链接查看文件的具体位置，Metrics在框架中位于`mindspore/nn/metrics/`目录下：
+在同级目录中的[\_\_init\_\_.py](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/__init__.py)文件中，添加已经定义好的[Dice](https://gitee.com/mindspore/mindspore/blob/master/mindspore/nn/metrics/dice.py)。可以点击链接查看文件的具体位置，Metrics在框架中位于`mindspore/nn/metrics/`目录下：
 
 ```text
 __all__ = [
