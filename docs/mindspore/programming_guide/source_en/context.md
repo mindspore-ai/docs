@@ -145,6 +145,8 @@ from mindspore import context
 context.set_context(enable_profiling=True, profiling_options= '{"result_path":"/home/data/output","training_trace":"on"}')
 ```
 
+> The method of collecting profiling data is more suitable for high-level developers to analyze complex problems. If you need to collect profiling data for performance analysis, you can refer to [performance_profiling_ascend](https://www.mindspore.cn/mindinsight/docs/en/r1.3/performance_profiling_ascend.html).
+
 ### Saving MindIR
 
 Saving the intermediate code of each compilation stage through context.set_context(save_graphs=True).
