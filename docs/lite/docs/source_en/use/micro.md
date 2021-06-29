@@ -377,7 +377,7 @@ c                        # perform model inference
 
 5. Compile and execute the benchmark, the result is as follows:
 
-    ```txt
+    ```text
     ReadWeightData time: 0.00000ms
     input 0: mobilenetV3_input.bin
     ReadInputData time: 0.00000ms
