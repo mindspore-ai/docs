@@ -126,7 +126,7 @@
 | torch.ones                                           | mindspore.ops.Ones                                             | 功能一致 |
 | torch.ones_like                                      | mindspore.ops.OnesLike                                         | 功能一致 |
 | torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdadelta.md)|
-| torch.optim.Adagrad                                  | mindspore.nn.ApplyAdagrad                                      |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdagrad.md)|
+| torch.optim.Adagrad                                  | mindspore.nn.Adagrad                                           |[差异对比](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Adagrad.md)|
 | torch.optim.Adam                                     | mindspore.nn.Adam                                              | 功能一致 |
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | 功能一致 |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | 功能一致 |
