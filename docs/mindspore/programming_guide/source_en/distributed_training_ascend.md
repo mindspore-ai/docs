@@ -33,7 +33,7 @@
 ## Overview
 
 This tutorial describes how to train the ResNet-50 network in data parallel and automatic parallel modes on MindSpore based on the Ascend 910 AI processor.
-> Download address of the complete sample code: <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/distributed_training>
+> Download address of the complete sample code: <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/distributed_training>
 
 The directory structure is as follow:
 
@@ -194,7 +194,7 @@ Different from the single-node system, the multi-node system needs to transfer t
 
 ## Defining the Network
 
-In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/resnet/resnet.py>
+In data parallel and automatic parallel modes, the network definition method is the same as that in a single-node system. The reference code of ResNet is as follows: <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/resnet/resnet.py>
 
 In this section we focus on how to define a network in hybrid parallel or semi-auto parallel mode.
 

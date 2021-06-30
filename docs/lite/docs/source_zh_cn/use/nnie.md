@@ -336,7 +336,7 @@ ${model_path}为转换后ms模型文件路径
   mindspore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行[集成使用]（#集成使用）。
   > 你可以在这里下载完整的样例代码：
   >
-  > <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/nnie_proposal>
+  > <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/nnie_proposal>
 
 ### 分段机制说明及8段限制
 

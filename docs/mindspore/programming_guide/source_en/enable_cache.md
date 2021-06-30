@@ -177,7 +177,7 @@ For the complete sample code, please refer to [ResNet](https://gitee.com/mindspo
    }
    ```
 
-   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
+   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/cache/cache_util.sh)
 
 2. In the Shell script for starting the distributed training i.e., `run_distributed_train.sh`, start a cache server for evaluation during training scenarios and generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 
@@ -301,7 +301,7 @@ For the complete sample code, please refer to [MobileNetV2](https://gitee.com/mi
    }
    ```
 
-   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
+   > Complete sample code: [cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/cache/cache_util.sh)
 
 2. In the Shell script for starting the distributed training with NFS dataset i.e., `run_train_nfs_cache.sh`, start a cache server for scenarios where dataset is on NFS. Then generate a cache session, saved in `CACHE_SESSION_ID` Shell variable:
 

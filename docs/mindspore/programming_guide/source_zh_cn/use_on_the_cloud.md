@@ -69,7 +69,7 @@ ModelArts使用对象存储服务（Object Storage Service，简称OBS）进行�
 ### 执行脚本准备
 
 新建一个自己的OBS桶（例如：`resnet50-train`），在桶中创建代码目录（例如：`resnet50_cifar10_train`），并将以下目录中的所有脚本上传至代码目录：
-> <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
+> <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/sample_for_cloud/>脚本使用ResNet-50网络在CIFAR-10数据集上进行训练，并在训练结束后验证精度。脚本可以在ModelArts采用`1*Ascend`或`8*Ascend`两种不同规格进行训练任务。
 >
 > 注意运行脚本的版本需要与"创建训练任务"步骤选择的MindSpore版本一致。例如：使用MindSpore 1.1版本教程提供的脚本，则需要在创建训练任务时选择1.1版本的MindSpore引擎。
 

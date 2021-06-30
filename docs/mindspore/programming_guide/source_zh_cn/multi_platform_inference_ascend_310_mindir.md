@@ -28,7 +28,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 3. 加载保存的MindIR模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample> 。
 
 ## 开发环境准备
 
@@ -42,7 +42,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下:
 
 ```text
 └─ascend310_resnet50_preprocess_sample
@@ -61,7 +61,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器，本教程�
 
 ### 使用CPU算子数据预处理
 
-推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> 。
+推理代码样例：<https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> 。
 
 引用`mindspore`和`mindspore::dataset`的名字空间。
 
@@ -242,7 +242,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## 构建脚本介绍
 
-构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
+构建脚本用于构建用户程序，样例来自于：<https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt> 。
 
 为编译器添加头文件搜索路径：
 

@@ -37,7 +37,7 @@ This tutorial describes how to implement gradient accumulation training in stand
 
 In standalone mode, the training process consists of three parts: forward and backward training, parameter update, and accumulated gradient clearance. MNIST is used as an example dataset. To customize a simple model to implement gradient accumulation, perform the following steps:
 
-> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/gradient_accumulation>
+> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/gradient_accumulation>
 
 ### Importing Library Files
 
@@ -278,7 +278,7 @@ The output is as follows. The accuracy of the validation dataset is about 96.31%
 
 If gradient accumulation is used in `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` modes, the accumulation steps and update steps are delivered as two graphs and executed alternately. In an accumulation step graph, only the forward and backward operations and gradient accumulation are performed. In an update step graph, the forward and backward operations and parameter updates are performed. The example in [Parallel Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html) is used to describe the procedure.
 
-> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/distributed_training>
+> Download the main training sample code: <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/distributed_training>
 
 ### Defining the Parallel Training Process
 

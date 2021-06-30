@@ -85,7 +85,7 @@ BERT采用了Encoder结构，`attention_mask`为全1的向量，即每个token�
 
 ## 样例代码
 
-可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/bert_poetry>，直接运行体验实现写诗效果，代码结构如下:
+可以在这里下载完整的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/bert_poetry>，直接运行体验实现写诗效果，代码结构如下:
 
 ```text
 └─bert_poetry

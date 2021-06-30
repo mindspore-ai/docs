@@ -105,7 +105,7 @@ Here are two examples to further explain the usage of custom Callback.
 
 > custom `Callback` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_callback.py>
 
 - Terminate training within the specified time.
 
@@ -172,7 +172,7 @@ You can define a metrics dictionary object that contains multiple metrics and tr
 
 > `metrics` sample code：
 >
-> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 metrics = {

@@ -41,7 +41,7 @@
 
 在单机模式下，主要通过将训练流程拆分为正向反向训练、参数更新和累积梯度清理三个部分实现梯度累积。这里以MNIST作为示范数据集，自定义简单模型实现梯度累积需要如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/gradient_accumulation>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/gradient_accumulation>
 
 ### 导入需要的库文件
 
@@ -282,7 +282,7 @@ python eval.py --data_path=./MNIST_Data --ckpt_path=./gradient_accumulation.ckpt
 
 在`SEMI_AUTO_PARALLEL`和`AUTO_PARALLEL`模式下使用梯度累积，主要是将累积迭代和更新迭代作为两张图下发并且交替执行。在累积迭代图上，只执行正反向运算及梯度累加。在更新迭代图上，执行正反向运算和参数更新。本小节将以[分布式并行训练教程](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_ascend.html)中的样例为基础进行介绍，具体分为如下几个步骤。
 
-> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/distributed_training>
+> 你可以在这里下载主要的训练样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/distributed_training>
 
 ### 定义并行训练流程
 

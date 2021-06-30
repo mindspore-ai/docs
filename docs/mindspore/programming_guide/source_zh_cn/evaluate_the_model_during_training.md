@@ -29,7 +29,7 @@
 2. 定义训练网络并执行。
 3. 将不同epoch下的模型精度绘制出折线图并挑选最优模型。
 
-完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
+完整示例请参源代码：<https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/evaluate_the_model_during_training/evaluate_the_model_during_training.py>。
 
 ## 定义回调函数EvalCallBack
 

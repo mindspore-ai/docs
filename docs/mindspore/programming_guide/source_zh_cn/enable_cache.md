@@ -179,7 +179,7 @@
    }
    ```
 
-   > 直接获取完整样例代码：[cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
+   > 直接获取完整样例代码：[cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/cache/cache_util.sh)
 
 2. 在启动分布式训练的Shell脚本`run_distribute_train.sh`中，为训练时推理的场景开启缓存服务器并生成一个缓存会话保存在Shell变量`CACHE_SESSION_ID`中：
 
@@ -303,7 +303,7 @@
    }
    ```
 
-   > 直接获取完整样例代码：[cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/cache/cache_util.sh)
+   > 直接获取完整样例代码：[cache_util.sh](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/cache/cache_util.sh)
 
 2. 在启动NFS数据集训练的Shell脚本`run_train_nfs_cache.sh`中，为使用位于NFS上的数据集训练的场景开启缓存服务器并生成一个缓存会话保存在Shell变量`CACHE_SESSION_ID`中：
 

@@ -28,7 +28,7 @@ Ascend 310 is a highly efficient and integrated AI processor oriented to edge sc
 
 3. Load the saved MindIR model, perform inference, and view the result.
 
-> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample>.
+> You can obtain the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample>.
 
 ## Preparing the Development Environment
 
@@ -42,7 +42,7 @@ Train the target network on the CPU/GPU/Ascend 910 AI Processor, save it as a ch
 
 ## Inference Directory Structure
 
-Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` model files and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
+Create a directory to store the inference code project, for example, `/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/ascend310_resnet50_preprocess_sample`. The directory code can be obtained from the [official website](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample). The `model` directory stores the exported `MindIR` model files and the `test_data` directory stores the images to be classified. The directory structure of the inference code project is as follows:
 
 ```text
 └─ascend310_resnet50_preprocess_sample
@@ -61,7 +61,7 @@ Create a directory to store the inference code project, for example, `/home/HwHi
 
 ### Data-preprocessing by CPU operators
 
-Inference sample code: <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/main.cc> .
+Inference sample code: <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample/main.cc> .
 
 Using namespace of `mindspore` and `mindspore::dataset`.
 
@@ -244,7 +244,7 @@ std::cout << "Image: " << image_file << " infer result: " << GetMax(outputs[0]) 
 
 ## Introduce to Building Script
 
-The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
+The building script is used to building applications: <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/ascend310_resnet50_preprocess_sample/CMakeLists.txt>.
 
 Add head files to gcc search path:
 
