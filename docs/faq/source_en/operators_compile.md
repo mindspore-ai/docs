@@ -6,7 +6,7 @@
 
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
-A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. You can consider using the `amp` for mixed-precision training. In this way, some `FP32` operations and the invocation of some `TransData` operators can be reduced.
+A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. Huawei Ascend NPU supports 5D format operations, and uses the `transdata` operator to convert data from 4D to 5D to improve performance.
 
 <br/>
 
@@ -19,22 +19,6 @@ A: The number of tensors to be concatenated at a time cannot exceed 192 accordin
 <font size=3>**Q: When `Conv2D` is used to define convolution, the `group` parameter is used. Is it necessary to ensure that the value of `group` can be exactly divided by the input and output dimensions? How is the group parameter transferred?**</font>
 
 A: The `Conv2d` operator has the following constraint: When the value of `group` is greater than 1, the value must be the same as the number of input and output channels. Do not use `ops.Conv2D`. Currently, this operator does not support a value of `group` that is greater than 1. Currently, only the `nn.Conv2d` API of MindSpore supports `group` convolution. However, the number of groups must be the same as the number of input and output channels.
-The `Conv2D` operator function is as follows:
-
-```python
-def __init__(self,
-                 out_channel,
-                 kernel_size,
-                 mode=1,
-                 pad_mode="valid",
-                 pad=0,
-                 stride=1,
-                 dilation=1,
-                 group=1,
-                 data_format="NCHW"):
-```
-
-If the function contains a `group` parameter, the parameter will be transferred to the C++ layer by default.
 
 <br/>
 
@@ -97,9 +81,7 @@ A: Currently, MindSpore does not provide anti-pooling APIs but you can customize
 <font size=3>**Q: What can I do if the error message `Pynative run op ExpandDims failed` is displayed when the ExpandDims operator is used? The code is as follows:**</font>
 
 ```python
-context.set_context(
-mode=cintext.GRAPH_MODE,
-device_target='ascend')
+context.set_context(mode=intext.GRAPH_MODE,device_target='ascend')
 input_tensor=Tensor(np.array([[2,2],[2,2]]),mindspore.float32)
 expand_dims=ops.ExpandDims()
 output=expand_dims(input_tensor,0)

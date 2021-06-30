@@ -12,7 +12,7 @@ MindSpore FAQ
 
   installation
   data_processing
-  script_implement
+  implement_problem
   training_visualization
   operators_compile
   usage_migrate_3rd
