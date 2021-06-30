@@ -276,7 +276,7 @@ from mindspore.ops._op_impl.tbe import _elu_tbe
 
 #### AI CPU算子信息注册
 
-AI CPU 算子的注册文件放在`mindspore/ops/_op_impl/aicpu/`文件夹中，注册方式与AI CPU 算子类似。注册完后要在`mindspore/ops/_op_impl/aicpu/__init__.py`中导入注册好的算子信息。
+AI CPU 算子的注册文件放在`mindspore/ops/_op_impl/aicpu/`文件夹中，注册方式与AI Core 算子类似。注册完后要在`mindspore/ops/_op_impl/aicpu/__init__.py`中导入注册好的算子信息。
 
 #### 反向算子信息注册
 
