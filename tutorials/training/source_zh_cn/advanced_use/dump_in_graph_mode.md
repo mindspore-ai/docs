@@ -40,7 +40,7 @@
 
 #### 数据准备
 
-数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#id5)和[异步Dump操作步骤](#id10)。
+数据准备阶段使用同步Dump或异步Dump来生成Dump数据。使用方法详见[同步Dump操作步骤](#id7)和[异步Dump操作步骤](#id12)。
 
 #### 数据分析
 
@@ -54,11 +54,11 @@
 
 2. 从算子到Dump数据
 
-    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id6)和[异步Dump数据对象目录](#id11)。
+    在了解脚本和算子的映射关系后，可以确定想要分析的算子名称，从而找到算子对应的dump文件，参考[同步Dump数据对象目录](#id8)和[异步Dump数据对象目录](#id13)。
 
 3. 分析Dump数据
 
-    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id7)，异步Dump数据格式参考[异步Dump数据文件介绍](#id12)。
+    通过解析Dump数据，可以与其他第三方框架进行对比。同步Dump数据格式参考[同步Dump数据文件介绍](#id9)，异步Dump数据格式参考[异步Dump数据文件介绍](#id14)。
 
 ### 适用场景
 
@@ -147,7 +147,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id7)。
+4. 通过`numpy.load`读取和解析同步Dump数据，参考[同步Dump数据文件介绍](#id9)。
 
 ### 同步Dump数据对象目录
 
@@ -398,7 +398,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
     可以在训练脚本中设置`context.set_context(reserve_class_name_in_scope=False)`，避免Dump文件名称过长导致Dump数据文件生成失败。
 
-4. 参考[异步Dump数据分析样例](#id13)解析Dump数据文件。
+4. 参考[异步Dump数据分析样例](#id15)解析Dump数据文件。
 
 注意：
 
@@ -438,9 +438,9 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 ### 异步Dump数据文件介绍
 
-启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0014.html) 。
+启动训练后，异步Dump生成的原始数据文件是protobuf格式的文件，需要用到海思Run包中自带的数据解析工具进行解析，详见[如何查看dump数据文件](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/8d6ddc58) 。
 
-数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huaweicloud.com/tg-Inference-cann/atlasaccuracy_16_0013.html) 。
+数据在Device侧的格式可能和Host侧计算图中的定义不同，异步Dump的数据格式为Device侧格式，如果想要转为Host侧格式，可以参考[如何进行dump数据文件Format转换](https://support.huawei.com/enterprise/zh/doc/EDOC1100191946/fa6aecce) 。
 
 异步Dump生成的数据文件命名规则如下：
 
@@ -453,7 +453,7 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 
 Dump生成的原始数据文件也可以使用MindInsight的数据解析工具DumpParser解析，DumpParser的使用方式详见[DumpParser介绍](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser) 。MindInsight解析出来的数据格式与同步dump的数据格式完全相同。
 
-异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id7)。
+异步Dump生成的最终执行图文件和节点执行序文件命名规则与同步Dump相同，可以参考[同步Dump数据文件介绍](#id9)。
 
 ### 异步Dump数据分析样例
 
