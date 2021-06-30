@@ -18,7 +18,7 @@
 
     - MindSpore提供了迁移第三方训练框架的脚本，支持将已有的TensorFlow、PyTorch等的网络迁移到MindSpore，帮助你快速进行网络迁移。
 
-      通过[迁移第三方框架训练脚本](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_script.html)了解详细帮助信息。
+      通过[迁移脚本全流程](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_script.html)了解详细帮助信息。
 
     - MindSpore支持使用开发深度学习模型的逻辑进行概率编程，还提供深度概率学习的工具箱，构建贝叶斯神经网络。
 
