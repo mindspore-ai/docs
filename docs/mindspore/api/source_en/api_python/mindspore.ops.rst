@@ -135,15 +135,15 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.same_type_shape
      - Refer to :class:`mindspore.ops.SameTypeShape`.
    * - mindspore.ops.scalar_add
-     - :class:`mindspore.ops.Primitive` ('scalar_add')
+     - Get the sum of two numbers.
    * - mindspore.ops.scalar_cast
      - Refer to :class:`mindspore.ops.ScalarCast`.
    * - mindspore.ops.scalar_div
-     - :class:`mindspore.ops.Primitive` ('scalar_div')
+     - Get the quotient of dividing the first input number by the second input number.
    * - mindspore.ops.scalar_eq
      - Determine whether two numbers are equal.
    * - mindspore.ops.scalar_floordiv
-     - :class:`mindspore.ops.Primitive` ('scalar_floordiv')
+     - Divide the first input number by the second input number and round down to the closest integer.
    * - mindspore.ops.scalar_ge
      - Determine whether the number is greater than or equal to another number.
    * - mindspore.ops.scalar_gt
@@ -151,27 +151,27 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.scalar_le
      - Determine whether the number is less than or equal to another number.
    * - mindspore.ops.scalar_log
-     - :class:`mindspore.ops.Primitive` ('scalar_log')
+     - Get the natural logarithm of the input number.
    * - mindspore.ops.scalar_lt
      - Determine whether the number is less than another number.
    * - mindspore.ops.scalar_mod
-     - :class:`mindspore.ops.Primitive` ('scalar_mod')
+     - Get the remainder of dividing the first input number by the second input number.
    * - mindspore.ops.scalar_mul
-     - :class:`mindspore.ops.Primitive` ('scalar_mul')
+     - Get the product of the input two numbers.
    * - mindspore.ops.scalar_ne
      - Determine whether two numbers are not equal.
    * - mindspore.ops.scalar_pow
-     - :class:`mindspore.ops.Primitive` ('scalar_pow')
+     - Compute a number to the power of the second input number.
    * - mindspore.ops.scalar_sub
-     - :class:`mindspore.ops.Primitive` ('scalar_sub')
+     - Subtract the second input number from the first input number.
    * - mindspore.ops.scalar_to_array
      - Refer to :class:`mindspore.ops.ScalarToArray`.
    * - mindspore.ops.scalar_to_tensor
      - Refer to :class:`mindspore.ops.ScalarToTensor`.
    * - mindspore.ops.scalar_uadd
-     - :class:`mindspore.ops.Primitive` ('scalar_uadd')
+     - Get the positive value of the input number.
    * - mindspore.ops.scalar_usub
-     - :class:`mindspore.ops.Primitive` ('scalar_usub')
+     - Get the negative value of the input number.
    * - mindspore.ops.scatter_nd
      - Refer to :class:`mindspore.ops.ScatterNd`.
    * - mindspore.ops.scatter_nd_update
