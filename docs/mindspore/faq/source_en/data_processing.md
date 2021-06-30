@@ -93,7 +93,7 @@ A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.3/model
 
 [GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#loading-user-defined-dataset)
 
-[GeneratorDataset API description](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GeneratorDataset API description](https://www.mindspore.cn/docs/api/en/r1.3/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 

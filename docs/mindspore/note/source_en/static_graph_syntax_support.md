@@ -1085,13 +1085,13 @@ y: Tensor(shape=[], dtype=Int64, value=3))
 
 - Common Python function with the [@ms_function](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.html#mindspore.ms_function) decorator.
 
-- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Cell.html).
+- Cell subclass inherited from [nn.Cell](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.Cell.html).
 
 ### Network Construction Components
 
 | Category                 | Content
 | :-----------             |:--------
-| `Cell` instance |[mindspore/nn/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Cell.html).
+| `Cell` instance |[mindspore/nn/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.nn.html) and user-defined [Cell](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.Cell.html).
 | Member function of a `Cell` instance | Member functions of other classes in the construct function of Cell can be called.
 | `dataclass` instance | Class decorated with @dataclass.
 | `Primitive` operator |[mindspore/ops/operations/*](https://www.mindspore.cn/docs/api/en/r1.3/api_python/mindspore.ops.html)

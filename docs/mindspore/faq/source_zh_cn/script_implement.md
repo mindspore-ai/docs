@@ -52,7 +52,7 @@ def step_end(self, run_context):
 
 <font size=3>**Q: 使用`nn.Conv2d`时，怎样获取期望大小的`feature map`？**</font>
 
-A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
+A: `Conv2d shape`推导方法可以[参考这里](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/nn/mindspore.nn.Conv2d.html#mindspore.nn.Conv2d)，`Conv2d`的`pad_mode`改成`same`，或者可以根据`Conv2d shape`推导公式自行计算`pad`，想要使得`shape`不变，一般pad为`(kernel_size-1)//2`。
 
 <br/>
 
@@ -116,7 +116,7 @@ A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的
 
 如果是常量`Tensor`，请在`__init__`函数中定义。如果不是常量`Tensor`，可以通过`@constexpr`装饰器修饰函数，在函数里生成`Tensor`。
 
-关于`@constexpr`的用法可参考: <https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/ops/mindspore.ops.constexpr.html>。
+关于`@constexpr`的用法可参考: <https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/ops/mindspore.ops.constexpr.html>。
 
 对于网络中需要用到的常量`Tensor`，可以作为网络的属性，在`init`的时候定义，即`self.x = Tensor(args...)`，然后在`construct`函数(或`@ms_function`装饰器修饰的函数)里使用。
 
@@ -132,7 +132,7 @@ def generate_tensor():
 
 <font size=3>**Q: 运行时报错“'self.xx' should be defined in the class '__init__' function.”怎么办？**</font>
 
-A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[`Parameter`](<https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/mindspore.html?highlight=parameter#mindspore.Parameter>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
+A: 如果在`construct`函数里，想对类成员`self.xx`赋值，那么`self.xx`必须已经在`__init__`函数中被定义为[`Parameter`](<https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.Parameter>)类型，其他类型则不支持。局部变量`xx`不受这个限制。
 
 <br/>
 
@@ -159,7 +159,7 @@ A: 网络的实例被调用时，会执行`construct`方法，然后会检查`co
 
 A: 在前端编译的推理阶段，会对节点的抽象类型(包含`type`、`shape`等)进行推导，常见抽象类型包括`AbstractScalar`、`AbstractTensor`、`AbstractFunction`、`AbstractTuple`、`AbstractList`等。在一些场景比如多分支场景，会对不同分支返回值的抽象类型进行`join`合并，推导出返回结果的抽象类型。如果抽象类型不匹配，或者`type`/`shape`不一致，则会抛出以上异常。
 
-当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/doc/note/zh-CN/r1.3/design/mindspore/mindir.html)。代码样例如下:
+当出现类似“Type Join Failed: dtype1 = Float32, dtype2 = Float16”的报错时，说明数据类型不一致，导致抽象类型合并失败。根据提供的数据类型和代码行信息，可以快速定位出错范围。此外，报错信息中提供了具体的抽象类型信息、节点信息，可以通过`analyze_fail.dat`文件查看MindIR信息，定位解决问题。关于MindIR的具体介绍，可以参考[MindSpore IR（MindIR）](https://www.mindspore.cn/docs/note/zh-CN/r1.3/design/mindspore/mindir.html)。代码样例如下:
 
 ```python
 import numpy as np

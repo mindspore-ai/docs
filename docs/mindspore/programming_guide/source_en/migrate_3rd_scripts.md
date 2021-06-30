@@ -33,7 +33,7 @@ Before you start working on your scripts, prepare your operator assessment and h
 
 Analyze the operators contained in the network to be migrated and figure out how does MindSpore support these operators based on the [Operator List](https://www.mindspore.cn/docs/note/en/r1.3/operator_list.html).
 
-Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.Conv2d.html) and [BatchNorm](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.BatchNorm2d.html) exist in the MindSpore Operator List.
+Take ResNet-50 as an example. The two major operators [Conv](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.Conv2d.html) and [BatchNorm](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.BatchNorm2d.html) exist in the MindSpore Operator List.
 
 If any operator does not exist, you are advised to perform the following operations:
 

@@ -282,7 +282,7 @@ If gradient accumulation is used in `SEMI_AUTO_PARALLEL` and `AUTO_PARALLEL` mod
 
 ### Defining the Parallel Training Process
 
-Generally, after the forward network is defined, [`TrainOneStepCell`](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.TrainOneStepCell.html?highlight=trainonestepcell) is used to associate the forward and backward networks with the optimizer. However, two different situations, accumulation and update, exist during gradient accumulation. We need to make some modifications based on the original class definition. The sample code is as follows:
+Generally, after the forward network is defined, [`TrainOneStepCell`](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.TrainOneStepCell.html) is used to associate the forward and backward networks with the optimizer. However, two different situations, accumulation and update, exist during gradient accumulation. We need to make some modifications based on the original class definition. The sample code is as follows:
 
 ```python
 import numpy as np
@@ -340,7 +340,7 @@ On the basis of `TrainOneStepCell`, definitions of the accumulation flag `accumu
 
 > The gradient accumulation in parallel mode needs to be implemented based on the internal graph optimization of the framework. Therefore, `accumulation` and `accu_grads` defined on the network are specific characters and cannot be modified.
 
-In the dynamic loss scale scenario, in addition to the gradient, the overflow flag status also needs to be accumulated. The code can be modified based on [`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/doc/api_python/en/r1.3/mindspore/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell). The implementation code is as follows:
+In the dynamic loss scale scenario, in addition to the gradient, the overflow flag status also needs to be accumulated. The code can be modified based on [`TrainOneStepWithLossScaleCell`](https://www.mindspore.cn/docs/api/en/r1.3/api_python/nn/mindspore.nn.TrainOneStepWithLossScaleCell.html#mindspore.nn.TrainOneStepWithLossScaleCell). The implementation code is as follows:
 
 ```python
 import numpy as np

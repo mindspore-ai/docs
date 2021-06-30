@@ -199,7 +199,7 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.stack
      - Refer to :class:`mindspore.ops.Stack`.
    * - mindspore.ops.stop_gradient
-     - :Disable update during back propagation. (`stop_gradient <https://www.mindspore.cn/tutorial/zh-CN/r1.3/autograd.html#%E5%81%9C%E6%AD%A2%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6>`_)
+     - :Disable update during back propagation. (`stop_gradient <https://www.mindspore.cn/tutorials/zh-CN/r1.3/autograd.html#%E5%81%9C%E6%AD%A2%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6>`_)
    * - mindspore.ops.strided_slice
      - Refer to :class:`mindspore.ops.StridedSlice`.
    * - mindspore.ops.string_concat

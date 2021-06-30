@@ -255,7 +255,7 @@ void RegPass(int position, const PassPtr &pass)
 
 - 参数
 
-    - `int`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
+    - `int`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
@@ -309,7 +309,7 @@ ModelRegistrar的构造函数。
 
 - 参数
 
-    - `pos`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
+    - `pos`: 定义了Pass类实例的放置位置[PassPosition](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
@@ -333,7 +333,7 @@ REG_PASS定义了Pass类的注册宏，便于Pass类的注册。
 
 - 参数
 
-    - `pos`: 定义了Pass类实例的放置位置，PassPosition枚举类[PassPosition](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/registry.html#passposition)。
+    - `pos`: 定义了Pass类实例的放置位置，PassPosition枚举类[PassPosition](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/registry.html#passposition)。
 
     - `pass`: 定义了Pass类实例。
 
@@ -351,13 +351,13 @@ using CreateKernel = std::function<std::shared_ptr<kernel::Kernel>(
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 
-    - `ctx`: 上下文配置[lite::Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html#Context)。
+    - `ctx`: 上下文配置[lite::Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#Context)。
 
 ## REGISTER_KERNEL
 
@@ -422,9 +422,9 @@ virtual int Infer(const std::vector<tensor::MSTensor *> &inputs, const std::vect
 
 - 参数
 
-    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `inputs`: 输入tensor[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
 
-    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/doc/api_cpp/zh-CN/r1.3/tensor.html)。
+    - `outputs`: 输出tensor[tensor::MSTensor](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/tensor.html)。
 
     - `primitive`: 算子经过flatbuffer反序化后的结果，存储算子属性。
 

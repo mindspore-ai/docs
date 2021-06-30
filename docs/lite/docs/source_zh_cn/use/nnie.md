@@ -78,13 +78,13 @@ mindspore-lite-{version}-linux-aarch32
 #### 概述
 
 MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型（当前只支持Caffe）转换为可使用NNIE硬件加速推理的板端专属模型，可运行在Hi3516板上。
-通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html)。
+通过转换工具转换成的NNIE`ms`模型，仅支持在关联的嵌入式板上，使用转换工具配套的Runtime推理框架执行推理。关于转换工具的更一般说明，可参考[推理模型转换](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html)。
 
 #### 环境准备
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-1. [下载](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/downloads.html)发布件（内含模型转换及推理工具）
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)发布件（内含模型转换及推理工具）
 
 2. 解压下载的包
 
@@ -124,7 +124,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
     - NNIE动态库路径配置（可选）
 
-        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换，配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id5)。在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
+        在NNIE转换时，通过参数configFile传入配置文件(`--configFile=./converter.cfg`)以使能NNIE转换，配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html#id5)。在配置文件中，保存着NNIE动态库的相对路径，用户可手动修改该路径，默认不需修改即可。
 
 #### 执行converter
 
@@ -164,7 +164,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
      CONVERTER RESULT SUCCESS:0
      ```
 
-     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id4)。
+     用户若想了解converter_lite转换工具的相关参数，可参考[参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html#id4)。
 
 ### 推理工具runtime
 
@@ -272,11 +272,11 @@ ${model_path}为转换后ms模型文件路径
 
 ### prototxt中节点名_cpu后缀支持
 
-  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。mindspore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/register_kernel.html)的方式进行注册。
+  SVP工具链中，可通过在prototxt文件的节点名后使用_cpu后缀来，声明cpu自定义算子。mindspore Lite中忽略_cpu后缀，不做支持。用户若想重定义MindSpore Lite已有的算子实现或新增新的算子，可通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html)的方式进行注册。
 
 ### prototxt中Custom算子支持
 
-  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在mindspore Lite中，用户需在Custom层中增加type属性，并通过[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/register_kernel.html)的方式进行在线推理代码的注册。
+  SVP工具链中，通过在prototxt中声明custom层，实现推理时分段，并由用户实现cpu代码。在mindspore Lite中，用户需在Custom层中增加type属性，并通过[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html)的方式进行在线推理代码的注册。
 
   Custom层的修改样例如下：
 
@@ -333,7 +333,7 @@ ${model_path}为转换后ms模型文件路径
 
 ### proposal算子使用说明
 
-  mindspore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行[集成使用]（#集成使用）。
+  mindspore Lite提供Proposal算子的样例代码，在该样例中，以[自定义算子注册](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html)的方式实现proposal算子及该算子infer shape的注册。用户可将其修改为自身模型匹配的实现后，进行[集成使用]（#集成使用）。
   > 你可以在这里下载完整的样例代码：
   >
   > <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/nnie_proposal>

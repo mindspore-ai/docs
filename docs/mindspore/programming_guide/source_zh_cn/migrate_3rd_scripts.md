@@ -33,7 +33,7 @@
 
 分析待迁移的网络中所包含的算子，结合[MindSpore算子支持列表](https://www.mindspore.cn/docs/note/zh-CN/r1.3/operator_list_ms.html)，梳理出MindSpore对这些算子的支持程度。
 
-以ResNet-50为例，[Conv](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
+以ResNet-50为例，[Conv](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/nn/mindspore.nn.Conv2d.html)和[BatchNorm](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/nn/mindspore.nn.BatchNorm2d.html)是其中最主要的两个算子，它们已在MindSpore支持的算子列表中。
 
 如果发现没有对应算子，建议：
 

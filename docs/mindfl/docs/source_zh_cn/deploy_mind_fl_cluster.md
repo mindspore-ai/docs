@@ -59,7 +59,7 @@ MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版
 
 ## 参数配置
 
-mindspore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/mindspore.context.html#mindspore.context.set_fl_context)。
+mindspore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.context.html#mindspore.context.set_fl_context)。
 
 在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式如下：
 
