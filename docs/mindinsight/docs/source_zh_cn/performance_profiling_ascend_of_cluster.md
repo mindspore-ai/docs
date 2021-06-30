@@ -237,7 +237,7 @@ done
 
 图3：单卡性能信息
 
-图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html)。
+图3展示集群中单卡性能信息，单卡性能信息请参考[单卡性能信息](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html)。
 
 ### 集群通信性能分析
 

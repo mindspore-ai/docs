@@ -8,4 +8,4 @@
 
 **Install now**: <https://gitee.com/mindspore/mindarmour/blob/r1.3/README.md#>
 
-**See more**: <https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/improve_model_security_nad.html>
+**See more**: <https://www.mindspore.cn/mindarmour/docs/en/r1.3/improve_model_security_nad.html>
