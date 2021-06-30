@@ -55,7 +55,7 @@ MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版
 
 为了便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程能够复用训练脚本，通过[参数配置](#参数配置)选择不同的启动方式。
 
-本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/lenet/lenet.py)。
+本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/lenet/lenet.py)。
 
 ## 参数配置
 

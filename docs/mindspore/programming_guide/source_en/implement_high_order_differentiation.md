@@ -25,7 +25,7 @@
 
 High-order differentiation is used in domains such as AI-supported scientific computing and second-order optimization. For example, in the molecular dynamics simulation, when the potential energy is trained using the neural network[1], the derivative of the neural network output to the input needs to be computed in the loss function, and then the second-order cross derivative of the loss function to the input and the weight exists in backward propagation. In addition, the second-order derivatives of the output to the input exist in differential equations solved by AI (such as PINNs[2]). Another example is that in order to enable the neural network to converge quickly in the second-order optimization, the second-order derivative of the loss function to the weight needs to be computed using the Newton method. The following describes the high-order derivatives in MindSpore graph mode.
 
-> For details about the complete sample code, see [Derivation Sample Code](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code).
+> For details about the complete sample code, see [Derivation Sample Code](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code).
 
 ## First-order Derivation
 

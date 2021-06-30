@@ -10,7 +10,7 @@
 
 ### 推理代码介绍
 
-首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
+首先创建目录放置推理代码工程，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample`，可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/ascend910_resnet50_preprocess_sample)，`model`目录用于存放上述导出的`MindIR`模型文件，`test_data`目录用于存放待分类的图片，推理代码工程目录结构如下：
 
 ```text
 └─ascend910_resnet50_preprocess_sample
@@ -137,7 +137,7 @@ target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
 >详细样例请参考：
-><https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
+><https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/ascend910_resnet50_preprocess_sample/CMakeLists.txt>
 
 ### 编译推理代码
 

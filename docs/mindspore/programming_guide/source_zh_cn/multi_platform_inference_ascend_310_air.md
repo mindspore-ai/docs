@@ -39,7 +39,7 @@ Ascend 310是面向边缘场景的高能效高集成度AI处理器。Atlas 200�
 
 5. 加载保存的OM模型，执行推理并查看结果。
 
-> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/acl_resnet50_sample> 。
+> 你可以在这里找到完整可运行的样例代码：<https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/acl_resnet50_sample> 。
 
 ## 开发环境准备
 
@@ -91,7 +91,7 @@ Atlas 200 DK开发者板支持通过USB端口或者网线与Ubuntu服务器进�
 
 ## 推理目录结构介绍
 
-创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，其中`inc`、`src`、`test_data`可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/acl_resnet50_sample)获取，`model`目录用于存放接下来导出的`AIR`模型文件和转换后的`OM`模型文件，`out`目录用于存放执行编译生成的可执行文件和输出结果目录，推理代码工程目录结构如下:
+创建目录放置推理代码工程，例如`/home/HwHiAiUser/Ascend/ascend-toolkit/20.0.RC1/acllib_linux.arm64/sample/acl_execute_model/acl_resnet50_sample`，其中`inc`、`src`、`test_data`可以从官网示例下载[样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/acl_resnet50_sample)获取，`model`目录用于存放接下来导出的`AIR`模型文件和转换后的`OM`模型文件，`out`目录用于存放执行编译生成的可执行文件和输出结果目录，推理代码工程目录结构如下:
 
 ```text
 └─acl_resnet50_sample

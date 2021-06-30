@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 > 你可以在这里找到样例的运行脚本：
 >
-> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/distributed_training/run_gpu.sh>。
+> <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/distributed_training/run_gpu.sh>。
 >
 > 如果通过root用户执行脚本，`mpirun`需要加上`--allow-run-as-root`参数。
 

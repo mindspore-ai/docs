@@ -61,7 +61,7 @@ To use MindSpore to classify images, do as follows:
 5. Call the high-level `Model` API to train and save the model file.
 6. Load the saved model for inference.
 
-> This example uses the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.3/tutorials/tutorial_code/resnet>.
+> This example uses the hardware platform of the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/resnet>.
 
 The key parts of the task process code are explained below.
 

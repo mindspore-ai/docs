@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/note/source_en/design/technical_white_paper.md" target="_blank"><img src="../_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/design/technical_white_paper.md" target="_blank"><img src="../_static/logo_source.png"></a>
 
 ## Introduction
 

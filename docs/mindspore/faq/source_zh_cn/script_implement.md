@@ -409,7 +409,7 @@ if __name__ == "__main__":
 
 <font size=3>**Q: 如何使用MindSpore拟合$f(x)=ax^2+bx+c$这类的二次函数？**</font>
 
-A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/linear_regression.py)
+A: 以下代码引用自MindSpore的官方教程的[代码仓](https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/linear_regression.py)
 
 在以下几处修改即可很好的拟合$f(x)=ax^2+bx+c$:
 

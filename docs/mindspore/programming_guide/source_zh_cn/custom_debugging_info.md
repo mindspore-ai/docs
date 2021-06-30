@@ -114,7 +114,7 @@ class Callback():
 
 > 自定义`Callback`样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_callback.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_callback.py>
 
 - 在规定时间内终止训练。
 
@@ -175,7 +175,7 @@ MindSpore提供了多种metrics评估指标，如：`accuracy`、`loss`、`preci
 
 > `metrics`使用样例代码：
 >
-> <https://gitee.com/mindspore/docs/blob/r1.3/tutorials/tutorial_code/debugging_info/custom_metrics.py>
+> <https://gitee.com/mindspore/docs/blob/r1.3/docs/sample_code/debugging_info/custom_metrics.py>
 
 ```python
 metrics = {

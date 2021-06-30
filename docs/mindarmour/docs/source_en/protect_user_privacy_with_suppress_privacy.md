@@ -20,7 +20,7 @@ Translator: [翁炜华](https://gitee.com/weng-weihua)
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/tutorials/training/source_en/advanced_use/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindarmour/docs/source_en/protect_user_privacy_with_suppress_privacy.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 
