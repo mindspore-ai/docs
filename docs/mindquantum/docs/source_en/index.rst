@@ -14,8 +14,3 @@ Quantum Neural Network Documents
 
    parameterized_quantum_circuit
    qnn_for_nlp
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-   :caption: References
