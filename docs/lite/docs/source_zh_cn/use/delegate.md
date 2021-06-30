@@ -33,13 +33,13 @@ MindSpore Lite的Delegate接口用于支持第三方AI框架（例如：NPU、Te
 使用Delegate接入第三方AI框架执行推理主要包含以下步骤：
 
 1. 新增自定义Delegate类：继承Delegate类实现自定义的Delegate。
-2. 实现初始化接口：Init接口主要完后与Delegate相关的资源申请、config设置等功能，会在[CreateSession](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/lite_session.cc#L655)流程中被调用。
-3. 实现构图接口：Build接口要实现算子支持判断、子图构建、在线构图等功能，会在[LiteSession::CompileGraph](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/scheduler.cc#L126)流程中被调用。
+2. 实现初始化接口：Init接口主要完后与Delegate相关的资源申请、config设置等功能，会在[CreateSession](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/lite_session.cc#L655)流程中被调用。
+3. 实现构图接口：Build接口要实现算子支持判断、子图构建、在线构图等功能，会在[LiteSession::CompileGraph](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/scheduler.cc#L126)流程中被调用。
 4. 实现子图Kernel：继承Kernel类实现Delegate子图Kernel。
 
 ### 新增自定义Delegate类
 
-自定义Delegate要继承自[Delegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/include/delegate.h#L71)类。可以在构造函数中完成对第三方框架调度硬件设备有关config的必要初始化，如NPU指定频率、CPU制定线程数等。
+自定义Delegate要继承自[Delegate](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/include/delegate.h#L71)类。可以在构造函数中完成对第三方框架调度硬件设备有关config的必要初始化，如NPU指定频率、CPU制定线程数等。
 
 ```cpp
 class XXXDelegate : public Delegate {
@@ -69,7 +69,7 @@ int XXXDelegate::Init() {
 
 #### DelegateModel定义
 
-`Build(DelegateModel *model)`接口的入参是[DelegateModel](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/include/delegate.h#L29)的实例。DelegateModel的定义如下：
+`Build(DelegateModel *model)`接口的入参是[DelegateModel](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/include/delegate.h#L29)的实例。DelegateModel的定义如下：
 
 ```cpp
 using KernelIter = std::vector<kernel::Kernel *>::iterator;
@@ -147,7 +147,7 @@ kernel::Kernel *XXXDelegate::CreateXXXGraph(KernelIter from, KernelIter end, Del
 }
 ```
 
-Delegate子图`XXXGraph`的定义要继承自[Kernel](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel.h#L27)，如下代码所示。对这张子图，要注意：
+Delegate子图`XXXGraph`的定义要继承自[Kernel](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/kernel.h#L27)，如下代码所示。对这张子图，要注意：
 
 1. 要根据原始的Kernel列表找到正确的in_tensors和out_tensors：以便Execute时，能找到正确的输入tensor和输入数据，并将output写回到正确的地址中。
 2. 重写对应的Prepare()、Resize()、Execute()接口。子图Kernel会返回给Lite框架，因此重写的接口会被Lite框架调用。
@@ -176,7 +176,7 @@ class XXXGraph : public kernel::Kernel {
 
 ## Lite框架调度
 
-Lite框架要调度用户自定义的Delegate，在创建[Context](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#context)时，用户应该设置相应的自定义Delegate指针，见以下示例代码。再通过CreateSession(Context)传递给Lite框架。LiteSession从Context中获取到自定义Delegate的指针，就可以调用它的Init、Build接口。如果Context中的delegate为空指针，推理流程会调用到Lite框架内置的推理。
+Lite框架要调度用户自定义的Delegate，在创建[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#context)时，用户应该设置相应的自定义Delegate指针，见以下示例代码。再通过CreateSession(Context)传递给Lite框架。LiteSession从Context中获取到自定义Delegate的指针，就可以调用它的Init、Build接口。如果Context中的delegate为空指针，推理流程会调用到Lite框架内置的推理。
 
 ```cpp
 auto context = std::make_shared<Context>();
@@ -199,7 +199,7 @@ if (session_ == nullptr) {
 
 ## NPUDelegate示例
 
-目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.h#L34)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
+目前，MindSpore Lite对于NPU后端的集成采用了[NPUDelegate](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/delegate/npu/npu_delegate.h#L34)接口。本教程对NPUDelegate做简单说明，使用户能快速了解Delegate相关API的使用。
 
 ```cpp
 class NPUDelegate : public Delegate {
@@ -229,7 +229,7 @@ class NPUDelegate : public Delegate {
 
 ### 实现Init接口
 
-[Init](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L71)接口实现和NPU有关的资源申请。
+[Init](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/delegate/npu/npu_delegate.cc#L71)接口实现和NPU有关的资源申请。
 
 ```cpp
 int NPUDelegate::Init() {
@@ -257,7 +257,7 @@ int NPUDelegate::Init() {
 ### 实现Build接口
 
 Build接口解析DelegateModel实例，主要实现算子支持判断、子图构建、在线构图等功能。
-下面[示例代码](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L157)是NPUDelegate Build接口的实现。
+下面[示例代码](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/delegate/npu/npu_delegate.cc#L157)是NPUDelegate Build接口的实现。
 
 ```cpp
 int NPUDelegate::Build(DelegateModel *model) {
@@ -297,7 +297,7 @@ int NPUDelegate::Build(DelegateModel *model) {
 
 ### 实现构图代码
 
-以下[示例代码](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张NPU子图。
+以下[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/src/delegate/npu/npu_delegate.cc#L273)是NPUDelegate的CreateNPUGraph接口，用于生成一张NPU子图。
 
 ```cpp
 kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
@@ -319,7 +319,7 @@ kernel::Kernel *NPUDelegate::CreateNPUGraph(const std::vector<NPUOp *> &ops) {
 
 ### 实现NPUGraph
 
-[NPUGraph](https://gitee.com/mindspore/mindspore/tree/master/mindspore/lite/src/delegate/npu/npu_graph.h#L30)继承自[Kernel](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/kernel.h#L27)，需要重写Prepare、Execute、ReSize接口。
+[NPUGraph](https://gitee.com/mindspore/mindspore/tree/r1.3/mindspore/lite/src/delegate/npu/npu_graph.h#L30)继承自[Kernel](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/kernel.h#L27)，需要重写Prepare、Execute、ReSize接口。
 
 ```cpp
 class NPUGraph : public kernel::Kernel {
@@ -346,7 +346,7 @@ class NPUGraph : public kernel::Kernel {
 };
 ```
 
-[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L193)接口主要实现:
+[NPUGraph::Prepare](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/src/delegate/npu/npu_graph.cc#L193)接口主要实现:
 
 ```cpp
 int NPUGraph::Prepare() {
@@ -354,7 +354,7 @@ int NPUGraph::Prepare() {
 }
 ```
 
-[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/src/delegate/npu/npu_graph.cc#L209)接口主要实现:
+[NPUGraph::Execute](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/src/delegate/npu/npu_graph.cc#L209)接口主要实现:
 
 ```cpp
 int NPUGraph::Execute() {
@@ -366,4 +366,4 @@ int NPUGraph::Execute() {
 }
 ```
 
-> [NPU](https://mindspore.cn/tutorial/lite/zh-CN/master/use/npu_info.html)是MindSpore Lite开发人员对接的第三方AI框架，使用方法和用户自定义的Delegate略有不同，既可以设置Context的Delegate，也可以设置[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)的device_type为DT_NPU。
+> [NPU](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/npu_info.html)是MindSpore Lite开发人员对接的第三方AI框架，使用方法和用户自定义的Delegate略有不同，既可以设置Context的Delegate，也可以设置[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)的device_type为DT_NPU。

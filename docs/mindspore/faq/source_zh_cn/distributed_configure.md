@@ -4,7 +4,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/faq/source_zh_cn/distributed_configure.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
-<font size=3>**Q: MindSpore执行GPU分布式训练报错如下，如何解决: **</font>
+<font size=3>**Q: MindSpore执行GPU分布式训练报错如下，如何解决:**</font>
 
 ```text
 Loading libgpu_collective.so failed. Many reasons could cause this:
@@ -35,4 +35,4 @@ A: 基于Ascend环境的，请参考mindspore教程的基于Ascend分布式训�
 
 <font size=3>**Q: `rank_table_file`是什么文件？**</font>
 
-A: `rank_table_file`是我们对于Ascend环境上运行分布式训练时的芯片资源配置文件的叫法，其中包括了参与训练的Ascend加速卡的设备ip和服务器ip信息等。运行分布式训练时通常需要使用`RANK_TABLE_FILE`环境变量指定该文件。详细介绍可以参考[昇腾芯片资源信息配置文件](https://support.huaweicloud.com/tensorflow-cann502alpha3training/atlasmprtg_13_0020.html)。你可以使用[hccl_tools](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools)自动生成当前服务器的配置文件。
+A: `rank_table_file`是我们对于Ascend环境上运行分布式训练时的芯片资源配置文件的叫法，其中包括了参与训练的Ascend加速卡的设备ip和服务器ip信息等。运行分布式训练时通常需要使用`RANK_TABLE_FILE`环境变量指定该文件。详细介绍可以参考[昇腾芯片资源信息配置文件](https://support.huaweicloud.com/tensorflow-cann502alpha3training/atlasmprtg_13_0020.html)。你可以使用[hccl_tools](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/utils/hccl_tools)自动生成当前服务器的配置文件。

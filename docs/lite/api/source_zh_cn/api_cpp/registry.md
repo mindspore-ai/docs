@@ -4,13 +4,13 @@
 
 ## FmkType
 
-\#include &lt;[framework.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/framework.h)&gt;
+\#include &lt;[framework.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/framework.h)&gt;
 
 FmkType枚举类定义了转换工具支持的框架类型。
 
 ## ConverterParameters
 
-\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/registry/model_parser_registry.h)&gt;
+\#include &lt;[model_parser_registry.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/registry/model_parser_registry.h)&gt;
 
 ConverterParameters结构体定义了模型解析时的转换参数。
 
