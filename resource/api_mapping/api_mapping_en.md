@@ -126,7 +126,7 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.ones                                           | mindspore.ops.Ones                                             | same |
 | torch.ones_like                                      | mindspore.ops.OnesLike                                         | same |
 | torch.optim.Adadelta                                 | mindspore.ops.ApplyAdadelta                                    |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdadelta_en.md)|
-| torch.optim.Adagrad                                  | mindspore.nn.ApplyAdagrad                                      |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/ApplyAdagrad_en.md)|
+| torch.optim.Adagrad                                  | mindspore.nn.Adagrad                                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Adagrad_en.md)|
 | torch.optim.Adam                                     | mindspore.nn.Adam                                              | same |
 | torch.optim.Adamax                                   | mindspore.ops.ApplyAdaMax                                      | same |
 | torch.optim.AdamW                                    | mindspore.nn.AdamWeightDecay                                   | same |
