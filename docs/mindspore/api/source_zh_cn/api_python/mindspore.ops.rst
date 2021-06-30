@@ -87,13 +87,13 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.hastype
      - Determine whether the object has the specified type.
    * - mindspore.ops.in_dict
-     - :class:`mindspore.ops.Primitive` ('in_dict')
+     - Determine whether the object is in the dict.
    * - mindspore.ops.is_not
-     - :class:`mindspore.ops.Primitive` ('is_not')
+     - Determine whether the input is not the same as the other one.
    * - mindspore.ops.is\_
-     - :class:`mindspore.ops.Primitive` ('is\_')
+     - Determine whether the input is the same as the other one.
    * - mindspore.ops.isconstant
-     - :class:`mindspore.ops.Primitive` ('is_constant')
+     - Determine whether the object is constant.
    * - mindspore.ops.isinstance\_
      - Refer to :class:`mindspore.ops.IsInstance`.
    * - mindspore.ops.issubclass\_
@@ -109,13 +109,13 @@ The functional operators are the pre-instantiated Primitive operators, which can
    * - mindspore.ops.make_sparse_tensor
      - Generate sparse tensor.
    * - mindspore.ops.mixed_precision_cast
-     - :class:`mindspore.ops.Primitive` ('mixed_precision_cast')
+     - A temporary ops for mixed precision will be converted to cast after the step of compiling.
    * - mindspore.ops.neg_tensor
      - Refer to :class:`mindspore.ops.Neg`.
    * - mindspore.ops.not_equal
      - Refer to :class:`mindspore.ops.NotEqual`.
    * - mindspore.ops.not_in_dict
-     - :class:`mindspore.ops.Primitive` ('not_in_dict')
+     - Determine whether the object is not in the dict.
    * - mindspore.ops.ones_like
      - Refer to :class:`mindspore.ops.OnesLike`.
    * - mindspore.ops.print\_
