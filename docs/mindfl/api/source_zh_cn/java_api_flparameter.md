@@ -15,6 +15,8 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public void setHostName(String hostName)             |
 | public String getCertPath()                          |
 | public void setCertPath(String certPath)             |
+| public boolean isUseHttps()                          |
+| public void setUseHttps(boolean useHttps)            |
 | public String getTrainDataset()                      |
 | public void setTrainDataset(String trainDataset)     |
 | public String getVocabFile()                         |
@@ -106,6 +108,29 @@ public void setCertPath(String certPath)
 
 - 参数
     - `certPath`: 证书路径。
+
+## isUseHttps
+
+```java
+public boolean isUseHttps()
+```
+
+端云通信是否是否采用https通信方式。
+
+- 返回值
+
+    boolean类型，true代表进行https通信， false代表进行http通信，默认值为false，目前云侧暂不支持https通信。
+
+## setUseHttps
+
+```java
+ public void setUseHttps(boolean useHttps)
+```
+
+用于设置端云通信是否采用https通信方式。
+
+- 参数
+    - `useHttps`: 是否采用https通信方式。
 
 ## getTrainDataset
 
