@@ -95,7 +95,7 @@ MindSpore Lite训练后量化分为两类：
 | `--configFile=<CONFIGFILE>` | 必选 | 校准数据集配置文件路径  | String | - | -  |
 | `--bitNum=<BITNUM>` | 可选 | 设定全量化的比特数，目前支持1bit～8bit量化 | Integer | 8 | \[1，8] |
 
-为了计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。`configFile`的配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/use/converter_tool.html#id5)。
+为了计算激活值的量化参数，用户需要提供校准数据集。校准数据集最好来自真实推理场景，能表征模型的实际输入情况，数量在100个左右。`configFile`的配置方式请参见[推理模型转换的参数说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html#id5)。
 
 > 对于多输入模型，要求不同输入数据分别存放在各自不同的目录，同时各自目录中的所有文件的文件名按照字典序递增排序后，能够一一对应。例如：模型有两个输入input0、input1，校准数据集共2组（batch_count=2）；input0的对应数据存放在/dir/input0/目录，输入数据文件名为：data_1.bin、data_2.bin；input1的对应数据存放在/dir/input1/目录，输入数据文件名为：data_a.bin、data_b.bin，则认为(data_1.bin, data_a.bin)构成一组输入，（data_2.bin, data_b.bin）构成另一组输入。
 

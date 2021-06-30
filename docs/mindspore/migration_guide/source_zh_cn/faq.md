@@ -34,6 +34,6 @@
 
 - 执行推理
 
-    [端侧使用类常见问题处理](https://www.mindspore.cn/tutorial/lite/zh-CN/r1.3/faq.html)
+    [端侧使用类常见问题处理](https://www.mindspore.cn/lite/faq/zh-CN/r1.3/faq.html)
 
     [推理常见问题处理](https://www.mindspore.cn/docs/faq/zh-CN/r1.3/inference.html)

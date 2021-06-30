@@ -93,7 +93,7 @@ A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.3/model
 
 [GenratorDataset 示例](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/dataset_loading.html#id5)
 
-[GenratorDataset API说明](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
+[GenratorDataset API说明](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/dataset/mindspore.dataset.GeneratorDataset.html#mindspore.dataset.GeneratorDataset)
 
 <br/>
 

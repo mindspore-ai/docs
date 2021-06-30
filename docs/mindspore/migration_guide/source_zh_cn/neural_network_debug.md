@@ -136,7 +136,7 @@
 
     - [数据Dump功能](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html#dump)
     - [使用Print算子打印相关信息](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html#print)
-    - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/visualization_tutorials.html)
+    - [使用可视化组件MindInsight](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/index.html)
 
 ### 精度调试工具
 

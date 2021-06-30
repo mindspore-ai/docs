@@ -130,7 +130,7 @@ Users can read [MindSpore Tutorial](https://www.mindspore.cn/docs/programming_gu
 
 [ModelZoo](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo) is a model market of MindSpore and community, which provides deeply-optimized models to developers. In order that the users of MindSpore will have individual development conveniently based on models in ModelZoo. Currently, there are major models in several fields, like computer vision, natural language processing, audio and recommender systems.
 
-[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://mindspore.cn/tutorial/training/en/r1.3/use/publish_model.html) to MindSpore Hub,for other developers to download and use.
+[mindspore Hub](https://www.mindspore.cn/resources/hub/en) is a platform to save pretrained model of official MindSpore or third party developers. It provides some simple and useful APIs for developers to load and finetune models, so that users can infer or tune models based on pretrained models and deploy models to their applications. Users is able to follow some steps to [publish model](https://www.mindspore.cn/hub/docs/en/r1.3/publish_model.html) to MindSpore Hub,for other developers to download and use.
 
 ### Training on the Cloud
 

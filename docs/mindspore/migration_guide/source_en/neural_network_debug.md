@@ -138,7 +138,7 @@ If the loss errors are large, the problem locating can be done using following w
 
     - [Data Dump function](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html#dump)
     - [Use Print Operator To Print Related Information](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html#print)
-    - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.3/visualization_tutorials.html)
+    - [Using The Visualization Component MindInsight](https://www.mindspore.cn/mindinsight/docs/en/r1.3/index.html)
 
 ### Precision Debugging Tools
 

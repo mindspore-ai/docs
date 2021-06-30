@@ -101,7 +101,7 @@ void set_name(const std::string &name)
 const lite::Context *context() const
 ```
 
-返回算子对应的[Context](https://mindspore.cn/doc/api_cpp/zh-CN/r1.3/lite.html)。
+返回算子对应的[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html)。
 
 ### primitive
 

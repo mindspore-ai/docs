@@ -1131,13 +1131,13 @@ ret = grad_net(input_x, input_y, input_z)
 
 - 带[@ms_function](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.ms_function)装饰器的普通Python函数。
 
-- 继承自[nn.Cell](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Cell.html)的Cell子类。
+- 继承自[nn.Cell](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/nn/mindspore.nn.Cell.html)的Cell子类。
 
 ### 网络构造组件
 
 | 类别                 | 内容                                                                                                                                                                                                         |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/doc/api_python/zh-CN/r1.3/mindspore/nn/mindspore.nn.Cell.html)。 |
+| `Cell`实例           | [mindspore/nn/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.nn.html)、自定义[Cell](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/nn/mindspore.nn.Cell.html)。 |
 | `Cell`实例的成员函数 | Cell的construct中可以调用其他类成员函数。                                                                                                                                                                    |
 | `dataclass`实例      | 使用@dataclass装饰的类。                                                                                                                                                                                     |
 | `Primitive`算子      | [mindspore/ops/operations/*](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.ops.html)                                                                                              |
