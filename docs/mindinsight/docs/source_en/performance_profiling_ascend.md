@@ -113,6 +113,10 @@ In order to divide the stages, the Step Trace Component need to figure out the f
 
 The operator performance analysis component is used to display the execution time of the operators(AICORE/AICPU/HOSTCPU) during MindSpore run. The AICORE operator contains the information about calculation quantity.
 
+- AICORE：AI Core operator is the main component of the computing core of Ascend AI processor, which is responsible for executing vector and tensor related computation intensive operators. TBE (tensor virtual machine) is an extended operator development tool based on TVM (tensor virtual machine) framework. Users can use TBE to register AI Core operator information.
+- AICPU：AI CPU operator is a kind of CPU operator (including control operator, scalar, vector and other general-purpose calculations) that AI CPU is responsible for executing Hisilicon SOC in Ascend processor. The same operator in MindSpore may have AI Core operator and AI CPU operator at the same time. The framework will give priority to AI Core operator. If there is no AI Core operator or the selection is not satisfied, AI CPU operator will be called.
+- HOSTCPU：The host side CPU is mainly responsible for distributing the graph or operator to Ascend chip, and the operator can also be developed on the host side CPU according to the actual needs. The host CPU operator refers to the operator running on the host side CPU.
+
 ![op_type_statistics.png](./images/op_type_statistics.PNG)
 
 Figure 3: Statistics for Operator Types
