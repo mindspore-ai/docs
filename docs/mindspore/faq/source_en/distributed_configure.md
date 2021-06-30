@@ -30,3 +30,9 @@ A: Please refer to the [Configuring Distributed Environment Variables](https://m
 
 A: For Ascend environment, please refer to the [Multi-machine Training](https://mindspore.cn/tutorial/training/en/r1.3/advanced_use/distributed_training_ascend.html#multi-machine-training) section of the MindSpore tutorial "distributed_training_ascend".
 For GPU-based environments, please refer to the [Run Multi-Host Script](https://mindspore.cn/tutorial/training/en/r1.3/advanced_use/distributed_training_gpu.html#running-the-multi-host-script) section of the MindSpore tutorial "distributed_training_gpu".
+
+<br/>
+
+<font size=3>**Q: What is `rank_table_file`?**</font>
+
+A: `rank_table_file` is the name of configuration file which we used to configure processor resource while running distributed training. It contains information about device ip, server ip and so on. We usually have to set environment variable `RANK_TABLE_FILE` to that file. For more information, please refer to [Configuring Processor Resources](https://support.huaweicloud.com/intl/en-us/ug-tf-training-tensorflow/atlasmprtg_13_0042.html). You could use [hccl_tools](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools) to generate `rank_table_file` for the current server.
