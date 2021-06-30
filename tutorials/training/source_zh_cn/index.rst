@@ -385,7 +385,7 @@
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_3rd_scripts_mindconverter.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">使用工具迁移第三方框架脚本</span>
+											<span class="doc-head-content">使用工具迁移模型定义脚本</span>
 										</div>
 										<div class="doc-article-desc">
 											MindConverter是一款将PyTorch模型脚本转换至MindSpore的脚本迁移工具。结合转换报告的提示信息，用户对转换后脚本进行微小改动，即可快速将PyTorch模型脚本迁移至MindSpore。
@@ -397,7 +397,7 @@
 								<a href="https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/migrate_3rd_scripts.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
-											<span class="doc-head-content">迁移第三方框架训练脚本</span>
+											<span class="doc-head-content">迁移脚本全流程</span>
 										</div>
 										<div class="doc-article-desc">
 											本教程介绍如何将已有的TensorFlow、PyTorch等的网络迁移到MindSpore，包括主要步骤和操作建议，帮助你快速进行网络迁移。
