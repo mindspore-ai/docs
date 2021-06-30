@@ -41,6 +41,12 @@ A: It means the wrong version of protobuf is installed, please install the right
 
 <br/>
 
+<font size=3>**Q: What can I do if the error `The debugger offline server module is not found` appears after MindInsight is successfully started and trying to turn on the offline debugger?**</font>
+
+A: The debugger offline service needs to import the MindSpore. Please install the correct version of MindSpore. For the installation method, please refer to [Install MindSpore](https://www.mindspore.cn/install/en).
+
+<br/>
+
 <font size=3>**Q: What can I do if the Google's Chrome browser prompts the error message `ERR_CONNECTION_REFUSED` after MindInsight is successfully started?**</font>
 
 A: Check the firewall policy configuration between the backend server and network devices to ensure that the communication between the browser and MindInsight is not restricted by the configuration rules of relative devices.
