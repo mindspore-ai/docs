@@ -6,7 +6,7 @@
 
 <font size=3>**Q: MindSpore如何进行参数（如dropout值）修改？**</font>
 
-A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，验证的时候，执行前设置`network.set_train(mode_false)`，就可以不适用dropout，训练时设置为True就可以使用dropout。
+A: 在构造网络的时候可以通过 `if self.training: x = dropput(x)`，推理时，执行前设置`network.set_train(mode_false)`，就可以不使用dropout，训练时设置为True就可以使用dropout。
 
 <br/>
 
@@ -42,10 +42,10 @@ class EarlyStop(Callback):
 def __init__(self):
     self.loss = None
 def step_end(self, run_context):
-     loss =  ****(get current loss)
-     if (self.loss == None or loss < self.loss):
-         self.loss = loss
-         # do save ckpt
+    loss =  ****(get current loss)
+    if (self.loss == None or loss < self.loss):
+        self.loss = loss
+        # do save ckpt
 ```
 
 <br/>
@@ -62,13 +62,9 @@ A: 自定义`loss function`后还需自定义`TrainOneStepCell`，实现梯度�
 
 ```python
 net = Net()
-
 loss_fn = MyLoss()
-
 loss_with_net = MyWithLossCell(net, loss_fn)
-
 train_net = MyTrainOneStepCell(loss_with_net, optim)
-
 model = Model(net=train_net, loss_fn=None, optimizer=None)
 ```
 
@@ -104,7 +100,6 @@ A: 您好，我们网络的输出为`Tensor`，需要使用`asnumpy()`方法将`
 
 ```python
 out = net(x)
-
 np.save("output.npy", out.asnumpy())
 ```
 
@@ -125,7 +120,7 @@ A: 当前在图模式下，`construct`函数(或`@ms_function`装饰器修饰的
 ```python
 @constexpr
 def generate_tensor():
-    return Tensor(np.ones((3, 4)))
+    return Tensor(np.ones((3, 4).astype(np.int64)))
 ```
 
 <br/>
@@ -286,15 +281,9 @@ A: 缓存服务器使用过程中，会进行IPC共享内存和socket文件等�
 
 <br/>
 
-<font size=3>**Q: 运行应用时报错`libmindspore.so: cannot open shared object file: No such file or directory`怎么办？**</font>
-
-A: 首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。
-
-<br/>
-
 <font size=3>**Q: 通过Hub可以使用GPU加载`vgg16`模型以及是否可以做迁移模型吗？**</font>
 
-A: 请手动修改规避，修改如下两点即可:
+A: 请手动修改如下两处参数即可:
 
 ```python
 # 增加**kwargs参数: 如下
