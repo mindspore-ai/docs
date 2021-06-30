@@ -8,4 +8,4 @@
 
 **立即安装**：<https://gitee.com/mindspore/mindarmour/blob/r1.3/README_CN.md#>
 
-**查看更多内容**：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/improve_model_security_nad.html>
+**查看更多内容**：<https://www.mindspore.cn/mindarmour/docs/zh-CN/r1.3/improve_model_security_nad.html>

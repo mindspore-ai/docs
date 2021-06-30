@@ -50,7 +50,7 @@
 
 - 在训练结束后，调用`Profiler.analyse`停止性能数据收集并生成性能分析结果。
 
-样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html#id3>
+样例代码与Ascend使用方式一致，可以参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html#id3>
 
 GPU场景可自定义callback方式收集性能，但数据准备阶段、数据下沉模式不支持该方式收集性能数据。
 
@@ -138,19 +138,19 @@ class StopAtStep(Callback):
 
 GPU场景下，Timeline分析的使用方法和Ascend场景相同，不同之处是，GPU Timeline展示的是算子信息(包括GPU算子和CPU算子)和CUDA activity的信息。
 
-使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html#timeline>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html#timeline>
 
 ### 迭代轨迹分析
 
 GPU场景下，迭代轨迹分析的使用方法和Ascend场景相同。（注意：**迭代轨迹暂不支持异构训练场景**）
 
-使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html#id5>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html#id5>
 
 ### 数据准备性能分析
 
 GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html#id7>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html#id7>
 
 ## 资源利用
 
@@ -166,7 +166,7 @@ GPU场景下，数据准备性能分析的使用方法和Ascend场景相同。
 
 GPU场景下，CPU利用率分析的使用方法和Ascend场景相同。
 
-使用方法可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/advanced_use/performance_profiling_ascend.html#cpu>
+使用方法可参考：<https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/performance_profiling_ascend.html#cpu>
 
 ## 注意事项
 

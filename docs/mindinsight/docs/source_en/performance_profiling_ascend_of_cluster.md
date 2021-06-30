@@ -234,7 +234,7 @@ Figure 2 shows the cluster iteration trajectory analysis page. By default, it sh
 
 Figure 3: single device details
 
-Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/performance_profiling_ascend.html) for the performance information of a single device.
+Figure 3 shows the performance information of a single device in the cluster. Please refer to [single device performance information](https://www.mindspore.cn/mindinsight/docs/en/r1.3/performance_profiling_ascend.html) for the performance information of a single device.
 
 ### Cluster Communication Performance Analysis
 

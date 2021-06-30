@@ -10,4 +10,4 @@
 
 <https://www.mindspore.cn/mindinsight/docs/en/r1.3/performance_profiling.html>
 
-<https://www.mindspore.cn/tutorial/training/en/r1.3/advanced_use/performance_profiling_gpu.html>
+<https://www.mindspore.cn/mindinsight/docs/en/r1.3/performance_profiling_gpu.html>
