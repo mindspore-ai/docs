@@ -41,6 +41,12 @@ A: 说明安装的protobuf版本错误，需要安装正确版本的protobuf，�
 
 <br/>
 
+<font size=3>**Q: MindInsight成功启动后，开启离线调试器，提示: `未找到调试器离线服务器模块` 如何处理？**</font>
+
+A: 调试器离线服务需要启用MindSpore，请安装正确版本的MindSpore，安装方法请参照[安装MindSpore](https://www.mindspore.cn/install)。
+
+<br/>
+
 <font size=3>**Q: MindInsight成功启动后，在谷歌浏览器中访问失败,提示: `ERR_CONNECTION_REFUSED` 如何处理？**</font>
 
 A: 检查后台服务器与网络设备的防火墙策略配置，确保浏览器与MindInsight服务间的通讯连接，不受相关设备的配置规则限制。
