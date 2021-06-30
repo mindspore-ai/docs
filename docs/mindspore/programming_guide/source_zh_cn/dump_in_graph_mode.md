@@ -44,7 +44,7 @@
 
 #### 数据分析
 
-如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debugger_offline.html) 。
+如果用户已经安装了MindInsight, 可以使用MindInsight的离线调试器来分析。离线调试器的使用方法详见[使用离线调试器](https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/debugger_offline.html) 。
 
 如果没有安装MindInsight，需要通过以下步骤来分析数据。
 

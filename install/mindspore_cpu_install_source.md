@@ -123,4 +123,4 @@ The result of multiplication calculation is correct, MindSpore has been installe
 
 当您想要搭建并训练量子神经网络，可以选装MindQuantum。
 
-具体安装步骤参见[MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r1.3/README_CN.md)。
+具体安装步骤参见[MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r0.2/README_CN.md)。

@@ -122,4 +122,4 @@ For more details, please refer to [mindspore Hub](https://gitee.com/mindspore/hu
 
 If you need to build and train quantum neural network, you can install MindQuantum.
 
-For more details, please refer to [MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r1.3/README.md).
+For more details, please refer to [MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r0.2/README.md).
