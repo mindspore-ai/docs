@@ -1,6 +1,6 @@
 # 编译MindSpore Lite
 
-`Windows` `macOS` `Linux` `iOS` `Android` `环境准备` `中级` `高级`
+`Windows` `Linux` `Mac` `Android` `iOS` `环境准备` `中级` `高级`
 
 <!-- TOC -->
 
