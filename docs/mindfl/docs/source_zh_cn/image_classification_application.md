@@ -508,6 +508,8 @@ if __name__ == "__main__":
     parser.add_argument("--worker_num", type=int, default=0)
     parser.add_argument("--time_window", type=int, default=6000)
     parser.add_argument("--use_elb", type=str, default="false")
+    parser.add_argument("--use_https", type=str, default="false")
+    parser.add_argument("--cert_path", type=str, default="null")
     parser.add_argument("--task", type=str, default="train")
 
     args, _ = parser.parse_known_args()
@@ -525,6 +527,8 @@ if __name__ == "__main__":
     server_num = args.server_num
     worker_num = args.worker_num
     use_elb = args.use_elb
+    use_https = args.use_https
+    cert_path = args.cert_path
     task = args.task
 
     users = os.listdir(train_dataset)
@@ -588,6 +592,8 @@ if __name__ == "__main__":
         cmd_client += str(port) + " "
         cmd_client += use_elb + " "
         cmd_client += str(server_num) + " "
+        cmd_client += use_https + " "
+        cmd_client += cert_path + " "
         cmd_client += task + " "
         cmd_client += " > client" + ".log 2>&1 &"
         subprocess.call(['bash', '-c', cmd_client])
@@ -636,7 +642,7 @@ if __name__ == "__main__":
 
     - **`--ssl`**
 
-        设置端云通信是否进行ssl证书认证，默认不进行。
+        设置端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用，设置为false, 不进行ssl证书认证；设置为true时，进行ssl证书认证且只支持https通信，`useHttps`必须设置为true，`cert_path`必须给出具体证书路径；默认为false。
 
     - **`--port`**
 
@@ -653,6 +659,14 @@ if __name__ == "__main__":
     - **`--use_elb`**
 
         用于多server场景，为true代表客户端每个round的请求都采用指定范围内的随机端口，false则采用固定端口。默认为false，当启动server端的`server_num`大于1时，该参数需设置成true。用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
+
+    - **`--use_https`**
+
+        端云通信是否进行Https通信, 设置为false, 进行http通信；设置为true，进行https通信；默认为false。
+
+    - **`--cert_path`**
+
+        当`--ssl`设置为true时需对该参数进行设置，设置证书的绝对路径，默认为`null`。
 
     - **`--task`**
 
