@@ -1,8 +1,8 @@
-sphinx >= 2.2.1, <= 2.4.4
+sphinx == 2.4.4
 myst_parser == 0.14.0
 sphinx-markdown-tables
 sphinx_rtd_theme
 exhale == 0.2.3
-breathe
+breathe == 4.13.0
 numpy
 jieba
