@@ -99,9 +99,10 @@
 									<div class="col-sm-10 col-sm-pull-1">
 										<button class="doc-filter-btn doc-btn" id="os-Windows">Windows</button>
 										<button class="doc-filter-btn doc-btn" id="os-Linux">Linux</button>
-										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
-										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
 										<button class="doc-filter-btn doc-btn" id="os-mac">Mac</button>
+										<button class="doc-filter-btn doc-btn" id="os-Android">Android</button>
+										<button class="doc-filter-btn doc-btn" id="os-ios">iOS</button>
+										<button class="doc-filter-btn doc-btn" id="os-iot">IoT</button>
 									</div>
 								</div>
 			
@@ -136,10 +137,13 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Optimization">模型调优</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Compiling">模型编译</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Model-Code-Generation">模型代码生成</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Model-Obfuscator">模型混淆</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Inference">推理应用</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Visualization">可视化</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Third-party">第三方接入</button>
+										<button class="doc-filter-btn doc-btn" id="stage-Custom-Operator">自定义算子</button>
 									</div>
 								</div>
 							</div>
@@ -151,6 +155,7 @@
 								</div>
 								<div class="col-sm-10 col-sm-pull-1">
 									<button class="doc-filter-btn doc-btn" id="hardware-NPU">NPU</button>
+									<button class="doc-filter-btn doc-btn" id="hardware-NNIE">NNIE</button>
 								</div>
 							</div>
 							</div>
@@ -178,6 +183,32 @@
 						</div>
 
 						<div class="doc-article-list">
+							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">下载MindSpore Lite</span>
+										</div>
+										<div class="doc-article-desc">
+											本教程介绍如何快速下载MindSpore Lite。
+										</div>
+									</div>
+								</a>
+							</div>
+							
+							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">编译MindSpore Lite</span>
+										</div>
+										<div class="doc-article-desc">
+											本章节介绍如何快速编译出MindSpore Lite。
+												
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Windows os-Linux language-cpp stage-Whole-Process stage-Inference stage-Data-Preparation user-Beginner hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/quick_start/quick_start_cpp.html" class="article-link">
 									<div>
@@ -252,32 +283,6 @@
 							
 										<div class="doc-article-desc"> 
 										本教程通过构建并部署Java版本的LeNet网络的训练，演示MindSpore Lite端侧训练Java接口的使用。 首先指导您在本地成功训练LeNet模型，然后讲解示例代码。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/downloads.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">下载MindSpore Lite</span>
-										</div>
-										<div class="doc-article-desc">
-											本教程介绍如何快速下载MindSpore Lite。
-										</div>
-									</div>
-								</a>
-							</div>
-							
-							<div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">编译MindSpore Lite</span>
-										</div>
-										<div class="doc-article-desc">
-											本章节介绍如何快速编译出MindSpore Lite。
-												
 										</div>
 									</div>
 								</a>
@@ -366,6 +371,42 @@
 									</div>
 								</a>
 							</div>
+							<div class="doc-article-item all hardware-NNIE os-Linux stage-Environment-Preparation user-Intermediate user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/nnie.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">集成NNIE使用说明</span>
+										</div>
+										<div class="doc-article-desc">
+											该教程介绍了集成NNIE的使用说明。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">自定义南向算子</span>
+										</div>
+										<div class="doc-article-desc">
+											MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Third-party stage-Custom-Operator user-Expert hidden">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/delegate.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">使用Delegate支持第三方AI框架接入</span>
+										</div>
+										<div class="doc-article-desc">
+											如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
+										</div>
+									</div>
+								</a>
+							</div>
 							<div class="doc-article-item all os-Linux os-Windows stage-Environment-Preparation stage-Benchmark-Testing user-Intermediate user-Expert hidden">
 								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html" class="article-link">
 									<div>
@@ -434,6 +475,18 @@
 										</div>
 										<div class="doc-article-desc">
 										Netron是一个基于Electron平台开发的神经网络模型可视化工具，支持MindSpore Lite模型，可以方便地查看模型信息。
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="doc-article-item all os-Linux stage-Model-Obfuscator user-Expert">
+								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/obfuscator_tool.html" class="article-link">
+									<div>
+										<div class="doc-article-head">
+											<span class="doc-head-content">模型混淆工具</span>
+										</div>
+										<div class="doc-article-desc">
+										MindSpore Lite提供一个轻量级的离线模型混淆工具，可用于保护IOT或端侧设备上部署的模型文件的机密性。
 										</div>
 									</div>
 								</a>
