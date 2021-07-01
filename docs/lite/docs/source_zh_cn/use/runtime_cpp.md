@@ -77,20 +77,30 @@ if (model == nullptr) {
 
 ## 创建配置上下文
 
-上下文会保存会话所需的一些基本配置参数，用于指导图编译和图执行，如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)，不再需要时，需要用户通过`delete`释放。一般在创建完[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)即可释放。其中[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)所包含的参数定义如下：
+上下文会保存会话所需的一些基本配置参数，用于指导图编译和图执行，如果用户通过`new`创建[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)，不再需要时，需要用户通过`delete`释放。一般在创建完[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)后，[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)即可释放。
+
+[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中包含的基本参数定义如下：
 
 - [thread_num_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#thread-num)：MindSpore Lite内置一个进程共享的线程池，推理时通过`thread_num_`指定线程池的最大线程数，默认为2线程。
 - [allocator](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#allocator)：MindSpore Lite支持动态内存分配和释放，如果没有指定`allocator`，推理时会生成一个默认的`allocator`，也可以通过[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#context)方法在多个[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中共享内存分配器，具体调用方式可参考[共享内存池](#共享内存池)的使用方式。
 
 - [device_list_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#device-list)：MindSpore Lite支持异构推理，推理时的后端配置信息由[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中的`device_list_`指定，默认存放CPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)。在进行图编译时，会根据`device_list_`中不同的后端配置信息进行算子选型调度。目前仅支持两种异构，CPU和GPU异构或者CPU和NPU异构。当配置GPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)时，优先使用GPU推理；当配置NPU的[DeviceContext](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#devicecontext)时，优先使用NPU推理。
 
-- [provider_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider)：产商名，当用户自定义算子时，需指定。
-
-- [provider_device_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider-device)：算子要运行的硬件设备，当用户自定义算子时，需指定。
-
 > `device_list_[0]`必须是CPU的`DeviceContext`, `device_list_[1]`是GPU的`DeviceContext`或者NPU的`DeviceContext`。暂时不支持同时设置CPU, GPU和NPU三个`DeviceContext`。
 >
 > 对于iOS设备,暂时只支持`device_list_[0]`为CPU的`DeviceContext`。
+
+[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中包含的高级参数定义如下：
+
+用户若只是调用内置算子，未调用[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html#id2)时，以下参数不必设置。
+
+用户在未采用MindSpore Lite已集成的硬件设备的情形下，希望框架调用[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html#id2)，用户需自行设置以下参数。
+
+用户在采用MindSpore Lite已集成的硬件设备的情形下，请按相关的具体说明文档设置，例如，NNIE设备，请按照[集成使用](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/nnie.html#id10)说明进行设置。
+
+- [provider_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider)：产商名。
+
+- [provider_device_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider-device)：算子要运行的硬件设备。
 
 ### 配置线程数
 
