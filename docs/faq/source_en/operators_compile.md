@@ -34,25 +34,6 @@ A: Currently, MindSpore does not have APIs or operators similar to variance whic
 
 <br/>
 
-<font size=3>**Q: Why is data loading abnormal when MindSpore1.0.1 is used in graph data offload mode?**</font>
-
-A: An operator with the `axis` attribute, for example, `ops.Concat(axis=1)((x1, x2))`, is directly used in `construct`. You are advised to initialize the operator in `__init__` as follows:
-
-```python
-from mindspore import nn
-import mindspore.ops as ops
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.concat = ops.Concat(axis=1)
-    def construct(self, x, y):
-        out = self.concat((x, y))
-        return out
-```
-
-<br/>
-
 <font size=3>**Q: Compared with PyTorch, the `nn.Embedding` layer lacks the padding operation. Can other operators implement this operation?**</font>
 
 A: In PyTorch, `padding_idx` is used to set the word vector in the `padding_idx` position in the embedding matrix to 0, and the word vector in the `padding_idx` position is not updated during backward propagation.
@@ -68,7 +49,7 @@ A: The `multiples input` of the `Tile` operator must be a constant. (The value c
 
 <font size=3>**Q: When conv2d is set to (3,10), Tensor[2,2,10,10] and it runs on Ascend on ModelArts, the error message `FM_W+pad_left+pad_right-KW>=strideW` is displayed. However, no error message is displayed when it runs on a CPU. What should I do?**</font>
 
-A: This is a TBE operator restriction that the width of x must be greater than that of the kernel. The CPU does not have this operator restriction. Therefore, no error is reported.
+A: TBE (Tensor Boost Engine) operator is Huawei's self-developed NPU operator development tool, which is extended on the basis of the TVM framework to develop custom operators. The above problem is the limitation of this TBE operator, the width of x must be greater than the width of the kernel. The CPU operator does not have this restriction, so no error is reported.
 
 <br/>
 
