@@ -119,7 +119,7 @@ public boolean isUseHttps()
 
 - 返回值
 
-    boolean类型，true代表进行https通信， false代表进行http通信，默认值为false, 目前云侧暂不支持https通信。
+    boolean类型，true代表进行https通信， false代表进行http通信，默认值为false，目前云侧暂不支持https通信。
 
 ## setUseHttps
 
@@ -335,7 +335,7 @@ public boolean isUseSSL()
 public void setUseSSL(boolean useSSL)
 ```
 
-用于设置端云通信是否进行ssl证书认证。
+用于设置端云通信是否进行ssl证书认证，ssl证书认证只用于https通信场景。
 
 - 参数
     - `useSSL`: 端云通信是否进行ssl证书认证。
