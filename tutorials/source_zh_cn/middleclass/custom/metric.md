@@ -4,7 +4,6 @@
 <!-- TOC -->
 
 - [自定义评价指标](#自定义评价指标)
-    - [概述](#概述)
     - [Metrics自定义方法](#metrics自定义方法)
         - [导入Metric模块](#导入metric模块)
         - [定义Metrics](#定义metrics)
@@ -13,8 +12,6 @@
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/custom/metric.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
-
-## 概述
 
 评价指标（Metrics）可以用来评估模型结果的可信度。
 
