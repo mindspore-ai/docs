@@ -17,7 +17,7 @@
 
 ## Installing Using pip
 
-<font size=3>**Q: What can I do if an error message `cannot open shared object file:file such file or directory` is displayed when I install MindSpore of the GPU, CUDA 10.1, 0.5.0-beta, or Ubuntu-x86 version?**</font>
+<font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts "cannot open shared object file:No such file or directory", what should I do?**</font>
 
 A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
 
@@ -74,13 +74,13 @@ A: Please execute `pip config list` to check the package index `index-url`. Some
 
 <font size=3>**Q: What should I do if I cannot find whl package for MindInsight or MindArmour on the installation page of MindSpore website?**</font>
 
-A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions) and manually install it via `pip install`.
+A: You can download whl package from the official [MindSpore Website download page](https://www.mindspore.cn/versions/en) and manually install it via `pip install`.
 
 <br/>
 
 <font size=3>**Q: For Ascend users, what should I do when `RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'` appears in personal Conda environment?**</font>
 
-A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/fwkacllib/lib64/{te/topi/hccl}*any.whl` to reinstall.
+A: When you encounter the error, you should update the `te/topi/hccl` python toolkits, unload them firstly and then using command `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl` to reinstall.
 
 <br/>
 
@@ -102,7 +102,7 @@ A: Set environment variables and specify the Android NDK path using `export ANDR
 
 <br/>
 
-<font size=3>**Q: A sample fails to be executed after I installed MindSpore 0.6.0 beta on Ascend 910 using Ubuntu_aarch64 and Python 3.7.5 and manually downloaded the .whl package of the corresponding version, compiled and installed GMP6.1.2, and installed other Python library dependencies. An error message is displayed, indicating that the .so file cannot be found. What can I do?**</font>
+<font size=3>**Q: MindSpore installation: Version 0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5, manually download the whl package of the corresponding version, compile and install gmp6.1.2. Other Python library dependencies have been installed, the execution of the sample fails, and an error shows that the so file cannot be found.**</font>
 
 A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` directory. Find the path of the library in the `/usr/local` directory, and then add the path to the `LD_LIBRARY_PATH` environment variable. After the settings take effect, execute the sample again.
 
@@ -148,13 +148,13 @@ A: While compiling MindSpore, if:
 
 <br/>
 
-<font size=3>**Q: what should I do when an error message `No module named 'mindpore.version'` is displayed when I execute the case?
+<font size=3>**Q: what should I do when an error message `No module named 'mindpore.version'` is displayed when I execute the case?**</font>
 
 A: Maybe you execute the case in the path with the same name as the MindSpore installation package. Rename the directory or exit one or more levels of directory to solve the problem.
 
 <br/>
 
-<font size=3>**Q: what should I do when an error message `MD5 does not match` is displayed when I execute the case?
+<font size=3>**Q: what should I do when an error message `MD5 does not match` is displayed when I execute the case?**</font>
 
 A: This kind of error may be caused by internet problem when some third party libraries are downloading. It fails to verify MD5 with a incomplete file when you recompile the project. Remove the related third-party file in .mslib cache path and recompile the project to solve the problem.
 
@@ -178,11 +178,21 @@ A: The possible reasons are:
 
 <br/>
 
+<font size=3>**Q: What is the difference between `bash -p` and `bash -e` when an error is reported during application build?**</font>
+
+A: MindSpore Serving build and running depend on MindSpore. Serving provides two build modes: 1. Use `bash -p {python site-packages}/mindspore/lib` to specify an installed MindSpore path to avoid building MindSpore when building Serving. 2. Build Serving and the corresponding MindSpore. Serving passes the `-e`, `-V`, and `-j` options to MindSpore.
+For example, use `bash -e ascend -V 910 -j32` in the Serving directory as follows:
+
+- Build MindSpore in the `third_party/mindspore` directory using `bash -e ascend -V 910 -j32`.
+- Use the MindSpore build result as the Serving build dependency.
+
+<br/>
+
 ## Uninstall
 
 <font size=3>**Q: How to uninstall MindSpore?**</font>
 
-A: Using `pip uninstall mindspore` to uninstall MindSpore.
+A: First of all, please confirm the full name of MindSpore, for example, for the gpu version, you can execute the command `pip uninstall mindspore-gpu` to uninstall.
 
 <br/>
 
@@ -248,7 +258,7 @@ A: After MindSpore is installed on a CPU hardware platform, run the `python -c'i
 
 A: Use the following command to check whether the current Python environment meets the requirements of MindSpore.
 
-- Text `python` in terminal window, check whether the version of Python interactive environment is `3.7.x`
+- Enter `python` in the terminal window and check the following version information entered into the Python interactive environment. If an error is reported directly, there is no Python soft connection; if you enter a non-Python 3.7 environment, the current Python environment is not the MindSpore runtime needs.
 - If not, execute the `sudo ln -sf /usr/bin/python3.7.x /usr/bin/python` command to create Python's soft connection.
 
 <br/>

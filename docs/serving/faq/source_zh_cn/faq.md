@@ -34,6 +34,8 @@ A：MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编�
 
 A：首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。
 
+<br/>
+
 <font size=3>**Q：如何控制Serving日志输出？**</font>
 
 A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的环境变量和配置](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html?highlight=GLOG#id11)，在此基础上，额外补充的内容：
@@ -43,3 +45,9 @@ A：MindSpore Serving采用glog来输出日志，详细可参考[日志相关的
 该环境变量除了指定MindSpore C++各子模块日志级别，也可用于控制MindSpore Serving的日志级别。
 
 可以通过GLOG_v=2 MS_SUBMODULE_LOG_v="{SERVING:1}"把Serving模块的日志级别设为INFO，其他模块的日志级别设为WARNING。
+
+<br/>
+
+<font size=3>**Q: 运行应用时报错`libmindspore.so: cannot open shared object file: No such file or directory`怎么办？**</font>
+
+A: 首先，需要确认是否安装MindSpore Serving所依赖的MindSpore；其次，Serving 1.1需要配置`LD_LIBRARY_PATH`，显式指定`libmindspore.so`所在路径，`libmindspore.so`当前在MindSpore Python安装路径的`lib`目录下；Serving 1.2后不再需要显示指定`libmindspore.so`所在路径，Serving会基于MindSpore安装路径查找并追加配置`LD_LIBRARY_PATH`，用户不再需要感知。

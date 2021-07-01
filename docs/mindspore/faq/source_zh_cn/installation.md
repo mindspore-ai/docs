@@ -17,9 +17,9 @@
 
 ## pip安装
 
-<font size=3>**Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta、Ubuntu-x86，出现问题: `cannot open shared object file:file such file or directory`。**</font>
+<font size=3>**Q: 安装MindSpore版本: GPU、CUDA 10.1、0.5.0-beta，出现问题: `cannot open shared object file:No such file or directory`。**</font>
 
-A: 从报错情况来看，是cublas库没有找到。一般的情况下是cublas库没有安装，或者是因为没有加入到环境变量中去。通常cublas是随着cuda以及驱动一起安装的，确认安装后把cublas所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
+A: 从报错情况来看，是cuBLAS库没有找到。一般的情况下是cuBLAS库没有安装，或者是因为没有加入到环境变量中去。通常cuBLAS是随着CUDA以及驱动一起安装的，确认安装后把cuBLAS所在的目录加入`LD_LIBRARY_PATH`环境变量中即可。
 
 <br/>
 
@@ -99,13 +99,13 @@ A: 目前MindSpore支持的情况是GPU+Linux与CPU+Windows的组合配置，Win
 
 <font size=3>**Q: Ascend硬件平台，在个人的Conda环境中，有时候出现报错RuntimeError: json.exception.parse_error.101 parse error at line 1, column 1: syntax error while parsing value - invalid literal; last read: 'T'，该怎么处理？**</font>
 
-A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/fwkacllib/lib64/{te/topi/hccl}*any.whl`。
+A: 出现这种类型的报错，大概率是run包更新后个人的Conda环境中没有更新te或topi或hccl工具包，可以将当前Conda环境中的上述几个工具包卸载，然后使用如下命令再重新安装: `pip install /usr/local/Ascend/ascend-toolkit/latest/fwkacllib/lib64/{te/topi/hccl}-{version}-py3-none-any.whl`。
 
 <br/>
 
 ## 源码编译安装
 
-<font size=3>**Q: 编译应用时报错`bash -p`方式和 `bash -e`方式的区别？**</font>
+<font size=3>**Q: 编译时`bash -p`方式和 `bash -e`方式的区别？**</font>
 
 A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式: 一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
 比如，在Serving目录下，`bash -e ascend -V 910 -j32`:
@@ -123,7 +123,7 @@ A: arm64版本编译: `bash build.sh -I arm64`；arm32版本编译: `bash build.
 
 <font size=3>**Q: MindSpore安装: 版本0.6.0-beta + Ascend 910 + Ubuntu_aarch64 + Python3.7.5，手动下载对应版本的whl包，编译并安装gmp6.1.2。其他Python库依赖已经安装完成，执行样例失败，报错显示找不到so文件。**</font>
 
-A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录find到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
+A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/usr/local`目录查找到这个库所在的路径，然后把这个路径加到`LD_LIBRARY_PATH`环境变量中，确认设置生效后，再执行。
 
 <br/>
 
@@ -197,11 +197,21 @@ A: 可能的原因有:
 
 <br/>
 
+<font size=3>**Q: 编译应用时报错`bash -p`方式和 `bash -e`方式的区别？**</font>
+
+A: MindSpore Serving的编译和运行依赖MindSpore，Serving提供两种编译方式: 一种指定已安装的MindSpore路径，即`bash -p {python site-packages}/mindspore/lib`，避免编译Serving时再编译MindSpore；另一种，编译Serving时，编译配套的MindSpore，Serving会将`-e`、`-V`和`-j`选项透传给MindSpore。
+比如，在Serving目录下，`bash -e ascend -V 910 -j32`:
+
+- 首先将会以`bash -e ascend -V 910 -j32`方式编译`third_party/mindspore`目录下的MindSpore；
+- 其次，编译脚本将MindSpore编译结果作为Serving的编译依赖。
+
+<br/>
+
 ## 卸载
 
 <font size=3>**Q: 如何卸载MindSpore？**</font>
 
-A: 执行命令`pip uninstall mindspore`可卸载MindSpore。
+A: 首先请确定MindSpore的全称，例如gpu版本的MindSpore，可以执行命令`pip uninstall mindspore-gpu`进行卸载。
 
 <br/>
 
