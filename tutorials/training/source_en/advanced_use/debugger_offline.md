@@ -97,6 +97,7 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 - GPU scenario:
     - Different from the online debugger, the offline debugger does not support node-by-node execution.
 
+- When using the offline debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Only watchpoints that have tensor values are rechecked.
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
 - If the asynchronous dump data in the Ascend scenario is used, you can use the `convert_all_data_to_host` API of MindInsight DumpParser to convert the asynchronous dump data into the `.npy` file to improve the data analysis efficiency. For details about how to use DumpParser, see [DumpParser Introduction](https://gitee.com/mindspore/mindinsight/tree/master/mindinsight/parser).
