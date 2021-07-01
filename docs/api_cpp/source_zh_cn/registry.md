@@ -289,7 +289,7 @@ passes_
 mutex_
 ```
 
-**mutex**类，引入琐机制，避免竞争。
+**mutex**类，引入锁机制，避免竞争。
 
 ## PassRegistrar
 
