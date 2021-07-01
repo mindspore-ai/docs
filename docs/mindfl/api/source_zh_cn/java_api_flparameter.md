@@ -335,7 +335,7 @@ public boolean isUseSSL()
 public void setUseSSL(boolean useSSL)
 ```
 
-用于设置端云通信是否进行ssl证书认证。
+用于设置端云通信是否进行ssl证书认证，ssl证书认证只用于https通信场景。
 
 - 参数
     - `useSSL`: 端云通信是否进行ssl证书认证。
