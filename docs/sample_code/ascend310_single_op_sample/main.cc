@@ -59,7 +59,7 @@ int main() {
   inputs.emplace_back(origin_inputs[0].Name(), origin_inputs[0].DataType(), origin_inputs[0].Shape(),
                       input_data_1.data(), sizeof(float) * input_data_1.size());
   inputs.emplace_back(origin_inputs[1].Name(), origin_inputs[1].DataType(), origin_inputs[1].Shape(),
-                      input_data_1.data(), sizeof(float) * input_data_1.size());
+                      input_data_2.data(), sizeof(float) * input_data_2.size());
 
   // infer
   ret = tensor_add.Predict(inputs, &outputs);
