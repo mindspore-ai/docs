@@ -34,25 +34,6 @@ A: MindSpore目前暂无可以直接求出`tensor`方差的算子或接口。不
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore-1.0.1版本在图数据下沉模式加载数据异常是什么原因？**</font>
-
-A: 应该是`construct`中直接使用了带有`axis`属性的算子，比如`ops.Concat(axis=1)((x1, x2))`这种，建议把算子在`__init__`中初始化 像这样
-
-```python
-from mindspore import nn
-import mindspore.ops as ops
-
-class Net(nn.Cell):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.concat = ops.Concat(axis=1)
-    def construct(self, x, y):
-        out = self.concat((x, y))
-        return out
-```
-
-<br/>
-
 <font size=3>**Q: `nn.Embedding`层与PyTorch相比缺少了`Padding`操作，有其余的算子可以实现吗？**</font>
 
 A: 在PyTorch中`padding_idx`的作用是将embedding矩阵中`padding_idx`位置的词向量置为0，并且反向传播时不会更新`padding_idx`位置的词向量。在MindSpore中，可以手动将embedding的`padding_idx`位置对应的权重初始化为0，并且在训练时通过`mask`的操作，过滤掉`padding_idx`位置对应的`Loss`。
@@ -66,9 +47,9 @@ A: `Tile`算子的`multiples input`必须是一个常量（该值不能直接或
 
 <br/>
 
-<font size=3>**Q: conv2d设置为(3,10),Tensor[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
+<font size=3>**Q: 使用conv2d算子将卷积核设置为(3,10),Tensor设置为[2,2,10,10]，在ModelArts上利用Ascend跑，报错: `FM_W+pad_left+pad_right-KW>=strideW`，CPU下不报错。**</font>
 
-A: 这是TBE这个算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
+A: TBE(Tensor Boost Engine)算子是华为自研的NPU算子开发工具，在TVM框架基础上扩展，进行自定义算子开发。上述问题是这个TBE算子的限制，x的width必须大于kernel的width。CPU的这个算子没有这个限制，所以不报错。
 
 <br/>
 

@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_en/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: How do I modify parameters (such as the dropout value) on MindSpore?**</font>
 
@@ -39,13 +39,13 @@ A: You can customize a `callback`.For details, see the writing method of `ModelC
 
 ```python
 class EarlyStop(Callback):
-def __init__(self):
-    self.loss = None
-def step_end(self, run_context):
-    loss =  ****(get current loss)
-    if (self.loss == None or loss < self.loss):
-        self.loss = loss
-        # do save ckpt
+    def __init__(self):
+        self.loss = None
+    def step_end(self, run_context):
+        loss =  ****(get current loss)
+        if (self.loss == None or loss < self.loss):
+            self.loss = loss
+            # do save ckpt
 ```
 
 <br/>

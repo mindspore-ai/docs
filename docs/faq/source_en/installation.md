@@ -17,7 +17,7 @@
 
 ## Installing Using pip
 
-<font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts "cannot open shared object file:No such file or directory", what should I do?**</font>
+<font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?**</font>
 
 A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
 

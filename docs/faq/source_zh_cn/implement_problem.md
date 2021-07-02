@@ -2,7 +2,7 @@
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `环境准备` `初级` `中级`
 
-<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/script_implement.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/faq/source_zh_cn/implement_problem.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 <font size=3>**Q: MindSpore如何进行参数（如dropout值）修改？**</font>
 
@@ -39,13 +39,13 @@ A: 可以自定义一个`Callback`。参考`ModelCheckpoint`的写法，此外�
 
 ```python
 class EarlyStop(Callback):
-def __init__(self):
-    self.loss = None
-def step_end(self, run_context):
-    loss =  ****(get current loss)
-    if (self.loss == None or loss < self.loss):
-        self.loss = loss
-        # do save ckpt
+    def __init__(self):
+        self.loss = None
+    def step_end(self, run_context):
+        loss =  ****(get current loss)
+        if (self.loss == None or loss < self.loss):
+            self.loss = loss
+            # do save ckpt
 ```
 
 <br/>
