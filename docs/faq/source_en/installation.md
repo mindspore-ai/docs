@@ -49,7 +49,7 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <font size=3>**Q: Any specific requirements for protobuf version when use MindSpore?**</font>
 
-A: MindSpore installs version 3.8.0 of protobuf by default. If you have installed 3.12.0 or later version of protobuf locally, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.8.0' to reinstall version 3.8.0.
+A: MindSpore installs version 3.13.0 of protobuf by default. If it is not the version, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
 <br/>
 
