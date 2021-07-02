@@ -253,12 +253,12 @@ A: Use the following command to check whether the current Python environment mee
 
 <br/>
 
-<font size=3>**Q: Here in script when we import other python lib before `import mindspore`, error raised like follows (`/your_path/libgomp.so.1: cannot allocate memory in static TLS block`), how can we solve it?**</font>
+<font size=3>**Q: Here in script when we import other python lib before `import mindspore`, error raised like follows (`/{your_path}/libgomp.so.1: cannot allocate memory in static TLS block`), how can we solve it?**</font>
 
 A: Above question is relatively common, and there are two feasible solutions, you can choose one of them:
 
 - Exchange the order of import, first `import mindspore` and then import other third party libraries.
-- Before executing the program, we can add environment variables first (`export LD_PRELOAD=/your_path/libgomp.so.1`), where `your_path` is the path mentioned in above error.
+- Before executing the program, we can add environment variables first (`export LD_PRELOAD=/{your_path}/libgomp.so.1`), where `{your_path}` is the path mentioned in above error.
 
 <br/>
 
