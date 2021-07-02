@@ -89,7 +89,7 @@ A: You can refer to the usage of YOLOv3 which contains the resizing of different
 
 <font size=3>**Q: Must data be converted into MindRecords when MindSpore is used for segmentation training?**</font>
 
-A: [build_seg_data.py](https://github.com/mindspore-ai/mindspore/blob/r1.3/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
+A: [build_seg_data.py](https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/cv/deeplabv3/src/data/build_seg_data.py) is used to generate MindRecords based on a dataset. You can directly use or adapt it to your dataset. Alternatively, you can use `GeneratorDataset` if you want to read the dataset by yourself.
 
 [GenratorDataset example](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_loading.html#loading-user-defined-dataset)
 
