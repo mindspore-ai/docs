@@ -77,20 +77,30 @@ if (model == nullptr) {
 
 ## Creating a Configuration Context
 
-The context saves some basic configuration parameters required by the session to guide graph build and execution. If you use `new` to create a [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) and do not need it any more, use `delete` to release it. Generally, the [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) is released after the [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) is created. The parameters contained in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) are defined as follows:
+The context saves some basic configuration parameters required by the session to guide graph build and execution. If you use `new` to create a [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) and do not need it any more, use `delete` to release it. Generally, the [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) is released after the [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) is created.
+
+The basic parameters contained in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) are defined as follows:
 
 - [thread_num_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#thread-num): MindSpore Lite has a built-in thread pool shared by processes. During inference, `thread_num_` is used to specify the maximum number of threads in the thread pool. The default value is 2.
 - [allocator](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#allocator): MindSpore Lite supports dynamic memory allocation and release. If `allocator` is not specified, a default `allocator` is generated during inference. You can also use the [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#context) method to share the memory allocator in multiple [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2). For details about the calling method, see the usage of [Sharing a Memory Pool](#sharing-a-memory-pool).
 
 - [device_list_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#device-list): MindSpore Lite supports heterogeneous inference. The backend configuration information for inference is specified by `device_list_` in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2). By default, the [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) of the CPU is stored. During graph build, operator selection and scheduling are performed based on the backend configuration information in `device_list_`. Currently, only CPU and GPU heterogeneity or CPU and NPU heterogeneity is supported. When the GPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, GPU-based inference is preferentially used. When the NPU's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext) is configured, NPU-based inference is preferentially used.
 
-- [provider_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider)：The name of the provider, need to be assigned when using registry kernel.
-
-- [provider_device_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider-device)：The device of the provider, need to be assigned when using registry kernel.
-
 > `device_list_[0]` must be `DeviceContext` of the CPU, and `device_list_[1]` must be `DeviceContext` of the GPU or `DeviceContext` of the NPU. Currently, the CPU, GPU, and NPU cannot be set at a time.
 >
 > For the iOS platform, `device_list_[0]` must be `DeviceContext` of the CPU.
+
+The advanced parameters contained in [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) are defined as follows:
+
+If the user only calls the built-in operators and does not call [Custom Operators](https://www.mindspore.cn/tutorial/lite/en/master/use/register_kernel.html#id2), the following parameters are not necessary set up.
+
+If the user doesn't use the integrated hardware of mindsprore Lite, but wants to apply [self-defined operators](https://www.mindspore.cn/tutorial/lite/en/master/use/register_kernel.html#id2), the user needs to set the following parameters.
+
+If the user uses the integrated hardware of Mindsprore Lite, please set the parameter according to the relevant documentation. Take NNIE device as an example, please set according to the instruction of [Integrated use](https://www.mindspore.cn/tutorial/lite/en/master/use/nnie.html#id10).
+
+- [provider_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider)：The name of the provider.
+
+- [provider_device_](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#provider-device)：The device of the provider.
 
 ### Configuring the Number of Threads
 
