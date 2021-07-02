@@ -7,3 +7,4 @@
    middleclass/image_and_video/fine_tune
    middleclass/image_and_video/transfer_learning
    middleclass/image_and_video/adversative_nets_mark
+   middleclass/image_and_video/dcgan
