@@ -164,6 +164,12 @@ class HTML5Translator(SphinxTranslator, BaseTranslator):
             self.required_params_left -= 1
         if not node.hasattr('noemph'):
             self.body.append('<em class="sig-param">')
+        
+        # fix error of extra space for C++ API.
+        if "'</a>', ' ', '<em>'" in str(self.body)[1:-1]:
+            for num, i in enumerate(self.body[:-2]):
+                if ['</a>', ' '] == self.body[num:num+2]:
+                    self.body[num:num + 2] = [' </a>', ' ',]
 
     def depart_desc_parameter(self, node: Element) -> None:
         if not node.hasattr('noemph'):
