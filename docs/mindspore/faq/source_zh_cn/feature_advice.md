@@ -18,25 +18,27 @@ A:  MindSpore采用protobuf存储训练参数，无法直接读取其他框架�
 
 <font size=3>**Q: 在使用ckpt或导出模型的过程中，报Protobuf内存限制错误，如何处理？**</font>
 
-A: 当单条Protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
+A: 当单条protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
 
 <br/>
 
 <font size=3>**Q: PyNative模式和Graph模式的区别？**</font>
 
-A: 在网络执行方面，两个模式使用的算子是一致的，因此相同的网络和算子，分别在两个模式下执行时，精度效果是一致的。由于Graph模式运用了图优化、计算图整图下沉等技术，Graph模式执行网络的性能和效率更高；
+A: 通过下面四个方面进行对比：
 
-在场景使用方面，Graph模式需要一开始就构建好网络结构，然后框架做整图优化和执行，比较适合网络固定没有变化，且需要高性能的场景；
+- 网络执行：两个模式使用的算子是一致的，因此相同的网络和算子，分别在两个模式下执行时，精度效果是一致的。由于Graph模式运用了图优化、计算图整图下沉等技术，Graph模式执行网络的性能和效率更高；
 
-在不同硬件（`Ascend`、`GPU`和`CPU`）资源上都支持这两种模式；
+- 场景使用：Graph模式需要一开始就构建好网络结构，然后框架做整图优化和执行，比较适合网络固定没有变化，且需要高性能的场景；
 
-代码调试方面，由于PyNative模式是逐行执行算子，用户可以直接调试Python代码，在代码中任意位置打断点查看对应算子`/api`的输出或执行结果。而Graph模式由于在构造函数里只是完成网络构造，实际没有执行，因此在`construct`函数里打断点无法获取对应算子的输出，只能先指定算子进行打印，然后在网络执行完成后查看输出结果。
+- 不同硬件（`Ascend`、`GPU`和`CPU`）资源：都支持这两种模式；
+
+- 代码调试：由于PyNative模式是逐行执行算子，用户可以直接调试Python代码，在代码中任意位置打断点查看对应算子的输出或执行结果。而Graph模式由于在构造函数里只是完成网络构造，实际没有执行，因此在`construct`函数里打断点无法获取对应算子的输出，只能先指定算子进行打印，然后在网络执行完成后查看输出结果。
 
 <br/>
 
-<font size=3>**Q: 我用MindSpore在GPU上训练的网络脚本可以不做修改直接在NPU上进行训练么？**</font>
+<font size=3>**Q: 使用MindSpore在GPU上训练的网络脚本可以不做修改直接在Ascned上进行训练么？**</font>
 
-A: 可以的，MindSpore面向NPU/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
+A: 可以的，MindSpore面向Ascned/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
 
 <br/>
 
@@ -72,13 +74,13 @@ A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <font size=3>**Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A: 由于ProtoBuf的硬件限制，导出AIR、ONNX模型时，单个Tensor大小不能超过2G。导入的MindIR模型中，单个Tensor不能超过2G。
+A: 由于protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，单个Tensor大小不能超过2G，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小的限制与导出一致。
 
 <br/>
 
-<font size=3>**Q: 安装运行MindSpore时，是否要求平台有GPU、NPU等计算单元？需要什么硬件支持？**</font>
+<font size=3>**Q: 安装运行MindSpore时，是否要求平台有GPU、Ascend等计算单元？需要什么硬件支持？**</font>
 
-A: MindSpore当前支持CPU/GPU/Ascend /NPU。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/docs/note/zh-CN/r1.3/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#)获取最新信息。
+A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/docs/note/zh-CN/r1.3/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#)获取最新信息。
 
 <br/>
 
@@ -108,7 +110,7 @@ A: 支持，可以参考[梯度截断的定义和使用](https://gitee.com/minds
 
 <font size=3>**Q: MindSpore的IR设计理念是什么？**</font>
 
-A: 函数式: 一切皆函数，易于微分实现；无副作用，易于实现自动并行化分析；`JIT`编译能力: 图形IR，控制流依赖和数据流合一，平衡通用性/易用性；图灵完备的IR: 更多的转换`Python`灵活语法，包括递归等。
+A: 函数式: 一切皆函数，易于微分实现；无副作用，易于实现自动并行化分析。`JIT`编译能力: 图形IR，控制流依赖和数据流合一，平衡通用性/易用性。图形完备的IR: 更多的转换`Python`灵活语法，包括递归等。
 
 <br/>
 
@@ -139,24 +141,6 @@ A: 自动并行特性对CPU GPU的支持还在完善中。推荐用户在Ascend 
 <font size=3>**Q: MindSpore有没有类似基于TensorFlow实现的对象检测算法的模块？**</font>
 
 A: TensorFlow的对象检测Pipeline接口属于TensorFlow Model模块。待MindSpore检测类模型完备后，会提供类似的Pipeline接口。
-
-<br/>
-
-<font size=3>**Q: MindSpore Serving是否支持热更新，避免推理服务中断？**</font>
-
-A: MindSpore Serving当前不支持热更新，需要用户重启；当前建议跑多个Serving服务，升级模型版本时，重启部分服务以避免服务中断。
-
-<br/>
-
-<font size=3>**Q: MindSpore Serving是否支持一个模型启动多个Worker，以支持多卡单模型并发？**</font>
-
-A: MindSpore Serving暂未支持分流，即不支持一个模型启动多个Worker，这个功能正在开发中；当前建议跑多个Serving服务，通过对接多个Serving服务的服务器进行分流和负载均衡。另外，为了避免`master`和`worker`之间的消息转发，可以使用接口`start_servable_in_master`使`master`和`worker`执行在同一进程，实现Serving服务轻量级部署。
-
-<br/>
-
-<font size=3>**Q: MindSpore Serving的版本和MindSpore的版本如何配套？**</font>
-
-A: MindSpore Serving配套相同版本号的MindSpore的版本，比如Serving `1.1.1`版本配套 MindSpore `1.1.1`版本。
 
 <br/>
 

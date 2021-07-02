@@ -18,25 +18,27 @@ A: MindSpore uses protocol buffers (protobuf) to store training parameters and c
 
 <font size=3>**Q: What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
 
-A: When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+A: When a single protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
 
 <br/>
 
 <font size=3>**Q: What is the difference between the PyNative and Graph modes?**</font>
 
-A: In terms of network execution, operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
+A: Compare through the following four aspects:
 
-In terms of application scenarios, Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
+- In terms of network execution：operators used in the two modes are the same. Therefore, when the same network and operators are executed in the two modes, the accuracy is the same. As Graph mode uses graph optimization, calculation graph sinking and other technologies, it has higher performance and efficiency in executing the network.
 
-The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
+- In terms of application scenarios,:Graph mode requires the network structure to be built at the beginning, and then the framework performs entire graph optimization and execution. This mode is suitable to scenarios where the network is fixed and high performance is required.
 
-In terms of code debugging, since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
+- The two modes are supported on different hardware (such as `Ascend`, `GPU`, and `CPU`).
+
+- In terms of code debugging,:since operators are executed line by line in PyNative mode, you can directly debug the Python code and view the `/api` output or execution result of the corresponding operator at any breakpoint in the code. In Graph mode, the network is built but not executed in the constructor function. Therefore, you cannot obtain the output of the corresponding operator at breakpoints in the `construct` function. You can only specify operators and print their output results, and then view the results after the network execution is completed.
 
 <br/>
 
 <font size=3>**Q: Does MindSpore run only on Huawei `NPUs`?**</font>
 
-A: MindSpore supports Huawei Ascend `NPUs`, `GPUs`, and `CPUs`, and supports heterogeneous computing.
+A: MindSpore supports Huawei `Ascend`, `GPUs`, and `CPUs`, and supports heterogeneous computing.
 
 <br/>
 
@@ -66,13 +68,13 @@ A: An AIR model cannot be exported from the Ascend 310. You need to load a train
 
 <font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: Due to hardware limitations of ProtoBuf, when exporting AIR and ONNX models, the size of a single Tensor cannot exceed 2G. When loading the MindIR model, a single Tensor cannot exceed 2G.
+A: Due to hardware limitations of protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, the size of a single Tensor cannot exceed 2G. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
 
 <br/>
 
-<font size=3>**Q: Does MindSpore require computing units such as GPUs and NPUs? What hardware support is required?**</font>
+<font size=3>**Q: Does MindSpore require computing units such as GPUs and Ascend? What hardware support is required?**</font>
 
-A: MindSpore currently supports CPU, GPU, Ascend, and NPU. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#).
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#).
 
 <br/>
 
@@ -96,7 +98,7 @@ A: Yes. For details, see [Definition and Usage of Truncated Gradient](https://gi
 
 <font size=3>**Q: What is the MindSpore IR design concept?**</font>
 
-A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Turing-complete IR: More flexible syntaxes are provided for converting `Python`, such as recursion.
+A: Function expression: All expressions are functions, and differentiation and automatic parallel analysis are easy to implement without side effect. `JIT` compilation capability: The graph-based IR, control flow dependency, and data flow are combined to balance the universality and usability. Graphically complete IR: More conversion `Python` flexible syntax, including recursion, etc.
 
 <br/>
 
@@ -127,24 +129,6 @@ A: Automatic parallelism on CPUs and GPUs are being improved. You are advised to
 <font size=3>**Q: Does MindSpore have a module that can implement object detection algorithms as TensorFlow does?**</font>
 
 A: The TensorFlow's object detection pipeline API belongs to the TensorFlow's Model module. After MindSpore's detection models are complete, similar pipeline APIs will be provided.
-
-<br/>
-
-<font size=3>**Q: Does MindSpore Serving support hot loading to avoid inference service interruption?**</font>
-
-A: MindSpore does not support hot loading. It is recommended that you run multiple Serving services and restart some of them when switching the version.
-
-<br/>
-
-<font size=3>**Q: Does MindSpore Serving allow multiple workers to be started for one model to support multi-device and single-model concurrency?**</font>
-
-A: MindSpore Serving does not support distribution and this function is being developed. That is, multiple workers cannot be started for one model. It is recommended that multiple Serving services be deployed to implement distribution and load balancing. In addition, to avoid message forwarding between `master` and `worker`, you can use the `start_servable_in_master` API to enable `master` and `worker` to be executed in the same process, implementing lightweight deployment of the Serving services.
-
-<br/>
-
-<font size=3>**Q: How does the MindSpore Serving version match the MindSpore version?**</font>
-
-A: MindSpore Serving matches MindSpore in the same version. For example, Serving `1.1.1` matches MindSpore `1.1.1`.
 
 <br/>
 
