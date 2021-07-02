@@ -220,7 +220,7 @@ flParameter.setCertPath(certPath);
    boolean useHttps = false;
    boolean useSSL = false;
    boolean useElb = false;
-int serverNum = 1;
+   int serverNum = 1;
 
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
