@@ -271,7 +271,7 @@ add_executable(resnet50_sample main.cc)
 target_link_libraries(resnet50_sample ${MS_LIB} ${MD_LIB})
 ```
 
-## 编译推理代码
+### 编译推理代码
 
 进入工程目录`ascend910_resnet50_preprocess_sample`，设置如下环境变量：
 
@@ -309,7 +309,7 @@ make
 
 编译完成后，在`ascend910_resnet50_preprocess_sample`下会生成可执行`main`文件。
 
-## 执行推理并查看结果
+### 执行推理并查看结果
 
 登录Ascend 910环境，创建`model`目录放置MindIR文件`resnet50_imagenet.mindir`，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/model`。
 创建`test_data`目录放置图片，例如`/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/test_data`。

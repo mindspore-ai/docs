@@ -12,7 +12,7 @@
         - [Inference Code](#inference-code)
         - [Introduce to Building Script](#introduce-to-building-script)
         - [Building Inference Code](#building-inference-code)
-    - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
+        - [Performing Inference and Viewing the Result](#performing-inference-and-viewing-the-result)
 
 <!-- /TOC -->
 
@@ -310,7 +310,7 @@ make
 
 After building, the executable `main` file is generated in `ascend910_resnet50_preprocess_sample`.
 
-## Performing Inference and Viewing the Result
+### Performing Inference and Viewing the Result
 
 Log in to the Ascend 910 server, and create the `model` directory for storing the MindIR file `resnet50_imagenet.mindir`, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/model`.
 Create the `test_data` directory to store images, for example, `/home/HwHiAiUser/mindspore_sample/ascend910_resnet50_preprocess_sample/test_data`.
