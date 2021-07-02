@@ -49,7 +49,7 @@ A: MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通�
 
 <font size=3>**Q: MindSpore对protobuf版本是否有特别要求？**</font>
 
-A: MindSpore默认安装protobuf的3.8.0版本，如果您本地已安装protobuf的3.12.0或更高版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.8.0`重新安装3.8.0版本。
+A: MindSpore默认安装protobuf的3.13.0版本，如果不是版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.13.0`重新安装3.13.0版本。
 
 <br/>
 
@@ -282,12 +282,12 @@ A: 遇到类似的问题，大多是由于Python的环境问题，可以通过�
 
 <br/>
 
-<font size=3>**Q: 在脚本中`import mindspore`之前import了其他三方库，提示如下错误(`/your_path/libgomp.so.1: cannot allocate memory in static TLS block`)该怎么解决?**</font>
+<font size=3>**Q: 在脚本中`import mindspore`之前import了其他三方库，提示如下错误(`/{your_path}/libgomp.so.1: cannot allocate memory in static TLS block`)该怎么解决?**</font>
 
 A: 上述问题较为常见，当前有两种可行的解决方法，可任选其一:
 
 - 交换import的顺序，先`import mindspore`再import其他三方库。
-- 执行程序之前先添加环境变量（`export LD_PRELOAD=/your_path/libgomp.so.1`），其中`your_path`是上述报错提示的路径。
+- 执行程序之前先添加环境变量（`export LD_PRELOAD=/{your_path}/libgomp.so.1`），其中`{your_path}`是上述报错提示的路径。
 
 <br/>
 

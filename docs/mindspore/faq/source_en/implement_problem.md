@@ -39,13 +39,13 @@ A: You can customize a `callback`.For details, see the writing method of `ModelC
 
 ```python
 class EarlyStop(Callback):
-def __init__(self):
-    self.loss = None
-def step_end(self, run_context):
-    loss =  ****(get current loss)
-    if (self.loss == None or loss < self.loss):
-        self.loss = loss
-        # do save ckpt
+    def __init__(self):
+        self.loss = None
+    def step_end(self, run_context):
+        loss =  ****(get current loss)
+        if (self.loss == None or loss < self.loss):
+            self.loss = loss
+            # do save ckpt
 ```
 
 <br/>

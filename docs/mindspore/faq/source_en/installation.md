@@ -17,7 +17,7 @@
 
 ## Installing Using pip
 
-<font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts "cannot open shared object file:No such file or directory", what should I do?**</font>
+<font size=3>**Q: When installing GPU, CUDA 10.1, 0.5.0-beta version of MindSpore, it prompts `cannot open shared object file:No such file or directory`, what should I do?**</font>
 
 A: The error message indicates that the cuBLAS library is not found. Generally, the cause is that the cuBLAS library is not installed or is not added to the environment variable. Generally, cuBLAS is installed together with CUDA and the driver. After the installation, add the directory where cuBLAS is located to the `LD_LIBRARY_PATH` environment variable.
 
@@ -49,7 +49,7 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <font size=3>**Q: Any specific requirements for protobuf version when use MindSpore?**</font>
 
-A: MindSpore installs version 3.8.0 of protobuf by default. If you have installed 3.12.0 or later version of protobuf locally, there will be many warnings in the log when using pytest to test the code. It is recommended that you use the command 'pip install protobuf==3.8.0' to reinstall version 3.8.0.
+A: MindSpore installs version 3.13.0 of protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
 <br/>
 
@@ -263,12 +263,12 @@ A: Use the following command to check whether the current Python environment mee
 
 <br/>
 
-<font size=3>**Q: Here in script when we import other python lib before `import mindspore`, error raised like follows (`/your_path/libgomp.so.1: cannot allocate memory in static TLS block`), how can we solve it?**</font>
+<font size=3>**Q: Here in script when we import other python lib before `import mindspore`, error raised like follows (`/{your_path}/libgomp.so.1: cannot allocate memory in static TLS block`), how can we solve it?**</font>
 
 A: Above question is relatively common, and there are two feasible solutions, you can choose one of them:
 
 - Exchange the order of import, first `import mindspore` and then import other third party libraries.
-- Before executing the program, we can add environment variables first (`export LD_PRELOAD=/your_path/libgomp.so.1`), where `your_path` is the path mentioned in above error.
+- Before executing the program, we can add environment variables first (`export LD_PRELOAD=/{your_path}/libgomp.so.1`), where `{your_path}` is the path mentioned in above error.
 
 <font size=3>**Q: When the third-party component gensim is used to train the NLP network, the error "ValueError" may be reported. What can I do? **</font>
 
