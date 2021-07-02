@@ -161,13 +161,21 @@ with open("../_custom/graph", "r", encoding="utf8") as f:
 exec(source_code, exh_graph.__dict__)
 
 
-# fix error of extra space for C++ API。
+# fix error of extra space for C++ API.
 from sphinx.writers import html5 as sphinx_writer_html5
 
 with open("../_custom/sphinx_writer_html5", "r", encoding="utf8") as f:
     source_code = f.read()
 
 exec(source_code, sphinx_writer_html5.__dict__)
+
+# fix position of "Return" for C++ API.
+from sphinx.builders import html as sphinx_builder_html
+
+with open("../_custom/sphinx_builder_html", "r", encoding="utf8") as f:
+    source_code = f.read()
+
+exec(source_code, sphinx_builder_html.__dict__)
 
 # Copy sourcefiles from mindspore repository.
 ms_path = os.getenv("MS_PATH")
