@@ -5,3 +5,4 @@ Application Specific Integrated Circuit Integration Instructions
    :maxdepth: 1
 
    npu_info
+   tensorrt_info
