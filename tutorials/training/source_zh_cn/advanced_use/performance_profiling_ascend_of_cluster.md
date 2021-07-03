@@ -300,13 +300,25 @@ pip install /usr/local/Ascend/tools/hccl_parser-{version}-py3-none-any.whl
 
 - 集群设备的分布情况，使用了哪些服务器的哪些设备。
 - 集群设备的内存峰值情况，即内存峰值与可用内存占比。
-- 点击某张设备，可以跳转至该设备的内存详情页面。
+- 点击某个设备，可以跳转至该设备的内存详情页面。
 
 ![cluster_memory.png](./images/cluster_memory.png)
 
 图3：集群内存概览页面
 
 > 内存使用情况分析暂不支持异构训练场景。
+
+### 集群FLOPs热力图分析
+
+该页面展示了并行场景下，每个设备的FLOPs（浮点运算次）数据，热力图反映了设备之间FLOPs的相对大小。页面内容包括：
+
+- 集群设备的分布情况，使用了哪些服务器的哪些设备。
+- 集群设备之间FLOPs的相对大小，每个设备对应矩形块颜色代表当前设备FLOPs与所有设备中最大FLOPs的比值。
+- 点击某个设备，可以跳转至该设备的算子耗时详情页面，含有FLOPs的详细数据。
+
+![cluster_flops.png](./images/cluster_flops.png)
+
+图4：集群FLOPs概览页面
 
 ## 规格
 
