@@ -6,3 +6,4 @@ Application Specific Integrated Circuit Integration Instructions
 
    npu_info
    nnie
+   tensorrt_info

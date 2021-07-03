@@ -91,6 +91,8 @@ virtual void *MutableData() const
 获取MSTensor中的数据的指针。
 
 > 该数据指针可用于对MSTensor中的数据进行读取和写入。
+>
+> 如果是opencl的MSTensor，使用MutableData()接口，数据将会从Device映射到Host。
 
 - 返回值
 
