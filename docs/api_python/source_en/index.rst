@@ -65,4 +65,5 @@ MindSpore Python API
    mindquantum/mindquantum.ops
    mindquantum/mindquantum.hiqfermion
    mindquantum/mindquantum.nn
+   mindquantum/mindquantum.ansatz
    mindquantum/mindquantum.utils

@@ -17,3 +17,4 @@ Operators
     mindquantum.nn.MindQuantumLayer
     mindquantum.nn.MindQuantumAnsatzOnlyLayer
     mindquantum.nn.MindQuantumAnsatzOnlyOperator
+    mindquantum.nn.PQC
