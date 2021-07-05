@@ -81,9 +81,10 @@
 | LogicalAnd            | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | LogicalAnd                      |                          | And                                             | LogicalAnd                                      |
 | LogicalNot            | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | LogicalNot                      |                          | Not                                             | LogicalNot                                      |
 | LogicalOr             | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | LogicalOr                       |                          | Or                                              | LogicalOr                                       |
+| LogSoftmax             |    | ✅    |              |               | ✅    | ✅    | ✅ | LogSoftmax        |                          | LogSoftmax                |                                        |
 | LshProjection         |              | ✅    |              |               |              |              |           | LshProjection                   |                          |                                                 |                                                 |
 | LSTM                  |    ✅   | ✅    |              |               |              |              |           |                                 |                          | LSTM                                            |                                                 |
-| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ |                                 |                          | MatMul                                          | MatMul,<br/>BatchMatMul                             |
+| MatMul                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | BatchMatMul                     |                          | MatMul,<br/>Gemm                         | MatMul,<br/>BatchMatMul                             |
 | MatMulGrad |  | ✅ |  |  |  |  |  | | |  |  |
 | Maximum               | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | Maximum                         |                          |                                                 | Maximum                                         |
 | MaximumGrad |  | ✅ | | |  |  |  |  | | |  |
@@ -98,7 +99,7 @@
 | NegGrad |  | ✅ | | |  |  |  |  | |  | |
 | NotEqual              | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | NotEqual                        |                          |                                                 | NotEqual                                        |
 | OneHot                |              | ✅    |              |               | ✅    | ✅    |           | OneHot                          |                          | OneHot                                          | OneHot                                          |
-| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Pad, MirrorPad                  |                          | Pad                                             | MirrorPad, Pad                                  |
+| Pad                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Pad, MirrorPad, PadV2                  |                          | Pad                                             | MirrorPad, Pad, PadV2                                  |
 | Pow                   |              | ✅    | ✅    | ✅     | ✅    | ✅    |           | Pow                             | Power                    | Pow<sup>[2]</sup>                               | Pow                                             |
 | PowGrad | | ✅ |  |  |  |  | |  |  |  |  |
 | PReLU                 |              | ✅    |              |               | ✅    | ✅    |           | PRELU                           | PReLU                    | PRelu                                           |                                                 |
@@ -149,7 +150,7 @@
 | Square                | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Square                          |                          |                                                 | Square                                          |
 | SquaredDifference     | ✅    | ✅    |              |               | ✅    | ✅    | ✅ | SquaredDifference               |                          |                                                 | SquaredDifference                               |
 | Squeeze               |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    |           | Squeeze                         |                          | Squeeze                                         | Squeeze                                         |
-| StridedSlice          |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | StridedSlice                    |                          |                                                 | StridedSlice                                    |
+| StridedSlice          |  ✅  | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | StridedSlice                    |                          | Slice,<br/>DynamicSlice                              | StridedSlice                                    |
 | Stack                 | ✅    | ✅    |              |               | ✅    | ✅    |           | Stack                           |                          |                                                 | Pack                                            |
 | Sub                   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅ | Sub                             |                          | Sub                                             | Sub                                             |
 | SubGrad |  | ✅ |  |  |  |  |  |  | |  |  |
@@ -169,7 +170,7 @@
 | Unique                |              | ✅    |              |               |              |              |           | Unique                          |                          |                                                 |                                                 |
 | Unsqueeze             |  ✅  | ✅    | ✅    | ✅     |              |              | ✅ |                                 |                          | Unsqueeze                                       |                                                 |
 | Unstack               |              | ✅    |              |               |              |              |           | Unstack                         |                          |                                                 |                                                 |
-| Where                 |              | ✅    |              |               |              |              |           | Where                           |                          |                                                 | Where                                           |
+| Where                 |              | ✅    |              |               |              |              |           | Where                           |                          | Where                        | Where                           |
 | ZerosLike             |              | ✅    |              |               |              |              |           | ZerosLike                       |                          |                                                 | ZerosLike                                       |
 | 转换工具支持的其他算子<sup>[4]</sup> |     |              |              |               |              |              |           |       |     | Loop, Dropout, If      | Dropout, Enter,<br/>Exit, If, <br/>IsFinite,<br/>LinSpace,<br/>LoopCond,<br/>NextIteration,<br/>StatelessIf,<br/>StatelessWhile,<br/>While |
 
