@@ -41,8 +41,30 @@ mindquantum.circuit
 -------------------
 
 .. automodule:: mindquantum.circuit
+    :exclude-members: C, D, A, AP, CPN
     :members:
 
+functional
+----------
+
+The functional operators are shortcut of some pre-instantiated quantum circuit operators.
+
+.. list-table::
+   :widths: 50 50
+   :header-rows: 1
+
+   * - functional
+     - high level operators
+   * - mindquantum.circuit.C
+     - :class:`mindquantum.circuit.controlled`
+   * - mindquantum.circuit.D
+     - :class:`mindquantum.circuit.dagger`
+   * - mindquantum.circuit.A
+     - :class:`mindquantum.circuit.apply`
+   * - mindquantum.circuit.AP
+     - :class:`mindquantum.circuit.add_prefix`
+   * - mindquantum.circuit.CPN
+     - :class:`mindquantum.circuit.change_param_name`
 
 mindquantum.engine
 ------------------

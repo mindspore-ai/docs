@@ -5,12 +5,14 @@
 
 MindQuantum Python API
 =======================
+
 .. toctree::
    :maxdepth: 1
 
+   mindquantum
+   mindquantum.ops
    mindquantum.hiqfermion
    mindquantum.nn
-   mindquantum.ops
    mindquantum.parameterresolver
-   mindquantum
+   mindquantum.ansatz
    mindquantum.utils
