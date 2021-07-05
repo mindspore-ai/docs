@@ -11,7 +11,7 @@ MindSpore Federated Learning
    :caption: 安装部署
 
    fl_install
-   deploy_mind_fl_cluster
+   deploy_fl_server_cluster
    deploy_fl_client
 
 .. toctree::
