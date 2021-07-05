@@ -31,7 +31,8 @@ DDK包含了使用NPU的对外接口（包括模型构建、加载，计算等�
 它将在MindSpore源代码根目录下的output目录下构建出MindSpore Lite的包，其中包含NPU的动态库，libmindspore-lite动态库以及测试工具Benchmark。
 
 ```bash
-bash build.sh -I arm64 -e npu
+export MSLITE_ENABLE_NPU=ON
+bash build.sh -I arm64 -j8
 ```
 
 有关编译详情见[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)。
@@ -52,10 +53,7 @@ bash build.sh -I arm64 -e npu
 
 - Benchmark测试NPU推理
 
-    用户也可以使用MindSpore Lite的Benchmark工具测试NPU推理。
-编译出的Benchmark位置见[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)。
-将构建包传到具有NPU芯片（支持的芯片详情见[芯片与HUAWEI HiAI Version版本映射关系](https://developer.huawei.com/consumer/cn/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718)）
-的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具测试NPU推理，示例如下：
+    用户也可以使用MindSpore Lite的Benchmark工具测试NPU推理。将构建包传到具有NPU芯片的Android手机的`/data/local/tmp/`目录下，在手机上使用Benchmark工具测试NPU推理，示例如下：
 
     - 测性能
 
@@ -71,8 +69,7 @@ bash build.sh -I arm64 -e npu
 
 有关Benchmark使用详情，见[Benchmark使用](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/benchmark_tool.html)。
 
-有关环境变量设置，需要根据[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)中编译选项为`-I arm64`或`-I arm32`时的目录结构，
-将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和
+有关环境变量设置，将libmindspore-lite.so（目录为`mindspore-lite-{version}-android-{arch}/runtime/lib`）和
 NPU库（目录为`mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`）所在的目录加入`${LD_LIBRARY_PATH}`。
 
 ## 芯片支持

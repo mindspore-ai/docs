@@ -33,7 +33,8 @@ It will build MindSpore Lite's package under the output directory under the Mind
 which contains the NPU's dynamic library, the libmindspore-lite dynamic library, and the test tool Benchmark.
 
 ```bash
-bash build.sh -I arm64 -e npu
+export MSLITE_ENABLE_NPU=ON
+bash build.sh -I arm64 -j8
 ```
 
 For more information about compilation, see [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation).
@@ -59,10 +60,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 
 - Using Benchmark testing NPU inference
 
-    Users can also test NPU inference using MindSpore Lite's Benchmark tool.
-For the Benchmark tool location, see [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure).
-Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips
-(For supported NPU chips, see [Chipset Platforms and Supported HUAWEI HiAI Versions](https://developer.huawei.com/consumer/en/doc/development/hiai-Guides/mapping-relationship-0000001052830507#ZH-CN_TOPIC_0000001052830507__section94427279718).)and test NPU inference using the Benchmark tool
+    Users can also test NPU inference using MindSpore Lite's Benchmark tool. Pass the build package to the `/data/local/tmp/` directory of an Android phone equipped with NPU chips and test NPU inference using the Benchmark tool
 on the phone, as shown in the example below:
 
     - Test performance
@@ -82,8 +80,6 @@ For more information about the use of Benchmark, see [Benchmark Use](https://www
 For environment variable settings, you need to set the directory where the libmindspore-lite.so
 (under the directory `mindspore-lite-{version}-android-{arch}/runtime/lib`) and NPU libraries
 (under the directory `mindspore-lite-{version}-android-{arch}/runtime/third_party/hiai_ddk/lib/`) are located, to `${LD_LIBRARY_PATH}`.
-The directory is specified in [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#description-of-runtime-and-other-tools-directory-structure)
-with compilation option `-I arm64` or `-I arm32`.
 
 ## Supported Chips
 
