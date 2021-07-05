@@ -57,7 +57,6 @@ mindspore-lite-{version}
 │   │   ├── libmindspore-lite.so  # MindSpore Lite训练框架依赖的动态库
 │   │   ├── libmindspore-lite-jni.so  # MindSpore Lite训练框架依赖的动态库
 │   │   ├── libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
-│   │   ├── libmindspore-lite-train-jni.so  # MindSpore Lite训练框架依赖的动态库
 │   │   └── libturbojpeg.so  # 图像处理动态库文件
 │   └── armeabi-v7a
 │       ├── libjpeg.so   # 图像处理动态库文件
@@ -65,7 +64,6 @@ mindspore-lite-{version}
 │       ├── libmindspore-lite.so  # MindSpore Lite训练框架依赖的动态库
 │       ├── libmindspore-lite-jni.so  # MindSpore Lite训练框架依赖的动态库
 │       ├── libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
-│       ├── libmindspore-lite-train-jni.so  # MindSpore Lite训练框架依赖的动态库
 │       └── libturbojpeg.so  # 图像处理动态库文件
 ├── libs
 │   ├── mindspore-lite-java-common.jar  # MindSpore Lite训练框架jar包
@@ -119,7 +117,6 @@ mindspore-lite-{version}-linux-x64
     │   ├── libminddata-lite.a          # 图像处理静态库文件
     │   ├── libminddata-lite.so        # 图像处理动态库文件
     │   ├── libmindspore-lite-jni.so   # MindSpore Lite训练框架的jni动态库
-    │   ├── libmindspore-lite-train-jni.so  # MindSpore Lite训练框架的jni动态库
     │   ├── libmindspore-lite-train.a  # MindSpore Lite训练框架的静态库
     │   ├── libmindspore-lite-train.so # MindSpore Lite训练框架的动态库
     │   ├── libmindspore-lite.a  # MindSpore Lite训练框架依赖的静态库
@@ -133,7 +130,7 @@ mindspore-lite-{version}-linux-x64
                 └── libturbojpeg.so  # 图像处理动态库文件
 ```
 
-联邦学习所需的相关x86包名如下：
+其中联邦学习所需的相关x86包名如下：
 
 ```sh
 libjpeg.so.62   # 图像处理动态库文件
@@ -141,12 +138,11 @@ libminddata-lite.so  # 图像处理动态库文件
 libmindspore-lite.so  # MindSpore Lite训练框架依赖的动态库
 libmindspore-lite-jni.so  # MindSpore Lite训练框架依赖的jni动态库
 libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
-libmindspore-lite-train-jni.so  # MindSpore Lite训练框架的jni动态库
 libturbojpeg.so  # 图像处理动态库文件
 mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 ```
 
-其中可将路径`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共7个）放入一个文件夹，比如`/resource/x86libs/`。
+其中可将路径`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共6个）放入一个文件夹，比如`/resource/x86libs/`。
 
 然后在x86中设置环境变量(下面需给绝对路径)：
 
