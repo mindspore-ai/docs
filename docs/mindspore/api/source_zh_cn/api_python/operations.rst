@@ -379,6 +379,7 @@ Sponge Operators
     mindspore.ops.LJForce
     mindspore.ops.LJForceWithPMEDirectForce
     mindspore.ops.MDIterationLeapFrog
+    mindspore.ops.MDIterationLeapFrogLiujian
     mindspore.ops.NeighborListUpdate
     mindspore.ops.PMEEnergy
     mindspore.ops.PMEExcludedForce
