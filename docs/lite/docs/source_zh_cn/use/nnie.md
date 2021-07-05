@@ -84,7 +84,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 使用MindSpore Lite模型转换工具，需要进行如下环境准备工作。
 
-1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)发布件（内含模型转换及推理工具）
+1. [下载](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html)NNIE专用集成发布件（内含模型转换及推理工具），当前仅支持Linux。
 
 2. 解压下载的包
 
