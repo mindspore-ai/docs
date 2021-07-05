@@ -89,8 +89,14 @@
     参考代码如下：
 
     ```python
-    def partition_json(root_path, new_root_path):
+    import os
+    import json
 
+    def mkdir(path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+
+    def partition_json(root_path, new_root_path):
         """
         partition 35 json files to 3500 json file
 
@@ -122,11 +128,11 @@
                 num_samples = load_dict['num_samples']
                 for j in range(num_users):
                     count += 1
-                    print('---processing user: '+str(count)+'---')
+                    print('---processing user: ' + str(count) + '---')
                     cur_out = {'user_name': None, 'num_samples': None, 'user_data': {}}
                     cur_user_id = users[j]
-                    cur_data_num = num_samples[i]
-                    cur_user_path = os.path.join(new_root_path, cur_user_id+'.json')
+                    cur_data_num = num_samples[j]
+                    cur_user_path = os.path.join(new_root_path, cur_user_id + '.json')
                     cur_out['user_name'] = cur_user_id
                     cur_out['num_samples'] = cur_data_num
                     cur_out['user_data'].update(load_dict['user_data'][cur_user_id])
@@ -153,6 +159,22 @@
     可参考如下代码：
 
     ```python
+    import os
+    import json
+    import numpy as np
+    from PIL import Image
+
+    name_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                 'V', 'W', 'X', 'Y', 'Z',
+                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+                 'v', 'w', 'x', 'y', 'z'
+                 ]
+
+    def mkdir(path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+
     def json_2_numpy(img_size, file_path):
         """
         read json file to numpy
@@ -183,7 +205,7 @@
             save_path (str): the root path to save images
 
         """
-        data, label = json_2_numpy([28, 28, 3], json_path)
+        data, label = json_2_numpy([28, 28, 1], json_path)
         for i in range(data.shape[0]):
             img = data[i] * 255  # PIL don't support the 0/1 image ,need convert to 0~255 image
             im = Image.fromarray(np.squeeze(img))
@@ -195,28 +217,28 @@
             im.save(img_path)
             print('-----', i, '-----')
 
-    def all_json_2_img(root_path,save_root_path):
+    def all_json_2_img(root_path, save_root_path):
         """
         transform json files to images
         Args:
             json_path (str): the root path of 3500 json files
             save_path (str): the root path to save images
         """
-        usage=['train','test']
+        usage = ['train', 'test']
         for i in range(2):
             x = usage[i]
-            files_path = os.path.join(root_path,x)
+            files_path = os.path.join(root_path, x)
             files = os.listdir(files_path)
 
             for name in files:
                 user_name = name.split('.')[0]
-                json_path = os.path.join(files_path,name)
+                json_path = os.path.join(files_path, name)
                 save_path1 = os.path.join(save_root_path, user_name)
                 mkdir(save_path1)
-                save_path = os.path.join(save_path1,x)
+                save_path = os.path.join(save_path1, x)
                 mkdir(save_path)
-                print('============================='+name+'=======================')
-                json_2_img(json_path,save_path)
+                print('=============================' + name + '=======================')
+                json_2_img(json_path, save_path)
 
     all_json_2_img("leaf-master/data/femnist/3500_client_json/", "leaf-master/data/femnist/3500_client_img/")
     ```
@@ -226,8 +248,61 @@
     可参考下面代码
 
     ```python
-    def img2bin(root_path, root_save):
+    import numpy as np
+    import os
+    import mindspore.dataset as ds
+    import mindspore.dataset.transforms.c_transforms as tC
+    import mindspore.dataset.vision.py_transforms as PV
+    import mindspore.dataset.transforms.py_transforms as PT
+    import mindspore
 
+    def mkdir(path):
+        if not os.path.exists(path):
+            os.mkdir(path)
+
+    def count_id(path):
+        files = os.listdir(path)
+        ids = {}
+        for i in files:
+            ids[i] = int(i)
+        return ids
+
+    def create_dataset_from_folder(data_path, img_size, batch_size=32, repeat_size=1, num_parallel_workers=1, shuffle=False):
+        """ create dataset for train or test
+            Args:
+                data_path: Data path
+                batch_size: The number of data records in each group
+                repeat_size: The number of replicated data records
+                num_parallel_workers: The number of parallel workers
+            """
+        # define dataset
+        ids = count_id(data_path)
+        mnist_ds = ds.ImageFolderDataset(dataset_dir=data_path, decode=False, class_indexing=ids)
+        # define operation parameters
+        resize_height, resize_width = img_size[0], img_size[1]  # 32
+
+        transform = [
+            PV.Decode(),
+            PV.Grayscale(1),
+            PV.Resize(size=(resize_height, resize_width)),
+            PV.Grayscale(3),
+            PV.ToTensor(),
+        ]
+        compose = PT.Compose(transform)
+
+        # apply map operations on images
+        mnist_ds = mnist_ds.map(input_columns="label", operations=tC.TypeCast(mindspore.int32))
+        mnist_ds = mnist_ds.map(input_columns="image", operations=compose)
+
+        # apply DatasetOps
+        buffer_size = 10000
+        if shuffle:
+            mnist_ds = mnist_ds.shuffle(buffer_size=buffer_size)  # 10000 as in LeNet train script
+        mnist_ds = mnist_ds.batch(batch_size, drop_remainder=True)
+        mnist_ds = mnist_ds.repeat(repeat_size)
+        return mnist_ds
+
+    def img2bin(root_path, root_save):
         """
         transform images to bin files
 
@@ -237,9 +312,9 @@
 
         """
 
-        use_list=[]
-        train_batch_num=[]
-        test_batch_num=[]
+        use_list = []
+        train_batch_num = []
+        test_batch_num = []
         mkdir(root_save)
         users = os.listdir(root_path)
         for user in users:
@@ -265,26 +340,18 @@
                 elif tag == "test":
                     test_batch_num.append(batch_num)
 
-                imgs = np.array(img_list)   # (batch_num, 32,3,32,32)
+                imgs = np.array(img_list)  # (batch_num, 32,3,32,32)
                 labels = np.array(label_list)
                 path1 = os.path.join(root_save, user)
                 mkdir(path1)
                 image_path = os.path.join(path1, user + "_" + "bn_" + str(batch_num) + "_" + tag + "_data.bin")
-                label_path = os.path.join(path1, user + "_"  +"bn_" + str(batch_num) + "_" + tag + "_label.bin")
+                label_path = os.path.join(path1, user + "_" + "bn_" + str(batch_num) + "_" + tag + "_label.bin")
 
                 imgs.tofile(image_path)
                 labels.tofile(label_path)
-                print("use: "+user+ " "+ tag +"_batch_num: " + str(batch_num))
-        print(len(use_list), len(train_batch_num), len(test_batch_num))
-        for k1 in range(len(use_list)):
-             print("\""+use_list[k1]+"\"",end=", ")
-        print()
-        for k2 in range(len(train_batch_num)):
-             print(str(train_batch_num[k2]),end=", ")
-        print()
-        for k3 in range(len(test_batch_num)):
-            print(str(test_batch_num[k3]), end=", ")
-        print()
+                print("user: " + user + " " + tag + "_batch_num: " + str(batch_num))
+        print("total " + str(len(use_list)) + " users finished!")
+
     root_path = "leaf-master/data/femnist/3500_client_img/"
     root_save = "leaf-master/data/femnist/3500_clients_bin"
     img2bin(root_path, root_save)
@@ -501,7 +568,7 @@ if __name__ == "__main__":
     parser.add_argument("--flName", type=str, default="lenet")
     parser.add_argument("--train_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
     parser.add_argument("--infer_model_path", type=str, default="ms/lenet/")    # must be absolute path of .ms files
-    parser.add_argument("--ip", type=str, default="10.113.216.106")   # 目前云侧只支持http通信方式，默认采用http通信方式
+    parser.add_argument("--ip", type=str, default="10.113.216.106")
     parser.add_argument("--ssl", type=str, default="false")
     parser.add_argument("--port", type=int, default=6668)
     parser.add_argument("--server_num", type=int, default=0)
@@ -526,12 +593,14 @@ if __name__ == "__main__":
     port = args.port
     server_num = args.server_num
     worker_num = args.worker_num
+    time_window = str(args.time_window)
     use_elb = args.use_elb
     use_https = args.use_https
     cert_path = args.cert_path
     task = args.task
 
     users = os.listdir(train_dataset)
+
     def get_client_data_path(data_root_path, user):
         use_path = os.path.join(data_root_path, user)
         bin_file_paths = os.listdir(use_path)
@@ -564,7 +633,7 @@ if __name__ == "__main__":
         flId = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
-        train_path, test_path, _, _= get_client_data_path(data_root_path, user)
+        train_path, test_path, _, _= get_client_data_path(train_dataset, user)
         print("===========================")
         print("fl id: ", flId)
         print("train path: ", train_path)
@@ -590,6 +659,7 @@ if __name__ == "__main__":
         cmd_client += ip + " "
         cmd_client += ssl + " "
         cmd_client += str(port) + " "
+        cmd_client += time_window + " "
         cmd_client += use_elb + " "
         cmd_client += str(server_num) + " "
         cmd_client += use_https + " "
@@ -597,7 +667,6 @@ if __name__ == "__main__":
         cmd_client += task + " "
         cmd_client += " > client" + ".log 2>&1 &"
         subprocess.call(['bash', '-c', cmd_client])
-
     ```
 
     run.py脚本中入参含义如下，可根据实际情况进行设置：
@@ -647,6 +716,10 @@ if __name__ == "__main__":
     - **`--port`**
 
         设置端口号，与启动server端时的`fl_server_port`参数保持一致,  格式为： 6668。
+
+    - **`--time_window`**
+
+        设置端侧重复请求的总时间窗口，与启动server端时的`start_fl_job_time_windows`和`update_model_time_windows`之和保持一致。
 
     - **`--server_num`**
 
