@@ -57,7 +57,7 @@ mindspore-lite-{version}-runtime-linux-x64
                         └── libprotoc.so
 ```
 
-上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具converter目录结构说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#converter)。
+上述是NNIE的集成目录结构，转换工具converter的其余目录结构详情，见[模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html)。
 
 ### 模型推理工具runtime目录结构说明
 
@@ -69,7 +69,7 @@ mindspore-lite-{version}-linux-aarch32
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
 
-上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[Runtime及其他工具目录结构说明](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html#runtime)。
+上述是NNIE的集成目录结构，推理工具runtime的其余目录结构详情，见[目录结构](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/build.html)。
 
 ## 工具使用
 
