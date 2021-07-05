@@ -91,6 +91,8 @@ virtual void *MutableData() const
 Get the pointer of data in MSTensor.
 
 > The data pointer can be used to both write and read data in MSTensor.
+>
+> If current MSTensor is from opencl GPU, the data will be mapped from Device to Host using MutableData() interface.
 
 - Returns
 
