@@ -12,6 +12,7 @@
         - [配置使用CPU后端](#配置使用cpu后端)
         - [配置使用GPU后端](#配置使用gpu后端)
         - [配置使用NPU后端](#配置使用npu后端)
+        - [配置使用TensorRT后端](#配置使用TensorRT后端)
     - [创建会话](#创建会话)
     - [图编译](#图编译)
     - [输入数据](#输入数据)
@@ -182,6 +183,28 @@ DeviceContext npu_device_ctx{DT_NPU};
 npu_device_ctx.device_info_.npu_device_info_.frequency_ = 3;
 // The NPU device context needs to be push_back into device_list to work.
 context->device_list_.push_back(npu_device_ctx);
+```
+
+### 配置使用TensorRT后端
+
+当需要执行的后端为CPU和TensorRT的异构推理时，需要同时设置CPU和TensorRT的[DeviceContext](https://www.mindspore.cn/doc/api_cpp/zh-CN/master/lite.html#devicecontext)，配置后将会优先使用TensorRT推理.
+
+下面示例[代码演示](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L120)如何创建CPU与TensorRT异构推理后端：
+
+```cpp
+auto context = std::make_shared<mindspore::lite::Context>();
+if (context == nullptr) {
+  std::cerr << "New context failed while running. " << std::endl;
+  return nullptr;
+}
+
+// If GPU device context is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on
+// the GPU first, otherwise it will run on the CPU.
+mindspore::lite::DeviceContext gpu_device_ctx{mindspore::lite::DT_GPU, {false}};
+// GPU use float16 operator as priority.
+gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
+// The GPU device context needs to be push_back into device_list to work.
+context->device_list_.push_back(gpu_device_ctx);
 ```
 
 ## 创建会话

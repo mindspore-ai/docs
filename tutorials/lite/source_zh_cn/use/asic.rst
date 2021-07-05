@@ -6,3 +6,4 @@
 
    npu_info
    nnie
+   tensorrt_info

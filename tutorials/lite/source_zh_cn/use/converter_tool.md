@@ -78,6 +78,7 @@ MindSpore Lite模型转换工具提供了多种参数设置，用户可根据需
 | `--quantWeightChannel=<QUANTWEIGHTCHANNEL>` | 否 | 设定参与训练后量化（权重量化）的卷积通道数阈值，若卷积通道数大于该值，则对此权重进行量化 | \[0，+∞） | 16 |
 | `--configFile=<CONFIGFILE>` | 否 | 1）可作为训练后量化（全量化）校准数据集配置文件路径；2）可作为转换器的配置文件路径。  |  - | -  |
 | `--fp16=<FP16>` | 否 | 设定在模型序列化时是否需要将Float32数据格式的权重存储为Float16数据格式. | on、off | off |
+| `--inputShape=<INPUTSHAPE>` | 否 | 设定模型输入的维度，默认与原始模型的输入一致。对某些特定的模型可以进一步常量折叠，比如存在shape算子的模型，但是转化后的模型将失去动态shape的特性。e.g.  inTensorName: 1,32,32,4 | -| - |
 
 > - 参数名和参数值之间用等号连接，中间不能有空格。
 > - Caffe模型一般分为两个文件：`*.prototxt`模型结构，对应`--modelFile`参数；`*.caffemodel`模型权值，对应`--weightFile`参数。
