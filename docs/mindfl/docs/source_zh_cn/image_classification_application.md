@@ -154,6 +154,27 @@
       - `num_samples`: 用户的样本数
       - `user_data`: 一个以 'x' 为key，以用户数据为value的字典对象； 以“y”为键，以用户数据对应的标签为值
 
+    运行该脚本打印如下，代表运行成功：
+
+    ```sh
+    ======== process 1 file: /leaf-master/data/femnist/35_client_sf1_data/train/all_data_16_niid_0_keep_0_train_9.json======================
+    ---processing user: 1---
+    ---processing user: 2---
+    ---processing user: 3---
+    ---processing user: 4---
+    ---processing user: 5---
+    ---processing user: 6---
+    ---processing user: 7---
+    ---processing user: 8---
+    ---processing user: 9---
+    ---processing user: 10---
+    ---processing user: 11---
+    ---processing user: 12---
+    ---processing user: 13---
+    ---processing user: 14---
+    ......
+    ```
+
 7. 将json文件转换为图片文件
 
     可参考如下代码：
@@ -241,6 +262,24 @@
                 json_2_img(json_path, save_path)
 
     all_json_2_img("leaf-master/data/femnist/3500_client_json/", "leaf-master/data/femnist/3500_client_img/")
+    ```
+
+    运行该脚本打印如下，代表运行成功：
+
+    ```sh
+    =============================f0644_19.json=======================
+    ----- 0 -----
+    ----- 1 -----
+    ----- 2 -----
+    ----- 3 -----
+    ----- 4 -----
+    ----- 5 -----
+    ----- 6 -----
+    ----- 7 -----
+    ----- 8 -----
+    ----- 9 -----
+    ----- 10 -----
+    ......
     ```
 
 8. 将图片数据集转换为联邦学习框架可用的bin文件格式
@@ -355,6 +394,23 @@
     root_path = "leaf-master/data/femnist/3500_client_img/"
     root_save = "leaf-master/data/femnist/3500_clients_bin"
     img2bin(root_path, root_save)
+    ```
+
+    运行该脚本打印如下，代表运行成功：
+
+    ```sh
+    user: f0141_43 test_batch_num: 1
+    user: f0141_43 train_batch_num: 10
+    user: f0137_14 test_batch_num: 1
+    user: f0137_14 train_batch_num: 11
+    user: f0049_32 test_batch_num: 1
+    user: f0049_32 train_batch_num: 11
+    user: f0178_39 test_batch_num: 1
+    user: f0178_39 train_batch_num: 9
+    user: f0222_06 test_batch_num: 1
+    user: f0222_06 train_batch_num: 9
+    ......
+    total 3500 users finished!
     ```
 
 9. 生成3500_clients_bin文件夹内共包含3500个用户文件夹，其目录结构如下：
