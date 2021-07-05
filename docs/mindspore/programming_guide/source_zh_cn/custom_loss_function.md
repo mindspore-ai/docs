@@ -70,9 +70,9 @@ print(output)
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn import Loss
+from mindspore.nn import LossBase
 
-class L1Loss(Loss):
+class L1Loss(LossBase):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -178,7 +178,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn import Loss
+from mindspore.nn import LossBase
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -190,7 +190,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1Loss(Loss):
+class L1Loss(LossBase):
     def __init__(self, reduction="mean"):
         super(L1Loss, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -280,9 +280,9 @@ def create_multilabel_dataset(num_data, batch_size=16):
 
 ```python
 import mindspore.ops as ops
-from mindspore.nn import Loss
+from mindspore.nn import LossBase
 
-class L1LossForMultiLabel(Loss):
+class L1LossForMultiLabel(LossBase):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()
@@ -368,7 +368,7 @@ import mindspore.nn as nn
 import mindspore.ops as ops
 from mindspore import Model
 from mindspore import dataset as ds
-from mindspore.nn import Loss
+from mindspore.nn import LossBase
 from mindspore.common.initializer import Normal
 from mindspore.train.callback import LossMonitor
 
@@ -380,7 +380,7 @@ class LinearNet(nn.Cell):
     def construct(self, x):
         return self.fc(x)
 
-class L1LossForMultiLabel(Loss):
+class L1LossForMultiLabel(LossBase):
     def __init__(self, reduction="mean"):
         super(L1LossForMultiLabel, self).__init__(reduction)
         self.abs = ops.Abs()
