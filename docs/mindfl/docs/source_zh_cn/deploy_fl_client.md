@@ -127,7 +127,7 @@ mindspore-lite-{version}-linux-x64
         └── libjpeg-turbo
             └── lib
                 ├── libjpeg.so.62   # 图像处理动态库文件
-                └── libturbojpeg.so  # 图像处理动态库文件
+                └── libturbojpeg.so.0  # 图像处理动态库文件
 ```
 
 其中联邦学习所需的相关x86包名如下：
@@ -138,7 +138,7 @@ libminddata-lite.so  # 图像处理动态库文件
 libmindspore-lite.so  # MindSpore Lite训练框架依赖的动态库
 libmindspore-lite-jni.so  # MindSpore Lite训练框架依赖的jni动态库
 libmindspore-lite-train.so  # MindSpore Lite训练框架依赖的动态库
-libturbojpeg.so  # 图像处理动态库文件
+libturbojpeg.so.0  # 图像处理动态库文件
 mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 ```
 
