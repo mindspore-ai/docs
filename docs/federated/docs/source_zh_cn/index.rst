@@ -1,0 +1,28 @@
+.. MindSpore documentation master file, created by
+   sphinx-quickstart on Thu Mar 24 11:00:00 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+MindSpore Federated Learning Documents
+========================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 安装部署
+
+   fl_install
+   deploy_federated_server_cluster
+   deploy_federated_client
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 应用实践
+
+   image_classification_application
+   sentiment_classification_application
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 模型安全和隐私
+
+   security_and_privacy_protection
