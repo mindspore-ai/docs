@@ -1,5 +1,20 @@
 # 模型安全与隐私
 
+<!-- TOC -->
+
+- [模型安全与隐私](#模型安全与隐私)
+    - [基于LDP的安全聚合](#基于ldp的安全聚合)
+        - [原理概述](#原理概述)
+        - [使用方式](#使用方式)
+    - [基于MPC的安全聚合](#基于mpc的安全聚合)
+        - [原理概述](#原理概述)
+        - [使用方式](#使用方式)
+        - [参考文献](#参考文献)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/security_and_privacy_protection.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 联邦学习过程中，用户数据仅用于本地设备训练，不需要上传至中心服务器，可以避免用户个人数据的直接泄露。
 然而传统联邦学习框架中，模型以明文形式上云，仍然存在间接泄露用户隐私的风险。
 敌手获取到用户上传的明文模型后，可以通过重构、模型逆向等攻击恢复用户的个人训练数据，导致用户隐私泄露。
@@ -38,16 +53,16 @@ MindSpore Federated 客户端将加噪后的模型$W_p$上传至云侧服务器�
 
 尽管差分隐私技术可以适当保护用户数据隐私，但是当参与客户端数量比较少或者高斯噪声幅值较大时，
 模型精度会受较大影响。为了同时满足模型保护和模型收敛这两个要求，我们提供了基于MPC的安全聚合方案。
-在这种训练模式下，假设参与的客户端集合为$U$，对于任意FL-Client $u$和$v$，
+在这种训练模式下，假设参与的客户端集合为$U$，对于任意Federated-Client $u$和$v$，
 它们会两两协商出一对随机扰动$p_{uv}$、$p_{vu}$，满足
 $$
 p_{uv}=\begin{cases} -p_{vu}, &u{\neq}v\\\\ 0, &u=v \end{cases}
 $$
-于是每个FL-Client $u$ 在上传模型至Server前，会在原模型权重$x_u$加上它与其它用户协商的扰动：
+于是每个Federated-Client $u$ 在上传模型至Server前，会在原模型权重$x_u$加上它与其它用户协商的扰动：
 $$
 x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}
 $$
-从而FL-Server聚合结果$\overline{x}$为：
+从而Federated-Server聚合结果$\overline{x}$为：
 $$
 \begin{align}
 \overline{x}&=\sum\limits_{u{\in}U}(x_{u}+\sum\limits_{v{\in}U}p_{uv})\\\\
@@ -73,4 +88,3 @@ $$
 [1] Ligeng Zhu, Zhijian Liu, and Song Han. [Deep Leakage from Gradients](http://arxiv.org/pdf/1906.08935.pdf). NeurIPS, 2019.
 
 [2] Keith Bonawitz, Vladimir Ivanov, Ben Kreuter, et al. [Practical Secure Aggregationfor Privacy-Preserving Machine Learning](https://dl.acm.org/doi/pdf/10.1145/3133956.3133982). NeurIPS, 2016.
-

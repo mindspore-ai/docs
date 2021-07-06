@@ -1,14 +1,37 @@
 # 实现一个情感分类应用(Android)
 
-## 概述
+<!-- TOC -->
 
-在隐私合规场景下，通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。在联邦学习应用场景的探索中，输入法场景引起了我们的注意。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。MindFL将联邦语言模型应用到了输入法的表情图片预测功能中。联邦语言模型会根据聊天文本数据推荐出适合当前语境的表情图片。在使用联邦学习建模时，每一张表情图片会被定义为一个情感标签类别，而每个聊天短语会对应一个表情图片。MindFL将表情图片预测任务定义为联邦情感分类任务。
+- [实现一个情感分类应用(Android)](#实现一个情感分类应用android)
+    - [准备环节](#准备环节)
+        - [环境](#环境)
+        - [数据](#数据)
+        - [模型相关文件](#模型相关文件)
+    - [定义网络](#定义网络)
+        - [生成端侧模型文件](#生成端侧模型文件)
+            - [将模型导出为MindIR格式文件](#将模型导出为mindir格式文件)
+            - [将MindIR文件转化为联邦学习端侧框架可用的ms文件](#将mindir文件转化为联邦学习端侧框架可用的ms文件)
+    - [启动联邦学习流程](#启动联邦学习流程)
+        - [Android新建工程](#android新建工程)
+        - [编译MindSpore Lite AAR包](#编译mindspore-lite-aar包)
+        - [Android实例程序结构说明](#android实例程序结构说明)
+        - [编写代码](#编写代码)
+        - [Android工程配置依赖项](#android工程配置依赖项)
+        - [Android构建与运行](#android构建与运行)
+    - [实验结果](#实验结果)
+    - [参考文献](#参考文献)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+在隐私合规场景下，通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。在联邦学习应用场景的探索中，输入法场景引起了我们的注意。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。MindSpore Federated将联邦语言模型应用到了输入法的表情图片预测功能中。联邦语言模型会根据聊天文本数据推荐出适合当前语境的表情图片。在使用联邦学习建模时，每一张表情图片会被定义为一个情感标签类别，而每个聊天短语会对应一个表情图片。MindSpore Federated将表情图片预测任务定义为联邦情感分类任务。
 
 ## 准备环节
 
 ### 环境
 
-参考：[服务端环境配置](./deploy_mind_fl_cluster.md)和[客户端环境配置](./deploy_fl_client.md)。
+参考：[服务端环境配置](./deploy_federated_cluster.md)和[客户端环境配置](./deploy_federated_client.md)。
 
 ### 数据
 
@@ -90,7 +113,7 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本：参考[云端部署方式](./deploy_mind_fl_cluster.md)
+首先在服务端启动脚本：参考[云端部署方式](./deploy_federated_cluster.md)
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -114,7 +137,7 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 ### 编译MindSpore Lite AAR包
 
-- 请参考[联邦学习部署](./deploy_fl_client.md)
+- 请参考[联邦学习部署](./deploy_federated_client.md)
 
 - 生成的Android AAR包名称：
 
@@ -216,7 +239,7 @@ app
     }
     ```
 
-2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](./interface_description_fl_client.md)
+2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](./interface_description_federated_client.md)
 
     ```java
     import android.annotation.SuppressLint;

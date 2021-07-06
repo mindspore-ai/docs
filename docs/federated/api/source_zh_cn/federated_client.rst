@@ -3,6 +3,6 @@
 
    java_api_flparameter
    java_api_syncfljob
-   interface_description_fl_client
+   interface_description_federated_client
 
 

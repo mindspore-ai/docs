@@ -3,16 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Federated Learning
-==================================
+MindSpore Federated Document
+==============================
 
 .. toctree::
    :maxdepth: 1
    :caption: 安装部署
 
-   fl_install
-   deploy_fl_server_cluster
-   deploy_fl_client
+   federated_install
+   deploy_federated_server_cluster
+   deploy_federated_client
 
 .. toctree::
    :maxdepth: 1
