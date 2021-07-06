@@ -7,9 +7,6 @@
     - [Installing MindSpore](#installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
-    - [Installing MindInsight](#installing-mindinsight)
-    - [Installing MindArmour](#installing-mindarmour)
-    - [Installing MindSpore Hub](#installing-mindspore-hub)
 
 <!-- /TOC -->
 
@@ -107,21 +104,3 @@ Using the following command if you need to update the MindSpore version:
 ```bash
 pip install --upgrade mindspore-gpu
 ```
-
-## Installing MindInsight
-
-If you need to analyze information such as model scalars, graphs, computation graphs and model traceback, you can install MindInsight.
-
-For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/r1.3/README.md).
-
-## Installing MindArmour
-
-If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
-
-For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.3/README.md).
-
-## Installing MindSpore Hub
-
-If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
-
-For more details, please refer to [mindspore Hub](https://gitee.com/mindspore/hub/blob/r1.3/README.md).

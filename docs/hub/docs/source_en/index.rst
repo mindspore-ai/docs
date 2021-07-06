@@ -6,6 +6,7 @@ MindSpore Hub Documents
    :maxdepth: 1
    :caption: Installation
 
+   hub_installation
 
 .. toctree::
    :glob:

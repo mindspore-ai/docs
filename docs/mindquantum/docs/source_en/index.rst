@@ -6,6 +6,8 @@ Quantum Neural Network Documents
    :maxdepth: 1
    :caption: Installation
 
+   mindquantum_install
+
 
 .. toctree::
    :glob:

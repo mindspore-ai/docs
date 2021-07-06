@@ -6,6 +6,8 @@ Mindquantum文档
    :maxdepth: 1
    :caption: 安装部署
 
+   mindquantum_install
+
 
 .. toctree::
    :glob:
