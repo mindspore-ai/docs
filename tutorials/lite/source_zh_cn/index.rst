@@ -40,7 +40,6 @@
    use/runtime
    use/micro
    use/asic
-   use/register_kernel
 
 .. toctree::
    :glob:
@@ -377,18 +376,6 @@
 										</div>
 										<div class="doc-article-desc">
 											该教程介绍了集成NNIE的使用说明。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Windows os-Linux os-Android language-cpp stage-Inference user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/register_kernel.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">自定义南向算子</span>
-										</div>
-										<div class="doc-article-desc">
-											MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
 										</div>
 									</div>
 								</a>
