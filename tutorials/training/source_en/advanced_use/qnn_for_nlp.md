@@ -30,7 +30,7 @@ Import relevant dependencies of the tutorial.
 ```python
 import numpy as np
 import time
-from projectq.ops import QubitOperator
+from mindquantum.ops import QubitOperator
 import mindspore.ops as ops
 import mindspore.dataset as ds
 from mindspore import nn
