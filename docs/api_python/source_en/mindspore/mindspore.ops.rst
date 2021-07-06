@@ -267,7 +267,6 @@ op_info_register
     :nosignatures:
     :template: classtemplate.rst
 
-    mindspore.ops.AiCPURegOp
     mindspore.ops.DataType
     mindspore.ops.op_info_register
     mindspore.ops.TBERegOp
