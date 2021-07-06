@@ -290,12 +290,23 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 
 ## 容灾
 
-在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时支持Server节点的容灾(Server 0除外)。
+在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时支持Server节点的容灾(Server 0除外)，并且在节点下线超过30s才能检测到。
+
+容灾需要配置一个配置文件config.json，具体的格式如下，这个配置文件通过config_file_path指定：
+
+```json
+{
+    "recovery": {
+        "storage_type": 1,
+        "storge_file_path": "/home/cds/config.json"
+    }
+}
+```
 
 节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行指令：
 
 ```sh
-python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1
+python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=/home/config.json
 ```
 
 此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
