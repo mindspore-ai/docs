@@ -2,7 +2,18 @@
 
 `Linux` `Windows` `联邦学习` `分布式应用` `中级` `高级` `贡献者`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/summarize_fl.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+<!-- TOC -->
+
+- [概述](#概述)
+    - [MindSpore Federated 框架优势](#mindspore-federated-框架优势)
+    - [MindSpore Federated 组网架构](#mindspore-federated-组网架构)
+    - [MindSpore Federated 总体架构](#mindspore-federated-总体架构)
+    - [使用MindSpore Federated的工作流程](#使用mindspore-federated的工作流程)
+    - [场景体验](#场景体验)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/summarize_federated.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 MindSpore Federated是一款开源联邦学习框架，支持千万级无状态终端设备商用化部署，在用户数据留存在本地的情况下，使能全场景智能应用。
 
@@ -38,7 +49,7 @@ MindSpore Federated是一款开源联邦学习框架，支持千万级无状态�
 
 MindSpore Federated采用松耦合组网模式，应对大规模、无状态、不可靠的异构设备的联邦学习任务。
 
-![](./docs/source_zh_cn/images/MindFL-Networking.png)
+![](./docs/source_zh_cn/images/mindspore_federated_networking.png)
 
 Federated-Scheduler：联邦学习调度器，与Federated-Server保持TCP长链接，通过心跳完成Federated-Server node的组网结构，并负责管理面任务的下发。
 
@@ -50,23 +61,25 @@ Federated-Client：联邦学习客户端，负责本地数据训练以及作为h
 
 MindSpore FL 分为客户端模块和服务器模块两个部分，其框架的总体架构如下所示：
 
-![architecture](./docs/source_zh_cn/images/MindFL-architecture.png)
+![architecture](./docs/source_zh_cn/images/mindspore_federated_architecture.png)
 
 - Federated-Server模块：
 
-    - **Federated Job Pipeline:** 联邦学习任务执行、弹性扩缩、容错容灾的主控流程。
+    - **Federated Job Pipeline:** 联邦学习任务配置执行、弹性扩缩、容错容灾的主控流程。
 
     - **Worker Manager:** 设备管理相关逻辑。
 
-    - **Aggregator、Optimizer:** 联邦学习在中心侧的聚合和优化逻辑单元，包括多server node间的分布式聚合处理。
+    - **Aggregator/Optimizer:** 联邦学习在中心侧的聚合和优化逻辑单元，包括多server node间的分布式聚合处理。
 
-    - **Metrics Manager:** 训练训练效果评估模块，用于判断训练效果和模型收敛。
+    - **Meta Data/Model Storage：**负责数据存储，主要包括每轮迭代中元数据的跨节点分布式存储，以及训练模型。
+
+    - **Time Limited Communication Module**：限时通信模块，保证在Cross-Device场景下，不会出现由于端侧设备连接不稳定导致训练任务无法继续执行。
 
     - **Armour:** 安全处理模块，包括多方安全计算等模型加解密策略。
 
-    - **Protocol:** 联邦学习中的端云交互协议。
+    - **Protocol:** 议解析器，上层模块只需专注于联邦计算，屏蔽底层通信协议类型。
 
-    - **Communication:** 用于联邦学习任务的通信组件。
+    - **Communication:** 通信组件，支持多种通讯协议，用于接收来自FL-Client，FL-Scheduler和其他FL-Server的消息以及帮助FL-Server组网。
 
     - **Compute Resources:** 用于联邦学习中心侧的硬件计算资源。
 
@@ -84,8 +97,8 @@ MindSpore FL 分为客户端模块和服务器模块两个部分，其框架的�
 
 ## 使用MindSpore Federated的工作流程
 
-- 场景识别、选择模型：识别出使用联邦学习的场景，进行模型原型的选择或开发。
-- 客户端设置、模型分发：在端侧为联邦任务积累本地数据，并使用工具生成方便部署的端侧模型。
+- 场景识别、积累数据：识别出使用联邦学习的场景，在客户端为联邦任务积累本地数据。
+- 模型选择、客户端部署：进行模型原型的选择或开发，并使用工具生成方便部署的端侧模型。
 - 应用部署：将Federated-Client部署到端侧应用中，并在云侧设置Federated-Plan和部署脚本。
 
 ## 场景体验
