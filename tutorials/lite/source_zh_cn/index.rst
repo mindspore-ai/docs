@@ -41,7 +41,6 @@
    use/micro
    use/asic
    use/register_kernel
-   use/delegate
 
 .. toctree::
    :glob:
@@ -142,7 +141,6 @@
 										<button class="doc-filter-btn doc-btn" id="stage-Benchmark-Testing">基准测试</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Static-Library-Cropping">静态库裁剪</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Visualization">可视化</button>
-										<button class="doc-filter-btn doc-btn" id="stage-Third-party">第三方接入</button>
 										<button class="doc-filter-btn doc-btn" id="stage-Custom-Operator">自定义算子</button>
 									</div>
 								</div>
@@ -391,18 +389,6 @@
 										</div>
 										<div class="doc-article-desc">
 											MindSpore Lite当前提供了一套南向算子的注册机制，南向算子可以理解为用户自己的算子实现，如果用户想通过MindSpore Lite框架调度到自己的算子实现上，可参考本文。
-										</div>
-									</div>
-								</a>
-							</div>
-							<div class="doc-article-item all os-Linux stage-Third-party stage-Custom-Operator user-Expert hidden">
-								<a href="https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/delegate.html" class="article-link">
-									<div>
-										<div class="doc-article-head">
-											<span class="doc-head-content">使用Delegate支持第三方AI框架接入</span>
-										</div>
-										<div class="doc-article-desc">
-											如果用户想通过MindSpore Lite框架调度到其他框架的推理流程，可参考本文。
 										</div>
 									</div>
 								</a>
