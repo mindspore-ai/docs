@@ -13,15 +13,15 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)将MindSpore安装在你的电脑当中。
+在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以参考[MindSpore安装页面](https://www.mindspore.cn/install)完成安装。
 
 ## 下载数据集
 
-可参考[leaf数据集官方指导](https://github.com/TalwalkarLab/leaf)。
+参考[leaf数据集官方指导](https://github.com/TalwalkarLab/leaf)下载数据集。
 
-本示例采用`leaf`数据集中的联邦学习数据集`FEMNIST`， 该数据集包含62 个不同类别的手写数字和字母（数字0~9、26 个小写字母、26 个大写字母），图像大小为 28 x 28 像素，数据集包含3500 个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
+本示例采用`leaf`数据集中的联邦学习数据集`FEMNIST`， 该数据集包含62个不同类别的手写数字和字母（数字0~9、26个小写字母、26个大写字母），图像大小为`28 x 28`像素，数据集包含3500个用户的手写数字和字母（最多可模拟3500个客户端参与联邦学习），总数据量为805263，平均每个用户包含数据量为226.83，所有用户数据量的方差为88.94。
 
-1. 下载数据集之前环境要求
+1. 下载数据集前的环境要求。
 
     ```sh
     numpy==1.16.4
@@ -33,7 +33,7 @@
     pandas                     # pip install pandas
     ```
 
-2. git下载官方数据集生成脚本
+2. 使用git下载官方数据集生成脚本。
 
     ```sh
     git clone https://github.com/TalwalkarLab/leaf.git
@@ -42,49 +42,49 @@
     下载项目后，目录结构如下：
 
     ```sh
-    leaf-master/data/femnist
-    ├── data  # 用来存放指令生成的数据集
-    ├── preprocess  # 存放数据预处理的相关代码
-    ├── preprocess.sh  # femnist数据集生成shell脚本
-    └── README.md  # 官方数据集下载指导文档
+    leaf/data/femnist
+        ├── data  # 用来存放指令生成的数据集
+        ├── preprocess  # 存放数据预处理的相关代码
+        ├── preprocess.sh  # femnist数据集生成shell脚本
+        └── README.md  # 官方数据集下载指导文档
     ```
 
-3. 以`femnist`数据集为例，运行以下指令进入指定路径：
+3. 以`femnist`数据集为例，运行以下指令进入指定路径。
 
     ```sh
-    cd  leaf-master/data/femnist
+    cd  leaf/data/femnist
     ```
 
-4. 按照`README.md`文件中说明，在终端输入指令即可下载对应数据集
+4. 参考`README.md`文件中的说明，在终端输入指令即可下载对应数据集。
 
     运行`./preprocess.sh`具有以下标签的选择：
 
-    - `-s`：='iid'以iid方式采样，或'niid'以非iid方式采样；有关“ iid”和“非iid”的更多信息，请参见“说明”部分。
-    - `--iu`：=用户数（如果进行iid采样）；表示为用户总数的分数；默认值为0.01。
-    - `--sf`：=要采样的数据部分，用十进制表示；默认值为0.1。
-    - `-k` ：=每个用户的最小样本数。
-    - `-t` ：='user'将用户划分为训练测试组，或'sample'将每个用户的样本划分为训练测试组。
-    - `--tf`：=训练集中的数据部分，用小数表示；默认值为0.9。
-    - `--smplseed` ：=随机抽样数据之前要使用的种子。
-    - `--spltseed` ：=随机分割数据之前要使用的种子。
+    - `-s`：'iid'以iid方式采样，或'niid'以非iid方式采样。
+    - `--iu`：用户数（如果进行iid采样）；表示为用户总数的分数；默认值为0.01。
+    - `--sf`：要采样的数据部分，用十进制表示；默认值为0.1。
+    - `-k`：每个用户的最小样本数。
+    - `-t`：'user'将用户划分为训练测试组，或'sample'将每个用户的样本划分为训练测试组。
+    - `--tf`：训练集中的数据部分，用小数表示；默认值为0.9。
+    - `--smplseed`：随机抽样数据之前要使用的种子。
+    - `--spltseed`：随机分割数据之前要使用的种子。
 
     例如：
 
     - `./preprocess.sh -s niid --sf 1.0 -k 0 -t sample` （下载完整数据集）。
     - `./preprocess.sh -s niid --sf 0.05 -k 0 -t sample` （下载小型数据集）。
 
-    在重新运行preprocess.sh之前，请确保删除数据目录中的rem_user_data，sampled_data，test和train子文件夹。
+    在重新运行`preprocess.sh`之前，请确保删除数据目录中的`rem_user_data`、`sampled_data`、`test`和`train`子文件夹。
 
-5. 比如用指令`./preprocess.sh -s niid --sf 1.0 -k 0 -t sample` 生成的数据集包含3500个用户，且按照9:1对每个用户的数据划分训练和测试集
+5. 用指令`./preprocess.sh -s niid --sf 1.0 -k 0 -t sample`生成的数据集包含3500个用户，且按照9:1对每个用户的数据划分训练和测试集。
 
-    运行之后目录结构如下
+    运行之后目录结构如下：
 
-    ```sh
-    leaf-master/data/femnist/35_client_sf1_data/
-    ├── all_data  # 所有数据集混合在一起，不区分训练测试集，共包含35个json文件，每个json文件包含100个用户的数据
-    ├── test  # 按照9:1对每个用户的数据划分训练和测试集后的测试集，共包含35个json文件，每个json文件包含100个用户的数据
-    ├── train  # 按照9:1对每个用户的数据划分训练和测试集后的训练集，共包含35个json文件，每个json文件包含100个用户的数据
-    └── ...  # 其他文件，不需要用到，不作介绍
+    ```text
+    leaf/data/femnist/35_client_sf1_data/
+        ├── all_data  # 所有数据集混合在一起，不区分训练测试集，共包含35个json文件，每个json文件包含100个用户的数据
+        ├── test  # 按照9:1对每个用户的数据划分训练和测试集后的测试集，共包含35个json文件，每个json文件包含100个用户的数据
+        ├── train  # 按照9:1对每个用户的数据划分训练和测试集后的训练集，共包含35个json文件，每个json文件包含100个用户的数据
+        └── ...  # 其他文件，暂不需要用到，不作介绍
     ```
 
     其中每个json文件包含以下三个部分：
@@ -93,9 +93,9 @@
 
     - `num_samples`: 每个用户的样本数量列表。
 
-    - `user_data`: 一个以用户名为key，以它们各自的数据为value的字典对象； 对于每个用户，数据表示为图像列表，每张图像表示为大小为 784 的整数列表（将28 x 28 图像数组展平所得）。
+    - `user_data`: 一个以用户名为key，以它们各自的数据为value的字典对象；对于每个用户，数据表示为图像列表，每张图像表示为大小为784的整数列表（将`28 x 28`图像数组展平所得）。
 
-6. 将35个json文件划分为3500个json文件（每个json文件代表一个用户）
+6. 将35个json文件划分为3500个json文件（每个json文件代表一个用户）。
 
     参考代码如下：
 
@@ -152,23 +152,23 @@
         f = os.listdir(new_root_path)
         print(len(f), ' users have been processed!')
     # partition train json files
-    partition_json("leaf-master/data/femnist/35_client_sf1_data/train", "leaf-master/data/femnist/3500_client_json/train")
+    partition_json("leaf/data/femnist/35_client_sf1_data/train", "leaf/data/femnist/3500_client_json/train")
     # partition test json files
-    partition_json("leaf-master/data/femnist/35_client_sf1_data/test", "leaf-master/data/femnist/3500_client_json/test")
+    partition_json("leaf/data/femnist/35_client_sf1_data/test", "leaf/data/femnist/3500_client_json/test")
     ```
 
-    其中`root_path`为`leaf-master/data/femnist/35_client_sf1_data/{train,test}`，`new_root_path`自行设置，用于存放生成的3500个用户json文件，需分别对训练和测试文件夹进行处理。
+    其中`root_path`为`leaf/data/femnist/35_client_sf1_data/{train,test}`，`new_root_path`自行设置，用于存放生成的3500个用户json文件，需分别对训练和测试文件夹进行处理。
 
     新生成的3500个用户json文件，每个文件均包含以下三个部分：
 
     - `user_name`: 用户名。
     - `num_samples`: 用户的样本数。
-    - `user_data`: 一个以 'x' 为key，以用户数据为value的字典对象； 以“y”为键，以用户数据对应的标签为值。
+    - `user_data`: 一个以'x'为key，以用户数据为value的字典对象； 以'y'为key，以用户数据对应的标签为value。
 
     运行该脚本打印如下，代表运行成功：
 
-    ```text
-    ======== process 1 file: /leaf-master/data/femnist/35_client_sf1_data/train/all_data_16_niid_0_keep_0_train_9.json======================
+    ```sh
+    ======== process 1 file: /leaf/data/femnist/35_client_sf1_data/train/all_data_16_niid_0_keep_0_train_9.json======================
     ---processing user: 1---
     ---processing user: 2---
     ---processing user: 3---
@@ -186,7 +186,7 @@
     ......
     ```
 
-7. 将json文件转换为图片文件
+7. 将json文件转换为图片文件。
 
     可参考如下代码：
 
@@ -272,12 +272,12 @@
                 print('=============================' + name + '=======================')
                 json_2_img(json_path, save_path)
 
-    all_json_2_img("leaf-master/data/femnist/3500_client_json/", "leaf-master/data/femnist/3500_client_img/")
+    all_json_2_img("leaf/data/femnist/3500_client_json/", "leaf/data/femnist/3500_client_img/")
     ```
 
     运行该脚本打印如下，代表运行成功：
 
-    ```text
+    ```sh
     =============================f0644_19.json=======================
     ----- 0 -----
     ----- 1 -----
@@ -293,9 +293,9 @@
     ......
     ```
 
-8. 将图片数据集转换为联邦学习框架可用的bin文件格式
+8. 将图片数据集转换为联邦学习框架可用的bin文件格式。
 
-    可参考下面代码
+    可参考下面代码：
 
     ```python
     import numpy as np
@@ -402,14 +402,14 @@
                 print("user: " + user + " " + tag + "_batch_num: " + str(batch_num))
         print("total " + str(len(use_list)) + " users finished!")
 
-    root_path = "leaf-master/data/femnist/3500_client_img/"
-    root_save = "leaf-master/data/femnist/3500_clients_bin"
+    root_path = "leaf/data/femnist/3500_client_img/"
+    root_save = "leaf/data/femnist/3500_clients_bin"
     img2bin(root_path, root_save)
     ```
 
     运行该脚本打印如下，代表运行成功：
 
-    ```text
+    ```sh
     user: f0141_43 test_batch_num: 1
     user: f0141_43 train_batch_num: 10
     user: f0137_14 test_batch_num: 1
@@ -424,30 +424,26 @@
     total 3500 users finished!
     ```
 
-9. 生成3500_clients_bin文件夹内共包含3500个用户文件夹，其目录结构如下：
+9. 生成`3500_clients_bin`文件夹内共包含3500个用户文件夹，其目录结构如下：
 
-    ```text
-    leaf-master/data/femnist/3500_clients_bin
-    ├── f0000_14  # 用户编号
-    │   ├── f0000_14_bn_10_train_data.bin  # 用户f0000_14的训练数据 （bn_后面的数字10代表batch number）
-    │   ├── f0000_14_bn_10_train_label.bin  # 用户f0000_14的训练标签
-    │   ├── f0000_14_bn_1_test_data.bin  # 用户f0000_14的测试数据   （bn_后面的数字1代表batch number）
-    │   └── f0000_14_bn_1_test_label.bin  # 用户f0000_14的测试标签
-    ├── f0001_41  # 用户编号
-    │   ├── f0001_41_bn_11_train_data.bin  # 用户f0001_41的训练数据 （bn_后面的数字11代表batch number）
-    │   ├── f0001_41_bn_11_train_label.bin  # 用户f0001_41的训练标签
-    │   ├── f0001_41_bn_1_test_data.bin  # 用户f0001_41的测试数据   （bn_后面的数字1代表batch number）
-    │   └── f0001_41_bn_1_test_label.bin  #  用户f0001_41的测试标签
-    │
-    │
-    │                    ...
-    │
-    │
-    └── f4099_10  # 用户编号
-        ├── f4099_10_bn_4_train_data.bin  # 用户f4099_10的训练数据 （bn_后面的数字4代表batch number）
-        ├── f4099_10_bn_4_train_label.bin  # 用户f4099_10的训练标签
-        ├── f4099_10_bn_1_test_data.bin  # 用户f4099_10的测试数据   （bn_后面的数字1代表batch number）
-        └── f4099_10_bn_1_test_label.bin  # 用户f4099_10的测试标签
+    ```sh
+    leaf/data/femnist/3500_clients_bin
+      ├── f0000_14  # 用户编号
+      │   ├── f0000_14_bn_10_train_data.bin  # 用户f0000_14的训练数据 （bn_后面的数字10代表batch number）
+      │   ├── f0000_14_bn_10_train_label.bin  # 用户f0000_14的训练标签
+      │   ├── f0000_14_bn_1_test_data.bin  # 用户f0000_14的测试数据   （bn_后面的数字1代表batch number）
+      │   └── f0000_14_bn_1_test_label.bin  # 用户f0000_14的测试标签
+      ├── f0001_41  # 用户编号
+      │   ├── f0001_41_bn_11_train_data.bin  # 用户f0001_41的训练数据 （bn_后面的数字11代表batch number）
+      │   ├── f0001_41_bn_11_train_label.bin  # 用户f0001_41的训练标签
+      │   ├── f0001_41_bn_1_test_data.bin  # 用户f0001_41的测试数据   （bn_后面的数字1代表batch number）
+      │   └── f0001_41_bn_1_test_label.bin  #  用户f0001_41的测试标签
+      │                    ...
+      └── f4099_10  # 用户编号
+          ├── f4099_10_bn_4_train_data.bin  # 用户f4099_10的训练数据 （bn_后面的数字4代表batch number）
+          ├── f4099_10_bn_4_train_label.bin  # 用户f4099_10的训练标签
+          ├── f4099_10_bn_1_test_data.bin  # 用户f4099_10的测试数据   （bn_后面的数字1代表batch number）
+          └── f4099_10_bn_1_test_label.bin  # 用户f4099_10的测试标签
     ```
 
 ## 定义网络
@@ -458,7 +454,7 @@
 
 > 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
-网络定义流程[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
+网络定义流程可参考[model.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
 
 具体网络定义流程可参考[MindSpore官方图片分类任务文档]( https://www.mindspore.cn/tutorial/training/zh-CN/master/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C )。
 
@@ -561,7 +557,7 @@ if __name__ == "__main__":
     print(losses)
 ```
 
-其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其中其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚步中`data`和`label`均采用的模拟数据。
+其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚本中`data`和`label`均采用了模拟数据。
 
 其中`src.model`为模型定义文件[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件[可参考adam.py文件](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/adam.py)。
 
@@ -569,15 +565,14 @@ if __name__ == "__main__":
 
 ## 生成端侧模型文件
 
-1. **将模型导出为MindIR格式文件**
+1. 将模型导出为MindIR格式文件。
 
     可在训练流程代码中添加`export`语句获取MindIR格式模型文件， 示例代码如下：
 
     ```python
     from mindspore import export
     ...
-    ...
-    ...
+
     for _ in range(epoch):
             data = Tensor(np.random.rand(32, 3, 32, 32).astype(np.float32))
             label = Tensor(np.random.randint(0, 61, (32)).astype(np.int32))
@@ -588,9 +583,9 @@ if __name__ == "__main__":
         print(losses)
     ```
 
-    具体可参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html?highlight=mindir#mindir )。
+   具体可参考[这里](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html?highlight=mindir#mindir )。
 
-2. **将MindIR文件转化为联邦学习端侧框架可用的ms文件**
+2. 将MindIR文件转化为联邦学习端侧框架可用的ms文件。
 
     具体模型转换教程可参考[训练模型转换教程](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/converter_train.html )。
 
@@ -608,19 +603,19 @@ if __name__ == "__main__":
     CONVERTER RESULT SUCCESS:0
     ```
 
-    这表明 MindSpore 模型成功转换为 MindSpore 端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：
+    这表明MindSpore模型成功转换为MindSpore端侧模型，并生成了新文件`lenet_train.ms`。如果转换失败输出如下：
 
     ```sh
     CONVERT RESULT FAILED:
     ```
 
-    将生成的`.ms`格式的模型文件放在某个路径上，在调用联邦学习接口时可设置FLParameter.trainModelPath为该模型文件的路径。
+    将生成的`.ms`格式的模型文件放在某个路径上，在调用联邦学习接口时可设置`FLParameter.trainModelPath`为该模型文件的路径。
 
 ## 模拟启动多客户端参与联邦学习
 
 之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)) 来模拟启动多客户端联邦学习任务。
 
-1. **以Lenet网络为例，参考脚本`run.py`如下：**
+1. 以Lenet网络为例，参考脚本`run.py`如下。
 
     ```python
     import os
@@ -630,7 +625,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Run TestClient.java case")
     parser.add_argument("--jarPath", type=str, default="mindspore-lite-java-flclient.jar")  # must be absolute path
-    parser.add_argument("--train_dataset", type=str, default="leaf-master/data/femnist/3500_clients_bin/")   # must be absolute path
+    parser.add_argument("--train_dataset", type=str, default="leaf/data/femnist/3500_clients_bin/")   # must be absolute path
     parser.add_argument("--test_dataset", type=str, default="null")   # must be absolute path
     parser.add_argument("--vocal_file", type=str, default="null")   # must be absolute path
     parser.add_argument("--ids_file", type=str, default="null")   # must be absolute path
@@ -738,87 +733,85 @@ if __name__ == "__main__":
         subprocess.call(['bash', '-c', cmd_client])
     ```
 
-    run.py脚本中入参含义如下，可根据实际情况进行设置：
+    `run.py`脚本中入参含义如下，可根据实际情况进行设置。以下涉及路径的必须给出绝对路径。
 
-    以下涉及路径的必须给出绝对路径
-
-    - **`--jarPath`**
+    - `--jarPath`
 
         设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)。
 
-    - **`--train_dataset`**
+    - `--train_dataset`
 
-        训练数据集root路径, 情感分类任务在该root路径中存放的是每个客户端的训练数据（txt文件格式）；lenet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`leaf-master/data/femnist/3500_clients_bin/`。
+        训练数据集root路径，LeNet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`leaf/data/femnist/3500_clients_bin/`。
 
-    - **`--test_dataset`**
+    - `--test_dataset`
 
-        测试数据集路径 ， lenet图片分类任务不需要设置该参数，默认为null；情感分类任务不设置该参数代表训练过程中不进行验证。
+        测试数据集路径，LeNet图片分类任务不需要设置该参数，默认为null。
 
-    - **`--vocal_file`**
+    - `--vocal_file`
 
-        设置数据预处理的词典文件路径，lenet网络设置为null，情感分类任务给出实际路径，必须为绝对路径。
+        设置数据预处理的词典文件路径，LeNet网络设置为null。
 
-    - **`--ids_file`**
+    - `--ids_file`
 
-        设置词典的映射id文件路径，lenet网络设置为null，情感分类任务给出实际路径，必须为绝对路径。
+        设置词典的映射id文件路径，LeNet网络设置为null。
 
-    - **`--flName`**
+    - `--flName`
 
-        设置联邦学习模型名称，目前只支持`lenet`(采用lenet网络进行图片分类任务)和`adbert`（采用albert网络进行情感分类任务）。
+        设置联邦学习模型名称，目前只支持`lenet`（采用LeNet网络进行图片分类任务）和`adbert`（采用ALBERT网络进行情感分类任务）。
 
-    - **`--train_model_path`**
+    - `--train_model_path`
 
         设置联邦学习使用的训练模型路径，为上面教程中拷贝的多份.ms文件所存放的目录，比如`ms/lenet`，必须为绝对路径。
 
-    - **`--infer_model_path`**
+    - `--infer_model_path`
 
-        联邦学习使用的推理模型路径，为.ms格式的模型文件的绝对路径,  情感分类任务必须设置；lenet图片分类任务可设置为与train_model_path相同。
+        联邦学习使用的推理模型路径，为.ms格式的模型文件的绝对路径，LeNet图片分类任务可设置为与`train_model_path`相同。
 
-    - **`--ip`**
+    - `--ip`
 
-        设置ip地址 , 即启动server端的服务器地址， 格式为：10.113.216.106，目前云侧只支持http通信方式，默认采用http通信方式。
+        设置ip地址，即启动server端的服务器地址，格式为：10.113.216.106，目前云侧只支持http通信方式，默认采用http通信方式。
 
-    - **`--ssl`**
+    - `--ssl`
 
-        设置端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用，设置为false, 不进行ssl证书认证；设置为true时，进行ssl证书认证且只支持https通信，`useHttps`必须设置为true，`cert_path`必须给出具体证书路径；默认为false。
+        设置端云通信是否进行ssl证书认证，ssl证书认证只在https通信中使用，设置为false，不进行ssl证书认证；设置为true时，进行ssl证书认证且只支持https通信，`useHttps`必须设置为true，`cert_path`必须给出具体证书路径；默认为false。
 
-    - **`--port`**
+    - `--port`
 
-        设置端口号，与启动server端时的`fl_server_port`参数保持一致,  格式为： 6668。
+        设置端口号，与启动server端时的`fl_server_port`参数保持一致，格式为： 6668。
 
-    - **`--time_window`**
+    - `--time_window`
 
         设置端侧重复请求的总时间窗口，与启动server端时的`start_fl_job_time_windows`和`update_model_time_windows`之和保持一致。
 
-    - **`--server_num`**
+    - `--server_num`
 
         设置server数量，与启动server端时的`server_num`参数保持一致，用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
 
-    - **`--worker_num`**
+    - `--worker_num`
 
         设置client数量， 与启动server端时的`start_fl_job_cnt`保持一致，真实场景不需要此参数。
 
-    - **`--use_elb`**
+    - `--use_elb`
 
         用于多server场景，为true代表客户端每个round的请求都采用指定范围内的随机端口，false则采用固定端口。默认为false，当启动server端的`server_num`大于1时，该参数需设置成true。用于模拟客户端随机选择不同的server发送信息，真实场景不需要此参数。
 
-    - **`--use_https`**
+    - `--use_https`
 
-        端云通信是否进行Https通信, 设置为false, 进行http通信；设置为true，进行https通信；默认为false。
+        端云通信是否进行Https通信，设置为false，进行http通信；设置为true，进行https通信；默认为false。
 
-    - **`--cert_path`**
+    - `--cert_path`
 
-        当`--ssl`设置为true时需对该参数进行设置，设置证书的绝对路径，默认为`null`。
+        当`--ssl`设置为true时，需对该参数进行设置，设置证书的绝对路径，默认为`null`。
 
-    - **`--task`**
+    - `--task`
 
-        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务,  为`getModel`代表启动获取云侧模型的任务,  设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务(注意两次启动的`worker_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致)。
+        用于设置本此启动的任务类型，为`train`代表启动训练任务，为`inference`代表启动多条数据推理任务，为`getModel`代表启动获取云侧模型的任务，设置其他字符串代表启动单条数据推理任务。默认为`train`。由于初始的模型文件(.ms文件)是未训练过的，建议先启动训练任务，待训练完成之后，再启动推理任务（注意两次启动的`worker_num`保持一致，以保证`inference`使用的模型文件与`train`保持一致）。
 
-2. **为客户端准备好模型文件**
+2. 为客户端准备好模型文件。
 
-    由于真实场景一个客户端包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run.py`中脚本的设置，需要设置为`0, 1, 2, 3, 4, 5 .....`等数字。每个客户端各使用一份.ms文件。
+    由于真实场景一个客户端只包含一个.ms格式的模型文件，在模拟场景中，需要拷贝多份.ms文件，并按照`lenet_train{i}.ms`格式进行命名。其中i代表客户端编号，由于`run.py`中脚本的设置，需要设置为`0, 1, 2, 3, 4, 5 .....`等数字。每个客户端各使用一份.ms文件。
 
-    可参考下面脚步，对原始.ms文件进行拷贝和命名：
+    可参考下面脚本，对原始.ms文件进行拷贝和命名：
 
     ```python
     import shutil
@@ -842,7 +835,7 @@ if __name__ == "__main__":
 
     其中`raw_path`设置原始.ms文件路径，`new_path`设置拷贝的.ms文件需要放置的路径，`num`设置拷贝的份数，一般需要模拟启动客户端的数量。
 
-    比如以上脚步中设置，在路径`ms/lenet`中生成了供5个客户端使用的.ms文件，其目录结构如下：
+    比如以上脚本中设置，在路径`ms/lenet`中生成了供5个客户端使用的.ms文件，其目录结构如下：
 
     ```sh
     ms/lenet
@@ -853,9 +846,9 @@ if __name__ == "__main__":
     └── lenet_train4.ms  # 客户端4使用的.ms文件
     ```
 
-3. **启动客户端**
+3. 启动客户端。
 
-    运行`run.py`, 指令如下：
+    运行`run.py`，指令如下：
 
     ```sh
     python run.py --ip=10.113.216.106 --port=6668 --server_num=8  --worker_num=5 --task=train
@@ -863,7 +856,7 @@ if __name__ == "__main__":
 
     该指令代表启动5个客户端参与联邦学习，若启动成功，会在当前文件夹生成5个客户端对应的日志文件，查看日志文件内容可了解每个客户端的运行情况：
 
-    ```sh
+    ```text
     ./
     ├── client_0
     │   └── client.log  # 客户端0的日志文件
@@ -877,7 +870,7 @@ if __name__ == "__main__":
         └── client.log  # 客户端4的日志文件
     ```
 
-4. **关闭客户端进程**
+4. 关闭客户端进程。
 
     可参考`finish.py`脚本，具体如下：
 
@@ -909,7 +902,7 @@ if __name__ == "__main__":
 
     假设启动了5个客户端，每个客户端包含一个Python进程和一个java进程，关闭成功会有以下打印：
 
-    ```text
+    ```sh
     killed 56427
     killed 56432
     killed 56435
@@ -924,9 +917,9 @@ if __name__ == "__main__":
 
     即有10个进程成功被kill。
 
-5. **实验结果**
+5. 实验结果。
 
-    目前**`3500_clients_bin`**   文件夹中包含3500个客户端的数据，本脚本最多可模拟3500个客户端参与联邦学习。
+    目前`3500_clients_bin`文件夹中包含3500个客户端的数据，本脚本最多可模拟3500个客户端参与联邦学习。
 
     下图给出了50个客户端(设置`server_num`为16)进行联邦学习的测试集精度：
 
