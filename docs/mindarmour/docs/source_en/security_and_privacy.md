@@ -1,8 +1,8 @@
-﻿# Security and Privacy Protection
+﻿# MindArmour Module Introduction
 
 <!-- TOC -->
 
-- [Security and Privacy Protection](#security-and-privacy-protection)
+- [MindArmour Module Introduction](#mindArmour-module-introduction)
     - [Overview](#overview)
     - [Adversarial Robustness](#adversarial-robustness)
         - [Attack](#attack)

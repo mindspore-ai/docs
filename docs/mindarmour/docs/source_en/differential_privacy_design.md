@@ -1,10 +1,10 @@
-﻿# Differential Privacy
+﻿# Differential Privacy Design
 
 `Ascend` `Model Development` `Model Optimization` `Framework Development` `Enterprise` `Expert` `Contributor`
 
 <!-- TOC -->
 
-- [Differential Privacy](#differential-privacy)
+- [Differential Privacy Design](#differential-privacy-design)
     - [Overall Design](#overall-design)
         - [DP Optimizer](#dp-optimizer)
         - [DP Mechanisms](#dp-mechanisms)

@@ -9,6 +9,7 @@ MindArmour Python API
 .. toctree::
    :maxdepth: 1
 
+   mindarmour
    mindarmour.adv_robustness.attacks
    mindarmour.adv_robustness.defenses
    mindarmour.adv_robustness.detectors
@@ -17,5 +18,4 @@ MindArmour Python API
    mindarmour.privacy.diff_privacy
    mindarmour.privacy.evaluation
    mindarmour.privacy.sup_privacy
-   mindarmour
    mindarmour.utils

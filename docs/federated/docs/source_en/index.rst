@@ -23,6 +23,6 @@ MindSpore Federated Documents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Model Security and Privacy
+   :caption: Security and Privacy
 
    security_and_privacy_protection

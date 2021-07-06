@@ -1,10 +1,10 @@
-# AI模型安全测试
+# AI模型安全测试设计
 
 `Linux` `Ascend` `GPU` `CPU` `数据准备` `模型开发` `模型训练` `模型调优` `企业` `高级`
 
 <!-- TOC -->
 
-- [AI模型安全测试](#ai模型安全测试)
+- [AI模型安全测试设计](#ai模型安全测试设计)
     - [背景](#背景)
     - [Fuzz Testing设计图](#fuzz-testing设计图)
     - [Fuzz Testing流程](#fuzz-testing流程)
