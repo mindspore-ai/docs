@@ -68,14 +68,6 @@ A [**DeviceContextVector**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/li
 
 > CPU, GPU and NPU are supported now. If GPU device context is set and GPU is supported in the current device, use GPU device first, otherwise use CPU device first. If NPU device context is set and GPU is supported in the current device, use NPU device first, otherwise use CPU device first.
 
-#### delegate
-
-```cpp
-delegate
-```
-
-**pointer**，pointing to [**Delegate**](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#delegate).
-
 ## Model
 
 \#include &lt;[model.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/model.h)&gt;
@@ -419,47 +411,3 @@ size_t buf_size_;
 ```
 
 The length of the buffer with exported model.
-
-## Delegate
-
-\#include &lt;[context.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/delegate.h)&gt;
-
-Delegate defines a proxy interface for the third-party AI framework to quickly access MindSpore Lite.
-
-### Free
-
-#### ~Delegate
-
-```cpp
-virtual ~Delegate();
-```
-
-### Public Member Functions
-
-#### Init
-
-```cpp
-virtual int Init() = 0;
-```
-
-Init Delegate resources.
-
-- Returns
-
-    STATUS，STATUS is defined in errorcode.h.
-
-#### Build
-
-```cpp
-virtual int Build(DelegateModel *model) = 0;
-```
-
-Build graph online.
-
-- Parameters
-
-    - `model`: Pointer to MindSpore Lite DelegateModel.
-
-- Returns
-
-    STATUS，STATUS is defined in errorcode.h.
