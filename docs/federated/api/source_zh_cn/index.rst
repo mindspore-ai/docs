@@ -9,5 +9,5 @@
 .. toctree::
    :maxdepth: 1
 
-   mindfl_client
-   mindfl_server
+   federated_client
+   federated_server

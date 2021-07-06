@@ -16,7 +16,7 @@
 
 <!-- /TOC -->
 
-## 概述
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_server_cluster.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 本文档以LeNet网络为例，讲解如何使用MindSpore来部署联邦学习集群。
 
@@ -24,7 +24,7 @@
 
 MindSpore Federated Learning Server集群物理架构如图所示：
 
-<img src='./images/MindFL-Networking.png' align='middle'/>
+<img src='./images/mindspore_federated_networking.png' align='middle'/>
 
 如上图所示，在联邦学习云侧集群中，有两种角色的MindSpore进程：`Federated Learning Scheduler`和`Federated Learning Server`:
 

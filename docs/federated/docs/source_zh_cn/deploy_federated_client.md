@@ -1,6 +1,22 @@
 # 端侧部署
 
-下面分别介绍如何在Android环境和x86环境部署FL-Client：
+<!-- TOC -->
+
+- [端侧部署](#端侧部署)
+    - [Android环境](#android环境)
+        - [编译出包](#编译出包)
+        - [运行依赖](#运行依赖)
+        - [构建依赖环境](#构建依赖环境)
+    - [x86环境](#x86环境)
+        - [编译出包](#编译出包)
+        - [运行依赖](#运行依赖)
+        - [构建依赖环境](#构建依赖环境)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
+下面分别介绍如何在Android环境和x86环境部署Federated-Client：
 
 ## Android环境
 
@@ -150,6 +166,4 @@ mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH
 ```
 
-设置好依赖环境之后，可参考[这里](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/image_classification_application.md)教程在x86环境中模拟启动多个客户端进行联邦学习。
-
-
+设置好依赖环境之后，可参考[这里](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md)教程在x86环境中模拟启动多个客户端进行联邦学习。

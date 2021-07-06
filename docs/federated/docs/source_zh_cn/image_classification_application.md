@@ -1,6 +1,17 @@
 # 实现一个图像分类应用(x86)
 
-## 准备环节
+<!-- TOC -->
+
+- [实现一个图像分类应用(x86)](#实现一个图像分类应用x86)
+    - [下载数据集](#下载数据集)
+    - [定义网络](#定义网络)
+    - [定义训练过程](#定义训练过程)
+    - [生成端侧模型文件](#生成端侧模型文件)
+    - [模拟启动多客户端参与联邦学习](#模拟启动多客户端参与联邦学习)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/image_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 在动手进行实践之前，确保，你已经正确安装了MindSpore。如果没有，可以通过[MindSpore安装页面](https://www.mindspore.cn/install)将MindSpore安装在你的电脑当中。
 
@@ -48,19 +59,19 @@
 
     运行`./preprocess.sh`具有以下标签的选择：
 
-      - `-s`：='iid'以iid方式采样，或'niid'以非iid方式采样；有关“ iid”和“非iid”的更多信息，请参见“说明”部分
-      - `--iu`：=用户数（如果进行iid采样）；表示为用户总数的分数；默认值为0.01
-      - `--sf`：=要采样的数据部分，用十进制表示；默认值为0.1
-      - `-k` ：=每个用户的最小样本数
-      - `-t` ：='user'将用户划分为训练测试组，或'sample'将每个用户的样本划分为训练测试组
-      - `--tf`：=训练集中的数据部分，用小数表示；默认值为0.9
-      - `--smplseed` ：=随机抽样数据之前要使用的种子
-      - `--spltseed` ：=随机分割数据之前要使用的种子
+    - `-s`：='iid'以iid方式采样，或'niid'以非iid方式采样；有关“ iid”和“非iid”的更多信息，请参见“说明”部分。
+    - `--iu`：=用户数（如果进行iid采样）；表示为用户总数的分数；默认值为0.01。
+    - `--sf`：=要采样的数据部分，用十进制表示；默认值为0.1。
+    - `-k` ：=每个用户的最小样本数。
+    - `-t` ：='user'将用户划分为训练测试组，或'sample'将每个用户的样本划分为训练测试组。
+    - `--tf`：=训练集中的数据部分，用小数表示；默认值为0.9。
+    - `--smplseed` ：=随机抽样数据之前要使用的种子。
+    - `--spltseed` ：=随机分割数据之前要使用的种子。
 
     例如：
 
-      - `./preprocess.sh -s niid --sf 1.0 -k 0 -t sample` （下载完整数据集）
-      - `./preprocess.sh -s niid --sf 0.05 -k 0 -t sample` （下载小型数据集）
+    - `./preprocess.sh -s niid --sf 1.0 -k 0 -t sample` （下载完整数据集）。
+    - `./preprocess.sh -s niid --sf 0.05 -k 0 -t sample` （下载小型数据集）。
 
     在重新运行preprocess.sh之前，请确保删除数据目录中的rem_user_data，sampled_data，test和train子文件夹。
 
@@ -78,11 +89,11 @@
 
     其中每个json文件包含以下三个部分：
 
-      - `users`: 用户列表
+    - `users`: 用户列表。
 
-      - `num_samples`: 每个用户的样本数量列表
+    - `num_samples`: 每个用户的样本数量列表。
 
-      - `user_data`: 一个以用户名为key，以它们各自的数据为value的字典对象； 对于每个用户，数据表示为图像列表，每张图像表示为大小为 784 的整数列表（将28 x 28 图像数组展平所得）
+    - `user_data`: 一个以用户名为key，以它们各自的数据为value的字典对象； 对于每个用户，数据表示为图像列表，每张图像表示为大小为 784 的整数列表（将28 x 28 图像数组展平所得）。
 
 6. 将35个json文件划分为3500个json文件（每个json文件代表一个用户）
 
@@ -150,13 +161,13 @@
 
     新生成的3500个用户json文件，每个文件均包含以下三个部分：
 
-      - `user_name`: 用户名
-      - `num_samples`: 用户的样本数
-      - `user_data`: 一个以 'x' 为key，以用户数据为value的字典对象； 以“y”为键，以用户数据对应的标签为值
+    - `user_name`: 用户名。
+    - `num_samples`: 用户的样本数。
+    - `user_data`: 一个以 'x' 为key，以用户数据为value的字典对象； 以“y”为键，以用户数据对应的标签为值。
 
     运行该脚本打印如下，代表运行成功：
 
-    ```sh
+    ```text
     ======== process 1 file: /leaf-master/data/femnist/35_client_sf1_data/train/all_data_16_niid_0_keep_0_train_9.json======================
     ---processing user: 1---
     ---processing user: 2---
@@ -266,7 +277,7 @@
 
     运行该脚本打印如下，代表运行成功：
 
-    ```sh
+    ```text
     =============================f0644_19.json=======================
     ----- 0 -----
     ----- 1 -----
@@ -398,7 +409,7 @@
 
     运行该脚本打印如下，代表运行成功：
 
-    ```sh
+    ```text
     user: f0141_43 test_batch_num: 1
     user: f0141_43 train_batch_num: 10
     user: f0137_14 test_batch_num: 1
@@ -415,7 +426,7 @@
 
 9. 生成3500_clients_bin文件夹内共包含3500个用户文件夹，其目录结构如下：
 
-    ```sh
+    ```text
     leaf-master/data/femnist/3500_clients_bin
     ├── f0000_14  # 用户编号
     │   ├── f0000_14_bn_10_train_data.bin  # 用户f0000_14的训练数据 （bn_后面的数字10代表batch number）
@@ -445,7 +456,7 @@
 
 ![LeNet5](images/LeNet_5.jpg)
 
-> 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询http://yann.lecun.com/exdb/lenet/。
+> 更多的LeNet网络的介绍不在此赘述，希望详细了解LeNet网络，可以查询<http://yann.lecun.com/exdb/lenet/>。
 
 网络定义流程[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/src/model.py)。
 
@@ -607,7 +618,7 @@ if __name__ == "__main__":
 
 ## 模拟启动多客户端参与联邦学习
 
-之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)) 来模拟启动多客户端联邦学习任务。
+之后可编写一个Python脚本，调用联邦学习框架jar包 (x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)) 来模拟启动多客户端联邦学习任务。
 
 1. **以Lenet网络为例，参考脚本`run.py`如下：**
 
@@ -733,13 +744,13 @@ if __name__ == "__main__":
 
     - **`--jarPath`**
 
-        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[FL-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/mindfl/docs/source_zh_cn/deploy_fl_client.md)。
+        设置联邦学习jar包路径，x86环境联邦学习jar包获取可参考[Federated-Client部署教程中编译出包流程](https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md)。
 
     - **`--train_dataset`**
 
         训练数据集root路径, 情感分类任务在该root路径中存放的是每个客户端的训练数据（txt文件格式）；lenet图片分类任务在该root路径中存放的是每个客户端的训练data.bin文件与label.bin文件，例如`leaf-master/data/femnist/3500_clients_bin/`。
 
-     - **`--test_dataset`**
+    - **`--test_dataset`**
 
         测试数据集路径 ， lenet图片分类任务不需要设置该参数，默认为null；情感分类任务不设置该参数代表训练过程中不进行验证。
 
@@ -898,7 +909,7 @@ if __name__ == "__main__":
 
     假设启动了5个客户端，每个客户端包含一个Python进程和一个java进程，关闭成功会有以下打印：
 
-    ```sh
+    ```text
     killed 56427
     killed 56432
     killed 56435

@@ -1,5 +1,17 @@
 # SyncFLJob
 
+<!-- TOC -->
+
+- [SyncFLJob](#syncfljob)
+    - [公有成员函数](#公有成员函数)
+    - [flJobRun](#fljobrun)
+    - [modelInference](#modelinference)
+    - [getModel](#getmodel)
+
+<!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_zh_cn/java_api_syncfljob.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
+
 ```java
 import com.huawei.flclient.SyncFLJob
 ```
