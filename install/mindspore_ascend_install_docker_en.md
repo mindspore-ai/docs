@@ -31,9 +31,9 @@ The current support for containerized build options is as follows:
 
 - Confirm that Ubuntu 18.04/CentOS 7.6 is installed with the 64-bit operating system.
 - Confirm that [Docker 18.03 or later](https://docs.docker.com/get-docker/) is installed.
-- Confirm that the Ascend 910 AI processor software package ([Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)) are installed.
-    - For the installation of software package,  please refer to the [Product Document](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910).
-    - The software packages include [Driver and Firmware A800-9000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/252727249?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818) and [CANN 5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373).
+- Confirm that the Ascend 910 AI processor software package [Ascend Data Center Solution] are installed.
+    - For the installation of software package,  please refer to the [Product Document].
+    - The software packages include [Driver and Firmware A800-9000] and [CANN].
     - Confirm that the current user has the right to access the installation path `/usr/local/Ascend`of Ascend 910 AI processor software package. If not, the root user needs to add the current user to the user group where `/usr/local/Ascend` is located. For the specific configuration, please refer to the software package instruction document.
     - After installing basic driver and corresponding software packages, confirm that the toolbox utility package in the CANN software package is installed, namely Ascend-cann-toolbox-{version}.run. The toolbox provides Ascend Docker runtime tools supported by Ascend NPU containerization.
 
@@ -50,7 +50,7 @@ The current support for containerized build options is as follows:
     of which,
 
     - `{username}` `{password}` `{url}` represents the user's login information and image server information, which are automatically generated after registering and activating the account, and can be obtained by copying the login command on the corresponding MindSpore image page.
-    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
+    - `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
     - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can also be obtained by copying the download command on the MindSpore image download page.
 
 ## Running MindSpore Image
@@ -78,7 +78,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 
 of which,
 
-- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, {arch} should be x86. If the system is ARM architecture 64-bit, then it should be arm.
+- `{arch}` denotes the system architecture. For example, the Linux system you are using is x86 architecture 64-bit, `{arch}` should be x86. If the system is ARM architecture 64-bit, then it should be arm.
 - `{tag}` corresponds to the version number of Atlas Data Center Solution, which can be automatically obtained on the MindSpore image download page.
 
 If you want to use MindInsight, you need to set the --network parameter to "host" mode, for example:

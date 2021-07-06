@@ -31,9 +31,9 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
 
 - 确认安装Ubuntu 18.04/CentOS 7.6是64位操作系统。
 - 确认安装[Docker 18.03或更高版本](https://docs.docker.com/get-docker/)。
-- 确认安装Ascend 910 AI处理器配套软件包（[Ascend Data Center Solution 21.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910/software/252504563?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C252309113%7C251167910)）。
-    - 软件包安装方式请参考[产品文档](https://support.huawei.com/enterprise/zh/ascend-computing/ascend-data-center-solution-pid-251167910)。
-    - 配套软件包包括[驱动和固件A800-9000 1.0.10](https://support.huawei.com/enterprise/zh/ascend-computing/a800-9000-pid-250702818/software/252727249?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C250702818)和[CANN 5.0.1](https://support.huawei.com/enterprise/zh/ascend-computing/cann-pid-251168373/software/252504455?idAbsPath=fixnode01%7C23710424%7C251366513%7C22892968%7C251168373)。
+- 确认安装Ascend 910 AI处理器配套软件包[Ascend Data Center Solution]。
+    - 软件包安装方式请参考[产品文档]。
+    - 配套软件包包括[驱动和固件A800-9000]和[CANN]。
     - 确认当前用户有权限访问Ascend 910 AI处理器配套软件包的安装路径`/usr/local/Ascend`，若无权限，需要root用户将当前用户添加到`/usr/local/Ascend`所在的用户组。
     - 在完成安装基础驱动与配套软件包的基础上，确认安装CANN软件包中的toolbox实用工具包，即Ascend-cann-toolbox-{version}.run，该工具包提供了Ascend NPU容器化支持的Ascend Docker runtime工具。
 
@@ -50,7 +50,7 @@ MindSpore的Ascend 910镜像托管在[Ascend Hub](https://ascend.huawei.com/asce
     其中：
 
     - `{username}` `{password}` `{url}` 代表用户的登录信息与镜像服务器信息，均为注册并激活账号后自动生成，在对应MindSpore镜像页面复制登录命令即可获取。
-    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
+    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为x86。如果系统是ARM架构64位，则写为arm。
     - `{tag}` 对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面复制下载命令获取。
 
 ## 运行MindSpore镜像
@@ -78,7 +78,7 @@ docker run -it -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 
 其中：
 
-- `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
+- `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}`应写为x86。如果系统是ARM架构64位，则写为arm。
 - `{tag}`对应Atlas Data Center Solution版本号，在MindSpore镜像下载页面自动获取。
 
 如需使用MindInsight，需设置--network参数为”host”模式, 例如:
