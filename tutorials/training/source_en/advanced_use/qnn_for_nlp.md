@@ -129,7 +129,7 @@ label = 2 # label need to encode
 label_bin = bin(label)[-1:1:-1].ljust(n_qubits,'0') # binary form of label
 label_array = np.array([int(i)*np.pi for i in label_bin]).astype(np.float32) # parameter value of encoder
 encoder = GenerateEncoderCircuit(n_qubits, prefix='e') # encoder circuit
-encoder_para_names = encoder.parameter_resolver().para_name # parameter names of encoder
+encoder_para_names = encoder.para_name # parameter names of encoder
 
 print("Label is: ", label)
 print("Binary label is: ", label_bin)
@@ -286,8 +286,8 @@ def QEmbedding(num_embedding, embedding_dim, window, layers, n_threads):
         encoder.no_grad()
         circ += encoder
         circ += ansatz
-        encoder_param_name.extend(list(encoder.parameter_resolver()))
-        ansatz_param_name.extend(list(ansatz.parameter_resolver()))
+        encoder_param_name.extend(encoder.para_name)
+        ansatz_param_name.extend(ansatz.para_name)
     net = MindQuantumLayer(encoder_param_name,
                            ansatz_param_name,
                            circ,
