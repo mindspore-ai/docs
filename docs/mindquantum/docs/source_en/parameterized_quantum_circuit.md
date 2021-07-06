@@ -203,7 +203,7 @@ In the following, we will construct a quantum neural network, whose encoder cons
 ![simple qnn](./images/simple_qnn.png)
 
 ```python
-from projectq.ops import QubitOperator
+from mindquantum.ops import QubitOperator
 
 @circuit_generator(2)
 def encoder(qubits):
