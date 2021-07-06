@@ -57,20 +57,11 @@ public int[] modelInference(String flName, String dataPath, String vocabFile, St
 ## getModel
 
 ```java
-public FLClientStatus getModel(boolean useElb, int serverNum, String ip, int port, String flName, String trainModelPath, String inferModelPath, boolean useSSL)
+public FLClientStatus getModel()
 ```
 
 获取云侧最新模型。
 
-- 参数
-    - `useElb`: 用于设置是否模拟弹性负载均衡，true代表客户端会将请求随机发给一定范围内的server地址， false客户端的请求会发给固定的server地址，默认为false。
-    - `serverNum`: 用于设置模拟弹性负载均衡时可发送请求的server数量，默认为1。
-    - `ip`: Server端所启动服务的ip地址，形如“http://10.113.216.106:”。
-    - `port`: Server端所启动服务的端口号。
-    - `flName`: 联邦学习使用的模型名称, 情感分类任务需设置为”adbert“; 图片分类任务需设置为”lenet“。
-    - `trainModelPath`: 联邦学习使用的训练模型路径，为.ms文件的绝对路径。
-    - `inferModelPath`: 联邦学习使用的推理模型路径，为.ms文件的绝对路径。
-    - `useSSL`: 端云通信是否进行ssl证书认证，默认不进行。
 - 返回值
 
   返回getModel请求状态码。
