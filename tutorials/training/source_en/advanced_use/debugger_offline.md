@@ -97,6 +97,7 @@ The UI of the offline debugger is the same as that of the online debugger. For d
 - GPU scenario:
     - Different from the online debugger, the offline debugger does not support node-by-node execution.
 
+- If there are more than one dump files of the same tensor in the same directory, offline debugger will only show the latest tensor.
 - When using the offline debugger, make sure that the version numbers of MindInsight and MindSpore are the same.
 - Only watchpoints that have tensor values are rechecked.
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
