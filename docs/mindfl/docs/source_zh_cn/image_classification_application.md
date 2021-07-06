@@ -552,6 +552,8 @@ if __name__ == "__main__":
 
 其中字典`ctx`中参数`enable_fl`用于设置是否启动联邦学习训练流程，为`true`代表启动联邦学习流程，为`false`代表启动普通训练流程，其中其他参数可以根据实际情况进行设置。由于只需要生成可用的模型文件即可，上面脚步中`data`和`label`均采用的模拟数据。
 
+其中`src.model`为模型定义文件[可参考model.py文件]( https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/src/model.py)，`src.adam`为优化器定义文件[可参考adam.py文件](https://gitee.com/mindspore/mindspore/blob/r1.3/tests/st/fl/mobile/src/adam.py)。
+
 具体优化器损失函数定义可参考[MindSpore官方文档](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/quick_start/quick_start.html#%E5%AE%9A%E4%B9%89%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E4%BC%98%E5%8C%96%E5%99%A8)。
 
 ## 生成端侧模型文件
