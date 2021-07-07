@@ -85,7 +85,8 @@ fl_ctx = {
     "scheduler_port": scheduler_port,
     "fl_server_port": fl_server_port,
     "fl_name": fl_name,
-    "scheduler_manage_port": scheduler_manage_port
+    "scheduler_manage_port": scheduler_manage_port,
+    "config_file_path": config_file_path
 }
 context.set_fl_context(**fl_ctx)
 ...
@@ -111,6 +112,7 @@ parser.add_argument("--scheduler_port", type=int, default=6667)
 parser.add_argument("--fl_server_port", type=int, default=6668)
 parser.add_argument("--fl_name", type=str, default="LeNet")
 parser.add_argument("--scheduler_manage_port", type=int, default=11202)
+parser.add_argument("--config_file_path", type=str, default="")
 
 args, t = parser.parse_known_args()
 server_mode = args.server_mode
@@ -121,6 +123,7 @@ scheduler_port = args.scheduler_port
 fl_server_port = args.fl_server_port
 fl_name = args.fl_name
 scheduler_manage_port = args.scheduler_manage_port
+config_file_path = args.config_file_path
 ```
 
 > 每个Python脚本对应一个进程，若要在不同主机部署多个`Server`角色，则需要分别拉起多个进程，可以通过shell指令配合Python的方式快速启动多`Server`。可参考[示例](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile)。
@@ -298,7 +301,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 {
     "recovery": {
         "storage_type": 1,
-        "storge_file_path": "/home/cds/config.json"
+        "storge_file_path": "config.json"
     }
 }
 ```
