@@ -33,49 +33,71 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_cluster.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.md)。
+参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.md)。
 
 ### 数据
 
-[用于训练的数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/train.tar.gz)包含100个用户聊天文件，其目录结构如下：
+[用于训练的数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/client.tar.gz)包含20个用户聊天文件，其目录结构如下：
 
 ```text
-mobile/datasets/train/
-    ├── 0.tsv  # 用户0的训练数据
-    ├── 1.tsv  # 用户1的训练数据
+datasets/supervise/client/
+    ├── 0.txt  # 用户0的训练数据
+    ├── 1.txt  # 用户1的训练数据
     │
     │          ......
     │
-    └── 99.tsv  # 用户99的训练数据
+    └── 19.txt  # 用户19的训练数据
 ```
 
-[用于验证的数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/eval.tar.gz)包含1个聊天文件，其目录结构如下：
+[用于验证的数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/supervise/eval.tar.gz)包含1个聊天文件，其目录结构如下：
 
 ```text
-mobile/datasets/eval/
-    ├── 0.tsv  # 验证数据
+datasets/supervise/eval/
+    ├── eval.txt  # 验证数据
 ```
 
-[标签对应的表情图片数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz)包含107个图片，其目录结构如下：
+[标签对应的表情图片数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz)包含4类表情，每类表情包括若干张图片，其目录结构如下：
 
 ```text
-mobile/datasets/memo/
-    ├── 0.gif  # 第0个标签对应的表情图片
-    ├── 1.gif  # 第1个标签对应的表情图片
-    │
-    │          ......
-    │
-    └── 106.gif  # 第106个标签对应的表情图片
+datasets/memo/
+    ├── good  # good类表情
+    │   ├── 2018new_geili_org.png
+    │   ├── 2018new_good_org.png
+    │   ├── 2018new_xianhua_org.png
+    │   ├── 2018new_zan_org.png
+    │   └── 2018new_zhongguozan_org.png
+    ├── leimu  # leimu类表情
+    │   ├── 2018new_beishang_org.png
+    │   ├── 2018new_kelian_org.png
+    │   ├── 2018new_leimu_org.png
+    │   ├── 2018new_weiqu_org.png
+    │   ├── 2021_alongdog_org.png
+    │   ├── 2021_LZcry_org.png
+    │   └── 2021_LZpoor_org.png
+    ├── xiaoku  # xiaoku类表情
+    │   ├── 2018new_doge02_org.png
+    │   ├── 2018new_guzhang_org.png
+    │   ├── 2018new_huaixiao_org.png
+    │   ├── 2018new_xiaoerbuyu_org.png
+    │   ├── 2018new_xiaoku_thumb.png
+    │   └── 2018new_yinxian_org.png
+    └── xin  # xin类表情
+        ├── 2018new_aini_org.png
+        ├── 2018new_huaxin_org.png
+        ├── 2018new_tianping_org.png
+        ├── 2018new_xin_org.png
+        └── qixi2018_xiaoxinxin_org.png
 ```
 
 ### 模型相关文件
 
-生成模型需要的起始[CheckPoint文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)和[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)的目录结构如下：
+生成模型需要的起始[CheckPoint文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)、[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)和[词典ID映射文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab_map_ids.txt)的目录结构如下：
 
 ```text
-mobile/models/
+models/
     ├── albert_init.ckpt  # 起始的checkpoint
-    └── vocab.txt  # 词典
+    ├── vocab.txt  # 词典
+    └── vocab_map_ids.txt  # 词典ID映射文件
 ```
 
 ## 定义网络
@@ -88,25 +110,106 @@ mobile/models/
 
 #### 将模型导出为MindIR格式文件
 
-代码如下：
+示例代码如下：
 
 ```python
+import argparse
+import os
+import random
+from time import time
 import numpy as np
-from mindspore import export, Tensor
+from mindspore import context, set_seed, load_checkpoint, Tensor, export
+from mindspore.nn import AdamWeightDecay
 from src.config import train_cfg, client_net_cfg
-from src.cell_wrapper import NetworkTrainCell
+from src.utils import restore_params
+from src.model import AlbertModelCLS
+from src.cell_wrapper import NetworkWithCLSLoss, NetworkTrainCell
 
-# 构建模型
-client_network_train_cell = NetworkTrainCell(client_net_cfg)
 
-# 构建输入数据
-input_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-attention_mask = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-token_type_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), dtype=np.int32))
-label_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.num_labels), dtype=np.int32))
+def parse_args():
+    """
+    parse args
+    """
+    parser = argparse.ArgumentParser(description='export task')
+    parser.add_argument('--device_target', type=str, default='GPU', choices=['Ascend', 'GPU'])
+    parser.add_argument('--device_id', type=str, default='0')
+    parser.add_argument('--init_model_path', type=str, default='none')
+    parser.add_argument('--output_dir', type=str, default='./models/mindir/')
+    parser.add_argument('--seed', type=int, default=0)
+    return parser.parse_args()
 
-# 导出模型
-export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids, file_name='albert_train.mindir', file_format='MINDIR')
+
+def supervise_export(args_opt):
+    set_seed(args_opt.seed), random.seed(args_opt.seed)
+    start = time()
+    # 参数配置
+    os.environ['CUDA_VISIBLE_DEVICES'] = args_opt.device_id
+    init_model_path = args_opt.init_model_path
+    output_dir = args_opt.output_dir
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    print('Parameters setting is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # MindSpore配置
+    context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
+    print('Context setting is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # 建立模型
+    albert_model_cls = AlbertModelCLS(client_net_cfg)
+    network_with_cls_loss = NetworkWithCLSLoss(albert_model_cls)
+    network_with_cls_loss.set_train(True)
+    print('Model construction is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # 建立优化器
+    client_params = [_ for _ in network_with_cls_loss.trainable_params()]
+    client_decay_params = list(
+        filter(train_cfg.optimizer_cfg.AdamWeightDecay.decay_filter, client_params)
+    )
+    client_other_params = list(
+        filter(lambda x: not train_cfg.optimizer_cfg.AdamWeightDecay.decay_filter(x), client_params)
+    )
+    client_group_params = [
+        {'params': client_decay_params, 'weight_decay': train_cfg.optimizer_cfg.AdamWeightDecay.weight_decay},
+        {'params': client_other_params, 'weight_decay': 0.0},
+        {'order_params': client_params}
+    ]
+    client_optimizer = AdamWeightDecay(client_group_params,
+                                       learning_rate=train_cfg.client_cfg.learning_rate,
+                                       eps=train_cfg.optimizer_cfg.AdamWeightDecay.eps)
+    client_network_train_cell = NetworkTrainCell(network_with_cls_loss, optimizer=client_optimizer)
+    print('Optimizer construction is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # 构造数据
+    input_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    attention_mask = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    token_type_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
+    label_ids = Tensor(np.zeros((train_cfg.batch_size,), np.int32))
+    print('Client data loading is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # 读取checkpoint
+    if init_model_path != 'none':
+        init_param_dict = load_checkpoint(init_model_path)
+        restore_params(client_network_train_cell, init_param_dict)
+    print('Checkpoint loading is done! Time cost: {}'.format(time() - start))
+    start = time()
+
+    # 导出
+    export(client_network_train_cell, input_ids, attention_mask, token_type_ids, label_ids,
+           file_name=os.path.join(output_dir, 'albert_supervise'), file_format='MINDIR')
+    print('Supervise model export process is done! Time cost: {}'.format(time() - start))
+
+
+if __name__ == '__main__':
+    total_time_start = time()
+    args = parse_args()
+    supervise_export(args)
+    print('All is done! Time cost: {}'.format(time() - total_time_start))
+
 ```
 
 #### 将MindIR文件转化为联邦学习端侧框架可用的ms文件
@@ -115,7 +218,7 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本，参考[云端部署方式](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_cluster.html)。
+首先在服务端启动脚本，参考[云端部署方式](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)。
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -158,10 +261,10 @@ app
 ├── src/main
 │   ├── assets # 资源目录
 |   |   └── model # 模型目录
-|   |       └── albert_ad_train.mindir.ms # 存放的预训练模型文件
-│   |       └── albert_ad_infer.mindir.ms # 存放的推理模型文件
+|   |       └── albert_supervise.mindir.ms # 存放的预训练模型文件
+│   |       └── albert_inference.mindir.ms # 存放的推理模型文件
 │   |   └── data # 数据目录
-|   |       └── 140.txt # 模型数据文件
+|   |       └── 0.txt # 模型数据文件
 |   |       └── vocab.txt # 词典文件
 |   |       └── vocab_map_ids.txt # 词典ID映射文件
 |   |       └── eval.txt # 训练结果评估文件
@@ -185,12 +288,10 @@ app
 
     ```java
     import android.content.Context;
-
     import java.io.File;
     import java.io.FileOutputStream;
     import java.io.InputStream;
     import java.util.logging.Logger;
-
     public class AssetCopyer {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         public static void copyAllAssets(Context context,String destination) {
@@ -246,17 +347,13 @@ app
     ```java
     import android.annotation.SuppressLint;
     import android.os.Build;
-
     import androidx.annotation.RequiresApi;
-
     import com.huawei.flAndroid.utils.AssetCopyer;
     import com.huawei.flclient.FLParameter;
     import com.huawei.flclient.SyncFLJob;
-
     import java.util.Arrays;
     import java.util.UUID;
     import java.util.logging.Logger;
-
     public class FlJob {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         private final String parentPath;
@@ -267,19 +364,18 @@ app
         @SuppressLint("NewApi")
         @RequiresApi(api = Build.VERSION_CODES.M)
         public void syncJobTrain() {
-            String trainDataset = parentPath + "/data/140.txt";
+            String trainDataset = parentPath + "/data/0.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
             String testDataset = parentPath + "/data/eval.txt";
-            String trainModelPath = parentPath + "/model/albert_ad_train.mindir.ms";
-            String inferModelPath = parentPath + "/model/albert_ad_infer.mindir.ms";
-            String flName = "adbert";
+            String trainModelPath = parentPath + "/model/albert_supervise.mindir.ms";
+            String inferModelPath = parentPath + "/model/albert_inference.mindir.ms";
+            String flName = "albert";
             // server ip address，请保证Android能够访问到server，否则会出现connection failed
             String ip = "http://127.0.0.1:";
             int port = 6668;
             String clientID = UUID.randomUUID().toString();
             boolean useSSL = false;
-
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
@@ -292,23 +388,21 @@ app
             flParameter.setIp(ip);
             flParameter.setPort(port);
             flParameter.setUseSSL(useSSL);
-
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
         // Android的联邦学习推理任务
         public void syncJobPredict() {
-            String flName = "adbert";
+            String flName = "albert";
             String dataPath = parentPath + "/data/eval_no_label.txt";
             String vocal_file = parentPath + "/data/vocab.txt";
             String idsFile = parentPath + "/data/vocab_map_ids.txt";
-            String modelPath = parentPath + "/model/albert_ad_infer.mindir.ms";
+            String modelPath = parentPath + "/model/albert_inference.mindir.ms";
             SyncFLJob syncFLJob = new SyncFLJob();
             int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
             LOGGER.info("labels = " + Arrays.toString(labels));
         }
     }
-
     ```
 
 3. MainActivity.java：该代码文件作用是启动联邦学习训练与推理任务。
@@ -316,13 +410,10 @@ app
     ```java
     import android.os.Build;
     import android.os.Bundle;
-
     import androidx.annotation.RequiresApi;
     import androidx.appcompat.app.AppCompatActivity;
-
     import com.huawei.flAndroid.job.FlJob;
     import com.huawei.flAndroid.utils.AssetCopyer;
-
     @RequiresApi(api = Build.VERSION_CODES.P)
     public class MainActivity extends AppCompatActivity {
         private String parentPath;
@@ -336,7 +427,6 @@ app
             // 新建一个线程，启动联邦学习训练与推理任务
             new Thread(() -> {
                 FlJob flJob = new FlJob(parentPath);
-
                 flJob.syncJobTrain();
                 flJob.syncJobPredict();
             }).start();
@@ -438,11 +528,20 @@ app
 
 ## 实验结果
 
-联邦学习总迭代数为5，客户端本地训练epoch数为10，batchSize设置为16。
+联邦学习总迭代数为10，客户端本地训练epoch数为1，batchSize设置为16。
 
-|        | Top1精度 | Top5精度 |
-| ------ | -------- | -------- |
-| ALBERT | 24%      | 70%      |
+```text
+<FLClient> total acc:0.44488978
+<FLClient> total acc:0.583166333
+<FLClient> total acc:0.609218437
+<FLClient> total acc:0.645290581
+<FLClient> total acc:0.667334669
+<FLClient> total acc:0.685370741
+<FLClient> total acc:0.70741483
+<FLClient> total acc:0.711422846
+<FLClient> total acc:0.719438878
+<FLClient> total acc:0.733466934
+```
 
 ## 参考文献
 
