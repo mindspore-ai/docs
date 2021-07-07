@@ -12,13 +12,13 @@ A: The format is not fixed. This step is to create an input for constructing the
 
 <font size=3>**Q: What framework models and formats can be directly read by MindSpore? Can the PTH Model Obtained Through Training in PyTorch Be Loaded to the MindSpore Framework for Use?**</font>
 
-A: MindSpore uses protocol buffers (protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
+A: MindSpore uses protocol buffers (Protobuf) to store training parameters and cannot directly read framework models. A model file stores parameters and their values. You can use APIs of other frameworks to read parameters, obtain the key-value pairs of parameters, and load the key-value pairs to MindSpore. If you want to use the .ckpt file trained by a framework, read the parameters and then call the `save_checkpoint` API of MindSpore to save the file as a .ckpt file that can be read by MindSpore.
 
 <br/>
 
 <font size=3>**Q: What should I do if a Protobuf memory limit error is reported during the process of using ckpt or exporting a model?**</font>
 
-A: When a single protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
+A: When a single Protobuf data is too large, because Protobuf itself limits the size of the data stream, a memory limit error will be reported. At this time, the restriction can be lifted by setting the environment variable `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`.
 
 <br/>
 
@@ -36,7 +36,7 @@ A: Compare through the following four aspects:
 
 <br/>
 
-<font size=3>**Q: Does MindSpore run only on Huawei `NPUs`?**</font>
+<font size=3>**Q: Does MindSpore run only on Huawei `Ascend`?**</font>
 
 A: MindSpore supports Huawei `Ascend`, `GPUs`, and `CPUs`, and supports heterogeneous computing.
 
@@ -66,15 +66,15 @@ A: An AIR model cannot be exported from the Ascend 310. You need to load a train
 
 <br/>
 
-<font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
+<font size=3>**Q: Does MindSpore need a GPU computing unit? What hardware support is needed?**</font>
 
-A: Due to hardware limitations of protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, the size of a single Tensor cannot exceed 2G. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
+A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/doc/note/en/master/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#).
 
 <br/>
 
-<font size=3>**Q: Does MindSpore require computing units such as GPUs and Ascend? What hardware support is required?**</font>
+<font size=3>**Q: Does MindSpore have any limitation on the input size of a single Tensor for exporting and loading models?**</font>
 
-A: MindSpore currently supports CPU, GPU, and Ascend. Currently, you can try out MindSpore through Docker images on laptops or in environments with GPUs. Some models in MindSpore Model Zoo support GPU-based training and inference, and other models are being improved. For distributed parallel training, MindSpore supports multi-GPU training. You can obtain the latest information from [Road Map](https://www.mindspore.cn/docs/note/en/r1.3/roadmap.html) and [project release notes](https://gitee.com/mindspore/mindspore/blob/r1.3/RELEASE.md#).
+A: Due to hardware limitations of Protobuf, when exporting to AIR and ONNX formats, the size of model parameters cannot exceed 2G; when exporting to MINDIR format, the size of a single Tensor cannot exceed 2G. MindSpore only supports MINDIR, and the size of a single Tensor cannot exceed 2G.
 
 <br/>
 
