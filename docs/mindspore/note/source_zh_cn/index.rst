@@ -12,7 +12,8 @@ MindSpore设计和规格
    :caption: 设计说明
    
    design/overall
-   design/mindspore
+   design/mindir
+   design/distributed_training_design
 
 .. toctree::
    :glob:

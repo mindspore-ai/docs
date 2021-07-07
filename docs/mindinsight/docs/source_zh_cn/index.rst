@@ -32,3 +32,4 @@ MindInsight 可视化文档
    training_visual_design
    graph_visual_design
    tensor_visual_design
+   profiler_design

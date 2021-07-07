@@ -12,7 +12,8 @@ MindSpore Design And Specification
    :caption: Design
    
    design/overall
-   design/mindspore
+   design/mindir
+   design/distributed_training_design
 
 
 .. toctree::

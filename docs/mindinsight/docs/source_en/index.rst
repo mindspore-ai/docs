@@ -30,3 +30,4 @@ MindInsight Visualization Documents
    training_visual_design
    graph_visual_design
    tensor_visual_design   
+   profiler_design
