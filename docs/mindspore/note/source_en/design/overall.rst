@@ -5,4 +5,4 @@ Overall Design
    :maxdepth: 1
    
    technical_white_paper
-   mindspore/architecture
+   architecture

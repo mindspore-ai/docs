@@ -10,7 +10,18 @@ MindSpore Lite API
   :glob:
   :maxdepth: 1
 
-  api_cpp/index
+  api_cpp/class_list
+  api_cpp/mindspore
+  api_cpp/namespace/mindspore_dataset
+  api_cpp/namespace/mindspore_dataset_config
+  api_cpp/namespace/mindspore_dataset_text
+  api_cpp/namespace/mindspore_dataset_transforms
+  api_cpp/namespace/mindspore_dataset_vision
+  api_cpp/lite
+  api_cpp/session
+  api_cpp/tensor
+  api_cpp/errorcode_and_metatype
+  api_cpp/lite_cpp_example
 
 
 .. toctree::

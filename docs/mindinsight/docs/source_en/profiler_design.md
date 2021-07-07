@@ -1,10 +1,10 @@
-﻿# Profiler Design Document
+﻿# Profiler Design
 
 `Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
-- [Profiler Design Document](#profiler-design-document)
+- [Profiler Design](#profiler-design)
     - [Background](#background)
     - [Profiler Architecture Design](#profiler-architecture-design)
         - [Context](#context)
@@ -26,7 +26,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_en/design/mindspore/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_en/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Background
 

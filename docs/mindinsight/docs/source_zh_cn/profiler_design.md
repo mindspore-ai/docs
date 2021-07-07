@@ -1,10 +1,10 @@
-# Profiler设计文档
+# Profiler设计
 
 `Linux` `Ascend` `GPU` `模型开发` `模型调优` `框架开发` `中级` `高级` `贡献者`
 
 <!-- TOC -->
 
-- [Profiler设计文档](#profiler设计文档)
+- [Profiler设计](#profiler设计)
     - [背景](#背景)
     - [Profiler框架设计](#profiler架构设计)
         - [上下文](#上下文)
@@ -25,7 +25,7 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/note/source_zh_cn/design/mindspore/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindinsight/docs/source_zh_cn/profiler_design.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 背景
 
