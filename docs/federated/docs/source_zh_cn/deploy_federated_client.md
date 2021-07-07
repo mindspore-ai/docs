@@ -8,33 +8,33 @@
         - [运行依赖](#运行依赖)
         - [构建依赖环境](#构建依赖环境)
     - [x86环境](#x86环境)
-        - [编译出包](#编译出包)
-        - [运行依赖](#运行依赖)
-        - [构建依赖环境](#构建依赖环境)
+        - [编译出包](#编译出包-1)
+        - [运行依赖](#运行依赖-1)
+        - [构建依赖环境](#构建依赖环境-1)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/deploy_federated_client.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-下面分别介绍如何在Android环境和x86环境部署Federated-Client：
+下面分别介绍如何在Android环境和x86环境部署Federated-Client。
 
 ## Android环境
 
 ### 编译出包
 
-- 配置编译环境
+1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)。
 
-- 在mindspore主目录进行编译，编译包含aarch64和aarch32的AAR包
+2. 在mindspore根目录进行编译，编译包含aarch64和aarch32的AAR包。
 
     ```sh
     bash build.sh -A on -j32
     ```
 
-- 生成的Android AAR包路径：
+3. 获取生成的Android AAR包。
 
-    ```sh
+    ```text
     mindspore-lite-maven-{version}.zip
     ```
 
@@ -46,9 +46,9 @@
 
 ### 构建依赖环境
 
-将文件`mindspore-lite-maven-{version}.zip`解压后所得到的目录结构如下所示：
+将文件`mindspore-lite-maven-{version}.zip`解压后，所得到的目录结构如下所示：
 
-```sh
+```text
 mindspore-lite-maven-{version}
 └── mindspore
     └── mindspore-lite
@@ -58,13 +58,13 @@ mindspore-lite-maven-{version}
 
 由此可知联邦学习相关的AAR包路径是：
 
-```sh
+```text
 mindspore/output/mindspore/mindspore-lite/{version}/mindspore-lite-{version}.aar
 ```
 
-其中AAR包里面与联邦学习相关的目录结构如下：
+其中AAR包中与联邦学习相关的目录结构如下：
 
-```sh
+```text
 mindspore-lite-{version}
 ├── jni
 │   ├── arm64-v8a
@@ -93,19 +93,19 @@ mindspore-lite-{version}
 
 ### 编译出包
 
-- 配置编译环境
+1. 配置编译环境。
 
-    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
+    目前只支持Linux环境编译，Linux编译环境配置可参考[这里](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)。
 
-- 在mindspore主目录进行编译，编译x86相关架构包
+2. 在mindspore根目录进行编译，编译x86架构相关包。
 
     ```sh
     bash build.sh -I x86_64 -j32
     ```
 
-- 生成的x86相关架构包路径：
+3. 获取生成的x86架构相关包。
 
-    ```sh
+    ```text
     mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz
     ```
 
@@ -116,7 +116,7 @@ mindspore-lite-{version}
 
 ### 构建依赖环境
 
-将文件`mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz`解压后所得到的目录结构如下所示：
+将文件`mindspore/output/mindspore-lite-{version}-linux-x64.tar.gz`解压后，所得到的目录结构如下所示：
 
 ```sh
 mindspore-lite-{version}-linux-x64
@@ -158,9 +158,7 @@ libturbojpeg.so.0  # 图像处理动态库文件
 mindspore-lite-java-flclient.jar  # 联邦学习框架jar包
 ```
 
-其中可将路径`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共6个）放入一个文件夹，比如`/resource/x86libs/`。
-
-然后在x86中设置环境变量(下面需给绝对路径)：
+可将路径`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/lib/`以及`mindspore/output/mindspore-lite-{version}-linux-x64/runtime/third_party/libjpeg-turbo/lib`中联邦学习所依赖的so文件（共6个）放入一个文件夹，比如`/resource/x86libs/`。然后在x86中设置环境变量(下面需给绝对路径)：
 
 ```sh
 export LD_LIBRARY_PATH=/resource/x86libs/:$LD_LIBRARY_PATH

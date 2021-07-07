@@ -5,7 +5,6 @@
 <!-- TOC -->
 
 - [云侧部署](#云侧部署)
-    - [概述](#概述)
     - [准备环节](#准备环节)
         - [安装MindSpore](#安装mindspore)
     - [定义模型](#定义模型)
@@ -32,16 +31,16 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
     `Scheduler`的作用主要有两点：
 
-    1. 协助集群组网：在集群初始化阶段，由Scheduler负责收集Server信息，并达成集群一致性。
+    1. 协助集群组网：在集群初始化阶段，由`Scheduler`负责收集`Server`信息，并达成集群一致性。`
     2. 开放管理面：支持用户通过`RESTful`接口对集群进行管理。
 
-    在一个联邦学习任务中，只有一个Scheduler，与Server通过TCP私有协议通信。
+    在一个联邦学习任务中，只有一个`Scheduler`，与`Server`通过TCP私有协议通信。
 
 - Federated Learning Server
 
     `Server`为执行联邦学习任务的主体，用于接收和解析来自端侧设备的数据，具有执行安全聚合、限时通信、模型存储等能力。在一个联邦学习任务中，`Server`可以有多个(用户可配置)，`Server`间通过TCP私有协议通信，对外开放HTTP端口用于端侧设备连接。
 
-    > 在MindSpore联邦学习框架中，`Server`还支持弹性伸缩以及容灾，能够在训练任务不中断的情况下，动态调配硬件资源。
+    在MindSpore联邦学习框架中，`Server`还支持弹性伸缩以及容灾，能够在训练任务不中断的情况下，动态调配硬件资源。
 
 `Scheduler`和`Server`需部署在单网卡的服务器或者容器中，且处于相同网段。MindSpore自动获取首个可用IP地址作为`Server`地址。
 
@@ -53,7 +52,7 @@ MindSpore联邦学习云侧集群对硬件设备无依赖，因此安装`CPU`版
 
 ## 定义模型
 
-为了便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程能够复用训练脚本，通过[参数配置](#参数配置)选择不同的启动方式。
+为了便于部署，MindSpore联邦学习的`Scheduler`和`Server`进程可以复用训练脚本，仅通过[参数配置](#id5)选择不同的启动方式。
 
 本教程选择LeNet网络作为示例，具体网络结构，损失函数和优化器定义请参考[LeNet网络样例脚本](https://gitee.com/mindspore/docs/blob/master/tutorials/tutorial_code/lenet/lenet.py)。
 
@@ -94,10 +93,11 @@ context.set_fl_context(**fl_ctx)
 Model.train()
 ```
 
-本示例设置了本次训练任务的模式为`联邦学习`，此训练进程角色为`Server`，本次任务需要启动`4`个`Server`才能完成集群组网，集群`Scheduler`的IP地址为`192.168.216.124`，集群`Scheduler`端口为`6667`，联邦学习`HTTP服务端口`为`6668`(由端侧设备连接)，任务名为`LeNet`，集群`Scheduler`管理端口为`11202`。
+本示例设置了训练任务的模式为`联邦学习`，训练进程角色为`Server`，需要启动`4`个`Server`才能完成集群组网，集群`Scheduler`的IP地址为`192.168.216.124`，集群`Scheduler`端口为`6667`，联邦学习`HTTP服务端口`为`6668`(由端侧设备连接)，任务名为`LeNet`，集群`Scheduler`管理端口为`11202`。
 
 > 部分参数只在Scheduler用到，如scheduler_manage_port，部分参数只在Server用到，如fl_server_port，为了方便部署，可将这些参数配置统一传入，MindSpore会根据进程角色，读取不同的参数配置。
-> 建议将参数配置通过Python `argparse`模块传入：
+
+建议将参数配置通过Python `argparse`模块传入：
 
 ```python
 import argparse
@@ -135,7 +135,7 @@ mobile/
 ├── run_mobile_sched.py
 ├── run_mobile_server.py
 ├── src
-│   └── model.py
+│   └── model.py
 └── test_mobile_lenet.py
 ```
 
@@ -162,12 +162,12 @@ mobile/
     若想让`Server`分布式部署在不同物理节点，可以使用`local_server_num`参数，代表在**本节点**需要执行的`Server`进程数量：
 
     ```sh
-    #在节点1启动3个Server进程
+    # 在节点1启动3个Server进程
     python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3
     ```
 
     ```sh
-    #在节点2启动1个Server进程
+    # 在节点2启动1个Server进程
     python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
     ```
 
@@ -183,7 +183,7 @@ mobile/
 
 3. 停止联邦学习
 
-    目前我们采用`finish_mobile.py`用于停止联邦学习服务器，执行如下指令来停止联邦学习集群，其中`scheduler_port`传参和启动服务器时的传参保持一致：
+    可以采用`finish_mobile.py`用于停止联邦学习服务器，执行如下指令来停止联邦学习集群，其中`scheduler_port`传参和启动服务器时的传参保持一致。
 
     ```sh
     python finish_mobile.py --scheduler_port=6667
@@ -206,9 +206,9 @@ mobile/
 
 ## 弹性伸缩
 
-MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Scheduler`管理端口提供`RESTful`服务，使得用户在不中断训练任务的情况下，对硬件资源进行动态调度。目前MindSpore的弹性伸缩仅支持水平伸缩(Scale Out/In)，暂不支持垂直伸缩(Scale Up/Down)。在弹性伸缩场景下，必然会有Server进程的增加/减少。
+MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Scheduler`管理端口提供`RESTful`服务，使得用户在不中断训练任务的情况下，对硬件资源进行动态调度。目前MindSpore的弹性伸缩仅支持水平伸缩(Scale Out/In)，暂不支持垂直伸缩(Scale Up/Down)。在弹性伸缩场景下，必然会有`Server`进程的增加/减少。
 
-这里详细描述用户能如何通过RESTful原生接口，对集群扩容/缩容进行控制。
+以下详细描述用户如何通过RESTful原生接口，对集群扩容/缩容进行控制。
 
 1. 扩容
 
@@ -225,7 +225,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     'http://192.168.216.124:11202/scaleout'
     ```
 
-    这里需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`6`，执行指令：
+    需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`6`，执行如下指令：
 
     ```sh
     python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2
@@ -303,7 +303,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 }
 ```
 
-节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行指令：
+节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行如下指令：
 
 ```sh
 python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=/home/config.json
@@ -311,4 +311,4 @@ python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=666
 
 此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
 
-> 在弹性伸缩命令下发成功后，在扩缩容业务执行完毕前，MindSpore不支持容灾。
+> 在弹性伸缩命令下发成功后，在扩缩容业务执行完毕前，不支持容灾。

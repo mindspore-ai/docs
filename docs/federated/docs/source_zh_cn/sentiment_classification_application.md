@@ -25,7 +25,9 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/docs/source_zh_cn/sentiment_classification_application.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-在隐私合规场景下，通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。在联邦学习应用场景的探索中，输入法场景引起了我们的注意。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。MindSpore Federated将联邦语言模型应用到了输入法的表情图片预测功能中。联邦语言模型会根据聊天文本数据推荐出适合当前语境的表情图片。在使用联邦学习建模时，每一张表情图片会被定义为一个情感标签类别，而每个聊天短语会对应一个表情图片。MindSpore Federated将表情图片预测任务定义为联邦情感分类任务。
+通过端云协同的联邦学习建模方式，可以充分发挥端侧数据的优势，避免用户敏感数据直接上报云侧。由于用户在使用输入法时对自己的文字隐私十分看重，并且输入法上的智慧功能也是用户非常需要的。因此，联邦学习天然适用在输入法场景中。
+
+MindSpore Federated将联邦语言模型应用到了输入法的表情图片预测功能中。联邦语言模型会根据聊天文本数据推荐出适合当前语境的表情图片。在使用联邦学习建模时，每一张表情图片会被定义为一个情感标签类别，而每个聊天短语会对应一个表情图片。MindSpore Federated将表情图片预测任务定义为联邦情感分类任务。
 
 ## 准备环节
 
@@ -39,41 +41,41 @@
 
 ```text
 mobile/datasets/train/
-├── 0.tsv  # 用户0的训练数据
-├── 1.tsv  # 用户1的训练数据
-│
-│          ......
-│
-└── 99.tsv  # 用户99的训练数据
+    ├── 0.tsv  # 用户0的训练数据
+    ├── 1.tsv  # 用户1的训练数据
+    │
+    │          ......
+    │
+    └── 99.tsv  # 用户99的训练数据
 ```
 
 [用于验证的数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/eval.tar.gz)包含1个聊天文件，其目录结构如下：
 
 ```text
 mobile/datasets/eval/
-├── 0.tsv  # 验证数据
+    ├── 0.tsv  # 验证数据
 ```
 
 [标签对应的表情图片数据](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/memo.tar.gz)包含107个图片，其目录结构如下：
 
 ```text
 mobile/datasets/memo/
-├── 0.gif  # 第0个标签对应的表情图片
-├── 1.gif  # 第1个标签对应的表情图片
-│
-│          ......
-│
-└── 106.gif  # 第106个标签对应的表情图片
+    ├── 0.gif  # 第0个标签对应的表情图片
+    ├── 1.gif  # 第1个标签对应的表情图片
+    │
+    │          ......
+    │
+    └── 106.gif  # 第106个标签对应的表情图片
 ```
 
 ### 模型相关文件
 
-生成模型需要的起始的[checkpoint](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)和[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)的目录结构如下：
+生成模型需要的起始[CheckPoint文件](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/models/albert_init.ckpt)和[词典](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/notebook/datasets/vocab.txt)的目录结构如下：
 
 ```text
 mobile/models/
-├── albert_init.ckpt  # 起始的checkpoint
-└── vocab.txt  # 词典
+    ├── albert_init.ckpt  # 起始的checkpoint
+    └── vocab.txt  # 词典
 ```
 
 ## 定义网络
@@ -117,17 +119,17 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
-1. Android新建工程
+1. Android新建工程；
 
-2. 编译MindSpore Lite AAR包
+2. 编译MindSpore Lite AAR包；
 
-3. Android实例程序结构说明
+3. Android实例程序结构说明；
 
-4. 编写代码
+4. 编写代码；
 
-5. Android工程配置依赖项
+5. Android工程配置依赖项；
 
-6. Android构建与运行
+6. Android构建与运行。
 
 ### Android新建工程
 
@@ -137,15 +139,15 @@ export(client_network_train_cell, input_ids, attention_mask, token_type_ids, lab
 
 ### 编译MindSpore Lite AAR包
 
-- 请参考[联邦学习部署](./deploy_federated_client.md)
+1. 请参考[联邦学习部署](./deploy_federated_client.md)
 
-- 生成的Android AAR包名称：
+2. 获取生成的Android AAR包。
 
-  ```sh
-  mindspore-lite-<version>.aar
-  ```
+   ```text
+   mindspore-lite-<version>.aar
+   ```
 
-- 把AAR包放置安卓工程的app/libs/目录下
+3. 把AAR包放置安卓工程的app/libs/目录下。
 
 ### Android实例程序结构说明
 
@@ -309,7 +311,7 @@ app
 
     ```
 
-3. MainActivity.java：该代码文件作用是启动联邦学习训练与推理任务
+3. MainActivity.java：该代码文件作用是启动联邦学习训练与推理任务。
 
     ```java
     import android.os.Build;
