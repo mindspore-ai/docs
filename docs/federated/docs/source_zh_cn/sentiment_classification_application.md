@@ -33,7 +33,7 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考：[服务端环境配置](./deploy_federated_cluster.md)和[客户端环境配置](./deploy_federated_client.md)。
+参考：[服务端环境配置](./deploy_federated_server_cluster.md)和[客户端环境配置](./deploy_federated_client.md)。
 
 ### 数据
 
@@ -104,7 +104,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/mobile/src/model.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/tree/master/tests/st/fl/albert/src/model.py)。
 
 ### 生成端侧模型文件
 
@@ -204,67 +204,21 @@ def supervise_export(args_opt):
     print('Supervise model export process is done! Time cost: {}'.format(time() - start))
 
 
-def inference_export(args_opt):
-    set_seed(args_opt.seed), random.seed(args_opt.seed)
-    start = time()
-    # 参数配置
-    os.environ['CUDA_VISIBLE_DEVICES'] = args_opt.device_id
-    init_model_path = args_opt.init_model_path
-    output_dir = args_opt.output_dir
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    print('Parameters setting is done! Time cost: {}'.format(time() - start))
-    start = time()
-
-    # MindSpore配置
-    context.set_context(mode=context.GRAPH_MODE, device_target=args_opt.device_target)
-    print('Context setting is done! Time cost: {}'.format(time() - start))
-    start = time()
-
-    # 建立模型
-    albert_model_cls = AlbertModelCLS(client_net_cfg)
-    albert_model_cls.set_train(False)
-    print('Model construction is done! Time cost: {}'.format(time() - start))
-    start = time()
-
-    # 构造数据
-    input_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    attention_mask = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    token_type_ids = Tensor(np.zeros((train_cfg.batch_size, client_net_cfg.seq_length), np.int32))
-    print('Client data loading is done! Time cost: {}'.format(time() - start))
-    start = time()
-
-    # 读取checkpoint
-    if init_model_path != 'none':
-        init_param_dict = load_checkpoint(init_model_path)
-        restore_params(albert_model_cls, init_param_dict)
-    print('Checkpoint loading is done! Time cost: {}'.format(time() - start))
-    start = time()
-
-    # 导出
-    export(albert_model_cls, input_ids, attention_mask, token_type_ids,
-           file_name=os.path.join(output_dir, 'albert_inference'), file_format='MINDIR')
-    print('Supervise model export process is done! Time cost: {}'.format(time() - start))
-
-
 if __name__ == '__main__':
     total_time_start = time()
     args = parse_args()
     supervise_export(args)
-    print('-' * 60)
-    inference_export(args)
-    print('-' * 60)
     print('All is done! Time cost: {}'.format(time() - total_time_start))
 
 ```
 
 #### 将MindIR文件转化为联邦学习端侧框架可用的ms文件
 
-参考[实现一个图像分类应用](./image_classification_application.md)中生成端侧模型文件部分。
+参考[图像分类应用](./image_classification_application.md)中生成端侧模型文件部分。
 
 ## 启动联邦学习流程
 
-首先在服务端启动脚本：参考[云端部署方式](./deploy_federated_cluster.md)
+首先在服务端启动脚本，参考[云端部署方式](./deploy_federated_server_cluster.md)。
 
 以ALBERT模型的训练与推理任务为基础，整体流程为：
 
@@ -288,7 +242,7 @@ if __name__ == '__main__':
 
 ### 编译MindSpore Lite AAR包
 
-1. 请参考[联邦学习部署](./deploy_federated_client.md)完成编译。
+1. 参考[端侧部署](./deploy_federated_client.md)完成部署。
 
 2. 获取生成的Android AAR包。
 
@@ -334,12 +288,10 @@ app
 
     ```java
     import android.content.Context;
-
     import java.io.File;
     import java.io.FileOutputStream;
     import java.io.InputStream;
     import java.util.logging.Logger;
-
     public class AssetCopyer {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         public static void copyAllAssets(Context context,String destination) {
@@ -390,22 +342,18 @@ app
     }
     ```
 
-2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](./interface_description_federated_client.md)
+2. FlJob.java：该代码文件作用是定义训练与推理任务的内容，具体的联邦学习接口含义请参考[联邦学习接口介绍](./interface_description_federated_client.md)。
 
     ```java
     import android.annotation.SuppressLint;
     import android.os.Build;
-
     import androidx.annotation.RequiresApi;
-
     import com.huawei.flAndroid.utils.AssetCopyer;
     import com.huawei.flclient.FLParameter;
     import com.huawei.flclient.SyncFLJob;
-
     import java.util.Arrays;
     import java.util.UUID;
     import java.util.logging.Logger;
-
     public class FlJob {
         private static final Logger LOGGER = Logger.getLogger(AssetCopyer.class.toString());
         private final String parentPath;
@@ -428,7 +376,6 @@ app
             int port = 6668;
             String clientID = UUID.randomUUID().toString();
             boolean useSSL = false;
-
             FLParameter flParameter = FLParameter.getInstance();
             flParameter.setTrainDataset(trainDataset);
             flParameter.setVocabFile(vocal_file);
@@ -441,7 +388,6 @@ app
             flParameter.setIp(ip);
             flParameter.setPort(port);
             flParameter.setUseSSL(useSSL);
-
             SyncFLJob syncFLJob = new SyncFLJob();
             syncFLJob.flJobRun();
         }
@@ -457,7 +403,6 @@ app
             LOGGER.info("labels = " + Arrays.toString(labels));
         }
     }
-
     ```
 
 3. MainActivity.java：该代码文件作用是启动联邦学习训练与推理任务。
@@ -465,13 +410,10 @@ app
     ```java
     import android.os.Build;
     import android.os.Bundle;
-
     import androidx.annotation.RequiresApi;
     import androidx.appcompat.app.AppCompatActivity;
-
     import com.huawei.flAndroid.job.FlJob;
     import com.huawei.flAndroid.utils.AssetCopyer;
-
     @RequiresApi(api = Build.VERSION_CODES.P)
     public class MainActivity extends AppCompatActivity {
         private String parentPath;
@@ -485,7 +427,6 @@ app
             // 新建一个线程，启动联邦学习训练与推理任务
             new Thread(() -> {
                 FlJob flJob = new FlJob(parentPath);
-
                 flJob.syncJobTrain();
                 flJob.syncJobPredict();
             }).start();
