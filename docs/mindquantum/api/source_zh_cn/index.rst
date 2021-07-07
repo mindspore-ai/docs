@@ -10,9 +10,9 @@ MindQuantum Python API
    :maxdepth: 1
 
    mindquantum
+   mindquantum.parameterresolver
    mindquantum.ops
    mindquantum.hiqfermion
    mindquantum.nn
-   mindquantum.parameterresolver
    mindquantum.ansatz
    mindquantum.utils

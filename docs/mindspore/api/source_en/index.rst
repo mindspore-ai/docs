@@ -23,7 +23,14 @@ MindSpore API
    api_python/mindspore.explainer
    api_python/mindspore.mindrecord
    api_python/mindspore.nn
+   api_python/mindspore.nn.probability
    api_python/mindspore.numpy
    api_python/mindspore.ops
    api_python/mindspore.profiler
    api_python/mindspore.train
+
+.. toctree::
+   :maxdepth: 1
+   :caption: MindSpore C++ API
+
+   Lite <https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/index.html>
