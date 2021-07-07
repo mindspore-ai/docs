@@ -6,7 +6,7 @@
 
 <font size=3>**Q: What is the function of the `TransData` operator? Can the performance be optimized?**</font>
 
-A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. Huawei Ascend NPU supports 5D format operations, and uses the `transdata` operator to convert data from 4D to 5D to improve performance.
+A: The `TransData` operator is used in the scenario where the data formats (such as NC1HWC0) used by interconnected operators on the network are inconsistent. In this case, the framework automatically inserts the `TransData` operator to convert the data formats into the same format and then performs computation. Huawei Ascend supports 5D format operations, and uses the `transdata` operator to convert data from 4D to 5D to improve performance.
 
 <br/>
 
@@ -49,7 +49,7 @@ A: The `multiples input` of the `Tile` operator must be a constant. (The value c
 
 <font size=3>**Q: When conv2d is set to (3,10), Tensor[2,2,10,10] and it runs on Ascend on ModelArts, the error message `FM_W+pad_left+pad_right-KW>=strideW` is displayed. However, no error message is displayed when it runs on a CPU. What should I do?**</font>
 
-A: TBE (Tensor Boost Engine) operator is Huawei's self-developed NPU operator development tool, which is extended on the basis of the TVM framework to develop custom operators. The above problem is the limitation of this TBE operator, the width of x must be greater than the width of the kernel. The CPU operator does not have this restriction, so no error is reported.
+A: TBE (Tensor Boost Engine) operator is Huawei's self-developed Ascend operator development tool, which is extended on the basis of the TVM framework to develop custom operators. The above problem is the limitation of this TBE operator, the width of x must be greater than the width of the kernel. The CPU operator does not have this restriction, so no error is reported.
 
 <br/>
 

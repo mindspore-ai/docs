@@ -12,13 +12,13 @@ A: 不是固定格式的，这一步操作是为了创建一个输入，以便�
 
 <font size=3>**Q: MindSpore现支持直接读取哪些其他框架的模型和哪些格式呢？比如PyTorch下训练得到的pth模型可以加载到MindSpore框架下使用吗？**</font>
 
-A:  MindSpore采用protobuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的`save_checkpoint`接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
+A:  MindSpore采用Protobuf存储训练参数，无法直接读取其他框架的模型。对于模型文件本质保存的就是参数和对应的值，可以用其他框架的API将参数读取出来之后，拿到参数的键值对，然后再加载到MindSpore中使用。比如想用其他框架训练好的ckpt文件，可以先把参数读取出来，再调用MindSpore的`save_checkpoint`接口，就可以保存成MindSpore可以读取的ckpt文件格式了。
 
 <br/>
 
 <font size=3>**Q: 在使用ckpt或导出模型的过程中，报Protobuf内存限制错误，如何处理？**</font>
 
-A: 当单条protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
+A: 当单条Protobuf数据过大时，因为Protobuf自身对数据流大小的限制，会报出内存限制的错误。这时可通过设置环境变量`PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python`解除限制。
 
 <br/>
 
@@ -36,7 +36,7 @@ A: 通过下面四个方面进行对比：
 
 <br/>
 
-<font size=3>**Q: 使用MindSpore在GPU上训练的网络脚本可以不做修改直接在NPU上进行训练么？**</font>
+<font size=3>**Q: 使用MindSpore在GPU上训练的网络脚本可以不做修改直接在Ascend上进行训练么？**</font>
 
 A: 可以的，MindSpore面向Ascned/GPU/CPU提供统一的API，在算子支持的前提下，网络脚本可以不做修改直接跨平台运行。
 
@@ -50,7 +50,7 @@ A: 可以在一个python文件中混用两个框架的。要注意类型间的�
 
 <font size=3>**Q: MindSpore可以读取TensorFlow的ckpt文件吗？**</font>
 
-A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是使用`protobuf`协议，但是`proto`的定义是不同的。当前MindSpore不支持读取TensorFlow或PyTorch的`ckpt`文件。
+A: MindSpore的`ckpt`和TensorFlow的`ckpt`格式是不通用的，虽然都是使用`Protobuf`协议，但是`proto`的定义是不同的。当前MindSpore不支持读取TensorFlow或PyTorch的`ckpt`文件。
 
 <br/>
 
@@ -60,9 +60,9 @@ A: Ascend 310需要运行专用的OM模型,先使用MindSpore导出ONNX或AIR模
 
 <br/>
 
-<font size=3>**Q: MindSpore只能在华为自己的`NPU`上跑么？**</font>
+<font size=3>**Q: MindSpore只能在华为自己的`Ascend`上跑么？**</font>
 
-A: MindSpore同时支持华为自己的`Ascend NPU`、`GPU`与`CPU`，是支持异构算力的。
+A: MindSpore同时支持华为自己的`Ascend`、`GPU`与`CPU`，是支持异构算力的。
 
 <br/>
 
@@ -74,13 +74,13 @@ A: Ascend 310不能导出AIR，需要在Ascend 910加载训练好的checkpoint�
 
 <font size=3>**Q: MindSpore对导出、导入模型的单个Tensor输入大小有什么限制？**</font>
 
-A: 由于protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，单个Tensor大小不能超过2G，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小限制与导出一致。
+A: 由于Protobuf的硬件限制，导出AIR、ONNX格式时，模型参数大小不能超过2G；导出MINDIR格式时，单个Tensor大小不能超过2G，MindSpore不支持导入AIR、ONNX格式，只支持MINDIR，导入大小限制与导出一致。
 
 <br/>
 
-<font size=3>**Q: 安装运行MindSpore时，是否要求平台有GPU、Ascend等计算单元？需要什么硬件支持？**</font>
+<font size=3>**Q: 安装运行MindSpore时，是否要求平台有GPU计算单元？需要什么硬件支持？**</font>
 
-A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来试用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/master/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
+A: MindSpore当前支持CPU/GPU/Ascend。目前笔记本电脑或者有GPU的环境，都可以通过Docker镜像来使用。当前MindSpore Model Zoo中有部分模型已经支持GPU的训练和推理，其他模型也在不断地进行完善。在分布式并行训练方面，MindSpore当前支持GPU多卡训练。你可以通过[RoadMap](https://www.mindspore.cn/doc/note/zh-CN/master/roadmap.html)和项目[Release note](https://gitee.com/mindspore/mindspore/blob/master/RELEASE.md#)获取最新信息。
 
 <br/>
 

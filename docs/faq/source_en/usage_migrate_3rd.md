@@ -57,7 +57,7 @@ A: MindConverter supports both x86 and ARM platform. Please ensure all required 
 
 <font size=3>**Q: Why does the conversion process take a lot of time (more than 10 minutes), but the model is not so large?**</font>
 
-A: When converting, MindConverter needs to use protobuf to deserialize the model file. Please make sure that the protobuf installed in Python environment is implemented by C++ backend. The validation method is as follows. If the output is "python", you need to install Python protobuf implemented by C++ (download the protobuf source code, enter the "python" subdirectory in the source code, and use `python setup.py install --cpp_implementation` to install). If the output is "cpp" and the conversion process still takes a long time, please add environment variable `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp` before conversion.
+A: When converting, MindConverter needs to use Protobuf to deserialize the model file. Please make sure that the Protobuf installed in Python environment is implemented by C++ backend. The validation method is as follows. If the output is "python", you need to install Python Protobuf implemented by C++ (download the Protobuf source code, enter the "python" subdirectory in the source code, and use `python setup.py install --cpp_implementation` to install). If the output is "cpp" and the conversion process still takes a long time, please add environment variable `export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=cpp` before conversion.
 
 ```python
 from google.protobuf.internal import api_implementation
