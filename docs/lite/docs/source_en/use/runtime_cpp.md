@@ -93,16 +93,6 @@ The basic parameters contained in [Context](https://www.mindspore.cn/lite/api/en
 
 The advanced parameters contained in [Context](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#id2) are defined as follows:
 
-If the user only calls the built-in operators and does not call [Custom Operators](https://www.mindspore.cn/lite/docs/en/r1.3/use/register_kernel.html#id2), the following parameters are not necessary set up.
-
-If the user doesn't use the integrated hardware of mindsprore Lite, but wants to apply [self-defined operators](https://www.mindspore.cn/lite/docs/en/r1.3/use/register_kernel.html#id2), the user needs to set the following parameters.
-
-If the user uses the integrated hardware of Mindsprore Lite, please set the parameter according to the relevant documentation. Take NNIE device as an example, please set according to the instruction of [Integrated use](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/nnie.html#id10).
-
-- [provider_](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#provider)：Then name of the provider.
-
-- [provider_device_](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/lite.html#provider-device)：The device of the provider.
-
 ### Configuring the Number of Threads
 
 The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_cpp/main.cc#L109) demonstrates how to configure the number of threads:

@@ -93,16 +93,6 @@ if (model == nullptr) {
 
 [Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)中包含的高级参数定义如下：
 
-用户若只是调用内置算子，未调用[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html#id2)时，以下参数不必设置。
-
-用户在未采用MindSpore Lite已集成的硬件设备的情形下，希望框架调用[自定义算子](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/register_kernel.html#id2)，用户需自行设置以下参数。
-
-用户在采用MindSpore Lite已集成的硬件设备的情形下，请按相关的具体说明文档设置，例如，NNIE设备，请按照[集成使用](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/nnie.html#id10)说明进行设置。
-
-- [provider_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider)：产商名。
-
-- [provider_device_](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#provider-device)：算子要运行的硬件设备。
-
 ### 配置线程数
 
 下面[示例代码](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/examples/runtime_cpp/main.cc#L109)演示如何配置线程数的方式：
