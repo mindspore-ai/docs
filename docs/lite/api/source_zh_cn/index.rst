@@ -14,8 +14,6 @@ MindSpore Lite API
    api_cpp/mindspore
    api_cpp/dataset
    api_cpp/vision
-   api_cpp/kernel
-   api_cpp/registry
    api_cpp/lite
    api_cpp/session
    api_cpp/tensor
