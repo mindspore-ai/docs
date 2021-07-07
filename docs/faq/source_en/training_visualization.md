@@ -37,7 +37,7 @@ A: Chrome browser's kernel prohibits certain ports from being used as HTTP servi
 
 <font size=3>**Q: What can I do if the error `Exeption calling application: Field number 0 is illegal` appears on Ascend after MindInsight is successfully started with debugger turning on, and the training script is trying to connecting to debugger?**</font>
 
-A: It means the wrong version of protobuf is installed, please install the right version, see [Installing protobuf Python](https://support.huaweicloud.com/intl/en-us/instg-cli-cann/atlascli_03_0046.html).
+A: It means the wrong version of Protobuf is installed, please install the right version, see [Installing Protobuf Python](https://support.huaweicloud.com/intl/en-us/instg-cli-cann/atlascli_03_0046.html).
 
 <br/>
 
