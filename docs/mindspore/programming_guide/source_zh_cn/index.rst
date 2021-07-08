@@ -62,6 +62,7 @@ MindSpore编程指南
    run
    callback
    load_model_for_inference_and_transfer
+   train
 
 .. toctree::
    :maxdepth: 1
