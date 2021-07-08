@@ -37,7 +37,7 @@
 | Computer Vision (CV)  | Image Classification  | [ResNet-50](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)          |  ✅ |  ✅ |  ✅ |  ✅ | ✅ |   |
 | Computer Vision (CV)  | Image Classification  | [ResNet-50 (Quantization)](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet50_quant)          |  ✅ |    |    |    |   |   |
 |Computer Vision (CV)  | Image Classification  | [ResNet-101](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)       |  ✅ |  ✅ | ✅ |  ✅ |   |   |
-|Computer Vision (CV)  | Image Classification  | [ResNeXt50](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnext50)     |  ✅ |    | ✅ |  ✅ |   |   |
+|Computer Vision (CV)  | Image Classification  | [ResNeXt50](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnext)     |  ✅ |    | ✅ |  ✅ |   |   |
 |Computer Vision (CV)  | Image Classification  | [SE-ResNet50](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/resnet)      |  ✅ | ✅ |   |   |   |   |
 | Computer Vision (CV)  | Image Classification  | [ShuffleNetV1](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/shufflenetv1)  |  ✅ |    |    |    |   |   |
 | Computer Vision (CV)  | Image Classification  | [ShuffleNetV2](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/cv/shufflenetv2) |    |    |  ✅ |  ✅ |   |   |
