@@ -52,11 +52,12 @@ Directory Structure of Code Examples
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
         ├── run_eval_gpu.sh                 # launch inference for GPU
     ├── src
-        ├── config.py                       # parameter configuration
         ├── dataset.py                      # data preprocessing
         ├── CrossEntropySmooth.py           # CrossEntropy loss function
         ├── lr_generator.py                 # generate learning rate for every step
         ├── resnet.py                       # ResNet50 backbone
+        ├── model_utils
+            ├── config.py                   # parameter configuration
     ├── eval.py                             # infer script
     ├── train.py                            # train script
 ```
@@ -354,18 +355,17 @@ After the training script is defined, call the shell script in the `scripts` dir
 
 Currently, MindSpore distributed execution on Ascend uses the single-device single-process running mode. That is, one process runs on one device, and the number of total processes is the same as the number of devices that are being used. All processes are executed in the background. Create a directory named `train_parallel`+`device_id` for each process to store log information, operator compilation information, and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script.
 
-First configure the optimizer as 'Thor' in `src/config.py`, and then run the script:
+Run the script:
 
 ```bash
-bash run_distribute_train.sh <resnet50> <imagenet2012> <RANK_TABLE_FILE> <DATASET_PATH>
+bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> <CONFIG_PATH>
 ```
 
-Variables `resnet50`, `imagenet2012`, `RANK_TABLE_FILE` and `DATASET_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `RANK_TABLE_FILE`, `DATASET_PATH` and `CONFIG_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
-- `resnet50`： training network
-- `imagenet2012`： training dataset
 - `RANK_TABLE_FILE`: path for storing the networking information file (about the rank table file, you can refer to [HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`: training dataset path
+- `CONFIG_PATH`: config file path
 
 For details about other environment variables, see configuration items in the installation guide.
 
@@ -403,17 +403,16 @@ In the preceding information,
 #### GPU
 
 On the GPU hardware platform, MindSpore uses `mpirun` of OpenMPI to perform distributed training. The process creates a directory named `train_parallel` to store log information and training checkpoint files. The following takes the distributed training script for eight devices as an example to describe how to run the script.
-First configure the optimizer as 'Thor' in `src/config.py`, and then run the script:
+Run the script:
 
 ```bash
-bash run_distribute_train_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH>
+bash run_distribute_train_gpu.sh <DATASET_PATH> <CONFIG_PATH>
 ```
 
-Variables `resnet50`, `imagenet2012` and `DATASET_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `DATASET_PATH` and `CONFIG_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
-- `resnet50`： training network
-- `imagenet2012`： training dataset
 - `DATASET_PATH`: training dataset path
+- `CONFIG_PATH`: config file path
 
 During GPU-based training, the `DEVICE_ID` environment variable is not required. Therefore, you do not need to call `int(os.getenv('DEVICE_ID'))` in the main training script to obtain the device ID or transfer `device_id` to `context`. You need to set `device_target` to `GPU` and call `init()` to enable the NCCL.
 
@@ -502,15 +501,14 @@ After the inference network is defined, the shell script in the `scripts` direct
 On the Ascend 910 hardware platform, run the following inference command:
 
 ```bash
-bash run_eval.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
+bash run_eval.sh <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-Variables `resnet50`, `imagenet2012`, `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `DATASET_PATH`, `CHECKPOINT_PATH` and `CONFIG_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
-- `resnet50`： inference network
-- `imagenet2012`： inference dataset
 - `DATASET_PATH`: inference dataset path
 - `CHECKPOINT_PATH`: path for storing the checkpoint file
+- `CONFIG_PATH`: config file path
 
 Currently, a single device (device 0 by default) is used for inference. The inference result is as follows:
 
@@ -526,15 +524,14 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
 On the GPU hardware platform, run the following inference command:
 
 ```bash
- bash run_eval_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
+ bash run_eval_gpu.sh <DATASET_PATH> <CHECKPOINT_PATH>
 ```
 
-Variables `resnet50`, `imagenet2012`, `DATASET_PATH` and `CHECKPOINT_PATH` need to be transferred to the script. The meanings of variables are as follows:
+Variables `DATASET_PATH`, `CHECKPOINT_PATH` and `CONFIG_PATH` need to be transferred to the script. The meanings of variables are as follows:
 
-- `resnet50`： inference network
-- `imagenet2012`： inference dataset
 - `DATASET_PATH`: inference dataset path
 - `CHECKPOINT_PATH`: path for storing the checkpoint file
+- `CONFIG_PATH`: config file path
 
 The inference result is as follows:
 

@@ -52,11 +52,12 @@ MindSpore开发团队在现有的自然梯度算法的基础上，对FIM矩阵�
         ├── run_distribute_train_gpu.sh     # launch distributed training for GPU
         ├── run_eval_gpu.sh                 # launch inference for GPU
     ├── src
-        ├── config.py                       # parameter configuration
         ├── dataset.py                      # data preprocessing
         ├── CrossEntropySmooth.py           # CrossEntropy loss function
         ├── lr_generator.py                 # generate learning rate for every step
         ├── resnet.py                       # ResNet50 backbone
+        ├── model_utils
+            ├── config.py                   # parameter configuration
     ├── eval.py                             # infer script
     ├── train.py                            # train script
 
@@ -358,18 +359,17 @@ if __name__ == "__main__":
 
 目前MindSpore分布式在Ascend上执行采用单卡单进程运行方式，即每张卡上运行1个进程，进程数量与使用的卡的数量一致。进程均放在后台执行，每个进程创建1个目录，目录名称为`train_parallel`+ `device_id`，用来保存日志信息，算子编译信息以及训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本。
 
-首先在`src/config.py`中将优化器配置为'Thor'，然后使用以下命令运行脚本：
+使用以下命令运行脚本：
 
 ```bash
-bash run_distribute_train.sh <resnet50> <imagenet2012> <RANK_TABLE_FILE> <DATASET_PATH>
+bash run_distribute_train.sh <RANK_TABLE_FILE> <DATASET_PATH> [CONFIG_PATH]
 ```
 
-脚本需要传入变量`resnet50`、`imagenet2012`、`RANK_TABLE_FILE`和`DATASET_PATH`，其中：
+脚本需要传入变量`RANK_TABLE_FILE`，`DATASET_PATH`和`CONFIG_PATH`，其中：
 
-- `resnet50`：训练的网络为ResNet50。
-- `imagenet2012`：训练使用的数据集为ImageNet2012数据集。
 - `RANK_TABLE_FILE`：组网信息文件的路径。(rank table文件的生成，参考[HCCL_TOOL](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/utils/hccl_tools))
 - `DATASET_PATH`：训练数据集路径。
+- `CONFIG_PATH`：配置文件路径。
 
 其余环境变量请参考安装教程中的配置项。
 
@@ -408,17 +408,16 @@ epoch: 42 step: 5004, loss is 1.6453942
 
 在GPU硬件平台上，MindSpore采用OpenMPI的`mpirun`进行分布式训练，进程创建1个目录，目录名称为`train_parallel`，用来保存日志信息和训练的checkpoint文件。下面以使用8张卡的分布式训练脚本为例，演示如何运行脚本。
 
-首先在`src/config.py`中将优化器配置为'Thor'，然后使用以下命令运行脚本：
+使用以下命令运行脚本：
 
 ```bash
-bash run_distribute_train_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH>
+bash run_distribute_train_gpu.sh <DATASET_PATH> <CONFIG_PATH>
 ```
 
-脚本需要传入变量`resnet50`、`imagenet2012`和`DATASET_PATH`，其中：
+脚本需要传入变量`DATASET_PATH`和`CONFIG_PATH`，其中：
 
-- `resnet50`：训练的网络为ResNet50。
-- `imagenet2012`：训练使用的数据集为ImageNet2012数据集。
 - `DATASET_PATH`：训练数据集路径。
+- `CONFIG_PATH`：配置文件路径。
 
 在GPU训练时，无需设置`DEVICE_ID`环境变量，因此在主训练脚本中不需要调用`int(os.getenv('DEVICE_ID'))`来获取卡的物理序号，同时`context`中也无需传入`device_id`。我们需要将device_target设置为GPU，并需要调用`init()`来使能NCCL。
 
@@ -508,15 +507,14 @@ if __name__ == "__main__":
 在Ascend 910硬件平台上，推理的执行命令如下：
 
 ```bash
-bash run_eval.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
+bash run_eval.sh <DATASET_PATH> <CHECKPOINT_PATH> <CONFIG_PATH>
 ```
 
-脚本需要传入变量`resnet50`、`imagenet2012`、`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+脚本需要传入变量`DATASET_PATH`，`CHECKPOINT_PATH`和`<CONFIG_PATH>`，其中：
 
-- `resnet50`： 推理的网络为ResNet50.
-- `imagenet2012`: 推理使用的数据集为ImageNet2012。
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
+- `CONFIG_PATH`：配置文件路径。
 
 目前推理使用的是单卡（默认device 0）进行推理，推理的结果如下：
 
@@ -532,15 +530,14 @@ result: {'top_5_accuracy': 0.9295574583866837, 'top_1_accuracy': 0.7614436619718
 在GPU硬件平台上，推理的执行命令如下：
 
 ```bash
-  bash run_eval_gpu.sh <resnet50> <imagenet2012> <DATASET_PATH> <CHECKPOINT_PATH>
+  bash run_eval_gpu.sh <DATASET_PATH> <CHECKPOINT_PATH> <CONFIG_PATH>
 ```
 
-脚本需要传入变量`resnet50`、`imagenet2012`、`DATASET_PATH`和`CHECKPOINT_PATH`，其中：
+脚本需要传入变量`DATASET_PATH`，`CHECKPOINT_PATH`和，其中：
 
-- `resnet50`： 推理的网络为ResNet50.
-- `imagenet2012`: 推理使用的数据集为ImageNet2012。
 - `DATASET_PATH`：推理数据集路径。
 - `CHECKPOINT_PATH`：保存的checkpoint路径。
+- `CONFIG_PATH`：配置文件路径。
 
 推理的结果如下：
 
