@@ -45,7 +45,7 @@ mindspore-lite-{version}-runtime-linux-x64
 └── tools
     └── converter
         └── providers
-            └── 3516D                # 嵌入式板型号
+            └── Hi3516D                # 嵌入式板型号
                 ├── libmslite_nnie_converter.so        # 集成NNIE转换的动态库
                 ├── libmslite_nnie_data_process.so     # 处理NNIE输入数据的动态库
                 ├── libnnie_mapper.so        # 构建NNIE二进制文件的动态库
@@ -64,7 +64,7 @@ mindspore-lite-{version}-runtime-linux-x64
 ```text
 mindspore-lite-{version}-linux-aarch32
 └── providers
-    └── 3516D        # 嵌入式板型号
+    └── Hi3516D        # 嵌入式板型号
         └── libmslite_nnie.so  # 集成NNIE的动态库
         └── libmslite_proposal.so  # 集成proposal的样例动态库
 ```
@@ -89,7 +89,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 2. 解压下载的包
 
      ```bash
-     tar zxvf mindspore-lite-{version}-linux-x64.tar.gz
+     tar -zxvf mindspore-lite-{version}-linux-x64.tar.gz
      ```
 
      {version}是发布包的版本号。
@@ -97,7 +97,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 3. 将转换工具需要的动态链接库加入环境变量LD_LIBRARY_PATH
 
     ```bash
-    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/runtime/lib:${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/third_party/opencv-4.2.0:${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/third_party/protobuf-3.9.0
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PACKAGE_ROOT_PATH}/tools/converter/lib:${PACKAGE_ROOT_PATH}/runtime/lib:${PACKAGE_ROOT_PATH}/tools/converter/providers/Hi3516D/third_party/opencv-4.2.0:${PACKAGE_ROOT_PATH}/tools/converter/providers/Hi3516D/third_party/protobuf-3.9.0
     ```
 
     ${PACKAGE_ROOT_PATH}是解压得到的文件夹路径。
@@ -139,8 +139,8 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
     若已执行第1步，进入到转换目录，则此步无需配置，默认值将使能。若用户未进入转换目录，则需在环境变量中声明转换工具所依赖的so和benchmark二进制执行程序的路径，如下所示：
 
     ```bash
-    export NNIE_MAPPER_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/libnnie_mapper.so
-    export NNIE_DATA_PROCESS_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/3516D/libmslite_nnie_data_process.so
+    export NNIE_MAPPER_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/Hi3516D/libnnie_mapper.so
+    export NNIE_DATA_PROCESS_PATH=${PACKAGE_ROOT_PATH}/tools/converter/providers/Hi3516D/libmslite_nnie_data_process.so
     export BENCHMARK_PATH=${PACKAGE_ROOT_PATH}/tools/benchmark
     ```
 
@@ -155,7 +155,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 3. 执行converter，生成NNIE`ms`模型
 
     ```bash
-    ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=./converter.cfg --outputFile=${model_name}
+    ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=../converter.cfg --outputFile=${model_name}
     ```
 
     ${model_name}为模型文件名称，运行后的结果显示为：
