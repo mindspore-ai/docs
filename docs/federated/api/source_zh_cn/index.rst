@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-接口参考
-========
+MindSpore Federated API
+=======================
 
 .. toctree::
    :maxdepth: 1

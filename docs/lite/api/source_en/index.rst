@@ -7,8 +7,8 @@ MindSpore Lite API
 =======================
 
 .. toctree::
-  :glob:
   :maxdepth: 1
+  :caption: C++ API
 
   api_cpp/class_list
   api_cpp/mindspore

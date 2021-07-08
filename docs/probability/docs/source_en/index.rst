@@ -1,4 +1,4 @@
-Probability Programming Documents
+MindSpore Probability Documents
 ===================================
 
 .. toctree::

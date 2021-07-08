@@ -5,4 +5,4 @@ MindArmour FAQ
   :glob:
   :maxdepth: 1
 
-  faq_en
+  faq

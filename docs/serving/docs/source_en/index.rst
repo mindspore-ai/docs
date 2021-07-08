@@ -1,5 +1,5 @@
-Probability Programming Documents
-===================================
+MindSpore Serving Documents
+===========================
 
 .. toctree::
    :glob:
