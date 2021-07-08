@@ -8,7 +8,9 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
+   :caption: 整体介绍
 
+   architecture
    api_structure
 
 .. toctree::
