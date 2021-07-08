@@ -171,5 +171,5 @@ print(ops.add(x, y))
 
     其中：
 
-    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，{arch}应写为x86。如果系统是ARM架构64位，则写为arm。
+    - `{arch}` 表示系统架构，例如使用的Linux系统是x86架构64位时，`{arch}` 应写为x86。如果系统是ARM架构64位，则写为arm。
     - `{tag}`对应Atlas Data Center Solution版本号，同样可以在MindSpore镜像下载页面自动获取。
