@@ -178,7 +178,7 @@
 
 						<div class="doc-article-list">
 						    <div class="doc-article-item all os-Windows os-Linux os-Android stage-Environment-Preparation user-Beginner user-Intermediate user-Expert hidden">
-								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/download.html" class="article-link">
+								<a href="https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/downloads.html" class="article-link">
 									<div>
 										<div class="doc-article-head">
 											<span class="doc-head-content">下载MindSpore Lite</span>

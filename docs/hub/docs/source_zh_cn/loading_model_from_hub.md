@@ -3,12 +3,19 @@
 <!-- TOC -->
 
 - [从Hub加载模型](#从hub加载模型)
+    - [概述](#概述)
     - [用于推理验证](#用于推理验证)
     - [用于迁移学习](#用于迁移学习)
 
 <!-- /TOC -->
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/hub/docs/source_zh_cn/loading_model_from_hub.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+
+## 概述
+
+对于个人开发者来说，从零开始训练一个较好模型，需要大量的标注完备的数据、足够的计算资源和大量训练调试时间。使得模型训练非常消耗资源，提升了AI开发的门槛，针对以上问题，MindSpore Hub提供了很多训练完成的模型权重文件，可以使得开发者在拥有少量数据的情况下，只需要花费少量训练时间，即可快速训练出一个较好的模型。
+
+本文档从推理验证和迁移学习两种用途，展示使用MindSpore Hub提供的模型，用少量数据快速完成训练得到较好的模型。
 
 ## 用于推理验证
 
