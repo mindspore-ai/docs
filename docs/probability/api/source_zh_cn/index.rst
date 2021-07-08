@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MindSpore Probability Python API
-================================
+MindSpore Probability API
+==========================
 
 .. toctree::
    :maxdepth: 2

@@ -1,10 +1,10 @@
-﻿# Profiler Design
+﻿# Performance Profiling Design
 
 `Ascend` `GPU` `Model Development` `Model Optimization` `Framework Development` `Intermediate` `Expert` `Contributor`
 
 <!-- TOC -->
 
-- [Profiler Design](#profiler-design)
+- [Performance Profiling Design](#performance-profiling-design)
     - [Background](#background)
     - [Profiler Architecture Design](#profiler-architecture-design)
         - [Context](#context)

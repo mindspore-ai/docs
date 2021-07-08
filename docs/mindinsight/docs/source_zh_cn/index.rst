@@ -1,5 +1,5 @@
-MindInsight 可视化文档
-=========================
+MindInsight文档
+================
 
 .. toctree::
    :glob:

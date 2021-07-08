@@ -1,5 +1,5 @@
-MindInsight Visualization Documents
-====================================
+MindInsight Documents
+=====================
 
 .. toctree::
    :glob:

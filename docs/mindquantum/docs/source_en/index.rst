@@ -1,5 +1,5 @@
-Quantum Neural Network Documents
-==================================
+Mindquantum Documents
+======================
 
 .. toctree::
    :glob:
