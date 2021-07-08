@@ -1,0 +1,42 @@
+# TrainOneStepCell
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/trainonestepcell.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+
+`TrainOneStepCell`功能是执行网络的单步训练，返回每次训练结果后的loss结果。
+
+下面构造一个使用`TrainOneStepCell`接口进行网络训练的实例，其中`LeNet`和包名的导入代码和上个用例共用。
+
+```python
+data = Tensor(np.ones([32, 1, 32, 32]).astype(np.float32) * 0.01)
+label = Tensor(np.ones([32]).astype(np.int32))
+net = LeNet()
+learning_rate = 0.01
+momentum = 0.9
+
+optimizer = Momentum(filter(lambda x: x.requires_grad, net.get_parameters()), learning_rate, momentum)
+criterion = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
+net_with_criterion = WithLossCell(net, criterion)
+train_network = TrainOneStepCell(net_with_criterion, optimizer)  # optimizer
+for i in range(5):
+    train_network.set_train()
+    res = train_network(data, label)
+    print(f"+++++++++result:{i}++++++++++++")
+    print(res)
+```
+
+```text
++++++++++result:0++++++++++++
+2.302585
++++++++++result:1++++++++++++
+2.2935712
++++++++++result:2++++++++++++
+2.2764661
++++++++++result:3++++++++++++
+2.2521412
++++++++++result:4++++++++++++
+2.2214084
+```
+
+用例中构造了优化器和一个`WithLossCell`的实例，然后传入`TrainOneStepCell`中初始化一个训练网络，用例循环五次，相当于网络训练了五次，并输出每次的loss结果，由结果可以看出每次训练后loss值在逐渐减小。
+
+后续内容会介绍MindSpore使用更加高级封装的接口，即Model类中的train方法训练模型，在其内部实现中会用到 `TrainOneStepCell`和`WithLossCell`等许多网络组件，感兴趣的读者可以查看其内部实现。

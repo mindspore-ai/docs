@@ -61,6 +61,7 @@ MindSpore编程指南
    context
    run
    callback
+   save_model
    load_model_for_inference_and_transfer
    train
 
@@ -73,12 +74,18 @@ MindSpore编程指南
    multi_platform_inference_ascend_310
    multi_platform_inference_gpu
    multi_platform_inference_cpu
-   端侧推理 <https://www.mindspore.cn/lite>
 
 .. toctree::
    :maxdepth: 1
    :caption: 分布式并行
 
+   distributed_training
+   distributed_training_ascend
+   distributed_training_gpu
+   apply_host_device_training
+   apply_parameter_server_training
+   save_load_model_hybrid_parallel
+   distributed_inference
    auto_parallel
 
 .. toctree::
@@ -117,15 +124,4 @@ MindSpore编程指南
    cv
    nlp
    hpc
-   nlp_tprr
    use_on_the_cloud
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 规格说明
-
-   基准性能 <https://www.mindspore.cn/docs/note/zh-CN/r1.3/benchmark.html>
-   network_list
-   operator_list
-   syntax_list
-   环境变量 <https://www.mindspore.cn/docs/note/zh-CN/r1.3/env_var_list.html>

@@ -29,8 +29,6 @@
         - [cross_batch](#cross_batch)
         - [fusion](#fusion)
         - [layerwise_parallel](#layerwise_parallel)
-    - [数据并行](#数据并行)
-    - [自动并行](#自动并行)
 
 <!-- /TOC -->
 
@@ -403,19 +401,3 @@ from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 ```
-
-## 数据并行
-
-数据并行是对数据进行切分的并行模式，一般按照batch维度切分，将数据分配到各个计算单元（worker）中，进行模型计算。在数据并行模式下，数据集要以数据并行的方式导入，并且`parallel_mode`要设置为`data_parallel`。
-
-具体用例请参考MindSpore分布式并行训练教程：
-
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。
-
-## 自动并行
-
-自动并行是融合了数据并行、模型并行及混合并行的一种分布式并行模式，可以自动建立代价模型，为用户选择一种并行模式。其中，代价模型指基于内存的计算开销和通信开销对训练时间建模，并设计高效的算法找到训练时间较短的并行策略。在自动并行模式下，`parallel_mode`要设置为`auto_parallel`。
-
-具体用例请参考MindSpore分布式并行训练教程：
-
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。

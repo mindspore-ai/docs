@@ -6,4 +6,5 @@
 
   nlp_sentimentnet
   nlp_bert_poetry
+  nlp_tprr
   concept_drift_time_series
