@@ -33,7 +33,7 @@ MindSpore Federated将联邦语言模型应用到了输入法的表情图片预�
 
 ### 环境
 
-参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.md)。
+参考[服务端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_server_cluster.html)和[客户端环境配置](https://www.mindspore.cn/federated/docs/zh-CN/r1.3/deploy_federated_client.html)。
 
 ### 数据
 
@@ -104,7 +104,7 @@ models/
 
 联邦学习中的语言模型使用ALBERT模型[1]。客户端上的ALBERT模型包括：embedding层、encoder层和classifier层。
 
-具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/tree/r1.3/tests/st/fl/mobile/src/model.py)。
+具体网络定义请参考[源码](https://gitee.com/mindspore/mindspore/tree/r1.3/tests/st/fl/albert/src/model.py)。
 
 ### 生成端侧模型文件
 
