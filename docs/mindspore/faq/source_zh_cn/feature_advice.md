@@ -155,3 +155,9 @@ A: PyNative模式是兼容迁移学习的，更多的教程信息，可以参考
 A: MindSpore的ModelZoo主要提供MindSpore框架实现的模型，同时包括了Ascend/GPU/CPU/Mobile多种设备的支持。昇腾的ModelZoo主要提供运行于Ascend加速芯片上的模型，包括了MindSpore/PyTorch/TensorFlow/Caffe等多种框架的支持。可以参考对应的[Gitee仓库](https://gitee.com/ascend/modelzoo)
 
 其中MindSpore+Ascend的组合是有重合的，这部分模型会以MindSpore的ModelZoo为主要版本，定期向昇腾ModelZoo发布。
+
+<br/>
+
+<font size=3>**Q: Ascend与NPU是什么关系？**</font>
+
+A: NPU指针对神经网络算法的专用处理器，不同公司推出的NPU架构各异，Ascend是基于华为公司自研的达芬奇架构的NPU。
