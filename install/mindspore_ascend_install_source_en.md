@@ -78,6 +78,8 @@ This document describes how to quickly install MindSpore in a Linux system with 
     yum install git
     ```
 
+- Confirm that the [git-lfs tool](https://github.com/git-lfs/git-lfs/wiki/installation) is installed.
+
 ## Downloading Source Code from Code Repository
 
 ```bash

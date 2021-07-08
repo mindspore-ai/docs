@@ -77,6 +77,8 @@
     yum install git
     ```
 
+- 确认安装[git-lfs工具](https://github.com/git-lfs/git-lfs/wiki/installation)。
+
 ## 从代码仓下载源码
 
 ```bash
