@@ -186,8 +186,8 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.unbind                                         | mindspore.ops.Unstack                                          | same |
 | torch.unique                                         | mindspore.ops.Unique                                           |[diff](https://gitee.com/mindspore/docs/blob/r1.2/resource/api_mapping/Unique_en.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | same |
-| torch.utils.data.DataLoader                          | mindspore.DatasetHelper                                        | same |
-| torch.utils.data.Dataset                             | mindspore.dataset.MindDataset                                  | same |
+| torch.utils.data.DataLoader                          | None                                                           |[diff](https://gitee.com/mindspore/docs/blob/r1.2/resource/api_mapping/DataLoader_en.md)|
+| torch.utils.data.Dataset                             | mindspore.dataset.GeneratorDataset                             | diff |
 | torch.utils.data.distributed.DistributedSampler      | mindspore.dataset.DistributedSampler                           | same |
 | torch.zeros                                          | mindspore.ops.Zeros                                            | same |
 | torch.zeros_like                                     | mindspore.ops.ZerosLike                                        | same |
@@ -200,4 +200,4 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torchvision.transforms.Normalize                     | mindspore.dataset.vision.py_transforms.Normalize               | same |
 | torchvision.transforms.RandomHorizontalFlip          | mindspore.dataset.vision.py_transforms.RandomHorizontalFlip    | same |
 | torchvision.transforms.Resize                        | mindspore.dataset.vision.py_transforms.Resize                  | same |
-| torchvision.transforms.ToTensor                      | mindspore.dataset.vision.py_transforms.ToTensor                | same |
+| torchvision.transforms.ToTensor                      | mindspore.dataset.vision.py_transforms.ToTensor                | diff |
