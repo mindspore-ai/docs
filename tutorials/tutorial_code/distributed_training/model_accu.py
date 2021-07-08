@@ -9,6 +9,7 @@ from mindspore import Model, connect_network_with_dataset
 from mindspore.common.dtype import pytype_to_dtype
 from mindspore._c_expression import init_exec_dataset
 from mindspore.train.train_thor.dataset_helper import DatasetHelper
+from mindspore.parallel._utils import _need_to_full, _to_full_tensor
 
 
 def _convert_type(types):
@@ -59,14 +60,20 @@ class Model_ACCU(Model):
         super(Model_ACCU, self).__init__(network, loss_fn, optimizer, metrics, eval_network,
                                          eval_indexes, amp_level, **kwargs)
         self._frequency = context.get_auto_parallel_context("grad_accumulation_step")
+        # used to stop training for early stop, such as stopAtTIme or stopATStep
+        self.should_stop = False
+        self.switch_branch_one = True
+        self.index_second_order = 0
+        self.train_network_init_flag = True
+        self.has_do_dataset_init = False
         self._train_network = self._build_train_network()
 
     def _exec_preprocess(self, network, is_train, phase, dataset, dataset_sink_mode, sink_size=-1,
-                         epoch_num=1, iter_first_order=1):
+                         epoch_num=1, iter_update_order=1):
         """Initializes dataset."""
         if dataset_sink_mode and not is_train:
             dataset.__loop_size__ = 1
-        dataset_helper = DatasetHelper(dataset, dataset_sink_mode, sink_size, epoch_num, iter_first_order)
+        dataset_helper = DatasetHelper(dataset, dataset_sink_mode, sink_size, epoch_num, iter_update_order)
 
         if dataset_sink_mode and context.get_context("device_target") != "GPU":
             network = connect_network_with_dataset(network, dataset_helper)
@@ -77,6 +84,52 @@ class Model_ACCU(Model):
             network.set_auto_parallel()
 
         return dataset_helper, network
+
+    def _train_gpu_sink_step(self, cb_params, inputs, list_callback, iter_accu_order, run_context):
+        """train gpu sink step"""
+        if self.switch_branch_one:
+            cb_params.cur_step_num += 1
+            if self.train_network_init_flag:
+                self._train_network.add_flags_recursive(accumulation=True)
+            self._train_network.phase = 'train0'
+            outputs = self._train_network(*inputs)
+            cb_params.net_outputs = outputs
+            self.index_second_order += 1
+            if self.index_second_order == iter_accu_order:
+                self.index_second_order = 0
+                self.switch_branch_one = not self.switch_branch_one
+                list_callback.step_end(run_context)
+        else:
+            cb_params.cur_step_num += 1
+            if self.train_network_init_flag:
+                self._train_network.add_flags_recursive(accumulation=False)
+                self.train_network_init_flag = False
+            self._train_network.phase = 'train1'
+            self.switch_branch_one = not self.switch_branch_one
+            outputs = self._train_network(*inputs)
+            cb_params.net_outputs = outputs
+            list_callback.step_end(run_context)
+
+    def _train_ascend_sink_step(self, cb_params, train_dataset, iter_accu_order, inputs, list_callback, run_context):
+        """train ascend sink step"""
+        if self.switch_branch_one:
+            cb_params.cur_step_num += iter_accu_order
+            if self.train_network_init_flag:
+                self._train_network.add_flags_recursive(accumulation=True)
+            self._train_network.phase = 'train0'
+        else:
+            cb_params.cur_step_num += 1
+            if self.train_network_init_flag:
+                self._train_network.add_flags_recursive(accumulation=False)
+                self.train_network_init_flag = False
+            self._train_network.phase = 'train1'
+            if not self.has_do_dataset_init:
+                _exec_datagraph(train_dataset, 1, phase='train1_dataset')
+                self.has_do_dataset_init = True
+        self.switch_branch_one = not self.switch_branch_one
+        outputs = self._train_network(*inputs)
+        cb_params.net_outputs = outputs
+        list_callback.step_end(run_context)
 
     def _train_dataset_sink_process(self, epoch, train_dataset, list_callback=None, cb_params=None, sink_size=-1):
         """
@@ -98,9 +151,12 @@ class Model_ACCU(Model):
         else:
             epoch_num = math.ceil(epoch * sink_size / train_dataset.get_dataset_size())
 
-        iter_first_order = 1
-        iter_second_order = self._frequency - 1
-        train_dataset.__loop_size__ = iter_second_order
+        iter_update_order = 1
+        iter_accu_order = self._frequency - 1
+        if context.get_context("device_target") == "GPU":
+            train_dataset.__loop_size__ = 1
+        else:
+            train_dataset.__loop_size__ = iter_accu_order
         dataset_helper, train_network = self._exec_preprocess(self._train_network,
                                                               is_train=True,
                                                               phase='train',
@@ -108,7 +164,7 @@ class Model_ACCU(Model):
                                                               dataset_sink_mode=True,
                                                               sink_size=sink_size,
                                                               epoch_num=epoch_num,
-                                                              iter_first_order=iter_first_order)
+                                                              iter_update_order=iter_update_order)
 
         self._train_network = train_network
         cb_params.train_network = self._train_network
@@ -117,40 +173,22 @@ class Model_ACCU(Model):
         run_context = RunContext(cb_params)
         list_callback.begin(run_context)
 
-        # used to stop training for early stop, such as stopAtTIme or stopATStep
-        should_stop = False
-        switch_branch_one = True
-        train_network_init_flag = True
-        has_do_dataset_init = False
-
         for i in range(epoch):
             cb_params.cur_epoch_num = i + 1
             list_callback.epoch_begin(run_context)
             # for data sink dataset_helper only iter once, other wise iter epoch_size times.
             for inputs in dataset_helper:
+                if _need_to_full() and context.get_context("device_target") == "GPU":
+                    inputs = _to_full_tensor(inputs, self._device_number, self._global_rank)
                 list_callback.step_begin(run_context)
-                if switch_branch_one:
-                    cb_params.cur_step_num += iter_second_order
-                    if train_network_init_flag:
-                        self._train_network.add_flags_recursive(accumulation=True)
-                    self._train_network.phase = 'train0'
+                if context.get_context("device_target") == "GPU":
+                    self._train_gpu_sink_step(cb_params, inputs, list_callback, iter_accu_order, run_context)
                 else:
-                    cb_params.cur_step_num += iter_first_order
-                    if train_network_init_flag:
-                        self._train_network.add_flags_recursive(accumulation=False)
-                        train_network_init_flag = False
-                    self._train_network.phase = 'train1'
-                    if not has_do_dataset_init:
-                        _exec_datagraph(train_dataset, iter_first_order, phase='train1_dataset')
-                        has_do_dataset_init = True
-                switch_branch_one = not switch_branch_one
-                outputs = self._train_network(*inputs)
-                cb_params.net_outputs = outputs
-                list_callback.step_end(run_context)
-
+                    self._train_ascend_sink_step(cb_params, train_dataset, iter_accu_order, inputs, list_callback,
+                                                 run_context)
             list_callback.epoch_end(run_context)
-            should_stop = should_stop or run_context.get_stop_requested()
-            if should_stop:
+            self.should_stop = self.should_stop or run_context.get_stop_requested()
+            if self.should_stop:
                 break
         dataset_helper.stop_send()
 
