@@ -20,7 +20,6 @@ MindInsight 可视化文档
    migrate_3rd_scripts_mindconverter
    performance_profiling
    debugger
-   debugger_offline
    model_explanation
    mindinsight_commands
 
