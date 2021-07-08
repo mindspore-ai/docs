@@ -367,7 +367,7 @@ MindSpore采用glog来输出日志，常用的几个环境变量如下：
     若`GLOG_logtostderr`的值为0，则必须设置此变量。  
     若指定了`GLOG_log_dir`且`GLOG_logtostderr`的值为1时，则日志输出到屏幕，不输出到文件。  
     C++和Python的日志会被输出到不同的文件中，C++日志的文件名遵从`GLOG`日志文件的命名规则，这里是`mindspore.机器名.用户名.log.日志级别.时间戳.进程ID`，Python日志的文件名为`mindspore.log.进程ID`。  
-    `GLOG_log_dir`只能包含大小写字母、数字、".", ":", "-", "_", "/", "\\"等字符。
+    `GLOG_log_dir`只能包含大小写字母、数字、"-"、"_"、"/"等字符。
 
 - `MS_SUBMODULE_LOG_v`
 
