@@ -47,9 +47,9 @@ A: MindSpore utilizes many of the new features in Python3.7+，therefore we reco
 
 <br/>
 
-<font size=3>**Q: Any specific requirements for protobuf version when use MindSpore?**</font>
+<font size=3>**Q: Any specific requirements for Protobuf version when use MindSpore?**</font>
 
-A: MindSpore installs version 3.13.0 of protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
+A: MindSpore installs version 3.13.0 of Protobuf by default.  If it is not the version, there will be many warnings in the log when using pytest to test the code.  It is recommended that you use the command 'pip install protobuf==3.13.0' to reinstall version 3.13.0.
 
 <br/>
 
@@ -110,7 +110,7 @@ A: The `libdatatransfer.so` dynamic library is in the `fwkacllib/lib64` director
 
 <font size=3>**Q: What should I do if the compilation time of MindSpore source code takes too long or the process is constantly interrupted by errors?**</font>
 
-A: MindSpore imports third party dependencies through submodule mechanism, among which `protobuf` v3.8.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
+A: MindSpore imports third party dependencies through submodule mechanism, among which `Protobuf` v3.8.0 might not have the optimal or steady download speed, it is recommended that you perform package cache in advance.
 
 <br/>
 

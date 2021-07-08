@@ -103,7 +103,7 @@ A: You can use the customized data loading method `GeneratorDataset`. For detail
 
 <br/>
 
-<font size=3>**Q: When MindSpore performs multi-device training on the NPU hardware platform, how does the user-defined dataset transfer data to different NPUs?**</font>
+<font size=3>**Q: When MindSpore performs multi-device training on the Ascend hardware platform, how does the user-defined dataset transfer data to different chip?**</font>
 
 A: When `GeneratorDataset` is used, the `num_shards=num_shards` and `shard_id=device_id` parameters can be used to control which shard of data is read by different devices. `__getitem__` and `__len__` are processed as full datasets.
 
@@ -140,7 +140,7 @@ A: The MNIST gray scale image dataset is used for MindSpore training. Therefore,
 
 <font size=3>**Q: Can you introduce the dedicated data processing framework?**</font>
 
-A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `NPU`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/optimize_data_processing.html).
+A: MindData provides the heterogeneous hardware acceleration function for data processing. The high-concurrency data processing `pipeline` supports `Ascend`, `GPU` and `CPU`. The `CPU` usage is reduced by 30%. For details, see [Optimizing Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/optimize_data_processing.html).
 
 <br/>
 

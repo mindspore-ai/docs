@@ -1,4 +1,4 @@
-﻿# ImplemPnt Problem
+﻿# Implement Problem
 
 `Linux` `Windows` `Ascend` `GPU` `CPU` `Environment Preparation` `Basic` `Intermediate`
 

@@ -103,7 +103,7 @@ A: 可以使用自定义的数据加载方式 `GeneratorDataset`，具体可以�
 
 <br/>
 
-<font size=3>**Q: MindSpore在NPU硬件平台进行多卡训练，自定义数据集如何给不同NPU传递不同数据？**</font>
+<font size=3>**Q: MindSpore在Ascend硬件平台进行多卡训练，自定义数据集如何给不同卡传递不同数据？**</font>
 
 A: 使用`GeneratorDataset`的时候，可以使用`num_shards=num_shards`,`shard_id=device_id`参数来控制不同卡读取哪个分片的数据，`__getitem__`和`__len__`按全量数据集处理即可。
 
@@ -140,7 +140,7 @@ A: 首先MindSpore训练使用的灰度图MNIST数据集。所以模型使用时
 
 <font size=3>**Q: 第一次看到有专门的数据处理框架，能介绍下么？**</font>
 
-A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`NPU/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/optimize_data_processing.html)。
+A: MindData提供数据处理异构硬件加速功能，高并发数据处理`pipeline`同时支持`Ascend/GPU/CPU`，`CPU`占用降低30%，点击查询[优化数据处理](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/optimize_data_processing.html)。
 
 <br/>
 

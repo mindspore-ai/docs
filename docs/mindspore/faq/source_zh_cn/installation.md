@@ -47,9 +47,9 @@ A: MindSpore开发过程中用到了Python3.7+的新特性，因此建议您通�
 
 <br/>
 
-<font size=3>**Q: MindSpore对protobuf版本是否有特别要求？**</font>
+<font size=3>**Q: MindSpore对Protobuf版本是否有特别要求？**</font>
 
-A: MindSpore默认安装protobuf的3.13.0版本，如果不是该版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.13.0`重新安装3.13.0版本。
+A: MindSpore默认安装Protobuf的3.13.0版本，如果不是该版本，在使用pytest测试代码时日志中会产生很多告警，建议您使用命令`pip install protobuf==3.13.0`重新安装3.13.0版本。
 
 <br/>
 
@@ -129,7 +129,7 @@ A: `libdatatransfer.so`动态库是`fwkacllib/lib64`目录下的，请先在`/us
 
 <font size=3>**Q: 源码编译MindSpore过程时间过长，或时常中断该怎么办？**</font>
 
-A: MindSpore通过submodule机制引入第三方依赖包，其中`protobuf`依赖包（v3.8.0）下载速度不稳定，建议您提前进行包缓存。
+A: MindSpore通过submodule机制引入第三方依赖包，其中`Protobuf`依赖包（v3.8.0）下载速度不稳定，建议您提前进行包缓存。
 
 <br/>
 
