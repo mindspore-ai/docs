@@ -34,11 +34,11 @@ MindSpore Federated Learning Server集群物理架构如图所示：
     1. 协助集群组网：在集群初始化阶段，由`Scheduler`负责收集`Server`信息，并达成集群一致性。`
     2. 开放管理面：支持用户通过`RESTful`接口对集群进行管理。
 
-    在一个联邦学习任务中，只有一个`Scheduler`，与`Server`通过TCP私有协议通信。
+    在一个联邦学习任务中，只有一个`Scheduler`，与`Server`通过TCP协议通信。
 
 - Federated Learning Server
 
-    `Server`为执行联邦学习任务的主体，用于接收和解析来自端侧设备的数据，具有执行安全聚合、限时通信、模型存储等能力。在一个联邦学习任务中，`Server`可以有多个(用户可配置)，`Server`间通过TCP私有协议通信，对外开放HTTP端口用于端侧设备连接。
+    `Server`为执行联邦学习任务的主体，用于接收和解析来自端侧设备的数据，具有执行安全聚合、限时通信、模型存储等能力。在一个联邦学习任务中，`Server`可以有多个(用户可配置)，`Server`间通过TCP协议通信，对外开放HTTP端口用于端侧设备连接。
 
     在MindSpore联邦学习框架中，`Server`还支持弹性伸缩以及容灾，能够在训练任务不中断的情况下，动态调配硬件资源。
 
@@ -91,7 +91,7 @@ fl_ctx = {
 context.set_fl_context(**fl_ctx)
 ...
 
-Model.train()
+model.train()
 ```
 
 本示例设置了训练任务的模式为`联邦学习`，训练进程角色为`Server`，需要启动`4`个`Server`才能完成集群组网，集群`Scheduler`的IP地址为`192.168.216.124`，集群`Scheduler`端口为`6667`，联邦学习`HTTP服务端口`为`6668`(由端侧设备连接)，任务名为`LeNet`，集群`Scheduler`管理端口为`11202`。
@@ -155,7 +155,7 @@ mobile/
     `run_mobile_server.py`是为用户启动若干`Server`而提供的Python脚本，并支持通过`argparse`传参修改配置。执行指令如下，代表启动本次联邦学习任务的`Server`，其TCP端口为`6667`，联邦学习HTTP服务起始端口为`6668`，`Server`数量为`4`个，联邦学习任务正常进行需要的端侧设备数量为`8`个：
 
     ```sh
-    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8
     ```
 
     以上指令等价于启动了4个`Server`进程，每个`Server`的联邦学习服务端口分别为`6668`、`6669`、`6670`和`6671`，具体实现详见[脚本run_mobile_server.py](https://gitee.com/mindspore/mindspore/blob/master/tests/st/fl/mobile/run_mobile_server.py)。  
@@ -166,12 +166,12 @@ mobile/
 
     ```sh
     # 在节点1启动3个Server进程
-    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=3
     ```
 
     ```sh
     # 在节点2启动1个Server进程
-    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6668 --server_num=4 --start_fl_job_threshold=8 --local_server_num=1
     ```
 
     看到日志打印
@@ -231,7 +231,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
     需要拉起`2`个新的`Server`进程，并将`server_num`参数累加扩容的个数，从而保证全局组网信息的正确性，则扩容后，`server_num`的数量应为`6`，执行如下指令：
 
     ```sh
-    python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2
+    python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6672 --server_num=6 --start_fl_job_threshold=8 --local_server_num=2
     ```
 
     此指令代表启动两个`Server`节点，联邦学习服务端口分别为`6672`和`6673`，总`Server`数量为`6`。
@@ -293,7 +293,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 
 ## 容灾
 
-在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时支持Server节点的容灾(Server 0除外)，并且在节点下线超过30s才能检测到。
+在MindSpore联邦学习集群中某节点下线后，可以保持集群在线而不退出训练任务，在该节点重新被启动后，可以恢复训练任务。目前MindSpore暂时只支持除Server 0以外的其他Server节点的容灾，而且需要节点下线超过30秒后重启才能恢复正常。
 
 容灾需要配置一个配置文件config.json，具体的格式如下，这个配置文件通过config_file_path指定：
 
@@ -309,7 +309,7 @@ MindSpore联邦学习框架支持`Server`的弹性伸缩，对外通过`Schedule
 节点重新启动的指令类似扩容指令，在节点被手动下线之后，执行如下指令：
 
 ```sh
-python run_mobile_server.py ---scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=/home/config.json
+python run_mobile_server.py --scheduler_ip=192.168.216.124 --scheduler_port=6667 --fl_server_port=6673 --server_num=6 --start_fl_job_threshold=8 --local_server_num=1 --config_file_path=/home/config.json
 ```
 
 此指令代表重新启动了`Server`，其联邦学习服务端口为`6673`。
