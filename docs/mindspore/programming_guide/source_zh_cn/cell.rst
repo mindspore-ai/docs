@@ -165,8 +165,10 @@ MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，
 
 .. toctree::
   :maxdepth: 1
+  :hidden:
 
   layer
   loss
-  optimi
+  custom_loss_function
+  optim
   custom_net

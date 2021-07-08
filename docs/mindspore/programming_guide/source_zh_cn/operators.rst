@@ -122,6 +122,7 @@ operations/functional/composite三类算子合并用法
 
 .. toctree::
   :maxdepth: 1
+  :hidden:
 
   operator_functions
   custom_operator

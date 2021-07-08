@@ -15,6 +15,14 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
+   :caption: 快速入门
+
+   quick_start/quick_start
+   quick_start/linear_regression
+   quick_start/quick_video
+
+.. toctree::
+   :maxdepth: 1
    :caption: 数据类型
 
    dtype
@@ -30,6 +38,7 @@ MindSpore编程指南
    network_component
    initializer
    numpy
+   differentiation
 
 .. toctree::
    :maxdepth: 1
@@ -43,6 +52,7 @@ MindSpore编程指南
    dataset_conversion
    auto_augmentation
    cache
+   data_sample
 
 .. toctree::
    :maxdepth: 1
@@ -51,6 +61,18 @@ MindSpore编程指南
    context
    run
    callback
+   load_model_for_inference_and_transfer
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 推理
+
+   multi_platform_inference
+   multi_platform_inference_ascend_910
+   multi_platform_inference_ascend_310
+   multi_platform_inference_gpu
+   multi_platform_inference_cpu
+   端侧推理 <https://www.mindspore.cn/lite>
 
 .. toctree::
    :maxdepth: 1
@@ -60,15 +82,42 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
-   :caption: 进阶用法
+   :caption: 功能调试
 
-   train
-   infer
-   advanced_usage_of_checkpoint
-   performance_optimization
-   customized
-   security_and_privacy
-   extension
+   debug_in_pynative_mode
+   dump_in_graph_mode
+   custom_debugging_info
+   evaluate_the_model_during_training
+   incremental_operator_build
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 精度调优
+
+   精度调优思路和方法 <https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/accuracy_optimization.html>
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 性能优化
+
+   optimize_data_processing
+   enable_mixed_precision
+   enable_graph_kernel_fusion
+   apply_gradient_accumulation
+   apply_quantization_aware_training
+   apply_post_training_quantization
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: 应用实践
+   :hidden:
+
+   cv
+   nlp
+   hpc
+   nlp_tprr
+   use_on_the_cloud
 
 .. toctree::
    :maxdepth: 1
