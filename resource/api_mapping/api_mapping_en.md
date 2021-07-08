@@ -186,6 +186,8 @@ Mapping between PyTorch APIs and MindSpore APIs, which is provided by the commun
 | torch.unbind                                         | mindspore.ops.Unstack                                          | same |
 | torch.unique                                         | mindspore.ops.Unique                                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/Unique_en.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | same |
+| torch.utils.data.DataLoader                          | None                                                           |[diff](https://gitee.com/mindspore/docs/blob/master/resource/api_mapping/DataLoader_en.md)|
+| torch.utils.data.Dataset                             | mindspore.dataset.GeneratorDataset                             | diff |
 | torch.utils.data.distributed.DistributedSampler      | mindspore.dataset.DistributedSampler                           | same |
 | torch.utils.data.RandomSampler                       | mindspore.dataset.RandomSampler                                | same |
 | torch.utils.data.SequentialSampler                   | mindspore.dataset.SequentialSampler                            | same |
