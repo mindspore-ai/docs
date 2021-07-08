@@ -24,7 +24,7 @@ SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口m
 | ------------------------------------------------------------ |
 | public void flJobRun()                                       |
 | public int[] modelInference(String flName, String dataPath, String vocabFile, String idsFile, String modelPath) |
-| public FLClientStatus getModel(String ip, int port, String flName, String trainModelPath, String inferModelPath, boolean useSSL) |
+| public FLClientStatus getModel()                             |
 
 ## flJobRun
 

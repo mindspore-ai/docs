@@ -1,8 +1,8 @@
-# FLParaMeter
+# FLParameter
 
 <!-- TOC -->
 
-- [FLParaMeter](#flparameter)
+- [FLParameter](#flparameter)
     - [公有成员函数](#公有成员函数)
     - [getInstance](#getinstance)
     - [getHostName](#gethostname)
@@ -39,8 +39,6 @@
     - [setUseElb](#setuseelb)
     - [getServerNum](#getservernum)
     - [setServerNum](#setservernum)
-    - [isPkiVerify](#ispkiverify)
-    - [setPkiVerify](#setpkiverify)
     - [getClientID](#getclientid)
     - [setClientID](#setclientid)
 
@@ -93,8 +91,6 @@ FLParameter定义联邦学习相关参数，供用户进行设置。
 | public void setUseElb(boolean useElb)                |
 | public int getServerNum()                            |
 | public void setServerNum(int serverNum)              |
-| public boolean isPkiVerify()                         |
-| public void setPkiVerify(boolean pkiVerify)          |
 | public String getClientID()                          |
 | public void setClientID(String clientID)             |
 
@@ -502,30 +498,6 @@ public void setServerNum(int serverNum)
 
 - 参数
     - `serverNum`: 模拟弹性负载均衡时可发送请求的server数量，默认为1。
-
-## isPkiVerify
-
-```java
-public boolean isPkiVerify()
-```
-
-是否进行端云认证。
-
-- 返回值
-
-    boolean类型，true代表进行端云认证，false代表不进行端云认证。
-
-## setPkiVerify
-
-```java
-public void setPkiVerify(boolean pkiVerify)
-```
-
-用于设置是否进行端云认证。
-
-- 参数
-
-    - `pkiVerify`: 是否进行端云认证。
 
 ## getClientID
 

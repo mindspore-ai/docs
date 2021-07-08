@@ -694,12 +694,12 @@ if __name__ == "__main__":
         return train_path, test_path, train_batch_num, test_batch_num
 
     for i in range(worker_num):
-        flId = "f"+str(i)
+        clientID = "f"+str(i)
         user = users[i]
         train_path, test_path = "", ""
         train_path, test_path, _, _= get_client_data_path(train_dataset, user)
         print("===========================")
-        print("fl id: ", flId)
+        print("client id: ", clientID)
         print("train path: ", train_path)
         print("test path: ", test_path)
 
@@ -719,7 +719,7 @@ if __name__ == "__main__":
         print("model path: ", train_model_path + "lenet_train" + str(i) + ".ms" + " ")
         cmd_client += infer_model_path + "lenet_train" + str(i) + ".ms" + " "
         print("model path: ", infer_model_path + "lenet_train" + str(i) + ".ms" + " ")
-        cmd_client += flId + " "
+        cmd_client += clientID + " "
         cmd_client += ip + " "
         cmd_client += ssl + " "
         cmd_client += str(port) + " "
@@ -757,7 +757,7 @@ if __name__ == "__main__":
 
     - `--flName`
 
-        设置联邦学习模型名称，目前只支持`lenet`（采用LeNet网络进行图片分类任务）和`adbert`（采用ALBERT网络进行情感分类任务）。
+        设置联邦学习模型名称，目前只支持`lenet`（采用LeNet网络进行图片分类任务）和`albert`（采用ALBERT网络进行情感分类任务）。
 
     - `--train_model_path`
 
