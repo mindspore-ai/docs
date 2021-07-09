@@ -50,10 +50,10 @@ This tutorial introduces how to train [Wide&Deep](https://gitee.com/mindspore/mi
 
 ## Configuring for Hybrid Training
 
-1. Configure the flag of hybrid training. In the function `argparse_init` of file `src/config.py`, change the default value of `host_device_mix` to be `1`; change `self.host_device_mix` in function `__init__` of `class WideDeepConfig` to be `1`:
+1. Configure the flag of hybrid training. In the file `default_config.yaml`, change the default value of `host_device_mix` to be `1`:
 
     ```python
-    self.host_device_mix = 1
+    host_device_mix: 1
     ```
 
 2. Check the deployment of necessary operators and optimizers. In class `WideDeepModel` of file `src/wide_and_deep.py`, check the execution of `EmbeddingLookup` is at host:

@@ -47,10 +47,10 @@
 
 ## 配置混合执行
 
-1. 配置混合训练标识。在`src/config.py`文件中，设置`argparse_init`函数中的`host_device_mix`默认值为`1`，设置`WideDeepConfig`类的`__init__`函数中`self.host_device_mix`为`1`：
+1. 配置混合训练标识。在`default_config.yaml`文件中，设置`host_device_mix`默认值为`1`：
 
     ```python
-    self.host_device_mix = 1
+    host_device_mix: 1
     ```
 
 2. 检查必要算子和优化器的执行位置。在`src/wide_and_deep.py`的`WideDeepModel`类中，检查`EmbeddingLookup`为主机端执行：
