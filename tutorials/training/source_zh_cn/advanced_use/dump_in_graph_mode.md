@@ -183,6 +183,8 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - `slot`：slot标号。
 - `format`: 数据格式。
 
+对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
+
 ### 同步Dump数据文件介绍
 
 同步Dump生成的数据文件是后缀名为`.npy`的文件，文件命名格式为：
@@ -435,6 +437,8 @@ numpy.load("Conv2D.Conv2D-op107.2.2.1623124369613540.output.0.DefaultFormat.npy"
 - `task_id`：任务标号。
 - `stream_id`：流标号。
 - `timestamp`：时间戳。
+
+对于多图网络，由于存在控制流，某些子图可能不会被执行，Dump只保存执行过的节点，所以graphs目录下`.pb`文件名中的{graph_id}并不一定在{net_name}下存在对应的{graph_id}目录。
 
 ### 异步Dump数据文件介绍
 
