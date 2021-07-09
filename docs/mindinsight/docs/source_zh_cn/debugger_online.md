@@ -1,10 +1,10 @@
-# 使用调试器
+# 使用在线调试器
 
 `Linux` `Ascend` `GPU` `模型调优` `中级` `高级`
 
 <!-- TOC -->
 
-- [使用调试器](#使用调试器)
+- [使用在线调试器](#使用在线调试器)
     - [概述](#概述)
     - [操作流程](#操作流程)
     - [调试器环境准备](#调试器环境准备)
@@ -26,12 +26,7 @@
 
 ## 概述
 
-在MindSpore图模式的训练过程中，用户无法从Python层获取到计算图中间节点的结果，使得训练调试变得很困难。使用MindSpore调试器，用户可以：
-
-- 在MindInsight调试器界面结合计算图，查看图节点的输出结果；
-- 设置监测点，监测训练异常情况（比如检查张量溢出），在异常发生时追踪错误原因；
-- 查看权重等参数的变化情况。
-- 查看图节点和源代码的对应关系。
+本教程介绍如何在在线模式下使用调试器。
 
 ## 操作流程
 
@@ -68,7 +63,7 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 `export MS_DEBUGGER_HOST=127.0.0.1`(该服务地址需与MindInsight host一致)；
 `export MS_DEBUGGER_PORT=50051`(该端口需与MindInsight debugger-port一致)。
 
-如果用户设备的内存空间有限，可在运行训练前开启内存复用模式，以降低运行内存占用：`export MS_DEBUGGER_PARTIAL_MEM=1`。
+如果用户设备的内存空间有限，可在运行训练前开启部分内存复用模式，以降低运行内存占用：`export MS_DEBUGGER_PARTIAL_MEM=1`。
 
 此外，训练时不要使用数据下沉模式（需设置`model.train`中的`dataset_sink_mode`为`False`），以保证调试器可以获取每个轮次的训练信息。
 
@@ -261,3 +256,4 @@ mindinsight start --port {PORT} --enable-debugger True --debugger-port {DEBUGGER
 - 重新检查只检查当前有张量值的监测点。
 - 检查计算过程溢出需要用户开启异步Dump的全部溢出检测功能，开启方式请参照[异步Dump功能介绍](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/custom_debugging_info.html#id5)
 - 调试器展示的图是优化后的最终执行图。调用的算子可能已经与其它算子融合，或者在优化后改变了名称。
+- 开启调试器会关闭内存复用，在训练网络过大时有可能导致'out of memory'错误。

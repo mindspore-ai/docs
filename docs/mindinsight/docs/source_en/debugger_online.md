@@ -1,10 +1,10 @@
-# Using Debugger
+# Using Online Debugger
 
 `Linux` `Ascend` `GPU` `Model Optimization` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Using Debugger](#using-debugger)
+- [Using Online Debugger](#using-online-debugger)
     - [Overview](#overview)
     - [Operation Process](#operation-process)
     - [Debugger Environment Preparation](#debugger-environment-preparation)
@@ -26,12 +26,7 @@
 
 ## Overview
 
-In `Graph Mode` training, the computation results of intermediate nodes in the computational graph can not be acquired from the python layer, which makes it difficult for users to do the debugging. By applying MindSpore Debugger, users can:
-
-- Visualize the computational graph on the UI and analyze the output of the graph node.
-- Set watchpoints to monitor training exceptions (for example, tensor overflow) and trace error causes.
-- Visualize and analyze the change of parameters, such as weights.
-- Visualize the nodes and code mapping relationship.
+This article describes how to use Debugger in online mode.
 
 ## Operation Process
 
@@ -68,7 +63,7 @@ Run the training script in debug mode, you need to set `export ENABLE_MS_DEBUGGE
 `export MS_DEBUGGER_HOST=127.0.0.1` (the service address must be consistent with MindInsight host address);
 `export MS_DEBUGGER_PORT=50051` (the port must be consistent with MindInsight debugger-port).
 
-If the memory space of your equipment is limited, you can use the memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
+If the memory space of your equipment is limited, you can use the partial memory reuse mode before starting the training to reduce the running space: `export MS_DEBUGGER_PARTIAL_MEM=1`。
 
 In addition, do not use data offload mode during training (you need to set `dataset_sink_mode` in `model.train` to `False`) to ensure that the debugger can obtain the training information of each step.
 
@@ -268,3 +263,5 @@ Tensors can be downloaded in tensor check view. Users can download the desired t
 - Recheck only watchpoints that have tensor values.
 - To check overflow during computation, you need to enable the overflow detection function of the asynchronous dump. For details about how to enable the function, see [Asynchronous Dump](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_debugging_info.html#asynchronous-dump).
 - The graph displayed by the debugger is the finally optimized execution graph. The called operator may have been integrated with other operators, or the name of the called operator is changed after optimization.
+- Enabling the debugger will turn off memory reuse mode, which may lead to an 'out of memory' error when the training network is too large.
+
