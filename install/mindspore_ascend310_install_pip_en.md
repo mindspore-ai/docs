@@ -7,7 +7,6 @@
     - [Installing MindSpore](#installing-mindspore)
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Verifying the Installation](#verifying-the-installation)
-    - [Installing MindSpore Serving](#installing-mindspore-serving)
 
 <!-- /TOC -->
 
@@ -116,8 +115,3 @@ The following information is displayed:
 
 The preceding information indicates that MindSpore is successfully installed.
 
-## Installing MindSpore Serving
-
-If you want to quickly experience the MindSpore online inference service, you can install MindSpore Serving.
-
-For details, see [mindspore Serving](https://gitee.com/mindspore/serving/blob/r1.3/README.md).

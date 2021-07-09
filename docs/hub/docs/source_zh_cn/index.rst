@@ -6,7 +6,7 @@ MindSpore Hub 文档
    :maxdepth: 1
    :caption: 安装部署
 
-   publish_model
+   hub_installation
 
 .. toctree::
    :glob:

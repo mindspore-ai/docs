@@ -15,6 +15,9 @@ MindArmour 文档
    test_model_security_fuzzing
    test_model_security_membership_inference
 
+   improve_model_security_nad
+   test_model_security_fuzzing
+   test_model_security_membership_inference
 
 .. toctree::
    :glob:

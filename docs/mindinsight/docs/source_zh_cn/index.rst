@@ -6,6 +6,8 @@ MindInsight文档
    :maxdepth: 1
    :caption: 安装部署
 
+   mindinsight_install
+
 
 
 .. toctree::

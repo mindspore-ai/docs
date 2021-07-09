@@ -7,9 +7,6 @@
     - [Downloading and Installing MindSpore](#downloading-and-installing-mindspore)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
-    - [Installing MindArmour](#installing-mindarmour)
-    - [Installing MindSpore Hub](#installing-mindspore-hub)
-    - [Installing MindQuantum](#installing-mindquantum)
 
 <!-- /TOC -->
 
@@ -61,21 +58,3 @@ Using the following command if you need to update the MindSpore version:
 ```bash
 pip install --upgrade mindspore
 ```
-
-## Installing MindArmour
-
-If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
-
-For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.3/README.md).
-
-## Installing MindSpore Hub
-
-If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
-
-For more details, please refer to [mindspore Hub](https://gitee.com/mindspore/hub/blob/r1.3/README.md).
-
-## Installing MindQuantum
-
-If you need to build and train quantum neural network, you can install MindQuantum.
-
-For more details, please refer to [MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r0.2/README.md).

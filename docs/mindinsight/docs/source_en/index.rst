@@ -6,6 +6,8 @@ MindInsight Documents
    :maxdepth: 1
    :caption: Installation
 
+   mindinsight_install
+
 .. toctree::
    :glob:
    :maxdepth: 1

@@ -10,10 +10,6 @@
     - [Configuring Environment Variables](#configuring-environment-variables)
     - [Installation Verification](#installation-verification)
     - [Version Update](#version-update)
-    - [Installing MindInsight](#installing-mindinsight)
-    - [Installing MindArmour](#installing-mindarmour)
-    - [Installing MindSpore Hub](#installing-mindspore-hub)
-    - [Installing MindSpore Serving](#installing-mindspore-serving)
 
 <!-- /TOC -->
 
@@ -197,27 +193,3 @@ Using the following command if you need to update the MindSpore version.
     ```bash
     pip install --upgrade mindspore_ascend-{version}-cp37-cp37m-linux_{arch}.whl
     ```
-
-## Installing MindInsight
-
-If you need to analyze information such as model scalars, graphs, computation graphs and model traceback, you can install MindInsight.
-
-For more details, please refer to [MindInsight](https://gitee.com/mindspore/mindinsight/blob/r1.3/README.md).
-
-## Installing MindArmour
-
-If you need to conduct AI model security research or enhance the security of the model in you applications, you can install MindArmour.
-
-For more details, please refer to [MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.3/README.md).
-
-## Installing MindSpore Hub
-
-If you need to access and experience MindSpore pre-trained models quickly, you can install MindSpore Hub.
-
-For more details, please refer to [mindspore Hub](https://gitee.com/mindspore/hub/blob/r1.3/README.md).
-
-## Installing MindSpore Serving
-
-If you need to access and experience MindSpore online inference services quickly, you can install MindSpore Serving.
-
-For more details, please refer to [mindspore Serving](https://gitee.com/mindspore/serving/blob/r1.3/README.md).

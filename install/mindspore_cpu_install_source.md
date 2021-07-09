@@ -9,9 +9,6 @@
     - [安装MindSpore](#安装mindspore)
     - [验证安装是否成功](#验证安装是否成功)
     - [升级MindSpore版本](#升级mindspore版本)
-    - [安装MindArmour](#安装mindarmour)
-    - [安装MindSpore Hub](#安装mindspore-hub)
-    - [安装MindQuantum](#安装mindquantum)
 
 <!-- /TOC -->
 
@@ -107,21 +104,3 @@ The result of multiplication calculation is correct, MindSpore has been installe
     ```bash
     pip install --upgrade mindspore-{version}-cp37-cp37m-linux_{arch}.whl
     ```
-
-## 安装MindArmour
-
-当您进行AI模型安全研究或想要增强AI应用模型的防护能力时，可以选装MindArmour。
-
-具体安装步骤参见[MindArmour](https://gitee.com/mindspore/mindarmour/blob/r1.3/README_CN.md)。
-
-## 安装MindSpore Hub
-
-当您想要快速体验MindSpore预训练模型时，可以选装MindSpore Hub。
-
-具体安装步骤参见[mindspore Hub](https://gitee.com/mindspore/hub/blob/r1.3/README_CN.md)。
-
-## 安装MindQuantum
-
-当您想要搭建并训练量子神经网络，可以选装MindQuantum。
-
-具体安装步骤参见[MindQuantum](https://gitee.com/mindspore/mindquantum/blob/r0.2/README_CN.md)。

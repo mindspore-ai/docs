@@ -6,6 +6,8 @@ MindSpore Serving Documents
    :maxdepth: 1
    :caption: Installation
 
+   serving_install
+
 
 .. toctree::
    :glob:

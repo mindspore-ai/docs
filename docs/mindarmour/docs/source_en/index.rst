@@ -6,6 +6,8 @@ MindArmour Documents
    :maxdepth: 1
    :caption: Installation
 
+   mindarmour_install
+
 .. toctree::
    :glob:
    :maxdepth: 1

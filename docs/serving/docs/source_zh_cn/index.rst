@@ -6,6 +6,8 @@ MindSpore Serving 文档
    :maxdepth: 1
    :caption: 安装部署
 
+   serving_install
+
 
 
 .. toctree::
