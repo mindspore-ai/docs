@@ -20,11 +20,6 @@
         - [Compilation Options](#compilation-options-2)
         - [Compilation Example](#compilation-example-2)
         - [Directory Structure](#directory-structure-2)
-    - [Docker Environment Compilation](#docker-environment-compilation)
-        - [Environmental Preparation](#environmental-preparation)
-        - [Compilation Options](#compilation-options-3)
-        - [Compilation Example](#compilation-example-3)
-        - [Directory Structure](#directory-structure-3)
 
 <!-- /TOC -->
 
@@ -56,8 +51,6 @@ Modules in MindSpore Lite:
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - Configure environment variables: `export ANDROID_NDK=NDK path`.
-    - [DDK](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180) = V500.010
-        - Configure environment variables: `export HWHIAI_DDK=DDK path`.
 - Additional compilation dependencies of Java:
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - Configure environment variables: `export GRADLE_HOME=GRADLE path`.
@@ -69,6 +62,12 @@ Modules in MindSpore Lite:
         - Create a new directory, configure environment variables`export ANDROID_SDK_ROOT=new directory`.
         - Download `SDK Tools`, create SDK through `sdkmanager`: `./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`.
         - Accept the license through `sdkmanager` under the `${ANDROID_SDK_ROOT}` directory: `yes | ./sdkmanager --licenses`.
+
+> You can also directly use the Docker compilation image that has been configured with the above dependencies.
+>
+> - Download the docker image: `docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
+> - Create a container: `docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
+> - Enter the container: `docker exec -ti -u 0 docker01 bash`
 
 ### Compilation Options
 
@@ -94,7 +93,7 @@ The script `build.sh` in the root directory of MindSpore can be used to compile 
 | Option  |  Parameter Description  | Value Range | Defaults |
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | Set the GPU backend, only opencl is valid when `-I arm64`, and only tensorrt is valid when `-I x86_64` | opencl, tensorrt, off | opencl when `-I arm64`, off when `-I x86_64` |
-| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | on |
+| MSLITE_ENABLE_NPU | Whether to compile NPU operator, only valid when `-I arm64` or `-I arm32` | on, off | off |
 | MSLITE_ENABLE_TRAIN | Whether to compile the training version | on, off | on |
 | MSLITE_ENABLE_SSE | Whether to enable SSE instruction set, only valid when `-I x86_64` | on, off | off |
 | MSLITE_ENABLE_AVX | Whether to enable AVX instruction set, only valid when `-I x86_64` | on, off | off |
@@ -121,14 +120,14 @@ Then, run the following commands in the root directory of the source code to com
     bash build.sh -I x86_64 -j32
     ```
 
-- Compile the ARM64 architecture version without compiling the NPU operator.
+- Compile the ARM64 architecture version without compiling training-related code.
 
     ```bash
-    export MSLITE_ENABLE_NPU=off
+    export MSLITE_ENABLE_TRAIN=off
     bash build.sh -I arm64 -j32
     ```
 
-    Or modify `mindspore/lite/CMakeLists.txt` to set MSLITE_ENABLE_NPU to off and execute the command:
+    Or modify `mindspore/lite/CMakeLists.txt` to set MSLITE_ENABLE_TRAIN to off and execute the command:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -362,41 +361,3 @@ mindspore-lite.framework
 ```
 
 > Currently, MindSpore Lite Train and converter are not supported on macOS.
-
-## Docker Environment Compilation
-
-### Environmental Preparation
-
-- Download the docker image
-
-    ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-    ```
-
-    > - Before downloading the image, please make sure docker has been installed.
-    > - Docker image does not currently support Windows version compilation.
-    > - Third-party libraries that compile dependencies have been installed in the image and environment variables have been configured.
-
-- Create a container
-
-    ```bash
-    docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-    ```
-
-- Enter the container
-
-    ```bash
-    docker exec -ti -u 0 docker01 bash
-    ```
-
-### Compilation Options
-
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
-
-### Compilation Example
-
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)
-
-### Directory Structure
-
-Refer to [Linux Environment Compilation](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#linux-environment-compilation)

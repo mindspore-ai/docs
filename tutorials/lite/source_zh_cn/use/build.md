@@ -20,11 +20,6 @@
         - [编译选项](#编译选项-2)
         - [编译示例](#编译示例-2)
         - [目录结构](#目录结构-2)
-    - [Docker环境编译](#docker环境编译)
-        - [环境准备](#环境准备)
-        - [编译选项](#编译选项-3)
-        - [编译示例](#编译示例-3)
-        - [目录结构](#目录结构-3)
 
 <!-- /TOC -->
 
@@ -56,8 +51,6 @@ MindSpore Lite包含模块：
     - [Git](https://git-scm.com/downloads) >= 2.28.0
     - [Android_NDK](https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip) >= r20
         - 配置环境变量：`export ANDROID_NDK=NDK路径`
-    - [DDK](https://developer.huawei.com/consumer/cn/doc/development/hiai-Library/ddk-download-0000001053590180) = V500.010
-        - 配置环境变量：`export HWHIAI_DDK=DDK路径`
 - Java编译需要的额外依赖
     - [Gradle](https://gradle.org/releases/) >= 6.6.1
         - 配置环境变量：`export GRADLE_HOME=GRADLE路径`
@@ -69,6 +62,12 @@ MindSpore Lite包含模块：
         - 创建一个新目录，配置环境变量`export ANDROID_SDK_ROOT=新建的目录`
         - 下载`SDK Tools`，通过`sdkmanager`创建SDK：`./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "cmdline-tools;latest"`
         - 通过`${ANDROID_SDK_ROOT}`目录下的`sdkmanager`接受许可证：`yes | ./sdkmanager --licenses`
+
+> 也可直接使用已配置好上述依赖的Docker编译镜像。
+>
+> - 下载镜像：`docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
+> - 创建容器：`docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530`
+> - 进入容器：`docker exec -ti -u 0 docker01 bash`
 
 ### 编译选项
 
@@ -94,7 +93,7 @@ MindSpore根目录下的`build.sh`脚本可用于MindSpore Lite的编译。
 | 选项  |  参数说明  | 取值范围 | 默认值 |
 | -------- | ----- | ---- | ---- |
 | MSLITE_GPU_BACKEND | 设置GPU后端，在`-I arm64`时仅opencl有效，在`-I x86_64`时仅tensorrt有效 | opencl、tensorrt、off | 在`-I arm64`时为opencl， 在`-I x86_64`时为off |
-| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | on |
+| MSLITE_ENABLE_NPU | 是否编译NPU算子，仅在`-I arm64`或`-I arm32`时有效 | on、off | off |
 | MSLITE_ENABLE_TRAIN | 是否编译训练版本 | on、off | on |
 | MSLITE_ENABLE_SSE | 是否启用SSE指令集，仅在`-I x86_64`时有效 | on、off | off |
 | MSLITE_ENABLE_AVX | 是否启用AVX指令集，仅在`-I x86_64`时有效 | on、off | off |
@@ -121,14 +120,14 @@ git clone https://gitee.com/mindspore/mindspore.git
     bash build.sh -I x86_64 -j32
     ```
 
-- 编译ARM64架构版本，不编译NPU算子。
+- 编译ARM64架构版本，不编译训练相关的代码。
 
     ```bash
-    export MSLITE_ENABLE_NPU=off
+    export MSLITE_ENABLE_TRAIN=off
     bash build.sh -I arm64 -j32
     ```
 
-    或者修改`mindspore/lite/CMakeLists.txt`将 MSLITE_ENABLE_NPU 设置为 off 后，执行命令:
+    或者修改`mindspore/lite/CMakeLists.txt`将 MSLITE_ENABLE_TRAIN 设置为 off 后，执行命令:
 
     ```bash
     bash build.sh -I arm64 -j32
@@ -362,41 +361,3 @@ mindspore-lite.framework
 ```
 
 > 暂不支持在macOS进行端侧训练与转换工具。
-
-## Docker环境编译
-
-### 环境准备
-
-- 下载镜像
-
-    ```bash
-    docker pull swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-    ```
-
-    > - 下载镜像前，请确保已经安装docker。
-    > - docker镜像暂不支持Windows版本编译。
-    > - 镜像里已安装好编译依赖的第三方库并且配置好环境变量。
-
-- 创建容器
-
-    ```bash
-    docker run -tid --net=host --name=docker01 swr.cn-south-1.myhuaweicloud.com/mindspore-build/mindspore-lite:ubuntu18.04.2-20210530
-    ```
-
-- 进入容器
-
-    ```bash
-    docker exec -ti -u 0 docker01 bash
-    ```
-
-### 编译选项
-
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
-
-### 编译示例
-
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
-
-### 目录结构
-
-参考[Linux环境编译](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#linux)
