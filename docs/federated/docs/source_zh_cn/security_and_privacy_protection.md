@@ -99,6 +99,7 @@ $$
 通常为了保证系统安全，当不考虑Server和Client合谋的情况下，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的一半；当考虑Server和Client合谋，`reconstruct_secrets_threshold`需要大于联邦学习客户端数量的2/3。
 
 `cipher_time_window`指代安全聚合各通讯轮次的时长限制，主要用来保证某些客户端掉线的情况下，Server可以开始新一轮迭代。
+需要注意的是，当前版本的安全聚合训练只支持`server_num=1`。
 
 ### 参考文献
 
