@@ -6,16 +6,16 @@ Callback机制
 
 Callback回调函数在MindSpore中被实现为一个类，Callback机制类似于一种监控模式，可以帮助用户观察网络训练过程中各种参数的变化情况和网络内部的状态，还可以根据用户的指定，在达到特定条件后执行相应的操作，在训练过程中，Callback列表会按照定义的顺序执行Callback函数。Callback机制让用户可以及时有效地掌握网络模型的训练状态，并根据需要随时作出调整，可以极大地提升用户的开发效率。
 
-在MindSpore中，Callback机制一般用在网络训练过程`model.train`中，用户可以通过配置不同的内置回调函数传入不同的参数，从而实现各种功能。例如，可以通过`LossMonitor`监控每一个epoch的loss变化情况，通过`ModelCheckpoint`保存网络参数和模型进行再训练或推理，通过`TimeMonitor`监控每一个epoch，每一个step的训练时间，以及提前终止训练，动态调整参数等。
+在MindSpore中，Callback机制一般用在网络训练过程``model.train``中，用户可以通过配置不同的内置回调函数传入不同的参数，从而实现各种功能。例如，可以通过``LossMonitor``监控每一个epoch的loss变化情况，通过``ModelCheckpoint``保存网络参数和模型进行再训练或推理，通过``TimeMonitor``监控每一个epoch，每一个step的训练时间，以及提前终止训练，动态调整参数等。
 
 MindSpore内置回调函数
 -----------------------
 
-- `ModelCheckpoint <./save_model.html>`_ ：与模型训练过程相结合，保存训练后的模型和网络参数，方便进行再推理或再训练。`ModelCheckpoint`一般与`CheckpointConfig`配合使用，`CheckpointConfig`是一个参数配置类，可自定义配置checkpoint的保存策略。
+- `ModelCheckpoint <./save_model.html>`_ ：与模型训练过程相结合，保存训练后的模型和网络参数，方便进行再推理或再训练。``ModelCheckpoint``一般与``CheckpointConfig``配合使用，``CheckpointConfig``是一个参数配置类，可自定义配置checkpoint的保存策略。
 
 - `SummaryCollector <https://www.mindspore.cn/mindinsight/docs/zh-CN/r1.3/summary_record.html>`_ ：帮助收集一些常见信息，如loss、learning rate、计算图、参数权重等，方便用户将训练过程可视化和查看信息，并且可以允许summary操作从summary文件中收集数据。
 
-- `LossMonitor <custom_debugging_info.html#mindsporecallback>`：监控训练过程中的loss变化情况，当loss为NAN或INF时，提前终止训练。可以在日志中输出loss，方便用户查看。
+- `LossMonitor <custom_debugging_info.html#mindsporecallback>`_：监控训练过程中的loss变化情况，当loss为NAN或INF时，提前终止训练。可以在日志中输出loss，方便用户查看。
 
 - TimeMonitor：监控训练过程中每个epoch，每个step的运行时间。
 
@@ -33,10 +33,3 @@ MindSpore不但有功能强大的内置回调函数，还可以支持用户自�
 详细内容，请参考`自定义Callback官网教程 <custom_debugging_info.html#id3>`_ 。
 
 根据教程，用户可以很容易实现具有其他功能的自定义回调函数，如实现在每一轮训练结束后都输出相应的详细训练信息，包括训练进度、训练轮次、训练名称、loss值等；如实现在loss或模型精度达到一定值后停止训练，用户可以设定loss或模型精度的阈值，当loss或模型精度达到该阈值后就提前终止训练等。
-
-.. toctree::
-  :maxdepth: 1
-  :hidden:
-
-  save_model
-  advanced_usage_of_checkpoint

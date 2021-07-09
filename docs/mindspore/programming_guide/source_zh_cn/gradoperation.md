@@ -1,11 +1,10 @@
-﻿# 自动微分
+﻿# GradOperation
 
 `CPU` `GPU` `Ascend` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [自动微分](#自动微分)
-    - [概述](#概述)
+- [GradOperation](#gradoperation)
     - [一阶求导](#一阶求导)
         - [输入求导](#输入求导)
         - [权重求导](#权重求导)
@@ -20,17 +19,15 @@
 
 <!-- /TOC -->
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/implement_high_order_differentiation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
-
-## 概述
-
-高阶微分在AI支持科学计算、二阶优化等领域均有应用。如分子动力学模拟中，利用神经网络训练势能时[1]，损失函数中需计算神经网络输出对输入的导数，则反向传播便存在损失函数对输入、权重的二阶交叉导数；此外，AI求解微分方程（如PINNs[2]方法）还会存在输出对输入的二阶导数。又如二阶优化中，为了能够让神经网络快速收敛，牛顿法等需计算损失函数对权重的二阶导数。以下将主要介绍MindSpore图模式下的高阶导数。
-
-> 完整样例代码见：[导数样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code)
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/gradoperation.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## 一阶求导
 
+GradOperation组件用于生成输入函数的梯度，利用get_all、get_by_list和sens_param参数控制梯度的计算方式，细节内容详见API文档。
+
 首先回顾下MindSpore计算一阶导数方法`mindspore.ops.GradOperation (get_all=False, get_by_list=False, sens_param=False)`，其中`get_all`为`False`时，只会对第一个输入求导，为`True`时，会对所有输入求导；`get_by_list`为`False`时，不会对权重求导，为`True`时，会对权重求导；`sens_param`对网络的输出值做缩放以改变最终梯度，故其维度与输出维度保持一致。下面用MatMul算子的一阶求导做深入分析。
+
+完整样例代码见：[一阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/high_order_differentiation/first_order)
 
 ### 输入求导
 
@@ -275,7 +272,11 @@ print(output)
 
 ## 高阶求导
 
+高阶微分在AI支持科学计算、二阶优化等领域均有应用。如分子动力学模拟中，利用神经网络训练势能时[1]，损失函数中需计算神经网络输出对输入的导数，则反向传播便存在损失函数对输入、权重的二阶交叉导数；此外，AI求解微分方程（如PINNs[2]方法）还会存在输出对输入的二阶导数。又如二阶优化中，为了能够让神经网络快速收敛，牛顿法等需计算损失函数对权重的二阶导数。以下将主要介绍MindSpore图模式下的高阶导数。
+
 MindSpore可通过多次求导的方式支持高阶导数，下面通过几类例子展开阐述。
+
+完整样例代码见：[高阶求导样例代码](https://gitee.com/mindspore/docs/tree/r1.3/docs/sample_code/high_order_differentiation/second_order)
 
 ### 单输入单输出高阶导数
 

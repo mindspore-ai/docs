@@ -6,6 +6,8 @@
 
 - [定义与使用损失函数](#定义与使用损失函数)
     - [概述](#概述)
+    - [内置损失函数](#内置损失函数)
+        - [内置损失函数应用实例](#内置损失函数应用实例)
     - [定义损失函数](#定义损失函数)
     - [损失函数与模型训练](#损失函数与模型训练)
         - [定义数据集和网络](#定义数据集和网络)
@@ -17,11 +19,67 @@
 
 <!-- /TOC -->
 
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+
 ## 概述
 
 损失函数，又叫目标函数，用于衡量预测值与真实值差异的程度。在深度学习中，模型训练就是通过不停地迭代来缩小损失函数值的过程。因此，在模型训练过程中损失函数的选择非常重要，定义一个好的损失函数，可以有效提高模型的性能。
 
 MindSpore提供了许多通用损失函数供用户选择，但这些通用损失函数并不适用于所有场景，很多情况需要用户自定义所需的损失函数。因此，本教程介绍损失函数的写作方法。
+
+目前MindSpore主要支持的损失函数有`L1Loss`、`MSELoss`、`SmoothL1Loss`、`SoftmaxCrossEntropyWithLogits`、`SampledSoftmaxLoss`、`BCELoss`和`CosineEmbeddingLoss`。
+
+MindSpore的损失函数全部是`Cell`的子类实现，所以也支持用户自定义损失函数，其构造方法在[定义损失函数](#定义损失函数)中进行介绍。
+
+## 内置损失函数
+
+- L1Loss
+
+    计算两个输入数据的绝对值误差，用于回归模型。`reduction`参数默认值为mean，返回loss平均值结果，若`reduction`值为sum，返回loss累加结果，若`reduction`值为none，返回每个loss的结果。
+
+- MSELoss
+
+    计算两个输入数据的平方误差，用于回归模型。`reduction`参数同`L1Loss`。
+
+- SmoothL1Loss
+
+    `SmoothL1Loss`为平滑L1损失函数，用于回归模型，阈值`beta`默认参数为1。
+
+- SoftmaxCrossEntropyWithLogits
+
+    交叉熵损失函数，用于分类模型。当标签数据不是one-hot编码形式时，需要输入参数`sparse`为True。`reduction`参数默认值为none，其参数含义同`L1Loss`。
+
+- CosineEmbeddingLoss
+
+    `CosineEmbeddingLoss`用于衡量两个输入相似程度，用于分类模型。`margin`默认为0.0，`reduction`参数同`L1Loss`。
+
+- BCELoss
+
+    二值交叉熵损失，用于二分类。`weight`是一个batch中每个训练数据的损失的权重，默认值为None，表示权重均为1。`reduction`参数默认值为none，其参数含义同`L1Loss`。
+- SampledSoftmaxLoss
+
+   抽样交叉熵损失函数，用于分类模型，一般在类别数很大时使用。`num_sampled`是抽样的类别数，`num_classes`是类别总数，`num_true`是每个用例的类别数，`sampled_values`是默认值为None的抽样候选值。`remove_accidental_hits`是移除“误中抽样”的开关， `seed`是默认值为0的抽样的随机种子，`reduction`参数默认值为none，其参数含义同L1Loss。
+
+### 内置损失函数应用实例
+
+MindSpore的损失函数全部在`mindspore.nn`下，使用方法如下所示：
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import Tensor
+
+loss = nn.L1Loss()
+input_data = Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
+target_data = Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
+print(loss(input_data, target_data))
+```
+
+```text
+1.5
+```
+
+此用例构造了两个Tensor数据，利用`nn.L1Loss`接口定义了loss，将`input_data`和`target_data`传入loss，执行L1Loss的计算，结果为1.5。若`loss = nn.L1Loss(reduction=’sum’)`，则结果为9.0。若`loss = nn.L1Loss(reduction=’none’)`，结果为`[[1. 0. 2.] [1. 2. 3.]]`。
 
 ## 定义损失函数
 

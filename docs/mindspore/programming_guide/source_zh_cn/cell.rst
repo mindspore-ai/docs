@@ -4,11 +4,11 @@ Cell及其子类
 概述
 -----------
 
-MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单元。当用户需要自定义网络时，需要继承`Cell`类，并重写`__init__`方法和`construct`方法。
+MindSpore的``Cell``类是构建所有网络的基类，也是网络的基本单元。当用户需要自定义网络时，需要继承`Cell`类，并重写``__init__``方法和``construct``方法。
 
-损失函数、优化器和模型层等本质上也属于网络结构，也需要继承`Cell`类才能实现功能，同样用户也可以根据业务需求自定义这部分内容。
+损失函数、优化器和模型层等本质上也属于网络结构，也需要继承``Cell``类才能实现功能，同样用户也可以根据业务需求自定义这部分内容。
 
-本节内容首先将会介绍`Cell`类的关键成员函数，然后介绍基于`Cell`实现的MindSpore内置损失函数、优化器和模型层及使用方法，最后通过实例介绍如何利用`Cell`类构建自定义网络。
+本节内容首先将会介绍``Cell``类的关键成员函数，然后介绍基于``Cell``实现的MindSpore内置损失函数、优化器和模型层及使用方法，最后通过实例介绍如何利用``Cell``类构建自定义网络。
 
 关键成员函数
 --------------
@@ -16,11 +16,11 @@ MindSpore的`Cell`类是构建所有网络的基类，也是网络的基本单�
 construct方法
 ^^^^^^^^^^^^^^^^^^^^
 
-`Cell`类重写了`__call__`方法，在`Cell`类的实例被调用时，会执行`construct`方法。网络结构在`construct`方法里面定义。
+``Cell``类重写了``__call__``方法，在``Cell``类的实例被调用时，会执行``construct``方法。网络结构在``construct``方法里面定义。
 
-下面的样例中，我们构建了一个简单的网络实现卷积计算功能。构成网络的算子在`__init__`中定义，在`construct`方法里面使用，用例的网络结构为`Conv2d` -> `BiasAdd`。
+下面的样例中，我们构建了一个简单的网络实现卷积计算功能。构成网络的算子在`__init__`中定义，在``construct``方法里面使用，用例的网络结构为``Conv2d`` -> ``BiasAdd``。
 
-在`construct`方法中，`x`为输入数据，`output`是经过网络结构计算后得到的计算结果。
+在``construct``方法中，``x``为输入数据，``output``是经过网络结构计算后得到的计算结果。
 
 .. code-block::
 
@@ -114,11 +114,11 @@ cells_and_names
 set_grad
 ^^^^^^^^
 
-`set_grad`接口功能是使用户构建反向网络，在不传入参数调用时，默认设置`requires_grad`为True，需要在计算网络反向的场景中使用。
+``set_grad``接口功能是使用户构建反向网络，在不传入参数调用时，默认设置``requires_grad``为``True``，需要在计算网络反向的场景中使用。
 
-以`TrainOneStepCell`为例，其接口功能是使网络进行单步训练，需要计算网络反向，因此初始化方法里需要使用`set_grad`。
+以``TrainOneStepCell``为例，其接口功能是使网络进行单步训练，需要计算网络反向，因此初始化方法里需要使用``set_grad``。
 
-`TrainOneStepCell`部分代码如下：
+``TrainOneStepCell``部分代码如下：
 
 .. code-block::
 
@@ -129,18 +129,18 @@ set_grad
             self.network.set_grad()
             ......
 
-如果用户使用`TrainOneStepCell`等类似接口无需使用`set_grad`， 内部已封装实现。
+如果用户使用``TrainOneStepCell``等类似接口无需使用``set_grad``， 内部已封装实现。
 
-若用户需要自定义此类训练功能的接口，需要在其内部调用，或者在外部设置`network.set_grad`。
+若用户需要自定义此类训练功能的接口，需要在其内部调用，或者在外部设置``network.set_grad``。
 
 nn模块与ops模块的关系
 ----------------------------
 
 MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，主要包括各种模型层、损失函数、优化器等。
 
-同时nn也提供了部分与`Primitive`算子同名的接口，主要作用是对`Primitive`算子进行进一步封装，为用户提供更友好的API。
+同时nn也提供了部分与``Primitive``算子同名的接口，主要作用是对``Primitive``算子进行进一步封装，为用户提供更友好的API。
 
-重新分析上文介绍`construct`方法的用例，此用例是MindSpore的`nn.Conv2d`源码简化内容，内部会调用`ops.Conv2D`。`nn.Conv2d`卷积API增加输入参数校验功能并判断是否`bias`等，是一个高级封装的模型层。
+重新分析上文介绍``construct``方法的用例，此用例是MindSpore的``nn.Conv2d``源码简化内容，内部会调用``ops.Conv2D``。``nn.Conv2d``卷积API增加输入参数校验功能并判断是否``bias``等，是一个高级封装的模型层。
 
 .. code-block::
 
@@ -164,11 +164,9 @@ MindSpore的nn模块是Python实现的模型组件，是对低阶API的封装，
             return output
 
 .. toctree::
-  :maxdepth: 1
-  :hidden:
+   :maxdepth: 1
 
-  layer
-  loss
-  custom_loss_function
-  optim
-  custom_net
+   layer
+   loss
+   optim
+   custom_net
