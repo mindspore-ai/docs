@@ -256,7 +256,7 @@ context.get_auto_parallel_context("full_batch")
 
 #### pipeline_stages
 
-`pipeline_stages`是用来设置`pipeline`并行的`stage`信息。用来表明机器在`pipeline`并行下是如何分布的。目前`pipeline`并行仍在开发中。
+近年来，神经网络的规模几乎是呈指数型增长。受单卡内存的限制，训练这些大模型用到的设备数量也在不断增加。受server间通信带宽低的影响，传统数据并行叠加模型并行的这种混合并行模式的性能表现欠佳，需要引入流水线并行。流水线并行能够将模型在空间上按`stage`进行切分，每个`stage`只需执行网络的一部分，大大节省了内存开销，同时缩小了通信域。MindSpore能够根据用户的配置，将单机模型自动地转换成流水线并行模式去执行。`pipeline_stages`用来设置流水线并行的`stage`个数。
 
 代码样例如下：
 
