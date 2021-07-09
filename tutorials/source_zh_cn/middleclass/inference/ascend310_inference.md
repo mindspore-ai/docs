@@ -11,7 +11,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/master/tutorials/source_zh_cn/middleclass/inference/ascend310_inference.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
-本文介绍如何在Ascend310处理器中推理MindIR模型。Ascned环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)。
+本文介绍如何在Ascend310处理器中推理MindIR模型。Ascend环境配置可参考[Ascend安装指南](https://www.mindspore.cn/install/)，完整推理代码可参考[ascend310_resnet50_preprocess_sample](https://gitee.com/mindspore/docs/tree/master/tutorials/tutorial_code/ascend310_resnet50_preprocess_sample)。
 
 ## 推理代码介绍
 
@@ -139,7 +139,7 @@ cmake . -DMINDSPORE_PATH=`pip3 show mindspore-ascend | grep Location | awk '{pri
 make
 ```
 
-编译成功后，会获得`resnet50_sample`可执行文件。在工程目录`ascend310_resnet50_preprocess_sample`下创建`model`目录放置MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。此外，创建`test_data`目录用于存放待分类的图片，输入执行命令即可获取推理结果：
+编译成功后，会获得`resnet50_sample`可执行文件。在工程目录`ascend310_resnet50_preprocess_sample`下创建`model`目录放置MindIR文件[resnet50_imagenet.mindir](https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/sample_resources/ascend310_resnet50_preprocess_sample/resnet50_imagenet.mindir)。此外，创建`test_data`目录用于存放待分类的图片，图片可来自ImageNet等各类开源数据集，输入执行命令即可获取推理结果：
 
 ```bash
 ./resnet50_sample

@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 其中，
 
-- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式（PyNative模式不支持并行）。
+- `mode=context.GRAPH_MODE`：使用分布式训练需要指定运行模式为图模式。
 - `init("nccl")`：使能NCCL通信，并完成分布式训练初始化操作。
 
 ## 定义网络
@@ -109,7 +109,7 @@ echo "start training"
 mpirun -n 8 pytest -s -v ./resnet50_distributed_training.py > train.log 2>&1 &
 ```
 
-脚本会在后台运行，日志文件会保存到device目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在train.log中。将loss值grep出来后，示例如下：
+脚本会在后台运行，日志文件会保存到device目录下，共跑了10个epoch，每个epoch有234个step，关于Loss部分结果保存在train.log中。选取部分示例，如下：
 
 ```text
 epoch: 1 step: 1, loss is 2.3025854
