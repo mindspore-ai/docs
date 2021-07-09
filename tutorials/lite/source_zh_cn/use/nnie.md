@@ -155,7 +155,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 3. 执行converter，生成NNIE`ms`模型
 
     ```bash
-    ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=../converter.cfg --outputFile=${model_name}
+    ./converter_lite --fmk=CAFFE --modelFile=${model_name}.prototxt --weightFile=${model_name}.caffemodel --configFile=./converter.cfg --outputFile=${model_name}
     ```
 
     ${model_name}为模型文件名称，运行后的结果显示为：
@@ -205,7 +205,7 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
    在示例中，这些so位于/usr/lib下，用户需按实际情况进行配置：
 
    ```bash
-   export LD_LIBRARY_PATH=/user/mindspore/lib:/user/lib:${LD_LIBRARY_PATH}
+   export LD_LIBRARY_PATH=/user/mindspore/lib:/usr/lib:${LD_LIBRARY_PATH}
    ```
 
 4. 设置配置项（可选）
@@ -227,6 +227,55 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
    ```bash
    export CORE_IDS=0         # NNIE运行内核id，支持模型分段独立配置，使用逗号分隔(如export CORE_IDS=1,1)，默认值：0
+   ```
+
+5. 构建图片输入（可选）
+
+   若converter导出模型时喂给mapper的校正集用的是图片，则传递给benchmark的输入需是int8的输入数据，即需要把图片转成int8传递给benchmark。
+   这里采用python给出转换示范样例：
+
+   ``` python
+   import sys
+   import cv2
+
+   def usage():
+       print("usage:\n"
+             "example: python generate_input_bin.py xxx.img BGR 224 224\n"
+             "argv[1]: origin image path\n"
+             "argv[2]: RGB_order[BGR, RGB], should be same as nnie mapper config file's [RGB_order], default is BGR\n"
+             "argv[3]: input_h\n"
+             "argv[4]: input_w"
+             )
+
+   def main(argvs):
+       if argvs[1] == "-h":
+           usage()
+           print("EXIT")
+           exit()
+       img_path = argvs[1]
+       rgb_order = argvs[2]
+       input_h = int(argvs[3])
+       input_w = int(argvs[4])
+       img = cv2.imread(img_path)
+       if rgb_order == "RGB":
+           img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+       img_hwc = cv2.resize(img, (input_w, input_h))
+       outfile_name = "1_%s_%s_3_nhwc.bin" %(argvs[3], argvs[4])
+       img_hwc.tofile(outfile_name)
+       print("Generated " + outfile_name + " file success in current dir.")
+
+   if __name__ == "__main__":
+       if len(sys.argv) == 1:
+           usage()
+           print("EXIT")
+           exit()
+       elif len(sys.argv) != 5:
+           print("Input argument is invalid.")
+           usage()
+           print("EXIT")
+           exit()
+       else:
+           main(sys.argv)
    ```
 
 #### 执行benchmark
@@ -287,7 +336,7 @@ ${model_path}为转换后ms模型文件路径
     bottom: "conv1"
     top: "custom1_1"
     custom_param {
-      type: "MY_CUSTOM"
+      op_type: "MY_CUSTOM"
       shape {
           dim: 1
           dim: 256
