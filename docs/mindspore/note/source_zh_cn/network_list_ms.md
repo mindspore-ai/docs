@@ -37,7 +37,7 @@
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet-50](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet)   |  ✅ |  ✅ |  ✅ |  ✅ | ✅ |  |
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet-50（量化）](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet50_quant)   |  ✅ |   |   |   |  |  |
 |计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNet-101](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet)        |  ✅ |  ✅ | ✅ |  ✅ |  |  |
-|计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNeXt50](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnext50)    |  ✅ |   | ✅ |  ✅ |  |  |
+|计算机视觉（CV）  | 图像分类（Image Classification）  | [ResNeXt50](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnext)    |  ✅ |   | ✅ |  ✅ |  |  |
 |计算机视觉（CV）  | 图像分类（Image Classification）  | [SE-ResNet50](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/resnet)       |  ✅ | ✅ |  |  |  |  |
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ShuffleNetV1](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/shufflenetv1)        |  ✅ |   |   |   |  |  |
 | 计算机视觉（CV）  | 图像分类（Image Classification）  | [ShuffleNetV2](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/cv/shufflenetv2) |   |   |  ✅ |  ✅ |  |  |

@@ -75,7 +75,7 @@ mindspore-lite-{version}-linux-x64
 >
 > os不支持文件系统时，debugMode不可用。
 >
-> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/index.html)。
+> 生成的推理接口详细使用说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html)。
 >
 > 以下三个接口暂不支持：
 >

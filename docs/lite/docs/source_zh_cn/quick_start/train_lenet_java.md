@@ -153,7 +153,7 @@ train_lenet_java
 
 ### 编写端侧推理代码
 
-详细的Java接口使用请参考<https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_java/index.html>。
+详细的Java接口使用请参考<https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html>。
 
 1. 加载MindSpore Lite模型文件，构建会话。
 

@@ -64,7 +64,7 @@ MindSpore Lite架构引入了`MindData`数据处理接口。首先，`MindData`�
 
 用户依次执行上图中`User`列的函数即可启动模型训练。首先调用`CreateSession`函数创建训练会话对象，并创建`TrainLoop`类对象；然后依次执行`InitDataset`、`Train`、`Eval`即可完成训练。`ToD`和`MindData`列为模型训练中调用MindSpore Lite底层函数。
 
-> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/index.html)。
+> 更多C++API说明，请参考[API文档](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html)。
 
 ## 创建会话
 
