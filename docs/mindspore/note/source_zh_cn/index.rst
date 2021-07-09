@@ -11,7 +11,7 @@ MindSpore设计和规格
    :maxdepth: 1
    :caption: 设计说明
    
-   design/overall
+   design/technical_white_paper
    design/mindir
    design/distributed_training_design
 
