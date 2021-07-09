@@ -15,7 +15,7 @@
 
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_zh_cn/evaluate_the_model_during_training.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 &nbsp;&nbsp;
-<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
+<a href="https://obs.dualstack.cn-north-4.myhuaweicloud.com/mindspore-website/notebook/r1.3/notebook/mindspore_evaluate_the_model_during_training.ipynb"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_notebook.png"></a>
 &nbsp;&nbsp;
 <a href="https://authoring-modelarts-cnnorth4.huaweicloud.com/console/lab?share-url-b64=aHR0cHM6Ly9vYnMuZHVhbHN0YWNrLmNuLW5vcnRoLTQubXlodWF3ZWljbG91ZC5jb20vbWluZHNwb3JlLXdlYnNpdGUvbm90ZWJvb2svbW9kZWxhcnRzL21pbmRzcG9yZV9ldmFsdWF0ZV90aGVfbW9kZWxfZHVyaW5nX3RyYWluaW5nLmlweW5i&imagename=MindSpore1.1.1" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_modelarts.png"></a>
 
