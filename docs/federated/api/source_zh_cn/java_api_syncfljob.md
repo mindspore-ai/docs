@@ -20,11 +20,11 @@ SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口m
 
 ## 公有成员函数
 
-| **function**                                                 |
-| ------------------------------------------------------------ |
-| public void flJobRun()                                       |
-| public int[] modelInference(String flName, String dataPath, String vocabFile, String idsFile, String modelPath) |
-| public FLClientStatus getModel()                             |
+| **function**                     |
+| -------------------------------- |
+| public void flJobRun()           |
+| public int[] modelInference()    |
+| public FLClientStatus getModel() |
 
 ## flJobRun
 
@@ -40,15 +40,7 @@ public void flJobRun()
 public int[] modelInference(String flName, String dataPath, String vocabFile, String idsFile, String modelPath)
 ```
 
-启动端侧推理任务。
-
-- 参数
-
-    - `flName`: 联邦学习使用的模型名称, 情感分类任务需设置为”adbert“; 图片分类任务需设置为”lenet“。
-    - `dataPath`: 数据集路径，情感分类任务为txt文档格式; 图片分类任务为bin文件格式。
-    - `vocabFile`: 数据预处理的词典文件路径， 情感分类任务必须设置；图片分类任务设置为null。
-    - `idsFile`: 词典的映射id文件路径， 情感分类任务必须设置；图片分类任务设置为null。
-    - `modelPath`: 联邦学习推理模型路径，为.ms文件的绝对路径。
+启动端侧推理任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/api/zh-CN/r1.3/interface_description_federated_client.html)。
 
 - 返回值
 
@@ -60,8 +52,8 @@ public int[] modelInference(String flName, String dataPath, String vocabFile, St
 public FLClientStatus getModel()
 ```
 
-获取云侧最新模型。
+获取云侧最新模型，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/api/zh-CN/r1.3/interface_description_federated_client.html)。
 
 - 返回值
 
-  返回getModel请求状态码，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/api/zh-CN/r1.3/interface_description_federated_client.html)。
+  返回getModel请求状态码。
