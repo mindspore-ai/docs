@@ -4,12 +4,14 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/custom_loss_function.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 <!-- TOC -->
 
 - [Customizing and Using Loss Function](#Customizing-and-Using-Loss-Function)
     - [Overview](#Overview)
+    - [Built-in Loss Functions](#built-in-loss-functions)
+        - [Built-in Loss Functions Application Cases](#built-in-loss-functions-application-cases)
     - [Defining Loss Function](#Defining-Loss-Function)
     - [Loss Function and Model Training](#Loss-Function-and-Model-Training)
         - [Defining Dataset and Network](#Defining-Dataset-and-Network)
@@ -26,6 +28,61 @@ Translator: [Misaka19998](https://gitee.com/Misaka19998)
 Loss function, also known as object function, is used for measuring the difference between predicted and true value. In deep learning, training a model is a process of decrease the loss value by iteration. So it is important to choose a loss function while training a model. A better loss function can efficiently increase model's performance.
 
 MindSpore provides many general loss functions for users. However, they are not suitable for all the situations. Users need to define their own loss functions in some cases. So this course will introduce how to define loss functions.
+
+Currently, MindSpore supports the following loss functions: `L1Loss`, `MSELoss`, `SmoothL1Loss`, `SoftmaxCrossEntropyWithLogits`, `SampledSoftmaxLoss`, `BCELoss`, and `CosineEmbeddingLoss`.
+
+All loss functions of MindSpore are implemented by subclasses of `Cell`. Therefore, customized loss functions are also supported. For details about how to build a loss function, see "Building a Customized Network."
+
+### Built-in Loss Functions
+
+- L1Loss
+
+  Computes the absolute value error of two input data for the regression model. The default value of `reduction` is mean. If the value of `reduction` is sum, the loss accumulation result is returned. If the value of `reduction` is none, the result of each loss is returned.
+
+- MSELoss
+
+  Computes the square error of two input data for the regression model. The `reduction` parameter is the same as the `L1Loss` parameter.
+
+- SmoothL1Loss
+
+  `SmoothL1Loss` is the smooth L1 loss function, which is used for the regression model. The default value of the `beta` threshold is 1.
+
+- SoftmaxCrossEntropyWithLogits
+
+  Cross entropy loss function, which is used to classify models. If the tag data is not encoded in the one-hot mode, set `sparse` to True. The default value of `reduction` is none. The meaning of this parameter is the same as that of `L1Loss`.
+
+- CosineEmbeddingLoss
+
+  `CosineEmbeddingLoss` is used to measure the similarity between two inputs and is used for classification models. The default value of `margin` is 0.0. The `reduction` parameter is the same as the `L1Loss` parameter.
+
+- BCELoss
+
+  Binary cross entropy loss is used for binary classification. `weight` is a rescaling weight applied to the loss of each batch element. The default value of `weight` is None, which means the weight values are all 1. The default value of `reduction` parameter is none. The `reduction` parameter is the same as the `L1Loss` parameter.
+
+- SampledSoftmaxLoss
+
+  Sampled softmax loss function, which is used for classification model when the number of class is large. `num_sampled` is the number of classes to randomly sample. `num_class` is the number of possible classes. `num_true` is the number of target classes per training example. `sampled_values` is the sampled candidate. The default value of `sampled_values` is None, which means UniformCandidateSampler is applied. `remove_accidental_hits` is the switch of whether to remove "accidental hits". The default value of `remove_accidental_hits` is True. `seed` is the random seed for candidate sampling with the default value of 0. The default value of reduction parameter is none. The `reduction` parameter is the same as the L1Loss parameter.
+
+### Built-in Loss Functions Application Cases
+
+All loss functions of MindSpore are stored in mindspore.nn. The usage method is as follows:
+
+```python
+import numpy as np
+import mindspore.nn as nn
+from mindspore import Tensor
+
+loss = nn.L1Loss()
+input_data = Tensor(np.array([[1, 2, 3], [2, 3, 4]]).astype(np.float32))
+target_data = Tensor(np.array([[0, 2, 5], [3, 1, 1]]).astype(np.float32))
+print(loss(input_data, target_data))
+```
+
+```text
+1.5
+```
+
+In this case, two pieces of tensor data are built. The `nn.L1Loss` API is used to define the loss, `input_data` and `target_data` are transferred to the loss, and the L1Loss computation is performed. The result is 1.5. If loss is set to nn.L1Loss(reduction='sum'), the result is 9.0. If loss is set to nn.L1Loss(reduction='none'), the result is [[1. 0. 2.] [1. 2. 3.]].
 
 ## Defining Loss Function
 

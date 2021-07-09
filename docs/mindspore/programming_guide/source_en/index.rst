@@ -49,31 +49,56 @@ MindSpore Programming Guide
    context
    run
    callback
+   save_model
+   load_model_for_inference_and_transfer
+   train
 
 .. toctree::
    :maxdepth: 1
    :caption: Distributed Training
 
+   distributed_training
+   distributed_training_ascend
+   distributed_training_gpu
+   apply_host_device_training
+   apply_parameter_server_training
+   save_load_model_hybrid_parallel
+   distributed_inference
    auto_parallel
 
 .. toctree::
    :maxdepth: 1
-   :caption: Advanced Usage
+   :caption: Function Debugging
 
-   train
-   infer
-   advanced_usage_of_checkpoint
-   performance_optimization
-   customized
-   security_and_privacy
-   extension
+   debug_in_pynative_mode
+   dump_in_graph_mode
+   custom_debugging_info
+   evaluate_the_model_during_training
+   incremental_operator_build
 
 .. toctree::
    :maxdepth: 1
-   :caption: Specification Note
+   :caption: Precision Profilling
 
-   Benchmarks <https://www.mindspore.cn/docs/note/en/r1.3/benchmark.html>
-   network_list
-   operator_list
-   syntax_list
-   Environment Variables <https://www.mindspore.cn/docs/note/en/r1.3/env_var_list.html>
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Performance Optimization
+
+   optimize_data_processing
+   enable_mixed_precision
+   enable_graph_kernel_fusion
+   apply_gradient_accumulation
+   apply_quantization_aware_training
+   apply_post_training_quantization
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :caption: Application Practice
+   :hidden:
+ 
+   cv
+   nlp
+   hpc
+   use_on_the_cloud
