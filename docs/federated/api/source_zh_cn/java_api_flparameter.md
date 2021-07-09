@@ -159,7 +159,7 @@ public void setCertPath(String certPath)
 public boolean isUseHttps()
 ```
 
-端云通信是否是否采用https通信方式。
+端云通信是否采用https通信方式。
 
 - 返回值
 
@@ -244,7 +244,7 @@ public void setIdsFile(String idsFile)
 
 - 参数
 
-    - `vocabFile`: 词典的映射id文件路径。
+    - `idsFile`: 词典的映射id文件路径。
 
 ## getTestDataset
 
@@ -313,7 +313,7 @@ public void setTrainModelPath(String trainModelPath)
 设置训练模型路径trainModelPath。
 
 - 参数
-    - `flName`: 训练模型路径。
+    - `trainModelPath`: 训练模型路径。
 
 ## getInferModelPath
 
