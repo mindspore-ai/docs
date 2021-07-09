@@ -6,6 +6,8 @@
 
 - [MindSpore网络支持](#mindspore网络支持)
     - [Model Zoo](#model-zoo)
+        - [标准网络](#标准网络)
+        - [研究网络](#研究网络)
 
 <!-- /TOC -->
 
@@ -82,7 +84,7 @@
 | 推荐（Recommender） | 推荐系统、点击率预估（Recommender System, CTR prediction）  | [DeepFM](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/deepfm)    |  ✅ |  ✅ |  ✅ | ✅| ✅ |  |
 | 推荐（Recommender） | 推荐系统、搜索、排序（Recommender System, Search, Ranking）  | [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/wide_and_deep)      |  ✅ |  ✅ |  ✅ | ✅ |  |  |
 | 推荐（Recommender） | 推荐系统（Recommender System）  | [NAML](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/naml)             |  ✅ |   |   |  |  |  |
-| 推荐（Recommender） | 推荐系统（Recommender System）  | [NCF](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/ncf)    |  ✅ |   |  ✅ | |  |  |
+| 推荐（Recommender） | 推荐系统（Recommender System）  | [NCF](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/recommend/ncf)    |  ✅ |   |  | |  |  |
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GCN](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/gnn/gcn)  |  ✅ |  ✅ |   |   |  |  |
 | 图神经网络（GNN） | 文本分类（Text Classification）  | [GAT](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/gnn/gat) |  ✅ |  ✅ |   |   |  |  |
 | 图神经网络（GNN） | 推荐系统（Recommender System） | [BGCF](https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/gnn/bgcf) |  ✅ |   |   |   |  |  |
