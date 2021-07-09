@@ -186,6 +186,8 @@
 | torch.unbind                                         | mindspore.ops.Unstack                                          | 功能一致 |
 | torch.unique                                         | mindspore.ops.Unique                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/Unique.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | 功能一致 |
+| torch.utils.data.DataLoader                          | None                                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.3/resource/api_mapping/DataLoader.md)|
+| torch.utils.data.Dataset                             | mindspore.dataset.GeneratorDataset                             | 差异对比 |
 | torch.utils.data.distributed.DistributedSampler      | mindspore.dataset.DistributedSampler                           | 功能一致 |
 | torch.utils.data.RandomSampler                       | mindspore.dataset.RandomSampler                                | 功能一致 |
 | torch.utils.data.SequentialSampler                   | mindspore.dataset.SequentialSampler                            | 功能一致 |
