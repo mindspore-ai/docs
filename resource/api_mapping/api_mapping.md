@@ -186,8 +186,8 @@
 | torch.unbind                                         | mindspore.ops.Unstack                                          | 功能一致 |
 | torch.unique                                         | mindspore.ops.Unique                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.2/resource/api_mapping/Unique.md)|
 | torch.unsqueeze                                      | mindspore.ops.ExpandDims                                       | 功能一致 |
-| torch.utils.data.DataLoader                          | mindspore.DatasetHelper                                        | 功能一致 |
-| torch.utils.data.Dataset                             | mindspore.dataset.MindDataset                                  | 功能一致 |
+| torch.utils.data.DataLoader                          | None                                                           |[差异对比](https://gitee.com/mindspore/docs/blob/r1.2/resource/api_mapping/DataLoader.md)|
+| torch.utils.data.Dataset                             | mindspore.dataset.GeneratorDataset                             | 差异对比 |
 | torch.utils.data.distributed.DistributedSampler      | mindspore.dataset.DistributedSampler                           | 功能一致 |
 | torch.zeros                                          | mindspore.ops.Zeros                                            | 功能一致 |
 | torch.zeros_like                                     | mindspore.ops.ZerosLike                                        | 功能一致 |
@@ -200,4 +200,4 @@
 | torchvision.transforms.Normalize                     | mindspore.dataset.vision.py_transforms.Normalize               | 功能一致 |
 | torchvision.transforms.RandomHorizontalFlip          | mindspore.dataset.vision.py_transforms.RandomHorizontalFlip    | 功能一致 |
 | torchvision.transforms.Resize                        | mindspore.dataset.vision.py_transforms.Resize                  | 功能一致 |
-| torchvision.transforms.ToTensor                      | mindspore.dataset.vision.py_transforms.ToTensor                | 功能一致 |
+| torchvision.transforms.ToTensor                      | mindspore.dataset.vision.py_transforms.ToTensor                | 差异对比 |
