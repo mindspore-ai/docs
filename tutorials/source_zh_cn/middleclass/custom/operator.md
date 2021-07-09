@@ -182,7 +182,7 @@ class AssignSub(PrimitiveWithInfer):
 ```python
 @bprop_getters.register(ops.MaxPoolGrad)
 def get_bprop_max_pool_grad_grad(self):
-...
+
     def bprop(x1, x2, grad, out, dout):
         dx1 = zeros_like(x1)
         dx2 = zeros_like(x2)
@@ -301,12 +301,10 @@ GPU、CPU后端注册位于`mindspore/ccsrc/backend/kernel_compiler/`目录下�
 ```cpp
 namespace mindspore {
 namespace kernel {
-...
 MS_REG_GPU_KERNEL_ONE(Elu, KernelAttr().AddInputAttr(kNumberTypeFloat32).AddOutputAttr(kNumberTypeFloat32),
                       ActivationGpuFwdKernel, float)
 MS_REG_GPU_KERNEL_ONE(Elu, KernelAttr().AddInputAttr(kNumberTypeFloat16).AddOutputAttr(kNumberTypeFloat16),
                       ActivationGpuFwdKernel, half)
-...
 }  // namespace kernel
 }  // namespace mindspore
 
@@ -325,7 +323,6 @@ MS_REG_GPU_KERNEL_ONE(Elu, KernelAttr().AddInputAttr(kNumberTypeFloat16).AddOutp
 ```cpp
 namespace mindspore {
 namespace kernel {
-...
 MS_REG_GPU_KERNEL_ONE(
   EluGrad,
   KernelAttr().AddInputAttr(kNumberTypeFloat32).AddInputAttr(kNumberTypeFloat32).AddOutputAttr(kNumberTypeFloat32),
@@ -334,7 +331,6 @@ MS_REG_GPU_KERNEL_ONE(
   EluGrad,
   KernelAttr().AddInputAttr(kNumberTypeFloat16).AddInputAttr(kNumberTypeFloat16).AddOutputAttr(kNumberTypeFloat16),
   ActivationGradGpuKernel, half)
-...
 }  // namespace kernel
 }  // namespace mindspore
 

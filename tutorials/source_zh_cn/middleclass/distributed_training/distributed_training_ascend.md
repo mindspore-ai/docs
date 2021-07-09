@@ -33,7 +33,7 @@
 
 - DATA_PARALLEL：数据并行模式。
 
-- AUTO_PARALLEL：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。MindSpore提供了如下的两种不同的策略搜索算法：
+- AUTO_PARALLEL：自动并行模式，融合了数据并行、模型并行及混合并行的1种分布式并行模式，可以自动建立代价模型，找到训练时间较短的并行策略，为用户选择1种并行模式。
 
 > 你可以在这里下载完整的样例代码：
 >
@@ -148,7 +148,7 @@ import mindspore.dataset.transforms.c_transforms as C
 import mindspore.dataset.vision.c_transforms as vision
 from mindspore.communication.management import get_rank, get_group_size
 
-def create_dataset(data_path, repeat_num=1, batch_size=32, rank_id=0, rank_size=1):
+def create_dataset(data_path, repeat_num=1, batch_size=32):
     resize_height = 224
     resize_width = 224
     rescale = 1.0 / 255.0
