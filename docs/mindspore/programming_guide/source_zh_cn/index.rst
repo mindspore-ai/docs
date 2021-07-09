@@ -33,6 +33,7 @@ MindSpore编程指南
    :caption: 计算组件
 
    operators
+   custom_operator
    parameter
    cell
    network_component

@@ -29,8 +29,6 @@
         - [cross_batch](#cross_batch)
         - [fusion](#fusion)
         - [layerwise_parallel](#layerwise_parallel)
-    - [Data Parallel](#data-parallel)
-    - [Automatic Parallel](#automatic-parallel)
 
 <!-- /TOC -->
 
@@ -402,15 +400,3 @@ from mindspore import Parameter, Tensor
 
 x = Parameter(Tensor(np.ones([2, 2])), layerwise_parallel=True)
 ```
-
-## Data Parallel
-
-Data parallel refers to the parallel mode in which data is segmented. Generally, data is segmented by batch and distributed to each computing unit (worker) for model calculation. In data parallel mode, datasets must be imported in data parallel mode, and `parallel_mode` must be set to `data_parallel`.
-
-For details about the test cases, see [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_tutorials.html).
-
-## Automatic Parallel
-
-Automatic parallel is a distributed parallel mode that integrates data parallel, model parallel, and hybrid parallel. It can automatically establish a cost model and select a parallel mode for users. The cost model refers to modeling the training time based on the memory computing overhead and the communication overhead, and designing an efficient algorithm to find a parallel policy with a relatively short training time. In automatic parallel mode, datasets must be imported in data parallel mode, and `parallel_mode` must be set to `auto_parallel`.
-
-For details about the test cases, see the [Distributed Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_tutorials.html).
