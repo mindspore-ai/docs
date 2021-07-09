@@ -1,8 +1,0 @@
-Overall Design
-================
-
-.. toctree::
-   :maxdepth: 1
-   
-   technical_white_paper
-   architecture

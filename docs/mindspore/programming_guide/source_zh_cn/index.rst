@@ -38,7 +38,6 @@ MindSpore编程指南
    network_component
    initializer
    numpy
-   differentiation
 
 .. toctree::
    :maxdepth: 1

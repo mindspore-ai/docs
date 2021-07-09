@@ -11,7 +11,7 @@ MindSpore Design And Specification
    :maxdepth: 1
    :caption: Design
    
-   design/overall
+   design/technical_white_paper
    design/mindir
    design/distributed_training_design
 
