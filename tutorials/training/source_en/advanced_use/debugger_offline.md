@@ -18,9 +18,7 @@
 
 ## Overview
 
-MindSpore offline debugger is used to perform visualized debugging based on the trained dump data. It can be used to view and analyze the intermediate results of computational graph nodes.
-
-The offline debugger can connect to offline dump data for visualized analysis. It solves the problem that the online debugger is not supported when memory overcommitment is not enabled.
+This article describes how to use Debugger in offline mode.
 
 ## Operation Process
 
@@ -37,13 +35,7 @@ Start MindInsight and set summary-base-dir to the upper one or two layers of a p
 MindInsight startup command:
 
 ```text
-mindinsight start --port {PORT} --summary-base-dir /path/to/father/directory/of/dump_dir
-```
-
-Or:
-
-```text
-mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/of/dump_dir
+mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR}
 ```
 
 Parameters are described as follows:
@@ -51,7 +43,7 @@ Parameters are described as follows:
 |Name|Attribute|Description|Type|Default Value|Range|
 |---|---|---|---|---|---|
 |`--port {PORT}`|Optional|Specifies the port number of the web visualization service.|Integer|8080|1–65535|
-|`--summary-base-dir /path/to`|Mandatory|Specifies the upper one or two layers of a path in the MP configuration. For example, if the path in the dump configuration file is set to `/home/workspace/data/dump_dir`, summary-base-dir can be set to `/home/workspace/data` or `/home/workspace`.|String|./|-|
+|`--summary-base-dir {SUMMARY_BASE_DIR}`|Mandatory|Specifies the upper one or two layers of a path in the Dump configuration. For example, if the path in the dump configuration file is set to `/home/workspace/data/dump_dir`, summary-base-dir can be set to `/home/workspace/data` or `/home/workspace`.|String|./|-|
 
 For details about more startup parameters, see [MindInsight Commands](https://www.mindspore.cn/tutorial/training/en/master/advanced_use/mindinsight_commands.html).
 
