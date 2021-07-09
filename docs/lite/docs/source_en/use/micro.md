@@ -75,7 +75,7 @@ Here is the detailed description of parameters:
 >
 > debugMode is not available when the filesystem is not supported.
 >
-> Please check the [API Document](https://www.mindspore.cn/lite/api/en/r1.3/api_cpp/index.html) to get the detailed API description.
+> Please check the [API Document](https://www.mindspore.cn/lite/api/en/r1.3/index.html) to get the detailed API description.
 >
 > The following 3 interfaces are currently not supported：
 > 1. `virtual std::unordered_map<String, mindspore::tensor::MSTensor *> GetOutputs() const = 0;`

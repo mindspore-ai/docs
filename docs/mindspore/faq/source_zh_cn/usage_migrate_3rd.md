@@ -39,7 +39,7 @@ dataset = dataset.batch(batch_size, drop_remainder=True)
 
 <font size=3>**Q: 其他框架的脚本或者模型怎么迁移到MindSpore？**</font>
 
-A: 关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/migrate_3rd_scripts.html)的介绍。
+A: 关于脚本或者模型迁移，可以查询MindSpore官网中关于[网络迁移](https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/migration_script.html)的介绍。
 
 <br/>
 

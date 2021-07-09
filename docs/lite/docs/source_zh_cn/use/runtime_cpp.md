@@ -36,7 +36,7 @@
 
 ## 概述
 
-通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/index.html)执行推理。
+通过[MindSpore Lite模型转换工具](https://www.mindspore.cn/lite/docs/zh-CN/r1.3/use/converter_tool.html)转换成`.ms`模型后，即可在Runtime中执行模型的推理流程。本教程介绍如何使用[C++接口](https://www.mindspore.cn/lite/api/zh-CN/r1.3/index.html)执行推理。
 
 使用MindSpore Lite推理框架主要包括以下步骤：
 
