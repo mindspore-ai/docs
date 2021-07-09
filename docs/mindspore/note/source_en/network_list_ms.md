@@ -82,7 +82,7 @@
 | Recommender | Recommender System, CTR prediction  | [DeepFM](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/recommend/deepfm)                               |  ✅ |  ✅ |  ✅ | ✅ | ✅ |   |
 | Recommender | Recommender System, Search, Ranking  | [Wide&Deep](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/recommend/wide_and_deep)             |  ✅ |  ✅ |  ✅ | ✅ |   |   |
 | Recommender | Recommender System  | [NAML](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/recommend/naml)             |  ✅ |    |    |   |   |   |
-| Recommender | Recommender System  | [NCF](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/recommend/ncf)             |  ✅ |    |  ✅ |   |   |   |
+| Recommender | Recommender System  | [NCF](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/recommend/ncf)             |  ✅ |    |   |   |   |   |
 | Graph Neural Networks (GNN) | Text Classification  | [GCN](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/gnn/gcn)  |  ✅ |  ✅ |    |    |   |   |
 | Graph Neural Networks (GNN) | Text Classification  | [GAT](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/gnn/gat)  |  ✅ |  ✅ |    |    |   |   |
 | Graph Neural Networks (GNN) | Recommender System | [BGCF](https://gitee.com/mindspore/mindspore/tree/r1.3/model_zoo/official/gnn/bgcf) |  ✅ |    |    |    |   |   |
