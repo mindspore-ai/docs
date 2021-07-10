@@ -176,7 +176,7 @@ MindSpore提供了同步Dump与异步Dump两种模式：
 - `iteration_id`：训练的轮次。
 - `op_type`：算子类型。
 - `op_name`：算子名称。
-- `ask_id`：任务标号。
+- `task_id`：任务标号。
 - `stream_id`：流标号。
 - `timestamp`：时间戳。
 - `input_output_index`：输入或输出标号，例如`output.0`表示该文件是该算子的第1个输出Tensor的数据。

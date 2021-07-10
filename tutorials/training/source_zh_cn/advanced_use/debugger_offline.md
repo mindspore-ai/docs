@@ -18,9 +18,7 @@
 
 ## 概述
 
-MindSpore离线调试器是基于训练的Dump数据进行可视化调试，可以用来查看并分析计算图节点的中间结果。
-
-离线调试器支持对接离线Dump数据，进行可视化分析。离线调试器解决不开启内存复用的情况下，在线调试器不支持的问题。
+本教程介绍如何在离线模式下使用调试器。
 
 ## 操作流程
 
@@ -37,13 +35,7 @@ MindSpore离线调试器是基于训练的Dump数据进行可视化调试，可�
 MindInsight启动命令：
 
 ```text
-mindinsight start --port {PORT} --summary-base-dir /path/to/father/directory/of/dump_dir
-```
-
-或者：
-
-```text
-mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/of/dump_dir
+mindinsight start --port {PORT} --summary-base-dir {SUMMARY_BASE_DIR}
 ```
 
 参数含义如下:
@@ -51,7 +43,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 |参数名|属性|功能描述|参数类型|默认值|取值范围|
 |---|---|---|---|---|---|
 |`--port {PORT}`|可选|指定Web可视化服务端口。|Integer|8080|1~65535|
-|`--summary-base-dir /path/to`|必选|mp配置中的{path}路径的上一层或上两层。例如，Dump配置文件中的path为“/home/workspace/data/dump_dir”，summary-base-dir可以设置为“/home/workspace/data”或“/home/workspace”。|String|./|-|
+|`--summary-base-dir {SUMMARY_BASE_DIR}`|必选|Dump配置中的{path}路径的上一层或上两层。例如，Dump配置文件中的path为“/home/workspace/data/dump_dir”，summary-base-dir可以设置为“/home/workspace/data”或“/home/workspace”。|String|./|-|
 
 更多启动参数请参考[MindInsight相关命令](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/mindinsight_commands.html)。
 
@@ -77,7 +69,7 @@ mindinsight start --port {PORT} --summary-base-dir /path/to/grandfher/directory/
 
 2. 稍等片刻，在MindInsight UI上可以看到弹窗，提示选择是否使用推荐监测点，接下来的使用步骤与在线调试相同。[使用调试器进行调试](https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/debugger.html#id18) 。
 
-3. 与在线调试器相比，离线调试器可以重置训练轮次。如图3所示，点击右边的编辑图标，就会出现一个编辑框，如图4所示，输入需要重置的轮次，点击对钩符号即可。。
+3. 与在线调试器相比，离线调试器可以重置训练轮次。如图3所示，点击右边的编辑图标，就会出现一个编辑框，如图4所示，输入需要重置的轮次，点击对钩符号即可。
 
    ![debugger_offline_reset](images/debugger_offline_reset.png)
 
