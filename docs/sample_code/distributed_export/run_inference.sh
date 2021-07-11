@@ -50,7 +50,7 @@ cd ./device0
 export DEVICE_ID=0
 export RANK_ID=0
 echo "start inference for device 0"
-pytest -sv ./distributed_export.py:: test_export > export.log0 2>&1
+pytest -sv ./distributed_export.py::test_export > export.log0 2>&1
 if [ $? -eq 0 ];then
     echo "export success"
 else

@@ -8,7 +8,7 @@
 checkpoint文件在训练过程中产生。checkpoint具体用法可参考: [checkpoint用法](https://www.mindspore.cn/tutorial/training/zh-CN/r1.3/use/save_model.html#checkpoint)。
 
 训练策略文件，需要在训练时通过设置context生成，context配置项如下：
-`context.set_auto_parallel_context(strategy_ckpt_load_file='train_strategy.ckpt')`
+`context.set_auto_parallel_context(strategy_ckpt_save_file='train_strategy.ckpt')`
 
 这样在训练后，就会在设置的目录下产生名为`train_strategy.ckpt`的训练策略文件。
 
