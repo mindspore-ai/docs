@@ -19,6 +19,7 @@ import numpy as np
 from net import Net
 from mindspore import context, Model, Tensor, load_distributed_checkpoint
 from mindspore.communication import init
+from mindspore import export
 
 
 def test_export():
