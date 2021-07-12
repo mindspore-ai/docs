@@ -1,5 +1,5 @@
 Federated-Client
-============
+================
 
 .. toctree::
    :maxdepth: 1
