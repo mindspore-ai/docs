@@ -5,7 +5,6 @@
 - [使用示例](#使用示例)
     - [联邦学习启动接口flJobRun()](#联邦学习启动接口fljobrun)
     - [多条数据输入推理接口modelInference()](#多条数据输入推理接口modelinference)
-        - [输入参数列表](#输入参数列表)
     - [获取云侧最新模型接口getModel ()](#获取云侧最新模型接口getmodel-)
 
 <!-- /TOC -->
@@ -49,13 +48,13 @@ flParameter.setCertPath(certPath);
 
    ```java
    // set parameters
-   String trainDataset = "SyncFLClient0604/data/albert/client/0.txt";                        //绝对路径
-   String vocal_file = "SyncFLClient0604/data/albert/vocab.txt";                           //绝对路径
-   String idsFile = "SyncFLClient0604/data/albert/vocab_map_ids.txt";                      //绝对路径
-   String testDataset = "SyncFLClient0604/data/albert/eval/eval.txt";    //绝对路径, 若不包含单独的测试集, 可使用训练数据作为测试集， 或不进行测试（不设置该参数）
+   String trainDataset = "SyncFLClient/data/albert/client/0.txt";                        //绝对路径
+   String vocal_file = "SyncFLClient/data/albert/vocab.txt";                           //绝对路径
+   String idsFile = "SyncFLClient/data/albert/vocab_map_ids.txt";                      //绝对路径
+   String testDataset = "SyncFLClient/data/albert/eval/eval.txt";    //绝对路径, 若不包含单独的测试集, 可使用训练数据作为测试集， 或不进行测试（不设置该参数）
    String flName = "albert";  
-   String trainModelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                      //绝对路径
-   String inferModelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                      //绝对路径
+   String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
+   String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String clientID = UUID.randomUUID().toString();
    String ip = "10.113.216.106";
    int port = 6668;
@@ -85,11 +84,11 @@ flParameter.setCertPath(certPath);
 
    ```java
    // set parameters
-   String trainDataset = "SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_9_train_data.bin,SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_9_train_label.bin";                        //绝对路径
-   String testDataset = "SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_data.bin,SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_label.bin";    //绝对路径, 若不包含单独的测试集, 可使用训练数据作为测试集， 或不进行测试（不设置该参数）
+   String trainDataset = "SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_9_train_data.bin,SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_9_train_label.bin";                        //绝对路径
+   String testDataset = "SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_data.bin,SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_label.bin";    //绝对路径, 若不包含单独的测试集, 可使用训练数据作为测试集， 或不进行测试（不设置该参数）
    String flName = "lenet";
-   String trainModelPath = "SyncFLClient0604/lenet_train.mindir0.ms";                      //绝对路径
-   String inferModelPath = "SyncFLClient0604/lenet_train.mindir0.ms";                      //绝对路径
+   String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
+   String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String clientID = UUID.randomUUID().toString();
    String ip = "10.113.216.106";
    int port = 6668;
@@ -119,7 +118,7 @@ flParameter.setCertPath(certPath);
 
 | 参数名称  | 参数类型 | 是否必须 | 描述信息                                  | 适应API版本                                                  |
 | --------- | -------- | -------- | ----------------------------------------- | ------------------------------------------------------------ |
-| flName    | String   | Y        | 联邦学习使用的模型名称                    | 情感分类任务需设置为”adbert“; 图片分类任务需设置为”lenet“    |
+| flName    | String   | Y        | 联邦学习使用的模型名称                    | 情感分类任务需设置为”albert“; 图片分类任务需设置为”lenet“    |
 | dataPath  | String   | Y        | 数据集路径                                | 情感分类任务为txt文档格式，且不能带标签; 图片分类任务为bin文件格式 |
 | vocabFile | String   | Y        | 数据预处理的词典文件路径                  | 情感分类任务必须设置；图片分类任务不需要设置                 |
 | idsFile   | String   | Y        | 词典的映射id文件路径                      | 情感分类任务必须设置；图片分类任务不需要设置                 |
@@ -134,10 +133,10 @@ flParameter.setCertPath(certPath);
    ```java
    // set parameters
    String flName = "albert";
-   String dataPath = "SyncFLClient0604/data/albert/eval/eval.txt";                            //绝对路径
-   String vocal_file = "SyncFLClient0604/data/albert/vocab.txt";                           //绝对路径
-   String idsFile = "SyncFLClient0604/data/albert/vocab_map_ids.txt";                   //绝对路径
-   String modelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                                //绝对路径
+   String dataPath = "SyncFLClient/data/albert/eval/eval.txt";                            //绝对路径
+   String vocal_file = "SyncFLClient/data/albert/vocab.txt";                           //绝对路径
+   String idsFile = "SyncFLClient/data/albert/vocab_map_ids.txt";                   //绝对路径
+   String modelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                                //绝对路径
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
    flParameter.setTestDataset(dataPath);
@@ -147,7 +146,7 @@ flParameter.setCertPath(certPath);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
+   int[] labels = syncFLJob.modelInference();
    ```
 
 2. Lenet图片分类示例代码
@@ -155,8 +154,8 @@ flParameter.setCertPath(certPath);
    ```java
    // set parameters
    String flName = "lenet";
-   String dataPath = "/SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_data.bin,/SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_label.bin";     //绝对路径
-   String modelPath = "SyncFLClient0604/lenet_train.mindir0.ms";           //绝对路径
+   String dataPath = "/SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_data.bin,/SyncFLClient/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_label.bin";     //绝对路径
+   String modelPath = "SyncFLClient/lenet_train.mindir0.ms";           //绝对路径
    FLParameter flParameter = FLParameter.getInstance();
    flParameter.setFlName(flName);
    flParameter.setTestDataset(dataPath);
@@ -164,7 +163,7 @@ flParameter.setCertPath(certPath);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
-   int[] labels = syncFLJob.modelInference(flName, dataPath, vocal_file, idsFile, modelPath);
+   int[] labels = syncFLJob.modelInference();
    ```
 
 ## 获取云侧最新模型接口getModel ()
@@ -173,7 +172,7 @@ flParameter.setCertPath(certPath);
 
 | 参数名称       | 参数类型 | 是否必须 | 描述信息                                                     | 备注                                                         |
 | -------------- | -------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| flName         | String   | Y        | 联邦学习使用的模型名称                                       | 情感分类任务需设置为”adbert“; lenet场景需设置为”lenet“       |
+| flName         | String   | Y        | 联邦学习使用的模型名称                                       | 情感分类任务需设置为”albert“; lenet场景需设置为”lenet“       |
 | trainModelPath | String   | Y        | 联邦学习使用的训练模型路径，为.ms文件的绝对路径              |                                                              |
 | inferModelPath | String   | Y        | 联邦学习使用的推理模型路径，为.ms文件的绝对路径              | 有监督情感分类任务与图片分类任务均需设置为与trainModelPath相同 |
 | ip             | String   | Y        | Server端所启动服务的ip地址，形如“10.113.216.106”             | 后期ip+port会改为域名                                        |
@@ -203,8 +202,8 @@ flParameter.setCertPath(certPath);
    ```java
    // set parameters
    String flName = "albert";     // 情感分类任务场景需设置为"albert", lenet图片分类任务场景需设置为"lenet"
-   String trainModelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                      //绝对路径
-   String inferModelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                      //绝对路径
+   String trainModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
+   String inferModelPath = "SyncFLClient/ms/albert/albert_train.mindir.ms";                      //绝对路径
    String ip = "10.113.216.106";
    int port = 6668;
    boolean useHttps = false;
@@ -233,8 +232,8 @@ flParameter.setCertPath(certPath);
    ```java
    // set parameters
    String flName = "lenet";     // 情感分类任务场景需设置为"albert", lenet场景需设置为"lenet"
-   String trainModelPath = "SyncFLClient0604/lenet_train.mindir0.ms";                      //绝对路径
-   String inferModelPath = "SyncFLClient0604/lenet_train.mindir0.ms";                      //绝对路径
+   String trainModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
+   String inferModelPath = "SyncFLClient/lenet_train.mindir0.ms";                      //绝对路径
    String ip = "10.113.216.106";
    int port = 6668
    boolean useHttps = false;
