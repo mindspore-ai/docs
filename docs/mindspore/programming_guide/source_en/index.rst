@@ -8,8 +8,16 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
+   :caption: Overall Introduction
 
    api_structure
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Quickstart
+
+   quick_start/quick_start
+   quick_start/linear_regression
 
 .. toctree::
    :maxdepth: 1
@@ -23,6 +31,7 @@ MindSpore Programming Guide
    :caption: Compute Component
 
    operators
+   custom_operator
    parameter
    cell
    network_component
@@ -41,6 +50,7 @@ MindSpore Programming Guide
    dataset_conversion
    auto_augmentation
    cache
+   data_sample
 
 .. toctree::
    :maxdepth: 1
@@ -55,6 +65,17 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
+   :caption: Inference
+
+   multi_platform_inference
+   multi_platform_inference_ascend_910
+   multi_platform_inference_ascend_310
+   multi_platform_inference_gpu
+   multi_platform_inference_cpu
+
+
+.. toctree::
+   :maxdepth: 1
    :caption: Distributed Training
 
    distributed_training
@@ -64,6 +85,7 @@ MindSpore Programming Guide
    apply_parameter_server_training
    save_load_model_hybrid_parallel
    distributed_inference
+   distributed_export
    auto_parallel
 
 .. toctree::
@@ -78,7 +100,7 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
-   :caption: Precision Profilling
+   :caption: Precision Optimization
 
 
 .. toctree::
@@ -95,7 +117,7 @@ MindSpore Programming Guide
 .. toctree::
    :glob:
    :maxdepth: 1
-   :caption: Application Practice
+   :caption: Application
    :hidden:
  
    cv

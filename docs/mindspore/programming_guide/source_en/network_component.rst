@@ -14,4 +14,5 @@ The following describes three network components, `GradOperation`, `WithLossCell
    :maxdepth: 1
 
    gradoperation
+   WithLossCell
    trainonestepcell
