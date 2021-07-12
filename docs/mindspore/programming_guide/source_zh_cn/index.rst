@@ -23,42 +23,45 @@ MindSpore编程指南
 
 .. toctree::
    :maxdepth: 1
-   :caption: 数据类型
+   :caption: 基本概念
 
    dtype
    tensor
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 计算组件
-
    operators
    custom_operator
-   parameter
    cell
-   network_component
-   initializer
-   numpy
 
 .. toctree::
    :maxdepth: 1
-   :caption: 数据管道
-
-   dataset_loading
-   sampler
-   pipeline
-   augmentation
-   tokenizer
-   dataset_conversion
-   auto_augmentation
-   cache
-   data_sample
-
-.. toctree::
-   :maxdepth: 1
-   :caption: 执行管理
+   :caption: 运行管理
 
    context
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 加载和处理数据
+
+   dataset_sample
+   dataset
+   pipeline
+   dataset_advanced
+   
+.. toctree::
+   :maxdepth: 1
+   :caption: 构建网络
+   
+   initializer
+   parameter
+   layer
+   loss
+   optim
+   custom_net
+   network_advanced
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 训练模型
+
    run
    callback
    save_model
