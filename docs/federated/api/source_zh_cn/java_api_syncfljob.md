@@ -13,7 +13,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/master/docs/federated/api/source_zh_cn/java_api_syncfljob.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/master/resource/_static/logo_source.png"></a>
 
 ```java
-import com.huawei.flclient.SyncFLJob
+import com.mindspore.flclient.SyncFLJob
 ```
 
 SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel()。
