@@ -93,6 +93,7 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
 
 > The current sample is for the Ascend 910 AI processor. You can find the complete executable sample code at <https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>.
 >
+> - `default_config.yaml, config_ascend.yaml`: some configurations in the network, including `batch size`, several epoch training, etc.
 > - `src/config.py`: some configurations of the network, including the batch size and number of training epochs.
 > - `src/dataset.py`: dataset related definition, including converted MindRecord file and preprocessed data.
 > - `src/imdb.py`: the utility class for parsing IMDb dataset.
@@ -107,18 +108,22 @@ Currently, MindSpore GPU and CPU supports SentimentNet network based on the long
 The following are the required public modules and MindSpore modules and library files.
 
 ```python
-import argparse
 import os
-
 import numpy as np
 
-from src.config import lstm_cfg as cfg
+from src.model_utils.config import config
+from src.model_utils.moxing_adapter import moxing_wrapper
 from src.dataset import convert_to_mindrecord
 from src.dataset import lstm_create_dataset
+from src.lr_schedule import get_lr
 from src.lstm import SentimentNet
-from mindspore import Tensor, nn, Model, context, load_param_into_net, load_checkpoint
+
+from mindspore import Tensor, nn, Model, context
 from mindspore.nn import Accuracy
 from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpoint, TimeMonitor
+from mindspore.train.serialization import load_param_into_net, load_checkpoint
+from mindspore.communication.management import init, get_rank
+from mindspore.context import ParallelMode
 ```
 
 ### Configuring Environment Information
@@ -126,22 +131,31 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
 1. The `parser` module is used to transfer necessary information for running, such as storage paths of the dataset and the GloVe file. In this way, the frequently changed configurations can be entered during runtime, which is more flexible.
 
     ```python
-    parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
-    parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
-                        help='whether to preprocess data.')
-    parser.add_argument('--aclimdb_path', type=str, default="./aclImdb",
-                        help='path where the dataset is stored.')
-    parser.add_argument('--glove_path', type=str, default="./glove",
-                        help='path where the GloVe is stored.')
-    parser.add_argument('--preprocess_path', type=str, default="./preprocess",
-                        help='path where the pre-process data is stored.')
-    parser.add_argument('--ckpt_path', type=str, default="./",
-                        help='the path to save the checkpoint file.')
-    parser.add_argument('--pre_trained', type=str, default=None,
-                        help='the pretrained checkpoint file path.')
-    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU', 'CPU'],
-                        help='the target device to run, support "GPU", "CPU". Default: "GPU".')
-    args = parser.parse_args()
+    def parse_cli_to_yaml(parser, cfg, helper=None, choices=None, cfg_path="default_config.yaml"):
+        """
+        Parse command line arguments to the configuration according to the default yaml.
+        Args:
+            parser: Parent parser.
+            cfg: Base configuration.
+            helper: Helper description.
+            cfg_path: Path to the default yaml config.
+        """
+        parser = argparse.ArgumentParser(description="[REPLACE THIS at config.py]",
+                                         parents=[parser])
+        helper = {} if helper is None else helper
+        choices = {} if choices is None else choices
+        for item in cfg:
+            if not isinstance(cfg[item], list) and not isinstance(cfg[item], dict):
+                help_description = helper[item] if item in helper else "Please reference to {}".format(cfg_path)
+                choice = choices[item] if item in choices else None
+                if isinstance(cfg[item], bool):
+                    parser.add_argument("--" + item, type=ast.literal_eval, default=cfg[item], choices=choice,
+                                        help=help_description)
+                else:
+                    parser.add_argument("--" + item, type=type(cfg[item]), default=cfg[item], choices=choice,
+                                        help=help_description)
+        args = parser.parse_args()
+        return args
     ```
 
 2. Before implementing code, configure the necessary information, including the environment information, execution mode, backend information, and hardware information.
@@ -150,7 +164,7 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
-        device_target=args.device_target)
+        device_target=config.device_target)
     ```
 
     For details about the API configuration, see the `context.set_context`.
@@ -160,9 +174,9 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
 Convert the dataset format to the MindRecord format for MindSpore to read.
 
 ```python
-if args.preprocess == "true":
+if config.preprocess == "true":
     print("============== Starting Data Pre-processing ==============")
-    convert_to_mindrecord(cfg.embed_size, args.aclimdb_path, args.preprocess_path, args.glove_path)
+    convert_to_mindrecord(config.embed_size, config.aclimdb_path, config.preprocess_path, config.glove_path)
 ```
 
 > After successful conversion, `mindrecord` files are generated under the directory `preprocess_path`. Usually, this operation does not need to be performed every time if the dataset is unchanged.
@@ -175,15 +189,20 @@ if args.preprocess == "true":
 ### Defining the Network
 
 ```python
-embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
+embedding_table = np.loadtxt(os.path.join(config.preprocess_path, "weight.txt")).astype(np.float32)
+if config.device_target == 'Ascend':
+    pad_num = int(np.ceil(config.embed_size / 16) * 16 - config.embed_size)
+    if pad_num > 0:
+        embedding_table = np.pad(embedding_table, [(0, 0), (0, pad_num)], 'constant')
+    config.embed_size = int(np.ceil(config.embed_size / 16) * 16)
 network = SentimentNet(vocab_size=embedding_table.shape[0],
-                       embed_size=cfg.embed_size,
-                       num_hiddens=cfg.num_hiddens,
-                       num_layers=cfg.num_layers,
-                       bidirectional=cfg.bidirectional,
-                       num_classes=cfg.num_classes,
+                       embed_size=config.embed_size,
+                       num_hiddens=config.num_hiddens,
+                       num_layers=config.num_layers,
+                       bidirectional=config.bidirectional,
+                       num_classes=config.num_classes,
                        weight=Tensor(embedding_table),
-                       batch_size=cfg.batch_size)
+                       batch_size=config.batch_size)
 ```
 
 > For `SentimentNet`, you can find the complete definition at: <https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>.
@@ -193,8 +212,8 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
 The parameter `pre_trained` specifies the preloading CheckPoint file for pre-training, which is empty by default.
 
 ```python
-if args.pre_trained:
-    load_param_into_net(network, load_checkpoint(args.pre_trained))
+if config.pre_trained:
+    load_param_into_net(network, load_checkpoint(config.pre_trained))
 ```
 
 ### Defining the Optimizer and Loss Function
@@ -203,7 +222,7 @@ The sample code for defining the optimizer and loss function is as follows:
 
 ```python
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-opt = nn.Momentum(network.trainable_params(), cfg.learning_rate, cfg.momentum)
+opt = nn.Momentum(network.trainable_params(), config.learning_rate, config.momentum)
 loss_cb = LossMonitor()
 ```
 
@@ -215,15 +234,14 @@ Load the corresponding dataset, configure the CheckPoint generation information,
 model = Model(network, loss, opt, {'acc': Accuracy()})
 
 print("============== Starting Training ==============")
-ds_train = lstm_create_dataset(args.preprocess_path, cfg.batch_size)
-config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
-                             keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=args.ckpt_path, config=config_ck)
+config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
+                             keep_checkpoint_max=config.keep_checkpoint_max)
+ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=config.ckpt_path, config=config_ck)
 time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-if args.device_target == "CPU":
-    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
+if config.device_target == "CPU":
+    model.train(config.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
 else:
-    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
+    model.train(config.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
 
@@ -234,13 +252,12 @@ print("============== Training Success ==============")
 Load the validation dataset and saved CheckPoint file, perform validation, and view the model quality.
 
 ```python
-model = Model(network, loss, opt, {'acc': Accuracy()})
+model = Model(network, loss, metrics={'acc': Accuracy(), 'recall': Recall(), 'f1': F1()})
 
 print("============== Starting Testing ==============")
-ds_eval = lstm_create_dataset(args.preprocess_path, cfg.batch_size, training=False)
-param_dict = load_checkpoint(args.ckpt_path)
+param_dict = load_checkpoint(config.ckpt_file)
 load_param_into_net(network, param_dict)
-if args.device_target == "CPU":
+if config.device_target == "CPU":
     acc = model.eval(ds_eval, dataset_sink_mode=False)
 else:
     acc = model.eval(ds_eval)
@@ -256,7 +273,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 1. Run the training code and view the running result.
 
     ```bash
-    python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
+    python train.py --config_path=CONFIG_FILE --device_target="Ascend" --aclimdb_path=$ACLIMDB_DIR --glove_path=$GLOVE_DIR --preprocess=true --preprocess_path=./preprocess > log.txt 2>&1 &
     ```
 
     As shown in the following output, the loss value decreases gradually with the training process and reaches about 0.2855.
@@ -294,7 +311,7 @@ After 20 epochs, the accuracy on the test set is about 84.19%.
 Use the last saved CheckPoint file to load and validate the dataset.
 
 ```bash
-python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
+python eval.py --config_path=$CONFIG_FILE --device_target="Ascend" --preprocess=false --preprocess_path=$PREPROCESS_DIR --ckpt_file=$CKPT_FILE > log.txt 2>&1 &
 ```
 
 As shown in the following output, the sentiment analysis accuracy of the text is about 84.19%, which is basically satisfactory.

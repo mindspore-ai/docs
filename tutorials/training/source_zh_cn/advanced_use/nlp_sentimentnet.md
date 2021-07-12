@@ -95,7 +95,7 @@ $F1分数 = (2 \times Precision \times Recall) / (Precision + Recall)$
 
 > 本例面向GPU或CPU硬件平台，你可以在这里下载完整的样例代码：<https://gitee.com/mindspore/mindspore/tree/master/model_zoo/official/nlp/lstm>
 >
-> - `src/config.py`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
+> - `default_config.yaml、config_ascend.yaml`：网络中的一些配置，包括`batch size`、进行几次epoch训练等。
 > - `src/dataset.py`：数据集相关，包括转换成MindRecord文件，数据预处理等。
 > - `src/imdb.py`： 解析IMDb数据集的工具。
 > - `src/lstm.py`： 定义情感网络。
@@ -109,18 +109,22 @@ $F1分数 = (2 \times Precision \times Recall) / (Precision + Recall)$
 下列是我们所需要的公共模块及MindSpore的模块及库文件。
 
 ```python
-import argparse
 import os
-
 import numpy as np
 
-from src.config import lstm_cfg as cfg
+from src.model_utils.config import config
+from src.model_utils.moxing_adapter import moxing_wrapper
 from src.dataset import convert_to_mindrecord
 from src.dataset import lstm_create_dataset
+from src.lr_schedule import get_lr
 from src.lstm import SentimentNet
-from mindspore import Tensor, nn, Model, context, load_param_into_net, load_checkpoint
+
+from mindspore import Tensor, nn, Model, context
 from mindspore.nn import Accuracy
 from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpoint, TimeMonitor
+from mindspore.train.serialization import load_param_into_net, load_checkpoint
+from mindspore.communication.management import init, get_rank
+from mindspore.context import ParallelMode
 ```
 
 ### 配置环境信息
@@ -128,22 +132,31 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
 1. 使用`parser`模块，传入运行必要的信息，如数据集存放路径，GloVe存放路径，这样的好处是，对于经常变化的配置，可以在运行代码时输入，使用更加灵活。
 
     ```python
-    parser = argparse.ArgumentParser(description='MindSpore LSTM Example')
-    parser.add_argument('--preprocess', type=str, default='false', choices=['true', 'false'],
-                        help='whether to preprocess data.')
-    parser.add_argument('--aclimdb_path', type=str, default="./aclImdb",
-                        help='path where the dataset is stored.')
-    parser.add_argument('--glove_path', type=str, default="./glove",
-                        help='path where the GloVe is stored.')
-    parser.add_argument('--preprocess_path', type=str, default="./preprocess",
-                        help='path where the pre-process data is stored.')
-    parser.add_argument('--ckpt_path', type=str, default="./",
-                        help='the path to save the checkpoint file.')
-    parser.add_argument('--pre_trained', type=str, default=None,
-                        help='the pretrained checkpoint file path.')
-    parser.add_argument('--device_target', type=str, default="GPU", choices=['GPU', 'CPU'],
-                        help='the target device to run, support "GPU", "CPU". Default: "GPU".')
-    args = parser.parse_args()
+    def parse_cli_to_yaml(parser, cfg, helper=None, choices=None, cfg_path="default_config.yaml"):
+        """
+        Parse command line arguments to the configuration according to the default yaml.
+        Args:
+            parser: Parent parser.
+            cfg: Base configuration.
+            helper: Helper description.
+            cfg_path: Path to the default yaml config.
+        """
+        parser = argparse.ArgumentParser(description="[REPLACE THIS at config.py]",
+                                         parents=[parser])
+        helper = {} if helper is None else helper
+        choices = {} if choices is None else choices
+        for item in cfg:
+            if not isinstance(cfg[item], list) and not isinstance(cfg[item], dict):
+                help_description = helper[item] if item in helper else "Please reference to {}".format(cfg_path)
+                choice = choices[item] if item in choices else None
+                if isinstance(cfg[item], bool):
+                    parser.add_argument("--" + item, type=ast.literal_eval, default=cfg[item], choices=choice,
+                                        help=help_description)
+                else:
+                    parser.add_argument("--" + item, type=type(cfg[item]), default=cfg[item], choices=choice,
+                                        help=help_description)
+        args = parser.parse_args()
+        return args
     ```
 
 2. 实现代码前，需要配置必要的信息，包括环境信息、执行的模式、后端信息及硬件信息。
@@ -152,7 +165,7 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
     context.set_context(
         mode=context.GRAPH_MODE,
         save_graphs=False,
-        device_target=args.device_target)
+        device_target=config.device_target)
     ```
 
     详细的接口配置信息，请参见`context.set_context`接口说明。
@@ -162,9 +175,9 @@ from mindspore.train.callback import LossMonitor, CheckpointConfig, ModelCheckpo
 将数据集格式转换为MindRecord格式，便于MindSpore读取。
 
 ```python
-if args.preprocess == "true":
+if config.preprocess == "true":
     print("============== Starting Data Pre-processing ==============")
-    convert_to_mindrecord(cfg.embed_size, args.aclimdb_path, args.preprocess_path, args.glove_path)
+    convert_to_mindrecord(config.embed_size, config.aclimdb_path, config.preprocess_path, config.glove_path)
 ```
 
 > 转换成功后会在`preprocess_path`路径下生成`mindrecord`文件； 通常该操作在数据集不变的情况下，无需每次训练都执行。
@@ -177,15 +190,20 @@ if args.preprocess == "true":
 ### 定义网络
 
 ```python
-embedding_table = np.loadtxt(os.path.join(args.preprocess_path, "weight.txt")).astype(np.float32)
+embedding_table = np.loadtxt(os.path.join(config.preprocess_path, "weight.txt")).astype(np.float32)
+if config.device_target == 'Ascend':
+    pad_num = int(np.ceil(config.embed_size / 16) * 16 - config.embed_size)
+    if pad_num > 0:
+        embedding_table = np.pad(embedding_table, [(0, 0), (0, pad_num)], 'constant')
+    config.embed_size = int(np.ceil(config.embed_size / 16) * 16)
 network = SentimentNet(vocab_size=embedding_table.shape[0],
-                       embed_size=cfg.embed_size,
-                       num_hiddens=cfg.num_hiddens,
-                       num_layers=cfg.num_layers,
-                       bidirectional=cfg.bidirectional,
-                       num_classes=cfg.num_classes,
+                       embed_size=config.embed_size,
+                       num_hiddens=config.num_hiddens,
+                       num_layers=config.num_layers,
+                       bidirectional=config.bidirectional,
+                       num_classes=config.num_classes,
                        weight=Tensor(embedding_table),
-                       batch_size=cfg.batch_size)
+                       batch_size=config.batch_size)
 ```
 
 > `SentimentNet`网络结构的具体实现请参考<https://gitee.com/mindspore/mindspore/blob/master/model_zoo/official/nlp/lstm/src/lstm.py>
@@ -195,8 +213,8 @@ network = SentimentNet(vocab_size=embedding_table.shape[0],
 通过参数`pre_trained`指定预加载CheckPoint文件来进行预训练，默认该参数为空。
 
 ```python
-if args.pre_trained:
-    load_param_into_net(network, load_checkpoint(args.pre_trained))
+if config.pre_trained:
+    load_param_into_net(network, load_checkpoint(config.pre_trained))
 ```
 
 ### 定义优化器及损失函数
@@ -205,7 +223,7 @@ if args.pre_trained:
 
 ```python
 loss = nn.SoftmaxCrossEntropyWithLogits(sparse=True, reduction='mean')
-opt = nn.Momentum(network.trainable_params(), cfg.learning_rate, cfg.momentum)
+opt = nn.Momentum(network.trainable_params(), config.learning_rate, config.momentum)
 loss_cb = LossMonitor()
 ```
 
@@ -217,15 +235,14 @@ loss_cb = LossMonitor()
 model = Model(network, loss, opt, {'acc': Accuracy()})
 
 print("============== Starting Training ==============")
-ds_train = lstm_create_dataset(args.preprocess_path, cfg.batch_size)
-config_ck = CheckpointConfig(save_checkpoint_steps=cfg.save_checkpoint_steps,
-                             keep_checkpoint_max=cfg.keep_checkpoint_max)
-ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=args.ckpt_path, config=config_ck)
+config_ck = CheckpointConfig(save_checkpoint_steps=config.save_checkpoint_steps,
+                             keep_checkpoint_max=config.keep_checkpoint_max)
+ckpoint_cb = ModelCheckpoint(prefix="lstm", directory=config.ckpt_path, config=config_ck)
 time_cb = TimeMonitor(data_size=ds_train.get_dataset_size())
-if args.device_target == "CPU":
-    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
+if config.device_target == "CPU":
+    model.train(config.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb], dataset_sink_mode=False)
 else:
-    model.train(cfg.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
+    model.train(config.num_epochs, ds_train, callbacks=[time_cb, ckpoint_cb, loss_cb])
 print("============== Training Success ==============")
 ```
 
@@ -236,13 +253,12 @@ print("============== Training Success ==============")
 加载验证数据集及保存的CheckPoint文件，进行验证，查看模型质量。
 
 ```python
-model = Model(network, loss, opt, {'acc': Accuracy()})
+model = Model(network, loss, metrics={'acc': Accuracy(), 'recall': Recall(), 'f1': F1()})
 
 print("============== Starting Testing ==============")
-ds_eval = lstm_create_dataset(args.preprocess_path, cfg.batch_size, training=False)
-param_dict = load_checkpoint(args.ckpt_path)
+param_dict = load_checkpoint(config.ckpt_file)
 load_param_into_net(network, param_dict)
-if args.device_target == "CPU":
+if config.device_target == "CPU":
     acc = model.eval(ds_eval, dataset_sink_mode=False)
 else:
     acc = model.eval(ds_eval)
@@ -258,7 +274,7 @@ print("============== {} ==============".format(acc))
 1. 运行训练代码，查看运行结果。
 
     ```bash
-    python train.py --preprocess=true --ckpt_path=./ --device_target=GPU
+    python train.py --config_path=CONFIG_FILE --device_target="Ascend" --aclimdb_path=$ACLIMDB_DIR --glove_path=$GLOVE_DIR --preprocess=true --preprocess_path=./preprocess > log.txt 2>&1 &
     ```
 
     输出如下，可以看到loss值随着训练逐步降低，最后达到0.2855左右：
@@ -296,7 +312,7 @@ print("============== {} ==============".format(acc))
 使用最后保存的CheckPoint文件，加载验证数据集，进行验证。
 
 ```bash
-python eval.py --ckpt_path=./lstm-20_390.ckpt --device_target=GPU
+python eval.py --config_path=$CONFIG_FILE --device_target="Ascend" --preprocess=false --preprocess_path=$PREPROCESS_DIR --ckpt_file=$CKPT_FILE > log.txt 2>&1 &
 ```
 
 输出如下，可以看到使用验证的数据集，对文本的情感分析正确率在84.19%左右，达到一个基本满意的结果。
