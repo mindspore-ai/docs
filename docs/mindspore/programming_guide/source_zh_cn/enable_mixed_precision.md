@@ -101,7 +101,7 @@ output = train_network(predict, label)
 
 2. 定义网络：该步骤和普通的网络定义没有区别(无需手动配置某个算子的精度)；
 
-3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/data_preparation.html>；
+3. 创建数据集。该步骤可参考 <https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/data_sample.html>；
 
 4. 使用`Model`接口封装网络模型、优化器和损失函数，设置`amp_level`参数，参考<https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.html#mindspore.Model>。在该步骤中，MindSpore会将有需要的算子自动进行类型转换。
 

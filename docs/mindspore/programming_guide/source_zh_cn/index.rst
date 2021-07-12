@@ -90,6 +90,7 @@ MindSpore编程指南
    apply_parameter_server_training
    save_load_model_hybrid_parallel
    distributed_inference
+   distributed_export
    auto_parallel
 
 .. toctree::

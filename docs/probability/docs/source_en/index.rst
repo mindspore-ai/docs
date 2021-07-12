@@ -13,4 +13,4 @@ MindSpore Probability Documents
    :caption: Guide
 
    apply_deep_probability_programming
-
+   probability
