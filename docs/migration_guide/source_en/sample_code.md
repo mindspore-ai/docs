@@ -651,7 +651,15 @@ For a better reading of the code, it is recommended to organize the script accor
     ├── run_eval.sh
     ├── run_standalone_train.sh
   ├── src
-    ├── config.py
+    ├── resnet18_cifar10_config.yaml
+    ├── resnet18_imagenet2012_config.yaml
+    ├── resnet34_imagenet2012_config.yaml
+    ├── resnet50_cifar10_config.yaml
+    ├── resnet50_imagenet2012_Ascend_config.yaml
+    ├── resnet50_imagenet2012_config.yaml
+    ├── resnet50_imagenet2012_GPU_config.yaml
+    ├── resnet101_imagenet2012_config.yaml
+    ├── se-resnet50_imagenet2012_config.yaml
     ├── dataset.py
     ├── CrossEntropySmooth.py
     ├── lr_generator.py
@@ -679,26 +687,20 @@ import mindspore.nn as nn
 import mindspore.common.initializer as weight_init
 from src.lr_generator import get_lr
 from src.CrossEntropySmooth import CrossEntropySmooth
-from src.config import cfg
+from resnet50_imagenet2012_config.yaml import config
 
-parser = argparse.ArgumentParser(description='Image classification')
-parser.add_argument('--net', type=str, default=None, help='Resnet Model, resnet50')
-parser.add_argument('--dataset', type=str, default=None, help='Dataset, imagenet2012')
-parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
-args_opt = parser.parse_args()
 set_seed(1)
 
 from src.resnet import resnet50 as resnet
-from src.config import config
 from src.dataset import create_dataset as create_dataset
 
 if __name__ == '__main__':
-    ckpt_save_dir = config.save_checkpoint_path
+    ckpt_save_dir = config.checkpoint_path
 
     # init context
     context.set_context(mode=context.GRAPH_MODE, save_graphs=False)
     # create dataset
-    dataset = create_dataset(dataset_path=args_opt.dataset_path, do_train=True, repeat_num=1,
+    dataset = create_dataset(dataset_path=config.data_path, do_train=True, repeat_num=1,
                              batch_size=config.batch_size)
     step_size = dataset.get_dataset_size()
 
@@ -767,18 +769,13 @@ import argparse
 import ast
 from mindspore import context
 from mindspore.communication.management import init, get_rank, get_group_size
-from src.config import cfg
+from resnet50_imagenet2012_config.yaml import config
 
-# ....
-parser = argparse.ArgumentParser(description='Image classification')
-# add two new options to support both standalone and distribute training
-parser.add_argument('--run_distribute', type=ast.literal_eval, default=False, help='Run distribute')
-parser.add_argument('--device_num', type=int, default=1, help='Device num.')
 # ...
 device_id = int(os.getenv('DEVICE_ID')) # get the current device id
 context.set_context(device_id=device_id)
 # enable distribute training
-context.set_auto_parallel_context(device_num=args_opt.device_num,
+context.set_auto_parallel_context(device_num=config.device_num,
                                   parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 # init distribute training
 init()
@@ -793,10 +790,10 @@ from mindspore.communication.management import init, get_rank, get_group_size
 device_num, rank_id = _get_rank_info()
 if device_num == 1:
     # standalone training
-    data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True)
+    data_set = ds.Cifar10Dataset(config.data_path, num_parallel_workers=8, shuffle=True)
 else:
     # distribute training
-    data_set = ds.Cifar10Dataset(dataset_path, num_parallel_workers=8, shuffle=True,
+    data_set = ds.Cifar10Dataset(config.data_path, num_parallel_workers=8, shuffle=True,
                                  num_shards=device_num, shard_id=rank_id)
 # ...
 ```
@@ -822,26 +819,15 @@ from mindspore.common import set_seed
 from mindspore.train.model import Model
 from mindspore.train.serialization import load_checkpoint, load_param_into_net
 
-parser = argparse.ArgumentParser(description='Image classification')
-parser.add_argument('--net', type=str, default=None, help='Resnet Model, either resnet18, '
-                                                          'resnet50 or resnet101')
-parser.add_argument('--dataset', type=str, default=None, help='Dataset, either cifar10 or imagenet2012')
-
-parser.add_argument('--checkpoint_path', type=str, default=None, help='Checkpoint file path')
-parser.add_argument('--dataset_path', type=str, default=None, help='Dataset path')
-parser.add_argument('--device_target', type=str, default='Ascend', choices=("Ascend", "GPU", "CPU"),
-                    help="Device target, support Ascend, GPU and CPU.")
-args_opt = parser.parse_args()
-
 set_seed(1)
 
 from src.resnet import resnet50 as resnet
 from src.dataset import create_dataset
-from src.config import config as config
+from resnet50_imagenet2012_config.yaml import config
 
 
 if __name__ == '__main__':
-    target = args_opt.device_target
+    target = config.device_target
 
     # init context
     context.set_context(mode=context.GRAPH_MODE, device_target=target, save_graphs=False)
@@ -849,14 +835,14 @@ if __name__ == '__main__':
     context.set_context(device_id=device_id)
 
     # create dataset
-    dataset = create_dataset(dataset_path=args_opt.dataset_path, do_train=False, batch_size=config.batch_size)
+    dataset = create_dataset(dataset_path=config.data_path, do_train=False, batch_size=config.batch_size)
     step_size = dataset.get_dataset_size()
 
     # define net
     net = resnet(class_num=config.class_num)
 
     # load checkpoint
-    param_dict = load_checkpoint(args_opt.checkpoint_path)
+    param_dict = load_checkpoint(config.checkpoint_path)
     load_param_into_net(net, param_dict)
     net.set_train(False)
 
@@ -865,7 +851,7 @@ if __name__ == '__main__':
 
     # eval model
     res = model.eval(dataset)
-    print("result:", res, "ckpt=", args_opt.checkpoint_path)
+    print("result:", res, "ckpt=", config.checkpoint_path)
 ```
 
 ### Problem Location
@@ -924,14 +910,15 @@ As an example, [ResNet50 network](https://gitee.com/mindspore/mindspore/blob/mas
 
 ```python
 from mindspore import context
+from resnet50_imagenet2012_config.yaml import config
 ...
 
 device_id = int(os.getenv('DEVICE_ID'))
 context.set_context(device_id=device_id, enable_auto_mixed_precision=True)
-context.set_auto_parallel_context(device_num=args_opt.device_num,
+context.set_auto_parallel_context(device_num=config.device_num,
                                   parallel_mode=ParallelMode.DATA_PARALLEL, gradients_mean=True)
 set_algo_parameters(elementwise_op_strategy_follow=True)
-if args_opt.net == "resnet50" or args_opt.net == "se-resnet50":
+if config.net_name == "resnet50" or config.net_name == "se-resnet50":
     # AllReduce split
     context.set_auto_parallel_context(all_reduce_fusion_config=[85, 160])
 else:
