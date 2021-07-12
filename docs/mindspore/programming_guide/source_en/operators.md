@@ -37,7 +37,7 @@
             - [IOU Computing](#iou-computing)
         - [Debugging Operations](#debugging-operations)
             - [HookBackward](#hookbackward)
-        - [Operator combinations related to graph transformation](#operator-combinations-related-to-graph-transformation)
+        - [Operator Combinations Related to Graph Transformation](#operator-combinations-related-to-graph-transformation)
             - [MultitypeFuncGraph](#multitypefuncgraph)
             - [HyperMap](#hypermap)
             - [GradOperation](#gradoperation)
@@ -775,7 +775,7 @@ The following information is displayed:
 (Tensor(shape=[], dtype=Float32, value= 4), Tensor(shape=[], dtype=Float32, value= 4))
 ```
 
-### Operator combinations related to graph transformation
+### Operator Combinations Related to Graph Transformation
 
 `mindspore.ops.composite` provide some operator combinations related to graph transformation such as `MultitypeFuncGraph`, `HyperMap` and `GradOperation`.
 
