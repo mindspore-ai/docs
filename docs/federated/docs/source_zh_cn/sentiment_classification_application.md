@@ -348,9 +348,9 @@ app
     import android.annotation.SuppressLint;
     import android.os.Build;
     import androidx.annotation.RequiresApi;
-    import com.huawei.flAndroid.utils.AssetCopyer;
-    import com.huawei.flclient.FLParameter;
-    import com.huawei.flclient.SyncFLJob;
+    import com.mindspore.flAndroid.utils.AssetCopyer;
+    import com.mindspore.flclient.FLParameter;
+    import com.mindspore.flclient.SyncFLJob;
     import java.util.Arrays;
     import java.util.UUID;
     import java.util.logging.Logger;
@@ -405,6 +405,17 @@ app
     }
     ```
 
+   上面的eval_no_label.txt是指不存在标签的文件，每一行为一条语句，格式参考如下，用户可自由设置：
+
+    ```text
+    愿以吾辈之青春 护卫这盛世之中华🇨🇳
+    girls help girls
+    太美了，祝祖国繁荣昌盛！
+    中国人民站起来了
+    难道就我一个人觉得这个是plus版本？
+    被安利到啦！明天起来就看！早点睡觉莲莲
+    ```
+
 3. MainActivity.java：该代码文件作用是启动联邦学习训练与推理任务。
 
     ```java
@@ -412,8 +423,8 @@ app
     import android.os.Bundle;
     import androidx.annotation.RequiresApi;
     import androidx.appcompat.app.AppCompatActivity;
-    import com.huawei.flAndroid.job.FlJob;
-    import com.huawei.flAndroid.utils.AssetCopyer;
+    import com.mindspore.flAndroid.job.FlJob;
+    import com.mindspore.flAndroid.utils.AssetCopyer;
     @RequiresApi(api = Build.VERSION_CODES.P)
     public class MainActivity extends AppCompatActivity {
         private String parentPath;
@@ -441,7 +452,7 @@ app
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.huawei.flAndroid">
+        package="com.mindspore.flAndroid">
         <!--允许网络访问权限-->
         <uses-permission android:name="android.permission.INTERNET" />
         <application
@@ -450,7 +461,7 @@ app
             android:usesCleartextTraffic="true"
             android:theme="@style/Theme.Flclient">
             <!--MainActivity的文件位置，根据自定义填写-->
-            <activity android:name="com.huawei.flAndroid.activity.MainActivity">
+            <activity android:name="com.mindspore.flAndroid.activity.MainActivity">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
                     <category android:name="android.intent.category.LAUNCHER" />
@@ -471,7 +482,7 @@ app
         compileSdkVersion 30
         buildToolsVersion "30.0.3"
         defaultConfig {
-            applicationId "com.huawei.flAndroid"
+            applicationId "com.mindspore.flAndroid"
             minSdkVersion 27
             targetSdkVersion 30
             versionCode 1
