@@ -9,6 +9,7 @@
         - [mindspore.ops.functional](#mindsporeopsfunctional)
         - [mindspore.ops.composite](#mindsporeopscomposite)
         - [Combination usage of operations/functional/composite three types of operators](#combination-usage-of-operationsfunctionalcomposite-three-types-of-operators)
+        - [Custom Operators](#custom-operators)
     - [Operator Functions](#operator-functions)
         - [Tensor Operations](#tensor-operations)
         - [Scalar Operations](#scalar-operations)
@@ -35,8 +36,11 @@
             - [BoundingBoxDecode](#boundingboxdecode)
             - [IOU Computing](#iou-computing)
         - [Debugging Operations](#debugging-operations)
-            - [Debug](#debug)
             - [HookBackward](#hookbackward)
+        - [Operator combinations related to graph transformation](#operator-combinations-related-to-graph-transformation)
+            - [MultitypeFuncGraph](#multitypefuncgraph)
+            - [HyperMap](#hypermap)
+            - [GradOperation](#gradoperation)
 
 <!-- /TOC -->
 
@@ -152,6 +156,10 @@ pow = ops.Pow()
 ```
 
 > The above two methods have the same effect.
+
+### Custom Operators
+
+When built-in operators cannot meet requirements during network development, you can call the Python API of MindSpore to quickly extend custom operators of the [Ascend AI processor](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_ascend.html), [GPU](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_gpu.html) and [CPU](https://www.mindspore.cn/docs/programming_guide/en/r1.3/custom_operator_cpu.html).
 
 ## Operator Functions
 

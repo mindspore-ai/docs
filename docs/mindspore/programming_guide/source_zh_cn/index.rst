@@ -28,8 +28,8 @@ MindSpore编程指南
    dtype
    tensor
    operators
-   custom_operator
    cell
+   gradoperation
 
 .. toctree::
    :maxdepth: 1
@@ -107,7 +107,7 @@ MindSpore编程指南
    :maxdepth: 1
    :caption: 精度调优
 
-   精度调优思路和方法 <https://www.mindspore.cn/docs/migration_guide/zh-CN/r1.3/accuracy_optimization.html>
+   accuracy_optimization
 
 .. toctree::
    :maxdepth: 1

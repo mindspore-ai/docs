@@ -1,27 +1,27 @@
-# Customizing and Using Loss Function
+# Loss Function
 
 Translator: [Misaka19998](https://gitee.com/Misaka19998)
 
 `Linux` `Ascend` `GPU` `CPU` `Model Development` `Expert`
 
-<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
-
 <!-- TOC -->
 
-- [Customizing and Using Loss Function](#Customizing-and-Using-Loss-Function)
-    - [Overview](#Overview)
-    - [Built-in Loss Functions](#built-in-loss-functions)
+- [Loss Function](#loss-function)
+    - [Overview](#overview)
+        - [Built-in Loss Functions](#built-in-loss-functions)
         - [Built-in Loss Functions Application Cases](#built-in-loss-functions-application-cases)
-    - [Defining Loss Function](#Defining-Loss-Function)
-    - [Loss Function and Model Training](#Loss-Function-and-Model-Training)
-        - [Defining Dataset and Network](#Defining-Dataset-and-Network)
-        - [Training Model](#Training-Model)
+    - [Defining Loss Function](#defining-loss-function)
+    - [Loss Function and Model Training](#loss-function-and-model-training)
+        - [Defining Dataset and Network](#defining-dataset-and-network)
+        - [Training Model](#training-model)
     - [Multilabel Loss Function and Model Training](#multilabel-loss-function-and-model-training)
-        - [Defining Multilabel Dataset](#Defining-Multilabel-Dataset)
-        - [Defining Multilabel Loss Function](#Defining-Multilabel-Loss-Function)
-        - [Training Multilabel Model](#Training-Multilabel-Model)
+        - [Defining Multilabel Dataset](#defining-multilabel-dataset)
+        - [Defining Multilabel Loss Function](#defining-multilabel-loss-function)
+        - [Training Multilabel Model](#training-multilabel-model)
 
 <!-- /TOC -->
+
+<a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/mindspore/programming_guide/source_en/loss.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ## Overview
 

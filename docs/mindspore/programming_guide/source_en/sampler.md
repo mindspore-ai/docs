@@ -1,8 +1,8 @@
-# Sampler
+# Data Sampling
 
 <!-- TOC -->
 
-- [Sampler](#sampler)
+- [Data Sampling](#data-sampling)
     - [Overview](#overview)
     - [MindSpore Samplers](#mindspore-samplers)
         - [RandomSampler](#randomsampler)

@@ -1,8 +1,8 @@
-# Tokenizer
+# Text Data Processing and Enhancement
 
 <!-- TOC -->
 
-- [Tokenizer](#tokenizer)
+- [Text Data Processing and Enhancement](#text-data-processing-and-enhancement)
     - [Overview](#overview)
     - [MindSpore Tokenizers](#mindspore-tokenizers)
         - [BertTokenizer](#berttokenizer)

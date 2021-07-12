@@ -37,6 +37,8 @@ Currently, the cache service supports only single-node cache. That is, the clien
 
    > You are advised to cache image data in `decode` + `resize` + `cache` mode. The data processed by `decode` can be directly cached only in single-node single-device mode.
 
+> For a complete example, see [Application of Single-Node Tensor Cache](https://www.mindspore.cn/docs/programming_guide/en/r1.3/enable_cache.html).
+
 ## Basic Cache Usage
 
 1. Configure the environment.
