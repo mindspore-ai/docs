@@ -115,14 +115,14 @@ flParameter.setCertPath(certPath);
 
 ## 多条数据输入推理接口modelInference()
 
-### 输入参数列表
+调用modelInference()接口前，需先实例化参数类FLParameter，进行相关参数设置， 相关参数如下：
 
 | 参数名称  | 参数类型 | 是否必须 | 描述信息                                  | 适应API版本                                                  |
 | --------- | -------- | -------- | ----------------------------------------- | ------------------------------------------------------------ |
 | flName    | String   | Y        | 联邦学习使用的模型名称                    | 情感分类任务需设置为”albert“; 图片分类任务需设置为”lenet“    |
-| dataPath  | String   | Y        | 数据集路径                                | 情感分类任务为txt文档格式; 图片分类任务为bin文件格式         |
-| vocabFile | String   | Y        | 数据预处理的词典文件路径                  | 情感分类任务必须设置；图片分类任务设置为null                 |
-| idsFile   | String   | Y        | 词典的映射id文件路径                      | 情感分类任务必须设置；图片分类任务设置为null                 |
+| dataPath  | String   | Y        | 数据集路径                                | 情感分类任务为txt文档格式，且不能带标签; 图片分类任务为bin文件格式 |
+| vocabFile | String   | Y        | 数据预处理的词典文件路径                  | 情感分类任务必须设置；图片分类任务不需要设置                 |
+| idsFile   | String   | Y        | 词典的映射id文件路径                      | 情感分类任务必须设置；图片分类任务不需要设置                 |
 | modelPath | String   | Y        | 联邦学习推理模型路径，为.ms文件的绝对路径 | 有监督情感分类任务与图片分类任务均需设置为联邦学习训练任务中使用的trainModelPath |
 
 创建SyncFLJob对象，并通过SyncFLJob类的modelInference()方法启动端侧推理任务，返回推理的标签数组。
@@ -138,6 +138,12 @@ flParameter.setCertPath(certPath);
    String vocal_file = "SyncFLClient0604/data/albert/vocab.txt";                           //绝对路径
    String idsFile = "SyncFLClient0604/data/albert/vocab_map_ids.txt";                   //绝对路径
    String modelPath = "SyncFLClient0604/ms/albert/albert_train.mindir.ms";                                //绝对路径
+   FLParameter flParameter = FLParameter.getInstance();
+   flParameter.setFlName(flName);
+   flParameter.setTestDataset(dataPath);
+   flParameter.setVocabFile(vocabFile);
+   flParameter.setIdsFile(idsFile);
+   flParameter.setInferModelPath(modelPath);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
@@ -150,9 +156,11 @@ flParameter.setCertPath(certPath);
    // set parameters
    String flName = "lenet";
    String dataPath = "/SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_data.bin,/SyncFLClient0604/data/3500_clients_bin/f0178_39/f0178_39_bn_1_test_label.bin";     //绝对路径
-   String vocal_file = "null";                           //绝对路径
-   String idsFile = "null";                              //绝对路径
    String modelPath = "SyncFLClient0604/lenet_train.mindir0.ms";           //绝对路径
+   FLParameter flParameter = FLParameter.getInstance();
+   flParameter.setFlName(flName);
+   flParameter.setTestDataset(dataPath);
+   flParameter.setInferModelPath(modelPath);
 
    // inference
    SyncFLJob syncFLJob = new SyncFLJob();
