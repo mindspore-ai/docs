@@ -16,7 +16,7 @@
 import com.huawei.flclient.SyncFLJob
 ```
 
-SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel ()。
+SyncFLJob定义了端侧联邦学习启动接口flJobRun()、端侧推理接口modelInference()、获取云侧最新模型的接口getModel()。
 
 ## 公有成员函数
 
@@ -37,7 +37,7 @@ public void flJobRun()
 ## modelInference
 
 ```java
-public int[] modelInference(String flName, String dataPath, String vocabFile, String idsFile, String modelPath)
+public int[] modelInference()
 ```
 
 启动端侧推理任务，具体使用方法可参考[接口介绍文档](https://www.mindspore.cn/federated/api/zh-CN/r1.3/interface_description_federated_client.html)。
