@@ -1,8 +1,8 @@
-# Training
+# Advanced Usage of Training
 
 <!-- TOC -->
 
-- [Training](#training)
+- [Advanced Usage of Training](#advanced-usage-of-training)
     - [Overview](#overview)
     - [Customizing a Training Network](#customizing-a-training-network)
     - [Customizing a Training Cycle](#customizing-a-training-cycle)

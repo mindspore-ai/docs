@@ -8,8 +8,9 @@ MindSpore Programming Guide
 
 .. toctree::
    :maxdepth: 1
-   :caption: Overall Introduction
+   :caption: Overview
 
+   architecture
    api_structure
 
 .. toctree::
@@ -18,45 +19,49 @@ MindSpore Programming Guide
 
    quick_start/quick_start
    quick_start/linear_regression
+   quick_start/quick_video
 
 .. toctree::
    :maxdepth: 1
-   :caption: Data Type
+   :caption: Basic Concepts
 
    dtype
    tensor
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Compute Component
-
    operators
-   custom_operator
-   parameter
    cell
-   network_component
-   initializer
-   numpy
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Data Pipeline
-
-   dataset_loading
-   sampler
-   pipeline
-   augmentation
-   tokenizer
-   dataset_conversion
-   auto_augmentation
-   cache
-   data_sample
+   gradoperation
 
 .. toctree::
    :maxdepth: 1
    :caption: Execution Management
 
    context
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Data Pipeline
+
+   dataset_sample
+   dataset
+   pipeline
+   dataset_advanced
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Build the Network
+
+   initializer
+   parameter
+   layer
+   loss
+   optim
+   custom_net
+   network_advanced
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Train Models
+
    run
    callback
    save_model
@@ -73,7 +78,6 @@ MindSpore Programming Guide
    multi_platform_inference_gpu
    multi_platform_inference_cpu
 
-
 .. toctree::
    :maxdepth: 1
    :caption: Distributed Training
@@ -85,7 +89,6 @@ MindSpore Programming Guide
    apply_parameter_server_training
    save_load_model_hybrid_parallel
    distributed_inference
-   distributed_export
    auto_parallel
 
 .. toctree::
@@ -97,11 +100,6 @@ MindSpore Programming Guide
    custom_debugging_info
    evaluate_the_model_during_training
    incremental_operator_build
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Precision Optimization
-
 
 .. toctree::
    :maxdepth: 1

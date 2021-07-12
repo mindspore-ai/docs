@@ -1,5 +1,5 @@
-构建网络进阶用法
-=================
+Advanced of Building the Network
+================================
 
 .. toctree::
   :maxdepth: 1

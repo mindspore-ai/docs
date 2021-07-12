@@ -196,7 +196,7 @@ def create_dataset2(dataset_path, do_train, repeat_num=1, batch_size=32, target=
     return data_set
 ```
 
-> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/data_sample.html).
+> MindSpore supports multiple data processing and augmentation operations. These operations are usually used in combination. For details, see [Data Processing](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_sample.html).
 
 ## Defining the Network
 

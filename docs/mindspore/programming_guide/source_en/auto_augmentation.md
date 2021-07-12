@@ -20,6 +20,8 @@ MindSpore not only allows you to customize data augmentation, but also provides 
 
 Auto augmentation can be implemented based on probability or callback parameters.
 
+> For a complete example, see [Application of Auto Augmentation](https://www.mindspore.cn/docs/programming_guide/en/r1.3/enable_auto_augmentation.html).
+
 ## Probability Based Auto Augmentation
 
 MindSpore provides a series of probability-based auto augmentation APIs. You can randomly select and combine various data augmentation operations to make data augmentation more flexible.

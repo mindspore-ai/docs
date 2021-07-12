@@ -1,8 +1,8 @@
-# Running Management
+# Configuring Running Information
 
 <!-- TOC -->
 
-- [Running Management](#running-management)
+- [Configuring Running Information](#configuring-running-information)
     - [Overview](#overview)
     - [Execution Mode Management](#execution-mode-management)
         - [Mode Selection](#mode-selection)

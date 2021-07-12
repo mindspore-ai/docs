@@ -1,8 +1,8 @@
-# Parameter
+# Updating Network Parameters
 
 <!-- TOC -->
 
-- [Parameter](#parameter)
+- [Updating Network Parameters](#updating-network-parameters)
     - [Overview](#overview)
     - [Initialization](#initialization)
     - [Attributes](#attributes)

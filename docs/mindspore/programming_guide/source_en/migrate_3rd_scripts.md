@@ -69,7 +69,7 @@ The ResNet-50 network migration and training on the Ascend 910 is used as an exa
 
 2. Load and preprocess a dataset.
 
-   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/docs/programming_guide/en/r1.3/data_sample.html).
+   Use MindSpore to build the required dataset. Currently, MindSpore supports common datasets. You can call APIs in the original format, `MindRecord`, and `TFRecord`. In addition, MindSpore supports data processing and data augmentation. For details, see the [Data Preparation](https://www.mindspore.cn/docs/programming_guide/en/r1.3/dataset_sample.html).
 
    In this example, the CIFAR-10 dataset is loaded, which supports both single-GPU and multi-GPU scenarios.
 

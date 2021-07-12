@@ -1,10 +1,10 @@
-# Auto Augmentation
+# Application of Auto Augmentation
 
 `Linux` `Ascend` `GPU` `CPU` `Data Preparation` `Intermediate` `Expert`
 
 <!-- TOC -->
 
-- [Auto Augmentation](#auto-augmentation)
+- [Application of Auto Augmentation](#application-of-auto-augmentation)
     - [Overview](#overview)
     - [Auto Augmentation on ImageNet](#auto-augmentation-on-imagenet)
     - [References](#references)
