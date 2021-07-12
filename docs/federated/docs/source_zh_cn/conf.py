@@ -19,6 +19,8 @@ import sphinx.ext.autosummary.generate as g
 from sphinx.ext import autodoc as sphinx_autodoc
 from sphinx.util import inspect as sphinx_inspect
 from sphinx.domains import python as sphinx_domain_python
+from sphinx.search import jssplitter as sphinx_split
+from sphinx import errors as searchtools_path
 from textwrap import dedent
 # sys.path.insert(0, os.path.abspath('.'))
 
@@ -393,6 +395,82 @@ with open(sphinx_domain_python_source_path, "r+", encoding="utf8") as f:
     code_str = f.read()
     if python_code_target not in code_str:
         code_str = code_str.replace(python_code_source, python_code_target)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+
+
+# Update the word segmentation method, let the input term be segmented according to the index
+sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
+python_code_source = """function splitQuery(query,dict) {
+    var result = [];
+    for (var i = 0; i < dict.length; i++) {
+      console.log(dict[i])
+        if (query.indexOf(dict[i])!=-1) {
+          result.push(dict[i])
+        }
+    }
+    result.push(query)
+    return result;
+    }"""
+python_code_target = """function splitQuery(query) {
+    var result = [];
+    var start = -1;
+    for (var i = 0; i < query.length; i++) {
+        if (splitChars[query.charCodeAt(i)]) {
+            if (start !== -1) {
+                result.push(query.slice(start, i));
+                start = -1;
+            }
+        } else if (start === -1) {
+            start = i;
+        }
+    }
+    if (start !== -1) {
+        result.push(query.slice(start));
+    }
+    return result;
+}"""
+with open(sphinx_split_python, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    if python_code_target in code_str:
+        code_str = code_str.replace(python_code_target,python_code_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+
+# Update sphinx searchtools,Read the word segmentation index
+sphinx_search_prepare = os.path.abspath(searchtools_path.__file__).replace("errors.py","")+"themes/basic/static/searchtools.js"
+dict_target =""" var terms = this._index.terms;
+    var titleterms = this._index.titleterms;"""
+dict_source = """ """
+
+# Get the index of entries containing Chinese
+search_prepare_source = """
+    var terms = this._index.terms
+    var titleterms = this._index.titleterms
+    var dic = []
+    dic = Object.keys(terms).concat(Object.keys(titleterms))
+    chinese_dic = []
+    for (i=0;i<dic.length;i++){
+      if (escape(dic[i]).indexOf("%u")>=0 && dic[i].length>=2){
+        chinese_dic.push(dic[i]);
+      }    
+    }
+    var tmp = splitQuery(query,chinese_dic);"""
+search_prepare_target = """var tmp = splitQuery(query);"""
+with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
+    code_str = f.read()
+    if dict_target in code_str:
+        code_str = code_str.replace(dict_target,dict_source)
+        f.seek(0)
+        f.truncate()
+        f.write(code_str)
+
+    if search_prepare_target in code_str:
+        code_str = code_str.replace(search_prepare_target,search_prepare_source)
         f.seek(0)
         f.truncate()
         f.write(code_str)
