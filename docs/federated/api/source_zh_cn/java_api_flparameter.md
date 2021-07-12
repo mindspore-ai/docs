@@ -47,7 +47,7 @@
 <a href="https://gitee.com/mindspore/docs/blob/r1.3/docs/federated/api/source_zh_cn/java_api_flparameter.md" target="_blank"><img src="https://gitee.com/mindspore/docs/raw/r1.3/resource/_static/logo_source.png"></a>
 
 ```java
-import com.huawei.flclient.FLParameter
+import com.mindspore.flclient.FLParameter
 ```
 
 FLParameter定义联邦学习相关参数，供用户进行设置。
