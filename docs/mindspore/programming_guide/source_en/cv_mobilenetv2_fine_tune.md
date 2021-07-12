@@ -124,22 +124,35 @@ cd ./mindspore/model_zoo/official/cv/mobilenetv2
 The code structure is as follows:
 
 ```text
-├─MobileNetV2
-    ├─README.md     # descriptions about MobileNetV2
-    ├─scripts
-    │   run_train.sh   # Shell script for train with Ascend or GPU
-    │   run_eval.sh    # Shell script for evaluation with Ascend or GPU
-    ├─src
-    │   config.py      # parameter configuration
-    │   dataset.py     # creating dataset
-    │   launch.py      # start Python script
-    │   lr_generator.py     # learning rate config
-    │   mobilenetV2.py      # MobileNetV2 architecture
-    │   mobilenetV2_fusion.py      # MobileNetV2 fusion architecture
-    │   models.py        # net utils to load ckpt_file, define_net...
-    │   utils.py        # net utils to switch precision, set_context and so on
-    ├─train.py      # training script
-    └─eval.py       #  evaluation script
+├── MobileNetV2
+  ├── README.md                  # descriptions about MobileNetV2
+  ├── ascend310_infer            # application for 310 inference
+  ├── scripts
+  │   ├──run_infer_310.sh        # shell script for 310 inference
+  │   ├──run_train.sh            # shell script for training, fine-tuning or incremental learning with CPU, GPU or Ascend
+  │   ├──run_eval.sh             # shell script for evaluation with CPU, GPU or Ascend
+  │   ├──cache_util.sh           # a collection of helper functions to manage cache
+  │   ├──run_train_nfs_cache.sh  # shell script for training with NFS dataset and leverage caching service for better performance
+  ├── src
+  │   ├──aipp.cfg                # aipp config
+  │   ├──dataset.py              # creating dataset
+  │   ├──lr_generator.py         # learning rate config
+  │   ├──mobilenetV2.py          # MobileNetV2 architecture
+  │   ├──models.py               # loading define_net, Loss and Monitor
+  │   ├──utils.py                # loading ckpt_file for fine-tuning or incremental learning
+  │   └──model_utils
+  │      ├──config.py            # processing configuration parameters
+  │      ├──device_adapter.py    # getting cloud ID
+  │      ├──local_adapter.py     # getting local ID
+  │      └──moxing_adapter.py    # parameter processing
+  ├── default_config.yaml        # training parameter profile(ascend)
+  ├── default_config_cpu.yaml    # training parameter profile(cpu)
+  ├── default_config_gpu.yaml    # training parameter profile(gpu)
+  ├── train.py                   # training script
+  ├── eval.py                    # evaluation script
+  ├── export.py                  # exporting mindir script
+  ├── mindspore_hub_conf.py      # mindspore hub interface
+  ├── postprocess.py             # postprocess script
 ```
 
 During fine-tuning training and testing, python files `train.py` and `eval.py` can be used on Windows, Ubuntu, and EulerOS, and shell script files `run_train.sh` and `run_eval.sh` can be used on Ubuntu and EulerOS.
@@ -187,32 +200,36 @@ The dataset structure is as follows:
 
 During fine-tuning, you need to load a pre-trained model. The distribution of the feature extraction layer (convolutional layer) in different datasets and tasks tends to be consistent. However, the combination of feature vectors (fully connected layer) is different, and the number of classes (output_size of the fully connected layer) is usually different. During fine-tuning, parameters of the feature extraction layer are loaded and trained, while those of the fully connected layer are not. During fine-tuning and initial training, both feature extraction layer parameters and fully connected layer parameters are loaded and trained.
 
-Before training and testing, build a backbone network and a head network of MobileNetV2 on the first line of the code, and build a MobileNetV2 network containing the two subnets. Lines 3 to 10 of the code show how to define `backbone_net` and `head_net` and how to add the two subnets to `mobilenet_v2`. Lines 12 to 23 of the code show that in fine-tuning training mode, the pre-trained model needs to be loaded to the `backbone_net` subnet, and parameters in `backbone_net` are frozen and do not participate in training. Lines 21 to 23 of the code show how to freeze network parameters.
+Before training and testing, build a backbone network and a head network of MobileNetV2 on the first line of the code, and build a MobileNetV2 network containing the two subnets. Lines 3 to 10 of the code show how to define `backbone_net` and `head_net` and how to add the two subnets to `mobilenet_v2`. Lines 12 to 27 of the code show that in fine-tuning training mode, the pre-trained model needs to be loaded to the `backbone_net` subnet, and parameters in `backbone_net` are frozen and do not participate in training. Lines 21 to 27 of the code show how to freeze network parameters.
 
 ```python
- 1:  backbone_net, head_net, net = define_net(args_opt, config)
+ 1:  backbone_net, head_net, net = define_net(config, config.is_training)
  2:  ...
- 3:  def define_net(config, is_training):
+ 3:  def define_net(config, is_training=True):
  4:      backbone_net = MobileNetV2Backbone()
  5:      activation = config.activation if not is_training else "None"
  6:      head_net = MobileNetV2Head(input_channel=backbone_net.out_channels,
- 7:                                 num_classes=config.num_classes,
- 8:                                 activation=activation)
+ 7:                              num_classes=config.num_classes,
+ 8:                              activation=activation)
  9:      net = mobilenet_v2(backbone_net, head_net)
 10:      return backbone_net, head_net, net
 11:  ...
-12:  if args_opt.pretrain_ckpt and args_opt.freeze_layer == "backbone":
-13:     load_ckpt(backbone_net, args_opt.pretrain_ckpt, trainable=False)
-14:  ...
-15:  def load_ckpt(network, pretrain_ckpt_path, trainable=True):
-16:      """
-17:      train the param weight or not
-18:      """
-19:      param_dict = load_checkpoint(pretrain_ckpt_path)
-20:      load_param_into_net(network, param_dict)
-21:      if not trainable:
-22:          for param in network.get_parameters():
-23:              param.requires_grad = False
+12:  if config.pretrain_ckpt:
+13:      if config.freeze_layer == "backbone":
+14:         load_ckpt(backbone_net, config.pretrain_ckpt, trainable=False)
+15:         step_size = extract_features(backbone_net, config.dataset_path, config)
+16:      elif config.filter_head:
+17:           load_ckpt(backbone_net, config.pretrain_ckpt)
+18:      else:
+19:           load_ckpt(net, config.pretrain_ckpt)
+20:  ...
+21:  def load_ckpt(network, pretrain_ckpt_path, trainable=True):
+22:      """ train the param weight or not """
+23:      param_dict = load_checkpoint(pretrain_ckpt_path)
+24:      load_param_into_net(network, param_dict)
+25:      if not trainable:
+26:          for param in network.get_parameters():
+27:              param.requires_grad = False
 ```
 
 ## Parameter Description
@@ -221,16 +238,17 @@ Change the value of each parameter based on the local processor type, data path,
 
 ### Running Python Files
 
-When using `train.py` for training on Windows and Linux, input `dataset_path`, `platform`, `pretrain_ckpt`, and `freeze_layer`. When using `eval.py` for validation, input `dataset_path`, `platform`, and `pretrain_ckpt`.
+When using `train.py` for training on Windows and Linux, input `config_path`, `dataset_path`, `platform`, `pretrain_ckpt`, and `freeze_layer`. When using `eval.py` for validation, input `config_path`, `dataset_path`, `platform`, and `pretrain_ckpt`.
 
 ```bash
 # Windows/Linux train with Python file
-python train.py --platform [PLATFORM] --dataset_path <DATASET_PATH>  --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --freeze_layer[("none", "backbone")]
+python train.py --config_path [CONFIG_PATH] --platform [PLATFORM] --dataset_path <DATASET_PATH>  --pretrain_ckpt [PRETRAIN_CHECKPOINT_PATH] --freeze_layer[("none", "backbone")]
 
 # Windows/Linux eval with Python file
-python eval.py --platform [PLATFORM] --dataset_path <DATASET_PATH> --pretrain_ckpt <PRETRAIN_CHECKPOINT_PATH>
+python eval.py --config_path [CONFIG_PATH] --platform [PLATFORM] --dataset_path <DATASET_PATH> --pretrain_ckpt <PRETRAIN_CHECKPOINT_PATH>
 ```
 
+- `--config_path`: parameters required for training and verification.
 - `--dataset_path`: path of the training or validation dataset. There is no default value. This parameter is mandatory for training or validation.
 - `--platform`: processor type. The default value is `Ascend`. You can set it to `CPU` or `GPU`.
 - `--pretrain_ckpt`: path of the `pretrain_checkpoint` file required for loading a weight of a pre-trained model parameter during incremental training or optimization.
@@ -243,10 +261,10 @@ You can run the shell scripts `./scripts/run_train.sh` and `./scripts/run_eval.s
 ```bash
 # Windows doesn't support Shell
 # Linux train with Shell script
-sh run_train.sh <PLATFORM> <DEVICE_NUM> <VISIABLE_DEVICES(0,1,2,3,4,5,6,7)> <RANK_TABLE_FILE> <DATASET_PATH> <CKPT_PATH> [FREEZE_LAYER]
+sh run_train.sh [PLATFORM] [DEVICE_NUM] [VISIABLE_DEVICES(0,1,2,3,4,5,6,7)] [RANK_TABLE_FILE] [DATASET_PATH] [CKPT_PATH](optional) [FREEZE_LAYER](optional) [FILTER_HEAD](optional)
 
 # Linux eval with Shell script for fine tune
-sh run_eval.sh <PLATFORM> <DATASET_PATH> <PRETRAIN_CKPT_PATH>
+sh run_eval.sh [PLATFORM] [DATASET_PATH] [PRETRAIN_CKPT_PATH]
 ```
 
 - `<PLATFORM>`: processor type. The default value is `Ascend`. You can set it to `GPU`.
@@ -275,14 +293,14 @@ The Windows system outputs information to an interactive command line. When runn
 
     ```bash
     # Windows or Linux with Python
-    python train.py --platform CPU --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
+    python train.py --config_path ./default_config_cpu.yaml --platform CPU --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
     ```
 
   Example 2: Use the shell file to call a CPU.
 
     ```bash
     # Linux with Shell
-    sh run_train.sh CPU <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetV2_cpu_gpu.ckpt backbone
+    sh run_train.sh CPU [DATASET_PATH] [CKPT_PATH](optional) [FREEZE_LAYER](optional) [FILTER_HEAD](optional)
     ```
 
 ### Loading Training on GPU
@@ -297,21 +315,21 @@ The Windows system outputs information to an interactive command line. When runn
 
         ```bash
         # Windows or Linux with Python
-        python train.py --platform GPU --dataset_path <TRAIN_DATASET_PATH> --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
+        python train.py --config_path ./default_config_gpu.yaml --platform GPU --dataset_path <TRAIN_DATASET_PATH> --pretrain_ckpt ./pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt --freeze_layer backbone
         ```
 
     - Example 2: Use the shell script to call a GPU whose device ID is `0`.
 
         ```bash
         # Linux with Shell
-        sh run_train.sh GPU 1 0 <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        sh run_train.sh GPU 1 0 [DATASET_PATH] [CKPT_PATH](optional) [FREEZE_LAYER](optional) [FILTER_HEAD](optional)
         ```
 
     - Example 3: Use the shell script to call eight GPUs whose device IDs are `0,1,2,3,4,5,6,7`.
 
         ```bash
         # Linux with Shell
-        sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 <TRAIN_DATASET_PATH> ../pretrain_checkpoint/mobilenetv2_cpu_gpu.ckpt backbone
+        sh run_train.sh GPU 8 0,1,2,3,4,5,6,7 [DATASET_PATH] [CKPT_PATH](optional) [FREEZE_LAYER](optional) [FILTER_HEAD](optional)
         ```
 
 ### Loading Training on Ascend AI Processor
@@ -326,7 +344,7 @@ The Windows system outputs information to an interactive command line. When runn
 
         ```bash
         # Windows or Linux with Python
-        python train.py --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
+        python train.py --config_path ./default_config.yaml --platform Ascend --dataset_path <TRAIN_DATASET_PATH>  --pretrain_ckpt  ./pretrain_checkpoint mobilenetv2_ascend.ckpt --freeze_layer backbone
         ```
 
     - Example 2: Use the shell script to call an Ascend AI Processor whose device ID is `0`.
@@ -393,7 +411,7 @@ Set mandatory [parameters](https://www.mindspore.cn/docs/programming_guide/en/r1
 
 ```bash
 # Windows/Linux with Python
-python eval.py --platform CPU --dataset_path <VAL_DATASET_PATH> --pretrain_ckpt ./ckpt_0/mobilenetv2_15.ckpt
+python eval.py --config_path ./default_config_cpu.yaml --platform CPU --dataset_path <VAL_DATASET_PATH> --pretrain_ckpt ./ckpt_0/mobilenetv2_15.ckpt
 
 # Linux with Shell
 sh run_eval.sh CPU <VAL_DATASET_PATH> ../ckpt_0/mobilenetv2_15.ckpt
