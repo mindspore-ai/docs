@@ -1,10 +1,10 @@
-﻿# GradOperation
+﻿# 自动微分
 
 `CPU` `GPU` `Ascend` `全流程` `初级` `中级` `高级`
 
 <!-- TOC -->
 
-- [GradOperation](#gradoperation)
+- [自动微分](#自动微分)
     - [一阶求导](#一阶求导)
         - [输入求导](#输入求导)
         - [权重求导](#权重求导)

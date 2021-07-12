@@ -21,7 +21,7 @@ The `Cell` class of MindSpore is the base class for building all networks and th
 
 Loss functions, optimizers, and model layers are parts of the network structure and can be implemented only by inheriting the `Cell` class. You can also customize them based on service requirements.
 
-The following describes the key member functions of the `Cell` class, the built-in loss functions, optimizers, and model layers of MindSpore implemented based on the `Cell` class, and how to use them, as well as describes how to use the `Cell` class to build a customized network.
+The following describes the key member functions of the `Cell` class, "Building a network" will introduce the built-in loss functions, optimizers, and model layers of MindSpore implemented based on the `Cell` class, and how to use them, as well as describes how to use the `Cell` class to build a customized network.
 
 ## Key Member Functions
 
