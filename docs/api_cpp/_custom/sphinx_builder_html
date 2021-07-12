@@ -1021,13 +1021,23 @@ class StandaloneHTMLBuilder(Builder):
 
         try:
             output = self.templates.render(templatename, ctx)
+
+            # Replace the sequence of "Return" and "Parameters" for c++ api. 
             Return_re = "<dt><strong>Return</strong></dt>"
             Param_re = "<dt><strong>Parameters</strong></dt>"
             re_output = re.compile(
                 r"(<dt><strong>Return</strong></dt><dd>[\w\W]*?</dd>)\n(<dt><strong>Parameters</strong></dt><dd><ul class=\"breatheparameterlist[\w\W]*?</dd>)")
             if Return_re in output and Param_re in output:
-                if output.index(Return_re) < output.index(Param_re):
-                    output = re_output.sub(r"\g<2>\n\g<1>", output)
+                output = re_output.sub(r"\g<2>\n\g<1>", output)
+
+            # Add a space between "<a>" and "<em>" for c++ api.
+            space_re = re.compile(r"(\w)(</a> <em>)")
+            output = space_re.sub(r"\g<1> \g<2>", output)
+
+            # Remove extra comma in sig-paren for c++ api.
+            if ', <span class="sig-paren">)</span>' in output:
+                output = output.replace(', <span class="sig-paren">)</span>', '<span class="sig-paren">)</span>')
+
         except UnicodeError:
             logger.warning(__("a Unicode error occurred when rendering the page %s. "
                               "Please make sure all config values that contain "
