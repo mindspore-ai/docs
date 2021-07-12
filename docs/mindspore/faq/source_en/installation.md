@@ -299,3 +299,19 @@ Solutions:
 Method 1: Reinstall the Numpy and Gensim and run the following commands: `pip uninstall gensim numpy -y && pip install numpy==1.18.5 gensim`
 
 Method 2: If the problem persists, delete the cache file of the wheel installation package and then perform method 1. (The cache directory of the wheel installation package is `~/.cache/pip/wheels`)
+
+<br/>
+
+<font size=3>**Q: What should I do if an error message `ImportError: libgmpxx.so: cannot open shared object file: No such file or directory` is displayed
+when running `import mindspore` in a script after the source code of mindspore and gmp are compiled and installed?
+
+A: The reason is that we didn't set `--enable-cxx` when installing gmp. The correct steps for installing gmp is (suppose that
+we have download gmp installation repository):
+
+```bash
+$cd gmp-6.1.2
+$./configure --enable-cxx
+$make
+$make check
+$sudo make install
+```
