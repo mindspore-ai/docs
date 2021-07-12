@@ -25,4 +25,5 @@
   distributed_training_gpu
   apply_host_device_training
   apply_parameter_server_training
+  apply_pipeline_parallel
   save_load_model_hybrid_parallel
