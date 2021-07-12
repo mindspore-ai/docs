@@ -91,7 +91,7 @@ def specificationsForKind(kind):
         return [
             ":members:",
             # ":protected-members:",
-            ":private-members:"
+            # ":private-members:"
         ]
     else:
         return []
