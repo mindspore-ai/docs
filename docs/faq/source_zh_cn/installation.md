@@ -310,3 +310,18 @@ ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Exp
 方法一: 重新安装numpy及gensim, 执行命令: `pip uninstall gensim numpy -y && pip install numpy gensim` ；
 
 方法二: 如果还是有问题，请删除wheel安装包的缓存文件，然后执行方法一（wheel安装包缓存目录为: `~/.cache/pip/wheels`）。
+
+<br/>
+
+<font size=3>**Q: mindspore和gmp都已经通过源码编译安装后，在脚本中执行`import mindspore`，
+提示如下错误(`ImportError: libgmpxx.so: cannot open shared object file: No such file or directory`)该怎么解决?**</font>
+
+A: 上述问题的原因是在编译安装gmp库的时候没有设置`--enable-cxx`，正确的gmp编译安装方式如下（假设已经下载了gmp6.1.2安装包）：
+
+```bash
+$cd gmp-6.1.2
+$./configure --enable-cxx
+$make
+$make check
+$sudo make install
+```
