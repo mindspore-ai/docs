@@ -147,17 +147,13 @@ search_prepare_target = """var tmp = splitQuery(query);"""
 with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
     code_str = f.read()
     if dict_target in code_str:
-        print(code_str)
         code_str = code_str.replace(dict_target,dict_source)
-        print(code_str)
         f.seek(0)
         f.truncate()
         f.write(code_str)
 
     if search_prepare_target in code_str:
-        print(code_str)
         code_str = code_str.replace(search_prepare_target,search_prepare_source)
-        print(code_str)
         f.seek(0)
         f.truncate()
         f.write(code_str)
