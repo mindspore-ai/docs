@@ -188,10 +188,10 @@ MindSpore Lite提供离线转换模型功能的工具，将多种类型的模型
 
 2. 传输文件
 
-   向板端传输benchmark工具、模型、so库。其中libnnie_proposal.so为MindSpore Lite提供的proposal算子实现样例so，若用户模型里含有自定义的proposal算子，用户需参考[proposal算子使用说明](#proposal算子使用说明)生成libnnie_proposal.so替换该so文件，以进行正确推理。
+   向板端传输benchmark工具、模型、so库。其中libmslite_proposal.so为MindSpore Lite提供的proposal算子实现样例so，若用户模型里含有自定义的proposal算子，用户需参考[proposal算子使用说明](#proposal算子使用说明)生成libmslite_proposal.so替换该so文件，以进行正确推理。
 
    ```bash
-   scp libmindspore-lite.so libmslite_nnie.so libnnie_proposal.so root@${device_ip}:/user/mindspore/lib
+   scp libmindspore-lite.so libmslite_nnie.so libmslite_proposal.so root@${device_ip}:/user/mindspore/lib
    scp benchmark ${model_path} root@${device_ip}:/user/mindspore
    ```
 
