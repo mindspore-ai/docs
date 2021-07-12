@@ -309,7 +309,7 @@ MindInsight可以辅助用户对输入数据、数据处理流水线进行检查
 
 通过MindInsight的数据图和数据溯源模块，可以检查数据处理流水线的数据处理过程和具体参数取值，从而发现不合理的数据处理方法。
 
-![data_imput](./images/data_imput.png)
+![data_input](./images/data_input.png)
 
 图6 通过MindInsight训练看板中的数据抽样模块查看输入模型的数据
 
