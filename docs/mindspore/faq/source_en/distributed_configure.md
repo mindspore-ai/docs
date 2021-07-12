@@ -28,5 +28,5 @@ A: Please refer to the [Configuring Distributed Environment Variables](https://w
 
 <font size=3>**Q: How to perform distributed multi-machine multi-card training?**</font>
 
-A: For Ascend environment, please refer to the [Multi-machine Training](https://mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#multi-machine-training) section of the MindSpore tutorial "distributed_training_ascend".
-For GPU-based environments, please refer to the [Run Multi-Host Script](https://mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_gpu.html#running-the-multi-host-script) section of the MindSpore tutorial "distributed_training_gpu".
+A: For Ascend environment, please refer to the [Multi-machine Training](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_ascend.html#multi-machine-training) section of the MindSpore tutorial "distributed_training_ascend".
+For GPU-based environments, please refer to the [Run Multi-Host Script](https://www.mindspore.cn/docs/programming_guide/en/r1.3/distributed_training_gpu.html#running-the-multi-host-script) section of the MindSpore tutorial "distributed_training_gpu".
