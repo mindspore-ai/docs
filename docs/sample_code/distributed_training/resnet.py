@@ -263,6 +263,23 @@ class MakeLayer3(nn.Cell):
         return x
 
 
+class Head(nn.Cell):
+    """Head"""
+    def __init__(self):
+        super(Head, self).__init__()
+        self.conv1 = conv7x7(3, 64, stride=2, padding=0)
+        self.bn1 = bn_with_initialize(64)
+        self.relu = ops.ReLU()
+        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
+
+    def construct(self, x):
+        x = self.conv1(x)
+        x = self.bn1(x)
+        x = self.relu(x)
+        x = self.maxpool(x)
+        return x
+
+
 class ResNet(nn.Cell):
     """ResNet"""
 
@@ -271,12 +288,7 @@ class ResNet(nn.Cell):
         super(ResNet, self).__init__()
         self.batch_size = batch_size
         self.num_classes = num_classes
-
-        self.conv1 = conv7x7(3, 64, stride=2, padding=0)
-
-        self.bn1 = bn_with_initialize(64)
-        self.relu = ops.ReLU()
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, pad_mode="same")
+        self.head = Head()
 
         self.layer1 = MakeLayer0(block, in_channels=64, out_channels=256, stride=1)
         self.layer2 = MakeLayer1(block, in_channels=256, out_channels=512, stride=2)
@@ -287,13 +299,17 @@ class ResNet(nn.Cell):
         self.squeeze = ops.Squeeze(axis=(2, 3))
         self.fc = fc_with_initialize(512 * block.expansion, num_classes)
 
+        # pipeline parallel config
+        self.head.pipeline_stage = 0
+        self.layer1.pipeline_stage = 0
+        self.layer2.pipeline_stage = 0
+        self.layer3.pipeline_stage = 1
+        self.layer4.pipeline_stage = 1
+        self.fc.pipeline_stage = 1
+
     def construct(self, x):
         """construct"""
-        x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.relu(x)
-        x = self.maxpool(x)
-
+        x = self.head(x)
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
