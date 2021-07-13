@@ -47,6 +47,7 @@ MindSpore还提供`mindspore.explainer.ImageClassificationRunner`运行模块，
 
 ```python
 import mindspore.nn as nn
+from mindspore import context
 from mindspore import load_checkpoint, load_param_into_net
 
 from mindspore.explainer.explanation import GradCAM, GuidedBackprop
@@ -54,6 +55,7 @@ from mindspore.explainer.benchmark import Faithfulness, Localization
 from mindspore.explainer import ImageClassificationRunner
 
 if __name__ == "__main__":
+    context.set_context(mode=context.PYNATIVE_MODE)
     num_classes = 20
     # please refer to model_zoo.cv.official.resnet.src.resnet50.py for the model architecture of resnet50
     net = resnet50(num_classes)
