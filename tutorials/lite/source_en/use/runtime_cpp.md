@@ -197,6 +197,10 @@ gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
 context->device_list_.push_back(gpu_device_ctx);
 ```
 
+### Configuring the NNIE Backend
+
+When the backend that needs to be executed is the heterogeneous inference based on CPU and NNIE, you only need to create the Context according to the configuration method of [Configuring the CPU Backend](#configuring-the-cpu-backend) without specifying a provider.
+
 ## Creating a Session
 
 When MindSpore Lite is used for inference, [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) is the main entry for inference. You can use [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) to build and execute graphs. Use the [Context](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#id2) created in the previous step to call the [CreateSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#createsession) method of the [LiteSession](https://www.mindspore.cn/doc/api_cpp/en/master/session.html#litesession) to create the LiteSession.
