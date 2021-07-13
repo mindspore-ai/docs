@@ -252,6 +252,7 @@ Wrapper Functions
     mindspore.nn.ForwardValueAndGrad
     mindspore.nn.GetNextSingleOp
     mindspore.nn.ParameterUpdate
+    mindspore.nn.PipelineCell
     mindspore.nn.TimeDistributed
     mindspore.nn.TrainOneStepCell
     mindspore.nn.TrainOneStepWithLossScaleCell
