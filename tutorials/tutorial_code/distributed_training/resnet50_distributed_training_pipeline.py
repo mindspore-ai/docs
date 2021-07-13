@@ -114,7 +114,7 @@ class SoftmaxCrossEntropyExpand(nn.Cell):
 def test_train_cifar(epoch_size=10):
     """train net"""
     context.set_auto_parallel_context(parallel_mode=ParallelMode.AUTO_PARALLEL, gradients_mean=True)
-    context.set_auto_parallel_context(pipeline_stages=2)
+    context.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)

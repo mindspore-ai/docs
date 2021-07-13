@@ -45,7 +45,7 @@
 
 网络、优化器、损失函数的定义可参考：<https://www.mindspore.cn/tutorial/training/zh-CN/master/advanced_use/distributed_training_ascend.html>。
 
-> 流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`。
+> 流水线并行需要用户去定义并行的策略，通过调用`pipeline_stage`接口来指定每个layer要在哪个stage上去执行。`pipeline_stage`接口的粒度为`Cell`。所有包含训练参数的`Cell`都需要配置`pipeline_stage`，并且`pipeline_stage`要按照网络执行的先后顺序，从小到大进行配置。
 
 ```python
 class ResNet(nn.Cell):
@@ -95,8 +95,9 @@ class ResNet(nn.Cell):
 为了使能流水线并行，需要在训练脚本中加一些必要的配置：
 
 - 在`set_auto_parallel_context`中设置`pipeline_stages`，`pipeline_stages`用来表明`stage`的总数。
-- 目前流水线并行只支持`SEMI_AUTO_PARALLEL`模式。
+- 目前流水线并行只支持`SEMI_AUTO_PARALLEL`模式，数据集要以`full_batch`模式导入。
 - 需要定义LossCell，本例中调用了`nn.WithLossCell`接口。
+- 目前流水线并行不支持自动混合精度。
 - 优化器需要传入本`stage`用到的`parameters`。若有多个`stage`共用了一个参数，则需要调用`Parameter`的`add_pipeline_stage`方法，将所有`stage`信息传给`Parameter` 。随后，可以调用`Cell`的`infer_param_pipeline_stage`接口来获取本`stage`的训练参数。
 - 最后，需要在LossCell外包一层`PipelineCell`，并指定Micro_batch的size。为了提升机器的利用率，MindSpore将Mini_batch切分成了更细粒度的Micro_batch，从而能够使整个集群流水线起来，最终的loss则是所有Micro_batch计算的loss值的加和。其中，Micro_batch的size必须大于等于`stage`的数量。
 
@@ -109,7 +110,7 @@ from resnet import resnet50
 
 def test_train_cifar(epoch_size=10):
     context.set_auto_parallel_context(parallel_mode=ParallelMode.SEMI_AUTO_PARALLEL, gradients_mean=True)
-    context.set_auto_parallel_context(pipeline_stages=2)
+    context.set_auto_parallel_context(pipeline_stages=2, full_batch=True)
     loss_cb = LossMonitor()
     data_path = os.getenv('DATA_PATH')
     dataset = create_dataset(data_path)
