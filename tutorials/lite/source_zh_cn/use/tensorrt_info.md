@@ -40,7 +40,7 @@ bash build.sh -I x86_64
 - 集成说明
 
     开发者需要集成使用TensorRT功能时，需要注意：
-    - 在代码中[配置TensorRT后端](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#tensorrt)，有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
+    - 在代码中[配置TensorRT后端](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html#gpu)，有关使用Runtime执行推理详情见[使用Runtime执行推理（C++）](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/runtime_cpp.html)。
     - 编译执行可执行程序。如采用动态加载方式，参考[编译输出](https://www.mindspore.cn/tutorial/lite/zh-CN/master/use/build.html#runtime)中编译选项为`-I x86_64`时的内容，需要配置的环境变量如下，将会动态加载相关的so。
 
     ```bash

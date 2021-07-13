@@ -40,7 +40,7 @@ For more information about compilation, see [Linux Environment Compilation](http
 - Integration instructions
 
     When developers need to integrate the use of TensorRT features, it is important to note:
-    - [Configure the TensorRT backend](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#tensorrt),
+    - [Configure the TensorRT backend](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html#gpu),
     For more information about using Runtime to perform inference, see [Using Runtime to Perform Inference (C++)](https://www.mindspore.cn/tutorial/lite/en/master/use/runtime_cpp.html).
 
     - Compile and execute the binary. If you use dynamic linking, please refer to [Compilation Output](https://www.mindspore.cn/tutorial/lite/en/master/use/build.html#directory-structure) with compilation option `-I x86_64`.

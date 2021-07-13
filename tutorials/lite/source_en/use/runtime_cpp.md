@@ -148,7 +148,7 @@ gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
 context->device_list_.push_back(gpu_device_ctx);
 ```
 
-> Currently, the backend of GPU is based on OpenCL. GPUs of Mali and Adreno are supported. The OpenCL version is 2.0.
+> Currently, on `arm64` the backend of GPU is based on OpenCL. GPUs of Mali and Adreno are supported. The OpenCL version is 2.0.
 >
 > The configuration is as follows:
 >
@@ -157,6 +157,8 @@ context->device_list_.push_back(gpu_device_ctx);
 > CL_HPP_TARGET_OPENCL_VERSION=120
 >
 > CL_HPP_MINIMUM_OPENCL_VERSION=120
+>
+> On `x86_64`, the backend of GPU is based on TensorRT. The TensorRT version is 6.0.1.5. Attribute `enable_float16_` is not supported currently.
 
 ### Configuring the NPU Backend
 
@@ -173,28 +175,6 @@ DeviceContext npu_device_ctx{DT_NPU};
 npu_device_ctx.device_info_.npu_device_info_.frequency_ = 3;
 // The NPU device context needs to be push_back into device_list to work.
 context->device_list_.push_back(npu_device_ctx);
-```
-
-### Configuring the TensorRT Backend
-
-When the backend to be executed is heterogeneous inference based on CPUs and TensorRTs, you need to set the CPU's and TensorRT's [DeviceContext](https://www.mindspore.cn/doc/api_cpp/en/master/lite.html#devicecontext). After the configuration, the TensorRT's inference is preferentially used.
-
-The following sample code from [main.cc](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/examples/runtime_cpp/main.cc#L120) shows how to create the CPU and TensorRT heterogeneous inference backend.
-
-```cpp
-auto context = std::make_shared<mindspore::lite::Context>();
-if (context == nullptr) {
-  std::cerr << "New context failed while running. " << std::endl;
-  return nullptr;
-}
-
-// If GPU device context is set. The preferred backend is GPU, which means, if there is a GPU operator, it will run on
-// the GPU first, otherwise it will run on the CPU.
-mindspore::lite::DeviceContext gpu_device_ctx{mindspore::lite::DT_GPU, {false}};
-// GPU use float16 operator as priority.
-gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
-// The GPU device context needs to be push_back into device_list to work.
-context->device_list_.push_back(gpu_device_ctx);
 ```
 
 ### Configuring the NNIE Backend
