@@ -366,7 +366,7 @@ static LiteSession *CreateSession(const char *model_buf, size_t size, const lite
 
 ## TrainSession
 
-\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/master/mindspore/lite/include/train/train_session.h)&gt;
+\#include &lt;[train_session.h](https://gitee.com/mindspore/mindspore/blob/r1.3/mindspore/lite/include/train/train_session.h)&gt;
 
 TrainSession定义了MindSpore Lite 训练过程中的会话，用于进行Model的编译和训练。
 
