@@ -71,6 +71,7 @@ Train with MindSpore
    :hidden:
 
    advanced_use/distributed_training_tutorials
+   advanced_use/apply_pipeline_parallel
    advanced_use/enable_mixed_precision
    advanced_use/enable_graph_kernel_fusion
    advanced_use/apply_gradient_accumulation
