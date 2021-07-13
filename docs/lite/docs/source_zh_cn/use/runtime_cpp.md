@@ -197,6 +197,10 @@ gpu_device_ctx.device_info_.gpu_device_info_.enable_float16_ = true;
 context->device_list_.push_back(gpu_device_ctx);
 ```
 
+### 配置使用NNIE后端
+
+当需要执行的后端为CPU和NNIE的异构推理时，只需要按照[配置使用CPU后端](#配置使用cpu后端)的配置方法创建好Context即可，无需指定provider。
+
 ## 创建会话
 
 使用MindSpore Lite执行推理时，[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)是推理的主入口，通过[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)可以进行图编译、图执行。采用上一步创建得到的[Context](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/lite.html#id2)，调用[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)的静态[static LiteSession *CreateSession(const lite::Context *context)](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#createsession)方法来创建[LiteSession](https://www.mindspore.cn/lite/api/zh-CN/r1.3/api_cpp/session.html#litesession)。
