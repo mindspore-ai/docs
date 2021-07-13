@@ -61,17 +61,26 @@ html_search_options = {'dict': '../../../resource/jieba.txt'}
 
 # Update the word segmentation method, let the input term be segmented according to the index
 sphinx_split_python = os.path.abspath(sphinx_split.__file__) # Read the location of the word segmentation file
-python_code_source = """function splitQuery(query,dict) {
+python_code_source = """function splitQuery(query, dict, all_dict) {
     var result = [];
+    var tmp = []
     for (var i = 0; i < dict.length; i++) {
-      console.log(dict[i])
         if (query.indexOf(dict[i])!=-1) {
-          result.push(dict[i])
+          tmp.push(dict[i])
         }
     }
-    result.push(query)
+    min_freq = all_dict[tmp[0]].length
+    var min_freq_word = tmp[0]
+    for (var i = 0; i < tmp.length; i++) {
+        var a = all_dict[tmp[i]].length
+        if (a<min_freq){
+          min_freq = a
+          min_freq_word = tmp[i]
+        }
+    }
+    result.push(min_freq_word)
     return result;
-    }"""
+}"""
 python_code_target = """function splitQuery(query) {
     var result = [];
     var start = -1;
@@ -109,15 +118,32 @@ dict_source = """ """
 search_prepare_source = """
     var terms = this._index.terms
     var titleterms = this._index.titleterms
-    var dic = []
-    dic = Object.keys(terms).concat(Object.keys(titleterms))
+    //Make a deep copy of the original dictionary
+    var distinct_dict = Object.assign({},terms)
+    //Combine two indexes and eliminate duplicates
+    for (key in titleterms){
+      if (key in distinct_dict && distinct_dict[key] instanceof Array){
+        distinct_dict[key]=distinct_dict[key].concat(titleterms[key])
+      }
+      else if((key in distinct_dict && !(distinct_dict[key] instanceof Array) )){
+        distinct_dict[key]=[]
+        distinct_dict[key]=distinct_dict[key].concat(terms[key])
+        distinct_dict[key]=distinct_dict[key].concat(titleterms[key])
+      }
+      else{
+        distinct_dict[key]=titleterms[key]
+      }
+    }
+    //Take out items with Chinese characters in the dictionary
     chinese_dic = []
+    var dic = []
+    dic = Object.keys(distinct_dict)
     for (i=0;i<dic.length;i++){
       if (escape(dic[i]).indexOf("%u")>=0 && dic[i].length>=2){
         chinese_dic.push(dic[i]);
       }    
     }
-    var tmp = splitQuery(query,chinese_dic);"""
+    var tmp = splitQuery(query, chinese_dic, distinct_dict);"""
 search_prepare_target = """var tmp = splitQuery(query);"""
 with open(sphinx_search_prepare, "r+", encoding="utf8") as f:
     code_str = f.read()
