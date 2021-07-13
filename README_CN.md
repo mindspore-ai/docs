@@ -22,44 +22,42 @@ docs
 |
 ├───docs // 架构、网络和算子支持、编程指南等技术文档以及用于生成API的相关配置文件
 |    |
-|    ├───api_cpp // C++ API工程
+|    ├───federated // MindSpore Federated（API工程、相关文档和常见问题）
 |    |
-|    ├───api_java // Java API工程
+|    ├───hub // MindSpore Hub（API工程和相关文档）
 |    |
-|    ├───api_python // Python API工程
+|    ├───lite // MindSpore Lite（API工程、相关文档和常见问题）
 |    |
-|    ├───faq // 常见问题
+|    ├───mindarmour // MindArmour（API工程、相关文档和常见问题）
 |    |
-|    ├───note // 设计和规格
+|    ├───mindinsight // MindInsight（相关文档和常见问题）
 |    |
-|    └───programming_guide // 编程指南相关文档
-│
-├───install // 安装指南
-│
-├───lite // MindSpore Lite相关所有文档汇总及其链接  
-│
-├───resource // 资源相关文档
-│
-├───tools // 自动化工具
-│
-├───tutorials // 教程相关文档
+|    ├───mindquantum // MindQuantum（API工程和相关文档）
 |    |
-|    ├───inference // 推理教程相关文档
-|    |
-|    ├───lite // 手机及IoT教程相关文档
+|    ├───mindspore // MindSpore（API工程、常见问题、迁移至南、说明和编程指南）
 |    |
 |    ├───notebook // 体验式文档
 |    |
-|    ├───training // 训练教程相关文档
+|    ├───probability // MindSpore Probability（API工程和相关文档）
 |    |
-|    ├───tutorial_code // 教程对应样例代码
-│
+|    ├───sample_code // 文档对应样例代码
+|    |
+|    └───serving // MindSpore Serving（API工程、相关文档和常见问题）
+|
+│───install // 安装指南
+|
+│───resource // 资源相关文档
+|
+│───tools // 自动化工具
+|
+│───tutorials // MindSpore教程相关文档
+|
 └───README_CN.md // Docs仓说明
 ```
 
 ## 文档构建
 
-MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成。下面以Python API文档为例介绍具体步骤，操作前需完成MindSpore、MindSpore Hub和MindArmour的安装。
+MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/master/)工具生成，构建MindSpore、MindSpore Hub、MindArmour或MindQuantum的API文档之前需完成对应模块的安装。下面以MindSpore Python API文档为例介绍具体步骤，操作前需完成MindSpore的安装。
 
 1. 下载MindSpore Docs仓代码。
 
@@ -67,24 +65,22 @@ MindSpore的教程和API文档均可由[Sphinx](https://www.sphinx-doc.org/en/ma
    git clone https://gitee.com/mindspore/docs.git -b r1.3
    ```
 
-2. 进入api_python目录，安装该目录下`requirements.txt`文件中的依赖项。
+2. 进入api目录，安装该目录下`requirements.txt`文件中的依赖项。
 
    ```bash
-   cd docs/api_python
+   cd docs/mindspore/api
    pip install -r requirements.txt
    ```
 
-3. 在api_python目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
+3. 在api目录下执行如下命令，完成后会新建`build_zh_cn/html`目录，该目录中存放了生成后的文档网页，打开`build_zh_cn/html/index.html`即可查看API文档内容。
 
    ```bash
    make html
    ```
 
-> - 构建[训练教程](https://gitee.com/mindspore/docs/tree/master/tutorials/training)和[编程指南](https://gitee.com/mindspore/docs/tree/master/docs/programming_guide)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
+> - 构建[MindSpore教程](https://gitee.com/mindspore/docs/tree/r1.3/tutorials)、[编程指南文档](https://gitee.com/mindspore/docs/tree/r1.3/docs/mindspore/programming_guide)、[迁移指南文档](https://gitee.com/mindspore/docs/tree/r1.3/docs/mindspore/migration_guide)、[深度概率编程文档](https://gitee.com/mindspore/docs/tree/r1.3/docs/probability/docs)和[MindQuantum文档](https://gitee.com/mindspore/docs/tree/r1.3/docs/mindquantum/docs)时还需安装[pandoc](https://pandoc.org/)，下载和安装pandoc请参考<https://pandoc.org/installing.html>。
 >
-> - 构建Python API时，如仅需生成MindSpore API，请先修改`source_zh_cn/conf.py`文件，注释`import mindspore_hub`和`import mindarmour`语句后，再执行以上步骤3。
->
-> - 构建C++ API时，需要先克隆`mindspore`仓并安装doxygen，并加入环境变量`MS_PATH`：
+> - 构建Lite API时，需要先克隆`mindspore`仓并安装doxygen，并加入环境变量`MS_PATH`：
 >
 >   ```bash
 >   git clone https://gitee.com/mindspore/mindspore.git {MS_REPO PATH} -b r1.3
