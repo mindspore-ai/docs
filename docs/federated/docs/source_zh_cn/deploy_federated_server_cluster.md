@@ -58,7 +58,7 @@ MindSpore Federated Learning Server集群物理架构如图所示：
 
 ## 参数配置
 
-MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，并通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/docs/api/zh-CN/r1.3/api_python/mindspore.context.html#mindspore.context.set_fl_context)。
+MindSpore联邦学习任务进程复用了训练脚本，用户只需要使用相同的脚本，并通过Python接口`set_fl_context`传递不同的参数，启动不同角色的MindSpore进程。参数配置说明请参考[API文档](https://www.mindspore.cn/federated/api/zh-CN/r1.3/federated_server.html#mindspore.context.set_fl_context)。
 
 在确定参数配置后，用户需要在执行训练前调用`set_fl_context`接口，调用方式如下：
 
