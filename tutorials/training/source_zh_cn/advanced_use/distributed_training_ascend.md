@@ -455,7 +455,7 @@ epoch: 10 step: 156, loss is 1.1533381
 
 ### 自动并行模式
 
-自动并行模式（Auto Parallel）下模型参数的保存和加载与非分布式训练的模型参数保存和加载用法相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存，具体代码如下：
+自动并行模式（Auto Parallel）下模型参数的保存和加载与单卡用法基本相同，只需在本教程训练网络步骤中的`test_train_cifar`方法中添加配置`CheckpointConfig`和`ModelCheckpoint`，即可实现模型参数的保存。具体代码如下：
 
 ```python
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig
@@ -486,9 +486,35 @@ param_dict = load_checkpoint('...')
 load_param_into_net(net, param_dict)
 ```
 
-checkpoint配置策略和保存方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)。
+详细的checkpoint配置策略和保存加载方法可以参考[模型参数的保存和加载](https://www.mindspore.cn/tutorial/training/zh-CN/master/use/save_model.html#checkpoint)。
 
-> 默认情况下，对于网络中切分的参数将会采用合并保存，对于参数量过大需要采用切片保存及推理的场景可以参考[分布式推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
+对于网络中切分的参数框架默认会自动聚合保存到模型文件，但考虑到在超大模型场景下，单个完整的模型文件过大会带来传输慢、难加载等问题，所以用户可以通过`CheckpointConfig`中`integrated_save`参数选择非合并保存，即每张卡保存各自卡上的参数切片。如果再训练或推理的切分策略或集群规模与训练不一致，需要采用特殊的加载方式。
+
+针对采用多卡再训练及微调的场景，用户可以使用`model.infer_train_layout`函数推导再训练分布式策略（该函数当前仅支持数据集下沉模式），再传递给`load_distributed_checkpoint`函数中`predict_strategy`参数，该函数从所有分片的模型文件中加载需要的部分进行合并切分操作，将参数从`strategy_ckpt_load_file`（训练策略）恢复到`predict_strategy`（再训练策略），最后加载到`model.train_network`中。若采用单卡进行再训练及微调，可以直接将`predict_strategy`置为`None`。参考代码如下：
+
+```python
+from mindspore import load_distributed_checkpoint, context
+from mindspore.communication import init
+
+context.set_context(mode=context.GRAPH_MODE)
+init()
+context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+# create model and dataset
+dataset = create_custom_dataset()
+resnet = ResNet50()
+opt = Momentum()
+loss = SoftmaxCrossEntropyWithLogits()
+model = Model(resnet, loss, opt)
+# infer train strategy
+layout_dict = model.infer_train_layout(dataset, True, 100)
+# load into `model.train_network` net
+ckpt_file_list = create_ckpt_file_list()
+load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
+# training the model
+model.train(2, dataset)
+```
+
+> 分布式推理场景可以参考教程：[分布式推理](https://www.mindspore.cn/tutorial/inference/zh-CN/master/multi_platform_inference_ascend_910.html#id1)。
 
 ### 数据并行模式
 

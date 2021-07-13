@@ -486,7 +486,33 @@ load_param_into_net(net, param_dict)
 
 For checkpoint configuration policy and saving method, please refer to [Saving and Loading Model Parameters](https://www.mindspore.cn/tutorial/training/en/master/use/save_model.html#checkpoint-configuration-policies).
 
-> By default, sliced parameters would be merged before saving. If the size of parameters is large, we recommend to use sliced parameters to save and infer, which could be referred to [Distributed inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#id1).
+By default, sliced parameters would be merged before saving automatocally. However, considering large-scaled networks, a large size checkpoint file will be difficult to be transferred and loaded. So every device can save sliced parameters separately by setting `integrated_save` as `False` in `CheckpointConfig`. If the shard strategies of retraining or inference are different with that of training, the special loading way is needed.
+
+In retraining with multiple devices scenarios, users can infer shard strategy of retraining with `model.infer_train_layout` (only dataset sink mode is supported). The shard strategy will be used as `predict_strategy` for `load_distributed_checkpoint` function, which restores sliced parameters from `strategy_ckpt_load_file` (training strategy) to `predict_strategy` (retraining strategy) and load them into `model.train_network`. If there is only one device in retraining, `predict_strategy` could be `None`. The code is as follows:
+
+```python
+from mindspore import load_distributed_checkpoint, context
+from mindspore.communication import init
+
+context.set_context(mode=context.GRAPH_MODE)
+init()
+context.set_auto_parallel_context(full_batch=True, parallel_mode='semi_auto_parallel', strategy_ckpt_load_file='./train_strategy.ckpt')
+# create model and dataset
+dataset = create_custom_dataset()
+resnet = ResNet50()
+opt = Momentum()
+loss = SoftmaxCrossEntropyWithLogits()
+model = Model(resnet, loss, opt)
+# infer train strategy
+layout_dict = model.infer_train_layout(dataset, True, 100)
+# load into `model.train_network` net
+ckpt_file_list = create_ckpt_file_list()
+load_distributed_checkpoint(model.train_network, ckpt_file_list, layout_dict)
+# training the model
+model.train(2, dataset)
+```
+
+> Distributed inference could be referred to [Distributed inference](https://www.mindspore.cn/tutorial/inference/en/master/multi_platform_inference_ascend_910.html#id1).
 
 ### Data Parallel Mode
 
