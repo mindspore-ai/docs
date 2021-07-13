@@ -26,15 +26,19 @@ Noise addition or scrambling is performed on local models before they are migrat
 ### Principles
 
 Differential privacy is a mechanism for protecting user data privacy. **Differential privacy** is defined as follows:
+
 $$
 Pr[\mathcal{K}(D)\in S] \le e^{\epsilon} Pr[\mathcal{K}(D') \in S]+\delta​
 $$
+
 For datasets $D and D'$ that have only one record difference, the random algorithm $\mathcal{K}$ is used to compute the probability of the $S$ subset, which meets the preceding formula. $\epsilon$ is the differential privacy budget, and $\delta$ is the perturbation. The smaller the values of $\epsilon$ and $\delta$, the closer the data distribution of $\mathcal{K}$ on $D$ and $D'$.
 
 In horizontal federated learning, if the model weight matrix after local training on the client is $W$, the adversary can use $W$ to restore the training dataset[1] of the user because the model "remembers" the features of the training set during the training process. MindSpore Federated provides a LDP-based secure aggregation algorithm to prevent privacy data leakage when local models are migrated to the cloud. The MindSpore Federated client generates a differential noise matrix $G$ that has the same dimension as the local model $W$, and then adds the two to obtain a weight $W_p$ that meets the differential privacy definition:
+
 $$
 W_p=W+G
 $$
+
 The MindSpore Federated client uploads the noise-added model $W_p$ to the cloud server for federated aggregation. The noise matrix $G$ is equivalent to adding a layer of mask to the original model, which reduces the risk of sensitive data leakage from models and affects the convergence of model training. How to achieve a better balance between model privacy and usability is still a question worth studying. Experiments show that when the number of participants $n$ is large enough (generally more than 1000), most of the noises can cancel each other, and the LDP mechanism has no obvious impact on the accuracy and convergence of the aggregation model.
 
 ### Usage
@@ -58,11 +62,15 @@ In this training mode, assuming that the participating client set is $U$, for an
 $$
 p_{uv}=\begin{cases} -p_{vu}, &u{\neq}v\\\\ 0, &u=v \end{cases}
 $$
+
 Therefore, each Federated-Client $u$ adds the perturbation negotiated with other users to the original model weight $x_u$ before uploading the model to the server:
+
 $$
 x_{encrypt}=x_u+\sum\limits_{v{\in}U}p_{uv}
 $$
+
 Therefore, the Federated-Server aggregation result $\overline{x}$ is as follows:
+
 $$
 \begin{align}
 \overline{x}&=\sum\limits_{u{\in}U}(x_{u}+\sum\limits_{v{\in}U}p_{uv})\\\\
@@ -70,6 +78,7 @@ $$
 &=\sum\limits_{u{\in}U}x_{u}
 \end{align}
 $$
+
 The preceding process describes only the main idea of the aggregation algorithm. The MPC-based aggregation solution is accuracy-lossless but increases the number of communication rounds.
 If you are interested in the specific steps of the algorithm, refer to the paper[2].
 
