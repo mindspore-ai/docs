@@ -102,7 +102,7 @@ context.get_auto_parallel_context("gradients_mean")
 
 其中`auto_parallel`和`data_parallel`在MindSpore教程中有完整样例：
 
-<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training_tutorials.html>。
+<https://www.mindspore.cn/docs/programming_guide/zh-CN/r1.3/distributed_training.html>。
 
 代码样例如下：
 
